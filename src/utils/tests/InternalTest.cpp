@@ -30,37 +30,133 @@
 #pragma warning(disable:4996)
 #endif
 
+// define number of points to interpolate
+#define numPointsInterpolation 100
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-InternalTest::ViewPosition::ViewPosition(const std::string& xValue, const std::string& yValue) :
-    x(StringUtils::toInt(xValue)),
-    y(StringUtils::toInt(yValue)) {
+// ---------------------------------------------------------------------------
+// InternalTest::ViewPosition - public methods
+// ---------------------------------------------------------------------------
+
+InternalTest::ViewPosition::ViewPosition() {}
+
+
+InternalTest::ViewPosition::ViewPosition(const int x, const int y) :
+    myX(x),
+    myY(y) {
 }
 
 
-InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue, const std::string& subMenuAValue,
-        const std::string& subMenuBValue) :
-    mainMenu(StringUtils::toInt(mainMenuValue)),
-    subMenuA(StringUtils::toInt(subMenuAValue)),
-    subMenuB(StringUtils::toInt(subMenuBValue)) {
+InternalTest::ViewPosition::ViewPosition(const std::string& x, const std::string& y) :
+    myX(StringUtils::toInt(x)),
+    myY(StringUtils::toInt(y)) {
 }
 
+
+int
+InternalTest::ViewPosition::getX() const {
+    return myX;
+}
+
+
+int
+InternalTest::ViewPosition::getY() const {
+    return myY;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest::ContextualMenu - public methods
+// ---------------------------------------------------------------------------
+
+InternalTest::ContextualMenu::ContextualMenu() {}
+
+
+InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue,
+        const std::string& subMenuAValue, const std::string& subMenuBValue) :
+    myMainMenu(StringUtils::toInt(mainMenuValue)),
+    mySubMenuA(StringUtils::toInt(subMenuAValue)),
+    mySubMenuB(StringUtils::toInt(subMenuBValue)) {
+}
+
+
+int
+InternalTest::ContextualMenu::getMainMenuPosition() const {
+    return myMainMenu;
+}
+
+
+int
+InternalTest::ContextualMenu::getSubMenuAPosition() const {
+    return mySubMenuA;
+}
+
+
+int
+InternalTest::ContextualMenu::getSubMenuBPosition() const {
+    return mySubMenuB;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest::Movement - public methods
+// ---------------------------------------------------------------------------
+
+InternalTest::Movement::Movement() {}
+
+
+InternalTest::Movement::Movement(const std::string& up, const std::string& down,
+                                 const std::string& left, const std::string& right) :
+    myUp(StringUtils::toInt(up)),
+    myDown(StringUtils::toInt(down)),
+    myLeft(StringUtils::toInt(left)),
+    myRight(StringUtils::toInt(right)) {
+}
+
+
+int
+InternalTest::Movement::getUp() const {
+    return myUp;
+}
+
+
+int
+InternalTest::Movement::getDown() const {
+    return myDown;
+}
+
+
+int
+InternalTest::Movement::getLeft() const {
+    return myLeft;
+}
+
+
+int
+InternalTest::Movement::getRight() const {
+    return myRight;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest - public methods
+// ---------------------------------------------------------------------------
 
 InternalTest::InternalTest(const std::string& testFile) {
+    // locate sumo home directory
     const auto sumoHome = std::string(getenv("SUMO_HOME"));
     // load data files
     myAttributesEnum = parseAttributesEnumFile(sumoHome + "/data/tests/attributesEnum.txt");
     myContextualMenuOperations = parseContextualMenuOperationsFile(sumoHome + "/data/tests/contextualMenuOperations.txt");
     myViewPositions = parseViewPositionsFile(sumoHome + "/data/tests/viewPositions.txt");
+    myMovements = parseMovementsFile(sumoHome + "/data/tests/movements.txt");
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
     if (!strm.good()) {
         std::cout << "Could not open test file '" + testFile + "'." << std::endl;
         throw ProcessError();
-    } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty()) {
+    } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty() || myMovements.empty()) {
         std::cout << "Error loading test data files" << std::endl;
         throw ProcessError();
     } else {
@@ -88,6 +184,15 @@ InternalTest::~InternalTest() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
+}
+
+
+FXint
+InternalTest::getTime() const {
+    return static_cast<FXuint>(
+               std::chrono::duration_cast<std::chrono::milliseconds>(
+                   std::chrono::steady_clock::now().time_since_epoch()
+               ).count());
 }
 
 
@@ -132,6 +237,48 @@ InternalTest::getContextualMenuOperations() const {
 const std::map<std::string, InternalTest::ViewPosition>&
 InternalTest::getViewPositions() const {
     return myViewPositions;
+}
+
+
+const std::map<std::string, InternalTest::Movement>&
+InternalTest::getMovements() const {
+    return myMovements;
+}
+
+
+const InternalTest::ViewPosition&
+InternalTest::getLastMovedPosition() const {
+    return myLastMovedPosition;
+}
+
+
+void
+InternalTest::updateLastMovedPosition(const int x, const int y) {
+    myLastMovedPosition = InternalTest::ViewPosition(x, y);
+}
+
+
+std::vector<InternalTest::ViewPosition>
+InternalTest::interpolateViewPositions(const InternalTest::ViewPosition& viewStartPosition,
+                                       const int offsetStartX, const int offsetStartY,
+                                       const InternalTest::ViewPosition& viewEndPosition,
+                                       const int offsetEndX, const int offsetEndY) const {
+    // declare trajectory vector
+    std::vector<InternalTest::ViewPosition> trajectory;
+    trajectory.reserve(numPointsInterpolation);
+    // calulate from using offsets
+    const auto from = InternalTest::ViewPosition(viewStartPosition.getX() + offsetStartX, viewStartPosition.getY() + offsetStartY);
+    const auto to = InternalTest::ViewPosition(viewEndPosition.getX() + offsetEndX, viewEndPosition.getY() + offsetEndY);
+    // itearte over the number of points to interpolate
+    for (int i = 0; i < numPointsInterpolation; i++) {
+        const double t = static_cast<double>(i) / (numPointsInterpolation - 1); // t in [0, 1]
+        // calculate interpolated position
+        const int interpolatedX = int(from.getX() + t * (to.getX() - from.getX()));
+        const int interpolatedY = int(from.getY() + t * (to.getY() - from.getY()));
+        // add interpolated position
+        trajectory.push_back(ViewPosition(interpolatedX, interpolatedY));
+    }
+    return trajectory;
 }
 
 
@@ -244,6 +391,49 @@ InternalTest::parseViewPositionsFile(const std::string filePath) const {
                 WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), yValue);
             } else {
                 solution[key] = InternalTest::ViewPosition(xValue, yValue);
+            }
+        }
+    }
+    return solution;
+}
+
+
+std::map<std::string, InternalTest::Movement>
+InternalTest::parseMovementsFile(const std::string filePath) const {
+    std::map<std::string, InternalTest::Movement> solution;
+    // open file
+    std::ifstream strm(filePath);
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open view positions file '%'."), filePath);
+    } else {
+        std::string line;
+        // read full lines until end of file
+        while (std::getline(strm, line)) {
+            // use stringstream for
+            std::stringstream ss(line);
+            // read key and value
+            std::string key;
+            std::string upValue;
+            std::string downValue;
+            std::string leftValue;
+            std::string rightValue;
+            std::getline(ss, key, ' ');
+            std::getline(ss, upValue, ' ');
+            std::getline(ss, downValue, ' ');
+            std::getline(ss, leftValue, ' ');
+            std::getline(ss, rightValue, '\n');
+            // check that int can be parsed
+            if (!StringUtils::isInt(upValue)) {
+                WRITE_ERRORF(TL("In internal test file, x value '%' cannot be parsed to int."), upValue);
+            } else if (!StringUtils::isInt(downValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), downValue);
+            } else if (!StringUtils::isInt(leftValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), leftValue);
+            } else if (!StringUtils::isInt(rightValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), rightValue);
+            } else {
+                solution[key] = InternalTest::Movement(upValue, downValue, leftValue, rightValue);
             }
         }
     }

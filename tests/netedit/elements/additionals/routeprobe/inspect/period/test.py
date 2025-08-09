@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "dummy")
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.period, "dummy")
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "-50")
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.period, "-50")
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "150")
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.period, "150")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

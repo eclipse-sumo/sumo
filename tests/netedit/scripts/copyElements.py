@@ -40,7 +40,7 @@ def copy_file_if_reference_exists(source_file, base_folder, reference_file):
                     # Copy the file to the current folder
                     shutil.copy(source_file, destination_folder)
                     print(f"File copied to: {destination_folder}")
-                except:
+                except Exception:
                     print("File " + source_file + " cannnot be copied to " + destination_folder)
 
 

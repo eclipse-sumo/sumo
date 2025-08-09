@@ -107,7 +107,6 @@ The following output attributes are generated:
 | **totalTravelTime**    | s          | The total travel time of all vehicles |
 | **totalDepartDelay**   | s          | The total depart delay of all vehicles  |
 
-T
 
 ## pedestrianStatistics
 

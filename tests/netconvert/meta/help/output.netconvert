@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_23_1+0813-5f3c910f36e
+Eclipse SUMO netconvert Version v1_24_0+0083-3372591c45b
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -74,7 +74,9 @@ Output Options:
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins
   --prefix STR                         Defines a prefix for edge and junction
-                                        names
+                                        IDs
+  --prefix.junction STR                Defines a prefix for junction IDs
+  --prefix.edge STR                    Defines a prefix for edge IDs
   --amitran-output FILE                The generated net will be written to
                                         FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to
@@ -91,6 +93,8 @@ Output Options:
                                         output (if available)
   --output.original-names              Writes original names, if given, as
                                         parameter
+  --output.removed-nodes               Writes IDs of nodes remove with
+                                        --geometry.remove into edge param
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --ptstop-output FILE                 Writes public transport stops to FILE
   --ptline-output FILE                 Writes public transport lines to FILE
@@ -144,6 +148,9 @@ Processing Options:
   --reserved-ids FILE                  Ensures that generated ids do not
                                         included any of the typed IDs from FILE
                                         (sumo-gui selection file format)
+  --kept-ids FILE                      Ensures that objects with typed IDs from
+                                        FILE (sumo-gui selection file format)
+                                        are not renamed
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                         imported edges
   --geometry.split                     Splits edges across geometry nodes
@@ -451,8 +458,12 @@ Junctions Options:
                                         joining junctions
   --junctions.join-exclude STR[]       Interprets STR[] as list of junctions to
                                         exclude from joining
-  --junctions.join-same                Joins junctions that have the same
+  --junctions.join-same FLOAT          Joins junctions that have similar
                                         coordinates even if not connected
+  --junctions.attach-removed FLOAT     Attach junction to the closest edge
+                                        within FLOAT distance that has it's id
+                                        in param removedNodeIDs (for joining
+                                        networks)
   --max-join-ids INT                   Abbreviate junction or TLS id if it
                                         joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to

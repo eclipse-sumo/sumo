@@ -60,7 +60,7 @@
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const double length, const bool doAdd,
     const MSMeanData* const parent) :
-    MSMoveReminder("meandata_" + parent->getID() + "|" + (lane == nullptr ? "NULL" :  lane->getID()), lane, doAdd),
+    MSMoveReminder("meandata_" + (parent == nullptr ? "" : parent->getID() + "|") + (lane == nullptr ? "NULL" :  lane->getID()), lane, doAdd),
     myParent(parent),
     myLaneLength(length),
     sampleSeconds(0),

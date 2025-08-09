@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 08:42:11 by Eclipse SUMO netconvert Version v1_14_1+1242-57b0522bf9b
+<!-- generated on 2025-08-01 13:22:20 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -35,11 +35,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="1422539746" name="Lübbenau, Gleis 1" lane="254150069_0" startPos="317.14" endPos="517.14" friendlyPos="true" lines="RE 2 IC 56"/>
-    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="476.76" endPos="676.76" friendlyPos="true" lines="IC 56 RE 2"/>
+    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="476.73" endPos="676.73" friendlyPos="true" lines="IC 56 RE 2"/>
     <busStop id="1422539748" name="Lübbenau, Gleis 4" lane="254150073#1_0" startPos="422.30" endPos="622.30" friendlyPos="true" lines="RB24"/>
 </additional>

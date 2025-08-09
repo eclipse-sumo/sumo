@@ -31,8 +31,8 @@ netedit.positions.elements.additionals.squaredA 437 137
 netedit.positions.elements.additionals.squaredB 534 137
 netedit.positions.elements.additionals.trainStop 343 204
 netedit.positions.elements.additionals.vaporizer 467 168
-netedit.positions.elements.data.TAZRelBot 650 255
-netedit.positions.elements.data.TAZRelTop 630 238
+netedit.positions.elements.data.TAZRelBot 630 225
+netedit.positions.elements.data.TAZRelTop 630 215
 netedit.positions.elements.demands.TAZGreen 557 231
 netedit.positions.elements.demands.TAZRed 708 232
 netedit.positions.elements.demands.busStop 296 11
@@ -64,10 +64,8 @@ netedit.positions.elements.demands.vehicleJunction 159 405
 netedit.positions.elements.demands.vehicleTAZ 565 230
 netedit.positions.elements.edge0 381 443
 netedit.positions.elements.edge0Ped 402 470
-netedit.positions.elements.edge0_dataMode 381 473
 netedit.positions.elements.edge1 850 222
 netedit.positions.elements.edge1Ped 874 238
-netedit.positions.elements.edge1_dataMode 850 252
 netedit.positions.elements.edge2 494 26
 netedit.positions.elements.edge2Ped 463 -3
 netedit.positions.elements.edge3 477 56

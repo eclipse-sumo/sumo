@@ -1,77 +1,27 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_22_0+1193-f4c2919cdf7 started with time: 0.00.
+Simulation version v1_24_0+0059-d84e035b4e2 started with time: 0.00.
 Simulation ended at time: 54.00.
 Reason: All vehicles have left the simulation.
 Loading net-file from 'net.net.xml' ... done (1ms).
-Loading state from 'state.xml' ... done (6ms).
+Loading state from 'state.xml' ... done (11ms).
 Loading done.
-Simulation version v1_22_0+1193-f4c2919cdf7 started with time: 20.00.
+Simulation version v1_24_0+0059-d84e035b4e2 started with time: 20.00.
 Simulation ended at time: 54.00.
 Reason: All vehicles have left the simulation.
 <                 <entry id="train" time="9.00" reason="junction"/>
 >                 <entry id="train" time="20.00" reason="reroute"/>
-<             </driveWay>
->                 <exit id="train" time="31.00" reason="arrived"/>
-<             <subDriveWay id="A.0.0">
->             </driveWay>
 <                 <entry id="train" time="9.00" reason="junction"/>
->             <subDriveWay id="A.0.0">
-<                 <exit id="train" time="25.00" reason="junction"/>
 >                 <entry id="train" time="20.00" reason="reroute"/>
-<             </subDriveWay>
->                 <exit id="train" time="25.00" reason="junction"/>
-<         </link>
->             </subDriveWay>
-<     </railSignal>
->         </link>
-<     <railSignal id="B">
->     </railSignal>
-<         <link linkIndex="0" from="-d2_0" to=":B_0_0">
->     <railSignal id="B">
-<             <driveWay id="B.0">
->         <link linkIndex="0" from="-d2_0" to=":B_0_0">
-<                 <entry id="train2" time="26.00" reason="junction"/>
->             <driveWay id="B.0">
-<                 <exit id="train2" time="53.00" reason="arrived"/>
->                 <entry id="train2" time="26.00" reason="junction"/>
-<             </driveWay>
->                 <exit id="train2" time="53.00" reason="arrived"/>
-<             <subDriveWay id="B.0.0">
->             </driveWay>
-<                 <entry id="train2" time="26.00" reason="junction"/>
->             <subDriveWay id="B.0.0">
-<                 <exit id="train2" time="45.00" reason="junction"/>
->                 <entry id="train2" time="26.00" reason="junction"/>
-<             </subDriveWay>
->                 <exit id="train2" time="45.00" reason="junction"/>
-<         </link>
->             </subDriveWay>
-<     </railSignal>
->         </link>
-<     <departJunction id="gneJ7">
->     </railSignal>
-<         <driveWay id="gneJ7.d0">
->     <departJunction id="gneJ7">
 <             <entry id="train2" time="1.00" reason="departed"/>
->         <driveWay id="gneJ7.d0">
-<             <exit id="train2" time="30.00" reason="junction"/>
 >             <entry id="train2" time="20.00" reason="reroute"/>
-<         </driveWay>
->             <exit id="train2" time="30.00" reason="junction"/>
-<     </departJunction>
->             <exit id="train2" time="30.00" reason="junction"/>
-<     <departJunction id="gneJ0">
->         </driveWay>
 <         <driveWay id="gneJ0.d0">
->     </departJunction>
-<             <entry id="train" time="0.00" reason="departed"/>
->     <departJunction id="gneJ0">
-<             <exit id="train" time="10.00" reason="junction"/>
 >         <driveWay id="gneJ0.d0"/>
-<         </driveWay>
+<             <entry id="train" time="0.00" reason="departed"/>
 >     </departJunction>
-<     </departJunction>
+<             <exit id="train" time="10.00" reason="junction"/>
 > </railsignal-vehicle-output>
+<         </driveWay>
+<     </departJunction>
 < </railsignal-vehicle-output>

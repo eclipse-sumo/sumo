@@ -319,6 +319,32 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     */
     // toolbar lock
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ELEMENT,           GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_JUNCTION,          GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_EDGE,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_LANE,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_CONNECTION,        GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_CROSSING,          GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_WALKINGAREA,       GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ADDITIONALELEMENT, GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_WIRE,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_TAZ,               GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_POLYGON,           GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_POI,               GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_JPS_WALKABLEAREA,  GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_JPS_OBSTACLE,      GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ROUTE,             GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_VEHICLE,           GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_PERSON,            GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_PERSONTRIP,        GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_WALK,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_RIDE,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_CONTAINER,         GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_TRANSPORT,         GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_TRANSHIP,          GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_STOP,              GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_EDGEDATA,          GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_EDGERELDATA,       GNEApplicationWindow::onCmdLockElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_TAZRELDATA,        GNEApplicationWindow::onCmdLockElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_ALLELEMENTS,       GNEApplicationWindow::onCmdLockAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_UNLOCK_ALLELEMENTS,     GNEApplicationWindow::onCmdUnlockAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_LOCK_SELECTEDELEMENTS,  GNEApplicationWindow::onCmdLockSelectElements),
@@ -423,6 +449,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_DE,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ES,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_PT,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_PT,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_FR,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_IT,    GNEApplicationWindow::onCmdChangeLanguage),
@@ -1846,8 +1874,91 @@ GNEApplicationWindow::onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr) 
 
 
 long
-GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector sel, void*) {
     if (myViewNet) {
+        // check if we're calling the functions using internal test
+        switch (FXSELID(sel)) {
+            case MID_GNE_LOCK_JUNCTION:
+                myLockMenuCommands.menuCheckLockJunctions->toggleCheck();
+                break;
+            case MID_GNE_LOCK_EDGE:
+                myLockMenuCommands.menuCheckLockEdges->toggleCheck();
+                break;
+            case MID_GNE_LOCK_LANE:
+                myLockMenuCommands.menuCheckLockLanes->toggleCheck();
+                break;
+            case MID_GNE_LOCK_CONNECTION:
+                myLockMenuCommands.menuCheckLockConnections->toggleCheck();
+                break;
+            case MID_GNE_LOCK_CROSSING:
+                myLockMenuCommands.menuCheckLockCrossings->toggleCheck();
+                break;
+            case MID_GNE_LOCK_WALKINGAREA:
+                myLockMenuCommands.menuCheckLockWalkingAreas->toggleCheck();
+                break;
+            case MID_GNE_LOCK_ADDITIONALELEMENT:
+                myLockMenuCommands.menuCheckLockAdditionals->toggleCheck();
+                break;
+            case MID_GNE_LOCK_WIRE:
+                myLockMenuCommands.menuCheckLockWires->toggleCheck();
+                break;
+            case MID_GNE_LOCK_TAZ:
+                myLockMenuCommands.menuCheckLockTAZs->toggleCheck();
+                break;
+            case MID_GNE_LOCK_POLYGON:
+                myLockMenuCommands.menuCheckLockPolygons->toggleCheck();
+                break;
+            case MID_GNE_LOCK_POI:
+                myLockMenuCommands.menuCheckLockPOIs->toggleCheck();
+                break;
+            case MID_GNE_LOCK_JPS_WALKABLEAREA:
+                myLockMenuCommands.menuCheckLockJpsWalkableAreas->toggleCheck();
+                break;
+            case MID_GNE_LOCK_JPS_OBSTACLE:
+                myLockMenuCommands.menuCheckLockJpsObstacles->toggleCheck();
+                break;
+            case MID_GNE_LOCK_ROUTE:
+                myLockMenuCommands.menuCheckLockRoutes->toggleCheck();
+                break;
+            case MID_GNE_LOCK_VEHICLE:
+                myLockMenuCommands.menuCheckLockVehicles->toggleCheck();
+                break;
+            case MID_GNE_LOCK_PERSON:
+                myLockMenuCommands.menuCheckLockPersons->toggleCheck();
+                break;
+            case MID_GNE_LOCK_PERSONTRIP:
+                myLockMenuCommands.menuCheckLockPersonTrips->toggleCheck();
+                break;
+            case MID_GNE_LOCK_WALK:
+                myLockMenuCommands.menuCheckLockWalks->toggleCheck();
+                break;
+            case MID_GNE_LOCK_RIDE:
+                myLockMenuCommands.menuCheckLockRides->toggleCheck();
+                break;
+            case MID_GNE_LOCK_CONTAINER:
+                myLockMenuCommands.menuCheckLockContainers->toggleCheck();
+                break;
+            case MID_GNE_LOCK_TRANSPORT:
+                myLockMenuCommands.menuCheckLockTransports->toggleCheck();
+                break;
+            case MID_GNE_LOCK_TRANSHIP:
+                myLockMenuCommands.menuCheckLockTranships->toggleCheck();
+                break;
+            case MID_GNE_LOCK_STOP:
+                myLockMenuCommands.menuCheckLockStops->toggleCheck();
+                break;
+            case MID_GNE_LOCK_EDGEDATA:
+                myLockMenuCommands.menuCheckLockEdgeDatas->toggleCheck();
+                break;
+            case MID_GNE_LOCK_EDGERELDATA:
+                myLockMenuCommands.menuCheckLockEdgeRelDatas->toggleCheck();
+                break;
+            case MID_GNE_LOCK_TAZRELDATA:
+                myLockMenuCommands.menuCheckLockEdgeTAZRels->toggleCheck();
+                break;
+            default:
+                break;
+        }
         myViewNet->getLockManager().updateFlags();
     }
     return 1;
@@ -2441,11 +2552,11 @@ GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, v
 
 
 long
-GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdUndo(FXObject* sender, FXSelector, void*) {
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
-    } else if (!myEditMenuCommands.undoLastChange->isEnabled()) {
+    } else if ((myInternalTest != sender) && !myEditMenuCommands.undoLastChange->isEnabled()) {
         return 0;
     } else {
         // check supermode (currently ignore supermode data)
@@ -2472,11 +2583,11 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdRedo(FXObject* sender, FXSelector, void*) {
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
-    } else if (!myEditMenuCommands.redoLastChange->isEnabled()) {
+    } else if ((myInternalTest != sender) && !myEditMenuCommands.redoLastChange->isEnabled()) {
         return 0;
     } else {
         // check supermode (currently ignore supermode data)

@@ -312,6 +312,15 @@ inline std::string joinNamedToStringSorting(const std::set<T*>& ns, const T_BETW
     return joinToStringSorting(ids, between);
 }
 
+template <typename T, typename T_BETWEEN>
+inline std::string joinNamedToStringSorting(const std::set<T*, ComparatorIdLess>& ns, const T_BETWEEN& between) {
+    std::vector<std::string> ids;
+    for (T* n : ns) {
+        ids.push_back(Named::getIDSecure(n));
+    }
+    return joinToStringSorting(ids, between);
+}
+
 
 template <typename T, typename C, typename T_BETWEEN>
 inline std::string joinNamedToString(const std::set<T*, C>& ns, const T_BETWEEN& between) {

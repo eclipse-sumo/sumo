@@ -59,7 +59,10 @@ def parse_args(args):
     ap.add_option("--blur", type=float, default=0,
                   help="maximum random disturbance to route geometry")
     ap.add_option("--scale-width", type=float, dest="scaleWidth",
-                  help="group similar routes and scale width by group size multiplied with the given factor (in m)")
+                  help=("group similar routes and scale width by group size or route probablity," +
+                        "multiplied with the given factor (in m)"))
+    ap.add_option("--filter-count", type=float, dest="filterCount",
+                  help="only include routes that occur at least INT times")
     ap.add_option("--standalone", action="store_true", default=False,
                   help="Parse stand-alone routes that are not define as child-element of a vehicle")
     ap.add_option("--filter-output.file", dest="filterOutputFile",
@@ -215,11 +218,11 @@ def parseRoutes(options):
         if options.standalone:
             for route in parse(routefile, 'route'):
                 # print("found veh", vehicle.id)
-                yield unique_id(route.id), filterEdges(route.edges.split(), keep)
+                yield unique_id(route.id), filterEdges(route.edges.split(), keep), route.probability
         else:
             for vehicle in parse(routefile, 'vehicle'):
                 # print("found veh", vehicle.id)
-                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep)
+                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep), None
 
 
 def main(args):
@@ -229,17 +232,23 @@ def main(args):
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
         if options.scaleWidth is None:
-            for route_id, edges in parseRoutes(options):
+            for route_id, edges, _ in parseRoutes(options):
                 generate_poly(options, net, route_id, options.colorgen(), edges, outf)
         else:
             count = {}
-            for route_id, edges in parseRoutes(options):
+            for route_id, edges, rCount in parseRoutes(options):
                 edges = tuple(edges)
+                rCount = 1 if rCount is None else float(rCount)
                 if edges in count:
-                    count[edges][0] += 1
+                    count[edges][0] += rCount
                 else:
-                    count[edges] = [1, route_id]
-            for edges, (n, route_id) in count.items():
+                    count[edges] = [rCount, route_id]
+
+            countItems = [(-n, route_id, edges) for edges, (n, route_id) in count.items()]
+            for nNeg, route_id, edges in sorted(countItems):
+                n = -nNeg
+                if options.filterCount and n < options.filterCount:
+                    continue
                 width = options.scaleWidth * n
                 params = {'count': str(n)}
                 generate_poly(options, net, route_id, options.colorgen(), edges, outf, lineWidth=width, params=params)

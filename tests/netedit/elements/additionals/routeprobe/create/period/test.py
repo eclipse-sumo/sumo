@@ -34,14 +34,14 @@ netedit.changeElement("additionalFrame", "routeProbe")
 # disable center view
 netedit.modifyBoolAttribute(netedit.attrs.routeProbe.create.center)
 
-# set invalid frequency
-netedit.modifyAttribute(netedit.attrs.routeProbe.create.frequency, "-20")
+# set invalid period
+netedit.modifyAttribute(netedit.attrs.routeProbe.create.period, "-20")
 
 # try to create routeProbe
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
-# set valid default frequency
-netedit.modifyAttribute(netedit.attrs.routeProbe.create.frequency, "120")
+# set valid default period
+netedit.modifyAttribute(netedit.attrs.routeProbe.create.period, "120")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)

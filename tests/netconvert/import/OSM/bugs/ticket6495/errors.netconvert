@@ -24,14 +24,15 @@ Warning: Not joining junctions 368879,659614608 (only 1 edge within and no cross
 Warning: Ambiguity in turnarounds computation at junction '2201773661'.
 Warning: Ambiguity in turnarounds computation at junction '7022635681'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_370556673_370556675'.
-Warning: Found sharp turn with radius 5.51 at the start of edge '-8225153#1'.
-Warning: Found sharp turn with radius 8.58 at the end of edge '-8225153#2'.
+Warning: Found sharp turn with radius 5.48 at the start of edge '-8225153#1'.
+Warning: Found sharp turn with radius 8.50 at the end of edge '-8225153#2'.
 Warning: Found angle of 101.17 degrees at edge '23686956#2', segment 0.
-Warning: Found sharp turn with radius 5.51 at the end of edge '8225153#1'.
-Warning: Found sharp turn with radius 8.58 at the start of edge '8225153#2'.
+Warning: Found sharp turn with radius 5.48 at the end of edge '8225153#1'.
+Warning: Found sharp turn with radius 8.50 at the start of edge '8225153#2'.
 Warning: The traffic light '1496363648' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1496363648'
 Warning: Speed of straight connection '145345139#1_0->169453889_0' reduced by 8.91 due to turning radius of 15.22 (length=9.03, angle=50.88).
+Warning: Speed of straight connection '-8225153#2_0->-8225153#1_0' reduced by 5.13 due to turning radius of 1.86 (length=2.34, angle=141.93).
 Warning: Removing pt stop '1025250562' on non existing edge ''.
 Warning: Removing pt stop '1341148995' on non existing edge ''.
 Warning: Removing pt stop '1979567864' on non existing edge ''.

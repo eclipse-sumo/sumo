@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge_removal>
 
     <junctions>
-        <junctions.join-same value="true"/>
+        <junctions.join-same value="0.1"/>
     </junctions>
 
     <formats>

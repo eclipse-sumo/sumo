@@ -52,7 +52,7 @@ netedit.changeMode("move")
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.elements.additionals.squaredA,
-                    netedit.positions.elements.movementRadiusB)
+                    netedit.movements.radiusB)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

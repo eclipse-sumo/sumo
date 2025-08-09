@@ -24,7 +24,6 @@ import subprocess
 from collections import namedtuple
 import re
 from xml.sax import parse, parseString, handler
-import optparse
 import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
@@ -46,38 +45,49 @@ class ConfigurationReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if len(attrs) == 0:
-            self._group = optparse.OptionGroup(self._opts, name)
+            self._group = self._opts.add_argument_group(name)
         if self._group != self._opts and self._groups and self._group.title not in self._groups:
             return
         if 'type' in attrs and name != "help":
             if self._options and name not in self._options:
                 return
+            if name in ['configuration-file', 'save-configuration', 'save-template']:
+                return
             help = attrs.get("help", "")
-            cat = attrs.get("category", "")
-            option = optparse.Option("--" + name, help=help)
+            action = None
+            default = None
+            oType = None
             if attrs["type"] == "BOOL":
-                option = optparse.Option("--" + name, action="store_true", default=False, help=help, category=cat)
-            elif attrs["type"] in ["FLOAT", "TIME"]:
-                option.type = "float"
+                action = "store_true"
+                default = False
+            elif attrs["type"] == "TIME":
+                oType = ArgumentParser.time
                 if attrs["value"]:
-                    option.default = float(attrs["value"])
+                    default = float(attrs["value"])
+            elif attrs["type"] == "FLOAT":
+                oType = float
+                if attrs["value"]:
+                    default = float(attrs["value"])
             elif attrs["type"] == "INT":
-                option.type = "int"
+                oType = int
                 if attrs["value"]:
-                    option.default = int(attrs["value"])
+                    default = int(attrs["value"])
             else:
-                option.default = attrs["value"]
-            self._group.add_option(option)
+                default = attrs["value"]
+            if action is None:
+                self._group.add_argument("--" + name, help=help, default=default, type=oType)
+            else:
+                self._group.add_argument("--" + name, help=help, action=action, default=default)
 
     def endElement(self, name):
         if self._group != self._opts and name == self._group.title:
-            self._opts.add_option_group(self._group)
+            self._opts.add_argument_group(self._group)
             self._group = self._opts
 
 
-def pullOptions(executable, optParse, groups=None, configoptions=None):
+def pullOptions(executable, argParser, groups=None, configoptions=None):
     optoutput = subprocess.check_output([executable, "--save-template", "-"])
-    parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
+    parseString(optoutput, ConfigurationReader(argParser, groups, configoptions))
 
 
 def get_long_option_names(application):

@@ -24,6 +24,7 @@
     <Compile Include="enums\attributesEnum.py" />
     <Compile Include="constants.py" />
     <Compile Include="enums\contextualMenuOperations.py" />
+    <Compile Include="enums\movements.py" />
     <Compile Include="files\load.py" />
     <Compile Include="files\quit.py" />
     <Compile Include="files\reload.py" />

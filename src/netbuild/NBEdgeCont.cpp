@@ -532,7 +532,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             //  we can assume that this split was attached to an
             //  existing node. Reset all connections to let the default
             //  algorithm recompute them
-            if (exp.node->getIncomingEdges().size() > 1 || exp.node->getOutgoingEdges().size() > 1) {
+            if (exp.node->getIncomingEdges().size() > 1 || exp.node->getOutgoingEdges().size() > 1 || exp.node->getType() == SumoXMLNodeType::ZIPPER) {
                 for (NBEdge* in : exp.node->getIncomingEdges()) {
                     in->invalidateConnections(true);
                 }
@@ -1046,6 +1046,12 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
 void
 NBEdgeCont::guessOpposites() {
     //@todo magic values
+    const bool fixOppositeLengths = OptionsCont::getOptions().getBool("opposites.guess.fix-lengths");
+    // ensure consistency of loaded values before starting to guess
+    for (const auto& edgeIt : myEdges) {
+        NBEdge* const edge = edgeIt.second;
+        edge->recheckOpposite(*this, fixOppositeLengths);
+    }
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* edge = i->second;
         edge->guessOpposite();
@@ -1259,7 +1265,7 @@ NBEdgeCont::guessRoundabouts() {
 #endif
                 break;
             }
-            if (e->getTurnDestination() != nullptr || e->getToNode()->getConnectionTo(e->getFromNode()) != nullptr) {
+            if (e->getTurnDestination(true) != nullptr || e->getToNode()->getConnectionTo(e->getFromNode()) != nullptr) {
                 // do not follow turn-arounds while in a (tentative) loop
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
@@ -1694,7 +1700,7 @@ NBEdgeCont::addPrefix(const std::string& prefix) {
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBPTStopCont& sc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
     if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
@@ -1728,6 +1734,17 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             toChange.insert(it->second);
         }
     }
+    std::set<std::string> keep;
+    if (keptIDs) {
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("kept-ids"), "edge:", keep);
+        for (auto it = toChange.begin(); it != toChange.end();) {
+            if (keep.count((*it)->getID()) != 0) {
+                toChange.erase(it++);
+            } else {
+                it++;
+            }
+        }
+    }
 
     std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > stopsOnEdge;
     for (const auto& item : sc.getStops()) {
@@ -1756,7 +1773,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         // make a copy because we will modify the map
         auto oldEdges = myEdges;
         for (auto item : oldEdges) {
-            if (!StringUtils::startsWith(item.first, prefix)) {
+            if (!StringUtils::startsWith(item.first, prefix) && keep.count(item.first) == 0) {
                 rename(item.second, prefix + item.first);
                 renamed++;
             }
@@ -2227,5 +2244,59 @@ NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
     return numRemoved;
 }
 
+
+int
+NBEdgeCont::attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist) {
+    int numSplit = 0;
+    std::map<std::string, std::vector<std::string> > node2edge;
+    for (auto item : myEdges) {
+        if (item.second->hasParameter(SUMO_PARAM_REMOVED_NODES)) {
+            for (std::string& nodeID : StringTokenizer(item.second->getParameter(SUMO_PARAM_REMOVED_NODES)).getVector()) {
+                node2edge[nodeID].push_back(item.first);
+            }
+        }
+    }
+    for (auto item : nc) {
+        NBNode* n = item.second;
+        auto itRN = node2edge.find(n->getID());
+        if (itRN != node2edge.end()) {
+            bool rebuildConnections = false;
+            // make a copy because we modify the original
+            std::vector<std::string> edgeIDs = itRN->second;
+            for (const std::string& eID : edgeIDs) {
+                NBEdge* e = retrieve(eID);
+                assert(e != nullptr);
+                const double dist = e->getGeometry().distance2D(n->getPosition(), true);
+                if (dist != GeomHelper::INVALID_OFFSET && dist <= maxDist) {
+                    std::string idAfter = e->getID();
+                    int index = 1;
+                    size_t spos = idAfter.find("#");
+                    if (spos != std::string::npos && spos > 1) {
+                        idAfter = idAfter.substr(0, spos);
+                    }
+                    while (retrieve(idAfter + "#" + toString(index), true) != nullptr) {
+                        index++;
+                    }
+                    idAfter += "#" + toString(index);
+                    const bool ok = splitAt(dc, e, n, e->getID(), idAfter, e->getNumLanes(), e->getNumLanes());
+                    if (ok) {
+                        rebuildConnections = true;
+                        numSplit++;
+                        NBEdge* e = retrieve(eID); // original was extracted on splitting
+                        for (std::string& nodeID : StringTokenizer(e->getParameter(SUMO_PARAM_REMOVED_NODES)).getVector()) {
+                            node2edge[nodeID].push_back(idAfter);
+                        }
+                    }
+                }
+            }
+            if (rebuildConnections) {
+                for (NBEdge* e : n->getIncomingEdges()) {
+                    e->invalidateConnections(true);
+                }
+            }
+        }
+    }
+    return numSplit;
+}
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO netgenerate Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-31 12:28:47 by Eclipse SUMO netgenerate Version v1_24_0+0083-3372591c45b
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -174,8 +174,14 @@
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
-        <!-- Defines a prefix for edge and junction names -->
+        <!-- Defines a prefix for edge and junction IDs -->
         <prefix value="" type="STR"/>
+
+        <!-- Defines a prefix for junction IDs -->
+        <prefix.junction value="" type="STR"/>
+
+        <!-- Defines a prefix for edge IDs -->
+        <prefix.edge value="" type="STR"/>
 
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
@@ -200,6 +206,9 @@
 
         <!-- Writes original names, if given, as parameter -->
         <output.original-names value="false" type="BOOL"/>
+
+        <!-- Writes IDs of nodes remove with --geometry.remove into edge param -->
+        <output.removed-nodes value="false" type="BOOL"/>
 
         <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>
@@ -248,6 +257,9 @@
 
         <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
+
+        <!-- Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed -->
+        <kept-ids value="" type="FILE"/>
 
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
@@ -579,8 +591,8 @@
         <!-- The angular threshold in degress for rejection of parallel edges when joining junctions -->
         <junctions.join.parallel-threshold value="30" type="FLOAT"/>
 
-        <!-- Joins junctions that have the same coordinates even if not connected -->
-        <junctions.join-same value="false" type="BOOL"/>
+        <!-- Joins junctions that have similar coordinates even if not connected -->
+        <junctions.join-same value="-1" type="FLOAT"/>
 
         <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
         <max-join-ids value="4" type="INT"/>

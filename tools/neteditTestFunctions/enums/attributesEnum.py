@@ -188,7 +188,7 @@ class attrs:
                 invert = 24
                 load = 25
                 reduce = 26
-                invertData = 27
+                invertData = 22  # temporal, until restoration of select using start-end interval
 
             class networkItem:
                 type = 8
@@ -1062,7 +1062,7 @@ class attrs:
             parametersButton = 10
             frontButton = 12
             reparentButton = 13
-            reparentButton = 14
+            parent = 14
             helpDialog = 15
             reset = 16
 
@@ -1076,7 +1076,7 @@ class attrs:
             parametersButton = 9
             frontButton = 11
             reparentButton = 12
-            reparentButton = 13
+            parent = 13
             helpDialog = 14
             reset = 15
 
@@ -1201,18 +1201,18 @@ class attrs:
             file = 8
             vTypes = 9
             nextEdges = 10
-            detectPersons = 12
-            timeThreshold = 13
-            speedThreshold = 14
-            jamThreshold = 15
-            show = 16
-            parameters = 18
-            parametersButton = 19
-            frontButton = 21
-            additionalFileButton = 22
-            additionalFile = 23
-            helpDialog = 24
-            reset = 25
+            detectPersons = 11
+            timeThreshold = 12
+            speedThreshold = 13
+            jamThreshold = 14
+            show = 15
+            parameters = 17
+            parametersButton = 18
+            frontButton = 20
+            additionalFileButton = 21
+            additionalFile = 22
+            helpDialog = 23
+            reset = 24
 
     # E2Multilane
 
@@ -1275,17 +1275,17 @@ class attrs:
             vTypes = 8
             nextEdges = 9
             detectPersons = 10
-            timeThreshold = 12
-            speedThreshold = 13
-            jamThreshold = 14
-            show = 15
-            parameters = 17
-            parametersButton = 18
-            frontButton = 20
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            timeThreshold = 11
+            speedThreshold = 12
+            jamThreshold = 13
+            show = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            additionalFileButton = 20
+            additionalFile = 21
+            helpDialog = 22
+            reset = 23
 
     # E3
 
@@ -1369,8 +1369,8 @@ class attrs:
             parameters = 7
             parametersButton = 8
             frontButton = 10
-            additionalFileButton = 11
-            additionalFile = 12
+            reparentButton = 11
+            parent = 12
             helpDialog = 13
             reset = 14
 
@@ -1379,8 +1379,8 @@ class attrs:
             parameters = 4
             parametersButton = 5
             frontButton = 7
-            additionalFileButton = 8
-            additionalFile = 9
+            reparentButton = 8
+            parent = 9
             helpDialog = 10
             reset = 11
 
@@ -1417,11 +1417,10 @@ class attrs:
             detectPersons = 12
             parameters = 15
             parametersButton = 16
-            frontButton = 18
-            additionalFileButton = 19
-            additionalFile = 20
-            helpDialog = 21
-            reset = 22
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspectSelection:
             friendlyPos = 2
@@ -1431,13 +1430,13 @@ class attrs:
             vTypes = 6
             nextEdges = 7
             detectPersons = 8
-            parameters = 11
-            parametersButton = 12
-            frontButton = 14
-            additionalFileButton = 15
-            additionalFile = 16
-            helpDialog = 17
-            reset = 18
+            parameters = 10
+            parametersButton = 11
+            frontButton = 13
+            additionalFileButton = 14
+            additionalFile = 15
+            helpDialog = 16
+            reset = 17
 
     # calibrator
 
@@ -1464,7 +1463,7 @@ class attrs:
             edge = 3
             pos = 4
             name = 5
-            frequency = 6
+            period = 6
             routeProbe = 7
             outputButton = 8
             output = 9
@@ -1485,7 +1484,7 @@ class attrs:
             laneMoveUp = 4
             pos = 5
             name = 6
-            frequency = 7
+            period = 7
             routeProbe = 8
             outputButton = 9
             output = 10
@@ -1502,7 +1501,7 @@ class attrs:
 
         class inspectSelection:
             name = 2
-            frequency = 3
+            period = 3
             routeProbe = 4
             outputButton = 5
             output = 6
@@ -1516,45 +1515,71 @@ class attrs:
             helpDialog = 16
             reset = 17
 
-    # routeProbe (FALTA CENTER XXXX)
+    # routeProbe
 
     class routeProbe:
         class create:
             id = 5
-            frequency = 6
-            name = 7
-            file = 8
-            begin = 9
-            vTypes = 10
-            center = 14
+            name = 6
+            period = 7
+            fileButton = 8
+            file = 9
+            begin = 10
+            vTypes = 11
+            parameters = 13
+            parametersButton = 14
+            center = 16
+            additionalFileButton = 17
+            additionalFile = 18
+            helpDialog = 19
+            reset = 20
 
         class inspect:
             id = 2
             edge = 3
-            frequency = 4
-            name = 5
-            file = 6
-            begin = 7
-            vTypes = 8
+            name = 4
+            period = 5
+            fileButton = 6
+            file = 7
+            begin = 8
+            vTypes = 9
             parameters = 11
+            parametersButton = 12
+            frontElement = 14
+            additionalFileButton = 15
+            additionalFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspectSelection:
-            frequency = 2
-            name = 3
-            file = 4
-            begin = 5
-            vTypes = 6
+            name = 2
+            period = 3
+            fileButton = 4
+            file = 5
+            begin = 6
+            vTypes = 7
             parameters = 9
+            parametersButton = 10
+            frontElement = 12
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
-    # vaporizer (FALTA CENTER XXXX)
+    # vaporizer
 
     class vaporizer:
         class create:
-            begin = 5
-            end = 6
-            name = 7
+            name = 5
+            begin = 6
+            end = 7
             parameters = 9
+            parametersButton = 10
             center = 12
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
         class inspect:
             edge = 2
@@ -1562,12 +1587,24 @@ class attrs:
             begin = 4
             end = 5
             parameters = 7
+            parametersButton = 8
+            frontElement = 10
+            additionalFileButton = 11
+            additionalFile = 12
+            helpDialog = 13
+            reset = 14
 
         class inspectSelection:
             name = 2
             begin = 3
             end = 4
             parameters = 6
+            parametersButton = 7
+            frontElement = 9
+            additionalFileButton = 10
+            additionalFile = 11
+            helpDialog = 12
+            reset = 13
 
     # --------------------------------
     # SHAPE ELEMENTS
@@ -2096,6 +2133,7 @@ class attrs:
 
     class route:
         class create:
+            vClass = 4
             id = 7
             colorButton = 8
             color = 9
@@ -2832,12 +2870,12 @@ class attrs:
             number = 24
             terminateOption = 25
             spacingOption = 26
-            parameters = 28
-            parametersButton = 29
-            routeFileButton = 31
-            routeFile = 32
-            helpDialog = 33
-            reset = 34
+            parameters = 26
+            parametersButton = 27
+            routeFileButton = 29
+            routeFile = 30
+            helpDialog = 31
+            reset = 32
 
     # flow (over route)
 
@@ -4728,88 +4766,149 @@ class attrs:
     class edgeData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
-            parameters = 4
+            parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # edgeRelData
 
     class edgeRelData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
             fromEdge = 2
             toEdge = 3
-            parameters = 6
+            parameters = 5
+            parametersButton = 6
+            frontElement = 8
+            dataFileButton = 9
+            dataFile = 10
+            helpDialog = 11
+            reset = 12
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # TAZRelData
 
     class TAZRelData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
             fromTAZ = 2
             toTAZ = 3
-            parameters = 6
+            parameters = 5
+            parametersButton = 6
+            frontElement = 8
+            dataFileButton = 9
+            dataFile = 10
+            helpDialog = 11
+            reset = 12
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # edge mean data
 
     class edgeMeanData:
 
         class inspect:
-            id = 7
-            fileButton = 8
-            file = 9
-            period = 10
-            begin = 11
-            end = 12
-            excludeEmpty = 13
-            withInternal = 15
-            maxTravelTime = 16
-            minSamples = 17
-            speedThreshold = 18
-            vTypes = 19
-            trackVehicles = 20
-            detectPersons = 21
-            writeAttributes = 22
-            edges = 23
-            edgesFile = 24
-            aggregate = 25
+            id = 12
+            fileButton = 13
+            file = 14
+            period = 15
+            begin = 16
+            end = 17
+            excludeEmpty = 18
+            withInternal = 20
+            maxTravelTime = 21
+            minSamples = 22
+            speedThreshold = 23
+            vTypes = 24
+            trackVehicles = 25
+            detectPersons = 26
+            writeAttributes = 28
+            edges = 29
+            edgesFileButton = 30
+            edgesFile = 31
+            aggregate = 32
+            additionalFileButton = 34
+            additionalFile = 35
+            helpDialog = 36
+            reset = 37
 
     # lane mean data
 
     class laneMeanData:
 
         class inspect:
-            id = 7
-            fileButton = 8
-            file = 9
-            period = 10
-            begin = 11
-            end = 12
-            excludeEmpty = 13
-            withInternal = 15
-            maxTravelTime = 16
-            minSamples = 17
-            speedThreshold = 18
-            vTypes = 19
-            trackVehicles = 20
-            detectPersons = 21
-            writeAttributes = 22
-            edges = 23
-            edgesFile = 24
-            aggregate = 25
+            id = 12
+            fileButton = 13
+            file = 14
+            period = 15
+            begin = 16
+            end = 17
+            excludeEmpty = 18
+            withInternal = 20
+            maxTravelTime = 21
+            minSamples = 22
+            speedThreshold = 23
+            vTypes = 24
+            trackVehicles = 25
+            detectPersons = 26
+            writeAttributes = 28
+            edges = 29
+            edgesFileButton = 30
+            edgesFile = 31
+            aggregate = 32
+            additionalFileButton = 34
+            additionalFile = 35
+            helpDialog = 36
+            reset = 37
 
     # --------------------------------
     # Dialogs

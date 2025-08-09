@@ -566,7 +566,7 @@ public:
     bool ignoreFilterMatch(NBEdge* edge);
 
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc);
+    int remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBPTStopCont& sc);
 
     /// @brief check whether edges overlap
     void checkOverlap(double threshold, double zThreshold) const;
@@ -616,6 +616,9 @@ public:
     int removeEdgesBySpeed(NBDistrictCont& dc);
     int removeEdgesByPermissions(NBDistrictCont& dc);
     int removeLanesByWidth(NBDistrictCont& dc, const double minWidth);
+
+    /// @brief return number of edges split
+    int attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist); 
 
 private:
     /// @brief compute the form factor for a loop of edges

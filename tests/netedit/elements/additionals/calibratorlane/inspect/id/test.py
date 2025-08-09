@@ -40,6 +40,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 # select calibratorLane
 netedit.changeElement("additionalFrame", "calibratorLane")
 
+# change center view
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
+
 # create first calibratorLane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
@@ -50,7 +53,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.changeMode("inspect")
 
 # inspect calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "ca_0")

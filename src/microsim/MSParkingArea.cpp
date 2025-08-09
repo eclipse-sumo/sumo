@@ -34,6 +34,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include "MSParkingArea.h"
 #include "MSGlobals.h"
+#include <utils/common/MsgHandler.h>
 
 //#define DEBUG_RESERVATIONS
 //#define DEBUG_GET_LAST_FREE_POS
@@ -82,9 +83,9 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
         }
         if (myDepartPosDefinition != DepartPosDefinition::GIVEN) {
             // maybe allow other methods at a later time
-            throw ProcessError("Only a numerical departPos is supported for " + toString(myElement) + " '" + getID() + "'");
+            throw ProcessError(TLF("Only a numerical departPos is supported for % '%'", toString(myElement), getID()));
         } else if (myDepartPos < 0 || myDepartPos > lane.getLength()) {
-            throw ProcessError("Invalid departPos for " + toString(myElement) + " '" + getID() + "'");
+            throw ProcessError(TLF("Invalid departPos for % '%'", toString(myElement), getID()));
         }
     }
 
@@ -594,7 +595,7 @@ MSParkingArea::refuse(std::string badge) {
 
 
 bool
-MSParkingArea::accepts(MSBaseVehicle* veh) const {
+MSParkingArea::accepts(SUMOVehicle* veh) const {
     if (myAcceptedBadges.size() == 0) {
         return true;
     } else {

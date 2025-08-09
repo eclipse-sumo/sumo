@@ -32,21 +32,21 @@ netedit.changeSupermode("data")
 netedit.changeMode("edgeRelData")
 
 # create dataSet
-netedit.createDataSet()
+netedit.createDataSet("newDataSet")
 
 # create data interval
-netedit.createDataInterval()
+netedit.createDataInterval("0", "3600")
 
 # create edgeRelData
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
+netedit.leftClickData(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClickData(referencePosition, netedit.positions.elements.edge1)
 netedit.typeKey("enter")
 
 # go to delete mode
 netedit.changeMode("delete")
 
 # delete edgeRelData
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
+netedit.leftClickData(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

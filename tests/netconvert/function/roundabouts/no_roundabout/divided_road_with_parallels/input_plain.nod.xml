@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-07-31 17:19:52 by Eclipse SUMO netconvert Version v1_24_0+0089-4213760b7ff
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="simple.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <prefix.junction value="J"/>
+        <prefix.edge value="E"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="0"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-389915.13,-4985775.11" convBoundary="2202.31,1624.90,2622.88,1853.10" origBoundary="7.572009,44.988228,7.747752,45.132593" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0         +units=m +no_defs +north"/>
+
+    <node id="J0" x="2202.31" y="1813.11" type="dead_end"/>
+    <node id="J1" x="2216.61" y="1842.79" type="dead_end"/>
+    <node id="J10" x="2457.79" y="1687.63" type="traffic_light" tl="J10" tlType="actuated"/>
+    <node id="J11" x="2495.93" y="1703.90" type="traffic_light" tl="J11" tlType="actuated"/>
+    <node id="J12" x="2498.80" y="1711.13" type="traffic_light" tl="J12" tlType="actuated"/>
+    <node id="J13" x="2596.02" y="1630.07" type="dead_end"/>
+    <node id="J14" x="2583.58" y="1624.90" type="dead_end"/>
+    <node id="J15" x="2619.42" y="1642.08" type="dead_end"/>
+    <node id="J16" x="2622.88" y="1648.35" type="dead_end"/>
+    <node id="J17" x="2469.95" y="1705.07" type="priority"/>
+    <node id="J2" x="2221.23" y="1853.10" type="dead_end"/>
+    <node id="J3" x="2207.48" y="1823.77" type="dead_end"/>
+    <node id="J4" x="2468.37" y="1725.86" type="priority"/>
+    <node id="J5" x="2486.94" y="1760.27" type="priority"/>
+    <node id="J6" x="2486.95" y="1717.10" type="priority"/>
+    <node id="J7" x="2470.65" y="1680.94" type="priority"/>
+    <node id="J8" x="2473.66" y="1734.93" type="traffic_light" tl="J8" tlType="actuated"/>
+    <node id="J9" x="2441.99" y="1707.41" type="traffic_light" tl="J9" tlType="actuated"/>
+</nodes>

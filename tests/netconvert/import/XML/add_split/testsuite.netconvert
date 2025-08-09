@@ -1,6 +1,9 @@
 # beginning with three lanes, the right is removed
 three_minus_right
 
+# beginning with three lanes, the right is removed
+three_minus_right_zipper
+
 # beginning with two lanes, adding one to the left
 two_plus_left
 

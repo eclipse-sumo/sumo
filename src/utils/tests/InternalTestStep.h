@@ -112,22 +112,22 @@ public:
         TLSTableTest(const TLSTableTest&) = delete;
     };
 
-    /// @brief constructor for parsing step in strin format
+    /// @brief constructor for parsing step in string format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
     /// @brief constructor for shortcuts
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, FXSelector messageID,
-                     Category category);
+                     Category category, const std::string description);
 
     /// @brief constructor for input events (click, keyPress, etc.)
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
-                     FXEvent* event, const bool updateView);
+                     FXEvent* event, const bool updateView, const std::string description);
 
     /// @brief constructor for fix dialogs
-    InternalTestStep(InternalTestStep* parent, const std::string& solution);
+    InternalTestStep(InternalTestStep* parent, const std::string& solution, const std::string description);
 
     /// @brief constructor for key steps (only used for dialog steps)
-    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event);
+    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event, const std::string description);
 
     /// @brief destructor
     ~InternalTestStep();
@@ -159,9 +159,12 @@ public:
     /// @brief get key events used in certain dialogs (allowDialog, etc.)
     const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
+    ///  @brief get description
+    const std::string& getDescription() const;
+
 private:
     /// @brief test system parent
-    InternalTest* myTestSystem;
+    InternalTest* myTestSystem = nullptr;
 
     /// @brief message type (by default SEL_COMMAND)
     FXSelector myMessageType = SEL_COMMAND;
@@ -174,6 +177,9 @@ private:
 
     /// @brief flag to enable or disable view after execute step
     bool myUpdateView = false;
+
+    /// @brief description
+    std::string myDescription;
 
     /// @brief arguments
     std::vector<std::string> myArguments;
@@ -204,6 +210,15 @@ private:
 
     /// @brief process click function
     void leftClickOffset(const std::string& button) const;
+
+    /// @brief process moveElementHorizontal function
+    void moveElementHorizontal() const;
+
+    /// @brief process moveElementVertical function
+    void moveElementVertical() const;
+
+    /// @brief process moveElement function
+    void moveElement() const;
 
     /// @brief process typeKey function
     void typeKey() const;
@@ -307,6 +322,9 @@ private:
     /// @brief process checkParameters function
     void checkParameters(const int overlappedTabs) const;
 
+    /// @brief process checkDoubleParameters function
+    void checkDoubleParameters(const int overlappedTabs) const;
+
     /// @brief process changeEditMode function
     void changeEditMode();
 
@@ -324,6 +342,18 @@ private:
 
     /// @brief process selectNetworkItems function
     void selectNetworkItems() const;
+
+    /// @brief process lockSelection function
+    void lockSelection() const;
+
+    /// @brief process selectionRectangle function
+    void selectionRectangle() const;
+
+    /// @brief process createDataSet function
+    void createDataSet() const;
+
+    /// @brief process createDataInterval function
+    void createDataInterval() const;
 
     /// @brief process check undo function
     void undo() const;
@@ -361,8 +391,14 @@ private:
     /// @brief process create line shape function
     void createLineShape();
 
-    /// @brief process create mean data function
+    /// @brief process createMeanData function
     void createMeanData();
+
+    /// @brief process deleteMeanData function
+    void deleteMeanData();
+
+    /// @brief process copyMeanData function
+    void copyMeanData();
 
     /// @brief process quit function
     void quit();
@@ -412,10 +448,10 @@ private:
     /// @{
 
     /// @brief process check undo function
-    void undo(const int number) const;
+    void buildUndo(const int number) const;
 
     /// @brief process check redo function
-    void redo(const int number) const;
+    void buildRedo(const int number) const;
 
     /// @}
 
@@ -423,25 +459,25 @@ private:
     /// @{
 
     /// @brief translate key
-    std::pair<FXint, FXString> translateKey(const std::string &key) const;
+    std::pair<FXint, FXString> translateKey(const std::string& key) const;
 
     /// @brief build key press event
-    FXEvent* buildKeyPressEvent(const std::string &key) const;
+    FXEvent* buildKeyPressEvent(const std::string& key) const;
 
     /// @brief build key release event
-    FXEvent* buildKeyReleaseEvent(const std::string &key) const;
+    FXEvent* buildKeyReleaseEvent(const std::string& key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(const std::string &key, const bool updateView) const;
+    void buildPressKeyEvent(const std::string& key, const bool updateView) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(InternalTestStep* parent, const std::string &key) const;
+    void buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
     void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string &keyB) const;
+    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const;
 
     /// @}
 
@@ -451,16 +487,24 @@ private:
     /// @brief build mouse click event
     void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                          const int offsetX, const int offsetY,
-                         const std::string& button,
-                         const std::string& keyModifier) const;
+                         const std::string& button, const std::string& keyModifier) const;
+
+    /// @brief build mouse dragdrop
+    void buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
+                            const int offsetStartX, const int offsetStartY,
+                            const InternalTest::ViewPosition& viewEndPosition,
+                            const int offsetEndX, const int offsetEndY,
+                            const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                 const int offsetX, const int offsetY) const;
+                                 const int offsetX, const int offsetY, const int clickedButton,
+                                 const std::string& keyModifier, const int numberOfClicks) const;
 
     /// @brief build mouse left click press event
-    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                             const int offsetX, const int offsetY, const std::string& keyModifier) const;
+    FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                                  const int offsetX, const int offsetY, const std::string& keyModifier,
+                                  const int numberOfClicks) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,

@@ -28,17 +28,25 @@
 // method definitions
 // ===========================================================================
 
-GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, int messageId, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_ChooserAbstract(viewParent, messageId, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
+GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, int messageId,
+                                       FXIcon* icon, const std::string& title,
+                                       const std::map<std::string, GNEAttributeCarrier*>& ACs):
+    GUIDialog_ChooserAbstract(viewParent, messageId, icon, title.c_str(),
+                              std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myViewParent(viewParent),
-    myACs(ACs),
-    myFilteredACs(ACs),
     myLocateTLS(title.find("TLS") != std::string::npos) {
+    // fill ACs
+    myACs.reserve(ACs.size());
+    myFilteredACs.reserve(ACs.size());
+    for (const auto& AC : ACs) {
+        myACs.push_back(AC.second);
+        myFilteredACs.push_back(AC.second);
+    }
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
     std::vector<GUIGlID> ids;
     for (const auto& AC : ACs) {
-        ids.push_back(AC->getGUIGlObject()->getGlID());
+        ids.push_back(AC.second->getGUIGlObject()->getGlID());
     }
     refreshList(ids);
 }

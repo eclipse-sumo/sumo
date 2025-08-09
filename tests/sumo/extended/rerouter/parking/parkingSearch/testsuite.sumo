@@ -44,3 +44,9 @@ opposite2
 implicit_visibility
 frustration_100
 knowledge_1
+
+# restrict access to some parkingAreas
+badges
+
+# restrict access to some parkingAreas but give vehicles the needed permissions
+badges_available

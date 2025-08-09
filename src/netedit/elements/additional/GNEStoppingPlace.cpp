@@ -275,13 +275,13 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
             if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
-                return TL("lane start");
+                return LANE_START;
             }
         case SUMO_ATTR_ENDPOS:
             if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
-                return TL("lane end");
+                return LANE_END;
             }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
@@ -360,7 +360,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& 
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case GNE_ATTR_SIZE:
-            adjustLenght(parse<double>(value), undoList);
+            adjustLength(parse<double>(value), undoList);
             break;
         default:
             setCommonAttribute(key, value, undoList);
@@ -385,7 +385,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -393,7 +393,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -440,14 +440,14 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 myStartPosition = INVALID_DOUBLE;
             } else {
                 myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 myEndPosition = INVALID_DOUBLE;
             } else {
                 myEndPosition = parse<double>(value);
@@ -748,8 +748,8 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
 
 
 void
-GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
-    const auto laneLenght = getParentLanes().front()->getLaneShapeLength();
+GNEStoppingPlace::adjustLength(const double newLength, GNEUndoList* undoList) {
+    const auto laneLength = getParentLanes().front()->getLaneShapeLength();
     auto newStartPos = myStartPosition;
     auto newEndPos = myEndPosition;
     if ((newStartPos != INVALID_DOUBLE) && (newEndPos != INVALID_DOUBLE)) {
@@ -763,16 +763,16 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         if (newStartPos < 0) {
             newEndPos += (newStartPos * -1);
             newStartPos = 0;
-            if ((newStartPos < 0) && (newEndPos > laneLenght)) {
+            if ((newStartPos < 0) && (newEndPos > laneLength)) {
                 newStartPos = 0;
-                newEndPos = laneLenght;
+                newEndPos = laneLength;
             }
-        } else if (newEndPos > laneLenght) {
-            newStartPos -= (newEndPos - laneLenght);
-            newStartPos = laneLenght;
-            if ((newStartPos < 0) && (newEndPos > laneLenght)) {
+        } else if (newEndPos > laneLength) {
+            newStartPos -= (newEndPos - laneLength);
+            newStartPos = laneLength;
+            if ((newStartPos < 0) && (newEndPos > laneLength)) {
                 newStartPos = 0;
-                newEndPos = laneLenght;
+                newEndPos = laneLength;
             }
         }
         // set new start and end positions
@@ -781,7 +781,7 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);
         undoList->end();
     } else if (newStartPos != INVALID_DOUBLE) {
-        newStartPos = laneLenght - newLength;
+        newStartPos = laneLength - newLength;
         if (newStartPos < 0) {
             newStartPos = 0;
         }
@@ -790,8 +790,8 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         undoList->end();
     } else if (newEndPos != INVALID_DOUBLE) {
         newEndPos = newLength;
-        if (newEndPos > laneLenght) {
-            newEndPos = laneLenght;
+        if (newEndPos > laneLength) {
+            newEndPos = laneLength;
         }
         undoList->begin(this, TLF(" %'s length", myTagProperty->getTagStr()));
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);

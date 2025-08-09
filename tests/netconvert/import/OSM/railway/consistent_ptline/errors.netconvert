@@ -38,9 +38,9 @@ Warning: Last stop edge '563320574#0' is not part of the route of line '6789991'
 Warning: First stop edge '563320574#0' is not part of the route of line '6915025'.
 Warning: Last stop edge '563320574#0' is not part of the route of line '6915025'.
 Warning: Edge sequence is not consistent with stop sequence in line '6952993', not adding bidi edges.
-Warning: Found sharp turn with radius 2.20 at the start of edge '33081812#5'.
-Warning: Found sharp turn with radius 6.36 at the start of edge '375217301#2'.
-Warning: Found sharp turn with radius 6.71 at the end of edge '375217308#1'.
+Warning: Found sharp turn with radius 2.16 at the start of edge '33081812#5'.
+Warning: Found sharp turn with radius 6.29 at the start of edge '375217301#2'.
+Warning: Found sharp turn with radius 6.74 at the end of edge '375217308#1'.
 Warning: Converting invalid rail_crossing to priority junction '3360099094'.
 Warning: Converting invalid rail_crossing to priority junction '3362307568'.
 Warning: Converting invalid rail_crossing to priority junction '3412405253'.
@@ -50,8 +50,8 @@ Warning: The traffic light '3319201701' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '3319201701'
 Warning: The traffic light '5708137319' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '5708137319'
-Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.07 due to turning radius of 11.13 (length=7.13, angle=54.57).
-Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.14 due to turning radius of 6.02 (length=1.74, angle=34.17).
+Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.14 due to turning radius of 10.93 (length=7.13, angle=55.34).
+Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.13 due to turning radius of 6.04 (length=1.76, angle=34.22).
 Warning: 8 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 13 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 8 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').

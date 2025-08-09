@@ -132,6 +132,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("reserved-ids", new Option_FileName());
     oc.addDescription("reserved-ids", "Processing", TL("Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"));
 
+    oc.doRegister("kept-ids", new Option_FileName());
+    oc.addDescription("kept-ids", "Processing", TL("Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed"));
+
     if (!forNetgen) {
         oc.doRegister("dismiss-vclasses", new Option_Bool(false));
         oc.addDescription("dismiss-vclasses", "Processing", TL("Removes vehicle class restrictions from imported edges"));
@@ -356,9 +359,15 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.addDescription("junctions.join-exclude", "Junctions", TL("Interprets STR[] as list of junctions to exclude from joining"));
     }
 
-    oc.doRegister("junctions.join-same", new Option_Bool(false));
+    oc.doRegister("junctions.join-same", new Option_Float(-1));
     oc.addDescription("junctions.join-same", "Junctions",
-                      "Joins junctions that have the same coordinates even if not connected");
+                      "Joins junctions that have similar coordinates even if not connected");
+
+    if (!forNetgen) {
+        oc.doRegister("junctions.attach-removed", new Option_Float(-1));
+        oc.addDescription("junctions.attach-removed", "Junctions",
+                "Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks)");
+    }
 
     oc.doRegister("max-join-ids", new Option_Integer(4));
     oc.addDescription("max-join-ids", "Junctions", "Abbreviate junction or TLS id if it joins more than INT junctions");

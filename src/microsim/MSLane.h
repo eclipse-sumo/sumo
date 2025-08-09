@@ -1367,6 +1367,15 @@ public:
         return myIntermodalCollisionAction;
     }
 
+    static DepartSpeedDefinition& getDefaultDepartSpeedDefinition() {
+        return myDefaultDepartSpeedDefinition;
+    }
+
+    static double& getDefaultDepartSpeed() {
+        return myDefaultDepartSpeed;
+    }
+
+
     static const long CHANGE_PERMISSIONS_PERMANENT = 0;
     static const long CHANGE_PERMISSIONS_GUI = 1;
 
@@ -1630,7 +1639,8 @@ private:
     static SUMOTime myIntermodalCollisionStopTime;
     static double myCollisionMinGapFactor;
     static bool myExtrapolateSubstepDepart;
-
+    static DepartSpeedDefinition myDefaultDepartSpeedDefinition;
+    static double myDefaultDepartSpeed;
     /**
      * @class vehicle_position_sorter
      * @brief Sorts vehicles by their position (descending)

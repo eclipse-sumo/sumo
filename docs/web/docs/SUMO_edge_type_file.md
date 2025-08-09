@@ -191,7 +191,7 @@ OSM, you may wish to load:
 
 Only few data is available about the railway types. The most important
 document might be the [Eisenbahn-Bau- und Betriebsordnung
-(EBO)](https://www.gesetze-im-internet.de/bundesrecht/ebo/gesamt.pdf),
+(EBO)](https://www.gesetze-im-internet.de/ebo/EBO.pdf),
 but even that did not help me much. So the given values are mostly
 personal opinion, except if a reference is given. More references are
 very welcome.

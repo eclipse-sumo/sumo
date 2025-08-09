@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-29 14:40:37.115080 by routeSampler.py v1_17_0+1318-85f891f765f
+<!-- generated on 2025-07-18 14:53:05.100461 by routeSampler.py v1_23_1+1165-c477aa00e14
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -10,7 +10,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="200.0" -->
-    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 10 (route_0) -->
+    <route id="0_2" edges="-3 -3.180.00 5" probability="10"/> <!-- (route_0) -->
 
     <vehicle id="0_0" depart="4.12" route="0_2"/>
     <vehicle id="0_1" depart="11.62" route="0_2"/>
@@ -23,7 +23,7 @@
     <vehicle id="0_8" depart="173.24" route="0_2"/>
     <vehicle id="0_9" depart="193.98" route="0_2"/>
 <!-- begin="200.0" end="400.0" -->
-    <route id="200_0" edges="-3 -3.180.00 11"/> <!-- 8 (route_2) -->
+    <route id="200_0" edges="-3 -3.180.00 11" probability="8"/> <!-- (route_2) -->
 
     <vehicle id="200_0" depart="204.61" route="200_0"/>
     <vehicle id="200_1" depart="209.33" route="200_0"/>

@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClickOffset(referencePosition, netedit.positions.elements.edge0, -30, 0)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.frequency, "dummyFreq")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.period, "dummyFreq")
 
 # Change parameter id with a non valid value (negative)
-netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.frequency, "-12")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.period, "-12")
 
 # Change parameter id with a valid value
-netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.frequency, "12.5")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.period, "12.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

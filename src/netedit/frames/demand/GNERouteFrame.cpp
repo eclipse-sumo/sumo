@@ -27,6 +27,7 @@
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/MsgHandler.h>
 
 #include "GNERouteFrame.h"
 
@@ -55,8 +56,8 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     MFXGroupBoxModule(routeFrameParent, TL("Route mode")),
     myRouteFrameParent(routeFrameParent) {
     // first fill myRouteModesStrings
-    myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
-    myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
+    myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, TL("non consecutive edges")));
+    myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, TL("consecutive edges")));
     // Create MFXComboBoxIcon for Route mode
     myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);

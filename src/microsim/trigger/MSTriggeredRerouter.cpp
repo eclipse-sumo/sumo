@@ -280,7 +280,7 @@ MSTriggeredRerouter::myStartElement(int element,
         for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_MAIN, getID().c_str(), ok)) {
             MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge == nullptr) {
-                throw InvalidArgument("The main edge '" + edgeID + "' to use within rerouter '" + getID() + "' is not known.");
+                throw InvalidArgument(TLF("The main edge '%' to use within rerouter '%' is not known.", edgeID, getID()));
             }
             myParsedRerouteInterval.main.push_back(edge);
             myParsedRerouteInterval.cMain.push_back(edge);
@@ -288,14 +288,14 @@ MSTriggeredRerouter::myStartElement(int element,
         for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_SIDING, getID().c_str(), ok)) {
             MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge == nullptr) {
-                throw InvalidArgument("The siding edge '" + edgeID + "' to use within rerouter '" + getID() + "' is not known.");
+                throw InvalidArgument(TLF("The siding edge '%' to use within rerouter '%' is not known.", edgeID, getID()));
             }
             myParsedRerouteInterval.siding.push_back(edge);
             myParsedRerouteInterval.cSiding.push_back(edge);
         }
         myParsedRerouteInterval.sidingExit = findSignal(myParsedRerouteInterval.cSiding.begin(), myParsedRerouteInterval.cSiding.end());
         if (myParsedRerouteInterval.sidingExit == nullptr) {
-            throw InvalidArgument("The siding within rerouter '" + getID() + "' does not have a rail signal.");
+            throw InvalidArgument(TLF("The siding within rerouter '%' does not have a rail signal.", getID()));
         }
         for (auto it = myParsedRerouteInterval.cSiding.begin(); it != myParsedRerouteInterval.cSiding.end(); it++) {
             myParsedRerouteInterval.sidingLength += (*it)->getLength();
@@ -884,7 +884,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // not driving towards the right type of stop
         return nullptr;
     }
-    std::vector<StoppingPlaceVisible> parks = rerouteDef->parkProbs.getVals();
+    std::vector<StoppingPlaceVisible> parks;
+    for (auto cand : rerouteDef->parkProbs.getVals()) {
+        if (cand.first->accepts(&veh)) {
+            parks.push_back(cand);
+        }
+    }
     StoppingPlaceParamMap_t addInput = {};
     return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
 }

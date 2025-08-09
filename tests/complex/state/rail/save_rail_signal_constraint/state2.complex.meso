@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-08 16:24:19 by Eclipse SUMO sumo Version v1_23_1+0938-cf8b72380de
+<!-- generated on 2025-07-16 08:51:58 by Eclipse SUMO sumo Version v1_23_1+1098-b5f7c6a5135
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,7 +32,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+0938-cf8b72380de" time="10.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_23_1+1098-b5f7c6a5135" time="10.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!between" state="0" edges="d e"/>
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <route id="!t1" state="0" edges="d c c"/>
@@ -42,10 +42,14 @@
         <stop busStop="stop_c" arrival="100.00" duration="30.00" until="130.00"/>
         <device id="tripinfo_t0" state="a_0 13.89 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_t0" state="0 0"/>
+        <rem id="tripinfo_t0" time="7199" pos="100.00"/>
+        <rem id="DriveWay_gneJ1.d0" time="7199" pos="100.00"/>
     </vehicle>
     <vehicle id="between" type="train" depart="0.00" departSpeed="max" route="!between" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 0 0 0 1 0 14400 7200 9223372036854774807">
         <device id="tripinfo_between" state="d_0 13.89 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_between" state="0 0"/>
+        <rem id="tripinfo_between" time="7200" pos="100.01"/>
+        <rem id="DriveWay_gneJ5.d0" time="7200" pos="100.01"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max" route="!t1" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807">
         <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00"/>
@@ -66,7 +70,7 @@
     </segment>
     <driveWay id="gneJ1.d0" edges="a" vehicles="t0"/>
     <driveWay id="gneJ5.d0" edges="d" vehicles="between"/>
-    <routingEngine last="10000">
+    <routingEngine last="10000" index="10">
         <edge id="a" speed="13.89" pastSpeed="13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
         <edge id="d" speed="13.89" pastSpeed="13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
     </routingEngine>

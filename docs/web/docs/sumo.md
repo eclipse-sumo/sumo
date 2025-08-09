@@ -76,6 +76,10 @@ configuration:
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
+| **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
+| **--output.format** {{DT_STR}} | Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet'); *default:* **xml** |
+| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain'); *default:* **tag** |
+| **--output.column-separator** {{DT_STR}} | Separator in CSV output; *default:* **;** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **--netstate-dump** {{DT_FILE}} | Save complete network states into FILE |
 | **--netstate-dump.empty-edges** {{DT_BOOL}} | Write also empty edges completely when dumping; *default:* **false** |
@@ -226,6 +230,8 @@ configuration:
 | **--railsignal.max-block-length** {{DT_FLOAT}} | Do not build blocks longer than FLOAT and issue a warning instead; *default:* **20000** |
 | **--railsignal.default-classes** {{DT_STR_LIST}} | List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them; *default:* **rail,rail_fast,rail_electric,rail_urban** |
 | **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **180** |
+| **--default.departspeed** {{DT_STR}} | Select default depart speed; *default:* **0** |
+| **--default.departlane** {{DT_STR}} | Select default depart lane; *default:* **first** |
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class); *default:* **-1** |
@@ -237,7 +243,7 @@ configuration:
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes maneuvering time and associated lane blocking; *default:* **false** |
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
 | **--use-stop-started** {{DT_BOOL}} | Override stop arrival times with stop started times when given; *default:* **false** |
-| **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']; *default:* **striping**; enable 'ignore-route-errors' when using 'jupedsim' |
+| **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']; *default:* **striping** |
 | **--pedestrian.timegap-crossing** {{DT_FLOAT}} | Minimal acceptable gap (in seconds) between two vehicles before starting to cross; *default:* **2** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |

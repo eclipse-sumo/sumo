@@ -102,7 +102,7 @@ MFXUtils::parseExtensions(FXString patternText) {
     // check files extension
     if (patternText != "*") {
         // split extensions
-        const auto extensionsStr = StringTokenizer(patternText.text(), ", ").getVector();
+        const auto extensionsStr = StringTokenizer(patternText.text(), ",").getVector();
         for (const auto& extensionStr : extensionsStr) {
             FXString extension = extensionStr.c_str();
             extensions.push_back(extension.after('.'));

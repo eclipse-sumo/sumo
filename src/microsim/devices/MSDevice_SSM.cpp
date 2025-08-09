@@ -3884,6 +3884,7 @@ std::string
 MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
     OptionsCont& oc = OptionsCont::getOptions();
     std::string file = deviceID + ".xml";
+    std::string basePath = "";
     if (v.getParameter().hasParameter("device.ssm.file")) {
         try {
             file = v.getParameter().getParameter("device.ssm.file", file);
@@ -3902,9 +3903,12 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
             WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using default of '%'."), v.getID(), file);
             myIssuedParameterWarnFlags |= SSM_WARN_FILE;
         }
+        if (OptionsCont::getOptions().isSet("configuration-file") && !oc.isDefault("device.ssm.file")) {
+            basePath = OptionsCont::getOptions().getString("configuration-file");
+        }
     }
-    if (OptionsCont::getOptions().isSet("configuration-file")) {
-        file = FileHelpers::checkForRelativity(file, OptionsCont::getOptions().getString("configuration-file"));
+    if (basePath != "") {
+        file = FileHelpers::checkForRelativity(file, basePath);
         try {
             file = StringUtils::urlDecode(file);
         } catch (NumberFormatException& e) {

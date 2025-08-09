@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:10 by Eclipse SUMO sumo Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-18 16:06:41 by Eclipse SUMO sumo Version v1_23_1+1171-abf54b0e8c3
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -181,6 +181,8 @@
         <railsignal.max-block-length value="20000" type="FLOAT" help="Do not build blocks longer than FLOAT and issue a warning instead"/>
         <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban" type="STR[]" help="List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"/>
         <time-to-impatience value="180" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
+        <default.departspeed value="0" type="STR" help="Select default depart speed"/>
+        <default.departlane value="first" type="STR" help="Select default depart lane"/>
         <default.action-step-length value="0" type="FLOAT" help="Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length."/>
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
         <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class)"/>

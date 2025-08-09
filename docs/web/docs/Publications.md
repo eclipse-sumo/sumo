@@ -26,7 +26,7 @@ If your publication mentions SUMO, please let us know!
 ```
 
 ## DOI
-If you want to refer explicitly to the software version being used, please use the corresponding software DOI. You can always find the DOI for the current and previous releases [on Zenodo](https://doi.org/10.5281/zenodo.8345518).
+If you want to refer explicitly to the software version being used, please use the corresponding software DOI. You can always find the DOI for the current and previous releases [on Zenodo](https://doi.org/10.5281/zenodo.8345518 ) .
 
 *For version {{ Version }}, use:*
 
@@ -48,6 +48,7 @@ Alvarez Lopez, P., Banse, A., Barthauer, M., Behrisch, M., Couéraud, B., Erdman
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2022)  | [SUMO 2022](https://www.tib-op.org/ojs/index.php/scp/issue/view/8)   | TIB Open Publishing  | 2022 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2023)  | [SUMO 2023](https://www.tib-op.org/ojs/index.php/scp/issue/view/11)  | TIB Open Publishing  | 2023 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2024)  | [SUMO 2024](https://www.tib-op.org/ojs/index.php/scp/issue/view/29)  | TIB Open Publishing  | 2024 |
+| SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2025)  | [SUMO 2025](https://www.tib-op.org/ojs/index.php/scp/issue/view/182) | TIB Open Publishing  | 2025 |
 
 
 

@@ -1,25 +1,25 @@
-Parsing sumo-net from 'input_net.net.xml' ... done (16ms).
+Parsing sumo-net from 'input_net.net.xml' ... done (59ms).
 Parsing sumo-net from 'input_net2.net.xml' ...
- done (5ms).
+ done (32ms).
  Import done:
    55 nodes loaded.
    35 types loaded.
    115 edges loaded.
 Removing self-loops ... done (0ms).
-Joining junctions with identical coordinates ... done (0ms).
+Joining junctions with similar coordinates ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (3ms).
+Computing node shapes ... done (1ms).
 Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
-Dividing of lanes on approached lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (20ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ...
  done (0ms).
@@ -44,5 +44,5 @@ Summary:
   Converted boundary : 112534.80,-32912.32,113200.89,-30898.90
 -----------------------------------------------------
 Writing network ...
- done (7ms).
+ done (23ms).
 Success.

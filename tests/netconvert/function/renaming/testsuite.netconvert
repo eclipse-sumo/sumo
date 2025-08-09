@@ -1,6 +1,12 @@
 # prefix junction and edge ids
 prefix
 
+# prefix junction ids
+prefix_junctions
+
+# prefix junction ids
+prefix_edges
+
 # prefix junction and edge ids (net has a joined tls)
 prefix_joinedTLS
 
@@ -9,4 +15,13 @@ prefix_prefixed
 
 # rename junction and edge ids to prefix+number
 prefix_renumber
+
+# prefix junction and edge ids but not for all objects
+prefix_exclude
+
+# make ids numerical
+numerical
+
+# make ids numerical but not for all objects
+numerical_exclude
 joinedTLS_renumber

@@ -7,140 +7,143 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-30 12:19+0200\n"
-"PO-Revision-Date: 2025-06-30 12:19+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2025-08-08 10:03+0000\n"
+"PO-Revision-Date: 2025-07-24 14:03+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
+"br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"python-tools/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
-msgstr ""
+msgstr "Semáforo Interativo"
 
 #: tools/game/runner.py:68
 msgid "Railway Control"
-msgstr ""
+msgstr "Controle de Ferrovia"
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
-msgstr ""
+msgid "Railway Control (Demo)"
+msgstr "Controle de Ferrovia (Demo)"
 
 #: tools/game/runner.py:70
-msgid "Research intersection Braunschweig"
-msgstr ""
+msgid "Research intersection Braunschweig (Demo)"
+msgstr "Pesquisa de interseção Braunschweig (Demo)"
 
 #: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
-msgstr ""
+msgstr "Pesquisa de interseção Ingolstadt"
 
 #: tools/game/runner.py:72
 msgid "Simple Junction"
-msgstr ""
+msgstr "Cruzamento Simples"
 
 #: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
-msgstr ""
+msgstr "Cruzamento Simples (Demo)"
 
 #: tools/game/runner.py:74
 msgid "Four Junctions"
-msgstr ""
+msgstr "Quatro Cruzamentos"
 
 #: tools/game/runner.py:75
 msgid "Six Junctions"
-msgstr ""
+msgstr "Seis Cruzamentos"
 
 #: tools/game/runner.py:76
 msgid "Prof. Kühne"
-msgstr ""
+msgstr "Prof. Kühne"
 
 #: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
-msgstr ""
+msgstr "Mundo Virtual com Cruzamentos 3D"
 
 #: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
-msgstr ""
+msgstr "Cruzamento 3D OpenStreetMap"
 
 #: tools/game/runner.py:79
 msgid "Highway Ramp"
-msgstr ""
+msgstr "Alça de Acesso"
 
 #: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
-msgstr ""
+msgstr "Alça Combinada de Acesso e Saída de Rodovia"
 
 #: tools/game/runner.py:81
 msgid "Corridor"
-msgstr ""
+msgstr "Corredor"
 
 #: tools/game/runner.py:82
 msgid "Highway Ramp A10"
-msgstr ""
+msgstr "Alça de Acesso A10"
 
 #: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
-msgstr ""
+msgstr "Transporte sob Demanda (Novo)"
 
 #: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
-msgstr ""
+msgstr "DRT - Avançado (Novo)"
 
 #: tools/game/runner.py:85
 msgid "DRT - Demo"
-msgstr ""
+msgstr "DRT - Demo"
 
 #: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
-msgstr ""
+msgstr "Pontuação"
 
 #: tools/game/runner.py:87
 msgid "Reset Highscore"
-msgstr ""
+msgstr "Reiniciar Pontuação"
 
 #: tools/game/runner.py:88
 msgid "German"
-msgstr ""
+msgstr "Alemão"
 
 #: tools/game/runner.py:89
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #: tools/game/runner.py:90
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: tools/game/runner.py:91
 msgid "Spanish"
-msgstr ""
+msgstr "Espanhol"
 
 #: tools/game/runner.py:92
 msgid "French"
-msgstr ""
+msgstr "Francês"
 
 #: tools/game/runner.py:93
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Chinês (Simplificado)"
 
 #: tools/game/runner.py:94
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Chinês (Tradicional)"
 
 #: tools/game/runner.py:95
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: tools/game/runner.py:97
 msgid "Congratulations!"
-msgstr ""
+msgstr "Parabéns!"
 
 #: tools/game/runner.py:98
 msgid "Your Score"
-msgstr ""
+msgstr "Sua Pontuação"
 
 #: tools/game/runner.py:99
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"

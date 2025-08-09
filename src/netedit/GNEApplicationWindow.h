@@ -512,10 +512,10 @@ public:
     long onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
-    long onCmdUndo(FXObject*, FXSelector, void*);
+    long onCmdUndo(FXObject* sender, FXSelector, void*);
 
     // @brief called when user press Ctrl+Y
-    long onCmdRedo(FXObject*, FXSelector, void*);
+    long onCmdRedo(FXObject* sender, FXSelector, void*);
 
     // @brief called when user press open undoList dialog
     long onCmdOpenUndoListDialog(FXObject*, FXSelector, void*);

@@ -2,4 +2,5 @@ Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' an
 Warning: Converting invalid rail_crossing to priority junction 'JunctionCenter'.
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
+Warning: Converting invalid rail_crossing to priority junction 'JunctionCenter'.
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).

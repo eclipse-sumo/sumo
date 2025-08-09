@@ -1,1 +1,2 @@
-Error: Could not build laneAreaDetector with ID 'e2_0' in netedit; Attribute timeThreshold cannot be negative (-12.00).
+Warning: Invalid value 'dummyTimeTreshold' in attribute timeThreshold
+Warning: Invalid value '-12' in attribute timeThreshold

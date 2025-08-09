@@ -1,0 +1,5 @@
+junction:N
+edge:NC
+edge:CN
+edge:SC
+edge:CS

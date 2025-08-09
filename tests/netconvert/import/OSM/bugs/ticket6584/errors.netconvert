@@ -11,5 +11,5 @@ Warning: Converting invalid rail_crossing to priority junction '3548467971'.
 Warning: Converting invalid rail_crossing to priority junction '3548467987'.
 Warning: The traffic light '3548475101' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '3548475101'
-Warning: Speed of straight connection '498531128#0_0->223276865#1_0' reduced by 13.14 due to turning radius of 10.76 (length=7.96, angle=60.79).
+Warning: Speed of straight connection '498531128#0_0->223276865#1_0' reduced by 13.14 due to turning radius of 10.77 (length=7.95, angle=60.72).
 Warning: 10 total messages of type: Converting invalid rail_crossing to priority junction '%'.

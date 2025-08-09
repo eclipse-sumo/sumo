@@ -146,19 +146,19 @@ keywords:
   - simulation
   - microscopic
   - traffic
-date-released: "2025-05-08"
-version: 1.23.1
-doi: 10.5281/zenodo.15359663
+date-released: "2025-07-22"
+version: 1.24.0
+doi: 10.5281/zenodo.16268320
 repository-code: "https://github.com/eclipse-sumo/sumo"
 type: software
 url: "https://www.eclipse.dev/sumo/"
 identifiers:
   - description: "The GitHub tag"
     type: url
-    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_23_1"
+    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_24_0"
   - description: "The download folder"
     type: url
-    value: "https://sumo.dlr.de/releases/1.23.1/"
+    value: "https://sumo.dlr.de/releases/1.24.0/"
 license:
   - "EPL-2.0"
   - "GPL-2.0-or-later"

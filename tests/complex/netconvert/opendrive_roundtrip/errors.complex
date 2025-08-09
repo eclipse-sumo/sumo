@@ -3,5 +3,5 @@ Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m
 Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Could not compute smooth shape from lane '-25944605_0' to lane '6137239#2_0'. Use option 'junctions.scurve-stretch' or increase radius of junction 'cluster_283018937_38919841' to fix this.
-Warning: Found sharp turn with radius 2.14 at the end of edge '-823'.
-Warning: Found sharp turn with radius 2.14 at the start of edge '-929'.
+Warning: Found sharp turn with radius 2.26 at the end of edge '-823'.
+Warning: Found sharp turn with radius 2.26 at the start of edge '-929'.

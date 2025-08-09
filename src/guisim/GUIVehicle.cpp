@@ -94,6 +94,7 @@ GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 
 
 GUIVehicle::~GUIVehicle() {
+    gSelected.deselect(GLO_VEHICLE, getGlID());
 }
 
 

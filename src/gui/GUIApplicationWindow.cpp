@@ -876,8 +876,7 @@ long
 GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
     FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
     if (mc->getText() == StringUtils::replace(TL("Edit Selected..."), "&", "").c_str()) {
-        GUIDialog_GLChosenEditor* chooser =
-            new GUIDialog_GLChosenEditor(this, &gSelected);
+        GUIDialog_GLChosenEditor* chooser = new GUIDialog_GLChosenEditor(this, &gSelected);
         chooser->create();
         chooser->show();
     } else {

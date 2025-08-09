@@ -338,7 +338,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
             const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            // check using default value for certain default values (for example, lenght = -1)
+            // check using default value for certain default values (for example, length = -1)
             if (!usingDefaultValue && myAttrProperty->isPositive() && (doubleValue < 0)) {
                 return attribute;
             } else if (!usingDefaultValue && myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {
@@ -451,7 +451,7 @@ long
 GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
     // set title depending if we're loading or saving
     const std::string title = myAttrProperty->isFileSave() ?
-                              TLF("Select existent o create new file for % attribute", myAttrProperty->getAttrStr()) :
+                              TLF("Select existent or create new file for % attribute", myAttrProperty->getAttrStr()) :
                               TLF("Select existent file for % attribute", myAttrProperty->getAttrStr());
     // open dialog
     const std::string value = GNEApplicationWindowHelper::openFileDialog(

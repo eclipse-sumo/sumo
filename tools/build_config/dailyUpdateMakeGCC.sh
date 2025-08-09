@@ -139,11 +139,13 @@ echo "--" >> $STATUSLOG
 
 # netedit tests
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
-  if test "$FILEPREFIX" == "gcc4_64" || test "$FILEPREFIX" == "extraNetedit"; then
+  if test "$FILEPREFIX" == "gcc4_64"; then
     # send SIGTERM to the netedit tests after some time and SIGKILL sometime later
     # This will not work on macOS unless "brew install coreutils" has been executed
     timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
+  fi
+  if test "$FILEPREFIX" == "extraNetedit"; then
     timeout -k 540m 510m tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
     killall -9 -q fluxbox Xvfb

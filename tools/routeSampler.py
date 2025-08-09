@@ -265,11 +265,10 @@ class Routes:
         comment = []
         probability = ""
         ID = ' id="%s%s%s"' % (prefix, intervalPrefix, routeIndex) if prefix is not None else ""
-        if writeDist:
+        if ID:
             probability = ' probability="%s"' % count
-        elif ID:
-            indent = ' ' * 4
-            comment.append(str(count))
+            if not writeDist:
+                indent = ' ' * 4
         if ID and edges in self.edgeIDs:
             comment.append("(%s)" % self.edgeIDs[edges])
         comment = ' '.join(comment)

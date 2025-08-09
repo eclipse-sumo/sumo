@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-06-04 10:02+0000\n"
+"POT-Creation-Date: 2025-08-08 10:03+0000\n"
+"PO-Revision-Date: 2025-07-27 10:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
@@ -28,117 +28,124 @@ msgid "Railway Control"
 msgstr "Comando della gestione ferroviaria"
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
-msgstr "Demo comando della gestione ferroviaria"
+msgid "Railway Control (Demo)"
+msgstr "Esercizio ferroviario (Demo)"
 
 #: tools/game/runner.py:70
+msgid "Research intersection Braunschweig (Demo)"
+msgstr "Incrocio di ricerca di Braunschweig (Demo)"
+
+#: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
 msgstr "Incrocio della ricerca di Ingolstadt"
 
-#: tools/game/runner.py:71
+#: tools/game/runner.py:72
 msgid "Simple Junction"
 msgstr "Incrocio semplice"
 
-#: tools/game/runner.py:72
+#: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
 msgstr "Incrocio semplice (demo)"
 
-#: tools/game/runner.py:73
+#: tools/game/runner.py:74
 msgid "Four Junctions"
 msgstr "Quattro incroci"
 
-#: tools/game/runner.py:74
+#: tools/game/runner.py:75
 msgid "Six Junctions"
 msgstr "Sei incroci"
 
-#: tools/game/runner.py:75
+#: tools/game/runner.py:76
 msgid "Prof. Kühne"
 msgstr "Prof. Kühne"
 
-#: tools/game/runner.py:76
+#: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
 msgstr "Incrocio 3D Mondo virtuale"
 
-#: tools/game/runner.py:77
+#: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
 msgstr "Incrocio 3D OpenStreetMap"
 
-#: tools/game/runner.py:78
+#: tools/game/runner.py:79
 msgid "Highway Ramp"
 msgstr "Rampa autostradale"
 
-#: tools/game/runner.py:79
+#: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
 msgstr "Rampa e uscita autostradale combinate"
 
-#: tools/game/runner.py:80
+#: tools/game/runner.py:81
 msgid "Corridor"
 msgstr "Corridoio"
 
-#: tools/game/runner.py:81
+#: tools/game/runner.py:82
 msgid "Highway Ramp A10"
 msgstr "Rampa autostradale A10"
 
-#: tools/game/runner.py:82
+#: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
 msgstr "Trasporto a chiamata (nuovo)"
 
-#: tools/game/runner.py:83
+#: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
 msgstr "Trasporto a chiamata - Livello avanzato (nuovo)"
 
-#: tools/game/runner.py:84
+#: tools/game/runner.py:85
 msgid "DRT - Demo"
 msgstr "Trasporto a chiamata - Demo"
 
-#: tools/game/runner.py:85 tools/game/runner.py:95
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "Classifica per punteggi"
 
-#: tools/game/runner.py:86
+#: tools/game/runner.py:87
 msgid "Reset Highscore"
 msgstr "Svuota classifica dei punteggi"
 
-#: tools/game/runner.py:87
+#: tools/game/runner.py:88
 msgid "German"
 msgstr "Tedesco"
 
-#: tools/game/runner.py:88
+#: tools/game/runner.py:89
 msgid "English"
 msgstr "Inglese"
 
-#: tools/game/runner.py:89
+#: tools/game/runner.py:90
 msgid "Italian"
 msgstr "Italiano"
 
-#: tools/game/runner.py:90
+#: tools/game/runner.py:91
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: tools/game/runner.py:91
+#: tools/game/runner.py:92
 msgid "French"
 msgstr "Francese"
 
-#: tools/game/runner.py:92
+#: tools/game/runner.py:93
 msgid "Chinese (simplified)"
 msgstr "Cinese (semplificato)"
 
-#: tools/game/runner.py:93
+#: tools/game/runner.py:94
 msgid "Chinese (traditional)"
 msgstr "Cinese (tradizionale)"
 
-#: tools/game/runner.py:94
+#: tools/game/runner.py:95
 msgid "Quit"
 msgstr "Esci"
 
-#: tools/game/runner.py:96
+#: tools/game/runner.py:97
 msgid "Congratulations!"
 msgstr "Congratulazioni!"
 
-#: tools/game/runner.py:97
+#: tools/game/runner.py:98
 msgid "Your Score"
 msgstr "Tuo punteggio"
 
-#: tools/game/runner.py:98
+#: tools/game/runner.py:99
 msgid "Continue"
 msgstr "Continua"
+
+#~ msgid "Railway Control Demo"
+#~ msgstr "Demo comando della gestione ferroviaria"

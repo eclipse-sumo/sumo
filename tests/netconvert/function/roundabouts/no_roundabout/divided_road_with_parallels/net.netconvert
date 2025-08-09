@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-07-31 23:05:46 by Eclipse SUMO netconvert Version v1_24_0+0095-6c0eb5808db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-392117.44,-4987400.01" convBoundary="0.00,0.00,420.57,228.20" origBoundary="7.572009,44.988228,7.747752,45.132593" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0         +units=m +no_defs +north"/>
+
+    <edge id="E0" from="J6" to="J5" name="Corso Siracusa" priority="10" type="highway.tertiary" spreadType="center" shape="284.64,92.20 285.33,100.89 286.57,117.27 284.63,135.37">
+        <lane id="E0_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="8.33" length="43.35" shape="285.17,98.88 285.33,100.89 286.57,117.27 285.31,129.03"/>
+    </edge>
+    <edge id="E1" from="J5" to="J8" name="Corso Siracusa" priority="10" type="highway.tertiary" spreadType="center" shape="284.63,135.37 279.75,123.33 271.35,110.03">
+        <lane id="E1_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="28.72" shape="282.24,129.46 279.75,123.33 271.42,110.14"/>
+    </edge>
+    <edge id="E10" from="J17" to="J13" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="273.23,65.99 280.63,61.78 283.60,60.40 377.92,13.37 393.71,5.17">
+        <lane id="E10_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="149.27" shape="277.48,61.73 279.90,60.36 282.91,58.96 377.19,11.94 392.97,3.75"/>
+        <lane id="E10_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="149.27" shape="279.06,64.52 281.36,63.20 284.29,61.84 378.65,14.80 394.45,6.59"/>
+    </edge>
+    <edge id="E11" from="J16" to="J12" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" spreadType="center" shape="420.57,23.45 410.31,28.71 337.99,65.24 296.49,86.23">
+        <lane id="E11_0" index="0" allow="passenger taxi bus delivery bicycle" speed="11.81" length="139.06" shape="420.57,23.45 410.31,28.71 337.99,65.24 296.62,86.16"/>
+    </edge>
+    <edge id="E12" from="J12" to="J6" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" spreadType="center" shape="296.49,86.23 293.50,87.69 284.64,92.20">
+        <lane id="E12_0" index="0" allow="passenger taxi bus delivery bicycle" speed="9.72" length="13.27" shape="296.36,86.29 293.50,87.69 288.64,90.16"/>
+    </edge>
+    <edge id="E13" from="J7" to="J14" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" spreadType="center" shape="268.34,56.04 275.62,52.32 301.34,39.58 381.27,0.00">
+        <lane id="E13_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="7.08" length="126.07" shape="272.55,52.09 274.90,50.89 300.63,38.15 380.56,-1.43"/>
+        <lane id="E13_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="7.08" length="126.07" shape="274.01,54.94 276.34,53.75 302.05,41.01 381.98,1.43"/>
+    </edge>
+    <edge id="E14" from="J10" to="J7" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" spreadType="center">
+        <lane id="E14_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="6.66" length="14.50" shape="254.85,61.26 262.57,57.24"/>
+        <lane id="E14_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="6.66" length="14.50" shape="256.32,64.10 264.05,60.08"/>
+    </edge>
+    <edge id="E15" from="J15" to="J11" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="417.11,17.18 407.15,22.12 342.46,54.39 315.36,67.86 293.62,79.00">
+        <lane id="E15_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="138.10" shape="417.82,18.61 407.86,23.55 343.17,55.82 316.08,69.29 294.47,80.36"/>
+        <lane id="E15_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="138.10" shape="416.40,15.75 406.44,20.69 341.75,52.96 314.64,66.43 293.01,77.52"/>
+    </edge>
+    <edge id="E16" from="J3" to="J9" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="5.17,198.87 159.24,122.03 229.88,87.07 239.68,82.51">
+        <lane id="E16_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="261.79" shape="4.46,197.44 158.53,120.60 229.19,85.63 238.88,81.12"/>
+        <lane id="E16_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="261.79" shape="5.88,200.30 159.95,123.46 230.57,88.51 240.23,84.02"/>
+    </edge>
+    <edge id="E17" from="J7" to="J17" name="Corso Siracusa" priority="4" type="highway.unclassified" spreadType="center" shape="268.34,56.04 273.23,65.99">
+        <lane id="E17_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="24.97" shape="270.73,60.90 270.81,61.08"/>
+    </edge>
+    <edge id="E18" from="J0" to="J10" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" spreadType="center" shape="0.00,188.21 24.23,176.10 151.61,112.47 176.63,100.46 195.34,91.47 239.17,70.42 244.01,68.14 255.48,62.73">
+        <lane id="E18_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="7.08" length="284.64" shape="-0.72,186.78 23.51,174.67 150.91,111.03 175.94,99.02 194.65,90.03 238.48,68.98 243.33,66.69 254.69,61.33"/>
+        <lane id="E18_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="7.08" length="284.64" shape="0.72,189.64 24.95,177.53 152.31,113.91 177.32,101.90 196.03,92.91 239.86,71.86 244.69,69.59 256.06,64.23"/>
+    </edge>
+    <edge id="E2" from="J8" to="J4" name="Corso Siracusa" priority="10" type="highway.tertiary" spreadType="center" shape="271.35,110.03 269.99,107.72 266.06,100.96">
+        <lane id="E2_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="10.50" shape="271.29,109.92 269.99,107.72 269.73,107.28"/>
+    </edge>
+    <edge id="E3" from="J17" to="J6" name="Corso Siracusa" priority="10" type="highway.tertiary" spreadType="center" shape="281.88,84.55 284.64,92.20">
+        <lane id="E3_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="9.72" length="21.23" shape="283.94,90.26 284.01,90.45"/>
+    </edge>
+    <edge id="E4" from="J4" to="J2" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" spreadType="center" shape="266.06,100.96 258.86,105.05 238.31,115.56 179.30,145.75 140.57,165.56 99.14,186.90 18.92,228.20">
+        <lane id="E4_0" index="0" allow="passenger taxi bus delivery bicycle" speed="11.81" length="277.98" shape="259.82,104.50 258.86,105.05 238.31,115.56 179.30,145.75 140.57,165.56 99.14,186.90 18.92,228.20"/>
+    </edge>
+    <edge id="E5" from="J6" to="J4" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" spreadType="center">
+        <lane id="E5_0" index="0" allow="passenger taxi bus delivery bicycle" speed="11.11" length="20.54" shape="280.26,96.03 272.99,99.46"/>
+        <lane id="E5_1" index="1" allow="passenger taxi bus delivery bicycle" speed="11.11" length="20.54" shape="278.90,93.14 271.62,96.57"/>
+    </edge>
+    <edge id="E6" from="J17" to="J1" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="262.11,94.13 254.47,98.05 196.53,126.74 169.27,140.51 41.68,204.16 14.30,217.89">
+        <lane id="E6_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="290.79" shape="256.57,98.77 255.19,99.48 197.25,128.17 169.99,141.94 42.39,205.59 15.02,219.32"/>
+        <lane id="E6_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.81" length="290.79" shape="255.11,95.92 253.75,96.62 195.81,125.31 168.55,139.08 40.97,202.73 13.58,216.46"/>
+    </edge>
+    <edge id="E7" from="J11" to="J17" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="293.62,79.00 290.35,80.57 281.88,84.55">
+        <lane id="E7_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="26.55" shape="294.19,80.50 291.03,82.02 289.43,82.77"/>
+        <lane id="E7_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="26.55" shape="292.81,77.62 289.67,79.12 287.84,79.98"/>
+    </edge>
+    <edge id="E8" from="J4" to="J17" name="Corso Siracusa" priority="10" type="highway.tertiary" spreadType="center" shape="266.06,100.96 262.11,94.13">
+        <lane id="E8_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="21.61" shape="262.86,98.62 262.76,98.45"/>
+        <lane id="E8_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="21.61" shape="265.78,97.28 265.68,97.11"/>
+    </edge>
+    <edge id="E9" from="J9" to="J17" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" spreadType="center" shape="239.68,82.51 244.74,80.05 253.33,76.01">
+        <lane id="E9_0" index="0" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="28.74" shape="239.11,81.01 244.05,78.61 245.81,77.78"/>
+        <lane id="E9_1" index="1" allow="passenger taxi bus delivery truck bicycle" speed="11.11" length="28.74" shape="240.51,83.89 245.43,81.49 247.27,80.63"/>
+    </edge>
+
+    <tlLogic id="J10" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="GG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="5"  state="rr"/>
+    </tlLogic>
+    <tlLogic id="J11" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="GG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="5"  state="rr"/>
+    </tlLogic>
+    <tlLogic id="J12" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="G" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="J8" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="G" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="J9" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="GG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="5"  state="rr"/>
+    </tlLogic>
+
+    <junction id="J0" type="dead_end" x="0.00" y="188.21" incLanes="" intLanes="" shape="1.43,191.07 -1.43,185.35"/>
+    <junction id="J1" type="dead_end" x="14.30" y="217.89" incLanes="E6_0 E6_1" intLanes="" shape="15.73,220.75 12.87,215.03"/>
+    <junction id="J10" type="traffic_light" x="255.48" y="62.73" incLanes="E18_0 E18_1" intLanes="" shape="257.06,65.51 254.11,59.84 254.01,59.89 256.74,65.67">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J11" type="traffic_light" x="293.62" y="79.00" incLanes="E15_0 E15_1" intLanes="" shape="295.20,81.79 292.28,76.09 292.11,76.17 294.88,81.94">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J12" type="traffic_light" x="296.49" y="86.23" incLanes="E11_0" intLanes="" shape="297.34,87.59 295.90,84.74 295.66,84.86 297.06,87.73">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J13" type="dead_end" x="393.71" y="5.17" incLanes="E10_0 E10_1" intLanes="" shape="392.24,2.33 395.18,8.01"/>
+    <junction id="J14" type="dead_end" x="381.27" y="0.00" incLanes="E13_0 E13_1" intLanes="" shape="379.85,-2.87 382.69,2.87"/>
+    <junction id="J15" type="dead_end" x="417.11" y="17.18" incLanes="" intLanes="" shape="415.69,14.31 418.53,20.05"/>
+    <junction id="J16" type="dead_end" x="420.57" y="23.45" incLanes="" intLanes="" shape="419.84,22.03 421.30,24.87"/>
+    <junction id="J17" type="priority" x="267.64" y="80.17" incLanes="E8_0 E8_1 E7_0 E7_1 E17_0 E9_0 E9_1" intLanes="" shape="262.87,101.83 286.76,93.37 290.22,84.17 276.69,60.34 274.56,61.04 273.64,60.93 272.81,60.50 272.08,59.77 271.44,58.73 268.57,60.14 266.88,63.81 263.73,66.29 259.05,69.21 252.83,72.57 245.08,76.35 257.30,100.19 259.50,99.56 260.47,99.69 261.36,100.11 262.16,100.82">
+        <request index="0"  response="0000000110000" foes="0001100110000"/>
+        <request index="1"  response="1110011110000" foes="1110011110000"/>
+        <request index="2"  response="1110011110000" foes="1110011110000"/>
+        <request index="3"  response="0000000000000" foes="1000010000000"/>
+        <request index="4"  response="0000000000000" foes="1001110000111"/>
+        <request index="5"  response="0000000000000" foes="1001110000111"/>
+        <request index="6"  response="0110000000000" foes="0110000000110"/>
+        <request index="7"  response="1110000111000" foes="1110000111110"/>
+        <request index="8"  response="1110000110001" foes="1110000110001"/>
+        <request index="9"  response="1110000110001" foes="1110000110001"/>
+        <request index="10" response="0000000000000" foes="0001111000110"/>
+        <request index="11" response="0000000000000" foes="0001111000110"/>
+        <request index="12" response="0000000111000" foes="0001110111110"/>
+    </junction>
+    <junction id="J2" type="dead_end" x="18.92" y="228.20" incLanes="E4_0" intLanes="" shape="19.65,229.62 18.19,226.78"/>
+    <junction id="J3" type="dead_end" x="5.17" y="198.87" incLanes="" intLanes="" shape="6.60,201.73 3.74,196.01"/>
+    <junction id="J4" type="priority" x="266.06" y="100.96" incLanes="E2_0 E5_0 E5_1" intLanes="" shape="268.35,108.08 271.12,106.48 270.52,104.34 270.76,103.37 271.37,102.48 272.34,101.66 273.67,100.91 270.94,95.12 268.73,95.68 267.76,95.53 266.87,95.10 266.08,94.38 265.37,93.38 259.83,96.59 260.92,99.34 260.96,100.50 260.65,101.52 260.01,102.39 259.03,103.11 260.61,105.89 263.63,104.91 264.98,105.06 266.21,105.64 267.34,106.65">
+        <request index="0" response="00000" foes="01000"/>
+        <request index="1" response="00000" foes="11000"/>
+        <request index="2" response="00000" foes="11000"/>
+        <request index="3" response="00111" foes="00111"/>
+        <request index="4" response="00110" foes="00110"/>
+    </junction>
+    <junction id="J5" type="priority" x="284.63" y="135.37" incLanes="E0_0" intLanes="" shape="286.90,129.20 283.72,128.86 280.75,130.06 282.25,133.32 283.56,135.22 284.68,135.76 285.61,134.93 286.35,132.75">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J6" type="priority" x="284.64" y="92.20" incLanes="E12_0 E3_0" intLanes="" shape="283.58,99.01 286.77,98.75 286.86,95.46 287.19,94.16 287.72,93.07 288.45,92.22 289.37,91.59 287.91,88.74 286.44,89.00 285.79,88.73 285.20,88.18 284.67,87.35 284.20,86.26 281.19,87.34 281.26,88.95 280.90,89.69 280.27,90.40 279.37,91.06 278.21,91.69 280.94,97.48 282.31,97.14 282.81,97.29 283.19,97.65 283.44,98.22">
+        <request index="0" response="01000" foes="01000"/>
+        <request index="1" response="11000" foes="11000"/>
+        <request index="2" response="11000" foes="11000"/>
+        <request index="3" response="00000" foes="00111"/>
+        <request index="4" response="00000" foes="00110"/>
+    </junction>
+    <junction id="J7" type="priority" x="268.34" y="56.04" incLanes="E14_0 E14_1" intLanes="" shape="270.10,63.24 272.97,61.83 272.37,59.60 272.51,58.64 272.96,57.78 273.70,57.02 274.74,56.36 271.83,50.66 261.83,55.82 264.78,61.50 266.95,60.87 267.89,61.01 268.72,61.45 269.46,62.20">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J8" type="traffic_light" x="271.35" y="110.03" incLanes="E1_0" intLanes="" shape="270.06,110.99 272.77,109.28 272.67,109.11 269.91,110.73">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J9" type="traffic_light" x="239.68" y="82.51" incLanes="E16_0 E16_1" intLanes="" shape="241.21,85.33 238.41,79.57 238.20,79.67 240.90,85.47">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="E1" to="E2" fromLane="0" toLane="0" tl="J8" linkIndex="0" dir="s" state="O"/>
+    <connection from="E11" to="E12" fromLane="0" toLane="0" tl="J12" linkIndex="0" dir="s" state="O"/>
+    <connection from="E12" to="E0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="E12" to="E5" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="E12" to="E5" fromLane="0" toLane="1" dir="s" state="m" visibility="9.00"/>
+    <connection from="E14" to="E13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E14" to="E17" fromLane="1" toLane="0" dir="l" state="M"/>
+    <connection from="E15" to="E7" fromLane="0" toLane="0" tl="J11" linkIndex="0" dir="s" state="O"/>
+    <connection from="E15" to="E7" fromLane="1" toLane="1" tl="J11" linkIndex="1" dir="s" state="O"/>
+    <connection from="E16" to="E9" fromLane="0" toLane="0" tl="J9" linkIndex="0" dir="s" state="O"/>
+    <connection from="E16" to="E9" fromLane="1" toLane="1" tl="J9" linkIndex="1" dir="s" state="O"/>
+    <connection from="E17" to="E10" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="E17" to="E3" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="E17" to="E6" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="E17" to="E6" fromLane="0" toLane="1" dir="l" state="m"/>
+    <connection from="E18" to="E14" fromLane="0" toLane="0" tl="J10" linkIndex="0" dir="s" state="O"/>
+    <connection from="E18" to="E14" fromLane="1" toLane="1" tl="J10" linkIndex="1" dir="s" state="O"/>
+    <connection from="E2" to="E4" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="E2" to="E8" fromLane="0" toLane="0" dir="s" state="M" visibility="9.00"/>
+    <connection from="E2" to="E8" fromLane="0" toLane="1" dir="s" state="M" visibility="9.00"/>
+    <connection from="E3" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E3" to="E5" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from="E5" to="E4" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="E5" to="E8" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="E7" to="E3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="E7" to="E6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E7" to="E6" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="E8" to="E6" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="E8" to="E10" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="E8" to="E10" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="E9" to="E10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E9" to="E10" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="E9" to="E3" fromLane="1" toLane="0" dir="l" state="m" visibility="9.00"/>
+
+</net>

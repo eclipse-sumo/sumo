@@ -25,6 +25,7 @@ from .setup import *
 from .enums.attributesEnum import *
 from .enums.viewPositions import *
 from .enums.contextualMenuOperations import *
+from .enums.movements import *
 
 # files folder
 from .files.load import *

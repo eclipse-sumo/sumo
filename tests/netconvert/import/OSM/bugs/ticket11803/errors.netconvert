@@ -20,7 +20,7 @@ Warning: Cannot revise pt stop localization for pt line '12936337', which has no
 Warning: Removed invalid stop '418757008' from line '12936337'.
 Warning: Cannot revise pt stop localization for pt line '13014368', which has no route edges. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '13014477', which has no route edges. Ignoring!
-Warning: Found sharp turn with radius 8.85 at the start of edge '891527113#1'.
+Warning: Found sharp turn with radius 8.78 at the start of edge '891527113#1'.
 Warning: The traffic light '1495288665' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1495288665'
 Warning: Minor green from edge '256651831' to edge '256651830' exceeds 19.44m/s. Maybe a left-turn lane is missing.

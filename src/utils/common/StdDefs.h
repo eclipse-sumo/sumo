@@ -150,6 +150,9 @@ double roundBits(double x, int fractionBits);
 /// @brief round to the given number of decimal digits
 double roundDecimal(double x, int precision);
 
+/// @brief round to the given number of decimal digits (bankers rounding)
+double roundDecimalToEven(double x, int precision);
+
 /** @brief Returns the number of instances of the current object that shall be emitted
  * given the number of loaded objects
  * considering that "frac" of all objects shall be emitted overall

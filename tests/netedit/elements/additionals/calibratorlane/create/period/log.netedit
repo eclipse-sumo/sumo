@@ -1,1 +1,2 @@
-Error: Could not build calibratorLane with ID 'ca_0' in netedit; Attribute period cannot be negative (-30.00).
+Warning: Invalid value 'dummyFreq' in attribute period
+Warning: Invalid value '-30' in attribute period

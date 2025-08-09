@@ -5,7 +5,7 @@
         <access lane="Edge1_0" pos="1" friendlyPos="0"/>
 
         <!-- non valid length (dummy) -->
-        <access lane="Edge2_0" pos="1.1" length="dummyLenght" friendlyPos="0"/>
+        <access lane="Edge2_0" pos="1.1" length="dummyLength" friendlyPos="0"/>
 
         <!-- non valid length (negative) -->
         <access lane="Edge3_0" pos="1.2" length="-30" friendlyPos="0"/>

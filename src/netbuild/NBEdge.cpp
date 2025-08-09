@@ -567,6 +567,27 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
 
 
 void
+NBEdge::roundGeometry() {
+    myGeom.round(gPrecision);
+    for (Lane& lane : myLanes) {
+        lane.customShape.round(gPrecision);
+    }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        (*i).customShape.round(gPrecision);
+    }
+}
+
+
+void
+NBEdge::roundSpeed() {
+    mySpeed = roundDecimalToEven(mySpeed, gPrecision);
+    // lane speeds are not used for computation but are compared to mySpeed in hasLaneSpecificSpeed
+    for (Lane& l : myLanes) {
+        l.speed = roundDecimalToEven(l.speed, gPrecision);
+    }
+}
+
+void
 NBEdge::mirrorX() {
     myGeom.mirrorX();
     for (int i = 0; i < (int)myLanes.size(); i++) {
@@ -3188,34 +3209,53 @@ void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
             WRITE_WARNINGF(TL("Removing unknown opposite lane '%' for edge '%'."), oppositeID, getID());
             getLaneStruct(leftmostLane).oppositeID = "";
         } else {
-            if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
-                const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
-                WRITE_WARNINGF(TL("Adapting invalid opposite lane '%' for edge '%' to '%'."), oppositeID, getID(), oppEdgeLeftmost);
-                getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
-            }
-            NBEdge::Lane& oppLane = oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1);
-            if (oppLane.oppositeID == "") {
+            if (oppEdge->getFromNode() != getToNode() || oppEdge->getToNode() != getFromNode()) {
+                WRITE_ERRORF(TL("Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"), oppositeID, getID());
+                getLaneStruct(getNumLanes() - 1).oppositeID = "";
+            } else {
+                if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
+                    const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
+                    WRITE_WARNINGF(TL("Adapting invalid opposite lane '%' for edge '%' to '%'."), oppositeID, getID(), oppEdgeLeftmost);
+                    getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
+                }
+                NBEdge::Lane& oppLane = oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1);
                 const std::string leftmostID = getLaneID(leftmostLane);
-                WRITE_WARNINGF(TL("Adapting missing opposite lane '%' for edge '%'."), leftmostID, oppEdge->getID());
-                oppLane.oppositeID = leftmostID;
-            }
-            if (fabs(oppEdge->getLoadedLength() - getLoadedLength()) > NUMERICAL_EPS) {
-                if (fixOppositeLengths) {
-                    const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
-                    WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
-                                   oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
-                    setLoadedLength(avgLength);
-                    oppEdge->setLoadedLength(avgLength);
-                } else {
-                    WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
+                if (oppLane.oppositeID == "") {
+                    WRITE_WARNINGF(TL("Adapting missing opposite lane '%' for edge '%'."), leftmostID, oppEdge->getID());
+                    oppLane.oppositeID = leftmostID;
+                } else if (oppLane.oppositeID != leftmostID && oppLane.oppositeID != "-") {
+                    const std::string oppOpp = oppLane.oppositeID.substr(0, oppLane.oppositeID.rfind("_"));
+                    NBEdge* oppOppEdge = ec.retrieve(oppOpp);
+                    if (oppOppEdge == nullptr) {
+                        WRITE_WARNINGF(TL("Adapting invalid opposite lane '%' for edge '%' to '%'."), oppLane.oppositeID, oppEdge->getID(), leftmostID);
+                        oppLane.oppositeID = leftmostID;
+                    } else {
+                        if (oppEdge->getFromNode() != oppOppEdge->getToNode() || oppEdge->getToNode() != oppOppEdge->getFromNode()) {
+                            WRITE_ERRORF(TL("Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"), oppEdge->getID(), oppOppEdge->getID());
+                        } else {
+                            WRITE_WARNINGF(TL("Adapting inconsistent opposite lanes for edges '%', '%' and '%'."), getID(), oppEdge->getID(), oppOpp);
+                        }
+                        oppLane.oppositeID = leftmostID;
+                        NBEdge::Lane& oppOppLane = oppOppEdge->getLaneStruct(oppOppEdge->getNumLanes() - 1);
+                        if (oppOppLane.oppositeID == oppEdge->getLaneID(oppEdge->getNumLanes() - 1)) {
+                            oppOppLane.oppositeID = "";
+                        }
+                    }
+                }
+                if (fabs(oppEdge->getLoadedLength() - getLoadedLength()) > NUMERICAL_EPS) {
+                    if (fixOppositeLengths) {
+                        const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
+                        WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
+                                oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
+                        setLoadedLength(avgLength);
+                        oppEdge->setLoadedLength(avgLength);
+                    } else {
+                        WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
                                 ") differs in length from edge '" + getID() + "' (length " +
                                 toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
-                    getLaneStruct(getNumLanes() - 1).oppositeID = "";
+                        getLaneStruct(getNumLanes() - 1).oppositeID = "";
+                    }
                 }
-            }
-            if (oppEdge->getFromNode() != getToNode() || oppEdge->getToNode() != getFromNode()) {
-                WRITE_ERRORF(TL("Opposite lane '%' does not connect the same nodes as edge '%'!"), oppositeID, getID());
-                getLaneStruct(getNumLanes() - 1).oppositeID = "";
             }
         }
     }
@@ -4071,6 +4111,7 @@ NBEdge::append(NBEdge* e) {
     myTurnDestination = e->myTurnDestination;
     myPossibleTurnDestination = e->myPossibleTurnDestination;
     myConnectionsToDelete = e->myConnectionsToDelete;
+    updateRemovedNodes(e->getParameter(SUMO_PARAM_REMOVED_NODES));
     // set the node
     myTo = e->myTo;
     myTurnSignTarget = e->myTurnSignTarget;
@@ -4080,6 +4121,19 @@ NBEdge::append(NBEdge* e) {
         mySignalPosition = e->mySignalPosition;
     }
     computeAngle(); // myEndAngle may be different now
+}
+
+
+void
+NBEdge::updateRemovedNodes(const std::string& removed) {
+    std::string result = getParameter(SUMO_PARAM_REMOVED_NODES);
+    if (!result.empty() && !removed.empty()) {
+        result += " ";
+    }
+    result += removed;
+    if (!result.empty()) {
+        setParameter(SUMO_PARAM_REMOVED_NODES, result);
+    }
 }
 
 
@@ -4766,7 +4820,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {
 }
 
 
-void
+bool
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
     if (myLaneSpreadFunction == LaneSpreadFunction::CENTER
             && !isRailway(getPermissions())
@@ -4785,13 +4839,17 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
             //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
             try {
                 tmp.move2side(neededOffset - dist);
+                tmp[i].round(gPrecision);
                 myGeom[i] = tmp[i];
+                computeAngle();
+                return true;
                 //std::cout << getID() << " shiftPositionAtNode needed=" << neededOffset << " dist=" << dist << " needed2=" << neededOffset2 << " dist2=" << dist2 << "  by=" << (neededOffset - dist) << " other=" << other->getID() << "\n";
             } catch (InvalidArgument&) {
                 WRITE_WARNINGF(TL("Could not avoid overlapping shape at node '%' for edge '%'."), node->getID(), getID());
             }
         }
     }
+    return false;
 }
 
 
@@ -4988,14 +5046,17 @@ NBEdge::guessOpposite(bool reguess) {
         if (lastLane.oppositeID == "" || reguess) {
             for (NBEdge* cand : getToNode()->getOutgoingEdges()) {
                 if (cand->getToNode() == getFromNode() && !cand->getLanes().empty()) {
-                    const double lastWidthCand = cand->getLaneWidth(cand->getNumLanes() - 1);
-                    // in sharp corners, the difference may be higher
-                    // factor (sqrt(2) for 90 degree corners
-                    const double threshold = 1.42 * 0.5 * (lastWidth + lastWidthCand) + 0.5;
-                    const double distance = VectorHelper<double>::maxValue(lastLane.shape.distances(cand->getLanes().back().shape));
-                    //std::cout << " distance=" << distance << " threshold=" << threshold << " distances=" << toString(lastLane.shape.distances(cand->getLanes().back().shape)) << "\n";
-                    if (distance < threshold) {
-                        opposite = cand;
+                    const NBEdge::Lane& candLastLane = cand->getLanes().back();
+                    if (candLastLane.oppositeID == "" || candLastLane.oppositeID == getLaneID(getNumLanes() - 1)) {
+                        const double lastWidthCand = cand->getLaneWidth(cand->getNumLanes() - 1);
+                        // in sharp corners, the difference may be higher
+                        // factor (sqrt(2) for 90 degree corners
+                        const double threshold = 1.42 * 0.5 * (lastWidth + lastWidthCand) + 0.5;
+                        const double distance = VectorHelper<double>::maxValue(lastLane.shape.distances(cand->getLanes().back().shape));
+                        //std::cout << " distance=" << distance << " threshold=" << threshold << " distances=" << toString(lastLane.shape.distances(cand->getLanes().back().shape)) << "\n";
+                        if (distance < threshold) {
+                            opposite = cand;
+                        }
                     }
                 }
             }

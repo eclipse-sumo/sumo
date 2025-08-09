@@ -511,7 +511,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     // check that viewNet exist
     if (viewNet) {
         // declare a vector in which save attribute carriers to locate
-        std::vector<GNEAttributeCarrier*> ACsToLocate;
+        std::map<std::string, GNEAttributeCarrier*> ACsToLocate;
         int messageId = FXSELID(sel);
         GNEDialogACChooser** chooserLoc = nullptr;
         std::string locateTitle;
@@ -520,21 +520,21 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = TL("Junction Chooser");
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    ACsToLocate.push_back(junction.second);
+                    ACsToLocate[junction.second->getID()] = junction.second;
                 }
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = TL("Edge Chooser");
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    ACsToLocate.push_back(edge.second);
+                    ACsToLocate[edge.second->getID()] = edge.second;
                 }
                 break;
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
                 locateTitle = TL("WalkingArea Chooser");
                 for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
-                    ACsToLocate.push_back(walkingArea.second);
+                    ACsToLocate[walkingArea.second->getID()] = walkingArea.second;
                 }
                 break;
             case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
@@ -543,7 +543,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all vehicles
                 for (const auto& vehicleTag : NamespaceIDs::vehicles) {
                     for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
-                        ACsToLocate.push_back(vehicle.second);
+                        ACsToLocate[vehicle.second->getID()] = vehicle.second;
                     }
                 }
                 break;
@@ -554,7 +554,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all persons
                 for (const auto& personTag : NamespaceIDs::persons) {
                     for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
-                        ACsToLocate.push_back(person.second);
+                        ACsToLocate[person.second->getID()] = person.second;
                     }
                 }
                 break;
@@ -564,7 +564,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all containers
                 for (const auto& containerTag : NamespaceIDs::containers) {
                     for (const auto& container : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(containerTag)) {
-                        ACsToLocate.push_back(container.second);
+                        ACsToLocate[container.second->getID()] = container.second;
                     }
                 }
                 break;
@@ -572,7 +572,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserRoutes;
                 locateTitle = TL("Route Chooser");
                 for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                    ACsToLocate.push_back(route.second);
+                    ACsToLocate[route.second->getID()] = route.second;
                 }
                 break;
             case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
@@ -581,7 +581,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all vehicles
                 for (const auto& stopTag : NamespaceIDs::stops) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(stopTag)) {
-                        ACsToLocate.push_back(flowTAZ.second);
+                        ACsToLocate[flowTAZ.second->getID()] = flowTAZ.second;
                     }
                 }
                 break;
@@ -592,7 +592,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with junctions that haven TLS
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                     if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
-                        ACsToLocate.push_back(junction.second);
+                        ACsToLocate[junction.second->getID()] = junction.second;
                     }
                 }
                 break;
@@ -604,7 +604,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // avoid shapes and TAZs
                     if (!tagProperty->isShapeElement() && !tagProperty->isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {
-                            ACsToLocate.push_back(additional.second);
+                            ACsToLocate[additional.second->getID()] = additional.second;
                         }
                     }
                 }
@@ -614,8 +614,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("POI Chooser");
                 // fill ACsToLocate with all POIs
                 for (const auto& POITag : NamespaceIDs::POIs) {
-                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
-                        ACsToLocate.push_back(flowTAZ.second);
+                    for (const auto& poi : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
+                        ACsToLocate[poi.second->getID()] = poi.second;
                     }
                 }
                 break;
@@ -624,8 +624,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("Poly Chooser");
                 // fill ACsToLocate with all polygons
                 for (const auto& polygonTag : NamespaceIDs::polygons) {
-                    for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
-                        ACsToLocate.push_back(flowTAZ.second);
+                    for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
+                        ACsToLocate[polygon.second->getID()] = polygon.second;
                     }
                 }
                 break;

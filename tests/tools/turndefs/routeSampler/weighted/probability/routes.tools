@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-29 15:04:03.181286 by routeSampler.py v1_17_0+1318-85f891f765f
+<!-- generated on 2025-07-18 14:53:06.127270 by routeSampler.py v1_23_1+1165-c477aa00e14
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <edgedata-files value="input_edgedata.xml"/>
@@ -14,9 +14,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="3600.0" -->
-    <route id="0" edges="-3 -3.180.00 11"/> <!-- 108 -->
-    <route id="1" edges="-3 -3.180.00 15"/> <!-- 604 -->
-    <route id="2" edges="-3 -3.180.00 5"/> <!-- 288 -->
+    <route id="0" edges="-3 -3.180.00 11" probability="108"/>
+    <route id="1" edges="-3 -3.180.00 15" probability="604"/>
+    <route id="2" edges="-3 -3.180.00 5" probability="288"/>
 
     <flow id="2" begin="2.40" end="3600.00" number="288" route="2"/>
     <flow id="1" begin="3.36" end="3600.00" number="604" route="1"/>

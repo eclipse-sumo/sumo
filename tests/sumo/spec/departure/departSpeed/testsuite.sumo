@@ -1,6 +1,9 @@
 # checks using the default speed (0)
 speed_default
 
+# change default depart speed
+speed_default_option_max
+
 # checks using the given speed (0)
 speed_given0
 

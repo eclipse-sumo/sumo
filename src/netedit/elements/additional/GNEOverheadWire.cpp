@@ -460,13 +460,13 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, value, false) != nullptr);
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 return true;
             } else {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -510,7 +510,7 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 myStartPos = INVALID_DOUBLE;
             } else {
                 myStartPos = parse<double>(value);
@@ -521,7 +521,7 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 myEndPos = INVALID_DOUBLE;
             } else {
                 myEndPos = parse<double>(value);

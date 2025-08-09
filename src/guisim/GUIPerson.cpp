@@ -182,6 +182,7 @@ GUIPerson::~GUIPerson() {
         }
         while (i->first->removeAdditionalGLVisualisation(this));
     }
+    gSelected.deselect(GLO_PERSON, getGlID());
     myLock.unlock();
 }
 

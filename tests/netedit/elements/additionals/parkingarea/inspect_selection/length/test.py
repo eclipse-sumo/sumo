@@ -37,16 +37,16 @@ netedit.changeMode("inspect")
 # inspect parking areas
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
-# Change parameter Lenght with a non valid value (dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "dummyLenght")
+# Change parameter Length with a non valid value (dummy)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "dummyLength")
 
-# Change parameter Lenght with a non valid value (negative)
+# Change parameter Length with a non valid value (negative)
 netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "-6")
 
-# Change parameter Lenght with a non valid value (0)
+# Change parameter Length with a non valid value (0)
 netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "0")
 
-# Change parameter Lenght with a valid value
+# Change parameter Length with a valid value
 netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "3.4")
 
 # Check undos and redos

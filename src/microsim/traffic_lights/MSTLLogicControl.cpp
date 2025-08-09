@@ -120,7 +120,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
         if (logic->getLinks().size() > logic->getPhase(0).getState().size()) {
             const std::string id = logic->getID();
             delete logic;
-            throw ProcessError("Mismatching phase size in tls '" + id + "', program '" + programID + "'.");
+            throw ProcessError(TLF("Mismatching phase size in tls '%', program '%'.", id, programID));
         }
     }
     // add to the list of active
@@ -165,7 +165,7 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& t
             }
         } else {
             // inform the user about a missing logic
-            throw ProcessError("Can not switch tls '" + myCurrentProgram->getID() + "' to program '" + programID + "';\n The program is not known.");
+            throw ProcessError(TLF("Can not switch tls '%' to program '%';\n The program is not known.", myCurrentProgram->getID(), programID));
         }
     }
     return getLogic(programID);
@@ -640,7 +640,7 @@ MSTLLogicControl::switchTo(const std::string& id, const std::string& programID) 
     std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
     // handle problems
     if (i == myLogics.end()) {
-        throw ProcessError("Could not switch tls '" + id + "' to program '" + programID + "': No such tls exists.");
+        throw ProcessError(TLF("Could not switch tls '%' to program '%': No such tls exists.", id, programID));
     }
     (*i).second->switchTo(*this, programID);
 }
@@ -652,7 +652,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string& id,
     // check whether the waut was already defined
     if (myWAUTs.find(id) != myWAUTs.end()) {
         // report an error if so
-        throw InvalidArgument("Waut '" + id + "' was already defined.");
+        throw InvalidArgument(TLF("Waut '%' was already defined.", id));
     }
     WAUT* w = new WAUT;
     w->id = id;
@@ -669,7 +669,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string& wautid,
     // try to get the waut
     if (myWAUTs.find(wautid) == myWAUTs.end()) {
         // report an error if the waut is not known
-        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
+        throw InvalidArgument(TLF("Waut '%' was not yet defined.", wautid));
     }
     // build and save the waut switch definition
     WAUT* waut = myWAUTs[wautid];
@@ -691,12 +691,12 @@ MSTLLogicControl::addWAUTJunction(const std::string& wautid,
     // try to get the waut
     if (myWAUTs.find(wautid) == myWAUTs.end()) {
         // report an error if the waut is not known
-        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
+        throw InvalidArgument(TLF("Waut '%' was not yet defined.", wautid));
     }
     // try to get the tls to switch
     if (myLogics.find(tls) == myLogics.end()) {
         // report an error if the tls is not known
-        throw InvalidArgument("TLS '" + tls + "' to switch in WAUT '" + wautid + "' was not yet defined.");
+        throw InvalidArgument(TLF("TLS '%' to switch in WAUT '%' was not yet defined.", tls, wautid));
     }
     WAUTJunction j;
     j.junction = tls;
@@ -726,7 +726,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     // try to get the waut
     if (myWAUTs.find(wautid) == myWAUTs.end()) {
         // report an error if the waut is not known
-        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
+        throw InvalidArgument(TLF("Waut '%' was not yet defined.", wautid));
     }
     WAUT* w = myWAUTs.find(wautid)->second;
     std::string initProg = myWAUTs[wautid]->startProg;

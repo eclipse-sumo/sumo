@@ -32,7 +32,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "containerStop")
 
 # set invalid person number
-netedit.modifyAttribute(netedit.attrs.containerStop.create.parkingLength, "dummyLenght")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.parkingLength, "dummyLength")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

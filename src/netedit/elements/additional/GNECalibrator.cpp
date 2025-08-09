@@ -430,7 +430,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return canParse<SUMOTime>(value);
+            return canParse<SUMOTime>(value) ? (parse<SUMOTime>(value) >= 0) : false;
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_OUTPUT:

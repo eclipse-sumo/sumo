@@ -130,6 +130,26 @@ def parsePositionFile(outputFolder, file):
                 f.write('netedit.%s %s %s\n' % (keyShorted, x, y))
 
 
+def parseRouteFile(outputFolder, file):
+    # read python file
+    pythonFile = "./enums/" + file + ".py"
+    with open(pythonFile, "r", encoding="utf-8") as f:
+        tree = ast.parse(f.read(), filename=pythonFile)
+    # flatten data
+    data = flattenClassTree(tree)
+    # write header file
+    outputFile = outputFolder + "/" + file + ".txt"
+    with open(outputFile, "w", encoding="utf-8") as f:
+        for key in sorted(data.keys()):
+            if key.endswith(".up"):
+                keyShorted = key[:-3]
+                up = data[keyShorted + ".up"]
+                down = data[keyShorted + ".down"]
+                left = data[keyShorted + ".left"]
+                right = data[keyShorted + ".right"]
+                f.write('netedit.%s %s %s %s %s\n' % (keyShorted, up, down, left, right))
+
+
 # main
 if __name__ == "__main__":
     outputFolder = "./../../data/tests"
@@ -140,3 +160,4 @@ if __name__ == "__main__":
     parseIntFile(outputFolder, "attributesEnum")
     parseIntFile(outputFolder, "contextualMenuOperations")
     parsePositionFile(outputFolder, "viewPositions")
+    parseRouteFile(outputFolder, "movements")
