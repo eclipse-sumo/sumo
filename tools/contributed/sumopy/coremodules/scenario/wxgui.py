@@ -25,7 +25,7 @@ from coremodules.misc import shapeformat
 from agilepy.lib_wx.modulegui import ModuleGui
 from agilepy.lib_wx.processdialog import ProcessDialog
 
-import scenario
+from . import scenario
 
 
 class WxGui(ModuleGui):
