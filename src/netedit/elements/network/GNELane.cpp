@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Feb 2011
 ///
 // A class for visualizing Lane geometry (adapted from GNELaneWrapper)
@@ -1041,7 +1042,12 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
                                   myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
     } else {
         // draw geometry with current color
-        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
+        const GUIVisualizationSettings::Detail d = myDrawingConstants->getDetail();
+        double drawingWidth = myDrawingConstants->getDrawingWidth();
+        if(d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+            drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
+        }
+        GUIGeometry::drawGeometry(d, myLaneGeometry, drawingWidth,
                                   myDrawingConstants->getOffset());
     }
     // if lane is selected, draw a second lane over it
