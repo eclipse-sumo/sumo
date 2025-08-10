@@ -501,6 +501,24 @@ MSDevice_Vehroutes::writePendingOutput(const bool includeUnfinished) {
             pc.erase(pc.loadedBegin()->second);
         }
     }
+    // Flush any remaining sorted outputs that may still be buffered
+    if (mySorted) {
+        for (const auto& routeInfo : myRouteInfos.routeXML) {
+            for (const auto& rouXML : routeInfo.second) {
+                (*myRouteInfos.routeOut) << rouXML.second;
+            }
+        }
+        if (net->hasPersons()) {
+            const SortedRouteInfo& personRouteInfos = net->getPersonControl().getRouteInfo();
+            if (personRouteInfos.routeOut != myRouteInfos.routeOut) {
+                for (const auto& routeInfo : personRouteInfos.routeXML) {
+                    for (const auto& rouXML : routeInfo.second) {
+                        (*personRouteInfos.routeOut) << rouXML.second;
+                    }
+                }
+            }
+        }
+    }
 }
 
 
