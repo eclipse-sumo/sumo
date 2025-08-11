@@ -28,8 +28,8 @@
 // class declarations
 // ===========================================================================
 
+class GNERun;
 class GUIEvent;
-class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -41,7 +41,8 @@ class GNERunDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon);
+    GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runner,
+                 const std::string& name, GUIIcon titleIcon);
 
     /// @brief destructor
     ~GNERunDialog();
@@ -53,19 +54,16 @@ public:
     /// @{
 
     /// @brief event after press abort button
-    virtual long onCmdAbort(FXObject*, FXSelector, void*) = 0;
+    long onCmdAbort(FXObject*, FXSelector, void*);
 
     /// @brief event after press rerun button
-    virtual long onCmdRerun(FXObject*, FXSelector, void*) = 0;
+    long onCmdRun(FXObject*, FXSelector, void*);
 
     /// @brief event after press back button
     virtual long onCmdBack(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press close button
     virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
-
-    /// @brief event after press cancel button
-    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press save button
     long onCmdSaveLog(FXObject*, FXSelector, void*);
@@ -78,6 +76,9 @@ public:
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNERunDialog);
+
+    /// @brief run reference
+    GNERun* myRunner = nullptr;
 
     /// @brief text
     FXText* myText = nullptr;
@@ -92,7 +93,7 @@ protected:
     bool myError = false;
 
     /// @brief update dialog buttons
-    virtual void updateDialogButtons() = 0;
+    void updateDialogButtons();
 
 private:
     /// @brief Invalidated copy constructor.

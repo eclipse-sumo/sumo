@@ -26,8 +26,6 @@
 // class declarations
 // ===========================================================================
 
-class GNERunNetgenerate;
-class GUIEvent;
 class OptionsCont;
 
 // ===========================================================================
@@ -49,33 +47,15 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief event after press abort button
-    long onCmdAbort(FXObject*, FXSelector, void*);
-
-    /// @brief event after press rerun button
-    long onCmdRerun(FXObject*, FXSelector, void*);
-
     /// @brief event after press back button
     long onCmdBack(FXObject*, FXSelector, void*);
 
     /// @brief event after press close button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @}
 
 private:
-    /// @brief thread for running tool
-    GNERunNetgenerate* myRunNetgenerate = nullptr;
-
-    /// @brief netgenerate options
-    const OptionsCont* myNetgenerateOptions;
-
-    /// @brief update dialog buttons
-    void updateDialogButtons();
-
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;
 
