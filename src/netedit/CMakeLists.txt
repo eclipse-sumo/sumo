@@ -59,10 +59,10 @@ set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG netedit${BINARY_SUFFI
 target_link_libraries(netedit gui_dialogs utils_gui_cursors utils_gui_shortcuts utils_tests utils_foxtools foreign_eulerspiral
         netedit_frames_common netedit_frames_network netedit_frames_demand netedit_frames_data netedit_frames
         netedit_elements netedit_elements_network netedit_elements_additional netedit_elements_demand netedit_elements_data
-        netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs_tools netedit_dialogs_additional
-        netedit_dialogs_basic netedit_dialogs_demand netedit_dialogs_fix netedit_dialogs_options netedit_tools netedit_dialogs
-        utils_gui_windows utils_gui_globjects utils_gui_tracker utils_foxtools utils_vehicle utils_emissions foreign_phemlight
-        foreign_phemlight_V5 ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs_run netedit_dialogs_tools
+        netedit_dialogs_additional netedit_dialogs_basic netedit_dialogs_demand netedit_dialogs_fix netedit_dialogs_options
+        netedit_tools netedit_dialogs utils_gui_windows utils_gui_globjects utils_gui_tracker utils_foxtools utils_vehicle
+        utils_emissions foreign_phemlight foreign_phemlight_V5 ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 
 # if we're compiling using Visual Studio, add extra options
 if (MSVC)

@@ -2,8 +2,9 @@ add_subdirectory(additional)
 add_subdirectory(basic)
 add_subdirectory(demand)
 add_subdirectory(fix)
-add_subdirectory(tools)
 add_subdirectory(options)
+add_subdirectory(run)
+add_subdirectory(tools)
 
 set(netedit_dialogs_SRCS
    GNEAboutDialog.cpp
