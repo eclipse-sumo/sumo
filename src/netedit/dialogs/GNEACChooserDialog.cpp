@@ -28,7 +28,7 @@
 // method definitions
 // ===========================================================================
 
-GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, int messageId,
+GNEACChooserDialog::GNEACChooserDialog(GNEViewParent* viewParent, int messageId,
                                        FXIcon* icon, const std::string& title,
                                        const std::map<std::string, GNEAttributeCarrier*>& ACs):
     GUIDialog_ChooserAbstract(viewParent, messageId, icon, title.c_str(),
