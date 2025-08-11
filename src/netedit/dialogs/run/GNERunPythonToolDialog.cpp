@@ -26,70 +26,19 @@
 
 #include "GNERunPythonToolDialog.h"
 
-// ===========================================================================
-// Defines
-// ===========================================================================
-
-#define MARGIN 4
-
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNERunPythonToolDialog) GNERunPythonToolDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunPythonToolDialog::onCmdSaveLog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunPythonToolDialog::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunPythonToolDialog::onCmdRerun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunPythonToolDialog::onCmdBack),
-    // threads events
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNERunPythonToolDialog::onThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNERunPythonToolDialog::onThreadEvent)
-};
-
-// Object implementation
-FXIMPLEMENT(GNERunPythonToolDialog, GNEDialog, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
-    GNEDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON,
-              GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              OpenType::MODAL, ResizeMode::RESIZABLE, 640, 480) {
-    // build the thread - io
-    myThreadEvent.setTarget(this);
-    myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
-    // create run tool
-    myRunTool = new GNERunPythonTool(this, myEvents, myThreadEvent);
-    // create header frame
-    auto headerFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrame);
-    // adjust padding
-    headerFrame->setPadLeft(0);
-    headerFrame->setPadRight(0);
-    GUIDesigns::buildFXButton(headerFrame, "", "", + TL("Save output"),
-                              GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonIcon);
-    new FXLabel(headerFrame, TL("Console output"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
-    // create text
-    auto textFrame = new FXVerticalFrame(myContentFrame, GUIDesignFrameThick);
-    myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
-    // set styled
-    myText->setHiliteStyles(GUIMessageWindow::getStyles());
-    myText->setStyled(true);
-    // set title
-    setTitle((tool->getToolName()  + " output").c_str());
-    // refresh APP
-    getApp()->refresh();
-    // clear text
-    myText->setText("");
-    // show dialog
-    GNEDialog::show(PLACEMENT_SCREEN);
-    // set tool
-    myPythonTool = tool;
+    GNERunDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON),
+    myRunPythonTool(new GNERunPythonTool(this, myEvents, myThreadEvent)),
+    myPythonTool(tool) {
     // open modal dialog
     openDialog();
     // run tool
-    myRunTool->runTool(tool);
+    myRunPythonTool->run(tool);
 }
 
 
@@ -102,45 +51,10 @@ GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* 
 }
 
 
-void
-GNERunPythonToolDialog::updateDialog() {
-    // update buttons
-    /*
-        if (myRunTool->isRunning()) {
-            myAbortButton->enable();
-            myRerunButton->disable();
-            myBackButton->disable();
-            myCloseButton->disable();
-        } else {
-            myAbortButton->disable();
-            myRerunButton->enable();
-            myBackButton->enable();
-            myCloseButton->enable();
-        }
-    */
-    // update dialog
-    GNEDialog::update();
-}
-
-
-long
-GNERunPythonToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
-    // get log file
-    const auto logFile = GNEApplicationWindowHelper::saveToolLog(this);
-    // check that file is valid
-    if (logFile.size() > 0) {
-        OutputDevice& dev = OutputDevice::getDevice(logFile);
-        dev << myText->getText().text();
-        dev.close();
-    }
-    return 1;
-}
-
-
 long
 GNERunPythonToolDialog::onCmdAbort(FXObject*, FXSelector, void*) {
     // abort tool
-    myRunTool->abortTool();
+    myRunPythonTool->abort();
     return 1;
 }
 
@@ -154,7 +68,7 @@ GNERunPythonToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
     myText->layout();
     myText->update();
     // run tool
-    myRunTool->runTool(myPythonTool);
+    myRunPythonTool->run(myPythonTool);
     return 1;
 }
 
@@ -170,7 +84,7 @@ GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
 long
 GNERunPythonToolDialog::onCmdCancel(FXObject* obj, FXSelector, void*) {
     // abort tool
-    myRunTool->abortTool();
+    myRunPythonTool->abort();
     // hide dialog
     hide();
     return 1;
@@ -180,7 +94,7 @@ GNERunPythonToolDialog::onCmdCancel(FXObject* obj, FXSelector, void*) {
 long
 GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
     // abort tool
-    myRunTool->abortTool();
+    myRunPythonTool->abort();
     // execute post processing
     myApplicationWindow->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
     // hide dialog
@@ -189,39 +103,22 @@ GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
 }
 
 
-long
-GNERunPythonToolDialog::onThreadEvent(FXObject*, FXSelector, void*) {
-    while (!myEvents.empty()) {
-        // get the next event
-        GUIEvent* e = myEvents.top();
-        myEvents.pop();
-        // process
-        FXint style = -1;
-        switch (e->getOwnType()) {
-            case GUIEventType::TOOL_ENDED:
-                break;
-            case GUIEventType::MESSAGE_OCCURRED:
-                style = 1;
-                break;
-            case GUIEventType::OUTPUT_OCCURRED:
-                style = 2;
-                break;
-            case GUIEventType::ERROR_OCCURRED:
-                style = 3;
-                break;
-            default:
-                break;
-        }
-        if (style >= 0) {
-            GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
-            myText->appendStyledText(ec->getMsg().c_str(), (int)ec->getMsg().length(), style, TRUE);
-            myText->layout();
-            myText->update();
-        }
-        delete e;
-        updateDialog();
+void
+GNERunPythonToolDialog::updateDialogButtons() {
+    // update buttons
+    if (myRunPythonTool->isRunning()) {
+        myAbortButton->enable();
+        myRunButton->disable();
+        myBackButton->disable();
+        myCancelButton->disable();
+    } else {
+        myAbortButton->disable();
+        myRunButton->enable();
+        myBackButton->enable();
+        myCancelButton->enable();
     }
-    return 1;
+    // update dialog
+    GNEDialog::update();
 }
 
 /****************************************************************************/

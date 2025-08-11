@@ -1,4 +1,6 @@
 set(netedit_dialogs_run_SRCS
+   GNERunDialog.cpp
+   GNERunDialog.h
    GNERunNetgenerateDialog.cpp
    GNERunNetgenerateDialog.h
    GNERunPythonToolDialog.cpp

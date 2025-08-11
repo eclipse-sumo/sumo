@@ -20,9 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/dialogs/GNEDialog.h>
-#include <utils/foxtools/MFXSynchQue.h>
-#include <utils/foxtools/MFXThreadEvent.h>
+#include "GNERunDialog.h"
 
 // ===========================================================================
 // class declarations
@@ -36,9 +34,7 @@ class OptionsCont;
 // class definitions
 // ===========================================================================
 
-class GNERunNetgenerateDialog : public GNEDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNERunNetgenerateDialog)
+class GNERunNetgenerateDialog : public GNERunDialog {
 
 public:
     /// @brief Constructor
@@ -52,9 +48,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-
-    /// @brief event after press save button
-    long onCmdSaveLog(FXObject*, FXSelector, void*);
 
     /// @brief event after press abort button
     long onCmdAbort(FXObject*, FXSelector, void*);
@@ -71,36 +64,17 @@ public:
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief called when the thread signals an event
-    long onThreadEvent(FXObject*, FXSelector, void*);
-
     /// @}
-
-protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNERunNetgenerateDialog);
-
-    /// @brief update toolDialog
-    void updateDialog();
 
 private:
     /// @brief thread for running tool
     GNERunNetgenerate* myRunNetgenerate = nullptr;
 
-    /// @brief text
-    FXText* myText = nullptr;
-
     /// @brief netgenerate options
     const OptionsCont* myNetgenerateOptions;
 
-    /// @brief List of received events
-    MFXSynchQue<GUIEvent*> myEvents;
-
-    /// @brief io-event with the runner thread
-    FXEX::MFXThreadEvent myThreadEvent;
-
-    /// @brief flag to check if there is an error
-    bool myError = false;
+    /// @brief update dialog buttons
+    void updateDialogButtons();
 
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;

@@ -11,74 +11,93 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunPythonToolDialog.h
+/// @file    GNERunDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Mar 2023
+/// @date    Aug 2025
 ///
-// Dialog for running tools
+// Abstract dialog for running tools
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include "GNERunDialog.h"
+#include <netedit/dialogs/GNEDialog.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNERunPythonTool;
-class GNEPythonTool;
 class GUIEvent;
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunPythonToolDialog : public GNERunDialog {
+class GNERunDialog : public GNEDialog {
+    /// @brief FOX-declaration
+    FXDECLARE_ABSTRACT(GNERunDialog)
 
 public:
     /// @brief Constructor
-    GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool);
+    GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon);
 
     /// @brief destructor
-    ~GNERunPythonToolDialog();
+    ~GNERunDialog();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
     /// @name FOX-callbacks
     /// @{
 
     /// @brief event after press abort button
-    long onCmdAbort(FXObject*, FXSelector, void*);
+    virtual long onCmdAbort(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press rerun button
-    long onCmdRerun(FXObject*, FXSelector, void*);
+    virtual long onCmdRerun(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press back button
-    long onCmdBack(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
+    virtual long onCmdBack(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press close button
-    long onCmdAccept(FXObject*, FXSelector, void*);
+    virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
+
+    /// @brief event after press cancel button
+    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
+
+    /// @brief event after press save button
+    long onCmdSaveLog(FXObject*, FXSelector, void*);
+
+    /// @brief called when the thread signals an event
+    long onThreadEvent(FXObject*, FXSelector, void*);
 
     /// @}
 
-private:
-    /// @brief thread for running tool
-    GNERunPythonTool* myRunPythonTool = nullptr;
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNERunDialog);
 
-    /// @brief tool
-    GNEPythonTool* myPythonTool = nullptr;
+    /// @brief text
+    FXText* myText = nullptr;
+
+    /// @brief List of received events
+    MFXSynchQue<GUIEvent*> myEvents;
+
+    /// @brief io-event with the runner thread
+    FXEX::MFXThreadEvent myThreadEvent;
+
+    /// @brief flag to check if there is an error
+    bool myError = false;
 
     /// @brief update dialog buttons
-    void updateDialogButtons();
+    virtual void updateDialogButtons() = 0;
 
+private:
     /// @brief Invalidated copy constructor.
-    GNERunPythonToolDialog(const GNERunPythonToolDialog&) = delete;
+    GNERunDialog(const GNERunDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERunPythonToolDialog& operator=(const GNERunPythonToolDialog&) = delete;
+    GNERunDialog& operator=(const GNERunDialog&) = delete;
 };
