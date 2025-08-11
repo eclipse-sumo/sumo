@@ -45,7 +45,7 @@ public:
         FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -89,7 +89,7 @@ public:
         FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -124,7 +124,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixNetworkElements(GNEApplicationWindow *mainWindow,
+    GNEFixNetworkElements(GNEApplicationWindow* mainWindow,
                           const std::vector<GNENetworkElement*>& elements);
 
     /// @brief destructor
