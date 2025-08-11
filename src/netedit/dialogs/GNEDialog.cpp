@@ -481,7 +481,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
         // close button
         GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close dialog"),
                                   GUIIconSubSys::getIcon(GUIIcon::CLOSE), this,
-                                  MID_GNE_ABORT, GUIDesignButtonDialog);
+                                  MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
         // add horizontal frame used to center buttons horizontally
         new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     }
