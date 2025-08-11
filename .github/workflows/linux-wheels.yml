@@ -90,7 +90,7 @@ jobs:
 
     - name: Downloading Wheels artifact
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
 
     - name: Setting wheel directory
       if: github.event.schedule == '5 8 * * *'
