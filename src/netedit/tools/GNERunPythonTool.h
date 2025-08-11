@@ -15,66 +15,32 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
-// Thread for run tool
+// Thread for run python tool
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXSingleEventThread.h>
+#include <netedit/tools/GNEPythonTool.h>
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERunPythonToolDialog;
+#include "GNERun.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunPythonTool : protected MFXSingleEventThread  {
+class GNERunPythonTool : public GNERun<GNEPythonTool> {
 
 public:
     /// @brief Constructor
-    GNERunPythonTool(GNERunPythonToolDialog* runToolDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
+    GNERunPythonTool(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     ~GNERunPythonTool();
 
     /// @brief run tool
-    void runTool(const GNEPythonTool* tool);
-
-    /// @brief abort tool running
-    void abortTool();
-
-    /// @brief check if tool is running
-    bool isRunning() const;
-
-    /// @brief check if during execution an error was Occurred
-    bool errorOccurred() const;
+    void run(const GNEPythonTool* pythonTool) override;
 
 private:
-    /// @brief tool
-    const GNEPythonTool* myPythonTool = nullptr;
-
-    /// @brief flag for check if tool is running
-    bool myRunning = false;
-
-    /// @brief flag for check if during execution an error was Occurred
-    bool myErrorOccurred = false;
-
-    /// @brief pipe file
-    FILE* myPipe = nullptr;
-
-    /// @brief event Queue
-    MFXSynchQue<GUIEvent*>& myEventQueue;
-
-    /// @brief event throw
-    FXEX::MFXThreadEvent& myEventThrow;
-
-    /// @brief starts the thread. The thread ends after the tool is finished
-    FXint run();
-
     /// @brief Invalidated copy constructor.
     GNERunPythonTool(const GNERunPythonTool&) = delete;
 

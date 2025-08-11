@@ -29,10 +29,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    MFXSingleEventThread(runDialog->getApplicationWindow()->getApp(), runDialog->getApplicationWindow()),
-    myEventQueue(eq),
-    myEventThrow(ev) {
+GNERunNetgenerate::GNERunNetgenerate(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    GNERun(runDialog, eq, ev) {
 }
 
 
@@ -42,7 +40,6 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 void
 GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     // set command
-
 #ifdef WIN32
     std::string exePath = "netgenerate.exe";
 #else
@@ -67,8 +64,7 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     }
     // quote to handle spaces. note that this differs from GNEPythonTool because the python interpreter is a bit smarter
     // when handling quoted parts within a path
-    myNetgenerateCommand = "\"" + sumoHome + exePath + "\"";
-
+    myRunCommand = "\"" + sumoHome + exePath + "\"";
     // iterate over all topics
     for (const auto& topic : netgenerateOptions->getSubTopics()) {
         // ignore configuration
@@ -76,7 +72,7 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
             const std::vector<std::string> entries = netgenerateOptions->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
                 if (!netgenerateOptions->isDefault(entry)) {
-                    myNetgenerateCommand += " --" + entry + " " + netgenerateOptions->getValueString(entry);
+                    myRunCommand += " --" + entry + " " + netgenerateOptions->getValueString(entry);
                 }
             }
         }
@@ -85,99 +81,6 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     myRunning = false;
     myErrorOccurred = false;
     start();
-}
-
-
-void
-GNERunNetgenerate::abort() {
-    if (myRunning) {
-        // cancel thread
-        cancel();
-        // reset flags
-        myRunning = false;
-        myErrorOccurred = false;
-        // show info
-        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("cancelled by user\n"))));
-        myEventThrow.signal();
-    }
-}
-
-
-bool
-GNERunNetgenerate::isRunning() const {
-    return myRunning;
-}
-
-
-bool
-GNERunNetgenerate::errorOccurred() const {
-    return myErrorOccurred;
-}
-
-
-FXint
-GNERunNetgenerate::run() {
-    // declare buffer
-    char buffer[128];
-    for (int i = 0; i < 128; i++) {
-        buffer[i] = '\0';
-    }
-    // open process showing std::err in console
-#ifdef WIN32
-    myPipe = _popen(StringUtils::transcodeToLocal(myNetgenerateCommand + " 2>&1").c_str(), "r");
-#else
-    myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
-#endif
-    if (!myPipe) {
-        // set error ocurred flag
-        myErrorOccurred = true;
-        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, "popen() failed!"));
-        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""));
-        myEventThrow.signal();
-        return 1;
-    } else {
-        // set running flag
-        myRunning = true;
-        // Show command
-        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, myNetgenerateCommand + "\n"));
-        // start process
-        myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("starting process...\n"))));
-        myEventThrow.signal();
-        try {
-            // add buffer
-            while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
-                myEventQueue.push_back(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer));
-                myEventThrow.signal();
-            }
-        } catch (...) {
-            // close process
-#ifdef WIN32
-            _pclose(myPipe);
-#else
-            pclose(myPipe);
-#endif
-            // set flags
-            myRunning = false;
-            myErrorOccurred = true;
-            myEventQueue.push_back(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, std::string(TL("error processing command\n"))));
-            myEventThrow.signal();
-            return 1;
-        }
-    }
-    // close process
-#ifdef WIN32
-    _pclose(myPipe);
-#else
-    pclose(myPipe);
-#endif
-    myPipe = nullptr;
-    // set running flag
-    myRunning = false;
-    // end process
-    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))));
-    myEventQueue.push_back(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""));
-    myEventThrow.signal();
-    return 1;
 }
 
 /****************************************************************************/
