@@ -51,7 +51,7 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runner,
                            const std::string& name, GUIIcon titleIcon) :
     GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
+              OpenType::NON_MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
     myRunner(runner) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -70,8 +70,8 @@ GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runn
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // reset error flag
-    myError = false;
+    // update dialog button
+    updateDialogButtons();
     // open modal dialog
     openDialog();
     // run tool
@@ -187,12 +187,14 @@ void
 GNERunDialog::updateDialogButtons() {
     // update buttons
     if (myRunner->isRunning()) {
-        myAbortButton->enable();
+        myCancelButton->enable();
+        myAcceptButton->disable();
         myRunButton->disable();
         myBackButton->disable();
         myCancelButton->disable();
     } else {
-        myAbortButton->disable();
+        myCancelButton->disable();
+        myAcceptButton->enable();
         myRunButton->enable();
         myBackButton->enable();
         myCancelButton->enable();
