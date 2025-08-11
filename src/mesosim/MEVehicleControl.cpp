@@ -47,7 +47,7 @@ MEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const bool ignoreStopErrors, const VehicleDefinitionSource source,
                                bool addRouteStops) {
     const double speedFactor = (source == VehicleDefinitionSource::STATE ? 1 :
-            type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE ? MSRouteHandler::getParsingRNG() : nullptr));
+                                type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE ? MSRouteHandler::getParsingRNG() : nullptr));
     MEVehicle* built = new MEVehicle(defs, route, type, speedFactor);
     initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;

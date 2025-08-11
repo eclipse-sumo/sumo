@@ -321,7 +321,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
             // dummyVia is only needed to hold permissions
             permissions = parseVehicleClasses(allow, disallow);
             dummyVia = new ROEdge("dummyVia_" + from->getLanes()[fromLane]->getID() + "->" + to->getLanes()[toLane]->getID(),
-                    from->getToJunction(), from->getToJunction(), permissions);
+                                  from->getToJunction(), from->getToJunction(), permissions);
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], dummyVia);
         from->addSuccessor(to, nullptr, dir);

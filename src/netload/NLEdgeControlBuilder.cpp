@@ -203,7 +203,7 @@ NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
                     item.first->getOpposite()->setOpposite(item.first);
                 } else {
                     throw ProcessError(TLF("Mutually inconsistent neigh lane definitions for lanes '%', '%' and '%'",
-                                item.first->getID(), item.first->getOpposite()->getID(), Named::getIDSecure(item.first->getOpposite()->getOpposite())));
+                                           item.first->getID(), item.first->getOpposite()->getID(), Named::getIDSecure(item.first->getOpposite()->getOpposite())));
                 }
             }
             checked.insert(item.first);

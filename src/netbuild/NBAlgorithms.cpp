@@ -437,7 +437,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
     int maxPrio = -std::numeric_limits<int>::max();
     int maxNumLanes = -std::numeric_limits<int>::max();
     double maxSpeed = -std::numeric_limits<double>::max();
-    // check available vClasses to consider for lane number comparison 
+    // check available vClasses to consider for lane number comparison
     SVCPermissions all = 0;
     for (NBEdge* const edge : n.myAllEdges) {
         all |= edge->getPermissions();

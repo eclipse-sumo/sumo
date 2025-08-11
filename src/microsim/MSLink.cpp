@@ -1178,9 +1178,9 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag6) {
         std::cout << "   dist=" << dist << " dist2=" << dist2
-            << " at=" << STEPS2TIME(arrivalTime)
-            << " fat=" << STEPS2TIME(foeArrivalTime)
-            << " dt=" << dt << " v=" << v << " m=" << m << " d=" << d << " a=" << a << "\n";
+                  << " at=" << STEPS2TIME(arrivalTime)
+                  << " fat=" << STEPS2TIME(foeArrivalTime)
+                  << " dt=" << dt << " v=" << v << " m=" << m << " d=" << d << " a=" << a << "\n";
     }
 #endif
     if (0.5 * v * v / m <= dist2) {

@@ -1073,11 +1073,11 @@ protected:
 
 
     ConstMSEdgeVector optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-            const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
+                                      const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
 
     ConstMSEdgeVector routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
-        int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
+                                      std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
+                                      int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
 
 
 protected:

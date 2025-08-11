@@ -3246,13 +3246,13 @@ void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
                     if (fixOppositeLengths) {
                         const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
                         WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
-                                oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
+                                       oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
                         setLoadedLength(avgLength);
                         oppEdge->setLoadedLength(avgLength);
                     } else {
                         WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
-                                ") differs in length from edge '" + getID() + "' (length " +
-                                toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                                    ") differs in length from edge '" + getID() + "' (length " +
+                                    toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
                         getLaneStruct(getNumLanes() - 1).oppositeID = "";
                     }
                 }

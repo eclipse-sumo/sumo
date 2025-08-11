@@ -89,8 +89,7 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     aheadNext(_lane->getWidth(), nullptr, 0.),
     zipperDist(0),
     lastBlockedBackPos(-1),
-    lastBlockedWaitingTime(-1)
-{
+    lastBlockedWaitingTime(-1) {
     if (lane->isInternal()) {
         for (auto ili : lane->getIncomingLanes()) {
             if (ili.viaLink->getState() == LINKSTATE_ZIPPER) {
@@ -2578,8 +2577,8 @@ std::pair<double, SUMOTime>
 MSLaneChanger::getLastBlocked(int index) const {
     assert(index >= 0 && index < (int)myChanger.size());
     return std::make_pair(
-            myChanger[index].lastBlockedBackPos,
-            myChanger[index].lastBlockedWaitingTime);
+               myChanger[index].lastBlockedBackPos,
+               myChanger[index].lastBlockedWaitingTime);
 }
 
 /****************************************************************************/
