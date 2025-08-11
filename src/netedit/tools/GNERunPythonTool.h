@@ -20,25 +20,37 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/tools/GNEPythonTool.h>
-
 #include "GNERun.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEPythonTool;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunPythonTool : public GNERun<GNEPythonTool> {
+class GNERunPythonTool : public GNERun {
 
 public:
     /// @brief Constructor
-    GNERunPythonTool(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
+    GNERunPythonTool(GNEApplicationWindow* applicationWindow, const GNEPythonTool* pythonTool,
+                     MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     ~GNERunPythonTool();
 
+    /// @brief get sender (used to inform about events)
+    FXObject* getSender() const;
+
     /// @brief run tool
-    void run(const GNEPythonTool* pythonTool) override;
+    void runThread();
+
+protected:
+    /// @brief python tool to run
+    const GNEPythonTool* myPythonTool = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

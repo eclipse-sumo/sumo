@@ -19,32 +19,38 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
-#include <utils/common/StringUtils.h>
-#include <utils/gui/events/GUIEvent_Message.h>
+#include <netedit/tools/GNEPythonTool.h>
 
-#include "GNEPythonTool.h"
 #include "GNERunPythonTool.h"
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNERunPythonTool::GNERunPythonTool(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    GNERun(runDialog, eq, ev) {
+GNERunPythonTool::GNERunPythonTool(GNEApplicationWindow* applicationWindow, const GNEPythonTool* pythonTool,
+                                   MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    GNERun(applicationWindow, eq, ev),
+    myPythonTool(pythonTool) {
 }
 
 
 GNERunPythonTool::~GNERunPythonTool() {}
 
 
+FXObject*
+GNERunPythonTool::getSender() const {
+    return myPythonTool->getMenuCommand();
+}
+
+
 void
-GNERunPythonTool::run(const GNEPythonTool* pythonTool) {
+GNERunPythonTool::runThread() {
     // set command
-    myRunCommand = pythonTool->getCommand();
+    myRunCommand = myPythonTool->getCommand();
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
+    // start thread
     start();
 }
 

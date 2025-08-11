@@ -20,25 +20,40 @@
 #pragma once
 #include <config.h>
 
-#include <utils/options/OptionsCont.h>
-
 #include "GNERun.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunNetgenerate : public GNERun<OptionsCont> {
+class GNERunNetgenerate : public GNERun {
 
 public:
     /// @brief Constructor
-    GNERunNetgenerate(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
+    GNERunNetgenerate(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions,
+                      MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     ~GNERunNetgenerate();
 
+    /// @brief get sender (used to inform about events)
+    FXObject* getSender() const;
+
     /// @brief run netgenerate
-    void run(const OptionsCont* netgenerateOptions) override;
+    void runThread();
+
+protected:
+    /// @brieft netgenerate executable path
+    std::string myNetGenerateExecutablePath;
+
+    /// @brief netgenerate options
+    const OptionsCont* myNetgenerateOptions = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

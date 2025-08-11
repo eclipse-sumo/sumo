@@ -19,9 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
-#include <utils/common/StringUtils.h>
-#include <utils/gui/events/GUIEvent_Message.h>
 
 #include "GNERunNetgenerate.h"
 
@@ -29,21 +26,15 @@
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerate::GNERunNetgenerate(GNERunDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    GNERun(runDialog, eq, ev) {
-}
-
-
-GNERunNetgenerate::~GNERunNetgenerate() {}
-
-
-void
-GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
+GNERunNetgenerate::GNERunNetgenerate(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions,
+                                     MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    GNERun(applicationWindow, eq, ev),
+    myNetgenerateOptions(netgenerateOptions) {
     // set command
 #ifdef WIN32
-    std::string exePath = "netgenerate.exe";
+    const std::string exePath = "netgenerate.exe";
 #else
-    std::string exePath = "netgenerate";
+    const std::string exePath = "netgenerate";
 #endif
     const char* sumoHomeEnv = getenv("SUMO_HOME");
     std::string sumoHome = "";
@@ -64,15 +55,31 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     }
     // quote to handle spaces. note that this differs from GNEPythonTool because the python interpreter is a bit smarter
     // when handling quoted parts within a path
-    myRunCommand = "\"" + sumoHome + exePath + "\"";
+    myNetGenerateExecutablePath = "\"" + sumoHome + exePath + "\"";
+}
+
+
+GNERunNetgenerate::~GNERunNetgenerate() {}
+
+
+FXObject*
+GNERunNetgenerate::getSender() const {
+    return nullptr;
+}
+
+
+void
+GNERunNetgenerate::runThread() {
+    // first set executable path
+    myRunCommand = myNetGenerateExecutablePath;
     // iterate over all topics
-    for (const auto& topic : netgenerateOptions->getSubTopics()) {
+    for (const auto& topic : myNetgenerateOptions->getSubTopics()) {
         // ignore configuration
         if (topic != "Configuration") {
-            const std::vector<std::string> entries = netgenerateOptions->getSubTopicsEntries(topic);
+            const std::vector<std::string> entries = myNetgenerateOptions->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
-                if (!netgenerateOptions->isDefault(entry)) {
-                    myRunCommand += " --" + entry + " " + netgenerateOptions->getValueString(entry);
+                if (!myNetgenerateOptions->isDefault(entry)) {
+                    myRunCommand += " --" + entry + " " + myNetgenerateOptions->getValueString(entry);
                 }
             }
         }
@@ -80,6 +87,7 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
+    // start thread
     start();
 }
 
