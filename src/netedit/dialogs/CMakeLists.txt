@@ -7,12 +7,14 @@ add_subdirectory(run)
 add_subdirectory(tools)
 
 set(netedit_dialogs_SRCS
-   GNEAboutDialog.cpp
-   GNEAboutDialog.h
    GNEACChooserDialog.cpp
    GNEACChooserDialog.h
+   GNEAboutDialog.cpp
+   GNEAboutDialog.h
    GNEAllowVClassesDialog.cpp
    GNEAllowVClassesDialog.h
+   GNEColorDialog.cpp
+   GNEColorDialog.h
    GNEDialog.cpp
    GNEDialog.h
    GNEGeometryPointDialog.cpp
