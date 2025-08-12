@@ -36,13 +36,16 @@ class GNERunPythonToolDialog : public GNERunDialog {
 
 public:
     /// @brief Constructor
-    GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool);
+    GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* pythonTool);
 
     /// @brief destructor
     ~GNERunPythonToolDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief get run command
+    std::string getRunCommand() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -54,6 +57,10 @@ public:
     long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @}
+
+protected:
+    /// @brief python tool to run
+    const GNEPythonTool* myPythonTool = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

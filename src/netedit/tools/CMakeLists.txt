@@ -3,12 +3,6 @@ set(netedit_tools_SRCS
    GNENetDiffTool.h
    GNEPythonTool.cpp
    GNEPythonTool.h
-   GNERun.cpp
-   GNERun.h
-   GNERunNetgenerate.cpp
-   GNERunNetgenerate.h
-   GNERunPythonTool.cpp
-   GNERunPythonTool.h
    )
 
 add_library(netedit_tools STATIC ${netedit_tools_SRCS})

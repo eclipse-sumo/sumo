@@ -41,6 +41,9 @@ public:
     /// @brief destructor
     ~GNEExternalRunner();
 
+    /// @brief run tool called from dialog
+    void runTool(GNERunDialog* runDialog);
+
     /// @brief abort running
     void abort();
 
@@ -53,9 +56,6 @@ public:
 protected:
     /// @brief pointer to current run dialog
     GNERunDialog* myRunDialog = nullptr;
-
-    /// @brief running command
-    std::string myRunCommand;
 
     /// @brief flag for check if we have a running process
     bool myRunning = false;

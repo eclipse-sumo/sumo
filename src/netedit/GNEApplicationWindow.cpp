@@ -22,17 +22,16 @@
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEAboutDialog.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
-#include <netedit/dialogs/options/GNESumoOptionsDialog.h>
 #include <netedit/dialogs/options/GNENeteditOptionsDialog.h>
 #include <netedit/dialogs/options/GNENetgenerateOptionsDialog.h>
+#include <netedit/dialogs/options/GNESumoOptionsDialog.h>
+#include <netedit/dialogs/run/GNERunNetgenerateDialog.h>
 #include <netedit/dialogs/tools/GNENetgenerateDialog.h>
-#include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEMeanData.h>
@@ -60,7 +59,6 @@
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>

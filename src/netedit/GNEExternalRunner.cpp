@@ -39,6 +39,21 @@ GNEExternalRunner::~GNEExternalRunner() {}
 
 
 void
+GNEExternalRunner::runTool(GNERunDialog* runDialog) {
+    // first abort any running process
+    abort();
+    // set run dialog
+    myRunDialog = runDialog;
+    std::cout << myRunDialog->getRunCommand() << std::endl;
+    // set flags
+    myRunning = false;
+    myErrorOccurred = false;
+    // start thread
+    start();
+}
+
+
+void
 GNEExternalRunner::abort() {
     if (myRunning) {
         // cancel thread
@@ -66,6 +81,8 @@ GNEExternalRunner::errorOccurred() const {
 
 FXint
 GNEExternalRunner::run() {
+    // get run command
+    const std::string runCommand = myRunDialog->getRunCommand();
     // declare buffer
     char buffer[128];
     for (int i = 0; i < 128; i++) {
@@ -73,9 +90,9 @@ GNEExternalRunner::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen(StringUtils::transcodeToLocal(myRunCommand + " 2>&1").c_str(), "r");
+    myPipe = _popen(StringUtils::transcodeToLocal(runCommand + " 2>&1").c_str(), "r");
 #else
-    myPipe = popen((myRunCommand + " 2>&1").c_str(), "r");
+    myPipe = popen((runCommand + " 2>&1").c_str(), "r");
 #endif
     if (!myPipe) {
         // set error ocurred flag
@@ -87,7 +104,7 @@ GNEExternalRunner::run() {
         // set running flag
         myRunning = true;
         // Show command
-        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, myRunCommand + "\n"), false);
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, runCommand + "\n"), false);
         // start process
         myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("starting process...\n"))), true);
         try {

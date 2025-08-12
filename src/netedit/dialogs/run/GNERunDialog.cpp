@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/tools/GNERunNetgenerate.h>
+#include <netedit/GNEExternalRunner.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 
@@ -42,11 +42,10 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 // member method definitions
 // ===========================================================================
 
-GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runner,
+GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow,
                            const std::string& name, GUIIcon titleIcon) :
     GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              OpenType::NON_MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
-    myRunner(runner) {
+              OpenType::NON_MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -68,8 +67,6 @@ GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runn
     updateDialogButtons();
     // open modal dialog
     openDialog();
-    // run tool
-    myRunner->runThread();
 }
 
 
@@ -89,8 +86,8 @@ GNERunDialog::addEvent(GUIEvent* event, const bool signal) {
 
 long
 GNERunDialog::onCmdAbort(FXObject*, FXSelector, void*) {
-    // abort tool
-    myRunner->abort();
+    // abort external runner
+    myApplicationWindow->getExternalRunner()->abort();
     // hide dialog
     return closeDialogCanceling();
 }
@@ -105,8 +102,8 @@ GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
     myText->layout();
     myText->update();
     myError = false;
-    // run tool
-    myRunner->runThread();
+    // abort external runner
+    myApplicationWindow->getExternalRunner()->runTool(this);
     return 1;
 }
 
@@ -192,7 +189,7 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
 void
 GNERunDialog::updateDialogButtons() {
     // update buttons
-    if (myRunner->isRunning()) {
+    if (myApplicationWindow->getExternalRunner()->isRunning()) {
         myCancelButton->enable();
         myAcceptButton->disable();
         myRunButton->disable();

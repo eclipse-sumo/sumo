@@ -44,6 +44,9 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
+    /// @brief get run command
+    std::string getRunCommand() const;
+
     /// @name FOX-callbacks
     /// @{
 
@@ -54,6 +57,10 @@ public:
     long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @}
+
+protected:
+    /// @brief netgenerate options
+    const OptionsCont* myNetgenerateOptions = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

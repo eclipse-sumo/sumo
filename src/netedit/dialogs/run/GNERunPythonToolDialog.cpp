@@ -19,7 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/tools/GNERunPythonTool.h>
+#include <netedit/GNEExternalRunner.h>
+#include <netedit/tools/GNEPythonTool.h>
 
 #include "GNERunPythonToolDialog.h"
 
@@ -27,9 +28,11 @@
 // member method definitions
 // ===========================================================================
 
-GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
-    GNERunDialog(applicationWindow, new GNERunPythonTool(applicationWindow, tool, myEvents, myThreadEvent),
-                 TL("Python Tool"), GUIIcon::TOOL_PYTHON) {
+GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* pythonTool) :
+    GNERunDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON),
+    myPythonTool(pythonTool) {
+    // run tool
+    applicationWindow->getExternalRunner()->runTool(this);
 }
 
 
@@ -42,11 +45,17 @@ GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* 
 }
 
 
+std::string
+GNERunPythonToolDialog::getRunCommand() const {
+    return myPythonTool->getCommand();
+}
+
+
 long
 GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close runTool dialog and open tool dialog
     onCmdClose(nullptr, 0, nullptr);
-    return myApplicationWindow->handle(myRunner->getSender(), FXSEL(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG), nullptr);
+    return myApplicationWindow->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG), nullptr);
 }
 
 
@@ -61,7 +70,7 @@ GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
         return 1;
     } else {
         // execute post processing
-        return myApplicationWindow->handle(myRunner->getSender(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
+        return myApplicationWindow->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
     }
 }
 

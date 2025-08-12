@@ -28,7 +28,6 @@
 // class declarations
 // ===========================================================================
 
-class GNERun;
 class GUIEvent;
 
 // ===========================================================================
@@ -41,7 +40,7 @@ class GNERunDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runner,
+    GNERunDialog(GNEApplicationWindow* applicationWindow,
                  const std::string& name, GUIIcon titleIcon);
 
     /// @brief destructor
@@ -49,6 +48,9 @@ public:
 
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+
+    /// @brief get run command
+    virtual std::string getRunCommand() const = 0;
 
     /// @brief add event in the queue
     void addEvent(GUIEvent* event, const bool signal);
@@ -79,9 +81,6 @@ public:
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNERunDialog);
-
-    /// @brief run reference
-    GNERun* myRunner = nullptr;
 
     /// @brief text
     FXText* myText = nullptr;
