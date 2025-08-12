@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/RGBColor.h>
+
 #include "GNEDialog.h"
 
 // ===========================================================================
@@ -45,6 +47,9 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief called when reset button is pressed
+    long onCmdReset(FXObject*, FXSelector, void*);
+
     /// @brief Called when color is changed
     long onChgColor(FXObject*, FXSelector, void*);
 
@@ -58,7 +63,10 @@ protected:
     FOX_CONSTRUCTOR(GNEColorDialog)
 
     /// @brief Color selector box
-    FXColorSelector* colorbox;
+    FXColorSelector* myColorbox = nullptr;
+
+    /// @brief Original color to restore pressing reset button
+    const RGBColor myOriginalColor = RGBColor::BLACK;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -38,36 +38,45 @@ FXIMPLEMENT(GNEColorDialog, GNEDialog, GNEColorDialogMap, ARRAYNUMBER(GNEColorDi
 // method definitions
 // ===========================================================================
 
-// Separator item
 GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color):
     GNEDialog(applicationWindow, TL("Custom Geometry Point"), GUIIcon::COLORWHEEL,
-              Buttons::ACCEPT_CANCEL, OpenType::MODAL, 600, 300) {
-    colorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, 600, 300),
+    myOriginalColor(color) {
+    myColorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // set color
-    colorbox->setRGBA(MFXUtils::getFXColor(color));
+    myColorbox->setRGBA(MFXUtils::getFXColor(color));
     // hide buttons
-    colorbox->acceptButton()->disable();
-    colorbox->acceptButton()->hide();
-    colorbox->cancelButton()->disable();
-    colorbox->cancelButton()->hide();
+    myColorbox->acceptButton()->disable();
+    myColorbox->acceptButton()->hide();
+    myColorbox->cancelButton()->disable();
+    myColorbox->cancelButton()->hide();
     // open dialog
     openDialog();
 }
 
 
 GNEColorDialog::~GNEColorDialog() {
-    colorbox = (FXColorSelector*) - 1L;
+    myColorbox = (FXColorSelector*) - 1L;
 }
 
 
 void
 GNEColorDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // "139,131,120"
 }
 
 
 RGBColor
 GNEColorDialog::getColor() const {
-    return MFXUtils::getRGBColor(colorbox->getRGBA());
+    return MFXUtils::getRGBColor(myColorbox->getRGBA());
+}
+
+
+long
+GNEColorDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // restore original color
+    myColorbox->setRGBA(MFXUtils::getFXColor(myOriginalColor));
+    return 1;
 }
 
 
