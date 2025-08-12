@@ -18,14 +18,15 @@
 // Dialog for edit vehicleTypes
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/dialogs/GNEColorDialog.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -669,30 +670,22 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::getButton() const {
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
-    // check if get the value of the modal arguments
-    if (editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest()) {
-        myTextField->setText(InternalTestStep::DialogArgument::colorValue.c_str(), TRUE);
-    } else {
-        // create FXColorDialog
-        FXColorDialog colordialog(this, TL("Color Dialog"));
-        colordialog.setTarget(this);
-        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-        // If previous attribute wasn't correct, set black as default color
-        if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
-            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text())));
-        } else {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-        }
-        // execute dialog to get a new color
-        if (colordialog.execute() == 1) {
-            std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
-            myTextField->setText(newValue.c_str());
-            if (editedDemandElement->isValid(myAttr, newValue)) {
-                editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
-                // If previously value was incorrect, change font color to black
-                myTextField->setTextColor(FXRGB(0, 0, 0));
-                myTextField->killFocus();
-            }
+    RGBColor color = RGBColor::BLACK;
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
+        color = GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text());
+    }
+    // declare colorDialog
+    const auto colorDialog = new GNEColorDialog(editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), color);
+    // continue depending of result
+    if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
+        std::string newValue = toString(colorDialog->getColor());
+        myTextField->setText(newValue.c_str());
+        if (editedDemandElement->isValid(myAttr, newValue)) {
+            editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
+            // If previously value was incorrect, change font color to black
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->killFocus();
         }
     }
 }

@@ -31,7 +31,7 @@ class GNEColorDialog : public GNEDialog {
 
 public:
     /// @brief Construct color dialog
-    GNEColorDialog(GNEApplicationWindow* applicationWindow);
+    GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color);
 
     /// @brief Destructor
     virtual ~GNEColorDialog();
@@ -39,23 +39,8 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief Set the color
-    void setRGBA(FXColor clr);
-
     /// @brief Get the color
-    FXColor getRGBA() const;
-
-    /// @brief Return true if only opaque colors allowed
-    FXbool isOpaqueOnly() const;
-
-    /// @brief Change opaque only mode
-    void setOpaqueOnly(FXbool forceopaque);
-
-    /// @brief Save dialog to a stream
-    virtual void save(FXStream& store) const;
-
-    /// @brief Load dialog from a stream
-    virtual void load(FXStream& store);
+    RGBColor getColor() const;
 
     /// @name FOX-callbacks
     /// @{

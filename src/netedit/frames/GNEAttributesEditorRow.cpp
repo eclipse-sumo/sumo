@@ -18,14 +18,15 @@
 // Row used for edit attributes in GNEAttributesEditorType
 /****************************************************************************/
 
+#include <netedit/dialogs/GNEAllowVClassesDialog.h>
+#include <netedit/dialogs/GNEColorDialog.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEAllowVClassesDialog.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/Translation.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
@@ -411,25 +412,18 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
 
 long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
-    // check if get the value of the modal arguments
-    if (myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest()) {
-        myValueTextField->setText(InternalTestStep::DialogArgument::colorValue.c_str(), TRUE);
-    } else {
-        // create FXColorDialog
-        FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
-        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-        // If previous attribute wasn't correct, set black as default color
-        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-        } else if (myAttrProperty->hasDefaultValue()) {
-            colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
-        } else {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-        }
-        // execute dialog to get a new color in the text field
-        if (colordialog.execute() == 1) {
-            myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
-        }
+    RGBColor color = RGBColor::BLACK;
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+        color = GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text());
+    } else if (myAttrProperty->hasDefaultValue()) {
+        color = myAttrProperty->getDefaultColorValue();
+    }
+    // declare colorDialog
+    const auto colorDialog = new GNEColorDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(), color);
+    // continue depending of result
+    if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
+        myValueTextField->setText(toString(colorDialog->getColor()).c_str(), TRUE);
     }
     return 1;
 }

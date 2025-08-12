@@ -30,7 +30,6 @@
 // static member definitions
 // ===========================================================================
 
-const std::string InternalTestStep::DialogArgument::colorValue = "139,131,120";
 // this offsets corresponds to the offset of the test magenta square
 constexpr int MOUSE_OFFSET_X = 24;
 constexpr int MOUSE_OFFSET_Y = 25;

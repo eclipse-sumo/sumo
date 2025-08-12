@@ -39,14 +39,19 @@ FXIMPLEMENT(GNEColorDialog, GNEDialog, GNEColorDialogMap, ARRAYNUMBER(GNEColorDi
 // ===========================================================================
 
 // Separator item
-GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow):
+GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color):
     GNEDialog(applicationWindow, TL("Custom Geometry Point"), GUIIcon::COLORWHEEL,
-              Buttons::ACCEPT_CANCEL, OpenType::MODAL, 320, 80) {
-    colorbox = new FXColorSelector(this, this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    colorbox->acceptButton()->setTarget(this);
-    colorbox->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
-    colorbox->cancelButton()->setTarget(this);
-    colorbox->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
+              Buttons::ACCEPT_CANCEL, OpenType::MODAL, 600, 300) {
+    colorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // set color
+    colorbox->setRGBA(MFXUtils::getFXColor(color));
+    // hide buttons
+    colorbox->acceptButton()->disable();
+    colorbox->acceptButton()->hide();
+    colorbox->cancelButton()->disable();
+    colorbox->cancelButton()->hide();
+    // open dialog
+    openDialog();
 }
 
 
@@ -60,15 +65,9 @@ GNEColorDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogAr
 }
 
 
-void
-GNEColorDialog::setRGBA(FXColor clr) {
-    colorbox->setRGBA(clr);
-}
-
-
-FXColor
-GNEColorDialog::getRGBA() const {
-    return colorbox->getRGBA();
+RGBColor
+GNEColorDialog::getColor() const {
+    return MFXUtils::getRGBColor(colorbox->getRGBA());
 }
 
 
@@ -89,30 +88,4 @@ GNEColorDialog::onCmdColor(FXObject*, FXSelector, void* ptr) {
     } else {
         return 0;
     }
-}
-
-
-FXbool
-GNEColorDialog::isOpaqueOnly() const {
-    return colorbox->isOpaqueOnly();
-}
-
-
-void
-GNEColorDialog::setOpaqueOnly(FXbool forceopaque) {
-    colorbox->setOpaqueOnly(forceopaque);
-}
-
-
-void
-GNEColorDialog::save(FXStream& store) const {
-    FXDialogBox::save(store);
-    store << colorbox;
-}
-
-
-void
-GNEColorDialog::load(FXStream& store) {
-    FXDialogBox::load(store);
-    store >> colorbox;
 }

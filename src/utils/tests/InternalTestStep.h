@@ -68,9 +68,6 @@ public:
         /// @brief action to be carried out in the dialog
         const std::string customAction;
 
-        /// @brief color used in color dialogs (temporal)
-        static const std::string colorValue;
-
     private:
         /// @brief invalidated default constructor
         DialogArgument() = delete;
