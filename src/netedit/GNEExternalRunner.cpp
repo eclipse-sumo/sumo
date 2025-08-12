@@ -44,7 +44,6 @@ GNEExternalRunner::runTool(GNERunDialog* runDialog) {
     abort();
     // set run dialog
     myRunDialog = runDialog;
-    std::cout << myRunDialog->getRunCommand() << std::endl;
     // set flags
     myRunning = false;
     myErrorOccurred = false;
