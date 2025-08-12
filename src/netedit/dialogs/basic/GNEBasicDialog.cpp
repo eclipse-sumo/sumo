@@ -30,12 +30,12 @@ GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const st
                                const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
                                GUIIcon largeIcon) :
     GNEDialog(applicationWindow, title.c_str(), titleIcon, buttons, OpenType::MODAL) {
-    // get icon
-    const auto ic = (largeIcon != GUIIcon::EMPTY) ? GUIIconSubSys::getIcon(largeIcon) : nullptr;
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
-    // add icon label
-    new FXLabel(infoFrame, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // add icon label (only if large icon is defined)
+    if (largeIcon != GUIIcon::EMPTY) {
+        new FXLabel(infoFrame, FXString::null, GUIIconSubSys::getIcon(largeIcon), ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    }
     // add information label
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // open modal dialog
