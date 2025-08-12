@@ -3596,11 +3596,11 @@ GNENetHelper::SavingStatus::isMeanDatasSaved() const {
 }
 
 
-GNENetHelper::SavingStatus::AskSaving
+GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveNetwork() const {
     // Check if there are non saved network elements
     if (myNetworkSaved) {
-        return AskSaving::CONTINUE;
+        return GNEDialog::Result::CANCEL;
     } else {
         // open question dialog box
         const std::string header = TL("Confirm close Network");
@@ -3608,23 +3608,17 @@ GNENetHelper::SavingStatus::askSaveNetwork() const {
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                     GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
-        // continue depending of answer
-        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
-            return AskSaving::SAVE;
-        } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::DISCARD;
-        } else {
-            return AskSaving::ABORT;
-        }
+        // return question dialog
+        return questionDialog.getResult();
     }
 }
 
 
-GNENetHelper::SavingStatus::AskSaving
+GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveAdditionalElements() const {
     // Check if there are non saved additional elements
     if (myAdditionalSaved) {
-        return AskSaving::CONTINUE;
+        return GNEDialog::Result::CANCEL;
     } else {
         // open question box
         const std::string header = TL("Save additional elements before close");
@@ -3632,23 +3626,17 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements() const {
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                     GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
-        // continue depending of answer
-        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
-            return AskSaving::SAVE;
-        } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::DISCARD;
-        } else {
-            return AskSaving::ABORT;
-        }
+        // return question dialog
+        return questionDialog.getResult();
     }
 }
 
 
-GNENetHelper::SavingStatus::AskSaving
+GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveDemandElements() const {
     // Check if there are non saved demand elements
     if (myDemandElementSaved) {
-        return AskSaving::CONTINUE;
+        return GNEDialog::Result::CANCEL;
     } else {
         // open question box
         const std::string header = TL("Save demand elements before close");
@@ -3656,23 +3644,17 @@ GNENetHelper::SavingStatus::askSaveDemandElements() const {
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                     GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
-        // continue depending of answer
-        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
-            return AskSaving::SAVE;
-        } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::DISCARD;
-        } else {
-            return AskSaving::ABORT;
-        }
+        // return question dialog
+        return questionDialog.getResult();
     }
 }
 
 
-GNENetHelper::SavingStatus::AskSaving
+GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveDataElements() const {
     // Check if there are non saved data elements
     if (myDataElementSaved) {
-        return AskSaving::CONTINUE;
+        return GNEDialog::Result::CANCEL;
     } else {
         // open question box
         const std::string header = TL("Save data elements before close");
@@ -3680,23 +3662,17 @@ GNENetHelper::SavingStatus::askSaveDataElements() const {
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                     GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
-        // continue depending of answer
-        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
-            return AskSaving::SAVE;
-        } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::DISCARD;
-        } else {
-            return AskSaving::ABORT;
-        }
+        // return question dialog
+        return questionDialog.getResult();
     }
 }
 
 
-GNENetHelper::SavingStatus::AskSaving
+GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveMeanDataElements() const {
     // Check if there are non saved mean data elements
     if (myMeanDataElementSaved) {
-        return AskSaving::CONTINUE;
+        return GNEDialog::Result::CANCEL;
     } else {
         // open question box
         const std::string header = TL("Save meanData elements before close");
@@ -3704,14 +3680,8 @@ GNENetHelper::SavingStatus::askSaveMeanDataElements() const {
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                     GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
-        // continue depending of answer
-        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
-            return AskSaving::SAVE;
-        } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::DISCARD;
-        } else {
-            return AskSaving::ABORT;
-        }
+        // return question dialog
+        return questionDialog.getResult();
     }
 }
 

@@ -4503,31 +4503,31 @@ GNEApplicationWindow::askSaveElements() {
         const auto saveDataElements = myNet->getSavingStatus()->askSaveDataElements();
         const auto saveMeanDataElements = myNet->getSavingStatus()->askSaveMeanDataElements();
         // first check if abort saving
-        if ((saveNetwork == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
-                (saveAdditionalElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
-                (saveDemandElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
-                (saveDataElements == GNENetHelper::SavingStatus::AskSaving::ABORT) ||
-                (saveMeanDataElements == GNENetHelper::SavingStatus::AskSaving::ABORT)) {
+        if ((saveNetwork == GNEDialog::Result::ABORT) ||
+                (saveAdditionalElements == GNEDialog::Result::ABORT) ||
+                (saveDemandElements == GNEDialog::Result::ABORT) ||
+                (saveDataElements == GNEDialog::Result::ABORT) ||
+                (saveMeanDataElements == GNEDialog::Result::ABORT)) {
             return false;
         }
         // save every type of file
-        if ((saveNetwork == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+        if ((saveNetwork == GNEDialog::Result::ACCEPT) &&
                 (onCmdSaveNetwork(nullptr, 0, nullptr) != 1)) {
             return false;
         }
-        if ((saveAdditionalElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+        if ((saveAdditionalElements == GNEDialog::Result::ACCEPT) &&
                 (onCmdSaveAdditionalElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }
-        if ((saveDemandElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+        if ((saveDemandElements == GNEDialog::Result::ACCEPT) &&
                 (onCmdSaveDemandElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }
-        if ((saveDataElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+        if ((saveDataElements == GNEDialog::Result::ACCEPT) &&
                 (onCmdSaveDataElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }
-        if ((saveMeanDataElements == GNENetHelper::SavingStatus::AskSaving::SAVE) &&
+        if ((saveMeanDataElements == GNEDialog::Result::ACCEPT) &&
                 (onCmdSaveMeanDataElements(nullptr, 0, nullptr) != 1)) {
             return false;
         }

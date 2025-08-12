@@ -26,6 +26,7 @@
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBVehicle.h>
 #include <netedit/changes/GNEChange.h>
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/fxheader.h>
@@ -37,7 +38,6 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-
 
 // ===========================================================================
 // class declarations
@@ -1045,14 +1045,6 @@ struct GNENetHelper {
     class SavingStatus {
 
     public:
-        /// @brief enum used to keep the result of ask about saving elements
-        enum class AskSaving {
-            CONTINUE,   // nothing to save
-            SAVE,       // save elements
-            DISCARD,    // discard saving
-            ABORT,      // abort saving
-        };
-
         /// @brief constructor
         SavingStatus(GNENet* net);
 
@@ -1186,19 +1178,19 @@ struct GNENetHelper {
         /// @{
 
         /// @brief warns about unsaved changes in network and gives the user the option to abort
-        AskSaving askSaveNetwork() const;
+        GNEDialog::Result askSaveNetwork() const;
 
         /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-        AskSaving askSaveAdditionalElements() const;
+        GNEDialog::Result askSaveAdditionalElements() const;
 
         /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
-        AskSaving askSaveDemandElements() const;
+        GNEDialog::Result askSaveDemandElements() const;
 
         /// @brief warns about unsaved changes in data elements and gives the user the option to abort
-        AskSaving askSaveDataElements() const;
+        GNEDialog::Result askSaveDataElements() const;
 
         /// @brief warns about unsaved changes in meanData elements and gives the user the option to abort
-        AskSaving askSaveMeanDataElements() const;
+        GNEDialog::Result askSaveMeanDataElements() const;
 
         /// @}
 
