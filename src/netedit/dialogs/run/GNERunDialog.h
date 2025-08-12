@@ -50,6 +50,9 @@ public:
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
+    /// @brief add event in the queue
+    void addEvent(GUIEvent* event, const bool signal);
+
     /// @name FOX-callbacks
     /// @{
 

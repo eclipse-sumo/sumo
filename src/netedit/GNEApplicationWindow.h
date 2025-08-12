@@ -26,12 +26,13 @@
 // class declarations
 // ===========================================================================
 
-class GNEInternalTest;
-class GNELoadThread;
-class GNETagPropertiesDatabase;
-class GNEUndoList;
-class GNEUndoListDialog;
 class GUIEvent;
+class GNEUndoListDialog;
+class GNEUndoList;
+class GNETagPropertiesDatabase;
+class GNELoadThread;
+class GNEInternalTest;
+class GNEExternalRunner;
 
 // ===========================================================================
 // class definition
@@ -91,6 +92,17 @@ public:
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
+
+    /// @name functions related with external runner
+    /// @{
+
+    /// @brief get external runner
+    GNEExternalRunner* getExternalRunner() const;
+
+    /// @brief set external runner
+    void setExternalRunner(GNEExternalRunner* externalRunner);
+
+    /// @}
 
     /// @name Inter-thread event handling
     /// @{
@@ -651,6 +663,9 @@ public:
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
+
+    /// @brief external runner for running external tools
+    GNEExternalRunner* myExternalRunner = nullptr;
 
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;

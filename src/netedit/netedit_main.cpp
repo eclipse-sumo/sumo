@@ -19,24 +19,23 @@
 /****************************************************************************/
 
 #include <signal.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/foxtools/MsgHandlerSynchronized.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/foxtools/MsgHandlerSynchronized.h>
+#include <utils/common/SystemFrame.h>
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
 #endif
 
 #include "GNEApplicationWindow.h"
+#include "GNEExternalRunner.h"
 #include "GNELoadThread.h"
 #include "GNETagPropertiesDatabase.h"
-/*
-#ifdef _DEBUG_
-    #define SECUREEXCEPTION
-#endif
-*/
+
+
+// #define SECUREEXCEPTION
 
 // ===========================================================================
 // main function
@@ -72,41 +71,51 @@ main(int argc, char** argv) {
         OptionsIO::getOptions(true);
         if (neteditOptions.processMetaOptions(false)) {
             SystemFrame::close();
-            return 0;
         } else if (neteditOptions.isSet("attribute-help-output")) {
+            // write attribute help in console
             tagPropertiesDatabase->writeAttributeHelp();
         } else {
-            // Make application
+            // create FX application
             FXApp application("SUMO netedit", "netedit");
             // Open display
             application.init(argc, argv);
             int minor, major;
             if (!FXGLVisual::supported(&application, major, minor)) {
                 throw ProcessError(TL("This system has no OpenGL support. Exiting."));
+            } else {
+                // build the main window
+                GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
+                // build external runner
+                GNEExternalRunner* externalRunner = new GNEExternalRunner(netedit);
+                // set language
+                gLanguage = neteditOptions.getString("language");
+                // initialize GUICompleteSchemeStorage
+                gSchemeStorage.init(&application, true);
+                // build dependent elements
+                netedit->dependentBuild();
+                // add signal handler for CTRL+Q
+                application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
+                // Create app
+                application.create();
+                // Load configuration given on command line
+                if (argc > 1) {
+                    // Set default options
+                    OptionsIO::setArgs(argc, argv);
+                    // load options
+                    netedit->loadOptionOnStartup();
+                }
+                // focus window at startup
+                netedit->setFocus();
+                // Run
+                ret = application.run();
+                // delete external runner
+                delete externalRunner;
+                // delete netedit
+                delete netedit;
             }
-            // build the main window
-            GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
-            gLanguage = neteditOptions.getString("language");
-            gSchemeStorage.init(&application, true);
-            netedit->dependentBuild();
-            // Create app
-            application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
-            application.create();
-            // Load configuration given on command line
-            if (argc > 1) {
-                // Set default options
-                OptionsIO::setArgs(argc, argv);
-                // load options
-                netedit->loadOptionOnStartup();
-            }
-            // focus window at startup
-            netedit->setFocus();
-            // Run
-            ret = application.run();
-            // delete elements
-            delete tagPropertiesDatabase;
-            delete netedit;
         }
+        // delete tagPropertiesDatabase
+        delete tagPropertiesDatabase;
 #ifdef SECUREEXCEPTION
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {

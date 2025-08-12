@@ -1851,6 +1851,18 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 }
 
 
+GNEExternalRunner*
+GNEApplicationWindow::getExternalRunner() const {
+    return myExternalRunner;
+}
+
+
+void
+GNEApplicationWindow::setExternalRunner(GNEExternalRunner* externalRunner) {
+    myExternalRunner = externalRunner;
+}
+
+
 long
 GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View

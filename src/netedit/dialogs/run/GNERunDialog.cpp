@@ -75,6 +75,18 @@ GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, GNERun* runn
 
 GNERunDialog::~GNERunDialog() {}
 
+
+void
+GNERunDialog::addEvent(GUIEvent* event, const bool signal) {
+    // add event to queue
+    myEvents.push_back(event);
+    // signal thread event
+    if (signal) {
+        myThreadEvent.signal();
+    }
+}
+
+
 long
 GNERunDialog::onCmdAbort(FXObject*, FXSelector, void*) {
     // abort tool

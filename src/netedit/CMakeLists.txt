@@ -14,6 +14,8 @@ set(netedit_SRCS
    GNEAttributeProperties.cpp
    GNEAttributeProperties.h
    GNEEvent_NetworkLoaded.h
+   GNEExternalRunner.cpp
+   GNEExternalRunner.h
    GNEInternalTest.cpp
    GNEInternalTest.h
    GNELane2laneConnection.cpp
