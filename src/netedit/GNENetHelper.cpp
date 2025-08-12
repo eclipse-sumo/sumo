@@ -3612,7 +3612,7 @@ GNENetHelper::SavingStatus::askSaveNetwork() const {
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return AskSaving::SAVE;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::SAVE;
+            return AskSaving::DISCARD;
         } else {
             return AskSaving::ABORT;
         }
@@ -3636,7 +3636,7 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements() const {
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return AskSaving::SAVE;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::SAVE;
+            return AskSaving::DISCARD;
         } else {
             return AskSaving::ABORT;
         }
@@ -3660,7 +3660,7 @@ GNENetHelper::SavingStatus::askSaveDemandElements() const {
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return AskSaving::SAVE;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::SAVE;
+            return AskSaving::DISCARD;
         } else {
             return AskSaving::ABORT;
         }
@@ -3684,7 +3684,7 @@ GNENetHelper::SavingStatus::askSaveDataElements() const {
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return AskSaving::SAVE;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::SAVE;
+            return AskSaving::DISCARD;
         } else {
             return AskSaving::ABORT;
         }
@@ -3708,7 +3708,7 @@ GNENetHelper::SavingStatus::askSaveMeanDataElements() const {
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return AskSaving::SAVE;
         } else if (questionDialog.getResult() == GNEDialog::Result::CANCEL) {
-            return AskSaving::SAVE;
+            return AskSaving::DISCARD;
         } else {
             return AskSaving::ABORT;
         }
