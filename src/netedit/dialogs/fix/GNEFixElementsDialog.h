@@ -24,6 +24,7 @@
 #include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 // ===========================================================================
 // class definitions
