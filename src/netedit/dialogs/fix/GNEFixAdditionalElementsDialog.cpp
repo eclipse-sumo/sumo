@@ -104,7 +104,7 @@ GNEFixAdditionalElementsDialog::PositionOptions::applyFixOption() {
         // continue depending of solution
         if (myActivateFriendlyPosition->getCheck() == TRUE) {
             undoList->begin(myConflictedElements.front().getElement(),
-                            TL("change % of invalid additionals", toString(SUMO_ATTR_FRIENDLY_POS)));
+                            TLF("change % of invalid additionals", toString(SUMO_ATTR_FRIENDLY_POS)));
             // iterate over invalid single lane elements to enable friendly position
             for (const auto& conflictedElement : myConflictedElements) {
                 conflictedElement.getElement()->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", undoList);
