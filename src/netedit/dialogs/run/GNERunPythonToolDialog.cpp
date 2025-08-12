@@ -33,6 +33,8 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* application
     myPythonTool(pythonTool) {
     // run tool
     applicationWindow->getExternalRunner()->runTool(this);
+    // open modal dialog
+    openDialog();
 }
 
 

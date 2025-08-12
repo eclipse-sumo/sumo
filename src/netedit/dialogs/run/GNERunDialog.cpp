@@ -45,7 +45,7 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow,
                            const std::string& name, GUIIcon titleIcon) :
     GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              OpenType::NON_MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
+              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -65,8 +65,6 @@ GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow,
     myText->setStyled(true);
     // update dialog button
     updateDialogButtons();
-    // open modal dialog
-    openDialog();
 }
 
 
@@ -178,7 +176,7 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         if (myText->getText().find("Error") != -1) {
             myError = true;
         } else if ((myText->getText().find("Success") != -1) && (myText->getText().find("Warning") == -1)) {
-            onCmdClose(nullptr, 0, nullptr);
+            //onCmdClose(nullptr, 0, nullptr);
         }
     }
 

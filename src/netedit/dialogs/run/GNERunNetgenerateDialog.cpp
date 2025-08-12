@@ -32,6 +32,8 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicati
     myNetgenerateOptions(netgenerateOptions) {
     // run tool
     applicationWindow->getExternalRunner()->runTool(this);
+    // open modal dialog
+    openDialog();
 }
 
 
