@@ -21,6 +21,10 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 
 // ===========================================================================
 // class declarations
@@ -36,14 +40,24 @@ class GNEAdditionalDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEAdditionalDialog(GNEAdditional* editedAdditional, const bool updatingElement,
-                        const int width, const int height);
+    GNEAdditionalDialog(GNEAdditional* additional, const bool updatingElement,
+                        const int width, const int height) :
+        GNEDialog(additional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                  TLF("Edit '%' data", additional->getID()), additional->getTagProperty()->getGUIIcon(),
+                  Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
+        myEditedAdditional(additional),
+        myUpdatingElement(updatingElement),
+        myChangesDescription(TLF("change % values", additional->getTagStr())),
+        myNumberOfChanges(0) {
+    }
 
     /// @brief destructor
-    ~GNEAdditionalDialog();
+    ~GNEAdditionalDialog() {}
 
     /// @brief get edited Additional
-    GNEAdditional* getEditedAdditional() const;
+    GNEAdditional* getEditedAdditional() const {
+        return myEditedAdditional;
+    }
 
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
@@ -62,8 +76,8 @@ public:
     /// @}
 
 protected:
-    /// @brief default constructor
-    GNEAdditionalDialog();
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEAdditionalDialog)
 
     /// @brief pointer to edited additional
     GNEAdditional* myEditedAdditional = nullptr;
@@ -72,19 +86,40 @@ protected:
     bool myUpdatingElement = false;
 
     /// @brief change additional dialog header
-    void changeAdditionalDialogHeader(const std::string& newHeader);
+    void changeAdditionalDialogHeader(const std::string& newHeader) {
+        // change GNEDialog title
+        setTitle(newHeader.c_str());
+    }
 
     /// @brief init a new group of changes that will be do it in dialog
-    void initChanges();
+    void initChanges() {
+        // init commandGroup
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myEditedAdditional, myChangesDescription);
+        // save number of command group changes
+        myNumberOfChanges = myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
+    }
 
     /// @brief Accept changes did in this dialog.
-    void acceptChanges();
+    void acceptChanges() {
+        // commit changes or abort last command group depending of number of changes did
+        if (myNumberOfChanges < myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->end();
+        } else {
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        }
+    }
 
     /// @brief Cancel changes did in this dialog.
-    void cancelChanges();
+    void cancelChanges() {
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+    }
 
     /// @brief reset changes did in this dialog.
-    void resetChanges();
+    void resetChanges() {
+        // abort last command group an start editing again
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myEditedAdditional, myChangesDescription);
+    }
 
 private:
     /// @brief description of changes did in this additional dialog

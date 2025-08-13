@@ -1,5 +1,4 @@
 set(netedit_dialogs_elements_SRCS
-   GNEAdditionalDialog.cpp
    GNEAdditionalDialog.h
    GNECalibratorDialog.cpp
    GNECalibratorDialog.h
