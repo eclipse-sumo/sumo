@@ -29,7 +29,7 @@
 
 GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
     GNEDialog(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIIcon::QUESTION_SMALL,
-              GNEDialog::Buttons::KEEPNEW_KEEPOLD_CANCEL, GNEDialog::OpenType::MODAL) {
+              GNEDialog::Buttons::KEEPNEW_KEEPOLD_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label

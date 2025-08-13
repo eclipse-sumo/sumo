@@ -33,7 +33,7 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* additional, const bool u
                                          const int width, const int height) :
     GNEDialog(additional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
               TLF("Edit '%' data", additional->getID()), additional->getTagProperty()->getGUIIcon(),
-              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, width, height),
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
     myEditedAdditional(additional),
     myUpdatingElement(updatingElement),
     myChangesDescription(TLF("change % values", additional->getTagStr())),

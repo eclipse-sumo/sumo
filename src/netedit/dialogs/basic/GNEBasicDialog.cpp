@@ -29,7 +29,7 @@
 GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
                                const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
                                GUIIcon largeIcon) :
-    GNEDialog(applicationWindow, title.c_str(), titleIcon, buttons, OpenType::MODAL) {
+    GNEDialog(applicationWindow, title.c_str(), titleIcon, buttons, OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add icon label (only if large icon is defined)

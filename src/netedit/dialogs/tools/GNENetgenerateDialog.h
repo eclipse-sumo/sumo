@@ -86,9 +86,6 @@ private:
     /// @brief flag to indicate if networkType was selected
     bool mySelectedNetworktypeFlag = false;
 
-    /// @brief flag to indicate if output was established
-    bool mySelectedOutputFileFlag = false;
-
     /// @brief grid network
     FXLabel* myGridNetworkLabel = nullptr;
 

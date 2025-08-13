@@ -297,25 +297,13 @@ class MFXMenuCheckIcon;
 /// @name GNEDialog
 /// @{
 /// @brief design for GNEDialogs
-#define GUIDesignGNEDialog                      (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE),
+#define GUIDesignGNEDialogStatic                (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE)
 
 /// @brief design for GNEDialogs explicit
-#define GUIDesignGNEDialogExplicit              (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | LAYOUT_EXPLICIT)
-
-/// @brief design for GNEDialogs shrinkable
-#define GUIDesignGNEDialogShrinkable            (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_SHRINKABLE)
-
-/// @brief design for GNEDialogs stretchable
-#define GUIDesignGNEDialogStretchable           (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_STRETCHABLE)
+#define GUIDesignGNEDialogStaticExplicit        (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | LAYOUT_EXPLICIT)
 
 /// @brief design for GNEDialogs resizable
 #define GUIDesignGNEDialogResizable             (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_RESIZE)
-
-/// @brief design for GNEDialogs shrinkable with explicit layout
-#define GUIDesignGNEDialogShrinkableExplicit    (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_SHRINKABLE | LAYOUT_EXPLICIT)
-
-/// @brief design for GNEDialogs stretchable with explicit layout
-#define GUIDesignGNEDialogStretchableExplicit   (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_STRETCHABLE | LAYOUT_EXPLICIT)
 
 /// @brief design for GNEDialogs resizable with explicit layout
 #define GUIDesignGNEDialogResizableExplicit     (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_RESIZE | LAYOUT_EXPLICIT)

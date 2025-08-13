@@ -34,7 +34,7 @@ GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* demandElement, 
         int width, int height) :
     GNEDialog(demandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
               TLF("Edit '%' data", demandElement->getID()), demandElement->getTagProperty()->getGUIIcon(),
-              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, width, height),
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
     myEditedDemandElement(demandElement),
     myUpdatingElement(updatingElement),
     myChangesDescription(TLF("Change % values", demandElement->getTagStr())),

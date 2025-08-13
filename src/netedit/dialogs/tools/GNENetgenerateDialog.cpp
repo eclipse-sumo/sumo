@@ -53,8 +53,8 @@ FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
-              GNEDialog::Buttons::RUN_ADVANCED_CANCEL, GNEDialog::OpenType::MODAL) {
+    GNEDialog(applicationWindow, "Netgenerate", GUIIcon::NETGENERATE, GNEDialog::Buttons::RUN_ADVANCED_CANCEL,
+              GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // build labels
     auto horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     myGridNetworkLabel = new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
@@ -134,15 +134,9 @@ GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
     // check if filename is valid
     if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
         myOutputTextField->setTextColor(FXRGB(255, 0, 0));
-        mySelectedOutputFileFlag = false;
     } else {
         generateOptions.set("output-file", myOutputTextField->getText().text());
         myOutputTextField->setTextColor(FXRGB(0, 0, 0));
-        if (myOutputTextField->getText().length() > 0) {
-            mySelectedOutputFileFlag = true;
-        } else {
-            mySelectedOutputFileFlag = false;
-        }
     }
     updateRunButtons();
     return 1;
@@ -275,7 +269,7 @@ GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
 void
 GNENetgenerateDialog::updateRunButtons() {
     // enable or disable run and advanced buttons depending of flags
-    if (mySelectedOutputFileFlag && mySelectedNetworktypeFlag) {
+    if ((myOutputTextField->getText().length() > 0) && mySelectedNetworktypeFlag) {
         myRunButton->enable();
         myAdvancedButton->enable();
     } else {

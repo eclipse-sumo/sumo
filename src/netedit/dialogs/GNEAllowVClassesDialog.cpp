@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEAllowVClassesDialog, GNEDialog, GNEAllowVClassesDialogMap, ARRAYN
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
         const std::string originalVClasses) :
     GNEDialog(mainWindow, TL("Edit allowed and disallowed vClasses"), GUIIcon::GREENVEHICLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL),
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalVClasses(originalVClasses),
     myEditedVClasses(originalVClasses) {
     // set title

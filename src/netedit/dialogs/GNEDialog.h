@@ -59,9 +59,8 @@ public:
 
     /// @name Resize mode
     enum class ResizeMode {
-        SHRINKABLE,     // dialog is shrinkable
-        STRETCHABLE,    // dialog is stretchable
-        RESIZABLE       // dialog is resizable (in both directions)
+        STATIC,     // dialog is static (size cannot be edited)
+        RESIZABLE   // dialog is resizable (in both directions)
     };
 
     /// @brief list of possible results when closing the dialog
@@ -70,15 +69,6 @@ public:
         CANCEL, // dialog was closed canceling changes (used in cancel, no buttons)
         ABORT,  // dialog was closed aborting changes (used in abort button)
     };
-
-    /// @brief constructor for rigid dialogs
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, Buttons buttons, OpenType openType);
-
-    /// @brief constructor for rigid dialogs with layout explicit
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, Buttons buttons, OpenType openType,
-              const int width, const int height);
 
     /// @brief constructor for resizable dialogs
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
