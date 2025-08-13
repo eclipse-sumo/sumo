@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOVehicleClass.h>
 
 #include "GNEDemandElementDialog.h"

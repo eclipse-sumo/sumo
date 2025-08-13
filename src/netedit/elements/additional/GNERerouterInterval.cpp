@@ -23,7 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/additional/GNERerouterDialog.h>
+#include <netedit/dialogs/elements/GNERerouterDialog.h>
 
 #include "GNERerouterInterval.h"
 

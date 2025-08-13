@@ -18,19 +18,19 @@
 // Dialog for edit calibrators
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
-#include <netedit/dialogs/demand/GNERouteDialog.h>
-#include <netedit/dialogs/demand/GNEVehicleTypeDialog.h>
+#include <netedit/dialogs/elements/GNERouteDialog.h>
+#include <netedit/dialogs/elements/GNEVehicleTypeDialog.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEVType.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNECalibratorDialog.h"

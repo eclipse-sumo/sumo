@@ -18,6 +18,14 @@
 // Row used for edit attributes
 /****************************************************************************/
 
+#include <netedit/dialogs/elements/GNECalibratorDialog.h>
+#include <netedit/dialogs/elements/GNERerouterDialog.h>
+#include <netedit/dialogs/elements/GNEVariableSpeedSignDialog.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
@@ -25,14 +33,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/dialogs/additional/GNECalibratorDialog.h>
-#include <netedit/dialogs/additional/GNERerouterDialog.h>
-#include <netedit/dialogs/additional/GNEVariableSpeedSignDialog.h>
-#include <netedit/elements/additional/GNECalibrator.h>
-#include <netedit/elements/additional/GNERerouter.h>
-#include <netedit/elements/additional/GNEVariableSpeedSign.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAttributesEditor.h"
