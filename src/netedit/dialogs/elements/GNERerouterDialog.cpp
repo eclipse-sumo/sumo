@@ -65,8 +65,6 @@ GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
     myIntervalTable->setEditable(false);
     // update intervals
     updateIntervalTable();
-    // start a undo list for editing local to this additional
-    initChanges();
     // open dialog
     openDialog();
 }

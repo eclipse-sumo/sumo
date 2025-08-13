@@ -93,8 +93,6 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     updateRouteTable();
     updateVehicleTypeTable();
     updateFlowTable();
-    // start a undo list for editing local to this additional
-    initChanges();
     // open dialog
     openDialog();
 }

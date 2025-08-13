@@ -35,8 +35,7 @@ class GNEElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEElementDialog(T* element, const bool updatingElement,
-                        const int width, const int height) :
+    GNEElementDialog(T* element, const bool updatingElement, const int width, const int height) :
         GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                   TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
@@ -44,6 +43,16 @@ public:
         myUpdatingElement(updatingElement),
         myChangesDescription(TLF("change % values", element->getTagStr())),
         myNumberOfChanges(0) {
+        // change dialog title depending if we are updating or creating an element
+        if (updatingElement) {
+            setTitle(TLF("Create %", element->getTagStr()).c_str());
+        } else {
+            setTitle(TLF("edit % '%'", element->getTagStr(), element->getID()).c_str());
+        }
+        // init commandGroup
+        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
+        // save number of command group changes
+        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
     }
 
     /// @brief destructor
@@ -79,20 +88,6 @@ protected:
 
     /// @brief flag to indicate if element are being created or modified (cannot be changed after open dialog)
     bool myUpdatingElement = false;
-
-    /// @brief change element dialog header
-    void changeAdditionalDialogHeader(const std::string& newHeader) {
-        // change GNEDialog title
-        setTitle(newHeader.c_str());
-    }
-
-    /// @brief init a new group of changes that will be do it in dialog
-    void initChanges() {
-        // init commandGroup
-        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
-        // save number of command group changes
-        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
-    }
 
     /// @brief Accept changes did in this dialog.
     void acceptChanges() {

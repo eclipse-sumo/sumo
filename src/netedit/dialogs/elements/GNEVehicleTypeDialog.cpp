@@ -1771,16 +1771,12 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool u
     GNEElementDialog<GNEDemandElement>(vehicleType, updatingElement, 1372, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
-    // change default header
-    changeAdditionalDialogHeader(updatingElement ? "Edit " + myElement->getTagStr() : "Create " + myElement->getTagStr());
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create vehicle type attributes
     myVTypeAttributes = new VTypeAttributes(this, columns);
     // create car following model parameters
     myCarFollowingModelParameters = new CarFollowingModelParameters(this, columns);
-    // start a undo list for editing local to this additional
-    initChanges();
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myElement, true), true);

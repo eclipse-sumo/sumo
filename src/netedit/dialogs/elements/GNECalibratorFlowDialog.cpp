@@ -47,9 +47,6 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, 
     GNEElementDialog<GNEAdditional>(calibratorFlow, updatingElement, 600, 280),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
-    // change default header
-    std::string typeOfOperation = updatingElement ? "Edit " + myElement->getTagStr() + " of " : "Create " + myElement->getTagStr() + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + myElement->getParentAdditionals().at(0)->getTagStr() + " '" + myElement->getParentAdditionals().at(0)->getID() + "'");
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeftLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -125,8 +122,6 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, 
     }
     // update tables
     updateCalibratorFlowValues();
-    // start a undo list for editing local to this additional
-    initChanges();
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);

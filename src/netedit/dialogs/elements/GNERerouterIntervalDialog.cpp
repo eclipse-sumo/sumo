@@ -117,9 +117,6 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
             myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
         }
     }
-    // change default header
-    std::string typeOfOperation = myUpdatingElement ? "Edit " + myElement->getTagStr() + " of " : "Create " + myElement->getTagStr() + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + myElement->getParentAdditionals().at(0)->getTagStr() + " '" + myElement->getParentAdditionals().at(0)->getID() + "'");
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -188,8 +185,6 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();
     updateParkingAreaReroutesTable();
-    // start a undo list for editing local to this additional
-    initChanges();
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);

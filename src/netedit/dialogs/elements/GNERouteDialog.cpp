@@ -44,11 +44,8 @@ FXIMPLEMENT(GNERouteDialog, GNEElementDialog<GNEDemandElement>, GNERouteDialogMa
 // ===========================================================================
 
 GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
-    GNEElementDialog<GNEDemandElement>(route, updatingElement, 400, 120),
+    GNEElementDialog<GNEDemandElement>(route, updatingElement, 500, 300),
     myCalibratorRouteValid(true) {
-    // change default header
-    std::string typeOfOperation =  + " for ";
-    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + myElement->getTagStr() + " of " : "Create " + myElement->getTagStr());
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -64,8 +61,6 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
     myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // update tables
     updateCalibratorRouteValues();
-    // start a undo list for editing local to this demand element
-    initChanges();
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myElement, true), true);

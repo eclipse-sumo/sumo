@@ -51,7 +51,7 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEElementDialog<GNEAdditional>, GNERero
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
-    GNEElementDialog<GNEAdditional>(variableSpeedSign, false, 300, 400),
+    GNEElementDialog<GNEAdditional>(variableSpeedSign, false, 500, 300),
     myStepsValids(false) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -67,8 +67,8 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSp
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     // update table
     updateTableSteps();
-    // start a undo list for editing local to this additional
-    initChanges();
+    // open dialog
+    openDialog();
 }
 
 
