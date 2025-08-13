@@ -44,7 +44,7 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 
 GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow,
                            const std::string& name, GUIIcon titleIcon) :
-    GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
+    GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::RERUN_BACK_CLOSE,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -93,17 +93,25 @@ GNERunDialog::onCmdAbort(FXObject*, FXSelector, void*) {
 
 long
 GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // add line and info
-    std::string line("-------------------------------------------\n");
-    myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
-    myText->appendStyledText("rerun tool\n", 1, TRUE);
-    myText->layout();
-    myText->update();
-    myError = false;
-    // abort external runner
-    myApplicationWindow->getExternalRunner()->runTool(this);
+    if (myApplicationWindow->getExternalRunner()->isRunning()) {
+        // abort external runner
+        myApplicationWindow->getExternalRunner()->abort();
+    } else {
+        // add line and info
+        std::string line("-------------------------------------------\n");
+        myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
+        myText->appendStyledText("rerun tool\n", 1, TRUE);
+        myText->layout();
+        myText->update();
+        myError = false;
+        // abort external runner
+        myApplicationWindow->getExternalRunner()->runTool(this);
+    }
+    // update dialog button
+    updateDialogButtons();
     return 1;
 }
+
 
 long
 GNERunDialog::onCmdAccept(FXObject*, FXSelector, void*) {
@@ -169,7 +177,6 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
             myText->update();
         }
         delete e;
-        updateDialogButtons();
     }
     if (toolFinished) {
         // check if close dialog immediately after running
@@ -179,7 +186,7 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
             //onCmdClose(nullptr, 0, nullptr);
         }
     }
-
+    updateDialogButtons();
     return 1;
 }
 
@@ -188,17 +195,21 @@ void
 GNERunDialog::updateDialogButtons() {
     // update buttons
     if (myApplicationWindow->getExternalRunner()->isRunning()) {
-        myCancelButton->enable();
-        myAcceptButton->disable();
-        myRunButton->disable();
+        // update run button
+        myRunButton->setText(TL("Abort"));
+        myRunButton->setTipText(TL("Abort running"));
+        myRunButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::STOP));
+        // disable buttons
         myBackButton->disable();
-        myCancelButton->disable();
+        myAcceptButton->disable();
     } else {
-        myCancelButton->disable();
-        myAcceptButton->enable();
-        myRunButton->enable();
+        // update run button
+        myRunButton->setText(TL("Rerun"));
+        myRunButton->setTipText(TL("Rerun tool"));
+        myRunButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::START));
+        // enable buttons
         myBackButton->enable();
-        myCancelButton->enable();
+        myAcceptButton->enable();
     }
     // update dialog
     GNEDialog::update();

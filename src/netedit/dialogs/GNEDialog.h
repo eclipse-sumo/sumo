@@ -48,7 +48,7 @@ public:
         KEEPNEW_KEEPOLD_CANCEL, // keep new/keep old/cancel buttons
         RUN_CANCEL_RESET,       // run/cancel/reset buttons (used in tools dialogs)
         RUN_ADVANCED_CANCEL,    // run/advanced/cancel buttons (used in tools dialogs)
-        ABORT_RERUN_BACK_CLOSE  // abort/rerun/back buttons, and close in a lower line (used in tools dialogs)
+        RERUN_BACK_CLOSE        // rerun-abort/back buttons (used in run dialogs)
     };
 
     /// @brief Open dialog type
@@ -111,6 +111,9 @@ public:
     /// @brief called when cancel or no button is pressed (can be reimplemented in children)
     virtual long onCmdCancel(FXObject*, FXSelector, void*);
 
+    /// @brief called when abort is called either closing dialog or pressing abort button (can be reimplemented in children)
+    virtual long onCmdAbort(FXObject*, FXSelector, void*);
+
     /// @brief called when reset button is pressed (must be reimplemented in children)
     virtual long onCmdReset(FXObject*, FXSelector, void*);
 
@@ -122,9 +125,6 @@ public:
 
     /// @brief called when advanced button is pressed (must be reimplemented in children)
     virtual long onCmdAdvanced(FXObject*, FXSelector, void*);
-
-    /// @brief called when abort is called (either closing dialog or pressing abort button)
-    long onCmdAbort(FXObject*, FXSelector, void*);
 
     /// @brief called when user presses a key on the dialog
     long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);
@@ -179,6 +179,9 @@ protected:
 
     /// @brief close dialog declining the changes
     long closeDialogCanceling();
+
+    /// @brief close dialog aborting the changes
+    long closeDialogAborting();
 
 private:
     /// @brief open type
