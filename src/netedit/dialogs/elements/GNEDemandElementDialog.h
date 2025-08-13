@@ -21,6 +21,11 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 
 // ===========================================================================
 // class declarations
@@ -36,14 +41,23 @@ class GNEDemandElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEDemandElementDialog(GNEDemandElement* demandElement, bool updatingElement,
-                           int width, int height);
+    GNEDemandElementDialog(GNEDemandElement* demandElement, const bool updatingElement, const int width, const int height) :
+        GNEDialog(demandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                  TLF("Edit '%' data", demandElement->getID()), demandElement->getTagProperty()->getGUIIcon(),
+                  Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
+        myEditedDemandElement(demandElement),
+        myUpdatingElement(updatingElement),
+        myChangesDescription(TLF("Change % values", demandElement->getTagStr())),
+        myNumberOfChanges(0) {
+    }
 
     /// @brief destructor
-    ~GNEDemandElementDialog();
+    ~GNEDemandElementDialog() {}
 
     /// @brief get edited DemandElement
-    GNEDemandElement* getEditedDemandElement() const;
+    GNEDemandElement* getEditedDemandElement() const {
+        return myEditedDemandElement;
+    }
 
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
@@ -64,7 +78,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEDemandElementDialog();
+    FOX_CONSTRUCTOR(GNEDemandElementDialog)
 
     /// @brief pointer to edited additional
     GNEDemandElement* myEditedDemandElement;
@@ -73,19 +87,42 @@ protected:
     bool myUpdatingElement;
 
     /// @brief change additional dialog header
-    void changeDemandElementDialogHeader(const std::string& newHeader);
+    void changeDemandElementDialogHeader(const std::string& newHeader) {
+        // change GNEDialog title
+        setTitle(newHeader.c_str());
+    }
 
     /// @brief init a new group of changes that will be do it in dialog
-    void initChanges();
+    void initChanges() {
+        // init commandGroup
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
+        // save number of command group changes
+        myNumberOfChanges = myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
+    }
 
     /// @brief Accept changes did in this dialog.
-    void acceptChanges();
+    void acceptChanges() {
+        // commit changes or abort last command group depending of number of changes did
+        if (myNumberOfChanges < myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+            myEditedDemandElement->getNet()->getViewNet()->getUndoList()->end();
+        } else {
+            myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        }
+        // refresh frame
+        myEditedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->updateControls();
+    }
 
     /// @brief Cancel changes did in this dialog.
-    void cancelChanges();
+    void cancelChanges() {
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+    }
 
     /// @brief reset changes did in this dialog.
-    void resetChanges();
+    void resetChanges() {
+        // abort last command group an start editing again
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
+    }
 
 private:
     /// @brief description of changes did in this additional dialog
