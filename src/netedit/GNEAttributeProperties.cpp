@@ -671,7 +671,7 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, cons
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::True : GNEAttributeCarrier::False;
+            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::TRUE_STR : GNEAttributeCarrier::FALSE_STR;
         }
     } else if (isColor()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);

@@ -494,7 +494,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
             } else {
-                return False;
+                return FALSE_STR;
             }
         default:
             return getCommonAttribute(this, key);

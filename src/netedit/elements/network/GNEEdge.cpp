@@ -1258,7 +1258,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case GNE_ATTR_IS_ROUNDABOUT:
-            return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? True : False;
+            return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? TRUE_STR : FALSE_STR;
         default:
             return getCommonAttribute(myNBEdge, key);
     }

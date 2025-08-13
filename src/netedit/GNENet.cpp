@@ -2148,7 +2148,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
     // special case for vTypes
     const std::unordered_map<const GUIGlObject*, GNEDemandElement*> types = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE);
     for (const auto& type : types) {
-        if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::False) {
+        if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::FALSE_STR) {
             deleteDemandElement(type.second, undoList);
         }
     }

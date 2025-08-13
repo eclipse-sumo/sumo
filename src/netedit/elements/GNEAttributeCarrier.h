@@ -323,10 +323,10 @@ public:
     /// @}
 
     /// @brief true value in string format (used for comparing boolean values in getAttribute(...))
-    static const std::string True;
+    static const std::string TRUE_STR;
 
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
-    static const std::string False;
+    static const std::string FALSE_STR;
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier

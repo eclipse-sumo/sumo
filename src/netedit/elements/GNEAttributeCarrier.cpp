@@ -45,8 +45,8 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const std::string GNEAttributeCarrier::LANE_START = TL("lane start");
 const std::string GNEAttributeCarrier::LANE_END = TL("lane end");
-const std::string GNEAttributeCarrier::True = toString(true);
-const std::string GNEAttributeCarrier::False = toString(false);
+const std::string GNEAttributeCarrier::TRUE_STR = toString(true);
+const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
 
 // ===========================================================================
 // method definitions
@@ -904,15 +904,15 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
             return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:
             if (mySelected) {
-                return True;
+                return TRUE_STR;
             } else {
-                return False;
+                return FALSE_STR;
             }
         case GNE_ATTR_FRONTELEMENT:
             if (myDrawInFront) {
-                return True;
+                return TRUE_STR;
             } else {
-                return False;
+                return FALSE_STR;
             }
         case GNE_ATTR_PARAMETERS:
             return parameterised->getParametersStr();
