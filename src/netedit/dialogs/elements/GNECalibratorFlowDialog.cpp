@@ -37,27 +37,25 @@ FXDEFMAP(GNECalibratorFlowDialog) GNECalibratorFlowDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialogMap, ARRAYNUMBER(GNECalibratorFlowDialogMap))
+FXIMPLEMENT(GNECalibratorFlowDialog, GNEElementDialog<GNEAdditional>, GNECalibratorFlowDialogMap, ARRAYNUMBER(GNECalibratorFlowDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement) :
-    GNEAdditionalDialog(calibratorFlow, updatingElement, 600, 280),
+    GNEElementDialog<GNEAdditional>(calibratorFlow, updatingElement, 600, 280),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
-    std::string typeOfOperation = updatingElement ? "Edit " + myEditedAdditional->getTagStr() + " of " : "Create " + myEditedAdditional->getTagStr() + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + myEditedAdditional->getParentAdditionals().at(0)->getTagStr() + " '" + myEditedAdditional->getParentAdditionals().at(0)->getID() + "'");
-
+    std::string typeOfOperation = updatingElement ? "Edit " + myElement->getTagStr() + " of " : "Create " + myElement->getTagStr() + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + myElement->getParentAdditionals().at(0)->getTagStr() + " '" + myElement->getParentAdditionals().at(0)->getID() + "'");
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeftLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnLeftValue = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRightLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRightValue = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-
     // 1 create combobox for type
     new FXLabel(columnLeftLabel, toString(SUMO_TAG_VTYPE).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myComboBoxVehicleType = new MFXComboBoxIcon(columnLeftValue, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
@@ -117,27 +115,24 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, 
     // 19 create textfield for end
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-
     // fill comboBox of VTypes
-    for (const auto& vType : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+    for (const auto& vType : myElement->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendIconItem(vType.second->getID().c_str(), vType.second->getACIcon());
     }
-
     // fill comboBox of Routes
-    for (const auto& route : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+    for (const auto& route : myElement->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         myComboBoxRoute->appendIconItem(route.second->getID().c_str(), route.second->getACIcon());
     }
-
     // update tables
     updateCalibratorFlowValues();
-
     // start a undo list for editing local to this additional
     initChanges();
-
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
-        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
+        myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);
     }
+    // open dialog
+    openDialog();
 }
 
 
@@ -155,28 +150,28 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string title;
     std::string infoA;
     std::string infoB;
-    const auto& parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
+    const auto& parentTagString = myElement->getParentAdditionals().at(0)->getTagStr();
     // set title
     if (myUpdatingElement) {
-        title = TLF("Error updating %'s %", myEditedAdditional->getTagStr(), parentTagString);
-        infoA = TLF("%'s % cannot be updated", parentTagString, myEditedAdditional->getTagStr());
+        title = TLF("Error updating %'s %", myElement->getTagStr(), parentTagString);
+        infoA = TLF("%'s % cannot be updated", parentTagString, myElement->getTagStr());
     } else {
-        title = TLF("Error creating %'s %", myEditedAdditional->getTagStr(), parentTagString);
-        infoA = TLF("%'s % cannot be created", parentTagString, myEditedAdditional->getTagStr());
+        title = TLF("Error creating %'s %", myElement->getTagStr(), parentTagString);
+        infoA = TLF("%'s % cannot be created", parentTagString, myElement->getTagStr());
     }
 
     if (!myCalibratorFlowValid) {
         infoB = TLF("because parameter % is invalid.", toString(myInvalidAttr));
-    } else if (!myEditedAdditional->getParentAdditionals().at(0)->checkChildAdditionalsOverlapping()) {
-        infoB = TLF("because there is overlapping with another %.", myEditedAdditional->getTagStr());
-    } else if ((myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty()) ||
-               (!myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && !myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty())) {
+    } else if (!myElement->getParentAdditionals().at(0)->checkChildAdditionalsOverlapping()) {
+        infoB = TLF("because there is overlapping with another %.", myElement->getTagStr());
+    } else if ((myElement->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && myElement->getAttribute(SUMO_ATTR_SPEED).empty()) ||
+               (!myElement->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && !myElement->getAttribute(SUMO_ATTR_SPEED).empty())) {
         infoB = TLF("because parameters % and % cannot be defined together.", toString(SUMO_ATTR_VEHSPERHOUR), toString(SUMO_ATTR_SPEED));
     }
     // continue depending of infoB
     if (infoB.size() > 0) {
         // open warning Box
-        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               title, infoA, infoB);
     } else {
         // accept changes before closing dialog
@@ -213,42 +208,42 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legibility)
-    GNEUndoList* undoList = myEditedAdditional->getNet()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myElement->getNet()->getViewNet()->getUndoList();
     // set color of myComboBoxVehicleType, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text())) {
         myComboBoxVehicleType->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text(), undoList);
     } else {
         myComboBoxVehicleType->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_TYPE;
     }
     // set color of myComboBoxRoute, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_ROUTE, myComboBoxRoute->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_ROUTE, myComboBoxRoute->getText().text())) {
         myComboBoxRoute->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_ROUTE, myComboBoxRoute->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_ROUTE, myComboBoxRoute->getText().text(), undoList);
     } else {
         myComboBoxRoute->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ROUTE;
     }
     // set color of myTextFieldVehsPerHour, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
         myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
     } else {
         myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_VEHSPERHOUR;
     }
     // set color of myTextFieldSpeed, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text())) {
         myTextFieldSpeed->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text(), undoList);
         // Check VehsPerHour again
-        if (myEditedAdditional->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
+        if (myElement->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
             myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
-            myEditedAdditional->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+            myElement->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
             if (myInvalidAttr == SUMO_ATTR_VEHSPERHOUR) {
                 myCalibratorFlowValid = true;
                 myInvalidAttr = SUMO_ATTR_NOTHING;
@@ -260,90 +255,90 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_SPEED;
     }
     // set color of myTextFieldColor, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), undoList);
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_COLOR;
     }
     // set color of myTextFieldDepartLane, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_DEPARTLANE, myTextFieldDepartLane->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_DEPARTLANE, myTextFieldDepartLane->getText().text())) {
         myTextFieldDepartLane->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_DEPARTLANE, myTextFieldDepartLane->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_DEPARTLANE, myTextFieldDepartLane->getText().text(), undoList);
     } else {
         myTextFieldDepartLane->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_DEPARTLANE;
     }
     // set color of myTextFieldDepartPos, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_DEPARTPOS, myTextFieldDepartPos->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_DEPARTPOS, myTextFieldDepartPos->getText().text())) {
         myTextFieldDepartPos->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_DEPARTPOS, myTextFieldDepartPos->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_DEPARTPOS, myTextFieldDepartPos->getText().text(), undoList);
     } else {
         myTextFieldDepartPos->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_DEPARTPOS;
     }
     // set color of setDepartSpeed, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_DEPARTSPEED, myTextFieldDepartSpeed->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_DEPARTSPEED, myTextFieldDepartSpeed->getText().text())) {
         myTextFieldDepartSpeed->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_DEPARTSPEED, myTextFieldDepartSpeed->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_DEPARTSPEED, myTextFieldDepartSpeed->getText().text(), undoList);
     } else {
         myTextFieldDepartSpeed->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_DEPARTSPEED;
     }
     // set color of myTextFieldArrivalLane, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_ARRIVALLANE, myTextFieldArrivalLane->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_ARRIVALLANE, myTextFieldArrivalLane->getText().text())) {
         myTextFieldArrivalLane->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_ARRIVALLANE, myTextFieldArrivalLane->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_ARRIVALLANE, myTextFieldArrivalLane->getText().text(), undoList);
     } else {
         myTextFieldArrivalLane->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ARRIVALLANE;
     }
     // set color of myTextFieldArrivalPos, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_ARRIVALPOS, myTextFieldArrivalPos->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_ARRIVALPOS, myTextFieldArrivalPos->getText().text())) {
         myTextFieldArrivalPos->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_ARRIVALPOS, myTextFieldArrivalPos->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_ARRIVALPOS, myTextFieldArrivalPos->getText().text(), undoList);
     } else {
         myTextFieldArrivalPos->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ARRIVALPOS;
     }
     // set color of setArrivalSpeed, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_ARRIVALSPEED, myTextFieldArrivalSpeed->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_ARRIVALSPEED, myTextFieldArrivalSpeed->getText().text())) {
         myTextFieldArrivalSpeed->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_ARRIVALSPEED, myTextFieldArrivalSpeed->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_ARRIVALSPEED, myTextFieldArrivalSpeed->getText().text(), undoList);
     } else {
         myTextFieldArrivalSpeed->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ARRIVALSPEED;
     }
     // set color of myTextFieldLine, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_LINE, myTextFieldLine->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_LINE, myTextFieldLine->getText().text())) {
         myTextFieldLine->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_LINE, myTextFieldLine->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_LINE, myTextFieldLine->getText().text(), undoList);
     } else {
         myTextFieldLine->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_LINE;
     }
     // set color of myTextFieldPersonNumber, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_PERSON_NUMBER, myTextFieldPersonNumber->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_PERSON_NUMBER, myTextFieldPersonNumber->getText().text())) {
         myTextFieldPersonNumber->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_PERSON_NUMBER, myTextFieldPersonNumber->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_PERSON_NUMBER, myTextFieldPersonNumber->getText().text(), undoList);
     } else {
         myTextFieldPersonNumber->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_PERSON_NUMBER;
     }
     // set color of myTextFieldContainerNumber, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_CONTAINER_NUMBER, myTextFieldContainerNumber->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_CONTAINER_NUMBER, myTextFieldContainerNumber->getText().text())) {
         myTextFieldContainerNumber->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_CONTAINER_NUMBER, myTextFieldContainerNumber->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_CONTAINER_NUMBER, myTextFieldContainerNumber->getText().text(), undoList);
     } else {
         myTextFieldContainerNumber->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
@@ -351,43 +346,43 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
     // set reroute
     if (myRerouteCheckButton->getCheck()) {
-        myEditedAdditional->setAttribute(SUMO_ATTR_REROUTE, "true", undoList);
+        myElement->setAttribute(SUMO_ATTR_REROUTE, "true", undoList);
         myRerouteCheckButton->setText("true");
     } else {
-        myEditedAdditional->setAttribute(SUMO_ATTR_REROUTE, "false", undoList);
+        myElement->setAttribute(SUMO_ATTR_REROUTE, "false", undoList);
         myRerouteCheckButton->setText("false");
     }
     // set color of myTextFieldDepartPosLat, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_DEPARTPOS_LAT, myTextFieldDepartPosLat->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_DEPARTPOS_LAT, myTextFieldDepartPosLat->getText().text())) {
         myTextFieldDepartPosLat->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_DEPARTPOS_LAT, myTextFieldDepartPosLat->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_DEPARTPOS_LAT, myTextFieldDepartPosLat->getText().text(), undoList);
     } else {
         myTextFieldDepartPosLat->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_DEPARTPOS_LAT;
     }
     // set color of myTextFieldArrivalPosLat, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_ARRIVALPOS_LAT, myTextFieldArrivalPosLat->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_ARRIVALPOS_LAT, myTextFieldArrivalPosLat->getText().text())) {
         myTextFieldArrivalPosLat->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_ARRIVALPOS_LAT, myTextFieldArrivalPosLat->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_ARRIVALPOS_LAT, myTextFieldArrivalPosLat->getText().text(), undoList);
     } else {
         myTextFieldArrivalPosLat->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ARRIVALPOS_LAT;
     }
     // set color of myTextFieldBegin, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_BEGIN, myTextFieldBegin->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_BEGIN, myTextFieldBegin->getText().text())) {
         myTextFieldBegin->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_BEGIN, myTextFieldBegin->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_BEGIN, myTextFieldBegin->getText().text(), undoList);
     } else {
         myTextFieldBegin->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_END;
     }
     // set color of myTextFieldEnd, depending if current value is valid or not
-    if (myEditedAdditional->isValid(SUMO_ATTR_END, myTextFieldEnd->getText().text())) {
+    if (myElement->isValid(SUMO_ATTR_END, myTextFieldEnd->getText().text())) {
         myTextFieldEnd->setTextColor(FXRGB(0, 0, 0));
-        myEditedAdditional->setAttribute(SUMO_ATTR_END, myTextFieldEnd->getText().text(), undoList);
+        myElement->setAttribute(SUMO_ATTR_END, myTextFieldEnd->getText().text(), undoList);
     } else {
         myTextFieldEnd->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
@@ -400,30 +395,30 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 void
 GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     // update fields
-    myComboBoxVehicleType->setCurrentItem(myComboBoxVehicleType->findItem(myEditedAdditional->getAttribute(SUMO_ATTR_TYPE).c_str()));
-    const int routeIndex = myComboBoxVehicleType->findItem(myEditedAdditional->getAttribute(SUMO_ATTR_ROUTE).c_str());
+    myComboBoxVehicleType->setCurrentItem(myComboBoxVehicleType->findItem(myElement->getAttribute(SUMO_ATTR_TYPE).c_str()));
+    const int routeIndex = myComboBoxVehicleType->findItem(myElement->getAttribute(SUMO_ATTR_ROUTE).c_str());
     if (routeIndex == -1) {
         myComboBoxRoute->setCurrentItem(0);
     } else {
         myComboBoxRoute->setCurrentItem(routeIndex);
     }
-    myTextFieldVehsPerHour->setText(myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).c_str());
-    myTextFieldSpeed->setText(myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).c_str());
-    myTextFieldColor->setText(myEditedAdditional->getAttribute(SUMO_ATTR_COLOR).c_str());
-    myTextFieldDepartLane->setText(myEditedAdditional->getAttribute(SUMO_ATTR_DEPARTLANE).c_str());
-    myTextFieldDepartPos->setText(myEditedAdditional->getAttribute(SUMO_ATTR_DEPARTPOS).c_str());
-    myTextFieldDepartSpeed->setText(myEditedAdditional->getAttribute(SUMO_ATTR_DEPARTSPEED).c_str());
-    myTextFieldArrivalLane->setText(myEditedAdditional->getAttribute(SUMO_ATTR_ARRIVALLANE).c_str());
-    myTextFieldArrivalPos->setText(myEditedAdditional->getAttribute(SUMO_ATTR_ARRIVALPOS).c_str());
-    myTextFieldArrivalSpeed->setText(myEditedAdditional->getAttribute(SUMO_ATTR_ARRIVALSPEED).c_str());
-    myTextFieldLine->setText(myEditedAdditional->getAttribute(SUMO_ATTR_LINE).c_str());
-    myTextFieldPersonNumber->setText(myEditedAdditional->getAttribute(SUMO_ATTR_PERSON_NUMBER).c_str());
-    myTextFieldContainerNumber->setText(myEditedAdditional->getAttribute(SUMO_ATTR_CONTAINER_NUMBER).c_str());
-    myRerouteCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myEditedAdditional->getAttribute(SUMO_ATTR_REROUTE).c_str()));
-    myTextFieldDepartPosLat->setText(myEditedAdditional->getAttribute(SUMO_ATTR_DEPARTPOS_LAT).c_str());
-    myTextFieldArrivalPosLat->setText(myEditedAdditional->getAttribute(SUMO_ATTR_ARRIVALPOS_LAT).c_str());
-    myTextFieldBegin->setText(myEditedAdditional->getAttribute(SUMO_ATTR_BEGIN).c_str());
-    myTextFieldEnd->setText(myEditedAdditional->getAttribute(SUMO_ATTR_END).c_str());
+    myTextFieldVehsPerHour->setText(myElement->getAttribute(SUMO_ATTR_VEHSPERHOUR).c_str());
+    myTextFieldSpeed->setText(myElement->getAttribute(SUMO_ATTR_SPEED).c_str());
+    myTextFieldColor->setText(myElement->getAttribute(SUMO_ATTR_COLOR).c_str());
+    myTextFieldDepartLane->setText(myElement->getAttribute(SUMO_ATTR_DEPARTLANE).c_str());
+    myTextFieldDepartPos->setText(myElement->getAttribute(SUMO_ATTR_DEPARTPOS).c_str());
+    myTextFieldDepartSpeed->setText(myElement->getAttribute(SUMO_ATTR_DEPARTSPEED).c_str());
+    myTextFieldArrivalLane->setText(myElement->getAttribute(SUMO_ATTR_ARRIVALLANE).c_str());
+    myTextFieldArrivalPos->setText(myElement->getAttribute(SUMO_ATTR_ARRIVALPOS).c_str());
+    myTextFieldArrivalSpeed->setText(myElement->getAttribute(SUMO_ATTR_ARRIVALSPEED).c_str());
+    myTextFieldLine->setText(myElement->getAttribute(SUMO_ATTR_LINE).c_str());
+    myTextFieldPersonNumber->setText(myElement->getAttribute(SUMO_ATTR_PERSON_NUMBER).c_str());
+    myTextFieldContainerNumber->setText(myElement->getAttribute(SUMO_ATTR_CONTAINER_NUMBER).c_str());
+    myRerouteCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(myElement->getAttribute(SUMO_ATTR_REROUTE).c_str()));
+    myTextFieldDepartPosLat->setText(myElement->getAttribute(SUMO_ATTR_DEPARTPOS_LAT).c_str());
+    myTextFieldArrivalPosLat->setText(myElement->getAttribute(SUMO_ATTR_ARRIVALPOS_LAT).c_str());
+    myTextFieldBegin->setText(myElement->getAttribute(SUMO_ATTR_BEGIN).c_str());
+    myTextFieldEnd->setText(myElement->getAttribute(SUMO_ATTR_END).c_str());
 }
 
 

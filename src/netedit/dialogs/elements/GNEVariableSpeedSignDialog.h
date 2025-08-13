@@ -20,13 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalDialog.h"
+#include "GNEElementDialog.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAdditional;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
+class GNEVariableSpeedSignDialog : public GNEElementDialog<GNEAdditional> {
     /// @brief FOX-declaration
     FXDECLARE(GNEVariableSpeedSignDialog)
 

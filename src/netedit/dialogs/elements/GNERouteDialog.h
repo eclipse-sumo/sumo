@@ -22,13 +22,19 @@
 
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-#include "GNEDemandElementDialog.h"
+#include "GNEElementDialog.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERouteDialog : public GNEDemandElementDialog {
+class GNERouteDialog : public GNEElementDialog<GNEDemandElement> {
     /// @brief FOX-declaration
     FXDECLARE(GNERouteDialog)
 

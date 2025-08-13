@@ -44,14 +44,14 @@ FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEElementDialog<GNEAdditional>, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
-    GNEAdditionalDialog(variableSpeedSign, false, 300, 400),
+    GNEElementDialog<GNEAdditional>(variableSpeedSign, false, 300, 400),
     myStepsValids(false) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -84,9 +84,9 @@ GNEVariableSpeedSignDialog::runInternalTest(const InternalTestStep::DialogArgume
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // create step
-    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(myEditedAdditional, 0, "30");
+    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(myElement, 0, "30");
     // add it using GNEChange_additional
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
+    myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
     updateTableSteps();
     return 1;
@@ -97,7 +97,7 @@ long
 GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
-    for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& VSSChild : myElement->getChildAdditionals()) {
         if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }
@@ -117,8 +117,8 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             const double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
             const std::string speed = myStepsTable->getItem(i, 1)->getText().text();
             // set new values in Closing  reroute
-            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getNet()->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, speed, myEditedAdditional->getNet()->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_TIME, toString(time), myElement->getNet()->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, speed, myElement->getNet()->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
         }
@@ -133,7 +133,7 @@ long
 GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
-    for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& VSSChild : myElement->getChildAdditionals()) {
         if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }
@@ -142,7 +142,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)VSSChildren.size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSChildren.at(i), false), true);
+            myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSChildren.at(i), false), true);
             // Update table
             updateTableSteps();
             return 1;
@@ -164,10 +164,10 @@ long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myStepsValids) {
         // open warning Box
-        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                              TLF("Error updating % of % '%'", toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myEditedAdditional->getID()),
+        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TLF("Error updating % of % '%'", toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myElement->getID()),
                               TLF("The % of % '%s' cannot be updated because there are invalid values",
-                                  toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myEditedAdditional->getID()));
+                                  toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myElement->getID()));
     } else {
         // accept changes before closing dialog
         acceptChanges();
@@ -201,7 +201,7 @@ void
 GNEVariableSpeedSignDialog::updateTableSteps() {
     // get VSS children
     std::vector<GNEAdditional*> VSSChildren;
-    for (const auto& VSSChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& VSSChild : myElement->getChildAdditionals()) {
         if (!VSSChild->getTagProperty()->isSymbol()) {
             VSSChildren.push_back(VSSChild);
         }

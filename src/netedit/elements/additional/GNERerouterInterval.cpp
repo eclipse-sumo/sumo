@@ -37,11 +37,11 @@ GNERerouterInterval::GNERerouterInterval(GNENet* net) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), SUMO_TAG_INTERVAL, "") {
+    GNEAdditional(rerouterDialog->getElement(), SUMO_TAG_INTERVAL, "") {
     // set parents
-    setParent<GNEAdditional*>(rerouterDialog->getEditedAdditional());
+    setParent<GNEAdditional*>(rerouterDialog->getElement());
     // update boundary of rerouter parent
-    rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
+    rerouterDialog->getElement()->updateCenteringBoundary(true);
 }
 
 

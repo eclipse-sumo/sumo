@@ -42,15 +42,14 @@ FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT(GNERerouterDialog, GNEElementDialog<GNEAdditional>, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
-    GNEAdditionalDialog(rerouter, false, 320, 240) {
-
+    GNEElementDialog<GNEAdditional>(rerouter, false, 320, 240) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
@@ -59,18 +58,17 @@ GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
     // create Button and Label for sort intervals
     mySortIntervals = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-
     // Create table
     myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
     myIntervalTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myIntervalTable->setEditable(false);
-
     // update intervals
     updateIntervalTable();
-
     // start a undo list for editing local to this additional
     initChanges();
+    // open dialog
+    openDialog();
 }
 
 
@@ -86,12 +84,12 @@ GNERerouterDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dia
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
-    if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
+    if (!myElement->checkChildAdditionalsOverlapping()) {
         // open warning Box
-        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               TL("Interval overlapping detected"),
                               TLF("Values of % '%' cannot be saved. There are intervals overlapped.",
-                                  toString(SUMO_TAG_REROUTER), myEditedAdditional->getID()));
+                                  toString(SUMO_TAG_REROUTER), myElement->getID()));
     } else {
         // accept changes before closing dialog
         acceptChanges();
@@ -135,7 +133,7 @@ long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& rerouterChild : myElement->getChildAdditionals()) {
         if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
@@ -144,7 +142,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // remove interval
-            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterChildren.at(i), false), true);
+            myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterChildren.at(i), false), true);
             // update interval table after removing
             updateIntervalTable();
             return 1;
@@ -169,7 +167,7 @@ void
 GNERerouterDialog::updateIntervalTable() {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& rerouterChild : myElement->getChildAdditionals()) {
         if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }

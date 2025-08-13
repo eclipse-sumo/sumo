@@ -11,52 +11,47 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDemandElementDialog.h
+/// @file    GNEElementDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jan 2018
+/// @date    Aug 2025
 ///
-// A abstract class for editing additional elements
+// A abstract dialog class for editing elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEDemandElement;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEDemandElementDialog : public GNEDialog {
+template <typename T>
+class GNEElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEDemandElementDialog(GNEDemandElement* demandElement, const bool updatingElement, const int width, const int height) :
-        GNEDialog(demandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                  TLF("Edit '%' data", demandElement->getID()), demandElement->getTagProperty()->getGUIIcon(),
+    GNEElementDialog(T* element, const bool updatingElement,
+                        const int width, const int height) :
+        GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                  TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
-        myEditedDemandElement(demandElement),
+        myElement(element),
         myUpdatingElement(updatingElement),
-        myChangesDescription(TLF("Change % values", demandElement->getTagStr())),
+        myChangesDescription(TLF("change % values", element->getTagStr())),
         myNumberOfChanges(0) {
     }
 
     /// @brief destructor
-    ~GNEDemandElementDialog() {}
+    ~GNEElementDialog() {}
 
-    /// @brief get edited DemandElement
-    GNEDemandElement* getEditedDemandElement() const {
-        return myEditedDemandElement;
+    /// @brief get edited element
+    T* getElement() const {
+        return myElement;
     }
 
     /// @brief run internal test
@@ -64,7 +59,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-
     /// @brief event after press accept button
     virtual long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) = 0;
 
@@ -78,16 +72,16 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEDemandElementDialog)
+    FOX_CONSTRUCTOR(GNEElementDialog)
 
-    /// @brief pointer to edited additional
-    GNEDemandElement* myEditedDemandElement;
+    /// @brief pointer to edited element
+    T* myElement = nullptr;
 
-    /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)
-    bool myUpdatingElement;
+    /// @brief flag to indicate if element are being created or modified (cannot be changed after open dialog)
+    bool myUpdatingElement = false;
 
-    /// @brief change additional dialog header
-    void changeDemandElementDialogHeader(const std::string& newHeader) {
+    /// @brief change element dialog header
+    void changeAdditionalDialogHeader(const std::string& newHeader) {
         // change GNEDialog title
         setTitle(newHeader.c_str());
     }
@@ -95,45 +89,43 @@ protected:
     /// @brief init a new group of changes that will be do it in dialog
     void initChanges() {
         // init commandGroup
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
+        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
         // save number of command group changes
-        myNumberOfChanges = myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
+        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
     }
 
     /// @brief Accept changes did in this dialog.
     void acceptChanges() {
         // commit changes or abort last command group depending of number of changes did
-        if (myNumberOfChanges < myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-            myEditedDemandElement->getNet()->getViewNet()->getUndoList()->end();
+        if (myNumberOfChanges < myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+            myElement->getNet()->getViewNet()->getUndoList()->end();
         } else {
-            myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+            myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
         }
-        // refresh frame
-        myEditedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->updateControls();
     }
 
     /// @brief Cancel changes did in this dialog.
     void cancelChanges() {
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     }
 
     /// @brief reset changes did in this dialog.
     void resetChanges() {
         // abort last command group an start editing again
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
+        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
     }
 
 private:
-    /// @brief description of changes did in this additional dialog
+    /// @brief description of changes did in this element dialog
     std::string myChangesDescription;
 
     /// @brief number of GNEChanges_... in dialog
     int myNumberOfChanges;
 
     /// @brief Invalidated copy constructor
-    GNEDemandElementDialog(const GNEDemandElementDialog&) = delete;
+    GNEElementDialog(const GNEElementDialog&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEDemandElementDialog& operator=(const GNEDemandElementDialog&) = delete;
+    GNEElementDialog& operator=(const GNEElementDialog&) = delete;
 };
