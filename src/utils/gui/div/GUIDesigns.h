@@ -409,7 +409,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignDialogContentFrame                         (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief design for content frame used in dialog
-#define GUIDesignDialogButtonsFrame                         (LAYOUT_FILL_X), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignDialogButtonsFrame                         (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame                    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
