@@ -74,6 +74,18 @@ public:
             myLabel->setText(reason.c_str());
         }
 
+        /// @brief check if the current table is valid
+        bool isValid() {
+            // simply check if we have the incon "valid" in all rows
+            for (int i = 0; i < getNumRows(); i++) {
+                if (myTable->getItem(i, myAttrProperties.size())->getIcon() != GUIIconSubSys::getIcon(GUIIcon::CORRECT)) {
+                    return false;
+                }
+            }
+            // all ok, then return true
+            return true;
+        }
+
         /// @brief get num row
         FXint getNumRows() const {
             return myTable->getNumRows();

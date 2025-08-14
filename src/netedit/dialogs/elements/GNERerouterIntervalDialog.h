@@ -151,22 +151,7 @@ protected:
     std::vector<GNEAdditional*> myParkingAreaRerouteEdited;
 
     /// @brief flag to check if begin an end are valid
-    bool myBeginEndValid;
-
-    /// @brief flag to check if closing lane reroutes are valid
-    bool myClosingLaneReroutesValid;
-
-    /// @brief flag to check if closing reroutes are valid
-    bool myClosingReroutesValid;
-
-    /// @brief flag to check if Destination probability reroutes are valid
-    bool myDestProbReroutesValid;
-
-    /// @brief flag to check if parkingAreaReroutes are valid
-    bool myParkingAreaReroutesValid;
-
-    /// @brief flag to check if route prob reroutes are valid
-    bool myRouteProbReroutesValid;
+    bool myBeginEndValid = true;
 
 private:
     /// @brief Invalidated copy constructor.

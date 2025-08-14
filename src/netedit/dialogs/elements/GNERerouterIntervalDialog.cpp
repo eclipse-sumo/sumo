@@ -80,13 +80,7 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEElementDialog<GNEAdditional>, GNERerou
 // ===========================================================================
 
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement) :
-    GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement, 960, 480),
-    myBeginEndValid(true),
-    myClosingLaneReroutesValid(true),
-    myClosingReroutesValid(true),
-    myDestProbReroutesValid(true),
-    myParkingAreaReroutesValid(true),
-    myRouteProbReroutesValid(true) {
+    GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement, 960, 480) {
     // fill closing Reroutes
     for (const auto& reroute : myElement->getChildAdditionals()) {
         if (reroute->getTagProperty()->getTag() == SUMO_TAG_CLOSING_REROUTE) {
@@ -207,20 +201,20 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else if (myClosingLaneReroutesEdited.empty() && myClosingReroutesEdited.empty() && myDestProbReroutesEdited.empty() &&
                myParkingAreaRerouteEdited.empty() && myRouteProbReroutesEdited.empty()) {
         infoB = TLF("at least one % must be defined.", myElement->getTagStr());
-    } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingLaneReroutesValid == false)) {
-        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_LANE_REROUTE));
-    } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingReroutesValid == false)) {
+    } else if (!myClosingRerouteTable->isValid()) {
         infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_REROUTE));
-    } else if ((myDestProbReroutesEdited.size() > 0) && (myDestProbReroutesValid == false)) {
-        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_PARKING_AREA_REROUTE));
-    } else if ((myParkingAreaRerouteEdited.size() > 0) && (myParkingAreaReroutesValid == false)) {
+    } else if (!myClosingLaneRerouteTable->isValid()) {
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_LANE_REROUTE));
+    } else if (!myRouteProbRerouteTable->isValid()) {
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_ROUTE_PROB_REROUTE));
+    } else if (!myDestProbRerouteTable->isValid()) {
         infoB = TLF("there are invalid %s.", toString(SUMO_TAG_DEST_PROB_REROUTE));
-    } else if ((myRouteProbReroutesEdited.size() > 0) && (myRouteProbReroutesValid == false)) {
-        infoB = TLF("there are invalid s.", toString(SUMO_TAG_ROUTE_PROB_REROUTE));
+    } else if (!myParkingAreaRerouteTable->isValid()) {
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_PARKING_AREA_REROUTE));
     }
     // continue depending of info
     if (infoB.size() > 0) {
-        // open question dialog box
+        // open question dialog box with two lines
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, infoA, infoB);
     } else {
         // accept changes before closing dialog
@@ -434,21 +428,16 @@ GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector,
 
 long
 GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*) {
-    myClosingLaneReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myClosingLaneRerouteTable->getNumRows(); i++) {
         GNEAdditional* closingLaneReroute = myClosingLaneReroutesEdited.at(i);
         if (!SUMOXMLDefinitions::isValidNetID(myClosingLaneRerouteTable->getItem(i, 0)->getText().text())) {
-            myClosingLaneReroutesValid = false;
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingLaneReroute->isValid(SUMO_ATTR_LANE, myClosingLaneRerouteTable->getItem(i, 0)->getText().text()) == false) {
-            myClosingLaneReroutesValid = false;
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingLaneReroute->isValid(SUMO_ATTR_ALLOW, myClosingLaneRerouteTable->getItem(i, 1)->getText().text()) == false) {
-            myClosingLaneReroutesValid = false;
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingLaneReroute->isValid(SUMO_ATTR_DISALLOW, myClosingLaneRerouteTable->getItem(i, 2)->getText().text()) == false) {
-            myClosingLaneReroutesValid = false;
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // check if allow/disallow should be changed
@@ -477,21 +466,16 @@ GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, vo
 
 long
 GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*) {
-    myClosingReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myClosingRerouteTable->getNumRows(); i++) {
         GNEAdditional* closingReroute = myClosingReroutesEdited.at(i);
         if (!SUMOXMLDefinitions::isValidNetID(myClosingRerouteTable->getItem(i, 0)->getText().text())) {
-            myClosingReroutesValid = false;
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingReroute->isValid(SUMO_ATTR_EDGE, myClosingRerouteTable->getItem(i, 0)->getText().text()) == false) {
-            myClosingReroutesValid = false;
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingReroute->isValid(SUMO_ATTR_ALLOW, myClosingRerouteTable->getItem(i, 1)->getText().text()) == false) {
-            myClosingReroutesValid = false;
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (closingReroute->isValid(SUMO_ATTR_DISALLOW, myClosingRerouteTable->getItem(i, 2)->getText().text()) == false) {
-            myClosingReroutesValid = false;
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // check if allow/disallow should be changed
@@ -520,18 +504,14 @@ GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*)
 
 long
 GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*) {
-    myDestProbReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myDestProbRerouteTable->getNumRows(); i++) {
         GNEAdditional* destProbReroute = myDestProbReroutesEdited.at(i);
         if (!SUMOXMLDefinitions::isValidNetID(myDestProbRerouteTable->getItem(i, 0)->getText().text())) {
-            myDestProbReroutesValid = false;
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (destProbReroute->isValid(SUMO_ATTR_EDGE, myDestProbRerouteTable->getItem(i, 0)->getText().text()) == false) {
-            myDestProbReroutesValid = false;
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (destProbReroute->isValid(SUMO_ATTR_PROB, myDestProbRerouteTable->getItem(i, 1)->getText().text()) == false) {
-            myDestProbReroutesValid = false;
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // set new values in Closing  reroute
@@ -549,15 +529,12 @@ GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*
 
 long
 GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void*) {
-    myRouteProbReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myRouteProbRerouteTable->getNumRows(); i++) {
         GNEAdditional* routeProbReroute = myRouteProbReroutesEdited.at(i);
         if (!SUMOXMLDefinitions::isValidNetID(myRouteProbRerouteTable->getItem(i, 0)->getText().text())) {
-            myRouteProbReroutesValid = false;
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (routeProbReroute->isValid(SUMO_ATTR_PROB, myRouteProbRerouteTable->getItem(i, 1)->getText().text()) == false) {
-            myRouteProbReroutesValid = false;
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // set new values in Closing  reroute
@@ -575,18 +552,14 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
 
 long
 GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*) {
-    myParkingAreaReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myParkingAreaRerouteTable->getNumRows(); i++) {
         GNEAdditional* parkingAreaReroute = myParkingAreaRerouteEdited.at(i);
         if (parkingAreaReroute->isValid(SUMO_ATTR_PARKING, myParkingAreaRerouteTable->getItem(i, 0)->getText().text()) == false) {
-            myParkingAreaReroutesValid = false;
             myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (parkingAreaReroute->isValid(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text()) == false) {
-            myParkingAreaReroutesValid = false;
             myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else if (parkingAreaReroute->isValid(SUMO_ATTR_VISIBLE, myParkingAreaRerouteTable->getItem(i, 2)->getText().text()) == false) {
-            myParkingAreaReroutesValid = false;
             myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
         } else {
             // set new values in Closing  reroute
