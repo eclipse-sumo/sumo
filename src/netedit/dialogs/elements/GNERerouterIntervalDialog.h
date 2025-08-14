@@ -120,6 +120,9 @@ protected:
     /// @brief begin/end time check label
     FXLabel* myCheckLabel;
 
+    /// @brief flag to check if begin an end are valid
+    bool myBeginEndValid = true;
+
     /// @brief list with closing lane reroutes
     EditTable<GNEAdditional>* myClosingLaneRerouteTable;
 
@@ -134,24 +137,6 @@ protected:
 
     /// @brief list with parkingAreaReroutes
     EditTable<GNEAdditional>* myParkingAreaRerouteTable;
-
-    /// @brief closing Reroutes edited
-    std::vector<GNEAdditional*> myClosingReroutesEdited;
-
-    /// @brief closing Lane Reroutes edited
-    std::vector<GNEAdditional*> myClosingLaneReroutesEdited;
-
-    /// @brief Dest Prob Reroutes edited
-    std::vector<GNEAdditional*> myDestProbReroutesEdited;
-
-    /// @brief Route Prob Reroutes edited
-    std::vector<GNEAdditional*> myRouteProbReroutesEdited;
-
-    /// @brief Parking Area reroute edited
-    std::vector<GNEAdditional*> myParkingAreaRerouteEdited;
-
-    /// @brief flag to check if begin an end are valid
-    bool myBeginEndValid = true;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -66,6 +66,27 @@ public:
             myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
         }
 
+        /// @brief get elements
+        const std::vector<U*>& getEditedElements() const {
+            return myEditedElements;
+        }
+
+        /// @brief add element
+        void addElement(T* element, const bool updateAfterInsert) {
+            myEditedElements.push_back(element);
+            if (updateAfterInsert) {
+                configureTable();
+            }
+
+        }
+
+        /// @brief removeElement
+        void removeElement(const int index) {
+            myEditedElements.erase(myEditedElements.begin() + index);
+            // update table
+            configureTable();
+        }
+
         /// @brief disable table
         void disableTable(const std::string reason) {
             myTable->disable();
@@ -96,15 +117,10 @@ public:
             return myTable->getItem(row, col);
         }
 
-        /// @brief remove row
-        void removeRow(const int row) {
-            myTable->removeRows(row);
-        }
-
         /// @brief set number of columns
-        void configureTable(const std::vector<U*>& elements) {
+        void configureTable() {
             // get number of columns and rows
-            const int numRows = (int)elements.size();
+            const int numRows = (int)myEditedElements.size();
             const int numCols = (int)myAttrProperties.size() + 2;
             // clear table
             myTable->clearItems();
@@ -132,7 +148,7 @@ public:
                 // add attributes
                 for (int j = 0; j < numCols - 2; j++) {
                     // create item using attribute
-                    item = new FXTableItem(elements.at(i)->getAttribute(myAttrProperties.at(j)->getAttr()).c_str());
+                    item = new FXTableItem(myEditedElements.at(i)->getAttribute(myAttrProperties.at(j)->getAttr()).c_str());
                     // set item to table
                     myTable->setItem(i, j, item);
                 }
@@ -153,6 +169,9 @@ public:
     protected:
         /// @brief list of edited attrs
         std::vector<const GNEAttributeProperties*> myAttrProperties;
+
+        /// @brief edited elements
+        std::vector<U*> myEditedElements;
 
         /// @brief add button
         FXButton* myAddButton = nullptr;
