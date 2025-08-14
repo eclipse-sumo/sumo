@@ -56,8 +56,8 @@ FXIMPLEMENT_ABSTRACT(GNEDialog, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDia
 GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
                      GUIIcon titleIcon, Buttons buttons, OpenType openType,
                      ResizeMode resizeMode) :
-    FXDialogBox(applicationWindow->getApp(), name.c_str(), 
-                (resizeMode == ResizeMode::STATIC)? GUIDesignGNEDialogStatic : GUIDesignGNEDialogResizable,
+    FXDialogBox(applicationWindow->getApp(), name.c_str(),
+                (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStatic : GUIDesignGNEDialogResizable,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
     myOpenType(openType) {
@@ -69,8 +69,8 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
 GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
                      GUIIcon titleIcon, Buttons buttons, OpenType openType,
                      ResizeMode resizeMode, const int width, const int height) :
-    FXDialogBox(applicationWindow->getApp(), name.c_str(), 
-                (resizeMode == ResizeMode::STATIC)? GUIDesignGNEDialogStaticExplicit : GUIDesignGNEDialogResizableExplicit,
+    FXDialogBox(applicationWindow->getApp(), name.c_str(),
+                (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStaticExplicit : GUIDesignGNEDialogResizableExplicit,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
     myOpenType(openType) {
@@ -178,7 +178,7 @@ GNEDialog::openDialog() {
             // get current step and set next step
             const auto testStep = internalTest->setNextStep();
             // continue depending on the dialog argument action
-            switch (testStep->getDialogArgument()->action) {
+            switch (testStep->getDialogArgument()->getAction()) {
                 case InternalTestStep::DialogArgument::Action::ACCEPT:
                     onCmdAccept(internalTest, 0, nullptr);
                     break;
@@ -382,8 +382,8 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
         case Buttons::RUN_CANCEL_RESET: {
             // run button
             myRunButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"),
-                          GUIIconSubSys::getIcon(GUIIcon::START), this,
-                          MID_GNE_BUTTON_RUN, GUIDesignButtonDialog);
+                                                    GUIIconSubSys::getIcon(GUIIcon::START), this,
+                                                    MID_GNE_BUTTON_RUN, GUIDesignButtonDialog);
             // buttons separator
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             // reset button
@@ -415,8 +415,8 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             // cancel button
             myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"),
-                            GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
-                            MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+                             GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
+                             MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             // set focus button
             myFocusButon = myRunButton;
             break;
@@ -436,8 +436,8 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             // cancel button
             myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close"),
-                            GUIIconSubSys::getIcon(GUIIcon::YES), this,
-                            MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+                             GUIIconSubSys::getIcon(GUIIcon::YES), this,
+                             MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // set focus button
             myFocusButon = myAcceptButton;
             break;

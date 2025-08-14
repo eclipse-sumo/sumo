@@ -286,7 +286,7 @@ public:
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
         // run internal test for each fix option
         for (auto fixOption : myFixOptions) {
-            fixOption->selectInternalTestSolution(dialogArgument->customAction);
+            fixOption->selectInternalTestSolution(dialogArgument->getCustomAction());
         }
     }
 

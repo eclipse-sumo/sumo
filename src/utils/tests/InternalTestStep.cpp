@@ -44,12 +44,37 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // InternalTestStep::DialogArgument - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::DialogArgument::DialogArgument(InternalTestStep::DialogArgument::Action _action) :
-    action(_action) {
+InternalTestStep::DialogArgument::DialogArgument(InternalTestStep::DialogArgument::Action action) :
+    myAction(action) {
 }
 
-InternalTestStep::DialogArgument::DialogArgument(const std::string& _customAction) :
-    customAction(_customAction) {
+
+InternalTestStep::DialogArgument::DialogArgument(const std::string& customAction) :
+    myCustomAction(customAction) {
+}
+
+
+InternalTestStep::DialogArgument::DialogArgument(const std::string& prefixToRemove, const std::string& customAction) :
+    myCustomAction(customAction) {
+    // remove prefix from custom action
+    if (prefixToRemove.size() > 0) {
+        const auto pos = customAction.find(prefixToRemove);
+        if (pos != std::string::npos) {
+            myCustomAction.erase(pos, prefixToRemove.length());
+        }
+    }
+}
+
+
+InternalTestStep::DialogArgument::Action
+InternalTestStep::DialogArgument::getAction() const {
+    return myAction;
+}
+
+
+const std::string&
+InternalTestStep::DialogArgument::getCustomAction() const {
+    return myCustomAction;
 }
 
 // ---------------------------------------------------------------------------
@@ -723,14 +748,8 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
     } else {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to vClass
-        for (int i = 0; i < vClass; i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
-        // select vclass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
@@ -745,20 +764,10 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
     } else {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
@@ -774,22 +783,12 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
     } else {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // press cancel
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "cancel vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        // press accept
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "accept vClasses");
     }
 }
 
@@ -802,22 +801,12 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
     } else {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::RESET), "reset vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::RESET), "accept vClasses");
     }
 }
 

@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -189,8 +190,26 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 
 
 void
-GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    if (dialogArgument->getAction() == InternalTestStep::DialogArgument::Action::ACCEPT) {
+        onCmdAccept(nullptr, 0, nullptr);
+    } else if (dialogArgument->getAction() == InternalTestStep::DialogArgument::Action::CANCEL) {
+        onCmdCancel(nullptr, 0, nullptr);
+    } else if (dialogArgument->getAction() == InternalTestStep::DialogArgument::Action::RESET) {
+        onCmdReset(nullptr, 0, nullptr);
+    } else if (dialogArgument->getCustomAction() == "allVehicles") {
+        onCmdSelectAll(nullptr, 0, nullptr);
+    } else if (dialogArgument->getCustomAction() == "disallowAll") {
+        onCmdUnselectAll(nullptr, 0, nullptr);
+    } else if (dialogArgument->getCustomAction() == "onlyRoadVehicles") {
+        onCmdSelectOnlyRoad(nullptr, 0, nullptr);
+    } else if (dialogArgument->getCustomAction() == "onlyRailVehicles") {
+        onCmdSelectOnlyRail(nullptr, 0, nullptr);
+    } else if (SumoVehicleClassStrings.hasString(dialogArgument->getCustomAction())) {
+        myVClassMap[getVehicleClassID(dialogArgument->getCustomAction())]->onCmdToggleVClass(nullptr, 0, nullptr);
+    } else {
+        WRITE_ERROR("Invalid dialog argument " + dialogArgument->getCustomAction() + " used in GNEAllowVClassesDialog::runInternalTest");
+    }
 }
 
 

@@ -59,14 +59,24 @@ public:
         /// @brief constructor for basic actions
         DialogArgument(Action action);
 
-        /// @brief constructor
+        /// @brief constructor for custom actions
         DialogArgument(const std::string& customAction);
 
+        /// @brief constructor for custom actions and prefix to remove
+        DialogArgument(const std::string& prefixToRemove, const std::string& customAction);
+
+        /// @brief get action
+        Action getAction() const;
+
+        /// @brief get custom action
+        const std::string& getCustomAction() const;
+
+    protected:
         /// @brief basic action
-        const Action action = Action::CUSTOM;
+        Action myAction = Action::CUSTOM;
 
         /// @brief action to be carried out in the dialog
-        const std::string customAction;
+        std::string myCustomAction;
 
     private:
         /// @brief invalidated default constructor
