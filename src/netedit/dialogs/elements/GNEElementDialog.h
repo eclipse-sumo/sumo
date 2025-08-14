@@ -44,17 +44,26 @@ public:
     public:
         /// @brief constructor
         EditTable(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag elementTag,
-                  FXSelector addSelector, FXSelector tableSelector) :
-            FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
+                  FXSelector addSelector, FXSelector tableSelector, const std::vector<SumoXMLAttr> attrs) :
+            FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame),
+            myAttrs(attrs) {
             // horizontal frame for buttons
             FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
             // create label and button
-            addButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), elementDialogParent, addSelector, GUIDesignButtonIcon);
-            new FXLabel(buttonFrame, TLF("Add new %", toString(elementTag)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+            myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), elementDialogParent, addSelector, GUIDesignButtonIcon);
+            myLabel = new FXLabel(buttonFrame, TLF("Add new %", toString(elementTag)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
             myTable = new FXTable(this, elementDialogParent, tableSelector, GUIDesignTableAdditionals);
             myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
             myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+        }
+
+        /// @brief disable table
+        void disableTable(const std::string reason) {
+            myTable->disable();
+            myAddButton->disable();
+            myLabel->disable();
+            myLabel->setText(reason.c_str());
         }
 
         /// @brief get num row
@@ -73,10 +82,10 @@ public:
         }
 
         /// @brief set number of columns
-        void configureTable(const std::vector<U*>& elements, const std::vector<SumoXMLAttr> attrs) {
+        void configureTable(const std::vector<U*>& elements) {
             // get number of columns and rows
             const int numRows = (int)elements.size();
-            const int numCols = (int)attrs.size() + 2;
+            const int numCols = (int)myAttrs.size() + 2;
             // clear table
             myTable->clearItems();
             // set number of rows
@@ -89,7 +98,7 @@ public:
                 // set column width and text
                 if (i < (numCols - 2)) {
                     myTable->setColumnWidth(i, 100);
-                    myTable->setColumnText(i, toString(attrs.at(i)).c_str());
+                    myTable->setColumnText(i, toString(myAttrs.at(i)).c_str());
                 } else {
                     myTable->setColumnWidth(i, GUIDesignHeight);
                     myTable->setColumnText(i, "");
@@ -103,7 +112,7 @@ public:
                 // add attributes
                 for (int j = 0; j < numCols - 2; j++) {
                     // create item using attribute
-                    item = new FXTableItem(elements.at(i)->getAttribute(attrs.at(j)).c_str());
+                    item = new FXTableItem(elements.at(i)->getAttribute(myAttrs.at(j)).c_str());
                     // set item to table
                     myTable->setItem(i, j, item);
                 }
@@ -123,10 +132,16 @@ public:
 
     protected:
         /// @brief add button
-        FXButton* addButton = nullptr;
+        FXButton* myAddButton = nullptr;
+
+        /// @brief label
+        FXLabel* myLabel = nullptr;
 
         /// @brief table
         FXTable* myTable = nullptr;
+
+        /// @brief list of edited attrs
+        const std::vector<SumoXMLAttr> myAttrs;
 
     private:
         /// @brief Invalidated copy constructor

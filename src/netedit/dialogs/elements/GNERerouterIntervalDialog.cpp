@@ -120,70 +120,54 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnCenter = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRight2 = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     // create horizontal frame for begin and end label
     FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + myElement->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", GUIIconSubSys::getIcon(GUIIcon::CORRECT), GUIDesignLabelIcon32x32Thicked);
     // create horizontal frame for begin and end text fields
-    FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnCenter, GUIDesignAuxiliarHorizontalFrame);
     myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
     myBeginTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_BEGIN)).c_str());
     myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
     myEndTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_END)).c_str());
-    // Create labels and tables
-    FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingLaneReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosingLaneReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myClosingLaneRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GUIDesignTableAdditionals);
-    myClosingLaneRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingLaneRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     // closing reroute
-    FXHorizontalFrame* buttonAndLabelClosinReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosinReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myClosingRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE, GUIDesignTableAdditionals);
-    myClosingRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myClosingRerouteTable = new EditTable<GNEAdditional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE,
+            MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,
+    {SUMO_ATTR_EDGE, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW});
+    // closing lane reroute
+    myClosingLaneRerouteTable = new EditTable<GNEAdditional>(this, columnLeft, SUMO_TAG_CLOSING_LANE_REROUTE,
+            MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE,
+    {SUMO_ATTR_LANE, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW});
     // dest prob reroute
-
-
-    myDestProbRerouteTable = new EditTable<GNEAdditional>(this, columnRight, SUMO_TAG_DEST_PROB_REROUTE, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE);
-
-
+    myDestProbRerouteTable = new EditTable<GNEAdditional>(this, columnCenter, SUMO_TAG_DEST_PROB_REROUTE,
+            MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,
+    {SUMO_ATTR_EDGE, SUMO_ATTR_PROB});
     // route prob reroute
-    FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddRouteProbReroute = GUIDesigns::buildFXButton(buttonAndLabelRouteProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
-    FXLabel* routeProbRerouteLabel = new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myRouteProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
-    myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myRouteProbRerouteTable = new EditTable<GNEAdditional>(this, columnCenter, SUMO_TAG_ROUTE_PROB_REROUTE,
+            MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,
+    {SUMO_ATTR_ROUTE, SUMO_ATTR_PROB});
     // parking area reroute
-    FXHorizontalFrame* buttonAndLabelParkingAreaReroute = new FXHorizontalFrame(columnRight2, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* parkingAreaRerouteButton = myAddParkingAreaReroute = GUIDesigns::buildFXButton(buttonAndLabelParkingAreaReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
-    FXLabel* parkingAreaRerouteLabel = new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myParkingAreaRerouteTable = new FXTable(columnRight2, this, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GUIDesignTableAdditionals);
-    myParkingAreaRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myParkingAreaRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myParkingAreaRerouteTable = new EditTable<GNEAdditional>(this, columnRight, SUMO_TAG_PARKING_AREA_REROUTE,
+            MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE,
+    {SUMO_ATTR_PARKING, SUMO_ATTR_PROB});
     // disable add parkingAreaReroute Button and change label if there isn't parkingAreas in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
-        parkingAreaRerouteButton->disable();
-        parkingAreaRerouteLabel->setText(("There isn't " + toString(SUMO_TAG_PARKING_AREA) + "s in net").c_str());
+        myParkingAreaRerouteTable->disableTable(TL("No parkingAreas in net"));
     }
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
     // for whatever reason, sonar complains in the next line that parkingAreaRerouteLabel may leak, but fox does the cleanup
     if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {  // NOSONAR
-        myAddRouteProbReroute->disable();
-        routeProbRerouteLabel->setText(TL("Rerouter has more than one edge"));
+        myRouteProbRerouteTable->disableTable(TL("Rerouter has more than one edge"));
     }
     // update tables
     // for whatever reason, sonar complains in the next line that routeProbRerouteLabel may leak, but fox does the cleanup
-    updateClosingLaneReroutesTable();  // NOSONAR
-    updateClosingReroutesTable();
-    updateDestProbReroutesTable();
-    updateRouteProbReroutesTable();
-    updateParkingAreaReroutesTable();
+    myClosingRerouteTable->configureTable(myClosingReroutesEdited);
+    myClosingLaneRerouteTable->configureTable(myClosingLaneReroutesEdited);
+    myDestProbRerouteTable->configureTable(myDestProbReroutesEdited);
+    myRouteProbRerouteTable->configureTable(myRouteProbReroutesEdited);
+    myParkingAreaRerouteTable->configureTable(myParkingAreaRerouteEdited);
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);
@@ -265,10 +249,11 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    updateClosingLaneReroutesTable();
-    updateClosingReroutesTable();
-    updateDestProbReroutesTable();
-    updateRouteProbReroutesTable();
+    myClosingRerouteTable->configureTable(myClosingReroutesEdited);
+    myClosingLaneRerouteTable->configureTable(myClosingLaneReroutesEdited);
+    myDestProbRerouteTable->configureTable(myDestProbReroutesEdited);
+    myRouteProbRerouteTable->configureTable(myRouteProbReroutesEdited);
+    myParkingAreaRerouteTable->configureTable(myParkingAreaRerouteEdited);
     return 1;
 }
 
@@ -285,7 +270,7 @@ GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, voi
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
         myClosingLaneReroutesEdited.push_back(closingLaneReroute);
         // update closing lane reroutes table
-        updateClosingLaneReroutesTable();
+        myClosingLaneRerouteTable->configureTable(myClosingLaneReroutesEdited);
     } else {
         WRITE_WARNING(TL("There are no lanes in the network"));
     }
@@ -305,7 +290,7 @@ GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) 
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
         myClosingReroutesEdited.push_back(closingReroute);
         // update closing reroutes table
-        updateClosingReroutesTable();
+        myClosingRerouteTable->configureTable(myClosingReroutesEdited);
     } else {
         WRITE_WARNING(TL("There are no edges in the network"));
     }
@@ -324,8 +309,8 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
         // add it using undoList
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
         myDestProbReroutesEdited.push_back(destProbReroute);
-        // update dest Prob reroutes table
-        updateDestProbReroutesTable();
+        // update destProbReroute table
+        myDestProbRerouteTable->configureTable(myDestProbReroutesEdited);
     } else {
         WRITE_WARNING(TL("There are no edges in the network"));
     }
@@ -344,7 +329,7 @@ GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         myRouteProbReroutesEdited.push_back(routeProbReroute);
         // update route prob reroutes table
-        updateRouteProbReroutesTable();
+        myRouteProbRerouteTable->configureTable(myRouteProbReroutesEdited);
     }
     return 1;
 }
@@ -361,8 +346,8 @@ GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, voi
         // add it using undoList
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
         myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
-        // update dest Prob reroutes table
-        updateParkingAreaReroutesTable();
+        // update parkingAreaReroute table
+        myParkingAreaRerouteTable->configureTable(myParkingAreaRerouteEdited);
     } else {
         WRITE_WARNING(TL("There are no parking areas in the network"));
     }
@@ -375,10 +360,10 @@ GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector,
     // check if some delete button was pressed
     for (int i = 0; i < (int)myClosingLaneReroutesEdited.size(); i++) {
         if (myClosingLaneRerouteTable->getItem(i, 4)->hasFocus()) {
-            myClosingLaneRerouteTable->removeRows(i);
+            myClosingLaneRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingLaneReroutesEdited.at(i), false), true);
             myClosingLaneReroutesEdited.erase(myClosingLaneReroutesEdited.begin() + i);
-            updateClosingLaneReroutesTable();
+            myClosingLaneRerouteTable->configureTable(myClosingLaneReroutesEdited);
             return 1;
         }
     }
@@ -391,10 +376,10 @@ GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, voi
     // check if some delete button was pressed
     for (int i = 0; i < (int)myClosingReroutesEdited.size(); i++) {
         if (myClosingRerouteTable->getItem(i, 4)->hasFocus()) {
-            myClosingRerouteTable->removeRows(i);
+            myClosingRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingReroutesEdited.at(i), false), true);
             myClosingReroutesEdited.erase(myClosingReroutesEdited.begin() + i);
-            updateClosingReroutesTable();
+            myClosingRerouteTable->configureTable(myClosingReroutesEdited);
             return 1;
         }
     }
@@ -410,7 +395,7 @@ GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, vo
             myDestProbRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myDestProbReroutesEdited.at(i), false), true);
             myDestProbReroutesEdited.erase(myDestProbReroutesEdited.begin() + i);
-            updateDestProbReroutesTable();
+            myDestProbRerouteTable->configureTable(myDestProbReroutesEdited);
             return 1;
         }
     }
@@ -423,10 +408,10 @@ GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, v
     // check if some delete button was pressed
     for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
         if (myRouteProbRerouteTable->getItem(i, 3)->hasFocus()) {
-            myRouteProbRerouteTable->removeRows(i);
+            myRouteProbRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myRouteProbReroutesEdited.at(i), false), true);
             myRouteProbReroutesEdited.erase(myRouteProbReroutesEdited.begin() + i);
-            updateRouteProbReroutesTable();
+            myRouteProbRerouteTable->configureTable(myRouteProbReroutesEdited);
             return 1;
         }
     }
@@ -438,13 +423,11 @@ long
 GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
-        if (myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
-            ;
-        } else if (myParkingAreaRerouteTable->getItem(i, 4)->hasFocus()) {
-            myParkingAreaRerouteTable->removeRows(i);
+        if (myParkingAreaRerouteTable->getItem(i, 4)->hasFocus()) {
+            myParkingAreaRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myParkingAreaRerouteEdited.at(i), false), true);
             myParkingAreaRerouteEdited.erase(myParkingAreaRerouteEdited.begin() + i);
-            updateParkingAreaReroutesTable();
+            myParkingAreaRerouteTable->configureTable(myParkingAreaRerouteEdited);
             return 1;
         }
     }
@@ -640,196 +623,5 @@ GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
     }
     return 0;
 }
-
-
-void
-GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
-    // clear table
-    myClosingLaneRerouteTable->clearItems();
-    // set number of rows
-    myClosingLaneRerouteTable->setTableSize(int(myClosingLaneReroutesEdited.size()), 5);
-    // Configure list
-    myClosingLaneRerouteTable->setVisibleColumns(5);
-    myClosingLaneRerouteTable->setColumnWidth(0, 83);
-    myClosingLaneRerouteTable->setColumnWidth(1, 83);
-    myClosingLaneRerouteTable->setColumnWidth(2, 82);
-    myClosingLaneRerouteTable->setColumnWidth(3, GUIDesignHeight);
-    myClosingLaneRerouteTable->setColumnWidth(4, GUIDesignHeight);
-    myClosingLaneRerouteTable->setColumnText(0, toString(SUMO_ATTR_LANE).c_str());
-    myClosingLaneRerouteTable->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
-    myClosingLaneRerouteTable->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
-    myClosingLaneRerouteTable->setColumnText(3, "");
-    myClosingLaneRerouteTable->setColumnText(4, "");
-    myClosingLaneRerouteTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (int i = 0; i < (int)myClosingLaneReroutesEdited.size(); i++) {
-        // Set closing edge
-        item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_LANE).c_str());
-        myClosingLaneRerouteTable->setItem(i, 0, item);
-        // set allow vehicles
-        item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
-        myClosingLaneRerouteTable->setItem(i, 1, item);
-        // set disallow vehicles
-        item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_DISALLOW).c_str());
-        myClosingLaneRerouteTable->setItem(i, 2, item);
-        // set valid icon
-        item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteTable->setItem(i, 3, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteTable->setItem(i, 4, item);
-    }
-}
-
-
-void
-GNERerouterIntervalDialog::updateClosingReroutesTable() {
-    // clear table
-    myClosingRerouteTable->clearItems();
-    // set number of rows
-    myClosingRerouteTable->setTableSize(int(myClosingReroutesEdited.size()), 5);
-    // Configure list
-    myClosingRerouteTable->setVisibleColumns(5);
-    myClosingRerouteTable->setColumnWidth(0, 83);
-    myClosingRerouteTable->setColumnWidth(1, 83);
-    myClosingRerouteTable->setColumnWidth(2, 82);
-    myClosingRerouteTable->setColumnWidth(3, GUIDesignHeight);
-    myClosingRerouteTable->setColumnWidth(4, GUIDesignHeight);
-    myClosingRerouteTable->setColumnText(0, toString(SUMO_ATTR_EDGE).c_str());
-    myClosingRerouteTable->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
-    myClosingRerouteTable->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
-    myClosingRerouteTable->setColumnText(3, "");
-    myClosingRerouteTable->setColumnText(4, "");
-    myClosingRerouteTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (int i = 0; i < (int)myClosingReroutesEdited.size(); i++) {
-        // Set closing edge
-        item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_EDGE).c_str());
-        myClosingRerouteTable->setItem(i, 0, item);
-        // set allow vehicles
-        item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
-        myClosingRerouteTable->setItem(i, 1, item);
-        // set disallow vehicles
-        item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_DISALLOW).c_str());
-        myClosingRerouteTable->setItem(i, 2, item);
-        // set valid icon
-        item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingRerouteTable->setItem(i, 3, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingRerouteTable->setItem(i, 4, item);
-    }
-}
-
-
-void
-GNERerouterIntervalDialog::updateDestProbReroutesTable() {
-    // set table size
-    myDestProbRerouteTable->configureTable(myDestProbReroutesEdited, {SUMO_ATTR_EDGE, SUMO_ATTR_PROB});
-}
-
-
-void
-GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
-    // clear table
-    myRouteProbRerouteTable->clearItems();
-    // set number of rows
-    myRouteProbRerouteTable->setTableSize(int(myRouteProbReroutesEdited.size()), 4);
-    // Configure list
-    myRouteProbRerouteTable->setVisibleColumns(4);
-    myRouteProbRerouteTable->setColumnWidth(0, 124);
-    myRouteProbRerouteTable->setColumnWidth(1, 124);
-    myRouteProbRerouteTable->setColumnWidth(2, GUIDesignHeight);
-    myRouteProbRerouteTable->setColumnWidth(3, GUIDesignHeight);
-    myRouteProbRerouteTable->setColumnText(0, toString(SUMO_ATTR_ROUTE).c_str());
-    myRouteProbRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
-    myRouteProbRerouteTable->setColumnText(2, "");
-    myRouteProbRerouteTable->setColumnText(3, "");
-    myRouteProbRerouteTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
-        // Set new route
-        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ROUTE).c_str());
-        myRouteProbRerouteTable->setItem(i, 0, item);
-        // Set probability
-        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
-        myRouteProbRerouteTable->setItem(i, 1, item);
-        // set valid icon
-        item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myRouteProbRerouteTable->setItem(i, 2, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myRouteProbRerouteTable->setItem(i, 3, item);
-    }
-}
-
-
-void
-GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
-    // clear table
-    myParkingAreaRerouteTable->clearItems();
-    // set number of rows
-    myParkingAreaRerouteTable->setTableSize(int(myParkingAreaRerouteEdited.size()), 5);
-    // Configure list
-    myParkingAreaRerouteTable->setVisibleColumns(4);
-    myParkingAreaRerouteTable->setColumnWidth(0, 124);
-    myParkingAreaRerouteTable->setColumnWidth(1, 90);
-    myParkingAreaRerouteTable->setColumnWidth(2, 35);
-    myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignHeight);
-    myParkingAreaRerouteTable->setColumnWidth(4, GUIDesignHeight);
-    myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING).c_str());
-    myParkingAreaRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
-    myParkingAreaRerouteTable->setColumnText(2, "vis.");
-    myParkingAreaRerouteTable->setColumnText(3, "");
-    myParkingAreaRerouteTable->setColumnText(4, "");
-    myParkingAreaRerouteTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
-        // Set new destination
-        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PARKING).c_str());
-        myParkingAreaRerouteTable->setItem(i, 0, item);
-        // Set probability
-        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
-        myParkingAreaRerouteTable->setItem(i, 1, item);
-        // Set visible
-        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_VISIBLE) == "1" ? "true" : "false");
-        myParkingAreaRerouteTable->setItem(i, 2, item);
-        // set valid icon
-        item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myParkingAreaRerouteTable->setItem(i, 3, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myParkingAreaRerouteTable->setItem(i, 4, item);
-    }
-}
-
 
 /****************************************************************************/

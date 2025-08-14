@@ -120,35 +120,20 @@ protected:
     /// @brief begin/end time check label
     FXLabel* myCheckLabel;
 
-    /// @brief button for add new closing lane reroutes
-    FXButton* myAddClosingLaneReroutes;
-
-    /// @brief button for add new closing reroutes
-    FXButton* myAddClosingReroutes;
-
-    /// @brief button for add new destination probability reroutes
-    FXButton* myAddDestProbReroutes;
-
-    /// @brief button for add new route probability reroutes
-    FXButton* myAddRouteProbReroute;
-
-    /// @brief button for add new parkingAreaReroute
-    FXButton* myAddParkingAreaReroute;
-
     /// @brief list with closing lane reroutes
-    FXTable* myClosingLaneRerouteTable;
+    EditTable<GNEAdditional>* myClosingLaneRerouteTable;
 
     /// @brief list with closing reroutes
-    FXTable* myClosingRerouteTable;
+    EditTable<GNEAdditional>* myClosingRerouteTable;
 
     /// @brief list with destination probability reroutes
     EditTable<GNEAdditional>* myDestProbRerouteTable;
 
     /// @brief list with route probability reroute
-    FXTable* myRouteProbRerouteTable;
+    EditTable<GNEAdditional>* myRouteProbRerouteTable;
 
     /// @brief list with parkingAreaReroutes
-    FXTable* myParkingAreaRerouteTable;
+    EditTable<GNEAdditional>* myParkingAreaRerouteTable;
 
     /// @brief closing Reroutes edited
     std::vector<GNEAdditional*> myClosingReroutesEdited;
@@ -184,21 +169,6 @@ protected:
     bool myRouteProbReroutesValid;
 
 private:
-    /// @brief update data of closing lane reroute table
-    void updateClosingLaneReroutesTable();
-
-    /// @brief update data of closing reroute table
-    void updateClosingReroutesTable();
-
-    /// @brief update data of destination probability reroute table
-    void updateDestProbReroutesTable();
-
-    /// @brief update data of probability reroutes table
-    void updateRouteProbReroutesTable();
-
-    /// @brief update data of parkingAreaReroute table
-    void updateParkingAreaReroutesTable();
-
     /// @brief Invalidated copy constructor.
     GNERerouterIntervalDialog(const GNERerouterIntervalDialog&) = delete;
 
