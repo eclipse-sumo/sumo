@@ -27,6 +27,9 @@ def modifyVClassDialog_NoDisallowAll(attribute, vClass):
     """
     # open dialog
     modifyBoolAttribute(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # go to vClass
     for _ in range(vClass):
         typeKey('tab')
@@ -44,6 +47,9 @@ def modifyVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
     """
     # open dialog
     modifyBoolAttributeOverlapped(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # go to vClass
     for _ in range(vClass):
         typeKey('tab')
@@ -61,6 +67,9 @@ def modifyVClassDialog_DisallowAll(attribute, vClass):
     """
     # open dialog
     modifyBoolAttribute(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
@@ -82,6 +91,9 @@ def modifyVClassDialogOverlapped_DisallowAll(attribute, vClass):
     """
     # open dialog
     modifyBoolAttributeOverlapped(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
@@ -103,6 +115,9 @@ def modifyVClassDialog_Cancel(attribute, vClass):
     """
     # open dialog
     modifyBoolAttribute(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
@@ -124,6 +139,9 @@ def modifyVClassDialogOverlapped_Cancel(attribute, vClass):
     """
     # open dialog
     modifyBoolAttributeOverlapped(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
@@ -145,6 +163,9 @@ def modifyVClassDialog_Reset(attribute, vClass):
     """
     # open dialog
     modifyBoolAttribute(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
@@ -169,6 +190,9 @@ def modifyVClassDialogOverlapped_Reset(attribute, vClass):
     """
     # open dialog
     modifyBoolAttributeOverlapped(attribute)
+    # go to first button allow all vClasses
+    for _ in range(attrs.dialog.allowVClass.accept):
+        typeTwoKeys('shift', 'tab')
     # disallow all
     for _ in range(attrs.dialog.allowVClass.disallowAll):
         typeKey('tab')
