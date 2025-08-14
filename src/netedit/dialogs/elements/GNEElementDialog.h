@@ -43,15 +43,23 @@ public:
 
     public:
         /// @brief constructor
-        EditTable(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag elementTag,
-                  FXSelector addSelector, FXSelector tableSelector, const std::vector<SumoXMLAttr> attrs) :
-            FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame),
-            myAttrs(attrs) {
+        EditTable(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                  FXSelector addSelector, FXSelector tableSelector) :
+            FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
+            // get tag property
+            const auto* tagPropertiesDatabase = elementDialogParent->getElement()->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
+            const auto* tagProperty = tagPropertiesDatabase->getTagProperty(tag, true);
+            // fill editable attributes
+            for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
+                if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
+                    myAttrProperties.push_back(attrProperty);
+                }
+            }
             // horizontal frame for buttons
             FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
             // create label and button
             myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), elementDialogParent, addSelector, GUIDesignButtonIcon);
-            myLabel = new FXLabel(buttonFrame, TLF("Add new %", toString(elementTag)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+            myLabel = new FXLabel(buttonFrame, TLF("Add new %", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
             myTable = new FXTable(this, elementDialogParent, tableSelector, GUIDesignTableAdditionals);
             myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
@@ -85,7 +93,7 @@ public:
         void configureTable(const std::vector<U*>& elements) {
             // get number of columns and rows
             const int numRows = (int)elements.size();
-            const int numCols = (int)myAttrs.size() + 2;
+            const int numCols = (int)myAttrProperties.size() + 2;
             // clear table
             myTable->clearItems();
             // set number of rows
@@ -98,7 +106,7 @@ public:
                 // set column width and text
                 if (i < (numCols - 2)) {
                     myTable->setColumnWidth(i, 100);
-                    myTable->setColumnText(i, toString(myAttrs.at(i)).c_str());
+                    myTable->setColumnText(i, myAttrProperties.at(i)->getAttrStr().c_str());
                 } else {
                     myTable->setColumnWidth(i, GUIDesignHeight);
                     myTable->setColumnText(i, "");
@@ -112,7 +120,7 @@ public:
                 // add attributes
                 for (int j = 0; j < numCols - 2; j++) {
                     // create item using attribute
-                    item = new FXTableItem(elements.at(i)->getAttribute(myAttrs.at(j)).c_str());
+                    item = new FXTableItem(elements.at(i)->getAttribute(myAttrProperties.at(j)->getAttr()).c_str());
                     // set item to table
                     myTable->setItem(i, j, item);
                 }
@@ -131,6 +139,9 @@ public:
         }
 
     protected:
+        /// @brief list of edited attrs
+        std::vector<const GNEAttributeProperties*> myAttrProperties;
+
         /// @brief add button
         FXButton* myAddButton = nullptr;
 
@@ -139,9 +150,6 @@ public:
 
         /// @brief table
         FXTable* myTable = nullptr;
-
-        /// @brief list of edited attrs
-        const std::vector<SumoXMLAttr> myAttrs;
 
     private:
         /// @brief Invalidated copy constructor

@@ -18,11 +18,6 @@
 // Dialog for edit rerouter intervals
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEClosingLaneReroute.h>
@@ -30,6 +25,11 @@
 #include <netedit/elements/additional/GNEDestProbReroute.h>
 #include <netedit/elements/additional/GNEParkingAreaReroute.h>
 #include <netedit/elements/additional/GNERouteProbReroute.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERerouterIntervalDialog.h"
@@ -132,26 +132,23 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myBeginTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_BEGIN)).c_str());
     myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
     myEndTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_END)).c_str());
+    // get pointer to database
+    const auto* tagPropertiesDatabase = myElement->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
     // closing reroute
     myClosingRerouteTable = new EditTable<GNEAdditional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE,
-            MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,
-    {SUMO_ATTR_EDGE, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW});
+            MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE);
     // closing lane reroute
     myClosingLaneRerouteTable = new EditTable<GNEAdditional>(this, columnLeft, SUMO_TAG_CLOSING_LANE_REROUTE,
-            MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE,
-    {SUMO_ATTR_LANE, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW});
+            MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE);
     // dest prob reroute
     myDestProbRerouteTable = new EditTable<GNEAdditional>(this, columnCenter, SUMO_TAG_DEST_PROB_REROUTE,
-            MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,
-    {SUMO_ATTR_EDGE, SUMO_ATTR_PROB});
+            MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE);
     // route prob reroute
     myRouteProbRerouteTable = new EditTable<GNEAdditional>(this, columnCenter, SUMO_TAG_ROUTE_PROB_REROUTE,
-            MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,
-    {SUMO_ATTR_ROUTE, SUMO_ATTR_PROB});
+            MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE);
     // parking area reroute
     myParkingAreaRerouteTable = new EditTable<GNEAdditional>(this, columnRight, SUMO_TAG_PARKING_AREA_REROUTE,
-            MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE,
-    {SUMO_ATTR_PARKING, SUMO_ATTR_PROB});
+            MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE);
     // disable add parkingAreaReroute Button and change label if there isn't parkingAreas in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
         myParkingAreaRerouteTable->disableTable(TL("No parkingAreas in net"));
