@@ -34,17 +34,17 @@
 // ===========================================================================
 
 template <typename T>
-class GNEElementDialog : public GNEDialog {
+class GNEElementDialog : protected GNEDialog {
 
 public:
     /// @brief edit table
     template <typename U>
-    class EditTable : public FXVerticalFrame {
+    class ElementList : public FXVerticalFrame {
 
     public:
         /// @brief constructor
-        EditTable(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag tag,
-                  FXSelector addSelector, FXSelector tableSelector) :
+        ElementList(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                    FXSelector addSelector, FXSelector tableSelector) :
             FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
             // get tag property
             const auto* tagPropertiesDatabase = elementDialogParent->getElement()->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
@@ -75,7 +75,7 @@ public:
         void addElement(T* element, const bool updateAfterInsert) {
             myEditedElements.push_back(element);
             if (updateAfterInsert) {
-                configureTable();
+                updateList();
             }
 
         }
@@ -84,7 +84,7 @@ public:
         void removeElement(const int index) {
             myEditedElements.erase(myEditedElements.begin() + index);
             // update table
-            configureTable();
+            updateList();
         }
 
         /// @brief disable table
@@ -117,8 +117,8 @@ public:
             return myTable->getItem(row, col);
         }
 
-        /// @brief set number of columns
-        void configureTable() {
+        /// @brief update list
+        void updateList() {
             // get number of columns and rows
             const int numRows = (int)myEditedElements.size();
             const int numCols = (int)myAttrProperties.size() + 2;
@@ -184,10 +184,10 @@ public:
 
     private:
         /// @brief Invalidated copy constructor
-        EditTable(const EditTable&) = delete;
+        ElementList(const ElementList&) = delete;
 
         /// @brief Invalidated assignment operator
-        EditTable& operator=(const EditTable&) = delete;
+        ElementList& operator=(const ElementList&) = delete;
     };
 
     /// @brief constructor

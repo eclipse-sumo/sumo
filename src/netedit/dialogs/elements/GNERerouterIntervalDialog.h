@@ -124,19 +124,19 @@ protected:
     bool myBeginEndValid = true;
 
     /// @brief list with closing lane reroutes
-    EditTable<GNEAdditional>* myClosingLaneRerouteTable;
+    ElementList<GNEAdditional>* myClosingLaneReroutes;
 
     /// @brief list with closing reroutes
-    EditTable<GNEAdditional>* myClosingRerouteTable;
+    ElementList<GNEAdditional>* myClosingReroutes;
 
     /// @brief list with destination probability reroutes
-    EditTable<GNEAdditional>* myDestProbRerouteTable;
+    ElementList<GNEAdditional>* myDestProbReroutes;
 
     /// @brief list with route probability reroute
-    EditTable<GNEAdditional>* myRouteProbRerouteTable;
+    ElementList<GNEAdditional>* myRouteProbReroutes;
 
     /// @brief list with parkingAreaReroutes
-    EditTable<GNEAdditional>* myParkingAreaRerouteTable;
+    ElementList<GNEAdditional>* myParkingAreaReroutes;
 
 private:
     /// @brief Invalidated copy constructor.
