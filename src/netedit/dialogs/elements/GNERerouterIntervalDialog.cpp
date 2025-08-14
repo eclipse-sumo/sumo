@@ -88,31 +88,31 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myParkingAreaReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // fill closing Reroutes
-    for (const auto &reroute : myElement->getChildAdditionals()) {
+    for (const auto& reroute : myElement->getChildAdditionals()) {
         if (reroute->getTagProperty()->getTag() == SUMO_TAG_CLOSING_REROUTE) {
             myClosingReroutesEdited.push_back(reroute);
         }
     }
     // fill closing Lane Reroutes
-    for (const auto &laneReroute : myElement->getChildAdditionals()) {
+    for (const auto& laneReroute : myElement->getChildAdditionals()) {
         if (laneReroute->getTagProperty()->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
             myClosingLaneReroutesEdited.push_back(laneReroute);
         }
     }
     // fill Dest Prob Reroutes
-    for (const auto &destProbReroute : myElement->getChildAdditionals()) {
+    for (const auto& destProbReroute : myElement->getChildAdditionals()) {
         if (destProbReroute->getTagProperty()->getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
             myDestProbReroutesEdited.push_back(destProbReroute);
         }
     }
     // fill Route Prob Reroutes
-    for (const auto &routeProbReroute : myElement->getChildAdditionals()) {
+    for (const auto& routeProbReroute : myElement->getChildAdditionals()) {
         if (routeProbReroute->getTagProperty()->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
             myRouteProbReroutesEdited.push_back(routeProbReroute);
         }
     }
     // fill Parking Area reroutes
-    for (const auto &parkingAreaReroute : myElement->getChildAdditionals()) {
+    for (const auto& parkingAreaReroute : myElement->getChildAdditionals()) {
         if (parkingAreaReroute->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
         }
@@ -147,12 +147,11 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myClosingRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myClosingRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     // dest prob reroute
-    FXHorizontalFrame* buttonAndLabelDestProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddDestProbReroutes = GUIDesigns::buildFXButton(buttonAndLabelDestProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myDestProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE, GUIDesignTableAdditionals);
-    myDestProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myDestProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+
+
+    myDestProbRerouteTable = new EditTable<GNEAdditional>(this, columnRight, SUMO_TAG_DEST_PROB_REROUTE, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE);
+
+
     // route prob reroute
     FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myAddRouteProbReroute = GUIDesigns::buildFXButton(buttonAndLabelRouteProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
@@ -408,7 +407,7 @@ GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, vo
     // check if some delete button was pressed
     for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
         if (myDestProbRerouteTable->getItem(i, 3)->hasFocus()) {
-            myDestProbRerouteTable->removeRows(i);
+            myDestProbRerouteTable->removeRow(i);
             myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myDestProbReroutesEdited.at(i), false), true);
             myDestProbReroutesEdited.erase(myDestProbReroutesEdited.begin() + i);
             updateDestProbReroutesTable();
@@ -739,43 +738,8 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
 
 void
 GNERerouterIntervalDialog::updateDestProbReroutesTable() {
-    // clear table
-    myDestProbRerouteTable->clearItems();
-    // set number of rows
-    myDestProbRerouteTable->setTableSize(int(myDestProbReroutesEdited.size()), 4);
-    // Configure list
-    myDestProbRerouteTable->setVisibleColumns(4);
-    myDestProbRerouteTable->setColumnWidth(0, 124);
-    myDestProbRerouteTable->setColumnWidth(1, 124);
-    myDestProbRerouteTable->setColumnWidth(2, GUIDesignHeight);
-    myDestProbRerouteTable->setColumnWidth(3, GUIDesignHeight);
-    myDestProbRerouteTable->setColumnText(0, toString(SUMO_ATTR_EDGE).c_str());
-    myDestProbRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
-    myDestProbRerouteTable->setColumnText(2, "");
-    myDestProbRerouteTable->setColumnText(3, "");
-    myDestProbRerouteTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
-        // Set new destination
-        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_EDGE).c_str());
-        myDestProbRerouteTable->setItem(i, 0, item);
-        // Set probability
-        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
-        myDestProbRerouteTable->setItem(i, 1, item);
-        // set valid icon
-        item = new FXTableItem("");
-        item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myDestProbRerouteTable->setItem(i, 2, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myDestProbRerouteTable->setItem(i, 3, item);
-    }
+    // set table size
+    myDestProbRerouteTable->configureTable(myDestProbReroutesEdited, {SUMO_ATTR_EDGE, SUMO_ATTR_PROB});
 }
 
 

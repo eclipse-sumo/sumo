@@ -142,7 +142,7 @@ protected:
     FXTable* myClosingRerouteTable;
 
     /// @brief list with destination probability reroutes
-    FXTable* myDestProbRerouteTable;
+    EditTable<GNEAdditional>* myDestProbRerouteTable;
 
     /// @brief list with route probability reroute
     FXTable* myRouteProbRerouteTable;

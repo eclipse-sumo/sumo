@@ -25,6 +25,9 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class definitions
@@ -34,6 +37,105 @@ template <typename T>
 class GNEElementDialog : public GNEDialog {
 
 public:
+    /// @brief edit table
+    template <typename U>
+    class EditTable : public FXVerticalFrame {
+
+    public:
+        /// @brief constructor
+        EditTable(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag elementTag,
+                  FXSelector addSelector, FXSelector tableSelector) :
+            FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
+            // horizontal frame for buttons
+            FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+            // create label and button
+            addButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), elementDialogParent, addSelector, GUIDesignButtonIcon);
+            new FXLabel(buttonFrame, TLF("Add new %", toString(elementTag)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+            // create and configure table
+            myTable = new FXTable(this, elementDialogParent, tableSelector, GUIDesignTableAdditionals);
+            myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+            myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+        }
+
+        /// @brief get num row
+        FXint getNumRows() const {
+            return myTable->getNumRows();
+        }
+
+        /// @brief get table item
+        FXTableItem* getItem(const int row, const int col) const {
+            return myTable->getItem(row, col);
+        }
+
+        /// @brief remove row
+        void removeRow(const int row) {
+            myTable->removeRows(row);
+        }
+
+        /// @brief set number of columns
+        void configureTable(const std::vector<U*>& elements, const std::vector<SumoXMLAttr> attrs) {
+            // get number of columns and rows
+            const int numRows = (int)elements.size();
+            const int numCols = (int)attrs.size() + 2;
+            // clear table
+            myTable->clearItems();
+            // set number of rows
+            myTable->setTableSize(numRows, numCols);
+            // Configure columns
+            myTable->setVisibleColumns(numCols);
+            // set column height
+            myTable->setColumnHeaderHeight(GUIDesignHeight);
+            for (int i = 0; i < numCols; i++) {
+                // set column width and text
+                if (i < (numCols - 2)) {
+                    myTable->setColumnWidth(i, 100);
+                    myTable->setColumnText(i, toString(attrs.at(i)).c_str());
+                } else {
+                    myTable->setColumnWidth(i, GUIDesignHeight);
+                    myTable->setColumnText(i, "");
+                }
+            }
+            // hide row header
+            myTable->getRowHeader()->setWidth(0);
+            // now configure rows
+            for (int i = 0; i < numRows; i++) {
+                FXTableItem* item = nullptr;
+                // add attributes
+                for (int j = 0; j < numCols - 2; j++) {
+                    // create item using attribute
+                    item = new FXTableItem(elements.at(i)->getAttribute(attrs.at(j)).c_str());
+                    // set item to table
+                    myTable->setItem(i, j, item);
+                }
+                // set valid icon
+                item = new FXTableItem("");
+                item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
+                item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+                item->setEnabled(false);
+                myTable->setItem(i, numCols - 2, item);
+                // set remove
+                item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
+                item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+                item->setEnabled(false);
+                myTable->setItem(i, numCols - 1, item);
+            }
+        }
+
+    protected:
+        /// @brief add button
+        FXButton* addButton = nullptr;
+
+        /// @brief table
+        FXTable* myTable = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor
+        EditTable(const EditTable&) = delete;
+
+        /// @brief Invalidated assignment operator
+        EditTable& operator=(const EditTable&) = delete;
+    };
+
     /// @brief constructor
     GNEElementDialog(T* element, const bool updatingElement, const int width, const int height) :
         GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
