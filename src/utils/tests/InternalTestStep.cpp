@@ -797,8 +797,10 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
         // select vClass
         new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
-        // press accept
+        // press reset
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::RESET), "accept vClasses");
+        // press accept
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
