@@ -18,6 +18,7 @@
 // Custom GNEColorDialog used in Netedit that supports internal tests
 /****************************************************************************/
 
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEApplicationWindow.h>
 
 #include "GNEColorDialog.h"
@@ -62,7 +63,14 @@ GNEColorDialog::~GNEColorDialog() {
 
 void
 GNEColorDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // "139,131,120"
+    if (GNEAttributeCarrier::canParse<RGBColor>(dialogArgument->getCustomAction())) {
+        // parse color
+        const auto color = GNEAttributeCarrier::parse<RGBColor>(dialogArgument->getCustomAction());
+        // set color in colorbox
+        myColorbox->setRGBA(MFXUtils::getFXColor(color));
+    } else {
+        WRITE_ERROR("Cannot parse color " + dialogArgument->getCustomAction() + " in internal test");
+    }
 }
 
 

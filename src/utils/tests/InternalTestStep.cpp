@@ -724,18 +724,10 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
     } else {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
-        // go to the list of colors
-        for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(Category::DIALOG, "shift", "tab", false);
-        }
-        // select color
-        for (int i = 0; i < 6; i++) {
-            buildPressKeyEvent(Category::DIALOG, "down", false);
-        }
-        // go to button
-        buildPressKeyEvent(Category::DIALOG, "tab", false);
-        // press button
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument("139,131,120"), "set color");
+        // press accept
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
