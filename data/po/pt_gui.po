@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-09 13:07+0000\n"
+"PO-Revision-Date: 2025-08-15 19:02+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -12970,42 +12970,42 @@ msgstr "Áreas Caminhaveis"
 #: src/netedit/frames/common/GNESelectorFrame.cpp:101
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:138
 msgid "Additionals"
-msgstr ""
+msgstr "Adicionais"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:102
 #: src/netedit/frames/network/GNEWireFrame.cpp:37
 msgid "Wires"
-msgstr ""
+msgstr "Fios"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:103
 #: src/netedit/frames/network/GNETAZFrame.cpp:1274
 msgid "TAZs"
-msgstr ""
+msgstr "Zonas de Tráfego Agregadas (TAZs)"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:104
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
 msgid "Polygons"
-msgstr ""
+msgstr "Polígonos"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:105
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2242
 msgid "POIs"
-msgstr ""
+msgstr "Pontos de Interesse"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:110
 #: src/netedit/frames/demand/GNERouteFrame.cpp:186
 msgid "Routes"
-msgstr ""
+msgstr "Rotas"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:116
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:41
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2085
 msgid "Containers"
-msgstr ""
+msgstr "Contêiners"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:118
 msgid "Tranships"
-msgstr ""
+msgstr "Transbordos"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:121
 msgid "EdgeDatas"
