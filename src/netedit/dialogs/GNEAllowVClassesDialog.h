@@ -29,7 +29,6 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class GNEInternalTest;
 
 // ===========================================================================
 // class definitions
@@ -40,6 +39,54 @@ class GNEAllowVClassesDialog : public GNEDialog {
     FXDECLARE(GNEAllowVClassesDialog)
 
 public:
+    /// @brief vclass row
+    class VClassRow : protected FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(VClassRow)
+
+    public:
+        /// @brief Constructor
+        VClassRow(FXVerticalFrame* contentsFrame, SUMOVehicleClass vClass,
+                  GUIIcon vClassIcon, const std::string& description);
+
+        /// @brief destructor
+        ~VClassRow();
+
+        /// @brief get vclass in string format
+        const std::string& getVClassString() const;
+
+        /// @brief set vClass button status
+        void setVClassButtonStatus(const bool enabled);
+
+        /// @brief check if vClass button is enabled
+        bool isVClassButtonEnabled() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief event when user toogle the vClass button
+        long onCmdToggleVClass(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(VClassRow)
+
+        /// @brief vclass button
+        FXButton* myVClassButton = nullptr;
+
+        /// @brief vclass in string format
+        const std::string myVClassString;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        VClassRow(const VClassRow&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        VClassRow& operator=(const VClassRow&) = delete;
+    };
+
     /// @brief Constructor
     GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
                            const std::string originalVClasses);
@@ -55,8 +102,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event when user press a enable/disable button
-    long onCmdValueChanged(FXObject*, FXSelector, void*);
 
     /// @brief event when user press select all VClasses button
     long onCmdSelectAll(FXObject*, FXSelector, void*);
@@ -85,19 +130,16 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEAllowVClassesDialog)
 
-    /// @brief original vClasses
-    std::string myOriginalVClasses;
-
     /// @brief edited vClasses
     std::string myEditedVClasses;
 
+    /// @brief original vClasses (used for reset)
+    const std::string myOriginalVClasses;
+
     /// @brief map with the buttons for every VClass
-    std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
+    std::map<SUMOVehicleClass, VClassRow* > myVClassMap;
 
 private:
-    /// @brief build VClass
-    void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
-
     /// @brief Invalidated copy constructor.
     GNEAllowVClassesDialog(const GNEAllowVClassesDialog&) = delete;
 

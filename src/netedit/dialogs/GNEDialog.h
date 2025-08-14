@@ -155,9 +155,6 @@ protected:
     /// @brief advanced button
     FXButton* myAdvancedButton = nullptr;
 
-    /// @brief focus button, used for focusing the dialog when it is opened
-    FXButton* myFocusButon = nullptr;
-
     /// @brief result to indicate if this dialog was closed accepting or rejecting changes
     Result myResult = Result::CANCEL;
 
@@ -174,6 +171,9 @@ protected:
     long closeDialogAborting();
 
 private:
+    /// @brief focus button, used for focusing the default button when dialog is opened
+    FXButton* myFocusButon = nullptr;
+
     /// @brief open type
     OpenType myOpenType;
 

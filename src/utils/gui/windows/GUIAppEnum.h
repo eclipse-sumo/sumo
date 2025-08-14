@@ -1592,19 +1592,19 @@ enum {
 
     /// @}
 
-    /// @name allowDisallow Dialog messages
+    /// @name allow vClasses Dialog messages
     /// @{
 
     /// @brief select/unselect single vehicle
-    MID_GNE_ALLOWDISALLOW_CHANGE,
+    MID_GNE_ALLOWVCLASSES_TOGGLE,
     /// @brief select all vehicles
-    MID_GNE_ALLOWDISALLOW_SELECTALL,
+    MID_GNE_ALLOWVCLASSES_SELECTALL,
     /// @brief unselect all vehicles
-    MID_GNE_ALLOWDISALLOW_UNSELECTALL,
+    MID_GNE_ALLOWVCLASSES_UNSELECTALL,
     /// @brief select only non road vehicles
-    MID_GNE_ALLOWDISALLOW_ONLY_ROAD,
+    MID_GNE_ALLOWVCLASSES_ONLY_ROAD,
     /// @brief select only rail vehicles
-    MID_GNE_ALLOWDISALLOW_ONLY_RAIL,
+    MID_GNE_ALLOWVCLASSES_ONLY_RAIL,
 
     /// @}
 

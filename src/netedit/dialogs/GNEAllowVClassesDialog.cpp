@@ -28,90 +28,155 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNEAllowVClassesDialog::VClassRow) VClassRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWVCLASSES_TOGGLE,   GNEAllowVClassesDialog::VClassRow::onCmdToggleVClass),
+};
+
 FXDEFMAP(GNEAllowVClassesDialog) GNEAllowVClassesDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,       GNEAllowVClassesDialog::onCmdValueChanged),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,    GNEAllowVClassesDialog::onCmdSelectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,  GNEAllowVClassesDialog::onCmdUnselectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_ROAD,    GNEAllowVClassesDialog::onCmdSelectOnlyRoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_RAIL,    GNEAllowVClassesDialog::onCmdSelectOnlyRail),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,              GNEAllowVClassesDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,              GNEAllowVClassesDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,               GNEAllowVClassesDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWVCLASSES_SELECTALL,    GNEAllowVClassesDialog::onCmdSelectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWVCLASSES_UNSELECTALL,  GNEAllowVClassesDialog::onCmdUnselectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWVCLASSES_ONLY_ROAD,    GNEAllowVClassesDialog::onCmdSelectOnlyRoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWVCLASSES_ONLY_RAIL,    GNEAllowVClassesDialog::onCmdSelectOnlyRail),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAllowVClassesDialog, GNEDialog, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
+FXIMPLEMENT(GNEAllowVClassesDialog::VClassRow,  FXHorizontalFrame,  VClassRowMap,               ARRAYNUMBER(VClassRowMap))
+FXIMPLEMENT(GNEAllowVClassesDialog,             GNEDialog,          GNEAllowVClassesDialogMap,  ARRAYNUMBER(GNEAllowVClassesDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEAllowVClassesDialog::VClassRow - methods
+// ---------------------------------------------------------------------------
+
+GNEAllowVClassesDialog::VClassRow::VClassRow(FXVerticalFrame* contentsFrame, SUMOVehicleClass vClass,
+        GUIIcon vClassIcon, const std::string& description) :
+    FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame),
+    myVClassString(getVehicleClassNames(vClass)) {
+    // add frame for vehicle icons
+    FXLabel* labelVehicleIcon = new FXLabel(this, "", GUIIconSubSys::getIcon(vClassIcon), GUIDesignLabelIcon64x32Thicked);
+    labelVehicleIcon->setBackColor(FXRGBA(255, 255, 255, 255));
+    // create frame for information and button
+    FXVerticalFrame* buttonAndInformationFrame = new FXVerticalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create button for enable/disable vehicle class
+    myVClassButton = GUIDesigns::buildFXButton(buttonAndStatusFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::EMPTY),
+                     this, MID_GNE_ALLOWVCLASSES_TOGGLE, GUIDesignButtonIcon);
+    // create label for vehicle class name
+    new FXLabel(buttonAndStatusFrame, myVClassString.c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    // create label for description of vehicle
+    new FXLabel(buttonAndInformationFrame, description.c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+}
+
+
+GNEAllowVClassesDialog::VClassRow::~VClassRow() {
+
+}
+
+
+const std::string&
+GNEAllowVClassesDialog::VClassRow::getVClassString() const {
+    return myVClassString;
+}
+
+
+void
+GNEAllowVClassesDialog::VClassRow::setVClassButtonStatus(const bool enabled) {
+    if (enabled) {
+        myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+    } else {
+        myVClassButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+    }
+}
+
+
+bool
+GNEAllowVClassesDialog::VClassRow::isVClassButtonEnabled() const {
+    return (myVClassButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+}
+
+
+long
+GNEAllowVClassesDialog::VClassRow::onCmdToggleVClass(FXObject*, FXSelector, void*) {
+    if (myVClassButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
+        setVClassButtonStatus(false);
+    } else {
+        setVClassButtonStatus(true);
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEAllowVClassesDialog - methods
+// ---------------------------------------------------------------------------
+
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
         const std::string originalVClasses) :
-    GNEDialog(mainWindow, TL("Edit allowed and disallowed vClasses"), GUIIcon::GREENVEHICLE,
+    GNEDialog(mainWindow, TLF("Edit vClasses of attribute '%'", toString(attr)), GUIIcon::GREENVEHICLE,
               GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalVClasses(originalVClasses),
     myEditedVClasses(originalVClasses) {
-    // set title
-    setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
-    // create groupbox for options
-    FXGroupBox* myGroupBoxOptions = new FXGroupBox(myContentFrame, TL("Selection options"), GUIDesignGroupBoxFrame);
-    FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
+    // label for selection options
+    new FXLabel(getContentFrame(), TL("Selection options"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
+    // horizontal frame uniform for options
+    FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(getContentFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // allow all
-    GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, TL("Allow all vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    GUIDesigns::buildFXButton(optionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWVCLASSES_SELECTALL, GUIDesignButtonIcon);
+    new FXLabel(optionsFrame, TL("Allow all vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // only road
-    GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_ONLY_ROAD, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, TL("Allow only road vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    GUIDesigns::buildFXButton(optionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWVCLASSES_ONLY_ROAD, GUIDesignButtonIcon);
+    new FXLabel(optionsFrame, TL("Allow only road vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // only rail
-    GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_ONLY_RAIL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, TL("Allow only rail vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    GUIDesigns::buildFXButton(optionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWVCLASSES_ONLY_RAIL, GUIDesignButtonIcon);
+    new FXLabel(optionsFrame, TL("Allow only rail vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // disallow all
-    GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, TL("Disallow all vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
-    // create groupbox for vehicles
-    FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(myContentFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
+    GUIDesigns::buildFXButton(optionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ALLOWVCLASSES_UNSELECTALL, GUIDesignButtonIcon);
+    new FXLabel(optionsFrame, TL("Disallow all vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    // label for select vClasses
+    new FXLabel(getContentFrame(), TL("Select vClasses"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     // Create frame for vehicles's columns
-    FXHorizontalFrame* myVehiclesFrame = new FXHorizontalFrame(myGroupBoxVehiclesFrame, GUIDesignContentsFrame);
+    FXHorizontalFrame* myVehiclesFrame = new FXHorizontalFrame(getContentFrame(), GUIDesignContentsFrame);
     // create left frame and fill it
-    FXVerticalFrame* myContentLeftFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentLeftFrame, SVC_PASSENGER, GUIIcon::VCLASS_PASSENGER, TL("Default vehicle class"));
-    buildVClass(myContentLeftFrame, SVC_PRIVATE, GUIIcon::VCLASS_PRIVATE, TL("A passenger car assigned for private use"));
-    buildVClass(myContentLeftFrame, SVC_TAXI, GUIIcon::VCLASS_TAXI, TL("Vehicle for hire with a driver"));
-    buildVClass(myContentLeftFrame, SVC_BUS, GUIIcon::VCLASS_BUS, TL("Urban line traffic"));
-    buildVClass(myContentLeftFrame, SVC_COACH, GUIIcon::VCLASS_COACH, TL("Overland transport"));
-    buildVClass(myContentLeftFrame, SVC_DELIVERY, GUIIcon::VCLASS_DELIVERY, TL("Vehicles specialized in delivering goods"));
-    buildVClass(myContentLeftFrame, SVC_TRUCK, GUIIcon::VCLASS_TRUCK, TL("Vehicle designed to transport cargo"));
-    buildVClass(myContentLeftFrame, SVC_TRAILER, GUIIcon::VCLASS_TRAILER, TL("Truck with trailer"));
-    buildVClass(myContentLeftFrame, SVC_EMERGENCY, GUIIcon::VCLASS_EMERGENCY, TL("Vehicle designated to respond to an emergency"));
-    buildVClass(myContentLeftFrame, SVC_MOTORCYCLE, GUIIcon::VCLASS_MOTORCYCLE, TL("Two- or three-wheeled motor vehicle"));
-    buildVClass(myContentLeftFrame, SVC_MOPED, GUIIcon::VCLASS_MOPED, TL("Motorcycle not allowed in motorways"));
+    FXVerticalFrame* vehiclesLeftFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
+    myVClassMap[SVC_PASSENGER] = new VClassRow(vehiclesLeftFrame, SVC_PASSENGER, GUIIcon::VCLASS_PASSENGER, TL("Default vehicle class"));
+    myVClassMap[SVC_PRIVATE] = new VClassRow(vehiclesLeftFrame, SVC_PRIVATE, GUIIcon::VCLASS_PRIVATE, TL("A passenger car assigned for private use"));
+    myVClassMap[SVC_TAXI] = new VClassRow(vehiclesLeftFrame, SVC_TAXI, GUIIcon::VCLASS_TAXI, TL("Vehicle for hire with a driver"));
+    myVClassMap[SVC_BUS] = new VClassRow(vehiclesLeftFrame, SVC_BUS, GUIIcon::VCLASS_BUS, TL("Urban line traffic"));
+    myVClassMap[SVC_COACH] = new VClassRow(vehiclesLeftFrame, SVC_COACH, GUIIcon::VCLASS_COACH, TL("Overland transport"));
+    myVClassMap[SVC_DELIVERY] = new VClassRow(vehiclesLeftFrame, SVC_DELIVERY, GUIIcon::VCLASS_DELIVERY, TL("Vehicles specialized in delivering goods"));
+    myVClassMap[SVC_TRUCK] = new VClassRow(vehiclesLeftFrame, SVC_TRUCK, GUIIcon::VCLASS_TRUCK, TL("Vehicle designed to transport cargo"));
+    myVClassMap[SVC_TRAILER] = new VClassRow(vehiclesLeftFrame, SVC_TRAILER, GUIIcon::VCLASS_TRAILER, TL("Truck with trailer"));
+    myVClassMap[SVC_EMERGENCY] = new VClassRow(vehiclesLeftFrame, SVC_EMERGENCY, GUIIcon::VCLASS_EMERGENCY, TL("Vehicle designated to respond to an emergency"));
+    myVClassMap[SVC_MOTORCYCLE] = new VClassRow(vehiclesLeftFrame, SVC_MOTORCYCLE, GUIIcon::VCLASS_MOTORCYCLE, TL("Two- or three-wheeled motor vehicle"));
+    myVClassMap[SVC_MOPED] = new VClassRow(vehiclesLeftFrame, SVC_MOPED, GUIIcon::VCLASS_MOPED, TL("Motorcycle not allowed in motorways"));
     // create center frame and fill it
-    FXVerticalFrame* myContentCenterFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentCenterFrame, SVC_BICYCLE, GUIIcon::VCLASS_BICYCLE, TL("Human-powered, pedal-driven vehicle"));
-    buildVClass(myContentCenterFrame, SVC_SCOOTER, GUIIcon::VCLASS_SCOOTER, TL("An electric scooter or a kick scooter"));
-    buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, GUIIcon::VCLASS_PEDESTRIAN, TL("Person traveling on foot"));
-    buildVClass(myContentCenterFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_WHEELCHAIR, TL("A mobility impaired person"));
-    buildVClass(myContentCenterFrame, SVC_TRAM, GUIIcon::VCLASS_TRAM, TL("Rail vehicle which runs on tracks"));
-    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, GUIIcon::VCLASS_RAIL_ELECTRIC, TL("Rail electric vehicle"));
-    buildVClass(myContentCenterFrame, SVC_RAIL_FAST, GUIIcon::VCLASS_RAIL_FAST, TL("High-speed rail vehicle"));
-    buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, GUIIcon::VCLASS_RAIL_URBAN, TL("Heavier than tram"));
-    buildVClass(myContentCenterFrame, SVC_RAIL, GUIIcon::VCLASS_RAIL, TL("Heavy rail vehicle"));
-    buildVClass(myContentCenterFrame, SVC_CABLE_CAR, GUIIcon::VCLASS_CABLE_CAR, TL("A conveyance suspended on a cable"));
-    buildVClass(myContentCenterFrame, SVC_SUBWAY, GUIIcon::VCLASS_SUBWAY, TL("A railway that mostly runs underground"));
+    FXVerticalFrame* vehiclesCenterFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
+    myVClassMap[SVC_BICYCLE] = new VClassRow(vehiclesCenterFrame, SVC_BICYCLE, GUIIcon::VCLASS_BICYCLE, TL("Human-powered, pedal-driven vehicle"));
+    myVClassMap[SVC_SCOOTER] = new VClassRow(vehiclesCenterFrame, SVC_SCOOTER, GUIIcon::VCLASS_SCOOTER, TL("An electric scooter or a kick scooter"));
+    myVClassMap[SVC_PEDESTRIAN] = new VClassRow(vehiclesCenterFrame, SVC_PEDESTRIAN, GUIIcon::VCLASS_PEDESTRIAN, TL("Person traveling on foot"));
+    myVClassMap[SVC_WHEELCHAIR] = new VClassRow(vehiclesCenterFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_WHEELCHAIR, TL("A mobility impaired person"));
+    myVClassMap[SVC_TRAM] = new VClassRow(vehiclesCenterFrame, SVC_TRAM, GUIIcon::VCLASS_TRAM, TL("Rail vehicle which runs on tracks"));
+    myVClassMap[SVC_RAIL_ELECTRIC] = new VClassRow(vehiclesCenterFrame, SVC_RAIL_ELECTRIC, GUIIcon::VCLASS_RAIL_ELECTRIC, TL("Rail electric vehicle"));
+    myVClassMap[SVC_RAIL_FAST] = new VClassRow(vehiclesCenterFrame, SVC_RAIL_FAST, GUIIcon::VCLASS_RAIL_FAST, TL("High-speed rail vehicle"));
+    myVClassMap[SVC_RAIL_URBAN] = new VClassRow(vehiclesCenterFrame, SVC_RAIL_URBAN, GUIIcon::VCLASS_RAIL_URBAN, TL("Heavier than tram"));
+    myVClassMap[SVC_RAIL] = new VClassRow(vehiclesCenterFrame, SVC_RAIL, GUIIcon::VCLASS_RAIL, TL("Heavy rail vehicle"));
+    myVClassMap[SVC_CABLE_CAR] = new VClassRow(vehiclesCenterFrame, SVC_CABLE_CAR, GUIIcon::VCLASS_CABLE_CAR, TL("A conveyance suspended on a cable"));
+    myVClassMap[SVC_SUBWAY] = new VClassRow(vehiclesCenterFrame, SVC_SUBWAY, GUIIcon::VCLASS_SUBWAY, TL("A railway that mostly runs underground"));
     // create right frame and fill it  (8 vehicles)
-    FXVerticalFrame* myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentRightFrame, SVC_E_VEHICLE, GUIIcon::VCLASS_EVEHICLE, TL("Future electric mobility vehicles"));
-    buildVClass(myContentRightFrame, SVC_ARMY, GUIIcon::VCLASS_ARMY, TL("Vehicle designed for military forces"));
-    buildVClass(myContentRightFrame, SVC_SHIP, GUIIcon::VCLASS_SHIP, TL("Basic class for navigating waterway"));
-    buildVClass(myContentRightFrame, SVC_AUTHORITY, GUIIcon::VCLASS_AUTHORITY, TL("Vehicle of a governmental security agency"));
-    buildVClass(myContentRightFrame, SVC_VIP, GUIIcon::VCLASS_VIP, TL("A civilian security armored car used by VIPs"));
-    buildVClass(myContentRightFrame, SVC_HOV, GUIIcon::VCLASS_HOV, TL("High-Occupancy Vehicle (two or more passengers)"));
-    buildVClass(myContentRightFrame, SVC_CONTAINER, GUIIcon::VCLASS_CONTAINER, TL("A transport container"));
-    buildVClass(myContentRightFrame, SVC_AIRCRAFT, GUIIcon::VCLASS_AIRCRAFT, TL("An airplane"));
-    buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_DRONE, TL("A small unmanned robot"));
-    buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
-    buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
+    FXVerticalFrame* vehiclesRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
+    myVClassMap[SVC_E_VEHICLE] = new VClassRow(vehiclesRightFrame, SVC_E_VEHICLE, GUIIcon::VCLASS_EVEHICLE, TL("Future electric mobility vehicles"));
+    myVClassMap[SVC_ARMY] = new VClassRow(vehiclesRightFrame, SVC_ARMY, GUIIcon::VCLASS_ARMY, TL("Vehicle designed for military forces"));
+    myVClassMap[SVC_SHIP] = new VClassRow(vehiclesRightFrame, SVC_SHIP, GUIIcon::VCLASS_SHIP, TL("Basic class for navigating waterway"));
+    myVClassMap[SVC_AUTHORITY] = new VClassRow(vehiclesRightFrame, SVC_AUTHORITY, GUIIcon::VCLASS_AUTHORITY, TL("Vehicle of a governmental security agency"));
+    myVClassMap[SVC_VIP] = new VClassRow(vehiclesRightFrame, SVC_VIP, GUIIcon::VCLASS_VIP, TL("A civilian security armored car used by VIPs"));
+    myVClassMap[SVC_HOV] = new VClassRow(vehiclesRightFrame, SVC_HOV, GUIIcon::VCLASS_HOV, TL("High-Occupancy Vehicle (two or more passengers)"));
+    myVClassMap[SVC_CONTAINER] = new VClassRow(vehiclesRightFrame, SVC_CONTAINER, GUIIcon::VCLASS_CONTAINER, TL("A transport container"));
+    myVClassMap[SVC_AIRCRAFT] = new VClassRow(vehiclesRightFrame, SVC_AIRCRAFT, GUIIcon::VCLASS_AIRCRAFT, TL("An airplane"));
+    myVClassMap[SVC_DRONE] = new VClassRow(vehiclesRightFrame, SVC_DRONE, GUIIcon::VCLASS_DRONE, TL("A small unmanned robot"));
+    myVClassMap[SVC_CUSTOM1] = new VClassRow(vehiclesRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
+    myVClassMap[SVC_CUSTOM2] = new VClassRow(vehiclesRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // open modal dialog
@@ -136,28 +201,10 @@ GNEAllowVClassesDialog::getModifiedVClasses() const {
 
 
 long
-GNEAllowVClassesDialog::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
-    FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
-    // change icon of button
-    for (const auto& vClass : myVClassMap) {
-        if (vClass.second.first == buttonPressed) {
-            if (buttonPressed->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
-                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-            } else {
-                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-            }
-            return 1;
-        }
-    }
-    return 1;
-}
-
-
-long
 GNEAllowVClassesDialog::onCmdSelectAll(FXObject*, FXSelector, void*) {
     // change all icons to accept
     for (const auto& vClass : myVClassMap) {
-        vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+        vClass.second->setVClassButtonStatus(true);
     }
     return 1;
 }
@@ -167,7 +214,7 @@ long
 GNEAllowVClassesDialog::onCmdUnselectAll(FXObject*, FXSelector, void*) {
     // change all icons to cancel
     for (const auto& vClass : myVClassMap) {
-        vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+        vClass.second->setVClassButtonStatus(false);
     }
     return 1;
 }
@@ -178,9 +225,9 @@ GNEAllowVClassesDialog::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (const auto& vClass : myVClassMap) {
         if ((vClass.first & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
-            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            vClass.second->setVClassButtonStatus(true);
         } else {
-            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+            vClass.second->setVClassButtonStatus(false);
         }
     }
     return 1;
@@ -192,9 +239,9 @@ GNEAllowVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (const auto& vClass : myVClassMap) {
         if ((vClass.first & SVC_RAIL_CLASSES) != 0) {
-            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            vClass.second->setVClassButtonStatus(true);
         } else {
-            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+            vClass.second->setVClassButtonStatus(false);
         }
     }
     return 1;
@@ -208,8 +255,8 @@ GNEAllowVClassesDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* arg)
     std::vector<std::string> allowedVehicles;
     for (const auto& vClass : myVClassMap) {
         // check if vehicle is allowed depending on the Icon
-        if (vClass.second.first->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
-            allowedVehicles.push_back(getVehicleClassNames(vClass.first));
+        if (vClass.second->isVClassButtonEnabled()) {
+            allowedVehicles.push_back(vClass.second->getVClassString());
         } else {
             allSelected = false;
         }
@@ -239,46 +286,28 @@ GNEAllowVClassesDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* arg)
 
 long
 GNEAllowVClassesDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // reset vClasses
+    myEditedVClasses = myOriginalVClasses;
     // continue depending of allow
-    if (myOriginalVClasses == "all") {
+    if (myEditedVClasses == "all") {
         // iterate over myVClassMap and set all icons as true
         for (const auto& vClass : myVClassMap) {
-            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            vClass.second->setVClassButtonStatus(true);
         }
     } else {
         // declare string vector for saving all vclasses
-        const std::vector<std::string>& allowStringVector = StringTokenizer(myOriginalVClasses).getVector();
+        const std::vector<std::string>& allowStringVector = StringTokenizer(myEditedVClasses).getVector();
         const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
         // iterate over myVClassMap and set icons
         for (const auto& vClass : myVClassMap) {
             if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
-                vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+                vClass.second->setVClassButtonStatus(true);
             } else {
-                vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+                vClass.second->setVClassButtonStatus(false);
             }
         }
     }
-    // reset vClasses
-    myEditedVClasses = myOriginalVClasses;
     return 1;
 }
-
-
-void
-GNEAllowVClassesDialog::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description) {
-    // add frame for vehicle icons
-    FXHorizontalFrame* vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel* labelVehicleIcon = new FXLabel(vehicleFrame, "", GUIIconSubSys::getIcon(vclassIcon), GUIDesignLabelIcon64x32Thicked);
-    labelVehicleIcon->setBackColor(FXRGBA(255, 255, 255, 255));
-    // create frame for information and button
-    FXVerticalFrame* buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame* buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[vclass].first = GUIDesigns::buildFXButton(buttonAndStatusFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, toString(vclass).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, description.c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
-}
-
 
 /****************************************************************************/
