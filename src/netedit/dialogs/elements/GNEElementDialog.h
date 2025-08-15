@@ -21,8 +21,9 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
+#include <netedit/elements/GNEHierarchicalStructureChildren.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -38,13 +39,13 @@ class GNEElementDialog : protected GNEDialog {
 
 public:
     /// @brief edit table
-    template <typename U>
+    template <typename U, typename V>
     class ElementList : public FXVerticalFrame {
 
     public:
         /// @brief constructor
         ElementList(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag tag,
-                    FXSelector addSelector, FXSelector tableSelector) :
+                    const GNEHierarchicalContainerChildren<U*>& elementChildren) :
             FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
             // get tag property
             const auto* tagPropertiesDatabase = elementDialogParent->getElement()->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
@@ -58,12 +59,21 @@ public:
             // horizontal frame for buttons
             FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
             // create label and button
-            myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), elementDialogParent, addSelector, GUIDesignButtonIcon);
+            myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD),
+                                                    elementDialogParent, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("Add new %", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
-            myTable = new FXTable(this, elementDialogParent, tableSelector, GUIDesignTableAdditionals);
+            myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignTableAdditionals);
             myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
             myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+            // fill edited elements
+            for (const auto& child : elementChildren) {
+                if (child->getTagProperty()->getTag() == tag) {
+                    myEditedElements.push_back(child);
+                }
+            }
+            // reset list
+            resetList();
         }
 
         /// @brief get elements
@@ -71,20 +81,37 @@ public:
             return myEditedElements;
         }
 
-        /// @brief add element
-        void addElement(T* element, const bool updateAfterInsert) {
-            myEditedElements.push_back(element);
-            if (updateAfterInsert) {
-                updateList();
+        /// @brief check if object is one of the elements of this class
+        bool checkObject(const FXObject* obj) const {
+            if (obj == myAddButton) {
+                return true;
+            } else if (obj == myTable) {
+                return true;
+            } else {
+                return false;
             }
-
         }
 
-        /// @brief removeElement
+        /// @brief add element
+        void addElement(T* element) {
+            // insert in list
+            myEditedElements.push_back(element);
+            // add change command
+            element->getNet()->getViewNet()->getUndoList()->add(new V(element, false), true);
+            // reset list
+            resetList();
+        }
+
+        /// @brief check if delete cell was pressed
+        bool isDeleteCellPressed(const int index) const {
+            return myTable->getItem(index, (myAttrProperties.size() + 1))->hasFocus();
+        }
+
+        /// @brief remove element
         void removeElement(const int index) {
             myEditedElements.erase(myEditedElements.begin() + index);
-            // update table
-            updateList();
+            // reset list
+            resetList();
         }
 
         /// @brief disable table
@@ -117,8 +144,8 @@ public:
             return myTable->getItem(row, col);
         }
 
-        /// @brief update list
-        void updateList() {
+        /// @brief reset list
+        void resetList() {
             // get number of columns and rows
             const int numRows = (int)myEditedElements.size();
             const int numCols = (int)myAttrProperties.size() + 2;
@@ -144,7 +171,7 @@ public:
             myTable->getRowHeader()->setWidth(0);
             // now configure rows
             for (int i = 0; i < numRows; i++) {
-                FXTableItem* item = nullptr;
+                FXTableItem* item = new FXTableItem("");
                 // add attributes
                 for (int j = 0; j < numCols - 2; j++) {
                     // create item using attribute
@@ -153,8 +180,7 @@ public:
                     myTable->setItem(i, j, item);
                 }
                 // set valid icon
-                item = new FXTableItem("");
-                item->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
+                item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::CORRECT));
                 item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
                 item->setEnabled(false);
                 myTable->setItem(i, numCols - 2, item);
@@ -165,6 +191,7 @@ public:
                 myTable->setItem(i, numCols - 1, item);
             }
         }
+
 
     protected:
         /// @brief list of edited attrs
@@ -181,6 +208,23 @@ public:
 
         /// @brief table
         FXTable* myTable = nullptr;
+
+        /// @brief check validity of all elements
+        void checkValidity() {
+            // check validity of all elements
+            for (int i = 0; i < myEditedElements.size(); i++) {
+                for (int j = 0; j < myAttrProperties.size(); j++) {
+                    // get cell value
+                    const auto value = myTable->getItem(i, j)->getText().text();
+                    // set icon depending of validity
+                    if (myEditedElements.at(i)->isValid(myAttrProperties.at(j)->getAttr(), value) == false) {
+                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
+                    } else {
+                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
+                    }
+                }
+            }
+        }
 
     private:
         /// @brief Invalidated copy constructor

@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEAdditional;
+class GNEChange_Additional;
 
 // ===========================================================================
 // class definitions
@@ -58,50 +59,11 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add closing lane reroute
-    long onCmdAddClosingLaneReroute(FXObject*, FXSelector, void*);
+    /// @brief add element in rerouter interval dialog
+    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
 
-    /// @brief add closing reroute
-    long onCmdAddClosingReroute(FXObject*, FXSelector, void*);
-
-    /// @brief add dest prob reroute
-    long onCmdAddDestProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief add route prob reroute
-    long onCmdAddRouteProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief add parkingAreaReroute
-    long onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*);
-
-    /// @brief remove closing lane reroute
-    long onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*);
-
-    /// @brief remove closing reroute
-    long onCmdClickedClosingReroute(FXObject*, FXSelector, void*);
-
-    /// @brief remove dest prob reroute
-    long onCmdClickedDestProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief remove route prob reroute
-    long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief remove parkingAreaReroute
-    long onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*);
-
-    /// @brief /edit closing lane reroute
-    long onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*);
-
-    /// @brief /edit closing reroute
-    long onCmdEditClosingReroute(FXObject*, FXSelector, void*);
-
-    /// @brief /edit dest prob reroute
-    long onCmdEditDestProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief /edit route prob reroute
-    long onCmdEditRouteProbReroute(FXObject*, FXSelector, void*);
-
-    /// @brief /edit parkingAreaReroute
-    long onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*);
+    /// @brief edit element in rerouter interval dialog
+    long onCmdElementListEdit(FXObject* obj, FXSelector, void*);
 
     /// @brief called when begin or end is changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
@@ -124,19 +86,19 @@ protected:
     bool myBeginEndValid = true;
 
     /// @brief list with closing lane reroutes
-    ElementList<GNEAdditional>* myClosingLaneReroutes;
+    ElementList<GNEAdditional, GNEChange_Additional>* myClosingLaneReroutes;
 
     /// @brief list with closing reroutes
-    ElementList<GNEAdditional>* myClosingReroutes;
+    ElementList<GNEAdditional, GNEChange_Additional>* myClosingReroutes;
 
     /// @brief list with destination probability reroutes
-    ElementList<GNEAdditional>* myDestProbReroutes;
+    ElementList<GNEAdditional, GNEChange_Additional>* myDestProbReroutes;
 
     /// @brief list with route probability reroute
-    ElementList<GNEAdditional>* myRouteProbReroutes;
+    ElementList<GNEAdditional, GNEChange_Additional>* myRouteProbReroutes;
 
     /// @brief list with parkingAreaReroutes
-    ElementList<GNEAdditional>* myParkingAreaReroutes;
+    ElementList<GNEAdditional, GNEChange_Additional>* myParkingAreaReroutes;
 
 private:
     /// @brief Invalidated copy constructor.
