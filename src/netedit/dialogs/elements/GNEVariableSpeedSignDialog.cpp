@@ -61,8 +61,9 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSp
     // create Button and Label for sort intervals
     mySortStepButton = GUIDesigns::buildFXButton(myAddStepFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    // create List with the data
-    myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignTableAdditionals);
+    // create FXTable for rows
+    myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignElementList);
+    // adjust colors
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     // update table

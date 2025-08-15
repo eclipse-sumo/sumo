@@ -40,13 +40,12 @@
 
 FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     // called when user click over buttons
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_ELEMENTLIST_ADD,    GNERerouterIntervalDialog::onCmdElementListAdd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNERerouterIntervalDialog::onCmdElementListAdd),
     // clicked table (Double and triple clicks allow to remove element more fast)
-    FXMAPFUNC(SEL_CLICKED,          MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListEdit),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListEdit),
-    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListEdit),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListClick),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListUpdate),
     // use "update" instead of "command" to avoid problems mit icons
-    FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,    GNERerouterIntervalDialog::onCmdChangeBeginEnd),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,    GNERerouterIntervalDialog::onCmdChangeBeginEnd),
 };
 
 // Object implementation
@@ -57,7 +56,7 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEElementDialog<GNEAdditional>, GNERerou
 // ===========================================================================
 
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement) :
-    GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement, 960, 480) {
+    GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement) {
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -79,35 +78,35 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myClosingReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE, myElement->getChildAdditionals());
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
-        myClosingReroutes->disableTable(TL("No edges in net"));
+        myClosingReroutes->disableList(TL("No edges in net"));
     }
     // create closing lane reroute element list
     myClosingLaneReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_LANE_REROUTE, myElement->getChildAdditionals());
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
-        myClosingLaneReroutes->disableTable(TL("No lanes in net"));
+        myClosingLaneReroutes->disableList(TL("No lanes in net"));
     }
     // dest prob reroute
     myDestProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_DEST_PROB_REROUTE, myElement->getChildAdditionals());
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
-        myDestProbReroutes->disableTable(TL("No edges in net"));
+        myDestProbReroutes->disableList(TL("No edges in net"));
     }
     // route prob reroute
     myRouteProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_ROUTE_PROB_REROUTE, myElement->getChildAdditionals());
     // disable if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
-        myRouteProbReroutes->disableTable(TL("Rerouter has more than one edge"));
+        myRouteProbReroutes->disableList(TL("Rerouter has more than one edge"));
     }
     // disable if there are no routes in net
     if (myElement->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
-        myRouteProbReroutes->disableTable(TL("No routes in net"));
+        myRouteProbReroutes->disableList(TL("No routes in net"));
     }
     // parking area reroute
     myParkingAreaReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnRight, SUMO_TAG_PARKING_AREA_REROUTE, myElement->getChildAdditionals());
     // disable if there are no parking areas in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
-        myParkingAreaReroutes->disableTable(TL("No parkingAreas in net"));
+        myParkingAreaReroutes->disableList(TL("No parkingAreas in net"));
     }
     // add element if we aren't updating an existent element
     if (!myUpdatingElement) {
@@ -191,11 +190,11 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myClosingReroutes->resetList();
-    myClosingLaneReroutes->resetList();
-    myDestProbReroutes->resetList();
-    myRouteProbReroutes->resetList();
-    myParkingAreaReroutes->resetList();
+    myClosingReroutes->refreshList();
+    myClosingLaneReroutes->refreshList();
+    myDestProbReroutes->refreshList();
+    myRouteProbReroutes->refreshList();
+    myParkingAreaReroutes->refreshList();
     return 1;
 }
 
@@ -207,66 +206,67 @@ GNERerouterIntervalDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*)
         // get edge
         const auto edge = myElement->getNet()->getAttributeCarriers()->getEdges().begin()->second;
         // create closing reroute
-        auto closingReroute = new GNEClosingReroute(myElement, edge, SVCAll);
-        // add element in list
-        myClosingReroutes->addElement(closingReroute);
+        return myClosingReroutes->addElement(new GNEClosingReroute(myElement, edge, SVCAll));
     } else if (myClosingLaneReroutes->checkObject(obj)) {
         // get lane
         const auto lane = myElement->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
         // create closing lane reroute
-        auto closingLaneReroute = new GNEClosingLaneReroute(myElement, lane, SVCAll);
-        // add element in list
-        myClosingLaneReroutes->addElement(closingLaneReroute);
+        return myClosingLaneReroutes->addElement(new GNEClosingLaneReroute(myElement, lane, SVCAll));
     } else if (myDestProbReroutes->checkObject(obj)) {
         // get edge
         const auto edge = myElement->getNet()->getAttributeCarriers()->getEdges().begin()->second;
         // create dest prob reroute
-        auto destProbReroute = new GNEDestProbReroute(myElement, edge, 1);
-        // add element in list
-        myDestProbReroutes->addElement(destProbReroute);
+        return myDestProbReroutes->addElement(new GNEDestProbReroute(myElement, edge, 1));
     } else if (myRouteProbReroutes->checkObject(obj)) {
         // get route
         const auto route = myElement->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
         // create route prob reroute
-        auto routeProbReroute = new GNERouteProbReroute(myElement, route, 1);
-        // add element in list
-        myRouteProbReroutes->addElement(routeProbReroute);
+        return myRouteProbReroutes->addElement(new GNERouteProbReroute(myElement, route, 1));
     } else if (myParkingAreaReroutes->checkObject(obj)) {
         // get parking area
         const auto parkingArea = myElement->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
         // create parking area reroute
-        auto parkingAreaReroute = new GNEParkingAreaReroute(myElement, parkingArea, 1, 1);
-        // add element in list
-        myParkingAreaReroutes->addElement(parkingAreaReroute);
+        return myParkingAreaReroutes->addElement(new GNEParkingAreaReroute(myElement, parkingArea, 1, 1));
+    } else {
+        throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
     }
-    return 1;
 }
 
 
 long
-GNERerouterIntervalDialog::onCmdElementListEdit(FXObject* obj, FXSelector, void*) {
-    // get elementList pointer
-    ElementList<GNEAdditional, GNEChange_Additional>* elementList = nullptr;
+GNERerouterIntervalDialog::onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr) {
+    // continue depending of the elementList
     if (myClosingReroutes->checkObject(obj)) {
-        elementList = myClosingReroutes;
+        return myClosingReroutes->onCmdClickedList(obj, sel, ptr);
     } else if (myClosingLaneReroutes->checkObject(obj)) {
-        elementList = myClosingLaneReroutes;
+        return myClosingLaneReroutes->onCmdClickedList(obj, sel, ptr);
     } else if (myDestProbReroutes->checkObject(obj)) {
-        elementList = myDestProbReroutes;
+        return myDestProbReroutes->onCmdClickedList(obj, sel, ptr);
     } else if (myRouteProbReroutes->checkObject(obj)) {
-        elementList = myRouteProbReroutes;
+        return myRouteProbReroutes->onCmdClickedList(obj, sel, ptr);
     } else if (myParkingAreaReroutes->checkObject(obj)) {
-        elementList = myParkingAreaReroutes;
+        return myParkingAreaReroutes->onCmdClickedList(obj, sel, ptr);
+    } else {
+        throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
     }
-    // check if some delete button was pressed
-    for (int i = 0; i < (int)elementList->getEditedElements().size(); i++) {
-        if (elementList->isDeleteCellPressed(i)) {
-            myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(elementList->getEditedElements().at(i), false), true);
-            elementList->removeElement(i);
-            return 1;
-        }
+}
+
+long
+GNERerouterIntervalDialog::onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr) {
+    // continue depending of the elementList
+    if (myClosingReroutes->checkObject(obj)) {
+        return myClosingReroutes->onCmdUpdateList(obj, sel, ptr);
+    } else if (myClosingLaneReroutes->checkObject(obj)) {
+        return myClosingLaneReroutes->onCmdUpdateList(obj, sel, ptr);
+    } else if (myDestProbReroutes->checkObject(obj)) {
+        return myDestProbReroutes->onCmdUpdateList(obj, sel, ptr);
+    } else if (myRouteProbReroutes->checkObject(obj)) {
+        return myRouteProbReroutes->onCmdUpdateList(obj, sel, ptr);
+    } else if (myParkingAreaReroutes->checkObject(obj)) {
+        return myParkingAreaReroutes->onCmdUpdateList(obj, sel, ptr);
+    } else {
+        throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
     }
-    return 0;
 }
 
 long

@@ -40,7 +40,7 @@ class GNEElementDialog : protected GNEDialog {
 public:
     /// @brief edit table
     template <typename U, typename V>
-    class ElementList : public FXVerticalFrame {
+    class ElementList : protected FXVerticalFrame {
 
     public:
         /// @brief constructor
@@ -63,7 +63,7 @@ public:
                                                     elementDialogParent, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("Add new %", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
-            myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignTableAdditionals);
+            myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementList);
             myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
             myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
             // fill edited elements
@@ -73,7 +73,7 @@ public:
                 }
             }
             // reset list
-            resetList();
+            refreshList();
         }
 
         /// @brief get elements
@@ -93,29 +93,59 @@ public:
         }
 
         /// @brief add element
-        void addElement(T* element) {
+        long addElement(T* element) {
             // insert in list
             myEditedElements.push_back(element);
             // add change command
-            element->getNet()->getViewNet()->getUndoList()->add(new V(element, false), true);
+            element->getNet()->getViewNet()->getUndoList()->add(new V(element, true), true);
             // reset list
-            resetList();
+            refreshList();
+            return 1;
         }
 
-        /// @brief check if delete cell was pressed
-        bool isDeleteCellPressed(const int index) const {
-            return myTable->getItem(index, (myAttrProperties.size() + 1))->hasFocus();
+        /// @brief called when user clicks over list
+        long onCmdClickedList(FXObject* obj, FXSelector sel, void* ptr) {
+            // first check if any delete button was pressed
+            for (int i = 0; i < (int)myEditedElements.size(); i++) {
+                // check if the remove button has focus
+                if (myTable->getItem(i, (myAttrProperties.size() + 1))->hasFocus()) {
+                    // add change command
+                    myEditedElements.at(i)->getNet()->getViewNet()->getUndoList()->add(new V(myEditedElements.at(i), false), true);
+                    // remove element from edited elements
+                    myEditedElements.erase(myEditedElements.begin() + i);
+                    // reset list
+                    refreshList();
+                    // abort
+                    return 1;
+                }
+            }
+            // handle in table
+            return myTable->handle(obj, sel, ptr);
         }
 
-        /// @brief remove element
-        void removeElement(const int index) {
-            myEditedElements.erase(myEditedElements.begin() + index);
-            // reset list
-            resetList();
+        /// @brief update list
+        long onCmdUpdateList(FXObject* obj, FXSelector sel, void* ptr) {
+            // check validity of all elements
+            for (int i = 0; i < myEditedElements.size(); i++) {
+                for (int j = 0; j < myAttrProperties.size(); j++) {
+                    // get cell value
+                    const std::string value = myTable->getItem(i, j)->getText().text();
+                    // set icon depending of validity
+                    if (myEditedElements.at(i)->isValid(myAttrProperties.at(j)->getAttr(), value)) {
+                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
+                    } else {
+                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
+                    }
+                }
+            }
+            // recalculate table for see new icons
+            myTable->recalc();
+            // continue handling in table
+            return myTable->handle(obj, sel, ptr);
         }
 
-        /// @brief disable table
-        void disableTable(const std::string reason) {
+        /// @brief disable list
+        void disableList(const std::string& reason) {
             myTable->disable();
             myAddButton->disable();
             myLabel->disable();
@@ -123,7 +153,7 @@ public:
         }
 
         /// @brief check if the current table is valid
-        bool isValid() {
+        bool isValid() const {
             // simply check if we have the incon "valid" in all rows
             for (int i = 0; i < getNumRows(); i++) {
                 if (myTable->getItem(i, myAttrProperties.size())->getIcon() != GUIIconSubSys::getIcon(GUIIcon::CORRECT)) {
@@ -144,11 +174,25 @@ public:
             return myTable->getItem(row, col);
         }
 
-        /// @brief reset list
-        void resetList() {
+        /// @brief refresh list
+        void refreshList() {
             // get number of columns and rows
             const int numRows = (int)myEditedElements.size();
             const int numCols = (int)myAttrProperties.size() + 2;
+            // calculate attribute width
+            std::vector<int>attributesWidth;
+            attributesWidth.resize(3);
+            // if neccesary, extend with more sizes
+            if (myAttrProperties.size() == 2) {
+                attributesWidth[0] = 144;
+                attributesWidth[1] = 145;
+            } else if (myAttrProperties.size() == 3) {
+                attributesWidth[0] = 96;
+                attributesWidth[1] = 96;
+                attributesWidth[2] = 97;
+            } else {
+                throw ProcessError("More attributesWidth needed");
+            }
             // clear table
             myTable->clearItems();
             // set number of rows
@@ -160,8 +204,9 @@ public:
             for (int i = 0; i < numCols; i++) {
                 // set column width and text
                 if (i < (numCols - 2)) {
-                    myTable->setColumnWidth(i, 100);
+                    myTable->setColumnWidth(i, attributesWidth.at(i));
                     myTable->setColumnText(i, myAttrProperties.at(i)->getAttrStr().c_str());
+                    myTable->setColumnJustify(i, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
                 } else {
                     myTable->setColumnWidth(i, GUIDesignHeight);
                     myTable->setColumnText(i, "");
@@ -192,7 +237,6 @@ public:
             }
         }
 
-
     protected:
         /// @brief list of edited attrs
         std::vector<const GNEAttributeProperties*> myAttrProperties;
@@ -209,23 +253,6 @@ public:
         /// @brief table
         FXTable* myTable = nullptr;
 
-        /// @brief check validity of all elements
-        void checkValidity() {
-            // check validity of all elements
-            for (int i = 0; i < myEditedElements.size(); i++) {
-                for (int j = 0; j < myAttrProperties.size(); j++) {
-                    // get cell value
-                    const auto value = myTable->getItem(i, j)->getText().text();
-                    // set icon depending of validity
-                    if (myEditedElements.at(i)->isValid(myAttrProperties.at(j)->getAttr(), value) == false) {
-                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
-                    } else {
-                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-                    }
-                }
-            }
-        }
-
     private:
         /// @brief Invalidated copy constructor
         ElementList(const ElementList&) = delete;
@@ -234,11 +261,32 @@ public:
         ElementList& operator=(const ElementList&) = delete;
     };
 
-    /// @brief constructor
+    /// @brief constructor (temporal)
     GNEElementDialog(T* element, const bool updatingElement, const int width, const int height) :
         GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                   TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
+        myElement(element),
+        myUpdatingElement(updatingElement),
+        myChangesDescription(TLF("change % values", element->getTagStr())),
+        myNumberOfChanges(0) {
+        // change dialog title depending if we are updating or creating an element
+        if (updatingElement) {
+            setTitle(TLF("Create %", element->getTagStr()).c_str());
+        } else {
+            setTitle(TLF("edit % '%'", element->getTagStr(), element->getID()).c_str());
+        }
+        // init commandGroup
+        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
+        // save number of command group changes
+        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
+    }
+
+    /// @brief constructor
+    GNEElementDialog(T* element, const bool updatingElement) :
+        GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                  TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
+                  Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
         myElement(element),
         myUpdatingElement(updatingElement),
         myChangesDescription(TLF("change % values", element->getTagStr())),

@@ -59,7 +59,7 @@ GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
     mySortIntervals = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create table
-    myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
+    myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignElementList);
     myIntervalTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myIntervalTable->setEditable(false);

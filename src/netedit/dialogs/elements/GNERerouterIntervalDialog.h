@@ -62,8 +62,11 @@ public:
     /// @brief add element in rerouter interval dialog
     long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
 
-    /// @brief edit element in rerouter interval dialog
-    long onCmdElementListEdit(FXObject* obj, FXSelector, void*);
+    /// @brief called when user clicks over list
+    long onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr);
+
+    /// @brief called when list is updated
+    long onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief called when begin or end is changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);

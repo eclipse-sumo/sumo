@@ -622,8 +622,8 @@ class MFXMenuCheckIcon;
 /// @brief design for table extended over frame but with limited Height
 #define GUIDesignTableLimitedHeight     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
-/// @brief design for tables used in additional dialogs
-#define GUIDesignTableAdditionals       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief design for tables used in ElementLists
+#define GUIDesignElementList            (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 350, 300, 2, 2, 2, 2
 
 /// @brief design for tables used in GNEFixDemandElementsDialog dialogs
 #define GUIDesignTableFixElements       (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 500, 250, 2, 2, 2, 2

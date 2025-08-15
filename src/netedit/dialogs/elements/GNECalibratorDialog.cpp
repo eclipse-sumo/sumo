@@ -67,7 +67,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     myAddRoute = GUIDesigns::buildFXButton(buttonAndLabelRoute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create table in left frame
-    myRouteList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
+    myRouteList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignElementList);
     myRouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myRouteList->setEditable(false);
@@ -76,7 +76,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     myAddVehicleType = GUIDesigns::buildFXButton(buttonAndLabelVehicleType, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create table in left frame
-    myVehicleTypeList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GUIDesignTableAdditionals);
+    myVehicleTypeList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GUIDesignElementList);
     myVehicleTypeList->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myVehicleTypeList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myVehicleTypeList->setEditable(false);
@@ -85,7 +85,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     myAddFlow = GUIDesigns::buildFXButton(buttonAndLabelFlow, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
     myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(GNE_TAG_CALIBRATOR_FLOW) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create table in right frame
-    myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
+    myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignElementList);
     myFlowList->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myFlowList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myFlowList->setEditable(false);
