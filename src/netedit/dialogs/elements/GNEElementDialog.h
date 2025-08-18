@@ -58,9 +58,11 @@ public:
             }
             // horizontal frame for buttons
             FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-            // create label and button
+            // create buttons and labels
             myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD),
                                                     elementDialogParent, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
+            mySortButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD),
+                           elementDialogParent, MID_GNE_ELEMENTLIST_SORT, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("%s", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
             if (fixHeight) {
@@ -89,6 +91,8 @@ public:
         bool checkObject(const FXObject* obj) const {
             if (obj == myAddButton) {
                 return true;
+            } else if (obj == mySortButton) {
+                return true;
             } else if (obj == myTable) {
                 return true;
             } else {
@@ -102,6 +106,24 @@ public:
             myEditedElements.push_back(element);
             // add change command
             element->getNet()->getViewNet()->getUndoList()->add(new V(element, true), true);
+            // reset list
+            refreshList();
+            return 1;
+        }
+
+        /// @brief sort elements
+        long sortElements() {
+            // declare set for saving elements sorted by first attribute
+            std::set<std::pair<std::string, U*> > sortedElements;
+            // add all elements
+            for (int i = 0; i < (int)myEditedElements.size(); i++) {
+                sortedElements.insert(std::make_pair(myTable->getItem(i, 0)->getText().text(), myEditedElements.at(i)));
+            }
+            // now update edited elements list using map
+            myEditedElements.clear();
+            for (const auto& element : sortedElements) {
+                myEditedElements.push_back(element.second);
+            }
             // reset list
             refreshList();
             return 1;
@@ -250,6 +272,9 @@ public:
 
         /// @brief add button
         FXButton* myAddButton = nullptr;
+
+        /// @brief sort button
+        FXButton* mySortButton = nullptr;
 
         /// @brief label
         FXLabel* myLabel = nullptr;

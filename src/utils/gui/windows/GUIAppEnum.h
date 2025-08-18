@@ -1534,6 +1534,8 @@ enum {
 
     /// @brief add element in ElementList
     MID_GNE_ELEMENTLIST_ADD,
+    /// @brief sort element in ElementList
+    MID_GNE_ELEMENTLIST_SORT,
     /// @brief edit element in ElementList
     MID_GNE_ELEMENTLIST_EDIT,
 

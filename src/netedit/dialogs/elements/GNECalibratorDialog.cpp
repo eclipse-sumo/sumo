@@ -43,6 +43,7 @@
 FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
     // called when user click over buttons
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNECalibratorDialog::onCmdElementListAdd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNECalibratorDialog::onCmdElementListSort),
     // clicked table (Double and triple clicks allow to remove element more fast)
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_ELEMENTLIST_EDIT,   GNECalibratorDialog::onCmdElementListClick),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_ELEMENTLIST_EDIT,   GNECalibratorDialog::onCmdElementListUpdate),
@@ -197,6 +198,21 @@ GNECalibratorDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*) {
                 delete calibratorFlow;
             }
         }
+    } else {
+        throw ProcessError("Invalid object in GNECalibratorDialog::onCmdElementListEdit");
+    }
+}
+
+
+long
+GNECalibratorDialog::onCmdElementListSort(FXObject* obj, FXSelector, void*) {
+    // continue depending of the elementList
+    if (myRoutes->checkObject(obj)) {
+        return myRoutes->sortElements();
+    } else if (myVTypes->checkObject(obj)) {
+        return myVTypes->sortElements();
+    } else if (myCalibratorFlows->checkObject(obj)) {
+        return myCalibratorFlows->sortElements();
     } else {
         throw ProcessError("Invalid object in GNECalibratorDialog::onCmdElementListEdit");
     }

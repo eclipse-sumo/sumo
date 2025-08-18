@@ -41,6 +41,7 @@
 FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     // called when user click over buttons
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNERerouterIntervalDialog::onCmdElementListAdd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNERerouterIntervalDialog::onCmdElementListSort),
     // clicked table (Double and triple clicks allow to remove element more fast)
     FXMAPFUNC(SEL_CLICKED,  MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListClick),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_ELEMENTLIST_EDIT,   GNERerouterIntervalDialog::onCmdElementListUpdate),
@@ -234,6 +235,25 @@ GNERerouterIntervalDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*)
 
 
 long
+GNERerouterIntervalDialog::onCmdElementListSort(FXObject* obj, FXSelector, void*) {
+    // continue depending of the elementList
+    if (myClosingReroutes->checkObject(obj)) {
+        return myClosingReroutes->sortElements();
+    } else if (myClosingLaneReroutes->checkObject(obj)) {
+        return myClosingLaneReroutes->sortElements();
+    } else if (myDestProbReroutes->checkObject(obj)) {
+        return myDestProbReroutes->sortElements();
+    } else if (myRouteProbReroutes->checkObject(obj)) {
+        return myRouteProbReroutes->sortElements();
+    } else if (myParkingAreaReroutes->checkObject(obj)) {
+        return myParkingAreaReroutes->sortElements();
+    } else {
+        throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
+    }
+}
+
+
+long
 GNERerouterIntervalDialog::onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr) {
     // continue depending of the elementList
     if (myClosingReroutes->checkObject(obj)) {
@@ -250,6 +270,7 @@ GNERerouterIntervalDialog::onCmdElementListClick(FXObject* obj, FXSelector sel, 
         throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
     }
 }
+
 
 long
 GNERerouterIntervalDialog::onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr) {
@@ -268,6 +289,7 @@ GNERerouterIntervalDialog::onCmdElementListUpdate(FXObject* obj, FXSelector sel,
         throw ProcessError("Invalid object in GNERerouterIntervalDialog::onCmdElementListEdit");
     }
 }
+
 
 long
 GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {

@@ -58,8 +58,11 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add element in calibrator interval dialog
+    /// @brief add element in calibrator dialog
     long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
+
+    /// @brief sort element in calibrator dialog
+    long onCmdElementListSort(FXObject* obj, FXSelector, void*);
 
     /// @brief called when user clicks over list
     long onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr);
