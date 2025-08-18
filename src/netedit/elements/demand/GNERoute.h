@@ -65,13 +65,13 @@ public:
     /// @brief default constructor
     GNERoute(SumoXMLTag tag, GNENet* net);
 
-    /// @brief default constructor (used in calibrators)
-    GNERoute(GNENet* net);
+    /// @brief calibrator constructor (used in calibrators)
+    GNERoute(GNEAdditional* calibrator);
 
-    /// @brief default constructor (used in copy vehicles)
+    /// @brief copy constructor (used in copy vehicles)
     GNERoute(const std::string& id, const GNEDemandElement* originalRoute);
 
-    /// @brief default  constructor (used in copy embedded vehicles)
+    /// @brief copy constructor (used in copy embedded vehicles)
     GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
     /**@brief parameter constructor for routes

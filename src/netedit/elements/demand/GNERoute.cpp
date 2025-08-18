@@ -81,12 +81,20 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, "", SUMO_TAG_ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+GNERoute::GNERoute(GNEAdditional* calibrator) :
+    GNEDemandElement(calibrator->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), calibrator->getNet(),
+                     calibrator->getFilename(), SUMO_TAG_ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+    // set parent edge
+    if (calibrator->getParentEdges().size() > 0) {
+        setParents<GNEEdge*>({calibrator->getParentEdges().front()});
+    } else if (calibrator->getParentLanes().size() > 0) {
+        setParents<GNEEdge*>({calibrator->getParentLanes().front()->getParentEdge()});
+    } else {
+        throw InvalidArgument("Calibrator parent requieres at least one edge or one lane");
+    }
 }
 
-// copy
+
 GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
     GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getTagProperty()->getTag(),
                      originalRoute->getPathElementOptions()),
@@ -99,7 +107,7 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-// copy (embedded)
+
 GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
     GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag(), originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
@@ -112,7 +120,7 @@ GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRo
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-// basic
+
 GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass,
                    const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
                    const SUMOTime cycleTime, const Parameterised::Map& parameters) :
@@ -128,7 +136,6 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filena
 }
 
 
-// embedded route
 GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
                    const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(vehicleParent, GNE_TAG_ROUTE_EMBEDDED,

@@ -65,6 +65,18 @@ GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const std::string& f
 }
 
 
+GNEVType::GNEVType(const GNEAdditional* calibrator) :
+    GNEDemandElement(calibrator->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE), calibrator->getNet(),
+                     calibrator->getFilename(), SUMO_TAG_VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
+    SUMOVTypeParameter(""),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
+    id = getID();
+}
+
+
 GNEVType::GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, net, filename, SUMO_TAG_VTYPE, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVTypeParameter(vTypeParameter),

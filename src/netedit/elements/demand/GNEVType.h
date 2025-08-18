@@ -40,6 +40,9 @@ public:
     /// @brief constructor for standard vTypes
     GNEVType(const std::string& vTypeID, GNENet* net, const std::string& filename);
 
+    /// @brief constructor called in calibrator dialogs
+    GNEVType(const GNEAdditional* calibrator);
+
     /// @brief parameter constructor for standard vTypes
     GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter);
 
