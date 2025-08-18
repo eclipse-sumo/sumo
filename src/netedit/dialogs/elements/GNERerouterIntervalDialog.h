@@ -39,7 +39,7 @@ class GNERerouterIntervalDialog : public GNEElementDialog<GNEAdditional> {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement);
+    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, const bool updatingElement);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
@@ -74,6 +74,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNERerouterIntervalDialog)
 
     /// @brief begin time text field

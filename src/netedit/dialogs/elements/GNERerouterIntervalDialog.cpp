@@ -55,7 +55,7 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEElementDialog<GNEAdditional>, GNERerou
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement) :
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, const bool updatingElement) :
     GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement) {
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -72,8 +72,6 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myBeginTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_BEGIN)).c_str());
     myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
     myEndTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_END)).c_str());
-    // get pointer to database
-    const auto* tagPropertiesDatabase = myElement->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
     // create closing reroute element list
     myClosingReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE, myElement->getChildAdditionals(), true);
     // disable if there are no edges in net
@@ -132,17 +130,19 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string title;
     std::string infoA;
     std::string infoB;
+    // get rerouter parent
+    const auto rerouterParent = myElement->getParentAdditionals().at(0);
     // set title
     if (myUpdatingElement) {
-        title = TLF("Error updating % of %", myElement->getTagStr(), myElement->getParentAdditionals().at(0)->getTagStr());
+        title = TLF("Error updating % of % '%'", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     } else {
-        title = TLF("Error creating % of %", myElement->getTagStr(), myElement->getParentAdditionals().at(0)->getTagStr());
+        title = TLF("Error creating % of % '%'", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     }
     // set infoA
     if (myUpdatingElement) {
-        infoA = TLF("%'s % cannot be updated because", myElement->getParentAdditionals().at(0)->getTagStr(), myElement->getTagStr());
+        infoA = TLF("% of % '%' cannot be updated because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     } else {
-        infoA = TLF("%'s % cannot be created because", myElement->getParentAdditionals().at(0)->getTagStr(), myElement->getTagStr());
+        infoA = TLF("% of % '%' cannot be created because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     }
     // set infoB
     if (!myBeginEndValid) {
