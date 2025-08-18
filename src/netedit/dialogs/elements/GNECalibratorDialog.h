@@ -48,6 +48,7 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -57,61 +58,29 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add new route
-    long onCmdAddRoute(FXObject*, FXSelector, void*);
+    /// @brief add element in calibrator interval dialog
+    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
 
-    /// @brief remove or edit route
-    long onCmdClickedRoute(FXObject*, FXSelector, void*);
+    /// @brief called when user clicks over list
+    long onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr);
 
-    /// @brief add new flow
-    long onCmdAddFlow(FXObject*, FXSelector, void*);
+    /// @brief called when list is updated
+    long onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr);
 
-    /// @brief remove or edit flow
-    long onCmdClickedFlow(FXObject*, FXSelector, void*);
-
-    /// @brief add new vehicle type
-    long onCmdAddVehicleType(FXObject*, FXSelector, void*);
-
-    /// @brief remove or edit vehicle type
-    long onCmdClickedVehicleType(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNECalibratorDialog)
 
-private:
-    /// @brief button for add new route
-    FXButton* myAddRoute;
-
     /// @brief list with routes
-    FXTable* myRouteList;
+    ElementList<GNEDemandElement, GNEChange_DemandElement>* myRoutes;
 
-    /// @brief label for flows
-    FXLabel* myLabelFlow;
+    /// @brief list with vTypes
+    ElementList<GNEDemandElement, GNEChange_DemandElement>* myVTypes;
 
-    /// @brief button for add new flow
-    FXButton* myAddFlow;
-
-    /// @brief list with flows
-    FXTable* myFlowList;
-
-    /// @brief button for add new vehicle type
-    FXButton* myAddVehicleType;
-
-    /// @brief list with vehicle types
-    FXTable* myVehicleTypeList;
-
-    /// @brief update data table with routes
-    void updateRouteTable();
-
-    /// @brief update data table with flows
-    void updateFlowTable();
-
-    /// @brief update data table with vehicle types
-    void updateVehicleTypeTable();
-
-    /// @brief update flow and label button
-    void updateFlowAndLabelButton();
+    /// @brief list with calibrator flows
+    ElementList<GNEAdditional, GNEChange_Additional>* myCalibratorFlows;
 
 private:
     /// @brief Invalidated copy constructor.
