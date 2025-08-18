@@ -75,25 +75,25 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     // get pointer to database
     const auto* tagPropertiesDatabase = myElement->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
     // create closing reroute element list
-    myClosingReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE, myElement->getChildAdditionals());
+    myClosingReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_REROUTE, myElement->getChildAdditionals(), true);
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         myClosingReroutes->disableList(TL("No edges in net"));
     }
     // create closing lane reroute element list
-    myClosingLaneReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_LANE_REROUTE, myElement->getChildAdditionals());
+    myClosingLaneReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnLeft, SUMO_TAG_CLOSING_LANE_REROUTE, myElement->getChildAdditionals(), true);
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
         myClosingLaneReroutes->disableList(TL("No lanes in net"));
     }
     // dest prob reroute
-    myDestProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_DEST_PROB_REROUTE, myElement->getChildAdditionals());
+    myDestProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_DEST_PROB_REROUTE, myElement->getChildAdditionals(), true);
     // disable if there are no edges in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         myDestProbReroutes->disableList(TL("No edges in net"));
     }
     // route prob reroute
-    myRouteProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_ROUTE_PROB_REROUTE, myElement->getChildAdditionals());
+    myRouteProbReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnCenter, SUMO_TAG_ROUTE_PROB_REROUTE, myElement->getChildAdditionals(), true);
     // disable if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
         myRouteProbReroutes->disableList(TL("Rerouter has more than one edge"));
@@ -103,7 +103,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
         myRouteProbReroutes->disableList(TL("No routes in net"));
     }
     // parking area reroute
-    myParkingAreaReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnRight, SUMO_TAG_PARKING_AREA_REROUTE, myElement->getChildAdditionals());
+    myParkingAreaReroutes = new ElementList<GNEAdditional, GNEChange_Additional>(this, columnRight, SUMO_TAG_PARKING_AREA_REROUTE, myElement->getChildAdditionals(), false);
     // disable if there are no parking areas in net
     if (rerouterInterval->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
         myParkingAreaReroutes->disableList(TL("No parkingAreas in net"));

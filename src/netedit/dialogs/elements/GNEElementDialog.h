@@ -45,7 +45,7 @@ public:
     public:
         /// @brief constructor
         ElementList(GNEElementDialog<T>* elementDialogParent, FXVerticalFrame* contentFrame, SumoXMLTag tag,
-                    const GNEHierarchicalContainerChildren<U*>& elementChildren) :
+                    const GNEHierarchicalContainerChildren<U*>& elementChildren, const bool fixHeight) :
             FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame) {
             // get tag property
             const auto* tagPropertiesDatabase = elementDialogParent->getElement()->getNet()->getViewNet()->getNet()->getTagPropertiesDatabase();
@@ -63,7 +63,11 @@ public:
                                                     elementDialogParent, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("Add new %", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
-            myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementList);
+            if (fixHeight) {
+                myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementList);
+            } else {
+                myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementListExtended);
+            }
             myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
             myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
             // fill edited elements
