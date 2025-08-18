@@ -35,7 +35,7 @@
 // ===========================================================================
 
 template <typename T>
-class GNEElementDialog : protected GNEDialog {
+class GNEElementDialog : public GNEDialog {
 
 public:
     /// @brief edit table
@@ -52,7 +52,7 @@ public:
             const auto* tagProperty = tagPropertiesDatabase->getTagProperty(tag, true);
             // fill editable attributes
             for (const auto& attrProperty : tagProperty->getAttributeProperties()) {
-                if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
+                if (attrProperty->isDialogEditor()) {
                     myAttrProperties.push_back(attrProperty);
                 }
             }
@@ -61,7 +61,7 @@ public:
             // create label and button
             myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD),
                                                     elementDialogParent, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
-            myLabel = new FXLabel(buttonFrame, TLF("Add new %", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+            myLabel = new FXLabel(buttonFrame, TLF("%s", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create and configure table
             if (fixHeight) {
                 myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementList);
@@ -97,7 +97,7 @@ public:
         }
 
         /// @brief add element
-        long addElement(T* element) {
+        long addElement(U* element) {
             // insert in list
             myEditedElements.push_back(element);
             // add change command
