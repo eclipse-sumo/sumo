@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-15 19:02+0000\n"
+"PO-Revision-Date: 2025-08-19 08:14+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -13009,11 +13009,11 @@ msgstr "Transbordos"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:121
 msgid "EdgeDatas"
-msgstr ""
+msgstr "Dados das arestas"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:122
 msgid "EdgeRelDatas"
-msgstr ""
+msgstr "Dados de relação das arestas"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:123
 msgid "EdgeTAZRel"
@@ -13025,7 +13025,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:153
 msgid "add"
-msgstr ""
+msgstr "adicionar"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:153
 msgid "Selected objects are added to the previous selection"
@@ -13033,7 +13033,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:155
 msgid "remove"
-msgstr ""
+msgstr "remover"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:155
 msgid "Selected objects are removed from the previous selection"
@@ -13042,7 +13042,7 @@ msgstr ""
 #: src/netedit/frames/common/GNESelectorFrame.cpp:157
 #: src/netedit/frames/network/GNETAZFrame.cpp:650
 msgid "keep"
-msgstr ""
+msgstr "manter"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:157
 msgid "Restrict previous selection by the current selection"
