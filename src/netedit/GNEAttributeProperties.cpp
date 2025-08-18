@@ -624,6 +624,12 @@ GNEAttributeProperties::isEditMode() const {
 }
 
 
+bool
+GNEAttributeProperties::isDialogEditor() const {
+    return myEditProperty & Edit::DIALOGEDITOR;
+}
+
+
 void
 GNEAttributeProperties::checkBuildConstraints() const {
 // check integrity only in debug mode

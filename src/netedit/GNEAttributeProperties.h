@@ -76,7 +76,8 @@ public:
         EXTENDEDEDITOR =    1 << 3,    // Attribute cannot be edited in editor, but is editable in extended Dialog
         GEOEDITOR =         1 << 4,    // Attribute can be edited only in geo editor
         FLOWEDITOR =        1 << 5,    // Attribute can be edited only in flow editor
-        NO_EDIT =           1 << 6,    // No edit property defined
+        DIALOGEDITOR =      1 << 6,    // Attribute can be edited in dialog editor
+        NO_EDIT =           1 << 7,    // No edit property defined
     };
 
     /// @brief parameter constructor for attribute properties without default values
@@ -289,6 +290,9 @@ public:
 
     /// @brief return true if attribute can be modified in edit mode
     bool isEditMode() const;
+
+    /// @brief return true if attribute can be modified in dialog editor
+    bool isDialogEditor() const;
 
     /// @}
 
