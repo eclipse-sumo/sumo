@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include "GNEAdditionalList.h"
+#include "GNEDemandList.h"
 #include "GNEElementDialog.h"
 
 // ===========================================================================
@@ -33,8 +35,6 @@ class GNEAdditional;
 // ===========================================================================
 
 class GNECalibratorDialog : public GNEElementDialog<GNEAdditional> {
-    /// @brief FOX-declaration
-    FXDECLARE(GNECalibratorDialog)
 
 public:
     /// @brief Constructor
@@ -58,26 +58,88 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add element in calibrator dialog
-    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
-
-    /// @brief sort element in calibrator dialog
-    long onCmdElementListSort(FXObject* obj, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNECalibratorDialog)
+    /// @brief route list
+    class RoutesList : public GNEDemandList {
+
+    public:
+        /// @brief constructor
+        RoutesList(GNECalibratorDialog* rerouterDialog);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        RoutesList(const RoutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        RoutesList& operator=(const RoutesList&) = delete;
+    };
+
+    /// @brief vTypes list
+    class VTypesList : public GNEDemandList {
+
+    public:
+        /// @brief constructor
+        VTypesList(GNECalibratorDialog* rerouterDialog);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        VTypesList(const VTypesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        VTypesList& operator=(const VTypesList&) = delete;
+    };
+
+    /// @brief calibrator flows list
+    class CalibratorFlowsList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        CalibratorFlowsList(GNECalibratorDialog* rerouterDialog,
+                            RoutesList* routesList, VTypesList* vTypesList);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    protected:
+        /// @brief pointer to routes list
+        RoutesList* myRoutesList = nullptr;
+
+        /// @brief pointer to vTypes list
+        VTypesList* myVTypesList = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor
+        CalibratorFlowsList(const CalibratorFlowsList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        CalibratorFlowsList& operator=(const CalibratorFlowsList&) = delete;
+    };
 
     /// @brief list with routes
-    ElementList<GNEDemandElement, GNEChange_DemandElement>* myRoutes;
+    RoutesList* myRoutes;
 
     /// @brief list with vTypes
-    ElementList<GNEDemandElement, GNEChange_DemandElement>* myVTypes;
+    VTypesList* myVTypes;
 
     /// @brief list with calibrator flows
-    ElementList<GNEAdditional, GNEChange_Additional>* myCalibratorFlows;
+    CalibratorFlowsList* myCalibratorFlows;
 
 private:
     /// @brief Invalidated copy constructor.
