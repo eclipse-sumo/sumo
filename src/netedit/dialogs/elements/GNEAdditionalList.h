@@ -56,13 +56,16 @@ public:
     /// @brief remove row
     long removeRow(const size_t rowIndex);
 
-    /// @brief remove row
+    /// @brief add row
     virtual long addRow() = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;
 
 protected:
+    /// @brief element dialog parent
+    GNEElementDialog<GNEAdditional>* myElementDialogParent = nullptr;
+
     /// @brief edited elements
     std::vector<GNEAdditional*> myEditedAdditionalElements;
 
