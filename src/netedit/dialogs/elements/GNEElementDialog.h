@@ -30,6 +30,8 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include "GNEElementTable.h"
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -64,22 +66,16 @@ public:
             mySortButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD),
                            elementDialogParent, MID_GNE_ELEMENTLIST_SORT, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("%s", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-            // create and configure table
-            if (fixHeight) {
-                myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementList);
-            } else {
-                myTable = new FXTable(this, elementDialogParent, MID_GNE_ELEMENTLIST_EDIT, GUIDesignElementListExtended);
-            }
-            myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-            myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+            // create element table
+            myElementTable = new GNEElementTable(this, elementDialogParent, fixHeight);
             // fill edited elements
             for (const auto& child : elementChildren) {
                 if (child->getTagProperty()->getTag() == tag) {
                     myEditedElements.push_back(child);
                 }
             }
-            // reset list
-            refreshList();
+            // update table
+            updateTable();
         }
 
         /// @brief get elements
@@ -87,13 +83,11 @@ public:
             return myEditedElements;
         }
 
-        /// @brief check if object is one of the elements of this class
-        bool checkObject(const FXObject* obj) const {
+        /// @brief check if the given object is a button
+        bool checkButtons(const FXObject* obj) const {
             if (obj == myAddButton) {
                 return true;
             } else if (obj == mySortButton) {
-                return true;
-            } else if (obj == myTable) {
                 return true;
             } else {
                 return false;
@@ -106,13 +100,14 @@ public:
             myEditedElements.push_back(element);
             // add change command
             element->getNet()->getViewNet()->getUndoList()->add(new V(element, true), true);
-            // reset list
-            refreshList();
+            // update table
+            updateTable();
             return 1;
         }
 
         /// @brief sort elements
         long sortElements() {
+            /*
             // declare set for saving elements sorted by first attribute
             std::set<std::pair<std::string, U*> > sortedElements;
             // add all elements
@@ -126,53 +121,13 @@ public:
             }
             // reset list
             refreshList();
+            */
             return 1;
-        }
-
-        /// @brief called when user clicks over list
-        long onCmdClickedList(FXObject* obj, FXSelector sel, void* ptr) {
-            // first check if any delete button was pressed
-            for (int i = 0; i < (int)myEditedElements.size(); i++) {
-                // check if the remove button has focus
-                if (myTable->getItem(i, (myAttrProperties.size() + 1))->hasFocus()) {
-                    // add change command
-                    myEditedElements.at(i)->getNet()->getViewNet()->getUndoList()->add(new V(myEditedElements.at(i), false), true);
-                    // remove element from edited elements
-                    myEditedElements.erase(myEditedElements.begin() + i);
-                    // reset list
-                    refreshList();
-                    // abort
-                    return 1;
-                }
-            }
-            // handle in table
-            return myTable->handle(obj, sel, ptr);
-        }
-
-        /// @brief update list
-        long onCmdUpdateList(FXObject* obj, FXSelector sel, void* ptr) {
-            // check validity of all elements
-            for (int i = 0; i < myEditedElements.size(); i++) {
-                for (int j = 0; j < myAttrProperties.size(); j++) {
-                    // get cell value
-                    const std::string value = myTable->getItem(i, j)->getText().text();
-                    // set icon depending of validity
-                    if (myEditedElements.at(i)->isValid(myAttrProperties.at(j)->getAttr(), value)) {
-                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-                    } else {
-                        myTable->getItem(i, myAttrProperties.size())->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
-                    }
-                }
-            }
-            // recalculate table for see new icons
-            myTable->recalc();
-            // continue handling in table
-            return myTable->handle(obj, sel, ptr);
         }
 
         /// @brief disable list
         void disableList(const std::string& reason) {
-            myTable->disable();
+            myElementTable->disableTable();
             myAddButton->disable();
             myLabel->disable();
             myLabel->setText(reason.c_str());
@@ -180,86 +135,16 @@ public:
 
         /// @brief check if the current table is valid
         bool isValid() const {
-            // simply check if we have the incon "valid" in all rows
-            for (int i = 0; i < getNumRows(); i++) {
-                if (myTable->getItem(i, myAttrProperties.size())->getIcon() != GUIIconSubSys::getIcon(GUIIcon::CORRECT)) {
-                    return false;
-                }
-            }
-            // all ok, then return true
-            return true;
+            return 1;
         }
 
-        /// @brief get num row
-        FXint getNumRows() const {
-            return myTable->getNumRows();
-        }
-
-        /// @brief get table item
-        FXTableItem* getItem(const int row, const int col) const {
-            return myTable->getItem(row, col);
-        }
-
-        /// @brief refresh list
-        void refreshList() {
-            // get number of columns and rows
-            const int numRows = (int)myEditedElements.size();
-            const int numCols = (int)myAttrProperties.size() + 2;
-            // calculate attribute width
-            std::vector<int>attributesWidth;
-            attributesWidth.resize(3);
-            // if neccesary, extend with more sizes
-            if (myAttrProperties.size() == 2) {
-                attributesWidth[0] = 144;
-                attributesWidth[1] = 145;
-            } else if (myAttrProperties.size() == 3) {
-                attributesWidth[0] = 96;
-                attributesWidth[1] = 96;
-                attributesWidth[2] = 97;
-            } else {
-                throw ProcessError("More attributesWidth needed");
-            }
-            // clear table
-            myTable->clearItems();
-            // set number of rows
-            myTable->setTableSize(numRows, numCols);
-            // Configure columns
-            myTable->setVisibleColumns(numCols);
-            // set column height
-            myTable->setColumnHeaderHeight(GUIDesignHeight);
-            for (int i = 0; i < numCols; i++) {
-                // set column width and text
-                if (i < (numCols - 2)) {
-                    myTable->setColumnWidth(i, attributesWidth.at(i));
-                    myTable->setColumnText(i, myAttrProperties.at(i)->getAttrStr().c_str());
-                    myTable->setColumnJustify(i, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-                } else {
-                    myTable->setColumnWidth(i, GUIDesignHeight);
-                    myTable->setColumnText(i, "");
-                }
-            }
-            // hide row header
-            myTable->getRowHeader()->setWidth(0);
-            // now configure rows
-            for (int i = 0; i < numRows; i++) {
-                FXTableItem* item = new FXTableItem("");
-                // add attributes
-                for (int j = 0; j < numCols - 2; j++) {
-                    // create item using attribute
-                    item = new FXTableItem(myEditedElements.at(i)->getAttribute(myAttrProperties.at(j)->getAttr()).c_str());
-                    // set item to table
-                    myTable->setItem(i, j, item);
-                }
-                // set valid icon
-                item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-                item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-                item->setEnabled(false);
-                myTable->setItem(i, numCols - 2, item);
-                // set remove
-                item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-                item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-                item->setEnabled(false);
-                myTable->setItem(i, numCols - 1, item);
+        /// @brief update table
+        void updateTable() {
+            // first resize table (used if we removed some elements)
+            myElementTable->resizeTable(myEditedElements.size());
+            // now update all rows
+            for (size_t i = 0; i < myEditedElements.size(); i++) {
+                myElementTable->updateRow(i, myEditedElements.at(i));
             }
         }
 
@@ -279,8 +164,8 @@ public:
         /// @brief label
         FXLabel* myLabel = nullptr;
 
-        /// @brief table
-        FXTable* myTable = nullptr;
+        /// @brief element table
+        GNEElementTable* myElementTable = nullptr;
 
     private:
         /// @brief Invalidated copy constructor
@@ -289,27 +174,6 @@ public:
         /// @brief Invalidated assignment operator
         ElementList& operator=(const ElementList&) = delete;
     };
-
-    /// @brief constructor (temporal)
-    GNEElementDialog(T* element, const bool updatingElement, const int width, const int height) :
-        GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                  TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
-                  Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, width, height),
-        myElement(element),
-        myUpdatingElement(updatingElement),
-        myChangesDescription(TLF("change % values", element->getTagStr())),
-        myNumberOfChanges(0) {
-        // change dialog title depending if we are updating or creating an element
-        if (updatingElement) {
-            setTitle(TLF("Create %", element->getTagStr()).c_str());
-        } else {
-            setTitle(TLF("edit % '%'", element->getTagStr(), element->getID()).c_str());
-        }
-        // init commandGroup
-        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
-        // save number of command group changes
-        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
-    }
 
     /// @brief constructor
     GNEElementDialog(T* element, const bool updatingElement) :
