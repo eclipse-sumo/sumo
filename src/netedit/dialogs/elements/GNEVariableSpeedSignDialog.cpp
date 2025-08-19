@@ -51,7 +51,7 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEElementDialog<GNEAdditional>, GNERero
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
-    GNEElementDialog<GNEAdditional>(variableSpeedSign, false, 500, 300),
+    GNEElementDialog<GNEAdditional>(variableSpeedSign, false),
     myStepsValids(false) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -62,7 +62,7 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSp
     mySortStepButton = GUIDesigns::buildFXButton(myAddStepFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create FXTable for rows
-    myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignElementList);
+    //myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignElementList);
     // adjust colors
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));

@@ -44,7 +44,7 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEElementDialog<GNEAdditional>, GNECalibra
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement) :
-    GNEElementDialog<GNEAdditional>(calibratorFlow, updatingElement, 600, 280),
+    GNEElementDialog<GNEAdditional>(calibratorFlow, updatingElement),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // Create auxiliar frames for tables

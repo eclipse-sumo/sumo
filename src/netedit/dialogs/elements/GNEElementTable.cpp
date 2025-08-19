@@ -136,12 +136,12 @@ GNEElementTable::Row::Row(GNEElementTable* table, const size_t index, GNEAttribu
     }
     // create remove button targeting the GNEDialog
     myRemoveButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table->myTargetDialog,
-                                  MID_GNE_ELEMENTTABLE_REMOVE, GUIDesignButtonIcon);
+                                  MID_GNE_ELEMENTTABLE_BUTTON, GUIDesignButtonIcon);
     // only create open dialog button if allowed
     if (allowOpenDialog) {
         // create open dialog button targeting the GNEDialog
         myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), table->myTargetDialog,
-                                          MID_GNE_ELEMENTTABLE_DIALOG, GUIDesignButtonIcon);
+                                          MID_GNE_ELEMENTTABLE_BUTTON, GUIDesignButtonIcon);
     }
     // create row if table was previously created
     if (table->id() != 0) {

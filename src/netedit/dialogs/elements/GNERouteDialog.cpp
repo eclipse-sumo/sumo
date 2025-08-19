@@ -44,7 +44,7 @@ FXIMPLEMENT(GNERouteDialog, GNEElementDialog<GNEDemandElement>, GNERouteDialogMa
 // ===========================================================================
 
 GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
-    GNEElementDialog<GNEDemandElement>(route, updatingElement, 500, 300),
+    GNEElementDialog<GNEDemandElement>(route, updatingElement),
     myCalibratorRouteValid(true) {
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
