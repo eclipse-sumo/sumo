@@ -15,9 +15,10 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
-// Table used in GNEElementList
+// Table used in GNEElementList, specific for demand elements
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
@@ -31,340 +32,85 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEElementTable.h"
-
-
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEElementTable) GNEElementTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_EDIT,  GNEElementTable::onCmdEditRow)
-};
-
-// Object implementation
-FXIMPLEMENT(GNEElementTable, FXVerticalFrame, GNEElementTableMap, ARRAYNUMBER(GNEElementTableMap))
-
-// ===========================================================================
-// defines
-// ===========================================================================
-
-#define TEXTCOLOR_BLACK FXRGB(0, 0, 0)
-#define TEXTCOLOR_BLUE FXRGB(0, 0, 255)
-#define TEXTCOLOR_RED FXRGB(255, 0, 0)
-#define TEXTCOLOR_BACKGROUND_RED FXRGBA(255, 213, 213, 255)
-#define TEXTCOLOR_BACKGROUND_WHITE FXRGB(255, 255, 255)
+#include "GNEDemandList.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEElementTable::RowHeader - methods
-// ---------------------------------------------------------------------------
-
-GNEElementTable::RowHeader::RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties) :
-    FXHorizontalFrame(table, GUIDesignAuxiliarHorizontalFrame) {
-    // create horizontal label with uniform width
-    auto horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
-    // create empty label
-    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight));
-    // create a label for every attribute
-    for (const auto& attrProperty : tagProperties->getAttributeProperties()) {
-        // check if this attribute can be edited in dialog
-        if (attrProperty->isDialogEditor()) {
-            // create label
-            myLabels.push_back(new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
-                                           nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL)));
+GNEDemandList::GNEDemandList(GNEElementDialog<GNEDemandElement>* elementDialogParent,
+                             FXVerticalFrame* contentFrame, SumoXMLTag tag, const bool fixHeight) :
+    GNEElementList(this, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight) {
+    // fill edited demand elements
+    for (const auto& child : elementDialogParent->getElement()->getChildDemands()) {
+        if (child->getTagProperty()->getTag() == tag) {
+            myEditedDemandElements.push_back(child);
         }
     }
-    // create empty label (icons and vertical scroller)
-    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
+    // update table
+    updateTable();
 }
 
 
-GNEElementTable::RowHeader::~RowHeader() {}
-
-
-void
-GNEElementTable::RowHeader::enableRowHeader() {
-    // enable all labels
-    for (const auto& label : myLabels) {
-        label->enable();
-    }
-}
-
-
-void
-GNEElementTable::RowHeader::disableRowHeader() {
-    // disable all labels
-    for (const auto& label : myLabels) {
-        label->disable();
-    }
-}
-
-
-size_t
-GNEElementTable::RowHeader::getNumColumns() const {
-    return myLabels.size();
-}
-
-// ---------------------------------------------------------------------------
-// GNEElementTable::Row - methods
-// ---------------------------------------------------------------------------
-
-GNEElementTable::Row::Row(GNEElementTable* table, const size_t index, GNEAttributeCarrier* AC, const bool allowOpenDialog) :
-    FXHorizontalFrame(table->myRowsFrame, GUIDesignAuxiliarHorizontalFrame),
-    myAC(AC) {
-    // create and disable index label
-    myIndexLabel = new FXLabel(this, std::to_string(index + 1).c_str(), nullptr, GUIDesignLabelIconThick);
-    // create horizontal frame for text fields packed uniformly
-    FXHorizontalFrame* textFieldsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
-    // create text fields
-    const auto toolTip = AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
-    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
-        // check if this attribute can be edited in dialog
-        if (attrProperty->isDialogEditor()) {
-            // create text field targeting the GNEElementTable
-            auto textField = new MFXTextFieldTooltip(textFieldsFrame, toolTip, GUIDesignTextFieldNCol, table,
-                    MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
-            // set value from attribute carrier
-            textField->setText(AC->getAttribute(attrProperty->getAttr()).c_str());
-            // add in AttributeTextFields vector
-            myAttributeTextFields.push_back(std::make_pair(attrProperty->getAttr(), textField));
-        }
-    }
-    // create remove button targeting the GNEDialog
-    myRemoveButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table->myTargetDialog,
-                                  MID_GNE_ELEMENTTABLE_BUTTON, GUIDesignButtonIcon);
-    // only create open dialog button if allowed
-    if (allowOpenDialog) {
-        // create open dialog button targeting the GNEDialog
-        myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), table->myTargetDialog,
-                                          MID_GNE_ELEMENTTABLE_BUTTON, GUIDesignButtonIcon);
-    }
-    // create row if table was previously created
-    if (table->id() != 0) {
-        create();
-        table->myRowsFrame->recalc();
-    }
-}
-
-
-GNEElementTable::Row::~Row() {}
-
-
-void
-GNEElementTable::Row::enableRow() {
-    // enable index label
-    myIndexLabel->enable();
-    // enable all text fields
-    for (const auto& attributeTextField : myAttributeTextFields) {
-        attributeTextField.second->enable();
-    }
-    // enable remove button
-    myRemoveButton->enable();
-    // enable open dialog button if it exists
-    if (myOpenDialogButton) {
-        myOpenDialogButton->enable();
-    }
-}
-
-
-void
-GNEElementTable::Row::disableRow() {
-    // disable index label
-    myIndexLabel->disable();
-    // disable all text fields
-    for (const auto& attributeTextField : myAttributeTextFields) {
-        attributeTextField.second->disable();
-    }
-    // disable remove button
-    myRemoveButton->disable();
-    // disable open dialog button if it exists
-    if (myOpenDialogButton) {
-        myOpenDialogButton->disable();
-    }
-}
-
-
-void
-GNEElementTable::Row::updateRow(GNEAttributeCarrier* AC) {
-    // set new attribute carrier
-    myAC = AC;
-    // update text fields
-    for (const auto& attributeTextField : myAttributeTextFields) {
-        // get value from attribute carrier
-        const std::string value = myAC->getAttribute(attributeTextField.first);
-        // set text in text field
-        attributeTextField.second->setText(value.c_str());
-        // set valid color
-        attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
-    }
-}
-
-
-std::string
-GNEElementTable::Row::getValue(const size_t column) const {
-    // check index
-    if ((column >= 0) && (column < myAttributeTextFields.size())) {
-        // return text from text field
-        return myAttributeTextFields.at(column).second->getText().text();
-    } else {
-        throw ProcessError("Column ndex out of bounds in GNEElementTable::Row::getValue");
-    }
-}
-
-
-void
-GNEElementTable::Row::updateValue(const FXObject* sender) {
-    // iterate over all text fields
-    for (const auto& attributeTextField : myAttributeTextFields) {
-        // check if sender is the text field
-        if (attributeTextField.second == sender) {
-            // get value
-            const std::string value = attributeTextField.second->getText().text();
-            // check if the value is valid
-            if (!myAC->isValid(attributeTextField.first, value)) {
-                // set red color
-                attributeTextField.second->setTextColor(TEXTCOLOR_RED);
-                // set background red
-                if (value.empty()) {
-                    attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_RED);
-                }
-            } else {
-                // set value in GNEAttributeCarrier using undo-redo
-                myAC->setAttribute(attributeTextField.first, value, myAC->getNet()->getViewNet()->getUndoList());
-                // restore black color and kill focus
-                attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
-                attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
-                attributeTextField.second->killFocus();
-            }
-            // break after found text field
-            break;
-        }
-    }
-}
-
-
-bool
-GNEElementTable::Row::isValid() const {
-    // iterate over all text fields
-    for (const auto& attributeTextField : myAttributeTextFields) {
-        // check if text fields colors are valid
-        if ((attributeTextField.second->getTextColor() != TEXTCOLOR_RED) ||
-                (attributeTextField.second->getBackColor() != TEXTCOLOR_BACKGROUND_RED)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// ---------------------------------------------------------------------------
-// GNEElementTable - methods
-// ---------------------------------------------------------------------------
-
-GNEElementTable::GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog,
-                                 const GNETagProperties* tagProperties, const bool fixHeight) :
-    FXVerticalFrame(contentFrame, LAYOUT_FIX_WIDTH | (fixHeight ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
-                    0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
-    myTargetDialog(targetDialog) {
-    // create row header
-    myRowHeader = new RowHeader(this, tagProperties);
-    // create scroll windows for rows
-    myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed(400));
-    // create vertical frame for rows and set back
-    myRowsFrame = new FXVerticalFrame(myScrollWindow, GUIDesignAuxiliarFrame);
-    myRowsFrame->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
-}
-
-
-GNEElementTable::~GNEElementTable() {
-}
-
-
-void
-GNEElementTable::enableTable() {
-    // enable all rows
-    for (const auto& row : myRows) {
-        row->enableRow();
-    }
-    // enable horizontal frame
-    enable();
-}
-
-
-void
-GNEElementTable::disableTable() {
-    // disable all rows
-    for (const auto& row : myRows) {
-        row->disableRow();
-    }
-    // disable horizontal frame
-    disable();
-}
-
-
-bool
-GNEElementTable::isValid() const {
-    // check if we have any row invalid
-    for (const auto& row : myRows) {
-        if (!row->isValid()) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-void
-GNEElementTable::resizeTable(const size_t numRows) {
-    // simply remove the rows if numRows is less than the current size
-    while (myRows.size() > numRows) {
-        delete myRows.back();
-        myRows.pop_back();
-    }
-}
-
-
-void
-GNEElementTable::updateRow(const size_t index, GNEAttributeCarrier* AC) {
-    // continue depending of the index
-    if (index < myRows.size()) {
-        // simply update the row
-        myRows.at(index)->updateRow(AC);
-    } else if (index == myRows.size()) {
-        // create new row and add it to the list
-        myRows.push_back(new Row(this, index, AC, true));
-    } else {
-        throw ProcessError("Index out of bounds in GNEElementTable::updateRow");
-    }
-}
-
-
-std::string
-GNEElementTable::getValue(const size_t rowIndex, const size_t columnIndex) const {
-    if (rowIndex < myRows.size()) {
-        return myRows.at(rowIndex)->getValue(columnIndex);
-    } else {
-        throw ProcessError("Row index out of bounds in GNEElementTable::getValue");
-    }
-}
-
-
-size_t
-GNEElementTable::getNumColumns() const {
-    return myRowHeader->getNumColumns();
+const std::vector<GNEDemandElement*>&
+GNEDemandList::getEditedDemands() const {
+    return myEditedDemandElements;
 }
 
 
 long
-GNEElementTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
-    // set value in the row
-    for (const auto& row : myRows) {
-        row->updateValue(sender);
+GNEDemandList::addDemandElement(GNEDemandElement* demandElement) {
+    // insert in list
+    myEditedDemandElements.push_back(demandElement);
+    // add change command
+    demandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, true), true);
+    // update table
+    return updateTable();
+}
+
+
+long
+GNEDemandList::updateTable() {
+    // first resize table (used if we removed some elements)
+    myElementTable->resizeTable(myEditedDemandElements.size());
+    // now update all rows
+    for (size_t i = 0; i < myEditedDemandElements.size(); i++) {
+        myElementTable->updateRow(i, myEditedDemandElements.at(i));
     }
     return 1;
+}
+
+
+long
+GNEDemandList::sortRows() {
+    // declare set for saving elements sorted by first and second attribute
+    std::set<std::tuple<std::string, std::string, std::string, GNEDemandElement*> > sortedDemandElements;
+    // add all elements
+    for (size_t i = 0; i < myEditedDemandElements.size(); i++) {
+        if (myElementTable->getNumColumns() == 1) {
+            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), "", "", myEditedDemandElements.at(i)));
+        } else if (myElementTable->getNumColumns() == 2) {
+            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), "", myEditedDemandElements.at(i)));
+        } else {
+            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), myElementTable->getValue(i, 2), myEditedDemandElements.at(i)));
+        }
+    }
+    // now update edited elements list using map
+    myEditedDemandElements.clear();
+    for (const auto& element : sortedDemandElements) {
+        myEditedDemandElements.push_back(std::get<3>(element));
+    }
+    // update table
+    return updateTable();
+}
+
+
+long
+GNEDemandList::removeRow(const size_t rowIndex) {
+    // remove element from list
+    myEditedDemandElements.erase(myEditedDemandElements.begin() + rowIndex);
+    // update table
+    return updateTable();
 }
 
 /****************************************************************************/
