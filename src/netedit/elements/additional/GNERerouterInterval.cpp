@@ -23,7 +23,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/elements/GNERerouterDialog.h>
 
 #include "GNERerouterInterval.h"
 
@@ -36,12 +35,12 @@ GNERerouterInterval::GNERerouterInterval(GNENet* net) :
 }
 
 
-GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getElement(), SUMO_TAG_INTERVAL, "") {
+GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent) :
+    GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, "") {
     // set parents
-    setParent<GNEAdditional*>(rerouterDialog->getElement());
+    setParent<GNEAdditional*>(rerouterParent);
     // update boundary of rerouter parent
-    rerouterDialog->getElement()->updateCenteringBoundary(true);
+    rerouterParent->updateCenteringBoundary(true);
 }
 
 

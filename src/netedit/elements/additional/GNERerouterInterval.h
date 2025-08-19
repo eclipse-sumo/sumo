@@ -27,7 +27,6 @@
 // ===========================================================================
 
 class GNERerouter;
-class GNERerouterDialog;
 class GNEClosingLaneReroute;
 class GNEClosingReroute;
 class GNEDestProbReroute;
@@ -44,10 +43,10 @@ public:
     /// @brief default constructor
     GNERerouterInterval(GNENet* net);
 
-    /// @brief constructor (Used in GNERerouterDialog)
-    GNERerouterInterval(GNERerouterDialog* rerouterDialog);
+    /// @brief basic constructor
+    GNERerouterInterval(GNEAdditional* rerouterParent);
 
-    /// @brief constructor
+    /// @brief parameter constructor
     GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end);
 
     /// @brief destructor

@@ -32,26 +32,13 @@
 #include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
-    // called when user click over buttons
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNERerouterDialog::onCmdElementListAdd),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNERerouterDialog::onCmdElementListSort),
-};
-
-// Object implementation
-FXIMPLEMENT(GNERerouterDialog, GNEElementDialog<GNEAdditional>, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
     GNEElementDialog<GNEAdditional>(rerouter, false) {
     // create rerouter intervals element list
-    myRerouterIntervals = new ElementList<GNEAdditional, GNEChange_Additional>(this, getContentFrame(), SUMO_TAG_INTERVAL, myElement->getChildAdditionals(), true);
+    myRerouterIntervals = new RerouterIntervalsList(this);
     // open dialog
     openDialog();
 }
@@ -69,7 +56,7 @@ GNERerouterDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dia
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
-    if (!myElement->checkChildAdditionalsOverlapping()) {
+    if (!myRerouterIntervals->isOverlapping()) {
         // open warning Box
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               TLF("Rerouter intervals of % '%' cannot be saved", toString(SUMO_TAG_REROUTER), myElement->getID()),
@@ -102,19 +89,56 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+// ---------------------------------------------------------------------------
+// GNERerouterDialog::RouteProbReroutesList - methods
+// ---------------------------------------------------------------------------
 
-long
-GNERerouterDialog::onCmdElementListAdd(FXObject*, FXSelector, void*) {
-    // create closing reroute
-    return myRerouterIntervals->addElement(new GNERerouterInterval(this));
+GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialog* rerouterDialog) :
+    GNEAdditionalList(rerouterDialog, rerouterDialog->getContentFrame(), SUMO_TAG_INTERVAL, true) {
 }
 
 
 long
-GNERerouterDialog::onCmdElementListSort(FXObject*, FXSelector, void*) {
-    // sort rerouter intervals
-    myRerouterIntervals->sortElements();
+GNERerouterDialog::RerouterIntervalsList::addRow() {
+    // create interval
+    myEditedAdditionalElements.push_back(new GNERerouterInterval(myElementDialogParent->getElement()));
+    // update table
+    return updateTable();
+}
+
+
+long
+GNERerouterDialog::RerouterIntervalsList::openDialog(const size_t rowIndex) {
     return 1;
+}
+
+
+bool
+GNERerouterDialog::RerouterIntervalsList::isOverlapping() const {
+    // declare a vector to keep sorted children
+    std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedIntervals;
+    // iterate over child interval
+    for (const auto& interval : myEditedAdditionalElements) {
+        // add interval to sorted intervals
+        sortedIntervals.push_back(std::make_pair(std::make_pair(0., 0.), interval));
+        // set begin and end
+        sortedIntervals.back().first.first = interval->getAttributeDouble(SUMO_ATTR_BEGIN);
+        sortedIntervals.back().first.second = interval->getAttributeDouble(SUMO_ATTR_END);
+    }
+    // sort intervals by begin and end
+    std::sort(sortedIntervals.begin(), sortedIntervals.end());
+    // if we have only one interval or less, there is no overlapping
+    if (sortedIntervals.size() <= 1) {
+        return true;
+    } else {
+        // check if the next end is bigger than the current begin
+        for (int i = 0; i < (int)sortedIntervals.size() - 1; i++) {
+            if (sortedIntervals.at(i).first.second > sortedIntervals.at(i + 1).first.first) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 /****************************************************************************/

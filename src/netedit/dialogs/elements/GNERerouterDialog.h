@@ -20,21 +20,14 @@
 #pragma once
 #include <config.h>
 
+#include "GNEAdditionalList.h"
 #include "GNEElementDialog.h"
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNEAdditional;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNERerouterDialog : public GNEElementDialog<GNEAdditional> {
-    /// @brief FOX-declaration
-    FXDECLARE(GNERerouterDialog)
 
 public:
     /// @brief Constructor
@@ -58,20 +51,35 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add element in calibrator dialog
-    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
-
-    /// @brief sort element in calibrator dialog
-    long onCmdElementListSort(FXObject* obj, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief FOX needs thsi
-    FOX_CONSTRUCTOR(GNERerouterDialog)
+    /// @brief rerouter interval list
+    class RerouterIntervalsList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        RerouterIntervalsList(GNERerouterDialog* rerouterDialog);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+        /// @briec check if there is overlapping between intervals
+        bool isOverlapping() const;
+
+    private:
+        /// @brief Invalidated copy constructor
+        RerouterIntervalsList(const RerouterIntervalsList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        RerouterIntervalsList& operator=(const RerouterIntervalsList&) = delete;
+    };
 
     /// @brief Element list for rerouter intervals
-    ElementList<GNEAdditional, GNEChange_Additional>* myRerouterIntervals;
+    RerouterIntervalsList* myRerouterIntervals;
 
 private:
     /// @brief Invalidated copy constructor.
