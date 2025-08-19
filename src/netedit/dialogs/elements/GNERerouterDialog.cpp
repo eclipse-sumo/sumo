@@ -36,9 +36,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
-    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
+    // called when user click over buttons
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNERerouterDialog::onCmdElementListAdd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNERerouterDialog::onCmdElementListSort),
 };
 
 // Object implementation
@@ -49,22 +49,9 @@ FXIMPLEMENT(GNERerouterDialog, GNEElementDialog<GNEAdditional>, GNERerouterDialo
 // ===========================================================================
 
 GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
-    GNEElementDialog<GNEAdditional>(rerouter, false, 320, 240) {
-    // create Horizontal frame for row elements
-    FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create Button and Label for adding new Wors
-    myAddInterval = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    // create Button and Label for sort intervals
-    mySortIntervals = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    // Create table
-    myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignElementList);
-    myIntervalTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myIntervalTable->setEditable(false);
-    // update intervals
-    updateIntervalTable();
+    GNEElementDialog<GNEAdditional>(rerouter, false) {
+    // create rerouter intervals element list
+    myRerouterIntervals = new ElementList<GNEAdditional, GNEChange_Additional>(this, getContentFrame(), SUMO_TAG_INTERVAL, myElement->getChildAdditionals(), true);
     // open dialog
     openDialog();
 }
@@ -85,9 +72,8 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myElement->checkChildAdditionalsOverlapping()) {
         // open warning Box
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                              TL("Interval overlapping detected"),
-                              TLF("Values of % '%' cannot be saved. There are intervals overlapped.",
-                                  toString(SUMO_TAG_REROUTER), myElement->getID()));
+                              TLF("Rerouter intervals of % '%' cannot be saved", toString(SUMO_TAG_REROUTER), myElement->getID()),
+                              TL(". There are intervals overlapped."));
     } else {
         // accept changes before closing dialog
         acceptChanges();
@@ -111,98 +97,24 @@ long
 GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
-    // update interval table
-    updateIntervalTable();
+    // update tables
+    myRerouterIntervals->updateTable();
     return 1;
 }
 
 
 long
-GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
-    // create empty rerouter interval and configure it with modal GNERerouterIntervalDialog
-    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);  // NOSONAR, constructor returns after dialog has been closed
-    // update interval table
-    updateIntervalTable();
-    return 1;
+GNERerouterDialog::onCmdElementListAdd(FXObject*, FXSelector, void*) {
+    // create closing reroute
+    return myRerouterIntervals->addElement(new GNERerouterInterval(this));
 }
 
 
 long
-GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
-    // get rerouter children
-    std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto& rerouterChild : myElement->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty()->isSymbol()) {
-            rerouterChildren.push_back(rerouterChild);
-        }
-    }
-    // check if some delete button was pressed
-    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
-        if (myIntervalTable->getItem(i, 2)->hasFocus()) {
-            // remove interval
-            myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterChildren.at(i), false), true);
-            // update interval table after removing
-            updateIntervalTable();
-            return 1;
-        }
-    }
-    // check if some begin or o end  button was pressed
-    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
-        if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
-            // edit interval
-            GNERerouterIntervalDialog(rerouterChildren.at(i), true);  // NOSONAR, constructor returns after dialog has been closed
-            // update interval table after editing
-            updateIntervalTable();
-            return 1;
-        }
-    }
-    // nothing to do
-    return 0;
+GNERerouterDialog::onCmdElementListSort(FXObject*, FXSelector, void*) {
+    // sort rerouter intervals
+    myRerouterIntervals->sortElements();
+    return 1;
 }
-
-
-void
-GNERerouterDialog::updateIntervalTable() {
-    // get rerouter children
-    std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto& rerouterChild : myElement->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty()->isSymbol()) {
-            rerouterChildren.push_back(rerouterChild);
-        }
-    }
-    // clear table
-    myIntervalTable->clearItems();
-    // set number of rows
-    myIntervalTable->setTableSize(int(rerouterChildren.size()), 3);
-    // Configure list
-    myIntervalTable->setVisibleColumns(4);
-    myIntervalTable->setColumnWidth(0, 137);
-    myIntervalTable->setColumnWidth(1, 136);
-    myIntervalTable->setColumnWidth(2, GUIDesignHeight);
-    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
-    myIntervalTable->setColumnText(1, toString(SUMO_ATTR_END).c_str());
-    myIntervalTable->setColumnText(2, "");
-    myIntervalTable->getRowHeader()->setWidth(0);
-    // Declare index for rows and pointer to FXTableItem
-    int indexRow = 0;
-    FXTableItem* item = nullptr;
-    // iterate over values
-    for (const auto& rerouterChild : rerouterChildren) {
-        // Set time
-        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_BEGIN).c_str());
-        myIntervalTable->setItem(indexRow, 0, item);
-        // Set speed
-        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_END).c_str());
-        myIntervalTable->setItem(indexRow, 1, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myIntervalTable->setItem(indexRow, 2, item);
-        // Update index
-        indexRow++;
-    }
-}
-
 
 /****************************************************************************/

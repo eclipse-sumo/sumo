@@ -58,30 +58,22 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add new interval
-    long onCmdAddInterval(FXObject*, FXSelector, void*);
+    /// @brief add element in calibrator dialog
+    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
 
-    /// @brief remove or edit interval
-    long onCmdClickedInterval(FXObject*, FXSelector, void*);
+    /// @brief sort element in calibrator dialog
+    long onCmdElementListSort(FXObject* obj, FXSelector, void*);
 
     /// @}
 
 protected:
+    /// @brief FOX needs thsi
     FOX_CONSTRUCTOR(GNERerouterDialog)
 
-    /// @brief button for add new interval
-    FXButton* myAddInterval;
-
-    /// @brief button for sort interval
-    FXButton* mySortIntervals;
-
-    /// @brief list with intervals
-    FXTable* myIntervalTable;
+    /// @brief Element list for rerouter intervals
+    ElementList<GNEAdditional, GNEChange_Additional>* myRerouterIntervals;
 
 private:
-    /// @brief update data table
-    void updateIntervalTable();
-
     /// @brief Invalidated copy constructor.
     GNERerouterDialog(const GNERerouterDialog&) = delete;
 
