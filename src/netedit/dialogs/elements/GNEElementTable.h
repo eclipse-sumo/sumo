@@ -20,14 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <utils/tests/InternalTestStep.h>
-
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEDialog;
+class GNEElementList;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -35,11 +32,9 @@ class GNEAttributeCarrier;
 // ===========================================================================
 
 class GNEElementTable : public FXVerticalFrame {
-    /// @brief fox declaration
-    FXDECLARE(GNEElementTable)
 
 public:
-    /// @brief table row header
+    /// @brief row header
     class RowHeader : protected FXHorizontalFrame {
 
     public:
@@ -71,11 +66,13 @@ public:
 
     /// @brief table row
     class Row : protected FXHorizontalFrame {
+        /// @brief fox declaration
+        FXDECLARE(Row)
 
     public:
         /// @brief constructor
-        Row(GNEElementTable* table, const size_t index, GNEAttributeCarrier* AC,
-            const bool allowOpenDialog);
+        Row(GNEElementTable* elementTable, const size_t rowIndex,
+            GNEAttributeCarrier* AC, const bool allowOpenDialog);
 
         /// @brief destructor
         ~Row();
@@ -92,15 +89,32 @@ public:
         /// @brief get value of the given column index
         std::string getValue(const size_t column) const;
 
-        /// @brief called when user update the value of a text field
-        void updateValue(const FXObject* sender);
-
         /// @brief check if current value is valid
         bool isValid() const;
 
+        /// @name FOX callbacks
+        /// @{
+
+        /// @brief called when user edits a row
+        long onCmdEditRow(FXObject* sender, FXSelector, void*);
+
+        /// @brief called when user press remove button
+        long onCmdRemoveRow(FXObject* sender, FXSelector, void*);
+
+        /// @brief called when user press open dialog button
+        long onCmdOpenDialog(FXObject* sender, FXSelector, void*);
+
+        /// @}
+
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(Row)
+
         /// @brief poiner to table parent
-        GNEElementTable* myTable = nullptr;
+        GNEElementTable* myElementTable = nullptr;
+
+        /// @brief index of the row
+        const size_t myRowIndex = 0;
 
         /// @brief attribute carrier
         GNEAttributeCarrier* myAC = nullptr;
@@ -126,8 +140,8 @@ public:
     };
 
     /// @brief constructor
-    GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog,
-                    const GNETagProperties* tagProperties, const bool fixHeight);
+    GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties,
+                    const bool fixHeight);
 
     /// @brief destructor
     ~GNEElementTable();
@@ -153,20 +167,9 @@ public:
     /// @brief get number of values
     size_t getNumColumns() const;
 
-    /// @name FOX callbacks
-    /// @{
-
-    /// @brief called when user edits a row
-    long onCmdEditRow(FXObject* sender, FXSelector, void*);
-
-    /// @}
-
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEElementTable)
-
-    /// @brief target dialog
-    GNEDialog* myTargetDialog = nullptr;
+    /// @brief pointer to the parent element list
+    GNEElementList* myElementList = nullptr;
 
     /// @brief row header
     RowHeader* myRowHeader = nullptr;
