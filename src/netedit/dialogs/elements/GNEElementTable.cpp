@@ -103,17 +103,21 @@ GNEElementTable::RowHeader::disableRowHeader() {
     }
 }
 
+
+size_t
+GNEElementTable::RowHeader::getNumColumns() const {
+    return myLabels.size();
+}
+
 // ---------------------------------------------------------------------------
 // GNEElementTable::Row - methods
 // ---------------------------------------------------------------------------
 
 GNEElementTable::Row::Row(GNEElementTable* table, const size_t index, GNEAttributeCarrier* AC, const bool allowOpenDialog) :
     FXHorizontalFrame(table->myRowsFrame, GUIDesignAuxiliarHorizontalFrame),
-    myIndex(index),
     myAC(AC) {
     // create and disable index label
     myIndexLabel = new FXLabel(this, std::to_string(index + 1).c_str(), nullptr, GUIDesignLabelIconThick);
-    myIndexLabel->disable();
     // create horizontal frame for text fields packed uniformly
     FXHorizontalFrame* textFieldsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
     // create text fields
@@ -124,7 +128,10 @@ GNEElementTable::Row::Row(GNEElementTable* table, const size_t index, GNEAttribu
             // create text field targeting the GNEElementTable
             auto textField = new MFXTextFieldTooltip(textFieldsFrame, toolTip, GUIDesignTextFieldNCol, table,
                     MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
-            myTextFields.push_back(std::make_pair(textField, attrProperty->getAttr()));
+            // set value from attribute carrier
+            textField->setText(AC->getAttribute(attrProperty->getAttr()).c_str());
+            // add in AttributeTextFields vector
+            myAttributeTextFields.push_back(std::make_pair(attrProperty->getAttr(), textField));
         }
     }
     // create remove button targeting the GNEDialog
@@ -135,6 +142,11 @@ GNEElementTable::Row::Row(GNEElementTable* table, const size_t index, GNEAttribu
         // create open dialog button targeting the GNEDialog
         myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), table->myTargetDialog,
                                           MID_GNE_ELEMENTTABLE_DIALOG, GUIDesignButtonIcon);
+    }
+    // create row if table was previously created
+    if (table->id() != 0) {
+        create();
+        table->myRowsFrame->recalc();
     }
 }
 
@@ -147,8 +159,8 @@ GNEElementTable::Row::enableRow() {
     // enable index label
     myIndexLabel->enable();
     // enable all text fields
-    for (const auto& textField : myTextFields) {
-        textField.first->enable();
+    for (const auto& attributeTextField : myAttributeTextFields) {
+        attributeTextField.second->enable();
     }
     // enable remove button
     myRemoveButton->enable();
@@ -164,8 +176,8 @@ GNEElementTable::Row::disableRow() {
     // disable index label
     myIndexLabel->disable();
     // disable all text fields
-    for (const auto& textField : myTextFields) {
-        textField.first->disable();
+    for (const auto& attributeTextField : myAttributeTextFields) {
+        attributeTextField.second->disable();
     }
     // disable remove button
     myRemoveButton->disable();
@@ -181,25 +193,25 @@ GNEElementTable::Row::updateRow(GNEAttributeCarrier* AC) {
     // set new attribute carrier
     myAC = AC;
     // update text fields
-    for (const auto& textField : myTextFields) {
+    for (const auto& attributeTextField : myAttributeTextFields) {
         // get value from attribute carrier
-        const std::string value = myAC->getAttribute(textField.second);
+        const std::string value = myAC->getAttribute(attributeTextField.first);
         // set text in text field
-        textField.first->setText(value.c_str());
+        attributeTextField.second->setText(value.c_str());
         // set valid color
-        textField.first->setTextColor(TEXTCOLOR_BLACK);
+        attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
     }
 }
 
 
 std::string
-GNEElementTable::Row::getValue(const int index) const {
+GNEElementTable::Row::getValue(const size_t column) const {
     // check index
-    if ((index >= 0) && (index < (int)myTextFields.size())) {
+    if ((column >= 0) && (column < myAttributeTextFields.size())) {
         // return text from text field
-        return myTextFields.at(index).first->getText().text();
+        return myAttributeTextFields.at(column).second->getText().text();
     } else {
-        throw ProcessError("Index out of bounds in GNEElementTable::Row::getValue");
+        throw ProcessError("Column ndex out of bounds in GNEElementTable::Row::getValue");
     }
 }
 
@@ -207,24 +219,45 @@ GNEElementTable::Row::getValue(const int index) const {
 void
 GNEElementTable::Row::updateValue(const FXObject* sender) {
     // iterate over all text fields
-    for (const auto& textField : myTextFields) {
+    for (const auto& attributeTextField : myAttributeTextFields) {
         // check if sender is the text field
-        if (textField.first == sender) {
+        if (attributeTextField.second == sender) {
+            // get value
+            const std::string value = attributeTextField.second->getText().text();
             // check if the value is valid
-            if (!myAC->isValid(textField.second, textField.first->getText().text())) {
+            if (!myAC->isValid(attributeTextField.first, value)) {
                 // set red color
-                textField.first->setTextColor(TEXTCOLOR_RED);
+                attributeTextField.second->setTextColor(TEXTCOLOR_RED);
+                // set background red
+                if (value.empty()) {
+                    attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_RED);
+                }
             } else {
                 // set value in GNEAttributeCarrier using undo-redo
-                myAC->setAttribute(textField.second, textField.first->getText().text(), myAC->getNet()->getViewNet()->getUndoList());
+                myAC->setAttribute(attributeTextField.first, value, myAC->getNet()->getViewNet()->getUndoList());
                 // restore black color and kill focus
-                textField.first->setTextColor(TEXTCOLOR_BLACK);
-                textField.first->killFocus();
+                attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
+                attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+                attributeTextField.second->killFocus();
             }
             // break after found text field
             break;
         }
     }
+}
+
+
+bool
+GNEElementTable::Row::isValid() const {
+    // iterate over all text fields
+    for (const auto& attributeTextField : myAttributeTextFields) {
+        // check if text fields colors are valid
+        if ((attributeTextField.second->getTextColor() != TEXTCOLOR_RED) ||
+                (attributeTextField.second->getBackColor() != TEXTCOLOR_BACKGROUND_RED)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -239,10 +272,10 @@ GNEElementTable::GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targe
     // create row header
     myRowHeader = new RowHeader(this, tagProperties);
     // create scroll windows for rows
-    myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed);
-    myScrollWindow->setWidth(400);
-    // create vertical frame for rows
+    myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed(400));
+    // create vertical frame for rows and set back
     myRowsFrame = new FXVerticalFrame(myScrollWindow, GUIDesignAuxiliarFrame);
+    myRowsFrame->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
 }
 
 
@@ -272,6 +305,18 @@ GNEElementTable::disableTable() {
 }
 
 
+bool
+GNEElementTable::isValid() const {
+    // check if we have any row invalid
+    for (const auto& row : myRows) {
+        if (!row->isValid()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 GNEElementTable::resizeTable(const size_t numRows) {
     // simply remove the rows if numRows is less than the current size
@@ -294,6 +339,22 @@ GNEElementTable::updateRow(const size_t index, GNEAttributeCarrier* AC) {
     } else {
         throw ProcessError("Index out of bounds in GNEElementTable::updateRow");
     }
+}
+
+
+std::string
+GNEElementTable::getValue(const size_t rowIndex, const size_t columnIndex) const {
+    if (rowIndex < myRows.size()) {
+        return myRows.at(rowIndex)->getValue(columnIndex);
+    } else {
+        throw ProcessError("Row index out of bounds in GNEElementTable::getValue");
+    }
+}
+
+
+size_t
+GNEElementTable::getNumColumns() const {
+    return myRowHeader->getNumColumns();
 }
 
 

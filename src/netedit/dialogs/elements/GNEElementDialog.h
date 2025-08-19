@@ -107,21 +107,25 @@ public:
 
         /// @brief sort elements
         long sortElements() {
-            /*
-            // declare set for saving elements sorted by first attribute
-            std::set<std::pair<std::string, U*> > sortedElements;
+            // declare set for saving elements sorted by first and second attribute
+            std::set<std::tuple<std::string, std::string, std::string, U*> > sortedElements;
             // add all elements
-            for (int i = 0; i < (int)myEditedElements.size(); i++) {
-                sortedElements.insert(std::make_pair(myTable->getItem(i, 0)->getText().text(), myEditedElements.at(i)));
+            for (size_t i = 0; i < myEditedElements.size(); i++) {
+                if (myElementTable->getNumColumns() == 1) {
+                    sortedElements.insert(std::make_tuple(myElementTable->getValue(i, 0), "", "", myEditedElements.at(i)));
+                } else if (myElementTable->getNumColumns() == 2) {
+                    sortedElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), "", myEditedElements.at(i)));
+                } else {
+                    sortedElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), myElementTable->getValue(i, 2), myEditedElements.at(i)));
+                }
             }
             // now update edited elements list using map
             myEditedElements.clear();
             for (const auto& element : sortedElements) {
-                myEditedElements.push_back(element.second);
+                myEditedElements.push_back(std::get<3>(element));
             }
-            // reset list
-            refreshList();
-            */
+            // update table
+            updateTable();
             return 1;
         }
 
@@ -135,7 +139,7 @@ public:
 
         /// @brief check if the current table is valid
         bool isValid() const {
-            return 1;
+            return myElementTable->isValid();
         }
 
         /// @brief update table
