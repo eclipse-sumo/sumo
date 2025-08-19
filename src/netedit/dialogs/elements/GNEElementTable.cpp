@@ -118,6 +118,7 @@ GNEElementTable::RowHeader::getNumColumns() const {
 GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
                           GNEAttributeCarrier* AC, const bool allowOpenDialog) :
     FXHorizontalFrame(elementTable->myRowsFrame, GUIDesignAuxiliarHorizontalFrame),
+    myElementTable(elementTable),
     myRowIndex(rowIndex),
     myAC(AC) {
     // create and disable index label

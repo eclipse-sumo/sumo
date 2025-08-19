@@ -40,8 +40,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEElementList) GNEElementListMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_EDIT,  GNEElementList::onCmdAddRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_EDIT,  GNEElementList::onCmdSort)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNEElementList::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNEElementList::onCmdSort)
 };
 
 // Object implementation
