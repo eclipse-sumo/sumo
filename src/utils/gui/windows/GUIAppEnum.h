@@ -1529,15 +1529,24 @@ enum {
 
     /// @}
 
+    /// @name ElementTable messages
+    /// @{
+    /// @brief edit element in ElementList
+    MID_GNE_ELEMENTTABLE_EDIT,
+    /// @brief button of element table
+    MID_GNE_ELEMENTTABLE_BUTTON,
+
     /// @name ElementList messages
     /// @{
 
     /// @brief add element in ElementList
     MID_GNE_ELEMENTLIST_ADD,
-    /// @brief sort element in ElementList
+    /// @brief remove element in ElementList
+    MID_GNE_ELEMENTLIST_REMOVE,
+    /// @brief open dialog for ElementList
+    MID_GNE_ELEMENTLIST_OPENDIALOG,
+    /// @brief sort elements in ElementList
     MID_GNE_ELEMENTLIST_SORT,
-    /// @brief edit element in ElementList
-    MID_GNE_ELEMENTLIST_EDIT,
 
     /// @}
 
