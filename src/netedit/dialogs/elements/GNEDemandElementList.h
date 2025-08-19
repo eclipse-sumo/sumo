@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
-// Table used in GNEElementList, specific for additional elements
+// Table used in GNEElementList, specific for demand elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -27,25 +27,25 @@
 // class declaration
 // ===========================================================================
 
-class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEAdditionalList : public GNEElementList {
+class GNEDemandElementList : public GNEElementList {
 
 public:
     /// @brief constructor
-    GNEAdditionalList(GNEElementDialog<GNEAdditional>* elementDialogParent,
-                      FXVerticalFrame* contentFrame, SumoXMLTag tag,
-                      const bool fixHeight);
+    GNEDemandElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
+                         FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                         const bool fixHeight);
 
     /// @brief get elements
-    const std::vector<GNEAdditional*>& getEditedAdditionals() const;
+    const std::vector<GNEDemandElement*>& getEditedDemands() const;
 
     /// @brief add element
-    long addAdditionalElement(GNEAdditional* additionalElement);
+    long addDemandElement(GNEDemandElement* demandElement);
 
     /// @brief update table
     long updateTable();
@@ -67,12 +67,12 @@ protected:
     GNEElementDialog<GNEAdditional>* myElementDialogParent = nullptr;
 
     /// @brief edited elements
-    std::vector<GNEAdditional*> myEditedAdditionalElements;
+    std::vector<GNEDemandElement*> myEditedDemandElements;
 
 private:
     /// @brief Invalidated copy constructor
-    GNEAdditionalList(const GNEAdditionalList&) = delete;
+    GNEDemandElementList(const GNEDemandElementList&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEAdditionalList& operator=(const GNEAdditionalList&) = delete;
+    GNEDemandElementList& operator=(const GNEDemandElementList&) = delete;
 };

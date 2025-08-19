@@ -32,14 +32,14 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEDemandList.h"
+#include "GNEDemandElementList.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEDemandList::GNEDemandList(GNEElementDialog<GNEAdditional>* elementDialogParent,
-                             FXVerticalFrame* contentFrame, SumoXMLTag tag, const bool fixHeight) :
+GNEDemandElementList::GNEDemandElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
+        FXVerticalFrame* contentFrame, SumoXMLTag tag, const bool fixHeight) :
     GNEElementList(elementDialogParent->getContentFrame(), elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight),
     myElementDialogParent(elementDialogParent) {
     // fill edited demand elements
@@ -54,13 +54,13 @@ GNEDemandList::GNEDemandList(GNEElementDialog<GNEAdditional>* elementDialogParen
 
 
 const std::vector<GNEDemandElement*>&
-GNEDemandList::getEditedDemands() const {
+GNEDemandElementList::getEditedDemands() const {
     return myEditedDemandElements;
 }
 
 
 long
-GNEDemandList::addDemandElement(GNEDemandElement* demandElement) {
+GNEDemandElementList::addDemandElement(GNEDemandElement* demandElement) {
     // insert in list
     myEditedDemandElements.push_back(demandElement);
     // add change command
@@ -71,7 +71,7 @@ GNEDemandList::addDemandElement(GNEDemandElement* demandElement) {
 
 
 long
-GNEDemandList::updateTable() {
+GNEDemandElementList::updateTable() {
     // first resize table (used if we removed some elements)
     myElementTable->resizeTable(myEditedDemandElements.size());
     // now update all rows
@@ -83,7 +83,7 @@ GNEDemandList::updateTable() {
 
 
 long
-GNEDemandList::sortRows() {
+GNEDemandElementList::sortRows() {
     // declare set for saving elements sorted by first and second attribute
     std::set<std::tuple<std::string, std::string, std::string, GNEDemandElement*> > sortedDemandElements;
     // add all elements
@@ -107,7 +107,7 @@ GNEDemandList::sortRows() {
 
 
 long
-GNEDemandList::removeRow(const size_t rowIndex) {
+GNEDemandElementList::removeRow(const size_t rowIndex) {
     // remove element from list
     myEditedDemandElements.erase(myEditedDemandElements.begin() + rowIndex);
     // update table

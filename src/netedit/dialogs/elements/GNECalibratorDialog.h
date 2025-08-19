@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalList.h"
-#include "GNEDemandList.h"
+#include "GNEAdditionalElementList.h"
+#include "GNEDemandElementList.h"
 #include "GNEElementDialog.h"
 
 // ===========================================================================
@@ -62,7 +62,7 @@ public:
 
 protected:
     /// @brief route list
-    class RoutesList : public GNEDemandList {
+    class RoutesList : public GNEDemandElementList {
 
     public:
         /// @brief constructor
@@ -83,7 +83,7 @@ protected:
     };
 
     /// @brief vTypes list
-    class VTypesList : public GNEDemandList {
+    class VTypesList : public GNEDemandElementList {
 
     public:
         /// @brief constructor
@@ -104,7 +104,7 @@ protected:
     };
 
     /// @brief calibrator flows list
-    class CalibratorFlowsList : public GNEAdditionalList {
+    class CalibratorFlowsList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor

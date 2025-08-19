@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalList.h"
+#include "GNEAdditionalElementList.h"
 #include "GNEElementDialog.h"
 
 // ===========================================================================
@@ -55,7 +55,7 @@ public:
 
 protected:
     /// @brief rerouter interval list
-    class RerouterIntervalsList : public GNEAdditionalList {
+    class RerouterIntervalsList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor

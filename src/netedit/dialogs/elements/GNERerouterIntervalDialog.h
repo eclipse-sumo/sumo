@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalList.h"
+#include "GNEAdditionalElementList.h"
 #include "GNEElementDialog.h"
 
 // ===========================================================================
@@ -28,7 +28,7 @@
 // ===========================================================================
 
 class GNEAdditional;
-class GNEAdditionalList;
+class GNEAdditionalElementList;
 class GNEChange_Additional;
 
 // ===========================================================================
@@ -69,7 +69,7 @@ public:
 protected:
 
     /// @brief closing  reroutes list
-    class ClosingReroutesList : public GNEAdditionalList {
+    class ClosingReroutesList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor
@@ -90,7 +90,7 @@ protected:
     };
 
     /// @brief closing lane reroutes list
-    class ClosingLaneReroutesList : public GNEAdditionalList {
+    class ClosingLaneReroutesList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor
@@ -111,7 +111,7 @@ protected:
     };
 
     /// @brief dest prob reroutes list
-    class DestProbReroutesList : public GNEAdditionalList {
+    class DestProbReroutesList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor
@@ -132,7 +132,7 @@ protected:
     };
 
     /// @brief route prob reroutes list
-    class RouteProbReroutesList : public GNEAdditionalList {
+    class RouteProbReroutesList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor
@@ -153,7 +153,7 @@ protected:
     };
 
     /// @brief parking area reroutes list
-    class ParkingAreaReroutesList : public GNEAdditionalList {
+    class ParkingAreaReroutesList : public GNEAdditionalElementList {
 
     public:
         /// @brief constructor

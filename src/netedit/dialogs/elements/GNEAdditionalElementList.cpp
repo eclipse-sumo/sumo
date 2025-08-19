@@ -32,14 +32,14 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEAdditionalList.h"
+#include "GNEAdditionalElementList.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAdditionalList::GNEAdditionalList(GNEElementDialog<GNEAdditional>* elementDialogParent, FXVerticalFrame* contentFrame,
-                                     SumoXMLTag tag, const bool fixHeight) :
+GNEAdditionalElementList::GNEAdditionalElementList(GNEElementDialog<GNEAdditional>* elementDialogParent, FXVerticalFrame* contentFrame,
+        SumoXMLTag tag, const bool fixHeight) :
     GNEElementList(elementDialogParent->getContentFrame(), elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight),
     myElementDialogParent(elementDialogParent) {
     // fill edited additional elements
@@ -54,13 +54,13 @@ GNEAdditionalList::GNEAdditionalList(GNEElementDialog<GNEAdditional>* elementDia
 
 
 const std::vector<GNEAdditional*>&
-GNEAdditionalList::getEditedAdditionals() const {
+GNEAdditionalElementList::getEditedAdditionals() const {
     return myEditedAdditionalElements;
 }
 
 
 long
-GNEAdditionalList::addAdditionalElement(GNEAdditional* additionalElement) {
+GNEAdditionalElementList::addAdditionalElement(GNEAdditional* additionalElement) {
     // insert in list
     myEditedAdditionalElements.push_back(additionalElement);
     // add change command
@@ -71,7 +71,7 @@ GNEAdditionalList::addAdditionalElement(GNEAdditional* additionalElement) {
 
 
 long
-GNEAdditionalList::updateTable() {
+GNEAdditionalElementList::updateTable() {
     // first resize table (used if we removed some elements)
     myElementTable->resizeTable(myEditedAdditionalElements.size());
     // now update all rows
@@ -83,7 +83,7 @@ GNEAdditionalList::updateTable() {
 
 
 long
-GNEAdditionalList::sortRows() {
+GNEAdditionalElementList::sortRows() {
     // declare set for saving elements sorted by first and second attribute
     std::set<std::tuple<std::string, std::string, std::string, GNEAdditional*> > sortedAdditionalElements;
     // add all elements
@@ -107,7 +107,7 @@ GNEAdditionalList::sortRows() {
 
 
 long
-GNEAdditionalList::removeRow(const size_t rowIndex) {
+GNEAdditionalElementList::removeRow(const size_t rowIndex) {
     // remove element from list
     myEditedAdditionalElements.erase(myEditedAdditionalElements.begin() + rowIndex);
     // update table
