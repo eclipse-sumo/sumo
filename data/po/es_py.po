@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-06-05 09:14+0000\n"
+"PO-Revision-Date: 2025-08-20 07:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
@@ -29,11 +29,11 @@ msgstr "Control ferroviario"
 
 #: tools/game/runner.py:69
 msgid "Railway Control (Demo)"
-msgstr ""
+msgstr "Control ferroviario (Demo)"
 
 #: tools/game/runner.py:70
 msgid "Research intersection Braunschweig (Demo)"
-msgstr ""
+msgstr "Intersección de investigación en Brunswick (Demo)"
 
 #: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
