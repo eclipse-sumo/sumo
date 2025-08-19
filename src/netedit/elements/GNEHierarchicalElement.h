@@ -204,12 +204,6 @@ public:
 
     /// @}
 
-    /// @brief check if children are overlapped (Used by Rerouters)
-    bool checkChildAdditionalsOverlapping() const;
-
-    /// @brief check if child demand elements are overlapped
-    bool checkChildDemandElementsOverlapping() const;
-
 private:
     /// @brief hierarchical structure with parents
     GNEHierarchicalStructureParents myHierarchicalStructureParents;
