@@ -39,6 +39,33 @@ class GNEElementTable : public FXVerticalFrame {
     FXDECLARE(GNEElementTable)
 
 public:
+    /// @brief table row header
+    class RowHeader : protected FXHorizontalFrame {
+
+    public:
+        /// @brief constructor
+        RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties);
+
+        /// @brief destructor
+        ~RowHeader();
+
+        /// @brief enable row header
+        void enableRowHeader();
+
+        /// @brief disable row header
+        void disableRowHeader();
+
+    private:
+        /// @brief labels
+        std::vector<FXLabel*> myLabels;
+
+        /// @brief Invalidated duplicate constructor.
+        RowHeader(const RowHeader&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        RowHeader& operator=(const RowHeader&) = delete;
+    };
+
     /// @brief table row
     class Row : protected FXHorizontalFrame {
 
@@ -78,7 +105,7 @@ public:
         /// @brief index label
         FXLabel* myIndexLabel = nullptr;
 
-        /// @brief list wtih cells
+        /// @brief list with textfields and their associated attribute
         std::vector<std::pair<FXTextField*, SumoXMLAttr> > myTextFields;
 
         /// @brief remove button
@@ -96,7 +123,8 @@ public:
     };
 
     /// @brief constructor
-    GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog, const bool fixHeight);
+    GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog,
+                    const GNETagProperties* tagProperties, const bool fixHeight);
 
     /// @brief destructor
     ~GNEElementTable();
@@ -125,17 +153,20 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEElementTable)
 
-    /// @brief rows
-    std::vector<Row*> myRows;
-
     /// @brief target dialog
     GNEDialog* myTargetDialog = nullptr;
+
+    /// @brief row header
+    RowHeader* myRowHeader = nullptr;
 
     /// @brief scrollWindow for rows
     FXScrollWindow* myScrollWindow = nullptr;
 
     /// @brief vertical frame for rows
     FXVerticalFrame* myRowsFrame = nullptr;
+
+    /// @brief rows
+    std::vector<Row*> myRows;
 
 private:
     /// @brief Invalidated duplicate constructor.

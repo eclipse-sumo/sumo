@@ -60,6 +60,50 @@ FXIMPLEMENT(GNEElementTable, FXVerticalFrame, GNEElementTableMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEElementTable::RowHeader - methods
+// ---------------------------------------------------------------------------
+
+GNEElementTable::RowHeader::RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties) :
+    FXHorizontalFrame(table, GUIDesignAuxiliarHorizontalFrame) {
+    // create horizontal label with uniform width
+    auto horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
+    // create empty label
+    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight));
+    // create a label for every attribute
+    for (const auto& attrProperty : tagProperties->getAttributeProperties()) {
+        // check if this attribute can be edited in dialog
+        if (attrProperty->isDialogEditor()) {
+            // create label
+            myLabels.push_back(new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
+                                           nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL)));
+        }
+    }
+    // create empty label (icons and vertical scroller)
+    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
+}
+
+
+GNEElementTable::RowHeader::~RowHeader() {}
+
+
+void
+GNEElementTable::RowHeader::enableRowHeader() {
+    // enable all labels
+    for (const auto& label : myLabels) {
+        label->enable();
+    }
+}
+
+
+void
+GNEElementTable::RowHeader::disableRowHeader() {
+    // disable all labels
+    for (const auto& label : myLabels) {
+        label->disable();
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEElementTable::Row - methods
 // ---------------------------------------------------------------------------
 
@@ -187,10 +231,13 @@ GNEElementTable::Row::updateValue(const FXObject* sender) {
 // GNEElementTable - methods
 // ---------------------------------------------------------------------------
 
-GNEElementTable::GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog, const bool fixHeight) :
+GNEElementTable::GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog,
+                                 const GNETagProperties* tagProperties, const bool fixHeight) :
     FXVerticalFrame(contentFrame, LAYOUT_FIX_WIDTH | (fixHeight ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
                     0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
     myTargetDialog(targetDialog) {
+    // create row header
+    myRowHeader = new RowHeader(this, tagProperties);
     // create scroll windows for rows
     myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed);
     myScrollWindow->setWidth(400);

@@ -67,7 +67,7 @@ public:
                            elementDialogParent, MID_GNE_ELEMENTLIST_SORT, GUIDesignButtonIcon);
             myLabel = new FXLabel(buttonFrame, TLF("%s", tagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             // create element table
-            myElementTable = new GNEElementTable(this, elementDialogParent, fixHeight);
+            myElementTable = new GNEElementTable(this, elementDialogParent, tagProperty, fixHeight);
             // fill edited elements
             for (const auto& child : elementChildren) {
                 if (child->getTagProperty()->getTag() == tag) {
