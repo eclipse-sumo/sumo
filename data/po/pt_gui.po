@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-19 08:14+0000\n"
+"PO-Revision-Date: 2025-08-20 07:39+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -13050,7 +13050,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:159
 msgid "replace"
-msgstr ""
+msgstr "substituir"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:159
 msgid "Replace previous selection by the current selection"
@@ -13074,7 +13074,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:254
 msgid "Invert"
-msgstr ""
+msgstr "Inverter"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:254
 msgid "Invert selection status of all objects"
@@ -13094,7 +13094,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:262
 msgid "Reduce"
-msgstr ""
+msgstr "Reduzir"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:262
 msgid "Reduce network to current selection."
@@ -13142,12 +13142,12 @@ msgstr ""
 #: src/netedit/frames/common/GNESelectorFrame.cpp:644
 #: src/netedit/frames/common/GNESelectorFrame.cpp:655
 msgid "Select"
-msgstr ""
+msgstr "Selecionar"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:646
 #: src/netedit/frames/common/GNESelectorFrame.cpp:657
 msgid "Unselect"
-msgstr ""
+msgstr "Desmarcar"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:648
 msgid "Select children"
@@ -13174,11 +13174,11 @@ msgstr ""
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:168
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2316
 msgid "Selection"
-msgstr ""
+msgstr "Seleção"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:1100
 msgid "selection"
-msgstr ""
+msgstr "seleção"
 
 #: src/netedit/frames/data/GNEEdgeDataFrame.cpp:53
 msgid "There is already a % in edge '%'"
@@ -13206,7 +13206,7 @@ msgstr ""
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
 msgid "Interval"
-msgstr ""
+msgstr "Intervalo"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:213
 msgid "Create new interval"
@@ -13246,7 +13246,7 @@ msgstr ""
 
 #: src/netedit/frames/data/GNEMeanDataFrame.cpp:424
 msgid "MeanData"
-msgstr ""
+msgstr "MeanData"
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
@@ -13309,7 +13309,7 @@ msgstr ""
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:86
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:88
 msgid "Create new %"
@@ -13478,7 +13478,7 @@ msgstr ""
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:369
 msgid "Types"
-msgstr ""
+msgstr "Tipos"
 
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:79
 msgid "Click over a route to create a vehicle."
@@ -13531,7 +13531,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:43
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2392
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:91
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:93
@@ -13603,7 +13603,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:88
 #: src/netedit/frames/network/GNETAZFrame.cpp:385
 msgid "Modifications"
-msgstr ""
+msgstr "Modificações"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:92
 msgid "Discard connection modifications (Esc)"
@@ -13636,7 +13636,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:151
 msgid "Operations"
-msgstr ""
+msgstr "Operações"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
@@ -13784,7 +13784,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1291
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1356
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:96
 msgid "Add edge type"
@@ -13813,7 +13813,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:430
 msgid "template: "
-msgstr ""
+msgstr "modelo "
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:453
 msgid "LaneType selector"
@@ -13837,7 +13837,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:644
 msgid "ESC:"
-msgstr ""
+msgstr "ESC:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:645
 msgid "Deselect origin"
@@ -13845,7 +13845,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:646
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control+Clique:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:647
 msgid "Move view"
@@ -13853,7 +13853,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:648
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift+Clique:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:649
 msgid "Splits edge in both directions"
@@ -13861,7 +13861,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:650
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+Clique:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:651
 msgid "Splits edge in one direction"
@@ -13918,7 +13918,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1434
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1438
 msgid "Create"
-msgstr ""
+msgstr "Criar"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:455
 msgid "Create crossing"
@@ -13940,20 +13940,20 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:508
 msgid " Candidate"
-msgstr ""
+msgstr " Candidato"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:512
 msgid " Selected"
-msgstr ""
+msgstr " Selecionado"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:515
 msgid " Invalid"
-msgstr ""
+msgstr " Inválido"
 
 #: src/netedit/frames/network/GNEDecalFrame.cpp:29
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1791
 msgid "Decals"
-msgstr ""
+msgstr "Imagem de fundo"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
@@ -13977,7 +13977,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:94
 msgid "Selected"
-msgstr ""
+msgstr "Selecionado"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
@@ -13993,7 +13993,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "Cede a passagem"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
@@ -14037,7 +14037,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "Proibições"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
@@ -14087,7 +14087,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:226
 msgid "Shapes"
-msgstr ""
+msgstr "Formas"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:284
 msgid "Current selected shape isn't valid."
@@ -14103,7 +14103,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:147
 msgid "TAZ"
-msgstr ""
+msgstr "Zonas de Tráfego Agregadas (TAZs)"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:155
 #: src/netedit/frames/network/GNETAZFrame.cpp:199
@@ -14121,7 +14121,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:338
 #: src/netedit/frames/network/GNETAZFrame.cpp:877
 msgid "Statistics"
-msgstr ""
+msgstr "Estatísticas"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:365
 #: src/netedit/frames/network/GNETAZFrame.cpp:1118
@@ -14180,11 +14180,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:480
 msgid "Membership"
-msgstr ""
+msgstr "Afiliação"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:481
 msgid "Toggle"
-msgstr ""
+msgstr "Alternar"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:486
 msgid "New source"
@@ -14231,7 +14231,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:590
 msgid "Remove "
-msgstr ""
+msgstr "Remover "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:590
 msgid " edges from to selection"
@@ -14239,7 +14239,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:592
 msgid "Add "
-msgstr ""
+msgstr "Adicionar "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:592
 msgid " edges to selection"
@@ -14247,7 +14247,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:628
 msgid "toggle"
-msgstr ""
+msgstr "alternar"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:657
 msgid "Keep Membership:"
@@ -14281,7 +14281,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:839
 msgid " TAZs?"
-msgstr ""
+msgstr " Zonas de Tráfego Agregadas?"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:841
 #: src/netedit/frames/network/GNETAZFrame.cpp:854
@@ -14302,11 +14302,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "Source"
-msgstr ""
+msgstr "Fonte"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:873
 msgid "Sink"
-msgstr ""
+msgstr "Destino"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:905
 msgid "TAZEdgeColor already selected"
@@ -14378,11 +14378,11 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:250
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2891
 msgid "Loaded "
-msgstr ""
+msgstr "Carregado "
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:250
 msgid " programs"
-msgstr ""
+msgstr " programas"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:420
 msgid "Invalid phase index"
@@ -14434,7 +14434,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:903
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:904
 msgid "Join"
-msgstr ""
+msgstr "Juntar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:903
 msgid "Enable join mode"
@@ -14451,7 +14451,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
 msgid "Disjoin"
-msgstr ""
+msgstr "Desjuntar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
 msgid "Disjoin current TLS"
@@ -14537,7 +14537,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1436
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1522
 msgid "TLSPrograms cannot be found"
@@ -14588,7 +14588,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1859
 msgid "Phases"
-msgstr ""
+msgstr "Fases"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1870
 msgid "Clean States"
@@ -14812,7 +14812,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:90
 msgid "Cl&ose"
-msgstr ""
+msgstr "Fechar"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:143
 msgid "Errors while loading Selection"
@@ -14820,35 +14820,35 @@ msgstr ""
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:69
 msgid " time"
-msgstr ""
+msgstr " tempo"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:74
 msgid "vehicle"
-msgstr ""
+msgstr "veículo"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:75
 msgid "person"
-msgstr ""
+msgstr "pessoa"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
-msgstr ""
+msgstr "lógica semafórica"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:81
 msgid "overheadWireSegment"
-msgstr ""
+msgstr "segmento de cabos"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:81
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:82
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinâmico"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:194
 msgid "Open in new Tracker"
@@ -15017,7 +15017,7 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&Cancelar"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:58
 msgid "Replacing POI '%'"
@@ -15114,17 +15114,17 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2005
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2006
 msgid "uniform"
-msgstr ""
+msgstr "uniforme"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:957
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1831
 msgid "road"
-msgstr ""
+msgstr "via"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:958
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1832
 msgid "sidewalk"
-msgstr ""
+msgstr "calçada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:959
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1833
@@ -15140,13 +15140,13 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1477
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1835
 msgid "waterway"
-msgstr ""
+msgstr "hidrovia"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:962
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1478
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1836
 msgid "railway"
-msgstr ""
+msgstr "ferrovia"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:963
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1837
@@ -15161,24 +15161,24 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:965
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1839
 msgid "closed"
-msgstr ""
+msgstr "fechado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:966
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1621
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1840
 msgid "connector"
-msgstr ""
+msgstr "conector"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:967
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1841
 msgid "forbidden"
-msgstr ""
+msgstr "proibido"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:968
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1479
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
 msgid "airway"
-msgstr ""
+msgstr "aerovia"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:970
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1315
@@ -15197,7 +15197,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1979
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1993
 msgid "unselected"
-msgstr ""
+msgstr "não selecionado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:971
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1316
@@ -15216,7 +15216,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1980
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1994
 msgid "selected"
-msgstr ""
+msgstr "selecionado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:987
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1531
@@ -15535,7 +15535,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1521
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1983
 msgid "random"
-msgstr ""
+msgstr "aleatório"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1412
 msgid "given person/type color"
@@ -15558,15 +15558,15 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1425
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1457
 msgid "stopped"
-msgstr ""
+msgstr "parado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1426
 msgid "walking"
-msgstr ""
+msgstr "andando"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1427
 msgid "riding"
-msgstr ""
+msgstr "dirigindo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1428
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1459
@@ -15591,7 +15591,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1458
 msgid "transport"
-msgstr ""
+msgstr "transporte"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1460
 msgid "waiting for transport"
@@ -15599,7 +15599,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1461
 msgid "tranship"
-msgstr ""
+msgstr "transbordo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1499
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1961
@@ -15619,7 +15619,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1525
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1987
 msgid "default"
-msgstr ""
+msgstr "padrão"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1593
 msgid "by average relative speed"
@@ -15631,11 +15631,11 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1620
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1622
 msgid "internal"
-msgstr ""
+msgstr "interno"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1624
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1706
@@ -15672,11 +15672,11 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1659
 msgid "odd"
-msgstr ""
+msgstr "ímpar"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1660
 msgid "even"
-msgstr ""
+msgstr "par"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1662
 msgid "by jammed state (segmentwise)"
@@ -15684,15 +15684,15 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1662
 msgid "free"
-msgstr ""
+msgstr "livre"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1663
 msgid "limitedControl"
-msgstr ""
+msgstr "limitado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1664
 msgid "jammed"
-msgstr ""
+msgstr "atolado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1666
 msgid "by current occupancy (segmentwise, brutto)"
@@ -15761,7 +15761,7 @@ msgstr ""
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:130
 msgid "Multiplot"
-msgstr ""
+msgstr "Multiplot"
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:218
 msgid "Save Data"
@@ -15769,7 +15769,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:89
 msgid "Track"
-msgstr ""
+msgstr "Seguir"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "&Hide Unselected"
@@ -15785,7 +15785,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&Selecionar/desselecionar"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
 msgid "Select/deselect current object"
@@ -15813,7 +15813,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
 msgid "&Update"
-msgstr ""
+msgstr "&Atualizar"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
 msgid "Reload all ids"
