@@ -15,92 +15,61 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
-// Table used in GNEElementList
+// Table used in GNEElementList, specific for demand elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include "GNEElementDialog.h"
+#include "GNEElementList.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEDialog;
-class GNEElementTable;
-class GNETagProperties;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEElementList : protected FXVerticalFrame {
-    /// @brief FOX-declaration
-    FXDECLARE_ABSTRACT(GNEElementList)
+class GNEDemandList : public GNEElementList {
 
 public:
     /// @brief constructor
-    GNEElementList(GNEDialog* dialog, FXVerticalFrame* contentFrame,
-                   SumoXMLTag tag, const bool fixHeight);
+    GNEDemandList(GNEElementDialog<GNEDemandElement>* elementDialogParent,
+                  FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                  const bool fixHeight);
 
-    /// @brief destructor
-    GNEElementList();
+    /// @brief get elements
+    const std::vector<GNEDemandElement*>& getEditedDemands() const;
 
-    /// @brief enable list
-    void enableList();
-
-    /// @brief disable list
-    void disableList(const std::string& reason);
-
-    /// @brief check if the current list is valid
-    bool isListValid() const;
+    /// @brief add element
+    long addDemandElement(GNEDemandElement* demandElement);
 
     /// @brief update table
-    virtual void updateTable() = 0;
+    long updateTable();
 
-    /// @brief sort elements
-    virtual void sortElements() = 0;
+    /// @brief open dialog
+    long sortRows();
 
     /// @brief remove row
-    virtual long removeRow(const size_t rowIndex) = 0;
+    long removeRow(const size_t rowIndex);
+
+    /// @brief remove row
+    virtual long addRow() = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;
 
-    /// @name FOX callbacks
-    /// @{
-
-    /// @brief called when user press add button
-    virtual long onCmdAddRow(FXObject* sender, FXSelector, void*) = 0;
-
-    /// @brief called when user press sort button
-    virtual long onCmdSort(FXObject* sender, FXSelector, void*) = 0;
-
-    /// @}
-
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEElementList)
-
-    /// @brief pointer to tag property
-    const GNETagProperties* myTagProperty = nullptr;
-
-    /// @brief element table
-    GNEElementTable* myElementTable = nullptr;
+    /// @brief edited elements
+    std::vector<GNEDemandElement*> myEditedDemandElements;
 
 private:
-    /// @brief add button
-    FXButton* myAddButton = nullptr;
-
-    /// @brief sort button
-    FXButton* mySortButton = nullptr;
-
-    /// @brief label
-    FXLabel* myLabel = nullptr;
-
     /// @brief Invalidated copy constructor
-    GNEElementList(const GNEElementList&) = delete;
+    GNEDemandList(const GNEDemandList&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEElementList& operator=(const GNEElementList&) = delete;
+    GNEDemandList& operator=(const GNEDemandList&) = delete;
 };

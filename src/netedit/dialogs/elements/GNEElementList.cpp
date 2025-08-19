@@ -51,10 +51,10 @@ FXIMPLEMENT_ABSTRACT(GNEElementList, FXVerticalFrame, GNEElementListMap, ARRAYNU
 // method definitions
 // ===========================================================================
 
-GNEElementList::GNEElementList(GNEDialog* dialog, FXVerticalFrame* contentFrame,
-                               SumoXMLTag tag, const bool fixHeight) :
+GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty,
+                               const bool fixHeight) :
     FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame),
-    myTagProperty(dialog->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true)) {
+    myTagProperty(tagProperty) {
     // horizontal frame for buttons
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create buttons and labels
@@ -96,6 +96,18 @@ GNEElementList::disableList(const std::string& reason) {
 bool
 GNEElementList::isListValid() const {
     return myElementTable->isValid();
+}
+
+
+long
+GNEElementList::onCmdAddRow(FXObject* sender, FXSelector, void*) {
+    return addRow();
+}
+
+
+long
+GNEElementList::onCmdSort(FXObject* sender, FXSelector, void*) {
+    return sortRows();
 }
 
 /****************************************************************************/
