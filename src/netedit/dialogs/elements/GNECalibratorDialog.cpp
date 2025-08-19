@@ -44,9 +44,6 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
     // called when user click over buttons
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_ADD,    GNECalibratorDialog::onCmdElementListAdd),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTLIST_SORT,   GNECalibratorDialog::onCmdElementListSort),
-    // clicked table (Double and triple clicks allow to remove element more fast)
-    FXMAPFUNC(SEL_CLICKED,  MID_GNE_ELEMENTLIST_EDIT,   GNECalibratorDialog::onCmdElementListClick),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_ELEMENTLIST_EDIT,   GNECalibratorDialog::onCmdElementListUpdate),
 };
 
 // Object implementation
@@ -132,9 +129,9 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myRoutes->refreshList();
-    myVTypes->refreshList();
-    myCalibratorFlows->refreshList();
+    myRoutes->updateTable();
+    myVTypes->updateTable();
+    myCalibratorFlows->updateTable();
     return 1;
 }
 
@@ -142,7 +139,7 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*) {
     // create new element depending of the elementList
-    if (myRoutes->checkObject(obj)) {
+    if (myRoutes->checkButtons(obj)) {
         // create route using calibrator as parent
         GNERoute* route = new GNERoute(myElement);
         // open route dialog
@@ -155,7 +152,7 @@ GNECalibratorDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*) {
             // delete route
             delete route;
         }
-    } else if (myVTypes->checkObject(obj)) {
+    } else if (myVTypes->checkButtons(obj)) {
         // create vType
         GNEVType* vType = new GNEVType(myElement);
         // open route dialog
@@ -168,7 +165,7 @@ GNECalibratorDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*) {
             // delete vType
             delete vType;
         }
-    } else if (myCalibratorFlows->checkObject(obj)) {
+    } else if (myCalibratorFlows->checkButtons(obj)) {
         // get vType
         GNEDemandElement* vType = nullptr;
         if (myVTypes->getEditedElements().size() > 0) {
@@ -207,42 +204,12 @@ GNECalibratorDialog::onCmdElementListAdd(FXObject* obj, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdElementListSort(FXObject* obj, FXSelector, void*) {
     // continue depending of the elementList
-    if (myRoutes->checkObject(obj)) {
+    if (myRoutes->checkButtons(obj)) {
         return myRoutes->sortElements();
-    } else if (myVTypes->checkObject(obj)) {
+    } else if (myVTypes->checkButtons(obj)) {
         return myVTypes->sortElements();
-    } else if (myCalibratorFlows->checkObject(obj)) {
+    } else if (myCalibratorFlows->checkButtons(obj)) {
         return myCalibratorFlows->sortElements();
-    } else {
-        throw ProcessError("Invalid object in GNECalibratorDialog::onCmdElementListEdit");
-    }
-}
-
-
-long
-GNECalibratorDialog::onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr) {
-    // continue depending of the elementList
-    if (myRoutes->checkObject(obj)) {
-        return myRoutes->onCmdClickedList(obj, sel, ptr);
-    } else if (myVTypes->checkObject(obj)) {
-        return myVTypes->onCmdClickedList(obj, sel, ptr);
-    } else if (myCalibratorFlows->checkObject(obj)) {
-        return myCalibratorFlows->onCmdClickedList(obj, sel, ptr);
-    } else {
-        throw ProcessError("Invalid object in GNECalibratorDialog::onCmdElementListEdit");
-    }
-}
-
-
-long
-GNECalibratorDialog::onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr) {
-    // continue depending of the elementList
-    if (myRoutes->checkObject(obj)) {
-        return myRoutes->onCmdUpdateList(obj, sel, ptr);
-    } else if (myVTypes->checkObject(obj)) {
-        return myVTypes->onCmdUpdateList(obj, sel, ptr);
-    } else if (myCalibratorFlows->checkObject(obj)) {
-        return myCalibratorFlows->onCmdUpdateList(obj, sel, ptr);
     } else {
         throw ProcessError("Invalid object in GNECalibratorDialog::onCmdElementListEdit");
     }

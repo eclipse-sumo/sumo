@@ -64,12 +64,6 @@ public:
     /// @brief sort element in calibrator dialog
     long onCmdElementListSort(FXObject* obj, FXSelector, void*);
 
-    /// @brief called when user clicks over list
-    long onCmdElementListClick(FXObject* obj, FXSelector sel, void* ptr);
-
-    /// @brief called when list is updated
-    long onCmdElementListUpdate(FXObject* obj, FXSelector sel, void* ptr);
-
     /// @}
 
 protected:
