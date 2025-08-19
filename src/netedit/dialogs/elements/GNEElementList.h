@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEElementTable.h
+/// @file    GNEElementList.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
@@ -20,170 +20,87 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <utils/tests/InternalTestStep.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEDialog;
-class GNEAttributeCarrier;
+class GNEElementTable;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEElementTable : public FXVerticalFrame {
-    /// @brief fox declaration
-    FXDECLARE(GNEElementTable)
+class GNEElementList : protected FXVerticalFrame {
+    /// @brief FOX-declaration
+    FXDECLARE_ABSTRACT(GNEElementList)
 
 public:
-    /// @brief table row header
-    class RowHeader : protected FXHorizontalFrame {
-
-    public:
-        /// @brief constructor
-        RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties);
-
-        /// @brief destructor
-        ~RowHeader();
-
-        /// @brief enable row header
-        void enableRowHeader();
-
-        /// @brief disable row header
-        void disableRowHeader();
-
-        /// @brief get num columns
-        size_t getNumColumns() const;
-
-    private:
-        /// @brief labels
-        std::vector<FXLabel*> myLabels;
-
-        /// @brief Invalidated duplicate constructor.
-        RowHeader(const RowHeader&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        RowHeader& operator=(const RowHeader&) = delete;
-    };
-
-    /// @brief table row
-    class Row : protected FXHorizontalFrame {
-
-    public:
-        /// @brief constructor
-        Row(GNEElementTable* table, const size_t index, GNEAttributeCarrier* AC,
-            const bool allowOpenDialog);
-
-        /// @brief destructor
-        ~Row();
-
-        /// @brief enable row
-        void enableRow();
-
-        /// @brief disable row
-        void disableRow();
-
-        /// @brief update row
-        void updateRow(GNEAttributeCarrier* AC);
-
-        /// @brief get value of the given column index
-        std::string getValue(const size_t column) const;
-
-        /// @brief called when user update the value of a text field
-        void updateValue(const FXObject* sender);
-
-        /// @brief check if current value is valid
-        bool isValid() const;
-
-    protected:
-        /// @brief poiner to table parent
-        GNEElementTable* myTable = nullptr;
-
-        /// @brief attribute carrier
-        GNEAttributeCarrier* myAC = nullptr;
-
-        /// @brief index label
-        FXLabel* myIndexLabel = nullptr;
-
-        /// @brief list with textfields and their associated attribute
-        std::vector<std::pair<SumoXMLAttr, FXTextField*> > myAttributeTextFields;
-
-        /// @brief remove button
-        FXButton* myRemoveButton = nullptr;
-
-        /// @brief open dialog button
-        FXButton* myOpenDialogButton = nullptr;
-
-    private:
-        /// @brief Invalidated duplicate constructor.
-        Row(const Row&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        Row& operator=(const Row&) = delete;
-    };
-
     /// @brief constructor
-    GNEElementTable(FXVerticalFrame* contentFrame, GNEDialog* targetDialog,
-                    const GNETagProperties* tagProperties, const bool fixHeight);
+    GNEElementList(GNEDialog* dialog, FXVerticalFrame* contentFrame,
+                   SumoXMLTag tag, const bool fixHeight);
 
     /// @brief destructor
-    ~GNEElementTable();
+    GNEElementList();
 
-    /// @brief Enable table
-    void enableTable();
+    /// @brief enable list
+    void enableList();
 
-    /// @brief Disable table
-    void disableTable();
+    /// @brief disable list
+    void disableList(const std::string& reason);
 
-    /// @brief check if the current values of the table are valid
-    bool isValid() const;
+    /// @brief check if the current list is valid
+    bool isListValid() const;
 
-    /// @brief resize table
-    void resizeTable(const size_t numRows);
+    /// @brief update table
+    virtual void updateTable() = 0;
 
-    /// @brief update row
-    void updateRow(const size_t index, GNEAttributeCarrier* AC);
+    /// @brief sort elements
+    virtual void sortElements() = 0;
 
-    /// @brief get value
-    std::string getValue(const size_t rowIndex, const size_t columnIndex) const;
+    /// @brief remove row
+    virtual long removeRow(const size_t rowIndex) = 0;
 
-    /// @brief get number of values
-    size_t getNumColumns() const;
+    /// @brief open dialog
+    virtual long openDialog(const size_t rowIndex) = 0;
 
     /// @name FOX callbacks
     /// @{
 
-    /// @brief called when user edits a row
-    long onCmdEditRow(FXObject* sender, FXSelector, void*);
+    /// @brief called when user press add button
+    virtual long onCmdAddRow(FXObject* sender, FXSelector, void*) = 0;
+
+    /// @brief called when user press sort button
+    virtual long onCmdSort(FXObject* sender, FXSelector, void*) = 0;
 
     /// @}
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEElementTable)
+    FOX_CONSTRUCTOR(GNEElementList)
 
-    /// @brief target dialog
-    GNEDialog* myTargetDialog = nullptr;
+    /// @brief pointer to tag property
+    const GNETagProperties* myTagProperty = nullptr;
 
-    /// @brief row header
-    RowHeader* myRowHeader = nullptr;
-
-    /// @brief scrollWindow for rows
-    FXScrollWindow* myScrollWindow = nullptr;
-
-    /// @brief vertical frame for rows
-    FXVerticalFrame* myRowsFrame = nullptr;
-
-    /// @brief rows
-    std::vector<Row*> myRows;
+    /// @brief element table
+    GNEElementTable* myElementTable = nullptr;
 
 private:
-    /// @brief Invalidated duplicate constructor.
-    GNEElementTable(const GNEElementTable&) = delete;
+    /// @brief add button
+    FXButton* myAddButton = nullptr;
 
-    /// @brief Invalidated assignment operator.
-    GNEElementTable& operator=(const GNEElementTable&) = delete;
+    /// @brief sort button
+    FXButton* mySortButton = nullptr;
+
+    /// @brief label
+    FXLabel* myLabel = nullptr;
+
+    /// @brief Invalidated copy constructor
+    GNEElementList(const GNEElementList&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEElementList& operator=(const GNEElementList&) = delete;
 };
