@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include "GNEAdditionalList.h"
 #include "GNEElementDialog.h"
 
 // ===========================================================================
@@ -27,6 +28,7 @@
 // ===========================================================================
 
 class GNEAdditional;
+class GNEAdditionalList;
 class GNEChange_Additional;
 
 // ===========================================================================
@@ -59,18 +61,118 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief add element in rerouter interval dialog
-    long onCmdElementListAdd(FXObject* obj, FXSelector, void*);
-
-    /// @brief sort element in rerouter interval dialog
-    long onCmdElementListSort(FXObject* obj, FXSelector, void*);
-
     /// @brief called when begin or end is changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
 
     /// @}
 
 protected:
+
+    /// @brief closing  reroutes list
+    class ClosingReroutesList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        ClosingReroutesList(const ClosingReroutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        ClosingReroutesList& operator=(const ClosingReroutesList&) = delete;
+    };
+
+    /// @brief closing lane reroutes list
+    class ClosingLaneReroutesList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        ClosingLaneReroutesList(const ClosingLaneReroutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        ClosingLaneReroutesList& operator=(const ClosingLaneReroutesList&) = delete;
+    };
+
+    /// @brief dest prob reroutes list
+    class DestProbReroutesList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        DestProbReroutesList(const DestProbReroutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        DestProbReroutesList& operator=(const DestProbReroutesList&) = delete;
+    };
+
+    /// @brief route prob reroutes list
+    class RouteProbReroutesList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        RouteProbReroutesList(const RouteProbReroutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        RouteProbReroutesList& operator=(const RouteProbReroutesList&) = delete;
+    };
+
+    /// @brief parking area reroutes list
+    class ParkingAreaReroutesList : public GNEAdditionalList {
+
+    public:
+        /// @brief constructor
+        ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
+
+        /// @brief add row
+        long addRow();
+
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
+
+    private:
+        /// @brief Invalidated copy constructor
+        ParkingAreaReroutesList(const ParkingAreaReroutesList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        ParkingAreaReroutesList& operator=(const ParkingAreaReroutesList&) = delete;
+    };
+
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNERerouterIntervalDialog)
 
@@ -86,20 +188,20 @@ protected:
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid = true;
 
-    /// @brief list with closing lane reroutes
-    ElementList<GNEAdditional, GNEChange_Additional>* myClosingLaneReroutes;
-
     /// @brief list with closing reroutes
-    ElementList<GNEAdditional, GNEChange_Additional>* myClosingReroutes;
+    ClosingReroutesList* myClosingReroutes;
+
+    /// @brief list with closing lane reroutes
+    ClosingLaneReroutesList* myClosingLaneReroutes;
 
     /// @brief list with destination probability reroutes
-    ElementList<GNEAdditional, GNEChange_Additional>* myDestProbReroutes;
+    DestProbReroutesList* myDestProbReroutes;
 
     /// @brief list with route probability reroute
-    ElementList<GNEAdditional, GNEChange_Additional>* myRouteProbReroutes;
+    RouteProbReroutesList* myRouteProbReroutes;
 
     /// @brief list with parkingAreaReroutes
-    ElementList<GNEAdditional, GNEChange_Additional>* myParkingAreaReroutes;
+    ParkingAreaReroutesList* myParkingAreaReroutes;
 
 private:
     /// @brief Invalidated copy constructor.
