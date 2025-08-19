@@ -55,6 +55,9 @@ public:
         /// @brief disable row header
         void disableRowHeader();
 
+        /// @brief get num columns
+        size_t getNumColumns() const;
+
     private:
         /// @brief labels
         std::vector<FXLabel*> myLabels;
@@ -86,18 +89,18 @@ public:
         /// @brief update row
         void updateRow(GNEAttributeCarrier* AC);
 
-        /// @brief get text
-        std::string getValue(const int index) const;
+        /// @brief get value of the given column index
+        std::string getValue(const size_t column) const;
 
         /// @brief called when user update the value of a text field
         void updateValue(const FXObject* sender);
 
+        /// @brief check if current value is valid
+        bool isValid() const;
+
     protected:
         /// @brief poiner to table parent
         GNEElementTable* myTable = nullptr;
-
-        /// @brief row index
-        const size_t myIndex = 0;
 
         /// @brief attribute carrier
         GNEAttributeCarrier* myAC = nullptr;
@@ -106,7 +109,7 @@ public:
         FXLabel* myIndexLabel = nullptr;
 
         /// @brief list with textfields and their associated attribute
-        std::vector<std::pair<FXTextField*, SumoXMLAttr> > myTextFields;
+        std::vector<std::pair<SumoXMLAttr, FXTextField*> > myAttributeTextFields;
 
         /// @brief remove button
         FXButton* myRemoveButton = nullptr;
@@ -135,11 +138,20 @@ public:
     /// @brief Disable table
     void disableTable();
 
+    /// @brief check if the current values of the table are valid
+    bool isValid() const;
+
     /// @brief resize table
     void resizeTable(const size_t numRows);
 
     /// @brief update row
     void updateRow(const size_t index, GNEAttributeCarrier* AC);
+
+    /// @brief get value
+    std::string getValue(const size_t rowIndex, const size_t columnIndex) const;
+
+    /// @brief get number of values
+    size_t getNumColumns() const;
 
     /// @name FOX callbacks
     /// @{
