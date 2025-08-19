@@ -90,7 +90,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNERerouterDialog::RouteProbReroutesList - methods
+// GNERerouterDialog::RerouterIntervalsList - methods
 // ---------------------------------------------------------------------------
 
 GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialog* rerouterDialog) :

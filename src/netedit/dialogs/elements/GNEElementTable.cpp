@@ -258,10 +258,11 @@ GNEElementTable::Row::onCmdEditRow(FXObject* sender, FXSelector, void*) {
                 attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
                 attributeTextField.second->killFocus();
             }
-            // break after found text field
-            break;
+            // stop after found text field
+            return 1;
         }
     }
+    return 0;
 }
 
 

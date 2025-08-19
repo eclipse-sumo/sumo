@@ -86,6 +86,10 @@ public:
     /// @}
 
 protected:
+    /// @brief default constructor
+    GNEElementDialog() :
+        GNEDialog() {}
+
     /// @brief pointer to edited element
     T* myElement = nullptr;
 

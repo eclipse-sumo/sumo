@@ -157,8 +157,10 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
     if (!myCalibratorFlowValid) {
         infoB = TLF("because parameter % is invalid.", toString(myInvalidAttr));
-    } else if (!myElement->getParentAdditionals().at(0)->checkChildAdditionalsOverlapping()) {
-        infoB = TLF("because there is overlapping with another %.", myElement->getTagStr());
+        /*
+            } else if (!myElement->getParentAdditionals().at(0)->checkChildAdditionalsOverlapping()) {
+                infoB = TLF("because there is overlapping with another %.", myElement->getTagStr());
+        */
     } else if ((myElement->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && myElement->getAttribute(SUMO_ATTR_SPEED).empty()) ||
                (!myElement->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && !myElement->getAttribute(SUMO_ATTR_SPEED).empty())) {
         infoB = TLF("because parameters % and % cannot be defined together.", toString(SUMO_ATTR_VEHSPERHOUR), toString(SUMO_ATTR_SPEED));

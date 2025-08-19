@@ -65,12 +65,10 @@ GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProper
     myLabel = new FXLabel(buttonFrame, TLF("%s", myTagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create element table
     myElementTable = new GNEElementTable(this, myTagProperty, fixHeight);
-    // update table
-    updateTable();
 }
 
 
-GNEElementList::GNEElementList() {}
+GNEElementList::~GNEElementList() {}
 
 
 void

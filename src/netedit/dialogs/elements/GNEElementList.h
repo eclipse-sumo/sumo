@@ -34,7 +34,7 @@ class GNETagProperties;
 // class definitions
 // ===========================================================================
 
-class GNEElementList : protected FXVerticalFrame {
+class GNEElementList : public FXVerticalFrame {
     /// @brief FOX-declaration
     FXDECLARE_ABSTRACT(GNEElementList)
 
@@ -44,7 +44,7 @@ public:
                    const bool fixHeight);
 
     /// @brief destructor
-    GNEElementList();
+    ~GNEElementList();
 
     /// @brief enable list
     void enableList();
