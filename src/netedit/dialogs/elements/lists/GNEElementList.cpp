@@ -53,14 +53,16 @@ GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProper
     myTagProperty(tagProperty) {
     // horizontal frame for buttons
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // create buttons and labels
+    // create add button
     myAddButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD),
                                             this, MID_GNE_ELEMENTLIST_ADD, GUIDesignButtonIcon);
+    // add label with tag
+    myLabel = new FXLabel(buttonFrame, TLF("%s", myTagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+    // check if add sort button
     if (allowSortElements) {
         mySortButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD),
                        this, MID_GNE_ELEMENTLIST_SORT, GUIDesignButtonIcon);
     }
-    myLabel = new FXLabel(buttonFrame, TLF("%s", myTagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create element table
     myElementTable = new GNEElementTable(this, myTagProperty, allowOpenDialog, fixHeight);
 }
