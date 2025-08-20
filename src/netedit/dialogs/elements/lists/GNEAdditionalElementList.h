@@ -52,6 +52,9 @@ public:
     /// @brief update table
     long updateTable();
 
+    /// @brief check if the additional elements are sorted
+    bool checkSort() const;
+
     /// @brief open dialog
     long sortRows();
 

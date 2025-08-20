@@ -75,6 +75,50 @@ GNEDemandElementList::updateTable() {
 }
 
 
+bool
+GNEDemandElementList::checkSort() const {
+    if (myEditedDemandElements.size() <= 1) {
+        return true;
+    } else {
+        // declare vector for check sorting
+        std::vector<std::tuple<double, double, double, double, double, double> > sortedDemandElements;
+        // add all elements
+        for (size_t i = 0; i < myEditedDemandElements.size(); i++) {
+            // create tuple with 6 sortable attributes and the demand element
+            auto tuple = std::make_tuple(0, 0, 0, 0, 0, 0);
+            // update tuple with sortable attributes
+            const auto& sortableAttributes = myElementTable->getColumnHeader()->getSortableAttributes();
+            // fill tuple
+            if (sortableAttributes.size() > 0) {
+                std::get<0>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(0)));
+            }
+            if (sortableAttributes.size() > 1) {
+                std::get<1>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(1)));
+            }
+            if (sortableAttributes.size() > 2) {
+                std::get<2>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(2)));
+            }
+            if (sortableAttributes.size() > 3) {    
+                std::get<3>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(3)));
+            }
+            if (sortableAttributes.size() > 4) {
+                std::get<4>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(4)));
+            }
+            if (sortableAttributes.size() > 5) {
+                std::get<5>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(5)));
+            }
+            sortedDemandElements.push_back(tuple);
+        }
+        for (int i = 0; i < ((int)sortedDemandElements.size() - 1); i++) {
+            if (myEditedDemandElements.at(i) > myEditedDemandElements.at(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 long
 GNEDemandElementList::sortRows() {
     // declare set for saving elements sorted by sortable attributes (max 6, the rest will be ignored)

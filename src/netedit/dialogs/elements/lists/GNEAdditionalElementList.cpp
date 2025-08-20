@@ -76,6 +76,50 @@ GNEAdditionalElementList::updateTable() {
 }
 
 
+bool
+GNEAdditionalElementList::checkSort() const {
+    if (myEditedAdditionalElements.size() <= 1) {
+        return true;
+    } else {
+        // declare vector for check sorting
+        std::vector<std::tuple<double, double, double, double, double, double> > sortedAdditionalElements;
+        // add all elements
+        for (size_t i = 0; i < myEditedAdditionalElements.size(); i++) {
+            // create tuple with 6 sortable attributes and the additional element
+            auto tuple = std::make_tuple(0, 0, 0, 0, 0, 0);
+            // update tuple with sortable attributes
+            const auto& sortableAttributes = myElementTable->getColumnHeader()->getSortableAttributes();
+            // fill tuple
+            if (sortableAttributes.size() > 0) {
+                std::get<0>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(0)));
+            }
+            if (sortableAttributes.size() > 1) {
+                std::get<1>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(1)));
+            }
+            if (sortableAttributes.size() > 2) {
+                std::get<2>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(2)));
+            }
+            if (sortableAttributes.size() > 3) {    
+                std::get<3>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(3)));
+            }
+            if (sortableAttributes.size() > 4) {
+                std::get<4>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(4)));
+            }
+            if (sortableAttributes.size() > 5) {
+                std::get<5>(tuple) = GNEAttributeCarrier::parse<double>(myEditedAdditionalElements.at(i)->getAttribute(sortableAttributes.at(5)));
+            }
+            sortedAdditionalElements.push_back(tuple);
+        }
+        for (int i = 0; i < ((int)sortedAdditionalElements.size() - 1); i++) {
+            if (myEditedAdditionalElements.at(i) > myEditedAdditionalElements.at(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 long
 GNEAdditionalElementList::sortRows() {
     // declare set for saving elements sorted by sortable attributes (max 6, the rest will be ignored)
