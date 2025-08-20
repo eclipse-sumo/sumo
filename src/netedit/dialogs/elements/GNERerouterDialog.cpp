@@ -100,8 +100,16 @@ GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialo
 
 long
 GNERerouterDialog::RerouterIntervalsList::addRow() {
+    SUMOTime end = 0;
+    // get end with biggest end
+    for (const auto& interval : myEditedAdditionalElements) {
+        const auto intervalEnd = string2time(interval->getAttribute(SUMO_ATTR_END));
+        if (end < intervalEnd) {
+            end = intervalEnd;
+        }
+    }
     // create interval
-    myEditedAdditionalElements.push_back(new GNERerouterInterval(myElementDialogParent->getElement()));
+    myEditedAdditionalElements.push_back(new GNERerouterInterval(myElementDialogParent->getElement(), end, end + string2time("3600")));
     // update table
     return updateTable();
 }
@@ -109,6 +117,8 @@ GNERerouterDialog::RerouterIntervalsList::addRow() {
 
 long
 GNERerouterDialog::RerouterIntervalsList::openDialog(const size_t rowIndex) {
+    // simply open dialog for the edited additional element
+    GNERerouterIntervalDialog(myEditedAdditionalElements.at(rowIndex));
     return 1;
 }
 
