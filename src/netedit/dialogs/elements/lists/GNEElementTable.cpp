@@ -56,10 +56,10 @@ FXIMPLEMENT(GNEElementTable::Row, FXHorizontalFrame, RowMap, ARRAYNUMBER(RowMap)
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEElementTable::RowHeader - methods
+// GNEElementTable::ColumnHeader - methods
 // ---------------------------------------------------------------------------
 
-GNEElementTable::RowHeader::RowHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties) :
+GNEElementTable::ColumnHeader::ColumnHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties) :
     FXHorizontalFrame(elementTable, GUIDesignAuxiliarHorizontalFrame) {
     // create horizontal label with uniform width
     auto horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
@@ -72,6 +72,10 @@ GNEElementTable::RowHeader::RowHeader(GNEElementTable* elementTable, const GNETa
             // create label
             myLabels.push_back(new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
                                            nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL)));
+            // check if this attribute is sortable
+            if (attrProperty->isNumerical()) {
+                mySortableAttrs.push_back(attrProperty->getAttr());
+            }
         }
     }
     // create empty label (icons and vertical scroller)
@@ -84,11 +88,11 @@ GNEElementTable::RowHeader::RowHeader(GNEElementTable* elementTable, const GNETa
 }
 
 
-GNEElementTable::RowHeader::~RowHeader() {}
+GNEElementTable::ColumnHeader::~ColumnHeader() {}
 
 
 void
-GNEElementTable::RowHeader::enableRowHeader() {
+GNEElementTable::ColumnHeader::enableRowHeader() {
     // enable all labels
     for (const auto& label : myLabels) {
         label->enable();
@@ -97,7 +101,7 @@ GNEElementTable::RowHeader::enableRowHeader() {
 
 
 void
-GNEElementTable::RowHeader::disableRowHeader() {
+GNEElementTable::ColumnHeader::disableRowHeader() {
     // disable all labels
     for (const auto& label : myLabels) {
         label->disable();
@@ -106,8 +110,14 @@ GNEElementTable::RowHeader::disableRowHeader() {
 
 
 size_t
-GNEElementTable::RowHeader::getNumColumns() const {
+GNEElementTable::ColumnHeader::getNumColumns() const {
     return myLabels.size();
+}
+
+
+const std::vector<SumoXMLAttr>&
+GNEElementTable::ColumnHeader::getSortableAttributes() {
+    return mySortableAttrs;
 }
 
 // ---------------------------------------------------------------------------
@@ -130,7 +140,7 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
         // check if this attribute can be edited in dialog
         if (attrProperty->isDialogEditor()) {
             // create text field targeting the GNEElementTable
-            auto textField = new MFXTextFieldTooltip(textFieldsFrame, toolTip, GUIDesignTextFieldNCol, elementTable,
+            auto textField = new MFXTextFieldTooltip(textFieldsFrame, toolTip, GUIDesignTextFieldNCol, this,
                     MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
             // set value from attribute carrier
             textField->setText(AC->getAttribute(attrProperty->getAttr()).c_str());
@@ -287,8 +297,8 @@ GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProper
                     0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
     myElementList(elementList),
     myAllowOpenDialog(allowOpenDialog) {
-    // create row header
-    myRowHeader = new RowHeader(this, tagProperties);
+    // create column header
+    myColumnHeader = new ColumnHeader(this, tagProperties);
     // create scroll windows for rows
     myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed(400));
     // create vertical frame for rows and set back
@@ -298,6 +308,12 @@ GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProper
 
 
 GNEElementTable::~GNEElementTable() {
+}
+
+
+GNEElementTable::ColumnHeader*
+GNEElementTable::getColumnHeader() const {
+    return myColumnHeader;
 }
 
 
@@ -367,12 +383,6 @@ GNEElementTable::getValue(const size_t rowIndex, const size_t columnIndex) const
     } else {
         throw ProcessError("Row index out of bounds in GNEElementTable::getValue");
     }
-}
-
-
-size_t
-GNEElementTable::getNumColumns() const {
-    return myRowHeader->getNumColumns();
 }
 
 /****************************************************************************/

@@ -35,14 +35,14 @@ class GNEElementTable : public FXVerticalFrame {
 
 public:
     /// @brief row header
-    class RowHeader : protected FXHorizontalFrame {
+    class ColumnHeader : protected FXHorizontalFrame {
 
     public:
         /// @brief constructor
-        RowHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties);
+        ColumnHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties);
 
         /// @brief destructor
-        ~RowHeader();
+        ~ColumnHeader();
 
         /// @brief enable row header
         void enableRowHeader();
@@ -53,15 +53,21 @@ public:
         /// @brief get num columns
         size_t getNumColumns() const;
 
+        /// @brief get sortable attributes
+        const std::vector<SumoXMLAttr>& getSortableAttributes();
+
     private:
+        /// @brief sortable attributes
+        std::vector<SumoXMLAttr> mySortableAttrs;
+
         /// @brief labels
         std::vector<FXLabel*> myLabels;
 
         /// @brief Invalidated duplicate constructor.
-        RowHeader(const RowHeader&) = delete;
+        ColumnHeader(const ColumnHeader&) = delete;
 
         /// @brief Invalidated assignment operator.
-        RowHeader& operator=(const RowHeader&) = delete;
+        ColumnHeader& operator=(const ColumnHeader&) = delete;
     };
 
     /// @brief table row
@@ -146,6 +152,9 @@ public:
     /// @brief destructor
     ~GNEElementTable();
 
+    /// @brief get column header
+    ColumnHeader* getColumnHeader() const;
+
     /// @brief Enable table
     void enableTable();
 
@@ -164,8 +173,6 @@ public:
     /// @brief get value
     std::string getValue(const size_t rowIndex, const size_t columnIndex) const;
 
-    /// @brief get number of values
-    size_t getNumColumns() const;
 
 protected:
     /// @brief pointer to the parent element list
@@ -174,8 +181,8 @@ protected:
     /// @brief check if open dialog in every row is allowed
     bool myAllowOpenDialog = false;
 
-    /// @brief row header
-    RowHeader* myRowHeader = nullptr;
+    /// @brief column header
+    ColumnHeader* myColumnHeader = nullptr;
 
     /// @brief scrollWindow for rows
     FXScrollWindow* myScrollWindow = nullptr;

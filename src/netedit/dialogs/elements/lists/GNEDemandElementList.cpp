@@ -77,22 +77,39 @@ GNEDemandElementList::updateTable() {
 
 long
 GNEDemandElementList::sortRows() {
-    // declare set for saving elements sorted by first and second attribute
-    std::set<std::tuple<std::string, std::string, std::string, GNEDemandElement*> > sortedDemandElements;
+    // declare set for saving elements sorted by sortable attributes (max 6, the rest will be ignored)
+    std::set<std::tuple<double, double, double, double, double, double, GNEDemandElement*> > sortedDemandElements;
     // add all elements
     for (size_t i = 0; i < myEditedDemandElements.size(); i++) {
-        if (myElementTable->getNumColumns() == 1) {
-            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), "", "", myEditedDemandElements.at(i)));
-        } else if (myElementTable->getNumColumns() == 2) {
-            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), "", myEditedDemandElements.at(i)));
-        } else {
-            sortedDemandElements.insert(std::make_tuple(myElementTable->getValue(i, 0), myElementTable->getValue(i, 1), myElementTable->getValue(i, 2), myEditedDemandElements.at(i)));
+        // create tuple with 6 sortable attributes and the demand element
+        auto tuple = std::make_tuple(0, 0, 0, 0, 0, 0, myEditedDemandElements.at(i));
+        // update tuple with sortable attributes
+        const auto& sortableAttributes = myElementTable->getColumnHeader()->getSortableAttributes();
+        // fill tuple
+        if (sortableAttributes.size() > 0) {
+            std::get<0>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(0)));
         }
+        if (sortableAttributes.size() > 1) {
+            std::get<1>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(1)));
+        }
+        if (sortableAttributes.size() > 2) {
+            std::get<2>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(2)));
+        }
+        if (sortableAttributes.size() > 3) {    
+            std::get<3>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(3)));
+        }
+        if (sortableAttributes.size() > 4) {
+            std::get<4>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(4)));
+        }
+        if (sortableAttributes.size() > 5) {
+            std::get<5>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(5)));
+        }
+        sortedDemandElements.insert(tuple);
     }
     // now update edited elements list using map
     myEditedDemandElements.clear();
     for (const auto& element : sortedDemandElements) {
-        myEditedDemandElements.push_back(std::get<3>(element));
+        myEditedDemandElements.push_back(std::get<6>(element));
     }
     // update table
     return updateTable();
