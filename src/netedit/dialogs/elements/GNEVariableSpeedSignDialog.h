@@ -15,29 +15,23 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
 ///
-// A class for edit phases of Variable Speed Signals
+// Dialog for edit variableSpeedSigns
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
+#include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
+
 #include "GNEElementDialog.h"
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNEAdditional;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEVariableSpeedSignDialog : public GNEElementDialog<GNEAdditional> {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEVariableSpeedSignDialog)
 
 public:
-    /// @brief constructor
+    /// @brief Constructor
     GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign);
 
     /// @brief destructor
@@ -48,47 +42,44 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event called after press add row button
-    long onCmdAddStep(FXObject*, FXSelector, void*);
 
-    /// @brief event called after edit row
-    long onCmdEditStep(FXObject*, FXSelector, void*);
-
-    /// @brief event called after clicked a row
-    long onCmdClickedStep(FXObject*, FXSelector, void*);
-
-    /// @brief event called after clicked over sort step button
-    long onCmdSortSteps(FXObject*, FXSelector, void*);
-
-    /// @brief event called after press accept button
+    /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief event called after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event called after press cancel button
+    /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNEVariableSpeedSignDialog)
+    /// @brief variableSpeedSign step list
+    class VariableSpeedSignStepsList : public GNEAdditionalElementList {
 
-    /// @brief Table with the data
-    FXTable* myStepsTable;
+    public:
+        /// @brief constructor
+        VariableSpeedSignStepsList(GNEVariableSpeedSignDialog* variableSpeedSignDialog);
 
-    /// @brief Button for insert row
-    FXButton* myAddStepButton;
+        /// @brief add row
+        long addRow();
 
-    /// @brief Button for sort row
-    FXButton* mySortStepButton;
+        /// @brief open dialog
+        long openDialog(const size_t rowIndex);
 
-    // @brief Flag to check if current steps are valid
-    bool myStepsValids;
+        /// @briec check if steps are sorted
+        bool isSorted() const;
+
+    private:
+        /// @brief Invalidated copy constructor
+        VariableSpeedSignStepsList(const VariableSpeedSignStepsList&) = delete;
+
+        /// @brief Invalidated assignment operator
+        VariableSpeedSignStepsList& operator=(const VariableSpeedSignStepsList&) = delete;
+    };
+
+    /// @brief Element list for variableSpeedSign steps
+    VariableSpeedSignStepsList* myVariableSpeedSignSteps;
 
 private:
-    /// @brief update data table
-    void updateTableSteps();
-
     /// @brief Invalidated copy constructor.
     GNEVariableSpeedSignDialog(const GNEVariableSpeedSignDialog&) = delete;
 
