@@ -36,6 +36,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 ## Videos
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=UeaeCdLt_1o">Watch the 2019 Tutorial</a>
+(a transcription is available [here](2019.md#transcription))
 <br>
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=aiOQbaB-pWo">Watch the 2020 Tutorial</a>
