@@ -166,7 +166,7 @@ GNEDialog::openDialog() {
     // create dialog
     create();
     // set focus in button
-    myFocusButon->setFocus();
+    myFocusButton->setFocus();
     // show in the center of app
     show(PLACEMENT_OWNER);
     // continue depending on whether we are testing or not
@@ -274,7 +274,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::YES), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::YES_NO: {
@@ -289,7 +289,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::NO), this,
                              MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::YES_NO_CANCEL: {
@@ -310,7 +310,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                             GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
                             MID_GNE_ABORT, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::ACCEPT: {
@@ -319,7 +319,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::YES), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::ACCEPT_CANCEL: {
@@ -334,7 +334,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::NO), this,
                              MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::ACCEPT_CANCEL_RESET: {
@@ -355,7 +355,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                             GUIIconSubSys::getIcon(GUIIcon::RESET), this,
                             MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::KEEPNEW_KEEPOLD_CANCEL: {
@@ -376,7 +376,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                             GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
                             MID_GNE_ABORT, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         case Buttons::RUN_CANCEL_RESET: {
@@ -397,7 +397,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                             GUIIconSubSys::getIcon(GUIIcon::RESET), this,
                             MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myRunButton;
+            myFocusButton = myRunButton;
             break;
         }
         case Buttons::RUN_ADVANCED_CANCEL: {
@@ -418,7 +418,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
                              MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myRunButton;
+            myFocusButton = myRunButton;
             break;
         }
         case Buttons::RERUN_BACK_CLOSE: {
@@ -439,7 +439,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                              GUIIconSubSys::getIcon(GUIIcon::YES), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // set focus button
-            myFocusButon = myAcceptButton;
+            myFocusButton = myAcceptButton;
             break;
         }
         default:

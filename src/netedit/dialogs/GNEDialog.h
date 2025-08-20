@@ -172,7 +172,7 @@ protected:
 
 private:
     /// @brief focus button, used for focusing the default button when dialog is opened
-    FXButton* myFocusButon = nullptr;
+    FXButton* myFocusButton = nullptr;
 
     /// @brief open type
     OpenType myOpenType;
