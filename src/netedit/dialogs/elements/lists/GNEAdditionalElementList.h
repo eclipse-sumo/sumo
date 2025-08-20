@@ -40,6 +40,7 @@ public:
     /// @brief constructor
     GNEAdditionalElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
                              FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                             const bool allowSortElements, const bool allowOpenDialog,
                              const bool fixHeight);
 
     /// @brief get elements

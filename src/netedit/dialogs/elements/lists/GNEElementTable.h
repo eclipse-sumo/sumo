@@ -39,7 +39,7 @@ public:
 
     public:
         /// @brief constructor
-        RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties);
+        RowHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties);
 
         /// @brief destructor
         ~RowHeader();
@@ -72,7 +72,7 @@ public:
     public:
         /// @brief constructor
         Row(GNEElementTable* elementTable, const size_t rowIndex,
-            GNEAttributeCarrier* AC, const bool allowOpenDialog);
+            GNEAttributeCarrier* AC);
 
         /// @brief destructor
         ~Row();
@@ -141,7 +141,7 @@ public:
 
     /// @brief constructor
     GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties,
-                    const bool fixHeight);
+                    const bool allowOpenDialog, const bool fixHeight);
 
     /// @brief destructor
     ~GNEElementTable();
@@ -170,6 +170,9 @@ public:
 protected:
     /// @brief pointer to the parent element list
     GNEElementList* myElementList = nullptr;
+
+    /// @brief check if open dialog in every row is allowed
+    bool myAllowOpenDialog = false;
 
     /// @brief row header
     RowHeader* myRowHeader = nullptr;

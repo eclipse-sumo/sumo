@@ -61,7 +61,7 @@ protected:
 
     public:
         /// @brief constructor
-        RoutesList(GNECalibratorDialog* rerouterDialog);
+        RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
 
         /// @brief add row
         long addRow();
@@ -82,7 +82,7 @@ protected:
 
     public:
         /// @brief constructor
-        VTypesList(GNECalibratorDialog* rerouterDialog);
+        VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
 
         /// @brief add row
         long addRow();
@@ -103,7 +103,7 @@ protected:
 
     public:
         /// @brief constructor
-        CalibratorFlowsList(GNECalibratorDialog* rerouterDialog,
+        CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
                             RoutesList* routesList, VTypesList* vTypesList);
 
         /// @brief add row

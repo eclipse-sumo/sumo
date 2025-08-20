@@ -39,7 +39,7 @@ class GNEElementList : public FXVerticalFrame {
 public:
     /// @brief constructor
     GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty,
-                   const bool fixHeight);
+                   const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight);
 
     /// @brief destructor
     ~GNEElementList();

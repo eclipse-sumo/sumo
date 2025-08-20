@@ -47,11 +47,11 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     // create route element list
-    myRoutes = new RoutesList(this);
+    myRoutes = new RoutesList(this, columnLeft);
     // create closing lane reroute element list
-    myVTypes = new VTypesList(this);
+    myVTypes = new VTypesList(this, columnLeft);
     // parking area reroute
-    myCalibratorFlows = new CalibratorFlowsList(this, myRoutes, myVTypes);
+    myCalibratorFlows = new CalibratorFlowsList(this, columnRight, myRoutes, myVTypes);
     // disable if there are no routes in net
     if (myElement->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         myCalibratorFlows->disableList(TL("No routes in net"));
@@ -126,8 +126,8 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // GNECalibratorDialog::RoutesList - methods
 // ---------------------------------------------------------------------------
 
-GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog) :
-    GNEDemandElementList(rerouterDialog, rerouterDialog->getContentFrame(), SUMO_TAG_ROUTE, true) {
+GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
+    GNEDemandElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
 }
 
 
@@ -159,8 +159,8 @@ GNECalibratorDialog::RoutesList::openDialog(const size_t rowIndex) {
 // GNECalibratorDialog::VTypesList - methods
 // ---------------------------------------------------------------------------
 
-GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog) :
-    GNEDemandElementList(rerouterDialog, rerouterDialog->getContentFrame(), SUMO_TAG_VTYPE, true) {
+GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
+    GNEDemandElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
 }
 
 
@@ -193,9 +193,9 @@ GNECalibratorDialog::VTypesList::openDialog(const size_t rowIndex) {
 // GNECalibratorDialog::CalibratorFlowsList - methods
 // ---------------------------------------------------------------------------
 
-GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog,
-        RoutesList* routesList, VTypesList* vTypesList) :
-    GNEAdditionalElementList(rerouterDialog, rerouterDialog->getContentFrame(), GNE_TAG_CALIBRATOR_FLOW, false),
+GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
+                                                              RoutesList* routesList, VTypesList* vTypesList) :
+    GNEAdditionalElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
 }

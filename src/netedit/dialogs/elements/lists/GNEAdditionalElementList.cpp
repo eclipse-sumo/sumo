@@ -31,8 +31,9 @@
 // ===========================================================================
 
 GNEAdditionalElementList::GNEAdditionalElementList(GNEElementDialog<GNEAdditional>* elementDialogParent, FXVerticalFrame* contentFrame,
-        SumoXMLTag tag, const bool fixHeight) :
-    GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight),
+                                                   SumoXMLTag tag, const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight) :
+    GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true),
+                   allowSortElements, allowOpenDialog, fixHeight),
     myElementDialogParent(elementDialogParent) {
     // fill edited additional elements
     for (const auto& child : elementDialogParent->getElement()->getChildAdditionals()) {

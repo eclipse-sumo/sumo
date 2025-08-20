@@ -130,8 +130,9 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // GNERerouterIntervalDialog::ClosingReroutesList - methods
 // ---------------------------------------------------------------------------
 
-GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE, true) {
+GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
+                                                                    FXVerticalFrame* contentFrame) :
+    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         disableList(TL("No edges in net"));
@@ -159,8 +160,9 @@ GNERerouterIntervalDialog::ClosingReroutesList::openDialog(const size_t rowIndex
 // GNERerouterIntervalDialog::ClosingLaneReroutesList - methods
 // ---------------------------------------------------------------------------
 
-GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE, true) {
+GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
+                                                                            FXVerticalFrame* contentFrame) :
+    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
         disableList(TL("No lanes in net"));
@@ -188,8 +190,9 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::openDialog(const size_t rowI
 // GNERerouterIntervalDialog::DestProbReroutesList - methods
 // ---------------------------------------------------------------------------
 
-GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_DEST_PROB_REROUTE, true) {
+GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
+                                                                      FXVerticalFrame* contentFrame) :
+    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_DEST_PROB_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         disableList(TL("No edges in net"));
@@ -217,8 +220,9 @@ GNERerouterIntervalDialog::DestProbReroutesList::openDialog(const size_t rowInde
 // GNERerouterIntervalDialog::RouteProbReroutesList - methods
 // ---------------------------------------------------------------------------
 
-GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_ROUTE_PROB_REROUTE, true) {
+GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
+                                                                        FXVerticalFrame* contentFrame) :
+    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_ROUTE_PROB_REROUTE, false, false, true) {
     // disable if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterIntervalDialog->getElement()->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
         disableList(TL("Rerouter has more than one edge"));
@@ -250,8 +254,9 @@ GNERerouterIntervalDialog::RouteProbReroutesList::openDialog(const size_t rowInd
 // GNERerouterIntervalDialog::ParkingAreaReroutesList - methods
 // ---------------------------------------------------------------------------
 
-GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_PARKING_AREA_REROUTE, false) {
+GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
+                                                                            FXVerticalFrame* contentFrame) :
+    GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_PARKING_AREA_REROUTE, false, false, false) {
     // disable if there are no parking areas in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
         disableList(TL("No parkingAreas in net"));

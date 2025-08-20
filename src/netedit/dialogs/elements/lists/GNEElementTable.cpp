@@ -59,8 +59,8 @@ FXIMPLEMENT(GNEElementTable::Row, FXHorizontalFrame, RowMap, ARRAYNUMBER(RowMap)
 // GNEElementTable::RowHeader - methods
 // ---------------------------------------------------------------------------
 
-GNEElementTable::RowHeader::RowHeader(GNEElementTable* table, const GNETagProperties* tagProperties) :
-    FXHorizontalFrame(table, GUIDesignAuxiliarHorizontalFrame) {
+GNEElementTable::RowHeader::RowHeader(GNEElementTable* elementTable, const GNETagProperties* tagProperties) :
+    FXHorizontalFrame(elementTable, GUIDesignAuxiliarHorizontalFrame) {
     // create horizontal label with uniform width
     auto horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
     // create empty label
@@ -75,7 +75,12 @@ GNEElementTable::RowHeader::RowHeader(GNEElementTable* table, const GNETagProper
         }
     }
     // create empty label (icons and vertical scroller)
-    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
+    if (elementTable->myAllowOpenDialog) {
+        new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
+
+    } else {
+        new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + 15));
+    }
 }
 
 
@@ -110,7 +115,7 @@ GNEElementTable::RowHeader::getNumColumns() const {
 // ---------------------------------------------------------------------------
 
 GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
-                          GNEAttributeCarrier* AC, const bool allowOpenDialog) :
+                          GNEAttributeCarrier* AC) :
     FXHorizontalFrame(elementTable->myRowsFrame, GUIDesignAuxiliarHorizontalFrame),
     myElementTable(elementTable),
     myRowIndex(rowIndex),
@@ -137,7 +142,7 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
     myRemoveButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this,
                                   MID_GNE_ELEMENTTABLE_REMOVE, GUIDesignButtonIcon);
     // only create open dialog button if allowed
-    if (allowOpenDialog) {
+    if (elementTable->myAllowOpenDialog) {
         // create open dialog button targeting the GNEDialog
         myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this,
                                           MID_GNE_ELEMENTTABLE_OPENDIALOG, GUIDesignButtonIcon);
@@ -278,10 +283,11 @@ GNEElementTable::Row::onCmdOpenDialog(FXObject* sender, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties,
-                                 const bool fixHeight) :
+                                 const bool allowOpenDialog, const bool fixHeight) :
     FXVerticalFrame(elementList, LAYOUT_FIX_WIDTH | (fixHeight ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
                     0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
-    myElementList(elementList) {
+    myElementList(elementList),
+    myAllowOpenDialog(allowOpenDialog) {
     // create row header
     myRowHeader = new RowHeader(this, tagProperties);
     // create scroll windows for rows
@@ -348,7 +354,7 @@ GNEElementTable::updateRow(const size_t index, GNEAttributeCarrier* AC) {
         myRows.at(index)->updateRow(AC);
     } else if (index == myRows.size()) {
         // create new row and add it to the list
-        myRows.push_back(new Row(this, index, AC, true));
+        myRows.push_back(new Row(this, index, AC));
     } else {
         throw ProcessError("Index out of bounds in GNEElementTable::updateRow");
     }
