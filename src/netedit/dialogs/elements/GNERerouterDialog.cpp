@@ -18,15 +18,11 @@
 // Dialog for edit rerouters
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNERerouterDialog.h"
 #include "GNERerouterIntervalDialog.h"
