@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -100,7 +101,9 @@ GNEAdditionalElementList::sortRows() {
 
 
 long
-GNEAdditionalElementList::removeRow(const size_t rowIndex) {
+GNEAdditionalElementList::removeElement(const size_t rowIndex) {
+    // delete element recursively
+    deleteAdditionalElementRecursively(myEditedAdditionalElements.at(rowIndex));
     // remove element from list
     myEditedAdditionalElements.erase(myEditedAdditionalElements.begin() + rowIndex);
     // update table

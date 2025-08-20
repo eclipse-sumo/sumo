@@ -18,8 +18,14 @@
 // Table used in GNEElementList
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEElementList.h"
@@ -91,13 +97,45 @@ GNEElementList::isListValid() const {
 
 long
 GNEElementList::onCmdAddRow(FXObject* sender, FXSelector, void*) {
-    return addRow();
+    return addElement();
 }
 
 
 long
 GNEElementList::onCmdSort(FXObject* sender, FXSelector, void*) {
     return sortRows();
+}
+
+
+void
+GNEElementList::deleteAdditionalElementRecursively(GNEAdditional* additionalElement) const {
+    // iterate over all children and delete it recursively
+    const GNEHierarchicalContainerChildren<GNEAdditional*> additionalChildren = additionalElement->getChildAdditionals();
+    for (const auto& additionalChild : additionalChildren) {
+        deleteAdditionalElementRecursively(additionalChild);
+    }
+    const GNEHierarchicalContainerChildren<GNEDemandElement*> demandChildren = additionalElement->getChildDemandElements();
+    for (const auto& demandChild : demandChildren) {
+        deleteDemandElementRecursively(demandChild);
+    }
+    // delete element
+    additionalElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(additionalElement, false), true);
+}
+
+
+void
+GNEElementList::deleteDemandElementRecursively(GNEDemandElement* demandElement) const {
+    // iterate over all children and delete it recursively
+    const GNEHierarchicalContainerChildren<GNEAdditional*> additionalChildren = demandElement->getChildAdditionals();
+    for (const auto& additionalChild : additionalChildren) {
+        deleteAdditionalElementRecursively(additionalChild);
+    }
+    const GNEHierarchicalContainerChildren<GNEDemandElement*> demandChildren = demandElement->getChildDemandElements();
+    for (const auto& demandChild : demandChildren) {
+        deleteDemandElementRecursively(demandChild);
+    }
+    // delete element
+    demandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);
 }
 
 /****************************************************************************/

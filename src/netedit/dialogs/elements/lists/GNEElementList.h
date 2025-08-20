@@ -56,14 +56,14 @@ public:
     /// @brief update table
     virtual long updateTable() = 0;
 
-    /// @brief remove row
-    virtual long addRow() = 0;
+    /// @brief add element
+    virtual long addElement() = 0;
 
     /// @brief open dialog
     virtual long sortRows() = 0;
 
-    /// @brief remove row
-    virtual long removeRow(const size_t rowIndex) = 0;
+    /// @brief remove element
+    virtual long removeElement(const size_t rowIndex) = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;
@@ -88,6 +88,12 @@ protected:
 
     /// @brief element table
     GNEElementTable* myElementTable = nullptr;
+
+    /// @brief delete additional element recursively
+    void deleteAdditionalElementRecursively(GNEAdditional* additionalElement) const;
+
+    /// @brief delete demand element recursively
+    void deleteDemandElementRecursively(GNEDemandElement* demandElement) const;
 
 private:
     /// @brief add button

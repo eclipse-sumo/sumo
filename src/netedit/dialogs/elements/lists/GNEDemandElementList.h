@@ -55,11 +55,11 @@ public:
     /// @brief open dialog
     long sortRows();
 
-    /// @brief remove row
-    long removeRow(const size_t rowIndex);
+    /// @brief remove element
+    long removeElement(const size_t rowIndex);
 
-    /// @brief add row
-    virtual long addRow() = 0;
+    /// @brief add element
+    virtual long addElement() = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;

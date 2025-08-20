@@ -100,7 +100,9 @@ GNEDemandElementList::sortRows() {
 
 
 long
-GNEDemandElementList::removeRow(const size_t rowIndex) {
+GNEDemandElementList::removeElement(const size_t rowIndex) {
+    // add change command
+    myEditedDemandElements.at(rowIndex)->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElements.at(rowIndex), false), true);
     // remove element from list
     myEditedDemandElements.erase(myEditedDemandElements.begin() + rowIndex);
     // update table

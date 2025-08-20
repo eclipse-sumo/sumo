@@ -121,7 +121,7 @@ GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog,
 
 
 long
-GNECalibratorDialog::RoutesList::addRow() {
+GNECalibratorDialog::RoutesList::addElement() {
     // create route using calibrator as parent
     GNERoute* route = new GNERoute(myElementDialogParent->getElement());
     // open route dialog
@@ -154,7 +154,7 @@ GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog,
 
 
 long
-GNECalibratorDialog::VTypesList::addRow() {
+GNECalibratorDialog::VTypesList::addElement() {
     // create vType
     GNEVType* vType = new GNEVType(myElementDialogParent->getElement());
     // open route dialog
@@ -191,7 +191,7 @@ GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialo
 
 
 long
-GNECalibratorDialog::CalibratorFlowsList::addRow() {
+GNECalibratorDialog::CalibratorFlowsList::addElement() {
     // get vType
     GNEDemandElement* vType = nullptr;
     if (myVTypesList->getEditedDemandElements().size() > 0) {

@@ -120,7 +120,7 @@ public:
             /// @brief TextField for value
             FXTextField* valueField;
 
-            /// @brief Button for add or remove row
+            /// @brief Button for add or remove element
             FXButton* button;
         private:
             /// @brief frame in which elements of ParameterRow are placed

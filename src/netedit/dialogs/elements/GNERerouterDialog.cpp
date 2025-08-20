@@ -86,7 +86,7 @@ GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialo
 
 
 long
-GNERerouterDialog::RerouterIntervalsList::addRow() {
+GNERerouterDialog::RerouterIntervalsList::addElement() {
     SUMOTime end = 0;
     // get end with biggest end
     for (const auto& interval : getEditedAdditionalElements()) {

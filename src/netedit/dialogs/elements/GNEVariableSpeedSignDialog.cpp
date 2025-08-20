@@ -85,7 +85,7 @@ GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::VariableSpeedSignStepsLi
 
 
 long
-GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addRow() {
+GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addElement() {
     // create step depending of number of steps
     if (getEditedAdditionalElements().empty()) {
         addAdditionalElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), 0,

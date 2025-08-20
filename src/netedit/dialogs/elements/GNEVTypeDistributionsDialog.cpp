@@ -99,7 +99,7 @@ void
 GNEVTypeDistributionsDialog::ParametersValues::addParameter(std::pair<std::string, std::string> newParameter) {
     // enable last row
     myParameterRows.back()->enableRow(newParameter.first, newParameter.second);
-    // add row
+    // add element
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
     myParameterRows.back()->toggleAddButton();
@@ -114,7 +114,7 @@ GNEVTypeDistributionsDialog::ParametersValues::clearParameters() {
     }
     //clear myParameterRows;
     myParameterRows.clear();
-    // add row
+    // add element
     myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
     // enable add button in the last row
     myParameterRows.back()->toggleAddButton();
@@ -180,7 +180,7 @@ GNEVTypeDistributionsDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
             if (myParameterRows.at(i)->button == obj) {
                 // delete row
                 delete myParameterRows.at(i);
-                // just remove row
+                // just remove element
                 myParameterRows.erase(myParameterRows.begin() + i);
                 return 1;
             }

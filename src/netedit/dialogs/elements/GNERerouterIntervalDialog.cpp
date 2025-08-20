@@ -130,7 +130,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterI
 
 
 long
-GNERerouterIntervalDialog::ClosingReroutesList::addRow() {
+GNERerouterIntervalDialog::ClosingReroutesList::addElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create closing reroute
@@ -160,7 +160,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNER
 
 
 long
-GNERerouterIntervalDialog::ClosingLaneReroutesList::addRow() {
+GNERerouterIntervalDialog::ClosingLaneReroutesList::addElement() {
     // get lane
     const auto lane = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
     // create closing lane reroute
@@ -190,7 +190,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNEReroute
 
 
 long
-GNERerouterIntervalDialog::DestProbReroutesList::addRow() {
+GNERerouterIntervalDialog::DestProbReroutesList::addElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create dest prob reroute
@@ -224,7 +224,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerou
 
 
 long
-GNERerouterIntervalDialog::RouteProbReroutesList::addRow() {
+GNERerouterIntervalDialog::RouteProbReroutesList::addElement() {
     // get route
     const auto route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     // create route prob reroute
@@ -254,7 +254,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNER
 
 
 long
-GNERerouterIntervalDialog::ParkingAreaReroutesList::addRow() {
+GNERerouterIntervalDialog::ParkingAreaReroutesList::addElement() {
     // get parking area
     const auto parkingArea = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
     // create parking area reroute

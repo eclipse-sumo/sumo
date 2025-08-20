@@ -59,8 +59,8 @@ protected:
         /// @brief constructor
         RerouterIntervalsList(GNERerouterDialog* rerouterDialog);
 
-        /// @brief add row
-        long addRow();
+        /// @brief add element
+        long addElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);

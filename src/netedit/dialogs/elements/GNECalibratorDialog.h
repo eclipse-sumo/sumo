@@ -60,8 +60,8 @@ protected:
         /// @brief constructor
         RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add row
-        long addRow();
+        /// @brief add element
+        long addElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -81,8 +81,8 @@ protected:
         /// @brief constructor
         VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add row
-        long addRow();
+        /// @brief add element
+        long addElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -103,8 +103,8 @@ protected:
         CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
                             RoutesList* routesList, VTypesList* vTypesList);
 
-        /// @brief add row
-        long addRow();
+        /// @brief add element
+        long addElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
