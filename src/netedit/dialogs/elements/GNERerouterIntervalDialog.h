@@ -29,12 +29,10 @@
 // ===========================================================================
 
 class GNERerouterIntervalDialog : public GNEElementDialog<GNEAdditional> {
-    /// @brief FOX-declaration
-    FXDECLARE(GNERerouterIntervalDialog)
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, const bool updatingElement);
+    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
@@ -54,13 +52,9 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief called when begin or end is changed
-    long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-
     /// @brief closing  reroutes list
     class ClosingReroutesList : public GNEAdditionalElementList {
 
@@ -165,21 +159,6 @@ protected:
         /// @brief Invalidated assignment operator
         ParkingAreaReroutesList& operator=(const ParkingAreaReroutesList&) = delete;
     };
-
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNERerouterIntervalDialog)
-
-    /// @brief begin time text field
-    FXTextField* myBeginTextField;
-
-    /// @brief end time text field
-    FXTextField* myEndTextField;
-
-    /// @brief begin/end time check label
-    FXLabel* myCheckLabel;
-
-    /// @brief flag to check if begin an end are valid
-    bool myBeginEndValid = true;
 
     /// @brief list with closing reroutes
     ClosingReroutesList* myClosingReroutes;

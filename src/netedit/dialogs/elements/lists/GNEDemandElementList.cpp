@@ -32,7 +32,7 @@
 
 GNEDemandElementList::GNEDemandElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
         FXVerticalFrame* contentFrame, SumoXMLTag tag, const bool fixHeight) :
-    GNEElementList(elementDialogParent->getContentFrame(), elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight),
+    GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), fixHeight),
     myElementDialogParent(elementDialogParent) {
     // fill edited demand elements
     for (const auto& child : elementDialogParent->getElement()->getChildDemandElements()) {

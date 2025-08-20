@@ -35,42 +35,16 @@
 #include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
-    // use "update" instead of "command" to avoid problems mit icons
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,    GNERerouterIntervalDialog::onCmdChangeBeginEnd),
-};
-
-// Object implementation
-FXIMPLEMENT(GNERerouterIntervalDialog, GNEElementDialog<GNEAdditional>, GNERerouterIntervalDialogMap, ARRAYNUMBER(GNERerouterIntervalDialogMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNERerouterIntervalDialog - methods
-// ---------------------------------------------------------------------------
-
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, const bool updatingElement) :
-    GNEElementDialog<GNEAdditional>(rerouterInterval, updatingElement) {
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval) :
+    GNEElementDialog<GNEAdditional>(rerouterInterval, true) {
     // Create auxiliar frames for tables
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
-    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnCenter = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    // create horizontal frame for begin and end label
-    FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + myElement->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myCheckLabel = new FXLabel(beginEndElementsLeft, "", GUIIconSubSys::getIcon(GUIIcon::CORRECT), GUIDesignLabelIcon32x32Thicked);
-    // create horizontal frame for begin and end text fields
-    FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnCenter, GUIDesignAuxiliarHorizontalFrame);
-    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
-    myBeginTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_BEGIN)).c_str());
-    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextField);
-    myEndTextField->setText(toString(myElement->getAttribute(SUMO_ATTR_END)).c_str());
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* columnCenter = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);
     // create closing reroute element list
     myClosingReroutes = new ClosingReroutesList(this, columnLeft);
     // create closing lane reroute element list
@@ -81,10 +55,6 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myRouteProbReroutes = new RouteProbReroutesList(this, columnCenter);
     // parking area reroute
     myParkingAreaReroutes = new ParkingAreaReroutesList(this, columnRight);
-    // add element if we aren't updating an existent element
-    if (!myUpdatingElement) {
-        myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);
-    }
     // open dialog
     openDialog();
 }
@@ -101,28 +71,14 @@ GNERerouterIntervalDialog::runInternalTest(const InternalTestStep::DialogArgumen
 
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // declare strings
-    std::string title;
-    std::string infoA;
-    std::string infoB;
     // get rerouter parent
     const auto rerouterParent = myElement->getParentAdditionals().at(0);
-    // set title
-    if (myUpdatingElement) {
-        title = TLF("Error updating % of % '%'", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
-    } else {
-        title = TLF("Error creating % of % '%'", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
-    }
-    // set infoA
-    if (myUpdatingElement) {
-        infoA = TLF("% of % '%' cannot be updated because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
-    } else {
-        infoA = TLF("% of % '%' cannot be created because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
-    }
+    // declare strings
+    const std::string title = TLF("Error updating % of % '%'", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
+    const std::string infoA = TLF("% of % '%' cannot be updated because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
+    std::string infoB;
     // set infoB
-    if (!myBeginEndValid) {
-        infoB = TLF("% defined by % and % is invalid.", myElement->getTagStr(), toString(SUMO_ATTR_BEGIN), toString(SUMO_ATTR_END));
-    } else if (myClosingReroutes->getEditedAdditionals().empty() && myClosingLaneReroutes->getEditedAdditionals().empty() &&
+    if (myClosingReroutes->getEditedAdditionals().empty() && myClosingLaneReroutes->getEditedAdditionals().empty() &&
                myRouteProbReroutes->getEditedAdditionals().empty() && myDestProbReroutes->getEditedAdditionals().empty() &&
                myParkingAreaReroutes->getEditedAdditionals().empty()) {
         infoB = TLF("at least one % must be defined.", myElement->getTagStr());
@@ -171,25 +127,6 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     myRouteProbReroutes->updateTable();
     myParkingAreaReroutes->updateTable();
     return 1;
-}
-
-
-long
-GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
-    const auto begin = GNEAttributeCarrier::canParse<SUMOTime>(myBeginTextField->getText().text()) ? GNEAttributeCarrier::parse<SUMOTime>(myBeginTextField->getText().text()) : -1;
-    const auto end = GNEAttributeCarrier::canParse<SUMOTime>(myEndTextField->getText().text()) ? GNEAttributeCarrier::parse<SUMOTime>(myEndTextField->getText().text()) : -1;
-    // check that both begin and end are positive, and begin <= end
-    myBeginEndValid = (begin >= 0) && (end >= 0) && (begin <= end);
-    if (myBeginEndValid) {
-        // set new values in rerouter interval
-        myElement->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myElement->getNet()->getViewNet()->getUndoList());
-        myElement->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myElement->getNet()->getViewNet()->getUndoList());
-        // change icon
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
-    } else {
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
-    }
-    return 0;
 }
 
 // ---------------------------------------------------------------------------

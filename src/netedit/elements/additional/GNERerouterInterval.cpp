@@ -35,15 +35,6 @@ GNERerouterInterval::GNERerouterInterval(GNENet* net) :
 }
 
 
-GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent) :
-    GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, "") {
-    // set parents
-    setParent<GNEAdditional*>(rerouterParent);
-    // update boundary of rerouter parent
-    rerouterParent->updateCenteringBoundary(true);
-}
-
-
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, ""),
     myBegin(begin),
