@@ -21,14 +21,7 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
-#include <netedit/elements/GNEHierarchicalStructureChildren.h>
-#include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class definitions
@@ -45,8 +38,7 @@ public:
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
         myElement(element),
         myUpdatingElement(updatingElement),
-        myChangesDescription(TLF("change % values", element->getTagStr())),
-        myNumberOfChanges(0) {
+        myChangesDescription(TLF("change % values", element->getTagStr())) {
         // change dialog title depending if we are updating or creating an element
         if (updatingElement) {
             setTitle(TLF("Create %", element->getTagStr()).c_str());
@@ -121,7 +113,7 @@ private:
     std::string myChangesDescription;
 
     /// @brief number of GNEChanges_... in dialog
-    int myNumberOfChanges;
+    int myNumberOfChanges = 0;
 
     /// @brief Invalidated copy constructor
     GNEElementDialog(const GNEElementDialog&) = delete;
