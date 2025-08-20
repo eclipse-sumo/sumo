@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-20 07:39+0000\n"
+"PO-Revision-Date: 2025-08-20 13:33+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -665,7 +665,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:746
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "Escalar tráfego:"
 
 #: src/gui/GUIApplicationWindow.cpp:747
 msgid ""
@@ -675,7 +675,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:772
 msgid "Waiting Time:"
-msgstr ""
+msgstr "Tempo de Espera:"
 
 #: src/gui/GUIApplicationWindow.cpp:772
 msgid "Time spent waiting accumulated for all vehicles"
@@ -683,7 +683,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:783
 msgid "Time Loss:"
-msgstr ""
+msgstr "Tempo Perdido:"
 
 #: src/gui/GUIApplicationWindow.cpp:783
 msgid ""
@@ -692,7 +692,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:794
 msgid "Distance (km):"
-msgstr ""
+msgstr "Distância (km):"
 
 #: src/gui/GUIApplicationWindow.cpp:794
 msgid "Total distance driven by DRT vehicles"
@@ -719,7 +719,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:835
 #: src/netedit/GNEApplicationWindowHelper.cpp:161
 msgid "Recent Networks"
-msgstr ""
+msgstr "Redes recentes"
 
 #: src/gui/GUIApplicationWindow.cpp:853
 #: src/netedit/GNEApplicationWindowHelper.cpp:179
@@ -734,11 +734,11 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:858
 #: src/netedit/GNEApplicationWindowHelper.cpp:184
 msgid "Recent Configs"
-msgstr ""
+msgstr "Configurações recentes"
 
 #: src/gui/GUIApplicationWindow.cpp:1011 src/gui/GUIApplicationWindow.cpp:1037
 msgid "Running %."
-msgstr ""
+msgstr "Executando %."
 
 #: src/gui/GUIApplicationWindow.cpp:1047
 msgid "Open Simulation Configuration"
@@ -746,11 +746,11 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1067
 msgid "Open Network"
-msgstr ""
+msgstr "Abrir rede"
 
 #: src/gui/GUIApplicationWindow.cpp:1087
 msgid "Open Shapes"
-msgstr ""
+msgstr "Abrir formas"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
 #: src/netedit/GNEApplicationWindow.cpp:4801
@@ -763,7 +763,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1118
 msgid "Open EdgeData"
-msgstr ""
+msgstr "Abrir EdgeData"
 
 #: src/gui/GUIApplicationWindow.cpp:1153
 msgid "Auto-Reloading."
@@ -784,7 +784,7 @@ msgstr "Reinício Rápido."
 #: src/gui/GUIApplicationWindow.cpp:1176
 #: src/netedit/GNEApplicationWindow.cpp:1145
 msgid "Already loading!"
-msgstr ""
+msgstr "Já está carregando!"
 
 #: src/gui/GUIApplicationWindow.cpp:1188
 msgid "Save SUMO Configuration"
@@ -843,7 +843,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:1847
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%' carregado."
 
 #: src/gui/GUIApplicationWindow.cpp:1950
 msgid "SUMO Interactive Traffic Light"
@@ -871,11 +871,11 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:2087
 msgid "Simulation ended"
-msgstr ""
+msgstr "Simulação finalizada"
 
 #: src/gui/GUIApplicationWindow.cpp:2185
 msgid "Loading '%'."
-msgstr ""
+msgstr "Carregando '%'."
 
 #: src/gui/GUIApplicationWindow.cpp:2338 src/gui/GUIApplicationWindow.cpp:2340
 #: src/gui/GUIApplicationWindow.cpp:2341 src/gui/GUIApplicationWindow.cpp:2342
@@ -900,7 +900,7 @@ msgstr ""
 
 #: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:474
 msgid "Save Snapshot"
-msgstr ""
+msgstr "Salvar captura de tela"
 
 #: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:488
 msgid "No file extension was specified - saving Snapshot as PNG."
@@ -908,7 +908,7 @@ msgstr ""
 
 #: src/gui/GUISUMOViewParent.cpp:166 src/netedit/GNEViewParent.cpp:493
 msgid "Saving failed."
-msgstr ""
+msgstr "Salvamento falhou."
 
 #: src/gui/GUISUMOViewParent.cpp:168 src/netedit/GNEViewParent.cpp:495
 msgid "Snapshot successfully saved!"
@@ -920,24 +920,24 @@ msgstr ""
 
 #: src/gui/GUISUMOViewParent.cpp:226 src/netedit/GNEViewParent.cpp:521
 msgid "Junction Chooser"
-msgstr ""
+msgstr "Seletor de Junção"
 
 #: src/gui/GUISUMOViewParent.cpp:230 src/netedit/GNEViewParent.cpp:528
 msgid "Edge Chooser"
-msgstr ""
+msgstr "Seletor de Arestas"
 
 #: src/gui/GUISUMOViewParent.cpp:234 src/netedit/GNEViewParent.cpp:542
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "Seletor de Veículos"
 
 #: src/gui/GUISUMOViewParent.cpp:238 src/netedit/GNEViewParent.cpp:553
 msgid "Person Chooser"
-msgstr ""
+msgstr "Seletor de pessoas"
 
 #: src/gui/GUISUMOViewParent.cpp:242 src/netedit/GNEViewParent.cpp:563
 msgid "Container Chooser"
-msgstr ""
+msgstr "Seletor de contêiner"
 
 #: src/gui/GUISUMOViewParent.cpp:246
 msgid "Traffic Lights Chooser"
@@ -949,15 +949,15 @@ msgstr ""
 
 #: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:614
 msgid "POI Chooser"
-msgstr ""
+msgstr "Seletor de Pontos de Interesse"
 
 #: src/gui/GUISUMOViewParent.cpp:258
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "Seletor de polígonos"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:277
 msgid "phase names"
-msgstr ""
+msgstr "nomes das fases"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:280
 msgid "detectors"
@@ -973,7 +973,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:110 src/netedit/GNEViewNet.cpp:388
 msgid "Locate Junctions"
-msgstr ""
+msgstr "Localizar junções"
 
 #: src/gui/GUIViewTraffic.cpp:110
 msgid "Locate a junction within the network."
@@ -981,7 +981,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:115 src/netedit/GNEViewNet.cpp:392
 msgid "Locate Edges"
-msgstr ""
+msgstr "Localizar Arestas"
 
 #: src/gui/GUIViewTraffic.cpp:115
 msgid "Locate an edge within the network."
@@ -989,7 +989,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:120 src/netedit/GNEViewNet.cpp:400
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "Localizar veículos"
 
 #: src/gui/GUIViewTraffic.cpp:120
 msgid "Locate a vehicle within the network."
@@ -997,7 +997,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:125 src/netedit/GNEViewNet.cpp:404
 msgid "Locate Persons"
-msgstr ""
+msgstr "Localizar Pessoas"
 
 #: src/gui/GUIViewTraffic.cpp:125
 msgid "Locate a person within the network."
@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate Container"
-msgstr ""
+msgstr "Localizar Contêiners"
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate a container within the network."
@@ -1013,7 +1013,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:135 src/netedit/GNEViewNet.cpp:427
 msgid "Locate TLS"
-msgstr ""
+msgstr "Localizar semáforos"
 
 #: src/gui/GUIViewTraffic.cpp:135
 msgid "Locate a tls within the network."
@@ -1021,7 +1021,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:140 src/netedit/GNEViewNet.cpp:431
 msgid "Locate Additional"
-msgstr ""
+msgstr "Localizar Adicional"
 
 #: src/gui/GUIViewTraffic.cpp:140
 msgid "Locate an additional structure within the network."
@@ -1029,7 +1029,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:145 src/netedit/GNEViewNet.cpp:435
 msgid "Locate PoI"
-msgstr ""
+msgstr "Localizar Ponto de Interesse"
 
 #: src/gui/GUIViewTraffic.cpp:145
 msgid "Locate a PoI within the network."
@@ -1037,7 +1037,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:150 src/netedit/GNEViewNet.cpp:439
 msgid "Locate Polygon"
-msgstr ""
+msgstr "Localizar polígono"
 
 #: src/gui/GUIViewTraffic.cpp:150
 msgid "Locate a Polygon within the network."
@@ -1106,7 +1106,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
-msgstr ""
+msgstr "Permitir texturas"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:101
 #: src/netedit/dialogs/GNEAbout.cpp:74
@@ -1127,7 +1127,7 @@ msgstr "&Cancelar"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "Editor de pontos de interrupção"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
 msgid "&Load"
@@ -1148,11 +1148,11 @@ msgstr "Tempo"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:144
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "Carregar pontos de interrupção"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:165
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "Salvar pontos de interrupção"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:177
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:163
@@ -1161,7 +1161,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1144
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1227
 msgid "Storing failed!"
-msgstr ""
+msgstr "Falha ao armazenar!"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:246
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:249
@@ -1238,11 +1238,11 @@ msgstr ""
 
 #: src/guisim/GUIBaseVehicle.cpp:385
 msgid "Start Tracking"
-msgstr ""
+msgstr "Iniciar acompanhamento"
 
 #: src/guisim/GUIBaseVehicle.cpp:387
 msgid "Stop Tracking"
-msgstr ""
+msgstr "Parar acompanhamento"
 
 #: src/guisim/GUIBaseVehicle.cpp:389
 msgid "Select Foes"
@@ -13891,7 +13891,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:71
 msgid "Edited"
-msgstr ""
+msgstr "Editado"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
 msgid "selection of edges"
@@ -15825,7 +15825,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:108
 msgid "auto-center"
-msgstr ""
+msgstr "auto centralizar"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:336
 #, c-format
@@ -15893,7 +15893,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1629
 msgid "Size"
-msgstr ""
+msgstr "Tamanho"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1634
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1807
@@ -15906,12 +15906,12 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2289
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2359
 msgid "Color"
-msgstr ""
+msgstr "Cor"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1636
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1802
 msgid "Background"
-msgstr ""
+msgstr "Fundo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1667
 msgid "Draw with constant size when zoomed out"
@@ -15931,15 +15931,15 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1722
 msgid "min"
-msgstr ""
+msgstr "min"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1727
 msgid "max"
-msgstr ""
+msgstr "max"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1732
 msgid "center"
-msgstr ""
+msgstr "centro"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1737
 msgid "fix range"
@@ -15967,19 +15967,19 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1789
 msgid "Viewport"
-msgstr ""
+msgstr "Janela"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1790
 msgid "Delay"
-msgstr ""
+msgstr "Atraso"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1792
 msgid "Breakpoints"
-msgstr ""
+msgstr "Pontos de interrupção"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1811
 msgid "Decals:"
-msgstr ""
+msgstr "Imagens de fundo:"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1814
 msgid "&Load XML Decals"
@@ -15999,15 +15999,15 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1825
 msgid "x-spacing"
-msgstr ""
+msgstr "espaçamento em x"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1830
 msgid "y-spacing"
-msgstr ""
+msgstr "espaçamento em y"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1839
 msgid "Streets"
-msgstr ""
+msgstr "Ruas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1848
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1868
@@ -16020,7 +16020,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2293
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2362
 msgid "Interpolate"
-msgstr ""
+msgstr "Interpolar"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1865
 msgid "Scale width"
@@ -16109,12 +16109,12 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2040
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2093
 msgid "'triangles'"
-msgstr ""
+msgstr "'triângulos'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1951
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2094
 msgid "'boxes'"
-msgstr ""
+msgstr "'caixas'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1952
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2042
@@ -16131,7 +16131,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1954
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2041
 msgid "'circles'"
-msgstr ""
+msgstr "'círculos'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
 msgid "Scale size"
@@ -16255,7 +16255,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
 msgid "Additional"
-msgstr ""
+msgstr "Adicional"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2167
 msgid "Show object id"
@@ -16267,19 +16267,19 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2175
 msgid "StoppingPlace"
-msgstr ""
+msgstr "Lugar de parada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2176
 msgid "body"
-msgstr ""
+msgstr "corpo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2177
 msgid "sign"
-msgstr ""
+msgstr "sinal"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2200
 msgid "element"
-msgstr ""
+msgstr "elemento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2258
 msgid "POI detail"
@@ -16316,7 +16316,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2324
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diversos"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2375
 msgid "Exaggerate edgeRelation width by"
@@ -16356,7 +16356,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2427
 msgid "Dither"
-msgstr ""
+msgstr "Tramado"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2433
 msgid "Draw boundaries"
@@ -16536,7 +16536,7 @@ msgstr "espanhol"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:385
 msgid "portuguese"
-msgstr ""
+msgstr "português"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:389
 msgid "french"
