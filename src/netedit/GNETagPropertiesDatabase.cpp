@@ -1746,12 +1746,12 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TIME,
                                    GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Time"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
                                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Speed"),
                                    toString(OptionsCont::getOptions().getFloat("default.speed")));
     }

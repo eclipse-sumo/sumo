@@ -523,7 +523,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
         case SUMO_TAG_STEP:
             if (buildVariableSpeedSignStep(obj,
                                            obj->getTimeAttribute(SUMO_ATTR_TIME),
-                                           obj->getStringAttribute(SUMO_ATTR_SPEED))) {
+                                           obj->getDoubleAttribute(SUMO_ATTR_SPEED))) {
                 obj->markAsCreated();
             }
             break;
@@ -619,17 +619,11 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             }
             break;
         case SUMO_TAG_INTERVAL:
-            // check if is VSS or a REROUTER interval
+            // check if is aREROUTER interval
             if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
                 if (buildRerouterInterval(obj,
                                           obj->getTimeAttribute(SUMO_ATTR_BEGIN),
                                           obj->getTimeAttribute(SUMO_ATTR_END))) {
-                    obj->markAsCreated();
-                }
-            } else {
-                if (buildVariableSpeedSignStep(obj,
-                                               obj->getTimeAttribute(SUMO_ATTR_TIME),
-                                               obj->getStringAttribute(SUMO_ATTR_SPEED))) {
                     obj->markAsCreated();
                 }
             }
@@ -1427,7 +1421,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
     // optional attributes
-    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, OptionsCont::getOptions().getFloat("default.speed"));
     // check parent
     checkParsedParent(SUMO_TAG_STEP, {SUMO_TAG_VSS}, parsedOk);
     // continue if flag is ok
@@ -1436,7 +1430,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
