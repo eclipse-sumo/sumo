@@ -1846,6 +1846,18 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::FLOW, GUIGlObjectType::GLO_CALIBRATOR_FLOW, SUMO_TAG_FLOW, TL("CalibratorFlow"),
         {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
+                                   TL("First calibrator flow departure time"),
+                                   "0");
+        
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("End of departure interval"),
+                                   "3600");
+
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE | GNEAttributeProperties::Property::VTYPE,
                                    GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
@@ -1856,21 +1868,6 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("The id of the route the vehicle shall drive along"));
-
-        // fill common vehicle attributes
-        fillCommonVehicleAttributes(myTagProperties[currentTag]);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
-                                   TL("First calibrator flow departure time"),
-                                   "0");
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("End of departure interval"),
-                                   "3600");
 
         // at least one of the following attributes must be defined
 
@@ -1885,6 +1882,9 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Vehicle's speed"),
                                    "15");
+
+        // fill common vehicle attributes
+        fillCommonVehicleAttributes(myTagProperties[currentTag]);
     }
     currentTag = SUMO_TAG_REROUTER;
     {
