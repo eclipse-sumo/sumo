@@ -47,8 +47,6 @@ public:
         }
         // init commandGroup
         myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
-        // save number of command group changes
-        myNumberOfChanges = myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
     }
 
     /// @brief destructor
@@ -68,10 +66,19 @@ public:
     virtual long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) = 0;
 
     /// @brief event after press cancel button
-    virtual long onCmdCancel(FXObject* sender, FXSelector sel, void* ptr) = 0;
-
-    /// @brief event after press cancel button
     virtual long onCmdReset(FXObject*, FXSelector, void*) = 0;
+
+    /// @brief called when cancel or no button is pressed
+    long onCmdCancel(FXObject*, FXSelector, void*) {
+        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        return closeDialogAccepting();
+    }
+
+    /// @brief called when abort is called either closing dialog or pressing abort button
+    long onCmdAbort(FXObject*, FXSelector, void*) {
+        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        return closeDialogAborting();
+    }
 
     /// @}
 
@@ -86,19 +93,10 @@ protected:
     /// @brief flag to indicate if element are being created or modified (cannot be changed after open dialog)
     bool myUpdatingElement = false;
 
-    /// @brief Accept changes did in this dialog.
-    void acceptChanges() {
-        // commit changes or abort last command group depending of number of changes did
-        if (myNumberOfChanges < myElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-            myElement->getNet()->getViewNet()->getUndoList()->end();
-        } else {
-            myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-        }
-    }
-
-    /// @brief Cancel changes did in this dialog.
-    void cancelChanges() {
-        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+    /// @brief close dialog commiting changes
+    long acceptElementDialog() {
+        myElement->getNet()->getViewNet()->getUndoList()->end();
+        return closeDialogAccepting();
     }
 
     /// @brief reset changes did in this dialog.
@@ -111,9 +109,6 @@ protected:
 private:
     /// @brief description of changes did in this element dialog
     std::string myChangesDescription;
-
-    /// @brief number of GNEChanges_... in dialog
-    int myNumberOfChanges = 0;
 
     /// @brief Invalidated copy constructor
     GNEElementDialog(const GNEElementDialog&) = delete;

@@ -1813,22 +1813,11 @@ GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         // show warning dialogbox about experimental state (only once)
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, info);
-        return 0;
+        return 1;
     } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // stop dialog successfully
-        return closeDialogAccepting();
+        // close dialog accepting changes
+        return acceptElementDialog();
     }
-}
-
-
-long
-GNEVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    return closeDialogCanceling();
 }
 
 

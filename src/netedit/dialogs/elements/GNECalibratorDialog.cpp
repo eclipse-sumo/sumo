@@ -92,22 +92,11 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (infoB.size() > 0) {
         // open question dialog box with two lines
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, infoA, infoB);
+        return 1;
     } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // Stop Modal
-        closeDialogAccepting();
+        // close dialog accepting changes
+        return acceptElementDialog();
     }
-    return 1;
-}
-
-
-long
-GNECalibratorDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    return closeDialogCanceling();
 }
 
 
@@ -140,7 +129,7 @@ GNECalibratorDialog::RoutesList::addRow() {
     // continue depending of result of routeDialog
     if (routeDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // add route
-        myEditedDemandElements.push_back(route);
+        addDemandElement(route);
     } else {
         // delete route
         delete route;
@@ -173,7 +162,7 @@ GNECalibratorDialog::VTypesList::addRow() {
     // continue depending of result of routeDialog
     if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // add vType
-        myEditedDemandElements.push_back(vType);
+        addDemandElement(vType);
     } else {
         // delete vType
         delete vType;
@@ -205,15 +194,15 @@ long
 GNECalibratorDialog::CalibratorFlowsList::addRow() {
     // get vType
     GNEDemandElement* vType = nullptr;
-    if (myVTypesList->getEditedDemands().size() > 0) {
-        vType = myVTypesList->getEditedDemands().back();
+    if (myVTypesList->getEditedDemandElements().size() > 0) {
+        vType = myVTypesList->getEditedDemandElements().back();
     } else {
         vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin()->second;
     }
     // get route
     GNEDemandElement* route = nullptr;
-    if (myVTypesList->getEditedDemands().size() > 0) {
-        route = myVTypesList->getEditedDemands().back();
+    if (myVTypesList->getEditedDemandElements().size() > 0) {
+        route = myVTypesList->getEditedDemandElements().back();
     } else {
         route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     }
@@ -226,7 +215,7 @@ GNECalibratorDialog::CalibratorFlowsList::addRow() {
         // continue depending of result of routeDialog
         if (calibratorFlowDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // add calibratorFlow
-            myEditedAdditionalElements.push_back(calibratorFlow);
+            addAdditionalElement(calibratorFlow);
         } else {
             // delete calibratorFlow
             delete calibratorFlow;

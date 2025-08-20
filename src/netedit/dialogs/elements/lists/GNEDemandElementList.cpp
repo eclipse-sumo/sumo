@@ -47,7 +47,7 @@ GNEDemandElementList::GNEDemandElementList(GNEElementDialog<GNEAdditional>* elem
 
 
 const std::vector<GNEDemandElement*>&
-GNEDemandElementList::getEditedDemands() const {
+GNEDemandElementList::getEditedDemandElements() const {
     return myEditedDemandElements;
 }
 

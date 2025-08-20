@@ -99,22 +99,11 @@ GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // open warning Box
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               title, info);
+        return 1;
     } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // stop dialog successfully
-        return closeDialogAccepting();
+        // close dialog accepting changes
+        return acceptElementDialog();
     }
-    return 1;
-}
-
-
-long
-GNERouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    return closeDialogCanceling();
 }
 
 

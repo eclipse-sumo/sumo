@@ -57,22 +57,12 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               TLF("Rerouter intervals of % '%' cannot be saved", toString(SUMO_TAG_REROUTER), myElement->getID()),
                               TL(". There are intervals overlapped."));
+        return 1;
     } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // Stop Modal
-        closeDialogAccepting();
+        // close dialog accepting changes
+        return acceptElementDialog();
     }
     return 1;
-}
-
-
-long
-GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    return closeDialogCanceling();
 }
 
 
@@ -99,14 +89,14 @@ long
 GNERerouterDialog::RerouterIntervalsList::addRow() {
     SUMOTime end = 0;
     // get end with biggest end
-    for (const auto& interval : myEditedAdditionalElements) {
+    for (const auto& interval : getEditedAdditionalElements()) {
         const auto intervalEnd = string2time(interval->getAttribute(SUMO_ATTR_END));
         if (end < intervalEnd) {
             end = intervalEnd;
         }
     }
     // create interval
-    myEditedAdditionalElements.push_back(new GNERerouterInterval(myElementDialogParent->getElement(), end, end + string2time("3600")));
+    addAdditionalElement(new GNERerouterInterval(myElementDialogParent->getElement(), end, end + string2time("3600")));
     // update table
     return updateTable();
 }
@@ -115,7 +105,7 @@ GNERerouterDialog::RerouterIntervalsList::addRow() {
 long
 GNERerouterDialog::RerouterIntervalsList::openDialog(const size_t rowIndex) {
     // simply open dialog for the edited additional element
-    GNERerouterIntervalDialog(myEditedAdditionalElements.at(rowIndex));
+    GNERerouterIntervalDialog(getEditedAdditionalElements().at(rowIndex));
     return 1;
 }
 
@@ -125,7 +115,7 @@ GNERerouterDialog::RerouterIntervalsList::isOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedIntervals;
     // iterate over child interval
-    for (const auto& interval : myEditedAdditionalElements) {
+    for (const auto& interval : getEditedAdditionalElements()) {
         // add interval to sorted intervals
         sortedIntervals.push_back(std::make_pair(std::make_pair(0., 0.), interval));
         // set begin and end

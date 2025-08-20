@@ -43,8 +43,8 @@ public:
                              const bool allowSortElements, const bool allowOpenDialog,
                              const bool fixHeight);
 
-    /// @brief get elements
-    const std::vector<GNEAdditional*>& getEditedAdditionals() const;
+    /// @brief get edited additional elements
+    const std::vector<GNEAdditional*>& getEditedAdditionalElements() const;
 
     /// @brief add element
     long addAdditionalElement(GNEAdditional* additionalElement);
@@ -68,10 +68,10 @@ protected:
     /// @brief element dialog parent
     GNEElementDialog<GNEAdditional>* myElementDialogParent = nullptr;
 
+private:
     /// @brief edited elements
     std::vector<GNEAdditional*> myEditedAdditionalElements;
 
-private:
     /// @brief Invalidated copy constructor
     GNEAdditionalElementList(const GNEAdditionalElementList&) = delete;
 

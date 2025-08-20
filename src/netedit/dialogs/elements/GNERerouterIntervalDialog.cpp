@@ -75,9 +75,9 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     const std::string infoA = TLF("% of % '%' cannot be updated because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     std::string infoB;
     // set infoB
-    if (myClosingReroutes->getEditedAdditionals().empty() && myClosingLaneReroutes->getEditedAdditionals().empty() &&
-               myRouteProbReroutes->getEditedAdditionals().empty() && myDestProbReroutes->getEditedAdditionals().empty() &&
-               myParkingAreaReroutes->getEditedAdditionals().empty()) {
+    if (myClosingReroutes->getEditedAdditionalElements().empty() && myClosingLaneReroutes->getEditedAdditionalElements().empty() &&
+               myRouteProbReroutes->getEditedAdditionalElements().empty() && myDestProbReroutes->getEditedAdditionalElements().empty() &&
+               myParkingAreaReroutes->getEditedAdditionalElements().empty()) {
         infoB = TLF("at least one % must be defined.", myElement->getTagStr());
     } else if (!myClosingReroutes->isListValid()) {
         infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_REROUTE));
@@ -94,22 +94,11 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (infoB.size() > 0) {
         // open question dialog box with two lines
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, infoA, infoB);
+        return 1;
     } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // Stop Modal
-        closeDialogAccepting();
+        // close dialog accepting changes
+        return acceptElementDialog();
     }
-    return 1;
-}
-
-
-long
-GNERerouterIntervalDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    return closeDialogCanceling();
 }
 
 
@@ -145,7 +134,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::addRow() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create closing reroute
-    myEditedAdditionalElements.push_back(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVCAll));
+    addAdditionalElement(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVCAll));
     // update table
     return updateTable();
 }
@@ -175,7 +164,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::addRow() {
     // get lane
     const auto lane = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
     // create closing lane reroute
-    myEditedAdditionalElements.push_back(new GNEClosingLaneReroute(myElementDialogParent->getElement(), lane, SVCAll));
+    addAdditionalElement(new GNEClosingLaneReroute(myElementDialogParent->getElement(), lane, SVCAll));
     // update table
     return updateTable();
 }
@@ -205,7 +194,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::addRow() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create dest prob reroute
-    myEditedAdditionalElements.push_back(new GNEDestProbReroute(myElementDialogParent->getElement(), edge, 1));
+    addAdditionalElement(new GNEDestProbReroute(myElementDialogParent->getElement(), edge, 1));
     // update table
     return updateTable();
 }
@@ -239,7 +228,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::addRow() {
     // get route
     const auto route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     // create route prob reroute
-    myEditedAdditionalElements.push_back(new GNERouteProbReroute(myElementDialogParent->getElement(), route, 1));
+    addAdditionalElement(new GNERouteProbReroute(myElementDialogParent->getElement(), route, 1));
     // update table
     return updateTable();
 }
@@ -269,7 +258,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::addRow() {
     // get parking area
     const auto parkingArea = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
     // create parking area reroute
-    myEditedAdditionalElements.push_back(new GNEParkingAreaReroute(myElementDialogParent->getElement(), parkingArea, 1, 1));
+    addAdditionalElement(new GNEParkingAreaReroute(myElementDialogParent->getElement(), parkingArea, 1, 1));
     // update table
     return updateTable();
 }

@@ -47,7 +47,7 @@ GNEAdditionalElementList::GNEAdditionalElementList(GNEElementDialog<GNEAdditiona
 
 
 const std::vector<GNEAdditional*>&
-GNEAdditionalElementList::getEditedAdditionals() const {
+GNEAdditionalElementList::getEditedAdditionalElements() const {
     return myEditedAdditionalElements;
 }
 
