@@ -15,37 +15,38 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
-// Table used in GNEElementList, specific for demand elements
+// Table used in GNEElementList, specific for additional elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include "GNEElementDialog.h"
+#include <netedit/dialogs/elements/GNEElementDialog.h>
+
 #include "GNEElementList.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEDemandElement;
+class GNEAdditional;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEDemandElementList : public GNEElementList {
+class GNEAdditionalElementList : public GNEElementList {
 
 public:
     /// @brief constructor
-    GNEDemandElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
-                         FXVerticalFrame* contentFrame, SumoXMLTag tag,
-                         const bool fixHeight);
+    GNEAdditionalElementList(GNEElementDialog<GNEAdditional>* elementDialogParent,
+                             FXVerticalFrame* contentFrame, SumoXMLTag tag,
+                             const bool fixHeight);
 
     /// @brief get elements
-    const std::vector<GNEDemandElement*>& getEditedDemands() const;
+    const std::vector<GNEAdditional*>& getEditedAdditionals() const;
 
     /// @brief add element
-    long addDemandElement(GNEDemandElement* demandElement);
+    long addAdditionalElement(GNEAdditional* additionalElement);
 
     /// @brief update table
     long updateTable();
@@ -67,12 +68,12 @@ protected:
     GNEElementDialog<GNEAdditional>* myElementDialogParent = nullptr;
 
     /// @brief edited elements
-    std::vector<GNEDemandElement*> myEditedDemandElements;
+    std::vector<GNEAdditional*> myEditedAdditionalElements;
 
 private:
     /// @brief Invalidated copy constructor
-    GNEDemandElementList(const GNEDemandElementList&) = delete;
+    GNEAdditionalElementList(const GNEAdditionalElementList&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEDemandElementList& operator=(const GNEDemandElementList&) = delete;
+    GNEAdditionalElementList& operator=(const GNEAdditionalElementList&) = delete;
 };

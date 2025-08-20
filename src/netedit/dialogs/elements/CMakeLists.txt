@@ -1,17 +1,10 @@
+add_subdirectory(lists)
+
 set(netedit_dialogs_elements_SRCS
-   GNEAdditionalElementList.cpp
-   GNEAdditionalElementList.h
    GNECalibratorDialog.cpp
    GNECalibratorDialog.h
    GNECalibratorFlowDialog.cpp
    GNECalibratorFlowDialog.h
-   GNEDemandElementList.cpp
-   GNEDemandElementList.h
-   GNEElementDialog.h
-   GNEElementList.cpp
-   GNEElementList.h
-   GNEElementTable.cpp
-   GNEElementTable.h
    GNERerouterDialog.cpp
    GNERerouterDialog.h
    GNERerouterIntervalDialog.cpp

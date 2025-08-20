@@ -20,16 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAdditionalElementList.h"
+#include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
+
 #include "GNEElementDialog.h"
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNEAdditional;
-class GNEAdditionalElementList;
-class GNEChange_Additional;
 
 // ===========================================================================
 // class definitions

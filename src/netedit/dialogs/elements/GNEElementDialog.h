@@ -30,8 +30,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-#include "GNEElementTable.h"
-
 // ===========================================================================
 // class definitions
 // ===========================================================================

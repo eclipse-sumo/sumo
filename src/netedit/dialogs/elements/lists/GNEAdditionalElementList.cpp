@@ -33,6 +33,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAdditionalElementList.h"
+#include "GNEElementTable.h"
 
 // ===========================================================================
 // method definitions

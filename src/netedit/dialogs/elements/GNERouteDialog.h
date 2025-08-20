@@ -20,8 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/SUMOXMLDefinitions.h>
-
 #include "GNEElementDialog.h"
 
 // ===========================================================================
