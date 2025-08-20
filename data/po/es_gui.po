@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-20 07:39+0000\n"
+"PO-Revision-Date: 2025-08-20 15:05+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6045,7 +6045,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2296
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "Usar las aristas dentro de la forma"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2298
 msgid "edges within"
@@ -6143,7 +6143,7 @@ msgstr "La forma del área transitable"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2482
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "Una forma personalizada para esta área caminable"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2492
 msgid "JuPedSim Obstacle"
@@ -6155,7 +6155,7 @@ msgstr "La forma del obstáculo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2513
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "Una forma personalizada para este obstáculo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2529
 msgid "RouteDistribution"
@@ -6163,7 +6163,7 @@ msgstr "Distribución de ruta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2558
 msgid "Route (Ref)"
-msgstr ""
+msgstr "Ruta (referencia)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2565
 msgid "Route distribution in which this routeRef is defined"
@@ -6171,7 +6171,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2570
 msgid "Reference ID of route"
-msgstr ""
+msgstr "ID de referencia de la ruta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2582
 msgid "Route (embedded)"
@@ -7472,7 +7472,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6924
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "Centrar la vista sobre el elemento % después de su creación"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "center view"
@@ -7488,16 +7488,16 @@ msgstr "archivo adicional"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6940
 msgid "The path to the route file"
-msgstr ""
+msgstr "La ruta al archivo de rutas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6942
 msgid "route file"
-msgstr ""
+msgstr "archivo de ruta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6947
 #: src/netedit/GNETagPropertiesDatabase.cpp:6954
 msgid "The path to the data file"
-msgstr ""
+msgstr "La ruta al archivo de datos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6949
 msgid "data file"
@@ -7542,7 +7542,7 @@ msgstr "forzar tamaño"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7041
 msgid "Reference position used for creating %"
-msgstr ""
+msgstr "Posición de referencia usada para crear %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7056
 msgid "A typename for the POI"
@@ -8633,7 +8633,7 @@ msgstr "El ID de una arista en la red simulada"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8614
 #, c-format
 msgid "The name of the lane the % shall be located at"
-msgstr ""
+msgstr "El nombre del carril en el que debe ubicarse %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8624
 msgid "If set, no error will be reported if element is placed behind the lane."
@@ -8667,7 +8667,7 @@ msgstr "La ruta para el archivo de salida"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8655
 msgid "Path to the output file for writing information"
-msgstr ""
+msgstr "Ruta al archivo de salida para guardar información"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8667
 #: src/netedit/GNETagPropertiesDatabase.cpp:8672
@@ -8679,6 +8679,7 @@ msgid ""
 "The departure time of the (first) % which is generated using this trip "
 "definition"
 msgstr ""
+"El tiempo de salida del (primer) % generado usando esta definición de viaje"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8693
 msgid ""
@@ -8697,7 +8698,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8708
 #, c-format
 msgid "The position on the lane the % shall be laid on in meters"
-msgstr ""
+msgstr "La posición sobre el carril donde se colocará el % (en metros)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8718
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
@@ -10269,7 +10270,7 @@ msgstr "Número de semáforos (TLSs) inválido"
 
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:47
 msgid "Fix additional problems"
-msgstr ""
+msgstr "Corregir problemas de los elementos adicionales"
 
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:269
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:345
@@ -10336,7 +10337,7 @@ msgstr "Eliminar detectores multicarril E2 con carriles desconectados"
 
 #: src/netedit/dialogs/GNEFixDemandElements.cpp:53
 msgid "Fix demand elements problems"
-msgstr ""
+msgstr "Corregir problemas de los elementos de demanda"
 
 #: src/netedit/dialogs/GNEFixDemandElements.cpp:213
 #: src/netedit/dialogs/GNEFixNetworkElements.cpp:198
@@ -10878,11 +10879,11 @@ msgstr "cerrar diálogo"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:46
 msgid "lane start"
-msgstr ""
+msgstr "inicio de carril"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:47
 msgid "lane end"
-msgstr ""
+msgstr "fin de carril"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:222
 #: src/netedit/frames/GNEAttributesEditorType.cpp:437
@@ -11626,6 +11627,7 @@ msgstr "añadir % '%'"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:227
 msgid "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
+"La ruta '%' con probabilidad % no puede ser referenciada con distribución '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:268
 #: src/netedit/elements/demand/GNERouteHandler.cpp:871
@@ -12307,7 +12309,7 @@ msgstr "Seleccionar archivo existente para el atributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:650
 msgid "Reparent"
-msgstr ""
+msgstr "Reasignar padre"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:651
 msgid "Change parent of this element"
@@ -13263,7 +13265,7 @@ msgstr "Desplazar geometrías de aristas seleccionadas"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:216
 msgid "Shift value"
-msgstr ""
+msgstr "Valor de desplazamiento"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:220
 msgid "Apply shift value"
