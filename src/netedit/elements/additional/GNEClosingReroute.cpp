@@ -40,6 +40,7 @@ GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEE
     myPermissions(permissions) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
+    setParent<GNEEdge*>(closedEdge);
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

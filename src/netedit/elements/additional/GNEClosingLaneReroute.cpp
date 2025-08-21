@@ -42,6 +42,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalPare
     myPermissions(permissions) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
+    setParent<GNELane*>(closedLane);
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
