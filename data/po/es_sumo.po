@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-04-16 11:17+0000\n"
+"PO-Revision-Date: 2025-08-21 11:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -12482,12 +12482,12 @@ msgstr "Escriba aquí para buscar"
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 msgid "File Exists"
-msgstr ""
+msgstr "El archivo ya existe"
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 #, c-format
 msgid "Overwrite '%s'?"
-msgstr ""
+msgstr "¿Sobrescribir '%s'?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
