@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-08 10:03+0000\n"
+"POT-Creation-Date: 2025-08-21 10:31+0200\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3206,7 +3206,7 @@ msgid ""
 "(network error)"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
+#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:110
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr "Taz kullanımı talep edildi ancak % '%' içinde taz mevcut değil!"
 
@@ -3220,7 +3220,7 @@ msgstr "Araç türü dağılımı '%' boş."
 msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr "'%' kimliğine sahip başka bir araç tipi (veya dağıtımı) mevcut."
 
-#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:360
+#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:359
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr "Dahili rotaların kimlikleri göz ardı edilir (araç '%')."
 
@@ -3253,7 +3253,7 @@ msgid ""
 "first edge '%'%"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:490
+#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:489
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
@@ -3283,7 +3283,7 @@ msgstr "'%' kimliğine sahip başka bir rota (veya dağıtım) var."
 msgid "Route distribution '%' is empty."
 msgstr "Rota dağıtımı '%' boş."
 
-#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:647
+#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:646
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
@@ -3406,8 +3406,8 @@ msgstr ""
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "'%' için 'via' özniteliğinde '%' durdurma kesimi eksik."
 
-#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1169
-#: src/router/RORouteHandler.cpp:1288
+#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1168
+#: src/router/RORouteHandler.cpp:1287
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3421,7 +3421,7 @@ msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
 "Verilen '%' durağının dışında olduğu için % için varışPoz yok sayılıyor."
 
-#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1190
+#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1189
 msgid "No destination edge for %."
 msgstr "% için hedef kenar yok."
 
@@ -3429,17 +3429,17 @@ msgstr "% için hedef kenar yok."
 msgid "Cannot define person stage without person."
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1210
+#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1209
 msgid "Start edge not defined for person '%'."
 msgstr "Başlangıç kenarı '%' kişisi için tanımlanmamış."
 
 #: src/microsim/MSRouteHandler.cpp:1560 src/microsim/MSRouteHandler.cpp:1634
-#: src/router/RORouteHandler.cpp:1221 src/router/RORouteHandler.cpp:1279
+#: src/router/RORouteHandler.cpp:1220 src/router/RORouteHandler.cpp:1278
 msgid "Non-positive walking duration for '%'."
 msgstr "'%' için pozitif olmayan yürüme süresi."
 
 #: src/microsim/MSRouteHandler.cpp:1592 src/microsim/MSRouteHandler.cpp:1640
-#: src/router/RORouteHandler.cpp:1283
+#: src/router/RORouteHandler.cpp:1282
 msgid "Non-positive walking speed for '%'."
 msgstr "'%' için pozitif olmayan yürüme hızı."
 
@@ -3540,8 +3540,8 @@ msgstr "Bölgesel Ölçek İçin Aralık Kontrolü Yok."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, "
-"zaman=%\n"
+"Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, zaman="
+"%\n"
 
 #: src/microsim/MSVehicle.cpp:779 src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
@@ -3581,8 +3581,8 @@ msgstr " Bilinmeyen Nedenlerle"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr ""
 "Araç '%', Şerit '%'% (Negatif İvme=%, Öteleme=%) Sonunda Acil Durdurma "
 "Gerçekleştirir, süre=% ."
@@ -5567,8 +5567,8 @@ msgstr "Yolcu '%', '%' Kesiminde Sıkıştı, Zaman=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:255
@@ -5733,8 +5733,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:575
@@ -6095,8 +6095,8 @@ msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
 msgstr ""
-"'%' Bağlantı % Hızı % Dönüş Yarıçapı Nedeniyle '%' Azaltıldı (Uzunluk=%, "
-"Açı=%)."
+"'%' Bağlantı % Hızı % Dönüş Yarıçapı Nedeniyle '%' Azaltıldı (Uzunluk=%, Açı="
+"%)."
 
 #: src/netbuild/NBEdge.cpp:2314
 msgid "In lane '%': lane shape could not be determined (%)."
@@ -10776,127 +10776,6 @@ msgid ""
 msgstr ""
 "Coğrafi dönüşüm tanımlanmadığı için \"proj.plain-geo\" seçeneği yok sayılıyor"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "Zaman dilimi başlangıç %'si için geçersiz süre."
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "Yüklenecek '%' ağ dosyasına erişilemedi."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'olasılık' pozitif olmalıdır (% '%' tanımında)."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Eksik başlangıç '%' ve varış '%' (% araç)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Eksik başlangıç '%' (% araç)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Eksik varış noktası '%' (% araç)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "'%' bölgesinin kaynağı yok."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "Bölge '%'sinin çukuru yoktur."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"Kaynak '%' ve hedef '%' için farklı kaynak ve çukur kenarı bulunamıyor."
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"Saniyede % araçlık akış yoğunluğu, basit bir olasılıkla temsil edilemez. "
-"Eşit aralıklara geri dönülüyor."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "Okurken dosya sonu %."
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "Bozuk dönem tanımı '%'."
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Bozuk faktör: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Bölge isimlerinin olduğu satır eksik."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Bölge %'si için eksik satır."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Bölgelerden daha fazla kayıt bulundu."
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "'%' satırındaki araç numarası sayısal değil."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "'%' satırında en az bir bilgi eksik."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "'%' açılamadı."
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr "'%' tanımlanan zaman hakkında gerekli bilgileri içermemektedir."
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "Yüklenecek '%' matris dosyasına erişilemedi."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "Yüklenecek '%' rota dosyasına erişilemedi."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr ""
-"Bir günlük zaman çizelgesi için 24 giriş olduğunu varsayıyorum, ancak % var."
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "Bozuk zaman çizgisi tanımı: '%' içinde bir değer eksik."
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "DOSYA(lar)dan TAZ'ı (ilçeler; ayrıca ağlardan) yükler"
@@ -10995,6 +10874,127 @@ msgstr "Yüklü bölge yok."
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "Yüklü araç yok."
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "Zaman dilimi başlangıç %'si için geçersiz süre."
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "Yüklenecek '%' ağ dosyasına erişilemedi."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'olasılık' pozitif olmalıdır (% '%' tanımında)."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Eksik başlangıç '%' ve varış '%' (% araç)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Eksik başlangıç '%' (% araç)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Eksik varış noktası '%' (% araç)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "'%' bölgesinin kaynağı yok."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "Bölge '%'sinin çukuru yoktur."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"Kaynak '%' ve hedef '%' için farklı kaynak ve çukur kenarı bulunamıyor."
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"Saniyede % araçlık akış yoğunluğu, basit bir olasılıkla temsil edilemez. "
+"Eşit aralıklara geri dönülüyor."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "Okurken dosya sonu %."
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "Bozuk dönem tanımı '%'."
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Bozuk faktör: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Bölge isimlerinin olduğu satır eksik."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Bölge %'si için eksik satır."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Bölgelerden daha fazla kayıt bulundu."
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "'%' satırındaki araç numarası sayısal değil."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "'%' satırında en az bir bilgi eksik."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "'%' açılamadı."
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr "'%' tanımlanan zaman hakkında gerekli bilgileri içermemektedir."
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "Yüklenecek '%' matris dosyasına erişilemedi."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "Yüklenecek '%' rota dosyasına erişilemedi."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr ""
+"Bir günlük zaman çizelgesi için 24 giriş olduğunu varsayıyorum, ancak % var."
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "Bozuk zaman çizgisi tanımı: '%' içinde bir değer eksik."
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -11631,52 +11631,52 @@ msgstr ""
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "'%' kesimi '%' aracı için '%' kesimine bağlı değil."
 
-#: src/router/RORouteHandler.cpp:234
+#: src/router/RORouteHandler.cpp:233
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr ""
 "'%' kişisi için tetiklenen kalkış, bir yolculukla başlamayı gerektirir."
 
-#: src/router/RORouteHandler.cpp:236
+#: src/router/RORouteHandler.cpp:235
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
 "Konteyner '%' için tetiklenen kalkış bir taşıma ile başlamayı gerektirir."
 
-#: src/router/RORouteHandler.cpp:258
+#: src/router/RORouteHandler.cpp:257
 #, c-format
 msgid "Found % outside container element"
 msgstr "Konteyner elemanı dışında % bulundu"
 
-#: src/router/RORouteHandler.cpp:382
+#: src/router/RORouteHandler.cpp:381
 msgid "No probability for route %, using default."
 msgstr "% Rotası İçin Olasılık Yok, Varsayılan Kullanılıyor."
 
-#: src/router/RORouteHandler.cpp:537
+#: src/router/RORouteHandler.cpp:536
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr "Dahili rota dağılımlarının kimlikleri göz ardı edilir (araç '%')."
 
-#: src/router/RORouteHandler.cpp:697
+#: src/router/RORouteHandler.cpp:696
 msgid "Discarding person '%' because her plan is empty"
 msgstr "Planı boş olduğu için '%' kişisinin atılması"
 
-#: src/router/RORouteHandler.cpp:724
+#: src/router/RORouteHandler.cpp:723
 msgid "Discarding personFlow '%' because their plan is empty"
 msgstr "Planları boş olduğu için kişi akışı '%' atılıyor"
 
-#: src/router/RORouteHandler.cpp:732
+#: src/router/RORouteHandler.cpp:731
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr "olasılıksal personel akışı '%' bitiş zamanını belirtmelidir"
 
-#: src/router/RORouteHandler.cpp:809
+#: src/router/RORouteHandler.cpp:808
 msgid "Discarding container '%' because its plan is empty"
 msgstr "Planı boş olduğu için '%' konteyneri atılıyor"
 
-#: src/router/RORouteHandler.cpp:826
+#: src/router/RORouteHandler.cpp:825
 msgid "Discarding containerFlow '%' because its plan is empty"
 msgstr "Planı boş olduğu için konteyner akışı '%' atılıyor"
 
-#: src/router/RORouteHandler.cpp:1126
+#: src/router/RORouteHandler.cpp:1125
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 "'%' konteyneri için tetiklenen kalkış benzersiz bir hat değeri gerektirir."
@@ -11693,7 +11693,7 @@ msgstr "Kesinti Sinyali Algılandı, Çıkılmaya Çalışılıyor."
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Çıkılıyor (Hata Kaynaklı)."
 
@@ -12429,27 +12429,27 @@ msgstr "Farklı Uzunluklardaki PositionVectors Çıkarmaya Çalışılıyor."
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:970
+#: src/utils/handlers/AdditionalHandler.cpp:964
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr "'%' şarj istasyonunda tanımlanmış geçersiz '%' şarj tipi."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1125
+#: src/utils/handlers/AdditionalHandler.cpp:1119
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1128
+#: src/utils/handlers/AdditionalHandler.cpp:1122
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1453
+#: src/utils/handlers/AdditionalHandler.cpp:1447
 msgid "Calibrators need either an edge or a lane"
 msgstr "Kalibratörler ya bir kenara ya da bir şeride ihtiyaç duyar"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1501
+#: src/utils/handlers/AdditionalHandler.cpp:1495
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -12457,28 +12457,28 @@ msgstr ""
 "Kalibratör Akışları ya Saat Başına Araç ya hız ya da tür (veya bunların "
 "herhangi bir kombinasyonu) özniteliğine ihtiyaç duyar"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1916
+#: src/utils/handlers/AdditionalHandler.cpp:1910
 msgid "X and Y must be be defined together in POIs"
 msgstr "POI'lerde X ve Y birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1922
+#: src/utils/handlers/AdditionalHandler.cpp:1916
 msgid "lane and position must be defined together in POIs"
 msgstr "POI'lerde şerit ve konum birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1928
+#: src/utils/handlers/AdditionalHandler.cpp:1922
 msgid "lon and lat must be be defined together in POIs"
 msgstr "POI'lerde enlem ve boylam birlikte tanımlanmalıdır"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1954
+#: src/utils/handlers/AdditionalHandler.cpp:1948
 #: src/utils/shapes/ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
 msgstr "POI '%' için geçersiz % simgesi, varsayılanı kullanıyor"
 
-#: src/utils/handlers/AdditionalHandler.cpp:2050
+#: src/utils/handlers/AdditionalHandler.cpp:2044
 msgid "Calibrator Flows have to be defined within a %."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:2060
+#: src/utils/handlers/AdditionalHandler.cpp:2054
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
@@ -13056,42 +13056,42 @@ msgstr "'%' poligonu zaten mevcut."
 msgid "Loading of shapes from % failed."
 msgstr "'den şekillerin yüklenmesi başarısız oldu."
 
-#: src/utils/tests/InternalTest.cpp:292
+#: src/utils/tests/InternalTest.cpp:311
 msgid "Could not open attributes enum file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:306
+#: src/utils/tests/InternalTest.cpp:325
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:323 src/utils/tests/InternalTest.cpp:373
-#: src/utils/tests/InternalTest.cpp:408
+#: src/utils/tests/InternalTest.cpp:342 src/utils/tests/InternalTest.cpp:392
+#: src/utils/tests/InternalTest.cpp:427
 msgid "Could not open view positions file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:351
+#: src/utils/tests/InternalTest.cpp:370
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:353
+#: src/utils/tests/InternalTest.cpp:372
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:355
+#: src/utils/tests/InternalTest.cpp:374
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:389 src/utils/tests/InternalTest.cpp:428
+#: src/utils/tests/InternalTest.cpp:408 src/utils/tests/InternalTest.cpp:447
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:391 src/utils/tests/InternalTest.cpp:430
-#: src/utils/tests/InternalTest.cpp:432 src/utils/tests/InternalTest.cpp:434
+#: src/utils/tests/InternalTest.cpp:410 src/utils/tests/InternalTest.cpp:449
+#: src/utils/tests/InternalTest.cpp:451 src/utils/tests/InternalTest.cpp:453
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
@@ -13266,8 +13266,8 @@ msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
-"\"trigger\" Durdurma Özniteliğinin Değeri \"person\", \"container\", "
-"\"join\" veya Bir Bulen Olmalıdır"
+"\"trigger\" Durdurma Özniteliğinin Değeri \"person\", \"container\", \"join"
+"\" veya Bir Bulen Olmalıdır"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:269
 msgid "Undefined end for % '%', defaulting to 24hour duration."
