@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 10:31+0200\n"
-"PO-Revision-Date: 2025-08-20 15:05+0000\n"
+"PO-Revision-Date: 2025-08-21 08:53+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10159,11 +10159,11 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:282 src/netedit/dialogs/GNEDialog.cpp:297
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: src/netedit/dialogs/GNEDialog.cpp:288 src/netedit/dialogs/GNEDialog.cpp:303
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/netedit/dialogs/GNEDialog.cpp:309 src/netedit/dialogs/GNEDialog.cpp:333
 #: src/netedit/dialogs/GNEDialog.cpp:348 src/netedit/dialogs/GNEDialog.cpp:375
@@ -11079,7 +11079,7 @@ msgstr ""
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:57
 msgid "Python Tool"
-msgstr ""
+msgstr "Herramienta de Python"
 
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:60
 msgid "Grid"
@@ -11099,7 +11099,7 @@ msgstr "Aleatorio"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:61
 msgid "Tool"
-msgstr ""
+msgstr "Herramienta"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:69
 msgid "Save toolcfg"
@@ -12921,7 +12921,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:334
 msgid "- Examples:"
-msgstr ""
+msgstr "- Ejemplos:"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:335
 msgid ""
@@ -12940,7 +12940,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:340
 msgid "Netedit parameters Help"
-msgstr ""
+msgstr "Ayuda de parámetros de netedit"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:477
 msgid "Show all attributes"
@@ -13772,7 +13772,7 @@ msgstr "Guardar lista de elementos seleccionados"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:365
 msgid "Storing Selection failed"
-msgstr ""
+msgstr "Error al almacenar la selección"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:397
 msgid "clear selection"
@@ -13788,15 +13788,15 @@ msgstr "reducir red"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:606
 msgid "Confirm selection operation"
-msgstr ""
+msgstr "Confirmar operación de selección"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:607
 msgid "There are locked elements in the current selection."
-msgstr ""
+msgstr "Hay elementos bloqueados en la selección actual."
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:608
 msgid "Apply operation to locked elements?"
-msgstr ""
+msgstr "¿Aplicar la operación a elementos bloqueados?"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:638
 msgid "Hierarchy operations"
@@ -14148,15 +14148,15 @@ msgstr "restablecer los valores predeterminados de tipo de vehículo"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:341
 msgid "remove % '%'"
-msgstr ""
+msgstr "eliminar % '%'"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:346
 msgid "Delete % '%' will remove one vehicle. Continue?"
-msgstr ""
+msgstr "Eliminar % '%' eliminará un vehículo. ¿Continuar?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:348
 msgid "Delete % '%' will remove % vehicles. Continue?"
-msgstr ""
+msgstr "Eliminar % '%' eliminará % vehículos. ¿Continuar?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:378
 msgid "Types"
@@ -14324,6 +14324,7 @@ msgstr "Error guardando las operaciones de las conexiones"
 #, c-format
 msgid "Connection edition cannot be saved because route '%s' is broken."
 msgstr ""
+"No se puede guardar la edición de la conexión porque la ruta '%s' está rota."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -15076,11 +15077,11 @@ msgstr "Guardar cambios al semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:199
 msgid "There are unsaved changes in the currently edited traffic light."
-msgstr ""
+msgstr "Hay cambios sin guardar en el semáforo editado actualmente."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:200
 msgid "Do you want to save it before changing mode?"
-msgstr ""
+msgstr "¿Desea guardarlo antes de cambiar de modo?"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:241
 msgid "tlLogic '%', program '%' could not be built"
