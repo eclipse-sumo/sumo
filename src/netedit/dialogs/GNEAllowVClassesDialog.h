@@ -130,11 +130,11 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEAllowVClassesDialog)
 
-    /// @brief edited vClasses
-    std::string myEditedVClasses;
-
     /// @brief original vClasses (used for reset)
     const std::string myOriginalVClasses;
+
+    /// @brief edited vClasses
+    std::string myEditedVClasses;
 
     /// @brief map with the buttons for every VClass
     std::map<SUMOVehicleClass, VClassRow* > myVClassMap;
