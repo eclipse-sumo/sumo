@@ -64,8 +64,8 @@ protected:
         /// @brief add new element
         long addNewElement();
 
-        /// @brief open dialog
-        long openDialog(const size_t rowIndex);
+        /// @brief open element dialog
+        long openElementDialog(const size_t rowIndex);
 
         /// @briec check if steps are sorted
         bool isSorted() const;

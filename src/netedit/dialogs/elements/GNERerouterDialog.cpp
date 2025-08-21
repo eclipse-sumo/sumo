@@ -100,7 +100,7 @@ GNERerouterDialog::RerouterIntervalsList::addNewElement() {
 
 
 long
-GNERerouterDialog::RerouterIntervalsList::openDialog(const size_t rowIndex) {
+GNERerouterDialog::RerouterIntervalsList::openElementDialog(const size_t rowIndex) {
     // simply open dialog for the edited additional element
     GNERerouterIntervalDialog(getEditedElements().at(rowIndex));
     return 1;

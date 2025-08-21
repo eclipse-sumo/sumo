@@ -139,7 +139,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::addNewElement() {
 
 
 long
-GNERerouterIntervalDialog::ClosingReroutesList::openDialog(const size_t rowIndex) {
+GNERerouterIntervalDialog::ClosingReroutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -167,7 +167,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::addNewElement() {
 
 
 long
-GNERerouterIntervalDialog::ClosingLaneReroutesList::openDialog(const size_t rowIndex) {
+GNERerouterIntervalDialog::ClosingLaneReroutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -195,7 +195,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::addNewElement() {
 
 
 long
-GNERerouterIntervalDialog::DestProbReroutesList::openDialog(const size_t rowIndex) {
+GNERerouterIntervalDialog::DestProbReroutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -227,7 +227,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::addNewElement() {
 
 
 long
-GNERerouterIntervalDialog::RouteProbReroutesList::openDialog(const size_t rowIndex) {
+GNERerouterIntervalDialog::RouteProbReroutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -255,7 +255,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::addNewElement() {
 
 
 long
-GNERerouterIntervalDialog::ParkingAreaReroutesList::openDialog(const size_t rowIndex) {
+GNERerouterIntervalDialog::ParkingAreaReroutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 

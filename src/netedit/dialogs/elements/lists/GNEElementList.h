@@ -65,8 +65,8 @@ public:
     /// @brief remove element
     virtual long removeElement(const size_t rowIndex) = 0;
 
-    /// @brief open dialog
-    virtual long openDialog(const size_t rowIndex) = 0;
+    /// @brief open element dialog
+    virtual long openElementDialog(const size_t rowIndex) = 0;
 
     /// @name FOX callbacks
     /// @{

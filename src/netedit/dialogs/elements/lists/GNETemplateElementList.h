@@ -125,18 +125,22 @@ public:
         throw ProcessError("Element not found in removeElement");
     }
 
-    /// @brief add element
+    /// @brief add new element (must be implemented in children)
     virtual long addNewElement() = 0;
 
-    /// @brief open dialog
-    virtual long openDialog(const size_t rowIndex) = 0;
+    /// @brief open element dialog (optional
+    virtual long openElementDialog(const size_t rowIndex) = 0;
 
 protected:
-    /// @brief typedef used for sorting elements by attributes
-    typedef std::tuple<double, double, double, double, double, double, elementType*> SortTuple;
-
     /// @brief element dialog parent
     GNETemplateElementDialog<elementDialogType>* myElementDialogParent = nullptr;
+
+    /// @brief edited elements
+    std::vector<elementType*> myEditedElements;
+
+private:
+    /// @brief typedef used for sorting elements by attributes
+    typedef std::tuple<double, double, double, double, double, double, elementType*> SortTuple;
 
     /// @brief get element sorted
     std::vector<SortTuple> getSortTuples(const bool sort) const {
@@ -184,10 +188,6 @@ protected:
         }
         return elementSortKeyVector;
     }
-
-private:
-    /// @brief edited elements
-    std::vector<elementType*> myEditedElements;
 
     /// @brief Invalidated copy constructor
     GNETemplateElementList(const GNETemplateElementList&) = delete;

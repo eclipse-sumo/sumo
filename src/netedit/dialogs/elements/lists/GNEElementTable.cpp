@@ -284,7 +284,7 @@ GNEElementTable::Row::onCmdRemoveRow(FXObject* sender, FXSelector, void*) {
 
 long
 GNEElementTable::Row::onCmdOpenDialog(FXObject* sender, FXSelector, void*) {
-    return myElementTable->myElementList->openDialog(myRowIndex);
+    return myElementTable->myElementList->openElementDialog(myRowIndex);
 }
 
 // ---------------------------------------------------------------------------

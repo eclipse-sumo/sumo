@@ -135,7 +135,7 @@ GNECalibratorDialog::RoutesList::addNewElement() {
 
 
 long
-GNECalibratorDialog::RoutesList::openDialog(const size_t rowIndex) {
+GNECalibratorDialog::RoutesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -167,7 +167,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
 
 
 long
-GNECalibratorDialog::VTypesList::openDialog(const size_t rowIndex) {
+GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
@@ -218,7 +218,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
 
 
 long
-GNECalibratorDialog::CalibratorFlowsList::openDialog(const size_t rowIndex) {
+GNECalibratorDialog::CalibratorFlowsList::openElementDialog(const size_t rowIndex) {
     return 1;
 }
 
