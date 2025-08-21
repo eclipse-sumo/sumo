@@ -42,7 +42,7 @@
 
 GNENeteditOptionsDialog::GNENeteditOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
         const OptionsCont& originalOptionsContainer) :
-    GNEDialog(applicationWindow, TL("Edit Netedit Options"), GUIIcon::OPTIONS, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+    GNEDialog(applicationWindow, TL("Edit netedit options"), GUIIcon::OPTIONS, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 800, 600) {
     // build options editor
     myOptionsEditor = new GNEOptionsEditor(this, "Netedit", optionsContainer, originalOptionsContainer);

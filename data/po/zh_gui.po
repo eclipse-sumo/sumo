@@ -10592,11 +10592,11 @@ msgid "Fix network elements problems"
 msgstr "修正路网要素问题"
 
 #: src/netedit/dialogs/options/GNENeteditOptionsDialog.cpp:45
-msgid "Edit Netedit Options"
+msgid "Edit netedit options"
 msgstr ""
 
 #: src/netedit/dialogs/options/GNENetgenerateOptionsDialog.cpp:45
-msgid "Run Netgenerate with advanced options"
+msgid "Run netgenerate with advanced options"
 msgstr ""
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:74
@@ -10693,7 +10693,7 @@ msgid "Select filename"
 msgstr "选择文件名"
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:45
-msgid "Edit SUMO Options"
+msgid "Edit SUMO options"
 msgstr ""
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:57
@@ -10718,7 +10718,7 @@ msgstr ""
 
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:31
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
-msgid "Running NetGenerate results"
+msgid "Running netgenerate results"
 msgstr ""
 
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32

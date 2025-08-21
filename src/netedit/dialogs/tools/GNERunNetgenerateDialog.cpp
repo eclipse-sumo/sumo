@@ -53,7 +53,7 @@ FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRA
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions) :
-    GNEDialog(applicationWindow, TL("Running NetGenerate results"), GUIIcon::NETGENERATE,
+    GNEDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE, OpenType::MODAL,
               GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io

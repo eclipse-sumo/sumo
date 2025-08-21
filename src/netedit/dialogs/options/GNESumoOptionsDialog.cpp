@@ -42,7 +42,7 @@
 
 GNESumoOptionsDialog::GNESumoOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
         const OptionsCont& originalOptionsContainer) :
-    GNEDialog(applicationWindow, TL("Edit SUMO Options"), GUIIcon::SUMO_MINI, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+    GNEDialog(applicationWindow, TL("Edit SUMO options"), GUIIcon::SUMO_MINI, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 800, 600) {
     // build options editor
     myOptionsEditor = new GNEOptionsEditor(this, "SUMO", optionsContainer, originalOptionsContainer);
