@@ -1768,7 +1768,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement) :
-    GNETemplateElementDialog<GNEDemandElement>(vehicleType, updatingElement),
+    GNETemplateElementDialog<GNEDemandElement>(vehicleType),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // Create auxiliar frames for values
@@ -1778,7 +1778,7 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool u
     // create car following model parameters
     myCarFollowingModelParameters = new CarFollowingModelParameters(this, columns);
     // add element if we aren't updating an existent element
-    if (!myUpdatingElement) {
+    if (!updatingElement) {
         myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myElement, true), true);
     }
     // update values of Vehicle Type common attributes
@@ -1802,17 +1802,11 @@ GNEVehicleTypeDialog::runInternalTest(const InternalTestStep::DialogArgument* /*
 long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
-        std::string title;
-        std::string info;
-        if (myUpdatingElement) {
-            title = TLF("Error updating %", myElement->getTagStr());
-            info = TLF("The % cannot be updated because parameter % is invalid.", myElement->getTagStr(), toString(myInvalidAttr));
-        } else {
-            title = TLF("Error creating %", myElement->getTagStr());
-            info = TLF("The % cannot be created because parameter % is invalid.", myElement->getTagStr(), toString(myInvalidAttr));
-        }
         // show warning dialogbox about experimental state (only once)
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, info);
+        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TLF("Error editing %", myElement->getTagStr()),
+                              TLF("The % cannot be updated because attribute % is invalid.",
+                                  myElement->getTagStr(), toString(myInvalidAttr)));
         return 1;
     } else {
         // close dialog accepting changes
@@ -1836,7 +1830,8 @@ GNEVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // GNEVehicleTypeDialog - private methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent,
+        FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
     myAttr(attr),

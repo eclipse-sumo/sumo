@@ -32,19 +32,13 @@ class GNETemplateElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNETemplateElementDialog(T* element, const bool updatingElement) :
+    GNETemplateElementDialog(T* element) :
         GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                  TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
+                  TLF("Edit % '%'", element->getTagStr(), element->getID()).c_str(),
+                  element->getTagProperty()->getGUIIcon(),
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
         myElement(element),
-        myUpdatingElement(updatingElement),
         myChangesDescription(TLF("change % values", element->getTagStr())) {
-        // change dialog title depending if we are updating or creating an element
-        if (updatingElement) {
-            setTitle(TLF("Create %", element->getTagStr()).c_str());
-        } else {
-            setTitle(TLF("edit % '%'", element->getTagStr(), element->getID()).c_str());
-        }
         // init commandGroup
         myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
     }
@@ -71,7 +65,7 @@ public:
     /// @brief called when cancel or no button is pressed
     long onCmdCancel(FXObject*, FXSelector, void*) {
         myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-        return closeDialogAccepting();
+        return closeDialogCanceling();
     }
 
     /// @brief called when abort is called either closing dialog or pressing abort button
@@ -89,9 +83,6 @@ protected:
 
     /// @brief pointer to edited element
     T* myElement = nullptr;
-
-    /// @brief flag to indicate if element are being created or modified (cannot be changed after open dialog)
-    bool myUpdatingElement = false;
 
     /// @brief close dialog commiting changes
     long acceptElementDialog() {

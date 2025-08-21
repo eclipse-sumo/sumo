@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval) :
-    GNETemplateElementDialog<GNEAdditional>(rerouterInterval, true) {
+    GNETemplateElementDialog<GNEAdditional>(rerouterInterval) {
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);

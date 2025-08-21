@@ -44,7 +44,7 @@ FXIMPLEMENT(GNEAttributeCarrierDialog, GNETemplateElementDialog<GNEAttributeCarr
 // ===========================================================================
 
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC, false),
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC),
     myCalibratorRouteValid(true) {
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -78,20 +78,11 @@ GNEAttributeCarrierDialog::runInternalTest(const InternalTestStep::DialogArgumen
 long
 GNEAttributeCarrierDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myCalibratorRouteValid) {
-        std::string title;
-        std::string info;
-        if (myUpdatingElement) {
-            title = TLF("Error updating % '%'", myElement->getTagStr(), myElement->getID());
-            info = TLF("The % '%' cannot be updated because parameter %s is invalid.",
-                       myElement->getTagStr(), myElement->getID(), toString(myInvalidAttr));
-        } else {
-            title = TLF("Error creating % '%'", myElement->getTagStr(), myElement->getID());
-            info = TLF("The % '%' cannot be created because parameter %s is invalid.",
-                       myElement->getTagStr(), myElement->getID(), toString(myInvalidAttr));
-        }
         // open warning Box
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                              title, info);
+                              TLF("Error editing % '%'", myElement->getTagStr(), myElement->getID()),
+                              TLF("The % '%' cannot be updated because attribute % is invalid.",
+                                  myElement->getTagStr(), myElement->getID(), toString(myInvalidAttr)));
         return 1;
     } else {
         // close dialog accepting changes

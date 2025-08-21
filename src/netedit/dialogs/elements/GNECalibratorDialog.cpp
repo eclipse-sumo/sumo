@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
-    GNETemplateElementDialog<GNEAdditional>(calibrator, true) {
+    GNETemplateElementDialog<GNEAdditional>(calibrator) {
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -47,14 +47,6 @@ GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     myVTypes = new VTypesList(this, columnLeft);
     // parking area reroute
     myCalibratorFlows = new CalibratorFlowsList(this, columnRight, myRoutes, myVTypes);
-    // disable if there are no routes in net
-    if (myElement->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
-        myCalibratorFlows->disableList(TL("No routes in net"));
-    }
-    // add element if we aren't updating an existent element
-    if (!myUpdatingElement) {
-        myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myElement, true), true);
-    }
     // open dialog
     openDialog();
 }
@@ -179,6 +171,10 @@ GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialo
     GNETemplateElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
+    // disable if there are no routes in net
+    if (rerouterDialog->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
+        disableList(TL("No routes in net"));
+    }
 }
 
 

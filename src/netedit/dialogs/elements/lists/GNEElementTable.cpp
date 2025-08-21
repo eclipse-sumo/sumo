@@ -235,8 +235,8 @@ GNEElementTable::Row::isValid() const {
     // iterate over all text fields
     for (const auto& attributeTextField : myAttributeTextFields) {
         // check if text fields colors are valid
-        if ((attributeTextField.second->getTextColor() != TEXTCOLOR_RED) ||
-                (attributeTextField.second->getBackColor() != TEXTCOLOR_BACKGROUND_RED)) {
+        if ((attributeTextField.second->getTextColor() == TEXTCOLOR_RED) ||
+                (attributeTextField.second->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
             return false;
         }
     }
