@@ -27,16 +27,53 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEAttributeCarrierDialog : public GNETemplateElementDialog<GNEAttributeCarrier> {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEAttributeCarrierDialog)
 
 public:
+    /// @brief attribute text field
+    class AttributeTextField : public FXHorizontalFrame {
+        // FOX-declarations
+        FXDECLARE(AttributeTextField)
+
+    public:
+        /// @brief constructor
+        AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief event after edit text field
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(AttributeTextField)
+
+        /// @brief pointer to ACDialog parent
+        GNEAttributeCarrierDialog* myACDialog = nullptr;
+
+        /// @brief text field for attribute
+        MFXTextFieldTooltip* myTextField = nullptr;
+
+        /// @brief attribute
+        SumoXMLAttr myAttr;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        AttributeTextField(const AttributeTextField&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AttributeTextField& operator=(const AttributeTextField&) = delete;
+    };
+
     /// @brief constructor
     GNEAttributeCarrierDialog(GNEAttributeCarrier* AC);
 
@@ -55,32 +92,11 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief event after change value
-    long onCmdSetVariable(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEAttributeCarrierDialog)
-
-    /// @brief flag to check if current calibrator vehicleType is valid
-    bool myCalibratorRouteValid;
-
-    /// @brief current sumo attribute invalid
-    SumoXMLAttr myInvalidAttr;
-
-    /// @brief route ID
-    FXTextField* myTextFieldRouteID;
-
-    /// @brief list of edges (string)
-    FXTextField* myTextFieldEdges;
-
-    /// @brief color of route
-    FXTextField* myTextFieldColor;
-
-    /// @brief update data fields
-    void updateCalibratorRouteValues();
+    /// @brief list of attribute text fields
+    std::vector<AttributeTextField*> myAttributeTextFields;
 
 private:
     /// @brief Invalidated copy constructor.
