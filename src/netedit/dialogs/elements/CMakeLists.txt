@@ -5,15 +5,13 @@ set(netedit_dialogs_elements_SRCS
    GNECalibratorDialog.h
    GNECalibratorFlowDialog.cpp
    GNECalibratorFlowDialog.h
-   GNETemplateElementDialog.h
    GNERerouterDialog.cpp
    GNERerouterDialog.h
    GNERerouterIntervalDialog.cpp
    GNERerouterIntervalDialog.h
    GNERouteDialog.cpp
    GNERouteDialog.h
-   GNEVTypeDistributionsDialog.cpp
-   GNEVTypeDistributionsDialog.h
+   GNETemplateElementDialog.h
    GNEVariableSpeedSignDialog.cpp
    GNEVariableSpeedSignDialog.h
    GNEVehicleTypeDialog.cpp
