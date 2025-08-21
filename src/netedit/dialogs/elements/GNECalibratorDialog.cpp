@@ -127,6 +127,8 @@ GNECalibratorDialog::RoutesList::addNewElement() {
 
 long
 GNECalibratorDialog::RoutesList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex));
     return 1;
 }
 
@@ -159,6 +161,8 @@ GNECalibratorDialog::VTypesList::addNewElement() {
 
 long
 GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
+    // open vType dialog
+    GNEVehicleTypeDialog(myEditedElements.at(rowIndex), true);
     return 1;
 }
 
@@ -214,6 +218,8 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
 
 long
 GNECalibratorDialog::CalibratorFlowsList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex));
     return 1;
 }
 

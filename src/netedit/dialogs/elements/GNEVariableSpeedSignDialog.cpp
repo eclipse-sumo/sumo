@@ -106,8 +106,8 @@ GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addNewElement() {
 
 
 long
-GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::openElementDialog(const size_t rowIndex) {
-    // nothing to do
+GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::openElementDialog(const size_t /*rowIndex*/) {
+    // nothing to edit in steps
     return 1;
 }
 

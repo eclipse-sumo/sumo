@@ -29,6 +29,7 @@
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
+#include "GNEAttributeCarrierDialog.h"
 #include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
@@ -121,7 +122,7 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE, false, false, true) {
+    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE, false, true, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         disableList(TL("No edges in net"));
@@ -140,6 +141,8 @@ GNERerouterIntervalDialog::ClosingReroutesList::addNewElement() {
 
 long
 GNERerouterIntervalDialog::ClosingReroutesList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front());
     return 1;
 }
 
@@ -149,7 +152,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::openElementDialog(const size_t r
 
 GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE, false, false, true) {
+    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE, false, true, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
         disableList(TL("No lanes in net"));
@@ -168,6 +171,8 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::addNewElement() {
 
 long
 GNERerouterIntervalDialog::ClosingLaneReroutesList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentLanes().front());
     return 1;
 }
 
@@ -177,7 +182,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::openElementDialog(const size
 
 GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_DEST_PROB_REROUTE, false, false, true) {
+    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_DEST_PROB_REROUTE, false, true, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         disableList(TL("No edges in net"));
@@ -196,6 +201,8 @@ GNERerouterIntervalDialog::DestProbReroutesList::addNewElement() {
 
 long
 GNERerouterIntervalDialog::DestProbReroutesList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front());
     return 1;
 }
 
@@ -205,7 +212,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::openElementDialog(const size_t 
 
 GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_ROUTE_PROB_REROUTE, false, false, true) {
+    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_ROUTE_PROB_REROUTE, false, true, true) {
     // disable if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterIntervalDialog->getElement()->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
         disableList(TL("Rerouter has more than one edge"));
@@ -228,6 +235,8 @@ GNERerouterIntervalDialog::RouteProbReroutesList::addNewElement() {
 
 long
 GNERerouterIntervalDialog::RouteProbReroutesList::openElementDialog(const size_t rowIndex) {
+    // open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentDemandElements().front());
     return 1;
 }
 
@@ -237,7 +246,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::openElementDialog(const size_t
 
 GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_PARKING_AREA_REROUTE, false, false, false) {
+    GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_PARKING_AREA_REROUTE, false, true, false) {
     // disable if there are no parking areas in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
         disableList(TL("No parkingAreas in net"));
@@ -256,6 +265,8 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::addNewElement() {
 
 long
 GNERerouterIntervalDialog::ParkingAreaReroutesList::openElementDialog(const size_t rowIndex) {
+// open attribute carrier dialog
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentAdditionals().back());
     return 1;
 }
 
