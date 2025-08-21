@@ -42,7 +42,7 @@ public:
                        allowSortElements, allowOpenDialog, fixHeight),
         myElementDialogParent(elementDialogParent) {
         // fill edited elements
-        for (const auto& child : elementDialogParent->getElement()->getChildren().get<elementType*>()) {
+        for (const auto& child : elementDialogParent->getElement()->getChildren().template get<elementType*>()) {
             if (child->getTagProperty()->getTag() == tag) {
                 myEditedElements.push_back(child);
             }
