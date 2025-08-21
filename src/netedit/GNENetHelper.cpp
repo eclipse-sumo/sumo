@@ -3607,7 +3607,7 @@ GNENetHelper::SavingStatus::askSaveNetwork() const {
         const std::string contentsA = TL("You have unsaved changes in the network.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
+                                    GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, header, contentsA, contentsB);
         // return question dialog
         return questionDialog.getResult();
     }
@@ -3625,7 +3625,7 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements() const {
         const std::string contentsA = TL("You have unsaved additional elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
+                                    GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, header, contentsA, contentsB);
         // return question dialog
         return questionDialog.getResult();
     }
@@ -3643,7 +3643,7 @@ GNENetHelper::SavingStatus::askSaveDemandElements() const {
         const std::string contentsA = TL("You have unsaved demand elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
+                                    GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, header, contentsA, contentsB);
         // return question dialog
         return questionDialog.getResult();
     }
@@ -3661,7 +3661,7 @@ GNENetHelper::SavingStatus::askSaveDataElements() const {
         const std::string contentsA = TL("You have unsaved data elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
+                                    GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, header, contentsA, contentsB);
         // return question dialog
         return questionDialog.getResult();
     }
@@ -3679,7 +3679,7 @@ GNENetHelper::SavingStatus::askSaveMeanDataElements() const {
         const std::string contentsA = TL("You have unsaved meanData elements.");
         const std::string contentsB = TL("Do you wish to close and discard all changes?");
         const auto questionDialog = GNEQuestionBasicDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO_CANCEL, header, contentsA, contentsB);
+                                    GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, header, contentsA, contentsB);
         // return question dialog
         return questionDialog.getResult();
     }

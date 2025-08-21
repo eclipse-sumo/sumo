@@ -313,6 +313,27 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             myFocusButton = myAcceptButton;
             break;
         }
+        case Buttons::SAVE_DONTSAVE_CANCEL: {
+            // save button
+            myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Save"), "", TL("Save"),
+                             GUIIconSubSys::getIcon(GUIIcon::YES), this,
+                             MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            // buttons separator
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            // don't save button
+            myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Don't Save"), "", TL("Don't Save"),
+                             GUIIconSubSys::getIcon(GUIIcon::NO), this,
+                             MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+            // buttons separator
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            // cancel button
+            myAbortButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"),
+                            GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
+                            MID_GNE_ABORT, GUIDesignButtonDialog);
+            // set focus button
+            myFocusButton = myAcceptButton;
+            break;
+        }
         case Buttons::ACCEPT: {
             // accept button
             myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"),
