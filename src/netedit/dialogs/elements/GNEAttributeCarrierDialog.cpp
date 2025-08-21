@@ -53,7 +53,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
     myACDialog(ACDialog),
     myAttr(attr) {
     // create label
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     // create text field
     myTextField = new MFXTextFieldTooltip(this, ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                           GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -78,8 +78,8 @@ GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
     // calculate number of attributes
     std::vector<SumoXMLAttr> attrs;
     for (const auto& attrProperty : myElement->getTagProperty()->getAttributeProperties()) {
-        // check if this attribute can be edited in edit mode
-        if (attrProperty->isEditMode()) {
+        // check if this attribute can be edited in edit mode and in basic editor
+        if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
             attrs.push_back(attrProperty->getAttr());
         }
     }
