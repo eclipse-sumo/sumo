@@ -417,9 +417,6 @@ class MFXMenuCheckIcon;
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
 #define GUIDesignCollapsableFrame                           (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief design for auxiliar vertical frames with fixed width (used in TLSTable and DecalsTable)
-#define GUIDesignAuxiliarFrameFixWidth                      (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
 #define GUIDesignAuxiliarFrameFixHeight                     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 

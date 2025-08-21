@@ -99,11 +99,8 @@ public:
             myTable = new FXTable(getCollapsableFrame(), this, MID_TABLE, GUIDesignTableFixElements);
             // create frames for options
             FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixWidth);
-            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixWidth);
-            // adjust size
-            myLeftFrameOptions->setWidth(myTable->getWidth() * 0.5);
-            myRightFrameOptions->setWidth(myTable->getWidth() * 0.5);
+            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixedWidth(myTable->getWidth() * 0.5));
+            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixedWidth(myTable->getWidth() * 0.5));
         }
 
         /// @brief select internal test solution (used in internal tests)
