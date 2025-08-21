@@ -20,7 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 
 #include "GNEElementDialog.h"
 
@@ -53,7 +55,7 @@ public:
 
 protected:
     /// @brief closing  reroutes list
-    class ClosingReroutesList : public GNEAdditionalElementList {
+    class ClosingReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -74,7 +76,7 @@ protected:
     };
 
     /// @brief closing lane reroutes list
-    class ClosingLaneReroutesList : public GNEAdditionalElementList {
+    class ClosingLaneReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -95,7 +97,7 @@ protected:
     };
 
     /// @brief dest prob reroutes list
-    class DestProbReroutesList : public GNEAdditionalElementList {
+    class DestProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -116,7 +118,7 @@ protected:
     };
 
     /// @brief route prob reroutes list
-    class RouteProbReroutesList : public GNEAdditionalElementList {
+    class RouteProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -137,7 +139,7 @@ protected:
     };
 
     /// @brief parking area reroutes list
-    class ParkingAreaReroutesList : public GNEAdditionalElementList {
+    class ParkingAreaReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

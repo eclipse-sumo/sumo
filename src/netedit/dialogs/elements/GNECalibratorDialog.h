@@ -20,8 +20,10 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
 #include <netedit/dialogs/elements/lists/GNEDemandElementList.h>
+#include <netedit/elements/additional/GNEAdditional.h>
 
 #include "GNEElementDialog.h"
 
@@ -96,7 +98,7 @@ protected:
     };
 
     /// @brief calibrator flows list
-    class CalibratorFlowsList : public GNEAdditionalElementList {
+    class CalibratorFlowsList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

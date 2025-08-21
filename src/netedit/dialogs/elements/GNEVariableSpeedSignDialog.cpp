@@ -79,7 +79,7 @@ GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::VariableSpeedSignStepsList(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditionalElementList(variableSpeedSignDialog, variableSpeedSignDialog->getContentFrame(), 
+    GNEAdditionalElementList(variableSpeedSignDialog, variableSpeedSignDialog->getContentFrame(),
                              SUMO_TAG_STEP, true, false, true) {
 }
 
@@ -87,23 +87,21 @@ GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::VariableSpeedSignStepsLi
 long
 GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addElement() {
     // create step depending of number of steps
-    if (getEditedAdditionalElements().empty()) {
-        addAdditionalElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), 0,
-                                                           OptionsCont::getOptions().getFloat("default.speed")));
+    if (getEditedElements().empty()) {
+        return insertElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), 0,
+                             OptionsCont::getOptions().getFloat("default.speed")));
     } else {
         SUMOTime biggestTime = 0;
         // get end with biggest end
-        for (const auto& step : getEditedAdditionalElements()) {
+        for (const auto& step : getEditedElements()) {
             const auto time = string2time(step->getAttribute(SUMO_ATTR_TIME));
             if (biggestTime < time) {
                 biggestTime = time;
             }
         }
-        addAdditionalElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), biggestTime + string2time("10"),
-                                                          OptionsCont::getOptions().getFloat("default.speed")));
+        return insertElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), biggestTime + string2time("10"),
+                             OptionsCont::getOptions().getFloat("default.speed")));
     }
-    // update table
-    return updateTable();
 }
 
 
@@ -119,7 +117,7 @@ GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::isSorted() const {
     // declare a vector to store steps
     std::vector<double> sortedSteps;
     // save time steps
-    for (const auto& step : getEditedAdditionalElements()) {
+    for (const auto& step : getEditedElements()) {
         sortedSteps.push_back(step->getAttributeDouble(SUMO_ATTR_TIME));
     }
     // check if all are sorted

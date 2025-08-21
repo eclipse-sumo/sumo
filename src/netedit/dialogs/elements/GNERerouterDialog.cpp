@@ -80,7 +80,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialog* rerouterDialog) :
-    GNEAdditionalElementList(rerouterDialog, rerouterDialog->getContentFrame(), 
+    GNEAdditionalElementList(rerouterDialog, rerouterDialog->getContentFrame(),
                              SUMO_TAG_INTERVAL, true, true, true) {
 }
 
@@ -89,23 +89,21 @@ long
 GNERerouterDialog::RerouterIntervalsList::addElement() {
     SUMOTime end = 0;
     // get end with biggest end
-    for (const auto& interval : getEditedAdditionalElements()) {
+    for (const auto& interval : getEditedElements()) {
         const auto intervalEnd = string2time(interval->getAttribute(SUMO_ATTR_END));
         if (end < intervalEnd) {
             end = intervalEnd;
         }
     }
     // create interval
-    addAdditionalElement(new GNERerouterInterval(myElementDialogParent->getElement(), end, end + string2time("3600")));
-    // update table
-    return updateTable();
+    return insertElement(new GNERerouterInterval(myElementDialogParent->getElement(), end, end + string2time("3600")));
 }
 
 
 long
 GNERerouterDialog::RerouterIntervalsList::openDialog(const size_t rowIndex) {
     // simply open dialog for the edited additional element
-    GNERerouterIntervalDialog(getEditedAdditionalElements().at(rowIndex));
+    GNERerouterIntervalDialog(getEditedElements().at(rowIndex));
     return 1;
 }
 
@@ -115,7 +113,7 @@ GNERerouterDialog::RerouterIntervalsList::isOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedIntervals;
     // iterate over child interval
-    for (const auto& interval : getEditedAdditionalElements()) {
+    for (const auto& interval : getEditedElements()) {
         // add interval to sorted intervals
         sortedIntervals.push_back(std::make_pair(std::make_pair(0., 0.), interval));
         // set begin and end

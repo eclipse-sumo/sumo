@@ -75,9 +75,9 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     const std::string infoA = TLF("% of % '%' cannot be updated because", myElement->getTagStr(), rerouterParent->getTagStr(), rerouterParent->getID());
     std::string infoB;
     // set infoB
-    if (myClosingReroutes->getEditedAdditionalElements().empty() && myClosingLaneReroutes->getEditedAdditionalElements().empty() &&
-               myRouteProbReroutes->getEditedAdditionalElements().empty() && myDestProbReroutes->getEditedAdditionalElements().empty() &&
-               myParkingAreaReroutes->getEditedAdditionalElements().empty()) {
+    if (myClosingReroutes->getEditedElements().empty() && myClosingLaneReroutes->getEditedElements().empty() &&
+            myRouteProbReroutes->getEditedElements().empty() && myDestProbReroutes->getEditedElements().empty() &&
+            myParkingAreaReroutes->getEditedElements().empty()) {
         infoB = TLF("at least one % must be defined.", myElement->getTagStr());
     } else if (!myClosingReroutes->isListValid()) {
         infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_REROUTE));
@@ -120,7 +120,7 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
-                                                                    FXVerticalFrame* contentFrame) :
+        FXVerticalFrame* contentFrame) :
     GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
@@ -134,9 +134,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::addElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create closing reroute
-    addAdditionalElement(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVCAll));
-    // update table
-    return updateTable();
+    return insertElement(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVCAll));
 }
 
 
@@ -150,7 +148,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::openDialog(const size_t rowIndex
 // ---------------------------------------------------------------------------
 
 GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
-                                                                            FXVerticalFrame* contentFrame) :
+        FXVerticalFrame* contentFrame) :
     GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
@@ -164,9 +162,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::addElement() {
     // get lane
     const auto lane = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
     // create closing lane reroute
-    addAdditionalElement(new GNEClosingLaneReroute(myElementDialogParent->getElement(), lane, SVCAll));
-    // update table
-    return updateTable();
+    return insertElement(new GNEClosingLaneReroute(myElementDialogParent->getElement(), lane, SVCAll));
 }
 
 
@@ -180,7 +176,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::openDialog(const size_t rowI
 // ---------------------------------------------------------------------------
 
 GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
-                                                                      FXVerticalFrame* contentFrame) :
+        FXVerticalFrame* contentFrame) :
     GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_DEST_PROB_REROUTE, false, false, true) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
@@ -194,9 +190,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::addElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create dest prob reroute
-    addAdditionalElement(new GNEDestProbReroute(myElementDialogParent->getElement(), edge, 1));
-    // update table
-    return updateTable();
+    return insertElement(new GNEDestProbReroute(myElementDialogParent->getElement(), edge, 1));
 }
 
 
@@ -210,7 +204,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::openDialog(const size_t rowInde
 // ---------------------------------------------------------------------------
 
 GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
-                                                                        FXVerticalFrame* contentFrame) :
+        FXVerticalFrame* contentFrame) :
     GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_ROUTE_PROB_REROUTE, false, false, true) {
     // disable if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterIntervalDialog->getElement()->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
@@ -228,9 +222,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::addElement() {
     // get route
     const auto route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     // create route prob reroute
-    addAdditionalElement(new GNERouteProbReroute(myElementDialogParent->getElement(), route, 1));
-    // update table
-    return updateTable();
+    return insertElement(new GNERouteProbReroute(myElementDialogParent->getElement(), route, 1));
 }
 
 
@@ -244,7 +236,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::openDialog(const size_t rowInd
 // ---------------------------------------------------------------------------
 
 GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
-                                                                            FXVerticalFrame* contentFrame) :
+        FXVerticalFrame* contentFrame) :
     GNEAdditionalElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_PARKING_AREA_REROUTE, false, false, false) {
     // disable if there are no parking areas in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() == 0) {
@@ -258,9 +250,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::addElement() {
     // get parking area
     const auto parkingArea = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
     // create parking area reroute
-    addAdditionalElement(new GNEParkingAreaReroute(myElementDialogParent->getElement(), parkingArea, 1, 1));
-    // update table
-    return updateTable();
+    return insertElement(new GNEParkingAreaReroute(myElementDialogParent->getElement(), parkingArea, 1, 1));
 }
 
 

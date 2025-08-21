@@ -183,7 +183,7 @@ GNECalibratorDialog::VTypesList::openDialog(const size_t rowIndex) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
-                                                              RoutesList* routesList, VTypesList* vTypesList) :
+        RoutesList* routesList, VTypesList* vTypesList) :
     GNEAdditionalElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
@@ -210,19 +210,18 @@ GNECalibratorDialog::CalibratorFlowsList::addElement() {
     if (route && vType) {
         // create vType
         GNECalibratorFlow* calibratorFlow = new GNECalibratorFlow(myElementDialogParent->getElement(), vType, route);
+        // add using undo-redo
+        insertElement(calibratorFlow);
         // open route dialog
         const auto calibratorFlowDialog = GNECalibratorFlowDialog(calibratorFlow, false);
         // continue depending of result of routeDialog
-        if (calibratorFlowDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
             // add calibratorFlow
-            addAdditionalElement(calibratorFlow);
+            return removeElement(calibratorFlow);
         } else {
-            // delete calibratorFlow
-            delete calibratorFlow;
+            return 1;
         }
     }
-    // update table
-    return updateTable();
 }
 
 
