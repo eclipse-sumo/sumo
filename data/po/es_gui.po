@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-21 10:42+0000\n"
+"PO-Revision-Date: 2025-08-21 11:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12819,7 +12819,7 @@ msgstr "Escala: Menor -> Mayor"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:64
 msgid "Match Attribute"
-msgstr "Corresponder atributo"
+msgstr "Coincidir atributo"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:73
 msgid "Only common"
@@ -12834,18 +12834,20 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection"
 msgstr ""
+"- Los controles 'Coincidir atributo' permiten especificar un conjunto de "
+"objetos que luego se aplican a la selección actual"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:319
 msgid "  according to the current 'Modification Mode'."
-msgstr ""
+msgstr "  de acuerdo al 'Modo de modificación' seleccionado."
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:320
 msgid "     1. Select an object type from the first input box"
-msgstr ""
+msgstr "     1. Seleccione un tipo de elemento en el primer cuadro de entrada"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:321
 msgid "     2. Select an attribute from the second input box"
-msgstr ""
+msgstr "     2. Seleccione un atributo en el segundo cuadro de entrada"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:322
 msgid ""
@@ -12900,16 +12902,22 @@ msgstr "- Ejemplos:"
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id"
 msgstr ""
+"     junction; id; 'foo' -> coincide todos los cruces que tienen 'foo' en su "
+"ID"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:336
 msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'"
 msgstr ""
+"     junction; type; '=priority' -> coincide todos los cruces de tipo "
+"'priority', pero no de tipo 'priority_stop'"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:337
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10"
 msgstr ""
+"     edge; speed; '>10' -> coincide todas las aristas con una velocidad "
+"superior a 10"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:340
 msgid "Netedit parameters Help"
