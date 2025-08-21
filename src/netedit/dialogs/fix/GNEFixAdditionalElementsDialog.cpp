@@ -199,7 +199,7 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::ConsecutiveLaneOptions(G
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectInternalTestSolution(const std::string& solution) {
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectInternalTestSolution(const std::string& /*solution*/) {
 }
 
 

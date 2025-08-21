@@ -116,10 +116,10 @@ public:
     long onCmdSelectOnlyRail(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
-    long onCmdAccept(FXObject* sender, FXSelector sel, void* arg);
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief event after press cancel button
-    long onCmdCancel(FXObject* sender, FXSelector sel, void* arg);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);

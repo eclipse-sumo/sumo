@@ -2042,8 +2042,9 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 long
-GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode

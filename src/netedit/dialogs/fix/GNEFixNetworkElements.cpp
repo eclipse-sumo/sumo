@@ -76,7 +76,7 @@ GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fix
 
 
 void
-GNEFixNetworkElements::FixEdgeOptions::selectInternalTestSolution(const std::string& solution) {
+GNEFixNetworkElements::FixEdgeOptions::selectInternalTestSolution(const std::string& /*solution*/) {
     // finish
 }
 

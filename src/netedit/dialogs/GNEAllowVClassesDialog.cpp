@@ -268,7 +268,7 @@ GNEAllowVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowVClassesDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* arg) {
+GNEAllowVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     bool allSelected = true;
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles;
@@ -295,7 +295,7 @@ GNEAllowVClassesDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* arg)
 
 
 long
-GNEAllowVClassesDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* arg) {
+GNEAllowVClassesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset vClasses
     myEditedVClasses = myOriginalVClasses;
     // cancel

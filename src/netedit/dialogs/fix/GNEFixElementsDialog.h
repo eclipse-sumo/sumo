@@ -41,8 +41,8 @@ public:
         /// @brief constructor
         ConflictElement(T element, const std::string& id, FXIcon* icon, const std::string& description) :
             myElement(element),
-            myIcon(icon),
             myID(id),
+            myIcon(icon),
             myDescription(description) {}
 
         /// @brief destructor
