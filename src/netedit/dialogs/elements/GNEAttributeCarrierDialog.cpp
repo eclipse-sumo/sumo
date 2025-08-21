@@ -11,40 +11,40 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERouteDialog.cpp
+/// @file    GNEAttributeCarrierDialog.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2017
+/// @date    Aug 2025
 ///
-// Dialog for edit calibrator routes
+// Dialog for edit attribute carriers
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNERouteDialog.h"
+#include "GNEAttributeCarrierDialog.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNERouteDialog) GNERouteDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNERouteDialog::onCmdSetVariable),
+FXDEFMAP(GNEAttributeCarrierDialog) GNEAttributeCarrierDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEAttributeCarrierDialog::onCmdSetVariable),
 };
 
 // Object implementation
-FXIMPLEMENT(GNERouteDialog, GNETemplateElementDialog<GNEDemandElement>, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
+FXIMPLEMENT(GNEAttributeCarrierDialog, GNETemplateElementDialog<GNEAttributeCarrier>, GNEAttributeCarrierDialogMap, ARRAYNUMBER(GNEAttributeCarrierDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
-    GNETemplateElementDialog<GNEDemandElement>(route, updatingElement),
+GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, false),
     myCalibratorRouteValid(true) {
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -61,29 +61,22 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
     myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // update tables
     updateCalibratorRouteValues();
-    // add element if we aren't updating an existent element
-    if (!myUpdatingElement) {
-        myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myElement, true), true);
-        // Routes are created without edges
-        myCalibratorRouteValid = false;
-        myInvalidAttr = SUMO_ATTR_EDGES;
-    }
     // open dialog
     openDialog();
 }
 
 
-GNERouteDialog::~GNERouteDialog() {}
+GNEAttributeCarrierDialog::~GNEAttributeCarrierDialog() {}
 
 
 void
-GNERouteDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+GNEAttributeCarrierDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
 }
 
 
 long
-GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEAttributeCarrierDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myCalibratorRouteValid) {
         std::string title;
         std::string info;
@@ -108,7 +101,7 @@ GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNERouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNEAttributeCarrierDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update fields
@@ -118,7 +111,7 @@ GNERouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 long
-GNERouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
+GNEAttributeCarrierDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myCalibratorRouteValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
@@ -157,7 +150,7 @@ GNERouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 
 
 void
-GNERouteDialog::updateCalibratorRouteValues() {
+GNEAttributeCarrierDialog::updateCalibratorRouteValues() {
     myTextFieldRouteID->setText(myElement->getID().c_str());
     myTextFieldEdges->setText(myElement->getAttribute(SUMO_ATTR_EDGES).c_str());
     myTextFieldColor->setText(myElement->getAttribute(SUMO_ATTR_COLOR).c_str());

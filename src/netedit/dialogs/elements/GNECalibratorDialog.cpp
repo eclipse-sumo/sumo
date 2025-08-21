@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
-#include <netedit/dialogs/elements/GNERouteDialog.h>
 #include <netedit/dialogs/elements/GNEVehicleTypeDialog.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
 #include <netedit/elements/demand/GNERoute.h>
@@ -30,7 +29,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNECalibratorDialog.h"
-#include "GNECalibratorFlowDialog.h"
+#include "GNEAttributeCarrierDialog.h"
 
 // ===========================================================================
 // member method definitions
@@ -123,7 +122,7 @@ GNECalibratorDialog::RoutesList::addNewElement() {
     // insert route
     insertElement(route);
     // open route dialog
-    const auto routeDialog = GNERouteDialog(route, false);
+    const auto routeDialog = GNEAttributeCarrierDialog(route);
     // continue depending of result of routeDialog
     if (routeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove route
@@ -206,7 +205,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
         // add using undo-redo
         insertElement(calibratorFlow);
         // open route dialog
-        const auto calibratorFlowDialog = GNECalibratorFlowDialog(calibratorFlow, false);
+        const auto calibratorFlowDialog = GNEAttributeCarrierDialog(calibratorFlow);
         // continue depending of result of routeDialog
         if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
             // add calibratorFlow

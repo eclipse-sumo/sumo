@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNECalibratorFlowDialog.h
+/// @file    GNEAttributeCarrierDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2017
+/// @date    Aug 2025
 ///
-// Dialog for edit calibrator flows
+// Dialog for edit attribute carriers
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -26,22 +26,22 @@
 // class declaration
 // ===========================================================================
 
-class GNEAdditional;
+class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNECalibratorFlowDialog : public GNETemplateElementDialog<GNEAdditional> {
+class GNEAttributeCarrierDialog : public GNETemplateElementDialog<GNEAttributeCarrier> {
     /// @brief FOX-declaration
-    FXDECLARE(GNECalibratorFlowDialog)
+    FXDECLARE(GNEAttributeCarrierDialog)
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement);
+    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC);
 
     /// @brief destructor
-    ~GNECalibratorFlowDialog();
+    ~GNEAttributeCarrierDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -61,78 +61,31 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNECalibratorFlowDialog)
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEAttributeCarrierDialog)
 
-    /// @brief flag to check if current calibrator flow is valid
-    bool myCalibratorFlowValid;
+    /// @brief flag to check if current calibrator vehicleType is valid
+    bool myCalibratorRouteValid;
 
     /// @brief current sumo attribute invalid
     SumoXMLAttr myInvalidAttr;
 
-    /// @brief ComboBox for Type
-    MFXComboBoxIcon* myComboBoxVehicleType;
+    /// @brief route ID
+    FXTextField* myTextFieldRouteID;
 
-    /// @brief TextField for Route
-    MFXComboBoxIcon* myComboBoxRoute;
+    /// @brief list of edges (string)
+    FXTextField* myTextFieldEdges;
 
-    /// @brief TextField for VehsPerHour
-    FXTextField* myTextFieldVehsPerHour;
-
-    /// @brief TextField for Speed
-    FXTextField* myTextFieldSpeed;
-
-    /// @brief TextField for Color
+    /// @brief color of route
     FXTextField* myTextFieldColor;
 
-    /// @brief TextField for Depart Lane
-    FXTextField* myTextFieldDepartLane;
-
-    /// @brief TextField for Depart Pos
-    FXTextField* myTextFieldDepartPos;
-
-    /// @brief TextField for Depart Speed
-    FXTextField* myTextFieldDepartSpeed;
-
-    /// @brief TextField for Arrival Lane
-    FXTextField* myTextFieldArrivalLane;
-
-    /// @brief TextField for Arrival Pos
-    FXTextField* myTextFieldArrivalPos;
-
-    /// @brief TextField for Arrival Speed
-    FXTextField* myTextFieldArrivalSpeed;
-
-    /// @brief TextField for Line
-    FXTextField* myTextFieldLine;
-
-    /// @brief TextField for PersonNumber
-    FXTextField* myTextFieldPersonNumber;
-
-    /// @brief TextField for Container Number
-    FXTextField* myTextFieldContainerNumber;
-
-    /// @brief checkButton for Reroute
-    FXCheckButton* myRerouteCheckButton;
-
-    /// @brief TextField for DepartPosLat
-    FXTextField* myTextFieldDepartPosLat;
-
-    /// @brief TextField for ArrivalPosLat
-    FXTextField* myTextFieldArrivalPosLat;
-
-    /// @brief TextField for Begin
-    FXTextField* myTextFieldBegin;
-
-    /// @brief TextField for End
-    FXTextField* myTextFieldEnd;
-
     /// @brief update data fields
-    void updateCalibratorFlowValues();
+    void updateCalibratorRouteValues();
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorFlowDialog(const GNECalibratorFlowDialog&) = delete;
+    GNEAttributeCarrierDialog(const GNEAttributeCarrierDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&) = delete;
+    GNEAttributeCarrierDialog& operator=(const GNEAttributeCarrierDialog&) = delete;
 };

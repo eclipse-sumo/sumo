@@ -1,16 +1,14 @@
 add_subdirectory(lists)
 
 set(netedit_dialogs_elements_SRCS
+   GNEAttributeCarrierDialog.cpp
+   GNEAttributeCarrierDialog.h
    GNECalibratorDialog.cpp
    GNECalibratorDialog.h
-   GNECalibratorFlowDialog.cpp
-   GNECalibratorFlowDialog.h
    GNERerouterDialog.cpp
    GNERerouterDialog.h
    GNERerouterIntervalDialog.cpp
    GNERerouterIntervalDialog.h
-   GNERouteDialog.cpp
-   GNERouteDialog.h
    GNETemplateElementDialog.h
    GNEVariableSpeedSignDialog.cpp
    GNEVariableSpeedSignDialog.h
