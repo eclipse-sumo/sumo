@@ -37,7 +37,7 @@ GNEHierarchicalElement::GNEHierarchicalElement() {}
 GNEHierarchicalElement::~GNEHierarchicalElement() {}
 
 
-const GNEHierarchicalStructureParents
+const GNEHierarchicalStructureParents&
 GNEHierarchicalElement::getParents() const {
     return myHierarchicalStructureParents;
 }
@@ -106,6 +106,12 @@ GNEHierarchicalElement::getParentDemandElements() const {
 const GNEHierarchicalContainerParents<GNEGenericData*>&
 GNEHierarchicalElement::getParentGenericDatas() const {
     return myHierarchicalStructureParents.get<GNEGenericData*>();
+}
+
+
+const GNEHierarchicalStructureChildren&
+GNEHierarchicalElement::getChildren() const {
+    return myHierarchicalStructureChildren;
 }
 
 
