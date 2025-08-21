@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-21 10:31+0200\n"
+"POT-Creation-Date: 2025-08-21 11:50+0200\n"
 "PO-Revision-Date: 2025-04-16 11:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -12479,6 +12479,15 @@ msgstr "Expandir el recuadro para mostrar todo el contenido"
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
 msgstr "Escriba aquí para buscar"
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+msgid "File Exists"
+msgstr ""
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+#, c-format
+msgid "Overwrite '%s'?"
+msgstr ""
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"

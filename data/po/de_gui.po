@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-21 10:31+0200\n"
+"POT-Creation-Date: 2025-08-21 11:50+0200\n"
 "PO-Revision-Date: 2025-08-05 09:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -435,7 +435,6 @@ msgstr "Reduziere die Verzögerung pro Simulationsschritt."
 #: src/gui/GUIApplicationWindow.cpp:604
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:290
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:286
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:282
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1364
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2821
@@ -450,7 +449,6 @@ msgstr "Speichere den aktuellen Simulationsstand als Datei."
 #: src/gui/GUIApplicationWindow.cpp:607
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:285
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:281
 #: src/netedit/frames/common/GNESelectorFrame.cpp:263
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2818
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
@@ -756,10 +754,10 @@ msgid "Open Shapes"
 msgstr "Shapes laden"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
-#: src/netedit/GNEApplicationWindow.cpp:4815
-#: src/netedit/GNEApplicationWindow.cpp:4871
-#: src/netedit/GNEApplicationWindow.cpp:4917
-#: src/netedit/GNEApplicationWindow.cpp:4963
+#: src/netedit/GNEApplicationWindow.cpp:4816
+#: src/netedit/GNEApplicationWindow.cpp:4872
+#: src/netedit/GNEApplicationWindow.cpp:4918
+#: src/netedit/GNEApplicationWindow.cpp:4964
 #, c-format
 msgid "Loading of % failed."
 msgstr "Laden von % fehlgeschlagen."
@@ -2677,279 +2675,279 @@ msgstr ""
 msgid "volatile options cannot be undone. Continue?"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2130
-#: src/netedit/GNEApplicationWindow.cpp:2190
+#: src/netedit/GNEApplicationWindow.cpp:2131
+#: src/netedit/GNEApplicationWindow.cpp:2191
 msgid "Running "
 msgstr "Führt aus "
 
-#: src/netedit/GNEApplicationWindow.cpp:2153
+#: src/netedit/GNEApplicationWindow.cpp:2154
 msgid "Loading network '"
 msgstr "Lädt Netz '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2153
-#: src/netedit/GNEApplicationWindow.cpp:2162
+#: src/netedit/GNEApplicationWindow.cpp:2154
+#: src/netedit/GNEApplicationWindow.cpp:2163
 msgid "' in SUMO-GUI"
 msgstr "' in SUMO-GUI"
 
-#: src/netedit/GNEApplicationWindow.cpp:2162
+#: src/netedit/GNEApplicationWindow.cpp:2163
 msgid "Loading sumo config '"
 msgstr "Lädt SUMO-Konfiguration '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2579
+#: src/netedit/GNEApplicationWindow.cpp:2580
 #: src/netedit/GNEApplicationWindowHelper.cpp:1281
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: src/netedit/GNEApplicationWindow.cpp:2610
+#: src/netedit/GNEApplicationWindow.cpp:2611
 #: src/netedit/GNEApplicationWindowHelper.cpp:1284
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3336
+#: src/netedit/GNEApplicationWindow.cpp:3337
 msgid "Saving Network failed!"
 msgstr "Speichern des Netzes fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3340
+#: src/netedit/GNEApplicationWindow.cpp:3341
 msgid "Network saved in '"
 msgstr "Netz gespeichert in'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3346
+#: src/netedit/GNEApplicationWindow.cpp:3347
 msgid "Could not save network in '"
 msgstr "Konnte das Netz nicht im folgenden Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3400
+#: src/netedit/GNEApplicationWindow.cpp:3401
 msgid "Plain XML saved with prefix '"
 msgstr "Im \"Plain XML\"-Format gespeichert; Präfix '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3403
+#: src/netedit/GNEApplicationWindow.cpp:3404
 msgid "Saving plain xml failed!"
 msgstr "Speichern im \"Plain XML\"-Format fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3424
+#: src/netedit/GNEApplicationWindow.cpp:3425
 msgid "Joined junctions saved to '"
 msgstr "Vereinigte Knoten gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3427
+#: src/netedit/GNEApplicationWindow.cpp:3428
 msgid "Saving joined junctions failed!"
 msgstr "Speichern der vereinigten Knoten fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3456
-#: src/netedit/GNEApplicationWindow.cpp:3460
-#: src/netedit/GNEApplicationWindow.cpp:3464
-#: src/netedit/GNEApplicationWindow.cpp:3468
-#: src/netedit/GNEApplicationWindow.cpp:3472
+#: src/netedit/GNEApplicationWindow.cpp:3457
+#: src/netedit/GNEApplicationWindow.cpp:3461
+#: src/netedit/GNEApplicationWindow.cpp:3465
+#: src/netedit/GNEApplicationWindow.cpp:3469
+#: src/netedit/GNEApplicationWindow.cpp:3473
 msgid "Saving of Netedit configuration aborted"
 msgstr "Speichervorgang der Netedit-Konfiguration abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3481
+#: src/netedit/GNEApplicationWindow.cpp:3482
 msgid "Netedit configuration saved in '"
 msgstr "Netedit-Konfiguration wurde gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3487
+#: src/netedit/GNEApplicationWindow.cpp:3488
 msgid "Could not save netedit configuration in '"
 msgstr ""
 "Konnte die netedit-Konfiguration nicht unter folgendem Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3560
-#: src/netedit/GNEApplicationWindow.cpp:3564
-#: src/netedit/GNEApplicationWindow.cpp:3568
-#: src/netedit/GNEApplicationWindow.cpp:3572
-#: src/netedit/GNEApplicationWindow.cpp:3576
+#: src/netedit/GNEApplicationWindow.cpp:3561
+#: src/netedit/GNEApplicationWindow.cpp:3565
+#: src/netedit/GNEApplicationWindow.cpp:3569
+#: src/netedit/GNEApplicationWindow.cpp:3573
+#: src/netedit/GNEApplicationWindow.cpp:3577
 msgid "Saving of SUMO configuration aborted"
 msgstr "Speichervorgang der SUMO-Konfiguration abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3591
+#: src/netedit/GNEApplicationWindow.cpp:3592
 msgid "SUMO configuration saved in '"
 msgstr "Sumo-Konfiguration gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3599
+#: src/netedit/GNEApplicationWindow.cpp:3600
 msgid "Could not save SUMO configuration in '"
 msgstr ""
 "Konnte die sumo-Konfiguration nicht unter dem folgenden Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3653
+#: src/netedit/GNEApplicationWindow.cpp:3654
 msgid "TLS Programs saved in '"
 msgstr "LSA-Programme unter dem folgenden Pfad gespeichert: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3656
+#: src/netedit/GNEApplicationWindow.cpp:3657
 msgid "Saving TLS Programs failed!"
 msgstr "Speichern der LSA-Programme fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3697
+#: src/netedit/GNEApplicationWindow.cpp:3698
 msgid "EdgeType saved in '"
 msgstr "EdgeType gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3700
+#: src/netedit/GNEApplicationWindow.cpp:3701
 msgid "Saving edgeTypes failed!"
 msgstr "Speichern der edgeTypes fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3803
+#: src/netedit/GNEApplicationWindow.cpp:3804
 msgid "load additionals from '"
 msgstr "Lädt weitere Daten aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3807 src/netedit/GNENet.cpp:1498
+#: src/netedit/GNEApplicationWindow.cpp:3808 src/netedit/GNENet.cpp:1498
 msgid "Loading of additional file failed: "
 msgstr "Laden weiterer Daten aus der folgenden Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3810 src/netedit/GNENet.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:3811 src/netedit/GNENet.cpp:1500
 msgid "Loading of additional file successfully: "
 msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3835
+#: src/netedit/GNEApplicationWindow.cpp:3836
 msgid "reloading additionals"
 msgstr "Erneutes Laden der weiteren Daten"
 
-#: src/netedit/GNEApplicationWindow.cpp:3844
+#: src/netedit/GNEApplicationWindow.cpp:3845
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr "Das erneute Laden der Datei '%' ist fehlgeschlagen."
 
-#: src/netedit/GNEApplicationWindow.cpp:3900
+#: src/netedit/GNEApplicationWindow.cpp:3901
 msgid "Additionals saved"
 msgstr "Weitere Daten gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:3903
+#: src/netedit/GNEApplicationWindow.cpp:3904
 msgid "Saving additional aborted"
 msgstr "Speichervorgang der weiteren Daten abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3908
+#: src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Saving additionals failed!"
 msgstr "Speichern der weiteren Elemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3932
+#: src/netedit/GNEApplicationWindow.cpp:3933
 msgid "saving of unified additional elements in '%'"
 msgstr "Speichern der gesammelten weiteren Elemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3973
+#: src/netedit/GNEApplicationWindow.cpp:3974
 msgid "JuPedSim elements saved"
 msgstr "JuPedSim-Elemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:3976
+#: src/netedit/GNEApplicationWindow.cpp:3977
 msgid "Saving JuPedSim aborted"
 msgstr "Speichervorgang der JuPedSim-Inhalte abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3982
+#: src/netedit/GNEApplicationWindow.cpp:3983
 msgid "Saving JuPedSim elements failed!"
 msgstr "Speichern der JuPedSim-Elemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4017
-#: src/netedit/GNEApplicationWindow.cpp:4859
-#: src/netedit/GNEApplicationWindow.cpp:4866
+#: src/netedit/GNEApplicationWindow.cpp:4018
+#: src/netedit/GNEApplicationWindow.cpp:4860
+#: src/netedit/GNEApplicationWindow.cpp:4867
 msgid "loading demand elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4021 src/netedit/GNENet.cpp:1510
+#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1510
 msgid "Loading of route file failed: "
 msgstr "Laden der folgenden Route-Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4024 src/netedit/GNENet.cpp:1512
+#: src/netedit/GNEApplicationWindow.cpp:4025 src/netedit/GNENet.cpp:1512
 msgid "Loading of route file successfully: "
 msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4049
+#: src/netedit/GNEApplicationWindow.cpp:4050
 msgid "reloading demand elements"
 msgstr "Erneutes Laden der Nachfrageelemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:4058
+#: src/netedit/GNEApplicationWindow.cpp:4059
 #, c-format
 msgid "Reloading of route file '%'failed."
 msgstr "Das erneute Laden der Routendatei '%' ist fehlgeschlagen."
 
-#: src/netedit/GNEApplicationWindow.cpp:4112
+#: src/netedit/GNEApplicationWindow.cpp:4113
 msgid "Demand elements saved"
 msgstr "Nachfrageelemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:4115
-#: src/netedit/GNEApplicationWindow.cpp:4292
+#: src/netedit/GNEApplicationWindow.cpp:4116
+#: src/netedit/GNEApplicationWindow.cpp:4293
 msgid "Saving demand elements aborted"
 msgstr "Speichervorgang der Nachfrageelemente abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:4120
-#: src/netedit/GNEApplicationWindow.cpp:4466
+#: src/netedit/GNEApplicationWindow.cpp:4121
+#: src/netedit/GNEApplicationWindow.cpp:4467
 msgid "Saving demand elements failed!"
 msgstr "Speichern der Nachfrageelemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4144
+#: src/netedit/GNEApplicationWindow.cpp:4145
 msgid "saving of unified demand elements in '%'"
 msgstr "Speichern der gesammelten Nachfrageelemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4191
-#: src/netedit/GNEApplicationWindow.cpp:4905
-#: src/netedit/GNEApplicationWindow.cpp:4912
+#: src/netedit/GNEApplicationWindow.cpp:4192
+#: src/netedit/GNEApplicationWindow.cpp:4906
+#: src/netedit/GNEApplicationWindow.cpp:4913
 msgid "loading data elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4195 src/netedit/GNENet.cpp:1521
+#: src/netedit/GNEApplicationWindow.cpp:4196 src/netedit/GNENet.cpp:1521
 msgid "Loading of data file failed: "
 msgstr "Laden der Datendatei ist fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4198 src/netedit/GNENet.cpp:1523
+#: src/netedit/GNEApplicationWindow.cpp:4199 src/netedit/GNENet.cpp:1523
 msgid "Loading of data file successfully: "
 msgstr "Laden der Datendatei war erfolgreich: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4227
+#: src/netedit/GNEApplicationWindow.cpp:4228
 msgid "reloading data elements"
 msgstr "Erneutes Laden der Datenelemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:4236
+#: src/netedit/GNEApplicationWindow.cpp:4237
 msgid "Reloading of data file failed: "
 msgstr "Erneutes Laden der Datendatei ist fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4289
+#: src/netedit/GNEApplicationWindow.cpp:4290
 msgid "Data elements saved"
 msgstr "Datenelemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:4297
+#: src/netedit/GNEApplicationWindow.cpp:4298
 msgid "Saving data elements failed!"
 msgstr "Speichern der Datenelemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4321
+#: src/netedit/GNEApplicationWindow.cpp:4322
 msgid "saving of unified data elements in '%'"
 msgstr "Speichern der gesammelten Datenelemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4364
+#: src/netedit/GNEApplicationWindow.cpp:4365
 msgid "load meanDatas from '"
 msgstr "Lädt meanData aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4368 src/netedit/GNENet.cpp:1532
+#: src/netedit/GNEApplicationWindow.cpp:4369 src/netedit/GNENet.cpp:1532
 msgid "Loading of meandata file failed: "
 msgstr "Laden der folgenden meanData-Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4371
-#: src/netedit/GNEApplicationWindow.cpp:4405 src/netedit/GNENet.cpp:1534
+#: src/netedit/GNEApplicationWindow.cpp:4372
+#: src/netedit/GNEApplicationWindow.cpp:4406 src/netedit/GNENet.cpp:1534
 msgid "Loading of meandata file successfully: "
 msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4396
+#: src/netedit/GNEApplicationWindow.cpp:4397
 msgid "reloading meanDatas"
 msgstr "Erneutes Laden der MeanData-Elemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:4458
+#: src/netedit/GNEApplicationWindow.cpp:4459
 msgid "MeanDatas elements saved"
 msgstr "MeanData-Elemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:4461
+#: src/netedit/GNEApplicationWindow.cpp:4462
 msgid "Saving MeanData elements aborted"
 msgstr "Speichervorgang der MeanData-Elemente abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:4490
+#: src/netedit/GNEApplicationWindow.cpp:4491
 msgid "saving of unified mean data elements in '%'"
 msgstr "Speichern der gesammelten MeanData-Elemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4803
+#: src/netedit/GNEApplicationWindow.cpp:4804
 msgid "loading additional elements from '"
 msgstr "lädt weitere Elemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4810
+#: src/netedit/GNEApplicationWindow.cpp:4811
 msgid "loading additionals from '"
 msgstr "lädt weitere Elemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4951
-#: src/netedit/GNEApplicationWindow.cpp:4958
+#: src/netedit/GNEApplicationWindow.cpp:4952
+#: src/netedit/GNEApplicationWindow.cpp:4959
 msgid "loading meanData elements from '"
 msgstr "Laden von MeanData-Elementen aus '"
 
@@ -10312,20 +10310,17 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:283
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:279
 msgid "Sort"
 msgstr "Sortieren"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:284
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:280
 #: src/netedit/frames/common/GNESelectorFrame.cpp:257
 msgid "Clear"
 msgstr "Leeren"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:291
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:287
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:283
 #: src/netedit/frames/GNEAttributesEditorType.cpp:85
 #: src/netedit/frames/GNEMatchAttribute.cpp:83
 #: src/netedit/frames/GNEOverlappedInspection.cpp:68
@@ -10338,81 +10333,68 @@ msgstr "Hilfe"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:301
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:297
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:293
 msgid "Open Parameter Template"
 msgstr "Vorlagenparameter öffnen"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:316
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:312
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:308
 #, c-format
 msgid "Loading of Parameters From % failed."
 msgstr "Laden der Parameter von % fehlgeschlagen."
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:319
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:315
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:311
 msgid "Loaded % Parameters."
 msgstr "% Parameter geladen."
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:329
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:325
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:320
 msgid "Save Parameter Template file"
 msgstr "Speicher Vorlageparameter-Datei"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:403
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:399
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:393
 msgid "- Parameters are defined by a Key and a Value."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:400
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:394
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|key2=parameter2|..."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:401
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:395
 msgid " - Duplicated and empty Keys aren't valid."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:402
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:396
 msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:409
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:405
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:399
 msgid "Parameters Help"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:429
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:428
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:422
 msgid "Key of Parameter not defined"
 msgstr "Parameterschlüssel ist nicht definiert"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:431
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:430
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:424
 msgid "Value of Parameter not defined"
 msgstr "Parameterwert ist nicht definiert"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:439
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:438
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:432
 msgid "Key of Parameter cannot be empty"
 msgstr "Schlüssel des Parameters darf nicht leer sein"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:441
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:440
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:434
 #, c-format
 msgid "Key '%' of Parameter contains invalid characters"
 msgstr "Schlüssel '%' des Parameters enthält ungültige Zeichen"
@@ -10483,23 +10465,23 @@ msgstr "Parameter"
 msgid "Undo/Redo history"
 msgstr "Rückgängig/Wiederherstellen-Chronik"
 
-#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:57
+#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:53
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:215
 msgid "No routes in net"
 msgstr ""
 
-#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:80
+#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:76
 #: src/netedit/dialogs/elements/GNERouteDialog.cpp:91
 msgid "Error updating % '%'"
 msgstr ""
 
-#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:81
+#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:77
 msgid "% '%' cannot be updated because"
 msgstr ""
 
+#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:81
+#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:83
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:85
-#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:87
-#: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:89
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:83
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:85
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:87
@@ -10535,23 +10517,6 @@ msgstr ""
 #: src/netedit/dialogs/elements/GNECalibratorFlowDialog.cpp:166
 #, c-format
 msgid "because parameters % and % cannot be defined together."
-msgstr ""
-
-#: src/netedit/dialogs/elements/GNEElementDialog.h:37
-#, c-format
-msgid "Edit '%' data"
-msgstr ""
-
-#: src/netedit/dialogs/elements/GNEElementDialog.h:41
-msgid "change % values"
-msgstr ""
-
-#: src/netedit/dialogs/elements/GNEElementDialog.h:44
-msgid "Create %"
-msgstr ""
-
-#: src/netedit/dialogs/elements/GNEElementDialog.h:46
-msgid "edit % '%'"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:58
@@ -10604,14 +10569,22 @@ msgstr ""
 msgid "The % '%' cannot be created because parameter %s is invalid."
 msgstr ""
 
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:437
+#: src/netedit/dialogs/elements/GNETemplateElementDialog.h:37
 #, c-format
-msgid "Key '%' already exists"
-msgstr "Der Schlüssel '%' existiert bereits"
+msgid "Edit '%' data"
+msgstr ""
 
-#: src/netedit/dialogs/elements/GNEVTypeDistributionsDialog.cpp:456
-msgid "Edit attributes"
-msgstr "Bearbeite Attribute"
+#: src/netedit/dialogs/elements/GNETemplateElementDialog.h:41
+msgid "change % values"
+msgstr ""
+
+#: src/netedit/dialogs/elements/GNETemplateElementDialog.h:44
+msgid "Create %"
+msgstr ""
+
+#: src/netedit/dialogs/elements/GNETemplateElementDialog.h:46
+msgid "edit % '%'"
+msgstr ""
 
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:58
 msgid "VariableSpeedSign steps of % '%' cannot be saved"
@@ -17371,6 +17344,13 @@ msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
 "Die Koordinaten des Hintergrundbilds % konnten nicht aus WGS84 transformiert "
 "werden, weshalb UTM angenommen wird."
+
+#, c-format
+#~ msgid "Key '%' already exists"
+#~ msgstr "Der Schlüssel '%' existiert bereits"
+
+#~ msgid "Edit attributes"
+#~ msgstr "Bearbeite Attribute"
 
 #~ msgid "Select Import Options"
 #~ msgstr "Importoptionen auswählen"
