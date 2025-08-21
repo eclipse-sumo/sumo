@@ -116,7 +116,7 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNEDemandElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
+    GNEAdditionalElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
 }
 
 
@@ -124,8 +124,8 @@ long
 GNECalibratorDialog::RoutesList::addNewElement() {
     // create route using calibrator as parent
     GNERoute* route = new GNERoute(myElementDialogParent->getElement());
-    // add route
-    addDemandElement(route);
+    // insert route
+    insertElement(route);
     // open route dialog
     const auto routeDialog = GNERouteDialog(route, false);
     // continue depending of result of routeDialog
@@ -148,7 +148,7 @@ GNECalibratorDialog::RoutesList::openDialog(const size_t rowIndex) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNEDemandElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
+    GNEAdditionalElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
 }
 
 
@@ -156,8 +156,8 @@ long
 GNECalibratorDialog::VTypesList::addNewElement() {
     // create vType
     GNEVType* vType = new GNEVType(myElementDialogParent->getElement());
-    // add vType
-    addDemandElement(vType);
+    // insert vType
+    insertElement(vType);
     // open route dialog
     const auto vTypeDialog = GNEVehicleTypeDialog(vType, false);
     // continue depending of result of routeDialog
@@ -192,15 +192,15 @@ long
 GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     // get vType
     GNEDemandElement* vType = nullptr;
-    if (myVTypesList->getEditedDemandElements().size() > 0) {
-        vType = myVTypesList->getEditedDemandElements().back();
+    if (myVTypesList->getEditedElements().size() > 0) {
+        vType = myVTypesList->getEditedElements().back();
     } else {
         vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin()->second;
     }
     // get route
     GNEDemandElement* route = nullptr;
-    if (myVTypesList->getEditedDemandElements().size() > 0) {
-        route = myVTypesList->getEditedDemandElements().back();
+    if (myVTypesList->getEditedElements().size() > 0) {
+        route = myVTypesList->getEditedElements().back();
     } else {
         route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     }
@@ -216,10 +216,9 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
         if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
             // add calibratorFlow
             return removeElement(calibratorFlow);
-        } else {
-            return 1;
         }
     }
+    return 1;
 }
 
 

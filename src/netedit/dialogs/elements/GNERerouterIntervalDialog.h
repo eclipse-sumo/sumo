@@ -55,7 +55,7 @@ public:
 
 protected:
     /// @brief closing  reroutes list
-    class ClosingReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class ClosingReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -76,7 +76,7 @@ protected:
     };
 
     /// @brief closing lane reroutes list
-    class ClosingLaneReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class ClosingLaneReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -97,7 +97,7 @@ protected:
     };
 
     /// @brief dest prob reroutes list
-    class DestProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class DestProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -118,7 +118,7 @@ protected:
     };
 
     /// @brief route prob reroutes list
-    class RouteProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class RouteProbReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
@@ -139,7 +139,7 @@ protected:
     };
 
     /// @brief parking area reroutes list
-    class ParkingAreaReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class ParkingAreaReroutesList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

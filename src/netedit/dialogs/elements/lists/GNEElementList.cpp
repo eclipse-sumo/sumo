@@ -110,15 +110,15 @@ GNEElementList::onCmdSort(FXObject* sender, FXSelector, void*) {
 
 
 void
-GNEElementList::deleteAdditionalElementRecursively(GNEAdditional* additionalElement) const {
+GNEElementList::removeElementRecursively(GNEAdditional* additionalElement) const {
     // iterate over all children and delete it recursively
     const GNEHierarchicalContainerChildren<GNEAdditional*> additionalChildren = additionalElement->getChildAdditionals();
     for (const auto& additionalChild : additionalChildren) {
-        deleteAdditionalElementRecursively(additionalChild);
+        removeElementRecursively(additionalChild);
     }
     const GNEHierarchicalContainerChildren<GNEDemandElement*> demandChildren = additionalElement->getChildDemandElements();
     for (const auto& demandChild : demandChildren) {
-        deleteDemandElementRecursively(demandChild);
+        removeElementRecursively(demandChild);
     }
     // delete element
     additionalElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(additionalElement, false), true);
@@ -126,15 +126,15 @@ GNEElementList::deleteAdditionalElementRecursively(GNEAdditional* additionalElem
 
 
 void
-GNEElementList::deleteDemandElementRecursively(GNEDemandElement* demandElement) const {
+GNEElementList::removeElementRecursively(GNEDemandElement* demandElement) const {
     // iterate over all children and delete it recursively
     const GNEHierarchicalContainerChildren<GNEAdditional*> additionalChildren = demandElement->getChildAdditionals();
     for (const auto& additionalChild : additionalChildren) {
-        deleteAdditionalElementRecursively(additionalChild);
+        removeElementRecursively(additionalChild);
     }
     const GNEHierarchicalContainerChildren<GNEDemandElement*> demandChildren = demandElement->getChildDemandElements();
     for (const auto& demandChild : demandChildren) {
-        deleteDemandElementRecursively(demandChild);
+        removeElementRecursively(demandChild);
     }
     // delete element
     demandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);

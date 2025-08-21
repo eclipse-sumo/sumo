@@ -55,7 +55,7 @@ public:
 
 protected:
     /// @brief variableSpeedSign step list
-    class VariableSpeedSignStepsList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class VariableSpeedSignStepsList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

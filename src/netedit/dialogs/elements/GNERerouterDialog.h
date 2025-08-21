@@ -55,7 +55,7 @@ public:
 
 protected:
     /// @brief rerouter interval list
-    class RerouterIntervalsList : public GNEAdditionalElementList<GNEAdditional, GNEChange_Additional> {
+    class RerouterIntervalsList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

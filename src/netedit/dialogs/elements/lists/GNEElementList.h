@@ -90,10 +90,10 @@ protected:
     GNEElementTable* myElementTable = nullptr;
 
     /// @brief delete additional element recursively
-    void deleteAdditionalElementRecursively(GNEAdditional* additionalElement) const;
+    void removeElementRecursively(GNEAdditional* additionalElement) const;
 
     /// @brief delete demand element recursively
-    void deleteDemandElementRecursively(GNEDemandElement* demandElement) const;
+    void removeElementRecursively(GNEDemandElement* demandElement) const;
 
 private:
     /// @brief add button

@@ -24,7 +24,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 
-#include "GNEAdditionalElementList.h"
 #include "GNEElementTable.h"
 #include "GNEElementList.h"
 
@@ -33,7 +32,7 @@
 // class definitions
 // ===========================================================================
 
-template <typename T, typename U>
+template <typename T, typename U, typename V>
 class GNEAdditionalElementList : public GNEElementList {
 
 public:
@@ -46,7 +45,7 @@ public:
                        allowSortElements, allowOpenDialog, fixHeight),
         myElementDialogParent(elementDialogParent) {
         // fill edited elements
-        for (const auto& child : elementDialogParent->getElement()->getChildAdditionals()) {
+        for (const auto& child : elementDialogParent->getElement()->getChildren().get<U*>()) {
             if (child->getTagProperty()->getTag() == tag) {
                 myEditedElements.push_back(child);
             }
@@ -56,16 +55,16 @@ public:
     }
 
     /// @brief get edited elements
-    const std::vector<T*>& getEditedElements() const {
+    const std::vector<U*>& getEditedElements() const {
         return myEditedElements;
     }
 
     /// @brief insert element
-    long insertElement(T* element) {
+    long insertElement(U* element) {
         // insert in list
         myEditedElements.push_back(element);
         // add change command
-        element->getNet()->getViewNet()->getUndoList()->add(new U(element, true), true);
+        element->getNet()->getViewNet()->getUndoList()->add(new V(element, true), true);
         // update table
         return updateList();
     }
@@ -127,7 +126,7 @@ public:
     /// @brief open dialog
     long sortRows() {
         // declare set for saving elements sorted by sortable attributes (max 6, the rest will be ignored)
-        std::set<std::tuple<double, double, double, double, double, double, T*> > sortedElements;
+        std::set<std::tuple<double, double, double, double, double, double, U*> > sortedElements;
         // add all elements
         for (size_t i = 0; i < myEditedElements.size(); i++) {
             // create tuple with 6 sortable attributes and the element
@@ -167,7 +166,7 @@ public:
     /// @brief remove element (using index)
     long removeElement(const size_t rowIndex) {
         // delete element recursively
-        deleteAdditionalElementRecursively(myEditedElements.at(rowIndex));
+        removeElementRecursively(myEditedElements.at(rowIndex));
         // remove element from list
         myEditedElements.erase(myEditedElements.begin() + rowIndex);
         // update table
@@ -175,7 +174,7 @@ public:
     }
 
     /// @brief remove element
-    long removeElement(const T* element) {
+    long removeElement(const U* element) {
         // search index
         for (size_t rowIndex = 0; rowIndex < myEditedElements.size(); rowIndex++) {
             if (myEditedElements.at(rowIndex) == element) {
@@ -198,7 +197,7 @@ protected:
 
 private:
     /// @brief edited elements
-    std::vector<T*> myEditedElements;
+    std::vector<U*> myEditedElements;
 
     /// @brief Invalidated copy constructor
     GNEAdditionalElementList(const GNEAdditionalElementList&) = delete;
