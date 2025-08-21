@@ -21,8 +21,6 @@
 
 #include <netedit/dialogs/elements/GNEElementDialog.h>
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNEElementTable.h"
 #include "GNEElementList.h"
