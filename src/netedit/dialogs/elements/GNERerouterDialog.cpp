@@ -71,7 +71,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myRerouterIntervals->updateTable();
+    myRerouterIntervals->updateList();
     return 1;
 }
 
@@ -86,7 +86,7 @@ GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialo
 
 
 long
-GNERerouterDialog::RerouterIntervalsList::addElement() {
+GNERerouterDialog::RerouterIntervalsList::addNewElement() {
     SUMOTime end = 0;
     // get end with biggest end
     for (const auto& interval : getEditedElements()) {

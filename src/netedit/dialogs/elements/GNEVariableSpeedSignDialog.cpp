@@ -70,7 +70,7 @@ GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myVariableSpeedSignSteps->updateTable();
+    myVariableSpeedSignSteps->updateList();
     return 1;
 }
 
@@ -85,7 +85,7 @@ GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::VariableSpeedSignStepsLi
 
 
 long
-GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addElement() {
+GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::addNewElement() {
     // create step depending of number of steps
     if (getEditedElements().empty()) {
         return insertElement(new GNEVariableSpeedSignStep(myElementDialogParent->getElement(), 0,

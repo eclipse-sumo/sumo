@@ -105,9 +105,9 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myRoutes->updateTable();
-    myVTypes->updateTable();
-    myCalibratorFlows->updateTable();
+    myRoutes->updateList();
+    myVTypes->updateList();
+    myCalibratorFlows->updateList();
     return 1;
 }
 
@@ -121,21 +121,20 @@ GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog,
 
 
 long
-GNECalibratorDialog::RoutesList::addElement() {
+GNECalibratorDialog::RoutesList::addNewElement() {
     // create route using calibrator as parent
     GNERoute* route = new GNERoute(myElementDialogParent->getElement());
+    // add route
+    addDemandElement(route);
     // open route dialog
     const auto routeDialog = GNERouteDialog(route, false);
     // continue depending of result of routeDialog
-    if (routeDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // add route
-        addDemandElement(route);
+    if (routeDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        // remove route
+        return removeElement(route);
     } else {
-        // delete route
-        delete route;
+        return 1;
     }
-    // update table
-    return updateTable();
 }
 
 
@@ -154,21 +153,20 @@ GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog,
 
 
 long
-GNECalibratorDialog::VTypesList::addElement() {
+GNECalibratorDialog::VTypesList::addNewElement() {
     // create vType
     GNEVType* vType = new GNEVType(myElementDialogParent->getElement());
+    // add vType
+    addDemandElement(vType);
     // open route dialog
     const auto vTypeDialog = GNEVehicleTypeDialog(vType, false);
     // continue depending of result of routeDialog
-    if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // add vType
-        addDemandElement(vType);
+    if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        // remove vType
+        return removeElement(vType);
     } else {
-        // delete vType
-        delete vType;
+        return 1;
     }
-    // update table
-    return updateTable();
 }
 
 
@@ -191,7 +189,7 @@ GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialo
 
 
 long
-GNECalibratorDialog::CalibratorFlowsList::addElement() {
+GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     // get vType
     GNEDemandElement* vType = nullptr;
     if (myVTypesList->getEditedDemandElements().size() > 0) {

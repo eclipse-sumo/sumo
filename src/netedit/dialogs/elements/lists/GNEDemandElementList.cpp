@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEDemandElementList::GNEDemandElementList(GNEElementDialog<GNEAdditional>* elementDialogParent, FXVerticalFrame* contentFrame,
-                                           SumoXMLTag tag, const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight) :
+        SumoXMLTag tag, const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight) :
     GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true),
                    allowSortElements, allowOpenDialog, fixHeight),
     myElementDialogParent(elementDialogParent) {
@@ -42,7 +42,7 @@ GNEDemandElementList::GNEDemandElementList(GNEElementDialog<GNEAdditional>* elem
         }
     }
     // update table
-    updateTable();
+    updateList();
 }
 
 
@@ -59,12 +59,12 @@ GNEDemandElementList::addDemandElement(GNEDemandElement* demandElement) {
     // add change command
     demandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, true), true);
     // update table
-    return updateTable();
+    return updateList();
 }
 
 
 long
-GNEDemandElementList::updateTable() {
+GNEDemandElementList::updateList() {
     // first resize table (used if we removed some elements)
     myElementTable->resizeTable(myEditedDemandElements.size());
     // now update all rows
@@ -98,7 +98,7 @@ GNEDemandElementList::checkSort() const {
             if (sortableAttributes.size() > 2) {
                 std::get<2>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(2)));
             }
-            if (sortableAttributes.size() > 3) {    
+            if (sortableAttributes.size() > 3) {
                 std::get<3>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(3)));
             }
             if (sortableAttributes.size() > 4) {
@@ -139,7 +139,7 @@ GNEDemandElementList::sortRows() {
         if (sortableAttributes.size() > 2) {
             std::get<2>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(2)));
         }
-        if (sortableAttributes.size() > 3) {    
+        if (sortableAttributes.size() > 3) {
             std::get<3>(tuple) = GNEAttributeCarrier::parse<double>(myEditedDemandElements.at(i)->getAttribute(sortableAttributes.at(3)));
         }
         if (sortableAttributes.size() > 4) {
@@ -156,7 +156,7 @@ GNEDemandElementList::sortRows() {
         myEditedDemandElements.push_back(std::get<6>(element));
     }
     // update table
-    return updateTable();
+    return updateList();
 }
 
 
@@ -167,7 +167,7 @@ GNEDemandElementList::removeElement(const size_t rowIndex) {
     // remove element from list
     myEditedDemandElements.erase(myEditedDemandElements.begin() + rowIndex);
     // update table
-    return updateTable();
+    return updateList();
 }
 
 /****************************************************************************/

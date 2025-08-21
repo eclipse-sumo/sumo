@@ -53,11 +53,11 @@ public:
     /// @brief check if the current list is valid
     bool isListValid() const;
 
-    /// @brief update table
-    virtual long updateTable() = 0;
+    /// @brief update element list
+    virtual long updateList() = 0;
 
     /// @brief add element
-    virtual long addElement() = 0;
+    virtual long addNewElement() = 0;
 
     /// @brief open dialog
     virtual long sortRows() = 0;

@@ -61,8 +61,8 @@ protected:
         /// @brief constructor
         ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -82,8 +82,8 @@ protected:
         /// @brief constructor
         ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -103,8 +103,8 @@ protected:
         /// @brief constructor
         DestProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -124,8 +124,8 @@ protected:
         /// @brief constructor
         RouteProbReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);
@@ -145,8 +145,8 @@ protected:
         /// @brief constructor
         ParkingAreaReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog, FXVerticalFrame* contentFrame);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);

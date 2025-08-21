@@ -107,11 +107,11 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
     // update tables
-    myClosingReroutes->updateTable();
-    myClosingLaneReroutes->updateTable();
-    myDestProbReroutes->updateTable();
-    myRouteProbReroutes->updateTable();
-    myParkingAreaReroutes->updateTable();
+    myClosingReroutes->updateList();
+    myClosingLaneReroutes->updateList();
+    myDestProbReroutes->updateList();
+    myRouteProbReroutes->updateList();
+    myParkingAreaReroutes->updateList();
     return 1;
 }
 
@@ -130,7 +130,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterI
 
 
 long
-GNERerouterIntervalDialog::ClosingReroutesList::addElement() {
+GNERerouterIntervalDialog::ClosingReroutesList::addNewElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create closing reroute
@@ -158,7 +158,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNER
 
 
 long
-GNERerouterIntervalDialog::ClosingLaneReroutesList::addElement() {
+GNERerouterIntervalDialog::ClosingLaneReroutesList::addNewElement() {
     // get lane
     const auto lane = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
     // create closing lane reroute
@@ -186,7 +186,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNEReroute
 
 
 long
-GNERerouterIntervalDialog::DestProbReroutesList::addElement() {
+GNERerouterIntervalDialog::DestProbReroutesList::addNewElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create dest prob reroute
@@ -218,7 +218,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::RouteProbReroutesList(GNERerou
 
 
 long
-GNERerouterIntervalDialog::RouteProbReroutesList::addElement() {
+GNERerouterIntervalDialog::RouteProbReroutesList::addNewElement() {
     // get route
     const auto route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
     // create route prob reroute
@@ -246,7 +246,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::ParkingAreaReroutesList(GNER
 
 
 long
-GNERerouterIntervalDialog::ParkingAreaReroutesList::addElement() {
+GNERerouterIntervalDialog::ParkingAreaReroutesList::addNewElement() {
     // get parking area
     const auto parkingArea = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
     // create parking area reroute

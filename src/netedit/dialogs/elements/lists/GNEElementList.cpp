@@ -99,7 +99,7 @@ GNEElementList::isListValid() const {
 
 long
 GNEElementList::onCmdAddRow(FXObject* sender, FXSelector, void*) {
-    return addElement();
+    return addNewElement();
 }
 
 

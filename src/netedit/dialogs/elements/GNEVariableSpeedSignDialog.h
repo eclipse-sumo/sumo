@@ -61,8 +61,8 @@ protected:
         /// @brief constructor
         VariableSpeedSignStepsList(GNEVariableSpeedSignDialog* variableSpeedSignDialog);
 
-        /// @brief add element
-        long addElement();
+        /// @brief add new element
+        long addNewElement();
 
         /// @brief open dialog
         long openDialog(const size_t rowIndex);

@@ -49,8 +49,8 @@ public:
     /// @brief add element
     long addDemandElement(GNEDemandElement* demandElement);
 
-    /// @brief update table
-    long updateTable();
+    /// @brief update element list
+    long updateList();
 
     /// @brief check if the demand elements are sorted
     bool checkSort() const;
@@ -62,7 +62,7 @@ public:
     long removeElement(const size_t rowIndex);
 
     /// @brief add element
-    virtual long addElement() = 0;
+    virtual long addNewElement() = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;

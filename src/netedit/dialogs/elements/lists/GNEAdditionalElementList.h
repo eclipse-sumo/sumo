@@ -52,7 +52,7 @@ public:
             }
         }
         // update table
-        updateTable();
+        updateList();
     }
 
     /// @brief get edited elements
@@ -67,11 +67,11 @@ public:
         // add change command
         element->getNet()->getViewNet()->getUndoList()->add(new U(element, true), true);
         // update table
-        return updateTable();
+        return updateList();
     }
 
-    /// @brief update table
-    long updateTable() {
+    /// @brief update element list
+    long updateList() {
         // first resize table (used if we removed some elements)
         myElementTable->resizeTable(myEditedElements.size());
         // now update all rows
@@ -161,7 +161,7 @@ public:
             myEditedElements.push_back(std::get<6>(element));
         }
         // update table
-        return updateTable();
+        return updateList();
     }
 
     /// @brief remove element (using index)
@@ -171,7 +171,7 @@ public:
         // remove element from list
         myEditedElements.erase(myEditedElements.begin() + rowIndex);
         // update table
-        return updateTable();
+        return updateList();
     }
 
     /// @brief remove element
@@ -187,7 +187,7 @@ public:
     }
 
     /// @brief add element
-    virtual long addElement() = 0;
+    virtual long addNewElement() = 0;
 
     /// @brief open dialog
     virtual long openDialog(const size_t rowIndex) = 0;
