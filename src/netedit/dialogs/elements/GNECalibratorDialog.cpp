@@ -116,7 +116,7 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
+    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
 }
 
 
@@ -148,7 +148,7 @@ GNECalibratorDialog::RoutesList::openDialog(const size_t rowIndex) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNEAdditionalElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
+    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
 }
 
 
@@ -182,7 +182,7 @@ GNECalibratorDialog::VTypesList::openDialog(const size_t rowIndex) {
 
 GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
         RoutesList* routesList, VTypesList* vTypesList) :
-    GNEAdditionalElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
+    GNETemplateElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
 }

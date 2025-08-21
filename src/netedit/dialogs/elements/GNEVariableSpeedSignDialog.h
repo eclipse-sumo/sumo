@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
+#include <netedit/dialogs/elements/lists/GNETemplateElementList.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 
 #include "GNEElementDialog.h"
@@ -55,7 +55,7 @@ public:
 
 protected:
     /// @brief variableSpeedSign step list
-    class VariableSpeedSignStepsList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
+    class VariableSpeedSignStepsList : public GNETemplateElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor

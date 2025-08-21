@@ -1,5 +1,5 @@
 set(netedit_dialogs_elements_lists_SRCS
-   GNEAdditionalElementList.h
+   GNETemplateElementList.h
    GNEElementList.cpp
    GNEElementList.h
    GNEElementTable.cpp

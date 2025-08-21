@@ -62,7 +62,6 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // close dialog accepting changes
         return acceptElementDialog();
     }
-    return 1;
 }
 
 
@@ -80,8 +79,8 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialog* rerouterDialog) :
-    GNEAdditionalElementList(rerouterDialog, rerouterDialog->getContentFrame(),
-                             SUMO_TAG_INTERVAL, true, true, true) {
+    GNETemplateElementList(rerouterDialog, rerouterDialog->getContentFrame(),
+                           SUMO_TAG_INTERVAL, true, true, true) {
 }
 
 

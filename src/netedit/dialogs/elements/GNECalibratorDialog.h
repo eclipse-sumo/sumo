@@ -22,7 +22,7 @@
 
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/elements/lists/GNEAdditionalElementList.h>
+#include <netedit/dialogs/elements/lists/GNETemplateElementList.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 
@@ -57,7 +57,7 @@ public:
 
 protected:
     /// @brief route list
-    class RoutesList : public GNEAdditionalElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
+    class RoutesList : public GNETemplateElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
 
     public:
         /// @brief constructor
@@ -78,7 +78,7 @@ protected:
     };
 
     /// @brief vTypes list
-    class VTypesList : public GNEAdditionalElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
+    class VTypesList : public GNETemplateElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
 
     public:
         /// @brief constructor
@@ -99,7 +99,7 @@ protected:
     };
 
     /// @brief calibrator flows list
-    class CalibratorFlowsList : public GNEAdditionalElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
+    class CalibratorFlowsList : public GNETemplateElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
