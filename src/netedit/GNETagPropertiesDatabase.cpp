@@ -1851,7 +1851,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("First calibrator flow departure time"),
                                    "0");
-        
+
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
                                    GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
