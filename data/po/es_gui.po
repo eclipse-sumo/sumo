@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-21 08:53+0000\n"
+"PO-Revision-Date: 2025-08-21 10:42+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10153,7 +10153,7 @@ msgstr "Clase definida por el usuario"
 
 #: src/netedit/dialogs/GNEColorDialog.cpp:43
 msgid "Edit color"
-msgstr ""
+msgstr "Editar color"
 
 #: src/netedit/dialogs/GNEDialog.cpp:282 src/netedit/dialogs/GNEDialog.cpp:297
 msgid "Yes"
@@ -10443,12 +10443,12 @@ msgstr "Historial de deshacer/rehacer"
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:53
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:215
 msgid "No routes in net"
-msgstr ""
+msgstr "No hay rutas en la red"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:76
 #: src/netedit/dialogs/elements/GNERouteDialog.cpp:91
 msgid "Error updating % '%'"
-msgstr ""
+msgstr "Error al actualizar % '%'"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:77
 msgid "% '%' cannot be updated because"
@@ -10504,7 +10504,7 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:74
 msgid "Error updating % of % '%'"
-msgstr ""
+msgstr "Error al actualizar % de % '%'"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:75
 msgid "% of % '%' cannot be updated because"
@@ -10513,16 +10513,16 @@ msgstr ""
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:81
 #, c-format
 msgid "at least one % must be defined."
-msgstr ""
+msgstr "al menos un % debe ser definido."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:127
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:183
 msgid "No edges in net"
-msgstr ""
+msgstr "No hay aristas en la red"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:155
 msgid "No lanes in net"
-msgstr ""
+msgstr "No hay carriles en la red"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:211
 msgid "Rerouter has more than one edge"
@@ -10538,7 +10538,7 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNERouteDialog.cpp:95
 msgid "Error creating % '%'"
-msgstr ""
+msgstr "Error al crear % '%'"
 
 #: src/netedit/dialogs/elements/GNERouteDialog.cpp:96
 msgid "The % '%' cannot be created because parameter %s is invalid."
@@ -10551,15 +10551,15 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:41
 msgid "change % values"
-msgstr ""
+msgstr "cambiar % valores"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:44
 msgid "Create %"
-msgstr ""
+msgstr "Crear %"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:46
 msgid "edit % '%'"
-msgstr ""
+msgstr "editar % '%'"
 
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:58
 msgid "VariableSpeedSign steps of % '%' cannot be saved"
@@ -10583,16 +10583,16 @@ msgstr "Abrir archivo OSG"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1808
 msgid "Error updating %"
-msgstr ""
+msgstr "Error al actualizar %"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1809
 #, c-format
 msgid "The % cannot be updated because parameter % is invalid."
-msgstr ""
+msgstr "No se puede actualizar % porque el parámetro % no es válido."
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1811
 msgid "Error creating %"
-msgstr ""
+msgstr "Error al crear %"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1812
 #, c-format
@@ -10660,7 +10660,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:123
 msgid "select invalid additionals"
-msgstr ""
+msgstr "seleccionar adicionales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:169
 msgid "Select a solution for Multilane E2 detectors"
@@ -10711,7 +10711,7 @@ msgstr "Guardar rutas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:76
 msgid "Select invalid routes"
-msgstr ""
+msgstr "Seleccionar rutas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:77
 msgid "Select invalid routes and stop saving"
@@ -10725,17 +10725,17 @@ msgstr "Remover paradas (stops) fuera de ruta"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:117
 msgid "delete invalid routes"
-msgstr ""
+msgstr "eliminar rutas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:131
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:245
 msgid "select invalid routes"
-msgstr ""
+msgstr "seleccionar rutas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:151
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:265
 msgid "delete invalid stops"
-msgstr ""
+msgstr "eliminar paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:190
 msgid "Remove invalid vehicles"
@@ -10752,7 +10752,7 @@ msgstr "Guardar vehículos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:200
 msgid "Select invalid vehicles"
-msgstr ""
+msgstr "Seleccionar vehículos no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:201
 msgid "Select invalid vehicles and stop saving"
@@ -10764,11 +10764,11 @@ msgstr "Elimina paradas fuera de la ruta del vehículo"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:233
 msgid "delete invalid vehicles"
-msgstr ""
+msgstr "eliminar vehículos no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:301
 msgid "Stop positions"
-msgstr ""
+msgstr "Posiciones de paradas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:304
 msgid "Activate friendlyPos"
@@ -10776,11 +10776,11 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:309
 msgid "Save invalid stops"
-msgstr ""
+msgstr "Guardar paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:310
 msgid "Save elements with invalid positions"
-msgstr ""
+msgstr "Guardar elementos con posiciones no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:314
 msgid "Select conflicted stops"
@@ -10792,20 +10792,20 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:320
 msgid "Fix stop positions and save"
-msgstr ""
+msgstr "Corregir posiciones de parada y guardar"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:345
 #, c-format
 msgid "change % of invalid stops"
-msgstr ""
+msgstr "cambiar % de las paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:352
 msgid "fix positions of invalid stops"
-msgstr ""
+msgstr "corregir las posiciones de las paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:359
 msgid "select invalid stops"
-msgstr ""
+msgstr "seleccionar paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:405
 msgid "Person/container plans"
@@ -10920,11 +10920,11 @@ msgstr "Arreglar problemas de elementos de red"
 
 #: src/netedit/dialogs/options/GNENeteditOptionsDialog.cpp:45
 msgid "Edit netedit options"
-msgstr ""
+msgstr "Editar opciones de netedit"
 
 #: src/netedit/dialogs/options/GNENetgenerateOptionsDialog.cpp:45
 msgid "Run netgenerate with advanced options"
-msgstr ""
+msgstr "Ejecutar netgenerate con opciones avanzadas"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:74
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:67
@@ -11022,7 +11022,7 @@ msgstr "Seleccionar nombre de archivo"
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:45
 msgid "Edit SUMO options"
-msgstr ""
+msgstr "Editar opciones de SUMO"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:57
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:69
@@ -11047,7 +11047,7 @@ msgstr ""
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:31
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
 msgid "Running netgenerate results"
-msgstr ""
+msgstr "Resultados de ejecutar netgenerate"
 
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:57
@@ -12488,7 +12488,7 @@ msgstr "Copiar coordenadas de prueba al portapapeles"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:321
 msgid "Simplify shape"
-msgstr ""
+msgstr "Simplificar forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:327
 msgid "Open junction's shape"
@@ -12500,15 +12500,15 @@ msgstr ""
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:332
 msgid "Straighten shape"
-msgstr ""
+msgstr "Enderezar la forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Remove geometry point (shift+click)"
-msgstr ""
+msgstr "Remover punto geométrico (shift+clic)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:355
 msgid "Finish editing (Enter)"
-msgstr ""
+msgstr "Finalizar edición (Enter)"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:31
 msgid "Internal attributes"
@@ -12556,7 +12556,7 @@ msgstr "Reasignar padre"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:646
 msgid "Change parent of this element"
-msgstr ""
+msgstr "Cambiar el padre de este elemento"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:666
 #, c-format
@@ -12581,11 +12581,11 @@ msgstr "Abrir el cuadro de diálogo para seleccionar o crear archivo"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:79
 msgid "Front element"
-msgstr ""
+msgstr "Elemento frontal"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:81
 msgid "Open element dialog"
-msgstr ""
+msgstr "Abrir diálogo de elemento"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:85
 msgid "Open help attributes dialog"
@@ -12597,12 +12597,12 @@ msgstr "Restablecer atributos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:95
 msgid "Edit extended attributes"
-msgstr ""
+msgstr "Editar atributos extendidos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:204
 #, c-format
 msgid "Open % dialog"
-msgstr ""
+msgstr "Abrir el diálogo %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:307
 msgid "Invalid value '%' in attribute %"
@@ -12728,7 +12728,7 @@ msgstr "El tipo de vehículo por defecto '%' no se puede eliminar"
 
 #: src/netedit/frames/GNEElementTree.cpp:308
 msgid "Edge: %"
-msgstr ""
+msgstr "Arista: %"
 
 #: src/netedit/frames/GNEElementTree.cpp:313
 #: src/utils/gui/globjects/GUIGlObject.cpp:326
@@ -12931,7 +12931,7 @@ msgstr "No hay atributos comunes definidos"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:53
 msgid "Overlapped junctions"
-msgstr ""
+msgstr "Cruces superpuestos"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:53
 msgid "Overlapped elements"
@@ -15038,7 +15038,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:1498
 #, c-format
 msgid "Created % sources and sinks"
-msgstr ""
+msgstr "Se crearon % fuentes y sumideros"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:102
 msgid "Edit Traffic Light"
