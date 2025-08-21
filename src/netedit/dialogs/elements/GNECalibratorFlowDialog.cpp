@@ -37,14 +37,14 @@ FXDEFMAP(GNECalibratorFlowDialog) GNECalibratorFlowDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECalibratorFlowDialog, GNEElementDialog<GNEAdditional>, GNECalibratorFlowDialogMap, ARRAYNUMBER(GNECalibratorFlowDialogMap))
+FXIMPLEMENT(GNECalibratorFlowDialog, GNETemplateElementDialog<GNEAdditional>, GNECalibratorFlowDialogMap, ARRAYNUMBER(GNECalibratorFlowDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement) :
-    GNEElementDialog<GNEAdditional>(calibratorFlow, updatingElement),
+    GNETemplateElementDialog<GNEAdditional>(calibratorFlow, updatingElement),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // Create auxiliar frames for tables

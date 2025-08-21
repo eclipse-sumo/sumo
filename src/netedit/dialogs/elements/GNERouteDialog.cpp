@@ -37,14 +37,14 @@ FXDEFMAP(GNERouteDialog) GNERouteDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERouteDialog, GNEElementDialog<GNEDemandElement>, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
+FXIMPLEMENT(GNERouteDialog, GNETemplateElementDialog<GNEDemandElement>, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
-    GNEElementDialog<GNEDemandElement>(route, updatingElement),
+    GNETemplateElementDialog<GNEDemandElement>(route, updatingElement),
     myCalibratorRouteValid(true) {
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);

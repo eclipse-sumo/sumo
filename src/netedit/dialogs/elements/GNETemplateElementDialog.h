@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEElementDialog.h
+/// @file    GNETemplateElementDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
-// A abstract dialog class for editing elements
+// A template based on GNEDialog used for editing elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,11 +28,11 @@
 // ===========================================================================
 
 template <typename T>
-class GNEElementDialog : public GNEDialog {
+class GNETemplateElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEElementDialog(T* element, const bool updatingElement) :
+    GNETemplateElementDialog(T* element, const bool updatingElement) :
         GNEDialog(element->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                   TLF("Edit '%' data", element->getID()), element->getTagProperty()->getGUIIcon(),
                   Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
@@ -50,7 +50,7 @@ public:
     }
 
     /// @brief destructor
-    ~GNEElementDialog() {}
+    ~GNETemplateElementDialog() {}
 
     /// @brief get edited element
     T* getElement() const {
@@ -84,7 +84,7 @@ public:
 
 protected:
     /// @brief default constructor
-    GNEElementDialog() :
+    GNETemplateElementDialog() :
         GNEDialog() {}
 
     /// @brief pointer to edited element
@@ -111,8 +111,8 @@ private:
     std::string myChangesDescription;
 
     /// @brief Invalidated copy constructor
-    GNEElementDialog(const GNEElementDialog&) = delete;
+    GNETemplateElementDialog(const GNETemplateElementDialog&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEElementDialog& operator=(const GNEElementDialog&) = delete;
+    GNETemplateElementDialog& operator=(const GNETemplateElementDialog&) = delete;
 };

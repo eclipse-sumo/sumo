@@ -19,7 +19,7 @@
 /****************************************************************************/
 #pragma once
 
-#include <netedit/dialogs/elements/GNEElementDialog.h>
+#include <netedit/dialogs/elements/GNETemplateElementDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 
 #include "GNEElementTable.h"
@@ -34,7 +34,7 @@ class GNETemplateElementList : public GNEElementList {
 
 public:
     /// @brief constructor
-    GNETemplateElementList(GNEElementDialog<elementDialogType>* elementDialogParent,
+    GNETemplateElementList(GNETemplateElementDialog<elementDialogType>* elementDialogParent,
                            FXVerticalFrame* contentFrame, SumoXMLTag tag,
                            const bool allowSortElements, const bool allowOpenDialog,
                            const bool fixHeight) :
@@ -136,7 +136,7 @@ protected:
     typedef std::tuple<double, double, double, double, double, double, elementType*> SortTuple;
 
     /// @brief element dialog parent
-    GNEElementDialog<elementDialogType>* myElementDialogParent = nullptr;
+    GNETemplateElementDialog<elementDialogType>* myElementDialogParent = nullptr;
 
     /// @brief get element sorted
     std::vector<SortTuple> getSortTuples(const bool sort) const {

@@ -24,13 +24,13 @@
 #include <netedit/dialogs/elements/lists/GNETemplateElementList.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 
-#include "GNEElementDialog.h"
+#include "GNETemplateElementDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSignDialog : public GNEElementDialog<GNEAdditional> {
+class GNEVariableSpeedSignDialog : public GNETemplateElementDialog<GNEAdditional> {
 
 public:
     /// @brief Constructor

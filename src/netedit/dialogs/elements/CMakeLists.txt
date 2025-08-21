@@ -5,7 +5,7 @@ set(netedit_dialogs_elements_SRCS
    GNECalibratorDialog.h
    GNECalibratorFlowDialog.cpp
    GNECalibratorFlowDialog.h
-   GNEElementDialog.h
+   GNETemplateElementDialog.h
    GNERerouterDialog.cpp
    GNERerouterDialog.h
    GNERerouterIntervalDialog.cpp

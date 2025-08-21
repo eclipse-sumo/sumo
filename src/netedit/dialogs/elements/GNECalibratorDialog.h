@@ -26,13 +26,13 @@
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 
-#include "GNEElementDialog.h"
+#include "GNETemplateElementDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNECalibratorDialog : public GNEElementDialog<GNEAdditional> {
+class GNECalibratorDialog : public GNETemplateElementDialog<GNEAdditional> {
 
 public:
     /// @brief Constructor

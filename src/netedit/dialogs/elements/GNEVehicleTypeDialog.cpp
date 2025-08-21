@@ -1768,7 +1768,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement) :
-    GNEElementDialog<GNEDemandElement>(vehicleType, updatingElement),
+    GNETemplateElementDialog<GNEDemandElement>(vehicleType, updatingElement),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // Create auxiliar frames for values

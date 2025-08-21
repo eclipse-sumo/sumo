@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEElementDialog.h"
+#include "GNETemplateElementDialog.h"
 
 // ===========================================================================
 // class declaration
@@ -32,7 +32,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNERouteDialog : public GNEElementDialog<GNEDemandElement> {
+class GNERouteDialog : public GNETemplateElementDialog<GNEDemandElement> {
     /// @brief FOX-declaration
     FXDECLARE(GNERouteDialog)
 

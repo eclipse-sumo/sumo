@@ -23,7 +23,7 @@
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOVehicleClass.h>
 
-#include "GNEElementDialog.h"
+#include "GNETemplateElementDialog.h"
 
 // ===========================================================================
 // class declaration
@@ -36,7 +36,7 @@ class MFXComboBoxIcon;
 // class definitions
 // ===========================================================================
 
-class GNEVehicleTypeDialog : public GNEElementDialog<GNEDemandElement> {
+class GNEVehicleTypeDialog : public GNETemplateElementDialog<GNEDemandElement> {
 
 public:
     /// @brief class for VClasses

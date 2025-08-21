@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEElementDialog.h"
+#include "GNETemplateElementDialog.h"
 
 // ===========================================================================
 // class declaration
@@ -32,7 +32,7 @@ class GNEAdditional;
 // class definitions
 // ===========================================================================
 
-class GNECalibratorFlowDialog : public GNEElementDialog<GNEAdditional> {
+class GNECalibratorFlowDialog : public GNETemplateElementDialog<GNEAdditional> {
     /// @brief FOX-declaration
     FXDECLARE(GNECalibratorFlowDialog)
 
