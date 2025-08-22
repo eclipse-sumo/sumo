@@ -92,7 +92,8 @@ public:
         SYMBOL =                1 << 11,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
         EXTENDED =              1 << 12,    // Element contains extended attributes (Usually vTypes)
         HIERARCHICAL =          1 << 13,    // Element is a hierarchical
-        NO_PROPERTY =           1 << 14,    // Element doesn't have properties
+        LISTED =                1 << 14,    // Element is a listed elements (for example, rerouter children)
+        NO_PROPERTY =           1 << 15,    // Element doesn't have properties
     };
 
     /// @brief element in which this element is placed
@@ -524,6 +525,9 @@ public:
 
     /// @brief return true if Tag correspond to an element that has to be placed in RTREE
     bool isPlacedInRTree() const;
+
+    /// @brief return true if Tag correspond to a listed element
+    bool isListedElement() const;
 
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;

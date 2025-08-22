@@ -1738,7 +1738,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VSSSTEP, GUIGlObjectType::GLO_VSS_STEP, currentTag, TL("VariableSpeedSign Step"),
@@ -1978,7 +1978,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGREROUTE, GUIGlObjectType::GLO_REROUTER_CLOSINGREROUTE, currentTag, TL("ClosingReroute"),
@@ -1993,7 +1993,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGLANEREROUTE, GUIGlObjectType::GLO_REROUTER_CLOSINGLANEREROUTE, currentTag, TL("ClosingLaneReroute"),
@@ -2008,7 +2008,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DESTPROBREROUTE, GUIGlObjectType::GLO_REROUTER_DESTPROBREROUTE, currentTag, TL("DestinationProbabilityReroute"),
@@ -2027,7 +2027,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PARKINGZONEREROUTE, GUIGlObjectType::GLO_REROUTER_PARKINGAREAREROUTE, currentTag, TL("ParkingAreaReroute"),
@@ -2056,7 +2056,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_ADDITIONALS),
                 GNETagProperties::Type::ADDITIONALELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEPROBREROUTE, GUIGlObjectType::GLO_REROUTER_ROUTEPROBREROUTE, currentTag, TL("RouteProbabilityReroute"),

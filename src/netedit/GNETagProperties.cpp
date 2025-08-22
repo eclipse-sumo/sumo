@@ -981,6 +981,12 @@ GNETagProperties::isPlacedInRTree() const {
 
 
 bool
+GNETagProperties::isListedElement() const {
+    return (myTagProperty & Property::LISTED) ;
+}
+
+
+bool
 GNETagProperties::canBeReparent() const {
     return (myTagProperty & Property::REPARENT) ;
 }
