@@ -18,6 +18,7 @@
 // Custom FXDialogBox used in Netedit that supports internal tests
 /****************************************************************************/
 
+#include <fxkeys.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -41,6 +42,7 @@ FXDEFMAP(GNEDialog) MFXDialogBoxMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,    GNEDialog::onCmdAdvanced),
     // abort dialog
     FXMAPFUNC(SEL_CLOSE,    0,              GNEDialog::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ESC, GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_CHORE,    MID_GNE_ABORT,  GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_TIMEOUT,  MID_GNE_ABORT,  GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,  GNEDialog::onCmdAbort),
@@ -146,7 +148,13 @@ GNEDialog::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
     if (myTesting && (obj != myApplicationWindow->getInternalTest())) {
         return 1;
     } else {
-        return FXDialogBox::onKeyPress(obj, sel, ptr);
+        // if ESC key is pressed, close dialog aborting
+        FXEvent* event = (FXEvent*)ptr;
+        if (event->code == KEY_Escape) {
+            return closeDialogAborting();
+        } else {
+            return FXDialogBox::onKeyPress(obj, sel, ptr);
+        }
     }
 }
 
