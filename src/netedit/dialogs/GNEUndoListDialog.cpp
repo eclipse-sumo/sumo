@@ -34,7 +34,7 @@ FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
+FXIMPLEMENT(GNEUndoListDialog, GNEDialog, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -42,10 +42,28 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* applicationWindow) :
     GNEDialog(applicationWindow, TL("Undo/Redo history"), GUIIcon::UNDOLIST,
-              Buttons::OK, OpenType::MODAL, ResizeMode::STATIC, 560, 400) {
+              Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
     // create scroll windows for rows
-    auto* scrollWindowsContents = new FXScrollWindow(myContentFrame, GUIDesignContentsScrollUndoList);
+    auto* scrollWindowsContents = new FXScrollWindow(myContentFrame, GUIDesignScrollWindowFixed(560, 400));
     myRowFrame = new FXVerticalFrame(scrollWindowsContents, GUIDesignAuxiliarFrame);
+    // set background clor
+    myRowFrame->setBackColor(FXRGB(255, 255, 255));
+    // declare redo iterator over undoList and fill rows
+    GNEUndoList::RedoIterator itRedo(myApplicationWindow->getUndoList());
+    while (!itRedo.end()) {
+        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
+        itRedo++;
+    }
+    // declare undo iterator over undoList and fill rows
+    GNEUndoList::UndoIterator itUndo(myApplicationWindow->getUndoList());
+    while (!itUndo.end()) {
+        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
+        itUndo++;
+    }
+    //  update list
+    updateList();
+    // open dialog
+    openDialog();
 }
 
 
@@ -125,31 +143,6 @@ GNEUndoListDialog::updateList() {
 }
 
 
-void
-GNEUndoListDialog::recalcList() {
-    // first clear rows
-    for (auto& GUIRow : myGUIRows) {
-        delete GUIRow;
-    }
-    myGUIRows.clear();
-    // declare redo iterator over undoList and fill rows
-    GNEUndoList::RedoIterator itRedo(myApplicationWindow->getUndoList());
-    while (!itRedo.end()) {
-        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
-        itRedo++;
-    }
-    // declare undo iterator over undoList and fill rows
-    GNEUndoList::UndoIterator itUndo(myApplicationWindow->getUndoList());
-    while (!itUndo.end()) {
-        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
-        itUndo++;
-    }
-    // recalc frame and update list
-    myRowFrame->recalc();
-    updateList();
-}
-
-
 GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string description_, const std::string timestamp_) :
     index(index_),
     icon(icon_),
@@ -169,11 +162,6 @@ GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalF
     // build text label
     myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(70));
     myTextFieldTimeStamp->setEditable(false);
-    // create elements
-    horizontalFrame->create();
-    myIcon->create();
-    myTextFieldDescription->create();
-    myTextFieldTimeStamp->create();
 }
 
 

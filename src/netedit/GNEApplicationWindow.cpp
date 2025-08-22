@@ -517,8 +517,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     GUITextureSubSys::initTextures(app);
     // init cursors
     GUICursorSubSys::initCursors(app);
-    // create undoList dialog (after initCursors)
-    myUndoListDialog = new GNEUndoListDialog(this);
+    // set tooltip options
     app->setTooltipTime(1000000000);
     app->setTooltipPause(1000000000);
     // set SUMO Options descriptions
@@ -694,7 +693,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     }
     // delete undoList and dialog
     delete myUndoList;
-    delete myUndoListDialog;
 }
 
 
@@ -1570,12 +1568,6 @@ GNEApplicationWindow::getTagPropertiesDatabase() const {
 GNEUndoList*
 GNEApplicationWindow::getUndoList() {
     return myUndoList;
-}
-
-
-GNEUndoListDialog*
-GNEApplicationWindow::getUndoListDialog() {
-    return myUndoListDialog;
 }
 
 
@@ -2629,12 +2621,8 @@ GNEApplicationWindow::onCmdRedo(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
-    // avoid open two dialogs
-    if (myUndoListDialog->shown()) {
-        myUndoListDialog->setFocus();
-    } else {
-        myUndoListDialog->show();
-    }
+    // open UndoList Dialog
+    GNEUndoListDialog(this);
     return 1;
 }
 
@@ -2646,9 +2634,6 @@ GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-        if (myUndoListDialog->shown()) {
-            myUndoListDialog->hide();
-        }
     }
     return 1;
 }

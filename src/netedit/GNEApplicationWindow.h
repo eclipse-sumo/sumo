@@ -579,9 +579,6 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
-    /// @brief get pointer to undoList dialog
-    GNEUndoListDialog* getUndoListDialog();
-
     /// @brief get pointer to viewNet
     GNEViewNet* getViewNet();
 
@@ -751,9 +748,6 @@ protected:
 
     /// @brief the one and only undo list
     GNEUndoList* myUndoList = nullptr;
-
-    /// @brief undoList dialog
-    GNEUndoListDialog* myUndoListDialog = nullptr;
 
     /// @brief Input file pattern
     std::string myConfigPattern;

@@ -55,15 +55,6 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEUndoListDialog)
-
-    /// @brief update list destroying and creating rows
-    void updateList();
-
-    /// @brief recalc list destroying and creating rows
-    void recalcList();
-
     /// @struct class for keep every row value
     struct UndoListRow {
         /// @brief constructor
@@ -126,6 +117,12 @@ protected:
         /// @brief textField timeStamp
         FXTextField* myTextFieldTimeStamp = nullptr;
     };
+
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEUndoListDialog)
+
+    /// @brief update list destroying and creating rows
+    void updateList();
 
     /// @brief frame for rows
     FXVerticalFrame* myRowFrame = nullptr;

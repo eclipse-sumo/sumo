@@ -300,7 +300,7 @@ GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProper
     // create column header
     myColumnHeader = new ColumnHeader(this, tagProperties);
     // create scroll windows for rows
-    myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixed(400));
+    myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixedWidth(400));
     // create vertical frame for rows and set back
     myRowsFrame = new FXVerticalFrame(myScrollWindow, GUIDesignAuxiliarFrame);
     myRowsFrame->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);

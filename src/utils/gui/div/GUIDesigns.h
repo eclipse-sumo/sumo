@@ -373,10 +373,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignScrollWindow                               (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for scroll windows extended over Y and fix width
-#define GUIDesignScrollWindowFixed(customWidth)             (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, customWidth, 0
+#define GUIDesignScrollWindowFixedWidth(customWidth)        (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, customWidth, 0
 
 /// @brief design for the content scroll of UndoList
-#define GUIDesignContentsScrollUndoList                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+#define GUIDesignScrollWindowFixed(width, height)           (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, width, height
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame                    (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
