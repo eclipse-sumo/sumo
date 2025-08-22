@@ -65,11 +65,21 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
 long
 GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     if (myACDialog->getElement()->isValid(myAttr, myTextField->getText().text())) {
-        // if text field is empty, remove attribute
-        //myACDialog->getElement()->removeAttribute(myAttr);
+        // set attribute
+        myACDialog->getElement()->setAttribute(myAttr, myTextField->getText().text(), myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
+        // set valid color and kill focus
+        myTextField->setTextColor(GUIDesignTextColorBlack);
+        myTextField->setBackColor(GUIDesignBackgroundColorWhite);
+        myTextField->killFocus();
     } else {
-        // set attribute with text field value
-        //myACDialog->getElement()->setAttribute(myAttr, myTextField->getText());
+        // set invalid color
+        myTextField->setTextColor(GUIDesignTextColorRed);
+        // set background color
+        if (myTextField->getText().empty()) {
+            myTextField->setTextColor(GUIDesignBackgroundColorRed);
+        } else {
+            myTextField->setBackColor(GUIDesignBackgroundColorWhite);
+        }
     }
     return 1;
 }
@@ -99,6 +109,8 @@ GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
         // add to myAttributeTextFields vector
         myAttributeTextFields.push_back(attributeTextField);
     }
+    // init commandGroup
+    myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
     // open dialog
     openDialog();
 }
@@ -115,7 +127,7 @@ GNEAttributeCarrierDialog::runInternalTest(const InternalTestStep::DialogArgumen
 
 long
 GNEAttributeCarrierDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (!false) {
+    if (false) {
         // open warning Box
         GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
                               TLF("Error editing % '%'", myElement->getTagStr(), myElement->getID()),
