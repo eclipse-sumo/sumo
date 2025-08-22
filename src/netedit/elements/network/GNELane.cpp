@@ -1044,7 +1044,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
         // draw geometry with current color
         const GUIVisualizationSettings::Detail d = myDrawingConstants->getDetail();
         double drawingWidth = myDrawingConstants->getDrawingWidth();
-        if(d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+        if (d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
             drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
         }
         GUIGeometry::drawGeometry(d, myLaneGeometry, drawingWidth,
@@ -1127,8 +1127,9 @@ void
 GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     // draw additional children
     for (const auto& additional : getChildAdditionals()) {
-        // check that ParkingAreas aren't draw two times
-        additional->drawGL(s);
+        if (!additional->getTagProperty()->isListedElement()) {
+            additional->drawGL(s);
+        }
     }
     // draw demand element children
     for (const auto& demandElement : getChildDemandElements()) {
