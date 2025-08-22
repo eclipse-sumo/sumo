@@ -41,12 +41,6 @@ public:
         GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true),
                        allowSortElements, allowOpenDialog, fixHeight),
         myElementDialogParent(elementDialogParent) {
-        // fill edited elements
-        for (const auto& child : elementDialogParent->getElement()->getChildren().template get<elementType*>()) {
-            if (child->getTagProperty()->getTag() == tag) {
-                myEditedElements.push_back(child);
-            }
-        }
         // update table
         updateList();
     }
@@ -58,8 +52,6 @@ public:
 
     /// @brief insert element
     long insertElement(elementType* element) {
-        // insert in list
-        myEditedElements.push_back(element);
         // add change command
         element->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Type(element, true), true);
         // update table
@@ -68,6 +60,13 @@ public:
 
     /// @brief update element list
     long updateList() {
+        // reset edited element
+        myEditedElements.clear();
+        for (const auto& child : myElementDialogParent->getElement()->getChildren().template get<elementType*>()) {
+            if (child->getTagProperty()->getTag() == myTagProperty->getTag()) {
+                myEditedElements.push_back(child);
+            }
+        }
         // first resize table (used if we removed some elements)
         myElementTable->resizeTable(myEditedElements.size());
         // now update all rows
@@ -107,8 +106,6 @@ public:
     long removeElement(const size_t rowIndex) {
         // delete element recursively
         removeElementRecursively(myEditedElements.at(rowIndex));
-        // remove element from list
-        myEditedElements.erase(myEditedElements.begin() + rowIndex);
         // update table
         return updateList();
     }

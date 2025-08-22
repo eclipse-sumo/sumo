@@ -72,7 +72,7 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSe
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
     GNETemplateElementDialog<GNEAttributeCarrier>(AC) {
     // Create auxiliar frames for rows
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrameFixedWidth(400));
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     // calculate number of attributes
