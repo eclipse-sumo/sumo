@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-21 11:17+0000\n"
+"PO-Revision-Date: 2025-08-23 15:02+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9996,7 +9996,7 @@ msgstr "Editor gráfico de redes viales e infraestructura."
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:118
 msgid "Edit vClasses of attribute '%'"
-msgstr ""
+msgstr "Editar clases de vehículo del atributo '%'"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:123
 msgid "Selection options"
@@ -10331,6 +10331,7 @@ msgstr "Guardar archivo de plantilla de parámetros"
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:399
 msgid "- Parameters are defined by a Key and a Value."
 msgstr ""
+"- Los parámetros se definen mediante una clave (key) y un valor (value)."
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:400
@@ -10351,7 +10352,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:409
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:405
 msgid "Parameters Help"
-msgstr ""
+msgstr "Ayuda de parámetros"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:429
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:428
@@ -11038,11 +11039,11 @@ msgstr "Salida de consola"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:199
 msgid "Abort"
-msgstr "Cancelar"
+msgstr "Interrumpir"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:200
 msgid "Abort running"
-msgstr ""
+msgstr "Interrumpir ejecución"
 
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:31
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
