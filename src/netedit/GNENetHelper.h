@@ -1178,19 +1178,19 @@ struct GNENetHelper {
         /// @{
 
         /// @brief warns about unsaved changes in network and gives the user the option to abort
-        GNEDialog::Result askSaveNetwork() const;
+        GNEDialog::Result askSaveNetwork(bool& abortSaving) const;
 
         /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-        GNEDialog::Result askSaveAdditionalElements() const;
+        GNEDialog::Result askSaveAdditionalElements(bool& abortSaving) const;
 
         /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
-        GNEDialog::Result askSaveDemandElements() const;
+        GNEDialog::Result askSaveDemandElements(bool& abortSaving) const;
 
         /// @brief warns about unsaved changes in data elements and gives the user the option to abort
-        GNEDialog::Result askSaveDataElements() const;
+        GNEDialog::Result askSaveDataElements(bool& abortSaving) const;
 
         /// @brief warns about unsaved changes in meanData elements and gives the user the option to abort
-        GNEDialog::Result askSaveMeanDataElements() const;
+        GNEDialog::Result askSaveMeanDataElements(bool& abortSaving) const;
 
         /// @}
 
