@@ -671,15 +671,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // check if myDefaultTAZSourceWeight is greater than 0
             if (myDefaultTAZSourceWeight >= 0) {
                 // set valid color
-                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorBlack);
             } else {
                 // set invalid color
-                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorRed);
                 myDefaultTAZSourceWeight = 1;
             }
         } else {
             // set invalid color
-            myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorRed);
             myDefaultTAZSourceWeight = 1;
         }
     } else if (obj == myTextFieldDefaultValueTAZSinks) {
@@ -689,15 +689,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // check if myDefaultTAZSinkWeight is greater than 0
             if (myDefaultTAZSinkWeight >= 0) {
                 // set valid color
-                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorBlack);
             } else {
                 // set invalid color
-                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorRed);
                 myDefaultTAZSinkWeight = 1;
             }
         } else {
             // set invalid color
-            myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorRed);
             myDefaultTAZSinkWeight = 1;
         }
     }
@@ -987,7 +987,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
             // check if myDefaultTAZSourceWeight is greater than 0
             if (newTAZSourceWeight >= 0) {
                 // set valid color in TextField
-                myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorBlack);
                 // enable save button
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
@@ -998,11 +998,11 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
-                myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorRed);
             }
         } else {
             // set invalid color
-            myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorRed);
         }
     } else if (obj == myTextFieldTAZSinkWeight) {
         // check if given value is valid
@@ -1011,7 +1011,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
             // check if myDefaultTAZSinkWeight is greater than 0
             if (newTAZSinkWeight >= 0) {
                 // set valid color in TextField
-                myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorBlack);
                 // enable save button
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
@@ -1022,11 +1022,11 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
-                myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorRed);
             }
         } else {
             // set invalid color
-            myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorRed);
         }
     }
     return 1;
@@ -1136,9 +1136,9 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         myStatisticsLabel->setText(information.str().c_str());
         // set TextFields (Text and color)
         myTextFieldTAZSourceWeight->setText(joinToString(weightSourceSet, " ").c_str());
-        myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorBlack);
         myTextFieldTAZSinkWeight->setText(joinToString(weightSinkSet, " ").c_str());
-        myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorBlack);
     } else {
         // hide TAZSources/Sinks frames
         myTAZSourceFrame->hide();

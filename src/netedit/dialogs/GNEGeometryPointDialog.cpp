@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialog
 // member method definitions
 // ===========================================================================
 
-GNEGeometryPointDialog::GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position &pos) :
+GNEGeometryPointDialog::GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position& pos) :
     GNEDialog(applicationWindow, TL("Custom Geometry Point"), GUIIcon::MODEMOVE, Buttons::ACCEPT_CANCEL_RESET,
               OpenType::MODAL, ResizeMode::STATIC, 320, 80),
     myEditedPosition(pos),
@@ -85,7 +85,7 @@ GNEGeometryPointDialog::~GNEGeometryPointDialog() {
 }
 
 
-const Position &
+const Position&
 GNEGeometryPointDialog::getEditedPosition() const {
     return myEditedPosition;
 }
@@ -104,7 +104,7 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
         // check if position can be parsed
         if (GNEAttributeCarrier::canParse<Position>(myTextFieldXY->getText().text())) {
             // set valid color and kill focus
-            myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldXY->setTextColor(GUIDesignTextColorBlack);
             myTextFieldXY->killFocus();
             // obtain position
             myEditedPosition = GNEAttributeCarrier::parse<Position>(myTextFieldXY->getText().text());
@@ -115,17 +115,17 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
                 // set geo position in myTextFieldLonLat
                 myTextFieldLonLat->setText(toString(geoPos).c_str(), FALSE);
-                myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldLonLat->setTextColor(GUIDesignTextColorBlack);
             }
         } else {
             // set invalid color
-            myTextFieldXY->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldXY->setTextColor(GUIDesignTextColorRed);
         }
     } else {
         // check if position can be parsed
         if (GNEAttributeCarrier::canParse<Position>(myTextFieldLonLat->getText().text())) {
             // set valid color and kill focus
-            myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldLonLat->setTextColor(GUIDesignTextColorBlack);
             myTextFieldLonLat->killFocus();
             // obtain geo position
             Position geoPo = GNEAttributeCarrier::parse<Position>(myTextFieldLonLat->getText().text());
@@ -134,10 +134,10 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
             GeoConvHelper::getFinal().x2cartesian_const(myEditedPosition);
             // set geo position in myTextFieldXY
             myTextFieldXY->setText(toString(myEditedPosition).c_str(), FALSE);
-            myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldXY->setTextColor(GUIDesignTextColorBlack);
         } else {
             // set invalid color
-            myTextFieldLonLat->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldLonLat->setTextColor(GUIDesignTextColorRed);
         }
     }
     return 1;
@@ -170,10 +170,10 @@ GNEGeometryPointDialog::onCmdReset(FXObject*, FXSelector, void*) {
     Position geoPos = myEditedPosition;
     GeoConvHelper::getFinal().cartesian2geo(geoPos);
     // set valid colors
-    myTextFieldXY->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldXY->setTextColor(GUIDesignTextColorBlack);
     // check geo
     if (myGeo) {
-        myTextFieldLonLat->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldLonLat->setTextColor(GUIDesignTextColorBlack);
     }
     // set text field
     myTextFieldXY->setText(toString(myEditedPosition).c_str(), FALSE);

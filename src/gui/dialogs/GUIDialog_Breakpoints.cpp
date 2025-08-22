@@ -79,7 +79,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20, 1);
-    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setBackColor(GUIDesignBackgroundColorWhite);
     myTable->getRowHeader()->setWidth(0);
     myBreakpointLock->lock();
     rebuildList();

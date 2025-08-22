@@ -110,7 +110,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     // set myCurrentPlanTemplate
     myCurrentPlanTemplate = myPlanTemplates.front();
     // set color of myTypeMatchBox to black (valid)
-    myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+    myPlansComboBox->setTextColor(GUIDesignTextColorBlack);
     myPlansComboBox->killFocus();
     // GNEPlanSelector is always shown
     show();
@@ -299,7 +299,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
             // update myCurrentPlanTemplate
             myCurrentPlanTemplate = planTemplate;
             // set color of myTypeMatchBox to black (valid)
-            myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+            myPlansComboBox->setTextColor(GUIDesignTextColorBlack);
             myPlansComboBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
@@ -309,7 +309,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // reset myCurrentPlanTemplate
     myCurrentPlanTemplate = std::make_pair(nullptr, nullptr);
     // set color of myTypeMatchBox to red (invalid)
-    myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
+    myPlansComboBox->setTextColor(GUIDesignTextColorRed);
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
@@ -319,7 +319,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
 bool
 GNEPlanSelector::isPlanValid() const {
     if (myCurrentPlanTemplate.second) {
-        return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
+        return myPlansComboBox->getTextColor() == GUIDesignTextColorBlack;
     } else {
         return false;
     }

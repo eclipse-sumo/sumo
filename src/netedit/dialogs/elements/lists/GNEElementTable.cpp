@@ -42,16 +42,6 @@ FXDEFMAP(GNEElementTable::Row) RowMap[] = {
 FXIMPLEMENT(GNEElementTable::Row, FXHorizontalFrame, RowMap, ARRAYNUMBER(RowMap))
 
 // ===========================================================================
-// defines
-// ===========================================================================
-
-#define TEXTCOLOR_BLACK FXRGB(0, 0, 0)
-#define TEXTCOLOR_BLUE FXRGB(0, 0, 255)
-#define TEXTCOLOR_RED FXRGB(255, 0, 0)
-#define TEXTCOLOR_BACKGROUND_RED FXRGBA(255, 213, 213, 255)
-#define TEXTCOLOR_BACKGROUND_WHITE FXRGB(255, 255, 255)
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -213,7 +203,7 @@ GNEElementTable::Row::updateRow(GNEAttributeCarrier* AC) {
         // set text in text field
         attributeTextField.second->setText(value.c_str());
         // set valid color
-        attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
+        attributeTextField.second->setTextColor(GUIDesignTextColorBlack);
     }
 }
 
@@ -235,8 +225,8 @@ GNEElementTable::Row::isValid() const {
     // iterate over all text fields
     for (const auto& attributeTextField : myAttributeTextFields) {
         // check if text fields colors are valid
-        if ((attributeTextField.second->getTextColor() == TEXTCOLOR_RED) ||
-                (attributeTextField.second->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
+        if ((attributeTextField.second->getTextColor() == GUIDesignTextColorRed) ||
+                (attributeTextField.second->getBackColor() == GUIDesignBackgroundColorRed)) {
             return false;
         }
     }
@@ -255,17 +245,17 @@ GNEElementTable::Row::onCmdEditRow(FXObject* sender, FXSelector, void*) {
             // check if the value is valid
             if (!myAC->isValid(attributeTextField.first, value)) {
                 // set red color
-                attributeTextField.second->setTextColor(TEXTCOLOR_RED);
+                attributeTextField.second->setTextColor(GUIDesignTextColorRed);
                 // set background red
                 if (value.empty()) {
-                    attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_RED);
+                    attributeTextField.second->setBackColor(GUIDesignBackgroundColorRed);
                 }
             } else {
                 // set value in GNEAttributeCarrier using undo-redo
                 myAC->setAttribute(attributeTextField.first, value, myAC->getNet()->getViewNet()->getUndoList());
                 // restore black color and kill focus
-                attributeTextField.second->setTextColor(TEXTCOLOR_BLACK);
-                attributeTextField.second->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+                attributeTextField.second->setTextColor(GUIDesignTextColorBlack);
+                attributeTextField.second->setBackColor(GUIDesignBackgroundColorWhite);
                 attributeTextField.second->killFocus();
             }
             // stop after found text field
@@ -303,7 +293,7 @@ GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProper
     myScrollWindow = new FXScrollWindow(this, GUIDesignScrollWindowFixedWidth(400));
     // create vertical frame for rows and set back
     myRowsFrame = new FXVerticalFrame(myScrollWindow, GUIDesignAuxiliarFrame);
-    myRowsFrame->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+    myRowsFrame->setBackColor(GUIDesignBackgroundColorWhite);
 }
 
 

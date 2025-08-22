@@ -56,16 +56,6 @@ FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
 FXIMPLEMENT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
 
 // ===========================================================================
-// defines
-// ===========================================================================
-
-#define TEXTCOLOR_BLACK FXRGB(0, 0, 0)
-#define TEXTCOLOR_BLUE FXRGB(0, 0, 255)
-#define TEXTCOLOR_RED FXRGB(255, 0, 0)
-#define TEXTCOLOR_BACKGROUND_RED FXRGBA(255, 213, 213, 255)
-#define TEXTCOLOR_BACKGROUND_WHITE FXRGB(255, 255, 255)
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -261,11 +251,11 @@ GNEAttributesEditorRow::isValueValid() const {
     if (myValueCheckButton->shown()) {
         return true;
     } else if (myValueComboBox->shown()) {
-        return (myValueComboBox->getTextColor() != TEXTCOLOR_RED) &&
-               (myValueComboBox->getBackColor() != TEXTCOLOR_BACKGROUND_RED);
+        return (myValueComboBox->getTextColor() != GUIDesignTextColorRed) &&
+               (myValueComboBox->getBackColor() != GUIDesignBackgroundColorRed);
     } else if (myValueTextField->shown()) {
-        return (myValueTextField->getTextColor() != TEXTCOLOR_RED) &&
-               (myValueTextField->getBackColor() != TEXTCOLOR_BACKGROUND_RED);
+        return (myValueTextField->getTextColor() != GUIDesignTextColorRed) &&
+               (myValueTextField->getBackColor() != GUIDesignBackgroundColorRed);
     } else {
         return true;
     }
@@ -295,14 +285,14 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
     if (myAttrProperty->isBool()) {
         baseObject->addBoolAttribute(attribute, myValueCheckButton->getCheck() == TRUE);
     } else if (myAttrProperty->isDiscrete()) {
-        if ((myValueComboBox->getTextColor() == TEXTCOLOR_RED) ||
-                (myValueComboBox->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
+        if ((myValueComboBox->getTextColor() == GUIDesignTextColorRed) ||
+                (myValueComboBox->getBackColor() == GUIDesignBackgroundColorRed)) {
             return attribute;
         } else {
             baseObject->addStringAttribute(attribute, myValueComboBox->getText().text());
         }
-    } else if ((myValueTextField->getTextColor() == TEXTCOLOR_RED) ||
-               (myValueTextField->getBackColor() == TEXTCOLOR_BACKGROUND_RED)) {
+    } else if ((myValueTextField->getTextColor() == GUIDesignTextColorRed) ||
+               (myValueTextField->getBackColor() == GUIDesignBackgroundColorRed)) {
         return attribute;
     } else if (myAttrProperty->isInt()) {
         // int value
@@ -509,15 +499,15 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         const std::string newValue = myValueComboBox->getText().text();
         // check if the new comboBox value is valid
         if (editedAC->isValid(attribute, newValue)) {
-            myValueComboBox->setTextColor(TEXTCOLOR_BLACK);
-            myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+            myValueComboBox->setTextColor(GUIDesignTextColorBlack);
+            myValueComboBox->setBackColor(GUIDesignBackgroundColorWhite);
             myValueComboBox->killFocus();
             myAttributeTable->setAttribute(attribute, newValue);
         } else {
             // edit colors
-            myValueComboBox->setTextColor(TEXTCOLOR_RED);
+            myValueComboBox->setTextColor(GUIDesignTextColorRed);
             if (newValue.empty()) {
-                myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_RED);
+                myValueComboBox->setBackColor(GUIDesignBackgroundColorRed);
             }
         }
     } else if (obj == myValueTextField) {
@@ -551,17 +541,17 @@ GNEAttributesEditorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         const std::string newValue = myValueTextField->getText().text();
         // check if the new textField value is valid
         if (editedAC->isValid(attribute, newValue)) {
-            myValueTextField->setTextColor(TEXTCOLOR_BLACK);
-            myValueTextField->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+            myValueTextField->setTextColor(GUIDesignTextColorBlack);
+            myValueTextField->setBackColor(GUIDesignBackgroundColorWhite);
             myValueTextField->killFocus();
             if (myAttributeTable->isEditorTypeEditor() || newValue.empty() || (attribute != SUMO_ATTR_ID)) {
                 myAttributeTable->setAttribute(attribute, newValue);
             }
         } else {
             // edit colors
-            myValueTextField->setTextColor(TEXTCOLOR_RED);
+            myValueTextField->setTextColor(GUIDesignTextColorRed);
             if (newValue.empty()) {
-                myValueTextField->setBackColor(TEXTCOLOR_BACKGROUND_RED);
+                myValueTextField->setBackColor(GUIDesignBackgroundColorRed);
             }
         }
     }
@@ -824,8 +814,8 @@ GNEAttributesEditorRow::showValueComboBox(const GNEAttributeProperties* attrProp
     if (allValuesEqual) {
         // clear and enable comboBox
         myValueComboBox->clearItems();
-        myValueComboBox->setTextColor(TEXTCOLOR_BLACK);
-        myValueComboBox->setBackColor(TEXTCOLOR_BACKGROUND_WHITE);
+        myValueComboBox->setTextColor(GUIDesignTextColorBlack);
+        myValueComboBox->setBackColor(GUIDesignBackgroundColorWhite);
         if (enabled) {
             myValueComboBox->enable();
         } else {
@@ -909,9 +899,9 @@ GNEAttributesEditorRow::showValueString(const std::string& value, const bool ena
     // clear and enable comboBox
     myValueTextField->setText(value.c_str());
     if (computed) {
-        myValueTextField->setTextColor(TEXTCOLOR_BLUE);
+        myValueTextField->setTextColor(GUIDesignTextColorBlue);
     } else {
-        myValueTextField->setTextColor(TEXTCOLOR_BLACK);
+        myValueTextField->setTextColor(GUIDesignTextColorBlack);
     }
     if (enabled) {
         myValueTextField->enable();

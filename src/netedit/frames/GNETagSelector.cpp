@@ -158,7 +158,7 @@ GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool informParent) {
         if (myTagsMatchBox->getItemText(i) == myCurrentTemplateAC->getTagProperty()->getTagStr()) {
             myTagsMatchBox->setCurrentItem(i);
             // set color of myTypeMatchBox to black (valid)
-            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->setTextColor(GUIDesignTextColorBlack);
             myTagsMatchBox->killFocus();
         }
     }
@@ -181,11 +181,11 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     myCurrentTemplateAC = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myTagsMatchBox->getText().text());
     if (myCurrentTemplateAC) {
         // set color of myTypeMatchBox to black (valid)
-        myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myTagsMatchBox->setTextColor(GUIDesignTextColorBlack);
         myTagsMatchBox->killFocus();
     } else {
         // set color of myTypeMatchBox to red (invalid)
-        myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myTagsMatchBox->setTextColor(GUIDesignTextColorRed);
     }
     // inform to frame parent that a tag was selected
     myFrameParent->tagSelected();

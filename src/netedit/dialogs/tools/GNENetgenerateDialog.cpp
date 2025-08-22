@@ -133,10 +133,10 @@ GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     // check if filename is valid
     if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
-        myOutputTextField->setTextColor(FXRGB(255, 0, 0));
+        myOutputTextField->setTextColor(GUIDesignTextColorRed);
     } else {
         generateOptions.set("output-file", myOutputTextField->getText().text());
-        myOutputTextField->setTextColor(FXRGB(0, 0, 0));
+        myOutputTextField->setTextColor(GUIDesignTextColorBlack);
     }
     updateRunButtons();
     return 1;
@@ -158,10 +158,10 @@ GNENetgenerateDialog::onCmdSetGridNetwork(FXObject*, FXSelector, void*) {
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(false, true);
     // set labels color
-    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 255));
-    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myGridNetworkLabel->setTextColor(GUIDesignTextColorBlue);
+    mySpiderNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomNetworkLabel->setTextColor(GUIDesignTextColorBlack);
     // enable flag
     mySelectedNetworktypeFlag = true;
     updateRunButtons();
@@ -185,10 +185,10 @@ GNENetgenerateDialog::onCmdSetSpiderNetwork(FXObject*, FXSelector, void*) {
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(false, true);
     // set labels color
-    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 255));
-    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    mySpiderNetworkLabel->setTextColor(GUIDesignTextColorBlue);
+    myRandomGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomNetworkLabel->setTextColor(GUIDesignTextColorBlack);
     // enable flag
     mySelectedNetworktypeFlag = true;
     updateRunButtons();
@@ -211,10 +211,10 @@ GNENetgenerateDialog::onCmdSetRandomNetworkGridNetwork(FXObject*, FXSelector, vo
     myRandomGridNetworkButton->setChecked(true, true);
     myRandomNetworkButton->setChecked(false, true);
     // set labels color
-    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 255));
-    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    mySpiderNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomGridNetworkLabel->setTextColor(GUIDesignTextColorBlue);
+    myRandomNetworkLabel->setTextColor(GUIDesignTextColorBlack);
     // enable flag
     mySelectedNetworktypeFlag = true;
     updateRunButtons();
@@ -237,10 +237,10 @@ GNENetgenerateDialog::onCmdSetRandomNetwork(FXObject*, FXSelector, void*) {
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(true, true);
     // set labels color
-    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
-    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 255));
+    myGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    mySpiderNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomGridNetworkLabel->setTextColor(GUIDesignTextColorBlack);
+    myRandomNetworkLabel->setTextColor(GUIDesignTextColorBlue);
     // enable flag
     mySelectedNetworktypeFlag = true;
     updateRunButtons();

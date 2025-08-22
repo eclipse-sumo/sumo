@@ -76,7 +76,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setTableSize(1, 3);
     myTable->setVisibleColumns(3);
-    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setBackColor(GUIDesignBackgroundColorWhite);
     myTable->setColumnText(0, TL("Name"));
     myTable->setColumnText(1, TL("Value"));
     myTable->setColumnText(2, TL("Dynamic"));

@@ -162,7 +162,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // set pointer
             myCurrentType = vType.second;
             // set color of myTypeMatchBox to black (valid)
-            myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+            myTypeComboBox->setTextColor(GUIDesignTextColorBlack);
             // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
@@ -178,7 +178,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditor();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+    myTypeComboBox->setTextColor(GUIDesignTextColorRed);
     // update viewNet
     myTypeFrameParent->getViewNet()->updateViewNet();
     return 1;

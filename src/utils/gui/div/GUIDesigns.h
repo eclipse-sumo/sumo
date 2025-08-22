@@ -34,6 +34,21 @@ class MFXMenuCheckIcon;
 // Definitions
 // ===========================================================================
 
+/// @brief black color (for correct text)
+#define GUIDesignTextColorBlack FXRGB(0, 0, 0)
+
+/// @brief blue color (for default text)
+#define GUIDesignTextColorBlue FXRGB(0, 0, 255)
+
+/// @brief red color (for invalid text)
+#define GUIDesignTextColorRed FXRGB(255, 0, 0)
+
+/// @brief white background color (for valid text)
+#define GUIDesignBackgroundColorWhite FXRGB(255, 255, 255)
+
+/// @brief red background color (for invalid text)
+#define GUIDesignBackgroundColorRed FXRGBA(255, 213, 213, 255)
+
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
 

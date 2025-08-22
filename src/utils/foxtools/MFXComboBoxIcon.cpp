@@ -24,6 +24,7 @@
 // =========================================================================
 
 #include <utils/common/MsgHandler.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -86,7 +87,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
         myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         // create label for empty icon
         myNoItemsLabel = new FXLabel(myPane, TL("No matches found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
-        myNoItemsLabel->setTextColor(FXRGB(255, 0, 0));
+        myNoItemsLabel->setTextColor(GUIDesignTextColorRed);
         myNoItemsLabel->hide();
     }
     // create list icon
@@ -438,7 +439,7 @@ MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
 long
 MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     // reset background colors
-    myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+    myTextFieldIcon->setBackColor(GUIDesignBackgroundColorWhite);
     // check if item exist
     for (int i = 0; i < myList->getNumItems(); i++) {
         const auto itemText = myList->tolowerString(myList->getItem(i)->getText());

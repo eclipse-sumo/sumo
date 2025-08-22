@@ -160,9 +160,9 @@ GNESingleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FX
         if (myParameterRows.at(i)->keyField == obj) {
             // change color of text field depending if key is valid or empty
             if (myParameterRows.at(i)->keyField->getText().empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterRows.at(i)->keyField->getText().text())) {
-                myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
+                myParameterRows.at(i)->keyField->setTextColor(GUIDesignTextColorBlack);
             } else {
-                myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
+                myParameterRows.at(i)->keyField->setTextColor(GUIDesignTextColorRed);
                 myParameterRows.at(i)->keyField->killFocus();
             }
         }
@@ -232,9 +232,9 @@ GNESingleParametersDialog::ParametersValues::ParameterRow::enableRow(const std::
     // restore color and enable key field
     keyField->setText(parameter.c_str());
     if (parameter.empty() || SUMOXMLDefinitions::isValidParameterKey(parameter)) {
-        keyField->setTextColor(FXRGB(0, 0, 0));
+        keyField->setTextColor(GUIDesignTextColorBlack);
     } else {
-        keyField->setTextColor(FXRGB(255, 0, 0));
+        keyField->setTextColor(GUIDesignTextColorRed);
     }
     keyField->enable();
     // restore color and enable value field

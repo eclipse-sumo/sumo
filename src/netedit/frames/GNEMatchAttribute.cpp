@@ -108,14 +108,14 @@ void
 GNEMatchAttribute::disableMatchAttribute() {
     for (const auto& tagComboBox : myTagComboBoxVector) {
         tagComboBox->disable();
-        tagComboBox->setTextColor(FXRGB(0, 0, 0));
+        tagComboBox->setTextColor(GUIDesignTextColorBlack);
     }
     myAttributeComboBox->disable();
     myMatchString->disable();
     myMatchStringButton->disable();
     // change colors to black (even if there are invalid values)
-    myAttributeComboBox->setTextColor(FXRGB(0, 0, 0));
-    myMatchString->setTextColor(FXRGB(0, 0, 0));
+    myAttributeComboBox->setTextColor(GUIDesignTextColorBlack);
+    myMatchString->setTextColor(GUIDesignTextColorBlack);
 }
 
 
@@ -300,10 +300,10 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     }
     if (valid) {
         mySelectorFrameParent->handleIDs(matches);
-        myMatchString->setTextColor(FXRGB(0, 0, 0));
+        myMatchString->setTextColor(GUIDesignTextColorBlack);
         myMatchString->killFocus();
     } else {
-        myMatchString->setTextColor(FXRGB(255, 0, 0));
+        myMatchString->setTextColor(GUIDesignTextColorRed);
     }
     return 1;
 

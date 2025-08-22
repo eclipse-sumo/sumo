@@ -127,7 +127,7 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
     // set color if is required
     if (option->isRequired()) {
-        myParameterLabel->setTextColor(FXRGB(0, 0, 255));
+        myParameterLabel->setTextColor(GUIDesignTextColorBlue);
     }
     // create horizontal frame for textField
     myElementsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);

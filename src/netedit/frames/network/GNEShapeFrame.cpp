@@ -123,7 +123,7 @@ GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) 
     }
     // simply check if given value can be parsed to Position
     if (GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text())) {
-        myCoordinatesTextField->setTextColor(FXRGB(0, 0, 0));
+        myCoordinatesTextField->setTextColor(GUIDesignTextColorBlack);
         myCoordinatesTextField->killFocus();
         // convert coordinates into lon-lat
         Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
@@ -136,7 +136,7 @@ GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) 
         myLabelCartesianPosition->setText(
             (TL("Cartesian equivalence:") + std::string("\n- X = ") + toString(geoPos.x()) + std::string("\n- Y = ") + toString(geoPos.y())).c_str());
     } else {
-        myCoordinatesTextField->setTextColor(FXRGB(255, 0, 0));
+        myCoordinatesTextField->setTextColor(GUIDesignTextColorRed);
         myLabelCartesianPosition->setText(
             (TL("Cartesian equivalence:") + std::string("\n") +
              TL("- X = give valid longitude") + std::string("\n") +

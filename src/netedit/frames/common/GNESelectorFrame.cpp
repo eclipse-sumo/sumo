@@ -681,7 +681,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
                 mySelectParentsButton->enable();
                 myUnselectParentsButton->enable();
                 // change text color
-                myParentsComboBox->setTextColor(FXRGB(0, 0, 0));
+                myParentsComboBox->setTextColor(GUIDesignTextColorBlack);
                 // set current selected parent
                 myCurrentSelectedParent = item.first;
                 return 1;
@@ -692,7 +692,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
         // disable buttons
         mySelectParentsButton->disable();
         myUnselectParentsButton->disable();
-        myParentsComboBox->setTextColor(FXRGB(255, 0, 0));
+        myParentsComboBox->setTextColor(GUIDesignTextColorRed);
         return 1;
     } else if (obj == myChildrenComboBox) {
         for (const auto& item : myItems) {
@@ -701,7 +701,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
                 mySelectChildrenButton->enable();
                 myUnselectChildrenButton->enable();
                 // change text color
-                myChildrenComboBox->setTextColor(FXRGB(0, 0, 0));
+                myChildrenComboBox->setTextColor(GUIDesignTextColorBlack);
                 // set current selected parent
                 myCurrentSelectedChild = item.first;
                 return 1;
@@ -712,7 +712,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
         // disable buttons
         mySelectChildrenButton->disable();
         myUnselectChildrenButton->disable();
-        myChildrenComboBox->setTextColor(FXRGB(255, 0, 0));
+        myChildrenComboBox->setTextColor(GUIDesignTextColorRed);
         return 1;
     }
     return 0;

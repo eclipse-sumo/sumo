@@ -47,7 +47,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* applicationWindow) :
     auto* scrollWindowsContents = new FXScrollWindow(myContentFrame, GUIDesignScrollWindowFixed(560, 400));
     myRowFrame = new FXVerticalFrame(scrollWindowsContents, GUIDesignAuxiliarFrame);
     // set background clor
-    myRowFrame->setBackColor(FXRGB(255, 255, 255));
+    myRowFrame->setBackColor(GUIDesignBackgroundColorWhite);
     // declare redo iterator over undoList and fill rows
     GNEUndoList::RedoIterator itRedo(myApplicationWindow->getUndoList());
     while (!itRedo.end()) {
@@ -209,7 +209,7 @@ GNEUndoListDialog::GUIRow::getRadioButton() const {
 void
 GNEUndoListDialog::GUIRow::setRedBackground() {
     myRadioButton->setCheck(FALSE);
-    myRadioButton->setBackColor(FXRGBA(255, 213, 213, 255));
+    myRadioButton->setBackColor(GUIDesignBackgroundColorRed);
 }
 
 

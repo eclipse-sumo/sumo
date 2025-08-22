@@ -385,10 +385,10 @@ GNEOptionsEditorRow::OptionIntVector::onCmdSetOption(FXObject*, FXSelector, void
         }
         myOptionsEditor->myOptionsContainer.resetWritable();
         myOptionsEditor->myOptionsContainer.set(myName, myIntVectorTextField->getText().text());
-        myIntVectorTextField->setTextColor(FXRGB(0, 0, 0));
+        myIntVectorTextField->setTextColor(GUIDesignTextColorBlack);
         myOptionsEditor->myOptionsModified = true;
     } catch (...) {
-        myIntVectorTextField->setTextColor(FXRGB(255, 0, 0));
+        myIntVectorTextField->setTextColor(GUIDesignTextColorRed);
     }
     updateResetButton();
     return 1;
@@ -584,10 +584,10 @@ GNEOptionsEditorRow::OptionFilename::onCmdSetOption(FXObject*, FXSelector, void*
     if (SUMOXMLDefinitions::isValidFilename(myFilenameTextField->getText().text())) {
         myOptionsEditor->myOptionsContainer.resetWritable();
         myOptionsEditor->myOptionsContainer.set(myName, myFilenameTextField->getText().text());
-        myFilenameTextField->setTextColor(FXRGB(0, 0, 0));
+        myFilenameTextField->setTextColor(GUIDesignTextColorBlack);
         myOptionsEditor->myOptionsModified = true;
     } else {
-        myFilenameTextField->setTextColor(FXRGB(255, 0, 0));
+        myFilenameTextField->setTextColor(GUIDesignTextColorRed);
     }
     updateResetButton();
     return 1;

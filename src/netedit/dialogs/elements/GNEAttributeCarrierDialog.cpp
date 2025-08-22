@@ -57,11 +57,20 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
     // create text field
     myTextField = new MFXTextFieldTooltip(this, ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                           GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // set attribute
+    myTextField->setText(ACDialog->getElement()->getAttribute(myAttr).c_str());
 }
 
 
 long
 GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+    if (myACDialog->getElement()->isValid(myAttr, myTextField->getText().text())) {
+        // if text field is empty, remove attribute
+        //myACDialog->getElement()->removeAttribute(myAttr);
+    } else {
+        // set attribute with text field value
+        //myACDialog->getElement()->setAttribute(myAttr, myTextField->getText());
+    }
     return 1;
 }
 

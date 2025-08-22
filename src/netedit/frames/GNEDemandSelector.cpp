@@ -259,7 +259,7 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
             if (demandElement.second->getID() == myDemandElementsComboBox->getText().text()) {
                 // set color of myTypeMatchBox to black (valid)
-                myDemandElementsComboBox->setTextColor(FXRGB(0, 0, 0));
+                myDemandElementsComboBox->setTextColor(GUIDesignTextColorBlack);
                 myDemandElementsComboBox->killFocus();
                 // Set new current demand element
                 myCurrentDemandElement = demandElement.second;
@@ -274,7 +274,7 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     // call demandElementSelected function
     myFrameParent->demandElementSelected();
     // change color of myDemandElementsComboBox to red (invalid)
-    myDemandElementsComboBox->setTextColor(FXRGB(255, 0, 0));
+    myDemandElementsComboBox->setTextColor(GUIDesignTextColorRed);
     return 1;
 }
 

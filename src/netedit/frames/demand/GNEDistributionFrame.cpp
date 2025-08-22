@@ -241,7 +241,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             // set pointer
             myCurrentDistribution = distribution.second;
             // set color of myTypeMatchBox to black (valid)
-            myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
+            myDistributionsComboBox->setTextColor(GUIDesignTextColorBlack);
             // show modules
             myAttributesEditor->showAttributesEditor(distribution.second, true);
             myDistributionValuesEditor->showDistributionValuesEditor();
@@ -256,7 +256,7 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
     myAttributesEditor->hideAttributesEditor();
     myDistributionValuesEditor->hideDistributionValuesEditor();
     // set color of myTypeMatchBox to red (invalid)
-    myDistributionsComboBox->setTextColor(FXRGB(255, 0, 0));
+    myDistributionsComboBox->setTextColor(GUIDesignTextColorRed);
     // update viewNet
     viewNet->updateViewNet();
     return 1;
@@ -351,11 +351,11 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
         }
         myComboBoxKeys->setCurrentItem(0);
         // adjust combo Box
-        myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxKeys->setTextColor(GUIDesignTextColorBlack);
         myComboBoxKeys->killFocus();
         // set probability
         myProbabilityTextField->setText(toString(myProbability).c_str());
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        myProbabilityTextField->setTextColor(GUIDesignTextColorBlack);
         myProbabilityTextField->killFocus();
     */
 }
@@ -382,7 +382,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
     /*
     // check if new key is valid
     if (isValidNewKey()) {
-        myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxKeys->setTextColor(GUIDesignTextColorBlack);
         // get new key
         const auto newKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
         // only change if is different of current key
@@ -402,7 +402,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
             myDistributionValuesEditorParent->refreshRows();
         }
     } else {
-        myComboBoxKeys->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxKeys->setTextColor(GUIDesignTextColorRed);
         myComboBoxKeys->killFocus();
     }
     */
@@ -429,11 +429,11 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
         // edit distribution value
         currentDistribution->editDistributionValue(myKey, probability, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
         // reset color
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        myProbabilityTextField->setTextColor(GUIDesignTextColorBlack);
         // update sum label
         myDistributionValuesEditorParent->updateSumLabel();
     } else {
-        myProbabilityTextField->setTextColor(FXRGB(255, 0, 0));
+        myProbabilityTextField->setTextColor(GUIDesignTextColorRed);
         myProbabilityTextField->killFocus();
     }
     */

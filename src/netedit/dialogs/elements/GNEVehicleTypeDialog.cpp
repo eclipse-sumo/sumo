@@ -81,9 +81,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
 SUMOVehicleClass
 GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
     // set color of myComboBoxVClass, depending if current value is valid or not
-    myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
+    myComboBoxVClass->setTextColor(GUIDesignTextColorBlack);
     if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
-        myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxVClass->setTextColor(GUIDesignTextColorBlack);
         // check if  VType has to be updated
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(SUMO_ATTR_VCLASS) != myComboBoxVClass->getText().text()) {
             // update VClass in VType
@@ -142,7 +142,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
             */
         }
     } else {
-        myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxVClass->setTextColor(GUIDesignTextColorRed);
         myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_VCLASS;
     }
@@ -309,12 +309,12 @@ void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVariable() {
     // set color of myComboBoxShape, depending if current value is valid or not
     if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
-        myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxShape->setTextColor(GUIDesignTextColorBlack);
         myVTypeAttributesParent->myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
                 myVTypeAttributesParent->myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
         setVShapeLabelImage();
     } else {
-        myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxShape->setTextColor(GUIDesignTextColorRed);
         myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_GUISHAPE;
     }
@@ -345,7 +345,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::updateValue(SUMOVehicleClass v
     } else {
         myComboBoxShape->setCurrentItem(index);
     }
-    myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
+    myComboBoxShape->setTextColor(GUIDesignTextColorBlack);
     myVTypeAttributesParent->myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
             myVTypeAttributesParent->myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
     setVShapeLabelImage();
@@ -504,7 +504,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable() {
             // update value after setting it
             updateValue();
         } else {
-            myComboBox->setTextColor(FXRGB(255, 0, 0));
+            myComboBox->setTextColor(GUIDesignTextColorRed);
             // mark VType as invalid
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -514,13 +514,13 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable() {
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_COLOR, myTextField->getText().text())) {
             // set color depending if is a default value
             if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_COLOR) != myTextField->getText().text()) {
-                myTextField->setTextColor(FXRGB(0, 0, 0));
+                myTextField->setTextColor(GUIDesignTextColorBlack);
             } else {
                 myTextField->setTextColor(FXRGB(195, 195, 195));
             }
             myVTypeAttributesParent->myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_COLOR, myTextField->getText().text(), myVTypeAttributesParent->myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
         } else {
-            myTextField->setTextColor(FXRGB(255, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorRed);
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_COLOR;
         }
@@ -532,7 +532,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable() {
             // update value after setting it
             updateValue();
         } else {
-            myTextField->setTextColor(FXRGB(255, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorRed);
             // mark VType as invalid
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -551,7 +551,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable(const std:
             // update value after setting it
             updateValue(defaultValue);
         } else {
-            myComboBox->setTextColor(FXRGB(255, 0, 0));
+            myComboBox->setTextColor(GUIDesignTextColorRed);
             // mark VType as invalid
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -564,7 +564,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable(const std:
             // update value after setting it
             updateValue(defaultValue);
         } else {
-            myTextField->setTextColor(FXRGB(255, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorRed);
             // mark VType as invalid
             myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
             myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -586,7 +586,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
         }
         // set color depending if is a default value
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(myAttr) != myComboBox->getText().text()) {
-            myComboBox->setTextColor(FXRGB(0, 0, 0));
+            myComboBox->setTextColor(GUIDesignTextColorBlack);
         } else {
             myComboBox->setTextColor(FXRGB(195, 195, 195));
         }
@@ -595,7 +595,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
         myTextField->setText(myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(myAttr) != myTextField->getText().text()) {
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
@@ -605,7 +605,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
         // set text of myTextField using current value of VType
         myTextField->setText(parametersStr.c_str());
         // set text color
-        myTextField->setTextColor(FXRGB(0, 0, 0));
+        myTextField->setTextColor(GUIDesignTextColorBlack);
         // clear parameters
         myParameters.clear();
         // separate value in a vector of string using | as separator
@@ -623,7 +623,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
         myTextField->setText(myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
         if (myVTypeAttributesParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(myAttr) != myTextField->getText().text()) {
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
@@ -644,7 +644,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue(const std:
         }
         // set color depending if is a default value
         if (defaultValue != myComboBox->getText().text()) {
-            myComboBox->setTextColor(FXRGB(0, 0, 0));
+            myComboBox->setTextColor(GUIDesignTextColorBlack);
         } else {
             myComboBox->setTextColor(FXRGB(195, 195, 195));
         }
@@ -653,7 +653,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue(const std:
         myTextField->setText(myVTypeAttributesParent->myVehicleTypeDialog->myElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
         if (defaultValue != myTextField->getText().text()) {
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
@@ -684,7 +684,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         if (editedDemandElement->isValid(myAttr, newValue)) {
             editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
             // If previously value was incorrect, change font color to black
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
             myTextField->killFocus();
         }
     }
@@ -711,7 +711,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openImageFileDialog() 
             myVTypeAttributesParent->myVehicleTypeDialog->myElement->setAttribute(myAttr, imagePath, myVTypeAttributesParent->myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
             myTextField->setText(imagePath.c_str());
             // If previously value was incorrect, change font color to black
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
             myTextField->killFocus();
         }
     }
@@ -738,7 +738,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openOSGFileDialog() {
             myVTypeAttributesParent->myVehicleTypeDialog->myElement->setAttribute(myAttr, imagePath, myVTypeAttributesParent->myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
             myTextField->setText(imagePath.c_str());
             // If previously value was incorrect, change font color to black
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
             myTextField->killFocus();
         }
     }
@@ -1168,13 +1168,13 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdSetAttribute(FXObject*, FXSelector, 
     myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
     if (myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
-        myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldVehicleTypeID->setTextColor(GUIDesignTextColorBlack);
         myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
     } else if (myVehicleTypeDialog->myElement->getAttribute(SUMO_ATTR_ID) == myTextFieldVehicleTypeID->getText().text()) {
-        myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldVehicleTypeID->setTextColor(GUIDesignTextColorBlack);
         myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
     } else {
-        myTextFieldVehicleTypeID->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldVehicleTypeID->setTextColor(GUIDesignTextColorRed);
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_ID;
     }
@@ -1747,10 +1747,10 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
     myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
     // set color of myTextFieldCarFollowModel, depending if current value is valid or not
     if (myVehicleTypeDialog->myElement->isValid(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text())) {
-        myComboBoxCarFollowModel->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxCarFollowModel->setTextColor(GUIDesignTextColorBlack);
         myVehicleTypeDialog->myElement->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text(), myVehicleTypeDialog->myElement->getNet()->getViewNet()->getUndoList());
     } else {
-        myComboBoxCarFollowModel->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxCarFollowModel->setTextColor(GUIDesignTextColorRed);
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_CAR_FOLLOW_MODEL;
     }
@@ -1847,7 +1847,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
     if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myElement->isValid(myAttr, myTextField->getText().text())) {
         // set color depending if is a default value
         if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(myAttr) != myTextField->getText().text()) {
-            myTextField->setTextColor(FXRGB(0, 0, 0));
+            myTextField->setTextColor(GUIDesignTextColorBlack);
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
@@ -1856,7 +1856,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
         // update value after setting it
         updateValue();
     } else {
-        myTextField->setTextColor(FXRGB(255, 0, 0));
+        myTextField->setTextColor(GUIDesignTextColorRed);
         // mark VType as invalid
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
@@ -1870,7 +1870,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateV
     myTextField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myElement->getAttribute(myAttr).c_str());
     // set color depending if is a default value
     if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myElement->getTagProperty()->getDefaultStringValue(myAttr) != myTextField->getText().text()) {
-        myTextField->setTextColor(FXRGB(0, 0, 0));
+        myTextField->setTextColor(GUIDesignTextColorBlack);
     } else {
         myTextField->setTextColor(FXRGB(195, 195, 195));
     }

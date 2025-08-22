@@ -189,7 +189,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
                 // hide lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
                 // set comboBox text
-                myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+                myEdgeTypesComboBox->setTextColor(GUIDesignTextColorRed);
             }
         }
     }
@@ -424,7 +424,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     // clear edge types
     myEdgeTypesComboBox->clearItems();
     // set comboBox text color
-    myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+    myEdgeTypesComboBox->setTextColor(GUIDesignTextColorBlack);
     // add template
     if (templateEditor->getEdgeTemplate()) {
         myEdgeTypesComboBox->appendIconItem((TL("template: ") + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);

@@ -144,7 +144,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
     // get string
     const std::string dataSetID = myNewDataSetIDTextField->getText().text();
     // check conditions
-    if (myNewDataSetIDTextField->getTextColor() == FXRGB(255, 0, 0)) {
+    if (myNewDataSetIDTextField->getTextColor() == GUIDesignTextColorRed) {
         WRITE_WARNING(TL("Invalid dataSet ID"));
     } else if (dataSetID.empty()) {
         WRITE_WARNING(TL("Invalid empty dataSet ID"));
@@ -351,18 +351,18 @@ GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, 
     if (obj == myBeginTextField) {
         // check if begin value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
-            myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+            myBeginTextField->setTextColor(GUIDesignTextColorBlack);
             myBeginTextField->killFocus();
         } else {
-            myBeginTextField->setTextColor(FXRGB(255, 0, 0));
+            myBeginTextField->setTextColor(GUIDesignTextColorRed);
         }
     } else if (obj == myEndTextField) {
         // check if end value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
-            myEndTextField->setTextColor(FXRGB(0, 0, 0));
+            myEndTextField->setTextColor(GUIDesignTextColorBlack);
             myEndTextField->killFocus();
         } else {
-            myEndTextField->setTextColor(FXRGB(255, 0, 0));
+            myEndTextField->setTextColor(GUIDesignTextColorRed);
         }
     }
     return 1;

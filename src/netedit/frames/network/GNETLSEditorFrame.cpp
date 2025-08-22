@@ -1039,7 +1039,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
     // check if ID is valid
     if (newTLID.empty() || (newTLID == currentTLID)) {
         // same ID or empty
-        myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
+        myTLSIDTextField->setTextColor(GUIDesignTextColorBlack);
         myTLSIDTextField->setText(currentTLID.c_str());
         myTLSIDTextField->killFocus();
         myTLSEditorParent->update();
@@ -1050,7 +1050,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSFile->showTLSFile();
     } else if (!SUMOXMLDefinitions::isValidNetID(newTLID) || myCurrentJunction->getNet()->getTLLogicCont().exist(newTLID)) {
         // set invalid color
-        myTLSIDTextField->setTextColor(FXRGB(255, 0, 0));
+        myTLSIDTextField->setTextColor(GUIDesignTextColorRed);
         // hide moduls
         myTLSEditorParent->myTLSPrograms->hideTLSPrograms();
         myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
@@ -1061,7 +1061,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         auto junction = myCurrentJunction;
         const auto tlDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
         // restore color
-        myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
+        myTLSIDTextField->setTextColor(GUIDesignTextColorBlack);
         myTLSIDTextField->killFocus();
         myTLSEditorParent->update();
         // discard previous changes
@@ -1091,7 +1091,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
     // check if ID is valid
     if (newTLType.empty() || (newTLType == currentTLType)) {
         // same ID or empty, don't change
-        myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+        myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
         // set value
         const int index = myTLSTypeComboBox->findItem(currentTLType.c_str());
         if (index == -1) {
@@ -1109,7 +1109,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSFile->showTLSFile();
     } else if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(newTLType)) {
         // set invalid color
-        myTLSTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+        myTLSTypeComboBox->setTextColor(GUIDesignTextColorRed);
         // hide moduls
         myTLSEditorParent->myTLSPrograms->hideTLSPrograms();
         myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
@@ -1117,7 +1117,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSFile->hideTLSFile();
     } else {
         // reset color
-        myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+        myTLSTypeComboBox->setTextColor(GUIDesignTextColorBlack);
         myTLSTypeComboBox->killFocus();
         myTLSEditorParent->update();
         // make a copy of myCurrentJunction (because will be reset after calling discardChanges)

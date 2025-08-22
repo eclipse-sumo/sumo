@@ -572,7 +572,7 @@ GNEApplicationWindow::dependentBuild() {
     myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myTestCoordinate = new FXLabel(myTestFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
     myTestCoordinate->setHelpText(TL("Test coordinate"));
-    myTestCoordinate->setTextColor(FXRGB(255, 0, 0));
+    myTestCoordinate->setTextColor(GUIDesignTextColorRed);
     myTestFrame->hide();
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);

@@ -138,14 +138,14 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
     // set invalid current route mode
     myCurrentRouteMode = RouteMode::INVALID;
     // set color of myTypeMatchBox to red (invalid)
-    myRouteModeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myRouteModeMatchBox->setTextColor(GUIDesignTextColorRed);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& routeMode : myRouteModesStrings) {
         if (routeMode.second == myRouteModeMatchBox->getText().text()) {
             // Set new current type
             myCurrentRouteMode = routeMode.first;
             // set color of myTypeMatchBox to black (valid)
-            myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myRouteModeMatchBox->setTextColor(GUIDesignTextColorBlack);
         }
     }
     // check if parameters are valid
@@ -161,14 +161,14 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
     // set vClass flag invalid
     myValidVClass = false;
     // set color of myTypeMatchBox to red (invalid)
-    myVClassMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myVClassMatchBox->setTextColor(GUIDesignTextColorRed);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
         if (vClass == myVClassMatchBox->getText().text()) {
             // change flag
             myValidVClass = true;
             // set color of myTypeMatchBox to black (valid)
-            myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myVClassMatchBox->setTextColor(GUIDesignTextColorBlack);
             // set vClass in Path creator
             myRouteFrameParent->myPathCreator->setVClass(SumoVehicleClassStrings.get(vClass));
         }

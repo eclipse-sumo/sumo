@@ -22,9 +22,13 @@
 #include <config.h>
 
 #include <vector>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "fxheader.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
 class FXTreeItemDynamic : public FXTreeItem {
 
@@ -41,7 +45,7 @@ protected:
 
 private:
     /// @brief set text color
-    FXColor myTextColor = FXRGB(0, 0, 0);
+    FXColor myTextColor = GUIDesignTextColorBlack;
 };
 
 /// @brief MFXTreeListDynamic
@@ -72,10 +76,10 @@ public:
     FXint getSelectedIndex();
 
     /// @brief prepend item with given text and icon
-    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = FXRGB(0, 0, 0));
+    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = GUIDesignTextColorBlack);
 
     /// @brief append item with given text and icon
-    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = FXRGB(0, 0, 0));
+    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = GUIDesignTextColorBlack);
 
     /// @brief get FXWindows associated with this MFXTreeListDynamic
     FXWindow* getFXWindow();

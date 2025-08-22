@@ -41,7 +41,7 @@ GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicati
     myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
     myTable->setVisibleColumns(4);
     myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
-    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setBackColor(GUIDesignBackgroundColorWhite);
     myTable->setColumnText(0, TL("Attribute"));
     myTable->setColumnText(1, TL("Category"));
     myTable->setColumnText(2, TL("Description"));

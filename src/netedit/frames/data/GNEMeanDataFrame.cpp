@@ -127,7 +127,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             // set pointer
             myCurrentMeanData = meanDataType;
             // set color of myTypeMatchBox to black (valid)
-            myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+            myTypeComboBox->setTextColor(GUIDesignTextColorBlack);
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
@@ -143,7 +143,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
     myMeanDataFrameParent->myMeanDataEditor->hideMeanDataEditorModule();
     myMeanDataFrameParent->myMeanDataSelector->hideMeanDataSelector();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+    myTypeComboBox->setTextColor(GUIDesignTextColorRed);
     return 1;
 }
 
@@ -394,7 +394,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // set pointer
             myCurrentMeanData = meanData.second;
             // set color of myMeanDataMatchBox to black (valid)
-            myMeanDataComboBox->setTextColor(FXRGB(0, 0, 0));
+            myMeanDataComboBox->setTextColor(GUIDesignTextColorBlack);
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
@@ -410,7 +410,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
     // hide all modules if selected item isn't valid
     myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditor();
     // set color of myMeanDataMatchBox to red (invalid)
-    myMeanDataComboBox->setTextColor(FXRGB(255, 0, 0));
+    myMeanDataComboBox->setTextColor(GUIDesignTextColorRed);
     // update viewNet
     myMeanDataFrameParent->getViewNet()->updateViewNet();
     return 1;

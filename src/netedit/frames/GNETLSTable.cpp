@@ -369,11 +369,11 @@ GNETLSTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
             if (textField == sender) {
                 // edit value and change value depending of result
                 if (myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text())) {
-                    textField->setTextColor(FXRGB(0, 0, 0));
+                    textField->setTextColor(GUIDesignTextColorBlack);
                     textField->killFocus();
                     myTLSPhasesParent->getTLSEditorParent()->update();
                 } else {
-                    textField->setTextColor(FXRGB(255, 0, 0));
+                    textField->setTextColor(GUIDesignTextColorRed);
                 }
                 return 1;
             }
