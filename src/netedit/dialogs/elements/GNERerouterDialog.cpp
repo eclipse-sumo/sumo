@@ -79,8 +79,8 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNERerouterDialog::RerouterIntervalsList::RerouterIntervalsList(GNERerouterDialog* rerouterDialog) :
-    GNETemplateElementList(rerouterDialog, rerouterDialog->getContentFrame(),
-                           SUMO_TAG_INTERVAL, true, true, true) {
+    GNETemplateElementList(rerouterDialog, rerouterDialog->getContentFrame(), SUMO_TAG_INTERVAL,
+                           GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
 }
 
 

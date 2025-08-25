@@ -79,8 +79,8 @@ GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEVariableSpeedSignDialog::VariableSpeedSignStepsList::VariableSpeedSignStepsList(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNETemplateElementList(variableSpeedSignDialog, variableSpeedSignDialog->getContentFrame(),
-                           SUMO_TAG_STEP, true, false, true) {
+    GNETemplateElementList(variableSpeedSignDialog, variableSpeedSignDialog->getContentFrame(), SUMO_TAG_STEP,
+                           GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::FIXED_HEIGHT) {
 }
 
 

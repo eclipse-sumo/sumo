@@ -47,8 +47,7 @@ FXIMPLEMENT_ABSTRACT(GNEElementList, FXVerticalFrame, GNEElementListMap, ARRAYNU
 // method definitions
 // ===========================================================================
 
-GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty,
-                               const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight) :
+GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, const int options) :
     FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame),
     myTagProperty(tagProperty) {
     // horizontal frame for buttons
@@ -59,12 +58,12 @@ GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProper
     // add label with tag
     myLabel = new FXLabel(buttonFrame, TLF("%s", myTagProperty->getTagStr()).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // check if add sort button
-    if (allowSortElements) {
+    if (options & GNEElementList::Options::SORTELEMENTS) {
         mySortButton = GUIDesigns::buildFXButton(buttonFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD),
                        this, MID_GNE_ELEMENTLIST_SORT, GUIDesignButtonIcon);
     }
     // create element table
-    myElementTable = new GNEElementTable(this, myTagProperty, allowOpenDialog, fixHeight);
+    myElementTable = new GNEElementTable(this, myTagProperty, options);
 }
 
 

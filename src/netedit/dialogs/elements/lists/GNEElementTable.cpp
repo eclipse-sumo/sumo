@@ -69,9 +69,8 @@ GNEElementTable::ColumnHeader::ColumnHeader(GNEElementTable* elementTable, const
         }
     }
     // create empty label (icons and vertical scroller)
-    if (elementTable->myAllowOpenDialog) {
+    if (elementTable->myOptions & GNEElementList::Options::DIALOG_ELEMENT) {
         new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
-
     } else {
         new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + 15));
     }
@@ -142,7 +141,7 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
     myRemoveButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this,
                                   MID_GNE_ELEMENTTABLE_REMOVE, GUIDesignButtonIcon);
     // only create open dialog button if allowed
-    if (elementTable->myAllowOpenDialog) {
+    if (elementTable->myOptions & GNEElementList::Options::DIALOG_ELEMENT) {
         // create open dialog button targeting the GNEDialog
         myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this,
                                           MID_GNE_ELEMENTTABLE_OPENDIALOG, GUIDesignButtonIcon);
@@ -281,12 +280,11 @@ GNEElementTable::Row::onCmdOpenDialog(FXObject* sender, FXSelector, void*) {
 // GNEElementTable - methods
 // ---------------------------------------------------------------------------
 
-GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties,
-                                 const bool allowOpenDialog, const bool fixHeight) :
-    FXVerticalFrame(elementList, LAYOUT_FIX_WIDTH | (fixHeight ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
+GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties, const int options) :
+    FXVerticalFrame(elementList, LAYOUT_FIX_WIDTH | ((options & GNEElementList::Options::FIXED_HEIGHT) ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
                     0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
     myElementList(elementList),
-    myAllowOpenDialog(allowOpenDialog) {
+    myOptions(options) {
     // create column header
     myColumnHeader = new ColumnHeader(this, tagProperties);
     // create scroll windows for rows

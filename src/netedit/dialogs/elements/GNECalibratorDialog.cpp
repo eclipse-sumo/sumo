@@ -103,7 +103,8 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE, false, true, true) {
+    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE,
+                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
 }
 
 
@@ -137,7 +138,8 @@ GNECalibratorDialog::RoutesList::openElementDialog(const size_t rowIndex) {
 // ---------------------------------------------------------------------------
 
 GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE, false, true, true) {
+    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE,
+                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
 }
 
 
@@ -172,7 +174,8 @@ GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
 
 GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
         RoutesList* routesList, VTypesList* vTypesList) :
-    GNETemplateElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW, true, true, false),
+    GNETemplateElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW,
+                           GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::DIALOG_ELEMENT),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
     // disable if there are no routes in net

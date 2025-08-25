@@ -37,9 +37,16 @@ class GNEElementList : public FXVerticalFrame {
     FXDECLARE_ABSTRACT(GNEElementList)
 
 public:
+    /// @brief enum class for element list options
+    enum Options : int {
+        SORTELEMENTS =      1 << 0,     // show button sort elements
+        DIALOG_ELEMENT =    1 << 1,     // show button for open dialog element
+        DIALOG_VCLASS =     1 << 2,     // show button for open dialog vClass
+        FIXED_HEIGHT =      1 << 3,     // fixed height
+    };
+
     /// @brief constructor
-    GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty,
-                   const bool allowSortElements, const bool allowOpenDialog, const bool fixHeight);
+    GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, const int options);
 
     /// @brief destructor
     ~GNEElementList();
