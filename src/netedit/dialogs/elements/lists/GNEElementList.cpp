@@ -47,7 +47,7 @@ FXIMPLEMENT_ABSTRACT(GNEElementList, FXVerticalFrame, GNEElementListMap, ARRAYNU
 // method definitions
 // ===========================================================================
 
-GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, const int options) :
+GNEElementList::GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, GNEElementList::Options options) :
     FXVerticalFrame(contentFrame, GUIDesignAuxiliarVerticalFrame),
     myTagProperty(tagProperty) {
     // horizontal frame for buttons

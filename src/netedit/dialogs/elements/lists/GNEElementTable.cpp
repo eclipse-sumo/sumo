@@ -26,7 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEElementTable.h"
-#include "GNEElementList.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -280,7 +279,7 @@ GNEElementTable::Row::onCmdOpenDialog(FXObject* sender, FXSelector, void*) {
 // GNEElementTable - methods
 // ---------------------------------------------------------------------------
 
-GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties, const int options) :
+GNEElementTable::GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties, GNEElementList::Options options) :
     FXVerticalFrame(elementList, LAYOUT_FIX_WIDTH | ((options & GNEElementList::Options::FIXED_HEIGHT) ? LAYOUT_FIX_HEIGHT : LAYOUT_FILL_Y),
                     0, 0, 400, 300, 0, 0, 0, 0, 0, 0),
     myElementList(elementList),

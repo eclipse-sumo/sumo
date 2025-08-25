@@ -38,15 +38,16 @@ class GNEElementList : public FXVerticalFrame {
 
 public:
     /// @brief enum class for element list options
-    enum Options : int {
-        SORTELEMENTS =      1 << 0,     // show button sort elements
-        DIALOG_ELEMENT =    1 << 1,     // show button for open dialog element
-        DIALOG_VCLASS =     1 << 2,     // show button for open dialog vClass
-        FIXED_HEIGHT =      1 << 3,     // fixed height
+    enum class Options : int {
+        NONE =              1 << 0, // nothing to show
+        SORTELEMENTS =      1 << 1, // show button sort elements
+        DIALOG_ELEMENT =    1 << 2, // show button for open dialog element
+        DIALOG_VCLASS =     1 << 3, // show button for open dialog vClass
+        FIXED_HEIGHT =      1 << 4, // fixed height
     };
 
     /// @brief constructor
-    GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, const int options);
+    GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, GNEElementList::Options options);
 
     /// @brief destructor
     ~GNEElementList();
@@ -118,3 +119,13 @@ private:
     /// @brief Invalidated assignment operator
     GNEElementList& operator=(const GNEElementList&) = delete;
 };
+
+/// @brief override attribute parent bit operator
+constexpr GNEElementList::Options operator|(GNEElementList::Options a, GNEElementList::Options b) {
+    return static_cast<GNEElementList::Options>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+/// @brief override attribute parent bit operator
+constexpr bool operator&(GNEElementList::Options a, GNEElementList::Options b) {
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+}

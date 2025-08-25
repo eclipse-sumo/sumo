@@ -20,11 +20,12 @@
 #pragma once
 #include <config.h>
 
+#include "GNEElementList.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEElementList;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -146,7 +147,7 @@ public:
     };
 
     /// @brief constructor
-    GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties, const int options);
+    GNEElementTable(GNEElementList* elementList, const GNETagProperties* tagProperties, GNEElementList::Options options);
 
     /// @brief destructor
     ~GNEElementTable();
@@ -178,7 +179,7 @@ protected:
     GNEElementList* myElementList = nullptr;
 
     /// @brief GNEElementList options
-    const int myOptions = 0;
+    GNEElementList::Options myOptions = GNEElementList::Options::NONE;
 
     /// @brief column header
     ColumnHeader* myColumnHeader = nullptr;
