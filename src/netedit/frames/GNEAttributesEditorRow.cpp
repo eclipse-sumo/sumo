@@ -18,7 +18,7 @@
 // Row used for edit attributes in GNEAttributesEditorType
 /****************************************************************************/
 
-#include <netedit/dialogs/GNEAllowVClassesDialog.h>
+#include <netedit/dialogs/GNEVClassesDialog.h>
 #include <netedit/dialogs/GNEColorDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEApplicationWindow.h>
@@ -422,7 +422,7 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 long
 GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     // declare allowVClassesDialog
-    const auto allowVClassesDialog = new GNEAllowVClassesDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    const auto allowVClassesDialog = new GNEVClassesDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
             myAttrProperty->getAttr(), myValueTextField->getText().text());
     // continue depending of result
     if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {

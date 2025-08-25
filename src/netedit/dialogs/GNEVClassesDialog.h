@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAllowVClassesDialog.h
+/// @file    GNEVClassesDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
 ///
@@ -34,9 +34,9 @@ class GNEAttributeCarrier;
 // class definitions
 // ===========================================================================
 
-class GNEAllowVClassesDialog : public GNEDialog {
+class GNEVClassesDialog : public GNEDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAllowVClassesDialog)
+    FXDECLARE(GNEVClassesDialog)
 
 public:
     /// @brief vclass row
@@ -88,11 +88,11 @@ public:
     };
 
     /// @brief Constructor
-    GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
-                           const std::string originalVClasses);
+    GNEVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
+                      const std::string originalVClasses);
 
     /// @brief destructor
-    ~GNEAllowVClassesDialog();
+    ~GNEVClassesDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -128,7 +128,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEAllowVClassesDialog)
+    FOX_CONSTRUCTOR(GNEVClassesDialog)
 
     /// @brief original vClasses (used for reset)
     const std::string myOriginalVClasses;
@@ -141,8 +141,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEAllowVClassesDialog(const GNEAllowVClassesDialog&) = delete;
+    GNEVClassesDialog(const GNEVClassesDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAllowVClassesDialog& operator=(const GNEAllowVClassesDialog&) = delete;
+    GNEVClassesDialog& operator=(const GNEVClassesDialog&) = delete;
 };

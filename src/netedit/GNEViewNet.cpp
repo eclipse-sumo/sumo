@@ -25,7 +25,7 @@
 #include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
-#include <netedit/dialogs/GNEAllowVClassesDialog.h>
+#include <netedit/dialogs/GNEVClassesDialog.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
 #include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>

@@ -10,8 +10,8 @@ set(netedit_dialogs_SRCS
    GNEACChooserDialog.h
    GNEAboutDialog.cpp
    GNEAboutDialog.h
-   GNEAllowVClassesDialog.cpp
-   GNEAllowVClassesDialog.h
+   GNEVClassesDialog.cpp
+   GNEVClassesDialog.h
    GNEColorDialog.cpp
    GNEColorDialog.h
    GNEDialog.cpp

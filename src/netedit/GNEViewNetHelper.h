@@ -145,7 +145,7 @@ class GNEUndoList;
 class GNEViewNet;
 class GNEViewParent;
 // dialogs
-class GNEAllowVClassesDialog;
+class GNEVClassesDialog;
 class GNEFixNetworkElements;
 class GNEFixAdditionalElementsDialog;
 class GNEFixDemandElementsDialog;
