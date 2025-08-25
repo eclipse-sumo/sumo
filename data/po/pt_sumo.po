@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-07 10:02+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-08-26 08:42+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -225,58 +225,63 @@ msgstr ""
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Escrever definições de laço de indução para as posições dadas do detector em "
+"um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Adicionar detectores de origem à saída de validação"
 
 #: src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
+"Derivar valores de fluxo ausentes de montante ou de jusante (não está "
+"funcionando!)"
 
 #: src/dfrouter/RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "Troca para o modo de rodovia"
 
 #: src/dfrouter/RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Só alertar sobre detectores não analisáveis"
 
 #: src/dfrouter/RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Recalcula os tipos de detectores mesmo se dado"
 
 #: src/dfrouter/RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Recalcula rotas mesmo se forem dadas"
 
 #: src/dfrouter/RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
 msgstr ""
+"Mantém as rotas mesmo que tenham esgotado a profundidade máxima de busca"
 
 #: src/dfrouter/RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Mantém as rotas mesmo se existir uma mais curta"
 
 #: src/dfrouter/RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
-msgstr ""
+msgstr "Número de arestas para seguir uma rota sem passar em um detector"
 
 #: src/dfrouter/RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "Escreve apenas tempos de emissão"
 
 #: src/dfrouter/RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "Não enviar rotas por essas arestas"
 
 #: src/dfrouter/RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
-msgstr ""
+msgstr "Só criar rotas em arestas que permitem acesso à classe de veículo dada"
 
 #: src/dfrouter/RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "Permitir retornos como continuações de rota"
 
 #: src/dfrouter/RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
@@ -2739,7 +2744,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2054
 msgid "collision"
-msgstr ""
+msgstr "colisão"
 
 #: src/microsim/MSLane.cpp:2061
 msgid "Vehicle '%'; % with vehicle '%"
@@ -2864,7 +2869,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:691
 msgid "Reason: "
-msgstr ""
+msgstr "Razão: "
 
 #: src/microsim/MSNet.cpp:951
 msgid "The final simulation step has been reached."
@@ -2884,7 +2889,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:959
 msgid "Interrupted."
-msgstr ""
+msgstr "Interrompido."
 
 #: src/microsim/MSNet.cpp:961
 msgid "Too many teleports."
@@ -3338,7 +3343,7 @@ msgstr ""
 
 #: src/microsim/MSVehicleType.cpp:440
 msgid "singular "
-msgstr ""
+msgstr "singular "
 
 #: src/microsim/MSVehicleType.cpp:441
 msgid "could not add %type %"
@@ -3891,6 +3896,11 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
+"Quais conflitos serão excluídos do registro de acordo com o tipo de conflito "
+"em que foram classificados (uma combinação dos valores 'ego', 'foe' ou "
+"qualquer código de tipo de conflito numérico válido). Um valor vazio irá "
+"registrar todos os 'ego' e 'foe' e se referir a um determinado subconjunto "
+"de tipos de conflito."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:271
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -4885,6 +4895,13 @@ msgid ""
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"O programa '%' de lógica semafórica '%' é incompatível com a lógica no "
+"cruzamento '%' (conflito mútuo entre índices de via, índices de semáforo, % "
+"e fases %).\n"
+"Para evitar engarrafamentos ou colisões, reconstrua o plano do semáforo com "
+"uma versão mais recente do netconvert/netedit\n"
+"ou reconstrua a rede com a opção '--tls.ignore-internal-junction-jam' ou "
+"inclua o programa na construção."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:537
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -5539,11 +5556,11 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:1098 src/netbuild/NBEdge.cpp:1107
 msgid "start"
-msgstr ""
+msgstr "início"
 
 #: src/netbuild/NBEdge.cpp:1098 src/netbuild/NBEdge.cpp:1107
 msgid "end"
-msgstr ""
+msgstr "final"
 
 #: src/netbuild/NBEdge.cpp:1106
 msgid "Found sharp turn with radius % at the % of edge '%'."
@@ -6959,11 +6976,11 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2617 src/netbuild/NBNodeCont.cpp:2709
 msgid "-----------------------------------------------------"
-msgstr ""
+msgstr "-----------------------------------------------------"
 
 #: src/netbuild/NBNodeCont.cpp:2618
 msgid "Summary:"
-msgstr ""
+msgstr "Sumário:"
 
 #: src/netbuild/NBNodeCont.cpp:2676
 msgid " Node type statistics:"
@@ -10336,7 +10353,7 @@ msgstr ""
 #: src/polyconvert/polyconvert_main.cpp:181
 #: src/polyconvert/polyconvert_main.cpp:185
 msgid "Pruning"
-msgstr ""
+msgstr "Recorte"
 
 #: src/polyconvert/polyconvert_main.cpp:169
 msgid "Enables pruning on net boundaries"
@@ -10591,7 +10608,7 @@ msgstr ""
 
 #: src/router/ROLoader.cpp:288
 msgid "failed."
-msgstr ""
+msgstr "falhou."
 
 #: src/router/RONet.cpp:162
 #, c-format
@@ -11051,11 +11068,11 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:172
 msgid " done."
-msgstr ""
+msgstr " feito."
 
 #: src/utils/common/MsgHandler.cpp:175
 msgid " failed."
-msgstr ""
+msgstr " falhou."
 
 #: src/utils/common/MsgHandler.cpp:264
 msgid "Could not set locale to '%'."
@@ -11072,11 +11089,11 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:284
 msgid "Warning: "
-msgstr ""
+msgstr "Atenção: "
 
 #: src/utils/common/MsgHandler.cpp:285
 msgid "Error: "
-msgstr ""
+msgstr "Erro: "
 
 #: src/utils/common/Parameterised.cpp:106
 msgid "Invalid conversion from string to double (%)"
@@ -11371,7 +11388,7 @@ msgstr ""
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
