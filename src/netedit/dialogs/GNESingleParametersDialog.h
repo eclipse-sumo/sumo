@@ -62,7 +62,10 @@ public:
         /// @brief destructor
         ~ParametersValues();
 
-        /// @brief set  parameters
+        /// @brief set parameters map
+        void setParameters(const Parameterised::Map& newParameters);
+
+        /// @brief set parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters);
 
         /// @brief add a single  parameter
@@ -227,23 +230,17 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor for attributes editor
-    GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor);
-
-    /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
-    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow);
-
-    /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
-    GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier);
-
-    /// @brief Constructor for attribute carriers (used in GNETLSEditorFrame)
-    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, NBLoadedSUMOTLDef* TLDef);
+    /// @brief constructor
+    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNESingleParametersDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief get edited parameters
+    std::vector<std::pair<std::string, std::string> > getEditedParameters() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -260,17 +257,8 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
-    /// @brief pointer to attributes editor
-    GNEAttributesEditorType* myAttributesEditor = nullptr;
-
-    /// @brief pointer to VTypeAttributeRow
-    GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow = nullptr;
-
-    /// @brief pointer to GNEAttributeCarrier
-    GNEAttributeCarrier* myAttributeCarrier = nullptr;
-
-    /// @brief pointer to TLDef
-    NBLoadedSUMOTLDef* myTLDef = nullptr;
+    /// @brief original parameters
+    const Parameterised::Map myOriginalParameters;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues = nullptr;

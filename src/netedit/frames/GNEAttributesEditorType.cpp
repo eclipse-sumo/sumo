@@ -408,9 +408,30 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // create parameters dialog
-    const auto singleParametersDialog = GNESingleParametersDialog(this);
+    const auto singleParametersDialog = GNESingleParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getACParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        if (isEditorTypeCreator()) {
+            // Set new value of attribute in all edited ACs without undo-redo
+            for (const auto& editedAC : myEditedACs) {
+                editedAC->setACParameters(singleParametersDialog.getEditedParameters());
+            }
+        } else if (isEditorTypeEditor()) {
+            const auto undoList = myFrameParent->getViewNet()->getUndoList();
+            const auto tagProperty = myEditedACs.front()->getTagProperty();
+            // first check if we're editing a single attribute or an ID
+            if (myEditedACs.size() > 1) {
+                undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
+            }
+            // Set new value of attribute in all edited ACs
+            for (const auto& editedAC : myEditedACs) {
+                editedAC->setACParameters(singleParametersDialog.getEditedParameters(), undoList);
+            }
+            // finish change multiple attributes or ID Attributes
+            if (myEditedACs.size() > 1) {
+                undoList->end();
+            }
+        }
         refreshAttributesEditor();
     }
     return 1;

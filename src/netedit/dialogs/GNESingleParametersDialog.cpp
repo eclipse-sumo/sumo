@@ -89,6 +89,17 @@ GNESingleParametersDialog::ParametersValues::~ParametersValues() {}
 
 
 void
+GNESingleParametersDialog::ParametersValues::setParameters(const Parameterised::Map& newParameters) {
+    // clear rows
+    clearParameters();
+    // iterate over parameteres
+    for (const auto& newParameter : newParameters) {
+        addParameter(newParameter);
+    }
+}
+
+
+void
 GNESingleParametersDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
     // clear rows
     clearParameters();
@@ -401,7 +412,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
             << TL(" - Duplicated and empty Keys aren't valid.") << "\n"
             << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)");
     // create and open dialog
-    GNEHelpBasicDialog(myParameterDialogParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    GNEHelpBasicDialog(myParameterDialogParent->getApplicationWindow(),
                        TL("Parameters Help"), help);
     return 1;
 }
@@ -457,11 +468,10 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor) :
-    GNEDialog(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters) :
+    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
-    myAttributesEditor(attributesEditor) {
+    myOriginalParameters(parameters) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
     // create parameters values
@@ -469,133 +479,58 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* at
     // create parameters operations
     myParametersOperations = new ParametersOperations(horizontalFrame, this);
     // fill myParametersValues
-    myParametersValues->setParameters(attributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    myParametersValues->setParameters(parameters);
     // open modal dialog
     openDialog();
 }
-
-
-GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow,
-        GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow) :
-    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL,
-              GNEDialog::ResizeMode::RESIZABLE, 400, 300),
-    VTypeAttributeRow(VTypeAttributeRow) {
-    // create frame for Parameters and operations
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-    // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrame, TL("Parameters"));
-    // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrame, this);
-    // fill myEditedParameters
-    myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
-    // open modal dialog
-    openDialog();
-}
-
-
-GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
-    GNEDialog(attributeCarrier->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
-    myAttributeCarrier(attributeCarrier) {
-    // create frame for Parameters and operations
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-    // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrame, TL("Parameters"));
-    // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrame, this);
-    // fill myEditedParameters
-    myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    // open modal dialog
-    openDialog();
-}
-
-
-GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow,
-        NBLoadedSUMOTLDef* TLDef) :
-    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL,
-              GNEDialog::ResizeMode::RESIZABLE, 400, 300),
-    myTLDef(TLDef) {
-    // create frame for Parameters and operations
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-    // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrame, TL("Parameters"));
-    // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrame, this);
-    // transform parameters to a=b|c=d... format
-    std::vector<std::pair<std::string, std::string> > parametersStr;
-    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-    for (const auto& parameter : TLDef->getParametersMap()) {
-        parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
-    }
-    // set parameters
-    myParametersValues->setParameters(parametersStr);
-    // open modal dialog
-    openDialog();
-}
-
 
 GNESingleParametersDialog::~GNESingleParametersDialog() {}
 
 
 void
 GNESingleParametersDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+    // nothing to do (yet)
+}
+
+
+std::vector<std::pair<std::string, std::string> >
+GNESingleParametersDialog::getEditedParameters() const {
+    std::vector<std::pair<std::string, std::string> > parameters;
+    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
+        // ignore last row (the row with + button)
+        if (parameterRow != myParametersValues->getParameterRows().back()) {
+            // insert in parameters
+            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
+        }
+    }
+    return parameters;
 }
 
 
 long
 GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parameters;
-    // check if all edited parameters are valid
-    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
-        // ignore last row
-        if (parameterRow != myParametersValues->getParameterRows().back()) {
-            if (parameterRow->keyField->getText().empty()) {
-                // open warning Box
-                GNEWarningBasicDialog(myApplicationWindow, TL("Empty Parameter key"), TL("Parameters with empty keys aren't allowed"));
-                return 1;
-            } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                // open warning Box
-                GNEWarningBasicDialog(myApplicationWindow, TL("Invalid Parameter key"), TL("There are keys with invalid characters"));
-                return 1;
-            }
-            // insert in parameters
-            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
-        }
-    }
-    // sort sortedParameters
-    std::sort(parameters.begin(), parameters.end());
-    // check if there is duplicated keys
-    for (auto i = parameters.begin(); i != parameters.end(); i++) {
-        if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
+    std::vector<std::pair<std::string, std::string> > editedParameters = getEditedParameters();
+    // check keys
+    for (const auto& editedParameter : editedParameters) {
+        if (editedParameter.first.empty()) {
             // open warning Box
-            GNEWarningBasicDialog(myApplicationWindow, TL("Duplicated Parameters"), TL("Parameters with the same Key aren't allowed"));
+            GNEWarningBasicDialog(myApplicationWindow, TL("Empty Parameter key"), TL("Parameters with empty keys aren't allowed"));
+            return 1;
+        } else if (!SUMOXMLDefinitions::isValidParameterKey(editedParameter.first)) {
+            // open warning Box
+            GNEWarningBasicDialog(myApplicationWindow, TL("Invalid Parameter key"), TL("There are keys with invalid characters"));
             return 1;
         }
     }
-    // set parameters in Parameters editor parents
-    if (myAttributesEditor) {
-        auto editedAC = myAttributesEditor->getEditedAttributeCarriers().front();
-        // set parameter in AC using undoList
-        myAttributesEditor->getFrameParent()->getViewNet()->getUndoList()->begin(editedAC, "change parameters");
-        editedAC->setACParameters(parameters, myAttributesEditor->getFrameParent()->getViewNet()->getUndoList());
-        myAttributesEditor->getFrameParent()->getViewNet()->getUndoList()->end();
-    } else if (VTypeAttributeRow) {
-        // set parameter in VTypeAttributeRow
-        VTypeAttributeRow->setParameters(parameters);
-    } else if (myAttributeCarrier) {
-        // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin(myAttributeCarrier, "change parameters");
-        myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
-    } else if (myTLDef) {
-        myTLDef->clearParameter();
-        for (const auto& parameter : parameters) {
-            myTLDef->setParameter(parameter.first, parameter.second);
+    // sort sortedParameters
+    std::sort(editedParameters.begin(), editedParameters.end());
+    // check if there is duplicated keys
+    for (auto i = editedParameters.begin(); (i + 1) != editedParameters.end(); i++) {
+        if ((i->first) == (i + 1)->first) {
+            // open warning Box
+            GNEWarningBasicDialog(myApplicationWindow, TL("Duplicated Parameters"), TL("Parameters with the same key aren't allowed"));
+            return 1;
         }
     }
     // close dialog accepting
@@ -606,22 +541,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // restore original parameters
-    if (myAttributesEditor) {
-        myParametersValues->setParameters(myAttributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    } else if (VTypeAttributeRow) {
-        myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
-    } else if (myAttributeCarrier) {
-        myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    } else if (myTLDef) {
-        // transform parameters to a=b|c=d... format
-        std::vector<std::pair<std::string, std::string> > parametersStr;
-        // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-        for (const auto& parameter : myTLDef->getParametersMap()) {
-            parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
-        }
-        // set parameters
-        myParametersValues->setParameters(parametersStr);
-    }
+    myParametersValues->setParameters(myOriginalParameters);
     return 1;
 }
 
