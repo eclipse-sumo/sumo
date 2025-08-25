@@ -21,7 +21,7 @@
 #include <netedit/dialogs/elements/GNECalibratorDialog.h>
 #include <netedit/dialogs/elements/GNERerouterDialog.h>
 #include <netedit/dialogs/elements/GNEVariableSpeedSignDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/dialogs/GNEParametersDialog.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
@@ -408,7 +408,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // create parameters dialog
-    const auto singleParametersDialog = GNESingleParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getACParametersMap());
+    const auto singleParametersDialog = GNEParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getACParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         if (isEditorTypeCreator()) {

@@ -29,7 +29,7 @@
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/dialogs/GNEParametersDialog.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEInternalLane.h>
@@ -819,7 +819,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
         // get previous parameters
         const auto previousParameters = getParameters();
         // open parameters dialog
-        const auto parametersDialog = GNESingleParametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+        const auto parametersDialog = GNEParametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                       myTLSEditorParent->myEditedDef->getParametersMap());
         // continue depending of result
         if (parametersDialog.getResult() == GNEDialog::Result::ACCEPT) {

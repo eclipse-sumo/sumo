@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNESingleParametersDialog.h
+/// @file    GNEParametersDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2018
 ///
@@ -38,9 +38,9 @@ class NBLoadedSUMOTLDef;
 // class definitions
 // ===========================================================================
 
-class GNESingleParametersDialog : public GNEDialog {
+class GNEParametersDialog : public GNEDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNESingleParametersDialog)
+    FXDECLARE(GNEParametersDialog)
 
 public:
 
@@ -50,7 +50,7 @@ public:
 
     class ParametersValues : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNESingleParametersDialog::ParametersValues)
+        FXDECLARE(GNEParametersDialog::ParametersValues)
 
         /// @brief declare class
         class ParameterRow;
@@ -152,11 +152,11 @@ public:
 
     class ParametersOperations : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNESingleParametersDialog::ParametersOperations)
+        FXDECLARE(GNEParametersDialog::ParametersOperations)
 
     public:
         /// @brief constructor
-        ParametersOperations(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent);
+        ParametersOperations(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersOperations();
@@ -212,7 +212,7 @@ public:
         };
 
         /// @brief pointer to Shape Frame Parent
-        GNESingleParametersDialog* myParameterDialogParent;
+        GNEParametersDialog* myParameterDialogParent;
 
         /// @brief sort button
         FXButton* mySortButton;
@@ -231,10 +231,10 @@ public:
     };
 
     /// @brief constructor
-    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters);
+    GNEParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters);
 
     /// @brief destructor
-    ~GNESingleParametersDialog();
+    ~GNEParametersDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -255,7 +255,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNESingleParametersDialog)
+    FOX_CONSTRUCTOR(GNEParametersDialog)
 
     /// @brief original parameters
     const Parameterised::Map myOriginalParameters;
@@ -268,8 +268,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNESingleParametersDialog(const GNESingleParametersDialog&) = delete;
+    GNEParametersDialog(const GNEParametersDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNESingleParametersDialog& operator=(const GNESingleParametersDialog&) = delete;
+    GNEParametersDialog& operator=(const GNEParametersDialog&) = delete;
 };

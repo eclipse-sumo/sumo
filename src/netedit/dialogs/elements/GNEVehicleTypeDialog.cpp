@@ -21,7 +21,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/GNEColorDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/dialogs/GNEParametersDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -1275,7 +1275,7 @@ long
 GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
     auto viewNet = myVehicleTypeDialog->getElement()->getNet()->getViewNet();
     // create parameters dialog
-    const auto singleParametersDialog = GNESingleParametersDialog(viewNet->getViewParent()->getGNEAppWindows(), myVehicleTypeDialog->getElement()->getACParametersMap());
+    const auto singleParametersDialog = GNEParametersDialog(viewNet->getViewParent()->getGNEAppWindows(), myVehicleTypeDialog->getElement()->getACParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set values edited in Parameter dialog in Edited AC
