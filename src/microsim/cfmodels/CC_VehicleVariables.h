@@ -176,6 +176,9 @@ public:
     /// @brief enable/disable data prediction (interpolation) for missing data
     bool usePrediction;
 
+    /// @brief enable/disable the use of the radar for PLOEG and CACC
+    bool useRadar;
+
     /// @brief list of members belonging to my platoon
     std::map<int, std::string> members;
 

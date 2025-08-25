@@ -449,6 +449,18 @@ MSCFModel_CC::minNextSpeed(double speed, const MSVehicle* const veh) const {
     }
 }
 
+void
+MSCFModel_CC::computePrediction(double a0, double v0, Position p0, double t0, double t, double angle, double &v, Position &p) const {
+    double dt = t - t0;
+    v = v0 + a0 * dt;
+    double v0x = v0 * std::cos(angle);
+    double v0y = v0 * std::sin(angle);
+    double vx = v * std::cos(angle);
+    double vy = v * std::sin(angle);
+    p.setx(p0.x() + (v0x + vx) / 2 * dt);
+    p.sety(p0.y() + (v0y + vy) / 2 * dt);
+}
+
 double
 MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const {
 
@@ -475,6 +487,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
     if (vars->crashed) {
         return 0;
     }
+
     if (vars->autoFeed) {
         if (!findVehicle(vars->leaderVehicleId) || !findVehicle(vars->frontVehicleId)) {
             // either the leader or the front vehicle have left the simulation. Disable auto feed
@@ -484,6 +497,29 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
         }
     }
     if (vars->activeController == Plexe::DRIVER || !vars->useFixedAcceleration) {
+
+        if (!vars->useRadar && vars->position > 0) {
+            //override gap2pred with distances measured via beacon differences
+            Plexe::VEHICLE_DATA fv;
+            fv = vars->vehicles[vars->position-1];
+            Position p0;
+            p0.setx(fv.positionX);
+            p0.sety(fv.positionY);
+
+            Position fp;
+            double frontExtrapolSpeed;
+            computePrediction(fv.acceleration, fv.speed, p0, fv.time, currentTime, fv.angle, frontExtrapolSpeed, fp);
+
+            Position egoVelocity = veh->getVelocityVector();
+            Position egoPosition = veh->getPosition();
+            egoPosition.set(egoPosition.x() + egoVelocity.x() * STEPS2TIME(DELTA_T),
+                            egoPosition.y() + egoVelocity.y() * STEPS2TIME(DELTA_T));
+            double frontDistance = -egoPosition.distanceTo2D(fp);
+            double gap2pred_noradar = -(frontDistance + fv.length);
+
+            gap2pred = gap2pred_noradar;
+        }
+
         switch (vars->activeController) {
             case Plexe::ACC:
                 ccAcceleration = _cc(veh, egoSpeed, vars->ccDesiredSpeed);
@@ -1090,6 +1126,11 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             vars->usePrediction = StringUtils::toInt(value.c_str()) == 1;
             return;
         }
+        if (key.compare(PAR_USE_RADAR) == 0) {
+            vars->useRadar = StringUtils::toInt(value.c_str()) == 1;
+            return;
+        }
+
     } catch (NumberFormatException&) {
         throw InvalidArgument("Invalid value '" + value + "' for parameter '" + key + "' for vehicle '" + veh->getID() + "'");
     }
@@ -1189,6 +1230,10 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
             rpm = 0;
         }
         buf << (gear + 1) << rpm;
+        return buf.str();
+    }
+    if (key.compare(PAR_USE_RADAR) == 0) {
+        buf << vars->useRadar;
         return buf.str();
     }
     return "";

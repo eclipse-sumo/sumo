@@ -188,4 +188,6 @@ struct VEHICLE_DATA {
 // set the formation for a platoon leader or member
 #define PAR_SET_PLATOON_FORMATION        "ccspf"
 
+// enabling/disabling use of radar
+#define PAR_USE_RADAR                    "ccur"
 }

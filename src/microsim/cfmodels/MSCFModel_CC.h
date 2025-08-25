@@ -352,6 +352,10 @@ private:
      */
     void checkControllersInitializedCondition(MSVehicle* const veh) const;
 
+    void computePrediction(double a0, double v0, Position p0, double t0, double t, double angle,
+                           double &v, Position &p) const;
+
+
     double _v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const;
 
     /** @brief controller for the CC which computes the acceleration to be applied. the value needs to be passed to the actuator
