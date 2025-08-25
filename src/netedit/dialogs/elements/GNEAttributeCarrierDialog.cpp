@@ -20,6 +20,8 @@
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/dialogs/GNEColorDialog.h>
+#include <netedit/dialogs/GNEVClassesDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -34,8 +36,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAttributeCarrierDialog::AttributeTextField) AttributeTextFieldMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL, GNEAttributeCarrierDialog::AttributeTextField::onCmdSetBoolAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,       GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR,   GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,   GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog),
 };
 
 // Object implementation
@@ -52,14 +55,27 @@ FXIMPLEMENT(GNEAttributeCarrierDialog::AttributeTextField, FXHorizontalFrame, At
 GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame,
         const GNEAttributeProperties* attrProperty) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
-    myACDialog(ACDialog),
+    myACDialogParent(ACDialog),
     myAttrProperty(attrProperty) {
-    // create label
-    new FXLabel(this, attrProperty->getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+    // get static tooltip menu
+    const auto tooltipMenu = ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // check if create button or label
+    if (attrProperty->isVClass() && (attrProperty->getAttr() != SUMO_ATTR_DISALLOW)) {
+        myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, attrProperty->getAttrStr(), nullptr, this,
+                MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW, GUIDesignButtonAttribute);
+        myAttributeButton->setTipText(TL("Open dialog for editing vClasses"));
+    } else if (attrProperty->isColor()) {
+        myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, attrProperty->getAttrStr(), GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this,
+                MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR, GUIDesignButtonAttribute);
+        myAttributeButton->setTipText(TL("Open dialog for editing color"));
+    } else {
+        // create label
+        new FXLabel(this, attrProperty->getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+    }
     // continue depending of attr type
     if (attrProperty->isBool()) {
         // create lef boolean checkBox for enable/disable attributes
-        myCheckButton = new FXCheckButton(this, "bool", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+        myCheckButton = new FXCheckButton(this, "bool", this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignCheckButton);
         // continue depending of current value
         if (ACDialog->getElement()->getAttribute(attrProperty->getAttr()) == GNEAttributeCarrier::TRUE_STR) {
             myCheckButton->setCheck(TRUE);
@@ -70,8 +86,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
         }
     } else {
         // create text field
-        myTextField = new MFXTextFieldTooltip(this, ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                              GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+        myTextField = new MFXTextFieldTooltip(this, tooltipMenu, GUIDesignTextFieldNCol, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
         // set attribute
         myTextField->setText(ACDialog->getElement()->getAttribute(attrProperty->getAttr()).c_str());
     }
@@ -79,22 +94,33 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
 
 
 long
-GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    if (myACDialog->getElement()->isValid(myAttrProperty->getAttr(), myTextField->getText().text())) {
-        // set attribute
-        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), myTextField->getText().text(), myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
-        // set valid color and kill focus
-        myTextField->setTextColor(GUIDesignTextColorBlack);
-        myTextField->setBackColor(GUIDesignBackgroundColorWhite);
-        myTextField->killFocus();
-    } else {
-        // set invalid color
-        myTextField->setTextColor(GUIDesignTextColorRed);
-        // set background color
-        if (myTextField->getText().empty()) {
-            myTextField->setTextColor(GUIDesignBackgroundColorRed);
-        } else {
+GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    auto undoList = myACDialogParent->getElement()->getNet()->getViewNet()->getUndoList();
+    if (obj == myTextField) {
+        if (myACDialogParent->getElement()->isValid(myAttrProperty->getAttr(), myTextField->getText().text())) {
+            // set attribute
+            myACDialogParent->getElement()->setAttribute(myAttrProperty->getAttr(), myTextField->getText().text(), undoList);
+            // set valid color and kill focus
+            myTextField->setTextColor(GUIDesignTextColorBlack);
             myTextField->setBackColor(GUIDesignBackgroundColorWhite);
+            myTextField->killFocus();
+        } else {
+            // set invalid color
+            myTextField->setTextColor(GUIDesignTextColorRed);
+            // set background color
+            if (myTextField->getText().empty()) {
+                myTextField->setTextColor(GUIDesignBackgroundColorRed);
+            } else {
+                myTextField->setBackColor(GUIDesignBackgroundColorWhite);
+            }
+        }
+    } else if (obj == myCheckButton) {
+        if (myCheckButton->getCheck() == TRUE) {
+            myACDialogParent->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::TRUE_STR, undoList);
+            myCheckButton->setText(TL("true"));
+        } else {
+            myACDialogParent->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::FALSE_STR, undoList);
+            myCheckButton->setText(TL("false"));
         }
     }
     return 1;
@@ -102,13 +128,32 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSe
 
 
 long
-GNEAttributeCarrierDialog::AttributeTextField::onCmdSetBoolAttribute(FXObject*, FXSelector, void*) {
-    if (myCheckButton->getCheck() == TRUE) {
-        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::TRUE_STR, myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
-        myCheckButton->setText(TL("true"));
-    } else {
-        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::FALSE_STR, myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
-        myCheckButton->setText(TL("false"));
+GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
+    RGBColor color = RGBColor::BLACK;
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
+        color = GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text());
+    } else if (myAttrProperty->hasDefaultValue()) {
+        color = myAttrProperty->getDefaultColorValue();
+    }
+    // declare colorDialog
+    const auto colorDialog = new GNEColorDialog(myACDialogParent->getApplicationWindow(), color);
+    // continue depending of result
+    if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
+        myTextField->setText(toString(colorDialog->getColor()).c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
+    // declare allowVClassesDialog
+    const auto allowVClassesDialog = new GNEVClassesDialog(myACDialogParent->getApplicationWindow(), myAttrProperty->getAttr(),
+            myTextField->getText().text());
+    // continue depending of result
+    if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {
+        myTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
     }
     return 1;
 }

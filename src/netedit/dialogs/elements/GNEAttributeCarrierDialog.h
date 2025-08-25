@@ -50,10 +50,13 @@ public:
         /// @{
 
         /// @brief event after edit text field
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
-        /// @brief event after edit checkBox
-        long onCmdSetBoolAttribute(FXObject*, FXSelector, void*);
+        /// @brief called when user press "edit color" dialog
+        long onCmdOpenColorDialog(FXObject* sender, FXSelector, void* arg);
+
+        /// @brief called when user press vClass dialog
+        long onCmdOpenVClassDialog(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -61,11 +64,14 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(AttributeTextField)
 
+        /// @brief pointer to ACDialog parent
+        GNEAttributeCarrierDialog* myACDialogParent = nullptr;
+
         /// @brief attribute property
         const GNEAttributeProperties* myAttrProperty = nullptr;
 
-        /// @brief pointer to ACDialog parent
-        GNEAttributeCarrierDialog* myACDialog = nullptr;
+        /// @brief attribute button (color or allow)
+        MFXButtonTooltip* myAttributeButton = nullptr;
 
         /// @brief text field for attribute
         MFXTextFieldTooltip* myTextField = nullptr;

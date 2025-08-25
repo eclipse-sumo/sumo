@@ -79,7 +79,7 @@ public:
     long onCmdOpenColorDialog(FXObject* sender, FXSelector, void* arg);
 
     /// @brief called when user press "open allow" dialog
-    long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
+    long onCmdOpenVClassDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "open file" dialog
     long onCmdOpenFileDialog(FXObject*, FXSelector, void*);

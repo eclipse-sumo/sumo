@@ -44,7 +44,7 @@ FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE,           GNEAttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_TOGGLEENABLEATTRIBUTE,  GNEAttributesEditorRow::onCmdToggleEnableAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_COLOR,       GNEAttributesEditorRow::onCmdOpenColorDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,       GNEAttributesEditorRow::onCmdOpenAllowDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_ALLOW,       GNEAttributesEditorRow::onCmdOpenVClassDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_OPENDIALOG_FILE,        GNEAttributesEditorRow::onCmdOpenFileDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_REPARENT,               GNEAttributesEditorRow::onCmdReparent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITORROW_INSPECTPARENT,          GNEAttributesEditorRow::onCmdInspectParent),
@@ -420,7 +420,7 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
+GNEAttributesEditorRow::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     // declare allowVClassesDialog
     const auto allowVClassesDialog = new GNEVClassesDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
             myAttrProperty->getAttr(), myValueTextField->getText().text());
