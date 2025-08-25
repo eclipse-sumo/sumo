@@ -371,7 +371,7 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
         // we can check only after insertion because insertion may change the route via devices
         std::string msg;
         if (MSGlobals::gCheckRoutes && !veh->hasValidRoute(msg)) {
-            throw TLF("Vehicle '%' has no valid route. %", veh->getID(), msg);
+            throw ProcessError(TLF("Vehicle '%' has no valid route. %", veh->getID(), msg));
         }
         return true;
     }
