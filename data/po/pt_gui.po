@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-20 13:33+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-08-26 08:42+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -1231,15 +1231,15 @@ msgstr "Parar acompanhamento"
 
 #: src/guisim/GUIBaseVehicle.cpp:389
 msgid "Select Foes"
-msgstr ""
+msgstr "Selecionar usuários em conflito"
 
 #: src/guisim/GUIBaseVehicle.cpp:391
 msgid "Select transported"
-msgstr ""
+msgstr "Selecionar passageiros/contêineres"
 
 #: src/guisim/GUIBaseVehicle.cpp:393
 msgid "Abort stop"
-msgstr ""
+msgstr "Cancelar parada"
 
 #: src/guisim/GUIBaseVehicle.cpp:393
 #: src/netedit/GNEApplicationWindowHelper.cpp:719
@@ -1292,15 +1292,15 @@ msgstr ""
 
 #: src/guisim/GUIBusStop.cpp:172
 msgid "waiting for:"
-msgstr ""
+msgstr "esperando para:"
 
 #: src/guisim/GUICalibrator.cpp:309
 msgid "interval start"
-msgstr ""
+msgstr "início de intervalo"
 
 #: src/guisim/GUICalibrator.cpp:310
 msgid "interval end"
-msgstr ""
+msgstr "final do intervalo"
 
 #: src/guisim/GUICalibrator.cpp:311
 msgid "aspired flow [veh/h]"
@@ -1308,7 +1308,7 @@ msgstr ""
 
 #: src/guisim/GUICalibrator.cpp:312
 msgid "aspired speed"
-msgstr ""
+msgstr "velocidade desejada"
 
 #: src/guisim/GUICalibrator.cpp:313
 msgid "current flow [veh/h]"
@@ -1316,27 +1316,27 @@ msgstr ""
 
 #: src/guisim/GUICalibrator.cpp:314
 msgid "current speed"
-msgstr ""
+msgstr "velocidade atual"
 
 #: src/guisim/GUICalibrator.cpp:315
 msgid "default speed"
-msgstr ""
+msgstr "velocidade padrão"
 
 #: src/guisim/GUICalibrator.cpp:316
 msgid "required vehicles"
-msgstr ""
+msgstr "veículos necessários"
 
 #: src/guisim/GUICalibrator.cpp:317
 msgid "passed vehicles"
-msgstr ""
+msgstr "veículos passados"
 
 #: src/guisim/GUICalibrator.cpp:318
 msgid "inserted vehicles"
-msgstr ""
+msgstr "veículos inseridos"
 
 #: src/guisim/GUICalibrator.cpp:319
 msgid "removed vehicles"
-msgstr ""
+msgstr "veículos removidos"
 
 #: src/guisim/GUICalibrator.cpp:320
 msgid "cleared in jam"
@@ -1344,7 +1344,7 @@ msgstr ""
 
 #: src/guisim/GUICalibrator.cpp:327
 msgid "inactive until"
-msgstr ""
+msgstr "inativo até"
 
 #: src/guisim/GUIChargingStation.cpp:88
 msgid "charging power [W]"
@@ -1364,7 +1364,7 @@ msgstr ""
 
 #: src/guisim/GUIChargingStation.cpp:92
 msgid "charge type"
-msgstr ""
+msgstr "tipo de carga"
 
 #: src/guisim/GUIChargingStation.cpp:93 src/guisim/GUIContainer.cpp:175
 #: src/guisim/GUIPerson.cpp:243 src/guisim/GUIVehicle.cpp:136
@@ -1377,7 +1377,7 @@ msgstr "estado"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:232
 msgid "stage index"
-msgstr ""
+msgstr "índice da fase"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:233
 msgid "start edge [id]"
@@ -1389,33 +1389,33 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "posição de chegada [m]"
 
 #: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:237
 msgid "edge [id]"
-msgstr ""
+msgstr "aresta [id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIPerson.cpp:239 src/guisim/GUIVehicle.cpp:118
 msgid "position [m]"
-msgstr ""
+msgstr "posição [m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
 #: src/guisim/GUILaneSpeedTrigger.cpp:303 src/guisim/GUIPerson.cpp:240
 #: src/guisim/GUIVehicle.cpp:122
 msgid "speed [m/s]"
-msgstr ""
+msgstr "velocidade [m/s]"
 
 #: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:241
 #: src/guisim/GUIVehicle.cpp:132
 msgid "speed factor"
-msgstr ""
+msgstr "fator de velocidade"
 
 #: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:242
 #: src/guisim/GUIVehicle.cpp:128
 msgid "angle [degree]"
-msgstr ""
+msgstr "ângulo [graus]"
 
 #: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:246
 #: src/guisim/GUIVehicle.cpp:148
@@ -1442,7 +1442,7 @@ msgstr "minGap"
 #: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:260
 #: src/guisim/GUIVehicle.cpp:241
 msgid "mass [kg]"
-msgstr ""
+msgstr "massa [kg]"
 
 #: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:262
 #: src/guisim/GUIVehicle.cpp:245
@@ -1452,7 +1452,7 @@ msgstr ""
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:185
 #: src/guisim/GUILane.cpp:1061 src/guisim/GUIVehicle.cpp:235
 msgid "length [m]"
-msgstr ""
+msgstr "comprimento [m]"
 
 #: src/guisim/GUIE2Collector.cpp:132 src/guisim/GUIInductLoop.cpp:145
 #: src/guisim/GUIInstantInductLoop.cpp:98
@@ -1467,11 +1467,11 @@ msgstr "tipos de veículos (vTypes)"
 
 #: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "veículos [#]"
 
 #: src/guisim/GUIE2Collector.cpp:139 src/guisim/GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "ocupação [%]"
 
 #: src/guisim/GUIE2Collector.cpp:141 src/guisim/GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
@@ -1543,7 +1543,7 @@ msgstr ""
 
 #: src/guisim/GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "paradas [#]"
 
 #: src/guisim/GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
@@ -1567,7 +1567,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:186 src/guisim/GUILane.cpp:1063
 msgid "street name"
-msgstr ""
+msgstr "nome da rua"
 
 #: src/guisim/GUIEdge.cpp:187 src/guisim/GUILane.cpp:1071
 msgid "pending insertions [#]"
@@ -1595,15 +1595,15 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:193
 msgid "flow [veh/h/lane]"
-msgstr ""
+msgstr "fluxo [vei/h/faixa]"
 
 #: src/guisim/GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "índice de segmento"
 
 #: src/guisim/GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "filas de segmentos"
 
 #: src/guisim/GUIEdge.cpp:199
 msgid "segment length [m]"
@@ -1647,11 +1647,11 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "Informação de tipo:"
 
 #: src/guisim/GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "tipo [id]"
 
 #: src/guisim/GUIEdge.cpp:228
 msgid "tauff"
@@ -1671,15 +1671,15 @@ msgstr "taujj"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "limite de congestionamento"
 
 #: src/guisim/GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "controle de junção"
 
 #: src/guisim/GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "penalização semafórica"
 
 #: src/guisim/GUIEdge.cpp:235
 msgid "tls flow penalty"
@@ -1687,7 +1687,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "penalização menor"
 
 #: src/guisim/GUIEdge.cpp:237
 msgid "overtaking"
@@ -1736,11 +1736,11 @@ msgstr "altura: "
 
 #: src/guisim/GUILane.cpp:1026
 msgid "Reopen lane"
-msgstr ""
+msgstr "Reabrir faixa"
 
 #: src/guisim/GUILane.cpp:1027
 msgid "Reopen edge"
-msgstr ""
+msgstr "Reabrir aresta"
 
 #: src/guisim/GUILane.cpp:1029
 msgid "Reopen lane (override rerouter)"
@@ -1752,19 +1752,19 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1033
 msgid "Close lane"
-msgstr ""
+msgstr "Fechar faixa"
 
 #: src/guisim/GUILane.cpp:1034
 msgid "Close edge"
-msgstr ""
+msgstr "Fechar aresta"
 
 #: src/guisim/GUILane.cpp:1036
 msgid "Add rerouter"
-msgstr ""
+msgstr "Adicionar rerouter"
 
 #: src/guisim/GUILane.cpp:1041 src/netedit/elements/network/GNELane.cpp:2223
 msgid "Select reachable"
-msgstr ""
+msgstr "Selecionar acessível"
 
 #: src/guisim/GUILane.cpp:1054 src/guisim/GUILane.cpp:1058
 msgid "allowed speed [m/s]"
@@ -1772,7 +1772,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:236
 msgid "width [m]"
-msgstr ""
+msgstr "largura [m]"
 
 #: src/guisim/GUILane.cpp:1064
 msgid "stored travel time [s]"
@@ -1780,7 +1780,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1065
 msgid "loaded weight"
-msgstr ""
+msgstr "peso carregado"
 
 #: src/guisim/GUILane.cpp:1067
 msgid "lane friction coefficient [%]"
@@ -1792,7 +1792,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1072
 msgid "edge type"
-msgstr ""
+msgstr "tipo de aresta"
 
 #: src/guisim/GUILane.cpp:1074 src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
@@ -1800,7 +1800,7 @@ msgstr "prioridade"
 
 #: src/guisim/GUILane.cpp:1075
 msgid "distance [km]"
-msgstr ""
+msgstr "distância [km]"
 
 #: src/guisim/GUILane.cpp:1076
 msgid "allowed vehicle class"
@@ -1812,11 +1812,11 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1078
 msgid "permission code"
-msgstr ""
+msgstr "código de permissão"
 
 #: src/guisim/GUILane.cpp:1079
 msgid "color value"
-msgstr ""
+msgstr "valor de cor"
 
 #: src/guisim/GUILane.cpp:1081
 msgid "bidi-lane"
@@ -1856,19 +1856,19 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "colisões [#]"
 
 #: src/guisim/GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "teleportes [#]"
 
 #: src/guisim/GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "paradas [#]"
 
 #: src/guisim/GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "parados [#]"
 
 #: src/guisim/GUINet.cpp:501
 msgid "avg. speed [m/s]"
@@ -1916,7 +1916,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "fator de duração"
 
 #: src/guisim/GUINet.cpp:532
 msgid "updates per second"
@@ -1964,11 +1964,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "nós [#]"
 
 #: src/guisim/GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "arestas [#]"
 
 #: src/guisim/GUINet.cpp:550
 msgid "total edge length [km]"
@@ -1980,7 +1980,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "versão da rede "
 
 #: src/guisim/GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1997,19 +1997,19 @@ msgstr ""
 
 #: src/guisim/GUIParkingArea.cpp:113
 msgid "occupancy [#]"
-msgstr ""
+msgstr "ocupação [#]"
 
 #: src/guisim/GUIParkingArea.cpp:114
 msgid "capacity [#]"
-msgstr ""
+msgstr "capacidade [#]"
 
 #: src/guisim/GUIParkingArea.cpp:115
 msgid "alternatives [#]"
-msgstr ""
+msgstr "alternativas [#]"
 
 #: src/guisim/GUIParkingArea.cpp:116
 msgid "access badges"
-msgstr ""
+msgstr "credenciais de acesso"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
@@ -2021,11 +2021,11 @@ msgstr ""
 
 #: src/guisim/GUIPerson.cpp:238 src/guisim/GUIVehicle.cpp:108
 msgid "lane [id]"
-msgstr ""
+msgstr "faixa [id]"
 
 #: src/guisim/GUIPerson.cpp:244
 msgid "vehicle [id]"
-msgstr ""
+msgstr "veículo [id]"
 
 #: src/guisim/GUIPerson.cpp:245
 msgid "stop duration [s]"
@@ -2041,31 +2041,31 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:180
 msgid "Switch off"
-msgstr ""
+msgstr "Desligar"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:182
 msgid "Track Phases"
-msgstr ""
+msgstr "Acompanhar fases"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:183
 msgid "Show Phases"
-msgstr ""
+msgstr "Mostrar fases"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:186
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:190
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:194
 msgid "Hide Detectors"
-msgstr ""
+msgstr "Esconder detectores"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:186
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:190
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:194
 msgid "Show Detectors"
-msgstr ""
+msgstr "Mostrar detectores"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:200
 msgid "Phase: %"
-msgstr ""
+msgstr "Fase: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:203
 msgid "Phase name: %"
@@ -2073,7 +2073,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:238
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic [id]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:240
 msgid "program"
@@ -2085,7 +2085,7 @@ msgstr "fase"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
 msgid "phase name"
-msgstr ""
+msgstr "nome da fase"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
 msgid "duration"
@@ -2101,7 +2101,7 @@ msgstr "duração máxima"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
 msgid "running duration"
-msgstr ""
+msgstr "duração em curso"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
 msgid "earliestEnd"
@@ -2117,7 +2117,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:250
 msgid "cycle time"
-msgstr ""
+msgstr "tempo de ciclo"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:253
 msgid "req driveway"
@@ -9817,11 +9817,11 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:282 src/netedit/dialogs/GNEDialog.cpp:297
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: src/netedit/dialogs/GNEDialog.cpp:288 src/netedit/dialogs/GNEDialog.cpp:303
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: src/netedit/dialogs/GNEDialog.cpp:309 src/netedit/dialogs/GNEDialog.cpp:333
 #: src/netedit/dialogs/GNEDialog.cpp:348 src/netedit/dialogs/GNEDialog.cpp:375
@@ -10725,7 +10725,7 @@ msgstr "Aleatório"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:61
 msgid "Tool"
-msgstr ""
+msgstr "Ferramenta"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:69
 msgid "Save toolcfg"
@@ -13242,7 +13242,7 @@ msgstr "Dados de relação das arestas"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:128
 msgid "EdgeTAZRel"
-msgstr ""
+msgstr "Relação entre TAZs e Arestas"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:155
 msgid "Modification Mode"
@@ -13542,7 +13542,7 @@ msgstr ""
 
 #: src/netedit/frames/demand/GNEContainerPlanFrame.cpp:39
 msgid "ContainerPlans"
-msgstr ""
+msgstr "Planos de contêineres"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:80
 msgid "Distribution Editor"
@@ -13592,7 +13592,7 @@ msgstr ""
 
 #: src/netedit/frames/demand/GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr ""
+msgstr "Planos de Pessoas"
 
 #: src/netedit/frames/demand/GNERouteDistributionFrame.cpp:31
 msgid "Route Distributions"
