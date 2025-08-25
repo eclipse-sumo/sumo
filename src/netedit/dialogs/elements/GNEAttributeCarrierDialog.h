@@ -43,7 +43,8 @@ public:
 
     public:
         /// @brief constructor
-        AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
+        AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame,
+                           const GNEAttributeProperties* attrProperty);
 
         /// @name FOX-callbacks
         /// @{
@@ -51,11 +52,17 @@ public:
         /// @brief event after edit text field
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
+        /// @brief event after edit checkBox
+        long onCmdSetBoolAttribute(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(AttributeTextField)
+
+        /// @brief attribute property
+        const GNEAttributeProperties* myAttrProperty = nullptr;
 
         /// @brief pointer to ACDialog parent
         GNEAttributeCarrierDialog* myACDialog = nullptr;
@@ -63,8 +70,8 @@ public:
         /// @brief text field for attribute
         MFXTextFieldTooltip* myTextField = nullptr;
 
-        /// @brief attribute
-        SumoXMLAttr myAttr;
+        /// @brief check button for true/false
+        FXCheckButton* myCheckButton = nullptr;
 
     private:
         /// @brief Invalidated copy constructor.

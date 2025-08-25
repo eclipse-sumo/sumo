@@ -34,7 +34,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAttributeCarrierDialog::AttributeTextField) AttributeTextFieldMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL, GNEAttributeCarrierDialog::AttributeTextField::onCmdSetBoolAttribute),
 };
 
 // Object implementation
@@ -48,25 +49,40 @@ FXIMPLEMENT(GNEAttributeCarrierDialog::AttributeTextField, FXHorizontalFrame, At
 // GNEAttributeCarrierDialog::AttributeTextField - methods
 // ---------------------------------------------------------------------------
 
-GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
+GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCarrierDialog* ACDialog, FXVerticalFrame* verticalFrame,
+        const GNEAttributeProperties* attrProperty) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myACDialog(ACDialog),
-    myAttr(attr) {
+    myAttrProperty(attrProperty) {
     // create label
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    // create text field
-    myTextField = new MFXTextFieldTooltip(this, ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // set attribute
-    myTextField->setText(ACDialog->getElement()->getAttribute(myAttr).c_str());
+    new FXLabel(this, attrProperty->getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
+    // continue depending of attr type
+    if (attrProperty->isBool()) {
+        // create lef boolean checkBox for enable/disable attributes
+        myCheckButton = new FXCheckButton(this, "bool", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+        // continue depending of current value
+        if (ACDialog->getElement()->getAttribute(attrProperty->getAttr()) == GNEAttributeCarrier::TRUE_STR) {
+            myCheckButton->setCheck(TRUE);
+            myCheckButton->setText(TL("true"));
+        } else {
+            myCheckButton->setCheck(FALSE);
+            myCheckButton->setText(TL("false"));
+        }
+    } else {
+        // create text field
+        myTextField = new MFXTextFieldTooltip(this, ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                              GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+        // set attribute
+        myTextField->setText(ACDialog->getElement()->getAttribute(attrProperty->getAttr()).c_str());
+    }
 }
 
 
 long
 GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    if (myACDialog->getElement()->isValid(myAttr, myTextField->getText().text())) {
+    if (myACDialog->getElement()->isValid(myAttrProperty->getAttr(), myTextField->getText().text())) {
         // set attribute
-        myACDialog->getElement()->setAttribute(myAttr, myTextField->getText().text(), myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
+        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), myTextField->getText().text(), myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
         // set valid color and kill focus
         myTextField->setTextColor(GUIDesignTextColorBlack);
         myTextField->setBackColor(GUIDesignBackgroundColorWhite);
@@ -84,6 +100,19 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSe
     return 1;
 }
 
+
+long
+GNEAttributeCarrierDialog::AttributeTextField::onCmdSetBoolAttribute(FXObject*, FXSelector, void*) {
+    if (myCheckButton->getCheck() == TRUE) {
+        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::TRUE_STR, myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
+        myCheckButton->setText(TL("true"));
+    } else {
+        myACDialog->getElement()->setAttribute(myAttrProperty->getAttr(), GNEAttributeCarrier::FALSE_STR, myACDialog->getElement()->getNet()->getViewNet()->getUndoList());
+        myCheckButton->setText(TL("false"));
+    }
+    return 1;
+}
+
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrierDialog - methods
 // ---------------------------------------------------------------------------
@@ -91,21 +120,21 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject*, FXSe
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
     GNETemplateElementDialog<GNEAttributeCarrier>(AC) {
     // Create auxiliar frames for rows
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrameFixedWidth(400));
-    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
+    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
     // calculate number of attributes
-    std::vector<SumoXMLAttr> attrs;
+    std::vector<const GNEAttributeProperties*> attrProperties;
     for (const auto& attrProperty : myElement->getTagProperty()->getAttributeProperties()) {
         // check if this attribute can be edited in edit mode and in basic editor
         if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
-            attrs.push_back(attrProperty->getAttr());
+            attrProperties.push_back(attrProperty);
         }
     }
     // spread attributes in two columns
-    for (size_t i = 0; i < attrs.size(); i++) {
+    for (size_t i = 0; i < attrProperties.size(); i++) {
         // create attribute text field
-        auto attributeTextField = new AttributeTextField(this, (i % 2 == 0) ? columnLeft : columnRight, attrs[i]);
+        auto attributeTextField = new AttributeTextField(this, (i % 2 == 0) ? columnLeft : columnRight, attrProperties[i]);
         // add to myAttributeTextFields vector
         myAttributeTextFields.push_back(attributeTextField);
     }
