@@ -18,6 +18,7 @@
 // Table used in GNEElementList
 /****************************************************************************/
 
+#include <netedit/dialogs/GNEVClassesDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
@@ -32,9 +33,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNEElementTable::Row) RowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_EDIT,          GNEElementTable::Row::onCmdEditRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_REMOVE,        GNEElementTable::Row::onCmdRemoveRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_OPENDIALOG,    GNEElementTable::Row::onCmdOpenDialog)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_EDIT,              GNEElementTable::Row::onCmdEditRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_REMOVE,            GNEElementTable::Row::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_DIALOG_VCLASS,     GNEElementTable::Row::onCmdOpenVClassDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ELEMENTTABLE_DIALOG_ELEMENT,    GNEElementTable::Row::onCmdOpenElementDialog)
 };
 
 // Object implementation
@@ -59,20 +61,24 @@ GNEElementTable::ColumnHeader::ColumnHeader(GNEElementTable* elementTable, const
         // check if this attribute can be edited in dialog
         if (attrProperty->isDialogEditor()) {
             // create label
-            myLabels.push_back(new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
-                                           nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL)));
+            myLabels.push_back(std::make_pair(attrProperty->getAttr(), new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
+                                              nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL))));
             // check if this attribute is sortable
             if (attrProperty->isNumerical()) {
                 mySortableAttrs.push_back(attrProperty->getAttr());
             }
         }
     }
-    // create empty label (icons and vertical scroller)
+    // calculate buttons label width
+    int buttonLabelWidth = 15 + GUIDesignHeight;
     if (elementTable->myOptions & GNEElementList::Options::DIALOG_ELEMENT) {
-        new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + GUIDesignHeight + 15));
-    } else {
-        new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(GUIDesignHeight + 15));
+        buttonLabelWidth += GUIDesignHeight;
     }
+    if (elementTable->myOptions & GNEElementList::Options::DIALOG_VCLASS) {
+        buttonLabelWidth += GUIDesignHeight;
+    }
+    // create empty label (icons and vertical scroller)
+    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelFixed(buttonLabelWidth));
 }
 
 
@@ -83,7 +89,7 @@ void
 GNEElementTable::ColumnHeader::enableRowHeader() {
     // enable all labels
     for (const auto& label : myLabels) {
-        label->enable();
+        label.second->enable();
     }
 }
 
@@ -92,7 +98,7 @@ void
 GNEElementTable::ColumnHeader::disableRowHeader() {
     // disable all labels
     for (const auto& label : myLabels) {
-        label->disable();
+        label.second->disable();
     }
 }
 
@@ -106,6 +112,17 @@ GNEElementTable::ColumnHeader::getNumColumns() const {
 const std::vector<SumoXMLAttr>&
 GNEElementTable::ColumnHeader::getSortableAttributes() {
     return mySortableAttrs;
+}
+
+
+int
+GNEElementTable::ColumnHeader::getAttributeIndex(SumoXMLAttr attr) const {
+    for (int i = 0; i < (int)myLabels.size(); i++) {
+        if (myLabels.at(i).first == attr) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 // ---------------------------------------------------------------------------
@@ -139,11 +156,17 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
     // create remove button targeting the GNEDialog
     myRemoveButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this,
                                   MID_GNE_ELEMENTTABLE_REMOVE, GUIDesignButtonIcon);
-    // only create open dialog button if allowed
+    // check if create vClass dialog button
+    if (elementTable->myOptions & GNEElementList::Options::DIALOG_VCLASS) {
+        // create open dialog button targeting the GNEDialog
+        myOpenVClassButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::VEHICLE), this,
+                                          MID_GNE_ELEMENTTABLE_DIALOG_VCLASS, GUIDesignButtonIcon);
+    }
+    // chekc if create element dialog button
     if (elementTable->myOptions & GNEElementList::Options::DIALOG_ELEMENT) {
         // create open dialog button targeting the GNEDialog
         myOpenDialogButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this,
-                                          MID_GNE_ELEMENTTABLE_OPENDIALOG, GUIDesignButtonIcon);
+                                          MID_GNE_ELEMENTTABLE_DIALOG_ELEMENT, GUIDesignButtonIcon);
     }
     // create row if table was previously created
     if (elementTable->id() != 0) {
@@ -271,8 +294,25 @@ GNEElementTable::Row::onCmdRemoveRow(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEElementTable::Row::onCmdOpenDialog(FXObject* sender, FXSelector, void*) {
+GNEElementTable::Row::onCmdOpenElementDialog(FXObject* sender, FXSelector, void*) {
     return myElementTable->myElementList->openElementDialog(myRowIndex);
+}
+
+
+long
+GNEElementTable::Row::onCmdOpenVClassDialog(FXObject* sender, FXSelector, void*) {
+    // get column with 'allow' attribute
+    const int allowColumnIndex = myElementTable->myColumnHeader->getAttributeIndex(SUMO_ATTR_ALLOW);
+    if (allowColumnIndex >= 0) {
+        // declare allowVClassesDialog
+        const auto allowVClassesDialog = new GNEVClassesDialog(myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                SUMO_ATTR_ALLOW, myAC->getAttribute(SUMO_ATTR_ALLOW));
+        // continue depending of result
+        if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {
+            myAttributeTextFields.at(allowColumnIndex).second->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
+        }
+    }
+    return 1;
 }
 
 // ---------------------------------------------------------------------------

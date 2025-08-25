@@ -54,6 +54,9 @@ public:
         /// @brief get num columns
         size_t getNumColumns() const;
 
+        /// @brief get column with the given
+        int getAttributeIndex(SumoXMLAttr attr) const;
+
         /// @brief get sortable attributes
         const std::vector<SumoXMLAttr>& getSortableAttributes();
 
@@ -62,7 +65,7 @@ public:
         std::vector<SumoXMLAttr> mySortableAttrs;
 
         /// @brief labels
-        std::vector<FXLabel*> myLabels;
+        std::vector<std::pair<SumoXMLAttr, FXLabel*> > myLabels;
 
         /// @brief Invalidated duplicate constructor.
         ColumnHeader(const ColumnHeader&) = delete;
@@ -108,8 +111,11 @@ public:
         /// @brief called when user press remove button
         long onCmdRemoveRow(FXObject* sender, FXSelector, void*);
 
-        /// @brief called when user press open dialog button
-        long onCmdOpenDialog(FXObject* sender, FXSelector, void*);
+        /// @brief called when user press open element dialog button
+        long onCmdOpenElementDialog(FXObject* sender, FXSelector, void*);
+
+        /// @brief called when user press open vClass dialog button
+        long onCmdOpenVClassDialog(FXObject* sender, FXSelector, void*);
 
         /// @}
 
@@ -134,6 +140,9 @@ public:
 
         /// @brief remove button
         FXButton* myRemoveButton = nullptr;
+
+        /// @brief open vClass button
+        FXButton* myOpenVClassButton = nullptr;
 
         /// @brief open dialog button
         FXButton* myOpenDialogButton = nullptr;

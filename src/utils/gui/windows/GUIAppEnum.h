@@ -1535,8 +1535,10 @@ enum {
     MID_GNE_ELEMENTTABLE_EDIT,
     /// @brief remove row
     MID_GNE_ELEMENTTABLE_REMOVE,
-    /// @brief remove row
-    MID_GNE_ELEMENTTABLE_OPENDIALOG,
+    /// @brief open dialog element
+    MID_GNE_ELEMENTTABLE_DIALOG_ELEMENT,
+    /// @brief open dialog vClass
+    MID_GNE_ELEMENTTABLE_DIALOG_VCLASS,
 
     /// @name ElementList messages
     /// @{

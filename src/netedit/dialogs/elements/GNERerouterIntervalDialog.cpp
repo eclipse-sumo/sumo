@@ -123,7 +123,7 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 GNERerouterIntervalDialog::ClosingReroutesList::ClosingReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
     GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_REROUTE,
-                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
+                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::DIALOG_VCLASS | GNEElementList::Options::FIXED_HEIGHT) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getEdges().size() == 0) {
         disableList(TL("No edges in net"));
@@ -154,7 +154,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::openElementDialog(const size_t r
 GNERerouterIntervalDialog::ClosingLaneReroutesList::ClosingLaneReroutesList(GNERerouterIntervalDialog* rerouterIntervalDialog,
         FXVerticalFrame* contentFrame) :
     GNETemplateElementList(rerouterIntervalDialog, contentFrame, SUMO_TAG_CLOSING_LANE_REROUTE,
-                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
+                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::DIALOG_VCLASS | GNEElementList::Options::FIXED_HEIGHT) {
     // disable if there are no edges in net
     if (rerouterIntervalDialog->getElement()->getNet()->getAttributeCarriers()->getLanes().size() == 0) {
         disableList(TL("No lanes in net"));
