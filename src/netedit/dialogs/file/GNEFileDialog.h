@@ -1,57 +1,49 @@
-/********************************************************************************
-*                                                                               *
-*                   F i l e   S e l e c t i o n   D i a l o g                   *
-*                                                                               *
-*********************************************************************************
-* Copyright (C) 1998,2006 by Jeroen van der Zijp.   All Rights Reserved.        *
-*********************************************************************************
-* This library is free software; you can redistribute it and/or                 *
-* modify it under the terms of the GNU Lesser General Public                    *
-* License as published by the Free Software Foundation; either                  *
-* version 2.1 of the License, or (at your option) any later version.            *
-*                                                                               *
-* This library is distributed in the hope that it will be useful,               *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU             *
-* Lesser General Public License for more details.                               *
-*                                                                               *
-* You should have received a copy of the GNU Lesser General Public              *
-* License along with this library; if not, write to the Free Software           *
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
-*********************************************************************************
-* $Id: FXFileDialog.h,v 1.34 2006/01/23 06:03:15 fox Exp $                      *
-********************************************************************************/
-#ifndef FXFILEDIALOG_H
-#define FXFILEDIALOG_H
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEElementList.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Aug 2025
+///
+// Dialog used for opening/saving files
+/****************************************************************************/
+#pragma once
+#include <config.h>
 
-#ifndef FXDIALOGBOX_H
-#include "FXDialogBox.h"
-#endif
+#include <utils/foxtools/fxheader.h>
 
-namespace FX {
+// ===========================================================================
+// class declaration
+// ===========================================================================
 
+class GNEFileSelector;
 
-class FXFileSelector;
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-
-/// File selection dialog
-class FXAPI FXFileDialog : public FXDialogBox {
-    FXDECLARE(FXFileDialog)
-protected:
-    FXFileSelector* filebox;
-protected:
-    FXFileDialog() {}
-    void initdialog();
-private:
-    FXFileDialog(const FXFileDialog&);
-    FXFileDialog& operator=(const FXFileDialog&);
-public:
+class GNEFileDialog : public FXDialogBox {
+    /// @brief FOX declaration
+    FXDECLARE(GNEFileDialog)
 
     /// Construct file dialog box
-    FXFileDialog(FXWindow* owner, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
+    GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
 
     /// Construct free-floating file dialog box
-    FXFileDialog(FXApp* a, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
+    GNEFileDialog(FXApp* a, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
+
+    /// Destructor
+    virtual ~GNEFileDialog();
 
     /// Hide this window
     virtual void hide();
@@ -192,16 +184,17 @@ public:
     /// Open directory name
     static FXString getOpenDirectory(FXWindow* owner, const FXString& caption, const FXString& path);
 
-    /// Save to stream
-    virtual void save(FXStream& store) const;
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEFileDialog)
 
-    /// Load from stream
-    virtual void load(FXStream& store);
+    /// @brief the file selector widget
+    GNEFileSelector* myFileSelector;
 
-    /// Destructor
-    virtual ~FXFileDialog();
+private:
+    /// @brief invalidate copy constructor
+    GNEFileDialog(const GNEFileDialog&) = delete;
+
+    /// @brief invalidate assignment operator
+    GNEFileDialog& operator=(const GNEFileDialog&) = delete;
 };
-
-}
-
-#endif

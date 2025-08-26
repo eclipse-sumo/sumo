@@ -1,97 +1,75 @@
-/********************************************************************************
-*                                                                               *
-*                    F i l e   S e l e c t i o n   D i a l o g                  *
-*                                                                               *
-*********************************************************************************
-* Copyright (C) 1998,2006 by Jeroen van der Zijp.   All Rights Reserved.        *
-*********************************************************************************
-* This library is free software; you can redistribute it and/or                 *
-* modify it under the terms of the GNU Lesser General Public                    *
-* License as published by the Free Software Foundation; either                  *
-* version 2.1 of the License, or (at your option) any later version.            *
-*                                                                               *
-* This library is distributed in the hope that it will be useful,               *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU             *
-* Lesser General Public License for more details.                               *
-*                                                                               *
-* You should have received a copy of the GNU Lesser General Public              *
-* License along with this library; if not, write to the Free Software           *
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
-*********************************************************************************
-* $Id: FXFileDialog.cpp,v 1.51 2006/01/23 06:03:16 fox Exp $                    *
-********************************************************************************/
-#include "xincs.h"
-#include "fxver.h"
-#include "fxdefs.h"
-#include "fxkeys.h"
-#include "FXHash.h"
-#include "FXThread.h"
-#include "FXStream.h"
-#include "FXString.h"
-#include "FXSize.h"
-#include "FXPoint.h"
-#include "FXRectangle.h"
-#include "FXPath.h"
-#include "FXStat.h"
-#include "FXFile.h"
-#include "FXSettings.h"
-#include "FXRegistry.h"
-#include "FXApp.h"
-#include "FXId.h"
-#include "FXDrawable.h"
-#include "FXWindow.h"
-#include "FXRecentFiles.h"
-#include "FXFrame.h"
-#include "FXLabel.h"
-#include "FXButton.h"
-#include "FXComposite.h"
-#include "FXPacker.h"
-#include "FXShell.h"
-#include "FXTopWindow.h"
-#include "FXDialogBox.h"
-#include "FXFileSelector.h"
-#include "FXFileDialog.h"
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEElementList.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Aug 2025
+///
+// Dialog used for opening/saving files
+/****************************************************************************/
 
+#include <xincs.h>
+#include <fxver.h>
+#include <fxdefs.h>
+#include <fxkeys.h>
+#include <FXHash.h>
+#include <FXThread.h>
+#include <FXStream.h>
+#include <FXString.h>
+#include <FXSize.h>
+#include <FXPoint.h>
+#include <FXRectangle.h>
+#include <FXPath.h>
+#include <FXStat.h>
+#include <FXFile.h>
+#include <FXSettings.h>
+#include <FXRegistry.h>
+#include <FXApp.h>
+#include <FXId.h>
+#include <FXDrawable.h>
+#include <FXWindow.h>
+#include <FXRecentFiles.h>
+#include <FXFrame.h>
+#include <FXLabel.h>
+#include <FXButton.h>
+#include <FXComposite.h>
+#include <FXPacker.h>
+#include <FXShell.h>
+#include <FXTopWindow.h>
+#include <FXDialogBox.h>
+#include <FXFileSelector.h>
 
+#include "GNEFileDialog.h"
+#include "GNEFileSelector.h"
 
-/*
-  Notes:
-  - Wraps the FXFileSelector file selection mega widget.
-*/
-
-using namespace FX;
-
-/*******************************************************************************/
-
-namespace FX {
-
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 // Object implementation
-FXIMPLEMENT(FXFileDialog, FXDialogBox, NULL, 0)
+FXIMPLEMENT(GNEFileDialog, FXDialogBox, NULL, 0)
 
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
-// Construct file fialog box
-FXFileDialog::FXFileDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXDialogBox(owner, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    initdialog();
-}
-
-
-// Construct free-floating file dialog box
-FXFileDialog::FXFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
-    FXDialogBox(a, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    initdialog();
-}
-
-
-// Initialize dialog and load settings
-void FXFileDialog::initdialog() {
-    filebox = new FXFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    filebox->acceptButton()->setTarget(this);
-    filebox->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
-    filebox->cancelButton()->setTarget(this);
-    filebox->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
+    myFileSelector = new FXFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myFileSelector->acceptButton()->setTarget(this);
+    myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
+    myFileSelector->cancelButton()->setTarget(this);
+    myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
     setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
     setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
     setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
@@ -99,8 +77,27 @@ void FXFileDialog::initdialog() {
 }
 
 
-// Hide window and save settings
-void FXFileDialog::hide() {
+GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+    FXDialogBox(a, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
+    myFileSelector = new FXFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myFileSelector->acceptButton()->setTarget(this);
+    myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
+    myFileSelector->cancelButton()->setTarget(this);
+    myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
+    setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
+    setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
+    setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
+    showHiddenFiles(getApp()->reg().readUnsignedEntry("File Dialog", "showhidden", showHiddenFiles()));
+}
+
+
+GNEFileDialog::~GNEFileDialog() {
+    myFileSelector = (FXFileSelector*) - 1L;
+}
+
+
+void
+GNEFileDialog::hide() {
     FXDialogBox::hide();
     getApp()->reg().writeIntEntry("File Dialog", "width", getWidth());
     getApp()->reg().writeIntEntry("File Dialog", "height", getHeight());
@@ -109,242 +106,225 @@ void FXFileDialog::hide() {
 }
 
 
-// Set file name
-void FXFileDialog::setFilename(const FXString& path) {
-    filebox->setFilename(path);
+void
+GNEFileDialog::setFilename(const FXString& path) {
+    myFileSelector->setFilename(path);
 }
 
 
-// Get filename, if any
-FXString FXFileDialog::getFilename() const {
-    return filebox->getFilename();
+FXString
+GNEFileDialog::getFilename() const {
+    return myFileSelector->getFilename();
 }
 
 
-// Return empty-string terminated list of selected file names,
-FXString* FXFileDialog::getFilenames() const {
-    return filebox->getFilenames();
+FXString*
+GNEFileDialog::getFilenames() const {
+    return myFileSelector->getFilenames();
 }
 
 
-// Set pattern
-void FXFileDialog::setPattern(const FXString& ptrn) {
-    filebox->setPattern(ptrn);
+void
+GNEFileDialog::setPattern(const FXString& ptrn) {
+    myFileSelector->setPattern(ptrn);
 }
 
 
-// Get pattern
-FXString FXFileDialog::getPattern() const {
-    return filebox->getPattern();
+FXString
+GNEFileDialog::getPattern() const {
+    return myFileSelector->getPattern();
 }
 
 
-// Change patterns, each pattern separated by newline
-void FXFileDialog::setPatternList(const FXString& patterns) {
-    filebox->setPatternList(patterns);
+void
+GNEFileDialog::setPatternList(const FXString& patterns) {
+    myFileSelector->setPatternList(patterns);
 }
 
 
-// Return list of patterns
-FXString FXFileDialog::getPatternList() const {
-    return filebox->getPatternList();
+FXString
+GNEFileDialog::getPatternList() const {
+    return myFileSelector->getPatternList();
 }
 
 
-// Set directory
-void FXFileDialog::setDirectory(const FXString& path) {
-    filebox->setDirectory(path);
+void
+GNEFileDialog::setDirectory(const FXString& path) {
+    myFileSelector->setDirectory(path);
 }
 
 
-// Get directory
-FXString FXFileDialog::getDirectory() const {
-    return filebox->getDirectory();
+FXString
+GNEFileDialog::getDirectory() const {
+    return myFileSelector->getDirectory();
 }
 
 
-// Set current file pattern from the list
-void FXFileDialog::setCurrentPattern(FXint n) {
-    filebox->setCurrentPattern(n);
+void
+GNEFileDialog::setCurrentPattern(FXint n) {
+    myFileSelector->setCurrentPattern(n);
 }
 
 
-// Return current pattern
-FXint FXFileDialog::getCurrentPattern() const {
-    return filebox->getCurrentPattern();
-}
-
-FXString FXFileDialog::getPatternText(FXint patno) const {
-    return filebox->getPatternText(patno);
+FXint
+GNEFileDialog::getCurrentPattern() const {
+    return myFileSelector->getCurrentPattern();
 }
 
 
-void FXFileDialog::setPatternText(FXint patno, const FXString& text) {
-    filebox->setPatternText(patno, text);
+FXString
+GNEFileDialog::getPatternText(FXint patno) const {
+    return myFileSelector->getPatternText(patno);
 }
 
 
-// Return number of patterns
-FXint FXFileDialog::getNumPatterns() const {
-    return filebox->getNumPatterns();
+void
+GNEFileDialog::setPatternText(FXint patno, const FXString& text) {
+    myFileSelector->setPatternText(patno, text);
 }
 
 
-// Allow pattern entry
-void FXFileDialog::allowPatternEntry(FXbool allow) {
-    filebox->allowPatternEntry(allow);
+FXint
+GNEFileDialog::getNumPatterns() const {
+    return myFileSelector->getNumPatterns();
 }
 
 
-// Return TRUE if pattern entry is allowed
-FXbool FXFileDialog::allowPatternEntry() const {
-    return filebox->allowPatternEntry();
+void
+GNEFileDialog::allowPatternEntry(FXbool allow) {
+    myFileSelector->allowPatternEntry(allow);
 }
 
 
-// Change space for item
-void FXFileDialog::setItemSpace(FXint s) {
-    filebox->setItemSpace(s);
+FXbool
+GNEFileDialog::allowPatternEntry() const {
+    return myFileSelector->allowPatternEntry();
 }
 
 
-// Get space for item
-FXint FXFileDialog::getItemSpace() const {
-    return filebox->getItemSpace();
+void
+GNEFileDialog::setItemSpace(FXint s) {
+    myFileSelector->setItemSpace(s);
 }
 
 
-// Change File List style
-void FXFileDialog::setFileBoxStyle(FXuint style) {
-    filebox->setFileBoxStyle(style);
+FXint
+GNEFileDialog::getItemSpace() const {
+    return myFileSelector->getItemSpace();
 }
 
 
-// Return File List style
-FXuint FXFileDialog::getFileBoxStyle() const {
-    return filebox->getFileBoxStyle();
+void
+GNEFileDialog::setFileBoxStyle(FXuint style) {
+    myFileSelector->setFileBoxStyle(style);
 }
 
 
-// Change file selection mode
-void FXFileDialog::setSelectMode(FXuint mode) {
-    filebox->setSelectMode(mode);
+FXuint
+GNEFileDialog::getFileBoxStyle() const {
+    return myFileSelector->getFileBoxStyle();
 }
 
 
-// Return file selection mode
-FXuint FXFileDialog::getSelectMode() const {
-    return filebox->getSelectMode();
+void
+GNEFileDialog::setSelectMode(FXuint mode) {
+    myFileSelector->setSelectMode(mode);
 }
 
 
-// Change wildcard matching mode
-void FXFileDialog::setMatchMode(FXuint mode) {
-    filebox->setMatchMode(mode);
+FXuint
+GNEFileDialog::getSelectMode() const {
+    return myFileSelector->getSelectMode();
 }
 
 
-// Return wildcard matching mode
-FXuint FXFileDialog::getMatchMode() const {
-    return filebox->getMatchMode();
+void
+GNEFileDialog::setMatchMode(FXuint mode) {
+    myFileSelector->setMatchMode(mode);
 }
 
 
-// Return TRUE if showing hidden files
-FXbool FXFileDialog::showHiddenFiles() const {
-    return filebox->showHiddenFiles();
+FXuint
+GNEFileDialog::getMatchMode() const {
+    return myFileSelector->getMatchMode();
 }
 
 
-// Show or hide hidden files
-void FXFileDialog::showHiddenFiles(FXbool showing) {
-    filebox->showHiddenFiles(showing);
+FXbool
+GNEFileDialog::showHiddenFiles() const {
+    return myFileSelector->showHiddenFiles();
 }
 
 
-// Return TRUE if image preview on
-FXbool FXFileDialog::showImages() const {
-    return filebox->showImages();
+void
+GNEFileDialog::showHiddenFiles(FXbool showing) {
+    myFileSelector->showHiddenFiles(showing);
 }
 
 
-// Show or hide preview images
-void FXFileDialog::showImages(FXbool showing) {
-    filebox->showImages(showing);
+FXbool
+GNEFileDialog::showImages() const {
+    return myFileSelector->showImages();
 }
 
 
-// Return images preview size
-FXint FXFileDialog::getImageSize() const {
-    return filebox->getImageSize();
+void
+GNEFileDialog::showImages(FXbool showing) {
+    myFileSelector->showImages(showing);
 }
 
 
-// Change images preview size
-void FXFileDialog::setImageSize(FXint size) {
-    filebox->setImageSize(size);
+FXint
+GNEFileDialog::getImageSize() const {
+    return myFileSelector->getImageSize();
 }
 
 
-// Show readonly button
-void FXFileDialog::showReadOnly(FXbool show) {
-    filebox->showReadOnly(show);
+void
+GNEFileDialog::setImageSize(FXint size) {
+    myFileSelector->setImageSize(size);
 }
 
 
-// Return TRUE if readonly is shown
-FXbool FXFileDialog::shownReadOnly() const {
-    return filebox->shownReadOnly();
+void
+GNEFileDialog::showReadOnly(FXbool show) {
+    myFileSelector->showReadOnly(show);
 }
 
 
-// Set initial state of readonly button
-void FXFileDialog::setReadOnly(FXbool state) {
-    filebox->setReadOnly(state);
+FXbool
+GNEFileDialog::shownReadOnly() const {
+    return myFileSelector->shownReadOnly();
 }
 
 
-// Get readonly state
-FXbool FXFileDialog::getReadOnly() const {
-    return filebox->getReadOnly();
+void
+GNEFileDialog::setReadOnly(FXbool state) {
+    myFileSelector->setReadOnly(state);
 }
 
 
-// Allow or disallow navigation
-void FXFileDialog::allowNavigation(FXbool navigable) {
-    filebox->allowNavigation(navigable);
+FXbool
+GNEFileDialog::getReadOnly() const {
+    return myFileSelector->getReadOnly();
 }
 
 
-// Is navigation allowed?
-FXbool FXFileDialog::allowNavigation() const {
-    return filebox->allowNavigation();
+void
+GNEFileDialog::allowNavigation(FXbool navigable) {
+    myFileSelector->allowNavigation(navigable);
 }
 
 
-// Save data
-void FXFileDialog::save(FXStream& store) const {
-    FXDialogBox::save(store);
-    store << filebox;
+FXbool
+GNEFileDialog::allowNavigation() const {
+    return myFileSelector->allowNavigation();
 }
 
 
-// Load data
-void FXFileDialog::load(FXStream& store) {
-    FXDialogBox::load(store);
-    store >> filebox;
-}
-
-
-// Cleanup
-FXFileDialog::~FXFileDialog() {
-    filebox = (FXFileSelector*) - 1L;
-}
-
-
-// Open existing filename
-FXString FXFileDialog::getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    FXFileDialog opendialog(owner, caption);
+FXString
+GNEFileDialog::getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
+    GNEFileDialog opendialog(owner, caption);
     FXString filename;
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setFilename(path);
@@ -360,9 +340,9 @@ FXString FXFileDialog::getOpenFilename(FXWindow* owner, const FXString& caption,
 }
 
 
-// Save to filename
-FXString FXFileDialog::getSaveFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    FXFileDialog savedialog(owner, caption);
+FXString
+GNEFileDialog::getSaveFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
+    GNEFileDialog savedialog(owner, caption);
     savedialog.setSelectMode(SELECTFILE_ANY);
     savedialog.setFilename(path);
     savedialog.setPatternList(patterns);
@@ -374,9 +354,9 @@ FXString FXFileDialog::getSaveFilename(FXWindow* owner, const FXString& caption,
 }
 
 
-// Open multiple existing files
-FXString* FXFileDialog::getOpenFilenames(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    FXFileDialog opendialog(owner, caption);
+FXString*
+GNEFileDialog::getOpenFilenames(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
+    GNEFileDialog opendialog(owner, caption);
     opendialog.setSelectMode(SELECTFILE_MULTIPLE);
     opendialog.setFilename(path);
     opendialog.setPatternList(patterns);
@@ -388,9 +368,9 @@ FXString* FXFileDialog::getOpenFilenames(FXWindow* owner, const FXString& captio
 }
 
 
-// Open existing directory name
-FXString FXFileDialog::getOpenDirectory(FXWindow* owner, const FXString& caption, const FXString& path) {
-    FXFileDialog dirdialog(owner, caption);
+FXString
+GNEFileDialog::getOpenDirectory(FXWindow* owner, const FXString& caption, const FXString& path) {
+    GNEFileDialog dirdialog(owner, caption);
     FXString dirname;
     dirdialog.setSelectMode(SELECTFILE_DIRECTORY);
     dirdialog.setFilename(path);
@@ -403,4 +383,4 @@ FXString FXFileDialog::getOpenDirectory(FXWindow* owner, const FXString& caption
     return FXString::null;
 }
 
-}
+/****************************************************************************/
