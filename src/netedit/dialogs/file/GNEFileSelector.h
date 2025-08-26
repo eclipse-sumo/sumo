@@ -1,47 +1,30 @@
-/********************************************************************************
-*                                                                               *
-*                  F i l e   S e l e c t i o n   W i d g e t                    *
-*                                                                               *
-*********************************************************************************
-* Copyright (C) 1998,2006 by Jeroen van der Zijp.   All Rights Reserved.        *
-*********************************************************************************
-* This library is free software; you can redistribute it and/or                 *
-* modify it under the terms of the GNU Lesser General Public                    *
-* License as published by the Free Software Foundation; either                  *
-* version 2.1 of the License, or (at your option) any later version.            *
-*                                                                               *
-* This library is distributed in the hope that it will be useful,               *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU             *
-* Lesser General Public License for more details.                               *
-*                                                                               *
-* You should have received a copy of the GNU Lesser General Public              *
-* License along with this library; if not, write to the Free Software           *
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
-*********************************************************************************
-* $Id: FXFileSelector.h,v 1.61 2006/01/23 15:51:05 fox Exp $                    *
-********************************************************************************/
-#ifndef FXFILESELECTOR_H
-#define FXFILESELECTOR_H
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEFileSelector.cpp
+/// @author  Pablo Alvarez Lopez
+/// @date    Aug 2025
+///
+// widget used for file selection
+/****************************************************************************/
+#pragma once
+#include <config.h>
 
-#ifndef FXPACKER_H
-#include "FXPacker.h"
-#endif
+#include <utils/foxtools/fxheader.h>
 
-namespace FX {
-
-class FXFileList;
-class FXTextField;
-class FXComboBox;
-class FXDirBox;
-class FXButton;
-class FXMenuButton;
-class FXIcon;
-class FXMenuPane;
-class FXCheckButton;
-class FXMatrix;
-class FXHorizontalFrame;
-
+// ===========================================================================
+// class declaration
+// ===========================================================================
 
 /// File selection modes
 enum {
@@ -52,72 +35,16 @@ enum {
     SELECTFILE_DIRECTORY        /// Existing directory, including '.' or '..'
 };
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-/// File selection widget
-class FXAPI FXFileSelector : public FXPacker {
-    FXDECLARE(FXFileSelector)
-protected:
-    FXFileList*        filebox;           // File list widget
-    FXTextField*       filename;          // File name entry field
-    FXComboBox*        filefilter;        // Combobox for pattern list
-    FXMenuPane*        bookmarkmenu;      // Menu for bookmarks
-    FXHorizontalFrame* navbuttons;        // Navigation buttons
-    FXHorizontalFrame* fileboxframe;      // Frame around file list
-    FXMatrix*          entryblock;        // Entry block
-    FXCheckButton*     readonly;          // Open file as read only
-    FXDirBox*          dirbox;            // Directory hierarchy list
-    FXButton*          accept;            // Accept button
-    FXButton*          cancel;            // Cancel button
-    FXIcon*            updiricon;         // Up directory icon
-    FXIcon*            listicon;          // List mode icon
-    FXIcon*            detailicon;        // Detail mode icon
-    FXIcon*            iconsicon;         // Icon mode icon
-    FXIcon*            homeicon;          // Go home icon
-    FXIcon*            workicon;          // Go home icon
-    FXIcon*            shownicon;         // Files shown icon
-    FXIcon*            hiddenicon;        // Files hidden icon
-    FXIcon*            markicon;          // Book mark icon
-    FXIcon*            clearicon;         // Book clear icon
-    FXIcon*            newicon;           // New directory icon
-    FXIcon*            deleteicon;        // Delete file icon
-    FXIcon*            moveicon;          // Rename file icon
-    FXIcon*            copyicon;          // Copy file icon
-    FXIcon*            linkicon;          // Link file icon
-    FXRecentFiles      bookmarks;         // Bookmarked places
-    FXuint             selectmode;        // Select mode
-    FXbool             navigable;         // May navigate
-protected:
-    FXFileSelector() {}
-    FXString* getSelectedFiles() const;
-    FXString* getSelectedFilesOnly() const;
-private:
-    FXFileSelector(const FXFileSelector&);
-    FXFileSelector& operator=(const FXFileSelector&);
+class GNEFileSelector : public FXPacker {
+    /// @brief FOX declaration
+    FXDECLARE(GNEFileSelector)
+
 public:
-    long onCmdAccept(FXObject*, FXSelector, void*);
-    long onCmdFilter(FXObject*, FXSelector, void*);
-    long onCmdItemDblClicked(FXObject*, FXSelector, void*);
-    long onCmdItemSelected(FXObject*, FXSelector, void*);
-    long onCmdItemDeselected(FXObject*, FXSelector, void*);
-    long onCmdDirectoryUp(FXObject*, FXSelector, void*);
-    long onUpdDirectoryUp(FXObject*, FXSelector, void*);
-    long onCmdDirTree(FXObject*, FXSelector, void*);
-    long onCmdHome(FXObject*, FXSelector, void*);
-    long onCmdWork(FXObject*, FXSelector, void*);
-    long onCmdBookmark(FXObject*, FXSelector, void*);
-    long onCmdVisit(FXObject*, FXSelector, void*);
-    long onCmdNew(FXObject*, FXSelector, void*);
-    long onUpdNew(FXObject*, FXSelector, void*);
-    long onCmdMove(FXObject*, FXSelector, void*);
-    long onCmdCopy(FXObject*, FXSelector, void*);
-    long onCmdLink(FXObject*, FXSelector, void*);
-    long onCmdDelete(FXObject*, FXSelector, void*);
-    long onUpdSelected(FXObject*, FXSelector, void*);
-    long onPopupMenu(FXObject*, FXSelector, void*);
-    long onCmdImageSize(FXObject*, FXSelector, void*);
-    long onUpdImageSize(FXObject*, FXSelector, void*);
-    long onUpdNavigable(FXObject*, FXSelector, void*);
-public:
+
     enum {
         ID_FILEFILTER = FXPacker::ID_LAST,
         ID_ACCEPT,
@@ -139,10 +66,12 @@ public:
         ID_LINK,
         ID_LAST
     };
-public:
 
     /// Constructor
-    FXFileSelector(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
+    GNEFileSelector(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
+
+    /// Destructor
+    virtual ~GNEFileSelector();
 
     /// Return a pointer to the "Accept" button
     FXButton* acceptButton() const {
@@ -303,16 +232,74 @@ public:
         return navigable;
     }
 
-    /// Save object to a stream
-    virtual void save(FXStream& store) const;
+    long onCmdAccept(FXObject*, FXSelector, void*);
+    long onCmdFilter(FXObject*, FXSelector, void*);
+    long onCmdItemDblClicked(FXObject*, FXSelector, void*);
+    long onCmdItemSelected(FXObject*, FXSelector, void*);
+    long onCmdItemDeselected(FXObject*, FXSelector, void*);
+    long onCmdDirectoryUp(FXObject*, FXSelector, void*);
+    long onUpdDirectoryUp(FXObject*, FXSelector, void*);
+    long onCmdDirTree(FXObject*, FXSelector, void*);
+    long onCmdHome(FXObject*, FXSelector, void*);
+    long onCmdWork(FXObject*, FXSelector, void*);
+    long onCmdBookmark(FXObject*, FXSelector, void*);
+    long onCmdVisit(FXObject*, FXSelector, void*);
+    long onCmdNew(FXObject*, FXSelector, void*);
+    long onUpdNew(FXObject*, FXSelector, void*);
+    long onCmdMove(FXObject*, FXSelector, void*);
+    long onCmdCopy(FXObject*, FXSelector, void*);
+    long onCmdLink(FXObject*, FXSelector, void*);
+    long onCmdDelete(FXObject*, FXSelector, void*);
+    long onUpdSelected(FXObject*, FXSelector, void*);
+    long onPopupMenu(FXObject*, FXSelector, void*);
+    long onCmdImageSize(FXObject*, FXSelector, void*);
+    long onUpdImageSize(FXObject*, FXSelector, void*);
+    long onUpdNavigable(FXObject*, FXSelector, void*);
 
-    /// Load object from a stream
-    virtual void load(FXStream& store);
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEFileSelector)
 
-    /// Destructor
-    virtual ~FXFileSelector();
+    FXFileList*        myFileSelector;           // File list widget
+    FXTextField*       filename;          // File name entry field
+    FXComboBox*        filefilter;        // Combobox for pattern list
+    FXMenuPane*        bookmarkmenu;      // Menu for bookmarks
+    FXHorizontalFrame* navbuttons;        // Navigation buttons
+    FXHorizontalFrame* fileboxframe;      // Frame around file list
+    FXMatrix*          entryblock;        // Entry block
+    FXCheckButton*     readonly;          // Open file as read only
+    FXDirBox*          dirbox;            // Directory hierarchy list
+    FXButton*          accept;            // Accept button
+    FXButton*          cancel;            // Cancel button
+    FXIcon*            updiricon;         // Up directory icon
+    FXIcon*            listicon;          // List mode icon
+    FXIcon*            detailicon;        // Detail mode icon
+    FXIcon*            iconsicon;         // Icon mode icon
+    FXIcon*            homeicon;          // Go home icon
+    FXIcon*            workicon;          // Go home icon
+    FXIcon*            shownicon;         // Files shown icon
+    FXIcon*            hiddenicon;        // Files hidden icon
+    FXIcon*            markicon;          // Book mark icon
+    FXIcon*            clearicon;         // Book clear icon
+    FXIcon*            newicon;           // New directory icon
+    FXIcon*            deleteicon;        // Delete file icon
+    FXIcon*            moveicon;          // Rename file icon
+    FXIcon*            copyicon;          // Copy file icon
+    FXIcon*            linkicon;          // Link file icon
+    FXRecentFiles      bookmarks;         // Bookmarked places
+    FXuint             selectmode;        // Select mode
+    FXbool             navigable;         // May navigate
+
+    FXString* getSelectedFiles() const;
+
+    FXString* getSelectedFilesOnly() const;
+
+private:
+    /// @brief disable copy constructor
+    GNEFileSelector(const GNEFileSelector&) = delete;
+
+    /// @brief disable assignment operator
+    GNEFileSelector& operator=(const GNEFileSelector&) = delete;
 };
 
-}
-
-#endif
+/****************************************************************************/
