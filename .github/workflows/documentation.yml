@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Cloning repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Installing plantuml
       run: |
@@ -57,7 +57,7 @@ jobs:
         restore-keys: cache-lychee-
 
     - name: Cloning repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Lychee Link Checker
       uses: lycheeverse/lychee-action@v2

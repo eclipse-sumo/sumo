@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Cloning jupedsim
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
@@ -42,12 +42,12 @@ jobs:
 
     - name: Cloning SUMO
       # this does not a full clone to speed up the build, version number will be incorrect
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: sumo
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
