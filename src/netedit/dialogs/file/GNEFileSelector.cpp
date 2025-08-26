@@ -77,10 +77,8 @@
 #include <FXInputDialog.h>
 #include <FXSeparator.h>
 #include <FXMessageBox.h>
-#include <icons.h>
 
 #include "GNEFileSelector.h"
-
 
 #define FILELISTMASK  (ICONLIST_EXTENDEDSELECT|ICONLIST_SINGLESELECT|ICONLIST_BROWSESELECT|ICONLIST_MULTIPLESELECT)
 #define FILESTYLEMASK (ICONLIST_DETAILED|ICONLIST_MINI_ICONS|ICONLIST_BIG_ICONS|ICONLIST_ROWS|ICONLIST_COLUMNS|ICONLIST_AUTOSIZE)
@@ -94,34 +92,34 @@ static const FXchar allfiles[] = "All Files (*)";
 
 // Map
 FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_ACCEPT, GNEFileSelector::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_FILEFILTER, GNEFileSelector::onCmdFilter),
-    FXMAPFUNC(SEL_DOUBLECLICKED, GNEFileSelector::ID_FILELIST, GNEFileSelector::onCmdItemDblClicked),
-    FXMAPFUNC(SEL_SELECTED, GNEFileSelector::ID_FILELIST, GNEFileSelector::onCmdItemSelected),
-    FXMAPFUNC(SEL_DESELECTED, GNEFileSelector::ID_FILELIST, GNEFileSelector::onCmdItemDeselected),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE, GNEFileSelector::ID_FILELIST, GNEFileSelector::onPopupMenu),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_DIRECTORY_UP, GNEFileSelector::onCmdDirectoryUp),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_DIRECTORY_UP, GNEFileSelector::onUpdDirectoryUp),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_DIRTREE, GNEFileSelector::onCmdDirTree),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_HOME, GNEFileSelector::onCmdHome),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_HOME, GNEFileSelector::onUpdNavigable),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_WORK, GNEFileSelector::onCmdWork),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_WORK, GNEFileSelector::onUpdNavigable),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_VISIT, GNEFileSelector::onCmdVisit),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_BOOKMARK, GNEFileSelector::onCmdBookmark),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_NEW, GNEFileSelector::onCmdNew),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_NEW, GNEFileSelector::onUpdNew),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_DELETE, GNEFileSelector::onCmdDelete),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_MOVE, GNEFileSelector::onCmdMove),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_COPY, GNEFileSelector::onCmdCopy),
-    FXMAPFUNC(SEL_COMMAND, GNEFileSelector::ID_LINK, GNEFileSelector::onCmdLink),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_COPY, GNEFileSelector::onUpdSelected),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_MOVE, GNEFileSelector::onUpdSelected),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_LINK, GNEFileSelector::onUpdSelected),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_DELETE, GNEFileSelector::onUpdSelected),
-    FXMAPFUNC(SEL_UPDATE, GNEFileSelector::ID_BOOKMENU, GNEFileSelector::onUpdNavigable),
-    FXMAPFUNCS(SEL_COMMAND, GNEFileSelector::ID_NORMAL_SIZE, GNEFileSelector::ID_GIANT_SIZE, GNEFileSelector::onCmdImageSize),
-    FXMAPFUNCS(SEL_UPDATE, GNEFileSelector::ID_NORMAL_SIZE, GNEFileSelector::ID_GIANT_SIZE, GNEFileSelector::onUpdImageSize),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_ACCEPT,          GNEFileSelector::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_FILEFILTER,      GNEFileSelector::onCmdFilter),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDblClicked),
+    FXMAPFUNC(SEL_SELECTED,             FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemSelected),
+    FXMAPFUNC(SEL_DESELECTED,           FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDeselected),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   FXFileSelector::ID_FILELIST,        GNEFileSelector::onPopupMenu),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DIRECTORY_UP,    GNEFileSelector::onCmdDirectoryUp),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DIRECTORY_UP,    GNEFileSelector::onUpdDirectoryUp),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DIRTREE,         GNEFileSelector::onCmdDirTree),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_HOME,            GNEFileSelector::onCmdHome),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_HOME,            GNEFileSelector::onUpdNavigable),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_WORK,            GNEFileSelector::onCmdWork),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_WORK,            GNEFileSelector::onUpdNavigable),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_VISIT,           GNEFileSelector::onCmdVisit),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_BOOKMARK,        GNEFileSelector::onCmdBookmark),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_NEW,             GNEFileSelector::onCmdNew),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_NEW,             GNEFileSelector::onUpdNew),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DELETE,          GNEFileSelector::onCmdDelete),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_MOVE,            GNEFileSelector::onCmdMove),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_COPY,            GNEFileSelector::onCmdCopy),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_LINK,            GNEFileSelector::onCmdLink),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_COPY,            GNEFileSelector::onUpdSelected),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_MOVE,            GNEFileSelector::onUpdSelected),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_LINK,            GNEFileSelector::onUpdSelected),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DELETE,          GNEFileSelector::onUpdSelected),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_BOOKMENU,        GNEFileSelector::onUpdNavigable),
+    FXMAPFUNCS(SEL_COMMAND,             FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onCmdImageSize),
+    FXMAPFUNCS(SEL_UPDATE,              FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onUpdImageSize),
 };
 
 // Implementation
@@ -138,17 +136,17 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     navbuttons = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X, 0, 0, 0, 0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, 0, 0);
     entryblock = new FXMatrix(this, 3, MATRIX_BY_COLUMNS | LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
     new FXLabel(entryblock, tr("&File Name:"), NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
-    filename = new FXTextField(entryblock, 25, this, ID_ACCEPT, TEXTFIELD_ENTER_ONLY | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
-    new FXButton(entryblock, tr("&OK"), NULL, this, ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
+    filename = new FXTextField(entryblock, 25, this, FXFileSelector::ID_ACCEPT, TEXTFIELD_ENTER_ONLY | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
+    new FXButton(entryblock, tr("&OK"), NULL, this, FXFileSelector::ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
     accept = new FXButton(navbuttons, FXString::null, NULL, NULL, 0, LAYOUT_FIX_X | LAYOUT_FIX_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     new FXLabel(entryblock, tr("File F&ilter:"), NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
     FXHorizontalFrame* filterframe = new FXHorizontalFrame(entryblock, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-    filefilter = new FXComboBox(filterframe, 10, this, ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
+    filefilter = new FXComboBox(filterframe, 10, this, FXFileSelector::ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
     filefilter->setNumVisible(4);
     readonly = new FXCheckButton(filterframe, tr("Read Only"), NULL, 0, ICON_BEFORE_TEXT | JUSTIFY_LEFT | LAYOUT_CENTER_Y);
     cancel = new FXButton(entryblock, tr("&Cancel"), NULL, NULL, 0, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
     fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
-    myFileSelector = new FXFileList(fileboxframe, this, ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(navbuttons, tr("Directory:"), NULL, LAYOUT_CENTER_Y);
     updiricon = new FXGIFIcon(getApp(), dirupicon);
     listicon = new FXGIFIcon(getApp(), showsmallicons);
@@ -165,11 +163,11 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     moveicon = new FXGIFIcon(getApp(), filemove);
     copyicon = new FXGIFIcon(getApp(), filecopy);
     linkicon = new FXGIFIcon(getApp(), filelink);
-    dirbox = new FXDirBox(navbuttons, this, ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
+    dirbox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
     dirbox->setNumVisible(5);
     dirbox->setAssociations(myFileSelector->getAssociations());
     bookmarkmenu = new FXMenuPane(this, POPUP_SHRINKWRAP);
-    new FXMenuCommand(bookmarkmenu, tr("&Set bookmark\t\tBookmark current directory."), markicon, this, ID_BOOKMARK);
+    new FXMenuCommand(bookmarkmenu, tr("&Set bookmark\t\tBookmark current directory."), markicon, this, FXFileSelector::ID_BOOKMARK);
     new FXMenuCommand(bookmarkmenu, tr("&Clear bookmarks\t\tClear bookmarks."), clearicon, &bookmarks, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(bookmarkmenu);
     sep1->setTarget(&bookmarks);
@@ -185,26 +183,26 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_9);
     new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
     new FXFrame(navbuttons, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
-    new FXButton(navbuttons, tr("\tGo up one directory\tMove up to higher directory."), updiricon, this, ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tGo to home directory\tBack to home directory."), homeicon, this, ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tGo to work directory\tBack to working directory."), workicon, this, ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo up one directory\tMove up to higher directory."), updiricon, this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo to home directory\tBack to home directory."), homeicon, this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo to work directory\tBack to working directory."), workicon, this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     FXMenuButton* bookmenu = new FXMenuButton(navbuttons, tr("\tBookmarks\tVisit bookmarked directories."), markicon, bookmarkmenu, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     bookmenu->setTarget(this);
-    bookmenu->setSelector(ID_BOOKMENU);
-    new FXButton(navbuttons, tr("\tCreate new directory\tCreate new directory."), newicon, this, ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    bookmenu->setSelector(FXFileSelector::ID_BOOKMENU);
+    new FXButton(navbuttons, tr("\tCreate new directory\tCreate new directory."), newicon, this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, tr("\tShow list\tDisplay directory with small icons."), listicon, myFileSelector, FXFileList::ID_SHOW_MINI_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, tr("\tShow icons\tDisplay directory with big icons."), iconsicon, myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, tr("\tShow details\tDisplay detailed directory listing."), detailicon, myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXToggleButton(navbuttons, tr("\tShow hidden files\tShow hidden files and directories."), tr("\tHide Hidden Files\tHide hidden files and directories."), hiddenicon, shownicon, myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     bookmarks.setTarget(this);
-    bookmarks.setSelector(ID_VISIT);
+    bookmarks.setSelector(FXFileSelector::ID_VISIT);
     readonly->hide();
     if (table) {
-        table->addAccel(MKUINT(KEY_BackSpace, 0), this, FXSEL(SEL_COMMAND, ID_DIRECTORY_UP));
-        table->addAccel(MKUINT(KEY_Delete, 0), this, FXSEL(SEL_COMMAND, ID_DELETE));
-        table->addAccel(MKUINT(KEY_h, CONTROLMASK), this, FXSEL(SEL_COMMAND, ID_HOME));
-        table->addAccel(MKUINT(KEY_w, CONTROLMASK), this, FXSEL(SEL_COMMAND, ID_WORK));
-        table->addAccel(MKUINT(KEY_n, CONTROLMASK), this, FXSEL(SEL_COMMAND, ID_NEW));
+        table->addAccel(MKUINT(KEY_BackSpace, 0), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_DIRECTORY_UP));
+        table->addAccel(MKUINT(KEY_Delete, 0), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_DELETE));
+        table->addAccel(MKUINT(KEY_h, CONTROLMASK), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_HOME));
+        table->addAccel(MKUINT(KEY_w, CONTROLMASK), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_WORK));
+        table->addAccel(MKUINT(KEY_n, CONTROLMASK), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_NEW));
         table->addAccel(MKUINT(KEY_a, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SELECT_ALL));
         table->addAccel(MKUINT(KEY_b, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SHOW_BIG_ICONS));
         table->addAccel(MKUINT(KEY_s, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SHOW_MINI_ICONS));
@@ -441,13 +439,13 @@ GNEFileSelector::onUpdSelected(FXObject* sender, FXSelector, void*) {
 long
 GNEFileSelector::onCmdImageSize(FXObject*, FXSelector sel, void*) {
     switch (FXSELID(sel)) {
-        case ID_NORMAL_SIZE:
+        case FXFileSelector::ID_NORMAL_SIZE:
             setImageSize(32);
             break;
-        case ID_MEDIUM_SIZE:
+        case FXFileSelector::ID_MEDIUM_SIZE:
             setImageSize(48);
             break;
-        case ID_GIANT_SIZE:
+        case FXFileSelector::ID_GIANT_SIZE:
             setImageSize(64);
             break;
     }
@@ -459,13 +457,13 @@ long
 GNEFileSelector::onUpdImageSize(FXObject* sender, FXSelector sel, void*) {
     FXbool check = FALSE;
     switch (FXSELID(sel)) {
-        case ID_NORMAL_SIZE:
+        case FXFileSelector::ID_NORMAL_SIZE:
             check = (getImageSize() == 32);
             break;
-        case ID_MEDIUM_SIZE:
+        case FXFileSelector::ID_MEDIUM_SIZE:
             check = (getImageSize() == 48);
             break;
-        case ID_GIANT_SIZE:
+        case FXFileSelector::ID_GIANT_SIZE:
             check = (getImageSize() == 64);
             break;
     }
@@ -482,9 +480,9 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     }
 
     FXMenuPane filemenu(this);
-    new FXMenuCommand(&filemenu, tr("Up one level"), updiricon, this, ID_DIRECTORY_UP);
-    new FXMenuCommand(&filemenu, tr("Home directory"), homeicon, this, ID_HOME);
-    new FXMenuCommand(&filemenu, tr("Work directory"), workicon, this, ID_WORK);
+    new FXMenuCommand(&filemenu, tr("Up one level"), updiricon, this, FXFileSelector::ID_DIRECTORY_UP);
+    new FXMenuCommand(&filemenu, tr("Home directory"), homeicon, this, FXFileSelector::ID_HOME);
+    new FXMenuCommand(&filemenu, tr("Work directory"), workicon, this, FXFileSelector::ID_WORK);
     new FXMenuCommand(&filemenu, tr("Select all"), NULL, myFileSelector, FXFileList::ID_SELECT_ALL);
     new FXMenuSeparator(&filemenu);
 
@@ -512,15 +510,15 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     new FXMenuCheck(&viewmenu, tr("Hidden files"), myFileSelector, FXFileList::ID_TOGGLE_HIDDEN);
     new FXMenuCheck(&viewmenu, tr("Preview images"), myFileSelector, FXFileList::ID_TOGGLE_IMAGES);
     new FXMenuSeparator(&viewmenu);
-    new FXMenuRadio(&viewmenu, tr("Normal images"), this, ID_NORMAL_SIZE);
-    new FXMenuRadio(&viewmenu, tr("Medium images"), this, ID_MEDIUM_SIZE);
-    new FXMenuRadio(&viewmenu, tr("Giant images"), this, ID_GIANT_SIZE);
+    new FXMenuRadio(&viewmenu, tr("Normal images"), this, FXFileSelector::ID_NORMAL_SIZE);
+    new FXMenuRadio(&viewmenu, tr("Medium images"), this, FXFileSelector::ID_MEDIUM_SIZE);
+    new FXMenuRadio(&viewmenu, tr("Giant images"), this, FXFileSelector::ID_GIANT_SIZE);
 
     FXMenuPane bookmenu(this);
     FXMenuCascade* bookcasc = new FXMenuCascade(&filemenu, tr("Bookmarks"), NULL, &bookmenu);
     bookcasc->setTarget(this);
-    bookcasc->setSelector(ID_BOOKMENU);
-    new FXMenuCommand(&bookmenu, tr("Set bookmark"), markicon, this, ID_BOOKMARK);
+    bookcasc->setSelector(FXFileSelector::ID_BOOKMENU);
+    new FXMenuCommand(&bookmenu, tr("Set bookmark"), markicon, this, FXFileSelector::ID_BOOKMARK);
     new FXMenuCommand(&bookmenu, tr("Clear bookmarks"), clearicon, &bookmarks, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(&bookmenu);
     sep1->setTarget(&bookmarks);
@@ -537,10 +535,10 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
 
     new FXMenuSeparator(&filemenu);
-    new FXMenuCommand(&filemenu, tr("New directory..."), newicon, this, ID_NEW);
-    new FXMenuCommand(&filemenu, tr("Copy..."), copyicon, this, ID_COPY);
-    new FXMenuCommand(&filemenu, tr("Move..."), moveicon, this, ID_MOVE);
-    new FXMenuCommand(&filemenu, tr("Link..."), linkicon, this, ID_LINK);
+    new FXMenuCommand(&filemenu, tr("New directory..."), newicon, this, FXFileSelector::ID_NEW);
+    new FXMenuCommand(&filemenu, tr("Copy..."), copyicon, this, FXFileSelector::ID_COPY);
+    new FXMenuCommand(&filemenu, tr("Move..."), moveicon, this, FXFileSelector::ID_MOVE);
+    new FXMenuCommand(&filemenu, tr("Link..."), linkicon, this, FXFileSelector::ID_LINK);
     new FXMenuCommand(&filemenu, tr("Delete..."), deleteicon, this, ID_DELETE);
 
     filemenu.create();
@@ -1083,15 +1081,13 @@ GNEFileSelector::onCmdDirectoryUp(FXObject*, FXSelector, void*) {
 
 long
 GNEFileSelector::onUpdDirectoryUp(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, allowNavigation() && !FXPath::isTopDirectory(getDirectory()) ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
-    return 1;
+    return sender->handle(this, allowNavigation() && !FXPath::isTopDirectory(getDirectory()) ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
 }
 
 
 long
 GNEFileSelector::onUpdNavigable(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, allowNavigation() ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
-    return 1;
+    return sender->handle(this, allowNavigation() ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
 }
 
 

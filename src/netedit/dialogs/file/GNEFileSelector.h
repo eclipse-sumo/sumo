@@ -23,19 +23,6 @@
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
-// class declaration
-// ===========================================================================
-
-/// File selection modes
-enum {
-    SELECTFILE_ANY,             /// A single file, existing or not (to save to)
-    SELECTFILE_EXISTING,        /// An existing file (to load)
-    SELECTFILE_MULTIPLE,        /// Multiple existing files
-    SELECTFILE_MULTIPLE_ALL,    /// Multiple existing files or directories, but not '.' and '..'
-    SELECTFILE_DIRECTORY        /// Existing directory, including '.' or '..'
-};
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -44,29 +31,6 @@ class GNEFileSelector : public FXPacker {
     FXDECLARE(GNEFileSelector)
 
 public:
-
-    enum {
-        ID_FILEFILTER = FXPacker::ID_LAST,
-        ID_ACCEPT,
-        ID_FILELIST,
-        ID_DIRECTORY_UP,
-        ID_DIRTREE,
-        ID_NORMAL_SIZE,
-        ID_MEDIUM_SIZE,
-        ID_GIANT_SIZE,
-        ID_HOME,
-        ID_WORK,
-        ID_BOOKMARK,
-        ID_BOOKMENU,
-        ID_VISIT,
-        ID_NEW,
-        ID_DELETE,
-        ID_MOVE,
-        ID_COPY,
-        ID_LINK,
-        ID_LAST
-    };
-
     /// Constructor
     GNEFileSelector(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
