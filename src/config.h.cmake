@@ -205,7 +205,7 @@
 #cmakedefine HAVE_OSG
 
 /* defined if PARQUET is available */
-# cmakedefine HAVE_PARQUET
+#cmakedefine HAVE_PARQUET
 
 /* defined if zlib is available */
 #cmakedefine HAVE_ZLIB
