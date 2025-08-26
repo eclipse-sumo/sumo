@@ -232,7 +232,7 @@ GNEElementTable::Row::updateRow(GNEAttributeCarrier* AC) {
 std::string
 GNEElementTable::Row::getValue(const size_t column) const {
     // check index
-    if ((column >= 0) && (column < myAttributeTextFields.size())) {
+    if (column < myAttributeTextFields.size()) {
         // return text from text field
         return myAttributeTextFields.at(column).second->getText().text();
     } else {

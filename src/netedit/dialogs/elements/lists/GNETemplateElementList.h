@@ -143,7 +143,7 @@ private:
         // add all elements
         for (size_t i = 0; i < myEditedElements.size(); i++) {
             // create tuple with max 6 sortable attributes
-            auto tuple = std::make_tuple(0, 0, 0, 0, 0, 0, myEditedElements.at(i));
+            auto tuple = std::make_tuple(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, myEditedElements.at(i));
             // update tuple with sortable attributes
             const auto& sortableAttributes = myElementTable->getColumnHeader()->getSortableAttributes();
             // fill tuple
