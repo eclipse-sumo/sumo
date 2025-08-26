@@ -27,7 +27,7 @@ jobs:
     steps:
     - name: Cloning SUMO
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         filter: tree:0
@@ -86,7 +86,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Downloading Wheels artifact
       if: github.event.schedule != '5 8 * * *'
