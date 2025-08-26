@@ -71,49 +71,48 @@ FXIMPLEMENT(GNEFileSelector, FXPacker, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSe
 // ===========================================================================
 
 GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
-    FXPacker(p, opts, x, y, w, h), bookmarks(p->getApp(), "Visited Directories") {
+    FXPacker(p, opts, x, y, w, h), myBookmarsRecentFiles(p->getApp(), "Visited Directories") {
     FXAccelTable* table = getShell()->getAccelTable();
     target = tgt;
     message = sel;
-    navbuttons = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X, 0, 0, 0, 0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, 0, 0);
-    entryblock = new FXMatrix(this, 3, MATRIX_BY_COLUMNS | LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
+    auto navbuttons = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X, 0, 0, 0, 0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, 0, 0);
+    auto entryblock = new FXMatrix(this, 3, MATRIX_BY_COLUMNS | LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
     new FXLabel(entryblock, TL("File Name:"), NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
-    filename = new FXTextField(entryblock, 25, this, FXFileSelector::ID_ACCEPT, TEXTFIELD_ENTER_ONLY | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
+    myFilenameTextField = new FXTextField(entryblock, 25, this, FXFileSelector::ID_ACCEPT, TEXTFIELD_ENTER_ONLY | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
     new FXButton(entryblock, TL("OK"), NULL, this, FXFileSelector::ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
     accept = new FXButton(navbuttons, FXString::null, NULL, NULL, 0, LAYOUT_FIX_X | LAYOUT_FIX_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     new FXLabel(entryblock, TL("File Filter:"), NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
     FXHorizontalFrame* filterframe = new FXHorizontalFrame(entryblock, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-    filefilter = new FXComboBox(filterframe, 10, this, FXFileSelector::ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
-    filefilter->setNumVisible(4);
-    readonly = new FXCheckButton(filterframe, TL("Read Only"), NULL, 0, ICON_BEFORE_TEXT | JUSTIFY_LEFT | LAYOUT_CENTER_Y);
+    myFileFilterComboBox = new FXComboBox(filterframe, 10, this, FXFileSelector::ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
+    myFileFilterComboBox->setNumVisible(4);
     cancel = new FXButton(entryblock, TL("Cancel"), NULL, NULL, 0, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
-    fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
+    auto fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
     myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(navbuttons, TL("Directory:"), NULL, LAYOUT_CENTER_Y);
-    dirbox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
-    dirbox->setNumVisible(5);
-    dirbox->setAssociations(myFileSelector->getAssociations());
-    bookmarkmenu = new FXMenuPane(this, POPUP_SHRINKWRAP);
-    new FXMenuCommand(bookmarkmenu, TL("Set bookmark\t\tBookmark current directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
-    new FXMenuCommand(bookmarkmenu, TL("Clear bookmarks\t\tClear bookmarks."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &bookmarks, FXRecentFiles::ID_CLEAR);
-    FXMenuSeparator* sep1 = new FXMenuSeparator(bookmarkmenu);
-    sep1->setTarget(&bookmarks);
+    myDirBox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
+    myDirBox->setNumVisible(5);
+    myDirBox->setAssociations(myFileSelector->getAssociations());
+    myBookmarkMenuPane = new FXMenuPane(this, POPUP_SHRINKWRAP);
+    new FXMenuCommand(myBookmarkMenuPane, TL("Set bookmark\t\tBookmark current directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
+    new FXMenuCommand(myBookmarkMenuPane, TL("Clear myBookmarsRecentFiles\t\tClear myBookmarsRecentFiles."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &myBookmarsRecentFiles, FXRecentFiles::ID_CLEAR);
+    FXMenuSeparator* sep1 = new FXMenuSeparator(myBookmarkMenuPane);
+    sep1->setTarget(&myBookmarsRecentFiles);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_10);
     new FXFrame(navbuttons, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
     new FXButton(navbuttons, TL("\tGo up one directory\tMove up to higher directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON), this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, TL("\tGo to home directory\tBack to home directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME), this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, TL("\tGo to work directory\tBack to working directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK), this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    FXMenuButton* bookmenu = new FXMenuButton(navbuttons, TL("\tBookmarks\tVisit bookmarked directories."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), bookmarkmenu, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    FXMenuButton* bookmenu = new FXMenuButton(navbuttons, TL("\tBookmarks\tVisit bookmarked directories."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), myBookmarkMenuPane, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     bookmenu->setTarget(this);
     bookmenu->setSelector(FXFileSelector::ID_BOOKMENU);
     new FXButton(navbuttons, TL("\tCreate new directory\tCreate new directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW), this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
@@ -121,9 +120,8 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     new FXButton(navbuttons, TL("\tShow icons\tDisplay directory with big icons."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS), myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXButton(navbuttons, TL("\tShow details\tDisplay detailed directory listing."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS), myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     new FXToggleButton(navbuttons, TL("\tShow hidden files\tShow hidden files and directories."), TL("\tHide Hidden Files\tHide hidden files and directories."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN), myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    bookmarks.setTarget(this);
-    bookmarks.setSelector(FXFileSelector::ID_VISIT);
-    readonly->hide();
+    myBookmarsRecentFiles.setTarget(this);
+    myBookmarsRecentFiles.setSelector(FXFileSelector::ID_VISIT);
     if (table) {
         table->addAccel(MKUINT(KEY_BackSpace, 0), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_DIRECTORY_UP));
         table->addAccel(MKUINT(KEY_Delete, 0), this, FXSEL(SEL_COMMAND, FXFileSelector::ID_DELETE));
@@ -156,13 +154,12 @@ GNEFileSelector::~GNEFileSelector() {
         table->removeAccel(MKUINT(KEY_s, CONTROLMASK));
         table->removeAccel(MKUINT(KEY_l, CONTROLMASK));
     }
-    delete bookmarkmenu;
+    delete myBookmarkMenuPane;
     myFileSelector = (FXFileList*) - 1L;
-    filename = (FXTextField*) - 1L;
-    filefilter = (FXComboBox*) - 1L;
-    bookmarkmenu = (FXMenuPane*) - 1L;
-    readonly = (FXCheckButton*) - 1L;
-    dirbox = (FXDirBox*) - 1L;
+    myFilenameTextField = (FXTextField*) - 1L;
+    myFileFilterComboBox = (FXComboBox*) - 1L;
+    myBookmarkMenuPane = (FXMenuPane*) - 1L;
+    myDirBox = (FXDirBox*) - 1L;
     accept = (FXButton*) - 1L;
     cancel = (FXButton*) - 1L;
 }
@@ -415,20 +412,20 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     bookcasc->setTarget(this);
     bookcasc->setSelector(FXFileSelector::ID_BOOKMENU);
     new FXMenuCommand(&bookmenu, TL("Set bookmark"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
-    new FXMenuCommand(&bookmenu, TL("Clear bookmarks"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &bookmarks, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(&bookmenu, TL("Clear myBookmarsRecentFiles"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &myBookmarsRecentFiles, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(&bookmenu);
-    sep1->setTarget(&bookmarks);
+    sep1->setTarget(&myBookmarsRecentFiles);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_10);
 
     new FXMenuSeparator(&filemenu);
     new FXMenuCommand(&filemenu, TL("New directory..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW), this, FXFileSelector::ID_NEW);
@@ -448,12 +445,12 @@ long
 GNEFileSelector::onCmdFilter(FXObject*, FXSelector, void* ptr) {
     FXString pat = FXFileSelector::patternFromText((FXchar*)ptr);
     myFileSelector->setPattern(pat);
-    if (selectmode == SELECTFILE_ANY) {
+    if (mySelectmode == SELECTFILE_ANY) {
         FXString ext = FXFileSelector::extensionFromPattern(pat);
         if (!ext.empty()) {
-            FXString name = FXPath::stripExtension(filename->getText());
+            FXString name = FXPath::stripExtension(myFilenameTextField->getText());
             if (!name.empty()) {
-                filename->setText(name + "." + ext);
+                myFilenameTextField->setText(name + "." + ext);
             }
         }
     }
@@ -466,9 +463,9 @@ GNEFileSelector::setDirectory(const FXString& path) {
     FXString abspath = FXPath::absolute(path);
     FXTRACE((100, "path=%s abspath: %s\n", path.text(), abspath.text()));
     myFileSelector->setDirectory(abspath);
-    dirbox->setDirectory(abspath);
-    if (selectmode != SELECTFILE_ANY) {
-        filename->setText(FXString::null);
+    myDirBox->setDirectory(abspath);
+    if (mySelectmode != SELECTFILE_ANY) {
+        myFilenameTextField->setText(FXString::null);
     }
 }
 
@@ -484,30 +481,30 @@ GNEFileSelector::setFilename(const FXString& path) {
     FXString fullname(FXPath::absolute(path));
     FXString name(FXPath::name(fullname));
     myFileSelector->setCurrentFile(fullname);
-    dirbox->setDirectory(myFileSelector->getDirectory());
-    filename->setText(name);
+    myDirBox->setDirectory(myFileSelector->getDirectory());
+    myFilenameTextField->setText(name);
 }
 
 
 FXString
 GNEFileSelector::getFilename() const {
     FXint i;
-    if (selectmode == SELECTFILE_MULTIPLE_ALL) {
+    if (mySelectmode == SELECTFILE_MULTIPLE_ALL) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i));
             }
         }
-    } else if (selectmode == SELECTFILE_MULTIPLE) {
+    } else if (mySelectmode == SELECTFILE_MULTIPLE) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i));
             }
         }
     } else {
-        if (!filename->getText().empty()) {
-            //return FXPath::absolute(myFileSelector->getDirectory(),filename->getText());
-            return FXPath::absolute(myFileSelector->getDirectory(), FXPath::expand(filename->getText()));    // FIXME don't always want to expand!
+        if (!myFilenameTextField->getText().empty()) {
+            //return FXPath::absolute(myFileSelector->getDirectory(),myFilenameTextField->getText());
+            return FXPath::absolute(myFileSelector->getDirectory(), FXPath::expand(myFilenameTextField->getText()));    // FIXME don't always want to expand!
         }
     }
     return FXString::null;
@@ -517,7 +514,7 @@ GNEFileSelector::getFilename() const {
 FXString*
 GNEFileSelector::getFilenames() const {
     FXString* files;
-    if (selectmode == SELECTFILE_MULTIPLE_ALL) {
+    if (mySelectmode == SELECTFILE_MULTIPLE_ALL) {
         files = getSelectedFiles();
     } else {
         files = getSelectedFilesOnly();
@@ -529,12 +526,12 @@ GNEFileSelector::getFilenames() const {
 void
 GNEFileSelector::setPatternList(const FXString& patterns) {
     FXint count;
-    filefilter->clearItems();
-    count = filefilter->fillItems(patterns);
+    myFileFilterComboBox->clearItems();
+    count = myFileFilterComboBox->fillItems(patterns);
     if (count == 0) {
-        filefilter->appendItem(allfiles);
+        myFileFilterComboBox->appendItem(allfiles);
     }
-    filefilter->setNumVisible(FXMIN(count, 12));
+    myFileFilterComboBox->setNumVisible(FXMIN(count, 12));
     setCurrentPattern(0);
 }
 
@@ -542,11 +539,11 @@ GNEFileSelector::setPatternList(const FXString& patterns) {
 FXString
 GNEFileSelector::getPatternList() const {
     FXString pat;
-    for (FXint i = 0; i < filefilter->getNumItems(); i++) {
+    for (FXint i = 0; i < myFileFilterComboBox->getNumItems(); i++) {
         if (!pat.empty()) {
             pat += '\n';
         }
-        pat += filefilter->getItemText(i);
+        pat += myFileFilterComboBox->getItemText(i);
     }
     return pat;
 }
@@ -554,7 +551,7 @@ GNEFileSelector::getPatternList() const {
 
 void
 GNEFileSelector::setPattern(const FXString& ptrn) {
-    filefilter->setText(ptrn);
+    myFileFilterComboBox->setText(ptrn);
     myFileSelector->setPattern(ptrn);
 }
 
@@ -567,27 +564,27 @@ GNEFileSelector::getPattern() const {
 
 void
 GNEFileSelector::setCurrentPattern(FXint patno) {
-    if (patno < 0 || patno >= filefilter->getNumItems()) {
+    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
         throw ProcessError("index out of range.\n");
     }
-    filefilter->setCurrentItem(patno);
-    myFileSelector->setPattern(FXFileSelector::patternFromText(filefilter->getItemText(patno)));
+    myFileFilterComboBox->setCurrentItem(patno);
+    myFileSelector->setPattern(FXFileSelector::patternFromText(myFileFilterComboBox->getItemText(patno)));
 }
 
 
 FXint
 GNEFileSelector::getCurrentPattern() const {
-    return filefilter->getCurrentItem();
+    return myFileFilterComboBox->getCurrentItem();
 }
 
 
 void
 GNEFileSelector::setPatternText(FXint patno, const FXString& text) {
-    if (patno < 0 || patno >= filefilter->getNumItems()) {
+    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
         throw ProcessError("index out of range.");
     }
-    filefilter->setItemText(patno, text);
-    if (patno == filefilter->getCurrentItem()) {
+    myFileFilterComboBox->setItemText(patno, text);
+    if (patno == myFileFilterComboBox->getCurrentItem()) {
         setPattern(FXFileSelector::patternFromText(text));
     }
 }
@@ -595,28 +592,28 @@ GNEFileSelector::setPatternText(FXint patno, const FXString& text) {
 
 FXString
 GNEFileSelector::getPatternText(FXint patno) const {
-    if (patno < 0 || patno >= filefilter->getNumItems()) {
+    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
         throw ProcessError("index out of range");
     }
-    return filefilter->getItemText(patno);
+    return myFileFilterComboBox->getItemText(patno);
 }
 
 
 FXint
 GNEFileSelector::getNumPatterns() const {
-    return filefilter->getNumItems();
+    return myFileFilterComboBox->getNumItems();
 }
 
 
 void
 GNEFileSelector::allowPatternEntry(FXbool allow) {
-    filefilter->setComboStyle(allow ? COMBOBOX_NORMAL : COMBOBOX_STATIC);
+    myFileFilterComboBox->setComboStyle(allow ? COMBOBOX_NORMAL : COMBOBOX_STATIC);
 }
 
 
 FXbool
 GNEFileSelector::allowPatternEntry() const {
-    return (filefilter->getComboStyle() != COMBOBOX_STATIC);
+    return (myFileFilterComboBox->getComboStyle() != COMBOBOX_STATIC);
 }
 
 
@@ -665,13 +662,13 @@ GNEFileSelector::setSelectMode(FXuint mode) {
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
             break;
     }
-    selectmode = mode;
+    mySelectmode = mode;
 }
 
 
 FXuint
 GNEFileSelector::getSelectMode() const {
-    return selectmode;
+    return mySelectmode;
 }
 
 
@@ -723,36 +720,12 @@ GNEFileSelector::setImageSize(FXint size) {
 }
 
 
-void
-GNEFileSelector::showReadOnly(FXbool show) {
-    show ? readonly->show() : readonly->hide();
-}
-
-
-FXbool
-GNEFileSelector::shownReadOnly() const {
-    return readonly->shown();
-}
-
-
-void
-GNEFileSelector::setReadOnly(FXbool state) {
-    readonly->setCheck(state);
-}
-
-
-FXbool
-GNEFileSelector::getReadOnly() const {
-    return readonly->getCheck();
-}
-
-
 long
 GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
     FXint index = (FXint)(FXival)ptr;
     FXint i;
     FXString text, file;
-    if (selectmode == SELECTFILE_MULTIPLE) {
+    if (mySelectmode == SELECTFILE_MULTIPLE) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 if (!text.empty()) {
@@ -761,8 +734,8 @@ GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
                 text += "\"" + myFileSelector->getItemFilename(i) + "\"";
             }
         }
-        filename->setText(text);
-    } else if (selectmode == SELECTFILE_MULTIPLE_ALL) {
+        myFilenameTextField->setText(text);
+    } else if (mySelectmode == SELECTFILE_MULTIPLE_ALL) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
                 if (!text.empty()) {
@@ -771,16 +744,16 @@ GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
                 text += "\"" + myFileSelector->getItemFilename(i) + "\"";
             }
         }
-        filename->setText(text);
-    } else if (selectmode == SELECTFILE_DIRECTORY) {
+        myFilenameTextField->setText(text);
+    } else if (mySelectmode == SELECTFILE_DIRECTORY) {
         if (myFileSelector->isItemDirectory(index)) {
             text = myFileSelector->getItemFilename(index);
-            filename->setText(text);
+            myFilenameTextField->setText(text);
         }
     } else {
         if (!myFileSelector->isItemDirectory(index)) {
             text = myFileSelector->getItemFilename(index);
-            filename->setText(text);
+            myFilenameTextField->setText(text);
         }
     }
     return 1;
@@ -791,7 +764,7 @@ long
 GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
     FXint i;
     FXString text, file;
-    if (selectmode == SELECTFILE_MULTIPLE) {
+    if (mySelectmode == SELECTFILE_MULTIPLE) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 if (!text.empty()) {
@@ -800,8 +773,8 @@ GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
                 text += "\"" + myFileSelector->getItemFilename(i) + "\"";
             }
         }
-        filename->setText(text);
-    } else if (selectmode == SELECTFILE_MULTIPLE_ALL) {
+        myFilenameTextField->setText(text);
+    } else if (mySelectmode == SELECTFILE_MULTIPLE_ALL) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
                 if (!text.empty()) {
@@ -810,7 +783,7 @@ GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
                 text += "\"" + myFileSelector->getItemFilename(i) + "\"";
             }
         }
-        filename->setText(text);
+        myFilenameTextField->setText(text);
     }
     return 1;
 }
@@ -830,7 +803,7 @@ GNEFileSelector::onCmdItemDblClicked(FXObject*, FXSelector, void* ptr) {
         }
 
         // Only return if we wanted a file
-        if (selectmode != SELECTFILE_DIRECTORY) {
+        if (mySelectmode != SELECTFILE_DIRECTORY) {
             if (tgt) {
                 tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
             }
@@ -845,7 +818,7 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
     FXSelector sel = accept->getSelector();
     FXObject* tgt = accept->getTarget();
 
-    // Get (first) filename or directory
+    // Get (first) myFilenameTextField or directory
     FXString path = getFilename();
 
     // Only do something if a selection was made
@@ -855,7 +828,7 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
         if (FXStat::isDirectory(path)) {
 
             // In directory mode:- we got our answer!
-            if (selectmode == SELECTFILE_DIRECTORY || selectmode == SELECTFILE_MULTIPLE_ALL) {
+            if (mySelectmode == SELECTFILE_DIRECTORY || mySelectmode == SELECTFILE_MULTIPLE_ALL) {
                 if (tgt) {
                     tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
                 }
@@ -863,9 +836,9 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
             }
 
             // Hop over to that directory
-            dirbox->setDirectory(path);
+            myDirBox->setDirectory(path);
             myFileSelector->setDirectory(path);
-            filename->setText(FXString::null);
+            myFilenameTextField->setText(FXString::null);
             return 1;
         }
 
@@ -876,14 +849,14 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
         if (FXStat::isDirectory(dir)) {
 
             // In any mode, existing directory part is good enough
-            if (selectmode == SELECTFILE_ANY) {
+            if (mySelectmode == SELECTFILE_ANY) {
                 if (tgt) {
                     tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
                 }
                 return 1;
             }
 
-            // Otherwise, the whole filename must exist and be a file
+            // Otherwise, the whole myFilenameTextField must exist and be a file
             if (FXStat::exists(path)) {
                 if (tgt) {
                     tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
@@ -898,7 +871,7 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
         }
 
         // Switch as far as we could go
-        dirbox->setDirectory(dir);
+        myDirBox->setDirectory(dir);
         myFileSelector->setDirectory(dir);
 
         // Put the tail end back for further editing
@@ -910,8 +883,8 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
         }
 
         // Replace text box with new stuff
-        filename->setText(path);
-        filename->selectAll();
+        myFilenameTextField->setText(path);
+        myFilenameTextField->selectAll();
     }
 
     // Beep
@@ -956,7 +929,7 @@ GNEFileSelector::onCmdVisit(FXObject*, FXSelector, void* ptr) {
 
 long
 GNEFileSelector::onCmdBookmark(FXObject*, FXSelector, void*) {
-    bookmarks.appendFile(getDirectory());
+    myBookmarsRecentFiles.appendFile(getDirectory());
     return 1;
 }
 
@@ -964,8 +937,8 @@ GNEFileSelector::onCmdBookmark(FXObject*, FXSelector, void*) {
 long
 GNEFileSelector::onCmdDirTree(FXObject*, FXSelector, void* ptr) {
     myFileSelector->setDirectory((FXchar*)ptr);
-    if (selectmode == SELECTFILE_DIRECTORY) {
-        filename->setText(FXString::null);
+    if (mySelectmode == SELECTFILE_DIRECTORY) {
+        myFilenameTextField->setText(FXString::null);
     }
     return 1;
 }

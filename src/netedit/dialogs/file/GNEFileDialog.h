@@ -63,29 +63,13 @@ class GNEFileDialog : public FXDialogBox {
     /// Return file pattern
     FXString getPattern() const;
 
-    /**
-    * Change the list of file patterns shown in the file dialog.
-    * Each pattern comprises an optional name, followed by a pattern in
-    * parentheses.  The patterns are separated by newlines.
-    * For example,
-    *
-    *  "*\n*.cpp,*.cc\n*.hpp,*.hh,*.h"
-    *
-    * and
-    *
-    *  "All Files (*)\nC++ Sources (*.cpp,*.cc)\nC++ Headers (*.hpp,*.hh,*.h)"
-    *
-    * will set the same three patterns, but the former shows no pattern names.
-    */
+    /// @brief set list of patterns
     void setPatternList(const FXString& patterns);
 
     /// Return list of patterns
     FXString getPatternList() const;
 
-    /**
-    * After setting the list of patterns, this call will
-    * initially select pattern n as the active one.
-    */
+    /// @brief set current pattern
     void setCurrentPattern(FXint n);
 
     /// Return current pattern number
@@ -148,29 +132,11 @@ class GNEFileDialog : public FXDialogBox {
     /// Change images preview size
     void setImageSize(FXint size);
 
-    /// Show readonly button
-    void showReadOnly(FXbool show);
-
-    /// Return TRUE if readonly is shown
-    FXbool shownReadOnly() const;
-
-    /// Set initial state of readonly button
-    void setReadOnly(FXbool state);
-
-    /// Get readonly state
-    FXbool getReadOnly() const;
-
     /// Change File List style
     void setFileBoxStyle(FXuint style);
 
     /// Return File List style
     FXuint getFileBoxStyle() const;
-
-    /// Allow or disallow navigation
-    void allowNavigation(FXbool navigable);
-
-    /// Is navigation allowed?
-    FXbool allowNavigation() const;
 
     /// Open existing filename
     static FXString getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns = "*", FXint initial = 0);

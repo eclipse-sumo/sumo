@@ -127,18 +127,6 @@ public:
     /// @brief Change images preview size
     void setImageSize(FXint size);
 
-    /// @brief Show readonly button
-    void showReadOnly(FXbool show);
-
-    /// @brief Return TRUE if readonly is shown
-    FXbool shownReadOnly() const;
-
-    /// @brief Set initial state of readonly button
-    void setReadOnly(FXbool state);
-
-    /// @brief Get readonly state
-    FXbool getReadOnly() const;
-
     /// @name list of FOX handlers
     /// @{
 
@@ -172,7 +160,7 @@ public:
     /// @brief Handler for navigating to the work directory.
     long onCmdWork(FXObject*, FXSelector, void*);
 
-    /// @brief Handler for opening bookmarks.
+    /// @brief Handler for opening myBookmarsRecentFiles.
     long onCmdBookmark(FXObject*, FXSelector, void*);
 
     /// @brief Handler for visiting a bookmarked location.
@@ -218,40 +206,28 @@ protected:
     FXFileList* myFileSelector = nullptr;
 
     /// @brief File name entry field
-    FXTextField* filename = nullptr;
+    FXTextField* myFilenameTextField = nullptr;
 
     /// @brief Combobox for pattern list
-    FXComboBox* filefilter = nullptr;
+    FXComboBox* myFileFilterComboBox = nullptr;
 
-    /// @brief Menu for bookmarks
-    FXMenuPane* bookmarkmenu = nullptr;
-
-    /// @brief Navigation buttons
-    FXHorizontalFrame* navbuttons = nullptr;
-
-    /// @brief Frame around file list
-    FXHorizontalFrame* fileboxframe = nullptr;
-
-    /// @brief Entry block
-    FXMatrix* entryblock = nullptr;
-
-    /// @brief Open file as read only
-    FXCheckButton* readonly = nullptr;
+    /// @brief Menu for myBookmarsRecentFiles
+    FXMenuPane* myBookmarkMenuPane = nullptr;
 
     /// @brief Directory hierarchy list
-    FXDirBox* dirbox = nullptr;
+    FXDirBox* myDirBox = nullptr;
 
-    /// @brief Accept button
+    /// @brief Accept button (temporal)
     FXButton* accept = nullptr;
 
-    /// @brief Cancel button
+    /// @brief Cancel button (temporal)
     FXButton* cancel = nullptr;
 
     /// @brief Bookmarked places
-    FXRecentFiles bookmarks = nullptr;
+    FXRecentFiles myBookmarsRecentFiles = nullptr;
 
     /// @brief Select mode
-    FXuint selectmode = 0;
+    FXuint mySelectmode = 0;
 
     /// @brief get selected files
     FXString* getSelectedFiles() const;

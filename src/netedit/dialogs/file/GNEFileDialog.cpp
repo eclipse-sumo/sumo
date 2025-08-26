@@ -259,30 +259,6 @@ GNEFileDialog::setImageSize(FXint size) {
 }
 
 
-void
-GNEFileDialog::showReadOnly(FXbool show) {
-    myFileSelector->showReadOnly(show);
-}
-
-
-FXbool
-GNEFileDialog::shownReadOnly() const {
-    return myFileSelector->shownReadOnly();
-}
-
-
-void
-GNEFileDialog::setReadOnly(FXbool state) {
-    myFileSelector->setReadOnly(state);
-}
-
-
-FXbool
-GNEFileDialog::getReadOnly() const {
-    return myFileSelector->getReadOnly();
-}
-
-
 FXString
 GNEFileDialog::getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
     GNEFileDialog opendialog(owner, caption);
