@@ -29,6 +29,7 @@ import datetime
 import optparse
 import os
 import glob
+import shutil
 import sys
 
 import status
@@ -42,8 +43,8 @@ BINARIES = ("netedit",)
 def runTests(options, env, gitrev, debugSuffix=""):
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
-    env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
-    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "texttesttmp")
+    env["SUMO_REPORT"] = os.path.join(options.rootDir, prefix + "report")
+    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "tmp")
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
@@ -54,11 +55,13 @@ def runTests(options, env, gitrev, debugSuffix=""):
             env[name.upper() + "_BINARY"] = binary
     ttBin = "texttest"
     today = datetime.date.today()
-    tasks = sorted(glob.glob(os.path.join(env["TEXTTEST_HOME"], "netedit", "testsuite.netedit.external.daily.*")))
-    taskID = os.path.basename(tasks[today.toordinal() % len(tasks)])[10:]
+    # tasks = sorted(glob.glob(os.path.join(env["TEXTTEST_HOME"], "netedit", "testsuite.netedit.external.daily.*")))
+    # taskID = os.path.basename(tasks[today.toordinal() % len(tasks)])[10:]
+    taskID = "netedit.internal"
     cmd = [ttBin, "-b", prefix, "-a", taskID, "-name", "%sr%s" % (today.strftime("%d%b%y"), gitrev)]
     for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
         status.log_subprocess(call, env)
+    shutil.copytree(env["SUMO_REPORT"], os.path.join(options.remoteDir, prefix + "report"), dirs_exist_ok=True)
     status.killall((debugSuffix,), BINARIES)
 
 
@@ -85,7 +88,7 @@ msvcVersion = "msvc16"
 
 platform = "x64"
 env["FILEPREFIX"] = msvcVersion + options.suffix + platform
-prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
+prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
 gitrev = sumolib.version.gitDescribe()
 status.set_rotating_log(prefix + "NeteditTest.log")
 status.printLog("Running tests.")
