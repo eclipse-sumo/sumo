@@ -35,7 +35,7 @@ export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppres
 export UBSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_ubsan_suppressions.txt
 
 rm -f $STATUSLOG
-echo -n "$FILEPREFIX " > $STATUSLOG
+echo -n "$(uname -s)_$(uname -m)_$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 if test -e $PREFIX/sumo_test_env/bin/activate; then
