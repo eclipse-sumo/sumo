@@ -1,5 +1,6 @@
 add_subdirectory(basic)
 add_subdirectory(elements)
+add_subdirectory(file)
 add_subdirectory(fix)
 add_subdirectory(options)
 add_subdirectory(run)
