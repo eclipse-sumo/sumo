@@ -18,65 +18,8 @@
 // widget used for file selection
 /****************************************************************************/
 
-#include <xincs.h>
-#include <fxver.h>
-#include <fxdefs.h>
 #include <fxkeys.h>
-#include <FXHash.h>
-#include <FXThread.h>
-#include <FXStream.h>
-#include <FXObjectList.h>
-#include <FXString.h>
-#include <FXSize.h>
-#include <FXPoint.h>
-#include <FXRectangle.h>
-#include <FXPath.h>
-#include <FXSystem.h>
-#include <FXStat.h>
-#include <FXFile.h>
-#include <FXDir.h>
-#include <FXSettings.h>
-#include <FXRegistry.h>
-#include <FXAccelTable.h>
-#include <FXApp.h>
-#include <FXFont.h>
-#include <FXGIFIcon.h>
-#include <FXRecentFiles.h>
-#include <FXFrame.h>
-#include <FXLabel.h>
-#include <FXTextField.h>
-#include <FXButton.h>
-#include <FXToggleButton.h>
-#include <FXCheckButton.h>
-#include <FXMenuButton.h>
-#include <FXPacker.h>
-#include <FXHorizontalFrame.h>
-#include <FXVerticalFrame.h>
-#include <FXMatrix.h>
-#include <FXShell.h>
-#include <FXPopup.h>
-#include <FXMenuPane.h>
-#include <FXScrollBar.h>
-#include <FXScrollArea.h>
-#include <FXList.h>
-#include <FXTreeList.h>
-#include <FXComboBox.h>
-#include <FXTreeListBox.h>
-#include <FXDirBox.h>
-#include <FXHeader.h>
-#include <FXIconList.h>
-#include <FXFileList.h>
-#include <FXMenuCaption.h>
-#include <FXMenuCommand.h>
-#include <FXMenuCascade.h>
-#include <FXMenuRadio.h>
-#include <FXMenuCheck.h>
-#include <FXMenuSeparator.h>
-#include <FXTopWindow.h>
-#include <FXDialogBox.h>
-#include <FXInputDialog.h>
-#include <FXSeparator.h>
-#include <FXMessageBox.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEFileSelector.h"
 
@@ -148,21 +91,21 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
     myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(navbuttons, tr("Directory:"), NULL, LAYOUT_CENTER_Y);
-    updiricon = new FXGIFIcon(getApp(), dirupicon);
-    listicon = new FXGIFIcon(getApp(), showsmallicons);
-    iconsicon = new FXGIFIcon(getApp(), showbigicons);
-    detailicon = new FXGIFIcon(getApp(), showdetails);
-    homeicon = new FXGIFIcon(getApp(), gotohome);
-    workicon = new FXGIFIcon(getApp(), gotowork);
-    shownicon = new FXGIFIcon(getApp(), fileshown);
-    hiddenicon = new FXGIFIcon(getApp(), filehidden);
-    markicon = new FXGIFIcon(getApp(), bookset);
-    clearicon = new FXGIFIcon(getApp(), bookclr);
-    newicon = new FXGIFIcon(getApp(), foldernew);
-    deleteicon = new FXGIFIcon(getApp(), filedelete);
-    moveicon = new FXGIFIcon(getApp(), filemove);
-    copyicon = new FXGIFIcon(getApp(), filecopy);
-    linkicon = new FXGIFIcon(getApp(), filelink);
+    updiricon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON);
+    listicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_SMALLICONS);
+    iconsicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS);
+    detailicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS);
+    homeicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME);
+    workicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK);
+    shownicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN);
+    hiddenicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN);
+    markicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET);
+    clearicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR);
+    newicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW);
+    deleteicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_DELETE);
+    moveicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_MOVE);
+    copyicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_COPY);
+    linkicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_LINK);
     dirbox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
     dirbox->setNumVisible(5);
     dirbox->setAssociations(myFileSelector->getAssociations());
@@ -1143,7 +1086,7 @@ long
 GNEFileSelector::onCmdNew(FXObject*, FXSelector, void*) {
     FXString dir = myFileSelector->getDirectory();
     FXString name = "DirectoryName";
-    FXGIFIcon newdirectoryicon(getApp(), bigfolder);
+    FXGIFIcon newdirectoryicon(getApp(), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_BIG));
     if (FXInputDialog::getString(name, this, tr("Create New Directory"), tr("Create new directory with name: "), &newdirectoryicon)) {
         FXString dirname = FXPath::absolute(dir, name);
         if (FXStat::exists(dirname)) {

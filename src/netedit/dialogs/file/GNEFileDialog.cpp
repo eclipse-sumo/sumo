@@ -11,43 +11,12 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEElementList.h
+/// @file    GNEFileDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2025
 ///
 // Dialog used for opening/saving files
 /****************************************************************************/
-
-#include <xincs.h>
-#include <fxver.h>
-#include <fxdefs.h>
-#include <fxkeys.h>
-#include <FXHash.h>
-#include <FXThread.h>
-#include <FXStream.h>
-#include <FXString.h>
-#include <FXSize.h>
-#include <FXPoint.h>
-#include <FXRectangle.h>
-#include <FXPath.h>
-#include <FXStat.h>
-#include <FXFile.h>
-#include <FXSettings.h>
-#include <FXRegistry.h>
-#include <FXApp.h>
-#include <FXId.h>
-#include <FXDrawable.h>
-#include <FXWindow.h>
-#include <FXRecentFiles.h>
-#include <FXFrame.h>
-#include <FXLabel.h>
-#include <FXButton.h>
-#include <FXComposite.h>
-#include <FXPacker.h>
-#include <FXShell.h>
-#include <FXTopWindow.h>
-#include <FXDialogBox.h>
-#include <FXFileSelector.h>
 
 #include "GNEFileDialog.h"
 #include "GNEFileSelector.h"
@@ -65,7 +34,7 @@ FXIMPLEMENT(GNEFileDialog, FXDialogBox, NULL, 0)
 
 GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXDialogBox(owner, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    myFileSelector = new FXFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myFileSelector->acceptButton()->setTarget(this);
     myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
     myFileSelector->cancelButton()->setTarget(this);
@@ -79,7 +48,7 @@ GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts,
 
 GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXDialogBox(a, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    myFileSelector = new FXFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myFileSelector->acceptButton()->setTarget(this);
     myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
     myFileSelector->cancelButton()->setTarget(this);
@@ -92,7 +61,7 @@ GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint 
 
 
 GNEFileDialog::~GNEFileDialog() {
-    myFileSelector = (FXFileSelector*) - 1L;
+    myFileSelector = (GNEFileSelector*) - 1L;
 }
 
 
