@@ -35,10 +35,12 @@ FXIMPLEMENT(GNEFileDialog, FXDialogBox, NULL, 0)
 GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXDialogBox(owner, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
     myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    /*
     myFileSelector->acceptButton()->setTarget(this);
     myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
     myFileSelector->cancelButton()->setTarget(this);
     myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
+    */
     setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
     setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
     setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
@@ -49,10 +51,12 @@ GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts,
 GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXDialogBox(a, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
     myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    /*
     myFileSelector->acceptButton()->setTarget(this);
     myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
     myFileSelector->cancelButton()->setTarget(this);
     myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
+    */
     setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
     setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
     setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
@@ -276,18 +280,6 @@ GNEFileDialog::setReadOnly(FXbool state) {
 FXbool
 GNEFileDialog::getReadOnly() const {
     return myFileSelector->getReadOnly();
-}
-
-
-void
-GNEFileDialog::allowNavigation(FXbool navigable) {
-    myFileSelector->allowNavigation(navigable);
-}
-
-
-FXbool
-GNEFileDialog::allowNavigation() const {
-    return myFileSelector->allowNavigation();
 }
 
 

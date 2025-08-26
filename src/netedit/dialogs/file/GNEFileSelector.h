@@ -139,12 +139,6 @@ public:
     /// @brief Get readonly state
     FXbool getReadOnly() const;
 
-    /// Allow or disallow navigation
-    void allowNavigation(FXbool flag);
-
-    /// Is navigation allowed?
-    FXbool allowNavigation() const;
-
     /// @name list of FOX handlers
     /// @{
 
@@ -214,9 +208,6 @@ public:
     /// @brief Update handler for enabling/disabling image size command.
     long onUpdImageSize(FXObject*, FXSelector, void*);
 
-    /// @brief Update handler for enabling/disabling navigation commands.
-    long onUpdNavigable(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
@@ -261,9 +252,6 @@ protected:
 
     /// @brief Select mode
     FXuint selectmode = 0;
-
-    /// @brief May navigate
-    FXbool navigable = TRUE;
 
     /// @brief get selected files
     FXString* getSelectedFiles() const;
