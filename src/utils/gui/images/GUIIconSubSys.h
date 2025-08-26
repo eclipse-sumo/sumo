@@ -25,11 +25,12 @@
 
 #include "GUIIcons.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GUIIconSubSys {
+
 public:
     /**@brief Initiate GUIIconSubSys
      * @param[in] a FOX Toolkit APP

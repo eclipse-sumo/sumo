@@ -732,6 +732,25 @@ enum class GUIIcon {
     OSM,
     /// @}
 
+    /// @brief icons for file dialogs
+    /// @{
+    DIRUP_ICON,
+    SHOW_SMALLICONS,
+    SHOW_BIGICONS,
+    SHOW_DETAILS,
+    GOTO_HOME,
+    GOTO_WORK,
+    FILE_SHOWN,
+    FILE_HIDDEN,
+    BOOK_SET,
+    BOOK_CLR,
+    FOLDER_NEW,
+    FILE_DELETE,
+    FILE_MOVE,
+    FILE_COPY,
+    FILE_LINK,
+    /// @}
+
     /// @brief icons for languages
     /// @{
     LANGUAGE_EN,

@@ -554,6 +554,22 @@
 #include "icons/googlemaps.xpm"
 #include "icons/osm.xpm"
 
+#include "icons/filedialog/dirupicon.xpm"
+#include "icons/filedialog/showsmallicons.xpm"
+#include "icons/filedialog/showbigicons.xpm"
+#include "icons/filedialog/showdetails.xpm"
+#include "icons/filedialog/gotohome.xpm"
+#include "icons/filedialog/gotowork.xpm"
+#include "icons/filedialog/fileshown.xpm"
+#include "icons/filedialog/filehidden.xpm"
+#include "icons/filedialog/bookset.xpm"
+#include "icons/filedialog/bookclr.xpm"
+#include "icons/filedialog/foldernew.xpm"
+#include "icons/filedialog/filedelete.xpm"
+#include "icons/filedialog/filemove.xpm"
+#include "icons/filedialog/filecopy.xpm"
+#include "icons/filedialog/filelink.xpm"
+
 #include "icons/languages/de.xpm"
 #include "icons/languages/es.xpm"
 #include "icons/languages/pt.xpm"
@@ -1112,6 +1128,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
     myIcons[GUIIcon::GOOGLEMAPS] = new FXXPMIcon(a, googlemaps_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
+
+    // this icons must be changed to XPM
+    myIcons[GUIIcon::DIRUP_ICON] = new FXGIFIcon(a, dirupicon_xpm);
+    myIcons[GUIIcon::SHOW_SMALLICONS] = new FXGIFIcon(a, showsmallicons_xpm);
+    myIcons[GUIIcon::SHOW_BIGICONS] = new FXGIFIcon(a, showbigicons_xpm);
+    myIcons[GUIIcon::SHOW_DETAILS] = new FXGIFIcon(a, showdetails_xpm);
+    myIcons[GUIIcon::GOTO_HOME] = new FXGIFIcon(a, gotohome_xpm);
+    myIcons[GUIIcon::GOTO_WORK] = new FXGIFIcon(a, gotowork_xpm);
+    myIcons[GUIIcon::FILE_SHOWN] = new FXGIFIcon(a, fileshown_xpm);
+    myIcons[GUIIcon::FILE_HIDDEN] = new FXGIFIcon(a, filehidden_xpm);
+    myIcons[GUIIcon::BOOK_SET] = new FXGIFIcon(a, bookset_xpm);
+    myIcons[GUIIcon::BOOK_CLR] = new FXGIFIcon(a, bookclr_xpm);
+    myIcons[GUIIcon::FOLDER_NEW] = new FXGIFIcon(a, foldernew_xpm);
+    myIcons[GUIIcon::FILE_DELETE] = new FXGIFIcon(a, filedelete_xpm);
+    myIcons[GUIIcon::FILE_MOVE] = new FXGIFIcon(a, filemove_xpm);
+    myIcons[GUIIcon::FILE_COPY] = new FXGIFIcon(a, filecopy_xpm);
+    myIcons[GUIIcon::FILE_LINK] = new FXGIFIcon(a, filelink_xpm);
 
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);
