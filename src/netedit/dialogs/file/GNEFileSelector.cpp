@@ -72,7 +72,8 @@ FXIMPLEMENT(GNEFileSelector, FXPacker, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSe
 // member method definitions
 // ===========================================================================
 
-GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h): FXPacker(p, opts, x, y, w, h), bookmarks(p->getApp(), "Visited Directories") {
+GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+    FXPacker(p, opts, x, y, w, h), bookmarks(p->getApp(), "Visited Directories") {
     FXAccelTable* table = getShell()->getAccelTable();
     target = tgt;
     message = sel;
@@ -91,27 +92,12 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
     myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(navbuttons, tr("Directory:"), NULL, LAYOUT_CENTER_Y);
-    updiricon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON);
-    listicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_SMALLICONS);
-    iconsicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS);
-    detailicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS);
-    homeicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME);
-    workicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK);
-    shownicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN);
-    hiddenicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN);
-    markicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET);
-    clearicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR);
-    newicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW);
-    deleteicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_DELETE);
-    moveicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_MOVE);
-    copyicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_COPY);
-    linkicon = GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_LINK);
     dirbox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
     dirbox->setNumVisible(5);
     dirbox->setAssociations(myFileSelector->getAssociations());
     bookmarkmenu = new FXMenuPane(this, POPUP_SHRINKWRAP);
-    new FXMenuCommand(bookmarkmenu, tr("&Set bookmark\t\tBookmark current directory."), markicon, this, FXFileSelector::ID_BOOKMARK);
-    new FXMenuCommand(bookmarkmenu, tr("&Clear bookmarks\t\tClear bookmarks."), clearicon, &bookmarks, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(bookmarkmenu, tr("&Set bookmark\t\tBookmark current directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
+    new FXMenuCommand(bookmarkmenu, tr("&Clear bookmarks\t\tClear bookmarks."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &bookmarks, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(bookmarkmenu);
     sep1->setTarget(&bookmarks);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
@@ -126,17 +112,17 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_9);
     new FXMenuCommand(bookmarkmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
     new FXFrame(navbuttons, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
-    new FXButton(navbuttons, tr("\tGo up one directory\tMove up to higher directory."), updiricon, this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tGo to home directory\tBack to home directory."), homeicon, this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tGo to work directory\tBack to working directory."), workicon, this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    FXMenuButton* bookmenu = new FXMenuButton(navbuttons, tr("\tBookmarks\tVisit bookmarked directories."), markicon, bookmarkmenu, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo up one directory\tMove up to higher directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON), this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo to home directory\tBack to home directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME), this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tGo to work directory\tBack to working directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK), this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    FXMenuButton* bookmenu = new FXMenuButton(navbuttons, tr("\tBookmarks\tVisit bookmarked directories."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), bookmarkmenu, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     bookmenu->setTarget(this);
     bookmenu->setSelector(FXFileSelector::ID_BOOKMENU);
-    new FXButton(navbuttons, tr("\tCreate new directory\tCreate new directory."), newicon, this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tShow list\tDisplay directory with small icons."), listicon, myFileSelector, FXFileList::ID_SHOW_MINI_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tShow icons\tDisplay directory with big icons."), iconsicon, myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXButton(navbuttons, tr("\tShow details\tDisplay detailed directory listing."), detailicon, myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    new FXToggleButton(navbuttons, tr("\tShow hidden files\tShow hidden files and directories."), tr("\tHide Hidden Files\tHide hidden files and directories."), hiddenicon, shownicon, myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tCreate new directory\tCreate new directory."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW), this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tShow list\tDisplay directory with small icons."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_SMALLICONS), myFileSelector, FXFileList::ID_SHOW_MINI_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tShow icons\tDisplay directory with big icons."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS), myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXButton(navbuttons, tr("\tShow details\tDisplay detailed directory listing."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS), myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXToggleButton(navbuttons, tr("\tShow hidden files\tShow hidden files and directories."), tr("\tHide Hidden Files\tHide hidden files and directories."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN), myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
     bookmarks.setTarget(this);
     bookmarks.setSelector(FXFileSelector::ID_VISIT);
     readonly->hide();
@@ -173,21 +159,6 @@ GNEFileSelector::~GNEFileSelector() {
         table->removeAccel(MKUINT(KEY_l, CONTROLMASK));
     }
     delete bookmarkmenu;
-    delete updiricon;
-    delete listicon;
-    delete detailicon;
-    delete iconsicon;
-    delete homeicon;
-    delete workicon;
-    delete shownicon;
-    delete hiddenicon;
-    delete markicon;
-    delete clearicon;
-    delete newicon;
-    delete deleteicon;
-    delete moveicon;
-    delete copyicon;
-    delete linkicon;
     myFileSelector = (FXFileList*) - 1L;
     filename = (FXTextField*) - 1L;
     filefilter = (FXComboBox*) - 1L;
@@ -196,21 +167,6 @@ GNEFileSelector::~GNEFileSelector() {
     dirbox = (FXDirBox*) - 1L;
     accept = (FXButton*) - 1L;
     cancel = (FXButton*) - 1L;
-    updiricon = (FXIcon*) - 1L;
-    listicon = (FXIcon*) - 1L;
-    detailicon = (FXIcon*) - 1L;
-    iconsicon = (FXIcon*) - 1L;
-    homeicon = (FXIcon*) - 1L;
-    workicon = (FXIcon*) - 1L;
-    shownicon = (FXIcon*) - 1L;
-    hiddenicon = (FXIcon*) - 1L;
-    markicon = (FXIcon*) - 1L;
-    clearicon = (FXIcon*) - 1L;
-    newicon = (FXIcon*) - 1L;
-    deleteicon = (FXIcon*) - 1L;
-    moveicon = (FXIcon*) - 1L;
-    copyicon = (FXIcon*) - 1L;
-    linkicon = (FXIcon*) - 1L;
 }
 
 
@@ -422,9 +378,9 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     }
 
     FXMenuPane filemenu(this);
-    new FXMenuCommand(&filemenu, tr("Up one level"), updiricon, this, FXFileSelector::ID_DIRECTORY_UP);
-    new FXMenuCommand(&filemenu, tr("Home directory"), homeicon, this, FXFileSelector::ID_HOME);
-    new FXMenuCommand(&filemenu, tr("Work directory"), workicon, this, FXFileSelector::ID_WORK);
+    new FXMenuCommand(&filemenu, tr("Up one level"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON), this, FXFileSelector::ID_DIRECTORY_UP);
+    new FXMenuCommand(&filemenu, tr("Home directory"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME), this, FXFileSelector::ID_HOME);
+    new FXMenuCommand(&filemenu, tr("Work directory"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK), this, FXFileSelector::ID_WORK);
     new FXMenuCommand(&filemenu, tr("Select all"), NULL, myFileSelector, FXFileList::ID_SELECT_ALL);
     new FXMenuSeparator(&filemenu);
 
@@ -460,8 +416,8 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     FXMenuCascade* bookcasc = new FXMenuCascade(&filemenu, tr("Bookmarks"), NULL, &bookmenu);
     bookcasc->setTarget(this);
     bookcasc->setSelector(FXFileSelector::ID_BOOKMENU);
-    new FXMenuCommand(&bookmenu, tr("Set bookmark"), markicon, this, FXFileSelector::ID_BOOKMARK);
-    new FXMenuCommand(&bookmenu, tr("Clear bookmarks"), clearicon, &bookmarks, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(&bookmenu, tr("Set bookmark"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
+    new FXMenuCommand(&bookmenu, tr("Clear bookmarks"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &bookmarks, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(&bookmenu);
     sep1->setTarget(&bookmarks);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
@@ -477,11 +433,11 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     new FXMenuCommand(&bookmenu, FXString::null, NULL, &bookmarks, FXRecentFiles::ID_FILE_10);
 
     new FXMenuSeparator(&filemenu);
-    new FXMenuCommand(&filemenu, tr("New directory..."), newicon, this, FXFileSelector::ID_NEW);
-    new FXMenuCommand(&filemenu, tr("Copy..."), copyicon, this, FXFileSelector::ID_COPY);
-    new FXMenuCommand(&filemenu, tr("Move..."), moveicon, this, FXFileSelector::ID_MOVE);
-    new FXMenuCommand(&filemenu, tr("Link..."), linkicon, this, FXFileSelector::ID_LINK);
-    new FXMenuCommand(&filemenu, tr("Delete..."), deleteicon, this, ID_DELETE);
+    new FXMenuCommand(&filemenu, tr("New directory..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW), this, FXFileSelector::ID_NEW);
+    new FXMenuCommand(&filemenu, tr("Copy..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_COPY), this, FXFileSelector::ID_COPY);
+    new FXMenuCommand(&filemenu, tr("Move..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_MOVE), this, FXFileSelector::ID_MOVE);
+    new FXMenuCommand(&filemenu, tr("Link..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_LINK), this, FXFileSelector::ID_LINK);
+    new FXMenuCommand(&filemenu, tr("Delete..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_DELETE), this, ID_DELETE);
 
     filemenu.create();
     filemenu.popup(NULL, event->root_x, event->root_y);

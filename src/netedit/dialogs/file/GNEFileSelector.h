@@ -256,51 +256,6 @@ protected:
     /// @brief Cancel button
     FXButton* cancel = nullptr;
 
-    /// @brief Up directory icon
-    FXIcon* updiricon = nullptr;
-
-    /// @brief List mode icon
-    FXIcon* listicon = nullptr;
-
-    /// @brief Detail mode icon
-    FXIcon* detailicon = nullptr;
-
-    /// @brief Icon mode icon
-    FXIcon* iconsicon = nullptr;
-
-    /// @brief Go home icon
-    FXIcon* homeicon = nullptr;
-
-    /// @brief Go work icon
-    FXIcon* workicon = nullptr;
-
-    /// @brief Files shown icon
-    FXIcon* shownicon = nullptr;
-
-    /// @brief Files hidden icon
-    FXIcon* hiddenicon = nullptr;
-
-    /// @brief Book mark icon
-    FXIcon* markicon = nullptr;
-
-    /// @brief Book clear icon
-    FXIcon* clearicon = nullptr;
-
-    /// @brief New directory icon
-    FXIcon* newicon = nullptr;
-
-    /// @brief Delete file icon
-    FXIcon* deleteicon = nullptr;
-
-    /// @brief Rename file icon
-    FXIcon* moveicon = nullptr;
-
-    /// @brief Copy file icon
-    FXIcon* copyicon = nullptr;
-
-    /// @brief Link file icon
-    FXIcon* linkicon = nullptr;
-
     /// @brief Bookmarked places
     FXRecentFiles bookmarks = nullptr;
 
