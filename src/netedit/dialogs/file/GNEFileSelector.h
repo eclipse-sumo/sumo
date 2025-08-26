@@ -31,33 +31,19 @@ class GNEFileSelector : public FXPacker {
     FXDECLARE(GNEFileSelector)
 
 public:
-    /// Constructor
+    /// @brief Constructor
     GNEFileSelector(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~GNEFileSelector();
 
-    /// Return a pointer to the "Accept" button
-    FXButton* acceptButton() const {
-        return accept;
-    }
-
-    /// Return a pointer to the "Cancel" button
-    FXButton* cancelButton() const {
-        return cancel;
-    }
-
-    /// Change file name
+    /// @brief Change file name
     void setFilename(const FXString& path);
 
-    /// Return file name, if any
+    /// @brief Return file name, if any
     FXString getFilename() const;
 
-    /**
-    * Return array of strings containing the selected file names, terminated
-    * by an empty string.  This string array must be freed using delete [].
-    * If no files were selected, a NULL is returned.
-    */
+    /// @brief get file names
     FXString* getFilenames() const;
 
     /// Change file pattern
@@ -66,196 +52,268 @@ public:
     /// Return file pattern
     FXString getPattern() const;
 
-    /**
-    * Change the list of file patterns shown in the file dialog.
-    * Each pattern comprises an optional name, followed by a pattern in
-    * parentheses.  The patterns are separated by newlines.
-    * For example,
-    *
-    *  "*\n*.cpp,*.cc\n*.hpp,*.hh,*.h"
-    *
-    * and
-    *
-    *  "All Files (*)\nC++ Sources (*.cpp,*.cc)\nC++ Headers (*.hpp,*.hh,*.h)"
-    *
-    * will set the same three patterns, but the former shows no pattern names.
-    */
+    /// @brief set pattern list
     void setPatternList(const FXString& patterns);
 
-    /// Return list of patterns
+    /// @brief Return list of patterns
     FXString getPatternList() const;
 
-    /**
-    * After setting the list of patterns, this call will
-    * initially select pattern n as the active one.
-    */
+    /// @brief set current pattern
     void setCurrentPattern(FXint n);
 
-    /// Return current pattern number
+    /// @brief Return current pattern number
     FXint getCurrentPattern() const;
 
-    /// Get pattern text for given pattern number
+    /// @brief Get pattern text for given pattern number
     FXString getPatternText(FXint patno) const;
 
-    /// Change pattern text for pattern number
+    /// @brief Change pattern text for pattern number
     void setPatternText(FXint patno, const FXString& text);
 
-    /// Return number of patterns
+    /// @brief Return number of patterns
     FXint getNumPatterns() const;
 
-    /// Allow pattern entry
+    /// @brief Allow pattern entry
     void allowPatternEntry(FXbool allow);
 
-    /// Return TRUE if pattern entry is allowed
+    /// @brief Return TRUE if pattern entry is allowed
     FXbool allowPatternEntry() const;
 
-    /**
-    * Given filename pattern of the form "GIF Format (*.gif)",
-    * returns the pattern only, i.e. "*.gif" in this case.
-    * If the parentheses are not found then returns the entire
-    * input pattern.
-    */
-    static FXString patternFromText(const FXString& pattern);
-
-    /**
-    * Given a pattern of the form "*.gif,*.GIF", return
-    * the first extension of the pattern, i.e. "gif" in this
-    * example. Returns empty string if it doesn't work out.
-    */
-    static FXString extensionFromPattern(const FXString& pattern);
-
-    /// Change directory
+    /// @brief Change directory
     void setDirectory(const FXString& path);
 
-    /// Return directory
+    /// @brief Return directory
     FXString getDirectory() const;
 
-    /// Set the inter-item spacing (in pixels)
+    /// @brief Set the inter-item spacing (in pixels)
     void setItemSpace(FXint s);
 
-    /// Return the inter-item spacing (in pixels)
+    /// @brief Return the inter-item spacing (in pixels)
     FXint getItemSpace() const;
 
-    /// Change file list style
+    /// @brief Change file list style
     void setFileBoxStyle(FXuint style);
 
-    /// Return file list style
+    /// @brief Return file list style
     FXuint getFileBoxStyle() const;
 
-    /// Change file selection mode
+    /// @brief Change file selection mode
     void setSelectMode(FXuint mode);
 
-    /// Return file selection mode
-    FXuint getSelectMode() const {
-        return selectmode;
-    }
+    /// @brief Return file selection mode
+    FXuint getSelectMode() const;
 
-    /// Change wildcard matching mode
+    ///@brief  Change wildcard matching mode
     void setMatchMode(FXuint mode);
 
-    /// Return wildcard matching mode
+    /// @brief Return wildcard matching mode
     FXuint getMatchMode() const;
 
-    /// Return TRUE if showing hidden files
+    /// @brief Return TRUE if showing hidden files
     FXbool showHiddenFiles() const;
 
-    /// Show or hide hidden files
+    /// @brief Show or hide hidden files
     void showHiddenFiles(FXbool showing);
 
-    /// Return TRUE if image preview on
+    /// @brief Return TRUE if image preview on
     FXbool showImages() const;
 
-    /// Show or hide preview images
+    /// @brief Show or hide preview images
     void showImages(FXbool showing);
 
-    /// Return images preview size
+    /// @brief Return images preview size
     FXint getImageSize() const;
 
-    /// Change images preview size
+    /// @brief Change images preview size
     void setImageSize(FXint size);
 
-    /// Show readonly button
+    /// @brief Show readonly button
     void showReadOnly(FXbool show);
 
-    /// Return TRUE if readonly is shown
+    /// @brief Return TRUE if readonly is shown
     FXbool shownReadOnly() const;
 
-    /// Set initial state of readonly button
+    /// @brief Set initial state of readonly button
     void setReadOnly(FXbool state);
 
-    /// Get readonly state
+    /// @brief Get readonly state
     FXbool getReadOnly() const;
 
     /// Allow or disallow navigation
-    void allowNavigation(FXbool flag) {
-        navigable = flag;
-    }
+    void allowNavigation(FXbool flag);
 
     /// Is navigation allowed?
-    FXbool allowNavigation() const {
-        return navigable;
-    }
+    FXbool allowNavigation() const;
 
+    /// @name list of FOX handlers
+    /// @{
+
+    /// @brief Handler for accepting a command.
     long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for filtering items.
     long onCmdFilter(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for double-clicking an item.
     long onCmdItemDblClicked(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for selecting an item.
     long onCmdItemSelected(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for deselecting an item.
     long onCmdItemDeselected(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for moving up one directory.
     long onCmdDirectoryUp(FXObject*, FXSelector, void*);
+
+    /// @brief Update handler for enabling/disabling directory up command.
     long onUpdDirectoryUp(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for directory tree navigation.
     long onCmdDirTree(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for navigating to the home directory.
     long onCmdHome(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for navigating to the work directory.
     long onCmdWork(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for opening bookmarks.
     long onCmdBookmark(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for visiting a bookmarked location.
     long onCmdVisit(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for creating a new item or directory.
     long onCmdNew(FXObject*, FXSelector, void*);
+
+    /// @brief Update handler for enabling/disabling new command.
     long onUpdNew(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for moving an item.
     long onCmdMove(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for copying an item.
     long onCmdCopy(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for creating a link to an item.
     long onCmdLink(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for deleting an item.
     long onCmdDelete(FXObject*, FXSelector, void*);
+
+    /// @brief Update handler for enabling/disabling commands based on selection.
     long onUpdSelected(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for showing the popup menu.
     long onPopupMenu(FXObject*, FXSelector, void*);
+
+    /// @brief Handler for showing or calculating image size.
     long onCmdImageSize(FXObject*, FXSelector, void*);
+
+    /// @brief Update handler for enabling/disabling image size command.
     long onUpdImageSize(FXObject*, FXSelector, void*);
+
+    /// @brief Update handler for enabling/disabling navigation commands.
     long onUpdNavigable(FXObject*, FXSelector, void*);
+
+    /// @}
 
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFileSelector)
 
-    FXFileList*        myFileSelector;           // File list widget
-    FXTextField*       filename;          // File name entry field
-    FXComboBox*        filefilter;        // Combobox for pattern list
-    FXMenuPane*        bookmarkmenu;      // Menu for bookmarks
-    FXHorizontalFrame* navbuttons;        // Navigation buttons
-    FXHorizontalFrame* fileboxframe;      // Frame around file list
-    FXMatrix*          entryblock;        // Entry block
-    FXCheckButton*     readonly;          // Open file as read only
-    FXDirBox*          dirbox;            // Directory hierarchy list
-    FXButton*          accept;            // Accept button
-    FXButton*          cancel;            // Cancel button
-    FXIcon*            updiricon;         // Up directory icon
-    FXIcon*            listicon;          // List mode icon
-    FXIcon*            detailicon;        // Detail mode icon
-    FXIcon*            iconsicon;         // Icon mode icon
-    FXIcon*            homeicon;          // Go home icon
-    FXIcon*            workicon;          // Go home icon
-    FXIcon*            shownicon;         // Files shown icon
-    FXIcon*            hiddenicon;        // Files hidden icon
-    FXIcon*            markicon;          // Book mark icon
-    FXIcon*            clearicon;         // Book clear icon
-    FXIcon*            newicon;           // New directory icon
-    FXIcon*            deleteicon;        // Delete file icon
-    FXIcon*            moveicon;          // Rename file icon
-    FXIcon*            copyicon;          // Copy file icon
-    FXIcon*            linkicon;          // Link file icon
-    FXRecentFiles      bookmarks;         // Bookmarked places
-    FXuint             selectmode;        // Select mode
-    FXbool             navigable;         // May navigate
+    /// @brief File list widget
+    FXFileList* myFileSelector = nullptr;
 
+    /// @brief File name entry field
+    FXTextField* filename = nullptr;
+
+    /// @brief Combobox for pattern list
+    FXComboBox* filefilter = nullptr;
+
+    /// @brief Menu for bookmarks
+    FXMenuPane* bookmarkmenu = nullptr;
+
+    /// @brief Navigation buttons
+    FXHorizontalFrame* navbuttons = nullptr;
+
+    /// @brief Frame around file list
+    FXHorizontalFrame* fileboxframe = nullptr;
+
+    /// @brief Entry block
+    FXMatrix* entryblock = nullptr;
+
+    /// @brief Open file as read only
+    FXCheckButton* readonly = nullptr;
+
+    /// @brief Directory hierarchy list
+    FXDirBox* dirbox = nullptr;
+
+    /// @brief Accept button
+    FXButton* accept = nullptr;
+
+    /// @brief Cancel button
+    FXButton* cancel = nullptr;
+
+    /// @brief Up directory icon
+    FXIcon* updiricon = nullptr;
+
+    /// @brief List mode icon
+    FXIcon* listicon = nullptr;
+
+    /// @brief Detail mode icon
+    FXIcon* detailicon = nullptr;
+
+    /// @brief Icon mode icon
+    FXIcon* iconsicon = nullptr;
+
+    /// @brief Go home icon
+    FXIcon* homeicon = nullptr;
+
+    /// @brief Go work icon
+    FXIcon* workicon = nullptr;
+
+    /// @brief Files shown icon
+    FXIcon* shownicon = nullptr;
+
+    /// @brief Files hidden icon
+    FXIcon* hiddenicon = nullptr;
+
+    /// @brief Book mark icon
+    FXIcon* markicon = nullptr;
+
+    /// @brief Book clear icon
+    FXIcon* clearicon = nullptr;
+
+    /// @brief New directory icon
+    FXIcon* newicon = nullptr;
+
+    /// @brief Delete file icon
+    FXIcon* deleteicon = nullptr;
+
+    /// @brief Rename file icon
+    FXIcon* moveicon = nullptr;
+
+    /// @brief Copy file icon
+    FXIcon* copyicon = nullptr;
+
+    /// @brief Link file icon
+    FXIcon* linkicon = nullptr;
+
+    /// @brief Bookmarked places
+    FXRecentFiles bookmarks = nullptr;
+
+    /// @brief Select mode
+    FXuint selectmode = 0;
+
+    /// @brief May navigate
+    FXbool navigable = TRUE;
+
+    /// @brief get selected files
     FXString* getSelectedFiles() const;
 
+    /// @brief get selected files that are not directories
     FXString* getSelectedFilesOnly() const;
 
 private:

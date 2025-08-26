@@ -156,7 +156,6 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, FXObject* tgt, FXSelector sel, 
     setDirectory(FXSystem::getCurrentDirectory());
     myFileSelector->setFocus();
     accept->hide();
-    navigable = TRUE;
 }
 
 
@@ -491,46 +490,12 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
 }
 
 
-FXString
-GNEFileSelector::patternFromText(const FXString& pattern) {
-    FXint beg, end;
-    end = pattern.rfind(')');       // Search from the end so we can allow ( ) in the pattern name itself
-    beg = pattern.rfind('(', end - 1);
-    if (0 <= beg && beg < end) {
-        return pattern.mid(beg + 1, end - beg - 1);
-    }
-    return pattern;
-}
-
-
-FXString
-GNEFileSelector::extensionFromPattern(const FXString& pattern) {
-    FXint beg, end, c;
-    beg = 0;
-    if (pattern[beg] == '*') {
-        beg++;
-        if (pattern[beg] == '.') {
-            beg++;
-            end = beg;
-            while ((c = pattern[end]) != '\0' && c != ',' && c != '|') {
-                if (c == '*' || c == '?' || c == '[' || c == ']' || c == '^' || c == '!') {
-                    return FXString::null;
-                }
-                end++;
-            }
-            return pattern.mid(beg, end - beg);
-        }
-    }
-    return FXString::null;
-}
-
-
 long
 GNEFileSelector::onCmdFilter(FXObject*, FXSelector, void* ptr) {
-    FXString pat = patternFromText((FXchar*)ptr);
+    FXString pat = FXFileSelector::patternFromText((FXchar*)ptr);
     myFileSelector->setPattern(pat);
     if (selectmode == SELECTFILE_ANY) {
-        FXString ext = extensionFromPattern(pat);
+        FXString ext = FXFileSelector::extensionFromPattern(pat);
         if (!ext.empty()) {
             FXString name = FXPath::stripExtension(filename->getText());
             if (!name.empty()) {
@@ -652,7 +617,7 @@ GNEFileSelector::setCurrentPattern(FXint patno) {
         fxerror("%s::setCurrentPattern: index out of range.\n", getClassName());
     }
     filefilter->setCurrentItem(patno);
-    myFileSelector->setPattern(patternFromText(filefilter->getItemText(patno)));
+    myFileSelector->setPattern(FXFileSelector::patternFromText(filefilter->getItemText(patno)));
 }
 
 
@@ -669,7 +634,7 @@ GNEFileSelector::setPatternText(FXint patno, const FXString& text) {
     }
     filefilter->setItemText(patno, text);
     if (patno == filefilter->getCurrentItem()) {
-        setPattern(patternFromText(text));
+        setPattern(FXFileSelector::patternFromText(text));
     }
 }
 
@@ -750,6 +715,12 @@ GNEFileSelector::setSelectMode(FXuint mode) {
 }
 
 
+FXuint
+GNEFileSelector::getSelectMode() const {
+    return selectmode;
+}
+
+
 void
 GNEFileSelector::setMatchMode(FXuint mode) {
     myFileSelector->setMatchMode(mode);
@@ -819,6 +790,18 @@ GNEFileSelector::setReadOnly(FXbool state) {
 FXbool
 GNEFileSelector::getReadOnly() const {
     return readonly->getCheck();
+}
+
+
+void
+GNEFileSelector::allowNavigation(FXbool flag) {
+    navigable = flag;
+}
+
+
+FXbool
+GNEFileSelector::allowNavigation() const {
+    return navigable;
 }
 
 
