@@ -866,7 +866,6 @@ After that, you need to do the following settings:
 
 <img width="332" height="453" alt="1" src="https://github.com/user-attachments/assets/e6ebd7f2-5edd-4bb5-ac8a-71be7c53f8c5" />
 
-
 2. Choose the data type and recalibrate the interval thresholds for coloring:
    
 <img width="492" height="327" alt="2" src="https://github.com/user-attachments/assets/73372922-2c11-4722-bed2-51c9501ea17a" />
