@@ -106,7 +106,7 @@ public:
     void setDiscreteValues(const std::vector<std::string>& discreteValues);
 
     /// @brief set discrete values
-    void setFilenameExtensions(const std::string& extensions);
+    void setFilenameExtensions(const std::vector<std::string>& extensions);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -172,7 +172,7 @@ public:
     const std::vector<std::string>& getDiscreteValues() const;
 
     /// @brief get filename extensions in string format used in open dialogs
-    const std::string& getFilenameExtensions() const;
+    const std::vector<std::string>& getFilenameExtensions() const;
 
     /// @brief get tag synonym
     SumoXMLAttr getAttrSynonym() const;
@@ -343,7 +343,7 @@ private:
     std::vector<std::string> myDiscreteValues;
 
     /// @brief filename extensions used in open dialogs (by default empty)
-    std::string myFilenameExtensions;
+    std::vector<std::string> myFilenameExtensions;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
     SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;

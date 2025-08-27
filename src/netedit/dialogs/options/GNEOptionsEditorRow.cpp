@@ -569,7 +569,7 @@ GNEOptionsEditorRow::OptionFilename::restoreOption() {
 long
 GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // get file
-    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(this, (myName.find("output") != std::string::npos), false);
+    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), (myName.find("output") != std::string::npos), false);
     // check that file is valid
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);

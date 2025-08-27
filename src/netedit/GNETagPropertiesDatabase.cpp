@@ -6932,28 +6932,28 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the additional file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getMultilineString());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
             commonAttribute->setAlternativeName(TL("add. file"));
         } else if (tagProperties->isDemandElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DEMAND_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the route file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getMultilineString());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
             commonAttribute->setAlternativeName(TL("route file"));
         } else if (tagProperties->isDataElement()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DATA_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getMultilineString());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings());
             commonAttribute->setAlternativeName(TL("data file"));
         } else if (tagProperties->isMeanData()) {
             commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_MEANDATA_FILE,
                     GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                     GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                     TL("The path to the data file"));
-            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getMultilineString());
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
             commonAttribute->setAlternativeName(TL("mean file"));
         }
     }
@@ -8549,7 +8549,7 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILEOPEN | GNEAttributeProperties::Property::DEFAULTVALUE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Restrict output to the given list of edges given in file"));
-    edgesFile->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
+    edgesFile->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_AGGREGATE,
                                GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
@@ -8646,7 +8646,7 @@ GNETagPropertiesDatabase::fillFileAttribute(GNETagProperties* tagProperties) {
                                            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                                            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                            TL("The path to the output file"));
-    file->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
+    file->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
 }
 
 
@@ -8656,7 +8656,7 @@ GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
             TL("Path to the output file for writing information"));
-    output->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
+    output->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
 }
 
 
@@ -8674,7 +8674,7 @@ GNETagPropertiesDatabase::fillImgFileAttribute(GNETagProperties* tagProperties, 
                                              GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                              TLF("A bitmap to use for rendering this %", tagProperties->getTagStr()));
     }
-    imgFile->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString());
+    imgFile->setFilenameExtensions(SUMOXMLDefinitions::ImageFileExtensions.getStrings());
 }
 
 

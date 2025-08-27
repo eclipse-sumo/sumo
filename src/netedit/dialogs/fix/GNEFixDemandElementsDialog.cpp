@@ -487,7 +487,7 @@ GNEFixDemandElementsDialog::FixPlanOptions::onCmdSelectOption(FXObject* obj, FXS
 
 GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow* mainWindow,
         const std::vector<GNEDemandElement*>& elements) :
-    GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
+    GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND) {
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
     // create fix vehicle  options

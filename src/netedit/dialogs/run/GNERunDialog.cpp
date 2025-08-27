@@ -133,7 +133,7 @@ GNERunDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNERunDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // get log file
-    const auto logFile = GNEApplicationWindowHelper::saveToolLog(this);
+    const auto logFile = GNEApplicationWindowHelper::saveToolLog(myApplicationWindow);
     // check that file is valid
     if (logFile.size() > 0) {
         OutputDevice& dev = OutputDevice::getDevice(logFile);

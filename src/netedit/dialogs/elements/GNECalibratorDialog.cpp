@@ -64,7 +64,7 @@ GNECalibratorDialog::runInternalTest(const InternalTestStep::DialogArgument* /*d
 long
 GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // declare strings
-    const auto title = TLF("Error updating % '%'", myElement->getTagStr(), myElement->getID());
+    const auto warningTitle = TLF("Error updating % '%'", myElement->getTagStr(), myElement->getID());
     const auto infoA = TLF("% '%' cannot be updated because", myElement->getTagStr(), myElement->getID());
     std::string infoB;
     // set infoB
@@ -78,7 +78,7 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // continue depending of info
     if (infoB.size() > 0) {
         // open question dialog box with two lines
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, infoA, infoB);
+        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), warningTitle, infoA, infoB);
         return 1;
     } else {
         // close dialog accepting changes

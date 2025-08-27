@@ -230,7 +230,7 @@ GNEFixNetworkElements::FixCrossingOptions::onCmdSelectOption(FXObject* obj, FXSe
 
 GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow* mainWindow,
         const std::vector<GNENetworkElement*>& elements) :
-    GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK, 600, 620) {
+    GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK) {
     // create fix edge options
     myFixEdgeOptions = new FixEdgeOptions(this);
     // create fix crossing  options

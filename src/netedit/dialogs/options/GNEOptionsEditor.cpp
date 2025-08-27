@@ -223,7 +223,7 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     // open save dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), true);
     // check file
     if (file.size() > 0) {
         std::ofstream out(StringUtils::transcodeToLocal(file));
@@ -237,7 +237,7 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), false);
     // check file
     if ((file.size() > 0) && loadConfiguration(file)) {
         // update entries
