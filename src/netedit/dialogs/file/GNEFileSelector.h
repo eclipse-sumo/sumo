@@ -24,6 +24,12 @@
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFileDialog;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -42,7 +48,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEFileSelector(FXComposite* p, const std::vector<std::string>& extensions,
+    GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
                     const bool save, const bool multiElements);
 
     /// @brief Destructor
@@ -136,7 +142,7 @@ public:
     long onCmdFilter(FXObject*, FXSelector, void*);
 
     /// @brief Handler for double-clicking an item.
-    long onCmdItemDblClicked(FXObject*, FXSelector, void*);
+    long onCmdItemDblClicked(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief Handler for selecting an item.
     long onCmdItemSelected(FXObject*, FXSelector, void*);
@@ -201,6 +207,9 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFileSelector)
 
+    /// @brief Pointer to parent file dialog
+    GNEFileDialog* myFileDialog = nullptr;
+
     /// @brief File list widget
     FXFileList* myFileSelector = nullptr;
 
@@ -215,12 +224,6 @@ protected:
 
     /// @brief Directory hierarchy list
     FXDirBox* myDirBox = nullptr;
-
-    /// @brief Accept button (temporal)
-    FXButton* accept = nullptr;
-
-    /// @brief Cancel button (temporal)
-    FXButton* cancel = nullptr;
 
     /// @brief Bookmarked places
     FXRecentFiles myBookmarsRecentFiles = nullptr;

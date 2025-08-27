@@ -34,6 +34,7 @@ class GNEFileSelector;
 
 class GNEFileDialog : public GNEDialog {
 
+public:
     /// @brief constructor
     GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
                   const std::vector<std::string>& extensions, const bool save, const bool multiElements);

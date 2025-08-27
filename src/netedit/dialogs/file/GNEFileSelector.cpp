@@ -24,6 +24,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEFileSelector.h"
+#include "GNEFileDialog.h"
 
 #define FILELISTMASK  (ICONLIST_EXTENDEDSELECT|ICONLIST_SINGLESELECT|ICONLIST_BROWSESELECT|ICONLIST_MULTIPLESELECT)
 #define FILESTYLEMASK (ICONLIST_DETAILED|ICONLIST_MINI_ICONS|ICONLIST_BIG_ICONS|ICONLIST_ROWS|ICONLIST_COLUMNS|ICONLIST_AUTOSIZE)
@@ -68,12 +69,11 @@ FXIMPLEMENT(GNEFileSelector, FXPacker, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSe
 // member method definitions
 // ===========================================================================
 
-GNEFileSelector::GNEFileSelector(FXComposite* p, const std::vector<std::string>& extensions,
+GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
                                  const bool save, const bool multiElements):
-    FXPacker(p, (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0),
-    myBookmarsRecentFiles(p->getApp(), TL("Visited Directories")) {
-    target = NULL;
-    message = 0;
+    FXPacker(fileDialog->getContentFrame(), (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0),
+    myFileDialog(fileDialog),
+    myBookmarsRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
     auto navbuttons = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X, 0, 0, 0, 0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, 0, 0);
     auto entryblock = new FXMatrix(this, 3, MATRIX_BY_COLUMNS | LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
     // label for filename
@@ -86,17 +86,16 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, const std::vector<std::string>&
                  TL("OK"),
                  NULL,
                  this, FXFileSelector::ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
-    // REMOVE
-    accept = new FXButton(navbuttons, FXString::null, NULL, NULL, 0, LAYOUT_FIX_X | LAYOUT_FIX_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     // label for file filter
     new FXLabel(entryblock,
                 TL("File Filter:"),
                 NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
     FXHorizontalFrame* filterframe = new FXHorizontalFrame(entryblock, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     myFileFilterComboBox = new FXComboBox(filterframe, 10, this, FXFileSelector::ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
-    cancel = new FXButton(entryblock, TL("Cancel"), NULL, NULL, 0, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
     auto fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
+    // file selector
     myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // label for directory
     new FXLabel(navbuttons,
                 TL("Directory:"),
                 NULL, LAYOUT_CENTER_Y);
@@ -238,7 +237,6 @@ GNEFileSelector::GNEFileSelector(FXComposite* p, const std::vector<std::string>&
     }
     myFileFilterComboBox->setNumVisible(FXMIN(extensions.size(), 12));
     setCurrentPattern(0);
-    accept->hide();
 }
 
 
@@ -261,8 +259,6 @@ GNEFileSelector::~GNEFileSelector() {
     myFileFilterComboBox = (FXComboBox*) - 1L;
     myBookmarkMenuPane = (FXMenuPane*) - 1L;
     myDirBox = (FXDirBox*) - 1L;
-    accept = (FXButton*) - 1L;
-    cancel = (FXButton*) - 1L;
 }
 
 
@@ -798,9 +794,7 @@ GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFileSelector::onCmdItemDblClicked(FXObject*, FXSelector, void* ptr) {
-    FXSelector sel = accept->getSelector();
-    FXObject* tgt = accept->getTarget();
+GNEFileSelector::onCmdItemDblClicked(FXObject* obj, FXSelector sel, void* ptr) {
     FXint index = (FXint)(FXival)ptr;
     if (0 <= index) {
         // If directory, open the directory
@@ -810,9 +804,7 @@ GNEFileSelector::onCmdItemDblClicked(FXObject*, FXSelector, void* ptr) {
         }
         // Only return if we wanted a file
         if (mySelectmode != SelectMode::DIRECTORY) {
-            if (tgt) {
-                tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
-            }
+            return myFileDialog->onCmdAccept(obj, sel, ptr);
         }
     }
     return 1;
@@ -820,66 +812,44 @@ GNEFileSelector::onCmdItemDblClicked(FXObject*, FXSelector, void* ptr) {
 
 
 long
-GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
-    FXSelector sel = accept->getSelector();
-    FXObject* tgt = accept->getTarget();
-
+GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
     // Get (first) myFilenameTextField or directory
     std::string path = getFilename();
-
     // Only do something if a selection was made
     if (!path.empty()) {
-
         // Is directory?
         if (FXStat::isDirectory(path.c_str())) {
-
             // In directory mode:- we got our answer!
             if (mySelectmode == SelectMode::DIRECTORY || mySelectmode == SelectMode::MULTIPLE_ALL) {
-                if (tgt) {
-                    tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
-                }
-                return 1;
+                return myFileDialog->onCmdAccept(obj, sel, ptr);
             }
-
             // Hop over to that directory
             myDirBox->setDirectory(path.c_str());
             myFileSelector->setDirectory(path.c_str());
             myFilenameTextField->setText(FXString::null);
             return 1;
         }
-
         // Get directory part of path
         FXString dir = FXPath::directory(path.c_str());
-
         // In file mode, directory part of path should exist
         if (FXStat::isDirectory(dir)) {
-
             // In any mode, existing directory part is good enough
             if (mySelectmode == SelectMode::SAVE) {
-                if (tgt) {
-                    tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
-                }
-                return 1;
+                return myFileDialog->onCmdAccept(obj, sel, ptr);
             }
-
             // Otherwise, the whole myFilenameTextField must exist and be a file
             if (FXStat::exists(path.c_str())) {
-                if (tgt) {
-                    tgt->handle(accept, FXSEL(SEL_COMMAND, sel), (void*)(FXuval)1);
-                }
-                return 1;
+                return myFileDialog->onCmdAccept(obj, sel, ptr);
+
             }
         }
-
         // Go up to the lowest directory which still exists
         while (!FXPath::isTopDirectory(dir) && !FXStat::isDirectory(dir)) {
             dir = FXPath::upLevel(dir);
         }
-
         // Switch as far as we could go
         myDirBox->setDirectory(dir);
         myFileSelector->setDirectory(dir);
-
         // Put the tail end back for further editing
         FXASSERT(dir.length() <= path.length());
         if (ISPATHSEP(path[dir.length()])) {
@@ -887,12 +857,10 @@ GNEFileSelector::onCmdAccept(FXObject*, FXSelector, void*) {
         } else {
             path.erase(0, dir.length());
         }
-
         // Replace text box with new stuff
         myFilenameTextField->setText(path.c_str());
         myFilenameTextField->selectAll();
     }
-
     // Beep
     getApp()->beep();
     return 1;

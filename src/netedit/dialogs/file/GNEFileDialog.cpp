@@ -76,20 +76,16 @@ GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std:
             return "";
         }
     */
-
-
-
-    /*
-    myFileSelector->acceptButton()->setTarget(this);
-    myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
-    myFileSelector->cancelButton()->setTarget(this);
-    myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
-    */
+    // retarget accept button to file selector
+    myAcceptButton->setTarget(myFileSelector);
+    myAcceptButton->setSelector(FXFileSelector::ID_ACCEPT);
     // check if we have saved settings in registry
     setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
     setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
     setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
     showHiddenFiles(getApp()->reg().readUnsignedEntry("File Dialog", "showhidden", showHiddenFiles()));
+    // open dialog
+    openDialog();
 }
 
 
@@ -98,7 +94,7 @@ GNEFileDialog::~GNEFileDialog() {
 
 
 void
-GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // not yet finish
 }
 
