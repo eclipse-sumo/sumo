@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-27 13:34+0200\n"
-"PO-Revision-Date: 2025-08-23 15:02+0000\n"
+"PO-Revision-Date: 2025-08-27 14:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10019,7 +10019,7 @@ msgstr "Cancelar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:332
 msgid "Don't Save"
-msgstr ""
+msgstr "No guardar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:347 src/netedit/dialogs/GNEDialog.cpp:356
 #: src/netedit/dialogs/GNEDialog.cpp:371
@@ -10562,24 +10562,24 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:81
 msgid "File Name:"
-msgstr ""
+msgstr "Nombre:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:91
 msgid "File Filter:"
-msgstr ""
+msgstr "Tipo:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:100
 msgid "Directory:"
-msgstr ""
+msgstr "Directorio:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:479
 msgid "Set bookmark"
-msgstr ""
+msgstr "Agregar marcador"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 msgid "Bookmark current directory."
-msgstr ""
+msgstr "Marcar el directorio actual."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:480
@@ -10592,84 +10592,84 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131
 msgid "Go up one directory"
-msgstr ""
+msgstr "Subir un nivel del directorio"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131
 msgid "Move up to higher directory."
-msgstr ""
+msgstr "Subir al directorio superior."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:136
 msgid "Go to home directory"
-msgstr ""
+msgstr "Ir al directorio principal"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:136
 msgid "Back to home directory."
-msgstr ""
+msgstr "Regresar al directorio principal."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:141
 msgid "Go to work directory"
-msgstr ""
+msgstr "Ir al directorio de trabajo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:141
 msgid "Back to working directory."
-msgstr ""
+msgstr "Regresar al directorio de trabajo."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:146
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:476
 msgid "Bookmarks"
-msgstr ""
+msgstr "Marcadores"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:146
 msgid "Visit bookmarked directories."
-msgstr ""
+msgstr "Visitar directorios marcados."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:153
 msgid "Create new directory"
-msgstr ""
+msgstr "Crear carpeta nueva"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:153
 msgid "Create new directory."
-msgstr ""
+msgstr "Crear carpeta nueva."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:158
 msgid "Show list"
-msgstr ""
+msgstr "Mostrar lista"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:158
 msgid "Display directory with small icons."
-msgstr ""
+msgstr "Mostrar directorio con iconos pequeños."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:163
 msgid "Show icons"
-msgstr ""
+msgstr "Mostrar iconos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:163
 msgid "Display directory with big icons."
-msgstr ""
+msgstr "Mostrar directorio con iconos grandes."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:168
 msgid "Show details"
-msgstr ""
+msgstr "Mostrar detalles"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:168
 msgid "Display detailed directory listing."
-msgstr ""
+msgstr "Mostrar el listado detallado del directorio."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:173
 msgid "Show hidden files"
-msgstr ""
+msgstr "Mostrar archivos ocultos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:173
 msgid "Show hidden files and directories."
-msgstr ""
+msgstr "Mostrar archivos y directorios ocultos."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:174
 msgid "Hide Hidden Files"
-msgstr ""
+msgstr "Ocultar archivos ocultos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:174
 msgid "Hide hidden files and directories."
-msgstr ""
+msgstr "Ocultar archivos y directorios ocultos."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:301
 #, c-format
@@ -10680,14 +10680,19 @@ msgid ""
 "\n"
 "to location: "
 msgstr ""
+"Copiar archivo desde la ubicación:\n"
+"\n"
+"%s\n"
+"\n"
+"a la ubicación: "
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:302
 msgid "Copy File"
-msgstr ""
+msgstr "Copiar archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:308
 msgid "Error Copying File"
-msgstr ""
+msgstr "Error al copiar el archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:308
 #, c-format
@@ -10698,6 +10703,11 @@ msgid ""
 "\n"
 "Continue with operation?"
 msgstr ""
+"No se pudo copiar el archivo:\n"
+"\n"
+"%s  hacia:  %s\n"
+"\n"
+"¿Continuar con la operación?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:323
 #, c-format
@@ -10708,14 +10718,19 @@ msgid ""
 "\n"
 "to location: "
 msgstr ""
+"Mover archivo desde la ubicación:\n"
+"\n"
+"%s\n"
+"\n"
+"a la ubicación: "
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:324
 msgid "Move File"
-msgstr ""
+msgstr "Mover archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:330
 msgid "Error Moving File"
-msgstr ""
+msgstr "Error al mover el archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:330
 #, c-format
@@ -10726,6 +10741,11 @@ msgid ""
 "\n"
 "Continue with operation?"
 msgstr ""
+"No se pudo mover el archivo:\n"
+"\n"
+"%s  hacia:  %s\n"
+"\n"
+"¿Continuar con la operación?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:345
 #, c-format
@@ -10736,14 +10756,19 @@ msgid ""
 "\n"
 "to location: "
 msgstr ""
+"Enlazar archivo desde la ubicación:\n"
+"\n"
+"%s\n"
+"\n"
+"a la ubicación: "
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:346
 msgid "Link File"
-msgstr ""
+msgstr "Enlazar archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:352
 msgid "Error Linking File"
-msgstr ""
+msgstr "Error al enlazar el archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:352
 #, c-format
@@ -10754,10 +10779,15 @@ msgid ""
 "\n"
 "Continue with operation?"
 msgstr ""
+"No se pudo enlazar el archivo:\n"
+"\n"
+"%s  con:  %s\n"
+"\n"
+"¿Continuar con la operación?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:367
 msgid "Deleting files"
-msgstr ""
+msgstr "Eliminar archivos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:367
 #, c-format
@@ -10766,10 +10796,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"¿Seguro que desea eliminar el archivo?:\n"
+"\n"
+"%s"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:375
 msgid "Error Deleting File"
-msgstr ""
+msgstr "Error al eliminar el archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:375
 #, c-format
@@ -10780,6 +10813,11 @@ msgid ""
 "\n"
 "Continue with operation?"
 msgstr ""
+"No se pudo eliminar el archivo:\n"
+"\n"
+"%s\n"
+"\n"
+"¿Continuar con la operación?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:441
 msgid "Up one level"
