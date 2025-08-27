@@ -74,7 +74,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
                                  const bool save, const bool multiElements):
     FXVerticalFrame(fileDialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myFileDialog(fileDialog),
-    myBookmarsRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
+    myBookmarksRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
     // create horizontal frame for top buttons
     auto navigatorHorizontalFrame = new FXHorizontalFrame(this, GUIDesignDialogContentHorizontalFrame);
     // create two horizontal frame for file selector
@@ -154,25 +154,25 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),
                       this, FXFileSelector::ID_BOOKMARK);
     new FXMenuCommand(myBookmarkMenuPane,
-                      (TL("Clear myBookmarsRecentFiles") + std::string("\t\t") + TL("Clear myBookmarsRecentFiles.")).c_str(),
+                      (TL("Clear bookmarks") + std::string("\t\t") + TL("Clear bookmarks.")).c_str(),
                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR),
-                      &myBookmarsRecentFiles, FXRecentFiles::ID_CLEAR);
+                      &myBookmarksRecentFiles, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(myBookmarkMenuPane);
-    sep1->setTarget(&myBookmarsRecentFiles);
+    sep1->setTarget(&myBookmarksRecentFiles);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_10);
     new FXFrame(navigatorHorizontalFrame, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
-    myBookmarsRecentFiles.setTarget(this);
-    myBookmarsRecentFiles.setSelector(FXFileSelector::ID_VISIT);
+    myBookmarksRecentFiles.setTarget(this);
+    myBookmarksRecentFiles.setSelector(FXFileSelector::ID_VISIT);
     // set shortcuts
     FXAccelTable* table = getShell()->getAccelTable();
     if (table) {
@@ -471,20 +471,20 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     bookcasc->setTarget(this);
     bookcasc->setSelector(FXFileSelector::ID_BOOKMENU);
     new FXMenuCommand(&bookmenu, TL("Set bookmark"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET), this, FXFileSelector::ID_BOOKMARK);
-    new FXMenuCommand(&bookmenu, TL("Clear myBookmarsRecentFiles"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &myBookmarsRecentFiles, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(&bookmenu, TL("Clear bookmarks"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_CLR), &myBookmarksRecentFiles, FXRecentFiles::ID_CLEAR);
     FXMenuSeparator* sep1 = new FXMenuSeparator(&bookmenu);
-    sep1->setTarget(&myBookmarsRecentFiles);
+    sep1->setTarget(&myBookmarksRecentFiles);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(&bookmenu, FXString::null, NULL, &myBookmarksRecentFiles, FXRecentFiles::ID_FILE_10);
 
     new FXMenuSeparator(&filemenu);
     new FXMenuCommand(&filemenu, TL("New directory..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW), this, FXFileSelector::ID_NEW);
@@ -897,7 +897,7 @@ GNEFileSelector::onCmdVisit(FXObject*, FXSelector, void* ptr) {
 
 long
 GNEFileSelector::onCmdBookmark(FXObject*, FXSelector, void*) {
-    myBookmarsRecentFiles.appendFile(getDirectory());
+    myBookmarksRecentFiles.appendFile(getDirectory());
     return 1;
 }
 

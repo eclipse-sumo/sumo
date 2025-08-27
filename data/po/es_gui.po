@@ -10583,11 +10583,11 @@ msgstr "Marcar el directorio actual."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:480
-msgid "Clear myBookmarsRecentFiles"
+msgid "Clear bookmarks"
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
-msgid "Clear myBookmarsRecentFiles."
+msgid "Clear bookmarks."
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131

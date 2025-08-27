@@ -165,7 +165,7 @@ public:
     /// @brief Handler for navigating to the work directory.
     long onCmdWork(FXObject*, FXSelector, void*);
 
-    /// @brief Handler for opening myBookmarsRecentFiles.
+    /// @brief Handler for opening myBookmarksRecentFiles.
     long onCmdBookmark(FXObject*, FXSelector, void*);
 
     /// @brief Handler for visiting a bookmarked location.
@@ -219,14 +219,14 @@ protected:
     /// @brief Combobox for pattern list
     FXComboBox* myFileFilterComboBox = nullptr;
 
-    /// @brief Menu for myBookmarsRecentFiles
+    /// @brief Menu for myBookmarksRecentFiles
     FXMenuPane* myBookmarkMenuPane = nullptr;
 
     /// @brief Directory hierarchy list
     FXDirBox* myDirBox = nullptr;
 
     /// @brief Bookmarked places
-    FXRecentFiles myBookmarsRecentFiles = nullptr;
+    FXRecentFiles myBookmarksRecentFiles = nullptr;
 
     /// @brief Select mode
     SelectMode mySelectmode = SelectMode::SAVE;
