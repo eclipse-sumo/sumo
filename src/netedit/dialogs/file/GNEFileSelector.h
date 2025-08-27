@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <vector>
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
@@ -31,8 +32,18 @@ class GNEFileSelector : public FXPacker {
     FXDECLARE(GNEFileSelector)
 
 public:
+    /// @brief file selection modes
+    enum class SelectMode {
+        SAVE,           // A single file, existing or not (to save to)
+        EXISTING,       // An existing file (to load)
+        MULTIPLE,       // Multiple existing files
+        MULTIPLE_ALL,   // Multiple existing files or directories, but not '.' and '..'
+        DIRECTORY       // Existing directory, including '.' or '..'
+    };
+
     /// @brief Constructor
-    GNEFileSelector(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
+    GNEFileSelector(FXComposite* p, const std::vector<std::string>& extensions,
+                    const bool save, const bool multiElements);
 
     /// @brief Destructor
     virtual ~GNEFileSelector();
@@ -41,22 +52,16 @@ public:
     void setFilename(const FXString& path);
 
     /// @brief Return file name, if any
-    FXString getFilename() const;
+    std::string getFilename() const;
 
     /// @brief get file names
-    FXString* getFilenames() const;
+    std::vector<std::string> getFilenames() const;
 
     /// Change file pattern
     void setPattern(const FXString& ptrn);
 
     /// Return file pattern
     FXString getPattern() const;
-
-    /// @brief set pattern list
-    void setPatternList(const FXString& patterns);
-
-    /// @brief Return list of patterns
-    FXString getPatternList() const;
 
     /// @brief set current pattern
     void setCurrentPattern(FXint n);
@@ -96,12 +101,6 @@ public:
 
     /// @brief Return file list style
     FXuint getFileBoxStyle() const;
-
-    /// @brief Change file selection mode
-    void setSelectMode(FXuint mode);
-
-    /// @brief Return file selection mode
-    FXuint getSelectMode() const;
 
     ///@brief  Change wildcard matching mode
     void setMatchMode(FXuint mode);
@@ -227,13 +226,13 @@ protected:
     FXRecentFiles myBookmarsRecentFiles = nullptr;
 
     /// @brief Select mode
-    FXuint mySelectmode = 0;
+    SelectMode mySelectmode = SelectMode::SAVE;
 
     /// @brief get selected files
-    FXString* getSelectedFiles() const;
+    std::vector<std::string> getSelectedFiles() const;
 
     /// @brief get selected files that are not directories
-    FXString* getSelectedFilesOnly() const;
+    std::vector<std::string> getSelectedFilesOnly() const;
 
 private:
     /// @brief disable copy constructor
