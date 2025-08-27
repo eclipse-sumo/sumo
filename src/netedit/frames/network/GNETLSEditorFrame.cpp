@@ -1569,20 +1569,20 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     if (currentJunction->getGNEIncomingEdges().empty() && currentJunction->getGNEOutgoingEdges().empty()) {
         // open warning dialog
         GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-        TL("TLS cannot be created"), {
-            TL("Traffic Light cannot be created because junction must have"),
-            TL("at least one incoming edge and one outgoing edge.")
-        });
+                              TL("TLS cannot be created"),
+                              TL("Traffic Light cannot be created because junction must have"),
+                              TL("at least one incoming edge and one outgoing edge.")
+                             );
         return 1;
     }
     // check number of connections
     if (currentJunction->getGNEConnections().empty()) {
         // open warning dialog
         GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-        TL("TLS cannot be created"), {
-            TL("Traffic Light cannot be created because junction"),
-            TL("must have at least one connection.")
-        });
+                              TL("TLS cannot be created"),
+                              TL("Traffic Light cannot be created because junction"),
+                              TL("must have at least one connection.")
+                             );
         return 1;
     }
     // check uncontrolled connections
@@ -1595,10 +1595,10 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     if (!connectionControlled) {
         // open warning dialog
         GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-        TL("TLS cannot be created"), {
-            TL("Traffic Light cannot be created because junction"),
-            TL("must have at least one controlled connection.")
-        });
+                              TL("TLS cannot be created"),
+                              TL("Traffic Light cannot be created because junction"),
+                              TL("must have at least one controlled connection.")
+                             );
         return 1;
     }
     // all checks ok, then create TLS in junction
