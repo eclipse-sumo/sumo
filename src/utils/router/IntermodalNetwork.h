@@ -102,7 +102,7 @@ public:
                 myArrivalLookup[edge].push_back(access);
             } else {
                 const L* lane = getSidewalk<E, L>(edge);
-                if (lane != 0) {
+                if (lane != nullptr) {
                     if (edge->isWalkingArea()) {
                         // only a single edge
                         addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, true));
