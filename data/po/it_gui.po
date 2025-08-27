@@ -10353,12 +10353,12 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:401
-msgid " - Duplicated and empty Keys aren't valid."
+msgid "- Duplicated and empty Keys aren't valid."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:402
-msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
+msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:409
@@ -17429,11 +17429,11 @@ msgstr ""
 #~ "- Può essere definito in netedit usando il formato chiave1=valore1|"
 #~ "chiave2=valore2|...\n"
 
-#~ msgid " - Duplicated and empty Keys aren't valid.\n"
+#~ msgid "- Duplicated and empty Keys aren't valid.\n"
 #~ msgstr " - parole chiave vuote o duplicate non sono valide.\n"
 
 #~ msgid ""
-#~ " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
+#~ "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 #~ msgstr " - Non sono permessi lo spazio e alcuni caratteri (@$%^&/|\\....)\n"
 
 #~ msgid "There are no lanes in the network"

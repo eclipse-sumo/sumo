@@ -10365,12 +10365,12 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:401
-msgid " - Duplicated and empty Keys aren't valid."
+msgid "- Duplicated and empty Keys aren't valid."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:402
-msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
+msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:409
@@ -17454,11 +17454,11 @@ msgstr ""
 #~ "- Kann in Netedit im Format Schlüssel1=Parameter1| Schlüssel2=Parameter2| "
 #~ "definiert werden...\n"
 
-#~ msgid " - Duplicated and empty Keys aren't valid.\n"
+#~ msgid "- Duplicated and empty Keys aren't valid.\n"
 #~ msgstr " - Doppelte und leere Schlüssel sind nicht gültig.\n"
 
 #~ msgid ""
-#~ " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
+#~ "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 #~ msgstr ""
 #~ " - Leere Flächen und bestimmte Zeichen sind nicht erlaubt (@$%^&/|"
 #~ "\\....)\n"

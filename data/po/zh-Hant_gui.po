@@ -10022,12 +10022,12 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:401
-msgid " - Duplicated and empty Keys aren't valid."
+msgid "- Duplicated and empty Keys aren't valid."
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:402
-msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
+msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:409
@@ -16964,11 +16964,11 @@ msgstr ""
 #~ "key2=parameter2|...\n"
 #~ msgstr "- 在netedit 內可以用格式密鑰 1=變數1|密鑰 2=變數2|...定義\n"
 
-#~ msgid " - Duplicated and empty Keys aren't valid.\n"
+#~ msgid "- Duplicated and empty Keys aren't valid.\n"
 #~ msgstr " - 重複的和空的密鑰是無效的。\n"
 
 #~ msgid ""
-#~ " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
+#~ "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 #~ msgstr " - 不允許使用空格和某些字元 （@$%^&/|\\....）\n"
 
 #~ msgid "There are no lanes in the network"
