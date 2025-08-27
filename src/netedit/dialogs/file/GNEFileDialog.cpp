@@ -22,41 +22,70 @@
 #include "GNEFileSelector.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-// Object implementation
-FXIMPLEMENT(GNEFileDialog, FXDialogBox, NULL, 0)
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEFileDialog::GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
-    FXDialogBox(owner, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
+                             const std::vector<std::string>& extensions, const bool save, const bool multiElements):
+    GNEDialog(applicationWindow, title, icon, GNEDialog::Buttons::ACCEPT_CANCEL,
+              GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
+    // create file selector
+    myFileSelector = new GNEFileSelector(this, extensions, save, multiElements);
+    /*
+        // open dialog
+        if (opendialog.execute()) {
+            // continue depending if we're loading or saving
+            if (save) {
+                // check if overwritte file
+                if (MFXUtils::userPermitsOverwritingWhenFileExists(window, opendialog.getFilename())) {
+                    // udpate current folder
+                    gCurrentFolder = opendialog.getDirectory();
+                    // assureExtension
+                    return MFXUtils::assureExtension(opendialog).text();
+                } else {
+                    // return empty file
+                    return "";
+                }
+            } else {
+                // udpate current folder
+                gCurrentFolder = opendialog.getDirectory();
+                // return file
+                if (multi) {
+                    FXString* files = opendialog.getFilenames();
+                    std::string result;
+                    bool first = true;
+                    if (files != nullptr) {
+                        for (int i = 0; !files[i].empty(); i++) {
+                            if (first) {
+                                first = false;
+                            } else {
+                                result += " ";
+                            }
+                            result += files[i].text();
+                        }
+                        delete [] files;
+
+                    }
+                    return result;
+                } else {
+                    return opendialog.getFilename().text();
+                }
+            }
+        } else {
+            // return empty file
+            return "";
+        }
+    */
+
+
+
     /*
     myFileSelector->acceptButton()->setTarget(this);
     myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
     myFileSelector->cancelButton()->setTarget(this);
     myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
     */
-    setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
-    setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
-    setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
-    showHiddenFiles(getApp()->reg().readUnsignedEntry("File Dialog", "showhidden", showHiddenFiles()));
-}
-
-
-GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h):
-    FXDialogBox(a, name, opts | DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | DECOR_CLOSE, x, y, w, h, 0, 0, 0, 0, 4, 4) {
-    myFileSelector = new GNEFileSelector(this, NULL, 0, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    /*
-    myFileSelector->acceptButton()->setTarget(this);
-    myFileSelector->acceptButton()->setSelector(FXDialogBox::ID_ACCEPT);
-    myFileSelector->cancelButton()->setTarget(this);
-    myFileSelector->cancelButton()->setSelector(FXDialogBox::ID_CANCEL);
-    */
+    // check if we have saved settings in registry
     setWidth(getApp()->reg().readIntEntry("File Dialog", "width", getWidth()));
     setHeight(getApp()->reg().readIntEntry("File Dialog", "height", getHeight()));
     setFileBoxStyle(getApp()->reg().readUnsignedEntry("File Dialog", "style", getFileBoxStyle()));
@@ -65,17 +94,12 @@ GNEFileDialog::GNEFileDialog(FXApp* a, const FXString& name, FXuint opts, FXint 
 
 
 GNEFileDialog::~GNEFileDialog() {
-    myFileSelector = (GNEFileSelector*) - 1L;
 }
 
 
 void
-GNEFileDialog::hide() {
-    FXDialogBox::hide();
-    getApp()->reg().writeIntEntry("File Dialog", "width", getWidth());
-    getApp()->reg().writeIntEntry("File Dialog", "height", getHeight());
-    getApp()->reg().writeUnsignedEntry("File Dialog", "style", getFileBoxStyle());
-    getApp()->reg().writeUnsignedEntry("File Dialog", "showhidden", showHiddenFiles());
+GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // not yet finish
 }
 
 
@@ -85,13 +109,13 @@ GNEFileDialog::setFilename(const FXString& path) {
 }
 
 
-FXString
+std::string
 GNEFileDialog::getFilename() const {
     return myFileSelector->getFilename();
 }
 
 
-FXString*
+std::vector<std::string>
 GNEFileDialog::getFilenames() const {
     return myFileSelector->getFilenames();
 }
@@ -106,18 +130,6 @@ GNEFileDialog::setPattern(const FXString& ptrn) {
 FXString
 GNEFileDialog::getPattern() const {
     return myFileSelector->getPattern();
-}
-
-
-void
-GNEFileDialog::setPatternList(const FXString& patterns) {
-    myFileSelector->setPatternList(patterns);
-}
-
-
-FXString
-GNEFileDialog::getPatternList() const {
-    return myFileSelector->getPatternList();
 }
 
 
@@ -200,18 +212,6 @@ GNEFileDialog::getFileBoxStyle() const {
 
 
 void
-GNEFileDialog::setSelectMode(FXuint mode) {
-    myFileSelector->setSelectMode(mode);
-}
-
-
-FXuint
-GNEFileDialog::getSelectMode() const {
-    return myFileSelector->getSelectMode();
-}
-
-
-void
 GNEFileDialog::setMatchMode(FXuint mode) {
     myFileSelector->setMatchMode(mode);
 }
@@ -259,65 +259,13 @@ GNEFileDialog::setImageSize(FXint size) {
 }
 
 
-FXString
-GNEFileDialog::getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    GNEFileDialog opendialog(owner, caption);
-    FXString filename;
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setFilename(path);
-    opendialog.setPatternList(patterns);
-    opendialog.setCurrentPattern(initial);
-    if (opendialog.execute()) {
-        filename = opendialog.getFilename();
-        if (FXStat::isFile(filename)) {
-            return filename;
-        }
-    }
-    return FXString::null;
-}
-
-
-FXString
-GNEFileDialog::getSaveFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    GNEFileDialog savedialog(owner, caption);
-    savedialog.setSelectMode(SELECTFILE_ANY);
-    savedialog.setFilename(path);
-    savedialog.setPatternList(patterns);
-    savedialog.setCurrentPattern(initial);
-    if (savedialog.execute()) {
-        return savedialog.getFilename();
-    }
-    return FXString::null;
-}
-
-
-FXString*
-GNEFileDialog::getOpenFilenames(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns, FXint initial) {
-    GNEFileDialog opendialog(owner, caption);
-    opendialog.setSelectMode(SELECTFILE_MULTIPLE);
-    opendialog.setFilename(path);
-    opendialog.setPatternList(patterns);
-    opendialog.setCurrentPattern(initial);
-    if (opendialog.execute()) {
-        return opendialog.getFilenames();
-    }
-    return NULL;
-}
-
-
-FXString
-GNEFileDialog::getOpenDirectory(FXWindow* owner, const FXString& caption, const FXString& path) {
-    GNEFileDialog dirdialog(owner, caption);
-    FXString dirname;
-    dirdialog.setSelectMode(SELECTFILE_DIRECTORY);
-    dirdialog.setFilename(path);
-    if (dirdialog.execute()) {
-        dirname = dirdialog.getFilename();
-        if (FXStat::isDirectory(dirname)) {
-            return dirname;
-        }
-    }
-    return FXString::null;
+long
+GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    getApp()->reg().writeIntEntry("File Dialog", "width", getWidth());
+    getApp()->reg().writeIntEntry("File Dialog", "height", getHeight());
+    getApp()->reg().writeUnsignedEntry("File Dialog", "style", getFileBoxStyle());
+    getApp()->reg().writeUnsignedEntry("File Dialog", "showhidden", showHiddenFiles());
+    return 1;
 }
 
 /****************************************************************************/

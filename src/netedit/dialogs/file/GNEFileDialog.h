@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declaration
@@ -32,42 +32,32 @@ class GNEFileSelector;
 // class definitions
 // ===========================================================================
 
-class GNEFileDialog : public FXDialogBox {
-    /// @brief FOX declaration
-    FXDECLARE(GNEFileDialog)
+class GNEFileDialog : public GNEDialog {
 
-    /// Construct file dialog box
-    GNEFileDialog(FXWindow* owner, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
+    /// @brief constructor
+    GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
+                  const std::vector<std::string>& extensions, const bool save, const bool multiElements);
 
-    /// Construct free-floating file dialog box
-    GNEFileDialog(FXApp* a, const FXString& name, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 500, FXint h = 300);
+    /// @brief destructor
+    ~GNEFileDialog();
 
-    /// Destructor
-    virtual ~GNEFileDialog();
-
-    /// Hide this window
-    virtual void hide();
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// Change file name
     void setFilename(const FXString& path);
 
     /// Return file name, if any
-    FXString getFilename() const;
+    std::string getFilename() const;
 
     /// Return empty-string terminated list of selected file names, or NULL if none selected
-    FXString* getFilenames() const;
+    std::vector<std::string> getFilenames() const;
 
     /// Change file pattern
     void setPattern(const FXString& ptrn);
 
     /// Return file pattern
     FXString getPattern() const;
-
-    /// @brief set list of patterns
-    void setPatternList(const FXString& patterns);
-
-    /// Return list of patterns
-    FXString getPatternList() const;
 
     /// @brief set current pattern
     void setCurrentPattern(FXint n);
@@ -102,12 +92,6 @@ class GNEFileDialog : public FXDialogBox {
     /// Return the inter-item spacing (in pixels)
     FXint getItemSpace() const;
 
-    /// Change file selection mode
-    void setSelectMode(FXuint mode);
-
-    /// Return file selection mode
-    FXuint getSelectMode() const;
-
     /// Change wildcard matching mode
     void setMatchMode(FXuint mode);
 
@@ -138,22 +122,15 @@ class GNEFileDialog : public FXDialogBox {
     /// Return File List style
     FXuint getFileBoxStyle() const;
 
-    /// Open existing filename
-    static FXString getOpenFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns = "*", FXint initial = 0);
+    /// @name FOX-callbacks
+    /// @{
 
-    /// Open multiple existing files
-    static FXString* getOpenFilenames(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns = "*", FXint initial = 0);
+    /// @brief called when accept or yes button is pressed (can be reimplemented in children)
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// Save to filename
-    static FXString getSaveFilename(FXWindow* owner, const FXString& caption, const FXString& path, const FXString& patterns = "*", FXint initial = 0);
-
-    /// Open directory name
-    static FXString getOpenDirectory(FXWindow* owner, const FXString& caption, const FXString& path);
+    /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEFileDialog)
-
     /// @brief the file selector widget
     GNEFileSelector* myFileSelector;
 
