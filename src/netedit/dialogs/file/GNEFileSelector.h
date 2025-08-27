@@ -33,7 +33,7 @@ class GNEFileDialog;
 // class definitions
 // ===========================================================================
 
-class GNEFileSelector : public FXPacker {
+class GNEFileSelector : public FXVerticalFrame {
     /// @brief FOX declaration
     FXDECLARE(GNEFileSelector)
 

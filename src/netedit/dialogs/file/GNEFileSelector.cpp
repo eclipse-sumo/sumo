@@ -20,6 +20,7 @@
 
 #include <fxkeys.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
@@ -63,7 +64,7 @@ FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
 };
 
 // Implementation
-FXIMPLEMENT(GNEFileSelector, FXPacker, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSelectorMap))
+FXIMPLEMENT(GNEFileSelector, FXVerticalFrame, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSelectorMap))
 
 // ===========================================================================
 // member method definitions
@@ -71,37 +72,81 @@ FXIMPLEMENT(GNEFileSelector, FXPacker, GNEFileSelectorMap, ARRAYNUMBER(GNEFileSe
 
 GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
                                  const bool save, const bool multiElements):
-    FXPacker(fileDialog->getContentFrame(), (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0),
+    FXVerticalFrame(fileDialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myFileDialog(fileDialog),
     myBookmarsRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
-    auto navbuttons = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X, 0, 0, 0, 0, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, 0, 0);
-    auto entryblock = new FXMatrix(this, 3, MATRIX_BY_COLUMNS | LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
-    // label for filename
-    new FXLabel(entryblock,
-                TL("File Name:"),
-                NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
-    // filename text field
-    myFilenameTextField = new FXTextField(entryblock, 25, this, FXFileSelector::ID_ACCEPT, TEXTFIELD_ENTER_ONLY | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
-    new FXButton(entryblock,
-                 TL("OK"),
-                 NULL,
-                 this, FXFileSelector::ID_ACCEPT, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_FILL_X, 0, 0, 0, 0, 20, 20);
-    // label for file filter
-    new FXLabel(entryblock,
-                TL("File Filter:"),
-                NULL, JUSTIFY_LEFT | LAYOUT_CENTER_Y);
-    FXHorizontalFrame* filterframe = new FXHorizontalFrame(entryblock, LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-    myFileFilterComboBox = new FXComboBox(filterframe, 10, this, FXFileSelector::ID_FILEFILTER, COMBOBOX_STATIC | LAYOUT_FILL_X | FRAME_SUNKEN | FRAME_THICK);
-    auto fileboxframe = new FXHorizontalFrame(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0);
-    // file selector
+    // create horizontal frame for top buttons
+    auto navigatorHorizontalFrame = new FXHorizontalFrame(this, GUIDesignDialogContentHorizontalFrame);
+    // create two horizontal frame for file selector
+    auto externFileboxframe = new FXHorizontalFrame(this, GUIDesignDialogContentFrame);
+    auto fileboxframe = new FXHorizontalFrame(externFileboxframe, GUIDesignFileBoxFrame);
+    // horizontal frame for filename
+    auto filenameHorizontalFrame = new FXHorizontalFrame(this, GUIDesignDialogContentHorizontalFrame);
+    // first create file selector
     myFileSelector = new FXFileList(fileboxframe, this, FXFileSelector::ID_FILELIST, ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // label for directory
-    new FXLabel(navbuttons,
-                TL("Directory:"),
-                NULL, LAYOUT_CENTER_Y);
-    myDirBox = new FXDirBox(navbuttons, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
+    new FXLabel(navigatorHorizontalFrame, TL("Directory:"), nullptr, GUIDesignLabelFixed(100));
+    // create directory box
+    myDirBox = new FXDirBox(navigatorHorizontalFrame, this, FXFileSelector::ID_DIRTREE, DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_CENTER_Y, 0, 0, 0, 0, 1, 1, 1, 1);
     myDirBox->setNumVisible(5);
     myDirBox->setAssociations(myFileSelector->getAssociations());
+    // create button for going up one directory
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Go up one directory") + std::string("\t") + TL("Move up to higher directory.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON),
+                 this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for go to home directory
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Go to home directory") + std::string("\t") + TL("Back to home directory.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME),
+                 this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for go to work directory
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Go to work directory") + std::string("\t") + TL("Back to working directory.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
+                 this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for bookmarks menu
+    FXMenuButton* bookmenu = new FXMenuButton(navigatorHorizontalFrame,
+            (std::string("\t") + TL("Bookmarks") + std::string("\t") + TL("Visit bookmarked directories.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),
+            myBookmarkMenuPane, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    bookmenu->setTarget(this);
+    bookmenu->setSelector(FXFileSelector::ID_BOOKMENU);
+    // create button for creating a new directory
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Create new directory") + std::string("\t") + TL("Create new directory.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW),
+                 this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for show lists
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Show list") + std::string("\t") + TL("Display directory with small icons.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_SMALLICONS),
+                 myFileSelector, FXFileList::ID_SHOW_MINI_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for show icons
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Show icons") + std::string("\t") + TL("Display directory with big icons.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS),
+                 myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for show details
+    new FXButton(navigatorHorizontalFrame,
+                 (std::string("\t") + TL("Show details") + std::string("\t") + TL("Display detailed directory listing.")).c_str(),
+                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS),
+                 myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create button for toogle show/hide hidden files
+    new FXToggleButton(navigatorHorizontalFrame,
+                       (std::string("\t") + TL("Show hidden files") + std::string("\t") + TL("Show hidden files and directories.")).c_str(),
+                       (std::string("\t") + TL("Hide Hidden Files") + std::string("\t") + TL("Hide hidden files and directories.")).c_str(),
+                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN),
+                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN),
+                       myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    // create label for filename
+    new FXLabel(filenameHorizontalFrame,
+                TL("File Name:"),
+                nullptr, GUIDesignLabelFixed(100));
+    // create filename text field
+    myFilenameTextField = new FXTextField(filenameHorizontalFrame, GUIDesignTextFieldNCol, this, FXFileSelector::ID_ACCEPT, GUIDesignTextFieldFileDialog);
+    // create comboBox for file filter
+    myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
     // create bookmarks menu pane
     myBookmarkMenuPane = new FXMenuPane(this, POPUP_SHRINKWRAP);
     new FXMenuCommand(myBookmarkMenuPane,
@@ -125,56 +170,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_8);
     new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_9);
     new FXMenuCommand(myBookmarkMenuPane, FXString::null, NULL, &myBookmarsRecentFiles, FXRecentFiles::ID_FILE_10);
-    new FXFrame(navbuttons, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
-    // button for going up one directory
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Go up one directory") + std::string("\t") + TL("Move up to higher directory.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON),
-                 this, FXFileSelector::ID_DIRECTORY_UP, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for go to home directory
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Go to home directory") + std::string("\t") + TL("Back to home directory.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME),
-                 this, FXFileSelector::ID_HOME, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for go to work directory
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Go to work directory") + std::string("\t") + TL("Back to working directory.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
-                 this, FXFileSelector::ID_WORK, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for bookmarks menu
-    FXMenuButton* bookmenu = new FXMenuButton(navbuttons,
-            (std::string("\t") + TL("Bookmarks") + std::string("\t") + TL("Visit bookmarked directories.")).c_str(),
-            GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),
-            myBookmarkMenuPane, MENUBUTTON_NOARROWS | MENUBUTTON_ATTACH_LEFT | MENUBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    bookmenu->setTarget(this);
-    bookmenu->setSelector(FXFileSelector::ID_BOOKMENU);
-    // button for creating a new directory
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Create new directory") + std::string("\t") + TL("Create new directory.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_NEW),
-                 this, FXFileSelector::ID_NEW, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for show lists
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Show list") + std::string("\t") + TL("Display directory with small icons.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_SMALLICONS),
-                 myFileSelector, FXFileList::ID_SHOW_MINI_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for show icons
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Show icons") + std::string("\t") + TL("Display directory with big icons.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_BIGICONS),
-                 myFileSelector, FXFileList::ID_SHOW_BIG_ICONS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for show details
-    new FXButton(navbuttons,
-                 (std::string("\t") + TL("Show details") + std::string("\t") + TL("Display detailed directory listing.")).c_str(),
-                 GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_SHOW_DETAILS),
-                 myFileSelector, FXFileList::ID_SHOW_DETAILS, BUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
-    // button for toogle show/hide hidden files
-    new FXToggleButton(navbuttons,
-                       (std::string("\t") + TL("Show hidden files") + std::string("\t") + TL("Show hidden files and directories.")).c_str(),
-                       (std::string("\t") + TL("Hide Hidden Files") + std::string("\t") + TL("Hide hidden files and directories.")).c_str(),
-                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_HIDDEN),
-                       GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_SHOWN),
-                       myFileSelector, FXFileList::ID_TOGGLE_HIDDEN, TOGGLEBUTTON_TOOLBAR | FRAME_RAISED, 0, 0, 0, 0, 3, 3, 3, 3);
+    new FXFrame(navigatorHorizontalFrame, LAYOUT_FIX_WIDTH, 0, 0, 4, 1);
     myBookmarsRecentFiles.setTarget(this);
     myBookmarsRecentFiles.setSelector(FXFileSelector::ID_VISIT);
     // set shortcuts
@@ -200,7 +196,6 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
             mySelectmode = SelectMode::EXISTING;
         }
     }
-
     switch (mySelectmode) {
         case SelectMode::EXISTING:
             myFileSelector->showOnlyDirectories(FALSE);
@@ -220,7 +215,6 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
             break;
     }
-
     // set directory
     if (gCurrentFolder.length() != 0) {
         setDirectory(gCurrentFolder);
