@@ -171,6 +171,9 @@ output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
+output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
+output:vm3dgl: Failed to initialize svga driver.
+output:vm3dgl: Falling back to LLVMPipe.
 
 guisettingsoutput:<scheme{[->]}</scheme>
 
