@@ -1130,23 +1130,22 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GOOGLEMAPS] = new FXXPMIcon(a, googlemaps_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
-    // this icons must be changed to XPM
-    myIcons[GUIIcon::FILEDIALOG_BOOK_CLR] = new FXGIFIcon(a, filedialog_bookclr_xpm);
-    myIcons[GUIIcon::FILEDIALOG_BOOK_SET] = new FXGIFIcon(a, filedialog_bookset_xpm);
-    myIcons[GUIIcon::FILEDIALOG_DIRUP_ICON] = new FXGIFIcon(a, filedialog_dirupicon_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_COPY] = new FXGIFIcon(a, filedialog_filecopy_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_DELETE] = new FXGIFIcon(a, filedialog_filedelete_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_HIDDEN] = new FXGIFIcon(a, filedialog_filehidden_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_LINK] = new FXGIFIcon(a, filedialog_filelink_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_MOVE] = new FXGIFIcon(a, filedialog_filemove_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FILE_SHOWN] = new FXGIFIcon(a, filedialog_fileshown_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FOLDER_BIG] = new FXGIFIcon(a, filedialog_bigfolder_xpm);
-    myIcons[GUIIcon::FILEDIALOG_FOLDER_NEW] = new FXGIFIcon(a, filedialog_foldernew_xpm);
-    myIcons[GUIIcon::FILEDIALOG_GOTO_HOME] = new FXGIFIcon(a, filedialog_gotohome_xpm);
-    myIcons[GUIIcon::FILEDIALOG_GOTO_WORK] = new FXGIFIcon(a, filedialog_gotowork_xpm);
-    myIcons[GUIIcon::FILEDIALOG_SHOW_BIGICONS] = new FXGIFIcon(a, filedialog_showbigicons_xpm);
-    myIcons[GUIIcon::FILEDIALOG_SHOW_DETAILS] = new FXGIFIcon(a, filedialog_showdetails_xpm);
-    myIcons[GUIIcon::FILEDIALOG_SHOW_SMALLICONS] = new FXGIFIcon(a, filedialog_showsmallicons_xpm);
+    myIcons[GUIIcon::FILEDIALOG_BOOK_CLR] = new FXXPMIcon(a, filedialog_bookclr_xpm);
+    myIcons[GUIIcon::FILEDIALOG_BOOK_SET] = new FXXPMIcon(a, filedialog_bookset_xpm);
+    myIcons[GUIIcon::FILEDIALOG_DIRUP_ICON] = new FXXPMIcon(a, filedialog_dirupicon_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_COPY] = new FXXPMIcon(a, filedialog_filecopy_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_DELETE] = new FXXPMIcon(a, filedialog_filedelete_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_HIDDEN] = new FXXPMIcon(a, filedialog_filehidden_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_LINK] = new FXXPMIcon(a, filedialog_filelink_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_MOVE] = new FXXPMIcon(a, filedialog_filemove_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_SHOWN] = new FXXPMIcon(a, filedialog_fileshown_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FOLDER_BIG] = new FXXPMIcon(a, filedialog_bigfolder_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FOLDER_NEW] = new FXXPMIcon(a, filedialog_foldernew_xpm);
+    myIcons[GUIIcon::FILEDIALOG_GOTO_HOME] = new FXXPMIcon(a, filedialog_gotohome_xpm);
+    myIcons[GUIIcon::FILEDIALOG_GOTO_WORK] = new FXXPMIcon(a, filedialog_gotowork_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_BIGICONS] = new FXXPMIcon(a, filedialog_showbigicons_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_DETAILS] = new FXXPMIcon(a, filedialog_showdetails_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_SMALLICONS] = new FXXPMIcon(a, filedialog_showsmallicons_xpm);
 
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);

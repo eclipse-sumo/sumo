@@ -324,7 +324,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
         case Buttons::SAVE_DONTSAVE_CANCEL: {
             // save button
             myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Save"), "", TL("Save"),
-                             GUIIconSubSys::getIcon(GUIIcon::YES), this,
+                             GUIIconSubSys::getIcon(GUIIcon::SAVE), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // buttons separator
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
