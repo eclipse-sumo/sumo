@@ -27,6 +27,49 @@
 
 
 // ===========================================================================
+// helper class definitions
+// ===========================================================================
+class ArrowOStreamWrapper : public arrow::io::OutputStream {
+public:
+    ArrowOStreamWrapper(std::ostream& out)
+        : myOStream(out), myAmOpen(true) {}
+
+    arrow::Status Close() override {
+        myAmOpen = false;
+        return arrow::Status::OK();
+    }
+
+    arrow::Status Flush() override {
+        myOStream.flush();
+        return arrow::Status::OK();
+    }
+
+    arrow::Result<int64_t> Tell() const override {
+        return myOStream.tellp();
+    }
+
+    bool closed() const override {
+        return !myAmOpen;
+    }
+
+    arrow::Status Write(const void* data, int64_t nbytes) override {
+        if (!myAmOpen) {
+            return arrow::Status::IOError("Write on closed stream");
+        }
+        myOStream.write(reinterpret_cast<const char*>(data), nbytes);
+        if (!myOStream) {
+            return arrow::Status::IOError("Failed to write to ostream");
+        }
+        return arrow::Status::OK();
+    }
+
+private:
+    std::ostream& myOStream;
+    bool myAmOpen;
+};
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 ParquetFormatter::ParquetFormatter(const std::string& columnNames, const std::string& compression, const int batchSize)

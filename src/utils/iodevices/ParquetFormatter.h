@@ -22,24 +22,7 @@
 
 #include <ostream>
 
-/* Disable warning about unused parameters */
-#pragma warning(disable: 4100)
-/* Disable warning about hidden function arrow::io::Writable::Write */
-#pragma warning(disable: 4266)
-/* Disable warning about padded memory layout */
-#pragma warning(disable: 4324)
-/* Disable warning about this in initializers */
-#pragma warning(disable: 4355)
-/* Disable warning about changed memory layout due to virtual base class */
-#pragma warning(disable: 4435)
-/* Disable warning about declaration hiding class member */
-#pragma warning(disable: 4458)
-/* Disable warning about implicit conversion of int to bool */
-#pragma warning(disable: 4800)
-
 #include <arrow/api.h>
-#include <arrow/io/interfaces.h>
-#include <arrow/status.h>
 #include <parquet/arrow/writer.h>
 
 #include <utils/common/ToString.h>
@@ -49,46 +32,6 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class ArrowOStreamWrapper : public arrow::io::OutputStream {
-public:
-    ArrowOStreamWrapper(std::ostream& out)
-        : myOStream(out), myAmOpen(true) {}
-
-    arrow::Status Close() override {
-        myAmOpen = false;
-        return arrow::Status::OK();
-    }
-
-    arrow::Status Flush() override {
-        myOStream.flush();
-        return arrow::Status::OK();
-    }
-
-    arrow::Result<int64_t> Tell() const override {
-        return myOStream.tellp();
-    }
-
-    bool closed() const override {
-        return !myAmOpen;
-    }
-
-    arrow::Status Write(const void* data, int64_t nbytes) override {
-        if (!myAmOpen) {
-            return arrow::Status::IOError("Write on closed stream");
-        }
-        myOStream.write(reinterpret_cast<const char*>(data), nbytes);
-        if (!myOStream) {
-            return arrow::Status::IOError("Failed to write to ostream");
-        }
-        return arrow::Status::OK();
-    }
-
-private:
-    std::ostream& myOStream;
-    bool myAmOpen;
-};
-
-
 /**
  * @class ParquetFormatter
  * @brief Output formatter for Parquet output
