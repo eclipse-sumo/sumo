@@ -260,6 +260,8 @@ public:
                          GUIIcon icon, const int sizeX, const int sizeY):
         GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
                   GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
+        UNUSED_PARAMETER(sizeX);
+        UNUSED_PARAMETER(sizeY);
         // create left and right frames
         FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
         myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);

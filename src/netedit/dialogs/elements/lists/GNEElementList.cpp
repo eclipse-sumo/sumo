@@ -97,13 +97,13 @@ GNEElementList::isListValid() const {
 
 
 long
-GNEElementList::onCmdAddRow(FXObject* sender, FXSelector, void*) {
+GNEElementList::onCmdAddRow(FXObject*, FXSelector, void*) {
     return addNewElement();
 }
 
 
 long
-GNEElementList::onCmdSort(FXObject* sender, FXSelector, void*) {
+GNEElementList::onCmdSort(FXObject*, FXSelector, void*) {
     return sortRows();
 }
 

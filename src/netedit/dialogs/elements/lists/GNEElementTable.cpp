@@ -288,19 +288,19 @@ GNEElementTable::Row::onCmdEditRow(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEElementTable::Row::onCmdRemoveRow(FXObject* sender, FXSelector, void*) {
+GNEElementTable::Row::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     return myElementTable->myElementList->removeElement(myRowIndex);
 }
 
 
 long
-GNEElementTable::Row::onCmdOpenElementDialog(FXObject* sender, FXSelector, void*) {
+GNEElementTable::Row::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
     return myElementTable->myElementList->openElementDialog(myRowIndex);
 }
 
 
 long
-GNEElementTable::Row::onCmdOpenVClassDialog(FXObject* sender, FXSelector, void*) {
+GNEElementTable::Row::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     // get column with 'allow' attribute
     const int allowColumnIndex = myElementTable->myColumnHeader->getAttributeIndex(SUMO_ATTR_ALLOW);
     if (allowColumnIndex >= 0) {

@@ -62,7 +62,7 @@ GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     closeDialogCanceling();
     // reset text
