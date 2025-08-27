@@ -483,7 +483,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
     } else if (rowAttrType == ROWTYPE_COMBOBOX) {
         myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-                                         VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
+                                         VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxFixed(180));
         // fill combo Box with values
         for (const auto& value : values) {
             myComboBox->appendIconItem(value.c_str(), nullptr);

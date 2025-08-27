@@ -2361,7 +2361,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
                                           this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataColorInterpolation = new FXCheckButton(m111, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataColorSettingFrame = new FXVerticalFrame(verticalFrame2, GUIDesignViewSettingsVerticalFrame4);
-    myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxWidth100);
+    myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxFixed(100));
     myDataParamKey->setEditable(true);
     myDataParamKey->disable();
     mySettings->dataColorer.fill(*myDataColorMode);

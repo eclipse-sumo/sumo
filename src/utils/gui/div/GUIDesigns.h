@@ -85,8 +85,11 @@ class MFXMenuCheckIcon;
 /// @brief text field with min width (used in TLS table)
 #define GUIDesignTextFieldTLSTable                      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field used in file dialog
+#define GUIDesignTextFieldFileDialog                    (FRAME_THICK | FRAME_SUNKEN | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief Num of column of text field
-#define GUIDesignTextFieldNCol          1
+#define GUIDesignTextFieldNCol                          1
 
 /// @}
 
@@ -286,25 +289,25 @@ class MFXMenuCheckIcon;
 /// @name MFXComboBoxIcon
 /// @{
 /// @brief Combo box editable extended over the all frame
-#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBox                           (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable)
-#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStatic                     (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable) extended over the all frame
-#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStaticExtended             (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
-#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxAttribute                  (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief comboBox with thick frame, width 180
-#define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief comboBox with thick frame, width 100
-#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+/// @brief comboBox with thick frame, fixed width
+#define GUIDesignComboBoxFixed(customWidth)         (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, customWidth, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
+
+/// @brief Combo box used in filed dialog
+#define GUIDesignComboBoxFileDialog                 (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 300, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -411,8 +414,14 @@ class MFXMenuCheckIcon;
 /// @brief design for content frame used in dialog
 #define GUIDesignDialogContentFrame                         (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
 
+/// @brief design for content horizontal frame used in dialog
+#define GUIDesignDialogContentHorizontalFrame               (LAYOUT_FILL_X), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief design for content vertical frame used in dialog
+#define GUIDesignDialogContentVerticalFrame                 (LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
+
 /// @brief design for content frame used in dialog
-#define GUIDesignDialogButtonsFrame                         (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4
+#define GUIDesignDialogButtonsHorizontalFrame               (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 24
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame                    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -435,8 +444,8 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
 #define GUIDesignAuxiliarFrameFixHeight                     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for auxiliar vertical used for separate buttons in dialogs
-#define GUIDesignDialogButtonSeparator                     (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 15, GUIDesignDialogButtonsHeight, 0, 0, 0, 0, 0, 0
+/// @brief design for filebox frame
+#define GUIDesignFileBoxFrame                               (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 
