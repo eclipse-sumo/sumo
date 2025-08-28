@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-27 13:34+0200\n"
-"PO-Revision-Date: 2025-08-28 09:44+0000\n"
+"PO-Revision-Date: 2025-08-29 10:01+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -2141,7 +2141,7 @@ msgstr "duración del ciclo"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:253
 msgid "req driveway"
-msgstr ""
+msgstr "accesos requeridos"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:254
 msgid "blocking"
@@ -2149,7 +2149,7 @@ msgstr "bloqueando"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking driveways"
-msgstr ""
+msgstr "accesos bloqueados"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
@@ -2326,7 +2326,7 @@ msgstr "distancia de maniobra de cambio de carril [m]"
 
 #: src/guisim/GUIVehicle.cpp:200
 msgid "driveways"
-msgstr ""
+msgstr "accesos"
 
 #: src/guisim/GUIVehicle.cpp:203
 msgid "present state of charge [Wh]"
@@ -2672,11 +2672,11 @@ msgstr "Recalcular con opciones volátiles"
 
 #: src/netedit/GNEApplicationWindow.cpp:1816
 msgid "Changes produced in the net due a recomputing with"
-msgstr ""
+msgstr "Los cambios producidos en la red debido a un recálculo con"
 
 #: src/netedit/GNEApplicationWindow.cpp:1817
 msgid "volatile options cannot be undone. Continue?"
-msgstr ""
+msgstr "opciones volátiles no se pueden deshacer. ¿Desea continuar?"
 
 #: src/netedit/GNEApplicationWindow.cpp:2123
 #: src/netedit/GNEApplicationWindow.cpp:2183
@@ -10033,7 +10033,7 @@ msgstr "Restablecer"
 
 #: src/netedit/dialogs/GNEDialog.cpp:383 src/netedit/dialogs/GNEDialog.cpp:425
 msgid "Reset changes"
-msgstr ""
+msgstr "Restablecer cambios"
 
 #: src/netedit/dialogs/GNEDialog.cpp:392
 msgid "Keep new"
@@ -10041,7 +10041,7 @@ msgstr "Mantener el nuevo"
 
 #: src/netedit/dialogs/GNEDialog.cpp:392
 msgid "Keep new changes"
-msgstr ""
+msgstr "Conservar los nuevos cambios"
 
 #: src/netedit/dialogs/GNEDialog.cpp:398
 msgid "Keep old"
@@ -10062,7 +10062,7 @@ msgstr "Avanzado"
 
 #: src/netedit/dialogs/GNEDialog.cpp:440
 msgid "Advanced options"
-msgstr ""
+msgstr "Opciones avanzadas"
 
 #: src/netedit/dialogs/GNEDialog.cpp:455
 #: src/netedit/dialogs/run/GNERunDialog.cpp:207
@@ -10100,7 +10100,7 @@ msgstr "resetear a los valores previos"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:34
 msgid "Parameters of %"
-msgstr ""
+msgstr "Parámetros de %"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:45
 msgid "Attribute"
@@ -10121,16 +10121,16 @@ msgstr "Definición"
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:31
 #, c-format
 msgid "Keep % elements"
-msgstr ""
+msgstr "Conservar % elementos"
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:36
 #, c-format
 msgid "Selected % file was already loaded."
-msgstr ""
+msgstr "El archivo % seleccionado ya estaba cargado."
 
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:37
 msgid "Keep new or old elements?"
-msgstr ""
+msgstr "¿Mantener elementos nuevos o antiguos?"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:294
 msgid "Sort"
