@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-27 13:34+0200\n"
-"PO-Revision-Date: 2025-08-27 14:39+0000\n"
+"PO-Revision-Date: 2025-08-28 09:44+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10181,11 +10181,12 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:412
 msgid "- Duplicated and empty Keys aren't valid."
-msgstr ""
+msgstr "- No se permiten claves duplicadas ni vacías."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:413
 msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
+"- No se permiten espacios en blanco ni ciertos caracteres (@$%^&/|\\....)"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:416
 msgid "Parameters Help"
@@ -10246,7 +10247,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Parameters with the same key aren't allowed"
-msgstr ""
+msgstr "No se permiten parámetros con la misma clave (key)"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10450,11 +10451,11 @@ msgstr "editar % '%'"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:207
 msgid "Error editing % '%'"
-msgstr ""
+msgstr "Error al editar % '%'"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:208
 msgid "The % '%' cannot be updated because there are invalid attributes."
-msgstr ""
+msgstr "No se pudo actualizar % ‘%’ porque contiene atributos no válidos."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:67
 msgid "Error updating % '%'"
@@ -10462,7 +10463,7 @@ msgstr "Error al actualizar % '%'"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:68
 msgid "% '%' cannot be updated because"
-msgstr ""
+msgstr "% '%' no se puede actualizar porque"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:72
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:74
@@ -10474,7 +10475,7 @@ msgstr ""
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:92
 #, c-format
 msgid "there are invalid %s."
-msgstr ""
+msgstr "hay %s no válidos."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:183
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:226
@@ -10521,7 +10522,7 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:37
 msgid "Edit % '%'"
-msgstr ""
+msgstr "Editar % '%'"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:41
 msgid "change % values"
@@ -10549,16 +10550,16 @@ msgstr "Abrir archivo OSG"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1807
 msgid "Error editing %"
-msgstr ""
+msgstr "Error al editar %"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1808
 #, c-format
 msgid "The % cannot be updated because attribute % is invalid."
-msgstr ""
+msgstr "No se pudo actualizar % porque el atributo % no es válido."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:76
 msgid "Visited Directories"
-msgstr ""
+msgstr "Directorios visitados"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:81
 msgid "File Name:"
@@ -10584,11 +10585,11 @@ msgstr "Marcar el directorio actual."
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:480
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Borrar marcadores"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 msgid "Clear bookmarks."
-msgstr ""
+msgstr "Borrar marcadores."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131
 msgid "Go up one directory"
@@ -10821,23 +10822,23 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:441
 msgid "Up one level"
-msgstr ""
+msgstr "Subir un nivel"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:442
 msgid "Home directory"
-msgstr ""
+msgstr "Directorio principal"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:443
 msgid "Work directory"
-msgstr ""
+msgstr "Directorio de trabajo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:444
 msgid "Select all"
-msgstr ""
+msgstr "Seleccionar todo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:448
 msgid "Sort by"
-msgstr ""
+msgstr "Ordenar por"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:449
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
@@ -10851,109 +10852,109 @@ msgstr "Tamaño"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:453
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:454
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:456
 msgid "Reverse"
-msgstr ""
+msgstr "Invertir"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:457
 msgid "Ignore case"
-msgstr ""
+msgstr "Ignorar mayúsculas/minúsculas"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:460
 msgid "View"
-msgstr ""
+msgstr "Vista"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:461
 msgid "Small icons"
-msgstr ""
+msgstr "Iconos pequeños"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:462
 msgid "Big icons"
-msgstr ""
+msgstr "Iconos grandes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:463
 msgid "Details"
-msgstr ""
+msgstr "Detalles"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:465
 msgid "Rows"
-msgstr ""
+msgstr "Filas"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:466
 msgid "Columns"
-msgstr ""
+msgstr "Columnas"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:468
 msgid "Hidden files"
-msgstr ""
+msgstr "Archivos ocultos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:469
 msgid "Preview images"
-msgstr ""
+msgstr "Previsualizar imágenes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:471
 msgid "Normal images"
-msgstr ""
+msgstr "Imágenes normales"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:472
 msgid "Medium images"
-msgstr ""
+msgstr "Imágenes medias"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:473
 msgid "Giant images"
-msgstr ""
+msgstr "Imágenes grandes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:496
 msgid "New directory..."
-msgstr ""
+msgstr "Nuevo directorio..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:497
 msgid "Copy..."
-msgstr ""
+msgstr "Copiar..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:498
 msgid "Move..."
-msgstr ""
+msgstr "Mover..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:499
 msgid "Link..."
-msgstr ""
+msgstr "Enlazar..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:500
 msgid "Delete..."
-msgstr ""
+msgstr "Eliminar..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:926
 msgid "Create New Directory"
-msgstr ""
+msgstr "Crear directorio nuevo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:926
 msgid "Create new directory with name: "
-msgstr ""
+msgstr "Crear un nuevo directorio con nombre: "
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
 msgid "Already Exists"
-msgstr ""
+msgstr "Ya existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
 #, c-format
 msgid "File or directory %s already exists.\n"
-msgstr ""
+msgstr "El archivo o directorio %s ya existe.\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:933
 msgid "Cannot Create"
-msgstr ""
+msgstr "No se pudo crear"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:933
 #, c-format
 msgid "Cannot create directory %s.\n"
-msgstr ""
+msgstr "No se pudo crear el directorio %s.\n"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
 msgid "Select a solution for StoppingPlaces and E2 detectors"
@@ -11170,28 +11171,28 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:408
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:409
 msgid "Remove invalid plans"
-msgstr ""
+msgstr "Remover planes no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:413
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:414
 msgid "Save invalid plans"
-msgstr ""
+msgstr "Guardar planes no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:418
 msgid "Select conflicted plans"
-msgstr ""
+msgstr "Seleccionar los planes en conflicto"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:419
 msgid "Select conflicted plans and abort saving"
-msgstr ""
+msgstr "Seleccionar los planes en conflicto y cancelar el guardado"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:444
 msgid "delete invalid person plans"
-msgstr ""
+msgstr "eliminar planes de personas no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:451
 msgid "select invalid person plans"
-msgstr ""
+msgstr "seleccionar planes de personas no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:490
 msgid "Fix demand elements problems"
@@ -11212,7 +11213,7 @@ msgstr "Guardado exitoso"
 
 #: src/netedit/dialogs/fix/GNEFixElementsDialog.h:240
 msgid "List of conflicted items was successfully saved"
-msgstr ""
+msgstr "La lista de elementos en conflicto se guardó correctamente"
 
 #: src/netedit/dialogs/fix/GNEFixElementsDialog.h:245
 msgid "Saving list of conflicted items failed"
@@ -11226,41 +11227,41 @@ msgstr "Eliminar aristas inválidas"
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:61
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:62
 msgid "Save invalid edges"
-msgstr "Guardar aristas inválidas"
+msgstr "Guardar aristas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:66
 msgid "Select invalid edges"
-msgstr ""
+msgstr "Seleccionar aristas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:67
 msgid "Select invalid edges and abort saving"
-msgstr ""
+msgstr "Seleccionar aristas no válidas y cancelar el guardado"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:92
 msgid "delete invalid edges"
-msgstr "eliminar aristas inválidas"
+msgstr "eliminar aristas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:101
 msgid "select invalid edges"
-msgstr "seleccionar aristas inválidas"
+msgstr "seleccionar aristas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:142
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:143
 msgid "Remove invalid crossings"
-msgstr "Eliminar pasos peatonales (crossings) inválidos"
+msgstr "Eliminar pasos peatonales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:147
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:148
 msgid "Save invalid crossings"
-msgstr "Guardar pasos peatonales (crossings) inválidos"
+msgstr "Guardar pasos peatonales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:152
 msgid "Select invalid crossing"
-msgstr ""
+msgstr "Seleccionar pasos peatonales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:153
 msgid "Select invalid crossing and abort saving"
-msgstr ""
+msgstr "Seleccionar pasos peatonales no válidos y cancelar el guardado"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:185
 msgid "delete invalid crossings"
