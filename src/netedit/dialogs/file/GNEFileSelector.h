@@ -28,6 +28,8 @@
 // ===========================================================================
 
 class GNEFileDialog;
+class MFXStaticToolTip;
+class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions
@@ -214,7 +216,7 @@ protected:
     FXFileList* myFileSelector = nullptr;
 
     /// @brief File name entry field
-    FXTextField* myFilenameTextField = nullptr;
+    MFXTextFieldTooltip* myFilenameTextField = nullptr;
 
     /// @brief Combobox for pattern list
     FXComboBox* myFileFilterComboBox = nullptr;
@@ -242,7 +244,7 @@ private:
     void buildBookmarkMenuPane(FXHorizontalFrame* navigatorHorizontalFrame);
 
     /// @brief build buttons
-    void buildButtons(FXHorizontalFrame* navigatorHorizontalFrame);
+    void buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXStaticToolTip* staticTooltipMenu);
 
     /// @brief build shortcuts
     void buildShortcuts();
