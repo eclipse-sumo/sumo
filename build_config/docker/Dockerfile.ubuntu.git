@@ -14,8 +14,8 @@ ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
 ARG JUPEDSIM_VERSION=v1.3.0
 
-RUN apt-get -y update
-RUN apt-get -y install git ca-certificates lsb-release wget
+RUN apt-get -qq update && \
+    apt-get -y install git ca-certificates lsb-release wget
 
 RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
 
@@ -24,9 +24,10 @@ RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt)
 # 3D GUI, video recording
 RUN apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev
 # Parquet / Arrow
-RUN wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
-RUN apt-get -y install -y ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb; apt update
-RUN apt-get -y install -y libarrow-dev libparquet-dev
+RUN wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get -y install ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get -qq update && \
+    apt-get -y install libarrow-dev libparquet-dev
 # packages needed for the tools (some are also listed in tools/requirements.txt but we prefer the ubuntu packages)
 RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
 
@@ -65,11 +66,16 @@ COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.tx
 COPY --from=build /opt/sumo/tools/requirements.txt /tmp/requirements.txt
 
 # Installing runtime dependencies (for simplicity we use the build dependencies. Possibility for optimization in the future)
-RUN apt-get -qq update; \
+RUN apt-get -qq update && \
+    apt-get -y install git ca-certificates lsb-release wget && \
+    wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get -y install ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    apt-get -qq update && \
+    apt-get -y install libarrow-dev libparquet-dev && \
     apt-get -qq -y install $(cat /tmp/build_req_deb.txt) $(cat /tmp/tools_req_deb.txt) \
-                           libavformat58 libopenscenegraph161 libswscale5 libarrow libparquet; \
-    apt-get -qq clean autoclean; \
-    apt-get -qq -y autoremove; \
+                           libavformat58 libopenscenegraph161 libswscale5 libarrow libparquet && \
+    apt-get -qq clean autoclean && \
+    apt-get -qq -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
 # Installing tools dependencies for python
