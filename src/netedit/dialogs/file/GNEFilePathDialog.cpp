@@ -18,6 +18,9 @@
 // A basic dialog for selecting a file path (used in GNEFileSelector)
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEFilePathDialog.h"
@@ -27,17 +30,14 @@
 // ===========================================================================
 
 GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                                     const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
-                                     GUIIcon largeIcon) :
-    GNEDialog(applicationWindow, title.c_str(), titleIcon, buttons, OpenType::MODAL, ResizeMode::STATIC) {
-    // create dialog layout (obtained from FXMessageBox)
-    auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
-    // add icon label (only if large icon is defined)
-    if (largeIcon != GUIIcon::EMPTY) {
-        new FXLabel(infoFrame, FXString::null, GUIIconSubSys::getIcon(largeIcon), ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    }
+                                     const std::string& info, const std::string& originalFilePath) :
+    GNEDialog(applicationWindow, title.c_str(), GUIIcon::OPEN, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
+    myOriginalFilePath(originalFilePath) {
     // add information label
-    new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    new FXLabel(getContentFrame(), info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // create text field to enter the path
+    myPathTextField = new MFXTextFieldTooltip(getContentFrame(), applicationWindow->getStaticTooltipMenu(), GUIDesignTextFieldNCol,
+            this, 0, GUIDesignTextFieldFixed(300));
     // open modal dialog
     openDialog();
 }
@@ -50,6 +50,22 @@ GNEFilePathDialog::~GNEFilePathDialog() {
 void
 GNEFilePathDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
+}
+
+
+long
+GNEFilePathDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // set an empty test
+    myPathTextField->setText("", FALSE);
+    return closeDialogCanceling();
+}
+
+
+long
+GNEFilePathDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // restore original file path
+    myPathTextField->setText(myOriginalFilePath.c_str(), TRUE);
+    return 1;
 }
 
 /****************************************************************************/

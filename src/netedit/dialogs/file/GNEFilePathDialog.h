@@ -23,6 +23,12 @@
 #include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXTextFieldTooltip;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -31,8 +37,7 @@ class GNEFilePathDialog : public GNEDialog {
 public:
     /// @brief Constructor
     GNEFilePathDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                      const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
-                      GUIIcon largeIcon);
+                      const std::string& info, const std::string& originalFilePath);
 
     /// @brief Destructor
     ~GNEFilePathDialog();
@@ -40,7 +45,22 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
+    /// @brief get the current path
+    std::string getPath() const;
+
+    /// @brief called when cancel or no button is pressed (can be reimplemented in children)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief called when reset button is pressed (must be reimplemented in children)
+    long onCmdReset(FXObject*, FXSelector, void*);
+
 private:
+    /// @brief original file path (used for reset)
+    std::string myOriginalFilePath;
+
+    /// @brief text field to enter the path
+    MFXTextFieldTooltip* myPathTextField = nullptr;
+
     /// @brief Invalidated copy constructor.
     GNEFilePathDialog(const GNEFilePathDialog&) = delete;
 
