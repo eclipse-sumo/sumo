@@ -292,7 +292,7 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
     const auto filenamelist = getSelectedFiles();
     FXString copymessage;
     for (FXint i = 0; !filenamelist[i].empty(); i++) {
-        copymessage.format(TL("Copy file from location:\n\n%s\n\nto location: "), filenamelist.at(i));
+        copymessage.format(TL("Copy file from location:\n\n%s\n\nto location: "), filenamelist.at(i).c_str());
         FXInputDialog inputdialog(this, TL("Copy File"), copymessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
         inputdialog.setText(FXPath::absolute(FXPath::directory(filenamelist.at(i).c_str()), "CopyOf" + FXPath::name(filenamelist.at(i).c_str())));
         inputdialog.setNumColumns(60);
@@ -314,7 +314,7 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
     const auto filenamelist = getSelectedFiles();
     FXString movemessage;
     for (FXint i = 0; !filenamelist[i].empty(); i++) {
-        movemessage.format(TL("Move file from location:\n\n%s\n\nto location: "), filenamelist.at(i));
+        movemessage.format(TL("Move file from location:\n\n%s\n\nto location: "), filenamelist.at(i).c_str());
         FXInputDialog inputdialog(this, TL("Move File"), movemessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
         inputdialog.setText(filenamelist.at(i).c_str());
         inputdialog.setNumColumns(60);
@@ -336,7 +336,7 @@ GNEFileSelector::onCmdLink(FXObject*, FXSelector, void*) {
     const auto filenamelist = getSelectedFiles();
     FXString linkmessage;
     for (FXint i = 0; !filenamelist[i].empty(); i++) {
-        linkmessage.format(TL("Link file from location:\n\n%s\n\nto location: "), filenamelist.at(i));
+        linkmessage.format(TL("Link file from location:\n\n%s\n\nto location: "), filenamelist.at(i).c_str());
         FXInputDialog inputdialog(this, TL("Link File"), linkmessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
         inputdialog.setText(FXPath::absolute(FXPath::directory(filenamelist.at(i).c_str()), "LinkTo" + FXPath::name(filenamelist.at(i).c_str())));
         inputdialog.setNumColumns(60);
@@ -358,7 +358,7 @@ GNEFileSelector::onCmdDelete(FXObject*, FXSelector, void*) {
     const auto filenamelist = getSelectedFiles();
     FXuint answer;
     for (FXint i = 0; !filenamelist[i].empty(); i++) {
-        answer = FXMessageBox::warning(this, MBOX_YES_NO_CANCEL, TL("Deleting files"), TL("Are you sure you want to delete the file:\n\n%s"), filenamelist.at(i));
+        answer = FXMessageBox::warning(this, MBOX_YES_NO_CANCEL, TL("Deleting files"), TL("Are you sure you want to delete the file:\n\n%s"), filenamelist.at(i).c_str());
         if (answer == MBOX_CLICKED_CANCEL) {
             break;
         }
@@ -366,7 +366,7 @@ GNEFileSelector::onCmdDelete(FXObject*, FXSelector, void*) {
             continue;
         }
         if (!FXFile::removeFiles(filenamelist.at(i).c_str(), TRUE)) {
-            if (FXMessageBox::error(this, MBOX_YES_NO, TL("Error Deleting File"), TL("Unable to delete file:\n\n%s\n\nContinue with operation?"), filenamelist.at(i)) == MBOX_CLICKED_NO) {
+            if (FXMessageBox::error(this, MBOX_YES_NO, TL("Error Deleting File"), TL("Unable to delete file:\n\n%s\n\nContinue with operation?"), filenamelist.at(i).c_str()) == MBOX_CLICKED_NO) {
                 break;
             }
         }
