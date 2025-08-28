@@ -84,7 +84,7 @@ GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditiona
 
 void
 GNEFixAdditionalElementsDialog::PositionOptions::selectInternalTestSolution(const std::string& solution) {
-    // chooose solution
+    // choose solution
     if (solution == "savePositionInvalids") {
         mySaveInvalids->setCheck(TRUE, TRUE);
     } else if (solution == "fixPositions") {

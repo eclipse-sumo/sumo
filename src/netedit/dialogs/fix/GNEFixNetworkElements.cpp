@@ -163,7 +163,7 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
 
 void
 GNEFixNetworkElements::FixCrossingOptions::selectInternalTestSolution(const std::string& solution) {
-    // chooose solution
+    // choose solution
     if (solution == "removeInvalidCrossings") {
         myRemoveInvalidCrossings->setCheck(TRUE, TRUE);
     } else if (solution == "saveInvalidCrossings") {

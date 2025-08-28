@@ -95,7 +95,7 @@ GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElement
 
 void
 GNEFixDemandElementsDialog::FixRouteOptions::selectInternalTestSolution(const std::string& solution) {
-    // chooose solution
+    // choose solution
     if (solution == "saveRouteInvalids") {
         mySaveInvalidRoutes->setCheck(TRUE, TRUE);
     } else if (solution == "removeRouteInvalids") {
