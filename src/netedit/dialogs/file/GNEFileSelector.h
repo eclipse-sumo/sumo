@@ -43,9 +43,9 @@ public:
     /// @brief file selection modes
     enum class SelectMode {
         SAVE,           // A single file, existing or not (to save to)
-        EXISTING,       // An existing file (to load)
-        MULTIPLE,       // Multiple existing files
-        DIRECTORY       // Existing directory, including '.' or '..'
+        LOAD_SINGLE,    // An existing file (to load)
+        LOAD_MULTIPLE,  // Multiple existing files
+        LOAD_DIRECTORY  // Existing directory, including '.' or '..'
     };
 
     /// @brief Constructor
