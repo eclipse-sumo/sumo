@@ -30,8 +30,9 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
-#include "GNEFileSelector.h"
 #include "GNEFileDialog.h"
+#include "GNEFilePathDialog.h"
+#include "GNEFileSelector.h"
 
 #define FILELISTMASK  (ICONLIST_EXTENDEDSELECT|ICONLIST_SINGLESELECT|ICONLIST_BROWSESELECT|ICONLIST_MULTIPLESELECT)
 #define FILESTYLEMASK (ICONLIST_DETAILED|ICONLIST_MINI_ICONS|ICONLIST_BIG_ICONS|ICONLIST_ROWS|ICONLIST_COLUMNS|ICONLIST_AUTOSIZE)
@@ -209,14 +210,14 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
     if (filenameList.size() > 0) {
         // get only first filename
         const std::string originFilePath = filenameList.front();
-        // open dialog to obtain file (temporal, will be changed with a new custom dialog)
-        FXString copymessage;
-        copymessage.format(TL("Copy file from location:\n\n%s\n\nto location: "), originFilePath.c_str());
-        FXInputDialog inputdialog(this, TL("Copy File"), copymessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
-        inputdialog.setText(FXPath::absolute(FXPath::directory(originFilePath.c_str()), "CopyOf" + FXPath::name(originFilePath.c_str())));
-        inputdialog.setNumColumns(60);
-        if (inputdialog.execute()) {
-            const std::string destinyFilename = inputdialog.getText().text();
+        // create default destiny filename
+        std::string destinyFilename = FXPath::absolute(FXPath::directory(originFilePath.c_str()), "CopyOf" + FXPath::name(originFilePath.c_str())).text();
+        // create file path dialog
+        const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Copy File"), TL("Select destiny file"), destinyFilename);
+        // continue depending of filePathDialog results
+        if (filePathDialog->getResult() == GNEDialog::Result::ACCEPT) {
+            // get destiny filename from dialog
+            destinyFilename = filePathDialog->getFilePath();
             // check if we selected the same file
             if (FXFile::identical(originFilePath.c_str(), destinyFilename.c_str())) {
                 // open error dialog
@@ -256,14 +257,12 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
     if (filenameList.size() > 0) {
         // get only first filename
         const std::string originFilePath = filenameList.front();
-        // open dialog to obtain file (temporal, will be changed with a new custom dialog)
-        FXString movemessage;
-        movemessage.format(TL("Move file from location:\n\n%s\n\nto location: "), originFilePath.c_str());
-        FXInputDialog inputdialog(this, TL("Move File"), movemessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
-        inputdialog.setText(FXPath::absolute(FXPath::directory(originFilePath.c_str()), "MoveOf" + FXPath::name(originFilePath.c_str())));
-        inputdialog.setNumColumns(60);
-        if (inputdialog.execute()) {
-            const std::string destinyFilename = inputdialog.getText().text();
+        // create file path dialog
+        const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Move File"), TL("Select destiny file"), originFilePath);
+        // continue depending of filePathDialog results
+        if (filePathDialog->getResult() == GNEDialog::Result::ACCEPT) {
+            // get destiny filename from dialog
+            const std::string destinyFilename = filePathDialog->getFilePath();
             // check if we selected the same file
             if (FXFile::identical(originFilePath.c_str(), destinyFilename.c_str())) {
                 // open error dialog
@@ -303,14 +302,12 @@ GNEFileSelector::onCmdLink(FXObject*, FXSelector, void*) {
     if (filenameList.size() > 0) {
         // get only first filename
         const std::string originFilePath = filenameList.front();
-        // open dialog to obtain file (temporal, will be changed with a new custom dialog)
-        FXString linkmessage;
-        linkmessage.format(TL("Link file from location:\n\n%s\n\nto location: "), originFilePath.c_str());
-        FXInputDialog inputdialog(this, TL("Link File"), linkmessage, NULL, INPUTDIALOG_STRING, 0, 0, 0, 0);
-        inputdialog.setText(FXPath::absolute(FXPath::directory(originFilePath.c_str()), "LinkOf" + FXPath::name(originFilePath.c_str())));
-        inputdialog.setNumColumns(60);
-        if (inputdialog.execute()) {
-            const std::string destinyFilename = inputdialog.getText().text();
+        // create file path dialog
+        const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Link File"), TL("Select destiny file"), originFilePath);
+        // continue depending of filePathDialog results
+        if (filePathDialog->getResult() == GNEDialog::Result::ACCEPT) {
+            // get destiny filename from dialog
+            const std::string destinyFilename = filePathDialog->getFilePath();
             // try to link
             if (!FXFile::symlink(originFilePath.c_str(), destinyFilename.c_str())) {
                 // open error dialog
@@ -857,11 +854,11 @@ GNEFileSelector::onCmdDirTree(FXObject*, FXSelector, void* ptr) {
 
 long
 GNEFileSelector::onCmdNew(FXObject*, FXSelector, void*) {
-    FXString dir = myFileSelector->getDirectory();
-    FXString name = "DirectoryName";
-    FXGIFIcon newdirectoryicon(getApp(), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FOLDER_BIG));
-    if (FXInputDialog::getString(name, this, TL("Create New Directory"), TL("Create new directory with name: "), &newdirectoryicon)) {
-        FXString dirname = FXPath::absolute(dir, name);
+    // create file path dialog
+    const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Create New Directory"), TL("Create new directory with name:"), "DirectoryName");
+    // continue depending of filePathDialog results
+    if (filePathDialog->getResult() == GNEDialog::Result::ACCEPT) {
+        const FXString dirname = FXPath::absolute(myFileSelector->getDirectory(), filePathDialog->getFilePath().c_str());
         // check if exist
         if (FXStat::exists(dirname)) {
             // open error dialog

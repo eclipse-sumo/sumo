@@ -45,8 +45,8 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief get the current path
-    std::string getPath() const;
+    /// @brief get the file path
+    std::string getFilePath() const;
 
     /// @brief called when cancel or no button is pressed (can be reimplemented in children)
     long onCmdCancel(FXObject*, FXSelector, void*);

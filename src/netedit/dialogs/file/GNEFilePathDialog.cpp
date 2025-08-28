@@ -33,11 +33,15 @@ GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, co
                                      const std::string& info, const std::string& originalFilePath) :
     GNEDialog(applicationWindow, title.c_str(), GUIIcon::OPEN, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalFilePath(originalFilePath) {
+    // create dialog layout (obtained from FXMessageBox)
+    //auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add information label
-    new FXLabel(getContentFrame(), info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    new FXLabel(myContentFrame, info.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     // create text field to enter the path
-    myPathTextField = new MFXTextFieldTooltip(getContentFrame(), applicationWindow->getStaticTooltipMenu(), GUIDesignTextFieldNCol,
-            this, 0, GUIDesignTextFieldFixed(300));
+    myPathTextField = new MFXTextFieldTooltip(myContentFrame, applicationWindow->getStaticTooltipMenu(), GUIDesignTextFieldNCol,
+            nullptr, 0, GUIDesignTextField);
+    // set original file path
+    myPathTextField->setText(originalFilePath.c_str());
     // open modal dialog
     openDialog();
 }
@@ -49,7 +53,13 @@ GNEFilePathDialog::~GNEFilePathDialog() {
 
 void
 GNEFilePathDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+    // nothing to do (yet)
+}
+
+
+std::string
+GNEFilePathDialog::getFilePath() const {
+    return myPathTextField->getText().text();
 }
 
 
