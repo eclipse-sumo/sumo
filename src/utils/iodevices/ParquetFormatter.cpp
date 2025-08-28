@@ -97,7 +97,7 @@ ParquetFormatter::ParquetFormatter(const std::string& columnNames, const std::st
 
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
-    myXMLStack.push_back(myValues.size());
+    myXMLStack.push_back((int)myValues.size());
     if (!myWroteHeader) {
         myCurrentTag = xmlElement;
     }
@@ -109,7 +109,7 @@ ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElemen
 
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
-    myXMLStack.push_back(myValues.size());
+    myXMLStack.push_back((int)myValues.size());
     if (!myWroteHeader) {
         myCurrentTag = toString(xmlElement);
     }

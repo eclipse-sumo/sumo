@@ -146,7 +146,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
             myFileFilterComboBox->appendItem(extension.c_str());
         }
     }
-    myFileFilterComboBox->setNumVisible(FXMIN(extensions.size(), 12));
+    myFileFilterComboBox->setNumVisible(FXMIN((int)extensions.size(), 12));
     setCurrentPattern(0);
 }
 

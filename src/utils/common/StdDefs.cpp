@@ -61,7 +61,7 @@ double roundDecimal(double x, int precision) {
 }
 
 double roundDecimalToEven(double x, int precision) {
-    const int p = pow(10, precision);
+    const int p = (int)pow(10, precision);
     return std::nearbyint(x * p) / p;
 }
 

@@ -234,7 +234,7 @@ MSDevice_Routing::rebuildRerouteCommand(SUMOTime start) {
             start -= start % myPeriod;
         }
         // ensure stable sorting of events (for repeatable routing with randomness)
-        myRerouteCommand->priority = myHolder.getNumericalID();
+        myRerouteCommand->priority = (int)myHolder.getNumericalID();
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, start);
     }
 }
