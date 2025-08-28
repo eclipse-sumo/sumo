@@ -45,7 +45,6 @@ public:
         SAVE,           // A single file, existing or not (to save to)
         EXISTING,       // An existing file (to load)
         MULTIPLE,       // Multiple existing files
-        MULTIPLE_ALL,   // Multiple existing files or directories, but not '.' and '..'
         DIRECTORY       // Existing directory, including '.' or '..'
     };
 

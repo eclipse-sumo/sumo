@@ -129,7 +129,6 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
             break;
         case SelectMode::MULTIPLE:
-        case SelectMode::MULTIPLE_ALL:
             myFileSelector->showOnlyDirectories(FALSE);
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_EXTENDEDSELECT);
             break;
@@ -535,13 +534,7 @@ GNEFileSelector::setFilename(const FXString& path) {
 std::string
 GNEFileSelector::getFilename() const {
     FXint i;
-    if (mySelectmode == SelectMode::MULTIPLE_ALL) {
-        for (i = 0; i < myFileSelector->getNumItems(); i++) {
-            if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
-                return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
-            }
-        }
-    } else if (mySelectmode == SelectMode::MULTIPLE) {
+    if (mySelectmode == SelectMode::MULTIPLE) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
@@ -557,11 +550,7 @@ GNEFileSelector::getFilename() const {
 
 std::vector<std::string>
 GNEFileSelector::getFilenames() const {
-    if (mySelectmode == SelectMode::MULTIPLE_ALL) {
-        return getSelectedFiles();
-    } else {
-        return getSelectedFilesOnly();
-    }
+    return getSelectedFilesOnly();
 }
 
 
@@ -720,16 +709,6 @@ GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
             }
         }
         myFilenameTextField->setText(text);
-    } else if (mySelectmode == SelectMode::MULTIPLE_ALL) {
-        for (i = 0; i < myFileSelector->getNumItems(); i++) {
-            if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
-                if (!text.empty()) {
-                    text += ' ';
-                }
-                text += "\"" + myFileSelector->getItemFilename(i) + "\"";
-            }
-        }
-        myFilenameTextField->setText(text);
     } else if (mySelectmode == SelectMode::DIRECTORY) {
         if (myFileSelector->isItemDirectory(index)) {
             text = myFileSelector->getItemFilename(index);
@@ -752,16 +731,6 @@ GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
     if (mySelectmode == SelectMode::MULTIPLE) {
         for (i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
-                if (!text.empty()) {
-                    text += ' ';
-                }
-                text += "\"" + myFileSelector->getItemFilename(i) + "\"";
-            }
-        }
-        myFilenameTextField->setText(text);
-    } else if (mySelectmode == SelectMode::MULTIPLE_ALL) {
-        for (i = 0; i < myFileSelector->getNumItems(); i++) {
-            if (myFileSelector->isItemSelected(i) && myFileSelector->getItemFilename(i) != ".." && myFileSelector->getItemFilename(i) != ".") {
                 if (!text.empty()) {
                     text += ' ';
                 }
@@ -801,7 +770,7 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
         // Is directory?
         if (FXStat::isDirectory(path.c_str())) {
             // In directory mode:- we got our answer!
-            if (mySelectmode == SelectMode::DIRECTORY || mySelectmode == SelectMode::MULTIPLE_ALL) {
+            if (mySelectmode == SelectMode::DIRECTORY) {
                 return myFileDialog->onCmdAccept(obj, sel, ptr);
             }
             // Hop over to that directory
