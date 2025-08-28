@@ -21,7 +21,6 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNEFilePathDialog.h"
 

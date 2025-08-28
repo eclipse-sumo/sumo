@@ -22,15 +22,11 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 
-#include "GNEFileDialog.h"
 #include "GNEFilePathDialog.h"
 #include "GNEFileSelector.h"
 
