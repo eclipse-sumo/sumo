@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-27 13:34+0200\n"
-"PO-Revision-Date: 2025-08-05 09:06+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2025-08-29 10:01+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -10608,15 +10608,15 @@ msgstr ""
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:480
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Lesezeichen löschen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:112
 msgid "Clear bookmarks."
-msgstr ""
+msgstr "Lesezeichen löschen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131
 msgid "Go up one directory"
-msgstr ""
+msgstr "Ein Verzeichnis höher gehen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:131
 msgid "Move up to higher directory."
@@ -10632,16 +10632,16 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:141
 msgid "Go to work directory"
-msgstr ""
+msgstr "Zum Arbeitsverzeichnis gehen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:141
 msgid "Back to working directory."
-msgstr ""
+msgstr "Zurück zum Arbeitsverzeichnis."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:146
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:476
 msgid "Bookmarks"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:146
 msgid "Visit bookmarked directories."
@@ -10649,31 +10649,31 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:153
 msgid "Create new directory"
-msgstr ""
+msgstr "Neues Verzeichnis erstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:153
 msgid "Create new directory."
-msgstr ""
+msgstr "Neues Verzeichnis erstellen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:158
 msgid "Show list"
-msgstr ""
+msgstr "Liste anzeigen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:158
 msgid "Display directory with small icons."
-msgstr ""
+msgstr "Verzeichnis mit kleinen Symbolen anzeigen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:163
 msgid "Show icons"
-msgstr ""
+msgstr "Symbole anzeigen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:163
 msgid "Display directory with big icons."
-msgstr ""
+msgstr "Verzeichnis mit großen Symbolen anzeigen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:168
 msgid "Show details"
-msgstr ""
+msgstr "Details anzeigen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:168
 msgid "Display detailed directory listing."
@@ -10681,15 +10681,15 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:173
 msgid "Show hidden files"
-msgstr ""
+msgstr "Versteckte Dateien anzeigen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:173
 msgid "Show hidden files and directories."
-msgstr ""
+msgstr "Versteckte Dateien und Verzeichnisse anzeigen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:174
 msgid "Hide Hidden Files"
-msgstr ""
+msgstr "Versteckte Dateien ausblenden"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:174
 msgid "Hide hidden files and directories."
@@ -10917,20 +10917,20 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:926
 msgid "Create New Directory"
-msgstr ""
+msgstr "Neues Verzeichnis erstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:926
 msgid "Create new directory with name: "
-msgstr ""
+msgstr "Neues Verzeichnis erstellen mit dem Namen: "
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
 msgid "Already Exists"
-msgstr ""
+msgstr "Bereits vorhanden"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
 #, c-format
 msgid "File or directory %s already exists.\n"
-msgstr ""
+msgstr "Die Datei oder das Verzeichnis %s existiert bereits.\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:933
 msgid "Cannot Create"
