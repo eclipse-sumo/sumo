@@ -26,11 +26,11 @@
 // ===========================================================================
 
 GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
-                             const std::vector<std::string>& extensions, const bool save, const bool multiElements):
+                             const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode):
     GNEDialog(applicationWindow, title, icon, GNEDialog::Buttons::ACCEPT_CANCEL,
               GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
     // create file selector
-    myFileSelector = new GNEFileSelector(this, extensions, save, multiElements);
+    myFileSelector = new GNEFileSelector(this, extensions, openMode);
     /*
         // open dialog
         if (opendialog.execute()) {

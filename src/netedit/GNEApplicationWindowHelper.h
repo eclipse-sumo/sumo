@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/dialogs/file/GNEFileDialog.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXRecentNetworks.h>
@@ -1163,10 +1164,10 @@ struct GNEApplicationWindowHelper {
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
     /// @brief open xml file dialog
-    static std::string openXMLFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi);
+    static std::string openXMLFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open netconvert file dialog
-    static std::string openNetworkFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openNetworkFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open netconvert file dialog
     static std::string openNetconvertFileDialog(GNEApplicationWindow* applicationWindow);
@@ -1184,35 +1185,35 @@ struct GNEApplicationWindowHelper {
     static std::string openOSMFileDialog(GNEApplicationWindow* applicationWindow);
 
     /// @brief open netedit config file dialog
-    static std::string openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, const bool save);
+    static std::string openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open SUMO config file dialog
-    static std::string openSumoConfigFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openSumoConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open TLS file dialog
-    static std::string openTLSFileDialog(GNEApplicationWindow* applicationWindow, const bool save);
+    static std::string openTLSFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open edgeType file dialog
-    static std::string openEdgeTypeFileDialog(GNEApplicationWindow* applicationWindow, const bool save);
+    static std::string openEdgeTypeFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open additional dialog
-    static std::string openAdditionalFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openAdditionalFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open route file dialog
-    static std::string openRouteFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openRouteFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open data file dialog
-    static std::string openDataFileDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openDataFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open meandata filename dialog
-    static std::string openMeanDataDialog(GNEApplicationWindow* applicationWindow, const bool save, const bool multi = false);
+    static std::string openMeanDataDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open option dialog
-    static std::string openOptionFileDialog(GNEApplicationWindow* applicationWindow, const bool save);
+    static std::string openOptionFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
     /// @brief open filename dialog (general)
     static std::string openFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
-                                      const std::vector<std::string>& extensions, const bool save, const bool multi = false);
+                                      const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode);
 private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

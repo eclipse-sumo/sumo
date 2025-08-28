@@ -35,9 +35,17 @@ class GNEFileSelector;
 class GNEFileDialog : public GNEDialog {
 
 public:
+    /// @brief file open mode
+    enum class OpenMode {
+        SAVE,           // A single file, existing or not (to save to)
+        LOAD_SINGLE,    // An existing file (to load)
+        LOAD_MULTIPLE,  // Multiple existing files
+        LOAD_DIRECTORY  // Existing directory, including '.' or '..'
+    };
+
     /// @brief constructor
     GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
-                  const std::vector<std::string>& extensions, const bool save, const bool multiElements);
+                  const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode);
 
     /// @brief destructor
     ~GNEFileDialog();

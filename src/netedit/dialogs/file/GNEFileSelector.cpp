@@ -77,9 +77,10 @@ FXIMPLEMENT(GNEFileSelector, FXVerticalFrame, GNEFileSelectorMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
-                                 const bool save, const bool multiElements):
+                                 GNEFileDialog::OpenMode openMode):
     FXVerticalFrame(fileDialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myFileDialog(fileDialog),
+    myOpenMode(openMode),
     myBookmarksRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
     // get static tooltip
     const auto tooltipMenu = fileDialog->getApplicationWindow()->getStaticTooltipMenu();
@@ -113,33 +114,26 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
     // build shortcuts
     buildShortcuts();
-    // check if allow to create a new file, or select only existent files
-    if (save) {
-        mySelectmode = SelectMode::SAVE;
-    } else {
-        if (multiElements) {
-            mySelectmode = SelectMode::LOAD_MULTIPLE;
-        } else {
-            mySelectmode = SelectMode::LOAD_SINGLE;
-        }
-    }
-    switch (mySelectmode) {
-        case SelectMode::LOAD_SINGLE:
+    // continue depending of open mode
+    switch (myOpenMode) {
+        case GNEFileDialog::OpenMode::SAVE:
             myFileSelector->showOnlyDirectories(FALSE);
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
             break;
-        case SelectMode::LOAD_MULTIPLE:
+        case GNEFileDialog::OpenMode::LOAD_SINGLE:
+            myFileSelector->showOnlyDirectories(FALSE);
+            myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
+            break;
+        case GNEFileDialog::OpenMode::LOAD_MULTIPLE:
             myFileSelector->showOnlyDirectories(FALSE);
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_EXTENDEDSELECT);
             break;
-        case SelectMode::LOAD_DIRECTORY:
+        case GNEFileDialog::OpenMode::LOAD_DIRECTORY:
             myFileSelector->showOnlyDirectories(TRUE);
             myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
             break;
         default:
-            myFileSelector->showOnlyDirectories(FALSE);
-            myFileSelector->setListStyle((myFileSelector->getListStyle() & ~FILELISTMASK) | ICONLIST_BROWSESELECT);
-            break;
+            throw ProcessError("Invalid open mode");
     }
     // set directory
     if (gCurrentFolder.length() != 0) {
@@ -486,7 +480,7 @@ long
 GNEFileSelector::onCmdFilter(FXObject*, FXSelector, void* ptr) {
     FXString pat = FXFileSelector::patternFromText((FXchar*)ptr);
     myFileSelector->setPattern(pat);
-    if (mySelectmode == SelectMode::SAVE) {
+    if (myOpenMode == GNEFileDialog::OpenMode::SAVE) {
         FXString ext = FXFileSelector::extensionFromPattern(pat);
         if (!ext.empty()) {
             FXString name = FXPath::stripExtension(myFilenameTextField->getText());
@@ -505,7 +499,7 @@ GNEFileSelector::setDirectory(const FXString& path) {
     FXTRACE((100, "path=%s abspath: %s\n", path.text(), abspath.text()));
     myFileSelector->setDirectory(abspath);
     myDirBox->setDirectory(abspath);
-    if (mySelectmode != SelectMode::SAVE) {
+    if (myOpenMode != GNEFileDialog::OpenMode::SAVE) {
         myFilenameTextField->setText(FXString::null);
     }
 }
@@ -529,7 +523,7 @@ GNEFileSelector::setFilename(const FXString& path) {
 
 std::string
 GNEFileSelector::getFilename() const {
-    if (mySelectmode == SelectMode::LOAD_MULTIPLE) {
+    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
         for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
@@ -693,7 +687,7 @@ long
 GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
     const FXint index = (FXint)(FXival)ptr;
     FXString text, file;
-    if (mySelectmode == SelectMode::LOAD_MULTIPLE) {
+    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
         for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 if (!text.empty()) {
@@ -703,7 +697,7 @@ GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
             }
         }
         myFilenameTextField->setText(text);
-    } else if (mySelectmode == SelectMode::LOAD_DIRECTORY) {
+    } else if (myOpenMode == GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
         if (myFileSelector->isItemDirectory(index)) {
             text = myFileSelector->getItemFilename(index);
             myFilenameTextField->setText(text);
@@ -721,7 +715,7 @@ GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
 long
 GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
     FXString text, file;
-    if (mySelectmode == SelectMode::LOAD_MULTIPLE) {
+    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
         for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
                 if (!text.empty()) {
@@ -746,7 +740,7 @@ GNEFileSelector::onCmdItemDblClicked(FXObject* obj, FXSelector sel, void* ptr) {
             return 1;
         }
         // Only return if we wanted a file
-        if (mySelectmode != SelectMode::LOAD_DIRECTORY) {
+        if (myOpenMode != GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
             return myFileDialog->onCmdAccept(obj, sel, ptr);
         }
     }
@@ -759,11 +753,11 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
     // Get (first) myFilenameTextField or directory
     std::string path = getFilename();
     // Only do something if a selection was made
-    if (!path.empty()) {
+    if (path.size() > 0) {
         // Is directory?
         if (FXStat::isDirectory(path.c_str())) {
             // In directory mode:- we got our answer!
-            if (mySelectmode == SelectMode::LOAD_DIRECTORY) {
+            if (myOpenMode == GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
                 return myFileDialog->onCmdAccept(obj, sel, ptr);
             }
             // Hop over to that directory
@@ -777,7 +771,7 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
         // In file mode, directory part of path should exist
         if (FXStat::isDirectory(dir)) {
             // In any mode, existing directory part is good enough
-            if (mySelectmode == SelectMode::SAVE) {
+            if (myOpenMode == GNEFileDialog::OpenMode::SAVE) {
                 return myFileDialog->onCmdAccept(obj, sel, ptr);
             }
             // Otherwise, the whole myFilenameTextField must exist and be a file
@@ -794,7 +788,7 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
         myDirBox->setDirectory(dir);
         myFileSelector->setDirectory(dir);
         // Put the tail end back for further editing
-        FXASSERT(dir.length() <= path.length());
+        FXASSERT(dir.length() <= (int)path.size());
         if (ISPATHSEP(path[dir.length()])) {
             path.erase(0, dir.length() + 1);
         } else {
@@ -854,7 +848,7 @@ GNEFileSelector::onCmdBookmark(FXObject*, FXSelector, void*) {
 long
 GNEFileSelector::onCmdDirTree(FXObject*, FXSelector, void* ptr) {
     myFileSelector->setDirectory((FXchar*)ptr);
-    if (mySelectmode == SelectMode::LOAD_DIRECTORY) {
+    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
         myFilenameTextField->setText(FXString::null);
     }
     return 1;

@@ -23,11 +23,12 @@
 #include <vector>
 #include <utils/foxtools/fxheader.h>
 
+#include "GNEFileDialog.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEFileDialog;
 class MFXStaticToolTip;
 class MFXTextFieldTooltip;
 
@@ -40,17 +41,9 @@ class GNEFileSelector : public FXVerticalFrame {
     FXDECLARE(GNEFileSelector)
 
 public:
-    /// @brief file selection modes
-    enum class SelectMode {
-        SAVE,           // A single file, existing or not (to save to)
-        LOAD_SINGLE,    // An existing file (to load)
-        LOAD_MULTIPLE,  // Multiple existing files
-        LOAD_DIRECTORY  // Existing directory, including '.' or '..'
-    };
-
     /// @brief Constructor
     GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
-                    const bool save, const bool multiElements);
+                    GNEFileDialog::OpenMode openMode);
 
     /// @brief Destructor
     virtual ~GNEFileSelector();
@@ -211,6 +204,9 @@ protected:
     /// @brief Pointer to parent file dialog
     GNEFileDialog* myFileDialog = nullptr;
 
+    /// @brief open mode
+    const GNEFileDialog::OpenMode myOpenMode = GNEFileDialog::OpenMode::SAVE;
+
     /// @brief File list widget
     FXFileList* myFileSelector = nullptr;
 
@@ -228,9 +224,6 @@ protected:
 
     /// @brief Bookmarked places
     FXRecentFiles myBookmarksRecentFiles = nullptr;
-
-    /// @brief Select mode
-    SelectMode mySelectmode = SelectMode::SAVE;
 
     /// @brief get selected files
     std::vector<std::string> getSelectedFiles() const;

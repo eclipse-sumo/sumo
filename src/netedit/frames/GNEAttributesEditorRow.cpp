@@ -442,7 +442,8 @@ GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
     const std::string value = GNEApplicationWindowHelper::openFileDialog(
                                   myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
                                   title, myAttrProperty->getTagPropertyParent()->getGUIIcon(),
-                                  myAttrProperty->getFilenameExtensions(), myAttrProperty->isFileSave());
+                                  myAttrProperty->getFilenameExtensions(),
+                                  myAttrProperty->isFileSave() ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE);
     // update text field
     if (value.size() > 0) {
         myValueTextField->setText(value.c_str(), TRUE);

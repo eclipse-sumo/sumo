@@ -749,7 +749,7 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get netconvert filename
-    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, false);
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
     if (!networkFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
         // load network
@@ -775,7 +775,7 @@ long
 GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto neteditConfigFile = GNEApplicationWindowHelper::openNeteditConfigFileDialog(this, false);
+    const auto neteditConfigFile = GNEApplicationWindowHelper::openNeteditConfigFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
     if (!neteditConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
         // reset netedit options
@@ -797,7 +797,7 @@ long
 GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, false);
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
     if (!sumoConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
         // reset options
@@ -884,7 +884,7 @@ long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, false);
+    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
     if (!TLSFile.empty()) {
         // set file to load
@@ -940,7 +940,7 @@ long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto edgeTypeFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, false);
+    const auto edgeTypeFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
     if (!edgeTypeFile.empty()) {
         // set file to load
@@ -3340,7 +3340,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
 long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
     // get network file file
-    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, true);
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     if (!networkFile.empty()) {
         // set ouput file in netedit configs
         auto& neteditOptions = OptionsCont::getOptions();
@@ -3482,7 +3482,7 @@ long
 GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get neteditConfig filename
-    const auto neteditConfigFile = GNEApplicationWindowHelper::openNeteditConfigFileDialog(this, true);
+    const auto neteditConfigFile = GNEApplicationWindowHelper::openNeteditConfigFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // continue depending of file
     if (!neteditConfigFile.empty()) {
         neteditOptions.resetWritable();
@@ -3594,7 +3594,7 @@ long
 GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get sumoConfig filename
-    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, true);
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // continue depending of file
     if (!sumoConfigFile.empty()) {
         // save file in netedit options
@@ -3709,7 +3709,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get TLS file
-    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, true);
+    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check tat file is valid
     if (!TLSFile.empty()) {
         // change value of "tls-file"
@@ -3730,7 +3730,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get network file file
-    const auto edgeTypesFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, true);
+    const auto edgeTypesFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check tat file is valid
     if (!edgeTypesFile.empty()) {
         // change value of "edgetypes-file"
@@ -3761,7 +3761,7 @@ GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) 
 long
 GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
     if (!additionalFile.empty()) {
         // declare overwrite flag
@@ -3911,7 +3911,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get additional file
-    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is valid
     if (!additionalFile.empty()) {
         // begin undoList operation
@@ -3937,7 +3937,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // get juPedSim file
-    const auto juPedSimFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
+    const auto juPedSimFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is valid
     if (!juPedSimFile.empty()) {
         try {
@@ -3975,7 +3975,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, false);
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
     if (!routeFile.empty()) {
         // declare overwrite flag
@@ -4123,7 +4123,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get route file
-    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, true);
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is correct
     if (!routeFile.empty()) {
         // begin undoList operation
@@ -4147,7 +4147,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
 long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, false);
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
     if (!dataFile.empty()) {
         // declare overwrite flag
@@ -4300,7 +4300,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get data file
-    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, true);
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is correct
     if (!dataFile.empty()) {
         // begin undoList operation
@@ -4322,7 +4322,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
 long
 GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
+    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
     if (!meanDataFile.empty()) {
         // declare overwrite flag
@@ -4469,7 +4469,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get meanData file
-    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, true);
+    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is valid
     if (!meanDataFile.empty()) {
         // begin undoList operation
