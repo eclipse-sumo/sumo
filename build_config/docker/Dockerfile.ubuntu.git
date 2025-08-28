@@ -57,6 +57,7 @@ LABEL org.opencontainers.image.authors="SUMO Developers <sumo-dev@eclipse.org>" 
 # Setup environment
 ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
+ARG ARROW_VERSION=2100
 
 # Getting build artifacts
 COPY --from=build /install/usr /usr
@@ -73,7 +74,7 @@ RUN apt-get -qq update && \
     apt-get -qq update && \
     apt-get -y install libarrow-dev libparquet-dev && \
     apt-get -qq -y install $(cat /tmp/build_req_deb.txt) $(cat /tmp/tools_req_deb.txt) \
-                           libavformat58 libopenscenegraph161 libswscale5 libarrow libparquet && \
+                           libavformat58 libopenscenegraph161 libswscale5 libarrow$ARROW_VERSION libparquet$ARROW_VERSION && \
     apt-get -qq clean autoclean && \
     apt-get -qq -y autoremove && \
     rm -rf /var/lib/apt/lists/*
