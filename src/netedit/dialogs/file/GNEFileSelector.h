@@ -238,6 +238,15 @@ protected:
     std::vector<std::string> getSelectedFilesOnly() const;
 
 private:
+    /// @brief build bookmarks menu
+    void buildBookmarkMenuPane(FXHorizontalFrame* navigatorHorizontalFrame);
+
+    /// @brief build buttons
+    void buildButtons(FXHorizontalFrame* navigatorHorizontalFrame);
+
+    /// @brief build shortcuts
+    void buildShortcuts();
+
     /// @brief disable copy constructor
     GNEFileSelector(const GNEFileSelector&) = delete;
 

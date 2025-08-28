@@ -129,6 +129,9 @@ class MFXMenuCheckIcon;
 /// @brief checkable button placed in popup (for example, locate buttons)
 #define GUIDesignButtonPopup                    (ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED)
 
+/// @brief button only with icon
+#define GUIDesignButtonIconFileDialog           (BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+
 /// @}
 
 
@@ -703,6 +706,12 @@ class MFXMenuCheckIcon;
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
+/// @brief desing for FXDirBox
+#define GUIDesignFileList                       (ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0
+
+/// @brief desing for FXDirBox
+#define GUIDesignDirBox                         (DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 1, 1, 1, 1
 
 // ===========================================================================
 // Implementation
