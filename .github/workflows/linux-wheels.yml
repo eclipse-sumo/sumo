@@ -21,8 +21,7 @@ on:
 
 jobs:
   build-manylinux-wheels:
-    # runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Cloning SUMO
@@ -75,8 +74,7 @@ jobs:
   ###################
   test-wheels:
     needs: [build-manylinux-wheels]
-    # runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     env:
       WHEEL_DIR: manylinux-wheels
     strategy:
