@@ -1,6 +1,8 @@
 set(netedit_dialogs_file_SRCS
     GNEFileDialog.cpp
     GNEFileDialog.h
+    GNEFilePathDialog.cpp
+    GNEFilePathDialog.h
     GNEFileSelector.cpp
     GNEFileSelector.h
 )
