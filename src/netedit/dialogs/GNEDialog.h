@@ -33,7 +33,7 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class GNEDialog : public FXDialogBox {
+class GNEDialog : protected FXDialogBox {
     FXDECLARE_ABSTRACT(GNEDialog)
 
 public:
