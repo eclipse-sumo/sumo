@@ -118,10 +118,13 @@ GNENetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*
 long
 GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
     // get output file
-    const auto fileDialog = GNEApplicationWindowHelper::openNetworkFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::SAVE);
+    const auto networkFileDialog = GNEFileDialog(myApplicationWindow, TL("network"),
+                                   SUMOXMLDefinitions::NetFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::SAVE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        myOutputTextField->setText(fileDialog.getFilename().c_str(), TRUE);
+    if (networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myOutputTextField->setText(networkFileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }

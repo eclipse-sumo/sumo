@@ -1163,39 +1163,6 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
-    /// @brief open xml file dialog
-    static GNEFileDialog openXMLFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open netconvert file dialog
-    static GNEFileDialog openNetworkFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open netedit config file dialog
-    static GNEFileDialog openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open SUMO config file dialog
-    static GNEFileDialog openSumoConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open TLS file dialog
-    static GNEFileDialog openTLSFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open edgeType file dialog
-    static GNEFileDialog openEdgeTypeFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open additional dialog
-    static GNEFileDialog openAdditionalFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open route file dialog
-    static GNEFileDialog openRouteFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open data file dialog
-    static GNEFileDialog openDataFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open meandata filename dialog
-    static GNEFileDialog openMeanDataDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
-    /// @brief open option dialog
-    static GNEFileDialog openOptionFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
-
 private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

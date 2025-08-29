@@ -222,12 +222,15 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 
 long
 GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
-    // open save dialog
-    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::SAVE);
+    // open file dialog
+    const auto optionsFileDialog = GNEFileDialog(myDialog->getApplicationWindow(), TL("options"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::SAVE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        std::ofstream out(StringUtils::transcodeToLocal(fileDialog.getFilename()));
-        myOptionsContainer.writeConfiguration(out, true, false, false, fileDialog.getFilename(), true);
+    if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        std::ofstream out(StringUtils::transcodeToLocal(optionsFileDialog.getFilename()));
+        myOptionsContainer.writeConfiguration(out, true, false, false, optionsFileDialog.getFilename(), true);
         out.close();
     }
     return 1;
@@ -237,9 +240,12 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::LOAD_SINGLE);
+    const auto optionsFileDialog = GNEFileDialog(myDialog->getApplicationWindow(), TL("options"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && loadConfiguration(fileDialog.getFilename())) {
+    if ((optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) && loadConfiguration(optionsFileDialog.getFilename())) {
         // update entries
         for (const auto& entry : myOptionRowEntries) {
             entry->updateOption();

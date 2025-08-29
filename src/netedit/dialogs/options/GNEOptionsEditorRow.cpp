@@ -568,12 +568,15 @@ GNEOptionsEditorRow::OptionFilename::restoreOption() {
 
 long
 GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // get file
+    // get open mode
     GNEFileDialog::OpenMode openMode = (myName.find("output") != std::string::npos) ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE;
-    const auto fileDialog = GNEApplicationWindowHelper::openXMLFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), openMode);
+    // open dialog
+    const auto XMLFileDialog = GNEFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), TL("XML"),
+                               SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
+                               GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
+    if (XMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(XMLFileDialog.getFilename().c_str(), TRUE);
     }
     updateResetButton();
     return 1;

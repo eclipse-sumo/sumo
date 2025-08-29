@@ -139,10 +139,13 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::SAVE);
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::SAVE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        myPythonTool->saveConfiguration(fileDialog.getFilename());
+    if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myPythonTool->saveConfiguration(optionsFileDialog.getFilename());
     }
     return 1;
 }
@@ -151,9 +154,12 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::LOAD_SINGLE);
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && myPythonTool->loadConfiguration(fileDialog.getFilename())) {
+    if ((optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) && myPythonTool->loadConfiguration(optionsFileDialog.getFilename())) {
         // rebuild arguments
         buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
     }
