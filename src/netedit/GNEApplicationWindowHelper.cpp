@@ -2503,41 +2503,6 @@ GNEApplicationWindowHelper::openNetworkFileDialog(GNEApplicationWindow* applicat
 
 
 GNEFileDialog
-GNEApplicationWindowHelper::openNetconvertFileDialog(GNEApplicationWindow* applicationWindow) {
-    return GNEFileDialog(applicationWindow, TL("Open NetConvert file"), GUIIcon::OPEN_NET,
-                         SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(), GNEFileDialog::OpenMode::LOAD_SINGLE);
-}
-
-
-GNEFileDialog
-GNEApplicationWindowHelper::savePlainXMLFileDialog(GNEApplicationWindow* applicationWindow) {
-    return GNEFileDialog(applicationWindow, TL("Save plain XML as"), GUIIcon::SAVE,
-                         SUMOXMLDefinitions::XMLFileExtensions.getStrings(), GNEFileDialog::OpenMode::SAVE);
-}
-
-
-GNEFileDialog
-GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(GNEApplicationWindow* applicationWindow) {
-    return GNEFileDialog(applicationWindow, TL("Save joined Junctions as"), GUIIcon::SAVE,
-                         SUMOXMLDefinitions::JunctionFileExtensions.getStrings(), GNEFileDialog::OpenMode::SAVE);
-}
-
-
-GNEFileDialog
-GNEApplicationWindowHelper::saveToolLog(GNEApplicationWindow* applicationWindow) {
-    return GNEFileDialog(applicationWindow, TL("Save tool log"), GUIIcon::SAVE,
-                         SUMOXMLDefinitions::TXTFileExtensions.getStrings(), GNEFileDialog::OpenMode::SAVE);
-}
-
-
-GNEFileDialog
-GNEApplicationWindowHelper::openOSMFileDialog(GNEApplicationWindow* applicationWindow) {
-    return GNEFileDialog(applicationWindow, TL("Open OSM file"), GUIIcon::OPEN_NET,
-                         SUMOXMLDefinitions::OSMFileExtensions.getStrings(), GNEFileDialog::OpenMode::LOAD_SINGLE);
-}
-
-
-GNEFileDialog
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
         return GNEFileDialog(applicationWindow, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,

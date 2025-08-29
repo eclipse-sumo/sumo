@@ -735,12 +735,14 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
-    // get netconvert filename
-    const auto fileDialog = GNEApplicationWindowHelper::openNetconvertFileDialog(this);
-    // continue depending of netconvertFile
-    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
+    // get netconvert file dialog
+    const auto netConvertFileDialog = GNEFileDialog(this, TL("Open NetConvert file"), GUIIcon::OPEN_NET,
+                                      SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
+                                      GNEFileDialog::OpenMode::LOAD_SINGLE);
+    // continue depending of netConvertFileDialog
+    if ((netConvertFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         // load configuration
-        loadConfiguration(fileDialog.getFilename());
+        loadConfiguration(netConvertFileDialog.getFilename());
     }
     return 1;
 }
@@ -761,11 +763,13 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
-    // get netconvert filename
-    const auto fileDialog = GNEApplicationWindowHelper::openOSMFileDialog(this);
+    // get OSM file dilaog
+    const auto OSMFileDialog = GNEFileDialog(this, TL("Open OSM file"), GUIIcon::OPEN_NET,
+                               SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
+                               GNEFileDialog::OpenMode::LOAD_SINGLE);
     // continue depending of netconvertFile
-    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
-        loadOSM(fileDialog.getFilename());
+    if ((OSMFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
+        loadOSM(OSMFileDialog.getFilename());
     }
     return 1;
 }
@@ -3361,10 +3365,12 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto fileDialog = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
+    const auto plainXMLFileDialog = GNEFileDialog(this, TL("Save plain XML as"), GUIIcon::SAVE,
+                                    SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                    GNEFileDialog::OpenMode::SAVE);
     // Remove extension
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        auto plainXMLFile = fileDialog.getFilename();
+    if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        auto plainXMLFile = plainXMLFileDialog.getFilename();
         // adjust file
         if (plainXMLFile.back() == '.') {
             plainXMLFile.pop_back();
@@ -3401,14 +3407,16 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto fileDialog = GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(this);
+    const auto joinedJunctionsFileDialog = GNEFileDialog(this, TL("Save joined Junctions as"), GUIIcon::SAVE,
+                                           SUMOXMLDefinitions::JunctionFileExtensions.getStrings(),
+                                           GNEFileDialog::OpenMode::SAVE);
     // continue depending of file
-    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+    if (joinedJunctionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         getApp()->beginWaitCursor();
         try {
-            myNet->saveJoined(fileDialog.getFilename());
+            myNet->saveJoined(joinedJunctionsFileDialog.getFilename());
             // write info
-            WRITE_MESSAGE(TLF("Joined junctions saved to '%'", fileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Joined junctions saved to '%'", joinedJunctionsFileDialog.getFilename()));
         } catch (IOError& e) {
             // opening error message
             GNEErrorBasicDialog(this, TL("Saving joined junctions failed!"), e.what());

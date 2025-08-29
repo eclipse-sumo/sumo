@@ -1169,21 +1169,6 @@ struct GNEApplicationWindowHelper {
     /// @brief open netconvert file dialog
     static GNEFileDialog openNetworkFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
-    /// @brief open netconvert file dialog
-    static GNEFileDialog openNetconvertFileDialog(GNEApplicationWindow* applicationWindow);
-
-    /// @brief open plain xml file dialog
-    static GNEFileDialog savePlainXMLFileDialog(GNEApplicationWindow* applicationWindow);
-
-    /// @brief open joined junctions file dialog
-    static GNEFileDialog saveJoinedJunctionsFileDialog(GNEApplicationWindow* applicationWindow);
-
-    /// @brief open tool file dialog
-    static GNEFileDialog saveToolLog(GNEApplicationWindow* applicationWindow);
-
-    /// @brief open OSM file dialog
-    static GNEFileDialog openOSMFileDialog(GNEApplicationWindow* applicationWindow);
-
     /// @brief open netedit config file dialog
     static GNEFileDialog openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode);
 
