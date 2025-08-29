@@ -395,11 +395,14 @@ GNEAttributesEditorType::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 long
 GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
     // obtain edited AC (temporal), until unification of
-    const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
+    auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
     // open vehicle type dialog
     if (demandElement) {
-        GNEVehicleTypeDialog(demandElement, true);  // NOSONAR, constructor returns after dialog has been closed
-        refreshAttributesEditor();
+        // open dialog
+        const auto vTypeDialog = GNEVehicleTypeDialog(demandElement);
+        if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
+            refreshAttributesEditor();
+        }
     }
     return 1;
 }

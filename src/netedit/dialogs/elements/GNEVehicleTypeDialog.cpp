@@ -1767,7 +1767,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // GNEVehicleTypeDialog - public methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement) :
+GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType) :
     GNETemplateElementDialog<GNEDemandElement>(vehicleType),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
@@ -1777,10 +1777,6 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool u
     myVTypeAttributes = new VTypeAttributes(this, columns);
     // create car following model parameters
     myCarFollowingModelParameters = new CarFollowingModelParameters(this, columns);
-    // add element if we aren't updating an existent element
-    if (!updatingElement) {
-        myElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myElement, true), true);
-    }
     // update values of Vehicle Type common attributes
     myVTypeAttributes->updateValues();
     // update values of Car Following Model Parameters

@@ -621,7 +621,7 @@ public:
     };
 
     /// @brief constructor
-    GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement);
+    GNEVehicleTypeDialog(GNEDemandElement* vehicleType);
 
     /// @brief destructor
     ~GNEVehicleTypeDialog();

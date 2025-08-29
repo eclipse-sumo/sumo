@@ -150,7 +150,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
     // insert vType
     insertElement(vType);
     // open route dialog
-    const auto vTypeDialog = GNEVehicleTypeDialog(vType, false);
+    const auto vTypeDialog = GNEVehicleTypeDialog(vType);
     // continue depending of result of routeDialog
     if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove vType
@@ -164,7 +164,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
 long
 GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
     // open vType dialog
-    GNEVehicleTypeDialog(myEditedElements.at(rowIndex), true);
+    GNEVehicleTypeDialog(myEditedElements.at(rowIndex));
     return 1;
 }
 
