@@ -43,7 +43,7 @@ class GNEFileSelector : public FXVerticalFrame {
 public:
     /// @brief Constructor
     GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
-                    GNEFileDialog::OpenMode openMode);
+                    GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType);
 
     /// @brief Destructor
     virtual ~GNEFileSelector();
@@ -136,7 +136,7 @@ public:
     long onCmdFilter(FXObject*, FXSelector, void*);
 
     /// @brief Handler for double-clicking an item.
-    long onCmdItemDblClicked(FXObject* obj, FXSelector sel, void* ptr);
+    long onCmdItemDoubleClicked(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief Handler for selecting an item.
     long onCmdItemSelected(FXObject*, FXSelector, void*);
@@ -154,10 +154,10 @@ public:
     long onCmdDirTree(FXObject*, FXSelector, void*);
 
     /// @brief Handler for navigating to the home directory.
-    long onCmdHome(FXObject*, FXSelector, void*);
+    long onCmdHomeFolder(FXObject*, FXSelector, void*);
 
-    /// @brief Handler for navigating to the work directory.
-    long onCmdWork(FXObject*, FXSelector, void*);
+    /// @brief Handler for navigating to the sumo/netedit config directory.
+    long onCmdConfigFolder(FXObject*, FXSelector, void*);
 
     /// @brief Handler for opening myBookmarksRecentFiles.
     long onCmdBookmark(FXObject*, FXSelector, void*);
@@ -166,19 +166,16 @@ public:
     long onCmdVisit(FXObject*, FXSelector, void*);
 
     /// @brief Handler for creating a new item or directory.
-    long onCmdNew(FXObject*, FXSelector, void*);
+    long onCmdNewFolder(FXObject*, FXSelector, void*);
 
     /// @brief Update handler for enabling/disabling new command.
-    long onUpdNew(FXObject*, FXSelector, void*);
+    long onUpdNewFolder(FXObject*, FXSelector, void*);
 
     /// @brief Handler for moving an item.
     long onCmdMove(FXObject*, FXSelector, void*);
 
     /// @brief Handler for copying an item.
     long onCmdCopy(FXObject*, FXSelector, void*);
-
-    /// @brief Handler for creating a link to an item.
-    long onCmdLink(FXObject*, FXSelector, void*);
 
     /// @brief Handler for deleting an item.
     long onCmdDelete(FXObject*, FXSelector, void*);

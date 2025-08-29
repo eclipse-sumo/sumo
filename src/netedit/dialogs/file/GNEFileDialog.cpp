@@ -28,11 +28,12 @@
 // ===========================================================================
 
 GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
-                             const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode):
+                             const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
+                             GNEFileDialog::ConfigType configType):
     GNEDialog(applicationWindow, title, icon, GNEDialog::Buttons::ACCEPT_CANCEL,
               GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
     // create file selector
-    myFileSelector = new GNEFileSelector(this, extensions, openMode);
+    myFileSelector = new GNEFileSelector(this, extensions, openMode, configType);
     // retarget accept button to file selector
     myAcceptButton->setTarget(myFileSelector);
     myAcceptButton->setSelector(FXFileSelector::ID_ACCEPT);

@@ -43,9 +43,16 @@ public:
         LOAD_DIRECTORY  // Existing directory, including '.' or '..'
     };
 
+    /// @brief config type
+    enum class ConfigType {
+        SUMO,       // sumo config
+        NETEDIT,    // netedit config
+    };
+
     /// @brief constructor
     GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
-                  const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode);
+                  const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
+                  GNEFileDialog::ConfigType configType);
 
     /// @brief destructor
     ~GNEFileDialog();

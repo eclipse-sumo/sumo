@@ -41,26 +41,24 @@
 FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_ACCEPT,          GNEFileSelector::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_FILEFILTER,      GNEFileSelector::onCmdFilter),
-    FXMAPFUNC(SEL_DOUBLECLICKED,        FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDblClicked),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDoubleClicked),
     FXMAPFUNC(SEL_SELECTED,             FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemSelected),
     FXMAPFUNC(SEL_DESELECTED,           FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDeselected),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   FXFileSelector::ID_FILELIST,        GNEFileSelector::onPopupMenu),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DIRECTORY_UP,    GNEFileSelector::onCmdDirectoryUp),
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DIRECTORY_UP,    GNEFileSelector::onUpdDirectoryUp),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DIRTREE,         GNEFileSelector::onCmdDirTree),
-    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_HOME,            GNEFileSelector::onCmdHome),
-    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_WORK,            GNEFileSelector::onCmdWork),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_HOME,            GNEFileSelector::onCmdHomeFolder),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_WORK,            GNEFileSelector::onCmdConfigFolder),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_VISIT,           GNEFileSelector::onCmdVisit),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_BOOKMARK,        GNEFileSelector::onCmdBookmark),
-    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_NEW,             GNEFileSelector::onCmdNew),
-    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_NEW,             GNEFileSelector::onUpdNew),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_NEW,             GNEFileSelector::onCmdNewFolder),
+    FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_NEW,             GNEFileSelector::onUpdNewFolder),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DELETE,          GNEFileSelector::onCmdDelete),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_MOVE,            GNEFileSelector::onCmdMove),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_COPY,            GNEFileSelector::onCmdCopy),
-    //FXMAPFUNC(SEL_COMMAND,            FXFileSelector::ID_LINK,            GNEFileSelector::onCmdLink),
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_COPY,            GNEFileSelector::onUpdSelected),
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_MOVE,            GNEFileSelector::onUpdSelected),
-    //FXMAPFUNC(SEL_UPDATE,             FXFileSelector::ID_LINK,            GNEFileSelector::onUpdSelected),
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DELETE,          GNEFileSelector::onUpdSelected),
     FXMAPFUNCS(SEL_COMMAND,             FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onCmdImageSize),
     FXMAPFUNCS(SEL_UPDATE,              FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onUpdImageSize),
@@ -74,7 +72,7 @@ FXIMPLEMENT(GNEFileSelector, FXVerticalFrame, GNEFileSelectorMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<std::string>& extensions,
-                                 GNEFileDialog::OpenMode openMode):
+                                 GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType):
     FXVerticalFrame(fileDialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myFileDialog(fileDialog),
     myOpenMode(openMode),
@@ -169,7 +167,7 @@ GNEFileSelector::~GNEFileSelector() {
 
 
 long
-GNEFileSelector::onUpdNew(FXObject* sender, FXSelector, void*) {
+GNEFileSelector::onUpdNewFolder(FXObject* sender, FXSelector, void*) {
     // check if directory is writtable
     const bool writtable = FXStat::isWritable(myFileSelector->getDirectory());
     return sender->handle(this, writtable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
@@ -285,32 +283,6 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
                                         TLF("Unable to move file:\n%\n", destinyFilename),
                                         TL("Check destiny file permissions"));
                 }
-            }
-        }
-    }
-    return 1;
-}
-
-
-long
-GNEFileSelector::onCmdLink(FXObject*, FXSelector, void*) {
-    const auto filenameList = getSelectedFiles();
-    // first check if we have files to link
-    if (filenameList.size() > 0) {
-        // get only first filename
-        const std::string originFilePath = filenameList.front();
-        // create file path dialog
-        const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Link File"), TL("Select destiny file"), originFilePath);
-        // continue depending of filePathDialog results
-        if (filePathDialog->getResult() == GNEDialog::Result::ACCEPT) {
-            // get destiny filename from dialog
-            const std::string destinyFilename = filePathDialog->getFilePath();
-            // try to link
-            if (!FXFile::symlink(originFilePath.c_str(), destinyFilename.c_str())) {
-                // open error dialog
-                GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error moving file"),
-                                    TLF("Unable to link file:\n%\n", destinyFilename),
-                                    TL("Check destiny file permissions"));
             }
         }
     }
@@ -460,7 +432,6 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     new FXMenuCommand(&filemenu, TL("Copy..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_COPY), this, FXFileSelector::ID_COPY);
     new FXMenuCommand(&filemenu, TL("Move..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_MOVE), this, FXFileSelector::ID_MOVE);
     // disabled linker because it doesn't work
-    //new FXMenuCommand(&filemenu, TL("Link..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_LINK), this, FXFileSelector::ID_LINK);
     new FXMenuCommand(&filemenu, TL("Delete..."), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_FILE_DELETE), this, FXFileSelector::ID_DELETE);
 
     filemenu.create();
@@ -724,7 +695,7 @@ GNEFileSelector::onCmdItemDeselected(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFileSelector::onCmdItemDblClicked(FXObject* obj, FXSelector sel, void* ptr) {
+GNEFileSelector::onCmdItemDoubleClicked(FXObject* obj, FXSelector sel, void* ptr) {
     const FXint index = (FXint)(FXival)ptr;
     if (0 <= index) {
         // If directory, open the directory
@@ -813,14 +784,14 @@ GNEFileSelector::onUpdDirectoryUp(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEFileSelector::onCmdHome(FXObject*, FXSelector, void*) {
+GNEFileSelector::onCmdHomeFolder(FXObject*, FXSelector, void*) {
     setDirectory(FXSystem::getHomeDirectory());
     return 1;
 }
 
 
 long
-GNEFileSelector::onCmdWork(FXObject*, FXSelector, void*) {
+GNEFileSelector::onCmdConfigFolder(FXObject*, FXSelector, void*) {
     setDirectory(FXSystem::getCurrentDirectory());
     return 1;
 }
@@ -851,7 +822,7 @@ GNEFileSelector::onCmdDirTree(FXObject*, FXSelector, void* ptr) {
 
 
 long
-GNEFileSelector::onCmdNew(FXObject*, FXSelector, void*) {
+GNEFileSelector::onCmdNewFolder(FXObject*, FXSelector, void*) {
     // create file path dialog
     const auto filePathDialog = new GNEFilePathDialog(myFileDialog->getApplicationWindow(), TL("Create New Directory"), TL("Create new directory with name:"), "DirectoryName");
     // continue depending of filePathDialog results

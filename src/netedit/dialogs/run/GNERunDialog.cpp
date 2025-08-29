@@ -134,7 +134,9 @@ long
 GNERunDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // create fileDialog
     const auto saveLogFileDialog = GNEFileDialog(myApplicationWindow, TL("Save tool log"), GUIIcon::SAVE,
-                                   SUMOXMLDefinitions::TXTFileExtensions.getStrings(), GNEFileDialog::OpenMode::SAVE);
+                                   SUMOXMLDefinitions::TXTFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::SAVE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (saveLogFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         OutputDevice& dev = OutputDevice::getDevice(saveLogFileDialog.getFilename());
