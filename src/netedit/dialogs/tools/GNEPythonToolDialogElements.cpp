@@ -215,10 +215,10 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSe
         }
     }
     // get file
-    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openXMLFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (file.size() > 0) {
-        myFilenameTextField->setText(file.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }
@@ -362,10 +362,10 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
         }
     }
     // get network file
-    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openNetworkFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (networkFile.size() > 0) {
-        myFilenameTextField->setText(networkFile.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }
@@ -414,10 +414,10 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FX
         }
     }
     // get additional file
-    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openAdditionalFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (additionalFile.size() > 0) {
-        myFilenameTextField->setText(additionalFile.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }
@@ -466,10 +466,10 @@ GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelec
         }
     }
     // get route file
-    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openRouteFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (routeFile.size() > 0) {
-        myFilenameTextField->setText(routeFile.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }
@@ -518,10 +518,10 @@ GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelect
         }
     }
     // get data file
-    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openDataFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (dataFile.size() > 0) {
-        myFilenameTextField->setText(dataFile.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }
@@ -570,10 +570,10 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FX
         }
     }
     // get sumoConfig file
-    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
+    const auto fileDialog = GNEApplicationWindowHelper::openSumoConfigFileDialog(myToolDialogParent->getApplicationWindow(), openMode);
     // check that file is valid
-    if (sumoConfigFile.size() > 0) {
-        myFilenameTextField->setText(sumoConfigFile.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myFilenameTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }

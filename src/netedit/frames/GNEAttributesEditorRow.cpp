@@ -439,14 +439,13 @@ GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
                               TLF("Select existent or create new file for % attribute", myAttrProperty->getAttrStr()) :
                               TLF("Select existent file for % attribute", myAttrProperty->getAttrStr());
     // open dialog
-    const std::string value = GNEApplicationWindowHelper::openFileDialog(
-                                  myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                  title, myAttrProperty->getTagPropertyParent()->getGUIIcon(),
-                                  myAttrProperty->getFilenameExtensions(),
-                                  myAttrProperty->isFileSave() ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE);
+    const auto fileDialog = GNEFileDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                          title, myAttrProperty->getTagPropertyParent()->getGUIIcon(),
+                                          myAttrProperty->getFilenameExtensions(),
+                                          myAttrProperty->isFileSave() ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE);
     // update text field
-    if (value.size() > 0) {
-        myValueTextField->setText(value.c_str(), TRUE);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myValueTextField->setText(fileDialog.getFilename().c_str(), TRUE);
     }
     return 1;
 }

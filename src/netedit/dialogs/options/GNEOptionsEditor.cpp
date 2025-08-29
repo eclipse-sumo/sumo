@@ -223,11 +223,11 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     // open save dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::SAVE);
+    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::SAVE);
     // check file
-    if (file.size() > 0) {
-        std::ofstream out(StringUtils::transcodeToLocal(file));
-        myOptionsContainer.writeConfiguration(out, true, false, false, file, true);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        std::ofstream out(StringUtils::transcodeToLocal(fileDialog.getFilename()));
+        myOptionsContainer.writeConfiguration(out, true, false, false, fileDialog.getFilename(), true);
         out.close();
     }
     return 1;
@@ -237,9 +237,9 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::LOAD_SINGLE);
+    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myDialog->getApplicationWindow(), GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
-    if ((file.size() > 0) && loadConfiguration(file)) {
+    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && loadConfiguration(fileDialog.getFilename())) {
         // update entries
         for (const auto& entry : myOptionRowEntries) {
             entry->updateOption();

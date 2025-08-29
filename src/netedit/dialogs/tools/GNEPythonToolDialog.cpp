@@ -139,10 +139,10 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::SAVE);
+    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::SAVE);
     // check file
-    if (file.size() > 0) {
-        myPythonTool->saveConfiguration(file);
+    if (fileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myPythonTool->saveConfiguration(fileDialog.getFilename());
     }
     return 1;
 }
@@ -151,9 +151,9 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::LOAD_SINGLE);
+    const auto fileDialog = GNEApplicationWindowHelper::openOptionFileDialog(myApplicationWindow, GNEFileDialog::OpenMode::LOAD_SINGLE);
     // check file
-    if ((file.size() > 0) && myPythonTool->loadConfiguration(file)) {
+    if ((fileDialog.getResult() == GNEDialog::Result::ACCEPT) && myPythonTool->loadConfiguration(fileDialog.getFilename())) {
         // rebuild arguments
         buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
     }
