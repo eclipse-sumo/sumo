@@ -57,6 +57,9 @@ public:
     /// @brief get file names
     std::vector<std::string> getFilenames() const;
 
+    /// @brief Return directory
+    std::string getDirectory() const;
+
     /// Change file pattern
     void setPattern(const FXString& ptrn);
 
@@ -86,9 +89,6 @@ public:
 
     /// @brief Change directory
     void setDirectory(const FXString& path);
-
-    /// @brief Return directory
-    FXString getDirectory() const;
 
     /// @brief Set the inter-item spacing (in pixels)
     void setItemSpace(FXint s);

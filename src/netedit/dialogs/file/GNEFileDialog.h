@@ -53,83 +53,17 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// Change file name
+    /// @brief Change file name
     void setFilename(const FXString& path);
 
-    /// Return file name, if any
+    /// @brief Return file name, if any
     std::string getFilename() const;
 
-    /// Return empty-string terminated list of selected file names, or NULL if none selected
+    /// @brief Return empty-string terminated list of selected file names, or NULL if none selected
     std::vector<std::string> getFilenames() const;
 
-    /// Change file pattern
-    void setPattern(const FXString& ptrn);
-
-    /// Return file pattern
-    FXString getPattern() const;
-
-    /// @brief set current pattern
-    void setCurrentPattern(FXint n);
-
-    /// Return current pattern number
-    FXint getCurrentPattern() const;
-
-    /// Get pattern text for given pattern number
-    FXString getPatternText(FXint patno) const;
-
-    /// Change pattern text for pattern number
-    void setPatternText(FXint patno, const FXString& text);
-
-    /// Return number of patterns
-    FXint getNumPatterns() const;
-
-    /// Allow pattern entry
-    void allowPatternEntry(FXbool allow);
-
-    /// Return TRUE if pattern entry is allowed
-    FXbool allowPatternEntry() const;
-
-    /// Change directory
-    void setDirectory(const FXString& path);
-
-    /// Return directory
-    FXString getDirectory() const;
-
-    /// Set the inter-item spacing (in pixels)
-    void setItemSpace(FXint s);
-
-    /// Return the inter-item spacing (in pixels)
-    FXint getItemSpace() const;
-
-    /// Change wildcard matching mode
-    void setMatchMode(FXuint mode);
-
-    /// Return wildcard matching mode
-    FXuint getMatchMode() const;
-
-    /// Return TRUE if showing hidden files
-    FXbool showHiddenFiles() const;
-
-    /// Show or hide hidden files
-    void showHiddenFiles(FXbool showing);
-
-    /// Return TRUE if image preview on
-    FXbool showImages() const;
-
-    /// Show or hide preview images
-    void showImages(FXbool showing);
-
-    /// Return images preview size
-    FXint getImageSize() const;
-
-    /// Change images preview size
-    void setImageSize(FXint size);
-
-    /// Change File List style
-    void setFileBoxStyle(FXuint style);
-
-    /// Return File List style
-    FXuint getFileBoxStyle() const;
+    /// @brief Return directory
+    std::string getDirectory() const;
 
     /// @name FOX-callbacks
     /// @{

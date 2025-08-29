@@ -170,8 +170,9 @@ GNEFileSelector::~GNEFileSelector() {
 
 long
 GNEFileSelector::onUpdNew(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, FXStat::isWritable(getDirectory()) ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
-    return 1;
+    // check if directory is writtable
+    const bool writtable = FXStat::isWritable(myFileSelector->getDirectory());
+    return sender->handle(this, writtable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
 }
 
 
@@ -471,7 +472,7 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
 
 long
 GNEFileSelector::onCmdFilter(FXObject*, FXSelector, void* ptr) {
-    FXString pat = FXFileSelector::patternFromText((FXchar*)ptr);
+    const FXString pat = FXFileSelector::patternFromText((FXchar*)ptr);
     myFileSelector->setPattern(pat);
     if (myOpenMode == GNEFileDialog::OpenMode::SAVE) {
         FXString ext = FXFileSelector::extensionFromPattern(pat);
@@ -488,8 +489,7 @@ GNEFileSelector::onCmdFilter(FXObject*, FXSelector, void* ptr) {
 
 void
 GNEFileSelector::setDirectory(const FXString& path) {
-    FXString abspath = FXPath::absolute(path);
-    FXTRACE((100, "path=%s abspath: %s\n", path.text(), abspath.text()));
+    const FXString abspath = FXPath::absolute(path);
     myFileSelector->setDirectory(abspath);
     myDirBox->setDirectory(abspath);
     if (myOpenMode != GNEFileDialog::OpenMode::SAVE) {
@@ -498,15 +498,9 @@ GNEFileSelector::setDirectory(const FXString& path) {
 }
 
 
-FXString
-GNEFileSelector::getDirectory() const {
-    return myFileSelector->getDirectory();
-}
-
-
 void
 GNEFileSelector::setFilename(const FXString& path) {
-    FXString fullname(FXPath::absolute(path));
+    const FXString fullname(FXPath::absolute(path));
     FXString name(FXPath::name(fullname));
     myFileSelector->setCurrentFile(fullname);
     myDirBox->setDirectory(myFileSelector->getDirectory());
@@ -533,6 +527,12 @@ GNEFileSelector::getFilename() const {
 std::vector<std::string>
 GNEFileSelector::getFilenames() const {
     return getSelectedFilesOnly();
+}
+
+
+std::string
+GNEFileSelector::getDirectory() const {
+    return myFileSelector->getDirectory().text();
 }
 
 
@@ -806,7 +806,9 @@ GNEFileSelector::onCmdDirectoryUp(FXObject*, FXSelector, void*) {
 
 long
 GNEFileSelector::onUpdDirectoryUp(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, !FXPath::isTopDirectory(getDirectory()) ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
+    // check if this is a top directory
+    const bool topDirectory = FXPath::isTopDirectory(myFileSelector->getDirectory());
+    return sender->handle(this, topDirectory ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), NULL);
 }
 
 
@@ -833,7 +835,7 @@ GNEFileSelector::onCmdVisit(FXObject*, FXSelector, void* ptr) {
 
 long
 GNEFileSelector::onCmdBookmark(FXObject*, FXSelector, void*) {
-    myBookmarksRecentFiles.appendFile(getDirectory());
+    myBookmarksRecentFiles.appendFile(myFileSelector->getDirectory());
     return 1;
 }
 

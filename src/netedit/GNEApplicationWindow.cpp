@@ -3934,8 +3934,6 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
 
 long
 GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) {
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
     // get juPedSim file
     const auto juPedSimFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, GNEFileDialog::OpenMode::SAVE);
     // check that file is valid
