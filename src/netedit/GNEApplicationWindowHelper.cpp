@@ -2481,11 +2481,11 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
 GNEFileDialog
 GNEApplicationWindowHelper::openXMLFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save file as"), GUIIcon::SAVE,
+        return GNEFileDialog(applicationWindow, TL("XML"),
                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open file"), GUIIcon::OPEN_SUMOCONFIG,
+        return GNEFileDialog(applicationWindow, TL("XML"),
                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2495,11 +2495,11 @@ GNEApplicationWindowHelper::openXMLFileDialog(GNEApplicationWindow* applicationW
 GNEFileDialog
 GNEApplicationWindowHelper::openNetworkFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save Network file as"), GUIIcon::SAVE_NETWORKELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("network"),
                              SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open Network file"), GUIIcon::OPEN_NET,
+        return GNEFileDialog(applicationWindow, TL("network"),
                              SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2509,11 +2509,11 @@ GNEApplicationWindowHelper::openNetworkFileDialog(GNEApplicationWindow* applicat
 GNEFileDialog
 GNEApplicationWindowHelper::openNeteditConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
+        return GNEFileDialog(applicationWindow, TL("netedit config"),
                              SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
+        return GNEFileDialog(applicationWindow, TL("netedit config"),
                              SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2523,11 +2523,11 @@ GNEApplicationWindowHelper::openNeteditConfigFileDialog(GNEApplicationWindow* ap
 GNEFileDialog
 GNEApplicationWindowHelper::openSumoConfigFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
+        return GNEFileDialog(applicationWindow, TL("sumo config"),
                              SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
+        return GNEFileDialog(applicationWindow, TL("sumo config"),
                              SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2537,11 +2537,11 @@ GNEApplicationWindowHelper::openSumoConfigFileDialog(GNEApplicationWindow* appli
 GNEFileDialog
 GNEApplicationWindowHelper::openTLSFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save TLS file as"), GUIIcon::SAVE_NETWORKELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("Traffic Light definitions"),
                              SUMOXMLDefinitions::TLSFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open TLS file"), GUIIcon::OPEN_TLSPROGRAMS,
+        return GNEFileDialog(applicationWindow, TL("Traffic Light definitions"),
                              SUMOXMLDefinitions::TLSFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2551,11 +2551,11 @@ GNEApplicationWindowHelper::openTLSFileDialog(GNEApplicationWindow* applicationW
 GNEFileDialog
 GNEApplicationWindowHelper::openEdgeTypeFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save EdgeType file as"), GUIIcon::SAVE_NETWORKELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("EdgeTypes"),
                              SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open EdgeType file"), GUIIcon::OPEN_NET,
+        return GNEFileDialog(applicationWindow, TL("EdgeTypes"),
                              SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2565,11 +2565,11 @@ GNEApplicationWindowHelper::openEdgeTypeFileDialog(GNEApplicationWindow* applica
 GNEFileDialog
 GNEApplicationWindowHelper::openAdditionalFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save Additionals file as"), GUIIcon::SAVE_ADDITIONALELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("Additional elements"),
                              SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open Additionals file"), GUIIcon::MODEADDITIONAL,
+        return GNEFileDialog(applicationWindow, TL("Additional elements"),
                              SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2579,11 +2579,11 @@ GNEApplicationWindowHelper::openAdditionalFileDialog(GNEApplicationWindow* appli
 GNEFileDialog
 GNEApplicationWindowHelper::openRouteFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save Route file as"), GUIIcon::SAVE_DEMANDELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("Route elements"),
                              SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open Route file"), GUIIcon::SUPERMODEDEMAND,
+        return GNEFileDialog(applicationWindow, TL("Route elements"),
                              SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2593,11 +2593,11 @@ GNEApplicationWindowHelper::openRouteFileDialog(GNEApplicationWindow* applicatio
 GNEFileDialog
 GNEApplicationWindowHelper::openDataFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save Data file as"), GUIIcon::SAVE_DATAELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("Data elements"),
                              SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open Data file"), GUIIcon::SUPERMODEDATA,
+        return GNEFileDialog(applicationWindow, TL("Data elements"),
                              SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2607,11 +2607,11 @@ GNEApplicationWindowHelper::openDataFileDialog(GNEApplicationWindow* application
 GNEFileDialog
 GNEApplicationWindowHelper::openMeanDataDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save MeanData file as"), GUIIcon::SAVE_MEANDATAELEMENTS,
+        return GNEFileDialog(applicationWindow, TL("MeanData elements"),
                              SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open MeanData file"), GUIIcon::MODEMEANDATA,
+        return GNEFileDialog(applicationWindow, TL("MeanData elements"),
                              SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }
@@ -2621,11 +2621,11 @@ GNEApplicationWindowHelper::openMeanDataDialog(GNEApplicationWindow* application
 GNEFileDialog
 GNEApplicationWindowHelper::openOptionFileDialog(GNEApplicationWindow* applicationWindow, GNEFileDialog::OpenMode openMode) {
     if (openMode == GNEFileDialog::OpenMode::SAVE) {
-        return GNEFileDialog(applicationWindow, TL("Save options file as"), GUIIcon::SAVE,
+        return GNEFileDialog(applicationWindow, TL("options"),
                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     } else {
-        return GNEFileDialog(applicationWindow, TL("Open options file"), GUIIcon::OPEN,
+        return GNEFileDialog(applicationWindow, TL("options"),
                              SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                              GNEFileDialog::ConfigType::NETEDIT);
     }

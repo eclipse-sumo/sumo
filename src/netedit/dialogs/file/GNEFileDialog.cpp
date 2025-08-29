@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEFileDialog.h"
 #include "GNEFileSelector.h"
@@ -27,11 +28,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
+GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string element,
                              const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
                              GNEFileDialog::ConfigType configType):
-    GNEDialog(applicationWindow, title, icon, GNEDialog::Buttons::ACCEPT_CANCEL,
+    GNEDialog(applicationWindow, TLF("Save % file as", element), GUIIcon::SAVE, GNEDialog::Buttons::ACCEPT_CANCEL,
               GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
+    // update title and icon if we are opening
+    if (openMode != GNEFileDialog::OpenMode::SAVE) {
+        updateIcon(GUIIcon::OPEN);
+        updateTitle(TLF("Open % file", element));
+    }
     // create file selector
     myFileSelector = new GNEFileSelector(this, extensions, openMode, configType);
     // retarget accept button to file selector

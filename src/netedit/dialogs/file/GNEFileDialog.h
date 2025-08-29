@@ -50,7 +50,7 @@ public:
     };
 
     /// @brief constructor
-    GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon,
+    GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string element,
                   const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
                   GNEFileDialog::ConfigType configType);
 

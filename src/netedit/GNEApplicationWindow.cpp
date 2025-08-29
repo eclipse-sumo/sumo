@@ -736,7 +736,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
     // get netconvert file dialog
-    const auto netConvertFileDialog = GNEFileDialog(this, TL("Open NetConvert file"), GUIIcon::OPEN_NET,
+    const auto netConvertFileDialog = GNEFileDialog(this, TL("netConvert config"),
                                       SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
                                       GNEFileDialog::OpenMode::LOAD_SINGLE,
                                       GNEFileDialog::ConfigType::NETEDIT);
@@ -765,7 +765,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // get OSM file dilaog
-    const auto OSMFileDialog = GNEFileDialog(this, TL("Open OSM file"), GUIIcon::OPEN_NET,
+    const auto OSMFileDialog = GNEFileDialog(this, TL("Open Street Map"),
                                SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
                                GNEFileDialog::OpenMode::LOAD_SINGLE,
                                GNEFileDialog::ConfigType::NETEDIT);
@@ -3367,7 +3367,7 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto plainXMLFileDialog = GNEFileDialog(this, TL("Save plain XML as"), GUIIcon::SAVE,
+    const auto plainXMLFileDialog = GNEFileDialog(this, TL("plain XML"),
                                     SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                     GNEFileDialog::OpenMode::SAVE,
                                     GNEFileDialog::ConfigType::NETEDIT);
@@ -3410,7 +3410,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto joinedJunctionsFileDialog = GNEFileDialog(this, TL("Save joined Junctions as"), GUIIcon::SAVE,
+    const auto joinedJunctionsFileDialog = GNEFileDialog(this, TL("joined junctions"),
                                            SUMOXMLDefinitions::JunctionFileExtensions.getStrings(),
                                            GNEFileDialog::OpenMode::SAVE,
                                            GNEFileDialog::ConfigType::NETEDIT);

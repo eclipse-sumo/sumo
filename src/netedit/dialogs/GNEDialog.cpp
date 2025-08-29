@@ -261,6 +261,18 @@ GNEDialog::closeDialogAborting() {
 
 
 void
+GNEDialog::updateTitle(const std::string& newTitle) {
+    setTitle(newTitle.c_str());
+}
+
+
+void
+GNEDialog::updateIcon(GUIIcon newIcon) {
+    setIcon(GUIIconSubSys::getIcon(newIcon));
+}
+
+
+void
 GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(titleIcon));

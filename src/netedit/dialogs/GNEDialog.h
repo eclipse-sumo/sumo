@@ -171,6 +171,12 @@ protected:
     /// @brief close dialog aborting the changes
     long closeDialogAborting();
 
+    /// @brief update title
+    void updateTitle(const std::string& newTitle);
+
+    /// @brief update icon
+    void updateIcon(GUIIcon newIcon);
+
 private:
     /// @brief focus button, used for focusing the default button when dialog is opened
     FXButton* myFocusButton = nullptr;

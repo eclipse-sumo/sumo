@@ -76,7 +76,8 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     FXVerticalFrame(fileDialog->getContentFrame(), GUIDesignAuxiliarFrame),
     myFileDialog(fileDialog),
     myOpenMode(openMode),
-    myBookmarksRecentFiles(fileDialog->getApp(), TL("Visited Directories")) {
+    myConfigType(configType),
+    myBookmarksRecentFiles(fileDialog->getApplicationWindow()->getApp(), TL("Visited Directories")) {
     // get static tooltip
     const auto tooltipMenu = fileDialog->getApplicationWindow()->getStaticTooltipMenu();
     // create horizontal frame for top buttons
@@ -792,7 +793,9 @@ GNEFileSelector::onCmdHomeFolder(FXObject*, FXSelector, void*) {
 
 long
 GNEFileSelector::onCmdConfigFolder(FXObject*, FXSelector, void*) {
-    setDirectory(FXSystem::getCurrentDirectory());
+    // get config file folder
+    const auto configFileFolder = FXPath::directory(OptionsCont::getOptions().getString("configuration-file").c_str());
+    setDirectory(configFileFolder);
     return 1;
 }
 
@@ -884,14 +887,25 @@ GNEFileSelector::buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXSt
     auto goUpButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON),
                                            this, FXFileSelector::ID_DIRECTORY_UP, GUIDesignButtonIconFileDialog);
     goUpButton->setTipText(TL("Go up one directory"));
+    // create button for go to work directory
+    auto goConfigDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
+            this, FXFileSelector::ID_WORK, GUIDesignButtonIconFileDialog);
+    // disable if configuration file is empty
+    if (OptionsCont::getOptions().getString("configuration-file").empty()) {
+        goConfigDirectory->disable();
+    }
+    // set icon and tip depending of config type
+    if (myConfigType == GNEFileDialog::ConfigType::NETEDIT) {
+        goConfigDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
+        goConfigDirectory->setTipText(TL("Go to netedit config directory"));
+    } else {
+        goConfigDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
+        goConfigDirectory->setTipText(TL("Go to sumo config directory"));
+    }
     // create button for go to home directory
     auto goHomeButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME),
             this, FXFileSelector::ID_HOME, GUIDesignButtonIconFileDialog);
     goHomeButton->setTipText(TL("Go to home directory"));
-    // create button for go to work directory
-    auto goWorkDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
-            this, FXFileSelector::ID_WORK, GUIDesignButtonIconFileDialog);
-    goWorkDirectory->setTipText(TL("Go to work directory"));
     // create button for bookmarks menu
     auto bookmenuTooltip = new MFXMenuButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),
             myBookmarkMenuPane, this, GUIDesignButtonIconFileDialog);

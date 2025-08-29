@@ -204,6 +204,9 @@ protected:
     /// @brief open mode
     const GNEFileDialog::OpenMode myOpenMode = GNEFileDialog::OpenMode::SAVE;
 
+    /// @brief config type
+    const GNEFileDialog::ConfigType myConfigType = GNEFileDialog::ConfigType::NETEDIT;
+
     /// @brief File list widget
     FXFileList* myFileSelector = nullptr;
 
