@@ -11,9 +11,18 @@ title: ChangeLog
   - Rerouters with parkingAreaReroute now take into account `parkingBadges` and `acceptedBadges` #16966
   - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967
 
+- netedit
+  - POI locator sorts IDs again #16963 (regression in 1.22.0)
+  - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
+
+
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
+  - Fixed invalid roundabout detection at junction cluster #16950 (regression in 1.24.0)
   - Fixed inconsistent behavior when setting option **--default.spreadtype** for OSM import #16952
+  - Fixed inconsistent behavior when writing spreadType #16951
+  - Fixed unstable right-of-way on re-import (due to rounding of speeds) #16971
+  - Sidewalks and bike-lanes are now discounted when computing junctionPriorities #1637 
 
 - sumo-gui
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
@@ -25,6 +34,18 @@ title: ChangeLog
 
 - sumo
   - Option **--max-num-persons 0** can now be used to run a simulation without persons. #16965
+ 
+- netconvert
+  - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
+  - Added option **--junctions.attach-removed** which can be used to merge networks that were processed with option **--output.removed-nodes** and correctly re-attach at removed junctions #16968
+  - Option **--junctions.join-same** now supports setting the matching distance for joining #16969
+
+- tools
+  - net2geojson.py: now permits exporting of edge AND lane shapes by using options **--edges --lanes** #16774
+
+### Miscellaneous
+
+- Option **--junctions.join-same** whas changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
 
 ## Version 1.24.0 (22.07.2025)
 
