@@ -60,9 +60,7 @@ choice depends on your available input data:
 ## Using detector data (observation points)
 
   Induction loops and similar devices are commonly used by authorities
-  to measure traffic. Using [dfrouter](../dfrouter.md) you may
-  uses this data to generate demand. See
-  [Demand/Routes_from_Observation_Points](../Demand/Routes_from_Observation_Points.md).
+  to measure traffic. See [Demand/Routes_from_Observation_Points](../Demand/Routes_from_Observation_Points.md).
 
 ## By hand
 
@@ -86,12 +84,10 @@ routes or their definitions from other simulation packages and for
 computing routes using the shortest-path algorithm by Dijkstra.
 Additionally, in combination with the simulation, the
 [duarouter](../duarouter.md) can compute the dynamic user
-assignment formulated by C. Gawron. [jtrrouter](../jtrrouter.md)
-may be used if you want to model traffic statistically, using flows and
-turning percentages at junctions. [od2trips](../od2trips.md) helps
-you to convert OD-matrices (origin/destination-matrices) into trips. The
-[dfrouter](../dfrouter.md) computes routes from given observation
-point measures.
+assignment formulated by C. Gawron.  [od2trips](../od2trips.md) helps
+you to convert OD-matrices (origin/destination-matrices) into trips.
+There are various tools to [import](../Tools/Detector.md#mapdetectorspy) and [process](../Demand/Routes_from_Observation_Points.md) local observations (i.e. counts or turning ratios)
+and the most comprehensive tools of these is [routeSampler](../Tools/Turns.md#routesamplerpy).
 
 ## Notes
 * With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](../Netedit/editModesData.md).
