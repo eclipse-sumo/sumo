@@ -215,7 +215,7 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSe
         }
     }
     // get file
-    const auto xmlFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("XML"),
+    const auto xmlFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("XML file"),
                                SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                                GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -364,7 +364,7 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
         }
     }
     // get network file
-    const auto networkFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("network"),
+    const auto networkFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("network file"),
                                    SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
                                    GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -418,7 +418,7 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FX
         }
     }
     // get additional file
-    const auto additionalFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Additional elements"),
+    const auto additionalFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Additional elements file"),
                                       SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -472,7 +472,7 @@ GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelec
         }
     }
     // get route file
-    const auto routeFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Route elements"),
+    const auto routeFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Route elements file"),
                                  SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
                                  GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -526,7 +526,7 @@ GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelect
         }
     }
     // get data file
-    const auto dataFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Data elements"),
+    const auto dataFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Data elements file"),
                                 SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
                                 GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -580,7 +580,7 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FX
         }
     }
     // get sumoConfig file
-    const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("sumo config"),
+    const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("sumo config file"),
                                       SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid

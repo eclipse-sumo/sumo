@@ -139,7 +139,7 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options"),
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options file"),
                                    SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                    GNEFileDialog::OpenMode::SAVE,
                                    GNEFileDialog::ConfigType::NETEDIT);
@@ -154,7 +154,7 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options"),
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options file"),
                                    SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                    GNEFileDialog::OpenMode::LOAD_SINGLE,
                                    GNEFileDialog::ConfigType::NETEDIT);

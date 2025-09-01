@@ -28,15 +28,15 @@
 // member method definitions
 // ===========================================================================
 
-GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string element,
+GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string elementFile,
                              const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
                              GNEFileDialog::ConfigType configType):
-    GNEDialog(applicationWindow, TLF("Save % file as", element), GUIIcon::SAVE, GNEDialog::Buttons::ACCEPT_CANCEL,
+    GNEDialog(applicationWindow, TLF("Save % as", elementFile), GUIIcon::SAVE, GNEDialog::Buttons::ACCEPT_CANCEL,
               GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
     // update title and icon if we are opening
     if (openMode != GNEFileDialog::OpenMode::SAVE) {
         updateIcon(GUIIcon::OPEN);
-        updateTitle(TLF("Open % file", element));
+        updateTitle(TLF("Open %", elementFile));
     }
     // create file selector
     myFileSelector = new GNEFileSelector(this, extensions, openMode, configType);

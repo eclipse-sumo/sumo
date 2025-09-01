@@ -133,7 +133,8 @@ GNERunDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNERunDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // create fileDialog
-    const auto saveLogFileDialog = GNEFileDialog(myApplicationWindow, TL("tool log"),
+    const auto saveLogFileDialog = GNEFileDialog(myApplicationWindow,
+                                   TL("tool log file"),
                                    SUMOXMLDefinitions::TXTFileExtensions.getStrings(),
                                    GNEFileDialog::OpenMode::SAVE,
                                    GNEFileDialog::ConfigType::NETEDIT);

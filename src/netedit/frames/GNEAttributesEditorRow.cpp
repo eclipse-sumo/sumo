@@ -436,7 +436,8 @@ long
 GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
     // open dialog
     const auto fileDialog = GNEFileDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                          myAttrProperty->getAttrStr(), myAttrProperty->getFilenameExtensions(),
+                                          TLF("% file", myAttrProperty->getAttrStr()),
+                                          myAttrProperty->getFilenameExtensions(),
                                           myAttrProperty->isFileSave() ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE,
                                           GNEFileDialog::ConfigType::NETEDIT);
     // update text field
