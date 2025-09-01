@@ -160,7 +160,11 @@ def findMainline(options, name, net, edges):
         edge = net.getEdge(edgeID)
         begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
         endCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.endPos))
-        angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
+        angle = gh.angleTo2D(begCoord, endCoord)
+        if 180 < gh.naviDegree(angle) <= 360:
+            angle -= math.pi
+            begCoord, endCoord = endCoord, begCoord
+        angles.append((angle, (begCoord, endCoord)))
 
     if not angles:
         print("Warning: No stops loaded for region '%s'. Using median edge angle instead" % name, file=sys.stderr)
