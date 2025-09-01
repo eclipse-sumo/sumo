@@ -1,1 +1,1 @@
-Warning: No stops loaded for region 'ALL'. Using median edge angle instead
+Cannot compute track ordering for edge '-290389710' because it runs orthogonal to the main line (intersects: [793.1623978815187, 232.72693275102938])

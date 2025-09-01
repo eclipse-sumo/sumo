@@ -1,2 +1,6 @@
-Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-824.2652473284106, -725.7540932715638])
+Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-2743.015610253162, -2014.7261525620852])
+Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-2747.503950899918, -2004.2501435285812])
+Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-2932.4224524772726, -1581.7315194211842])
+Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-3747.9885286919307, -1315.2802312752901, -995.9391972935555])
+Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-3783.693102316349, -1290.3764195748518, -1006.5557274171733])
 Warning: Lane '-347977095_0' is not connected from any incoming edge at junction '428647707'.
