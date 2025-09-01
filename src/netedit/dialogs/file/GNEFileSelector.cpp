@@ -49,7 +49,7 @@ FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DIRECTORY_UP,    GNEFileSelector::onUpdDirectoryUp),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_DIRTREE,         GNEFileSelector::onCmdDirTree),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_HOME,            GNEFileSelector::onCmdHomeFolder),
-    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_WORK,            GNEFileSelector::onCmdConfigFolder),
+    FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_WORK,            GNEFileSelector::onCmdWorkFolder),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_VISIT,           GNEFileSelector::onCmdVisit),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_BOOKMARK,        GNEFileSelector::onCmdBookmark),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_NEW,             GNEFileSelector::onCmdNewFolder),
@@ -62,6 +62,7 @@ FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DELETE,          GNEFileSelector::onUpdSelected),
     FXMAPFUNCS(SEL_COMMAND,             FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onCmdImageSize),
     FXMAPFUNCS(SEL_UPDATE,              FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onUpdImageSize),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_BUTTON_CONFIG,              GNEFileSelector::onCmdConfigFolder),
 };
 
 // Implementation
@@ -225,8 +226,8 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
                     const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                  TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
-                                                  TL("already exist. Overwrite?"));
+                                                 TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
+                                                 TL("already exist. Overwrite?"));
                     // check if abort
                     if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
                         return 1;
@@ -270,8 +271,8 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
                     const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                  TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
-                                                  TL("already exist. Overwrite?"));
+                                                 TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
+                                                 TL("already exist. Overwrite?"));
                     // check if abort
                     if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
                         return 1;
@@ -377,6 +378,17 @@ GNEFileSelector::onPopupMenu(FXObject*, FXSelector, void* ptr) {
     new FXMenuCommand(&filemenu, TL("Up one level"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON), this, FXFileSelector::ID_DIRECTORY_UP);
     new FXMenuCommand(&filemenu, TL("Home directory"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME), this, FXFileSelector::ID_HOME);
     new FXMenuCommand(&filemenu, TL("Work directory"), GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK), this, FXFileSelector::ID_WORK);
+    auto configDirectory = new FXMenuCommand(&filemenu, TL("Config directory"), nullptr, this, MID_GNE_BUTTON_CONFIG);
+    // disable if configuration file is empty
+    if (OptionsCont::getOptions().getString("configuration-file").empty()) {
+        configDirectory->disable();
+    }
+    // set icon and tip depending of config type
+    if (myConfigType == GNEFileDialog::ConfigType::NETEDIT) {
+        configDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
+    } else {
+        configDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
+    }
     new FXMenuCommand(&filemenu, TL("Select all"), NULL, myFileSelector, FXFileList::ID_SELECT_ALL);
     new FXMenuSeparator(&filemenu);
 
@@ -792,6 +804,13 @@ GNEFileSelector::onCmdHomeFolder(FXObject*, FXSelector, void*) {
 
 
 long
+GNEFileSelector::onCmdWorkFolder(FXObject*, FXSelector, void*) {
+    setDirectory(FXSystem::getCurrentDirectory());
+    return 1;
+}
+
+
+long
 GNEFileSelector::onCmdConfigFolder(FXObject*, FXSelector, void*) {
     // get config file folder
     const auto configFileFolder = FXPath::directory(OptionsCont::getOptions().getString("configuration-file").c_str());
@@ -887,9 +906,17 @@ GNEFileSelector::buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXSt
     auto goUpButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_DIRUP_ICON),
                                            this, FXFileSelector::ID_DIRECTORY_UP, GUIDesignButtonIconFileDialog);
     goUpButton->setTipText(TL("Go up one directory"));
+    // create button for go to home directory
+    auto goHomeButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME),
+            this, FXFileSelector::ID_HOME, GUIDesignButtonIconFileDialog);
+    goHomeButton->setTipText(TL("Go to home directory"));
     // create button for go to work directory
-    auto goConfigDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
+    auto goWorkDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_WORK),
             this, FXFileSelector::ID_WORK, GUIDesignButtonIconFileDialog);
+    goWorkDirectory->setTipText(TL("Go to work directory"));
+    // create button for go to work directory
+    auto goConfigDirectory = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", nullptr,
+            this, MID_GNE_BUTTON_CONFIG, GUIDesignButtonIconFileDialog);
     // disable if configuration file is empty
     if (OptionsCont::getOptions().getString("configuration-file").empty()) {
         goConfigDirectory->disable();
@@ -902,10 +929,6 @@ GNEFileSelector::buildButtons(FXHorizontalFrame* navigatorHorizontalFrame, MFXSt
         goConfigDirectory->setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
         goConfigDirectory->setTipText(TL("Go to sumo config directory"));
     }
-    // create button for go to home directory
-    auto goHomeButton = new MFXButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_GOTO_HOME),
-            this, FXFileSelector::ID_HOME, GUIDesignButtonIconFileDialog);
-    goHomeButton->setTipText(TL("Go to home directory"));
     // create button for bookmarks menu
     auto bookmenuTooltip = new MFXMenuButtonTooltip(navigatorHorizontalFrame, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::FILEDIALOG_BOOK_SET),
             myBookmarkMenuPane, this, GUIDesignButtonIconFileDialog);

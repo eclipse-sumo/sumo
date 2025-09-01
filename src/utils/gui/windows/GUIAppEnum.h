@@ -1526,6 +1526,8 @@ enum {
     MID_GNE_BUTTON_ADD,
     /// @brief remove button
     MID_GNE_BUTTON_REMOVE,
+    /// @brief config button (used in GNEFileDialog)
+    MID_GNE_BUTTON_CONFIG,
 
     /// @}
 

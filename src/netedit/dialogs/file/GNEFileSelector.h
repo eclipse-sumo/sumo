@@ -156,6 +156,9 @@ public:
     /// @brief Handler for navigating to the home directory.
     long onCmdHomeFolder(FXObject*, FXSelector, void*);
 
+    /// @brief Handler for navigating to the work directory.
+    long onCmdWorkFolder(FXObject*, FXSelector, void*);
+
     /// @brief Handler for navigating to the sumo/netedit config directory.
     long onCmdConfigFolder(FXObject*, FXSelector, void*);
 
