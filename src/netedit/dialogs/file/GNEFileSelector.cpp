@@ -19,9 +19,10 @@
 /****************************************************************************/
 
 #include <fxkeys.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -148,6 +149,8 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     }
     myFileFilterComboBox->setNumVisible(FXMIN((int)extensions.size(), 12));
     setCurrentPattern(0);
+    // parse extensions
+    parseExtensions(extensions);
 }
 
 
@@ -973,6 +976,29 @@ GNEFileSelector::buildShortcuts() {
         table->addAccel(MKUINT(KEY_b, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SHOW_BIG_ICONS));
         table->addAccel(MKUINT(KEY_s, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SHOW_MINI_ICONS));
         table->addAccel(MKUINT(KEY_l, CONTROLMASK), myFileSelector, FXSEL(SEL_COMMAND, FXFileList::ID_SHOW_DETAILS));
+    }
+}
+
+
+void
+GNEFileSelector::parseExtensions(const std::vector<std::string>& extensions) {
+    // convert extensions in FXString
+    for (const auto& ext : extensions) {
+        FXString patternText = ext.c_str();
+        // first take elementes between parentheses
+        patternText = patternText.after('(');
+        patternText = patternText.before(')');
+        // check files extension
+        if (patternText != "*") {
+            // split extensions
+            const auto extensionsStr = StringTokenizer(patternText.text(), ",").getVector();
+            for (const auto& extensionStr : extensionsStr) {
+                FXString extension = extensionStr.c_str();
+                myExtensions.push_back(extension.after('.').text());
+            }
+        } else {
+            myExtensions.push_back("");
+        }
     }
 }
 

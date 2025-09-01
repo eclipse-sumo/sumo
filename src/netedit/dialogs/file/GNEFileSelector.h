@@ -228,13 +228,16 @@ protected:
     /// @brief Bookmarked places
     FXRecentFiles myBookmarksRecentFiles = nullptr;
 
+    /// @brief extensions
+    std::vector<std::string> myExtensions;
+
+private:
     /// @brief get selected files
     std::vector<std::string> getSelectedFiles() const;
 
     /// @brief get selected files that are not directories
     std::vector<std::string> getSelectedFilesOnly() const;
 
-private:
     /// @brief build bookmarks menu
     void buildBookmarkMenuPane(FXHorizontalFrame* navigatorHorizontalFrame);
 
@@ -243,6 +246,9 @@ private:
 
     /// @brief build shortcuts
     void buildShortcuts();
+
+    /// @brief parse extensions from pattern text
+    void parseExtensions(const std::vector<std::string>& extensions);
 
     /// @brief disable copy constructor
     GNEFileSelector(const GNEFileSelector&) = delete;
