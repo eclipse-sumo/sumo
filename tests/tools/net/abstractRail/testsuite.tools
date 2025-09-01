@@ -9,3 +9,6 @@ no_stops
 
 # see #17023
 stops_on_bidi
+
+# see #17024
+filter_stops
