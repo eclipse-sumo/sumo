@@ -71,21 +71,20 @@ GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogA
 }
 
 
-void
-GNEFileDialog::setFilename(const FXString& path) {
-    myFileSelector->setFilename(path);
-}
-
-
 std::string
 GNEFileDialog::getFilename() const {
-    return myFileSelector->getFilename();
+    return assureExtension(myFileSelector->getFilename());
 }
 
 
 std::vector<std::string>
 GNEFileDialog::getFilenames() const {
-    return myFileSelector->getFilenames();
+    std::vector<std::string> filenames;
+    // assure extension for each file
+    for (auto& filename : myFileSelector->getFilenames()) {
+        filenames.push_back(assureExtension(filename));
+    }
+    return filenames;
 }
 
 
@@ -101,6 +100,34 @@ GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     gCurrentFolder = myFileSelector->getDirectory().c_str();
     // close dialog accepting changes
     return closeDialogAccepting();
+}
+
+
+std::string
+GNEFileDialog::assureExtension(const std::string& filename) const {
+    // get group of extensions selected in comboBox
+    const auto& extensions = myFileSelector->getFileExtension();
+    // iterate all groups of extensions
+    for (const auto& extension : extensions) {
+        // iterate over all extension to check if is the same extension
+        if (extension.length() < filename.length()) {
+            bool sameExtension = true;
+            for (auto i = 0; i < extension.length(); i++) {
+                if (filename[i + filename.length() - extension.length()] != extension[i]) {
+                    sameExtension = false;
+                }
+            }
+            if (sameExtension) {
+                return filename;
+            }
+        }
+    }
+    // in this point, we have to give an extension (if exist)
+    if (extensions.size() > 0) {
+        return (filename + extensions.front());
+    } else {
+        return filename;
+    }
 }
 
 /****************************************************************************/

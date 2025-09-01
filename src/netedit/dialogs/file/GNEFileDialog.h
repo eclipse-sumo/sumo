@@ -60,9 +60,6 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief Change file name
-    void setFilename(const FXString& path);
-
     /// @brief Return file name, if any
     std::string getFilename() const;
 
@@ -85,6 +82,9 @@ protected:
     GNEFileSelector* myFileSelector;
 
 private:
+    /// @brief check extensions
+    std::string assureExtension(const std::string& filename) const;
+
     /// @brief invalidate copy constructor
     GNEFileDialog(const GNEFileDialog&) = delete;
 

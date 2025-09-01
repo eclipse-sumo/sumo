@@ -107,7 +107,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
                 nullptr, GUIDesignLabelFixed(100));
     // create filename text field
     myFilenameTextField = new MFXTextFieldTooltip(filenameHorizontalFrame, tooltipMenu, GUIDesignTextFieldNCol,
-            this, FXFileSelector::ID_ACCEPT, GUIDesignTextFieldFileDialog);
+            nullptr, 0, GUIDesignTextFieldFileDialog);
     // create comboBox for file filter
     myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
     // build shortcuts
@@ -520,6 +520,12 @@ GNEFileSelector::getFilenames() const {
 std::string
 GNEFileSelector::getDirectory() const {
     return myFileSelector->getDirectory().text();
+}
+
+
+const std::vector<std::string>&
+GNEFileSelector::getFileExtension() const {
+    return myExtensions.at(myFileFilterComboBox->getCurrentItem());
 }
 
 
@@ -983,22 +989,31 @@ GNEFileSelector::buildShortcuts() {
 void
 GNEFileSelector::parseExtensions(const std::vector<std::string>& extensions) {
     // convert extensions in FXString
-    for (const auto& ext : extensions) {
-        FXString patternText = ext.c_str();
-        // first take elementes between parentheses
-        patternText = patternText.after('(');
-        patternText = patternText.before(')');
-        // check files extension
-        if (patternText != "*") {
-            // split extensions
-            const auto extensionsStr = StringTokenizer(patternText.text(), ",").getVector();
-            for (const auto& extensionStr : extensionsStr) {
-                FXString extension = extensionStr.c_str();
-                myExtensions.push_back(extension.after('.').text());
+    for (const auto& extension : extensions) {
+        // first get all characters within () excluding spaces
+        std::string cleanExtension;
+        bool insideParentheses = false;
+        for (char c : extension) {
+            if (c == '(') {
+                insideParentheses = true;
+            } else if (c == ')') {
+                insideParentheses = false;
+            } else if (insideParentheses && (c != ' ')) {
+                cleanExtension += c;
             }
-        } else {
-            myExtensions.push_back("");
         }
+        // declare subextensions
+        std::vector<std::string> subExtensions;
+        // now subdivide
+        if (cleanExtension != "*") {
+            // split extensions
+            const auto subExtensionsStr = StringTokenizer(cleanExtension, ",").getVector();
+            for (const auto& subExtensionStr : subExtensionsStr) {
+                // ignore first *
+                subExtensions.push_back(subExtensionStr.substr(1));
+            }
+        }
+        myExtensions.push_back(subExtensions);
     }
 }
 

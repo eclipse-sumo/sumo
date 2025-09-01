@@ -60,6 +60,9 @@ public:
     /// @brief Return directory
     std::string getDirectory() const;
 
+    /// @brief get file extension
+    const std::vector<std::string>& getFileExtension() const;
+
     /// Change file pattern
     void setPattern(const FXString& ptrn);
 
@@ -229,7 +232,7 @@ protected:
     FXRecentFiles myBookmarksRecentFiles = nullptr;
 
     /// @brief extensions
-    std::vector<std::string> myExtensions;
+    std::vector<std::vector<std::string> > myExtensions;
 
 private:
     /// @brief get selected files
