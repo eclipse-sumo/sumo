@@ -1,7 +1,7 @@
 Warning: Found angle of 106.77 degrees at edge '-326225735#1', segment 1.
-Warning: Found angle of 111.31 degrees at edge '22955557#8', segment 0.
-Warning: Found angle of 100.79 degrees at edge '248740648#2', segment 0.
-Warning: Found angle of 111.31 degrees at edge '248740648#4.1425', segment 0.
 Warning: Found angle of 106.65 degrees at edge '255228349#0', segment 0.
+Warning: Found angle of 106.69 degrees at edge '275267999#1', segment 0.
+Warning: Found angle of 106.77 degrees at edge '326225735#1', segment 0.
+Warning: Found angle of 100.07 degrees at edge '337460727#0', segment 0.
 Warning: Lane '-347977095_0' is not connected from any incoming edge at junction '428647707'.
-Warning: 12 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 6 total messages of type: Found angle of % degrees at edge '%', segment %.

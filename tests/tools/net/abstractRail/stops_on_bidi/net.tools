@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-01 17:37:32 by Eclipse SUMO netconvert Version v1_24_0+0531-99aaa8599cb
+<!-- generated on 2025-09-01 20:00:40 by Eclipse SUMO netconvert Version v1_24_0+0537-7db11dde4fd
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="input_net2.net.xml"/>
         <node-files value="net.nod.xml"/>
         <edge-files value="net.edg.xml"/>
     </input>
@@ -39,394 +39,394 @@
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-465999.48,-5554541.34" convBoundary="-189.81,0.00,244.90,40.00" origBoundary="8.521990,50.142278,8.563284,50.176771" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-465999.48,-5554541.34" convBoundary="-175.26,0.00,230.61,40.00" origBoundary="8.521990,50.142278,8.563284,50.176771" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
 
     <edge id="-15266289" from="4440909936" to="10994707144" name="3615" priority="20" type="railway.rail" spreadType="center" length="194.37" bidi="26030949#7">
-        <lane id="-15266289_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="194.37" shape="20.84,0.00 0.00,0.00">
+        <lane id="-15266289_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="194.37" shape="20.00,40.00 40.77,40.00">
             <param key="origId" value="15266289 15266274 26030949"/>
         </lane>
     </edge>
     <edge id="-25916920#0" from="10994707145" to="284149548" name="3615" priority="20" type="railway.rail" spreadType="center" length="221.65" bidi="290392452">
-        <lane id="-25916920#0_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="221.65" shape="-20.00,20.00 20.00,20.00">
+        <lane id="-25916920#0_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="221.65" shape="60.77,20.00 20.77,20.00">
             <param key="origId" value="25916920 26027336 290392452"/>
         </lane>
     </edge>
     <edge id="-25916920#1" from="284149562" to="10994707145" name="3615" priority="20" type="railway.rail" spreadType="center" length="113.51" bidi="25916920#1">
-        <lane id="-25916920#1_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="113.51" shape="-39.13,20.00 -20.00,20.00">
+        <lane id="-25916920#1_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="113.51" shape="79.95,20.00 60.77,20.00">
             <param key="origId" value="25916920"/>
         </lane>
     </edge>
     <edge id="-26027334" from="30947662" to="5752284575" name="3615" priority="20" type="railway.rail" spreadType="center" length="2106.79" bidi="26027334">
-        <lane id="-26027334_0" index="0" allow="rail rail_electric rail_fast" speed="33.33" length="2106.79" shape="244.90,0.00 224.90,0.00">
+        <lane id="-26027334_0" index="0" allow="rail rail_electric rail_fast" speed="33.33" length="2106.79" shape="-175.26,40.00 -155.26,40.00">
             <param key="origId" value="26027334"/>
         </lane>
     </edge>
     <edge id="-26027335" from="284149561" to="30947654" name="3641" priority="20" type="railway.rail" spreadType="center" length="274.98" bidi="26027335">
-        <lane id="-26027335_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="274.98" shape="100.47,20.00 144.90,20.00">
+        <lane id="-26027335_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="274.98" shape="-59.56,20.00 -95.26,20.00">
             <param key="origId" value="26027335"/>
         </lane>
     </edge>
     <edge id="-26027337" from="284149554" to="284149553" priority="20" type="railway.rail" spreadType="center" length="114.76" bidi="26027337">
-        <lane id="-26027337_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.76" shape="78.60,16.21 66.18,3.79">
+        <lane id="-26027337_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.76" shape="-37.69,23.79 -25.27,36.21">
             <param key="origId" value="26027337"/>
         </lane>
     </edge>
     <edge id="-26027338" from="284149561" to="30947653" priority="20" type="railway.rail" spreadType="center" length="114.20" bidi="26027338">
-        <lane id="-26027338_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.20" shape="98.90,16.21 111.32,3.79">
+        <lane id="-26027338_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.20" shape="-57.99,23.79 -70.41,36.21">
             <param key="origId" value="26027338"/>
         </lane>
     </edge>
     <edge id="-26030949#0" from="10994556244" to="1286845078" name="3615" priority="20" type="railway.rail" spreadType="center" length="136.09" bidi="26030949#0" distance="4106.28">
-        <lane id="-26030949#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="136.09" shape="-169.81,0.00 -189.81,0.00">
+        <lane id="-26030949#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="136.09" shape="210.61,40.00 230.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#1" from="1286845016" to="10994556244" name="3615" priority="20" type="railway.rail" spreadType="center" length="270.79" bidi="26030949#1" distance="4377.06">
-        <lane id="-26030949#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="270.79" shape="-149.81,0.00 -169.81,0.00">
+        <lane id="-26030949#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="270.79" shape="190.61,40.00 210.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#2" from="10994707158" to="1286845016" name="3615" priority="20" type="railway.rail" spreadType="center" length="447.47" bidi="26030949#2" distance="4824.53">
-        <lane id="-26030949#2_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="447.47" shape="-129.81,0.00 -149.81,0.00">
+        <lane id="-26030949#2_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="447.47" shape="170.61,40.00 190.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#3" from="10994707156" to="10994707158" name="3615" priority="20" type="railway.rail" spreadType="center" length="225.52" bidi="26030949#3" distance="5050.05">
-        <lane id="-26030949#3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="225.52" shape="-81.29,0.00 -129.81,0.00">
+        <lane id="-26030949#3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="225.52" shape="122.11,40.00 170.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#4" from="10994707147" to="10994707156" name="3615" priority="20" type="railway.rail" spreadType="center" length="253.52" bidi="26030949#4" distance="5303.57">
-        <lane id="-26030949#4_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="253.52" shape="-63.45,0.00 -81.29,0.00">
+        <lane id="-26030949#4_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="253.52" shape="104.27,40.00 122.11,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#5" from="10994707146" to="10994707147" name="3615" priority="20" type="railway.rail" spreadType="center" length="222.57" bidi="26030949#5" distance="5526.13">
-        <lane id="-26030949#5_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="222.57" shape="-21.29,0.00 -55.93,0.00">
+        <lane id="-26030949#5_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="222.57" shape="62.11,40.00 96.75,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26030949#6" from="10994707144" to="10994707146" name="3615" priority="20" type="railway.rail" spreadType="center" length="29.37" bidi="26030949#6" distance="5555.51">
-        <lane id="-26030949#6_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="29.37" shape="0.00,0.00 -21.29,0.00">
+        <lane id="-26030949#6_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="29.37" shape="40.77,40.00 62.11,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="-26289773" from="30947653" to="284149553" name="3615" priority="20" type="railway.rail" spreadType="center" length="241.49" bidi="26289773">
-        <lane id="-26289773_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="241.49" shape="109.75,0.00 67.75,0.00">
+        <lane id="-26289773_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="241.49" shape="-68.84,40.00 -26.84,40.00">
             <param key="origId" value="26289773"/>
         </lane>
     </edge>
     <edge id="-26289822#0" from="10994707135" to="284149554" name="3615" priority="20" type="railway.rail" spreadType="center" length="163.26" bidi="26289822#0" distance="5804.06">
-        <lane id="-26289822#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="163.26" shape="40.84,20.00 77.03,20.00">
+        <lane id="-26289822#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="163.26" shape="0.00,20.00 -36.12,20.00">
             <param key="origId" value="26289822"/>
         </lane>
     </edge>
     <edge id="-26289822#1" from="284149548" to="10994707135" name="3615" priority="20" type="railway.rail" spreadType="center" length="60.97" bidi="26289822#1" distance="5865.02">
-        <lane id="-26289822#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="60.97" shape="20.00,20.00 40.84,20.00">
+        <lane id="-26289822#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="60.97" shape="20.77,20.00 0.00,20.00">
             <param key="origId" value="26289822"/>
         </lane>
     </edge>
     <edge id="-290389710" from="2082772058" to="10994707123" name="3641" priority="20" type="railway.rail" spreadType="center" length="1104.19" bidi="4817146#1">
-        <lane id="-290389710_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="1104.19" shape="201.04,20.00 164.90,20.00">
+        <lane id="-290389710_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="1104.19" shape="-132.53,2.73 -115.73,19.53">
             <param key="origId" value="290389710 176943573 176943572 4817146"/>
         </lane>
     </edge>
     <edge id="-38145105" from="284149554" to="284149561" name="3615" priority="20" type="railway.rail" spreadType="center" length="12.73" bidi="38145105">
-        <lane id="-38145105_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="12.73" shape="84.55,20.00 92.95,20.00">
+        <lane id="-38145105_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="12.73" shape="-43.64,20.00 -52.04,20.00">
             <param key="origId" value="38145105"/>
         </lane>
     </edge>
-    <edge id="-42302184" from="252812900" to="2082772058" name="3641" priority="20" type="railway.rail" spreadType="center" length="865.16" shape="135.11,40.00 184.90,40.00 204.90,20.00" bidi="290389709">
-        <lane id="-42302184_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="865.16" shape="135.11,40.00 184.90,40.00 202.17,22.73">
+    <edge id="-42302184" from="252812900" to="2082772058" name="3641" priority="20" type="railway.rail" spreadType="center" length="865.16" bidi="290389709">
+        <lane id="-42302184_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="865.16" shape="-94.20,0.00 -131.40,0.00">
             <param key="origId" value="42302184 42302183 23138051 23138049 13044543 13044541 28030850 28030849 290389709"/>
         </lane>
     </edge>
     <edge id="-446868835#0" from="10994707134" to="4440909936" name="3615" priority="20" type="railway.rail" spreadType="center" length="61.68" bidi="446868835#0">
-        <lane id="-446868835#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="61.68" shape="42.39,0.00 20.84,0.00">
+        <lane id="-446868835#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="61.68" shape="-1.48,40.00 20.00,40.00">
             <param key="origId" value="446868835"/>
         </lane>
     </edge>
     <edge id="-446868835#1" from="284149553" to="10994707134" name="3615" priority="20" type="railway.rail" spreadType="center" length="46.87" bidi="446868835#1">
-        <lane id="-446868835#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="46.87" shape="60.23,0.00 42.39,0.00">
+        <lane id="-446868835#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="46.87" shape="-19.32,40.00 -1.48,40.00">
             <param key="origId" value="446868835"/>
         </lane>
     </edge>
     <edge id="-4817146#0" from="10994707123" to="30947654" name="3641" priority="20" type="railway.rail" spreadType="center" length="36.94" bidi="4817146#0">
-        <lane id="-4817146#0_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="36.94" shape="164.90,20.00 144.90,20.00">
+        <lane id="-4817146#0_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="36.94" shape="-114.60,20.00 -95.26,20.00">
             <param key="origId" value="4817146"/>
         </lane>
     </edge>
     <edge id="-606800279#0" from="10994707155" to="284149562" name="3615" priority="20" type="railway.rail" spreadType="center" length="372.54" bidi="606800279#0">
-        <lane id="-606800279#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="372.54" shape="-89.81,20.00 -46.65,20.00">
+        <lane id="-606800279#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="372.54" shape="130.61,20.00 87.47,20.00">
             <param key="origId" value="606800279"/>
         </lane>
     </edge>
     <edge id="-606800279#1" from="1286845048" to="10994707155" name="3615" priority="20" type="railway.rail" spreadType="center" length="84.67" bidi="606800279#1">
-        <lane id="-606800279#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="84.67" shape="-109.81,20.00 -89.81,20.00">
+        <lane id="-606800279#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="84.67" shape="150.61,20.00 130.61,20.00">
             <param key="origId" value="606800279"/>
         </lane>
     </edge>
     <edge id="-606800282" from="5752284575" to="30947653" name="3615" priority="20" type="railway.rail" spreadType="center" length="575.69" bidi="186750854">
-        <lane id="-606800282_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="575.69" shape="224.90,0.00 117.27,0.00">
+        <lane id="-606800282_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="575.69" shape="-155.26,40.00 -76.36,40.00">
             <param key="origId" value="606800282 186750854"/>
         </lane>
     </edge>
     <edge id="1183931786" from="284149562" to="10994707147" priority="20" type="railway.rail" spreadType="center" length="110.66">
-        <lane id="1183931786_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="110.66" shape="-45.08,16.21 -57.50,3.79">
+        <lane id="1183931786_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="110.66" shape="85.90,23.79 98.32,36.21">
             <param key="origId" value="1183931786"/>
         </lane>
     </edge>
     <edge id="186750854" from="30947653" to="5752284575" name="3615" priority="20" type="railway.rail" spreadType="center" length="575.69" bidi="-606800282">
-        <lane id="186750854_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="575.69" shape="117.27,0.00 224.90,0.00">
+        <lane id="186750854_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="575.69" shape="-76.36,40.00 -155.26,40.00">
             <param key="origId" value="186750854 606800282"/>
         </lane>
     </edge>
     <edge id="25916920#1" from="10994707145" to="284149562" name="3615" priority="20" type="railway.rail" spreadType="center" length="113.51" bidi="-25916920#1" distance="-5672.54">
-        <lane id="25916920#1_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="113.51" shape="-20.00,20.00 -39.13,20.00">
+        <lane id="25916920#1_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="113.51" shape="60.77,20.00 79.95,20.00">
             <param key="origId" value="25916920"/>
         </lane>
     </edge>
     <edge id="26027334" from="5752284575" to="30947662" name="3615" priority="20" type="railway.rail" spreadType="center" length="2106.79" bidi="-26027334">
-        <lane id="26027334_0" index="0" allow="rail rail_electric rail_fast" speed="33.33" length="2106.79" shape="224.90,0.00 244.90,0.00">
+        <lane id="26027334_0" index="0" allow="rail rail_electric rail_fast" speed="33.33" length="2106.79" shape="-155.26,40.00 -175.26,40.00">
             <param key="origId" value="26027334"/>
         </lane>
     </edge>
     <edge id="26027335" from="30947654" to="284149561" name="3641" priority="20" type="railway.rail" spreadType="center" length="274.98" bidi="-26027335">
-        <lane id="26027335_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="274.98" shape="144.90,20.00 100.47,20.00">
+        <lane id="26027335_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="274.98" shape="-95.26,20.00 -59.56,20.00">
             <param key="origId" value="26027335"/>
         </lane>
     </edge>
     <edge id="26027337" from="284149553" to="284149554" priority="20" type="railway.rail" spreadType="center" length="114.76" bidi="-26027337">
-        <lane id="26027337_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.76" shape="66.18,3.79 78.60,16.21">
+        <lane id="26027337_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.76" shape="-25.27,36.21 -37.69,23.79">
             <param key="origId" value="26027337"/>
         </lane>
     </edge>
     <edge id="26027338" from="30947653" to="284149561" priority="20" type="railway.rail" spreadType="center" length="114.20" bidi="-26027338">
-        <lane id="26027338_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.20" shape="111.32,3.79 98.90,16.21">
+        <lane id="26027338_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="114.20" shape="-70.41,36.21 -57.99,23.79">
             <param key="origId" value="26027338"/>
         </lane>
     </edge>
     <edge id="26030949#0" from="1286845078" to="10994556244" name="3615" priority="20" type="railway.rail" spreadType="center" length="136.09" bidi="-26030949#0" distance="-3970.19">
-        <lane id="26030949#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="136.09" shape="-189.81,0.00 -169.81,0.00">
+        <lane id="26030949#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="136.09" shape="230.61,40.00 210.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#1" from="10994556244" to="1286845016" name="3615" priority="20" type="railway.rail" spreadType="center" length="270.79" bidi="-26030949#1" distance="-4106.28">
-        <lane id="26030949#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="270.79" shape="-169.81,0.00 -149.81,0.00">
+        <lane id="26030949#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="270.79" shape="210.61,40.00 190.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#2" from="1286845016" to="10994707158" name="3615" priority="20" type="railway.rail" spreadType="center" length="447.47" bidi="-26030949#2" distance="-4377.06">
-        <lane id="26030949#2_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="447.47" shape="-149.81,0.00 -129.81,0.00">
+        <lane id="26030949#2_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="447.47" shape="190.61,40.00 170.61,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#3" from="10994707158" to="10994707156" name="3615" priority="20" type="railway.rail" spreadType="center" length="225.52" bidi="-26030949#3" distance="-4824.53">
-        <lane id="26030949#3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="225.52" shape="-129.81,0.00 -81.29,0.00">
+        <lane id="26030949#3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="225.52" shape="170.61,40.00 122.11,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#4" from="10994707156" to="10994707147" name="3615" priority="20" type="railway.rail" spreadType="center" length="253.52" bidi="-26030949#4" distance="-5050.05">
-        <lane id="26030949#4_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="253.52" shape="-81.29,0.00 -63.45,0.00">
+        <lane id="26030949#4_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="253.52" shape="122.11,40.00 104.27,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#5" from="10994707147" to="10994707146" name="3615" priority="20" type="railway.rail" spreadType="center" length="222.57" bidi="-26030949#5" distance="-5303.57">
-        <lane id="26030949#5_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="222.57" shape="-55.93,0.00 -21.29,0.00">
+        <lane id="26030949#5_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="222.57" shape="96.75,40.00 62.11,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#6" from="10994707146" to="10994707144" name="3615" priority="20" type="railway.rail" spreadType="center" length="29.37" bidi="-26030949#6" distance="-5526.13">
-        <lane id="26030949#6_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="29.37" shape="-21.29,0.00 0.00,0.00">
+        <lane id="26030949#6_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="29.37" shape="62.11,40.00 40.77,40.00">
             <param key="origId" value="26030949"/>
         </lane>
     </edge>
     <edge id="26030949#7" from="10994707144" to="4440909936" name="3615" priority="20" type="railway.rail" spreadType="center" length="194.37" bidi="-15266289" distance="-5555.51">
-        <lane id="26030949#7_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="194.37" shape="0.00,0.00 20.84,0.00">
+        <lane id="26030949#7_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="194.37" shape="40.77,40.00 20.00,40.00">
             <param key="origId" value="26030949 15266274 15266289"/>
         </lane>
     </edge>
     <edge id="26289773" from="284149553" to="30947653" name="3615" priority="20" type="railway.rail" spreadType="center" length="241.49" bidi="-26289773">
-        <lane id="26289773_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="241.49" shape="67.75,0.00 109.75,0.00">
+        <lane id="26289773_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="241.49" shape="-26.84,40.00 -68.84,40.00">
             <param key="origId" value="26289773"/>
         </lane>
     </edge>
     <edge id="26289822#0" from="284149554" to="10994707135" name="3615" priority="20" type="railway.rail" spreadType="center" length="163.26" bidi="-26289822#0" distance="-5640.77">
-        <lane id="26289822#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="163.26" shape="77.03,20.00 40.84,20.00">
+        <lane id="26289822#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="163.26" shape="-36.12,20.00 0.00,20.00">
             <param key="origId" value="26289822"/>
         </lane>
     </edge>
     <edge id="26289822#1" from="10994707135" to="284149548" name="3615" priority="20" type="railway.rail" spreadType="center" length="60.97" bidi="-26289822#1" distance="-5804.06">
-        <lane id="26289822#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="60.97" shape="40.84,20.00 20.00,20.00">
+        <lane id="26289822#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="60.97" shape="0.00,20.00 20.77,20.00">
             <param key="origId" value="26289822"/>
         </lane>
     </edge>
-    <edge id="290389709" from="2082772058" to="252812900" name="3641" priority="20" type="railway.rail" spreadType="center" length="865.16" shape="204.90,20.00 184.90,40.00 135.11,40.00" bidi="-42302184">
-        <lane id="290389709_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="865.16" shape="202.17,22.73 184.90,40.00 135.11,40.00">
+    <edge id="290389709" from="2082772058" to="252812900" name="3641" priority="20" type="railway.rail" spreadType="center" length="865.16" bidi="-42302184">
+        <lane id="290389709_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="865.16" shape="-131.40,0.00 -94.20,0.00">
             <param key="origId" value="290389709 28030849 28030850 13044541 13044543 23138049 23138051 42302183 42302184"/>
         </lane>
     </edge>
     <edge id="290392452" from="284149548" to="10994707145" name="3615" priority="20" type="railway.rail" spreadType="center" length="221.65" bidi="-25916920#0">
-        <lane id="290392452_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="221.65" shape="20.00,20.00 -20.00,20.00">
+        <lane id="290392452_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="221.65" shape="20.77,20.00 60.77,20.00">
             <param key="origId" value="290392452 26027336 25916920"/>
         </lane>
     </edge>
     <edge id="38145105" from="284149561" to="284149554" name="3615" priority="20" type="railway.rail" spreadType="center" length="12.73" bidi="-38145105">
-        <lane id="38145105_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="12.73" shape="92.95,20.00 84.55,20.00">
+        <lane id="38145105_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="12.73" shape="-52.04,20.00 -43.64,20.00">
             <param key="origId" value="38145105"/>
         </lane>
     </edge>
     <edge id="446868835#0" from="4440909936" to="10994707134" name="3615" priority="20" type="railway.rail" spreadType="center" length="61.68" bidi="-446868835#0" distance="-5735.27">
-        <lane id="446868835#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="61.68" shape="20.84,0.00 42.39,0.00">
+        <lane id="446868835#0_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="61.68" shape="20.00,40.00 -1.48,40.00">
             <param key="origId" value="446868835"/>
         </lane>
     </edge>
     <edge id="446868835#1" from="10994707134" to="284149553" name="3615" priority="20" type="railway.rail" spreadType="center" length="46.87" bidi="-446868835#1" distance="-5796.94">
-        <lane id="446868835#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="46.87" shape="42.39,0.00 60.23,0.00">
+        <lane id="446868835#1_0" index="0" allow="rail rail_electric rail_fast" speed="19.44" length="46.87" shape="-1.48,40.00 -19.32,40.00">
             <param key="origId" value="446868835"/>
         </lane>
     </edge>
     <edge id="4817146#0" from="30947654" to="10994707123" name="3641" priority="20" type="railway.rail" spreadType="center" length="36.94" bidi="-4817146#0">
-        <lane id="4817146#0_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="36.94" shape="144.90,20.00 164.90,20.00">
+        <lane id="4817146#0_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="36.94" shape="-95.26,20.00 -114.60,20.00">
             <param key="origId" value="4817146"/>
         </lane>
     </edge>
     <edge id="4817146#1" from="10994707123" to="2082772058" name="3641" priority="20" type="railway.rail" spreadType="center" length="1104.19" bidi="-290389710">
-        <lane id="4817146#1_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="1104.19" shape="164.90,20.00 201.04,20.00">
+        <lane id="4817146#1_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="1104.19" shape="-115.73,19.53 -132.53,2.73">
             <param key="origId" value="4817146 176943572 176943573 290389710"/>
         </lane>
     </edge>
     <edge id="606800279#0" from="284149562" to="10994707155" name="3615" priority="20" type="railway.rail" spreadType="center" length="372.54" bidi="-606800279#0">
-        <lane id="606800279#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="372.54" shape="-46.65,20.00 -89.81,20.00">
+        <lane id="606800279#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="372.54" shape="87.47,20.00 130.61,20.00">
             <param key="origId" value="606800279"/>
         </lane>
     </edge>
     <edge id="606800279#1" from="10994707155" to="1286845048" name="3615" priority="20" type="railway.rail" spreadType="center" length="84.67" bidi="-606800279#1">
-        <lane id="606800279#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="84.67" shape="-89.81,20.00 -109.81,20.00">
+        <lane id="606800279#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="84.67" shape="130.61,20.00 150.61,20.00">
             <param key="origId" value="606800279"/>
         </lane>
     </edge>
 
-    <junction id="10994556244" type="rail_signal" x="-169.81" y="0.00" incLanes="-26030949#1_0 26030949#0_0" intLanes="" shape="-169.81,1.60 -169.81,-1.60 -169.81,1.60">
+    <junction id="10994556244" type="rail_signal" x="210.61" y="40.00" incLanes="26030949#0_0 -26030949#1_0" intLanes="" shape="210.61,41.60 210.61,38.40 210.61,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707123" type="rail_signal" x="164.90" y="20.00" incLanes="-290389710_0 4817146#0_0" intLanes="" shape="164.90,21.60 164.90,18.40 164.90,21.60">
+    <junction id="10994707123" type="rail_signal" x="-115.26" y="20.00" incLanes="4817146#0_0 -290389710_0" intLanes="" shape="-114.60,21.60 -114.60,18.40 -116.86,20.66 -116.19,21.18 -115.83,21.37 -115.44,21.50 -115.03,21.57">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707134" type="rail_signal" x="42.39" y="0.00" incLanes="-446868835#1_0 446868835#0_0" intLanes="" shape="42.39,1.60 42.39,-1.60 42.39,1.60">
+    <junction id="10994707134" type="rail_signal" x="-1.48" y="40.00" incLanes="446868835#0_0 -446868835#1_0" intLanes="" shape="-1.48,41.60 -1.48,38.40 -1.48,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="forward"/>
     </junction>
-    <junction id="10994707135" type="rail_signal" x="40.84" y="20.00" incLanes="26289822#0_0 -26289822#1_0" intLanes="" shape="40.84,21.60 40.84,18.40 40.84,21.60">
+    <junction id="10994707135" type="rail_signal" x="0.00" y="20.00" incLanes="-26289822#1_0 26289822#0_0" intLanes="" shape="0.00,21.60 0.00,18.40 -0.00,21.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707144" type="rail_signal" x="0.00" y="0.00" incLanes="-15266289_0 26030949#6_0" intLanes="" shape="0.00,1.60 0.00,-1.60 0.00,1.60">
+    <junction id="10994707144" type="rail_signal" x="40.77" y="40.00" incLanes="26030949#6_0 -15266289_0" intLanes="" shape="40.77,41.60 40.77,38.40 40.77,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707145" type="rail_signal" x="-20.00" y="20.00" incLanes="290392452_0 -25916920#1_0" intLanes="" shape="-20.00,21.60 -20.00,18.40 -20.00,21.60">
+    <junction id="10994707145" type="rail_signal" x="60.77" y="20.00" incLanes="-25916920#1_0 290392452_0" intLanes="" shape="60.77,21.60 60.77,18.40 60.77,21.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="forward"/>
     </junction>
-    <junction id="10994707146" type="rail_signal" x="-21.29" y="0.00" incLanes="-26030949#6_0 26030949#5_0" intLanes="" shape="-21.29,1.60 -21.29,-1.60 -21.29,1.60">
+    <junction id="10994707146" type="rail_signal" x="62.11" y="40.00" incLanes="26030949#5_0 -26030949#6_0" intLanes="" shape="62.11,41.60 62.11,38.40 62.11,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707147" type="priority" x="-61.29" y="0.00" incLanes="1183931786_0 -26030949#5_0 26030949#4_0" intLanes="" shape="-58.63,4.92 -56.37,2.66 -56.79,2.07 -56.79,1.87 -56.64,1.72 -56.36,1.63 -55.93,1.60 -55.93,-1.60 -63.45,-1.60 -63.45,1.60 -62.25,1.97 -61.50,2.43 -60.64,3.08 -59.69,3.91">
-        <request index="0" response="010" foes="010"/>
-        <request index="1" response="000" foes="001"/>
-        <request index="2" response="000" foes="000"/>
+    <junction id="10994707147" type="priority" x="102.11" y="40.00" incLanes="26030949#4_0 1183931786_0 -26030949#5_0" intLanes="" shape="104.27,41.60 104.27,38.40 103.07,38.03 102.32,37.57 101.46,36.92 100.51,36.09 99.45,35.08 97.19,37.34 97.61,37.93 97.61,38.13 97.46,38.28 97.18,38.37 96.75,38.40 96.75,41.60">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="100" foes="100"/>
+        <request index="2" response="000" foes="010"/>
     </junction>
-    <junction id="10994707155" type="rail_signal" x="-89.81" y="20.00" incLanes="606800279#0_0 -606800279#1_0" intLanes="" shape="-89.81,21.60 -89.81,18.40 -89.81,21.60">
+    <junction id="10994707155" type="rail_signal" x="130.61" y="20.00" incLanes="-606800279#1_0 606800279#0_0" intLanes="" shape="130.61,21.60 130.61,18.40 130.61,21.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="10994707156" type="rail_signal" x="-81.29" y="0.00" incLanes="-26030949#4_0 26030949#3_0" intLanes="" shape="-81.29,1.60 -81.29,-1.60 -81.29,1.60">
+    <junction id="10994707156" type="rail_signal" x="122.11" y="40.00" incLanes="26030949#3_0 -26030949#4_0" intLanes="" shape="122.11,41.60 122.11,38.40 122.11,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="forward"/>
     </junction>
-    <junction id="10994707158" type="rail_signal" x="-129.81" y="0.00" incLanes="-26030949#3_0 26030949#2_0" intLanes="" shape="-129.81,1.60 -129.81,-1.60 -129.81,1.60">
+    <junction id="10994707158" type="rail_signal" x="170.61" y="40.00" incLanes="26030949#2_0 -26030949#3_0" intLanes="" shape="170.61,41.60 170.61,38.40 170.61,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="backward"/>
     </junction>
-    <junction id="1286845016" type="rail_signal" x="-149.81" y="0.00" incLanes="-26030949#2_0 26030949#1_0" intLanes="" shape="-149.81,1.60 -149.81,-1.60 -149.81,1.60">
+    <junction id="1286845016" type="rail_signal" x="190.61" y="40.00" incLanes="26030949#1_0 -26030949#2_0" intLanes="" shape="190.61,41.60 190.61,38.40 190.61,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
         <param key="railway:signal:direction" value="forward"/>
     </junction>
-    <junction id="1286845048" type="priority" x="-109.81" y="20.00" incLanes="606800279#1_0" intLanes="" shape="-109.81,21.60 -109.81,18.40 -109.81,21.60 -109.81,18.40">
+    <junction id="1286845048" type="priority" x="150.61" y="20.00" incLanes="606800279#1_0" intLanes="" shape="150.61,18.40 150.61,21.60 150.61,18.40 150.61,21.60">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1286845078" type="priority" x="-189.81" y="0.00" incLanes="-26030949#0_0" intLanes="" shape="-189.81,1.60 -189.81,-1.60 -189.81,1.60 -189.81,-1.60">
+    <junction id="1286845078" type="priority" x="230.61" y="40.00" incLanes="-26030949#0_0" intLanes="" shape="230.61,38.40 230.61,41.60 230.61,38.40 230.61,41.60">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="2082772058" type="priority" x="204.90" y="20.00" incLanes="4817146#1_0 -42302184_0" intLanes="" shape="201.04,18.40 201.04,21.60 203.30,23.86 204.75,22.19 205.48,20.83 205.47,19.77 204.72,19.01 203.25,18.55">
+    <junction id="2082772058" type="priority" x="-135.26" y="0.00" incLanes="4817146#1_0 -42302184_0" intLanes="" shape="-133.66,3.86 -131.40,1.60 -131.40,-1.60 -133.61,-1.45 -135.08,-0.99 -135.83,-0.23 -135.84,0.83 -135.11,2.19">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="252812900" type="priority" x="135.11" y="40.00" incLanes="290389709_0" intLanes="" shape="135.11,41.60 135.11,38.40 135.11,41.60 135.11,38.40">
+    <junction id="252812900" type="priority" x="-94.20" y="0.00" incLanes="290389709_0" intLanes="" shape="-94.20,-1.60 -94.20,1.60 -94.20,-1.60 -94.20,1.60">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="284149548" type="priority" x="20.00" y="20.00" incLanes="26289822#1_0 -25916920#0_0" intLanes="" shape="20.00,21.60 20.00,18.40 20.00,21.60">
+    <junction id="284149548" type="priority" x="20.77" y="20.00" incLanes="-25916920#0_0 26289822#1_0" intLanes="" shape="20.77,21.60 20.77,18.40 20.77,21.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="284149553" type="priority" x="62.39" y="0.00" incLanes="-26027337_0 -26289773_0 446868835#1_0" intLanes="" shape="65.05,4.92 67.31,2.66 66.89,2.07 66.89,1.87 67.04,1.72 67.32,1.63 67.75,1.60 67.75,-1.60 60.23,-1.60 60.23,1.60 61.43,1.97 62.18,2.43 63.04,3.08 63.99,3.91">
-        <request index="0" response="0010" foes="0010"/>
-        <request index="1" response="0000" foes="1001"/>
-        <request index="2" response="0000" foes="0000"/>
-        <request index="3" response="0010" foes="0010"/>
-    </junction>
-    <junction id="284149554" type="priority" x="82.39" y="20.00" incLanes="38145105_0 26027337_0 -26289822#0_0" intLanes="" shape="84.55,21.60 84.55,18.40 83.35,18.03 82.60,17.57 81.74,16.92 80.79,16.09 79.73,15.08 77.47,17.34 77.89,17.93 77.89,18.13 77.74,18.28 77.46,18.37 77.03,18.40 77.03,21.60">
+    <junction id="284149553" type="priority" x="-21.48" y="40.00" incLanes="446868835#1_0 -26027337_0 -26289773_0" intLanes="" shape="-19.32,41.60 -19.32,38.40 -20.52,38.03 -21.27,37.57 -22.13,36.92 -23.08,36.09 -24.14,35.08 -26.40,37.34 -25.98,37.93 -25.98,38.13 -26.13,38.28 -26.41,38.37 -26.84,38.40 -26.84,41.60">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="1000" foes="1000"/>
         <request index="3" response="0000" foes="0110"/>
     </junction>
-    <junction id="284149561" type="priority" x="95.11" y="20.00" incLanes="26027335_0 26027338_0 -38145105_0" intLanes="" shape="100.47,21.60 100.47,18.40 99.76,18.28 99.61,18.13 99.61,17.93 99.75,17.66 100.03,17.34 97.77,15.08 95.76,16.92 94.90,17.57 94.15,18.03 93.50,18.31 92.95,18.40 92.95,21.60">
-        <request index="0" response="0000" foes="0010"/>
-        <request index="1" response="1001" foes="1001"/>
+    <junction id="284149554" type="priority" x="-41.48" y="20.00" incLanes="26027337_0 -26289822#0_0 38145105_0" intLanes="" shape="-38.82,24.92 -36.56,22.66 -36.98,22.07 -36.98,21.87 -36.83,21.72 -36.55,21.63 -36.12,21.60 -36.12,18.40 -43.64,18.40 -43.64,21.60 -42.44,21.97 -41.69,22.43 -40.83,23.08 -39.88,23.91">
+        <request index="0" response="0010" foes="0010"/>
+        <request index="1" response="0000" foes="1001"/>
         <request index="2" response="0000" foes="0000"/>
-        <request index="3" response="0000" foes="0010"/>
+        <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="284149562" type="priority" x="-41.29" y="20.00" incLanes="25916920#1_0 -606800279#0_0" intLanes="" shape="-39.13,21.60 -39.13,18.40 -40.33,18.03 -41.08,17.57 -41.94,16.92 -42.89,16.09 -43.95,15.08 -46.21,17.34 -45.79,17.93 -45.79,18.13 -45.94,18.28 -46.22,18.37 -46.65,18.40 -46.65,21.60">
-        <request index="0" response="000" foes="000"/>
-        <request index="1" response="100" foes="100"/>
-        <request index="2" response="000" foes="010"/>
-    </junction>
-    <junction id="30947653" type="priority" x="115.11" y="0.00" incLanes="-606800282_0 26289773_0 -26027338_0" intLanes="" shape="117.27,1.60 117.27,-1.60 109.75,-1.60 109.75,1.60 110.46,1.72 110.61,1.87 110.61,2.07 110.47,2.34 110.19,2.66 112.45,4.92 114.46,3.08 115.32,2.43 116.07,1.97 116.72,1.69">
+    <junction id="284149561" type="priority" x="-54.20" y="20.00" incLanes="-38145105_0 26027335_0 26027338_0" intLanes="" shape="-52.04,21.60 -52.04,18.40 -59.56,18.40 -59.56,21.60 -58.85,21.72 -58.70,21.87 -58.70,22.07 -58.84,22.34 -59.12,22.66 -56.86,24.92 -55.34,23.14 -54.77,22.49 -54.13,22.00 -53.27,21.70">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="1000"/>
         <request index="2" response="0000" foes="1000"/>
         <request index="3" response="0110" foes="0110"/>
     </junction>
-    <junction id="30947654" type="priority" x="144.90" y="20.00" incLanes="-4817146#0_0 -26027335_0" intLanes="" shape="144.90,21.60 144.90,18.40 144.90,21.60">
+    <junction id="284149562" type="priority" x="82.11" y="20.00" incLanes="-606800279#0_0 25916920#1_0" intLanes="" shape="84.77,24.92 87.03,22.66 86.61,22.07 86.61,21.87 86.76,21.72 87.04,21.63 87.47,21.60 87.47,18.40 79.95,18.40 79.95,21.60 81.15,21.97 81.90,22.43 82.76,23.08 83.71,23.91">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+    </junction>
+    <junction id="30947653" type="priority" x="-74.20" y="40.00" incLanes="26289773_0 -26027338_0 -606800282_0" intLanes="" shape="-68.84,41.60 -68.84,38.40 -69.55,38.28 -69.70,38.13 -69.70,37.93 -69.56,37.66 -69.28,37.34 -71.54,35.08 -73.55,36.92 -74.41,37.57 -75.16,38.03 -75.81,38.31 -76.36,38.40 -76.36,41.60">
+        <request index="0" response="0000" foes="0010"/>
+        <request index="1" response="1001" foes="1001"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0010"/>
+    </junction>
+    <junction id="30947654" type="priority" x="-95.26" y="20.00" incLanes="-26027335_0 -4817146#0_0" intLanes="" shape="-95.26,21.60 -95.26,18.40 -95.26,21.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="30947662" type="priority" x="244.90" y="0.00" incLanes="26027334_0" intLanes="" shape="244.90,-1.60 244.90,1.60 244.90,-1.60 244.90,1.60">
+    <junction id="30947662" type="priority" x="-175.26" y="40.00" incLanes="26027334_0" intLanes="" shape="-175.26,41.60 -175.26,38.40 -175.26,41.60 -175.26,38.40">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4440909936" type="priority" x="20.84" y="0.00" incLanes="-446868835#0_0 26030949#7_0" intLanes="" shape="20.84,1.60 20.84,-1.60 20.84,1.60">
+    <junction id="4440909936" type="priority" x="20.00" y="40.00" incLanes="26030949#7_0 -446868835#0_0" intLanes="" shape="20.00,41.60 20.00,38.40 20.00,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="5752284575" type="priority" x="224.90" y="0.00" incLanes="-26027334_0 186750854_0" intLanes="" shape="224.90,1.60 224.90,-1.60 224.90,1.60">
+    <junction id="5752284575" type="priority" x="-155.26" y="40.00" incLanes="186750854_0 -26027334_0" intLanes="" shape="-155.26,41.60 -155.26,38.40 -155.26,41.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -448,7 +448,7 @@
     <connection from="-26289773" to="-446868835#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-26289822#0" to="-38145105" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-26289822#1" to="-26289822#0" fromLane="0" toLane="0" tl="10994707135" linkIndex="0" dir="s" state="O"/>
-    <connection from="-290389710" to="-4817146#0" fromLane="0" toLane="0" tl="10994707123" linkIndex="0" dir="s" state="O"/>
+    <connection from="-290389710" to="-4817146#0" fromLane="0" toLane="0" tl="10994707123" linkIndex="0" dir="r" state="O"/>
     <connection from="-38145105" to="-26027338" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-38145105" to="-26027335" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-42302184" to="-290389710" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -485,7 +485,7 @@
     <connection from="446868835#0" to="446868835#1" fromLane="0" toLane="0" tl="10994707134" linkIndex="0" dir="s" state="O"/>
     <connection from="446868835#1" to="26289773" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="446868835#1" to="26027337" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="4817146#0" to="4817146#1" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="4817146#0" to="4817146#1" fromLane="0" toLane="0" uncontrolled="1" dir="l" state="M"/>
     <connection from="4817146#1" to="290389709" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="606800279#0" to="606800279#1" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
     <connection from="606800279#1" to="-606800279#1" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
