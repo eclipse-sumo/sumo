@@ -169,9 +169,9 @@ GNEFileSelector::~GNEFileSelector() {
 
 long
 GNEFileSelector::onUpdNewFolder(FXObject* sender, FXSelector, void*) {
-    // check if directory is writtable
-    const bool writtable = FXStat::isWritable(myFileSelector->getDirectory());
-    return sender->handle(this, writtable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
+    // check if directory is writable
+    const bool writable = FXStat::isWritable(myFileSelector->getDirectory());
+    return sender->handle(this, writable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
 }
 
 
@@ -224,15 +224,15 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
                 // check if file exist
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
-                    const auto overwritteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                  TL("Overwritte file"), TLF("The destiny file:\n%\n", destinyFilename),
-                                                  TL("already exist. Overwritte?"));
+                    const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
+                                                  TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
+                                                  TL("already exist. Overwrite?"));
                     // check if abort
-                    if (overwritteDialog.getResult() != GNEDialog::Result::ACCEPT) {
+                    if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
                         return 1;
                     }
                 }
-                // try to copy overwritting
+                // try to copy overwritten
                 if (!FXFile::copyFiles(originFilePath.c_str(), destinyFilename.c_str(), TRUE)) {
                     // open error dialog
                     GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error copying file"),
@@ -269,15 +269,15 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
                 // check if file exist
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
-                    const auto overwritteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                  TL("Overwritte file"), TLF("The destiny file:\n%\n", destinyFilename),
-                                                  TL("already exist. Overwritte?"));
+                    const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
+                                                  TL("Overwrite file"), TLF("The destiny file:\n%\n", destinyFilename),
+                                                  TL("already exist. Overwrite?"));
                     // check if abort
-                    if (overwritteDialog.getResult() != GNEDialog::Result::ACCEPT) {
+                    if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
                         return 1;
                     }
                 }
-                // try to move overwritting
+                // try to move overwritten
                 if (!FXFile::moveFiles(originFilePath.c_str(), destinyFilename.c_str(), TRUE)) {
                     // open error dialog
                     GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error moving file"),
