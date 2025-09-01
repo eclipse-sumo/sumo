@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-01 11:24+0200\n"
-"PO-Revision-Date: 2025-08-29 10:01+0000\n"
+"PO-Revision-Date: 2025-09-01 15:16+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -898,7 +898,7 @@ msgstr "Simulación iniciada con tiempo: %."
 
 #: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:475
 msgid "Save Snapshot"
-msgstr "Salvar captura de pantalla"
+msgstr "Guardar captura de pantalla"
 
 #: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:489
 msgid "No file extension was specified - saving Snapshot as PNG."
@@ -2483,38 +2483,38 @@ msgstr "Coordenadas para tests"
 
 #: src/netedit/GNEApplicationWindow.cpp:739
 msgid "netconvert config file"
-msgstr ""
+msgstr "archivo de configuración de netconvert"
 
 #: src/netedit/GNEApplicationWindow.cpp:755
 #: src/netedit/GNEApplicationWindow.cpp:3364
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "archivo de red"
 
 #: src/netedit/GNEApplicationWindow.cpp:771
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "archivo OpenStreetMap"
 
 #: src/netedit/GNEApplicationWindow.cpp:787
 #: src/netedit/GNEApplicationWindow.cpp:3516
 msgid "netedit config file"
-msgstr ""
+msgstr "archivo de configuración de netedit"
 
 #: src/netedit/GNEApplicationWindow.cpp:812
 #: src/netedit/GNEApplicationWindow.cpp:3631
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
-msgstr ""
+msgstr "archivo de configuración de sumo"
 
 #: src/netedit/GNEApplicationWindow.cpp:902
 #: src/netedit/GNEApplicationWindow.cpp:3749
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "archivo de definiciones de semáforos"
 
 #: src/netedit/GNEApplicationWindow.cpp:912
 msgid "loading TLS Programs from '%'"
-msgstr ""
+msgstr "cargando programas de semáforo desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:932
 msgid "loading TLS Programs from '"
@@ -2762,7 +2762,7 @@ msgstr "No se pudo guardar la red en '"
 
 #: src/netedit/GNEApplicationWindow.cpp:3388
 msgid "plain XML file"
-msgstr ""
+msgstr "archivo XML plano"
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "Plain XML saved with prefix '"
@@ -2836,7 +2836,7 @@ msgstr "¡El guardado de los edgeTypes falló!"
 #: src/netedit/GNEApplicationWindow.cpp:3960
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
-msgstr ""
+msgstr "archivo de elementos adicionales"
 
 #: src/netedit/GNEApplicationWindow.cpp:3835
 msgid "load additionals from '%'"
@@ -2879,7 +2879,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3987
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "archivo de elementos JuPedSim"
 
 #: src/netedit/GNEApplicationWindow.cpp:4009
 msgid "JuPedSim elements saved"
@@ -2897,7 +2897,7 @@ msgstr "¡El guardado de los elementos JuPedSim ha fallado!"
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
-msgstr ""
+msgstr "archivo de elementos de ruta"
 
 #: src/netedit/GNEApplicationWindow.cpp:4056
 msgid "loading demand elements from '%'"
@@ -2944,7 +2944,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4362
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
 msgid "Data elements file"
-msgstr ""
+msgstr "archivo de elementos de datos"
 
 #: src/netedit/GNEApplicationWindow.cpp:4236
 msgid "loading data elements from '%'"
@@ -2983,7 +2983,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4387
 #: src/netedit/GNEApplicationWindow.cpp:4537
 msgid "MeanData elements file"
-msgstr ""
+msgstr "archivo de elementos MeanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4415
 msgid "load meanDatas from '%'"
@@ -10587,11 +10587,11 @@ msgstr "No se pudo actualizar % porque el atributo % no es válido."
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:34
 #, c-format
 msgid "Save % as"
-msgstr ""
+msgstr "Guardar % como"
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:39
 msgid "Open %"
-msgstr ""
+msgstr "Abrir %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:80
 msgid "Visited Directories"
@@ -10660,7 +10660,7 @@ msgstr "Mover archivo"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:265
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:283
 msgid "Error moving file"
-msgstr ""
+msgstr "Error al mover el archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:266
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:284
@@ -10668,28 +10668,32 @@ msgid ""
 "Unable to move file:\n"
 "%\n"
 msgstr ""
+"No se pudo mover el archivo:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:303
 msgid "Deleting file"
-msgstr ""
+msgstr "Eliminando archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:303
 msgid "Are you sure you want to delete the file:"
-msgstr ""
+msgstr "¿Está seguro de que desea eliminar el archivo?:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:310
 msgid "Error deleting file"
-msgstr ""
+msgstr "Error al eliminar archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:311
 msgid ""
 "Unable to delete file:\n"
 "%\n"
 msgstr ""
+"No se pudo eliminar el archivo:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:312
 msgid "Check file permissions"
-msgstr ""
+msgstr "Revisar los permisos del archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:377
 msgid "Up one level"
@@ -10818,35 +10822,39 @@ msgstr "Crear directorio nuevo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:830
 msgid "Create new directory with name:"
-msgstr ""
+msgstr "Crear un nuevo directorio con el nombre:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:837
 msgid "Directory already Exists"
-msgstr ""
+msgstr "El directorio ya existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:838
 msgid ""
 "The new directory:\n"
 "%"
 msgstr ""
+"El nuevo directorio:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:839
 msgid "already exists"
-msgstr ""
+msgstr "ya existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:845
 msgid "Cannot create directory"
-msgstr ""
+msgstr "No se pudo crear el directorio"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:846
 msgid ""
 "Cannot create directory:\n"
 "%"
 msgstr ""
+"No se pudo crear el directorio:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:847
 msgid "Check folder permissions"
-msgstr ""
+msgstr "Revisar los permisos de la carpeta"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:861
 msgid "Bookmark current directory."
@@ -10878,19 +10886,19 @@ msgstr "Crear carpeta nueva"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:921
 msgid "Display directory with small icons"
-msgstr ""
+msgstr "Usar iconos pequeños"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:925
 msgid "Display directory with big icons"
-msgstr ""
+msgstr "Usar iconos grandes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
 msgid "Display detailed directory listing"
-msgstr ""
+msgstr "Mostrar listado detallado del directorio"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:935
 msgid "Toggle show hidden files and directories"
-msgstr ""
+msgstr "Alternar la visualización de archivos y directorios ocultos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
 msgid "Select a solution for StoppingPlaces and E2 detectors"
@@ -10900,7 +10908,7 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:182
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:305
 msgid "Activate friendlyPos and save"
-msgstr "Activar friendlypos y salvar"
+msgstr "Activar friendlypos y guardar"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:58
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:183
@@ -10917,7 +10925,7 @@ msgstr "Guardar posiciones inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:63
 msgid "Save stopping places and E2 detectors with invalid positions"
-msgstr "Salvar lugares de parada y detectores E2 con posiciones inválidas"
+msgstr "Guardar lugares de parada y detectores E2 con posiciones inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:67
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:187
@@ -11273,7 +11281,7 @@ msgstr "Incluir la descripción en la búsqueda"
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:142
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:157
 msgid "options file"
-msgstr ""
+msgstr "archivo de opciones"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:340
 msgid "Could not load configuration '"
@@ -11302,7 +11310,7 @@ msgstr "Seleccionar nombre de archivo"
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:574
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
 msgid "XML file"
-msgstr ""
+msgstr "archivo XML"
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:45
 msgid "Edit SUMO options"
@@ -12831,7 +12839,7 @@ msgstr "Mover elemento un carril hacia abajo"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:439
 #, c-format
 msgid "% file"
-msgstr ""
+msgstr "% archivo"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:632
 msgid "Reparent"
