@@ -140,6 +140,14 @@ public:
     /// @param s The visualization settings
     void changePedestrianNetworkColor(const GUIVisualizationSettings& s) const override;
 
+    /** @brief centers to the chosen artifact
+     * @param[in] id The id of the artifact to center to
+     * @param[in] applyZoom Whether to zoom in
+     * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
+     * @note caller is responsible for calling update
+     */
+    void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20) override;
+
 protected:
     int doPaintGL(int mode, const Boundary& bound) override;
 

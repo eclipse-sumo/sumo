@@ -36,6 +36,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <gui/GUIGlobals.h>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
@@ -132,9 +133,10 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
+    const bool s2 = GUIGlobals::gSecondaryShape;
     if (!isTazConnector()) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            ret.add((*i)->getShape().getBoxBoundary());
+            ret.add((*i)->getShape(s2).getBoxBoundary());
         }
     } else {
         // take the starting coordinates of all follower edges and the endpoints
@@ -142,13 +144,13 @@ GUIEdge::getBoundary() const {
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
             const std::vector<MSLane*>& lanes = (*it)->getLanes();
             for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().front());
+                ret.add((*it_lane)->getShape(s2).front());
             }
         }
         for (MSEdgeVector::const_iterator it = myPredecessors.begin(); it != myPredecessors.end(); ++it) {
             const std::vector<MSLane*>& lanes = (*it)->getLanes();
             for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().back());
+                ret.add((*it_lane)->getShape(s2).back());
             }
         }
     }
