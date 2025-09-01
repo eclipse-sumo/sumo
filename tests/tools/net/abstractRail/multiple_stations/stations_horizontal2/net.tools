@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-01 20:00:41 by Eclipse SUMO netconvert Version v1_24_0+0537-7db11dde4fd
+<!-- generated on 2025-09-02 00:33:30 by Eclipse SUMO netconvert Version v1_24_0+0537-7db11dde4fd
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -108,8 +108,8 @@
             <param key="origId" value="411320587"/>
         </lane>
     </edge>
-    <edge id="592029485" from="447955411" to="30116288" priority="18" type="railway.subway" spreadType="center" length="662.80">
-        <lane id="592029485_0" index="0" allow="subway" speed="19.44" length="662.80" shape="493.62,296.49 54.44,648.06">
+    <edge id="592029485" from="447955411" to="30116288" priority="18" type="railway.subway" spreadType="center" length="662.80" shape="495.23,295.20 74.44,648.06 54.44,648.06">
+        <lane id="592029485_0" index="0" allow="subway" speed="19.44" length="662.80" shape="493.63,296.54 74.44,648.06 54.44,648.06">
             <param key="origId" value="592029485"/>
         </lane>
     </edge>
@@ -206,12 +206,12 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="30116288" type="dead_end" x="54.44" y="648.06" incLanes="592029485_0" intLanes="" shape="55.44,649.31 53.44,646.81"/>
+    <junction id="30116288" type="dead_end" x="54.44" y="648.06" incLanes="592029485_0" intLanes="" shape="54.44,649.66 54.44,646.46"/>
     <junction id="4289055028" type="priority" x="514.27" y="275.20" incLanes="60543833#0_0 60543836#0_0" intLanes="" shape="517.64,280.20 519.72,277.78 519.26,277.23 519.25,277.04 519.38,276.91 519.66,276.83 520.09,276.80 520.09,273.60 509.04,273.60 509.04,276.80 509.76,276.92 509.90,277.07 509.91,277.28 509.78,277.55 509.50,277.89 511.82,280.09 513.60,278.91 514.55,278.78 515.54,278.95 516.57,279.42">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="447955411" type="priority" x="495.23" y="295.20" incLanes="411320587#1_0" intLanes="" shape="500.46,296.80 500.46,293.60 499.74,293.48 499.60,293.33 499.59,293.12 499.72,292.85 500.00,292.51 497.68,290.31 495.90,292.23 495.27,292.90 494.62,293.55 493.78,294.29 492.62,295.24 494.62,297.74 496.50,296.67 497.30,296.58 498.15,296.63 499.16,296.74">
+    <junction id="447955411" type="priority" x="495.23" y="295.20" incLanes="411320587#1_0" intLanes="" shape="500.46,296.80 500.46,293.60 499.74,293.48 499.60,293.33 499.59,293.12 499.72,292.85 500.00,292.51 497.68,290.31 495.88,292.24 495.25,292.92 494.59,293.57 493.76,294.33 492.61,295.31 494.66,297.76 496.51,296.67 497.30,296.57 498.15,296.63 499.17,296.74">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="447955419" type="priority" x="646.79" y="335.20" incLanes="-38086054#0_0" intLanes="" shape="646.79,333.60 646.79,336.80 646.79,333.60 646.79,336.80" fringe="inner">
