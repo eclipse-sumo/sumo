@@ -288,7 +288,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterR
 // ---------------------------------------------------------------------------
 
 GNEParametersDialog::ParametersOperations::ParametersOperations(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent) :
-    FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
+    FXGroupBox(frame, TL("Operations"), GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
     mySortButton =  GUIDesigns::buildFXButton(this, TL("Sort"), "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonFixed(100));
