@@ -576,12 +576,12 @@ def main(options):
     nodeCoords = dict()
     edgeShapes = dict()
 
-    for name, edges in regions.items():
-        edges = filterBidi(edges)
+    for name, allEdges in regions.items():
+        edges = filterBidi(allEdges)
         if options.verbose:
             print("Processing region '%s' with %s edges" % (name, len(edges)))
         initShapes(edges, nodeCoords, edgeShapes)
-        mainLine = findMainline(options, name, net, edges)
+        mainLine = findMainline(options, name, net, allEdges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         if not options.skipYOpt:
             nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
