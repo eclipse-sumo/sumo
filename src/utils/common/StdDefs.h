@@ -30,7 +30,11 @@
 #define UNUSED_PARAMETER(x)  ((void)(x))
 
 #ifdef _MSC_VER
+#if _MSC_VER < 1943
 #define FALLTHROUGH /* do nothing */
+#else
+#define FALLTHROUGH [[fallthrough]]
+#endif
 #elif __GNUC__ < 7
 #define FALLTHROUGH /* do nothing */
 #else
