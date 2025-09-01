@@ -70,6 +70,8 @@ def get_options():
                     + " automatically split the network if needed")
     ap.add_argument("--filter-regions", dest="filterRegions",
                     help="filter regions by name or id")
+    ap.add_argument("--main-stops", dest="mainStops",
+                    help="determine main direction from stops names or ids")
     ap.add_argument("--keep-all", action="store_true", dest="keepAll", default=False,
                     help="keep original regions outside the filtered regions")
     ap.add_argument("--horizontal", action="store_true", dest="horizontal", default=False,
@@ -95,6 +97,9 @@ def get_options():
     if options.regionfile and options.split:
         ap.print_help()
         ap.exit("Error! Only one of the options --split or --region-file may be given")
+
+    if options.mainStops:
+        options.mainStops = set(options.mainStops.split(','))
 
     options.output_nodes = options.prefix + ".nod.xml"
     options.output_edges = options.prefix + ".edg.xml"
@@ -146,7 +151,9 @@ def findMainline(options, name, net, edges):
 
     angles = []
     for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
-        # name = stop.getAttributeSecure("attr_name", stop.id)
+        name = stop.getAttributeSecure("attr_name", stop.id)
+        if options.mainStops and stop.id not in options.mainStops and name not in options.mainStops:
+            continue
         edgeID = stop.lane.rsplit('_', 1)[0]
         if edgeID not in knownEdges:
             continue
