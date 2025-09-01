@@ -43,4 +43,4 @@ if test "$3" == "local"; then
 fi
 # the docker script will create _skbuild, dist and wheelhouse dir owned by root but writable for everyone
 # we only need wheelhouse, the rest is for inspecting if errors occur
-docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo $PLATFORM tools/build_config/build_wheels.sh $HTTPS_PROXY v1.3.0 >> $LOG 2>&1
+docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo $PLATFORM tools/build_config/build_wheels.sh $HTTPS_PROXY v1.3.1 >> $LOG 2>&1
