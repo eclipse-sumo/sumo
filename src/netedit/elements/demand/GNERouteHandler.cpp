@@ -1670,13 +1670,12 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
+    GNEDemandElement* originalRoute = nullptr;
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
         // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().at(1)->getParentEdges();
-        // get original route color
-        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
+        originalRoute = originalVehicle->getParentDemandElements().at(1);
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1690,7 +1689,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
-    if (routeEdges.empty()) {
+    if (!originalRoute && routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
@@ -1708,6 +1707,11 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // build embedded route
             routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+        } else if (originalRoute) {
+            // set route ID in vehicle parameters
+            vehicleParameters.routeid = originalRoute->getID();
+            // create vehicle
+            routeHandler.buildVehicleOverRoute(nullptr, vehicleParameters);
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
@@ -1749,13 +1753,12 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
+    GNEDemandElement* originalRoute = nullptr;
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
-        // get original route color
-        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
+        // get original route
+        originalRoute = originalVehicle->getParentDemandElements().back();
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1769,7 +1772,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
-    if (routeEdges.empty()) {
+    if (!originalRoute && routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
@@ -1799,6 +1802,11 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // build embedded route
             routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+        } else if (originalRoute) {
+            // set route ID in vehicle parameters
+            vehicleParameters.routeid = originalRoute->getID();
+            // create vehicle
+            routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
@@ -1811,6 +1819,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // create vehicle
             routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         }
+
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
