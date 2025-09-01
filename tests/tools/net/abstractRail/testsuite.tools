@@ -6,3 +6,6 @@ plain
 horizontal
 orthogonal
 no_stops
+
+# see #17023
+stops_on_bidi
