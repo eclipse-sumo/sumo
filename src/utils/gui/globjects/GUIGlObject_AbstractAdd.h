@@ -63,6 +63,6 @@ protected:
     /// @brief Map from names of loaded additional objects to the objects themselves
     static std::map<std::string, GUIGlObject_AbstractAdd*> myObjects;
 
-    /// @brief The list of all addtional objects currently loaded
+    /// @brief The list of all additional objects currently loaded
     static std::vector<GUIGlObject_AbstractAdd*> myObjectList;
 };

@@ -1827,7 +1827,7 @@ void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     myAmLoading = false;
     GUIEvent_SimulationLoaded* ec = static_cast<GUIEvent_SimulationLoaded*>(e);
-    // check whether the loading was successfull
+    // check whether the loading was successful
     if (ec->myNet == nullptr) {
         // report failure
         setStatusBarText(TLF("Loading of '%' failed!", ec->myFile));

@@ -344,10 +344,10 @@ public:
     /** @brief Checks whether the named option is usable as a file list (with at least a single file)
      *
      * The method returns true, if the named option is set with entries containing
-     *  names of accessable files.
+     *  names of accessible files.
      *
      * Throw an InvalidArgument exception if the option is not known. If the option
-     *  is not set, false is returned. Also, if the list is empty (conatins delimiters only)
+     *  is not set, false is returned. Also, if the list is empty (contains delimiters only)
      *  or if one of the named files (obtained using getStringVector) does not exist,
      *  false is returned. Additionally, an error is sent to MsgHandler in both cases.
      *
@@ -362,7 +362,7 @@ public:
 
     /** @brief Checks whether an option is set, which has options with a prefix depending on it.
      *
-     * The method returns true, if the named option is set or no option dependoing on it is set.
+     * The method returns true, if the named option is set or no option depending on it is set.
      * Throws an InvalidArgument exception if the option is not known.
      *
      * @param[in] name The name of the option to check
@@ -634,7 +634,7 @@ public:
      *  template or the current configuration shall be written.
      *
      * This method throws a ProcessError if the configuration should be saved,
-     *  but the file is not accessable. An error message is supplied.
+     *  but the file is not accessible. An error message is supplied.
      *
      * @param[in] missingOptions Whether no options have been given
      * @return Whether the application shall stop
@@ -657,10 +657,10 @@ public:
     /// @brief check if options container is empty
     bool isEmpty() const;
 
-    /// @brief get begin adresses iterator
+    /// @brief get begin addresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator begin() const;
 
-    /// @brief get begin adresses iterator
+    /// @brief get begin addresses iterator
     std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
     /// @brief make a copy of this OptionsCont instance
@@ -710,10 +710,10 @@ private:
     /// @brief The static options container used
     static OptionsCont myOptions;
 
-    /// @brief option-adresses
+    /// @brief option-addresses
     std::vector<std::pair<std::string, Option*> > myAddresses;
 
-    /// @brief option maps sorted by name (for adresses AND their synonyms)
+    /// @brief option maps sorted by name (for addresses AND their synonyms)
     std::map<std::string, Option*> myValues;
 
     /// @brief some information on the application

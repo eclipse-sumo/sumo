@@ -700,7 +700,7 @@ protected:
     /// @brief get element by ID
     GNEAdditional* retrieveAdditionalElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if element exist, and if overwritte
+    /// @brief check if element exist, and if overwrite
     bool checkElement(const SumoXMLTag tag, GNEAdditional* additional);
 
 private:

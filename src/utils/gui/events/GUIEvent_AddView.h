@@ -15,7 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @date    Wed 18 Jun 2003
 ///
-// Event send when a message (message, warning, error) has to besubmitted
+// Event send when a message (message, warning, error) has to be submitted
 /****************************************************************************/
 #pragma once
 #include <config.h>

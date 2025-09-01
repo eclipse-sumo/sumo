@@ -235,7 +235,7 @@ public:
     /// @name interaction with the route
     //@{
 
-    /** @brief Returns whether this vehicle has already arived
+    /** @brief Returns whether this vehicle has already arrived
      * (reached the arrivalPosition on its final edge)
      */
     bool hasArrived() const;

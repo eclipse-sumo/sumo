@@ -1325,7 +1325,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check whether the loading was successfull
+    // check whether the loading was successful
     if (ec->net == nullptr) {
         // report failure
         setStatusBarText(TL("Loading of '") + ec->file + "' failed!");

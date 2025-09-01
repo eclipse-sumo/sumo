@@ -432,7 +432,7 @@ public:
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
      * @param[in] endOffset Additional offset to the destination node
-     * @param[in] geom The edge's geomatry
+     * @param[in] geom The edge's geometry
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] streetName The street name (need not be unique)
      * @param[in] origID The original ID in the source network (need not be unique)
@@ -479,7 +479,7 @@ public:
      * @param[in] speed The maximum velocity allowed on this edge
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
-     * @param[in] geom The edge's geomatry
+     * @param[in] geom The edge's geometry
      * @param[in] width This edge's lane width
      * @param[in] endOffset Additional offset to the destination node
      * @param[in] streetName The street name (need not be unique)
@@ -818,7 +818,7 @@ public:
      *
      * Replaces the edge's prior geometry by the given. Then, computes
      *  the geometries of all lanes using computeLaneShapes.
-     * Definitely not the best way to have it accessable from outside...
+     * Definitely not the best way to have it accessible from outside...
      * @param[in] g The edge's new geometry
      * @param[in] inner whether g should be interpreted as inner points
      * @todo Recheck usage, disallow access
@@ -1697,12 +1697,12 @@ private:
 
     /// @name Setting and getting connections
     /// @{
-    /** @briefmoves a connection one place to the left;
+    /** @brief moves a connection one place to the left;
      * @note Attention! no checking for field validity
      */
     void moveConnectionToLeft(int lane);
 
-    /** @briefmoves a connection one place to the right;
+    /** @brief moves a connection one place to the right;
      * @noteAttention! no checking for field validity
      */
     void moveConnectionToRight(int lane);

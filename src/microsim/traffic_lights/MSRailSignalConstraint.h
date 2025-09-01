@@ -205,7 +205,7 @@ public:
     /// @brief id of the predecessor that must already have passed
     const std::string myTripId;
 
-    /// @brief the number of passed vehicles within which tripId must have occured
+    /// @brief the number of passed vehicles within which tripId must have occurred
     const int myLimit;
 
     /// @brief Whether this constraint is currently active

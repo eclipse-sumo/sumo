@@ -102,7 +102,7 @@ public:
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
 
-    /** @brief Loads one transfer vehicle state from the given descriptionn */
+    /** @brief Loads one transfer vehicle state from the given description */
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc);
 
     /** @brief Returns the instance of this object

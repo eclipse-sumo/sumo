@@ -180,7 +180,7 @@ RouteHandler::endParseAttributes() {
                 }
                 break;
             case SUMO_TAG_ROUTE_DISTRIBUTION:
-                // overwritte probabilities in children
+                // overwrite probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_ROUTES).size(); i++) {
                     const auto& routeID = obj->getStringListAttribute(SUMO_ATTR_ROUTES).at(i);
                     if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
@@ -203,7 +203,7 @@ RouteHandler::endParseAttributes() {
                 delete obj;
                 break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
-                // overwritte probabilities in children
+                // overwrite probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_VTYPES).size(); i++) {
                     const auto& vTypeID = obj->getStringListAttribute(SUMO_ATTR_VTYPES).at(i);
                     if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {

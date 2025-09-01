@@ -87,7 +87,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         dev = OutputDevice_CERR::getDevice();
     } else if (FileHelpers::isSocket(name)) {
         try {
-            const bool ipv6 = name[0] == '[';  // IPv6 adresses may be written like '[::1]:8000'
+            const bool ipv6 = name[0] == '[';  // IPv6 addresses may be written like '[::1]:8000'
             const size_t sepIndex = name.find(":", ipv6 ? name.find("]") : 0);
             const int port = StringUtils::toInt(name.substr(sepIndex + 1));
             dev = new OutputDevice_Network(ipv6 ? name.substr(1, sepIndex - 2) : name.substr(0, sepIndex), port);

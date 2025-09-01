@@ -292,7 +292,7 @@ protected:
     /// @brief get element by ID
     GNEDemandElement* retrieveDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if element exist, and if overwritte
+    /// @brief check if element exist, and if overwrite
     bool checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement);
 
 private:
