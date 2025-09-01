@@ -2472,7 +2472,7 @@ msgid "network"
 msgstr "rede"
 
 #: src/netedit/GNEApplicationWindow.cpp:771
-msgid "Open Street Map"
+msgid "OpenStreetMap"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:787

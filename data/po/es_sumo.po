@@ -7861,7 +7861,7 @@ msgstr ""
 msgid "Could not re-assign PT stop '%', probably broken osm file."
 msgstr ""
 "No se puede reasignar la parada de transporte público (pt stop) '%'. "
-"Probablemente un archivo de Open Street Map roto."
+"Probablemente un archivo de OpenStreetMap roto."
 
 #: src/netbuild/NBPTLineCont.cpp:193
 msgid "PT stop '%' has been moved to edge '%'."

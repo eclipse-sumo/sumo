@@ -768,7 +768,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // get OSM file dilaog
-    const auto OSMFileDialog = GNEFileDialog(this, TL("Open Street Map"),
+    const auto OSMFileDialog = GNEFileDialog(this, TL("OpenStreetMap"),
                                SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
                                GNEFileDialog::OpenMode::LOAD_SINGLE,
                                GNEFileDialog::ConfigType::NETEDIT);
