@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-21 11:50+0200\n"
-"PO-Revision-Date: 2025-08-26 08:42+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-09-02 08:03+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -285,19 +285,19 @@ msgstr "Permitir retornos como continuações de rota"
 
 #: src/dfrouter/RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
-msgstr ""
+msgstr "Distância mínima em metros entre o nó inicial e final de cada rota"
 
 #: src/dfrouter/RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
-msgstr ""
+msgstr "gera tempos de partida aleatórios pra veículos emitidos"
 
 #: src/dfrouter/RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
-msgstr ""
+msgstr "Multiplicar os tempos de fluxo com o TEMPO para obter segundos"
 
 #: src/dfrouter/RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "Subtrai TEMPO segundos dos tempos de fluxo (dimensionados)"
 
 #: src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
@@ -2913,7 +2913,7 @@ msgstr ""
 #: src/tools/emissionsMap_main.cpp:84
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "O carregamento de % falhou."
 
 #: src/microsim/MSNet.cpp:1720
 #, c-format
@@ -11363,11 +11363,11 @@ msgstr ""
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:194
 msgid "Invalid row"
-msgstr ""
+msgstr "Linha inválida"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:204
 msgid "Invalid column"
-msgstr ""
+msgstr "Coluna inválida"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:340
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
