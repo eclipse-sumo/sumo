@@ -40,6 +40,7 @@
 
 // Map
 FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
+    // interaction
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_ACCEPT,          GNEFileSelector::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,              FXFileSelector::ID_FILEFILTER,      GNEFileSelector::onCmdFilter),
     FXMAPFUNC(SEL_DOUBLECLICKED,        FXFileSelector::ID_FILELIST,        GNEFileSelector::onCmdItemDoubleClicked),
@@ -63,6 +64,7 @@ FXDEFMAP(GNEFileSelector) GNEFileSelectorMap[] = {
     FXMAPFUNC(SEL_UPDATE,               FXFileSelector::ID_DELETE,          GNEFileSelector::onUpdSelected),
     FXMAPFUNCS(SEL_COMMAND,             FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onCmdImageSize),
     FXMAPFUNCS(SEL_UPDATE,              FXFileSelector::ID_NORMAL_SIZE,     FXFileSelector::ID_GIANT_SIZE,  GNEFileSelector::onUpdImageSize),
+    FXMAPFUNC(SEL_KEYPRESS,             0,                                  GNEFileSelector::onKeyPress),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_BUTTON_CONFIG,              GNEFileSelector::onCmdConfigFolder),
 };
 
@@ -107,7 +109,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
                 nullptr, GUIDesignLabelFixed(100));
     // create filename text field
     myFilenameTextField = new MFXTextFieldTooltip(filenameHorizontalFrame, tooltipMenu, GUIDesignTextFieldNCol,
-            nullptr, 0, GUIDesignTextFieldFileDialog);
+            this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFileDialog);
     // create comboBox for file filter
     myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
     // build shortcuts
@@ -367,6 +369,18 @@ GNEFileSelector::onUpdImageSize(FXObject* sender, FXSelector sel, void*) {
     }
     sender->handle(this, check ? FXSEL(SEL_COMMAND, ID_CHECK) : FXSEL(SEL_COMMAND, ID_UNCHECK), NULL);
     return 1;
+}
+
+
+long
+GNEFileSelector::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
+    // if ESC key is pressed, close dialog aborting
+    FXEvent* event = (FXEvent*)ptr;
+    if (event->code == KEY_Return) {
+        return myFileDialog->onCmdAccept(obj, sel, ptr);
+    } else {
+        return FXVerticalFrame::onKeyPress(obj, sel, ptr);
+    }
 }
 
 

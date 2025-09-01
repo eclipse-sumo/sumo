@@ -198,6 +198,9 @@ public:
     /// @brief Update handler for enabling/disabling image size command.
     long onUpdImageSize(FXObject*, FXSelector, void*);
 
+    /// @brief called when user press a key
+    long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);
+
     /// @}
 
 protected:
