@@ -64,7 +64,7 @@ public:
             /// @brief source TAZ
             GNETAZSourceSink* source;
 
-            /// @brif sink TAZ
+            /// @brief sink TAZ
             GNETAZSourceSink* sink;
 
             /// @brief color by source [0-9]
@@ -459,23 +459,23 @@ public:
     /**@brief process click over Viewnet
      * @param[in] clickedPosition clicked position over ViewNet
      * @param[in] viewObjects objects under cursors
-     * @return true if something (select TAZ or add edge) was sucefully done
+     * @return true if something (select TAZ or add edge) was successfully done
      */
     bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process selection of edges in view net
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
-    /// @brief get drawing mode modul
+    /// @brief get drawing mode module
     GNEDrawingShape* getDrawingShapeModule() const;
 
-    /// @brief get Current TAZ modul
+    /// @brief get Current TAZ module
     CurrentTAZ* getCurrentTAZModule() const;
 
-    /// @brief get TAZ Selection Statistics modul
+    /// @brief get TAZ Selection Statistics module
     TAZSelectionStatistics* getTAZSelectionStatisticsModule() const;
 
-    /// @brief get TAZ Save Changes modul
+    /// @brief get TAZ Save Changes module
     TAZSaveChanges* getTAZSaveChangesModule() const;
 
 protected:

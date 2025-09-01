@@ -78,7 +78,7 @@ struct GUIVisualizationTextSettings {
     /// @brief background text color
     RGBColor bgColor;
 
-    /// @brif flag to avoid size changes
+    /// @brief flag to avoid size changes
     bool constSize;
 
     /// @brief whether only selected objects shall have text drawn
@@ -665,22 +665,22 @@ public:
      */
     void save(OutputDevice& dev) const;
 
-    /** @brief Returns the number of the active lane (edge) coloring schme
+    /** @brief Returns the number of the active lane (edge) coloring scheme
      * @return number of the active scheme
      */
     int getLaneEdgeMode() const;
 
-    /** @brief Returns the number of the active lane (edge) scaling schme
+    /** @brief Returns the number of the active lane (edge) scaling scheme
      * @return number of the active scheme
      */
     int getLaneEdgeScaleMode() const;
 
-    /** @brief Returns the current lane (edge) coloring schme
+    /** @brief Returns the current lane (edge) coloring scheme
      * @return current scheme
      */
     GUIColorScheme& getLaneEdgeScheme();
 
-    /** @brief Returns the current lane (edge) scaling schme
+    /** @brief Returns the current lane (edge) scaling scheme
      * @return current scheme
      */
     GUIScaleScheme& getLaneEdgeScaleScheme();
@@ -700,7 +700,7 @@ public:
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;
 
-    /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
+    /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exaggeration
     bool drawDetail(const double detail, const double exaggeration) const;
 
     /// @brief check if moving geometry point can be draw
@@ -922,7 +922,7 @@ public:
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
     bool drawJunctionShape;
-    /// @brief whether crosings and walkingareas shall be drawn
+    /// @brief whether crossings and walkingareas shall be drawn
     bool drawCrossingsAndWalkingareas;
     // Setting bundles for controling the size of the drawn junction
     GUIVisualizationSizeSettings junctionSize;
@@ -935,7 +935,7 @@ public:
     /// @{
 
     /// @brief The additional structures visualization scheme
-    // @todo decouple addExageration for POIs, Polygons, Triggers etc
+    // @todo decouple addExaggeration for POIs, Polygons, Triggers etc
     int addMode;
     // Setting bundles for controling the size of additional items
     GUIVisualizationSizeSettings addSize;

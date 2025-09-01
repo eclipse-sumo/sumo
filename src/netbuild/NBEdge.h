@@ -758,7 +758,7 @@ public:
      */
     int getFirstAllowedLaneIndex(int direction) const;
 
-    /// @brif get first non-pedestrian lane
+    /// @brief get first non-pedestrian lane
     NBEdge::Lane getFirstNonPedestrianLane(int direction) const;
 
     /// @brief return all permission variants within the specified lane range [iStart, iEnd[
