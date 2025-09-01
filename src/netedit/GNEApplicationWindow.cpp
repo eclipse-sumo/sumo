@@ -4856,7 +4856,7 @@ GNEApplicationWindow::loadAdditionalElements() {
         bool setSaved = additionalFiles.size() == 1;
         // iterate over every additional file
         for (const auto& file : additionalFiles) {
-            // check if ignore missing imputs
+            // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
                 // declare general handler
@@ -4912,7 +4912,7 @@ GNEApplicationWindow::loadDemandElements() {
         bool setSaved = demandFiles.size() == 1;
         // iterate over every demand file
         for (const auto& file : demandFiles) {
-            // check if ignore missing imputs
+            // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
                 // declare general handler
@@ -4958,7 +4958,7 @@ GNEApplicationWindow::loadDataElements() {
         bool setSaved = dataFiles.size() == 1;
         // iterate over every data file
         for (const auto& file : dataFiles) {
-            // check if ignore missing imputs
+            // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading data elements from '") + file + "'");
                 // declare general handler
@@ -5004,7 +5004,7 @@ GNEApplicationWindow::loadMeanDataElements() {
         bool setSaved = meanDataFiles.size() == 1;
         // iterate over every meanData file
         for (const auto& file : meanDataFiles) {
-            // check if ignore missing imputs
+            // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading meanData elements from '") + file + "'");
                 // declare general handler
