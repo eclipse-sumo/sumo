@@ -14,7 +14,7 @@ buildType:
       buildType: Release
       settings:
         CMAKE_BUILD_TYPE: Release
-        CHECK_OPTIONAL_LIBS: no
+        CHECK_OPTIONAL_LIBS: OFF
         FOX_CONFIG: ''
         BINARY_SUFFIX: M
     profiling:
@@ -23,7 +23,7 @@ buildType:
       buildType: RelWithDebInfo
       settings:
         CMAKE_BUILD_TYPE: RelWithDebInfo
-        PROFILING: yes
+        PROFILING: ON
     release:
       short: Release
       long: Release
@@ -33,17 +33,15 @@ buildType:
 
 bindings:
   default: yes
-  description: Enable Python and Java bindings?
+  description: Enable C#, Python and Java bindings?
   choices:
     yes:
       short: Bindings
       long: Bindings enabled
-      settings:
-        ENABLE_PYTHON_BINDINGS: yes
-        ENABLE_JAVA_BINDINGS: yes
     no:
       short: noBindings
       long: Bindings not enabled
       settings:
-        ENABLE_JAVA_BINDINGS: no
-        ENABLE_PYTHON_BINDINGS: no
+        ENABLE_CS_BINDINGS: OFF
+        ENABLE_JAVA_BINDINGS: OFF
+        ENABLE_PYTHON_BINDINGS: OFF
