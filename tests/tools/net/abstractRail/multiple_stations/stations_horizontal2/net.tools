@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-01 19:44:33 by Eclipse SUMO netconvert Version v1_24_0+0537-7db11dde4fd
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <node-files value="net.nod.xml"/>
+        <edge-files value="net.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-477005.29,-5549520.00" convBoundary="164.28,149.73,713.50,496.18" origBoundary="8.678453,50.097182,8.692332,50.103711" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="subway" oneway="1"/>
+
+    <edge id="-137218774#2" from="447955428" to="755908264" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="134.16" bidi="137218774#2">
+        <lane id="-137218774#2_0" index="0" allow="subway" speed="5.56" length="134.16" shape="540.43,249.73 579.06,249.73">
+            <param key="origId" value="137218774"/>
+        </lane>
+    </edge>
+    <edge id="-38086054#0" from="755908291" to="447955419" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="108.65" bidi="38086054#0">
+        <lane id="-38086054#0_0" index="0" allow="subway" speed="5.56" length="108.65" shape="577.83,149.73 560.43,149.73">
+            <param key="origId" value="38086054"/>
+        </lane>
+    </edge>
+    <edge id="-60543838#0" from="755908284" to="755908292" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="138.73" bidi="60543838#0">
+        <lane id="-60543838#0_0" index="0" allow="subway" speed="5.56" length="138.73" shape="579.05,189.73 535.15,189.73">
+            <param key="origId" value="60543838"/>
+        </lane>
+    </edge>
+    <edge id="1354436687" from="755908274" to="755908266" priority="18" type="railway.subway" spreadType="center" length="139.54">
+        <lane id="1354436687_0" index="0" allow="subway" speed="19.44" length="139.54" shape="642.84,149.73 667.60,149.73">
+            <param key="origId" value="1354436687 411320587"/>
+        </lane>
+    </edge>
+    <edge id="137218774#0" from="755908259" to="755908273" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="22.99" shape="643.59,189.73 632.10,209.73 620.61,209.73">
+        <lane id="137218774#0_0" index="0" allow="subway" speed="5.56" length="22.99" shape="641.47,193.43 632.10,209.73 623.11,209.73">
+            <param key="origId" value="137218774"/>
+        </lane>
+    </edge>
+    <edge id="137218774#1" from="755908273" to="755908264" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="38.95" shape="620.61,209.73 601.14,249.73 581.68,249.73">
+        <lane id="137218774#1_0" index="0" allow="subway" speed="5.56" length="38.95" shape="618.83,213.38 601.14,249.73 585.46,249.73">
+            <param key="origId" value="137218774"/>
+        </lane>
+    </edge>
+    <edge id="137218774#2" from="755908264" to="447955428" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="134.16" bidi="-137218774#2">
+        <lane id="137218774#2_0" index="0" allow="subway" speed="5.56" length="134.16" shape="579.06,249.73 540.43,249.73">
+            <param key="origId" value="137218774"/>
+        </lane>
+    </edge>
+    <edge id="38086054#0" from="447955419" to="755908291" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="108.65" bidi="-38086054#0">
+        <lane id="38086054#0_0" index="0" allow="subway" speed="5.56" length="108.65" shape="560.43,149.73 577.83,149.73">
+            <param key="origId" value="38086054"/>
+        </lane>
+    </edge>
+    <edge id="38086054#1" from="755908291" to="755908287" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="39.15">
+        <lane id="38086054#1_0" index="0" allow="subway" speed="5.56" length="39.15" shape="584.26,149.73 615.27,149.73">
+            <param key="origId" value="38086054"/>
+        </lane>
+    </edge>
+    <edge id="38086054#2" from="755908287" to="755908274" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="21.07">
+        <lane id="38086054#2_0" index="0" allow="subway" speed="5.56" length="21.07" shape="621.99,149.73 635.46,149.73">
+            <param key="origId" value="38086054"/>
+        </lane>
+    </edge>
+    <edge id="411320586#0" from="755908285" to="755908289" priority="18" type="railway.subway" spreadType="center" length="49.99">
+        <lane id="411320586#0_0" index="0" allow="subway" speed="19.44" length="49.99" shape="705.85,189.73 668.25,189.73">
+            <param key="origId" value="411320586"/>
+        </lane>
+    </edge>
+    <edge id="411320586#1" from="755908289" to="755908259" priority="18" type="railway.subway" spreadType="center" length="130.54">
+        <lane id="411320586#1_0" index="0" allow="subway" speed="19.44" length="130.54" shape="661.28,189.73 646.02,189.73">
+            <param key="origId" value="411320586"/>
+        </lane>
+    </edge>
+    <edge id="411320587#1" from="755908266" to="447955411" priority="18" type="railway.subway" spreadType="center" length="42.33">
+        <lane id="411320587#1_0" index="0" allow="subway" speed="19.44" length="42.33" shape="675.50,149.73 704.86,149.73">
+            <param key="origId" value="411320587"/>
+        </lane>
+    </edge>
+    <edge id="592029485" from="447955411" to="30116288" priority="18" type="railway.subway" spreadType="center" length="662.80">
+        <lane id="592029485_0" index="0" allow="subway" speed="19.44" length="662.80" shape="700.14,157.06 184.42,476.18">
+            <param key="origId" value="592029485"/>
+        </lane>
+    </edge>
+    <edge id="592029486" from="755862852" to="755908285" priority="18" type="railway.subway" spreadType="center" length="664.47" shape="185.21,496.18 164.28,496.18 713.50,189.73">
+        <lane id="592029486_0" index="0" allow="subway" speed="19.44" length="664.47" shape="185.21,496.18 164.28,496.18 706.82,193.46">
+            <param key="origId" value="592029486"/>
+        </lane>
+    </edge>
+    <edge id="60543833#0" from="755908266" to="4289055028" name="GW Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="23.95">
+        <lane id="60543833#0_0" index="0" allow="subway" speed="5.56" length="23.95" shape="674.10,153.52 688.54,165.94">
+            <param key="origId" value="60543833"/>
+        </lane>
+    </edge>
+    <edge id="60543833#1" from="4289055028" to="755908285" name="GW Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="21.08" shape="692.95,169.73 703.23,169.73 713.50,189.73">
+        <lane id="60543833#1_0" index="0" allow="subway" speed="5.56" length="21.08" shape="698.18,169.73 703.23,169.73 711.62,186.06">
+            <param key="origId" value="60543833"/>
+        </lane>
+    </edge>
+    <edge id="60543835#0" from="755908264" to="1502842373" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="15.53" shape="581.68,249.73 588.92,229.73 596.17,209.73">
+        <lane id="60543835#0_0" index="0" allow="subway" speed="5.56" length="15.53" shape="582.97,246.17 588.92,229.73 594.88,213.29">
+            <param key="origId" value="60543835"/>
+        </lane>
+    </edge>
+    <edge id="60543835#1" from="1502842373" to="1502842375" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="7.73">
+        <lane id="60543835#1_0" index="0" allow="subway" speed="5.56" length="7.73" shape="597.43,206.18 602.00,193.28">
+            <param key="origId" value="60543835"/>
+        </lane>
+    </edge>
+    <edge id="60543835#2" from="1502842375" to="755908274" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="38.43" shape="603.26,189.73 621.95,169.73 640.65,149.73">
+        <lane id="60543835#2_0" index="0" allow="subway" speed="5.56" length="38.43" shape="606.80,185.94 621.95,169.73 637.11,153.52">
+            <param key="origId" value="60543835"/>
+        </lane>
+    </edge>
+    <edge id="60543836#0" from="447955411" to="4289055028" name="GW Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="19.50">
+        <lane id="60543836#0_0" index="0" allow="subway" speed="5.56" length="19.50" shape="702.38,159.83 696.56,165.94">
+            <param key="origId" value="60543836"/>
+        </lane>
+    </edge>
+    <edge id="60543836#1" from="4289055028" to="755908289" name="GW Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="30.31" shape="692.95,169.73 678.27,169.73 663.59,189.73">
+        <lane id="60543836#1_0" index="0" allow="subway" speed="5.56" length="30.31" shape="687.14,169.73 678.27,169.73 666.35,185.97">
+            <param key="origId" value="60543836"/>
+        </lane>
+    </edge>
+    <edge id="60543837#0" from="755908273" to="1502842373" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="24.83">
+        <lane id="60543837#0_0" index="0" allow="subway" speed="5.56" length="24.83" shape="616.55,209.73 599.93,209.73">
+            <param key="origId" value="60543837"/>
+        </lane>
+    </edge>
+    <edge id="60543837#1" from="1502842373" to="755908284" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="14.74" shape="596.17,209.73 588.92,209.73 581.67,189.73">
+        <lane id="60543837#1_0" index="0" allow="subway" speed="5.56" length="14.74" shape="592.39,209.73 588.92,209.73 582.96,193.29">
+            <param key="origId" value="60543837"/>
+        </lane>
+    </edge>
+    <edge id="60543838#0" from="755908292" to="755908284" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="138.73" bidi="-60543838#0">
+        <lane id="60543838#0_0" index="0" allow="subway" speed="5.56" length="138.73" shape="535.15,189.73 579.05,189.73">
+            <param key="origId" value="60543838"/>
+        </lane>
+    </edge>
+    <edge id="60543838#1" from="755908284" to="1502842374" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="14.65" shape="581.67,189.73 588.79,189.73 595.92,169.73">
+        <lane id="60543838#1_0" index="0" allow="subway" speed="5.56" length="14.65" shape="585.45,189.73 588.79,189.73 593.41,176.76">
+            <param key="origId" value="60543838"/>
+        </lane>
+    </edge>
+    <edge id="60543838#2" from="1502842374" to="755908287" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="24.35" shape="595.92,169.73 607.75,169.73 619.58,149.73">
+        <lane id="60543838#2_0" index="0" allow="subway" speed="5.56" length="24.35" shape="599.34,169.73 607.75,169.73 617.39,153.44">
+            <param key="origId" value="60543838"/>
+        </lane>
+    </edge>
+    <edge id="60543839#0" from="755908259" to="1502842375" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="41.20">
+        <lane id="60543839#0_0" index="0" allow="subway" speed="5.56" length="41.20" shape="639.33,189.73 608.45,189.73">
+            <param key="origId" value="60543839"/>
+        </lane>
+    </edge>
+    <edge id="60543839#1" from="1502842375" to="1502842374" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="7.85" shape="603.26,189.73 599.59,189.73 595.92,169.73">
+        <lane id="60543839#1_0" index="0" allow="subway" speed="5.56" length="7.85" shape="599.90,189.73 599.59,189.73 597.27,177.07">
+            <param key="origId" value="60543839"/>
+        </lane>
+    </edge>
+    <edge id="60543839#2" from="1502842374" to="755908291" name="WA Südbahnhof" priority="18" type="railway.subway" spreadType="center" length="16.47" shape="595.92,169.73 588.17,169.73 580.43,149.73">
+        <lane id="60543839#2_0" index="0" allow="subway" speed="5.56" length="16.47" shape="592.15,169.73 588.17,169.73 581.81,153.31">
+            <param key="origId" value="60543839"/>
+        </lane>
+    </edge>
+
+    <junction id="1502842373" type="priority" x="596.17" y="209.73" incLanes="60543837#0_0 60543835#0_0" intLanes="" shape="599.93,211.33 599.93,208.13 599.16,207.97 598.94,207.78 598.82,207.50 598.82,207.15 598.94,206.72 595.92,205.65 595.14,207.03 594.60,207.51 593.96,207.85 593.22,208.06 592.39,208.13 592.39,211.33 593.16,211.49 593.39,211.68 593.49,211.96 593.49,212.31 593.38,212.74 596.39,213.83 597.18,212.44 597.73,211.96 598.37,211.61 599.10,211.40">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="1502842374" type="priority" x="595.92" y="169.73" incLanes="60543839#1_0 60543838#1_0" intLanes="" shape="595.69,177.36 598.84,176.79 598.45,173.75 598.47,172.69 598.62,171.94 598.91,171.48 599.34,171.33 599.34,168.13 592.15,168.13 592.15,171.33 592.79,171.87 592.84,172.55 592.71,173.51 592.40,174.73 591.91,176.23 594.92,177.30">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="1502842375" type="priority" x="603.26" y="189.73" incLanes="60543839#0_0 60543835#1_0" intLanes="" shape="608.45,191.33 608.45,188.13 607.73,188.01 607.58,187.86 607.57,187.64 607.70,187.37 607.97,187.03 605.63,184.85 603.11,187.17 602.17,187.69 601.45,187.79 600.95,187.47 600.67,186.73 599.50,191.33 600.27,191.49 600.49,191.68 600.61,191.96 600.61,192.31 600.49,192.74 603.51,193.81 604.45,192.43 605.18,191.95 606.09,191.61 607.18,191.40">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="30116288" type="dead_end" x="184.42" y="476.18" incLanes="592029485_0" intLanes="" shape="185.26,477.54 183.58,474.82"/>
+    <junction id="4289055028" type="priority" x="692.95" y="169.73" incLanes="60543836#0_0 60543833#0_0" intLanes="" shape="698.18,171.33 698.18,168.13 697.46,168.01 697.32,167.86 697.31,167.65 697.44,167.38 697.72,167.04 695.40,164.84 693.62,166.02 692.67,166.15 691.68,165.98 690.65,165.51 689.58,164.73 687.50,167.15 687.96,167.70 687.98,167.89 687.84,168.02 687.56,168.10 687.14,168.13 687.14,171.33">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="447955411" type="priority" x="711.99" y="149.73" incLanes="411320587#1_0" intLanes="" shape="704.86,148.13 704.86,151.33 704.91,151.82 704.22,152.42 703.06,153.27 701.41,154.37 699.30,155.70 700.98,158.42 701.22,158.72 703.54,160.93 706.96,157.02 709.10,153.82 709.96,151.33 709.54,149.55 707.84,148.49">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="447955419" type="priority" x="560.43" y="149.73" incLanes="-38086054#0_0" intLanes="" shape="560.43,151.33 560.43,148.13 560.43,151.33 560.43,148.13" fringe="inner">
+        <request index="0" response="0" foes="0"/>
+        <param key="buffer_stop" value="true"/>
+    </junction>
+    <junction id="447955428" type="priority" x="540.43" y="249.73" incLanes="137218774#2_0" intLanes="" shape="540.43,251.33 540.43,248.13 540.43,251.33 540.43,248.13" fringe="inner">
+        <request index="0" response="0" foes="0"/>
+        <param key="buffer_stop" value="true"/>
+    </junction>
+    <junction id="755862852" type="dead_end" x="185.21" y="496.18" incLanes="" intLanes="" shape="185.21,494.58 185.21,497.78"/>
+    <junction id="755908259" type="priority" x="643.59" y="189.73" incLanes="411320586#1_0" intLanes="" shape="646.02,191.33 646.02,188.13 639.33,188.13 639.33,191.33 640.08,191.47 640.26,191.66 640.33,191.91 640.26,192.23 640.08,192.63 642.85,194.22 643.94,192.62 644.48,192.05 645.00,191.65 645.51,191.41">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908264" type="priority" x="581.68" y="249.73" incLanes="137218774#1_0 -137218774#2_0" intLanes="" shape="585.46,251.33 585.46,248.13 584.68,247.97 584.46,247.78 584.35,247.50 584.36,247.15 584.47,246.72 581.46,245.63 580.79,247.02 580.41,247.51 579.99,247.85 579.54,248.06 579.06,248.13 579.06,251.33">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908266" type="priority" x="669.69" y="149.73" incLanes="1354436687_0" intLanes="" shape="673.06,154.73 675.14,152.31 674.68,151.76 674.66,151.57 674.80,151.44 675.08,151.36 675.50,151.33 675.50,148.13 667.60,148.13 667.60,151.33 669.90,151.75 670.62,152.25 671.27,152.92 672.03,153.75">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908273" type="priority" x="620.61" y="209.73" incLanes="137218774#0_0" intLanes="" shape="623.11,211.33 623.11,208.13 616.55,208.13 616.55,211.33 617.31,211.48 617.51,211.67 617.59,211.93 617.55,212.27 617.40,212.68 620.27,214.08 621.18,212.55 621.65,212.02 622.13,211.64 622.62,211.41">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908274" type="priority" x="640.65" y="149.73" incLanes="38086054#2_0 60543835#2_0" intLanes="" shape="642.84,151.33 642.84,148.13 635.46,148.13 635.46,151.33 636.18,151.45 636.33,151.60 636.34,151.82 636.21,152.09 635.94,152.43 638.28,154.61 640.15,152.79 640.95,152.15 641.67,151.69 642.30,151.42">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="755908284" type="priority" x="581.67" y="189.73" incLanes="60543837#1_0 60543838#0_0" intLanes="" shape="581.45,193.83 584.46,192.74 584.35,191.96 584.45,191.68 584.68,191.49 585.01,191.37 585.45,191.33 585.45,188.13 579.05,188.13 579.05,191.33 579.98,191.61 580.40,191.96 580.78,192.44 581.14,193.07">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908285" type="priority" x="713.50" y="189.73" incLanes="60543833#1_0 592029486_0" intLanes="" shape="713.04,185.33 710.19,186.80 710.02,187.54 709.45,187.80 708.57,187.98 707.37,188.09 705.85,188.13 705.85,191.33 706.04,192.06 707.60,194.86 709.98,193.35 711.77,191.81 712.97,190.23 713.59,188.63 713.61,187.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="755908287" type="priority" x="619.58" y="149.73" incLanes="38086054#1_0 60543838#2_0" intLanes="" shape="621.99,151.33 621.99,148.13 615.27,148.13 615.27,151.33 616.02,151.47 616.21,151.65 616.27,151.90 616.20,152.23 616.01,152.62 618.77,154.25 619.89,152.63 620.44,152.06 620.97,151.65 621.49,151.41">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="755908289" type="priority" x="663.59" y="189.73" incLanes="411320586#0_0 60543836#1_0" intLanes="" shape="668.25,191.33 668.25,188.13 667.51,188.00 667.35,187.83 667.31,187.59 667.41,187.29 667.64,186.92 665.06,185.03 663.63,186.75 662.97,187.35 662.37,187.79 661.80,188.04 661.28,188.13 661.28,191.33">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="755908291" type="priority" x="580.43" y="149.73" incLanes="60543839#2_0 38086054#0_0" intLanes="" shape="580.32,153.88 583.31,152.73 583.17,151.95 583.28,151.68 583.49,151.49 583.82,151.37 584.26,151.33 584.26,148.13 577.83,148.13 577.83,151.33 578.78,151.61 579.21,151.97 579.61,152.47 579.98,153.10">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="755908292" type="priority" x="535.15" y="189.73" incLanes="-60543838#0_0" intLanes="" shape="535.15,191.33 535.15,188.13 535.15,191.33 535.15,188.13" fringe="inner">
+        <request index="0" response="0" foes="0"/>
+        <param key="buffer_stop" value="true"/>
+    </junction>
+
+    <connection from="-137218774#2" to="60543835#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-38086054#0" to="38086054#0" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
+    <connection from="-60543838#0" to="60543838#0" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
+    <connection from="1354436687" to="411320587#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1354436687" to="60543833#0" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="137218774#0" to="137218774#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="137218774#0" to="60543837#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="137218774#1" to="137218774#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="137218774#2" to="-137218774#2" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
+    <connection from="38086054#0" to="38086054#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="38086054#1" to="38086054#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="38086054#2" to="1354436687" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="411320586#0" to="411320586#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="411320586#1" to="137218774#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="411320586#1" to="60543839#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="411320587#1" to="592029485" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="592029486" to="411320586#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="60543833#0" to="60543833#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543835#0" to="60543835#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543835#1" to="60543835#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543835#2" to="1354436687" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="60543836#0" to="60543836#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="60543836#1" to="411320586#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="60543837#0" to="60543837#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543837#1" to="-60543838#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="60543838#0" to="60543838#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543838#1" to="60543838#2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="60543838#2" to="38086054#2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="60543839#0" to="60543839#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60543839#1" to="60543839#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="60543839#2" to="-38086054#0" fromLane="0" toLane="0" dir="r" state="M"/>
+
+</net>

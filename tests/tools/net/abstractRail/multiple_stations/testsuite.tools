@@ -15,3 +15,6 @@ splitNet
 
 # multiple stations converted separatedly
 stations_horizontal
+
+# see #17025
+stations_horizontal2

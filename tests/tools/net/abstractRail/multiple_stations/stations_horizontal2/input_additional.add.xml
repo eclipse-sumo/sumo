@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="30049616" name="Südbahnhof" lane="411320586#1_0" startPos="0.00" endPos="127.46" friendlyPos="true" lines="U2 U3 U1 U8"/>
+    <busStop id="30116284" name="Schweizer Platz" lane="592029485_0" startPos="382.96" endPos="582.96" friendlyPos="true" lines="U2 U8 U1 U3"/>
+    <busStop id="447955416" name="Südbahnhof" lane="1354436687_0" startPos="0.00" endPos="136.21" friendlyPos="true" lines="U2 U8 U1 U3"/>
+    <busStop id="5902586328" name="Schweizer Platz" lane="592029486_0" startPos="78.41" endPos="278.41" friendlyPos="true" lines="U2 U3 U1 U8"/>
+
+</additional>
