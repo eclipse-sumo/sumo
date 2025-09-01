@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-27 13:34+0200\n"
+"POT-Creation-Date: 2025-09-01 09:12+0200\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -25,9 +25,9 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:565
 #: src/netedit/GNEApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindow.cpp:573
-#: src/netedit/GNEApplicationWindow.cpp:1641
-#: src/netedit/GNEApplicationWindow.cpp:1642
-#: src/netedit/GNEApplicationWindow.cpp:1643
+#: src/netedit/GNEApplicationWindow.cpp:1662
+#: src/netedit/GNEApplicationWindow.cpp:1663
+#: src/netedit/GNEApplicationWindow.cpp:1664
 msgid "N/A"
 msgstr "不適用"
 
@@ -47,12 +47,12 @@ msgid "Ready."
 msgstr "準備完成。"
 
 #: src/gui/GUIApplicationWindow.cpp:462
-#: src/netedit/GNEApplicationWindow.cpp:1389
+#: src/netedit/GNEApplicationWindow.cpp:1410
 msgid "&File"
 msgstr "&檔案"
 
 #: src/gui/GUIApplicationWindow.cpp:464
-#: src/netedit/GNEApplicationWindowHelper.cpp:204
+#: src/netedit/GNEApplicationWindowHelper.cpp:205
 msgid "New Window"
 msgstr "新视窗"
 
@@ -93,7 +93,7 @@ msgid "Load edge related data for visualization."
 msgstr "載入路段相關資料以進行視覺化。"
 
 #: src/gui/GUIApplicationWindow.cpp:480
-#: src/netedit/GNEApplicationWindow.cpp:1073
+#: src/netedit/GNEApplicationWindow.cpp:1094
 msgid "&Reload"
 msgstr "&重新載入"
 
@@ -118,8 +118,8 @@ msgid "Save current options as a configuration file."
 msgstr "儲存目前選項於設定檔。"
 
 #: src/gui/GUIApplicationWindow.cpp:490
-#: src/netedit/GNEApplicationWindowHelper.cpp:312
-#: src/netedit/dialogs/GNEDialog.cpp:467
+#: src/netedit/GNEApplicationWindowHelper.cpp:313
+#: src/netedit/dialogs/GNEDialog.cpp:447
 msgid "Close"
 msgstr "關閉"
 
@@ -128,17 +128,17 @@ msgid "Close the simulation."
 msgstr "關閉模擬。"
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1410
+#: src/netedit/GNEApplicationWindow.cpp:1431
 msgid "&Quit"
 msgstr "&退出"
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1410
+#: src/netedit/GNEApplicationWindow.cpp:1431
 msgid "Quit the Application."
 msgstr "退出應用程式。"
 
 #: src/gui/GUIApplicationWindow.cpp:507
-#: src/netedit/GNEApplicationWindow.cpp:1425
+#: src/netedit/GNEApplicationWindow.cpp:1446
 msgid "&Edit"
 msgstr "&編輯"
 
@@ -185,22 +185,22 @@ msgid "Opens a dialog for editing breakpoints."
 msgstr "開啟對話窗以編輯暫停點。"
 
 #: src/gui/GUIApplicationWindow.cpp:524
-#: src/netedit/GNEApplicationWindowHelper.cpp:1301
+#: src/netedit/GNEApplicationWindowHelper.cpp:1302
 msgid "Edit Visualisation"
 msgstr "編輯視覺化展示"
 
 #: src/gui/GUIApplicationWindow.cpp:524
-#: src/netedit/GNEApplicationWindowHelper.cpp:1301
+#: src/netedit/GNEApplicationWindowHelper.cpp:1302
 msgid "Opens a dialog for editing visualization settings."
 msgstr "開啟對話窗以編輯視覺展示選項。"
 
 #: src/gui/GUIApplicationWindow.cpp:527
-#: src/netedit/GNEApplicationWindowHelper.cpp:1304
+#: src/netedit/GNEApplicationWindowHelper.cpp:1305
 msgid "Edit Viewport"
 msgstr "編輯檢視區"
 
 #: src/gui/GUIApplicationWindow.cpp:527
-#: src/netedit/GNEApplicationWindowHelper.cpp:1304
+#: src/netedit/GNEApplicationWindowHelper.cpp:1305
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr "開啟對話窗以編輯觀看區域, 放大和旋轉。"
 
@@ -254,51 +254,51 @@ msgid "Toggle full screen mode on/off."
 msgstr "切換全螢幕模式 開啟/關閉。"
 
 #: src/gui/GUIApplicationWindow.cpp:552
-#: src/netedit/GNEApplicationWindow.cpp:1461
+#: src/netedit/GNEApplicationWindow.cpp:1482
 msgid "&Locate"
 msgstr "&定位"
 
 #: src/gui/GUIApplicationWindow.cpp:554
-#: src/netedit/GNEApplicationWindowHelper.cpp:1347
-#: src/netedit/GNEApplicationWindowHelper.cpp:2012
+#: src/netedit/GNEApplicationWindowHelper.cpp:1348
+#: src/netedit/GNEApplicationWindowHelper.cpp:2013
 msgid "&Junctions"
 msgstr "&路口"
 
 #: src/gui/GUIApplicationWindow.cpp:554
-#: src/netedit/GNEApplicationWindowHelper.cpp:2012
+#: src/netedit/GNEApplicationWindowHelper.cpp:2013
 msgid "Open a dialog for locating a Junction."
 msgstr "開啟對話框以進行路口定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:557
-#: src/netedit/GNEApplicationWindowHelper.cpp:1352
-#: src/netedit/GNEApplicationWindowHelper.cpp:2015
+#: src/netedit/GNEApplicationWindowHelper.cpp:1353
+#: src/netedit/GNEApplicationWindowHelper.cpp:2016
 msgid "&Edges"
 msgstr "&路段"
 
 #: src/gui/GUIApplicationWindow.cpp:557
-#: src/netedit/GNEApplicationWindowHelper.cpp:2015
+#: src/netedit/GNEApplicationWindowHelper.cpp:2016
 msgid "Open a dialog for locating an Edge."
 msgstr "開啟對話框以進行路段定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:560
-#: src/netedit/GNEApplicationWindowHelper.cpp:1417
-#: src/netedit/GNEApplicationWindowHelper.cpp:2021
+#: src/netedit/GNEApplicationWindowHelper.cpp:1418
+#: src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "&Vehicles"
 msgstr "&車輛"
 
 #: src/gui/GUIApplicationWindow.cpp:560
-#: src/netedit/GNEApplicationWindowHelper.cpp:2021
+#: src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "Open a dialog for locating a Vehicle."
 msgstr "開啟對話框以進行車輛定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:563
-#: src/netedit/GNEApplicationWindowHelper.cpp:1422
-#: src/netedit/GNEApplicationWindowHelper.cpp:2024
+#: src/netedit/GNEApplicationWindowHelper.cpp:1423
+#: src/netedit/GNEApplicationWindowHelper.cpp:2025
 msgid "&Persons"
 msgstr "&人員"
 
 #: src/gui/GUIApplicationWindow.cpp:563
-#: src/netedit/GNEApplicationWindowHelper.cpp:2024
+#: src/netedit/GNEApplicationWindowHelper.cpp:2025
 msgid "Open a dialog for locating a Person."
 msgstr "開啟對話框以進行人員定位。"
 
@@ -307,48 +307,48 @@ msgid "&Container"
 msgstr "&貨櫃"
 
 #: src/gui/GUIApplicationWindow.cpp:566
-#: src/netedit/GNEApplicationWindowHelper.cpp:2027
+#: src/netedit/GNEApplicationWindowHelper.cpp:2028
 msgid "Open a dialog for locating a Container."
 msgstr "開啟對話窗以進行貨櫃定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:569
-#: src/netedit/GNEApplicationWindowHelper.cpp:2036
+#: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "&TLS"
 msgstr "&號誌"
 
 #: src/gui/GUIApplicationWindow.cpp:569
-#: src/netedit/GNEApplicationWindowHelper.cpp:2036
+#: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "開啟對話框以進行交通號誌定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:572
-#: src/netedit/GNEApplicationWindowHelper.cpp:634
-#: src/netedit/GNEApplicationWindowHelper.cpp:2039
+#: src/netedit/GNEApplicationWindowHelper.cpp:635
+#: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "&Additional"
 msgstr "&額外的"
 
 #: src/gui/GUIApplicationWindow.cpp:572
-#: src/netedit/GNEApplicationWindowHelper.cpp:2039
+#: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "開啟對話框以進行附加結構定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:575
-#: src/netedit/GNEApplicationWindowHelper.cpp:2042
+#: src/netedit/GNEApplicationWindowHelper.cpp:2043
 msgid "P&oI"
 msgstr "P&oI"
 
 #: src/gui/GUIApplicationWindow.cpp:575
-#: src/netedit/GNEApplicationWindowHelper.cpp:2042
+#: src/netedit/GNEApplicationWindowHelper.cpp:2043
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "開啟對話框以進行興趣點定位。"
 
 #: src/gui/GUIApplicationWindow.cpp:578
-#: src/netedit/GNEApplicationWindowHelper.cpp:2045
+#: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "Po&lygon"
 msgstr "多邊形"
 
 #: src/gui/GUIApplicationWindow.cpp:578
-#: src/netedit/GNEApplicationWindowHelper.cpp:2045
+#: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "Open a dialog for locating a Polygon."
 msgstr "開啟對話框以進行多邊形物件定位。"
 
@@ -382,8 +382,8 @@ msgstr "在定位對話窗中顯示在路網外被遣送(teleporting)或被遠�
 msgid "Simulation"
 msgstr "模擬"
 
-#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:413
-#: src/netedit/dialogs/GNEDialog.cpp:434
+#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:405
+#: src/netedit/dialogs/GNEDialog.cpp:422
 msgid "Run"
 msgstr "執行"
 
@@ -424,7 +424,7 @@ msgstr "延遲-"
 msgid "Decrease simulation step delay."
 msgstr "減少模擬時間節距的延遲。"
 
-#: src/gui/GUIApplicationWindow.cpp:604 src/netedit/dialogs/GNEDialog.cpp:326
+#: src/gui/GUIApplicationWindow.cpp:604 src/netedit/dialogs/GNEDialog.cpp:332
 #: src/netedit/dialogs/GNEParametersDialog.cpp:297
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1366
@@ -450,7 +450,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "將模擬狀態檔案載入於目前路網內。"
 
 #: src/gui/GUIApplicationWindow.cpp:611
-#: src/netedit/GNEApplicationWindow.cpp:1532
+#: src/netedit/GNEApplicationWindow.cpp:1553
 msgid "&Window"
 msgstr "&視窗"
 
@@ -509,7 +509,7 @@ msgid "&Others..."
 msgstr "&其它..."
 
 #: src/gui/GUIApplicationWindow.cpp:640
-#: src/netedit/GNEApplicationWindowHelper.cpp:2146
+#: src/netedit/GNEApplicationWindowHelper.cpp:2147
 msgid "Show Status Line"
 msgstr "顯示狀態列"
 
@@ -518,12 +518,12 @@ msgid "Toggle the Status Bar on/off."
 msgstr "切換狀態控制桿(開啟/關閉)。"
 
 #: src/gui/GUIApplicationWindow.cpp:641
-#: src/netedit/GNEApplicationWindowHelper.cpp:2149
+#: src/netedit/GNEApplicationWindowHelper.cpp:2150
 msgid "Show Message Window"
 msgstr "顯示訊息窗"
 
 #: src/gui/GUIApplicationWindow.cpp:641
-#: src/netedit/GNEApplicationWindowHelper.cpp:2149
+#: src/netedit/GNEApplicationWindowHelper.cpp:2150
 msgid "Toggle the Message Window on/off."
 msgstr "切換訊息窗(開啟/關閉)。"
 
@@ -544,7 +544,7 @@ msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "切換模擬延遲輸入(開啟/關閉)。"
 
 #: src/gui/GUIApplicationWindow.cpp:648
-#: src/netedit/GNEApplicationWindowHelper.cpp:2153
+#: src/netedit/GNEApplicationWindowHelper.cpp:2154
 msgid "Clear Message Window"
 msgstr "清除訊息窗內訊息"
 
@@ -553,7 +553,7 @@ msgid "Clear the message window."
 msgstr "清除訊息窗內訊息。"
 
 #: src/gui/GUIApplicationWindow.cpp:655
-#: src/netedit/GNEApplicationWindow.cpp:1538
+#: src/netedit/GNEApplicationWindow.cpp:1559
 msgid "&Help"
 msgstr "&求助"
 
@@ -562,7 +562,7 @@ msgid "&Online Documentation"
 msgstr "&線上使用手冊"
 
 #: src/gui/GUIApplicationWindow.cpp:657
-#: src/netedit/GNEApplicationWindowHelper.cpp:2169
+#: src/netedit/GNEApplicationWindowHelper.cpp:2170
 msgid "Open Online documentation."
 msgstr "開啟線上使用手冊。"
 
@@ -571,7 +571,7 @@ msgid "&Changelog"
 msgstr "&變更記錄"
 
 #: src/gui/GUIApplicationWindow.cpp:660
-#: src/netedit/GNEApplicationWindowHelper.cpp:2172
+#: src/netedit/GNEApplicationWindowHelper.cpp:2173
 msgid "Open Changelog."
 msgstr "開啟變更記錄。"
 
@@ -580,7 +580,7 @@ msgid "&Hotkeys"
 msgstr "&快捷鍵"
 
 #: src/gui/GUIApplicationWindow.cpp:662
-#: src/netedit/GNEApplicationWindowHelper.cpp:2174
+#: src/netedit/GNEApplicationWindowHelper.cpp:2175
 msgid "Open Hotkeys."
 msgstr "開啟快捷鍵。"
 
@@ -589,7 +589,7 @@ msgid "&Tutorial"
 msgstr "&範例教學"
 
 #: src/gui/GUIApplicationWindow.cpp:664
-#: src/netedit/GNEApplicationWindowHelper.cpp:2176
+#: src/netedit/GNEApplicationWindowHelper.cpp:2177
 msgid "Open Tutorial."
 msgstr "開啟範例教學。"
 
@@ -691,32 +691,32 @@ msgid "Time spent waiting accumulated for emergency vehicles"
 msgstr "緊急救援車輛累計的等待時間"
 
 #: src/gui/GUIApplicationWindow.cpp:830
-#: src/netedit/GNEApplicationWindowHelper.cpp:154
+#: src/netedit/GNEApplicationWindowHelper.cpp:155
 msgid "Cl&ear Recent Networks"
 msgstr "清除最近開啟過的路網"
 
 #: src/gui/GUIApplicationWindow.cpp:831
-#: src/netedit/GNEApplicationWindowHelper.cpp:155
+#: src/netedit/GNEApplicationWindowHelper.cpp:156
 msgid "No Recent Networks"
 msgstr "無最近開啟過的路網"
 
 #: src/gui/GUIApplicationWindow.cpp:835
-#: src/netedit/GNEApplicationWindowHelper.cpp:159
+#: src/netedit/GNEApplicationWindowHelper.cpp:160
 msgid "Recent Networks"
 msgstr "最近開啟過的路網"
 
 #: src/gui/GUIApplicationWindow.cpp:853
-#: src/netedit/GNEApplicationWindowHelper.cpp:177
+#: src/netedit/GNEApplicationWindowHelper.cpp:178
 msgid "Cl&ear Recent Configs"
 msgstr "清除最近開啟過的設定檔案"
 
 #: src/gui/GUIApplicationWindow.cpp:854
-#: src/netedit/GNEApplicationWindowHelper.cpp:178
+#: src/netedit/GNEApplicationWindowHelper.cpp:179
 msgid "No Recent Configs"
 msgstr "無最近開啟過的設定檔案"
 
 #: src/gui/GUIApplicationWindow.cpp:858
-#: src/netedit/GNEApplicationWindowHelper.cpp:182
+#: src/netedit/GNEApplicationWindowHelper.cpp:183
 msgid "Recent Configs"
 msgstr "最近開啟過的設定檔案"
 
@@ -737,10 +737,10 @@ msgid "Open Shapes"
 msgstr "開啟幾何物件(shape)"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
-#: src/netedit/GNEApplicationWindow.cpp:4798
-#: src/netedit/GNEApplicationWindow.cpp:4854
-#: src/netedit/GNEApplicationWindow.cpp:4900
-#: src/netedit/GNEApplicationWindow.cpp:4946
+#: src/netedit/GNEApplicationWindow.cpp:4866
+#: src/netedit/GNEApplicationWindow.cpp:4922
+#: src/netedit/GNEApplicationWindow.cpp:4968
+#: src/netedit/GNEApplicationWindow.cpp:5014
 #, c-format
 msgid "Loading of % failed."
 msgstr "% 檔案載入失敗。"
@@ -766,7 +766,7 @@ msgid "Quick-Reloading."
 msgstr "快速重新載入。"
 
 #: src/gui/GUIApplicationWindow.cpp:1176
-#: src/netedit/GNEApplicationWindow.cpp:1145
+#: src/netedit/GNEApplicationWindow.cpp:1166
 msgid "Already loading!"
 msgstr "已經載入！"
 
@@ -1056,8 +1056,7 @@ msgstr "此些核心組件在符合Eclipse Public License v2的條件下始可�
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
 #: src/gui/dialogs/GUIDialog_HallOfFame.cpp:56
-#: src/netedit/dialogs/GNEDialog.cpp:281
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:86
+#: src/netedit/dialogs/GNEDialog.cpp:293
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:96
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
@@ -1119,7 +1118,7 @@ msgstr "清除"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:129
 #: src/netedit/GNETagPropertiesDatabase.cpp:1750
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:452
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:388
 msgid "Time"
 msgstr "時間"
 
@@ -1234,7 +1233,7 @@ msgid "Abort stop"
 msgstr "取消停止"
 
 #: src/guisim/GUIBaseVehicle.cpp:393
-#: src/netedit/GNEApplicationWindowHelper.cpp:719
+#: src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Stop"
 msgstr "停止"
 
@@ -2453,1713 +2452,1708 @@ msgstr "需要重新計算"
 msgid "Test coordinate"
 msgstr "測試坐標"
 
-#: src/netedit/GNEApplicationWindow.cpp:894
-#: src/netedit/GNEApplicationWindow.cpp:914
+#: src/netedit/GNEApplicationWindow.cpp:739
+msgid "netConvert config"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:755
+#: src/netedit/GNEApplicationWindow.cpp:3364
+#: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:351
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
+msgid "network"
+msgstr "路網"
+
+#: src/netedit/GNEApplicationWindow.cpp:771
+msgid "Open Street Map"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:787
+#: src/netedit/GNEApplicationWindow.cpp:3516
+msgid "netedit config"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:812
+#: src/netedit/GNEApplicationWindow.cpp:3631
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:567
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
+msgid "sumo config"
+msgstr "sumo設定檔案"
+
+#: src/netedit/GNEApplicationWindow.cpp:902
+#: src/netedit/GNEApplicationWindow.cpp:3749
+msgid "Traffic Light definitions"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:912
+msgid "loading TLS Programs from '%'"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:932
 msgid "loading TLS Programs from '"
 msgstr "從...載入交通號誌計畫"
 
-#: src/netedit/GNEApplicationWindow.cpp:956
+#: src/netedit/GNEApplicationWindow.cpp:961
+#: src/netedit/GNEApplicationWindow.cpp:3773
+msgid "EdgeTypes"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:977
 msgid "Loaded edge types from '"
 msgstr "載入的路段類型從 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:958
-#: src/netedit/GNEApplicationWindow.cpp:991
+#: src/netedit/GNEApplicationWindow.cpp:979
+#: src/netedit/GNEApplicationWindow.cpp:1012
 msgid "load edgeTypes"
 msgstr "載入路段類型(edgeTypes)"
 
-#: src/netedit/GNEApplicationWindow.cpp:989
+#: src/netedit/GNEApplicationWindow.cpp:1010
 msgid "Reloaded edge types from '"
 msgstr "重新載入的路段類型從 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1046
+#: src/netedit/GNEApplicationWindow.cpp:1067
 msgid "Reloading netedit config file '"
 msgstr "重新載入netedit 的設定檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1050
+#: src/netedit/GNEApplicationWindow.cpp:1071
 msgid "Reloading sumo config file '"
 msgstr "重新載入sumo的設定檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1054
-#: src/netedit/GNEApplicationWindow.cpp:1115
+#: src/netedit/GNEApplicationWindow.cpp:1075
+#: src/netedit/GNEApplicationWindow.cpp:1136
 msgid "Reloading network file '"
 msgstr "重新載入路網檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1070
+#: src/netedit/GNEApplicationWindow.cpp:1091
 msgid "&Reload Netedit config"
 msgstr "&重新載入 Netedit 的設定檔"
 
-#: src/netedit/GNEApplicationWindow.cpp:1071
+#: src/netedit/GNEApplicationWindow.cpp:1092
 msgid "&Reload Sumo config"
 msgstr "&重新載入Sumo的設定檔"
 
-#: src/netedit/GNEApplicationWindow.cpp:1072
+#: src/netedit/GNEApplicationWindow.cpp:1093
 msgid "&Reload Network"
 msgstr "&重新載入路網"
 
-#: src/netedit/GNEApplicationWindow.cpp:1310
+#: src/netedit/GNEApplicationWindow.cpp:1331
 msgid "Loading of '"
 msgstr "...載入中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1315
+#: src/netedit/GNEApplicationWindow.cpp:1336
 msgid "'"
 msgstr "'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1315
+#: src/netedit/GNEApplicationWindow.cpp:1336
 msgid "' loaded."
 msgstr "已載入。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1414
+#: src/netedit/GNEApplicationWindow.cpp:1435
 msgid "&Modes"
 msgstr "&運具"
 
-#: src/netedit/GNEApplicationWindow.cpp:1450
+#: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "L&ock"
 msgstr "鎖定"
 
-#: src/netedit/GNEApplicationWindow.cpp:1457
+#: src/netedit/GNEApplicationWindow.cpp:1478
 msgid "&Processing"
 msgstr "&處理中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1484
+#: src/netedit/GNEApplicationWindow.cpp:1505
 msgid "&Tools"
 msgstr "&工具"
 
-#: src/netedit/GNEApplicationWindow.cpp:1486
+#: src/netedit/GNEApplicationWindow.cpp:1507
 msgid "Assign"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1487
+#: src/netedit/GNEApplicationWindow.cpp:1508
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
 msgstr "偵測器"
 
-#: src/netedit/GNEApplicationWindow.cpp:1488
+#: src/netedit/GNEApplicationWindow.cpp:1509
 msgid "Districts"
 msgstr "分區"
 
-#: src/netedit/GNEApplicationWindow.cpp:1489
+#: src/netedit/GNEApplicationWindow.cpp:1510
 msgid "DRT"
 msgstr "需求反應運輸(DRT)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1491
+#: src/netedit/GNEApplicationWindow.cpp:1512
 msgid "CityBrain"
 msgstr "城市大腦(CityBrain)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1492
+#: src/netedit/GNEApplicationWindow.cpp:1513
 msgid "GTFS"
 msgstr "一般公共交通數據規範(GTFS)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1493
+#: src/netedit/GNEApplicationWindow.cpp:1514
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1494
+#: src/netedit/GNEApplicationWindow.cpp:1515
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1495
+#: src/netedit/GNEApplicationWindow.cpp:1516
 msgid "Import"
 msgstr "導入"
 
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/netedit/GNEApplicationWindow.cpp:1517
 msgid "Net"
 msgstr "路網"
 
-#: src/netedit/GNEApplicationWindow.cpp:1497
+#: src/netedit/GNEApplicationWindow.cpp:1518
 msgid "Output"
 msgstr "輸出"
 
-#: src/netedit/GNEApplicationWindow.cpp:1498
-#: src/netedit/GNEApplicationWindowHelper.cpp:703
+#: src/netedit/GNEApplicationWindow.cpp:1519
+#: src/netedit/GNEApplicationWindowHelper.cpp:704
 #: src/netedit/GNETagPropertiesDatabase.cpp:2068
 #: src/netedit/GNETagPropertiesDatabase.cpp:2543
 msgid "Route"
 msgstr "路徑"
 
-#: src/netedit/GNEApplicationWindow.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:1521
 msgid "TLS"
 msgstr "交通號誌"
 
-#: src/netedit/GNEApplicationWindow.cpp:1501
+#: src/netedit/GNEApplicationWindow.cpp:1522
 msgid "Trigger"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1502
+#: src/netedit/GNEApplicationWindow.cpp:1523
 msgid "Turn-defs"
 msgstr "轉向定義(Turn-defs)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1503
+#: src/netedit/GNEApplicationWindow.cpp:1524
 msgid "Visualization"
 msgstr "視覺化"
 
-#: src/netedit/GNEApplicationWindow.cpp:1504
+#: src/netedit/GNEApplicationWindow.cpp:1525
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:574
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
 msgid "XML"
 msgstr "可延伸標示語言(XML)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1594
+#: src/netedit/GNEApplicationWindow.cpp:1615
 msgid "Network computed"
 msgstr "路網已計算完成"
 
-#: src/netedit/GNEApplicationWindow.cpp:1598
+#: src/netedit/GNEApplicationWindow.cpp:1619
 msgid "Press F5"
 msgstr "按F5按鍵"
 
-#: src/netedit/GNEApplicationWindow.cpp:1599
+#: src/netedit/GNEApplicationWindow.cpp:1620
 msgid "Network requires recomputing"
 msgstr "路網需要重新計算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1676
+#: src/netedit/GNEApplicationWindow.cpp:1697
 msgid "Loading console arguments"
 msgstr "載入控制引數"
 
-#: src/netedit/GNEApplicationWindow.cpp:1704
+#: src/netedit/GNEApplicationWindow.cpp:1725
 msgid "Creating new network."
 msgstr "建立新路網。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1715
+#: src/netedit/GNEApplicationWindow.cpp:1736
 msgid "Trying to load an empty network"
 msgstr "嘗試載入一個空白路網"
 
-#: src/netedit/GNEApplicationWindow.cpp:1731
+#: src/netedit/GNEApplicationWindow.cpp:1752
 msgid "Loading network file '"
 msgstr "載入路網檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1743
+#: src/netedit/GNEApplicationWindow.cpp:1764
 msgid "Trying to load an empty configuration"
 msgstr "嘗試載入一個空白設定檔"
 
-#: src/netedit/GNEApplicationWindow.cpp:1759
+#: src/netedit/GNEApplicationWindow.cpp:1780
 msgid "Loading configuration file '"
 msgstr "載入設定檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1798
+#: src/netedit/GNEApplicationWindow.cpp:1819
 msgid "Loading OSM file '"
 msgstr "載入開放街圖(OSM)檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1815
+#: src/netedit/GNEApplicationWindow.cpp:1836
 msgid "Recompute with volatile options"
 msgstr "使用易失變數選項進行重新計算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1816
+#: src/netedit/GNEApplicationWindow.cpp:1837
 msgid "Changes produced in the net due a recomputing with"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1817
+#: src/netedit/GNEApplicationWindow.cpp:1838
 msgid "volatile options cannot be undone. Continue?"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2123
-#: src/netedit/GNEApplicationWindow.cpp:2183
+#: src/netedit/GNEApplicationWindow.cpp:2144
+#: src/netedit/GNEApplicationWindow.cpp:2204
 msgid "Running "
 msgstr "執行中 "
 
-#: src/netedit/GNEApplicationWindow.cpp:2146
+#: src/netedit/GNEApplicationWindow.cpp:2167
 msgid "Loading network '"
 msgstr "載入路網 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2146
-#: src/netedit/GNEApplicationWindow.cpp:2155
+#: src/netedit/GNEApplicationWindow.cpp:2167
+#: src/netedit/GNEApplicationWindow.cpp:2176
 msgid "' in SUMO-GUI"
 msgstr "' 在 SUMO-GUI 中"
 
-#: src/netedit/GNEApplicationWindow.cpp:2155
+#: src/netedit/GNEApplicationWindow.cpp:2176
 msgid "Loading sumo config '"
 msgstr "載入Sumo的設定檔"
 
-#: src/netedit/GNEApplicationWindow.cpp:2572
-#: src/netedit/GNEApplicationWindowHelper.cpp:1281
+#: src/netedit/GNEApplicationWindow.cpp:2593
+#: src/netedit/GNEApplicationWindowHelper.cpp:1282
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "還原"
 
-#: src/netedit/GNEApplicationWindow.cpp:2603
-#: src/netedit/GNEApplicationWindowHelper.cpp:1284
+#: src/netedit/GNEApplicationWindow.cpp:2624
+#: src/netedit/GNEApplicationWindowHelper.cpp:1285
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "重做"
 
-#: src/netedit/GNEApplicationWindow.cpp:3322
+#: src/netedit/GNEApplicationWindow.cpp:3343
 msgid "Saving Network failed!"
 msgstr "儲存路網失敗！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3326
+#: src/netedit/GNEApplicationWindow.cpp:3347
 msgid "Network saved in '"
 msgstr "路網儲存於 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3332
+#: src/netedit/GNEApplicationWindow.cpp:3353
 msgid "Could not save network in '"
 msgstr "無法將路網儲存於 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3386
+#: src/netedit/GNEApplicationWindow.cpp:3388
+msgid "plain XML"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "Plain XML saved with prefix '"
 msgstr "以前置字為基礎儲存的純 XML檔案"
 
-#: src/netedit/GNEApplicationWindow.cpp:3389
+#: src/netedit/GNEApplicationWindow.cpp:3416
 msgid "Saving plain xml failed!"
 msgstr "儲存純 xml 檔案失敗！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3410
-msgid "Joined junctions saved to '"
-msgstr "整合路口儲存於"
+#: src/netedit/GNEApplicationWindow.cpp:3431
+msgid "joined junctions"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3413
+#: src/netedit/GNEApplicationWindow.cpp:3441
+msgid "Joined junctions saved to '%'"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:3444
 msgid "Saving joined junctions failed!"
 msgstr "儲存整合路口失敗！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3442
-#: src/netedit/GNEApplicationWindow.cpp:3446
-#: src/netedit/GNEApplicationWindow.cpp:3450
-#: src/netedit/GNEApplicationWindow.cpp:3454
-#: src/netedit/GNEApplicationWindow.cpp:3458
+#: src/netedit/GNEApplicationWindow.cpp:3473
+#: src/netedit/GNEApplicationWindow.cpp:3477
+#: src/netedit/GNEApplicationWindow.cpp:3481
+#: src/netedit/GNEApplicationWindow.cpp:3485
+#: src/netedit/GNEApplicationWindow.cpp:3489
 msgid "Saving of Netedit configuration aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3467
+#: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "Netedit configuration saved in '"
 msgstr "netedit的設定檔案儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3473
+#: src/netedit/GNEApplicationWindow.cpp:3504
 msgid "Could not save netedit configuration in '"
 msgstr "無法將netedit的設定檔案儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3546
-#: src/netedit/GNEApplicationWindow.cpp:3550
-#: src/netedit/GNEApplicationWindow.cpp:3554
-#: src/netedit/GNEApplicationWindow.cpp:3558
-#: src/netedit/GNEApplicationWindow.cpp:3562
+#: src/netedit/GNEApplicationWindow.cpp:3580
+#: src/netedit/GNEApplicationWindow.cpp:3584
+#: src/netedit/GNEApplicationWindow.cpp:3588
+#: src/netedit/GNEApplicationWindow.cpp:3592
+#: src/netedit/GNEApplicationWindow.cpp:3596
 msgid "Saving of SUMO configuration aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3577
+#: src/netedit/GNEApplicationWindow.cpp:3611
 msgid "SUMO configuration saved in '"
 msgstr "SUMO設定檔儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3585
+#: src/netedit/GNEApplicationWindow.cpp:3619
 msgid "Could not save SUMO configuration in '"
 msgstr "無法將SUMO 設定檔儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3639
+#: src/netedit/GNEApplicationWindow.cpp:3676
 msgid "TLS Programs saved in '"
 msgstr "號誌時制計畫儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3642
+#: src/netedit/GNEApplicationWindow.cpp:3679
 msgid "Saving TLS Programs failed!"
 msgstr "儲存號誌時制計畫失敗！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3683
+#: src/netedit/GNEApplicationWindow.cpp:3720
 msgid "EdgeType saved in '"
 msgstr "EdgeType 儲存於"
 
-#: src/netedit/GNEApplicationWindow.cpp:3686
+#: src/netedit/GNEApplicationWindow.cpp:3723
 msgid "Saving edgeTypes failed!"
 msgstr "儲存EdgeType失敗！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3789
-msgid "load additionals from '"
-msgstr "從 ' 載入附加物(additionals)"
+#: src/netedit/GNEApplicationWindow.cpp:3807
+#: src/netedit/GNEApplicationWindow.cpp:3960
+#: src/netedit/GNETagPropertiesDatabase.cpp:411
+#: src/netedit/GNETagPropertiesDatabase.cpp:413
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
+#: src/netedit/frames/GNETagSelector.cpp:90
+msgid "Additional elements"
+msgstr "附加的元素"
 
-#: src/netedit/GNEApplicationWindow.cpp:3793 src/netedit/GNENet.cpp:1498
-msgid "Loading of additional file failed: "
-msgstr "載入附加檔案失敗： "
+#: src/netedit/GNEApplicationWindow.cpp:3835
+msgid "load additionals from '%'"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3796 src/netedit/GNENet.cpp:1500
-msgid "Loading of additional file successfully: "
-msgstr "成功載入附加檔案： "
+#: src/netedit/GNEApplicationWindow.cpp:3839
+#, c-format
+msgid "Loading of additional file '%' failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3821
+#: src/netedit/GNEApplicationWindow.cpp:3842
+#, c-format
+msgid "Loading of additional file '%'successfully: "
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:3867
 msgid "reloading additionals"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3830
+#: src/netedit/GNEApplicationWindow.cpp:3876
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3886
+#: src/netedit/GNEApplicationWindow.cpp:3932
 msgid "Additionals saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3889
+#: src/netedit/GNEApplicationWindow.cpp:3935
 msgid "Saving additional aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3894
+#: src/netedit/GNEApplicationWindow.cpp:3940
 msgid "Saving additionals failed!"
 msgstr "儲存附加物(additional)失敗!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3918
+#: src/netedit/GNEApplicationWindow.cpp:3967
 msgid "saving of unified additional elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3959
+#: src/netedit/GNEApplicationWindow.cpp:3987
+#: src/netedit/GNETagPropertiesDatabase.cpp:445
+#: src/netedit/GNETagPropertiesDatabase.cpp:447
+#: src/netedit/frames/common/GNESelectorFrame.cpp:111
+msgid "JuPedSim elements"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4009
 msgid "JuPedSim elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3962
+#: src/netedit/GNEApplicationWindow.cpp:4012
 msgid "Saving JuPedSim aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3968
+#: src/netedit/GNEApplicationWindow.cpp:4018
 msgid "Saving JuPedSim elements failed!"
 msgstr "儲存 JuPedSim 元素(elements) 失敗!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4003
-#: src/netedit/GNEApplicationWindow.cpp:4842
-#: src/netedit/GNEApplicationWindow.cpp:4849
-msgid "loading demand elements from '"
-msgstr "從 ' 載入交通需求元素"
+#: src/netedit/GNEApplicationWindow.cpp:4028
+#: src/netedit/GNEApplicationWindow.cpp:4179
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
+msgid "Route elements"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4007 src/netedit/GNENet.cpp:1510
-msgid "Loading of route file failed: "
-msgstr "載入路徑檔案失敗： "
+#: src/netedit/GNEApplicationWindow.cpp:4056
+msgid "loading demand elements from '%'"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4010 src/netedit/GNENet.cpp:1512
-msgid "Loading of route file successfully: "
-msgstr "成功載入路徑檔案： "
+#: src/netedit/GNEApplicationWindow.cpp:4060
+#, c-format
+msgid "Loading of route file '%' failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4035
+#: src/netedit/GNEApplicationWindow.cpp:4063
+#, c-format
+msgid "Loading of route file '%' successfully"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4088
 msgid "reloading demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4044
+#: src/netedit/GNEApplicationWindow.cpp:4097
 #, c-format
 msgid "Reloading of route file '%'failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4098
+#: src/netedit/GNEApplicationWindow.cpp:4151
 msgid "Demand elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4101
-#: src/netedit/GNEApplicationWindow.cpp:4278
+#: src/netedit/GNEApplicationWindow.cpp:4154
+#: src/netedit/GNEApplicationWindow.cpp:4337
 msgid "Saving demand elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4106
-#: src/netedit/GNEApplicationWindow.cpp:4452
+#: src/netedit/GNEApplicationWindow.cpp:4159
+#: src/netedit/GNEApplicationWindow.cpp:4517
 msgid "Saving demand elements failed!"
 msgstr "儲存需求元素失敗!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4130
+#: src/netedit/GNEApplicationWindow.cpp:4186
 msgid "saving of unified demand elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4177
-#: src/netedit/GNEApplicationWindow.cpp:4888
-#: src/netedit/GNEApplicationWindow.cpp:4895
-msgid "loading data elements from '"
-msgstr "從 '載入資料元素"
+#: src/netedit/GNEApplicationWindow.cpp:4206
+#: src/netedit/GNEApplicationWindow.cpp:4362
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
+#: src/netedit/frames/GNEElementTree.cpp:889
+#: src/netedit/frames/GNEElementTree.cpp:915
+msgid "Data elements"
+msgstr "資料元素"
 
-#: src/netedit/GNEApplicationWindow.cpp:4181 src/netedit/GNENet.cpp:1521
-msgid "Loading of data file failed: "
-msgstr "載入資料檔案失敗： "
+#: src/netedit/GNEApplicationWindow.cpp:4236
+msgid "loading data elements from '%'"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4184 src/netedit/GNENet.cpp:1523
-msgid "Loading of data file successfully: "
-msgstr "成功載入資料檔案： "
+#: src/netedit/GNEApplicationWindow.cpp:4240
+#, c-format
+msgid "Loading of data file '%' failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4213
+#: src/netedit/GNEApplicationWindow.cpp:4243
+#, c-format
+msgid "Loading of data file '%' successfully"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4272
 msgid "reloading data elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4222
+#: src/netedit/GNEApplicationWindow.cpp:4281
 msgid "Reloading of data file failed: "
 msgstr "載入資料檔案失敗： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4275
+#: src/netedit/GNEApplicationWindow.cpp:4334
 msgid "Data elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4283
+#: src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Saving data elements failed!"
 msgstr "儲存資料元素失敗!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4307
+#: src/netedit/GNEApplicationWindow.cpp:4369
 msgid "saving of unified data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4350
-msgid "load meanDatas from '"
-msgstr "從 ' 載入meanDatas"
-
-#: src/netedit/GNEApplicationWindow.cpp:4354 src/netedit/GNENet.cpp:1532
-msgid "Loading of meandata file failed: "
-msgstr "載入meandata檔案失敗： "
-
-#: src/netedit/GNEApplicationWindow.cpp:4357
-#: src/netedit/GNEApplicationWindow.cpp:4391 src/netedit/GNENet.cpp:1534
-msgid "Loading of meandata file successfully: "
-msgstr "成功載入meandata檔案： "
-
-#: src/netedit/GNEApplicationWindow.cpp:4382
-msgid "reloading meanDatas"
+#: src/netedit/GNEApplicationWindow.cpp:4387
+#: src/netedit/GNEApplicationWindow.cpp:4537
+msgid "MeanData elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4444
-msgid "MeanDatas elements saved"
+#: src/netedit/GNEApplicationWindow.cpp:4415
+msgid "load meanDatas from '%'"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4419
+#, c-format
+msgid "Loading of meandata file '%' failed"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4422
+#, c-format
+msgid "Loading of meandata file '%' successfully"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4447
+msgid "reloading meanDatas"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4456 src/netedit/GNENet.cpp:1534
+msgid "Loading of meandata file successfully: "
+msgstr "成功載入meandata檔案： "
+
+#: src/netedit/GNEApplicationWindow.cpp:4509
+msgid "MeanDatas elements saved"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4512
 msgid "Saving MeanData elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4476
+#: src/netedit/GNEApplicationWindow.cpp:4544
 msgid "saving of unified mean data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4786
+#: src/netedit/GNEApplicationWindow.cpp:4854
 msgid "loading additional elements from '"
 msgstr "從 ' 載入附加元素"
 
-#: src/netedit/GNEApplicationWindow.cpp:4793
+#: src/netedit/GNEApplicationWindow.cpp:4861
 msgid "loading additionals from '"
 msgstr "從 ' 載入附加物"
 
-#: src/netedit/GNEApplicationWindow.cpp:4934
-#: src/netedit/GNEApplicationWindow.cpp:4941
+#: src/netedit/GNEApplicationWindow.cpp:4910
+#: src/netedit/GNEApplicationWindow.cpp:4917
+msgid "loading demand elements from '"
+msgstr "從 ' 載入交通需求元素"
+
+#: src/netedit/GNEApplicationWindow.cpp:4956
+#: src/netedit/GNEApplicationWindow.cpp:4963
+msgid "loading data elements from '"
+msgstr "從 '載入資料元素"
+
+#: src/netedit/GNEApplicationWindow.cpp:5002
+#: src/netedit/GNEApplicationWindow.cpp:5009
 msgid "loading meanData elements from '"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:134
+#: src/netedit/GNEApplicationWindowHelper.cpp:135
 msgid "nets"
 msgstr "路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:135
+#: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "configs"
 msgstr "設定檔案"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:200
+#: src/netedit/GNEApplicationWindowHelper.cpp:201
 msgid "New Network"
 msgstr "新路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:200
+#: src/netedit/GNEApplicationWindowHelper.cpp:201
 msgid "Create a new network."
 msgstr "建立新路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:204
+#: src/netedit/GNEApplicationWindowHelper.cpp:205
 msgid "Open a new netedit window."
 msgstr "開啟新的netedit 視窗。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:208
+#: src/netedit/GNEApplicationWindowHelper.cpp:209
 msgid "Generate Network"
 msgstr "產生路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:208
+#: src/netedit/GNEApplicationWindowHelper.cpp:209
 msgid "Create network using netgenerate."
 msgstr "使用netgenerate建立路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:215
+#: src/netedit/GNEApplicationWindowHelper.cpp:216
 msgid "Load Netedit config..."
 msgstr "載入Netedit 設定檔案..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:215
+#: src/netedit/GNEApplicationWindowHelper.cpp:216
 msgid "Load a netedit configuration file."
 msgstr "載入netedit 設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:219
+#: src/netedit/GNEApplicationWindowHelper.cpp:220
 msgid "Load Sumo config..."
 msgstr "載入Sumo設定檔案..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:219
+#: src/netedit/GNEApplicationWindowHelper.cpp:220
 msgid "Load a SUMO configuration file."
 msgstr "載入 SUMO 設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:226
+#: src/netedit/GNEApplicationWindowHelper.cpp:227
 msgid "Open Network..."
 msgstr "開啟路網..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:226
+#: src/netedit/GNEApplicationWindowHelper.cpp:227
 msgid "Open a SUMO network."
 msgstr "開啟SUMO路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:230
+#: src/netedit/GNEApplicationWindowHelper.cpp:231
 msgid "Open Netconvert Configuration..."
 msgstr "開啟Netconvert設定檔案..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:230
+#: src/netedit/GNEApplicationWindowHelper.cpp:231
 msgid "Open a configuration file with NETCONVERT options."
 msgstr "使用NETCONVERT選項開啟設定檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:234
+#: src/netedit/GNEApplicationWindowHelper.cpp:235
 msgid "Import Foreign Network..."
 msgstr "匯入 外部路網..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:234
+#: src/netedit/GNEApplicationWindowHelper.cpp:235
 msgid "Import a foreign network such as OSM."
 msgstr "匯入外部路網，例如 開放街圖(OSM)。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:241
+#: src/netedit/GNEApplicationWindowHelper.cpp:242
 msgid "Save Network"
 msgstr "儲存路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:241
+#: src/netedit/GNEApplicationWindowHelper.cpp:242
 msgid "Save the network."
 msgstr "儲存路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:245
+#: src/netedit/GNEApplicationWindowHelper.cpp:246
 msgid "Save Network As..."
 msgstr "將路網另存為..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:245
+#: src/netedit/GNEApplicationWindowHelper.cpp:246
 msgid "Save the network to another file."
 msgstr "將路網儲存到另一個檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:249
+#: src/netedit/GNEApplicationWindowHelper.cpp:250
 msgid "Save Plain XML..."
 msgstr "儲存純XML檔案..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:249
+#: src/netedit/GNEApplicationWindowHelper.cpp:250
 msgid "Save a plain XML representation of the network."
 msgstr "將路網以純 XML形式進行儲存。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:253
+#: src/netedit/GNEApplicationWindowHelper.cpp:254
 msgid "Save Joined Junctions..."
 msgstr "儲存整合的路口..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:253
+#: src/netedit/GNEApplicationWindowHelper.cpp:254
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr "儲存整合路口的紀錄（允許連接點重現）。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:260
+#: src/netedit/GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
 msgstr "重新載入"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:260
-#: src/netedit/GNEApplicationWindowHelper.cpp:264
+#: src/netedit/GNEApplicationWindowHelper.cpp:261
+#: src/netedit/GNEApplicationWindowHelper.cpp:265
 msgid "Reload the network."
 msgstr "重新載入路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:264
+#: src/netedit/GNEApplicationWindowHelper.cpp:265
 msgid "Reload Network"
 msgstr "重新載入路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:271
+#: src/netedit/GNEApplicationWindowHelper.cpp:272
 msgid "Netedit Config"
 msgstr "Netedit設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:275
+#: src/netedit/GNEApplicationWindowHelper.cpp:276
 msgid "Sumo Config"
 msgstr "Sumo設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:279
+#: src/netedit/GNEApplicationWindowHelper.cpp:280
 msgid "Traffic Lights"
 msgstr "交通號誌"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:283
+#: src/netedit/GNEApplicationWindowHelper.cpp:284
 msgid "Edge Types"
 msgstr "路段類型"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:287
+#: src/netedit/GNEApplicationWindowHelper.cpp:288
 msgid "Additionals and Shapes"
 msgstr "附加物及圖形物件"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:291
+#: src/netedit/GNEApplicationWindowHelper.cpp:292
 msgid "Demand Elements"
 msgstr "交通需求元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:295
+#: src/netedit/GNEApplicationWindowHelper.cpp:296
 msgid "Data Elements"
 msgstr "資料元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:299
+#: src/netedit/GNEApplicationWindowHelper.cpp:300
 msgid "MeanData Elements"
 msgstr "MeanData元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:304
+#: src/netedit/GNEApplicationWindowHelper.cpp:305
 msgid "Allow undoing element loading"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:304
+#: src/netedit/GNEApplicationWindowHelper.cpp:305
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:312
+#: src/netedit/GNEApplicationWindowHelper.cpp:313
 msgid "Close the network."
 msgstr "關閉路網。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:362
+#: src/netedit/GNEApplicationWindowHelper.cpp:363
 #: src/netedit/GNEViewNetHelper.cpp:2271
 msgid "Save Netedit Config"
 msgstr "儲存Netedit設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:362
+#: src/netedit/GNEApplicationWindowHelper.cpp:363
 msgid "Save netedit configuration file."
 msgstr "儲存netedit設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:366
+#: src/netedit/GNEApplicationWindowHelper.cpp:367
 msgid "Save Netedit Config As..."
 msgstr "將 Netedit 設定檔另存為..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:366
+#: src/netedit/GNEApplicationWindowHelper.cpp:367
 msgid "Save netedit configuration in a new file."
 msgstr "將 netedit 設定檔儲存為一個新檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:372
+#: src/netedit/GNEApplicationWindowHelper.cpp:373
 msgid "Reload Netedit Config"
 msgstr "重新載入 Netedit 的設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:372
+#: src/netedit/GNEApplicationWindowHelper.cpp:373
 msgid "Reload netedit configuration."
 msgstr "重新載入 netedit 的設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:380
+#: src/netedit/GNEApplicationWindowHelper.cpp:381
 #: src/netedit/GNEViewNetHelper.cpp:2276
 msgid "Save Sumo Config"
 msgstr "儲存Sumo設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:380
+#: src/netedit/GNEApplicationWindowHelper.cpp:381
 msgid "Save sumo configuration file."
 msgstr "儲存sumo設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:384
+#: src/netedit/GNEApplicationWindowHelper.cpp:385
 msgid "Save Sumo Config As..."
 msgstr "將Sumo設定檔另存為..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:384
+#: src/netedit/GNEApplicationWindowHelper.cpp:385
 msgid "Save sumo configuration in a new file."
 msgstr "將 sumo 設定檔儲存為一個新檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:390
+#: src/netedit/GNEApplicationWindowHelper.cpp:391
 msgid "Reload Sumo Config"
 msgstr "重新載入Sumo的設定檔"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:390
+#: src/netedit/GNEApplicationWindowHelper.cpp:391
 msgid "Reload sumo configuration."
 msgstr "重新載入Sumo的設定檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:398
+#: src/netedit/GNEApplicationWindowHelper.cpp:399
 msgid "Load TLS Programs..."
 msgstr "載入號誌時制計畫..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:398
+#: src/netedit/GNEApplicationWindowHelper.cpp:399
 msgid "Load programs for traffic lights in the current net."
 msgstr "於現有路網內載入交通號誌計畫。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:404
+#: src/netedit/GNEApplicationWindowHelper.cpp:405
 msgid "Save TLS Programs"
 msgstr "儲存交通號誌計畫"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:404
+#: src/netedit/GNEApplicationWindowHelper.cpp:405
 msgid "Save all traffic light programs of the current network."
 msgstr "儲存現有路網內所有交通號誌計畫。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:408
+#: src/netedit/GNEApplicationWindowHelper.cpp:409
 msgid "Save TLS Programs As..."
 msgstr "將交通號誌計畫另存為..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:408
+#: src/netedit/GNEApplicationWindowHelper.cpp:409
 msgid "Save all traffic light programs of the current network to another file."
 msgstr "現有路網內所有交通號誌計畫另存新檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:414
+#: src/netedit/GNEApplicationWindowHelper.cpp:415
 msgid "Reload TLS Programs"
 msgstr "重新載入交通號誌計畫"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:414
+#: src/netedit/GNEApplicationWindowHelper.cpp:415
 msgid "Reload TLS Programs."
 msgstr "重新載入交通號誌計畫。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:422
+#: src/netedit/GNEApplicationWindowHelper.cpp:423
 msgid "Load Edge Types..."
 msgstr "載入路段類型..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:422
+#: src/netedit/GNEApplicationWindowHelper.cpp:423
 msgid "Load edge types in the current net."
 msgstr "於現有路網內載入路段類型。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:428
+#: src/netedit/GNEApplicationWindowHelper.cpp:429
 msgid "Save Edge Types"
 msgstr "儲存路段類型"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:428
+#: src/netedit/GNEApplicationWindowHelper.cpp:429
 msgid "Save edge types of the current net."
 msgstr "儲存現有路網內的路段類型。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:432
+#: src/netedit/GNEApplicationWindowHelper.cpp:433
 msgid "Save Edge Types As..."
 msgstr "將路段類型另存為…"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:432
+#: src/netedit/GNEApplicationWindowHelper.cpp:433
 msgid "Save edge types of the current net to another file."
 msgstr "將現有路網內的路段類型另存新檔。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:438
+#: src/netedit/GNEApplicationWindowHelper.cpp:439
 msgid "Reload edge types"
 msgstr "重新載入路段類型"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:438
+#: src/netedit/GNEApplicationWindowHelper.cpp:439
 msgid "Reload edge types."
 msgstr "重新載入路段類型。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:446
+#: src/netedit/GNEApplicationWindowHelper.cpp:447
 msgid "Load Additionals..."
 msgstr "載入附加物…"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:446
+#: src/netedit/GNEApplicationWindowHelper.cpp:447
 msgid "Load additionals and shapes."
 msgstr "載入附加物及形狀。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:452
+#: src/netedit/GNEApplicationWindowHelper.cpp:453
 msgid "Save Additionals"
 msgstr "儲存附加物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:452
+#: src/netedit/GNEApplicationWindowHelper.cpp:453
 msgid "Save additionals and shapes."
 msgstr "儲存附加物及形狀。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:456
+#: src/netedit/GNEApplicationWindowHelper.cpp:457
 msgid "Save Additionals unified as..."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:456
+#: src/netedit/GNEApplicationWindowHelper.cpp:457
 msgid "Save all additional elements to the chosen file."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:460
+#: src/netedit/GNEApplicationWindowHelper.cpp:461
 msgid "Save JuPedSim Elements as..."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:460
+#: src/netedit/GNEApplicationWindowHelper.cpp:461
 msgid "Save JuPedSim elements in a separated file."
 msgstr "將JuPedSim 元素(Elements) 另存新檔."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:466
+#: src/netedit/GNEApplicationWindowHelper.cpp:467
 msgid "Reload Additionals"
 msgstr "重新載入附加物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:466
+#: src/netedit/GNEApplicationWindowHelper.cpp:467
 msgid "Reload additionals."
 msgstr "重新載入附加物。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:474
+#: src/netedit/GNEApplicationWindowHelper.cpp:475
 msgid "Load Demand Elements..."
 msgstr "載入需求元素..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:474
+#: src/netedit/GNEApplicationWindowHelper.cpp:475
 msgid "Load demand elements."
 msgstr "載入需求元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:480
+#: src/netedit/GNEApplicationWindowHelper.cpp:481
 msgid "Save Demand Elements"
 msgstr "儲存需求元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:480
+#: src/netedit/GNEApplicationWindowHelper.cpp:481
 msgid "Save demand elements."
 msgstr "儲存需求元素 。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:484
+#: src/netedit/GNEApplicationWindowHelper.cpp:485
 msgid "Save Demand Elements unified as..."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:484
+#: src/netedit/GNEApplicationWindowHelper.cpp:485
 msgid "Save all demand elements to the chosen file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:490
+#: src/netedit/GNEApplicationWindowHelper.cpp:491
 msgid "Reload Demand Elements"
 msgstr "重新載入需求元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:490
+#: src/netedit/GNEApplicationWindowHelper.cpp:491
 msgid "Reload demand elements."
 msgstr "重新載入需求元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:498
+#: src/netedit/GNEApplicationWindowHelper.cpp:499
 msgid "Load Data Elements..."
 msgstr "載入資料元素..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:498
+#: src/netedit/GNEApplicationWindowHelper.cpp:499
 msgid "Load data elements."
 msgstr "載入資料元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:504
+#: src/netedit/GNEApplicationWindowHelper.cpp:505
 msgid "Save Data Elements"
 msgstr "儲存資料元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:504
+#: src/netedit/GNEApplicationWindowHelper.cpp:505
 msgid "Save data elements."
 msgstr "儲存資料元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:508
+#: src/netedit/GNEApplicationWindowHelper.cpp:509
 msgid "Save Data Elements unified as..."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:508
+#: src/netedit/GNEApplicationWindowHelper.cpp:509
 msgid "Save all data elements to the chosen file."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:514
+#: src/netedit/GNEApplicationWindowHelper.cpp:515
 msgid "Reload Data Elements"
 msgstr "重新載入資料元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:514
+#: src/netedit/GNEApplicationWindowHelper.cpp:515
 msgid "Reload data elements."
 msgstr "重新載入資料元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:522
+#: src/netedit/GNEApplicationWindowHelper.cpp:523
 msgid "Load MeanDatas..."
 msgstr "載入 MeanDatas..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:522
+#: src/netedit/GNEApplicationWindowHelper.cpp:523
 msgid "Load meanDatas and shapes."
 msgstr "載入 MeanDatas及圖形物件檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:528
+#: src/netedit/GNEApplicationWindowHelper.cpp:529
 msgid "Save MeanDatas"
 msgstr "儲存MeanDatas"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:528
+#: src/netedit/GNEApplicationWindowHelper.cpp:529
 msgid "Save meanDatas and shapes."
 msgstr "儲存MeanDatas及圖形物件檔案。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:532
+#: src/netedit/GNEApplicationWindowHelper.cpp:533
 msgid "Save MeanDatas unified as..."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:532
+#: src/netedit/GNEApplicationWindowHelper.cpp:533
 msgid "Save all meanData elements to the chosen file."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:538
+#: src/netedit/GNEApplicationWindowHelper.cpp:539
 msgid "Reload MeanDatas"
 msgstr "重新載入MeanDatas"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:538
+#: src/netedit/GNEApplicationWindowHelper.cpp:539
 msgid "Reload meanDatas."
 msgstr "重新載入MeanDatas。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:555
+#: src/netedit/GNEApplicationWindowHelper.cpp:556
 msgid "&Inspect"
 msgstr "&檢查"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:555
+#: src/netedit/GNEApplicationWindowHelper.cpp:556
 msgid "Inspect elements and change their attributes."
 msgstr "檢查元素並更改其屬性。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:558
+#: src/netedit/GNEApplicationWindowHelper.cpp:559
 msgid "&Delete"
 msgstr "&刪除"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:558
+#: src/netedit/GNEApplicationWindowHelper.cpp:559
 msgid "Delete elements."
 msgstr "刪除元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:561
+#: src/netedit/GNEApplicationWindowHelper.cpp:562
 msgid "&Select"
 msgstr "&選擇"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:561
+#: src/netedit/GNEApplicationWindowHelper.cpp:562
 msgid "Select elements."
 msgstr "選擇元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:610
-#: src/netedit/GNEApplicationWindowHelper.cpp:700
+#: src/netedit/GNEApplicationWindowHelper.cpp:611
+#: src/netedit/GNEApplicationWindowHelper.cpp:701
 msgid "&Move"
 msgstr "＆移動"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:610
-#: src/netedit/GNEApplicationWindowHelper.cpp:700
+#: src/netedit/GNEApplicationWindowHelper.cpp:611
+#: src/netedit/GNEApplicationWindowHelper.cpp:701
 msgid "Move elements."
 msgstr "移動元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:614
+#: src/netedit/GNEApplicationWindowHelper.cpp:615
 msgid "&Edge"
 msgstr "＆路段"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:614
+#: src/netedit/GNEApplicationWindowHelper.cpp:615
 msgid "Create junction and edges."
 msgstr "建立路口及路段。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:618
+#: src/netedit/GNEApplicationWindowHelper.cpp:619
 msgid "&Traffic light"
 msgstr "&交通號誌"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:618
+#: src/netedit/GNEApplicationWindowHelper.cpp:619
 msgid "Modes traffic lights over junctions."
 msgstr "模式 交通號誌位於路口。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:622
+#: src/netedit/GNEApplicationWindowHelper.cpp:623
 msgid "&Connection"
 msgstr "&連接"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:622
+#: src/netedit/GNEApplicationWindowHelper.cpp:623
 msgid "Modes connections between lanes."
 msgstr "車道之間的運具連接。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:626
+#: src/netedit/GNEApplicationWindowHelper.cpp:627
 msgid "Pro&hibition"
 msgstr "禁止"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:626
+#: src/netedit/GNEApplicationWindowHelper.cpp:627
 msgid "Modes connection prohibitions."
 msgstr "禁止的運具連接。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:630
+#: src/netedit/GNEApplicationWindowHelper.cpp:631
 msgid "C&rossing"
 msgstr "跨越"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:630
+#: src/netedit/GNEApplicationWindowHelper.cpp:631
 msgid "Create crossings between edges."
 msgstr "在路段之間建立人行穿越道。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:634
+#: src/netedit/GNEApplicationWindowHelper.cpp:635
 msgid "Create additional elements."
 msgstr "建立附加元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:638
+#: src/netedit/GNEApplicationWindowHelper.cpp:639
 msgid "&Wire"
 msgstr "&通訊線(Wire)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:638
+#: src/netedit/GNEApplicationWindowHelper.cpp:639
 msgid "Create wires."
 msgstr "建立通訊線。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:642
+#: src/netedit/GNEApplicationWindowHelper.cpp:643
 msgid "TA&Z"
 msgstr "TAZ"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:642
+#: src/netedit/GNEApplicationWindowHelper.cpp:643
 msgid "Create Traffic Assignment Zones."
 msgstr "建立交通指派分區。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:646
+#: src/netedit/GNEApplicationWindowHelper.cpp:647
 msgid "&POI-Poly"
 msgstr "&興趣點及多邊物 (POI-Poly)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:646
+#: src/netedit/GNEApplicationWindowHelper.cpp:647
 msgid "Create Points-Of-Interest and polygons."
 msgstr "建立興趣點及多邊形物件。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:650
+#: src/netedit/GNEApplicationWindowHelper.cpp:651
 msgid "Deca&ls"
 msgstr "背景圖片"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:650
+#: src/netedit/GNEApplicationWindowHelper.cpp:651
 msgid "Create decals."
 msgstr "建立背景圖片."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:703
+#: src/netedit/GNEApplicationWindowHelper.cpp:704
 msgid "Create Routes."
 msgstr "建立路徑。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:706
+#: src/netedit/GNEApplicationWindowHelper.cpp:707
 msgid "Route distribution"
 msgstr "路徑分配"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:706
+#: src/netedit/GNEApplicationWindowHelper.cpp:707
 msgid "Create and edit route distributions."
 msgstr "建立及編輯路徑分配."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:710
+#: src/netedit/GNEApplicationWindowHelper.cpp:711
 #: src/netedit/elements/demand/GNEVehicle.cpp:115
 msgid "Vehicle"
 msgstr "車輛"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:710
+#: src/netedit/GNEApplicationWindowHelper.cpp:711
 msgid "Create vehicles."
 msgstr "建立車輛。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:713
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:450
+#: src/netedit/GNEApplicationWindowHelper.cpp:714
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:386
 msgid "Type"
 msgstr "類型"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:713
+#: src/netedit/GNEApplicationWindowHelper.cpp:714
 msgid "Create types (vehicles, person and containers)."
 msgstr "建立類型（車輛, 人和貨櫃）。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:716
+#: src/netedit/GNEApplicationWindowHelper.cpp:717
 #: src/netedit/GNETagPropertiesDatabase.cpp:2597
 msgid "TypeDistribution"
 msgstr "類型分配"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:716
+#: src/netedit/GNEApplicationWindowHelper.cpp:717
 msgid "Create and edit type distributions."
 msgstr "建立及編輯類型分配."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:719
+#: src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Create stops."
 msgstr "建立停靠點。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:722
+#: src/netedit/GNEApplicationWindowHelper.cpp:723
 #: src/netedit/GNETagPropertiesDatabase.cpp:3345
 msgid "Person"
 msgstr "人員"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:722
+#: src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "Create persons."
 msgstr "建立人員。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:725
+#: src/netedit/GNEApplicationWindowHelper.cpp:726
 msgid "Person plan"
 msgstr "人員旅運計畫"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:725
+#: src/netedit/GNEApplicationWindowHelper.cpp:726
 msgid "Create person plans."
 msgstr "建立人員旅運計畫。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:728
+#: src/netedit/GNEApplicationWindowHelper.cpp:729
 #: src/netedit/GNETagPropertiesDatabase.cpp:3383
 #: src/netedit/frames/GNETagSelector.cpp:114
 msgid "Container"
 msgstr "貨櫃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:728
+#: src/netedit/GNEApplicationWindowHelper.cpp:729
 msgid "Create containers."
 msgstr "建立貨櫃。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:731
+#: src/netedit/GNEApplicationWindowHelper.cpp:732
 msgid "Container plan"
 msgstr "貨櫃計劃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:731
+#: src/netedit/GNEApplicationWindowHelper.cpp:732
 msgid "Create container plans."
 msgstr "建立貨櫃計畫。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:766
+#: src/netedit/GNEApplicationWindowHelper.cpp:767
 msgid "&EdgeData"
 msgstr "&路段資料(EdgeData)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:766
+#: src/netedit/GNEApplicationWindowHelper.cpp:767
 msgid "Create edgeData elements."
 msgstr "建立edgeData 元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:769
+#: src/netedit/GNEApplicationWindowHelper.cpp:770
 msgid "Edge&Relation"
 msgstr "路段&關係"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:769
+#: src/netedit/GNEApplicationWindowHelper.cpp:770
 msgid "Create edgeRelation elements."
 msgstr "建立edgeRelation元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:772
+#: src/netedit/GNEApplicationWindowHelper.cpp:773
 msgid "TA&ZRelation"
 msgstr "交通分區關係線"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:772
+#: src/netedit/GNEApplicationWindowHelper.cpp:773
 msgid "Create TAZRelation elements."
 msgstr "建立TAZRelation 元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:775
+#: src/netedit/GNEApplicationWindowHelper.cpp:776
 msgid "&MeanData"
 msgstr "&平均值資料"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:775
+#: src/netedit/GNEApplicationWindowHelper.cpp:776
 msgid "Create MeanData edge/lanes."
 msgstr "建立MeanData路段/車道。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:858
-#: src/netedit/GNEApplicationWindowHelper.cpp:1043
+#: src/netedit/GNEApplicationWindowHelper.cpp:859
+#: src/netedit/GNEApplicationWindowHelper.cpp:1044
 #: src/netedit/GNEViewNetHelper.cpp:2714 src/netedit/GNEViewNetHelper.cpp:2998
 msgid "Show grid"
 msgstr "顯示網格"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:863
-#: src/netedit/GNEApplicationWindowHelper.cpp:1048
-#: src/netedit/GNEApplicationWindowHelper.cpp:1174
+#: src/netedit/GNEApplicationWindowHelper.cpp:864
+#: src/netedit/GNEApplicationWindowHelper.cpp:1049
+#: src/netedit/GNEApplicationWindowHelper.cpp:1175
 #: src/netedit/GNEViewNetHelper.cpp:2721 src/netedit/GNEViewNetHelper.cpp:3005
 #: src/netedit/GNEViewNetHelper.cpp:3277
 msgid "Hide junction shape"
 msgstr "隱藏路口形狀"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:868
+#: src/netedit/GNEApplicationWindowHelper.cpp:869
 msgid "Draw vehicles spread in lane or in depart position"
 msgstr "繪製在車道上或是在出發位置上的車輛"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:873
-#: src/netedit/GNEApplicationWindowHelper.cpp:1189
+#: src/netedit/GNEApplicationWindowHelper.cpp:874
+#: src/netedit/GNEApplicationWindowHelper.cpp:1190
 #: src/netedit/GNEViewNetHelper.cpp:2735 src/netedit/GNEViewNetHelper.cpp:3296
 msgid "Show demand elements"
 msgstr "顯示需求元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:878
+#: src/netedit/GNEApplicationWindowHelper.cpp:879
 msgid "Clicking should target lanes"
 msgstr "點選目標車道"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:883
+#: src/netedit/GNEApplicationWindowHelper.cpp:884
 #: src/netedit/GNEViewNetHelper.cpp:2748
 msgid "Show connections over junctions"
 msgstr "顯示路口內的連接線(connection)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:888
+#: src/netedit/GNEApplicationWindowHelper.cpp:889
 #: src/netedit/GNEViewNetHelper.cpp:2755
 msgid "Hide connections"
 msgstr "隱藏連接線(connection)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:893
+#: src/netedit/GNEApplicationWindowHelper.cpp:894
 msgid "Show sub-additional elements"
 msgstr "顯示次要附加元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:898
+#: src/netedit/GNEApplicationWindowHelper.cpp:899
 #: src/netedit/GNEViewNetHelper.cpp:2769
 msgid "Show TAZ elements"
 msgstr "顯示TAZ元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:903
+#: src/netedit/GNEApplicationWindowHelper.cpp:904
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr "選擇多個路段時即會自動選擇其相交路口"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:908
+#: src/netedit/GNEApplicationWindowHelper.cpp:909
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr "點選後號誌計畫內所有相位(phase)將使用改變的狀態(state)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:913
+#: src/netedit/GNEApplicationWindowHelper.cpp:914
 msgid "Don't ask for confirmation before merging junction"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:918
+#: src/netedit/GNEApplicationWindowHelper.cpp:919
 msgid "Create consecutive edges"
 msgstr "建立連續路段"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:923
+#: src/netedit/GNEApplicationWindowHelper.cpp:924
 msgid "Create an edge in the opposite direction"
 msgstr "在相反方向建立一個路段"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:928
+#: src/netedit/GNEApplicationWindowHelper.cpp:929
 msgid "Apply mouse movement to elevation"
 msgstr "將滑鼠移動應用為高程"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:933
+#: src/netedit/GNEApplicationWindowHelper.cpp:934
 msgid "Show bubbles over junctions shapes"
 msgstr "在路口形狀上顯示氣泡(bubble)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1053
+#: src/netedit/GNEApplicationWindowHelper.cpp:1054
 #: src/netedit/GNEViewNetHelper.cpp:3012
 msgid "Draw vehicles spread/depart position"
 msgstr "繪製車輛散佈/出發位置"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1058
-#: src/netedit/GNEApplicationWindowHelper.cpp:1184
+#: src/netedit/GNEApplicationWindowHelper.cpp:1059
+#: src/netedit/GNEApplicationWindowHelper.cpp:1185
 #: src/netedit/GNEViewNetHelper.cpp:3019 src/netedit/GNEViewNetHelper.cpp:3290
 msgid "Show shapes"
 msgstr "顯示形狀物件"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1063
+#: src/netedit/GNEApplicationWindowHelper.cpp:1064
 #: src/netedit/GNEViewNetHelper.cpp:3026
 msgid "Show all trips"
 msgstr "顯示所有旅次"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1068
+#: src/netedit/GNEApplicationWindowHelper.cpp:1069
 #: src/netedit/GNEViewNetHelper.cpp:3033
 msgid "Show all person plans"
 msgstr "顯示所有旅運者計劃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1073
+#: src/netedit/GNEApplicationWindowHelper.cpp:1074
 #: src/netedit/GNEViewNetHelper.cpp:3040
 msgid "Lock selected person"
 msgstr "鎖定選取的人"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1078
+#: src/netedit/GNEApplicationWindowHelper.cpp:1079
 msgid "Show all container plans"
 msgstr "顯示所有貨櫃(container)運送計劃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1083
+#: src/netedit/GNEApplicationWindowHelper.cpp:1084
 #: src/netedit/GNEViewNetHelper.cpp:3054
 msgid "Lock selected container"
 msgstr "鎖定選定的貨櫃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1088
+#: src/netedit/GNEApplicationWindowHelper.cpp:1089
 #: src/netedit/GNEViewNetHelper.cpp:3061
 msgid "Show non-inspected demand elements"
 msgstr "顯示非檢查的需求元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1093
+#: src/netedit/GNEApplicationWindowHelper.cpp:1094
 #: src/netedit/GNEViewNetHelper.cpp:3068
 msgid "Show number of overlapped routes"
 msgstr "顯示重疊路線的數量"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1179
+#: src/netedit/GNEApplicationWindowHelper.cpp:1180
 #: src/netedit/GNEViewNetHelper.cpp:3284
 msgid "Show additionals"
 msgstr "顯示附加物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1194
+#: src/netedit/GNEApplicationWindowHelper.cpp:1195
 msgid "Draw TAZRel from center"
 msgstr "從中心點繪製交通分區關係線"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1199
+#: src/netedit/GNEApplicationWindowHelper.cpp:1200
 msgid "Draw TAZ fill"
 msgstr "繪製填充的交通分區"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1204
+#: src/netedit/GNEApplicationWindowHelper.cpp:1205
 msgid "Only draw TAZRel from"
 msgstr "僅從....分區繪製交通分區關係線"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1209
+#: src/netedit/GNEApplicationWindowHelper.cpp:1210
 msgid "Only draw TAZRel to"
 msgstr "僅繪製交通分區關係線到...分區"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1281
+#: src/netedit/GNEApplicationWindowHelper.cpp:1282
 msgid "Undo the last change."
 msgstr "復原上次的更改。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1284
+#: src/netedit/GNEApplicationWindowHelper.cpp:1285
 msgid "Redo the last change."
 msgstr "重覆上次的更改。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1287
+#: src/netedit/GNEApplicationWindowHelper.cpp:1288
 msgid "Show undo/redo history"
 msgstr "顯示復原/重做歷史紀錄"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1287
+#: src/netedit/GNEApplicationWindowHelper.cpp:1288
 msgid "Open undo/redo history dialog."
 msgstr "開啟復原/重錯做的歷史對話框。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1291
+#: src/netedit/GNEApplicationWindowHelper.cpp:1292
 msgid "Allow undo-redo"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1313
+#: src/netedit/GNEApplicationWindowHelper.cpp:1314
 msgid "Clear front element"
 msgstr "清除前面的元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1313
+#: src/netedit/GNEApplicationWindowHelper.cpp:1314
 msgid "Clear current front element"
 msgstr "清除目前前面的元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1322
+#: src/netedit/GNEApplicationWindowHelper.cpp:1323
 msgid "Load additionals in sumo-gui"
 msgstr "於 sumo-gui 內載入附加物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1322
+#: src/netedit/GNEApplicationWindowHelper.cpp:1323
 msgid "Load additionals in sumo-gui."
 msgstr "於 sumo-gui 內載入附加物。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1326
+#: src/netedit/GNEApplicationWindowHelper.cpp:1327
 msgid "Load demand in sumo-gui"
 msgstr "於 sumo-gui 內載入需求"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1326
+#: src/netedit/GNEApplicationWindowHelper.cpp:1327
 msgid "Load demand in sumo-gui."
 msgstr "於 sumo-gui 內載入需求。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1330
+#: src/netedit/GNEApplicationWindowHelper.cpp:1331
 msgid "Open in sumo-gui"
 msgstr "於 sumo-gui 內開啟"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1330
+#: src/netedit/GNEApplicationWindowHelper.cpp:1331
 msgid "Opens the sumo-gui application with the current network."
 msgstr "使用現有路網開啟 sumo-gui 應用程式。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1357
+#: src/netedit/GNEApplicationWindowHelper.cpp:1358
 msgid "&Lanes"
 msgstr "&車道"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1362
+#: src/netedit/GNEApplicationWindowHelper.cpp:1363
 msgid "&Connections"
 msgstr "&連接線"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1367
+#: src/netedit/GNEApplicationWindowHelper.cpp:1368
 msgid "C&rossings"
 msgstr "人行道"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1372
+#: src/netedit/GNEApplicationWindowHelper.cpp:1373
 msgid "Walkin&gAreas"
 msgstr "步行區"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1377
+#: src/netedit/GNEApplicationWindowHelper.cpp:1378
 msgid "&Additionals"
 msgstr "&附加物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1382
+#: src/netedit/GNEApplicationWindowHelper.cpp:1383
 msgid "&TAZs"
 msgstr "&交通分區"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1387
+#: src/netedit/GNEApplicationWindowHelper.cpp:1388
 msgid "&Wires"
 msgstr "&通訊線"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1392
+#: src/netedit/GNEApplicationWindowHelper.cpp:1393
 msgid "&Polygons"
 msgstr "&多邊形物件"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1397
+#: src/netedit/GNEApplicationWindowHelper.cpp:1398
 msgid "P&OIs"
 msgstr "興趣點"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1402
+#: src/netedit/GNEApplicationWindowHelper.cpp:1403
 msgid "WalkableAreas"
 msgstr "可行走區域"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1407
+#: src/netedit/GNEApplicationWindowHelper.cpp:1408
 msgid "Obstacles"
 msgstr "障礙物"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1412
+#: src/netedit/GNEApplicationWindowHelper.cpp:1413
 msgid "&Routes"
 msgstr "&路徑"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1427
+#: src/netedit/GNEApplicationWindowHelper.cpp:1428
 msgid "Person&Trips"
 msgstr "個人&旅次"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1432
+#: src/netedit/GNEApplicationWindowHelper.cpp:1433
 msgid "&Walks"
 msgstr "&行走"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1437
+#: src/netedit/GNEApplicationWindowHelper.cpp:1438
 msgid "Ri&des"
 msgstr "&搭乘"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1442
-#: src/netedit/GNEApplicationWindowHelper.cpp:2027
+#: src/netedit/GNEApplicationWindowHelper.cpp:1443
+#: src/netedit/GNEApplicationWindowHelper.cpp:2028
 msgid "&Containers"
 msgstr "&貨櫃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1447
+#: src/netedit/GNEApplicationWindowHelper.cpp:1448
 msgid "Tra&nsports"
 msgstr "運輸"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1452
+#: src/netedit/GNEApplicationWindowHelper.cpp:1453
 msgid "Trans&hips"
 msgstr "&轉運"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1457
+#: src/netedit/GNEApplicationWindowHelper.cpp:1458
 msgid "Stop&s"
 msgstr "停靠點&"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1462
+#: src/netedit/GNEApplicationWindowHelper.cpp:1463
 msgid "&EdgeDatas"
 msgstr "&路段資料"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1467
+#: src/netedit/GNEApplicationWindowHelper.cpp:1468
 msgid "E&dgeRelDatas"
 msgstr "路段關係資料(EdgeRelDatas)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1472
+#: src/netedit/GNEApplicationWindowHelper.cpp:1473
 msgid "Edge&TAZRel"
 msgstr "路段&交通分區關係"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1480
+#: src/netedit/GNEApplicationWindowHelper.cpp:1481
 msgid "Lock selected elements"
 msgstr "鎖住選定的要件"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1480
+#: src/netedit/GNEApplicationWindowHelper.cpp:1481
 msgid "selected elements"
 msgstr "選定的元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1487
+#: src/netedit/GNEApplicationWindowHelper.cpp:1488
 msgid "Lock all elements"
 msgstr "鎖住所有元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1487
+#: src/netedit/GNEApplicationWindowHelper.cpp:1488
 msgid "all elements"
 msgstr "所有元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1491
+#: src/netedit/GNEApplicationWindowHelper.cpp:1492
 msgid "Unlock all elements"
 msgstr "解除鎖定所有的元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1851
+#: src/netedit/GNEApplicationWindowHelper.cpp:1852
 msgid "Compute Junctions"
 msgstr "計算路口"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1851
+#: src/netedit/GNEApplicationWindowHelper.cpp:1852
 msgid "Compute junction shape and logic."
 msgstr "計算路口的形狀和邏輯。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1854
+#: src/netedit/GNEApplicationWindowHelper.cpp:1855
 msgid "Compute Junctions with volatile options"
 msgstr "根據可變選項計算路口"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1854
+#: src/netedit/GNEApplicationWindowHelper.cpp:1855
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr "根據可變路口計算路口形狀和邏輯。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1857
+#: src/netedit/GNEApplicationWindowHelper.cpp:1858
 msgid "Clean Junctions"
 msgstr "清除路口"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1857
+#: src/netedit/GNEApplicationWindowHelper.cpp:1858
 msgid "Remove solitary junctions."
 msgstr "移除孤立的路口。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1860
+#: src/netedit/GNEApplicationWindowHelper.cpp:1861
 msgid "Join Selected Junctions"
 msgstr "合併選定的路口"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1860
+#: src/netedit/GNEApplicationWindowHelper.cpp:1861
 msgid "Join selected junctions into a single junction."
 msgstr "將選定的路口合併為一個單一路口。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1863
+#: src/netedit/GNEApplicationWindowHelper.cpp:1864
 msgid "Clean invalid crossings"
 msgstr "清除無效的人行道"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1863
+#: src/netedit/GNEApplicationWindowHelper.cpp:1864
 msgid "Clear invalid crossings."
 msgstr "清除無效的人行道。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1869
+#: src/netedit/GNEApplicationWindowHelper.cpp:1870
 msgid "Recompute Network in Data Mode"
 msgstr "在資料模式下重新計算路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1875
+#: src/netedit/GNEApplicationWindowHelper.cpp:1876
 msgid "Compute demand"
 msgstr "計算需求"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1875
+#: src/netedit/GNEApplicationWindowHelper.cpp:1876
 msgid "Computes demand elements."
 msgstr "計算需求元素。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1878
+#: src/netedit/GNEApplicationWindowHelper.cpp:1879
 msgid "Clean routes"
 msgstr "清除路徑"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1878
+#: src/netedit/GNEApplicationWindowHelper.cpp:1879
 msgid "Removes routes without vehicles."
 msgstr "移除沒有車輛的路徑。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1881
+#: src/netedit/GNEApplicationWindowHelper.cpp:1882
 msgid "Join routes"
 msgstr "合併路徑"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1881
+#: src/netedit/GNEApplicationWindowHelper.cpp:1882
 msgid "Joins routes with the same edges."
 msgstr "合併具有相同路段的路徑。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1884
+#: src/netedit/GNEApplicationWindowHelper.cpp:1885
 msgid "Adjust person plans"
 msgstr "調整個人旅運計劃"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1884
+#: src/netedit/GNEApplicationWindowHelper.cpp:1885
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr "調整個人旅運計劃（起始/结束位置、抵達位置等）"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1887
+#: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Clean invalid route elements"
 msgstr "清除無效的路徑元素"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1887
+#: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr "清除與無效路線相關的元素(路徑、旅程、流量...)。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1893
+#: src/netedit/GNEApplicationWindowHelper.cpp:1894
 msgid "Sumo options"
 msgstr "sumo選項"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1893
+#: src/netedit/GNEApplicationWindowHelper.cpp:1894
 msgid "Configure sumo Options."
 msgstr "設定sumo的選項。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1899
+#: src/netedit/GNEApplicationWindowHelper.cpp:1900
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:93
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 msgid "Options"
 msgstr "選項"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1899
+#: src/netedit/GNEApplicationWindowHelper.cpp:1900
 msgid "Configure netedit Options."
 msgstr "設定netedit 的選項。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2018
+#: src/netedit/GNEApplicationWindowHelper.cpp:2019
 msgid "&WalkingAreas"
 msgstr "&步行區"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2018
+#: src/netedit/GNEApplicationWindowHelper.cpp:2019
 msgid "Open a dialog for locating a Walking Area."
 msgstr "開啟對話框以進行步行區定位。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2030
+#: src/netedit/GNEApplicationWindowHelper.cpp:2031
 msgid "&Route"
 msgstr "&路徑"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2030
+#: src/netedit/GNEApplicationWindowHelper.cpp:2031
 msgid "Open a dialog for locating a Route."
 msgstr "開啟對話框以進行路徑定位。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2033
+#: src/netedit/GNEApplicationWindowHelper.cpp:2034
 msgid "&Stops"
 msgstr "&停靠點"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2033
+#: src/netedit/GNEApplicationWindowHelper.cpp:2034
 msgid "Open a dialog for locating a Stop."
 msgstr "開啟對話框以進行停靠點定位。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2146
+#: src/netedit/GNEApplicationWindowHelper.cpp:2147
 msgid "Toggle this Status Bar on/off."
 msgstr "切換狀態控制桿(開啟/關閉)。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2153
+#: src/netedit/GNEApplicationWindowHelper.cpp:2154
 msgid "Clear the Message Window."
 msgstr "清除訊息窗內訊息。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2169
+#: src/netedit/GNEApplicationWindowHelper.cpp:2170
 msgid "Online Documentation"
 msgstr "線上使用手冊"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2172
+#: src/netedit/GNEApplicationWindowHelper.cpp:2173
 msgid "Changelog"
 msgstr "變更記錄"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2174
+#: src/netedit/GNEApplicationWindowHelper.cpp:2175
 msgid "Hotkeys"
 msgstr "快捷鍵(Hotkeys)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2176
+#: src/netedit/GNEApplicationWindowHelper.cpp:2177
 msgid "Tutorial"
 msgstr "教學"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2178
+#: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "Feedback"
 msgstr "意見回饋"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2178
+#: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "Open feedback channels."
 msgstr "打開反饋管道。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2181
+#: src/netedit/GNEApplicationWindowHelper.cpp:2182
 msgid "About"
 msgstr "關於"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2181
+#: src/netedit/GNEApplicationWindowHelper.cpp:2182
 msgid "About netedit."
 msgstr "關於netedit。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2218
+#: src/netedit/GNEApplicationWindowHelper.cpp:2219
 msgid "&Network"
 msgstr "&路網"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2218
+#: src/netedit/GNEApplicationWindowHelper.cpp:2219
 msgid "Select network mode."
 msgstr "選擇路網模式。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2221
+#: src/netedit/GNEApplicationWindowHelper.cpp:2222
 msgid "&Demand"
 msgstr "&需求"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2221
+#: src/netedit/GNEApplicationWindowHelper.cpp:2222
 msgid "Select demand mode."
 msgstr "選擇需求模式。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2224
+#: src/netedit/GNEApplicationWindowHelper.cpp:2225
 msgid "&Data"
 msgstr "&資料"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2224
+#: src/netedit/GNEApplicationWindowHelper.cpp:2225
 msgid "Select data mode."
 msgstr "選擇資料模式。"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2259
-#: src/netedit/GNEApplicationWindowHelper.cpp:2263
+#: src/netedit/GNEApplicationWindowHelper.cpp:2260
+#: src/netedit/GNEApplicationWindowHelper.cpp:2264
 msgid "Could not load SUMO configuration '"
 msgstr "無法載入SUMO 設定檔案"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2311
-#: src/netedit/GNEApplicationWindowHelper.cpp:2315
+#: src/netedit/GNEApplicationWindowHelper.cpp:2312
+#: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "Could not load netedit configuration '"
 msgstr "無法載入netedit的設定檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2483
-msgid "Save file as"
-msgstr "將檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2486
-msgid "Open file"
-msgstr "開啟檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2495
-msgid "Save Network file as"
-msgstr "將路網檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2498
-msgid "Open Network file"
-msgstr "開啟路網檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2506
-msgid "Open NetConvert file"
-msgstr "開啟NetConvert 檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2513
-msgid "Save plain XML as"
-msgstr "將純 XML 另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2520
-msgid "Save joined Junctions as"
-msgstr "將合併的路口另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2527
-msgid "Save tool log"
-msgstr "儲存工具紀錄(log)"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2534
-msgid "Open OSM file"
-msgstr "開啟開放街圖(OSM)檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2542
-msgid "Save netedit Config file as"
-msgstr "將netedit的設定檔案儲存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2545
-msgid "Open netedit Config file"
-msgstr "開啟netedit的設定檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2554
-msgid "Save SUMO Config file as"
-msgstr "將SUMO設定檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2557
-msgid "Open SUMO Config file"
-msgstr "開啟SUMO設定檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2566
-msgid "Save TLS file as"
-msgstr "將交通號誌檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2569
-msgid "Open TLS file"
-msgstr "開啟交通號誌檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2578
-msgid "Save EdgeType file as"
-msgstr "將EdgeType檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2581
-msgid "Open EdgeType file"
-msgstr "開啟EdgeType檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2590
-msgid "Save Additionals file as"
-msgstr "將附加(additionals)檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2593
-msgid "Open Additionals file"
-msgstr "開啟附加檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2602
-msgid "Save Route file as"
-msgstr "將路徑檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2605
-msgid "Open Route file"
-msgstr "開啟路徑檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2614
-msgid "Save Data file as"
-msgstr "將資料檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2617
-msgid "Open Data file"
-msgstr "開啟資料檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2626
-msgid "Save MeanData file as"
-msgstr "將MeanData檔案另存為"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2629
-msgid "Open MeanData file"
-msgstr "開啟MeanData檔案"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2638
-msgid "Save options file as"
-msgstr "將選項檔案另存於"
-
-#: src/netedit/GNEApplicationWindowHelper.cpp:2641
-msgid "Open options file"
-msgstr "開啟選項檔案"
 
 #: src/netedit/GNEAttributeProperties.cpp:295
 msgid "Extended"
@@ -4701,6 +4695,34 @@ msgstr "根據可變選項計算路口..."
 msgid "Computing junctions ..."
 msgstr "計算路口..."
 
+#: src/netedit/GNENet.cpp:1498
+msgid "Loading of additional file failed: "
+msgstr "載入附加檔案失敗： "
+
+#: src/netedit/GNENet.cpp:1500
+msgid "Loading of additional file successfully: "
+msgstr "成功載入附加檔案： "
+
+#: src/netedit/GNENet.cpp:1510
+msgid "Loading of route file failed: "
+msgstr "載入路徑檔案失敗： "
+
+#: src/netedit/GNENet.cpp:1512
+msgid "Loading of route file successfully: "
+msgstr "成功載入路徑檔案： "
+
+#: src/netedit/GNENet.cpp:1521
+msgid "Loading of data file failed: "
+msgstr "載入資料檔案失敗： "
+
+#: src/netedit/GNENet.cpp:1523
+msgid "Loading of data file successfully: "
+msgstr "成功載入資料檔案： "
+
+#: src/netedit/GNENet.cpp:1532
+msgid "Loading of meandata file failed: "
+msgstr "載入meandata檔案失敗： "
+
 #: src/netedit/GNENet.cpp:1542
 msgid "Finished computing junctions."
 msgstr "完成路口計算。"
@@ -4927,12 +4949,6 @@ msgstr ""
 msgid "Network elements"
 msgstr ""
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:411
-#: src/netedit/GNETagPropertiesDatabase.cpp:413
-#: src/netedit/frames/GNETagSelector.cpp:90
-msgid "Additional elements"
-msgstr "附加的元素"
-
 #: src/netedit/GNETagPropertiesDatabase.cpp:418
 #: src/netedit/GNETagPropertiesDatabase.cpp:420
 msgid "Stopping places"
@@ -4949,12 +4965,6 @@ msgstr "通訊線元素"
 #: src/netedit/frames/GNETagSelector.cpp:93
 msgid "Shape elements"
 msgstr "圖形物件元素"
-
-#: src/netedit/GNETagPropertiesDatabase.cpp:445
-#: src/netedit/GNETagPropertiesDatabase.cpp:447
-#: src/netedit/frames/common/GNESelectorFrame.cpp:111
-msgid "JuPedSim elements"
-msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:452
 #: src/netedit/GNETagPropertiesDatabase.cpp:454
@@ -7221,7 +7231,7 @@ msgid "Walk"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5518
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:426
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:459
 msgid "route"
 msgstr "路徑"
 
@@ -9186,6 +9196,23 @@ msgstr "切換繪製僅來自...分區的交通分區關係線(TAZRel)"
 msgid "Toggle draw TAZRel only to"
 msgstr "切換繪製僅到達...分區的交通分區關係線(TAZRel)"
 
+#: src/netedit/GNEViewNetHelper.cpp:3451
+msgid "Data type"
+msgstr ""
+
+#: src/netedit/GNEViewNetHelper.cpp:3465
+msgid "Data sets"
+msgstr ""
+
+#: src/netedit/GNEViewNetHelper.cpp:3474
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
+msgid "Interval"
+msgstr "間隔"
+
+#: src/netedit/GNEViewNetHelper.cpp:3486
+msgid "Parameter"
+msgstr ""
+
 #: src/netedit/GNEViewNetHelper.cpp:3801
 msgid "Inspect mode"
 msgstr ""
@@ -9681,86 +9708,86 @@ msgstr "道路路網和基礎設施的圖形編輯軟體。"
 msgid "Edit color"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:290 src/netedit/dialogs/GNEDialog.cpp:305
+#: src/netedit/dialogs/GNEDialog.cpp:302 src/netedit/dialogs/GNEDialog.cpp:315
 msgid "Yes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:296 src/netedit/dialogs/GNEDialog.cpp:311
+#: src/netedit/dialogs/GNEDialog.cpp:306 src/netedit/dialogs/GNEDialog.cpp:319
 msgid "No"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:317 src/netedit/dialogs/GNEDialog.cpp:338
-#: src/netedit/dialogs/GNEDialog.cpp:362 src/netedit/dialogs/GNEDialog.cpp:377
-#: src/netedit/dialogs/GNEDialog.cpp:404 src/netedit/dialogs/GNEDialog.cpp:419
-#: src/netedit/dialogs/GNEDialog.cpp:446
+#: src/netedit/dialogs/GNEDialog.cpp:323 src/netedit/dialogs/GNEDialog.cpp:340
+#: src/netedit/dialogs/GNEDialog.cpp:362 src/netedit/dialogs/GNEDialog.cpp:375
+#: src/netedit/dialogs/GNEDialog.cpp:396 src/netedit/dialogs/GNEDialog.cpp:409
+#: src/netedit/dialogs/GNEDialog.cpp:430
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:93
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:925
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1370
 msgid "Cancel"
 msgstr "取消"
 
-#: src/netedit/dialogs/GNEDialog.cpp:332
+#: src/netedit/dialogs/GNEDialog.cpp:336
 msgid "Don't Save"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:347 src/netedit/dialogs/GNEDialog.cpp:356
+#: src/netedit/dialogs/GNEDialog.cpp:349 src/netedit/dialogs/GNEDialog.cpp:358
 #: src/netedit/dialogs/GNEDialog.cpp:371
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:923
 msgid "Accept"
 msgstr "接受"
 
-#: src/netedit/dialogs/GNEDialog.cpp:383 src/netedit/dialogs/GNEDialog.cpp:425
+#: src/netedit/dialogs/GNEDialog.cpp:379 src/netedit/dialogs/GNEDialog.cpp:413
 msgid "Reset"
 msgstr "重設"
 
-#: src/netedit/dialogs/GNEDialog.cpp:383 src/netedit/dialogs/GNEDialog.cpp:425
+#: src/netedit/dialogs/GNEDialog.cpp:379 src/netedit/dialogs/GNEDialog.cpp:413
 msgid "Reset changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:392
+#: src/netedit/dialogs/GNEDialog.cpp:388
 msgid "Keep new"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:392
+#: src/netedit/dialogs/GNEDialog.cpp:388
 msgid "Keep new changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:398
+#: src/netedit/dialogs/GNEDialog.cpp:392
 msgid "Keep old"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:398
+#: src/netedit/dialogs/GNEDialog.cpp:392
 msgid "Keep old changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:404
+#: src/netedit/dialogs/GNEDialog.cpp:396
 #: src/netedit/frames/network/GNETAZFrame.cpp:393
 msgid "Cancel changes"
 msgstr "取消更改"
 
-#: src/netedit/dialogs/GNEDialog.cpp:440
+#: src/netedit/dialogs/GNEDialog.cpp:426
 msgid "Advanced"
 msgstr "進階的(advanced)"
 
-#: src/netedit/dialogs/GNEDialog.cpp:440
+#: src/netedit/dialogs/GNEDialog.cpp:426
 msgid "Advanced options"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:455
-#: src/netedit/dialogs/run/GNERunDialog.cpp:207
+#: src/netedit/dialogs/GNEDialog.cpp:439
+#: src/netedit/dialogs/run/GNERunDialog.cpp:210
 msgid "Rerun"
 msgstr "重新執行"
 
-#: src/netedit/dialogs/GNEDialog.cpp:455
-#: src/netedit/dialogs/run/GNERunDialog.cpp:208
+#: src/netedit/dialogs/GNEDialog.cpp:439
+#: src/netedit/dialogs/run/GNERunDialog.cpp:211
 msgid "Rerun tool"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:461
+#: src/netedit/dialogs/GNEDialog.cpp:443
 msgid "Back"
 msgstr "返回"
 
-#: src/netedit/dialogs/GNEDialog.cpp:461
+#: src/netedit/dialogs/GNEDialog.cpp:443
 msgid "Back to tool dialog"
 msgstr ""
 
@@ -10091,12 +10118,12 @@ msgid "Reserved for user-defined semantics"
 msgstr "保留用於使用者自行定義的語義"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:676
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:672
 msgid "Open dialog for editing vClasses"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:70
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:696
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:692
 msgid "Open dialog for editing color"
 msgstr "開啟編輯顏色的對話窗"
 
@@ -10106,9 +10133,9 @@ msgstr "開啟編輯顏色的對話窗"
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:244
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:258
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:283
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:725
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:737
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:751
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:791
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:803
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:817
 msgid "true"
 msgstr "真值"
 
@@ -10119,9 +10146,9 @@ msgstr "真值"
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:261
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:280
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:286
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:728
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:740
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:757
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:794
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:806
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:823
 msgid "false"
 msgstr "偽值"
 
@@ -10228,374 +10255,322 @@ msgstr "開啟圖片"
 msgid "Open OSG File"
 msgstr "開啟OSG檔案"
 
-#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1807
+#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
 msgid "Error editing %"
 msgstr ""
 
-#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1808
+#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1804
 #, c-format
 msgid "The % cannot be updated because attribute % is invalid."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:76
+#: src/netedit/dialogs/file/GNEFileDialog.cpp:34
+#, c-format
+msgid "Save % file as"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileDialog.cpp:39
+#, c-format
+msgid "Open % file"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:80
 msgid "Visited Directories"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:81
-msgid "File Name:"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:91
-msgid "File Filter:"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:100
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:93
 msgid "Directory:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:108
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:479
-msgid "Set bookmark"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:104
+msgid "File Name:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:108
-msgid "Bookmark current directory."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:112
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:480
-msgid "Clear bookmarks"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:112
-msgid "Clear bookmarks."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:131
-msgid "Go up one directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:131
-msgid "Move up to higher directory."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:136
-msgid "Go to home directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:136
-msgid "Back to home directory."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:141
-msgid "Go to work directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:141
-msgid "Back to working directory."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:146
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:476
-msgid "Bookmarks"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:146
-msgid "Visit bookmarked directories."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:153
-msgid "Create new directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:153
-msgid "Create new directory."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:158
-msgid "Show list"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:158
-msgid "Display directory with small icons."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:163
-msgid "Show icons"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:163
-msgid "Display directory with big icons."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:168
-msgid "Show details"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:168
-msgid "Display detailed directory listing."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:173
-msgid "Show hidden files"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:173
-msgid "Show hidden files and directories."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:174
-msgid "Hide Hidden Files"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:174
-msgid "Hide hidden files and directories."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:301
-#, c-format
-msgid ""
-"Copy file from location:\n"
-"\n"
-"%s\n"
-"\n"
-"to location: "
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:302
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:212
 msgid "Copy File"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:308
-msgid "Error Copying File"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:212
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:257
+msgid "Select destiny file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:308
-#, c-format
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:220
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:238
+msgid "Error copying file"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:221
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:239
 msgid ""
 "Unable to copy file:\n"
-"\n"
-"%s  to:  %s\n"
-"\n"
-"Continue with operation?"
+"%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:323
-#, c-format
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:222
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:267
+msgid "The source and destiny files are the same"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:228
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:273
+msgid "Overwrite file"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:228
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:273
 msgid ""
-"Move file from location:\n"
-"\n"
-"%s\n"
-"\n"
-"to location: "
+"The destiny file:\n"
+"%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:324
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:229
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:274
+msgid "already exist. Overwrite?"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:240
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:285
+msgid "Check destiny file permissions"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:257
 msgid "Move File"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:330
-msgid "Error Moving File"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:265
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:283
+msgid "Error moving file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:330
-#, c-format
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:266
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:284
 msgid ""
 "Unable to move file:\n"
-"\n"
-"%s  to:  %s\n"
-"\n"
-"Continue with operation?"
+"%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:345
-#, c-format
-msgid ""
-"Link file from location:\n"
-"\n"
-"%s\n"
-"\n"
-"to location: "
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:303
+msgid "Deleting file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:346
-msgid "Link File"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:303
+msgid "Are you sure you want to delete the file:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:352
-msgid "Error Linking File"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:310
+msgid "Error deleting file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:352
-#, c-format
-msgid ""
-"Unable to link file:\n"
-"\n"
-"%s  to:  %s\n"
-"\n"
-"Continue with operation?"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:367
-msgid "Deleting files"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:367
-#, c-format
-msgid ""
-"Are you sure you want to delete the file:\n"
-"\n"
-"%s"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:375
-msgid "Error Deleting File"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:375
-#, c-format
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:311
 msgid ""
 "Unable to delete file:\n"
-"\n"
-"%s\n"
-"\n"
-"Continue with operation?"
+"%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:441
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:312
+msgid "Check file permissions"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:377
 msgid "Up one level"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:442
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:378
 msgid "Home directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:443
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:379
 msgid "Work directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:444
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:380
 msgid "Select all"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:448
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:384
 msgid "Sort by"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:449
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:385
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
 msgid "Name"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:451
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:387
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1629
 msgid "Size"
 msgstr "尺寸"
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:453
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:389
 msgid "User"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:454
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:390
 msgid "Group"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:456
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:392
 msgid "Reverse"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:457
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:393
 msgid "Ignore case"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:460
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:396
 msgid "View"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:461
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:397
 msgid "Small icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:462
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:398
 msgid "Big icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:463
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:399
 msgid "Details"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:465
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:401
 msgid "Rows"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:466
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:402
 msgid "Columns"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:468
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:404
 msgid "Hidden files"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:469
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:405
 msgid "Preview images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:471
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:407
 msgid "Normal images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:472
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:408
 msgid "Medium images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:473
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:409
 msgid "Giant images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:496
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:412
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:912
+msgid "Bookmarks"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:415
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:861
+msgid "Set bookmark"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:416
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:863
+msgid "Clear bookmarks"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:432
 msgid "New directory..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:497
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:433
 msgid "Copy..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:498
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:434
 msgid "Move..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:499
-msgid "Link..."
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:500
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:436
 msgid "Delete..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:926
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:830
 msgid "Create New Directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:926
-msgid "Create new directory with name: "
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:830
+msgid "Create new directory with name:"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:837
+msgid "Directory already Exists"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:838
+msgid ""
+"The new directory:\n"
+"%"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:839
+msgid "already exists"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:845
+msgid "Cannot create directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:846
+msgid ""
+"Cannot create directory:\n"
+"%"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:847
+msgid "Check folder permissions"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:861
+msgid "Bookmark current directory."
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:863
+msgid "Clear bookmarks."
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:889
+msgid "Go up one directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:900
+msgid "Go to netedit config directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:903
+msgid "Go to sumo config directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:908
+msgid "Go to home directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:917
+msgid "Create new directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:921
+msgid "Display directory with small icons"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:925
+msgid "Display directory with big icons"
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:929
-msgid "Already Exists"
+msgid "Display detailed directory listing"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:929
-#, c-format
-msgid "File or directory %s already exists.\n"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:933
-msgid "Cannot Create"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:933
-#, c-format
-msgid "Cannot create directory %s.\n"
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:935
+msgid "Toggle show hidden files and directories"
 msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
@@ -10969,17 +10944,24 @@ msgstr "搜尋"
 msgid "Include description in search"
 msgstr "在搜尋中包含描述"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:334
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:226
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:243
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:142
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:157
+msgid "options"
+msgstr ""
+
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:340
 msgid "Could not load configuration '"
 msgstr "無法載入設定檔案 '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:338
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:344
 #: src/netedit/tools/GNEPythonTool.cpp:183
 #: src/netedit/tools/GNEPythonTool.cpp:187
 msgid "Could not load tool configuration '"
 msgstr "無法載入工具(tool)設定檔案 '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:342
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:348
 msgid "Loaded configuration."
 msgstr "已載入設定檔案."
 
@@ -11009,11 +10991,15 @@ msgstr "儲存輸出"
 msgid "Console output"
 msgstr "控制台輸出"
 
-#: src/netedit/dialogs/run/GNERunDialog.cpp:199
+#: src/netedit/dialogs/run/GNERunDialog.cpp:136
+msgid "tool log"
+msgstr ""
+
+#: src/netedit/dialogs/run/GNERunDialog.cpp:202
 msgid "Abort"
 msgstr "放棄"
 
-#: src/netedit/dialogs/run/GNERunDialog.cpp:200
+#: src/netedit/dialogs/run/GNERunDialog.cpp:203
 msgid "Abort running"
 msgstr ""
 
@@ -11071,35 +11057,27 @@ msgstr "按名稱排序"
 msgid "Grouped by categories"
 msgstr "按類別分組"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:241
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:252
 #, c-format
 msgid "Use current % file"
 msgstr "使用目前 % 檔案"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:246
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:257
 #, c-format
 msgid "Select % file"
 msgstr "選擇 % 檔案"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:267
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:278
 msgid "Use current selected edges"
 msgstr "使用目前選擇的路段"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:340
-msgid "network"
-msgstr "路網"
-
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:383
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:405
 msgid "additional"
 msgstr "附加物(additional)"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:469
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:513
 msgid "data"
 msgstr "資料"
-
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:512
-msgid "sumo config"
-msgstr "sumo設定檔案"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:46
 msgid "lane start"
@@ -11110,7 +11088,7 @@ msgid "lane end"
 msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:222
-#: src/netedit/frames/GNEAttributesEditorType.cpp:459
+#: src/netedit/frames/GNEAttributesEditorType.cpp:462
 msgid "reset %"
 msgstr ""
 
@@ -12485,34 +12463,24 @@ msgstr ""
 msgid "Move element down one lane"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:439
-#, c-format
-msgid "Select existent or create new file for % attribute"
-msgstr ""
-
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:440
-#, c-format
-msgid "Select existent file for % attribute"
-msgstr ""
-
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:635
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:631
 msgid "Reparent"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:636
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:632
 msgid "Change parent of this element"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:656
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:652
 #, c-format
 msgid "Inspect % parent"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:717
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:713
 msgid "Open dialog to select an existent file"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:719
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:715
 msgid "Open dialog to select or create an existent file"
 msgstr ""
 
@@ -12545,14 +12513,14 @@ msgstr ""
 msgid "Invalid value '%' in attribute %"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorType.cpp:424
-#: src/netedit/frames/GNEAttributesEditorType.cpp:485
-#: src/netedit/frames/GNEAttributesEditorType.cpp:518
+#: src/netedit/frames/GNEAttributesEditorType.cpp:427
+#: src/netedit/frames/GNEAttributesEditorType.cpp:488
+#: src/netedit/frames/GNEAttributesEditorType.cpp:521
 #, c-format
 msgid "change multiple % attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorType.cpp:488
+#: src/netedit/frames/GNEAttributesEditorType.cpp:491
 #, c-format
 msgid "change % attribute"
 msgstr ""
@@ -12743,11 +12711,6 @@ msgstr "離開的路段/連接線"
 #: src/netedit/frames/GNEElementTree.cpp:868
 msgid "SourceSinks (%)"
 msgstr ""
-
-#: src/netedit/frames/GNEElementTree.cpp:889
-#: src/netedit/frames/GNEElementTree.cpp:915
-msgid "Data elements"
-msgstr "資料元素"
 
 #: src/netedit/frames/GNEFrame.cpp:254
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:457
@@ -13768,10 +13731,6 @@ msgstr "無效的空資料集識別名(ID)"
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:152
 msgid "Invalid duplicated dataSet ID"
 msgstr "無效的重複資料集識別名(ID)"
-
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
-msgid "Interval"
-msgstr "間隔"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:213
 msgid "Create new interval"
@@ -15575,7 +15534,7 @@ msgstr "取代興趣點 '%'"
 msgid "Replacing polygon '%'"
 msgstr "取代多邊形 '%'"
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1186
+#: src/utils/gui/images/GUIIconSubSys.cpp:1185
 msgid "Instance was previously created"
 msgstr "實例(instance)已經建立"
 
@@ -17150,6 +17109,96 @@ msgstr "投影方式未定義"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1739
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+
+#~ msgid "Joined junctions saved to '"
+#~ msgstr "整合路口儲存於"
+
+#~ msgid "load additionals from '"
+#~ msgstr "從 ' 載入附加物(additionals)"
+
+#~ msgid "load meanDatas from '"
+#~ msgstr "從 ' 載入meanDatas"
+
+#~ msgid "Save file as"
+#~ msgstr "將檔案另存為"
+
+#~ msgid "Open file"
+#~ msgstr "開啟檔案"
+
+#~ msgid "Save Network file as"
+#~ msgstr "將路網檔案另存為"
+
+#~ msgid "Open Network file"
+#~ msgstr "開啟路網檔案"
+
+#~ msgid "Open NetConvert file"
+#~ msgstr "開啟NetConvert 檔案"
+
+#~ msgid "Save plain XML as"
+#~ msgstr "將純 XML 另存為"
+
+#~ msgid "Save joined Junctions as"
+#~ msgstr "將合併的路口另存為"
+
+#~ msgid "Save tool log"
+#~ msgstr "儲存工具紀錄(log)"
+
+#~ msgid "Open OSM file"
+#~ msgstr "開啟開放街圖(OSM)檔案"
+
+#~ msgid "Save netedit Config file as"
+#~ msgstr "將netedit的設定檔案儲存為"
+
+#~ msgid "Open netedit Config file"
+#~ msgstr "開啟netedit的設定檔案"
+
+#~ msgid "Save SUMO Config file as"
+#~ msgstr "將SUMO設定檔案另存為"
+
+#~ msgid "Open SUMO Config file"
+#~ msgstr "開啟SUMO設定檔案"
+
+#~ msgid "Save TLS file as"
+#~ msgstr "將交通號誌檔案另存為"
+
+#~ msgid "Open TLS file"
+#~ msgstr "開啟交通號誌檔案"
+
+#~ msgid "Save EdgeType file as"
+#~ msgstr "將EdgeType檔案另存為"
+
+#~ msgid "Open EdgeType file"
+#~ msgstr "開啟EdgeType檔案"
+
+#~ msgid "Save Additionals file as"
+#~ msgstr "將附加(additionals)檔案另存為"
+
+#~ msgid "Open Additionals file"
+#~ msgstr "開啟附加檔案"
+
+#~ msgid "Save Route file as"
+#~ msgstr "將路徑檔案另存為"
+
+#~ msgid "Open Route file"
+#~ msgstr "開啟路徑檔案"
+
+#~ msgid "Save Data file as"
+#~ msgstr "將資料檔案另存為"
+
+#~ msgid "Open Data file"
+#~ msgstr "開啟資料檔案"
+
+#~ msgid "Save MeanData file as"
+#~ msgstr "將MeanData檔案另存為"
+
+#~ msgid "Open MeanData file"
+#~ msgstr "開啟MeanData檔案"
+
+#~ msgid "Save options file as"
+#~ msgstr "將選項檔案另存於"
+
+#~ msgid "Open options file"
+#~ msgstr "開啟選項檔案"
 
 #~ msgid ""
 #~ "Only for\n"
