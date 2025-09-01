@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-01 09:12+0200\n"
+"POT-Creation-Date: 2025-09-01 11:24+0200\n"
 "PO-Revision-Date: 2025-08-29 10:01+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -2479,36 +2479,34 @@ msgid "Test coordinate"
 msgstr "Test-Koordinate"
 
 #: src/netedit/GNEApplicationWindow.cpp:739
-msgid "netConvert config"
+msgid "netconvert config file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:755
 #: src/netedit/GNEApplicationWindow.cpp:3364
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:351
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
-msgid "network"
-msgstr "Netz"
+msgid "network file"
+msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:771
-msgid "OpenStreetMap"
+msgid "OpenStreetMap file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:787
 #: src/netedit/GNEApplicationWindow.cpp:3516
-msgid "netedit config"
+msgid "netedit config file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:812
 #: src/netedit/GNEApplicationWindow.cpp:3631
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:567
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
-msgid "sumo config"
-msgstr "sumo-Konfiguration"
+msgid "sumo config file"
+msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:902
 #: src/netedit/GNEApplicationWindow.cpp:3749
-msgid "Traffic Light definitions"
+msgid "Traffic Light definitions file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:912
@@ -2521,7 +2519,7 @@ msgstr "Lädt LSA-Programme aus '"
 
 #: src/netedit/GNEApplicationWindow.cpp:961
 #: src/netedit/GNEApplicationWindow.cpp:3773
-msgid "EdgeTypes"
+msgid "EdgeTypes file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:977
@@ -2660,8 +2658,6 @@ msgid "Visualization"
 msgstr "Darstellung"
 
 #: src/netedit/GNEApplicationWindow.cpp:1525
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:574
-#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
 msgid "XML"
 msgstr "XML"
 
@@ -2762,7 +2758,7 @@ msgid "Could not save network in '"
 msgstr "Konnte das Netz nicht im folgenden Pfad speichern: '"
 
 #: src/netedit/GNEApplicationWindow.cpp:3388
-msgid "plain XML"
+msgid "plain XML file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
@@ -2774,7 +2770,7 @@ msgid "Saving plain xml failed!"
 msgstr "Speichern im \"Plain XML\"-Format fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:3431
-msgid "joined junctions"
+msgid "joined junctions file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3441
@@ -2837,12 +2833,9 @@ msgstr "Speichern der edgeTypes fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:3807
 #: src/netedit/GNEApplicationWindow.cpp:3960
-#: src/netedit/GNETagPropertiesDatabase.cpp:411
-#: src/netedit/GNETagPropertiesDatabase.cpp:413
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
-#: src/netedit/frames/GNETagSelector.cpp:90
-msgid "Additional elements"
-msgstr "Weitere Elemente"
+msgid "Additional elements file"
+msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3835
 msgid "load additionals from '%'"
@@ -2884,11 +2877,8 @@ msgid "saving of unified additional elements in '%'"
 msgstr "Speichern der gesammelten weiteren Elemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3987
-#: src/netedit/GNETagPropertiesDatabase.cpp:445
-#: src/netedit/GNETagPropertiesDatabase.cpp:447
-#: src/netedit/frames/common/GNESelectorFrame.cpp:111
-msgid "JuPedSim elements"
-msgstr "JuPedSim-Elemente"
+msgid "JuPedSim elements file"
+msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4009
 msgid "JuPedSim elements saved"
@@ -2905,7 +2895,7 @@ msgstr "Speichern der JuPedSim-Elemente fehlgeschlagen!"
 #: src/netedit/GNEApplicationWindow.cpp:4028
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
-msgid "Route elements"
+msgid "Route elements file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4056
@@ -2952,10 +2942,8 @@ msgstr "Speichern der gesammelten Nachfrageelemente in '%'"
 #: src/netedit/GNEApplicationWindow.cpp:4206
 #: src/netedit/GNEApplicationWindow.cpp:4362
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
-#: src/netedit/frames/GNEElementTree.cpp:889
-#: src/netedit/frames/GNEElementTree.cpp:915
-msgid "Data elements"
-msgstr "Datenelemente"
+msgid "Data elements file"
+msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4236
 msgid "loading data elements from '%'"
@@ -2993,7 +2981,7 @@ msgstr "Speichern der gesammelten Datenelemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4387
 #: src/netedit/GNEApplicationWindow.cpp:4537
-msgid "MeanData elements"
+msgid "MeanData elements file"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4415
@@ -5008,6 +4996,12 @@ msgstr "Daten-Supermodus"
 msgid "Network elements"
 msgstr "Netzwerkelemente"
 
+#: src/netedit/GNETagPropertiesDatabase.cpp:411
+#: src/netedit/GNETagPropertiesDatabase.cpp:413
+#: src/netedit/frames/GNETagSelector.cpp:90
+msgid "Additional elements"
+msgstr "Weitere Elemente"
+
 #: src/netedit/GNETagPropertiesDatabase.cpp:418
 #: src/netedit/GNETagPropertiesDatabase.cpp:420
 msgid "Stopping places"
@@ -5024,6 +5018,12 @@ msgstr "Oberleitungselemente"
 #: src/netedit/frames/GNETagSelector.cpp:93
 msgid "Shape elements"
 msgstr "Formelemente"
+
+#: src/netedit/GNETagPropertiesDatabase.cpp:445
+#: src/netedit/GNETagPropertiesDatabase.cpp:447
+#: src/netedit/frames/common/GNESelectorFrame.cpp:111
+msgid "JuPedSim elements"
+msgstr "JuPedSim-Elemente"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:452
 #: src/netedit/GNETagPropertiesDatabase.cpp:454
@@ -10117,12 +10117,12 @@ msgid "Advanced options"
 msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:439
-#: src/netedit/dialogs/run/GNERunDialog.cpp:210
+#: src/netedit/dialogs/run/GNERunDialog.cpp:211
 msgid "Rerun"
 msgstr "Erneut ausführen"
 
 #: src/netedit/dialogs/GNEDialog.cpp:439
-#: src/netedit/dialogs/run/GNERunDialog.cpp:211
+#: src/netedit/dialogs/run/GNERunDialog.cpp:212
 msgid "Rerun tool"
 msgstr ""
 
@@ -10461,12 +10461,12 @@ msgid "Reserved for user-defined semantics"
 msgstr "Für nutzerdefinierte Bedeutung reserviert"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:672
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:673
 msgid "Open dialog for editing vClasses"
 msgstr "Dialog zur Bearbeitung der Fahrzeugklassen öffnen"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:70
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:692
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:693
 msgid "Open dialog for editing color"
 msgstr "Öffne Dialog zur Farbwahl"
 
@@ -10609,12 +10609,11 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:34
 #, c-format
-msgid "Save % file as"
+msgid "Save % as"
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:39
-#, c-format
-msgid "Open % file"
+msgid "Open %"
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:80
@@ -11296,7 +11295,7 @@ msgstr "Auch Beschreibung durchsuchen"
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:243
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:142
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:157
-msgid "options"
+msgid "options file"
 msgstr ""
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:340
@@ -11323,6 +11322,11 @@ msgstr "Wert zurücksetzen"
 msgid "Select filename"
 msgstr "Dateiname auswählen"
 
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:574
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
+msgid "XML file"
+msgstr ""
+
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:45
 msgid "Edit SUMO options"
 msgstr ""
@@ -11339,15 +11343,15 @@ msgstr "Ausgabe speichern"
 msgid "Console output"
 msgstr "Konsolenausgabe"
 
-#: src/netedit/dialogs/run/GNERunDialog.cpp:136
-msgid "tool log"
+#: src/netedit/dialogs/run/GNERunDialog.cpp:137
+msgid "tool log file"
 msgstr ""
 
-#: src/netedit/dialogs/run/GNERunDialog.cpp:202
+#: src/netedit/dialogs/run/GNERunDialog.cpp:203
 msgid "Abort"
 msgstr "Abbrechen"
 
-#: src/netedit/dialogs/run/GNERunDialog.cpp:203
+#: src/netedit/dialogs/run/GNERunDialog.cpp:204
 msgid "Abort running"
 msgstr ""
 
@@ -11419,6 +11423,10 @@ msgstr "%-Datei auswählen"
 msgid "Use current selected edges"
 msgstr "Derzeit ausgewählte Kanten nutzen"
 
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:351
+msgid "network"
+msgstr "Netz"
+
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:405
 msgid "additional"
 msgstr "weiteres Element"
@@ -11426,6 +11434,10 @@ msgstr "weiteres Element"
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:513
 msgid "data"
 msgstr "Daten"
+
+#: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:567
+msgid "sumo config"
+msgstr "sumo-Konfiguration"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:46
 msgid "lane start"
@@ -12858,24 +12870,29 @@ msgstr "Element einen Fahrstreifen weiterschieben"
 msgid "Move element down one lane"
 msgstr "Element einen Fahrstreifen zurückschieben"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:631
-msgid "Reparent"
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:439
+#, c-format
+msgid "% file"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:632
+msgid "Reparent"
+msgstr ""
+
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:633
 msgid "Change parent of this element"
 msgstr "Elternelement wechseln"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:652
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:653
 #, c-format
 msgid "Inspect % parent"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:713
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:714
 msgid "Open dialog to select an existent file"
 msgstr "Dialog zur Auswahl einer existierenden Datei öffnen"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:715
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:716
 msgid "Open dialog to select or create an existent file"
 msgstr "Dialog zur Dateiauswahl öffnen"
 
@@ -13108,6 +13125,11 @@ msgstr "Ausgehende"
 #: src/netedit/frames/GNEElementTree.cpp:868
 msgid "SourceSinks (%)"
 msgstr ""
+
+#: src/netedit/frames/GNEElementTree.cpp:889
+#: src/netedit/frames/GNEElementTree.cpp:915
+msgid "Data elements"
+msgstr "Datenelemente"
 
 #: src/netedit/frames/GNEFrame.cpp:254
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:457

@@ -736,7 +736,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
     // get netconvert file dialog
-    const auto netConvertFileDialog = GNEFileDialog(this, TL("netConvert config file"),
+    const auto netConvertFileDialog = GNEFileDialog(this, TL("netconvert config file"),
                                       SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
                                       GNEFileDialog::OpenMode::LOAD_SINGLE,
                                       GNEFileDialog::ConfigType::NETEDIT);
@@ -768,7 +768,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // get OSM file dilaog
-    const auto OSMFileDialog = GNEFileDialog(this, TL("Open Street Map file"),
+    const auto OSMFileDialog = GNEFileDialog(this, TL("OpenStreetMap file"),
                                SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
                                GNEFileDialog::OpenMode::LOAD_SINGLE,
                                GNEFileDialog::ConfigType::NETEDIT);
