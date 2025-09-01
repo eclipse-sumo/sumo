@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-08-28 11:34:28 by Eclipse SUMO netconvert Version 1.24.0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="${SUMO_HOME}\data\typemap\osmNetconvert.typ.xml,${SUMO_HOME}\data\typemap\osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml.gz"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-3103465705" name="Schwalbach Nord" lane="-290389710_0" startPos="324.21" endPos="524.21" friendlyPos="true"/>
+    <busStop id="-4467772350" name="Kronberg Süd" lane="-26027334_0" startPos="446.70" endPos="646.70" friendlyPos="true" lines="S4"/>
+    <busStop id="-4467772352" name="Schwalbach Limes" lane="-42302184_0" startPos="436.87" endPos="636.87" friendlyPos="true"/>
+    <busStop id="2682026621" name="Eschborn" lane="26030949#1_0" startPos="43.70" endPos="243.70" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="284149548" name="Niederhöchstadt" lane="26289822#1_0" startPos="0.00" endPos="60.67" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="3103465705" name="Schwalbach Nord" lane="4817146#1_0" startPos="579.67" endPos="779.67" friendlyPos="true" lines="S3"/>
+    <busStop id="4440909936" name="Niederhöchstadt" lane="26030949#7_0" startPos="0.00" endPos="194.22" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="4467772350" name="Kronberg Süd" lane="26027334_0" startPos="1459.94" endPos="1659.94" friendlyPos="true" lines="S4"/>
+    <busStop id="4467772352" name="Schwalbach Limes" lane="290389709_0" startPos="228.15" endPos="428.15" friendlyPos="true" lines="S3"/>
+</additional>

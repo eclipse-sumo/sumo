@@ -12,3 +12,6 @@ stops_on_bidi
 
 # see #17024
 filter_stops
+
+# see #17024
+filter_stops_id
