@@ -1,7 +1,7 @@
 Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [243.1085206727148, -189.49294908058073])
 Cannot compute track ordering for edge '142019441#2' because it runs orthogonal to the main line (intersects: [251.91963646431395, -199.15446454424819])
 Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [427.1257427695964, -287.0891852222412])
-Optimization failed
+Optimization failed for region ALL
 Warning: Found angle of 180.00 degrees at edge '-427588057#0', segment 0.
 Warning: Found sharp turn with radius 0.00 at the start of edge '-427588057#0'.
 Warning: Found sharp turn with radius 8.42 at the start of edge '-56693794'.
