@@ -261,7 +261,7 @@ def differentOrderings(edgeIDs, o1, o2):
     return True
 
 
-def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
+def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, region):
     """
     precondition: network is rotated so that the mainLine is on the horizontal
     for each x-value we imagine a vertical line and find all the edges that intersect
@@ -314,7 +314,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                     print("sameOrdering:", prevOrdering, ordering)
 
     # step 3:
-    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords)
+    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region)
 
     # step 4: apply yValues to virtual nodes that were skipped
     if nodeYValues:
@@ -328,7 +328,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     return nodeYValues
 
 
-def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
+def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region):
     constrainedEdges = set()
     for _, ordering in orderings:
         for vNode in ordering:
@@ -427,7 +427,7 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
     res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
 
     if not res.success:
-        sys.stderr.write("Optimization failed\n")
+        sys.stderr.write("Optimization failed for region %s\n" % region)
         return dict()
 
     if options.verbose:
@@ -608,7 +608,7 @@ def main(options):
         mainLine = findMainline(options, name, net, allEdges, stops)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         if not options.skipYOpt:
-            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
+            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, name)
             if nodeYValues:
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
                 if options.trackLength:
