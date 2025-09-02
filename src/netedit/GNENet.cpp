@@ -1766,8 +1766,8 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         // 1:yes, 2:no, 4:esc
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
-            for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
-                deleteCrossing((*i), undoList);
+            for (const auto& crossing : myInvalidCrossings) {
+                deleteCrossing(crossing, undoList);
             }
             undoList->end();
         } else {
@@ -2237,16 +2237,12 @@ GNENet::saveAdditionals() {
         // open fix additional elements dialog
         const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
                                            invalidAdditionals);
-        if (fixAdditionalElements.getResult() == GNEDialog::Result::ACCEPT) {
+        if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
-        } else {
-            saveAdditionalsConfirmed();
-            return true;
         }
-    } else {
-        saveAdditionalsConfirmed();
-        return true;
     }
+    saveAdditionalsConfirmed();
+    return true;
 }
 
 
@@ -2289,16 +2285,12 @@ GNENet::saveDemandElements() {
         // open fix demand elements dialog
         const auto fixDemandElement = GNEFixDemandElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
                                       invalidSingleLaneDemandElements);
-        if (fixDemandElement.getResult() == GNEDialog::Result::ACCEPT) {
-            saveDemandElementsConfirmed();
-            return true;
-        } else {
+        if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
-    } else {
-        saveDemandElementsConfirmed();
-        return true;
     }
+    saveDemandElementsConfirmed();
+    return true;
 }
 
 

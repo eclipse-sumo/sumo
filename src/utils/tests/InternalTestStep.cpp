@@ -942,7 +942,7 @@ InternalTestStep::fixCrossings() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix crossings
-        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix crossings");
+        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix crossings");
         // accept changes
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
@@ -958,7 +958,7 @@ InternalTestStep::fixStoppingPlace() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix stoppingPlace
-        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix stoppingPlace in dialog");
+        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix stoppingPlace in dialog");
         // accept changes
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
@@ -974,7 +974,7 @@ InternalTestStep::fixRoute() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix route
-        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix route in dialog");
+        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix route in dialog");
         // accept changes
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
