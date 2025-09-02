@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-02 15:32+0200\n"
-"PO-Revision-Date: 2025-09-02 08:03+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-09-03 06:40+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -301,74 +301,80 @@ msgstr "Subtrai TEMPO segundos dos tempos de fluxo (dimensionados)"
 
 #: src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "Distância esperada entre dois conjuntos de dados sucessivos"
 
 #: src/dfrouter/RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Salvar calibradores em FILE"
 
 #: src/dfrouter/RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Incluir rotas que não tem veículos no arquivo de saída"
 
 #: src/dfrouter/RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Verifica se os detectores com fluxo calculado 0 podem atrair tráfego "
+"adicional"
 
 #: src/dfrouter/RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Remove detectores vazios da lista"
 
 #: src/dfrouter/RODFFrame.cpp:198
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
+"Se as vias com status desconhecido podem impedir que uma via se torne uma "
+"origem"
 
 #: src/dfrouter/RODFFrame.cpp:201
 msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Tentar determinar mais entradas para um detector intermediário ao calcular "
+"as probabilidades de divisão"
 
 #: src/dfrouter/RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Fator de escalamento de fluxo"
 
 #: src/dfrouter/RODFFrame.cpp:209 src/marouter/ROMAFrame.cpp:123
 #: src/od2trips_main.cpp:167 src/router/ROFrame.cpp:211
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "Atribui uma faixa de partida padrão"
 
 #: src/dfrouter/RODFFrame.cpp:212 src/marouter/ROMAFrame.cpp:127
 #: src/od2trips_main.cpp:170 src/router/ROFrame.cpp:214
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "Atribui uma posição de partida padrão"
 
 #: src/dfrouter/RODFFrame.cpp:215 src/marouter/ROMAFrame.cpp:131
 #: src/od2trips_main.cpp:173 src/router/ROFrame.cpp:217
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "Atribui uma velocidade de partida padrão"
 
 #: src/dfrouter/RODFFrame.cpp:218 src/marouter/ROMAFrame.cpp:135
 #: src/od2trips_main.cpp:176 src/router/ROFrame.cpp:220
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "Atribui uma faixa de chegada padrão"
 
 #: src/dfrouter/RODFFrame.cpp:221 src/marouter/ROMAFrame.cpp:139
 #: src/od2trips_main.cpp:179 src/router/ROFrame.cpp:223
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "Atribui uma posição de chegada padrão"
 
 #: src/dfrouter/RODFFrame.cpp:224 src/marouter/ROMAFrame.cpp:143
 #: src/od2trips_main.cpp:182 src/router/ROFrame.cpp:226
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "Atribui uma velocidade de chegada padrão"
 
 #: src/dfrouter/RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "O desvio padrão de velocidade padrão dos veículos"
 
 #: src/dfrouter/RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
