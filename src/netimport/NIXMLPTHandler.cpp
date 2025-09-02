@@ -155,6 +155,13 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
+        edge = myEdgeCont.retrieve(edgeID, true);
+        if (edge != nullptr && myEdgeCont.getSplit(edge) == nullptr) {
+            // splits are treated later
+            edge = nullptr;
+        }
+    }
+    if (edge == nullptr) {
         if (!myEdgeCont.wasIgnored(edgeID)) {
             WRITE_ERRORF(TL("Edge '%' for stop '%' not found"), edgeID, id);
         } else {
@@ -179,8 +186,24 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         if (endPos < 0) {
             endPos += edge->getLoadedLength();
         }
+        if (myEdgeCont.wasRemoved(edgeID) && (
+                    startPos >= endPos || startPos < 0 || endPos < 0
+                    || startPos >= edge->getLoadedLength()
+                    || endPos >= edge->getLoadedLength())) {
+            NBEdge* longest = myEdgeCont.getSplitBase(edgeID);
+            if (longest != nullptr) {
+                edge = longest;
+            }
+        }
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
+        while (myEdgeCont.getSplit(edge) != nullptr) {
+            myCurrentStop->resetLoaded();
+            const std::pair<NBEdge*, NBEdge*> split = *myEdgeCont.getSplit(edge);
+            if (myCurrentStop->replaceEdge(edgeID, {split.first, split.second})) {
+                edge = myEdgeCont.retrieve(myCurrentStop->getEdgeId(), true);
+            }
+        }
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERRORF(TL("Could not add public transport stop '%' (already exists)"), id);
         }

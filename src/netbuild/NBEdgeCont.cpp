@@ -764,6 +764,19 @@ NBEdgeCont::getAllNames() const {
 }
 
 
+NBEdge*
+NBEdgeCont::getSplitBase(const std::string& edgeID) const {
+    NBEdge* longest = nullptr;
+    for (auto item : myEdgesSplit) {
+        if (item.first->getID() == edgeID) {
+            if (longest == nullptr || longest->getLoadedLength() < item.first->getLoadedLength()) {
+                longest = const_cast<NBEdge*>(item.first);
+            }
+        }
+    }
+    return longest;
+}
+
 // ----- Adapting the input
 int
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {

@@ -305,6 +305,8 @@ public:
         return &split->second;
     }
 
+    NBEdge* getSplitBase(const std::string& edgeID) const;
+
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
