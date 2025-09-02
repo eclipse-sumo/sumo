@@ -95,6 +95,7 @@ jobs:
         python tools\build_config\version.py tools\build_config\setup-traci.py tools\setup.py
         python -m build --wheel tools -o dist
         python tools\build_config\buildWindowsSUMOWheel.py
+        python -m build --wheel --config-setting=-G=Ninja
 
     - name: Uploading artifacts
       if: matrix.build_type == 'sumo'
