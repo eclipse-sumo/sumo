@@ -591,7 +591,10 @@ def splitNet(options):
             print("Splitting %s edges to ensure distinct regions" % numSplits)
 
         # rebuilt the network and stop file
-        options.netfile = options.netfile[:-8] + ".split.net.xml"
+        if options.netfile[-11:] == ".net.xml.gz":
+            options.netfile = options.netfile[:-11] + ".split.net.xml.gz"
+        else:
+            options.netfile = options.netfile[:-8] + ".split.net.xml"
         if options.stopfile[-8:] == ".add.xml":
             options.stopfile = options.stopfile[:-8] + ".split.add.xml"
         else:
