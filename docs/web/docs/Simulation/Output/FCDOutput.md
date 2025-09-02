@@ -181,7 +181,7 @@ The option **--fcd-output.attributes ATTR1,ATTR2,...** restricts / extends the w
 The value **all** enables all attributes (including emission output). There are also some predefined attribute sets:
 - **location** refers to all location attributes enabled by default
 - **emissions** all direct emission values (CO, CO2 etc.)
-- **misc** all values in the table above which are not seleted by default (and not in the emission output)
+- **misc** all values in the table above which are not selected by default (and not in the emission output)
 
 ## Further Options
 

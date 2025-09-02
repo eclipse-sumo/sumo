@@ -60,7 +60,7 @@ Notes:
 - The interval end is the interval begin + aggregation time, meaning
   that values were collected within these steps excluding the end time
   itself. If the simulation ends before the last interval is over, the
-  interval will be prunned.
+  interval will be pruned.
 - The output file will be generated, does not have to exist earlier
   and will be overwritten if existing without any warning. The folder
   the output file shall be generated in must exist.

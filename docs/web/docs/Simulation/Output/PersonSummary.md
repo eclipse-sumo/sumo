@@ -4,7 +4,7 @@ title: PersonSummary
 
 This output contains the simulation-wide number of person that are
 loaded, inserted, running, waiting to be inserted, have reached their
-destination and how many persons are travelling in which modes.
+destination and how many persons are traveling in which modes.
 
 ## Instantiating within the Simulation
 

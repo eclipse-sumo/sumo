@@ -200,7 +200,7 @@ GNEAttributesEditorType::refreshAttributesEditor() {
             }
             // specific for single edited attributes
             if ((myEditedACs.size() == 1) && tagProperty->hasDialog()) {
-                // udpate and show edit dialog
+                // update and show edit dialog
                 myOpenDialogButton->setText(TLF("Open % dialog", tagProperty->getTagStr()).c_str());
                 myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty->getGUIIcon()));
                 myOpenDialogButton->show();

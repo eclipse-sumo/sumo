@@ -52,7 +52,7 @@ GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std:
     if (gCurrentFolder.length() > 0) {
         myFileSelector->setDirectory(gCurrentFolder);
     }
-    // open dialog whithout focusing the button
+    // open dialog without focusing the button
     openDialog(false);
 }
 
@@ -96,7 +96,7 @@ GNEFileDialog::getDirectory() const {
 
 long
 GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // udpate current folder
+    // update current folder
     gCurrentFolder = myFileSelector->getDirectory().c_str();
     // close dialog accepting changes
     return closeDialogAccepting();
