@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-21 11:50+0200\n"
+"POT-Creation-Date: 2025-09-02 15:32+0200\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -5949,49 +5949,49 @@ msgstr "無法插入路段 '%' (在分割路段 '%' 之前)。"
 msgid "Could not insert edge '%' after split of edge '%'."
 msgstr "無法插入路段 '%'(在分割路段 '%' 之後)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1394
+#: src/netbuild/NBEdgeCont.cpp:1407
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "載入的圓環 '%'正被 '%' 替換。"
 
-#: src/netbuild/NBEdgeCont.cpp:1807
+#: src/netbuild/NBEdgeCont.cpp:1820
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "路段 '%' 與路段 '%' 重疊了 %。"
 
-#: src/netbuild/NBEdgeCont.cpp:1823
+#: src/netbuild/NBEdgeCont.cpp:1836
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "路段 '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1825
+#: src/netbuild/NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "路段 '%' 的坡度(grade)為 %%。"
 
-#: src/netbuild/NBEdgeCont.cpp:1835
+#: src/netbuild/NBEdgeCont.cpp:1848
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "連接線(connection) '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1837
+#: src/netbuild/NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "連接線(connection) '%' 的坡度(grade)為 %%。"
 
-#: src/netbuild/NBEdgeCont.cpp:1877
+#: src/netbuild/NBEdgeCont.cpp:1890
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "不結合(joining)的輕軌電車(tram)路段 '%', 此路段有 % 車道。"
 
-#: src/netbuild/NBEdgeCont.cpp:1957
+#: src/netbuild/NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "輕軌電車(tram)路段 '%' 和 '%' 不明確 (針對車道 '%')。"
 
-#: src/netbuild/NBEdgeCont.cpp:2112 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netbuild/NBEdgeCont.cpp:2125 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "路段的 '%' 從節點(from-node)'%' 未知。"
 
-#: src/netbuild/NBEdgeCont.cpp:2116 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netbuild/NBEdgeCont.cpp:2129 src/netimport/NIImporter_SUMO.cpp:144
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
@@ -9390,43 +9390,43 @@ msgstr "未知的交通號誌布置(layout) '%';發生在節點 '%'。"
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr "將交通號誌類型由 '%' 更改為 '%'; 相關的交通號誌識別名是(tl) '%'。"
 
-#: src/netimport/NIXMLPTHandler.cpp:159
+#: src/netimport/NIXMLPTHandler.cpp:166
 #, c-format
 msgid "Edge '%' for stop '%' not found"
 msgstr "找不到路段 '%' 給停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:167
+#: src/netimport/NIXMLPTHandler.cpp:174
 #, c-format
 msgid "Lane '%' for stop '%' not found"
 msgstr "找不到車道(lane) '%' 給停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:185
+#: src/netimport/NIXMLPTHandler.cpp:209
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr "無法增加大眾運輸停靠站 '%' (已經存在)"
 
-#: src/netimport/NIXMLPTHandler.cpp:204
+#: src/netimport/NIXMLPTHandler.cpp:228
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "找不到連接通道(access)相接的路段 '%' 到停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:240
+#: src/netimport/NIXMLPTHandler.cpp:264
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 
-#: src/netimport/NIXMLPTHandler.cpp:281
+#: src/netimport/NIXMLPTHandler.cpp:305
 msgid "Found route outside line definition"
 msgstr "找到路徑外界線(route outside line)的定義"
 
-#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
+#: src/netimport/NIXMLPTHandler.cpp:315 src/netimport/NIXMLPTHandler.cpp:335
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "路徑中路段 '%' 無法找到; 路線(line)為 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:330
+#: src/netimport/NIXMLPTHandler.cpp:354
 msgid "Stop '%' within line '%' not found"
 msgstr "停靠點 '%' 無法找到; 路線(line)為 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:346
+#: src/netimport/NIXMLPTHandler.cpp:370
 msgid "Stop '%' within route '%' not found"
 msgstr "停靠點 '%' 無法找到; 路徑(route)為 '%'"
 
@@ -11402,15 +11402,15 @@ msgstr "從字串(string)到雙精度(doubles)的無效轉換 (%)"
 msgid "Invalid conversion from string to double (empty value)"
 msgstr "從字串(string)到雙精度(doubles)的無效轉換 (空值)"
 
-#: src/utils/common/Parameterised.cpp:187
+#: src/utils/common/Parameterised.cpp:196
 msgid "Invalid format of parameter (%)"
 msgstr "參數的格式無效 (%)"
 
-#: src/utils/common/Parameterised.cpp:212
+#: src/utils/common/Parameterised.cpp:221
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr "屬性 (%) 的格式無效。 屬性必須以字母開頭"
 
-#: src/utils/common/Parameterised.cpp:219
+#: src/utils/common/Parameterised.cpp:228
 msgid "Invalid format of attribute (%)"
 msgstr "屬性 (%) 的格式無效"
 
@@ -11693,7 +11693,7 @@ msgstr "展開 (Expand)"
 msgid "Expand frame to show all contents"
 msgstr "展開框架以顯示所有內容"
 
-#: src/utils/foxtools/MFXTextFieldSearch.cpp:86
+#: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
 msgstr "鍵入搜尋..."
 
@@ -12068,7 +12068,7 @@ msgstr ""
 msgid "Could not redirect to NUL device (%)."
 msgstr "無法重定向到NUL裝置 (%)。"
 
-#: src/utils/iodevices/ParquetFormatter.h:201
+#: src/utils/iodevices/ParquetFormatter.h:165
 msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
@@ -12779,6 +12779,10 @@ msgid "The XML-parser could not be build."
 msgstr "無法建立XML解析器(parser)。"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
@@ -12946,20 +12950,16 @@ msgstr ""
 msgid "MP4 Video (*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-msgid "XML files (*.xml)"
-msgstr ""
-
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "View settings files (*.xml,*.xml.gz)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1811
 msgid "State GZipped XML files (*.xml.gz)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+msgid "XML files (*.xml)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817

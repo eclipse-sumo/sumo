@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-21 11:50+0200\n"
+"POT-Creation-Date: 2025-09-02 15:32+0200\n"
 "PO-Revision-Date: 2025-08-05 08:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -6788,50 +6788,50 @@ msgstr ""
 msgid "Could not insert edge '%' after split of edge '%'."
 msgstr "Non ho potuto inserire l'arco '%' oltre la separazione dell'arco '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:1394
+#: src/netbuild/NBEdgeCont.cpp:1407
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "Sostuisco la rotatoria caricata '%' con '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:1807
+#: src/netbuild/NBEdgeCont.cpp:1820
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "L'arco '%' si sovrappone all'arco '%' per %."
 
-#: src/netbuild/NBEdgeCont.cpp:1823
+#: src/netbuild/NBEdgeCont.cpp:1836
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "L'arco '%' contiene un salto verticale de %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1825
+#: src/netbuild/NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "L'arco '%' ha un'inclinazione di %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1835
+#: src/netbuild/NBEdgeCont.cpp:1848
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "Il collegamento '%' ha un salto verticale di %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1837
+#: src/netbuild/NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "Il collegamento '%' ha un'inclinazione di %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1877
+#: src/netbuild/NBEdgeCont.cpp:1890
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 "L'arco tranviario '%' con % corsie non viene combinato con altri archi."
 
-#: src/netbuild/NBEdgeCont.cpp:1957
+#: src/netbuild/NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "Archi di tranvie ambigue '%' e '%' per corsia '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:2112 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netbuild/NBEdgeCont.cpp:2125 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "L'arco '%' tiene un nodo iniziale '%' sconosciuto."
 
-#: src/netbuild/NBEdgeCont.cpp:2116 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netbuild/NBEdgeCont.cpp:2129 src/netimport/NIImporter_SUMO.cpp:144
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
@@ -10585,47 +10585,47 @@ msgstr "Disposizione di semafori '%' sconosciuta nel nodo '%'."
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr "Cambio del tipo da '%' a '%' per semaforo '%'."
 
-#: src/netimport/NIXMLPTHandler.cpp:159
+#: src/netimport/NIXMLPTHandler.cpp:166
 #, c-format
 msgid "Edge '%' for stop '%' not found"
 msgstr "Non è stato trovato l'arco '%' della fermata '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:167
+#: src/netimport/NIXMLPTHandler.cpp:174
 #, c-format
 msgid "Lane '%' for stop '%' not found"
 msgstr "Non è stato trovata la corsia '%' della fermata '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:185
+#: src/netimport/NIXMLPTHandler.cpp:209
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr ""
 "Non ho potuto aggiungere la fermata di trasporto pubblico '%' perché esiste "
 "già"
 
-#: src/netimport/NIXMLPTHandler.cpp:204
+#: src/netimport/NIXMLPTHandler.cpp:228
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "Non è stato trovato l'arco per l'accesso alla fermata '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:240
+#: src/netimport/NIXMLPTHandler.cpp:264
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 "Si è prodotto un codice identificativo di una linea di trasporto pubblico "
 "raddoppiato ('%'); Si suppone di poter sovrascivere."
 
-#: src/netimport/NIXMLPTHandler.cpp:281
+#: src/netimport/NIXMLPTHandler.cpp:305
 msgid "Found route outside line definition"
 msgstr "Un itinerario è stato incontrato fuori della definizione di linea"
 
-#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
+#: src/netimport/NIXMLPTHandler.cpp:315 src/netimport/NIXMLPTHandler.cpp:335
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "L'arco '%' non è stato trovato nell'itinerario della linea '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:330
+#: src/netimport/NIXMLPTHandler.cpp:354
 msgid "Stop '%' within line '%' not found"
 msgstr "La fermata '%' della linea '%' non è stata trovata"
 
-#: src/netimport/NIXMLPTHandler.cpp:346
+#: src/netimport/NIXMLPTHandler.cpp:370
 msgid "Stop '%' within route '%' not found"
 msgstr "La fermata '%' dell'itinerario '%' non è stata trovata"
 
@@ -12771,17 +12771,17 @@ msgstr "Conversione invalida da string a double (%)"
 msgid "Invalid conversion from string to double (empty value)"
 msgstr "Conversione invalida da string a double (valore vuoto)"
 
-#: src/utils/common/Parameterised.cpp:187
+#: src/utils/common/Parameterised.cpp:196
 msgid "Invalid format of parameter (%)"
 msgstr "Formato invalido di parametro (%)"
 
-#: src/utils/common/Parameterised.cpp:212
+#: src/utils/common/Parameterised.cpp:221
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr ""
 "Formato invalido dell'attributo '%'. L'attributo deve iniziare con una "
 "lettera"
 
-#: src/utils/common/Parameterised.cpp:219
+#: src/utils/common/Parameterised.cpp:228
 msgid "Invalid format of attribute (%)"
 msgstr "Formato invalido di attributo (%)"
 
@@ -13094,7 +13094,7 @@ msgstr "Estendi"
 msgid "Expand frame to show all contents"
 msgstr "Estendi il riquadro per mostrare tutti il contenuto"
 
-#: src/utils/foxtools/MFXTextFieldSearch.cpp:86
+#: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
 msgstr "Digita per cercare..."
 
@@ -13511,7 +13511,7 @@ msgstr "Attributo sconosciuto '%' da scrivere in %."
 msgid "Could not redirect to NUL device (%)."
 msgstr "Non è stato possibile dirottare l'uscita verso il dispositivo NUL (%)."
 
-#: src/utils/iodevices/ParquetFormatter.h:201
+#: src/utils/iodevices/ParquetFormatter.h:165
 msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
@@ -14258,6 +14258,10 @@ msgid "The XML-parser could not be build."
 msgstr "L'analizzatore XML non poteva essere creato."
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
@@ -14425,20 +14429,16 @@ msgstr ""
 msgid "MP4 Video (*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-msgid "XML files (*.xml)"
-msgstr ""
-
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "View settings files (*.xml,*.xml.gz)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1811
 msgid "State GZipped XML files (*.xml.gz)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+msgid "XML files (*.xml)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817

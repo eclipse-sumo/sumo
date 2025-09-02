@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-01 11:24+0200\n"
+"POT-Creation-Date: 2025-09-02 15:32+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -119,7 +119,7 @@ msgstr "Mevcut Seçenekleri Bir Yapılandırma Dosyası Olarak Kaydet."
 
 #: src/gui/GUIApplicationWindow.cpp:490
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
-#: src/netedit/dialogs/GNEDialog.cpp:447
+#: src/netedit/dialogs/GNEDialog.cpp:455
 msgid "Close"
 msgstr "Kapat"
 
@@ -386,8 +386,8 @@ msgstr ""
 msgid "Simulation"
 msgstr "Simülasyon"
 
-#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:405
-#: src/netedit/dialogs/GNEDialog.cpp:422
+#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:413
+#: src/netedit/dialogs/GNEDialog.cpp:430
 msgid "Run"
 msgstr "Başlat"
 
@@ -428,11 +428,11 @@ msgstr "Gecikme-"
 msgid "Decrease simulation step delay."
 msgstr "Simülasyon Adım Gecikmesini Düşür."
 
-#: src/gui/GUIApplicationWindow.cpp:604 src/netedit/dialogs/GNEDialog.cpp:332
+#: src/gui/GUIApplicationWindow.cpp:604 src/netedit/dialogs/GNEDialog.cpp:340
 #: src/netedit/dialogs/GNEParametersDialog.cpp:297
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1366
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2823
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1361
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2818
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:71
 msgid "Save"
 msgstr "Kaydet"
@@ -444,7 +444,7 @@ msgstr "Mevcut Simülasyon Durumunu Dosyaya Kaydet."
 #: src/gui/GUIApplicationWindow.cpp:607
 #: src/netedit/dialogs/GNEParametersDialog.cpp:296
 #: src/netedit/frames/common/GNESelectorFrame.cpp:263
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2820
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2815
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load"
 msgstr "Yükle"
@@ -1069,7 +1069,7 @@ msgstr ""
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
 #: src/gui/dialogs/GUIDialog_HallOfFame.cpp:56
-#: src/netedit/dialogs/GNEDialog.cpp:293
+#: src/netedit/dialogs/GNEDialog.cpp:301
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:96
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
@@ -1131,7 +1131,7 @@ msgstr "Temizle"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:129
 #: src/netedit/GNETagPropertiesDatabase.cpp:1750
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:388
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:418
 msgid "Time"
 msgstr "Zaman"
 
@@ -1145,7 +1145,7 @@ msgstr "Kesme Noktalarını Kaydet"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:177
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:163
-#: src/utils/gui/tracker/GUIParameterTracker.cpp:259
+#: src/utils/gui/tracker/GUIParameterTracker.cpp:258
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:246
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1144
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1227
@@ -1298,55 +1298,55 @@ msgstr "son serbest konum [m]"
 msgid "waiting for:"
 msgstr "beklemek için:"
 
-#: src/guisim/GUICalibrator.cpp:309
+#: src/guisim/GUICalibrator.cpp:295
 msgid "interval start"
 msgstr "aralık başlangıcı"
 
-#: src/guisim/GUICalibrator.cpp:310
+#: src/guisim/GUICalibrator.cpp:296
 msgid "interval end"
 msgstr "aralık sonu"
 
-#: src/guisim/GUICalibrator.cpp:311
+#: src/guisim/GUICalibrator.cpp:297
 msgid "aspired flow [veh/h]"
 msgstr "çekilen akış [veh/h]"
 
-#: src/guisim/GUICalibrator.cpp:312
+#: src/guisim/GUICalibrator.cpp:298
 msgid "aspired speed"
 msgstr "çekilen hız"
 
-#: src/guisim/GUICalibrator.cpp:313
+#: src/guisim/GUICalibrator.cpp:299
 msgid "current flow [veh/h]"
 msgstr "akım akışı [veh/h]"
 
-#: src/guisim/GUICalibrator.cpp:314
+#: src/guisim/GUICalibrator.cpp:300
 msgid "current speed"
 msgstr "Geçerli hız"
 
-#: src/guisim/GUICalibrator.cpp:315
+#: src/guisim/GUICalibrator.cpp:301
 msgid "default speed"
 msgstr "varsayılan hız"
 
-#: src/guisim/GUICalibrator.cpp:316
+#: src/guisim/GUICalibrator.cpp:302
 msgid "required vehicles"
 msgstr "araç gereksinimi"
 
-#: src/guisim/GUICalibrator.cpp:317
+#: src/guisim/GUICalibrator.cpp:303
 msgid "passed vehicles"
 msgstr "geçen araçlar"
 
-#: src/guisim/GUICalibrator.cpp:318
+#: src/guisim/GUICalibrator.cpp:304
 msgid "inserted vehicles"
 msgstr "eklenen araçlar"
 
-#: src/guisim/GUICalibrator.cpp:319
+#: src/guisim/GUICalibrator.cpp:305
 msgid "removed vehicles"
 msgstr "çıkarılan araçlar"
 
-#: src/guisim/GUICalibrator.cpp:320
+#: src/guisim/GUICalibrator.cpp:306
 msgid "cleared in jam"
 msgstr "sıkışmadan temizlendi"
 
-#: src/guisim/GUICalibrator.cpp:327
+#: src/guisim/GUICalibrator.cpp:313
 msgid "inactive until"
 msgstr "kadar aktif değil"
 
@@ -1406,7 +1406,7 @@ msgid "position [m]"
 msgstr "konum [m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
-#: src/guisim/GUILaneSpeedTrigger.cpp:303 src/guisim/GUIPerson.cpp:240
+#: src/guisim/GUILaneSpeedTrigger.cpp:302 src/guisim/GUIPerson.cpp:240
 #: src/guisim/GUIVehicle.cpp:122
 msgid "speed [m/s]"
 msgstr "hız [m/s]"
@@ -1453,8 +1453,8 @@ msgstr "kütle [kg]"
 msgid "maximum speed [m/s]"
 msgstr "maksimum hız [m/s]"
 
-#: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:185
-#: src/guisim/GUILane.cpp:1061 src/guisim/GUIVehicle.cpp:235
+#: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:187
+#: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:235
 msgid "length [m]"
 msgstr "uzunluk [m]"
 
@@ -1469,7 +1469,7 @@ msgstr "şerit"
 msgid "vTypes"
 msgstr "vTürleri"
 
-#: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:194
+#: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:196
 msgid "vehicles [#]"
 msgstr "Araçlar [#]"
 
@@ -1565,135 +1565,135 @@ msgstr "son aralık ortalama zaman kaybı [s]"
 msgid "last interval mean vehicle count [#]"
 msgstr "son aralık ortalama araç sayısı [#]"
 
-#: src/guisim/GUIEdge.cpp:184
+#: src/guisim/GUIEdge.cpp:186
 msgid "max speed [m/s]"
 msgstr "maksimum hız [m/s]"
 
-#: src/guisim/GUIEdge.cpp:186 src/guisim/GUILane.cpp:1063
+#: src/guisim/GUIEdge.cpp:188 src/guisim/GUILane.cpp:1064
 msgid "street name"
 msgstr "cadde adı"
 
-#: src/guisim/GUIEdge.cpp:187 src/guisim/GUILane.cpp:1071
+#: src/guisim/GUIEdge.cpp:189 src/guisim/GUILane.cpp:1072
 msgid "pending insertions [#]"
 msgstr "bekleyen eklemeler [#]"
 
-#: src/guisim/GUIEdge.cpp:188
+#: src/guisim/GUIEdge.cpp:190
 msgid "mean friction [%]"
 msgstr "ortalama sürtünme [%]"
 
-#: src/guisim/GUIEdge.cpp:189
+#: src/guisim/GUIEdge.cpp:191
 msgid "mean vehicle speed [m/s]"
 msgstr "ortalama araç hızı [m/s]"
 
-#: src/guisim/GUIEdge.cpp:190 src/guisim/GUILane.cpp:1066
+#: src/guisim/GUIEdge.cpp:192 src/guisim/GUILane.cpp:1067
 msgid "routing speed [m/s]"
 msgstr "yönlendirme hızı [m/s]"
 
-#: src/guisim/GUIEdge.cpp:191 src/guisim/GUILane.cpp:1068
+#: src/guisim/GUIEdge.cpp:193 src/guisim/GUILane.cpp:1069
 msgid "time penalty [s]"
 msgstr "zaman cezası [s]"
 
-#: src/guisim/GUIEdge.cpp:192 src/guisim/GUILane.cpp:1069
+#: src/guisim/GUIEdge.cpp:194 src/guisim/GUILane.cpp:1070
 msgid "brutto occupancy [%]"
 msgstr "kaba doluluk oranı [%]"
 
-#: src/guisim/GUIEdge.cpp:193
+#: src/guisim/GUIEdge.cpp:195
 msgid "flow [veh/h/lane]"
 msgstr "akış [veh/h/lane]"
 
-#: src/guisim/GUIEdge.cpp:197
+#: src/guisim/GUIEdge.cpp:199
 msgid "segment index"
 msgstr "bölüm dizini"
 
-#: src/guisim/GUIEdge.cpp:198
+#: src/guisim/GUIEdge.cpp:200
 msgid "segment queues"
 msgstr "segment kuyrukları"
 
-#: src/guisim/GUIEdge.cpp:199
+#: src/guisim/GUIEdge.cpp:201
 msgid "segment length [m]"
 msgstr "segment uzunluğu [m]"
 
-#: src/guisim/GUIEdge.cpp:200
+#: src/guisim/GUIEdge.cpp:202
 msgid "segment allowed speed [m/s]"
 msgstr "segmentin izin verdiği hız [m/s]"
 
-#: src/guisim/GUIEdge.cpp:201
+#: src/guisim/GUIEdge.cpp:203
 msgid "segment jam threshold [%]"
 msgstr "segment sıkışma eşiği [%]"
 
-#: src/guisim/GUIEdge.cpp:202
+#: src/guisim/GUIEdge.cpp:204
 msgid "segment brutto occupancy [%]"
 msgstr "segmentin kaba doluluğu [%]"
 
-#: src/guisim/GUIEdge.cpp:203
+#: src/guisim/GUIEdge.cpp:205
 msgid "segment mean vehicle speed [m/s]"
 msgstr "segment ortalama araç hızı [m/s]"
 
-#: src/guisim/GUIEdge.cpp:204
+#: src/guisim/GUIEdge.cpp:206
 msgid "segment flow [veh/h/lane]"
 msgstr "segment akışı [araç/s/şerit]"
 
-#: src/guisim/GUIEdge.cpp:205
+#: src/guisim/GUIEdge.cpp:207
 msgid "segment vehicles [#]"
 msgstr "segment araçları [#]"
 
-#: src/guisim/GUIEdge.cpp:206
+#: src/guisim/GUIEdge.cpp:208
 msgid "segment leader leave time"
 msgstr "segment lideri izin süresi"
 
-#: src/guisim/GUIEdge.cpp:207
+#: src/guisim/GUIEdge.cpp:209
 msgid "segment headway [s]"
 msgstr "segment ilerlemesi [s]"
 
-#: src/guisim/GUIEdge.cpp:208
+#: src/guisim/GUIEdge.cpp:210
 msgid "segment entry block time [s]"
 msgstr "segment girişi blok süresi [s]"
 
-#: src/guisim/GUIEdge.cpp:226
+#: src/guisim/GUIEdge.cpp:228
 msgid "Type Information:"
 msgstr "Tür Bilgisi:"
 
-#: src/guisim/GUIEdge.cpp:227
+#: src/guisim/GUIEdge.cpp:229
 msgid "type [id]"
 msgstr "Tür [id]"
 
-#: src/guisim/GUIEdge.cpp:228
+#: src/guisim/GUIEdge.cpp:230
 msgid "tauff"
 msgstr "tauff"
 
-#: src/guisim/GUIEdge.cpp:229
+#: src/guisim/GUIEdge.cpp:231
 msgid "taufj"
 msgstr "taufj"
 
-#: src/guisim/GUIEdge.cpp:230
+#: src/guisim/GUIEdge.cpp:232
 msgid "taujf"
 msgstr "taujf"
 
-#: src/guisim/GUIEdge.cpp:231
+#: src/guisim/GUIEdge.cpp:233
 msgid "taujj"
 msgstr "taujj"
 
-#: src/guisim/GUIEdge.cpp:232
+#: src/guisim/GUIEdge.cpp:234
 msgid "jam threshold"
 msgstr "sıkışma eşiği"
 
-#: src/guisim/GUIEdge.cpp:233
+#: src/guisim/GUIEdge.cpp:235
 msgid "junction control"
 msgstr "kavşak kontrolü"
 
-#: src/guisim/GUIEdge.cpp:234
+#: src/guisim/GUIEdge.cpp:236
 msgid "tls penalty"
 msgstr "tls cezası"
 
-#: src/guisim/GUIEdge.cpp:235
+#: src/guisim/GUIEdge.cpp:237
 msgid "tls flow penalty"
 msgstr "tls akış cezası"
 
-#: src/guisim/GUIEdge.cpp:236
+#: src/guisim/GUIEdge.cpp:238
 msgid "minor penalty"
 msgstr "küçük ceza"
 
-#: src/guisim/GUIEdge.cpp:237
+#: src/guisim/GUIEdge.cpp:239
 msgid "overtaking"
 msgstr "sollama"
 
@@ -1721,108 +1721,108 @@ msgstr "aralıklarla girilen araçlar [#]"
 msgid "last interval entered vehicles [#]"
 msgstr "son aralığa girilen araçlar [#]"
 
-#: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1073
+#: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1074
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:239 src/guisim/GUIVehicle.cpp:234
 msgid "type"
 msgstr "tür"
 
-#: src/guisim/GUILane.cpp:1009
+#: src/guisim/GUILane.cpp:1010
 msgid "Copy edge name to clipboard"
 msgstr "Kenar adını panoya kopyala"
 
-#: src/guisim/GUILane.cpp:1017
+#: src/guisim/GUILane.cpp:1018
 msgid "pos: "
 msgstr "pos: "
 
-#: src/guisim/GUILane.cpp:1017
+#: src/guisim/GUILane.cpp:1018
 msgid "height: "
 msgstr "yükseklik: "
 
-#: src/guisim/GUILane.cpp:1026
+#: src/guisim/GUILane.cpp:1027
 msgid "Reopen lane"
 msgstr "Şeridi yeniden aç"
 
-#: src/guisim/GUILane.cpp:1027
+#: src/guisim/GUILane.cpp:1028
 msgid "Reopen edge"
 msgstr "Kenarı yeniden aç"
 
-#: src/guisim/GUILane.cpp:1029
+#: src/guisim/GUILane.cpp:1030
 msgid "Reopen lane (override rerouter)"
 msgstr "Şeridi yeniden aç (yeniden yönlendiriciyi geçersiz kıl)"
 
-#: src/guisim/GUILane.cpp:1030
+#: src/guisim/GUILane.cpp:1031
 msgid "Reopen edge (override rerouter)"
 msgstr "Kenarı yeniden aç (yeniden yönlendiriciyi geçersiz kıl)"
 
-#: src/guisim/GUILane.cpp:1033
+#: src/guisim/GUILane.cpp:1034
 msgid "Close lane"
 msgstr "Şeridi kapat"
 
-#: src/guisim/GUILane.cpp:1034
+#: src/guisim/GUILane.cpp:1035
 msgid "Close edge"
 msgstr "Kenarı kapat"
 
-#: src/guisim/GUILane.cpp:1036
+#: src/guisim/GUILane.cpp:1037
 msgid "Add rerouter"
 msgstr "Yeniden yönlendirici ekle"
 
-#: src/guisim/GUILane.cpp:1041 src/netedit/elements/network/GNELane.cpp:2224
+#: src/guisim/GUILane.cpp:1042 src/netedit/elements/network/GNELane.cpp:2224
 msgid "Select reachable"
 msgstr "Ulaşılabilir olanı seç"
 
-#: src/guisim/GUILane.cpp:1054 src/guisim/GUILane.cpp:1058
+#: src/guisim/GUILane.cpp:1055 src/guisim/GUILane.cpp:1059
 msgid "allowed speed [m/s]"
 msgstr "izin verilen hız [m/s]"
 
-#: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:236
+#: src/guisim/GUILane.cpp:1063 src/guisim/GUIVehicle.cpp:236
 msgid "width [m]"
 msgstr "genişlik [m]"
 
-#: src/guisim/GUILane.cpp:1064
+#: src/guisim/GUILane.cpp:1065
 msgid "stored travel time [s]"
 msgstr "kayıtlı seyahat süresi [s]"
 
-#: src/guisim/GUILane.cpp:1065
+#: src/guisim/GUILane.cpp:1066
 msgid "loaded weight"
 msgstr "yüklü ağırlık"
 
-#: src/guisim/GUILane.cpp:1067
+#: src/guisim/GUILane.cpp:1068
 msgid "lane friction coefficient [%]"
 msgstr "şerit sürtünme katsayısı [%]"
 
-#: src/guisim/GUILane.cpp:1070
+#: src/guisim/GUILane.cpp:1071
 msgid "netto occupancy [%]"
 msgstr "net doluluk [%]"
 
-#: src/guisim/GUILane.cpp:1072
+#: src/guisim/GUILane.cpp:1073
 msgid "edge type"
 msgstr "kenar tipi"
 
-#: src/guisim/GUILane.cpp:1074 src/guisim/GUITrafficLightLogicWrapper.cpp:257
+#: src/guisim/GUILane.cpp:1075 src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
 msgstr "öncelik"
 
-#: src/guisim/GUILane.cpp:1075
+#: src/guisim/GUILane.cpp:1076
 msgid "distance [km]"
 msgstr "mesafe [km]"
 
-#: src/guisim/GUILane.cpp:1076
+#: src/guisim/GUILane.cpp:1077
 msgid "allowed vehicle class"
 msgstr "izin verilen araç sınıfı"
 
-#: src/guisim/GUILane.cpp:1077
+#: src/guisim/GUILane.cpp:1078
 msgid "disallowed vehicle class"
 msgstr "izin verilmeyen araç sınıfı"
 
-#: src/guisim/GUILane.cpp:1078
+#: src/guisim/GUILane.cpp:1079
 msgid "permission code"
 msgstr "izin kodu"
 
-#: src/guisim/GUILane.cpp:1079
+#: src/guisim/GUILane.cpp:1080
 msgid "color value"
 msgstr "renk değeri"
 
-#: src/guisim/GUILane.cpp:1081
+#: src/guisim/GUILane.cpp:1082
 msgid "bidi-lane"
 msgstr "çift şeritli"
 
@@ -3570,7 +3570,7 @@ msgid "Create vehicles."
 msgstr "Araç oluştur."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:714
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:386
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:416
 msgid "Type"
 msgstr "Tip"
 
@@ -3610,7 +3610,7 @@ msgstr "Yolcu planları oluştur."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:729
 #: src/netedit/GNETagPropertiesDatabase.cpp:3383
-#: src/netedit/frames/GNETagSelector.cpp:114
+#: src/netedit/frames/GNETagSelector.cpp:116
 msgid "Container"
 msgstr "Konteyner"
 
@@ -4058,7 +4058,7 @@ msgid "Configure sumo Options."
 msgstr "Sumo Seçeneklerini Yapılandır."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1900
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:93
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:95
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 msgid "Options"
 msgstr "Seçenekler"
@@ -4971,7 +4971,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:411
 #: src/netedit/GNETagPropertiesDatabase.cpp:413
-#: src/netedit/frames/GNETagSelector.cpp:90
+#: src/netedit/frames/GNETagSelector.cpp:92
 msgid "Additional elements"
 msgstr "Ek Elemanlar"
 
@@ -4982,13 +4982,13 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:432
 #: src/netedit/GNETagPropertiesDatabase.cpp:434
-#: src/netedit/frames/GNETagSelector.cpp:99
+#: src/netedit/frames/GNETagSelector.cpp:101
 msgid "Wire elements"
 msgstr "Enerji Hattı Elemanları"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:439
 #: src/netedit/GNETagPropertiesDatabase.cpp:441
-#: src/netedit/frames/GNETagSelector.cpp:93
+#: src/netedit/frames/GNETagSelector.cpp:95
 msgid "Shape elements"
 msgstr "Şekil Elemanları"
 
@@ -5000,7 +5000,7 @@ msgstr "JuPedSim elemanları"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:452
 #: src/netedit/GNETagPropertiesDatabase.cpp:454
-#: src/netedit/frames/GNETagSelector.cpp:96
+#: src/netedit/frames/GNETagSelector.cpp:98
 msgid "TAZ elements"
 msgstr "TAB Elemanları"
 
@@ -5008,7 +5008,7 @@ msgstr "TAB Elemanları"
 #: src/netedit/GNETagPropertiesDatabase.cpp:461
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:187
 #: src/netedit/elements/demand/GNEVehicle.cpp:272
-#: src/netedit/frames/GNETagSelector.cpp:102
+#: src/netedit/frames/GNETagSelector.cpp:104
 #: src/netedit/frames/common/GNESelectorFrame.cpp:116
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:130
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1942
@@ -5031,13 +5031,13 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:480
 #: src/netedit/GNETagPropertiesDatabase.cpp:482
-#: src/netedit/frames/GNETagSelector.cpp:111
+#: src/netedit/frames/GNETagSelector.cpp:113
 msgid "Person plans"
 msgstr "Yolcu Planları"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:487
 #: src/netedit/GNETagPropertiesDatabase.cpp:489
-#: src/netedit/frames/GNETagSelector.cpp:120
+#: src/netedit/frames/GNETagSelector.cpp:122
 #: src/netedit/frames/common/GNESelectorFrame.cpp:118
 msgid "Person trips"
 msgstr "Yolcu Seyahatleri"
@@ -5059,7 +5059,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:515
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
-#: src/netedit/frames/GNETagSelector.cpp:117
+#: src/netedit/frames/GNETagSelector.cpp:119
 msgid "Container plans"
 msgstr "Konteyner Planları"
 
@@ -9378,245 +9378,245 @@ msgstr "TABİlişkili yalnızca şuradan çizmeyi aç/kapat"
 msgid "Toggle draw TAZRel only to"
 msgstr "TABİlişkili yalnızca şuraya çizmeyi aç/kapat"
 
-#: src/netedit/GNEViewNetHelper.cpp:3451
+#: src/netedit/GNEViewNetHelper.cpp:3452
 msgid "Data type"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3465
+#: src/netedit/GNEViewNetHelper.cpp:3466
 msgid "Data sets"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3474
+#: src/netedit/GNEViewNetHelper.cpp:3475
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
 msgid "Interval"
 msgstr "Aralık"
 
-#: src/netedit/GNEViewNetHelper.cpp:3486
+#: src/netedit/GNEViewNetHelper.cpp:3487
 msgid "Parameter"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3801
+#: src/netedit/GNEViewNetHelper.cpp:3802
 msgid "Inspect mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3801
+#: src/netedit/GNEViewNetHelper.cpp:3802
 msgid "Mode to inspect elements and change their attributes. (I)"
 msgstr "Elemanları incelemek ve niteliklerini değiştirmek için mod. (I)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3806
+#: src/netedit/GNEViewNetHelper.cpp:3807
 msgid "Delete mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3806
+#: src/netedit/GNEViewNetHelper.cpp:3807
 msgid "Mode for deleting elements. (D)"
 msgstr "Elemanları silmek için mod. (D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3811
+#: src/netedit/GNEViewNetHelper.cpp:3812
 msgid "Select mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3811
+#: src/netedit/GNEViewNetHelper.cpp:3812
 msgid "Mode for selecting elements. (S)"
 msgstr "Eleman seçme modu. (S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3867 src/netedit/GNEViewNetHelper.cpp:4020
+#: src/netedit/GNEViewNetHelper.cpp:3868 src/netedit/GNEViewNetHelper.cpp:4021
 msgid "Move mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3867 src/netedit/GNEViewNetHelper.cpp:4020
+#: src/netedit/GNEViewNetHelper.cpp:3868 src/netedit/GNEViewNetHelper.cpp:4021
 msgid "Mode for moving elements. (M)"
 msgstr "Elemanları taşımak için mod. (M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3872
+#: src/netedit/GNEViewNetHelper.cpp:3873
 msgid "Edge mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3872
+#: src/netedit/GNEViewNetHelper.cpp:3873
 msgid "Mode for creating junctions and edges. (E)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3877
+#: src/netedit/GNEViewNetHelper.cpp:3878
 msgid "Traffic light mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3877
+#: src/netedit/GNEViewNetHelper.cpp:3878
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr "Kavşaklar üzerindeki trafik ışıklarını düzenleme modu. (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3882
+#: src/netedit/GNEViewNetHelper.cpp:3883
 msgid "Connection mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3882
+#: src/netedit/GNEViewNetHelper.cpp:3883
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "Şeritler arasındaki bağlantıları düzenlemek için mod. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3887
+#: src/netedit/GNEViewNetHelper.cpp:3888
 msgid "Prohibition mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3887
+#: src/netedit/GNEViewNetHelper.cpp:3888
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Bağlantı yasaklarını düzenleme modu. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3892
+#: src/netedit/GNEViewNetHelper.cpp:3893
 msgid "Crossing mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3892
+#: src/netedit/GNEViewNetHelper.cpp:3893
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Kesimler arasında geçitler oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3897
+#: src/netedit/GNEViewNetHelper.cpp:3898
 msgid "Additional mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3897
+#: src/netedit/GNEViewNetHelper.cpp:3898
 msgid "Mode for creating additional elements. (A)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3902
+#: src/netedit/GNEViewNetHelper.cpp:3903
 msgid "Wire mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3902
+#: src/netedit/GNEViewNetHelper.cpp:3903
 msgid "Mode for editing overhead wires. (W)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3907
+#: src/netedit/GNEViewNetHelper.cpp:3908
 msgid "TAZ mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3907
+#: src/netedit/GNEViewNetHelper.cpp:3908
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Trafik Atama Bölgeleri oluşturma modu. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3912
+#: src/netedit/GNEViewNetHelper.cpp:3913
 msgid "Polygon mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3912
+#: src/netedit/GNEViewNetHelper.cpp:3913
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Çokgen ve EN'ler oluşturmak için mod. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3917
+#: src/netedit/GNEViewNetHelper.cpp:3918
 msgid "Decal mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:3917
+#: src/netedit/GNEViewNetHelper.cpp:3918
 msgid "Mode for editing decals. (U)"
 msgstr "Etiketleri düzenleme modu. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4025
+#: src/netedit/GNEViewNetHelper.cpp:4026
 #: src/netedit/frames/demand/GNERouteFrame.cpp:56
 msgid "Route mode"
 msgstr "Rota modu"
 
-#: src/netedit/GNEViewNetHelper.cpp:4025
+#: src/netedit/GNEViewNetHelper.cpp:4026
 msgid "Mode for creating routes. (R)"
 msgstr "Rota oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4030
+#: src/netedit/GNEViewNetHelper.cpp:4031
 msgid "Route distribution mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4030
+#: src/netedit/GNEViewNetHelper.cpp:4031
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr "Rota dağıtımları oluşturma ve düzenleme modu. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4035
+#: src/netedit/GNEViewNetHelper.cpp:4036
 msgid "Vehicle mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4035
+#: src/netedit/GNEViewNetHelper.cpp:4036
 msgid "Mode for creating vehicles. (V)"
 msgstr "Araçlar oluşturmak için mod. (V)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4040
+#: src/netedit/GNEViewNetHelper.cpp:4041
 msgid "Type mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4040
+#: src/netedit/GNEViewNetHelper.cpp:4041
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4045
+#: src/netedit/GNEViewNetHelper.cpp:4046
 msgid "Type distribution mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4045
+#: src/netedit/GNEViewNetHelper.cpp:4046
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr "Tür dağılımı oluşturma ve düzenleme modu. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4050
+#: src/netedit/GNEViewNetHelper.cpp:4051
 msgid "Stop mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4050
+#: src/netedit/GNEViewNetHelper.cpp:4051
 msgid "Mode for creating stops. (A)"
 msgstr "Durak oluşturmak için mod. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4055
+#: src/netedit/GNEViewNetHelper.cpp:4056
 msgid "Person mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4055
+#: src/netedit/GNEViewNetHelper.cpp:4056
 msgid "Mode for creating persons. (P)"
 msgstr "Yolcuları oluşturmak için mod. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4060
+#: src/netedit/GNEViewNetHelper.cpp:4061
 msgid "Person plan mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4060
+#: src/netedit/GNEViewNetHelper.cpp:4061
 msgid "Mode for creating person plans. (L)"
 msgstr "Yolcu planları oluşturma modu. (L)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4065
+#: src/netedit/GNEViewNetHelper.cpp:4066
 msgid "Container mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4065
+#: src/netedit/GNEViewNetHelper.cpp:4066
 msgid "Mode for creating containers. (C)"
 msgstr "Konteyner oluşturma modu. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4070
+#: src/netedit/GNEViewNetHelper.cpp:4071
 msgid "Container plan mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4070
+#: src/netedit/GNEViewNetHelper.cpp:4071
 msgid "Mode for creating container plans. (H)"
 msgstr "Konteyner planları oluşturmak için mod. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4172
+#: src/netedit/GNEViewNetHelper.cpp:4173
 msgid "Edge data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4172
+#: src/netedit/GNEViewNetHelper.cpp:4173
 msgid "Mode for creating edge datas. (E)"
 msgstr "Kesim verileri oluşturmak için mod. (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4177
+#: src/netedit/GNEViewNetHelper.cpp:4178
 msgid "Edge relation data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4177
+#: src/netedit/GNEViewNetHelper.cpp:4178
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Kesim ilişkili veri oluşturmak için mod. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4182
+#: src/netedit/GNEViewNetHelper.cpp:4183
 msgid "TAZ relation data mode"
 msgstr ""
 
-#: src/netedit/GNEViewNetHelper.cpp:4182
+#: src/netedit/GNEViewNetHelper.cpp:4183
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr "TAB ilişkili veri oluşturmak için mod. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4187
+#: src/netedit/GNEViewNetHelper.cpp:4188
 msgid "MeanData mode"
 msgstr "MeanData modu"
 
-#: src/netedit/GNEViewNetHelper.cpp:4187
+#: src/netedit/GNEViewNetHelper.cpp:4188
 msgid "Mode for MeanData elements. (M)"
 msgstr "MeanData elemanları için mod. (M)"
 
@@ -9890,86 +9890,86 @@ msgstr "Yol ağları ve altyapı için grafik düzenleyici."
 msgid "Edit color"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:302 src/netedit/dialogs/GNEDialog.cpp:315
+#: src/netedit/dialogs/GNEDialog.cpp:310 src/netedit/dialogs/GNEDialog.cpp:323
 msgid "Yes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:306 src/netedit/dialogs/GNEDialog.cpp:319
+#: src/netedit/dialogs/GNEDialog.cpp:314 src/netedit/dialogs/GNEDialog.cpp:327
 msgid "No"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:323 src/netedit/dialogs/GNEDialog.cpp:340
-#: src/netedit/dialogs/GNEDialog.cpp:362 src/netedit/dialogs/GNEDialog.cpp:375
-#: src/netedit/dialogs/GNEDialog.cpp:396 src/netedit/dialogs/GNEDialog.cpp:409
-#: src/netedit/dialogs/GNEDialog.cpp:430
+#: src/netedit/dialogs/GNEDialog.cpp:331 src/netedit/dialogs/GNEDialog.cpp:348
+#: src/netedit/dialogs/GNEDialog.cpp:370 src/netedit/dialogs/GNEDialog.cpp:383
+#: src/netedit/dialogs/GNEDialog.cpp:404 src/netedit/dialogs/GNEDialog.cpp:417
+#: src/netedit/dialogs/GNEDialog.cpp:438
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:93
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:925
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1370
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:920
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1365
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/netedit/dialogs/GNEDialog.cpp:336
+#: src/netedit/dialogs/GNEDialog.cpp:344
 msgid "Don't Save"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:349 src/netedit/dialogs/GNEDialog.cpp:358
-#: src/netedit/dialogs/GNEDialog.cpp:371
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:923
+#: src/netedit/dialogs/GNEDialog.cpp:357 src/netedit/dialogs/GNEDialog.cpp:366
+#: src/netedit/dialogs/GNEDialog.cpp:379
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
 msgid "Accept"
 msgstr "Kabul et"
 
-#: src/netedit/dialogs/GNEDialog.cpp:379 src/netedit/dialogs/GNEDialog.cpp:413
+#: src/netedit/dialogs/GNEDialog.cpp:387 src/netedit/dialogs/GNEDialog.cpp:421
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: src/netedit/dialogs/GNEDialog.cpp:379 src/netedit/dialogs/GNEDialog.cpp:413
+#: src/netedit/dialogs/GNEDialog.cpp:387 src/netedit/dialogs/GNEDialog.cpp:421
 msgid "Reset changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:388
+#: src/netedit/dialogs/GNEDialog.cpp:396
 msgid "Keep new"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:388
+#: src/netedit/dialogs/GNEDialog.cpp:396
 msgid "Keep new changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:392
+#: src/netedit/dialogs/GNEDialog.cpp:400
 msgid "Keep old"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:392
+#: src/netedit/dialogs/GNEDialog.cpp:400
 msgid "Keep old changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:396
+#: src/netedit/dialogs/GNEDialog.cpp:404
 #: src/netedit/frames/network/GNETAZFrame.cpp:393
 msgid "Cancel changes"
 msgstr "Değişiklikleri iptal et"
 
-#: src/netedit/dialogs/GNEDialog.cpp:426
+#: src/netedit/dialogs/GNEDialog.cpp:434
 msgid "Advanced"
 msgstr "İleri"
 
-#: src/netedit/dialogs/GNEDialog.cpp:426
+#: src/netedit/dialogs/GNEDialog.cpp:434
 msgid "Advanced options"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:439
+#: src/netedit/dialogs/GNEDialog.cpp:447
 #: src/netedit/dialogs/run/GNERunDialog.cpp:211
 msgid "Rerun"
 msgstr "Yeniden Çalıştır"
 
-#: src/netedit/dialogs/GNEDialog.cpp:439
+#: src/netedit/dialogs/GNEDialog.cpp:447
 #: src/netedit/dialogs/run/GNERunDialog.cpp:212
 msgid "Rerun tool"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:443
+#: src/netedit/dialogs/GNEDialog.cpp:451
 msgid "Back"
 msgstr "Geri"
 
-#: src/netedit/dialogs/GNEDialog.cpp:443
+#: src/netedit/dialogs/GNEDialog.cpp:451
 msgid "Back to tool dialog"
 msgstr ""
 
@@ -10023,6 +10023,11 @@ msgstr ""
 msgid "Keep new or old elements?"
 msgstr ""
 
+#: src/netedit/dialogs/GNEParametersDialog.cpp:291
+#: src/netedit/frames/network/GNEConnectorFrame.cpp:153
+msgid "Operations"
+msgstr "İşlemler"
+
 #: src/netedit/dialogs/GNEParametersDialog.cpp:294
 msgid "Sort"
 msgstr "Sırala"
@@ -10034,7 +10039,7 @@ msgstr "Temizle"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:298
 #: src/netedit/frames/GNEAttributesEditorType.cpp:85
-#: src/netedit/frames/GNEMatchAttribute.cpp:83
+#: src/netedit/frames/GNEMatchAttribute.cpp:84
 #: src/netedit/frames/GNEOverlappedInspection.cpp:68
 #: src/netedit/frames/demand/GNEStopFrame.cpp:42
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:47
@@ -10300,12 +10305,12 @@ msgid "Reserved for user-defined semantics"
 msgstr "Kullanıcı tanımlı anlamlar için ayrılmıştır"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:673
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:672
 msgid "Open dialog for editing vClasses"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:70
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:693
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:692
 msgid "Open dialog for editing color"
 msgstr "Renk düzenleme için iletişim kutusunu aç"
 
@@ -10437,11 +10442,11 @@ msgstr "Görsel Aç"
 msgid "Open OSG File"
 msgstr "OSG Dosyası Aç"
 
-#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
+#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1802
 msgid "Error editing %"
 msgstr ""
 
-#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1804
+#: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
 #, c-format
 msgid "The % cannot be updated because attribute % is invalid."
 msgstr ""
@@ -10455,302 +10460,310 @@ msgstr ""
 msgid "Open %"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:80
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:84
 msgid "Visited Directories"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:93
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:97
 msgid "Directory:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:104
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 msgid "File Name:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:212
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:219
 msgid "Copy File"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:212
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:257
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:219
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:264
 msgid "Select destiny file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:220
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:238
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:227
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:245
 msgid "Error copying file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:221
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:239
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:228
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:246
 msgid ""
 "Unable to copy file:\n"
 "%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:222
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:267
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:229
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:274
 msgid "The source and destiny files are the same"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:228
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:273
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:235
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:280
 msgid "Overwrite file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:228
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:273
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:235
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:280
 msgid ""
 "The destiny file:\n"
 "%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:229
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:274
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:236
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:281
 msgid "already exist. Overwrite?"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:240
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:285
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:247
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:292
 msgid "Check destiny file permissions"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:257
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:264
 msgid "Move File"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:265
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:283
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:272
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:290
 msgid "Error moving file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:266
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:284
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:273
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:291
 msgid ""
 "Unable to move file:\n"
 "%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:303
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:310
 msgid "Deleting file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:303
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:310
 msgid "Are you sure you want to delete the file:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:310
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:317
 msgid "Error deleting file"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:311
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:318
 msgid ""
 "Unable to delete file:\n"
 "%\n"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:312
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:319
 msgid "Check file permissions"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:377
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:396
 msgid "Up one level"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:378
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:397
 msgid "Home directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:379
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:398
 msgid "Work directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:380
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:399
+msgid "Config directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:410
 msgid "Select all"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:384
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:414
 msgid "Sort by"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:385
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:415
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
 msgid "Name"
 msgstr "Adı"
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:387
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:417
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1629
 msgid "Size"
 msgstr "Boyut"
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:389
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:419
 msgid "User"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:390
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:420
 msgid "Group"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:392
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:422
 msgid "Reverse"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:393
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:423
 msgid "Ignore case"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:396
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:426
 msgid "View"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:397
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:427
 msgid "Small icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:398
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:428
 msgid "Big icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:399
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:429
 msgid "Details"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:401
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:431
 msgid "Rows"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:402
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:432
 msgid "Columns"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:404
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:434
 msgid "Hidden files"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:405
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:435
 msgid "Preview images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:407
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:437
 msgid "Normal images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:408
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:438
 msgid "Medium images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:409
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:439
 msgid "Giant images"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:412
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:912
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:442
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:891
 msgid "Bookmarks"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:415
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:861
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:445
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:836
 msgid "Set bookmark"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:416
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:863
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:446
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:838
 msgid "Clear bookmarks"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:432
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:462
 msgid "New directory..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:433
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:463
 msgid "Copy..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:434
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:464
 msgid "Move..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:436
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:466
 msgid "Delete..."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:830
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:805
 msgid "Create New Directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:830
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:805
 msgid "Create new directory with name:"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:837
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:812
 msgid "Directory already Exists"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:838
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:813
 msgid ""
 "The new directory:\n"
 "%"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:839
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:814
 msgid "already exists"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:845
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:820
 msgid "Cannot create directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:846
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:821
 msgid ""
 "Cannot create directory:\n"
 "%"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:847
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:822
 msgid "Check folder permissions"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:861
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:836
 msgid "Bookmark current directory."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:863
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:838
 msgid "Clear bookmarks."
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:889
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:864
 msgid "Go up one directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:900
-msgid "Go to netedit config directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:903
-msgid "Go to sumo config directory"
-msgstr ""
-
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:908
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:868
 msgid "Go to home directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:917
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:872
+msgid "Go to work directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:883
+msgid "Go to netedit config directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:886
+msgid "Go to sumo config directory"
+msgstr ""
+
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:896
 msgid "Create new directory"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:921
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:900
 msgid "Display directory with small icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:925
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:904
 msgid "Display directory with big icons"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:929
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:908
 msgid "Display detailed directory listing"
 msgstr ""
 
-#: src/netedit/dialogs/file/GNEFileSelector.cpp:935
+#: src/netedit/dialogs/file/GNEFileSelector.cpp:914
 msgid "Toggle show hidden files and directories"
 msgstr ""
 
@@ -10847,7 +10860,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:63
 #: src/netedit/frames/common/GNESelectorFrame.cpp:115
-#: src/netedit/frames/demand/GNERouteFrame.cpp:186
+#: src/netedit/frames/demand/GNERouteFrame.cpp:187
 msgid "Routes"
 msgstr "Rotalar"
 
@@ -11081,72 +11094,72 @@ msgstr ""
 msgid "Run netgenerate with advanced options"
 msgstr ""
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:74
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:67
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:144
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:76
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggle Menu Tooltips"
 msgstr "Menü Araç İpuçlarını Aç/Kapat"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:74
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:67
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:144
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:76
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:145
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr "Menüdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:76
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 msgid "Save options"
 msgstr "Ayarları kaydet"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:80
 msgid "Save configuration file"
 msgstr "Konfigürasyon dosyasını kaydet"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:79
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:81
 msgid "Load options"
 msgstr "Yükleme seçenekleri"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:81
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:83
 msgid "Load configuration file"
 msgstr "Konfigürasyon dosyasını yükle"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:82
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:84
 msgid "Default options"
 msgstr "Varsayılan seçenekler"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:84
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:86
 msgid "Reset all options to default"
 msgstr "Tüm seçenekleri varsayılan olarak sıfırla"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:92
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:94
 msgid "Topics"
 msgstr "Başlıklar"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:145
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:147
 msgid "Search"
 msgstr "Ara"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:147
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:149
 msgid "Include description in search"
 msgstr "Aramaya açıklama ekleme"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:226
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:243
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:142
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:157
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:228
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:245
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:143
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:158
 msgid "options file"
 msgstr ""
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:340
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:342
 msgid "Could not load configuration '"
 msgstr "Konfigürasyon yüklenemedi '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:344
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:346
 #: src/netedit/tools/GNEPythonTool.cpp:183
 #: src/netedit/tools/GNEPythonTool.cpp:187
 msgid "Could not load tool configuration '"
 msgstr "Araç konfigürasyonu yüklenemedi '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:348
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:350
 msgid "Loaded configuration."
 msgstr "Konfigürasyon yüklendi."
 
@@ -11219,31 +11232,31 @@ msgstr "Rastgele ızgara"
 msgid "Random"
 msgstr "Rastgele"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:61
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:62
 msgid "Tool"
 msgstr ""
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:69
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:70
 msgid "Save toolcfg"
 msgstr "Toolcfg kaydet"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:71
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:72
 msgid "Save file with tool configuration"
 msgstr "Dosyayı araç yapılandırması ile kaydet"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:72
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:73
 msgid "Load toolcfg"
 msgstr "Toolcfg yükle"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:74
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:75
 msgid "Load file with tool configuration"
 msgstr "Araç konfigürasyonunu içeren dosyayı yükle"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:75
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:76
 msgid "Sorted by name"
 msgstr "İsme göre sırala"
 
-#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:76
+#: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:77
 msgid "Grouped by categories"
 msgstr "Kategoriye göre grupla"
 
@@ -11617,7 +11630,7 @@ msgstr "jps engeli̇ ekle '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2006
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2024
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2554
+#: src/netedit/elements/demand/GNERouteHandler.cpp:2563
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
 
@@ -12119,15 +12132,15 @@ msgid ""
 "Could not build % with ID '%' in netedit; via % with ID '%' doesn't exist."
 msgstr ""
 
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2657
+#: src/netedit/elements/demand/GNERouteHandler.cpp:2666
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "'%' id'li % '%' içinde mevcut değil"
 
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2663
+#: src/netedit/elements/demand/GNERouteHandler.cpp:2672
 msgid "invalid probability % in % '%'"
 msgstr "'%' içinde geçersiz olasılık %"
 
-#: src/netedit/elements/demand/GNERouteHandler.cpp:2668
+#: src/netedit/elements/demand/GNERouteHandler.cpp:2677
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -12667,39 +12680,39 @@ msgstr ""
 msgid "Netedit attributes"
 msgstr "Netedit Öznitelikleri"
 
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:92
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:93
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:94
 msgid "Move element up one lane"
 msgstr "Elemanı bir şerit yukarı taşıyın"
 
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:99
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:100
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:101
 msgid "Move element down one lane"
 msgstr "Elemanı bir şerit aşağı taşıyın"
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:439
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:438
 #, c-format
 msgid "% file"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:632
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:631
 msgid "Reparent"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:633
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:632
 msgid "Change parent of this element"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:653
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:652
 #, c-format
 msgid "Inspect % parent"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:714
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:713
 msgid "Open dialog to select an existent file"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:716
+#: src/netedit/frames/GNEAttributesEditorRow.cpp:715
 msgid "Open dialog to select or create an existent file"
 msgstr ""
 
@@ -12798,11 +12811,11 @@ msgstr "- Seçilen Şeritler: "
 msgid "- Length: "
 msgstr "- Uzunluk: "
 
-#: src/netedit/frames/GNEDemandSelector.cpp:47
+#: src/netedit/frames/GNEDemandSelector.cpp:49
 msgid "Parent "
 msgstr "Ebeveyn "
 
-#: src/netedit/frames/GNEDemandSelector.cpp:64
+#: src/netedit/frames/GNEDemandSelector.cpp:66
 msgid "Parent element"
 msgstr "Kaynak Eleman"
 
@@ -12871,9 +12884,9 @@ msgstr "İncele"
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:342
 #: src/netedit/frames/common/GNESelectorFrame.cpp:265
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:90
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:99
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:465
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1354
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:100
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:466
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1349
 msgid "Delete"
 msgstr "Sil"
 
@@ -12947,111 +12960,111 @@ msgstr "Ölçek: Min -> Maks"
 msgid "Match Attribute"
 msgstr "Eşleştirme Özelliği"
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:73
+#: src/netedit/frames/GNEMatchAttribute.cpp:74
 msgid "Only common"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:81
+#: src/netedit/frames/GNEMatchAttribute.cpp:82
 msgid "Apply selection"
 msgstr "Seçimi uygula"
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:318
+#: src/netedit/frames/GNEMatchAttribute.cpp:319
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:319
+#: src/netedit/frames/GNEMatchAttribute.cpp:320
 msgid "  according to the current 'Modification Mode'."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:320
+#: src/netedit/frames/GNEMatchAttribute.cpp:321
 msgid "     1. Select an object type from the first input box"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:321
+#: src/netedit/frames/GNEMatchAttribute.cpp:322
 msgid "     2. Select an attribute from the second input box"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:322
+#: src/netedit/frames/GNEMatchAttribute.cpp:323
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press <return>"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:324
+#: src/netedit/frames/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:325
+#: src/netedit/frames/GNEMatchAttribute.cpp:326
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:326
+#: src/netedit/frames/GNEMatchAttribute.cpp:327
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:328
+#: src/netedit/frames/GNEMatchAttribute.cpp:329
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:329
+#: src/netedit/frames/GNEMatchAttribute.cpp:330
 msgid ""
 "     '' (no operator) matches if string is a substring of that object's "
 "attribute."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:330
+#: src/netedit/frames/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:331
+#: src/netedit/frames/GNEMatchAttribute.cpp:332
 msgid "     '!' matches if string is not a substring."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:332
+#: src/netedit/frames/GNEMatchAttribute.cpp:333
 msgid "     '^' matches if string is not an exact match."
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:334
+#: src/netedit/frames/GNEMatchAttribute.cpp:335
 msgid "- Examples:"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:335
+#: src/netedit/frames/GNEMatchAttribute.cpp:336
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:336
+#: src/netedit/frames/GNEMatchAttribute.cpp:337
 msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:337
+#: src/netedit/frames/GNEMatchAttribute.cpp:338
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:340
+#: src/netedit/frames/GNEMatchAttribute.cpp:341
 msgid "Netedit parameters Help"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:477
+#: src/netedit/frames/GNEMatchAttribute.cpp:478
 msgid "Show all attributes"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:479
+#: src/netedit/frames/GNEMatchAttribute.cpp:480
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:506
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:529
 msgid "<all>"
 msgstr ""
 
-#: src/netedit/frames/GNEMatchAttribute.cpp:482
+#: src/netedit/frames/GNEMatchAttribute.cpp:483
 msgid "No common attributes defined"
 msgstr ""
 
@@ -13204,10 +13217,10 @@ msgstr "- Ortalama Hız: "
 #: src/netedit/frames/GNEPathLegendModule.cpp:32
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:32
 #: src/netedit/frames/common/GNEMoveFrame.cpp:653
-#: src/netedit/frames/common/GNESelectorFrame.cpp:930
+#: src/netedit/frames/common/GNESelectorFrame.cpp:931
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:101
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:330
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:640
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:641
 #: src/netedit/frames/network/GNECrossingFrame.cpp:503
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:85
 msgid "Information"
@@ -13268,7 +13281,7 @@ msgstr ""
 msgid " To element"
 msgstr ""
 
-#: src/netedit/frames/GNEPlanSelector.cpp:88
+#: src/netedit/frames/GNEPlanSelector.cpp:90
 msgid "Plan type"
 msgstr "Plan türü"
 
@@ -13386,54 +13399,54 @@ msgstr "Fazı sil"
 msgid "Delete this phase."
 msgstr "Bu fazı sil."
 
-#: src/netedit/frames/GNETLSTable.cpp:1296
+#: src/netedit/frames/GNETLSTable.cpp:1295
 msgid "Move phase up"
 msgstr "Fazı yukarı taşı"
 
-#: src/netedit/frames/GNETLSTable.cpp:1296
+#: src/netedit/frames/GNETLSTable.cpp:1295
 msgid "Move this phase up."
 msgstr "Bu fazı yukarı taşı."
 
-#: src/netedit/frames/GNETLSTable.cpp:1305
+#: src/netedit/frames/GNETLSTable.cpp:1303
 msgid "Move phase down"
 msgstr "Fazı aşağı taşı"
 
-#: src/netedit/frames/GNETLSTable.cpp:1305
+#: src/netedit/frames/GNETLSTable.cpp:1303
 msgid "Move this phase down."
 msgstr "Bu fazı aşağı taşı."
 
-#: src/netedit/frames/GNETagSelector.cpp:46
+#: src/netedit/frames/GNETagSelector.cpp:48
 msgid "Element"
 msgstr "Elemanlar"
 
-#: src/netedit/frames/GNETagSelector.cpp:87
+#: src/netedit/frames/GNETagSelector.cpp:89
 msgid "network elements"
 msgstr "Ağ Elemanları"
 
-#: src/netedit/frames/GNETagSelector.cpp:105
+#: src/netedit/frames/GNETagSelector.cpp:107
 #: src/netedit/frames/common/GNESelectorFrame.cpp:124
 #: src/netedit/frames/demand/GNEStopFrame.cpp:124
 msgid "Stops"
 msgstr "Duraklar"
 
-#: src/netedit/frames/GNETagSelector.cpp:108
+#: src/netedit/frames/GNETagSelector.cpp:110
 #: src/netedit/frames/common/GNESelectorFrame.cpp:117
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:41
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2032
 msgid "Persons"
 msgstr "Yolcular"
 
-#: src/netedit/frames/GNETagSelector.cpp:123
+#: src/netedit/frames/GNETagSelector.cpp:125
 #: src/netedit/frames/common/GNESelectorFrame.cpp:119
 msgid "Walks"
 msgstr "Yürümeler"
 
-#: src/netedit/frames/GNETagSelector.cpp:126
+#: src/netedit/frames/GNETagSelector.cpp:128
 #: src/netedit/frames/common/GNESelectorFrame.cpp:120
 msgid "Rides"
 msgstr "Binişler"
 
-#: src/netedit/frames/GNETagSelector.cpp:129
+#: src/netedit/frames/GNETagSelector.cpp:131
 msgid "Person stops"
 msgstr "Yolcu Durakları"
 
@@ -13897,48 +13910,48 @@ msgstr ""
 msgid "Hierarchy operations"
 msgstr "Hiyerarşi işlemleri"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:643
+#: src/netedit/frames/common/GNESelectorFrame.cpp:644
 msgid "Select parents"
 msgstr "Kaynağı seçin"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:650
-#: src/netedit/frames/common/GNESelectorFrame.cpp:661
+#: src/netedit/frames/common/GNESelectorFrame.cpp:651
+#: src/netedit/frames/common/GNESelectorFrame.cpp:662
 msgid "Select"
 msgstr "Seç"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:652
-#: src/netedit/frames/common/GNESelectorFrame.cpp:663
+#: src/netedit/frames/common/GNESelectorFrame.cpp:653
+#: src/netedit/frames/common/GNESelectorFrame.cpp:664
 msgid "Unselect"
 msgstr "Seçimi Kaldır"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:654
+#: src/netedit/frames/common/GNESelectorFrame.cpp:655
 msgid "Select children"
 msgstr "Çocukları seçin"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:780
+#: src/netedit/frames/common/GNESelectorFrame.cpp:781
 msgid "select parents"
 msgstr "üst ögeyi seçin"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:904
+#: src/netedit/frames/common/GNESelectorFrame.cpp:905
 msgid "select children"
 msgstr "çocukları seçin"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:932
+#: src/netedit/frames/common/GNESelectorFrame.cpp:933
 msgid "Hold <SHIFT> for rectangle selection."
 msgstr "Dikdörtgen seçimi için <SHIFT> tuşunu basılı tutun."
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:932
+#: src/netedit/frames/common/GNESelectorFrame.cpp:933
 msgid "Press <DEL> to delete selected objects."
 msgstr "Seçilen nesneleri silmek için <DEL> tuşuna basın."
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:943
+#: src/netedit/frames/common/GNESelectorFrame.cpp:944
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:316
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:168
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2316
 msgid "Selection"
 msgstr "Seçim"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:1106
+#: src/netedit/frames/common/GNESelectorFrame.cpp:1107
 msgid "selection"
 msgstr "seçim"
 
@@ -13978,31 +13991,31 @@ msgstr "aralık oluştur"
 msgid "Data attributes"
 msgstr "Veri öznitelikleri"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:67
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:70
 msgid "MeanData Type"
 msgstr "OrtalamaVeri (MeanData) Türü"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:155
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:158
 msgid "MeanData Editor"
 msgstr "OrtalamaVeri (MeanData) Düzenleyici"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:158
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:161
 msgid "Create MeanData"
 msgstr "OrtalamaVeri (MeanData) Oluştur"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:161
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:164
 msgid "Delete MeanData"
 msgstr "OrtalamaVeri'yi (MeanData) sil"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:164
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:167
 msgid "Copy MeanData"
 msgstr "OrtalamaVeri'yi (MeanData) kopyala"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:270
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:273
 msgid "Current MeanData"
 msgstr "Geçerli OrtalamaVeri (MeanData)"
 
-#: src/netedit/frames/data/GNEMeanDataFrame.cpp:424
+#: src/netedit/frames/data/GNEMeanDataFrame.cpp:427
 msgid "MeanData"
 msgstr "OrtalamaVeri"
 
@@ -14115,11 +14128,11 @@ msgstr "KişiPlanları"
 msgid "Route Distributions"
 msgstr "Rota Dağılımları"
 
-#: src/netedit/frames/demand/GNERouteFrame.cpp:59
+#: src/netedit/frames/demand/GNERouteFrame.cpp:60
 msgid "non consecutive edges"
 msgstr ""
 
-#: src/netedit/frames/demand/GNERouteFrame.cpp:60
+#: src/netedit/frames/demand/GNERouteFrame.cpp:61
 msgid "consecutive edges"
 msgstr ""
 
@@ -14418,10 +14431,6 @@ msgstr ""
 msgid "Changes accepted"
 msgstr "Değişiklikler kabul edildi"
 
-#: src/netedit/frames/network/GNEConnectorFrame.cpp:153
-msgid "Operations"
-msgstr "İşlemler"
-
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:157
 msgid "Select Dead Ends"
 msgstr "Çıkmaz Uçları Seç"
@@ -14544,143 +14553,143 @@ msgstr "Aynı kesimden gelen başka bir şerit zaten bu şeride bağlanıyor"
 msgid "Invalid target for connection"
 msgstr "Bağlantı için geçersiz hedef"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:70
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
 msgstr "Şablon seçici"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:75
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
 msgstr "Varsayılan kesim oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:78
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:79
 msgid "Create default edge short"
 msgstr "Varsayılan kısa kesim oluşturun"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:81
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:82
 msgid "Disallow for pedestrians"
 msgstr "Yayalara izin verme"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:83
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Add sidewalk"
 msgstr "Kaldırım ekleyin"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:85
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:86
 msgid "Add bikelane"
 msgstr ""
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:88
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:89
 msgid "Use edgeType/template"
 msgstr "Kesim Tipi/Şablonu kullan"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:96
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:462
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:97
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:463
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1291
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1356
 msgid "Add"
 msgstr "Ekle"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:96
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:97
 msgid "Add edge type"
 msgstr "Kesim tipi ekle"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:99
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:100
 msgid "Delete edge type"
 msgstr "Kesim tipini sil"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:102
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:103
 msgid "Create from template"
 msgstr "Şablondan oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:102
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:103
 msgid "Create edgeType from template"
 msgstr "Şablondan Kesim Tipi oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:341
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:390
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:342
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:391
 msgid "create new edge type"
 msgstr "yeni kesim tipi oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:363
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:364
 msgid "delete edge type"
 msgstr "Kesim tipini sil"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:430
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:431
 msgid "template: "
 msgstr "şablon: "
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:453
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:454
 msgid "LaneType selector"
 msgstr "Şerit Tipi seçici"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:462
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:463
 msgid "Add lane type"
 msgstr "Şerit türü ekle"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:465
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:466
 msgid "Delete lane type"
 msgstr "Şerit tipini sil"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:563
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:564
 msgid "add laneType"
 msgstr "Şerit tipi ekle"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:601
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:602
 msgid "remove laneType"
 msgstr "Şerit tipini kaldır"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:644
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:645
 msgid "ESC:"
 msgstr "ESC:"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:645
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:646
 msgid "Deselect origin"
 msgstr "Orijin seçimini kaldır"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:646
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:647
 msgid "Control+Click:"
 msgstr "Kontrol+Tıkla:"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:647
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:648
 msgid "Move view"
 msgstr "Görünümü taşı"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:648
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:649
 msgid "Shift+Click:"
 msgstr "Shift+Click:"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:649
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:650
 msgid "Splits edge in both directions"
 msgstr "Kesimi her iki yönde de böler"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:650
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:651
 msgid "Alt+Shift+Click:"
 msgstr "Alt+Shift+Click:"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:651
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:652
 msgid "Splits edge in one direction"
 msgstr "Kesimi tek yönde böler"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:664
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:665
 msgid "Create Edge"
 msgstr "Kesim Oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:688
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:689
 msgid ""
 "Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 "Varsayılan kesimTürü veya kısa kenar ya da özel bir kesimTürü veya şablon "
 "seçin"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:698
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:801
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:699
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:802
 msgid "create new edge"
 msgstr "yeni kesim oluştur"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:806
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:807
 msgid "An edge with the same geometry already exists!"
 msgstr "Aynı geometriye sahip bir kesim zaten mevcut!"
 
-#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:809
+#: src/netedit/frames/network/GNECreateEdgeFrame.cpp:810
 msgid "Start- and endpoint for an edge must be distinct!"
 msgstr "Bir kesim için başlangıç ve bitiş noktaları farklı olmalıdır!"
 
@@ -14710,8 +14719,8 @@ msgid "Crossing parameters"
 msgstr "Geçit parametreleri"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:452
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1443
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1447
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1438
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1442
 msgid "Create"
 msgstr "Oluştur"
 
@@ -15171,7 +15180,7 @@ msgid "tlLogic '%', program '%' could not be built"
 msgstr "tlLogic '%', '%' programı oluşturulamadı"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:254
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2903
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2898
 msgid "Loaded "
 msgstr "Yüklendi "
 
@@ -15217,90 +15226,90 @@ msgstr "E1 modunu atamayı devre dışı bırak"
 msgid "Traffic Light"
 msgstr "Trafik Işığı"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:885
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1284
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:886
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1279
 msgid "Junction ID"
 msgstr "Kavşak Kimliği (ID)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:893
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:892
 msgid "TLS ID"
 msgstr "TIS Kimliği (ID)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
 msgid "Join"
 msgstr "Birleştir"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
 msgid "Enable join mode"
 msgstr "Birleştirme modunu etkinleştir"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
 msgid "Join TLS and junctions in the current junction."
 msgstr "Geçerli kavşakta TIS ve kavşakları birleştir."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
 msgid "Disable join mode"
 msgstr "Birleştirme modunu devre dışı bırak"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
 msgid "Disjoin"
 msgstr "Ayır"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS"
 msgstr "Mevcut TIS'ı ayır"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS."
 msgstr "Mevcut TIS'ı ayır."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:923
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
 msgid "Finish join."
 msgstr "Birleştirmeyi bitir."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:925
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:920
 msgid "Cancel Join."
 msgstr "Katılmayı iptal et."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1072
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1067
 msgid "rename TLS"
 msgstr "TLS'yi yeniden adlandır"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1130
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1125
 msgid "change TLS type"
 msgstr "TIS türünü değiştir"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1189
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1184
 msgid "join TLS"
 msgstr "TIS Birleştir"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1231
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1226
 msgid "disjoin TLS"
 msgstr "TIS Ayır"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1291
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1286
 msgid "No junction selected"
 msgstr ""
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1314
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1309
 msgid "Junction IDs"
 msgstr "Kavşak Kimlikleri (IDs)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1337
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1332
 msgid "Traffic Light Programs"
 msgstr "Trafik Işığı Programları"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1345
 msgid "Create TLS"
 msgstr "TIS oluştur"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1345
 msgid "Create a new traffic light program."
 msgstr "Yeni bir trafik ışığı programı oluştur."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1354
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1349
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
@@ -15308,108 +15317,108 @@ msgstr ""
 "Bir trafik ışığı programını sil. Tüm programlar silinirse kavşak öncelikli "
 "kavşağa dönüşür."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1358
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Reset single"
 msgstr "Tekli sıfırla"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1358
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Reset current TLS program."
 msgstr "Mevcut TIS programını sıfırla."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1362
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1357
 msgid "Reset all"
 msgstr "Tümünü Sıfırla"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1362
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1357
 msgid "Reset all TLS programs."
 msgstr "Tüm TIS programlarını sıfırla."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1366
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1361
 msgid "Save program modifications. (Enter)"
 msgstr "Program değişikliklerini kaydet. (Enter)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1370
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1365
 msgid "Discard program modifications. (Esc)"
 msgstr "Program değişikliklerini çıkar. (Esc)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1445
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1440
 msgid "Duplicate"
 msgstr "Yinele"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1531
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1526
 msgid "TLSPrograms cannot be found"
 msgstr ""
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1572
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1582
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1598
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1567
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1577
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1593
 msgid "TLS cannot be created"
 msgstr "TIS oluşturulamaz"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1573
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1568
 msgid "Traffic Light cannot be created because junction must have"
 msgstr "Kavşak olması gerektiğinden Trafik Işığı oluşturulamıyor"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1574
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1569
 msgid "at least one incoming edge and one outgoing edge."
 msgstr "en az bir giriş ve bir çıkış kesimi."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1583
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1599
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1578
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1594
 msgid "Traffic Light cannot be created because junction"
 msgstr "Kavşak nedeniyle Trafik Işığı oluşturulamıyor"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1584
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1579
 msgid "must have at least one connection."
 msgstr "en az bir bağlantıya sahip olmalıdır."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1600
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1595
 msgid "must have at least one controlled connection."
 msgstr "en az bir kontrollü bağlantıya sahip olmalıdır."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1648
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1643
 msgid "reset current program"
 msgstr "geçerli programı sıfırla"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1688
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1683
 msgid "reset TLS"
 msgstr "TIS'ı sıfırla"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1815
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
 msgstr "'%' trafik ışığının '%' programını yinele"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1859
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1854
 msgid "Traffic Light does not control any links"
 msgstr ""
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1871
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1866
 msgid "Phases"
 msgstr "Fazlar"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1882
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1877
 msgid "Clean States"
 msgstr "Evreleri Temizle"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1883
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1878
 msgid "Clean unused states from all phase"
 msgstr "Kullanılmayan evreleri tüm fazlardan temizle"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1884
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1879
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Kullanılmayan evreleri tüm fazlardan temizle. (Birden fazla program için "
 "izin verilmez)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1889
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1884
 msgid "Add States"
 msgstr "Evre Ekle"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1890
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1885
 msgid "Extend the state vector for all phases by one entry"
 msgstr "Tüm fazlar için evre vektörünü bir girişle genişlet"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1886
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
@@ -15417,11 +15426,11 @@ msgstr ""
 "Tüm fazlar için evre vektörünü bir girişle genişlet. (Yeni dizine bir "
 "bağlantı veya geçit atanana kadar kullanılmaz)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1896
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
 msgstr "Grup Sin."
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1897
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1892
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
@@ -15429,7 +15438,7 @@ msgstr ""
 "Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
 "vererek evre tanımını kısaltın"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1893
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
@@ -15437,16 +15446,16 @@ msgstr ""
 "Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
 "vererek evre tanımını kısaltın. (Birden fazla program için izin verilmez)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1903
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
 msgid "Ungroup Sig."
 msgstr "Sin. Çöz"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1904
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1899
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
 "Her bağlantının ayrı bir dizin kullanmasına izin ver (ters evre gruplaması)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1905
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:1900
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
@@ -15454,43 +15463,43 @@ msgstr ""
 "Her bağlantının ayrı bir dizin kullanmasına izin verin (ters evre "
 "gruplaması). (Çoklu programlar için izin verilmez)"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2085
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2080
 msgid "invalid column"
 msgstr "Geçersiz sütun"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2551
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2546
 msgid "Error deleting phase '"
 msgstr "Faz silinirken hata oluştu '"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2816
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2811
 msgid "TLS Program File"
 msgstr "TIS Program Dosyası"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2820
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2815
 msgid "Load TLS program from additional file"
 msgstr "TIS programını ek dosyadan yükle"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2823
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2818
 msgid "Save TLS program to additional file"
 msgstr "TIS programını ek dosyaya kaydet"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2903
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2898
 msgid " new programs for tlLogic '"
 msgstr " tlLogic için yeni programlar '"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2908
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2903
 msgid "Updated program '"
 msgstr "Güncellenmiş program '"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2908
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2903
 msgid "' for tlLogic '"
 msgstr "' tlLogic için '"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2912
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2907
 msgid "No programs found for traffic light '"
 msgstr "Trafik ışığı için program bulunamadı '"
 
-#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2931
+#: src/netedit/frames/network/GNETLSEditorFrame.cpp:2926
 msgid "Save TLS Program as"
 msgstr "TLS Programını Farklı Kaydet"
 
@@ -16537,11 +16546,11 @@ msgstr "LinkState '%' için renk tanımlanmadı"
 msgid "Save the data..."
 msgstr "Verileri kaydet..."
 
-#: src/utils/gui/tracker/GUIParameterTracker.cpp:130
+#: src/utils/gui/tracker/GUIParameterTracker.cpp:129
 msgid "Multiplot"
 msgstr "çoklu çizim"
 
-#: src/utils/gui/tracker/GUIParameterTracker.cpp:218
+#: src/utils/gui/tracker/GUIParameterTracker.cpp:217
 msgid "Save Data"
 msgstr "Veri Kaydet"
 
@@ -17194,29 +17203,29 @@ msgstr "Güneş parlaklığı"
 msgid "Sky color"
 msgstr "Gökyüzü rengi"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:119
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter View"
 msgstr "Görünümü Yeniden Ayarla"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:119
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
 msgstr "Görünümü simüle edilen alana yeniden yerleştirin."
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:123
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1592
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:124
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1593
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr "Görüntü Alanını Düzenle"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:123
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
 msgstr "Görünüm alanını düzenlemenizi sağlayan bir menü açar. (Ctrl+I)"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:127
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid "Toggle Zooming Style"
 msgstr "Yakınlaştırma Stilini Değiştir"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:127
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:128
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
@@ -17224,35 +17233,35 @@ msgstr ""
 "Yakınlaştırmanın imleç konumuna göre mi yoksa görünümün merkezine göre mi "
 "yapılacağını değiştirir."
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:134
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
 msgstr "Yapıların Yerini Belirleyin"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:134
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
 msgstr "Ağ içindeki yapıların yerini belirleyin."
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:138
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
 msgstr "Görünüm Araç İpuçlarını Değiştir"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:138
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr "Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:160
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Edit Coloring Schemes"
 msgstr "Renklendirme Şemalarını Düzenleme"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:160
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:161
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
 msgstr "Renklendirme şemalarını düzenlemenizi sağlayan bir menü açar. (F9)"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:171
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
 msgstr "Anlık Görüntü Oluşturun"
 
-#: src/utils/gui/windows/GUIGlChildWindow.cpp:171
+#: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
 msgstr "Görünümün anlık görüntüsünü oluşturur."
 
@@ -17383,11 +17392,11 @@ msgstr ""
 "Geliştirme aşamasında. Çevirinin geliştirilmesine şu adresten yardımcı "
 "olabilirsiniz:"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:250
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:251
 msgid "(No projection defined)"
 msgstr "(Projeksiyon tanımlanmadı)"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1739
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
 
