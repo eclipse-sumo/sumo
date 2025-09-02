@@ -16,7 +16,7 @@
 # @author  Joerg Schweizer
 # @date    2012
 
-from classman import *
+from .classman import *
 import numpy as np
 
 
@@ -494,7 +494,7 @@ class IdsArrayConf(ArrayConfMixin, ColConf):
                 # don't even write empty lists
                 pass
 
-        elif type(self._default) in (types.UnicodeType, types.StringType):
+        elif type(self._default) in (str, bytes):
             if len(val) > 0:
                 fd.write(xm.num(self.xmltag, val))
 
@@ -529,7 +529,7 @@ class IdsArrayConf(ArrayConfMixin, ColConf):
         AttrConf.init_postload_internal(self, man, obj)
         # print 'IdsConf.init_postload_internal',self.attrname,self.get_value().dtype,self.get_value().dtype == np.int64
         if self.get_value().dtype == np.int64:
-            print 'WARNING in init_postload_internal: convert ids array to 32 bit'
+            print('WARNING in init_postload_internal: convert ids array to 32 bit')
             self.set_value(np.array(self.get_value(), dtype=np.int32))
         # if self._is_child:
         #    print '  make sure children get initialized'
@@ -890,7 +890,7 @@ class Arrayman(Tabman):
         return
 
     def __getitem__(self, args):
-        if type(args) == types.TupleType:
+        if type(args) == tuple:
             attrnames = args[0]
             ids = args[1]
         else:
@@ -908,7 +908,7 @@ class Arrayman(Tabman):
                 # TODO: detect dtype by adding numbers or use fields!!!
                 dtype = np.float32
                 out = np.zeros((n_rows, n_cols), dtype=dtype)
-                for i, attrname in zip(xrange(n_cols), attrnames):
+                for i, attrname in zip(range(n_cols), attrnames):
                     out[:, i] = getattr(self, attrname)[ids]
                 return out
         else:
@@ -1052,7 +1052,7 @@ class Arrayman(Tabman):
             ids = self.suggest_ids(n)
         elif (len(ids) == 0) & (len(attrs) > 0):
             # get number of rows from any value vector provided
-            ids = self.suggest_ids(len(attrs.values()[0]))
+            ids = self.suggest_ids(len(list(attrs.values())[0]))
         elif (n is None) & (len(ids) == 0) & (len(attrs) > 0):
             # nothing given really-> do nothing
             return np.zeros((0), np.int)
@@ -1226,7 +1226,7 @@ class ArrayObjman(Arrayman, TableMixin):
         # this should no longer happen in the future as ind and ids
         # have been formatted propperly
         if attrman._inds.dtype != np.int32:
-            print 'WARNING: 64 bit ids and inds...will adjust to 32 bit'
+            print('WARNING: 64 bit ids and inds...will adjust to 32 bit')
             attrman._inds = np.array(attrman._inds, dtype=np.int32)
             attrman._ids = np.array(attrman._ids, dtype=np.int32)
 
