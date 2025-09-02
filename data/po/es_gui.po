@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-01 11:24+0200\n"
-"PO-Revision-Date: 2025-09-01 15:16+0000\n"
+"PO-Revision-Date: 2025-09-02 13:33+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2774,11 +2774,11 @@ msgstr "¡El guardado en xml plano falló!"
 
 #: src/netedit/GNEApplicationWindow.cpp:3431
 msgid "joined junctions file"
-msgstr ""
+msgstr "archivo de uniones de cruces"
 
 #: src/netedit/GNEApplicationWindow.cpp:3441
 msgid "Joined junctions saved to '%'"
-msgstr ""
+msgstr "Uniones de cruces guardadas en '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3444
 msgid "Saving joined junctions failed!"
@@ -2790,7 +2790,7 @@ msgstr "¡El guardado de las unión de cruces (joined junctions) falló!"
 #: src/netedit/GNEApplicationWindow.cpp:3485
 #: src/netedit/GNEApplicationWindow.cpp:3489
 msgid "Saving of Netedit configuration aborted"
-msgstr ""
+msgstr "El guardado de la configuración de netedit fue abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "Netedit configuration saved in '"
@@ -2806,7 +2806,7 @@ msgstr "No se pudo guardar la configuración de netedit en '"
 #: src/netedit/GNEApplicationWindow.cpp:3592
 #: src/netedit/GNEApplicationWindow.cpp:3596
 msgid "Saving of SUMO configuration aborted"
-msgstr ""
+msgstr "El guardado de la configuración de sumo fue abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:3611
 msgid "SUMO configuration saved in '"
@@ -2840,34 +2840,34 @@ msgstr "archivo de elementos adicionales"
 
 #: src/netedit/GNEApplicationWindow.cpp:3835
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "cargar adicionales desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3839
 #, c-format
 msgid "Loading of additional file '%' failed"
-msgstr ""
+msgstr "La carga del archivo adicional '%' falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:3842
 #, c-format
 msgid "Loading of additional file '%'successfully: "
-msgstr ""
+msgstr "Carga exitosa del archivo adicional '%': "
 
 #: src/netedit/GNEApplicationWindow.cpp:3867
 msgid "reloading additionals"
-msgstr ""
+msgstr "recarga de adicionales"
 
 #: src/netedit/GNEApplicationWindow.cpp:3876
 #, c-format
 msgid "Reloading of additional file '%' failed."
-msgstr ""
+msgstr "La recarga del archivo adicional '%' falló."
 
 #: src/netedit/GNEApplicationWindow.cpp:3932
 msgid "Additionals saved"
-msgstr ""
+msgstr "Adicionales guardados"
 
 #: src/netedit/GNEApplicationWindow.cpp:3935
 msgid "Saving additional aborted"
-msgstr ""
+msgstr "El guardado de los elementos adicionales fue abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:3940
 msgid "Saving additionals failed!"
@@ -2875,7 +2875,7 @@ msgstr "¡El guardado de los elementos adicionales ha fallado!"
 
 #: src/netedit/GNEApplicationWindow.cpp:3967
 msgid "saving of unified additional elements in '%'"
-msgstr ""
+msgstr "guardando elementos adicionales unificados en '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3987
 msgid "JuPedSim elements file"
@@ -2883,11 +2883,11 @@ msgstr "archivo de elementos JuPedSim"
 
 #: src/netedit/GNEApplicationWindow.cpp:4009
 msgid "JuPedSim elements saved"
-msgstr ""
+msgstr "elementos JuPedSim guardados"
 
 #: src/netedit/GNEApplicationWindow.cpp:4012
 msgid "Saving JuPedSim aborted"
-msgstr ""
+msgstr "El guardado de JuPedSim fue abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4018
 msgid "Saving JuPedSim elements failed!"
@@ -9518,7 +9518,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:3465
 msgid "Data sets"
-msgstr ""
+msgstr "Conjuntos de datos"
 
 #: src/netedit/GNEViewNetHelper.cpp:3474
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
@@ -9527,7 +9527,7 @@ msgstr "Intervalo"
 
 #: src/netedit/GNEViewNetHelper.cpp:3486
 msgid "Parameter"
-msgstr ""
+msgstr "Parámetro"
 
 #: src/netedit/GNEViewNetHelper.cpp:3801
 msgid "Inspect mode"
@@ -10612,12 +10612,12 @@ msgstr "Copiar archivo"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:212
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:257
 msgid "Select destiny file"
-msgstr ""
+msgstr "Seleccione el archivo destino"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:220
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:238
 msgid "Error copying file"
-msgstr ""
+msgstr "Error al copiar archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:221
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:239
@@ -10625,16 +10625,18 @@ msgid ""
 "Unable to copy file:\n"
 "%\n"
 msgstr ""
+"No se pudo copiar el archivo:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:222
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:267
 msgid "The source and destiny files are the same"
-msgstr ""
+msgstr "Los archivos de origen y destino son los mismos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:228
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:273
 msgid "Overwrite file"
-msgstr ""
+msgstr "Sobrescribir archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:228
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:273
@@ -10642,16 +10644,18 @@ msgid ""
 "The destiny file:\n"
 "%\n"
 msgstr ""
+"El archivo destino:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:229
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:274
 msgid "already exist. Overwrite?"
-msgstr ""
+msgstr "ya existe. ¿Sobrescribir?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:240
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:285
 msgid "Check destiny file permissions"
-msgstr ""
+msgstr "Revisar los permisos del archivo destino"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:257
 msgid "Move File"
@@ -11330,7 +11334,7 @@ msgstr "Salida de consola"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:137
 msgid "tool log file"
-msgstr ""
+msgstr "archivo de registro de la herramienta"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:203
 msgid "Abort"
