@@ -1706,7 +1706,14 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // build embedded route
-            routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            if (originalRoute) {
+                for (const auto& edge : originalRoute->getParentEdges()) {
+                    edgeIDs.push_back(edge->getID());
+                }
+                routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            } else {
+                routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            }
         } else if (originalRoute) {
             // set route ID in vehicle parameters
             vehicleParameters.routeid = originalRoute->getID();
@@ -1801,7 +1808,14 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // build embedded route
-            routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            if (originalRoute) {
+                for (const auto& edge : originalRoute->getParentEdges()) {
+                    edgeIDs.push_back(edge->getID());
+                }
+                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            } else {
+                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            }
         } else if (originalRoute) {
             // set route ID in vehicle parameters
             vehicleParameters.routeid = originalRoute->getID();
