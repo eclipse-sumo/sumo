@@ -10,22 +10,22 @@ environment:
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0"
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=OFF -DENABLE_CS_BINDINGS=OFF -DNETEDIT=OFF"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=OFF -DENABLE_CS_BINDINGS=OFF -DNETEDIT=OFF -A x64"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
           ver: 2022
           generator: "Visual Studio 17 2022"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=OFF -DENABLE_CS_BINDINGS=OFF -DNETEDIT=OFF -A x64"
         # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
         #   ver: 2022
         #   generator: "Ninja"
         #   configuration: Release
-        #   cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
+        #   cmake_opts: "-DENABLE_JAVA_BINDINGS=OFF"
 
 install:
     - git clone --depth 1 https://github.com/DLR-TS/SUMOLibraries
