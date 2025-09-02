@@ -116,7 +116,7 @@ public:
 
     /// @brief Return selected background color
     FXColor getSelBackColor() const {
-        return selbackColor;
+        return mySelectedBackgroundColor;
     }
 
     /// @brief Change selected text color
@@ -265,47 +265,47 @@ protected:
     /// @brief Edited text
     FXString contents;
 
-    /// @brief Set of delimiters
-    const FXchar* delimiters = FXTextField::textDelimiters;
+    /// @brief Set of text delimiter
+    const FXchar* myTextDelimiter = FXTextField::textDelimiters;
 
     /// @brief Text font
-    FXFont* font;
+    FXFont* myFont;
 
     /// @brief Text color
-    FXColor textColor = 0;
+    FXColor myTextColor = 0;
 
     /// @brief Selected background color
-    FXColor selbackColor = 0;
+    FXColor mySelectedBackgroundColor = 0;
 
     /// @brief Selected text color
-    FXColor seltextColor = 0;
+    FXColor mySelectedTextColor = 0;
 
     /// @brief Color of the Cursor
-    FXColor cursorColor = 0;
+    FXColor myCursorColor = 0;
 
     /// @brief Cursor position
-    FXint cursor = 0;
+    FXint myCursorPosition = 0;
 
     /// @brief Anchor position
-    FXint anchor = 0;
+    FXint myAnchorPosition = 0;
 
-    /// @brief Number of columns visible
-    FXint columns = 0;
+    /// @brief Number of myVisibleColumns visible
+    FXint myVisibleColumns = 0;
 
     /// @brief Shift amount
-    FXint shift = 0;
+    FXint myShiftAmount = 0;
 
     /// @brief Clipped text
-    FXString clipped;
+    FXString myClippedText;
 
     /// @brief Help string
-    FXString help;
+    FXString myHelpText;
 
     /// @brief Tooltip
-    FXString tip;
+    FXString myTooltipText;
 
-    /// @brief icon
-    FXIcon* icon = nullptr;
+    /// @brief myIcon
+    FXIcon* myIcon = nullptr;
 
     /// @brief static tooltip
     MFXStaticToolTip* myStaticToolTip = nullptr;
@@ -322,7 +322,7 @@ protected:
     /// @brief coordinates
     FXint coord(FXint i) const;
 
-    /// @brief draw cursor
+    /// @brief draw myCursorPosition
     void drawCursor(FXuint state);
 
     /// @brief draw text range
