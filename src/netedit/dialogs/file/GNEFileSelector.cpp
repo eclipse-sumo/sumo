@@ -110,7 +110,6 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     // create filename text field and set focus
     myFilenameTextField = new MFXTextFieldIcon(filenameHorizontalFrame, tooltipMenu, GUIIcon::EMPTY,
             this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFileDialog);
-    myFilenameTextField->setFocus();
     // create comboBox for file filter
     myFileFilterComboBox = new MFXComboBoxIcon(filenameHorizontalFrame, tooltipMenu, false, GUIDesignComboBoxVisibleItems,
             this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
