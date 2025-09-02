@@ -261,14 +261,14 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     }
 
     new FXLabel(myToolBar, "time style:", nullptr, LAYOUT_CENTER_Y);
-    myTimeMode = new MFXComboBoxIcon(myToolBar, false, GUIDesignComboBoxVisibleItems,
+    myTimeMode = new MFXComboBoxIcon(myToolBar, nullptr, false, GUIDesignComboBoxVisibleItems,
                                      this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myTimeMode->appendIconItem("seconds");
     myTimeMode->appendIconItem("MM:SS");
     myTimeMode->appendIconItem("time in cycle");
 
     new FXLabel(myToolBar, "green time", nullptr, LAYOUT_CENTER_Y);
-    myGreenMode = new MFXComboBoxIcon(myToolBar, false, GUIDesignComboBoxVisibleItems,
+    myGreenMode = new MFXComboBoxIcon(myToolBar, nullptr, false, GUIDesignComboBoxVisibleItems,
                                       this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myGreenMode->appendIconItem("off");
     myGreenMode->appendIconItem("phase");

@@ -18,12 +18,15 @@
 // The Widget for edit meanData elements
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -67,8 +70,8 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create MFXComboBoxIcon
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), false, GUIDesignComboBoxVisibleItems,
-                                         this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), meanDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                         false, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add mean data types
     const auto tagPropertiesMeanDatas = myMeanDataFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::MEANDATA);
     for (const auto& meanDataType : tagPropertiesMeanDatas) {
@@ -273,8 +276,8 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag();
     // Create MFXComboBoxIcon
-    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), false, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            false, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add meanDatas
     for (const auto& meanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
         myMeanDataComboBox->appendIconItem(meanData.second->getID().c_str(), meanData.second->getACIcon());

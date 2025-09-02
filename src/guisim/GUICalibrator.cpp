@@ -76,10 +76,7 @@ FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator,     GUIManipulator,         GUIM
 /* -------------------------------------------------------------------------
  * GUICalibrator::GUIManip_Calibrator - methods
  * ----------------------------------------------------------------------- */
-GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
-    GUIMainWindow& app,
-    const std::string& name, GUICalibrator& o,
-    int /*xpos*/, int /*ypos*/) :
+GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(GUIMainWindow& app, const std::string& name, GUICalibrator& o, int /*xpos*/, int /*ypos*/) :
     GUIManipulator(app, name, 0, 0),
     myParent(&app),
     myChosenValue(0),
@@ -92,35 +89,27 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    FXGroupBox* gp = new FXGroupBox(f1, "Change Speed",
-                                    GROUPBOX_TITLE_LEFT | FRAME_RIDGE,
+    FXGroupBox* gp = new FXGroupBox(f1, "Change Speed", GROUPBOX_TITLE_LEFT | FRAME_RIDGE,
                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
         // default
-        FXHorizontalFrame* gf1 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
-        new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION + 0,
-                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
+        FXHorizontalFrame* gf1 = new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION + 0, ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
                           0, 0, 0, 0,   2, 2, 0, 0);
     }
     {
         // loaded
-        FXHorizontalFrame* gf0 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
-        new FXRadioButton(gf0, "Loaded", &myChosenTarget, FXDataTarget::ID_OPTION + 1,
-                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
+        FXHorizontalFrame* gf0 = new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf0, "Loaded", &myChosenTarget, FXDataTarget::ID_OPTION + 1, ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
                           0, 0, 0, 0,   2, 2, 0, 0);
     }
     {
         // predefined
-        FXHorizontalFrame* gf2 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
-        new FXRadioButton(gf2, "Predefined: ", &myChosenTarget, FXDataTarget::ID_OPTION + 2,
-                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
+        FXHorizontalFrame* gf2 = new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf2, "Predefined: ", &myChosenTarget, FXDataTarget::ID_OPTION + 2, ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
-        myPredefinedValues =
-            new MFXComboBoxIcon(gf2, false, GUIDesignComboBoxVisibleItems, this, MID_PRE_DEF,
-                                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
+        myPredefinedValues = new MFXComboBoxIcon(gf2, nullptr, false, GUIDesignComboBoxVisibleItems, this, MID_PRE_DEF,
+                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
         myPredefinedValues->appendIconItem("60 km/h");
@@ -134,14 +123,11 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
     }
     {
         // free
-        FXHorizontalFrame* gf12 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        FXHorizontalFrame* gf12 = new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
         new FXRadioButton(gf12, "Free Entry: ", &myChosenTarget, FXDataTarget::ID_OPTION + 3,
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
-        myUserDefinedSpeed =
-            new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
-                              LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        myUserDefinedSpeed = new FXRealSpinner(gf12, 10, this, MID_USER_DEF, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         //myUserDefinedSpeed->setFormatString("%.0f km/h");
         //myUserDefinedSpeed->setIncrements(1, 10, 10);
         myUserDefinedSpeed->setIncrement(10);

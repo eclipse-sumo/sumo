@@ -73,8 +73,8 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     // create check button for new data set
     myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new dataSet"), this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create MFXComboBoxIcon
-    myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+    myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), genericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
     myHorizontalFrameNewID = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelThickedFixed(100));
@@ -433,8 +433,8 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {
     // Create MFXComboBoxIcon
-    myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SELECT, GUIDesignComboBox);
+    myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), genericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
     myMinMaxLabel = buildRainbow(this);
     // refresh interval selector

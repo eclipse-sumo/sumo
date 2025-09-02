@@ -17,14 +17,22 @@
 ///
 //
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
-#include <string>
 #include <vector>
 
-#include "MFXListIconItem.h"
+#include "fxheader.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXListIconItem;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
 /// @brief A list item which allows for custom coloring
 class MFXListIcon : public FXScrollArea {

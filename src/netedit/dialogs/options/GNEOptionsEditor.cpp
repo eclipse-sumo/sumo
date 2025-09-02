@@ -27,6 +27,7 @@
 #include <utils/foxtools/MFXCheckButtonTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/foxtools/MFXStaticToolTip.h>
+#include <utils/foxtools/MFXTextFieldSearch.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/parsers/SAXParser.hpp>
@@ -146,7 +147,7 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
     new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(TREELISTWIDTH - GUIDesignHeight + 14));
     myDescriptionSearchCheckButton = new MFXCheckButtonTooltip(searchFrame, staticTooltipMenu, "", this, MID_GNE_SEARCH_USEDESCRIPTION, GUIDesignCheckButtonThick);
     myDescriptionSearchCheckButton->setToolTipText(TL("Include description in search"));
-    mySearchButton = new MFXTextFieldSearch(searchFrame, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    mySearchButton = new MFXTextFieldSearch(searchFrame, staticTooltipMenu, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // after creation, adjust entries name sizes
     for (const auto& entry : myOptionRowEntries) {
         entry->adjustNameSize();

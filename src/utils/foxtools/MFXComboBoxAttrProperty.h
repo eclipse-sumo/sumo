@@ -36,8 +36,8 @@ class MFXComboBoxAttrProperty : public MFXComboBoxIcon {
 
 public:
     /// @brief Construct a Combo Box widget with room to display cols columns of text
-    MFXComboBoxAttrProperty(FXComposite* p, const bool canSearch, const int visibleItems, FXObject* tgt, FXSelector sel, FXuint opts,
-                            FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+    MFXComboBoxAttrProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
+                            FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                             FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief Destructor

@@ -31,8 +31,10 @@ class MFXTextFieldSearch : public MFXTextFieldIcon {
 
 public:
     /// @brief constructor
-    MFXTextFieldSearch(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-                       FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    MFXTextFieldSearch(FXComposite* p, MFXStaticToolTip* staticToolTip, FXObject* tgt,
+                       FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0,
+                       FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD,
+                       FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief key press
     long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);

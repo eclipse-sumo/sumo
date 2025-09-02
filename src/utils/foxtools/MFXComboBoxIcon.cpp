@@ -19,16 +19,15 @@
 //
 /****************************************************************************/
 
-// =========================================================================
-// included modules
-// =========================================================================
-
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "MFXComboBoxIcon.h"
+#include "MFXListIcon.h"
+#include "MFXListIconItem.h"
+#include "MFXTextFieldSearch.h"
 
 // =========================================================================
 // defines
@@ -69,14 +68,14 @@ FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXC
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, const bool canSearch, const int visibleItems,
+MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
                                  FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
     // create text field
-    myTextFieldIcon = new MFXTextFieldIcon(this, nullptr, GUIIcon::EMPTY, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    myTextFieldIcon = new MFXTextFieldIcon(this, staticToolTip, GUIIcon::EMPTY, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
     }
@@ -84,7 +83,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, const bool canSearch, const int
     myPane = new FXPopup(this, FRAME_LINE);
     // check if create search button
     if (canSearch) {
-        myTextFieldSearch = new MFXTextFieldSearch(myPane, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+        myTextFieldSearch = new MFXTextFieldSearch(myPane, staticToolTip, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         // create label for empty icon
         myNoItemsLabel = new FXLabel(myPane, TL("No matches found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         myNoItemsLabel->setTextColor(GUIDesignTextColorRed);

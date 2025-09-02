@@ -21,8 +21,16 @@
 #pragma once
 #include <config.h>
 
-#include "MFXListIcon.h"
-#include "MFXTextFieldSearch.h"
+#include "fxheader.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXListIcon;
+class MFXStaticToolTip;
+class MFXTextFieldIcon;
+class MFXTextFieldSearch;
 
 // ===========================================================================
 // class definitions
@@ -42,7 +50,7 @@ public:
     };
 
     /// @brief Construct a Combo Box widget with room to display cols columns of text
-    MFXComboBoxIcon(FXComposite* p, const bool canSearch,
+    MFXComboBoxIcon(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch,
                     const int visibleItems, FXObject* tgt, FXSelector sel, FXuint opts,
                     FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                     FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);

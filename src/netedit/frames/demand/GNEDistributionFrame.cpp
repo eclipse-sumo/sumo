@@ -164,8 +164,8 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
-    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
     show();
 }
@@ -306,7 +306,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldIcon for string attributes
-    myComboBoxKeys = new MFXComboBoxIcon(this, true, GUIDesignComboBoxVisibleItems,
+    myComboBoxKeys = new MFXComboBoxIcon(this, staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldIcon for string attributes
     myProbabilityTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE,

@@ -18,10 +18,12 @@
 // Frame for select tags
 /****************************************************************************/
 
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -47,8 +49,8 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Ty
     myFrameParent(frameParent),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
-                                         this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                         true, GUIDesignComboBoxVisibleItems, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // update tag types without informing parent (because we're in the creator
     updateTagTypes(type, tag, false);
     // GNETagSelector is always shown

@@ -122,9 +122,8 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         new FXRadioButton(gf2, "Predefined: ", &myChosenTarget, FXDataTarget::ID_OPTION + 2,
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
-        myPredefinedValues =
-            new MFXComboBoxIcon(gf2, false, GUIDesignComboBoxVisibleItems, this, MID_PRE_DEF,
-                                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
+        myPredefinedValues = new MFXComboBoxIcon(gf2, nullptr, false, GUIDesignComboBoxVisibleItems, this, MID_PRE_DEF,
+                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
         myPredefinedValues->appendIconItem("60 km/h");

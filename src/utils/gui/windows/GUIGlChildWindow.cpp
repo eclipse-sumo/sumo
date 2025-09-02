@@ -154,7 +154,7 @@ GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, nullptr,
                                             false, GUIDesignComboBoxVisibleItems, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,

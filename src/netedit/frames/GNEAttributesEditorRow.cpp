@@ -78,7 +78,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditorType* attribut
     myValueTextField = new MFXTextFieldIcon(this, tooltipMenu, GUIIcon::EMPTY, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // create right combo box for discrete attributes
-    myValueComboBox = new MFXComboBoxIcon(this, true, GUIDesignComboBoxVisibleItems, this,
+    myValueComboBox = new MFXComboBoxIcon(this, tooltipMenu, true, GUIDesignComboBoxVisibleItems, this,
                                           MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // Create right check button

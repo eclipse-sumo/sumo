@@ -3446,13 +3446,14 @@ GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    const auto staticTooltip = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // create interval label
     FXLabel* genericDataLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
                                             TL("Data type"), 0, GUIDesignLabelThickedFixed(100));
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
             MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxFixed(180));
     myGenericDataTypesComboBox->create();
     // fill combo box
@@ -3466,7 +3467,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            false, GUIDesignComboBoxVisibleItemsFixed,
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed,
             myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxFixed(180));
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
@@ -3487,7 +3488,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            false, GUIDesignComboBoxVisibleItemsFixed,
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed,
             myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxFixed(180));
     myParametersComboBox->create();
     // always recalc after creating new elements
