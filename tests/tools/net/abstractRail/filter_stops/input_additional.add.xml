@@ -54,9 +54,9 @@
     <busStop id="-4467772350" name="Kronberg Süd" lane="-26027334_0" startPos="446.70" endPos="646.70" friendlyPos="true" lines="S4"/>
     <busStop id="-4467772352" name="Schwalbach Limes" lane="-42302184_0" startPos="436.87" endPos="636.87" friendlyPos="true"/>
     <busStop id="2682026621" name="Eschborn" lane="26030949#1_0" startPos="43.70" endPos="243.70" friendlyPos="true" lines="S3 S4"/>
-    <busStop id="284149548" name="Niederhöchstadt" lane="26289822#1_0" startPos="0.00" endPos="60.67" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="284149548" name="Niederhoechstadt" lane="26289822#1_0" startPos="0.00" endPos="60.67" friendlyPos="true" lines="S3 S4"/>
     <busStop id="3103465705" name="Schwalbach Nord" lane="4817146#1_0" startPos="579.67" endPos="779.67" friendlyPos="true" lines="S3"/>
-    <busStop id="4440909936" name="Niederhöchstadt" lane="26030949#7_0" startPos="0.00" endPos="194.22" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="4440909936" name="Niederhoechstadt" lane="26030949#7_0" startPos="0.00" endPos="194.22" friendlyPos="true" lines="S3 S4"/>
     <busStop id="4467772350" name="Kronberg Süd" lane="26027334_0" startPos="1459.94" endPos="1659.94" friendlyPos="true" lines="S4"/>
     <busStop id="4467772352" name="Schwalbach Limes" lane="290389709_0" startPos="228.15" endPos="428.15" friendlyPos="true" lines="S3"/>
 </additional>
