@@ -45,6 +45,9 @@
 #include <arrow/api.h>
 #include <parquet/arrow/writer.h>
 #ifdef _MSC_VER
+/* Disable warning about unmatched push / pop.
+   TODO Re-enable this once it has been solved upstream, see https://github.com/apache/arrow/issues/47099 */
+#pragma warning(suppress: 5031)
 #pragma warning(pop)
 #endif
 
