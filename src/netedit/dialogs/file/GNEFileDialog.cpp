@@ -110,16 +110,8 @@ GNEFileDialog::assureExtension(const std::string& filename) const {
     // iterate all groups of extensions
     for (const auto& extension : extensions) {
         // iterate over all extension to check if is the same extension
-        if (extension.length() < filename.length()) {
-            bool sameExtension = true;
-            for (auto i = 0; i < extension.length(); i++) {
-                if (filename[i + filename.length() - extension.length()] != extension[i]) {
-                    sameExtension = false;
-                }
-            }
-            if (sameExtension) {
-                return filename;
-            }
+        if (StringUtils::endsWith(filename, extension)) {
+            return filename;
         }
     }
     // in this point, we have to give an extension (if exist)
