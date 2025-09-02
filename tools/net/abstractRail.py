@@ -145,12 +145,36 @@ def initShapes(edges, nodeCoords, edgeShapes):
         edgeShapes[edge.getID()] = edge.getShape(True)
 
 
-def getStops(stopfile):
+def getStops(stopfile, net):
     stops = dict()  # edgeID -> (stopID, stopName, start, end)
     for stop in sumolib.xml.parse(stopfile, ['busStop', 'trainStop']):
         edgeID = stop.lane.rsplit('_', 1)[0]
+        if not net.hasEdge(edgeID):
+            sys.stderr.write("Warning: Unknown stop edge '%s'" % edgeID)
+            continue
+        edge = net.getEdge(edgeID)
+        startPos = float(stop.startPos)
+        endPos = float(stop.endPos)
+        if startPos < 0:
+            startPos += edge.getLength()
+            if startPos < 0:
+                startPos = 0
+        if startPos >= edge.getLength():
+            startPos = edge.getLength()
+        if endPos < 0:
+            endPos += edge.getLength()
+            if endPos < 0:
+                endPos = 0
+        if endPos >= edge.getLength():
+            endPos = edge.getLength()
+
+        expectedLength = min(50, edge.getLength())
+        if endPos - startPos < expectedLength:
+            mid = (endPos + startPos) / 2
+            startPos = max(0, mid - expectedLength)
+            endPos = min(edge.getLength(), mid + expectedLength)
         stops[edgeID] = (stop.id, stop.getAttributeSecure("attr_name", stop.id),
-                         float(stop.startPos), float(stop.endPos))
+                         startPos, endPos)
     return stops
 
 
@@ -167,6 +191,8 @@ def findMainline(options, name, net, edges, stops):
         edge = net.getEdge(edgeID)
         begCoord = gh.positionAtShapeOffset(edge.getShape(), startPos)
         endCoord = gh.positionAtShapeOffset(edge.getShape(), endPos)
+        assert(startPos != endPos)
+        assert(begCoord != endCoord)
         angle = gh.angleTo2D(begCoord, endCoord)
         if 180 < gh.naviDegree(angle) <= 360:
             angle -= math.pi
@@ -593,7 +619,7 @@ def main(options):
     if options.verbose:
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
-    stops = getStops(options.stopfile)
+    stops = getStops(options.stopfile, net)
 
     regions = loadRegions(options, net)
     multiRegions = len(regions) > 1
