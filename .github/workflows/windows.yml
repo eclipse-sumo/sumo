@@ -43,6 +43,10 @@ jobs:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
 
+    - name: Set global ErrorActionPreference
+      # this configures powershell to exit on first error
+      run: echo '$ErrorActionPreference = "Stop"' >> $PROFILE.CurrentUserAllHosts
+
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
