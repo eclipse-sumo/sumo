@@ -617,7 +617,7 @@ GNETLSEditorFrame::TLSAttributes::updateTLSAttributes() {
         myButtonEditParameters->enable();
         myParametersTextField->enable();
         // disable E1 detector mode in static
-        if (myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms()->getType() == TrafficLightType::STATIC) {
+        if (myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms()->getType() != TrafficLightType::ACTUATED) {
             // disable E1 detector mode
             disableE1DetectorMode();
             mySetDetectorsToggleButton->disable();
