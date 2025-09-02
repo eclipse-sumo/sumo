@@ -152,7 +152,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
     const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
-    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
+    std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
         edge = myEdgeCont.retrieve(edgeID, true);
@@ -201,7 +201,8 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
             myCurrentStop->resetLoaded();
             const std::pair<NBEdge*, NBEdge*> split = *myEdgeCont.getSplit(edge);
             if (myCurrentStop->replaceEdge(edgeID, {split.first, split.second})) {
-                edge = myEdgeCont.retrieve(myCurrentStop->getEdgeId(), true);
+                edge = split.first->getID() == myCurrentStop->getEdgeId() ? split.first : split.second;
+                edgeID = edge->getID();
             }
         }
         if (!myStopCont.insert(myCurrentStop)) {
