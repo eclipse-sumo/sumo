@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-02 15:32+0200\n"
-"PO-Revision-Date: 2025-09-02 08:03+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-09-03 06:40+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -9747,7 +9747,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEDialog.cpp:404
 #: src/netedit/frames/network/GNETAZFrame.cpp:393
 msgid "Cancel changes"
-msgstr ""
+msgstr "Cancelar mudanças"
 
 #: src/netedit/dialogs/GNEDialog.cpp:434
 msgid "Advanced"
@@ -14293,7 +14293,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
-msgstr ""
+msgstr "Seletor de modelos"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
@@ -14309,15 +14309,15 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Add sidewalk"
-msgstr ""
+msgstr "Adicionar calçada"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:86
 msgid "Add bikelane"
-msgstr ""
+msgstr "Adicionar ciclovia"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:89
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "Usar tipo de aresta/modelo"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:97
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:463
@@ -14357,7 +14357,7 @@ msgstr "modelo "
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:454
 msgid "LaneType selector"
-msgstr ""
+msgstr "Seletor de tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:463
 msgid "Add lane type"
@@ -14369,11 +14369,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:564
 msgid "add laneType"
-msgstr ""
+msgstr "Adicionar tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:602
 msgid "remove laneType"
-msgstr ""
+msgstr "remover tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:645
 msgid "ESC:"
@@ -14381,7 +14381,7 @@ msgstr "ESC:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:646
 msgid "Deselect origin"
-msgstr ""
+msgstr "Desselecionar origem"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:647
 msgid "Control+Click:"
@@ -14389,7 +14389,7 @@ msgstr "Control+Clique:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:648
 msgid "Move view"
-msgstr ""
+msgstr "Mover visão"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:649
 msgid "Shift+Click:"
@@ -14409,7 +14409,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:665
 msgid "Create Edge"
-msgstr ""
+msgstr "Criar aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:689
 msgid ""
@@ -14448,11 +14448,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:103
 msgid "Clear edges"
-msgstr ""
+msgstr "Limpar arestas"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:182
 msgid "Crossing parameters"
-msgstr ""
+msgstr "Parâmetros de cruzamentos"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:452
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1438
@@ -14462,7 +14462,7 @@ msgstr "Criar"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:455
 msgid "Create crossing"
-msgstr ""
+msgstr "Criar cruzamento"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:482
 msgid ""
@@ -14497,7 +14497,7 @@ msgstr "Imagem de fundo"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr ""
+msgstr "Conexão selecionada"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
@@ -14505,7 +14505,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
-msgstr ""
+msgstr "- Junção: "
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
@@ -14525,7 +14525,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:101
 msgid "No conflict"
-msgstr ""
+msgstr "Sem conflito"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
@@ -14549,7 +14549,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "Conflito não regulado"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:120
 msgid "Connection has an unregulated conflict with the selected connection"
@@ -14557,7 +14557,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "Conflito mútuo"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
@@ -14569,7 +14569,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "Desselecionar conexão"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
@@ -14585,11 +14585,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:60
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "Formato: Lon-Lat"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:61
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "Formato: Lat-Lon"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:67
 msgid "Center View after creation"
@@ -14605,7 +14605,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEShapeFrame.cpp:137
 #: src/netedit/frames/network/GNEShapeFrame.cpp:141
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "Equivalente cartesiano:"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:73
 #: src/netedit/frames/network/GNEShapeFrame.cpp:142
@@ -14623,7 +14623,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:172
 msgid "Using clipboard"
-msgstr ""
+msgstr "Usando a área de transferência"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:226
 msgid "Shapes"
@@ -14652,11 +14652,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:170
 msgid "Current TAZ: "
-msgstr ""
+msgstr "TAZ atual: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:337
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "Estatísticas da Zona de Tráfego Agregado"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:340
 #: src/netedit/frames/network/GNETAZFrame.cpp:882
@@ -14704,15 +14704,15 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:390
 msgid "Confirm changes"
-msgstr ""
+msgstr "Confirmar mudanças"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:423
 msgid "TAZ changes"
-msgstr ""
+msgstr "Mudanças na Zona de Tráfego Agregado"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:476
 msgid "TAZ Sources/Sinks"
-msgstr ""
+msgstr "Origens/Destinos"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:482
 msgid "Membership"
@@ -14724,11 +14724,11 @@ msgstr "Alternar"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:488
 msgid "New source"
-msgstr ""
+msgstr "Nova origem"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:493
 msgid "New sink"
-msgstr ""
+msgstr "Novo destino"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:499
 msgid "Set zero fringe prob."
@@ -14737,7 +14737,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:503
 #: src/netedit/frames/network/GNETAZFrame.cpp:637
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "Alternar adesão:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:504
 #: src/netedit/frames/network/GNETAZFrame.cpp:638
@@ -14787,11 +14787,11 @@ msgstr "alternar"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:659
 msgid "Keep Membership:"
-msgstr ""
+msgstr "Manter adesão:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:659
 msgid "  Select Sources/Sinks."
-msgstr ""
+msgstr "  Selecionar Origens/Destinos."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:660
 msgid "Press ESC to clear the current selection."
@@ -14805,7 +14805,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:837
 #: src/netedit/frames/network/GNETAZFrame.cpp:840
 msgid " sources and "
-msgstr ""
+msgstr " origens e "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:838
 msgid " sinks from TAZ '"
@@ -14813,7 +14813,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:841
 msgid " sinks from "
-msgstr ""
+msgstr " destinos de "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:841
 msgid " TAZs?"
@@ -14834,7 +14834,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:869
 msgid "Selection Statistics"
-msgstr ""
+msgstr "Estatísticas da seleção"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:873
 msgid "Source"
@@ -14854,7 +14854,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:944
 msgid "Invalid edge"
-msgstr ""
+msgstr "Aresta inválida"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1121
 msgid "- Edge ID: "
@@ -14958,16 +14958,16 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:880
 msgid "Traffic Light"
-msgstr ""
+msgstr "Semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:886
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1279
 msgid "Junction ID"
-msgstr ""
+msgstr "ID da junção"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:892
 msgid "TLS ID"
-msgstr ""
+msgstr "ID do semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:909
@@ -15001,15 +15001,15 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:918
 msgid "Finish join."
-msgstr ""
+msgstr "Finalizar combinação."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:920
 msgid "Cancel Join."
-msgstr ""
+msgstr "Cancelar combinação."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1067
 msgid "rename TLS"
-msgstr ""
+msgstr "renomear semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1125
 msgid "change TLS type"
@@ -15017,11 +15017,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1184
 msgid "join TLS"
-msgstr ""
+msgstr "combinar semáforos"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1226
 msgid "disjoin TLS"
-msgstr ""
+msgstr "separar semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1286
 msgid "No junction selected"
@@ -15029,7 +15029,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1309
 msgid "Junction IDs"
-msgstr ""
+msgstr "IDs das junções"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1332
 msgid "Traffic Light Programs"
@@ -15037,7 +15037,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1345
 msgid "Create TLS"
-msgstr ""
+msgstr "Criar semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1345
 msgid "Create a new traffic light program."
@@ -15051,7 +15051,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Reset single"
-msgstr ""
+msgstr "Reiniciar individual"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Reset current TLS program."
@@ -15059,7 +15059,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1357
 msgid "Reset all"
-msgstr ""
+msgstr "Reiniciar todos"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1357
 msgid "Reset all TLS programs."
@@ -15114,7 +15114,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1683
 msgid "reset TLS"
-msgstr ""
+msgstr "Reiniciar semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
@@ -15130,7 +15130,7 @@ msgstr "Fases"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1877
 msgid "Clean States"
-msgstr ""
+msgstr "Limpar estados"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1878
 msgid "Clean unused states from all phase"
@@ -15142,7 +15142,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1884
 msgid "Add States"
-msgstr ""
+msgstr "Adicionar estados"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1885
 msgid "Extend the state vector for all phases by one entry"
