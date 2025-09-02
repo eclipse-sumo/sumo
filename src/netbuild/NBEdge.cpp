@@ -337,7 +337,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     mySignalPosition(to == tpl->myTo ? tpl->mySignalPosition : Position::INVALID),
     mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr),
     myIsOffRamp(false),
-    myIsBidi(false),
+    myIsBidi(tpl->myIsBidi),
     myIndex(-1) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
