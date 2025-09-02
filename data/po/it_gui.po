@@ -2789,8 +2789,8 @@ msgstr "Salvataggio dei nodi combinati fallito!"
 #: src/netedit/GNEApplicationWindow.cpp:3481
 #: src/netedit/GNEApplicationWindow.cpp:3485
 #: src/netedit/GNEApplicationWindow.cpp:3489
-msgid "Saving of Netedit configuration aborted"
-msgstr "Interruzione del processo di salvataggio della configurazione Netedit"
+msgid "Saving of netedit configuration aborted"
+msgstr "Interruzione del processo di salvataggio della configurazione netedit"
 
 #: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "Netedit configuration saved in '"

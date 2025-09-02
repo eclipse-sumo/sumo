@@ -92,7 +92,7 @@ void
 GNEParametersDialog::ParametersValues::setParameters(const Parameterised::Map& newParameters) {
     // clear rows
     clearParameters();
-    // iterate over parameteres
+    // iterate over parameters
     for (const auto& newParameter : newParameters) {
         addParameter(newParameter);
     }
@@ -103,7 +103,7 @@ void
 GNEParametersDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
     // clear rows
     clearParameters();
-    // iterate over parameteres
+    // iterate over parameters
     for (const auto& newParameter : newParameters) {
         addParameter(newParameter);
     }
@@ -144,7 +144,7 @@ GNEParametersDialog::ParametersValues::getParameterRows() const {
 
 bool
 GNEParametersDialog::ParametersValues::keyExist(const std::string& key) const {
-    // just interate over myParameterRows and compare key
+    // just iterate over myParameterRows and compare key
     for (const auto& row : myParameterRows) {
         if (row->keyField->getText().text() == key) {
             return true;

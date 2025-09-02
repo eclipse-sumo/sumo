@@ -2775,7 +2775,7 @@ msgstr "Birleştirilmiş Kavşakların Kaydı Başarısız!"
 #: src/netedit/GNEApplicationWindow.cpp:3481
 #: src/netedit/GNEApplicationWindow.cpp:3485
 #: src/netedit/GNEApplicationWindow.cpp:3489
-msgid "Saving of Netedit configuration aborted"
+msgid "Saving of netedit configuration aborted"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3498

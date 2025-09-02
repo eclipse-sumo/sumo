@@ -3470,23 +3470,23 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         myNet->getSavingFilesHandler()->updateNeteditConfig();
         // save all elements giving automatic names based on patter if their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
-            WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
+            WRITE_MESSAGE(TL("Saving of netedit configuration aborted"));
             return 0;
         }
         if (onCmdSaveAdditionalElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
-            WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
+            WRITE_MESSAGE(TL("Saving of netedit configuration aborted"));
             return 0;
         }
         if (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
-            WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
+            WRITE_MESSAGE(TL("Saving of netedit configuration aborted"));
             return 0;
         }
         if (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
-            WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
+            WRITE_MESSAGE(TL("Saving of netedit configuration aborted"));
             return 0;
         }
         if (onCmdSaveMeanDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
-            WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
+            WRITE_MESSAGE(TL("Saving of netedit configuration aborted"));
             return 0;
         }
         // configuration

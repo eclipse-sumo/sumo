@@ -2774,7 +2774,7 @@ msgstr "結合された交差点の保存に失敗しました！"
 #: src/netedit/GNEApplicationWindow.cpp:3481
 #: src/netedit/GNEApplicationWindow.cpp:3485
 #: src/netedit/GNEApplicationWindow.cpp:3489
-msgid "Saving of Netedit configuration aborted"
+msgid "Saving of netedit configuration aborted"
 msgstr "Neteditの構成の保存を中止しました"
 
 #: src/netedit/GNEApplicationWindow.cpp:3498

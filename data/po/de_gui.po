@@ -2786,8 +2786,8 @@ msgstr "Speichern der vereinigten Knoten fehlgeschlagen!"
 #: src/netedit/GNEApplicationWindow.cpp:3481
 #: src/netedit/GNEApplicationWindow.cpp:3485
 #: src/netedit/GNEApplicationWindow.cpp:3489
-msgid "Saving of Netedit configuration aborted"
-msgstr "Speichervorgang der Netedit-Konfiguration abgebrochen"
+msgid "Saving of netedit configuration aborted"
+msgstr "Speichervorgang der netedit-Konfiguration abgebrochen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "Netedit configuration saved in '"
