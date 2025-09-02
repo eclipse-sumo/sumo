@@ -75,8 +75,7 @@ GNEAttributesEditorRow::GNEAttributesEditorRow(GNEAttributesEditorType* attribut
     myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, "button", nullptr, this,
             MID_GNE_ATTRIBUTESEDITORROW_REPARENT, GUIDesignButtonAttribute);
     // create right text field for string attributes
-    myValueTextField = new MFXTextFieldIcon(this, GUIDesignTextFieldNCol, tooltipMenu, nullptr, this,
-                                            MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
+    myValueTextField = new MFXTextFieldIcon(this, tooltipMenu, GUIIcon::EMPTY, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // create right combo box for discrete attributes
     myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems, this,

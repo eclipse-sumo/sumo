@@ -145,7 +145,7 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
         // check if this attribute can be edited in dialog
         if (attrProperty->isDialogEditor()) {
             // create text field targeting the GNEElementTable
-            auto textField = new MFXTextFieldIcon(textFieldsFrame, GUIDesignTextFieldNCol, toolTip, nullptr,
+            auto textField = new MFXTextFieldIcon(textFieldsFrame, toolTip, GUIIcon::EMPTY,
                                                   this, MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
             // set value from attribute carrier
             textField->setText(AC->getAttribute(attrProperty->getAttr()).c_str());

@@ -37,7 +37,7 @@ GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, co
     // add information label
     new FXLabel(myContentFrame, info.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     // create text field to enter the path
-    myPathTextField = new MFXTextFieldIcon(myContentFrame, GUIDesignTextFieldNCol, applicationWindow->getStaticTooltipMenu(), nullptr,
+    myPathTextField = new MFXTextFieldIcon(myContentFrame, applicationWindow->getStaticTooltipMenu(), GUIIcon::EMPTY,
                                            nullptr, 0, GUIDesignTextField);
     // set original file path
     myPathTextField->setText(originalFilePath.c_str());

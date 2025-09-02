@@ -309,8 +309,8 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldIcon for string attributes
-    myProbabilityTextField = new MFXTextFieldIcon(this, GUIDesignTextFieldNCol, staticTooltipMenu, nullptr,
-            this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
+    myProbabilityTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE,
+            GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
     // create delete buton
     myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
             "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);

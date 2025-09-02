@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/gui/images/GUIIconSubSys.h>
+
 #include "MFXStaticToolTip.h"
 
 // ===========================================================================
@@ -32,8 +34,8 @@ class MFXTextFieldIcon : public FXFrame {
 
 public:
     /// @brief Construct text field wide enough to display ncols columns
-    MFXTextFieldIcon(FXComposite* p, FXint ncols, MFXStaticToolTip* staticToolTip, FXIcon* ic, FXObject* tgt = NULL, FXSelector sel = 0,
-                     FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+    MFXTextFieldIcon(FXComposite* p, MFXStaticToolTip* staticToolTip, GUIIcon icon, FXObject* tgt,
+                     FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief Destructor

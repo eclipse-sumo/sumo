@@ -157,7 +157,7 @@ GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalF
     // build icon label
     myIcon = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconThick);
     // build description label
-    myTextFieldDescription = new MFXTextFieldIcon(horizontalFrame, GUIDesignTextFieldNCol, staticToolTip, nullptr, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextFieldDescription = new MFXTextFieldIcon(horizontalFrame, staticToolTip, GUIIcon::EMPTY, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDescription->setEditable(false);
     // build text label
     myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(70));

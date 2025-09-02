@@ -884,15 +884,13 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myJunctionIDLabel = new FXLabel(junctionIDFrame, TL("Junction ID"), nullptr, GUIDesignLabelThickedFixed(100));
-    myJunctionIDTextField = new MFXTextFieldIcon(junctionIDFrame, GUIDesignTextFieldNCol, staticTooltip, nullptr,
-            nullptr, 0, GUIDesignTextField);
+    myJunctionIDTextField = new MFXTextFieldIcon(junctionIDFrame, staticTooltip, GUIIcon::EMPTY, nullptr, 0, GUIDesignTextField);
     // junction ID remains always disabled
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, TL("TLS ID"), nullptr, GUIDesignLabelThickedFixed(100));
-    myTLSIDTextField = new MFXTextFieldIcon(TLSIDFrame, GUIDesignTextFieldNCol, staticTooltip, nullptr,
-                                            this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
+    myTLSIDTextField = new MFXTextFieldIcon(TLSIDFrame, staticTooltip, GUIIcon::EMPTY, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));

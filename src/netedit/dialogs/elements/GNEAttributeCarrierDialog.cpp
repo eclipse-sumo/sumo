@@ -86,7 +86,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
         }
     } else {
         // create text field
-        myTextField = new MFXTextFieldIcon(this, GUIDesignTextFieldNCol, tooltipMenu, nullptr, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
+        myTextField = new MFXTextFieldIcon(this, tooltipMenu, GUIIcon::EMPTY, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
         // set attribute
         myTextField->setText(ACDialog->getElement()->getAttribute(attrProperty->getAttr()).c_str());
     }

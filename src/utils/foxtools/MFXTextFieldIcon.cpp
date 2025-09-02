@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <utils/common/StdDefs.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "fxheader.h"
 #include <fxkeys.h>
@@ -125,13 +126,13 @@ FXIMPLEMENT(MFXTextFieldIcon, FXFrame, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextF
 // member method definitions
 // ===========================================================================
 
-MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, MFXStaticToolTip* staticToolTip, FXIcon* ic, FXObject* tgt, FXSelector sel,
+MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, MFXStaticToolTip* staticToolTip, GUIIcon icon, FXObject* tgt, FXSelector sel,
                                    FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXFrame(p, opts, x, y, w, h, pl, pr, pt, pb),
-    myIcon(ic),
     myStaticToolTip(staticToolTip) {
-    if (ncols < 0) {
-        ncols = 0;
+    // set icon
+    if (icon != GUIIcon::EMPTY) {
+        myIcon = GUIIconSubSys::getIcon(icon);
     }
     flags |= FLAG_ENABLED;
     target = tgt;
@@ -147,7 +148,7 @@ MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, MFXStaticToolTip
     mySelectedBackgroundColor = getApp()->getSelbackColor();
     mySelectedTextColor = getApp()->getSelforeColor();
     myCursorColor = getApp()->getForeColor();
-    myVisibleColumns = ncols;
+    myVisibleColumns = GUIDesignTextFieldNCol;
 }
 
 

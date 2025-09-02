@@ -76,7 +76,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     target = tgt;
     message = sel;
     // create text field
-    myTextFieldIcon = new MFXTextFieldIcon(this, cols, nullptr, nullptr, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    myTextFieldIcon = new MFXTextFieldIcon(this, nullptr, GUIIcon::EMPTY, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
     }
@@ -84,7 +84,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     myPane = new FXPopup(this, FRAME_LINE);
     // check if create search button
     if (canSearch) {
-        myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+        myTextFieldSearch = new MFXTextFieldSearch(myPane, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         // create label for empty icon
         myNoItemsLabel = new FXLabel(myPane, TL("No matches found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         myNoItemsLabel->setTextColor(GUIDesignTextColorRed);

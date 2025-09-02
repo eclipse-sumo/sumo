@@ -145,7 +145,7 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
     new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(TREELISTWIDTH - GUIDesignHeight + 14));
     myDescriptionSearchCheckButton = new MFXCheckButtonTooltip(searchFrame, staticTooltipMenu, "", this, MID_GNE_SEARCH_USEDESCRIPTION, GUIDesignCheckButtonThick);
     myDescriptionSearchCheckButton->setToolTipText(TL("Include description in search"));
-    mySearchButton = new MFXTextFieldSearch(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    mySearchButton = new MFXTextFieldSearch(searchFrame, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // after creation, adjust entries name sizes
     for (const auto& entry : myOptionRowEntries) {
         entry->adjustNameSize();
