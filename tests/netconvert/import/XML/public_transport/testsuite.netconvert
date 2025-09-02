@@ -22,3 +22,12 @@ preserve_stopIDs
 
 # see #16220
 preserve_stopIDs2
+
+# move stop to a new edge
+split_stop_edge
+
+# adapt stop position
+split_stop_edge2
+
+# adapt stop edge and position when the both parts receive an new edgeID
+split_stop_edge3
