@@ -183,16 +183,16 @@ def findMainline(options, name, net, edges, stops):
     knownEdges = set([e.getID() for e in edges])
 
     angles = []
-    for edgeID, (stopID, name, startPos, endPos) in stops.items():
-        if options.mainStops and stopID not in options.mainStops and name not in options.mainStops:
+    for edgeID, (stopID, stopName, startPos, endPos) in stops.items():
+        if options.mainStops and stopID not in options.mainStops and stopName not in options.mainStops:
             continue
         if edgeID not in knownEdges:
             continue
         edge = net.getEdge(edgeID)
         begCoord = gh.positionAtShapeOffset(edge.getShape(), startPos)
         endCoord = gh.positionAtShapeOffset(edge.getShape(), endPos)
-        assert(startPos != endPos)
-        assert(begCoord != endCoord)
+        assert (startPos != endPos)
+        assert (begCoord != endCoord)
         angle = gh.angleTo2D(begCoord, endCoord)
         if 180 < gh.naviDegree(angle) <= 360:
             angle -= math.pi
