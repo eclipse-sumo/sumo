@@ -31,3 +31,6 @@ split_stop_edge2
 
 # adapt stop edge and position when the both parts receive an new edgeID
 split_stop_edge3
+
+# adapt stop edge and position when the stop edge is split multiple times
+split_stop_edge_multiple
