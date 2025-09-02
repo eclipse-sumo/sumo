@@ -56,6 +56,12 @@ jobs:
         python-version: ${{ matrix.python_version }}
         architecture: x64
 
+    - name: Configuring Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
