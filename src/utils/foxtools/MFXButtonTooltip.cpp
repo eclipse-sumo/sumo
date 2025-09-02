@@ -19,8 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include "MFXStaticToolTip.h"
 #include "MFXButtonTooltip.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXButtonTooltip::onEnter),
@@ -28,9 +32,12 @@ FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
     FXMAPFUNC(SEL_MOTION,   0,  MFXButtonTooltip::onMotion),
 };
 
-
 // Object implementation
 FXIMPLEMENT(MFXButtonTooltip, FXButton, MFXButtonTooltipMap, ARRAYNUMBER(MFXButtonTooltipMap))
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
                                    const std::string& text, FXIcon* ic,

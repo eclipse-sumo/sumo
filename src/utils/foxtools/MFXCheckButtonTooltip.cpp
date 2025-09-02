@@ -19,8 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include "MFXStaticToolTip.h"
 #include "MFXCheckButtonTooltip.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXDEFMAP(MFXCheckButtonTooltip) MFXCheckButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXCheckButtonTooltip::onEnter),
@@ -31,6 +35,9 @@ FXDEFMAP(MFXCheckButtonTooltip) MFXCheckButtonTooltipMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXCheckButtonTooltip, FXCheckButton, MFXCheckButtonTooltipMap, ARRAYNUMBER(MFXCheckButtonTooltipMap))
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 MFXCheckButtonTooltip::MFXCheckButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXObject* tgt,
         FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :

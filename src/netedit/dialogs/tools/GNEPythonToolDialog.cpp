@@ -23,6 +23,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPythonToolDialog.h"

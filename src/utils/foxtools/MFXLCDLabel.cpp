@@ -20,16 +20,10 @@
 //
 /****************************************************************************/
 
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#include <config.h>
-
+#include "MFXStaticToolTip.h"
 #include "MFXSevenSegment.h"
-#include "MFXLCDLabel.h"
 #include "MFXBaseObject.h"
-
+#include "MFXLCDLabel.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -55,7 +49,6 @@ FXDEFMAP(MFXLCDLabel) MFXLCDLabelMap[] = {
 
 // Object implementation
 FXIMPLEMENT(MFXLCDLabel, FXHorizontalFrame, MFXLCDLabelMap, ARRAYNUMBER(MFXLCDLabelMap))
-
 
 // ===========================================================================
 // method definitions

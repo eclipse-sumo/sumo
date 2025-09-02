@@ -21,7 +21,6 @@
 #include <utils/common/StdDefs.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "fxheader.h"
 #include <fxkeys.h>
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -33,6 +32,7 @@
 #pragma warning(pop)
 #endif
 
+#include "MFXStaticToolTip.h"
 #include "MFXTextFieldIcon.h"
 
 // ===========================================================================

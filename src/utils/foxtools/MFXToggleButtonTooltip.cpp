@@ -17,10 +17,13 @@
 ///
 // Button similar to FXToggleButton but with the possibility of showing tooltips
 /****************************************************************************/
-#include <config.h>
 
+#include "MFXStaticToolTip.h"
 #include "MFXToggleButtonTooltip.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXDEFMAP(MFXToggleButtonTooltip) MFXToggleButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXToggleButtonTooltip::onEnter),
@@ -28,9 +31,12 @@ FXDEFMAP(MFXToggleButtonTooltip) MFXToggleButtonTooltipMap[] = {
     FXMAPFUNC(SEL_MOTION,   0,  MFXToggleButtonTooltip::onMotion),
 };
 
-
 // Object implementation
 FXIMPLEMENT(MFXToggleButtonTooltip, FXToggleButton, MFXToggleButtonTooltipMap, ARRAYNUMBER(MFXToggleButtonTooltipMap))
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 MFXToggleButtonTooltip::MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
         const std::string& text1, const std::string& text2, FXIcon* ic1, FXIcon* ic2, FXObject* tgt,

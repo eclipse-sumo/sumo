@@ -20,9 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include "fxheader.h"
+
 #include <utils/gui/images/GUIIconSubSys.h>
 
-#include "MFXStaticToolTip.h"
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXStaticToolTip;
 
 // ===========================================================================
 // class definitions

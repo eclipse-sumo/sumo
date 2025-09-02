@@ -41,6 +41,7 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXSingleEventThread.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
