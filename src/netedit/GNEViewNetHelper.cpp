@@ -3452,7 +3452,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
+            false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
             MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxFixed(180));
     myGenericDataTypesComboBox->create();
     // fill combo box
@@ -3466,7 +3466,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed,
+            false, GUIDesignComboBoxVisibleItemsFixed,
             myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxFixed(180));
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
@@ -3487,7 +3487,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed,
+            false, GUIDesignComboBoxVisibleItemsFixed,
             myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxFixed(180));
     myParametersComboBox->create();
     // always recalc after creating new elements

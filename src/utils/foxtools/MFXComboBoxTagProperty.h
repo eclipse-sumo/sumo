@@ -35,10 +35,8 @@ class GNETagProperties;
 class MFXComboBoxTagProperty : public MFXComboBoxIcon {
 
 public:
-
     /// @brief Construct a Combo Box widget with room to display cols columns of text
-    MFXComboBoxTagProperty(FXComposite* p, FXint cols, const bool canSearch,
-                           const int visibleItems, FXObject* tgt, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL,
+    MFXComboBoxTagProperty(FXComposite* p, const bool canSearch, const int visibleItems, FXObject* tgt, FXSelector sel, FXuint opts,
                            FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 

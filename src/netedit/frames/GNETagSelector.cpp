@@ -47,7 +47,7 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Ty
     myFrameParent(frameParent),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // update tag types without informing parent (because we're in the creator
     updateTagTypes(type, tag, false);

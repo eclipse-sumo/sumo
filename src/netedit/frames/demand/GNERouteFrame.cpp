@@ -59,14 +59,14 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, TL("non consecutive edges")));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, TL("consecutive edges")));
     // Create MFXComboBoxIcon for Route mode
-    myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
+    myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
         myRouteModeMatchBox->appendIconItem(routeMode.second.c_str());
     }
     // Create MFXComboBoxIcon for VClass
-    myVClassMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
+    myVClassMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), false, GUIDesignComboBoxVisibleItems,
                                            this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {

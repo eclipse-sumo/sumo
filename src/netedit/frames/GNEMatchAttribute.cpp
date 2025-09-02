@@ -66,14 +66,14 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
     myCurrentEditedProperties(new CurrentEditedProperties(this)) {
     // Create MFXComboBoxIcons (sum 1 due children)
     for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth() + 1; i++) {
-        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
                 this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
     }
     myShowOnlyCommonAttributes = new FXCheckButton(getCollapsableFrame(), TL("Only common"), this, MID_GNE_SELECTORFRAME_TOGGLECOMMON, GUIDesignCheckButton);
     myShowOnlyCommonAttributes->setCheck(FALSE);
     // Create MFXComboBoxIcon for Attributes
-    myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+    myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);

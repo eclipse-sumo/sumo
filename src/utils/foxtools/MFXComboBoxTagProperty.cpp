@@ -26,9 +26,9 @@
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxTagProperty::MFXComboBoxTagProperty(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
+MFXComboBoxTagProperty::MFXComboBoxTagProperty(FXComposite* p, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    MFXComboBoxIcon(p, cols, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+    MFXComboBoxIcon(p, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
