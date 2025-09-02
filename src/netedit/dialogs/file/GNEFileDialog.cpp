@@ -52,8 +52,8 @@ GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std:
     if (gCurrentFolder.length() > 0) {
         myFileSelector->setDirectory(gCurrentFolder);
     }
-    // open dialog
-    openDialog();
+    // open dialog whithout focusing the button
+    openDialog(false);
 }
 
 

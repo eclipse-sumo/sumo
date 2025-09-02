@@ -160,7 +160,7 @@ protected:
     Result myResult = Result::CANCEL;
 
     /// @brief open dialog
-    void openDialog();
+    void openDialog(const bool focusButton = true);
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();

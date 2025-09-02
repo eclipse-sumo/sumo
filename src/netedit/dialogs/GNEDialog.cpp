@@ -170,11 +170,13 @@ GNEDialog::onKeyRelease(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 void
-GNEDialog::openDialog() {
+GNEDialog::openDialog(const bool focusButton) {
     // create dialog
     create();
-    // set focus in button
-    myFocusButton->setFocus();
+    // check if set focus in button
+    if (focusButton) {
+        myFocusButton->setFocus();
+    }
     // show in the center of app
     show(PLACEMENT_OWNER);
     // continue depending on whether we are testing or not
