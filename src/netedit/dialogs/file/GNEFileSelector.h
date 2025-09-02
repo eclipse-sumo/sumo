@@ -29,6 +29,7 @@
 // class declaration
 // ===========================================================================
 
+class MFXComboBoxIcon;
 class MFXStaticToolTip;
 class MFXTextFieldIcon;
 
@@ -62,33 +63,6 @@ public:
 
     /// @brief get file extension
     const std::vector<std::string>& getFileExtension() const;
-
-    /// Change file pattern
-    void setPattern(const FXString& ptrn);
-
-    /// Return file pattern
-    FXString getPattern() const;
-
-    /// @brief set current pattern
-    void setCurrentPattern(FXint n);
-
-    /// @brief Return current pattern number
-    FXint getCurrentPattern() const;
-
-    /// @brief Get pattern text for given pattern number
-    FXString getPatternText(FXint patno) const;
-
-    /// @brief Change pattern text for pattern number
-    void setPatternText(FXint patno, const FXString& text);
-
-    /// @brief Return number of patterns
-    FXint getNumPatterns() const;
-
-    /// @brief Allow pattern entry
-    void allowPatternEntry(FXbool allow);
-
-    /// @brief Return TRUE if pattern entry is allowed
-    FXbool allowPatternEntry() const;
 
     /// @brief Change directory
     void setDirectory(const FXString& path);
@@ -223,7 +197,7 @@ protected:
     MFXTextFieldIcon* myFilenameTextField = nullptr;
 
     /// @brief Combobox for pattern list
-    FXComboBox* myFileFilterComboBox = nullptr;
+    MFXComboBoxIcon* myFileFilterComboBox = nullptr;
 
     /// @brief Menu for myBookmarksRecentFiles
     FXMenuPane* myBookmarkMenuPane = nullptr;

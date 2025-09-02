@@ -111,7 +111,8 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     myFilenameTextField = new MFXTextFieldIcon(filenameHorizontalFrame, tooltipMenu, GUIIcon::EMPTY,
             this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFileDialog);
     // create comboBox for file filter
-    myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
+    myFileFilterComboBox = new MFXComboBoxIcon(filenameHorizontalFrame, tooltipMenu, false, GUIDesignComboBoxVisibleItems,
+            this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);
     // build shortcuts
     buildShortcuts();
     // continue depending of open mode
@@ -146,11 +147,10 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
         throw ProcessError("At least one extension is needed");
     } else {
         for (const auto& extension : extensions) {
-            myFileFilterComboBox->appendItem(extension.c_str());
+            myFileFilterComboBox->appendIconItem(extension.c_str());
         }
     }
     myFileFilterComboBox->setNumVisible(FXMIN((int)extensions.size(), 12));
-    setCurrentPattern(0);
     // parse extensions
     parseExtensions(extensions);
 }
@@ -540,74 +540,6 @@ GNEFileSelector::getDirectory() const {
 const std::vector<std::string>&
 GNEFileSelector::getFileExtension() const {
     return myExtensions.at(myFileFilterComboBox->getCurrentItem());
-}
-
-
-void
-GNEFileSelector::setPattern(const FXString& ptrn) {
-    myFileFilterComboBox->setText(ptrn);
-    myFileSelector->setPattern(ptrn);
-}
-
-
-FXString
-GNEFileSelector::getPattern() const {
-    return myFileSelector->getPattern();
-}
-
-
-void
-GNEFileSelector::setCurrentPattern(FXint patno) {
-    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
-        throw ProcessError("index out of range");
-    }
-    myFileFilterComboBox->setCurrentItem(patno);
-    myFileSelector->setPattern(FXFileSelector::patternFromText(myFileFilterComboBox->getItemText(patno)));
-}
-
-
-FXint
-GNEFileSelector::getCurrentPattern() const {
-    return myFileFilterComboBox->getCurrentItem();
-}
-
-
-void
-GNEFileSelector::setPatternText(FXint patno, const FXString& text) {
-    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
-        throw ProcessError("index out of range");
-    }
-    myFileFilterComboBox->setItemText(patno, text);
-    if (patno == myFileFilterComboBox->getCurrentItem()) {
-        setPattern(FXFileSelector::patternFromText(text));
-    }
-}
-
-
-FXString
-GNEFileSelector::getPatternText(FXint patno) const {
-    if (patno < 0 || patno >= myFileFilterComboBox->getNumItems()) {
-        throw ProcessError("index out of range");
-    }
-    return myFileFilterComboBox->getItemText(patno);
-}
-
-
-FXint
-GNEFileSelector::getNumPatterns() const {
-    return myFileFilterComboBox->getNumItems();
-}
-
-
-void
-GNEFileSelector::allowPatternEntry(FXbool allow) {
-    myFileFilterComboBox->setComboStyle(allow ? COMBOBOX_NORMAL : COMBOBOX_STATIC);
-}
-
-
-FXbool
-GNEFileSelector::allowPatternEntry() const {
-    return (myFileFilterComboBox->getComboStyle() != COMBOBOX_STATIC);
 }
 
 
