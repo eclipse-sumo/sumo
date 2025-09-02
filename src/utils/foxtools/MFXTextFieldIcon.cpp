@@ -18,11 +18,6 @@
 //
 /****************************************************************************/
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <utils/common/StdDefs.h>
 
 #include "fxheader.h"
@@ -39,7 +34,6 @@
 
 #include "MFXTextFieldIcon.h"
 
-
 // ===========================================================================
 // Macros
 // ===========================================================================
@@ -55,71 +49,73 @@
 
 // Map
 FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[] = {
-    FXMAPFUNC(SEL_PAINT,                0,                                  MFXTextFieldIcon::onPaint),
-    FXMAPFUNC(SEL_UPDATE,               0,                                  MFXTextFieldIcon::onUpdate),
-    FXMAPFUNC(SEL_MOTION,               0,                                  MFXTextFieldIcon::onMotion),
+    FXMAPFUNC(SEL_CLIPBOARD_GAINED,     0,                                  MFXTextFieldIcon::onClipboardGained),
+    FXMAPFUNC(SEL_CLIPBOARD_LOST,       0,                                  MFXTextFieldIcon::onClipboardLost),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                  MFXTextFieldIcon::onClipboardRequest),
+    FXMAPFUNC(SEL_ENTER,                0,                                  MFXTextFieldIcon::onEnter),
+    FXMAPFUNC(SEL_FOCUS_SELF,           0,                                  MFXTextFieldIcon::onFocusSelf),
+    FXMAPFUNC(SEL_FOCUSIN,              0,                                  MFXTextFieldIcon::onFocusIn),
+    FXMAPFUNC(SEL_FOCUSOUT,             0,                                  MFXTextFieldIcon::onFocusOut),
+    FXMAPFUNC(SEL_KEYPRESS,             0,                                  MFXTextFieldIcon::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,                                  MFXTextFieldIcon::onKeyRelease),
+    FXMAPFUNC(SEL_LEAVE,                0,                                  MFXTextFieldIcon::onLeave),
     FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                                  MFXTextFieldIcon::onLeftBtnPress),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                                  MFXTextFieldIcon::onLeftBtnRelease),
     FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                                  MFXTextFieldIcon::onMiddleBtnPress),
     FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                                  MFXTextFieldIcon::onMiddleBtnRelease),
-    FXMAPFUNC(SEL_KEYPRESS,             0,                                  MFXTextFieldIcon::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,                                  MFXTextFieldIcon::onKeyRelease),
-    FXMAPFUNC(SEL_VERIFY,               0,                                  MFXTextFieldIcon::onVerify),
-    FXMAPFUNC(SEL_SELECTION_LOST,       0,                                  MFXTextFieldIcon::onSelectionLost),
-    FXMAPFUNC(SEL_SELECTION_GAINED,     0,                                  MFXTextFieldIcon::onSelectionGained),
-    FXMAPFUNC(SEL_SELECTION_REQUEST,    0,                                  MFXTextFieldIcon::onSelectionRequest),
-    FXMAPFUNC(SEL_CLIPBOARD_LOST,       0,                                  MFXTextFieldIcon::onClipboardLost),
-    FXMAPFUNC(SEL_CLIPBOARD_GAINED,     0,                                  MFXTextFieldIcon::onClipboardGained),
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                  MFXTextFieldIcon::onClipboardRequest),
-    FXMAPFUNC(SEL_FOCUSIN,              0,                                  MFXTextFieldIcon::onFocusIn),
-    FXMAPFUNC(SEL_FOCUSOUT,             0,                                  MFXTextFieldIcon::onFocusOut),
-    FXMAPFUNC(SEL_FOCUS_SELF,           0,                                  MFXTextFieldIcon::onFocusSelf),
-    FXMAPFUNC(SEL_QUERY_TIP,            0,                                  MFXTextFieldIcon::onQueryTip),
+    FXMAPFUNC(SEL_MOTION,               0,                                  MFXTextFieldIcon::onMotion),
+    FXMAPFUNC(SEL_PAINT,                0,                                  MFXTextFieldIcon::onPaint),
     FXMAPFUNC(SEL_QUERY_HELP,           0,                                  MFXTextFieldIcon::onQueryHelp),
-    FXMAPFUNC(SEL_TIMEOUT,              FXTextField::ID_BLINK,              MFXTextFieldIcon::onBlink),
-    FXMAPFUNC(SEL_TIMEOUT,              FXTextField::ID_AUTOSCROLL,         MFXTextFieldIcon::onAutoScroll),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_TOGGLE_EDITABLE,    MFXTextFieldIcon::onUpdToggleEditable),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_TOGGLE_OVERSTRIKE,  MFXTextFieldIcon::onUpdToggleOverstrike),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_CUT_SEL,            MFXTextFieldIcon::onUpdHaveSelection),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_COPY_SEL,           MFXTextFieldIcon::onUpdHaveSelection),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_PASTE_SEL,          MFXTextFieldIcon::onUpdYes),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_DELETE_SEL,         MFXTextFieldIcon::onUpdHaveSelection),
-    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_SELECT_ALL,         MFXTextFieldIcon::onUpdSelectAll),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETVALUE,           MFXTextFieldIcon::onCmdSetValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETINTVALUE,        MFXTextFieldIcon::onCmdSetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETREALVALUE,       MFXTextFieldIcon::onCmdSetRealValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETSTRINGVALUE,     MFXTextFieldIcon::onCmdSetStringValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETINTVALUE,        MFXTextFieldIcon::onCmdGetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETREALVALUE,       MFXTextFieldIcon::onCmdGetRealValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETSTRINGVALUE,     MFXTextFieldIcon::onCmdGetStringValue),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_HOME,        MFXTextFieldIcon::onCmdCursorHome),
+    FXMAPFUNC(SEL_QUERY_TIP,            0,                                  MFXTextFieldIcon::onQueryTip),
+    FXMAPFUNC(SEL_SELECTION_GAINED,     0,                                  MFXTextFieldIcon::onSelectionGained),
+    FXMAPFUNC(SEL_SELECTION_LOST,       0,                                  MFXTextFieldIcon::onSelectionLost),
+    FXMAPFUNC(SEL_SELECTION_REQUEST,    0,                                  MFXTextFieldIcon::onSelectionRequest),
+    FXMAPFUNC(SEL_UPDATE,               0,                                  MFXTextFieldIcon::onUpdate),
+    FXMAPFUNC(SEL_VERIFY,               0,                                  MFXTextFieldIcon::onVerify),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_BACKSPACE,          MFXTextFieldIcon::onCmdBackspace),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_COPY_SEL,           MFXTextFieldIcon::onCmdCopySel),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_END,         MFXTextFieldIcon::onCmdCursorEnd),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_RIGHT,       MFXTextFieldIcon::onCmdCursorRight),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_HOME,        MFXTextFieldIcon::onCmdCursorHome),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_LEFT,        MFXTextFieldIcon::onCmdCursorLeft),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_RIGHT,       MFXTextFieldIcon::onCmdCursorRight),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_WORD_END,    MFXTextFieldIcon::onCmdCursorWordEnd),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_WORD_LEFT,   MFXTextFieldIcon::onCmdCursorWordLeft),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_WORD_RIGHT,  MFXTextFieldIcon::onCmdCursorWordRight),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_WORD_START,  MFXTextFieldIcon::onCmdCursorWordStart),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CURSOR_WORD_END,    MFXTextFieldIcon::onCmdCursorWordEnd),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_MARK,               MFXTextFieldIcon::onCmdMark),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_EXTEND,             MFXTextFieldIcon::onCmdExtend),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SELECT_ALL,         MFXTextFieldIcon::onCmdSelectAll),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DESELECT_ALL,       MFXTextFieldIcon::onCmdDeselectAll),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_CUT_SEL,            MFXTextFieldIcon::onCmdCutSel),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_COPY_SEL,           MFXTextFieldIcon::onCmdCopySel),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_PASTE_SEL,          MFXTextFieldIcon::onCmdPasteSel),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_PASTE_MIDDLE,       MFXTextFieldIcon::onCmdPasteMiddle),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DELETE_SEL,         MFXTextFieldIcon::onCmdDeleteSel),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DELETE_ALL,         MFXTextFieldIcon::onCmdDeleteAll),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_OVERST_STRING,      MFXTextFieldIcon::onCmdOverstString),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_INSERT_STRING,      MFXTextFieldIcon::onCmdInsertString),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_BACKSPACE,          MFXTextFieldIcon::onCmdBackspace),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DELETE,             MFXTextFieldIcon::onCmdDelete),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DELETE_ALL,         MFXTextFieldIcon::onCmdDeleteAll),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DELETE_SEL,         MFXTextFieldIcon::onCmdDeleteSel),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_DESELECT_ALL,       MFXTextFieldIcon::onCmdDeselectAll),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_EXTEND,             MFXTextFieldIcon::onCmdExtend),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETHELPSTRING,      MFXTextFieldIcon::onCmdGetHelp),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETINTVALUE,        MFXTextFieldIcon::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETREALVALUE,       MFXTextFieldIcon::onCmdGetRealValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETSTRINGVALUE,     MFXTextFieldIcon::onCmdGetStringValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETTIPSTRING,       MFXTextFieldIcon::onCmdGetTip),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_INSERT_STRING,      MFXTextFieldIcon::onCmdInsertString),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_MARK,               MFXTextFieldIcon::onCmdMark),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_OVERST_STRING,      MFXTextFieldIcon::onCmdOverstString),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_PASTE_MIDDLE,       MFXTextFieldIcon::onCmdPasteMiddle),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_PASTE_SEL,          MFXTextFieldIcon::onCmdPasteSel),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SELECT_ALL,         MFXTextFieldIcon::onCmdSelectAll),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETHELPSTRING,      MFXTextFieldIcon::onCmdSetHelp),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETINTVALUE,        MFXTextFieldIcon::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETREALVALUE,       MFXTextFieldIcon::onCmdSetRealValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETSTRINGVALUE,     MFXTextFieldIcon::onCmdSetStringValue),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETTIPSTRING,       MFXTextFieldIcon::onCmdSetTip),
+    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETVALUE,           MFXTextFieldIcon::onCmdSetValue),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_TOGGLE_EDITABLE,    MFXTextFieldIcon::onCmdToggleEditable),
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_TOGGLE_OVERSTRIKE,  MFXTextFieldIcon::onCmdToggleOverstrike),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETHELPSTRING,      MFXTextFieldIcon::onCmdSetHelp),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETHELPSTRING,      MFXTextFieldIcon::onCmdGetHelp),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_SETTIPSTRING,       MFXTextFieldIcon::onCmdSetTip),
-    FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETTIPSTRING,       MFXTextFieldIcon::onCmdGetTip),
+    FXMAPFUNC(SEL_TIMEOUT,              FXTextField::ID_AUTOSCROLL,         MFXTextFieldIcon::onAutoScroll),
+    FXMAPFUNC(SEL_TIMEOUT,              FXTextField::ID_BLINK,              MFXTextFieldIcon::onBlink),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_COPY_SEL,           MFXTextFieldIcon::onUpdHaveSelection),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_CUT_SEL,            MFXTextFieldIcon::onUpdHaveSelection),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_DELETE_SEL,         MFXTextFieldIcon::onUpdHaveSelection),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_PASTE_SEL,          MFXTextFieldIcon::onUpdYes),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_SELECT_ALL,         MFXTextFieldIcon::onUpdSelectAll),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_TOGGLE_EDITABLE,    MFXTextFieldIcon::onUpdToggleEditable),
+    FXMAPFUNC(SEL_UPDATE,               FXTextField::ID_TOGGLE_OVERSTRIKE,  MFXTextFieldIcon::onUpdToggleOverstrike),
 };
 
 // Object implementation
@@ -129,10 +125,11 @@ FXIMPLEMENT(MFXTextFieldIcon, FXFrame, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextF
 // member method definitions
 // ===========================================================================
 
-MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXIcon* ic, FXObject* tgt, FXSelector sel,
+MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, MFXStaticToolTip* staticToolTip, FXIcon* ic, FXObject* tgt, FXSelector sel,
                                    FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXFrame(p, opts, x, y, w, h, pl, pr, pt, pb),
-    icon(ic) {
+    icon(ic),
+    myStaticToolTip(staticToolTip) {
     if (ncols < 0) {
         ncols = 0;
     }
@@ -187,6 +184,12 @@ MFXTextFieldIcon::setFont(FXFont* fnt) {
         recalc();
         update();
     }
+}
+
+
+FXFont*
+MFXTextFieldIcon::getFont() const {
+    return font;
 }
 
 
@@ -649,7 +652,11 @@ MFXTextFieldIcon::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 
 
 long
-MFXTextFieldIcon::onMotion(FXObject*, FXSelector, void* ptr) {
+MFXTextFieldIcon::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    if (myStaticToolTip) {
+        myStaticToolTip->onUpdate(sender, sel, ptr);
+    }
     FXEvent* event = (FXEvent*)ptr;
     FXint t;
     if (flags & FLAG_PRESSED) {
@@ -842,9 +849,21 @@ MFXTextFieldIcon::setCursorPos(FXint pos) {
 }
 
 
+FXint
+MFXTextFieldIcon::getCursorPos() const {
+    return cursor;
+}
+
+
 void
 MFXTextFieldIcon::setAnchorPos(FXint pos) {
     anchor = contents.validate(FXCLAMP(0, pos, contents.length()));
+}
+
+
+FXint
+MFXTextFieldIcon::getAnchorPos() const {
+    return anchor;
 }
 
 
@@ -1299,6 +1318,40 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
             }
         }
     }
+}
+
+
+long
+MFXTextFieldIcon::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
+    // check if show toolTip text
+    if (myStaticToolTip) {
+        if (!myToolTipText.empty()) {
+            // show toolTip text
+            setTipText(myToolTipText);
+            // show tip show
+            myStaticToolTip->showStaticToolTip(getTipText());
+        } else if (font->getTextWidth(contents.text(), contents.length()) > getWidth()) {
+            // only show tip Text if contents is bigger than textField width
+            setTipText(contents);
+            // show tip show
+            myStaticToolTip->showStaticToolTip(getTipText());
+        }
+        // always show help text
+        setHelpText(contents);
+    }
+    // continue with FXTextField function
+    return FXFrame::onEnter(sender, sel, ptr);
+}
+
+
+long
+MFXTextFieldIcon::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
+    // hide static toolTip
+    if (myStaticToolTip) {
+        myStaticToolTip->hideStaticToolTip();
+    }
+    // continue with FXTextField function
+    return FXFrame::onLeave(sender, sel, ptr);
 }
 
 
@@ -2139,7 +2192,6 @@ MFXTextFieldIcon::extendSelection(FXint pos) {
 }
 
 
-
 void
 MFXTextFieldIcon::setText(const FXString& text, FXbool notify) {
     killSelection();
@@ -2169,6 +2221,12 @@ MFXTextFieldIcon::setIcon(FXIcon* ic) {
 }
 
 
+FXString
+MFXTextFieldIcon::getText() const {
+    return contents;
+}
+
+
 void
 MFXTextFieldIcon::setTextColor(FXColor clr) {
     if (textColor != clr) {
@@ -2177,6 +2235,11 @@ MFXTextFieldIcon::setTextColor(FXColor clr) {
     }
 }
 
+
+FXColor
+MFXTextFieldIcon::getTextColor() const {
+    return textColor;
+}
 
 
 void
@@ -2197,6 +2260,11 @@ MFXTextFieldIcon::setSelTextColor(FXColor clr) {
 }
 
 
+FXColor
+MFXTextFieldIcon::getSelTextColor() const {
+    return seltextColor;
+}
+
 
 void
 MFXTextFieldIcon::setCursorColor(FXColor clr) {
@@ -2206,6 +2274,11 @@ MFXTextFieldIcon::setCursorColor(FXColor clr) {
     }
 }
 
+
+FXColor
+MFXTextFieldIcon::getCursorColor() const {
+    return cursorColor;
+}
 
 
 void
@@ -2222,6 +2295,11 @@ MFXTextFieldIcon::setNumColumns(FXint ncols) {
     }
 }
 
+
+FXint
+MFXTextFieldIcon::getNumColumns() const {
+    return columns;
+}
 
 
 FXbool
@@ -2298,35 +2376,45 @@ MFXTextFieldIcon::getJustify() const {
 }
 
 
-
 void
-MFXTextFieldIcon::save(FXStream& store) const {
-    FXFrame::save(store);
-    store << contents;
-    store << font;
-    store << textColor;
-    store << selbackColor;
-    store << seltextColor;
-    store << cursorColor;
-    store << columns;
-    store << help;
-    store << tip;
+MFXTextFieldIcon::setDelimiters(const FXchar* delims) {
+    delimiters = delims;
 }
 
 
+const FXchar*
+MFXTextFieldIcon::getDelimiters() const {
+    return delimiters;
+}
+
 
 void
-MFXTextFieldIcon::load(FXStream& store) {
-    FXFrame::load(store);
-    store >> contents;
-    store >> font;
-    store >> textColor;
-    store >> selbackColor;
-    store >> seltextColor;
-    store >> cursorColor;
-    store >> columns;
-    store >> help;
-    store >> tip;
+MFXTextFieldIcon::setHelpText(const FXString& text) {
+    help = text;
+}
+
+
+const FXString&
+MFXTextFieldIcon::getHelpText() const {
+    return help;
+}
+
+
+void
+MFXTextFieldIcon::setTipText(const FXString& text) {
+    tip = text;
+}
+
+
+const FXString&
+MFXTextFieldIcon::getTipText() const {
+    return tip;
+}
+
+
+void
+MFXTextFieldIcon::setToolTipText(const FXString& toolTip) {
+    myToolTipText = toolTip;
 }
 
 

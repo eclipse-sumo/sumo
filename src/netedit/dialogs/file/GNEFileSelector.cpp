@@ -23,7 +23,7 @@
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -108,7 +108,7 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
                 TL("File Name:"),
                 nullptr, GUIDesignLabelFixed(100));
     // create filename text field
-    myFilenameTextField = new MFXTextFieldTooltip(filenameHorizontalFrame, tooltipMenu, GUIDesignTextFieldNCol,
+    myFilenameTextField = new MFXTextFieldIcon(filenameHorizontalFrame, GUIDesignTextFieldNCol, tooltipMenu, nullptr,
             this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFileDialog);
     // create comboBox for file filter
     myFileFilterComboBox = new FXComboBox(filenameHorizontalFrame, GUIDesignComboBoxNCol, this, FXFileSelector::ID_FILEFILTER, GUIDesignComboBoxFileDialog);

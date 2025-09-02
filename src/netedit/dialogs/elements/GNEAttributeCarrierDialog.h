@@ -27,7 +27,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -74,7 +74,7 @@ public:
         MFXButtonTooltip* myAttributeButton = nullptr;
 
         /// @brief text field for attribute
-        MFXTextFieldTooltip* myTextField = nullptr;
+        MFXTextFieldIcon* myTextField = nullptr;
 
         /// @brief check button for true/false
         FXCheckButton* myCheckButton = nullptr;

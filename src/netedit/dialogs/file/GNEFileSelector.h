@@ -30,7 +30,7 @@
 // ===========================================================================
 
 class MFXStaticToolTip;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -220,7 +220,7 @@ protected:
     FXFileList* myFileSelector = nullptr;
 
     /// @brief File name entry field
-    MFXTextFieldTooltip* myFilenameTextField = nullptr;
+    MFXTextFieldIcon* myFilenameTextField = nullptr;
 
     /// @brief Combobox for pattern list
     FXComboBox* myFileFilterComboBox = nullptr;

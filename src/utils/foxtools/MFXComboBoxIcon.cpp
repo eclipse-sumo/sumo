@@ -76,7 +76,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     target = tgt;
     message = sel;
     // create text field
-    myTextFieldIcon = new MFXTextFieldIcon(this, cols, nullptr, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    myTextFieldIcon = new MFXTextFieldIcon(this, cols, nullptr, nullptr, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
     }

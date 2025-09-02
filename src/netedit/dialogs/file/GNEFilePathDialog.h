@@ -26,7 +26,7 @@
 // class declaration
 // ===========================================================================
 
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -59,7 +59,7 @@ private:
     std::string myOriginalFilePath;
 
     /// @brief text field to enter the path
-    MFXTextFieldTooltip* myPathTextField = nullptr;
+    MFXTextFieldIcon* myPathTextField = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNEFilePathDialog(const GNEFilePathDialog&) = delete;

@@ -27,7 +27,7 @@
 #include <netedit/elements/demand/GNERouteDistribution.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/frames/GNEAttributesEditor.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"
@@ -305,12 +305,12 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
-    // Create and hide MFXTextFieldTooltip for string attributes
+    // Create and hide MFXTextFieldIcon for string attributes
     myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // Create and hide MFXTextFieldTooltip for string attributes
-    myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
-            GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
+    // Create and hide MFXTextFieldIcon for string attributes
+    myProbabilityTextField = new MFXTextFieldIcon(this, GUIDesignTextFieldNCol, staticTooltipMenu, nullptr,
+            this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
     // create delete buton
     myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
             "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);

@@ -37,7 +37,7 @@
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netwrite/NWWriter_SUMO.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
@@ -880,20 +880,19 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light")),
     myTLSEditorParent(TLSEditorParent),
     myCurrentJunction(nullptr) {
+    const auto staticTooltip = TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myJunctionIDLabel = new FXLabel(junctionIDFrame, TL("Junction ID"), nullptr, GUIDesignLabelThickedFixed(100));
-    myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame,
-            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-            GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
+    myJunctionIDTextField = new MFXTextFieldIcon(junctionIDFrame, GUIDesignTextFieldNCol, staticTooltip, nullptr,
+            nullptr, 0, GUIDesignTextField);
     // junction ID remains always disabled
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, TL("TLS ID"), nullptr, GUIDesignLabelThickedFixed(100));
-    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame,
-            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-            GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
+    myTLSIDTextField = new MFXTextFieldIcon(TLSIDFrame, GUIDesignTextFieldNCol, staticTooltip, nullptr,
+                                            this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
@@ -907,14 +906,12 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
-    myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons,
-            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons, staticTooltip,
             TL("Join") + std::string("\t") + TL("Enable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
             TL("Join") + std::string("\t") + TL("Disable join mode") + std::string("\t") + TL("Join TLS and junctions in the current junction."),
             GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN),
             this, MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN, GUIDesignButton);
-    myDisjoinTLSButton = new MFXButtonTooltip(joinButtons,
-            TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, staticTooltip,
             TL("Disjoin") + std::string("\t") + TL("Disjoin current TLS") + std::string("\t") + TL("Disjoin current TLS."),
             GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // create frame for join control buttons

@@ -28,7 +28,7 @@
 
 class GNEAttributeCarrier;
 class MFXLabelTooltip;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -164,7 +164,7 @@ private:
     MFXButtonTooltip* myAttributeButton = nullptr;
 
     /// @brief pointer to text field for modify values
-    MFXTextFieldTooltip* myValueTextField = nullptr;
+    MFXTextFieldIcon* myValueTextField = nullptr;
 
     /// @brief pointer to combo box for select choices
     MFXComboBoxIcon* myValueComboBox = nullptr;

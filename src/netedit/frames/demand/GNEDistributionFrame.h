@@ -30,7 +30,7 @@
 class GNEAttributesEditor;
 class GNEDemandElement;
 class MFXComboBoxIcon;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -227,7 +227,7 @@ public:
         MFXComboBoxIcon* myComboBoxKeys = nullptr;
 
         /// @brief textField to modify the probability attribute
-        MFXTextFieldTooltip* myProbabilityTextField = nullptr;
+        MFXTextFieldIcon* myProbabilityTextField = nullptr;
 
         /// @brief current Key
         const GNEDemandElement* myKey = nullptr;

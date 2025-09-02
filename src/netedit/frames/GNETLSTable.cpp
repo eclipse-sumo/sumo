@@ -24,7 +24,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -665,7 +665,7 @@ GNETLSTable::moveFocus() {
 // GNETLSTable::Cell - methods
 // ---------------------------------------------------------------------------
 
-GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, MFXTextFieldIcon* textField, int col, int row) :
     myTLSTable(TLSTable),
     myTextField(textField),
     myCol(col),
@@ -957,7 +957,7 @@ GNETLSTable::Cell::setTooltip(const std::string& toolTip) {
 }
 
 
-MFXTextFieldTooltip*
+MFXTextFieldIcon*
 GNETLSTable::Cell::getTextField() const {
     return myTextField;
 }
@@ -1236,6 +1236,7 @@ GNETLSTable::Column::Column() :
 
 GNETLSTable::Row::Row(GNETLSTable* table) :
     myTable(table) {
+    const auto staticTooltipMenu = table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // build textFields
     for (int columnIndex = 0; columnIndex < (FXint)table->myColumns.size(); columnIndex++) {
         // get number of cells
@@ -1259,17 +1260,17 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('m'):
             case ('-'): {
                 // create textField for values
-                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new MFXTextFieldIcon(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
+                                                      GUIDesignTextFieldNCol, staticTooltipMenu, nullptr, table,
+                                                      MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new MFXTextFieldIcon(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
+                                                      GUIDesignTextFieldNCol, staticTooltipMenu, nullptr, table,
+                                                      MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
@@ -1283,8 +1284,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('d'): {
                 // create button for delete phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                   (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
+                                                   staticTooltipMenu, (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
                                                    GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
@@ -1292,8 +1292,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('t'): {
                 // create button for move up phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                   (std::string("\t") + TL("Move phase up") + std::string("\t") + TL("Move this phase up.")).c_str(),
+                                                   staticTooltipMenu, (std::string("\t") + TL("Move phase up") + std::string("\t") + TL("Move this phase up.")).c_str(),
                                                    GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
@@ -1301,8 +1300,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('b'): {
                 // create button for move down phase
                 auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                   table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                   (std::string("\t") + TL("Move phase down") + std::string("\t") + TL("Move this phase down.")).c_str(),
+                                                   staticTooltipMenu, (std::string("\t") + TL("Move phase down") + std::string("\t") + TL("Move this phase down.")).c_str(),
                                                    GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;

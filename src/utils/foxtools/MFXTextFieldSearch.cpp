@@ -51,7 +51,7 @@ FXIMPLEMENT(MFXTextFieldSearch, MFXTextFieldIcon, MFXTextFieldSearchMap, ARRAYNU
 // ===========================================================================
 
 MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    MFXTextFieldIcon(p, ncols, GUIIconSubSys::getIcon(GUIIcon::SEARCH), tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
+    MFXTextFieldIcon(p, ncols, nullptr, GUIIconSubSys::getIcon(GUIIcon::SEARCH), tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
     myTarget(tgt) {
 }
 

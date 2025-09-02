@@ -23,7 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEElementTable.h"
@@ -145,8 +145,8 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
         // check if this attribute can be edited in dialog
         if (attrProperty->isDialogEditor()) {
             // create text field targeting the GNEElementTable
-            auto textField = new MFXTextFieldTooltip(textFieldsFrame, toolTip, GUIDesignTextFieldNCol, this,
-                    MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
+            auto textField = new MFXTextFieldIcon(textFieldsFrame, GUIDesignTextFieldNCol, toolTip, nullptr,
+                                                  this, MID_GNE_ELEMENTTABLE_EDIT, GUIDesignTextField);
             // set value from attribute carrier
             textField->setText(AC->getAttribute(attrProperty->getAttr()).c_str());
             // add in AttributeTextFields vector

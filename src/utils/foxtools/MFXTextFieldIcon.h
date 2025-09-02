@@ -17,12 +17,10 @@
 ///
 //
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
-
+#include "MFXStaticToolTip.h"
 
 // ===========================================================================
 // class definitions
@@ -34,8 +32,8 @@ class MFXTextFieldIcon : public FXFrame {
 
 public:
     /// @brief Construct text field wide enough to display ncols columns
-    MFXTextFieldIcon(FXComposite* p, FXint ncols, FXIcon* ic, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = TEXTFIELD_NORMAL,
-                     FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+    MFXTextFieldIcon(FXComposite* p, FXint ncols, MFXStaticToolTip* staticToolTip, FXIcon* ic, FXObject* tgt = NULL, FXSelector sel = 0,
+                     FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief Destructor
@@ -84,17 +82,13 @@ public:
     void setCursorPos(FXint pos);
 
     /// @brief Return cursor position
-    FXint getCursorPos() const {
-        return cursor;
-    }
+    FXint getCursorPos() const;
 
     /// @brief Change anchor position
     void setAnchorPos(FXint pos);
 
     /// @brief Return anchor position
-    FXint getAnchorPos() const {
-        return anchor;
-    }
+    FXint getAnchorPos() const;
 
     /// @brief Change the text and move cursor to end
     void setText(const FXString& text, FXbool notify = FALSE);
@@ -103,25 +97,19 @@ public:
     void setIcon(FXIcon* ic);
 
     /// @brief Get the text for this label
-    FXString getText() const {
-        return contents;
-    }
+    FXString getText() const;
 
     /// @brief Set the text font
     void setFont(FXFont* fnt);
 
     /// @brief Get the text font
-    FXFont* getFont() const {
-        return font;
-    }
+    FXFont* getFont() const;
 
     /// @brief Change text color
     void setTextColor(FXColor clr);
 
     /// @brief Return text color
-    FXColor getTextColor() const {
-        return textColor;
-    }
+    FXColor getTextColor() const;
 
     /// @brief Change selected background color
     void setSelBackColor(FXColor clr);
@@ -135,25 +123,19 @@ public:
     void setSelTextColor(FXColor clr);
 
     /// @brief Return selected text color
-    FXColor getSelTextColor() const {
-        return seltextColor;
-    }
+    FXColor getSelTextColor() const;
 
     /// @brief Changes the cursor color
     void setCursorColor(FXColor clr);
 
     /// @brief Return the cursor color
-    FXColor getCursorColor() const {
-        return cursorColor;
-    }
+    FXColor getCursorColor() const;
 
     /// @brief Change the default width of the text field
     void setNumColumns(FXint cols);
 
     /// @brief Return number of columns
-    FXint getNumColumns() const {
-        return columns;
-    }
+    FXint getNumColumns() const;
 
     /// @brief Change text justification mode
     void setJustify(FXuint mode);
@@ -162,34 +144,22 @@ public:
     FXuint getJustify() const;
 
     /// @brief Change word delimiters
-    void setDelimiters(const FXchar* delims = FXTextField::textDelimiters) {
-        delimiters = delims;
-    }
+    void setDelimiters(const FXchar* delims = FXTextField::textDelimiters);
 
     /// @brief Return word delimiters
-    const FXchar* getDelimiters() const {
-        return delimiters;
-    }
+    const FXchar* getDelimiters() const;
 
     /// @brief Set the status line help text for this label
-    void setHelpText(const FXString& text) {
-        help = text;
-    }
+    void setHelpText(const FXString& text);
 
     /// @brief Get the status line help text for this label
-    const FXString& getHelpText() const {
-        return help;
-    }
+    const FXString& getHelpText() const;
 
     /// @brief Set the tool tip message for this text field
-    void setTipText(const FXString& text) {
-        tip = text;
-    }
+    void setTipText(const FXString& text);
 
     /// @brief Get the tool tip message for this text field
-    const FXString& getTipText() const {
-        return tip;
-    }
+    const FXString& getTipText() const;
 
     /// @brief Change text style
     void setTextStyle(FXuint style);
@@ -218,15 +188,14 @@ public:
     /// @brief Scroll text to make the given position visible
     void makePositionVisible(FXint pos);
 
-    /// @brief Save text field to a stream
-    virtual void save(FXStream& store) const;
-
-    /// @brief Load text field from a stream
-    virtual void load(FXStream& store);
+    /// @brief set toolTip
+    void setToolTipText(const FXString& toolTip);
 
     /// @brief fox callbacks
     /// @{
 
+    long onEnter(FXObject*, FXSelector, void*);
+    long onLeave(FXObject*, FXSelector, void*);
     long onPaint(FXObject*, FXSelector, void*);
     long onUpdate(FXObject*, FXSelector, void*);
     long onKeyPress(FXObject*, FXSelector, void*);
@@ -337,6 +306,12 @@ protected:
 
     /// @brief icon
     FXIcon* icon = nullptr;
+
+    /// @brief static tooltip
+    MFXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief toolTip text (if set, tooltip will be always show)
+    FXString myToolTipText;
 
     /// @brief FOX need this
     MFXTextFieldIcon();

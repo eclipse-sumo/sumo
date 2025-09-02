@@ -26,7 +26,7 @@
 // class declarations
 // ===========================================================================
 
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -112,7 +112,7 @@ protected:
         FXLabel* myIcon = nullptr;
 
         /// @brief textField description
-        MFXTextFieldTooltip* myTextFieldDescription = nullptr;
+        MFXTextFieldIcon* myTextFieldDescription = nullptr;
 
         /// @brief textField timeStamp
         FXTextField* myTextFieldTimeStamp = nullptr;

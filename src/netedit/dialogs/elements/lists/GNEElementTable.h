@@ -136,7 +136,7 @@ public:
         FXLabel* myIndexLabel = nullptr;
 
         /// @brief list with textfields and their associated attribute
-        std::vector<std::pair<SumoXMLAttr, FXTextField*> > myAttributeTextFields;
+        std::vector<std::pair<SumoXMLAttr, MFXTextFieldIcon*> > myAttributeTextFields;
 
         /// @brief remove button
         FXButton* myRemoveButton = nullptr;

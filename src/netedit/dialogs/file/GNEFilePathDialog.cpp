@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFilePathDialog.h"
@@ -37,8 +37,8 @@ GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, co
     // add information label
     new FXLabel(myContentFrame, info.c_str(), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     // create text field to enter the path
-    myPathTextField = new MFXTextFieldTooltip(myContentFrame, applicationWindow->getStaticTooltipMenu(), GUIDesignTextFieldNCol,
-            nullptr, 0, GUIDesignTextField);
+    myPathTextField = new MFXTextFieldIcon(myContentFrame, GUIDesignTextFieldNCol, applicationWindow->getStaticTooltipMenu(), nullptr,
+                                           nullptr, 0, GUIDesignTextField);
     // set original file path
     myPathTextField->setText(originalFilePath.c_str());
     // open modal dialog

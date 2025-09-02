@@ -26,7 +26,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAttributeCarrierDialog.h"
@@ -86,7 +86,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
         }
     } else {
         // create text field
-        myTextField = new MFXTextFieldTooltip(this, tooltipMenu, GUIDesignTextFieldNCol, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
+        myTextField = new MFXTextFieldIcon(this, GUIDesignTextFieldNCol, tooltipMenu, nullptr, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
         // set attribute
         myTextField->setText(ACDialog->getElement()->getAttribute(attrProperty->getAttr()).c_str());
     }
