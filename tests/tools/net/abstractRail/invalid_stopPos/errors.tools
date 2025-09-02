@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 685, in <module>
+    main(get_options())
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 634, in main
+    mainLine = findMainline(options, name, net, allEdges, stops)
+  File "/scr1/sumo/tests/../tools/net/abstractRail.py", line 194, in findMainline
+    assert(startPos != endPos)
+AssertionError

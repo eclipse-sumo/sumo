@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-3103465705" name="Schwalbach Nord" lane="-290389710_0" startPos="100324.21" endPos="100524.21" friendlyPos="true"/>
+    <busStop id="-4467772350" name="Kronberg Süd" lane="-26027334_0" startPos="0" endPos="0" friendlyPos="true" lines="S4"/>
+    <busStop id="2682026621" name="Eschborn" lane="26030949#1_0" startPos="243.70" endPos="43.70" friendlyPos="true" lines="S3 S4"/>
+    <busStop id="284149548" name="Niederhöchstadt" lane="26289822#1_0" startPos="-30.00" endPos="-10" friendlyPos="true" lines="S3 S4"/>
+
+</additional>

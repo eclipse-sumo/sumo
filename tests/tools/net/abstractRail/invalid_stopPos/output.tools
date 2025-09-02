@@ -1,0 +1,6 @@
+Creating region file 'net.taz.xml'
+Reading net
+Processing region 'Eschborn' with 4 edges
+Starting optimization with 8 inequalities
+Optimization succeeded after 0.0009443759918212891s (score=0.0)
+Processing region 'Kronberg Süd' with 1 edges
