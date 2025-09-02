@@ -28,7 +28,6 @@ from __future__ import print_function
 import datetime
 import optparse
 import os
-import glob
 import shutil
 import sys
 

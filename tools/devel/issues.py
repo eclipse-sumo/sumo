@@ -94,8 +94,8 @@ def main():
         if update:
             response = s.patch(f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}", json=update)
         if options.add_label:
-            response = s.post(
-                f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels", {"labels": [options.add_label]})
+            response = s.post(f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels",
+                              {"labels": [options.add_label]})
         if options.remove_label:
             response = s.delete(
                 f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels/{options.remove_label}")
