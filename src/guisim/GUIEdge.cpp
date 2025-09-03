@@ -192,7 +192,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("routing speed [m/s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem(TL("time penalty [s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
     ret->mkItem(TL("brutto occupancy [%]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem(TL("flow [veh/h/lane]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
+    ret->mkItem(TL("flow [veh/h]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem(TL("vehicles [#]"), true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
