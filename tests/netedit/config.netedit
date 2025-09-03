@@ -17,12 +17,6 @@ copy_test_path:netedit_open.netecfg
 copy_test_path:sumo_open.sumocfg
 copy_test_path:netccfg_open.netecfg
 
-copy_test_path:net.con.xml
-copy_test_path:net.edg.xml
-copy_test_path:net.nod.xml
-copy_test_path:net.tll.xml
-copy_test_path:net.net.xml
-
 copy_test_path:sumo.con.xml
 copy_test_path:sumo.edg.xml
 copy_test_path:sumo.nod.xml
@@ -35,11 +29,32 @@ copy_test_path:netccfg.nod.xml
 copy_test_path:netccfg.tll.xml
 copy_test_path:netccfg.net.xml
 
+copy_test_path:net.con.xml
+copy_test_path:net.edg.xml
+copy_test_path:net.nod.xml
+copy_test_path:net.tll.xml
+copy_test_path:net.net.xml
+
+copy_test_path:net2.con.xml
+copy_test_path:net2.edg.xml
+copy_test_path:net2.nod.xml
+copy_test_path:net2.tll.xml
+copy_test_path:net2.net.xml
+
 copy_test_path:additionals.add.xml
+copy_test_path:additionals2.add.xml
+
 copy_test_path:routes.rou.xml
+copy_test_path:routes2.rou.xml
+
 copy_test_path:vtypes.rou.xml
+copy_test_path:vtypes2.rou.xml
+
 copy_test_path:datas.dat.xml
+copy_test_path:datas2.dat.xml
+
 copy_test_path:datas.med.add.xml
+copy_test_path:datas2.med.add.xml
 
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
