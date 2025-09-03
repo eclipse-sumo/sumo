@@ -52,9 +52,12 @@ jobs:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
 
-    - name: Set global ErrorActionPreference
-      # this configures powershell to exit on first error
-      run: echo '$ErrorActionPreference = "Stop"' >> $PROFILE.CurrentUserAllHosts
+    - name: Setup fail-fast PowerShell
+      run: |
+        if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) {
+          New-Item -ItemType File -Path $PROFILE.CurrentUserAllHosts -Force | Out-Null
+        }
+        Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
 
     - name: ccache
       # do a clean build once a day
