@@ -1670,6 +1670,8 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // start with the join selected junctions
     undoList->begin(GUIIcon::JUNCTION, "Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
     GNEJunction* joined = createJunction(pos, undoList);
+    joined->setAttribute(SUMO_ATTR_ID, id, undoList);
+    // id must be set before type because it is used when creating a new tls
     joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     if (setTL) {
         joined->setAttribute(SUMO_ATTR_TLTYPE, toString(type), undoList);
@@ -1725,8 +1727,6 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& selectedJunction : selectedJunctions) {
         deleteJunction(selectedJunction, undoList);
     }
-    joined->setAttribute(SUMO_ATTR_ID, id, undoList);
-
     // check if joined junction had to change their original position to avoid errors
     if (pos != oldPos) {
         joined->setAttribute(SUMO_ATTR_POSITION, toString(oldPos), undoList);
