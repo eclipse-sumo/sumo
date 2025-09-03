@@ -166,6 +166,7 @@ jobs:
 
     - name: Preparing Python environment
       run: |
+        dir python-wheels
         python -m pip install texttest
         python -m pip install -f python-wheels eclipse_sumo
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
