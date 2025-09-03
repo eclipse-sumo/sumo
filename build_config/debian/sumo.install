@@ -2,7 +2,7 @@ build_config/package/sumo.*sh etc/profile.d
 data/ usr/share/sumo
 build_config/package/*.png usr/share/pixmaps
 build_config/package/*.desktop usr/share/applications
-build_config/package/sumo.xml usr/share/mime/application
+build_config/package/org.eclipse.sumo.xml usr/share/mime/application
 usr/bin/activitygen
 usr/bin/dfrouter
 usr/bin/duarouter

@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Exec=sumo-gui %F
-Icon=sumo
+Icon=org.eclipse.sumo
 Terminal=false
 Name=Sumo
 GenericName=Sumo

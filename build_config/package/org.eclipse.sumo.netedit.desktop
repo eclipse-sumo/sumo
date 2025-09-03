@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Exec=netedit %F
-Icon=netedit
+Icon=org.eclipse.sumo.netedit
 Terminal=false
 Name=Sumo Netedit
 GenericName=Sumo Netedit

@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Exec=osmWebWizard.py
-Icon=osmWebWizard
+Icon=org.eclipse.sumo.osmWebWizard
 Terminal=false
 Name=OpenStreetMap Wizard for SUMO
 GenericName=OpenStreetMap Wizard for SUMO

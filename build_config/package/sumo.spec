@@ -132,16 +132,16 @@ install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
 install -p -m 644 build_config/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 install -d -m 755 %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/%{name}.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/netedit.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/osmWebWizard.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/org.eclipse.sumo.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/org.eclipse.sumo.netedit.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.desktop %{buildroot}%{_datadir}/applications
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/netedit.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/org.eclipse.sumo.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/org.eclipse.sumo.netedit.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
-install -p -m 644 build_config/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
+install -p -m 644 build_config/package/org.eclipse.sumo.xml %{buildroot}%{_datadir}/mime/application
 %endif
 %fdupes %{buildroot}%{_datadir}
 
