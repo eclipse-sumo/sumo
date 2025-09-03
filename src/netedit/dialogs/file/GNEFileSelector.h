@@ -103,6 +103,9 @@ public:
     /// @brief Change images preview size
     void setImageSize(FXint size);
 
+    /// @brief get file name entry field
+    MFXTextFieldIcon* getFilenameTextField() const;
+
     /// @name list of FOX handlers
     /// @{
 
