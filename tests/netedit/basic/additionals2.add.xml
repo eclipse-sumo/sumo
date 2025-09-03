@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-03 11:04:26 by Eclipse SUMO netedit Version v1_24_0+0601-e263331c3c2
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="E10_0" startPos="16.01" endPos="26.01"/>
+    <busStop id="bs_1" lane="-E5_0" startPos="9.78" endPos="19.78"/>
+    <busStop id="bs_2" lane="-E7_0" startPos="16.01" endPos="26.01"/>
+    <busStop id="bs_3" lane="-E2_0" startPos="9.78" endPos="19.78"/>
+    <trainStop id="ts_0" lane="E4_0" startPos="9.78" endPos="19.78"/>
+    <trainStop id="ts_1" lane="E8_0" startPos="9.78" endPos="19.78"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="E3_0" pos="5.47" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="-E3_0" pos="15.08" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_2" lane="E1_0" pos="5.47" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3" lane="-E1_0" pos="15.08" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4" lane="E5_0" pos="5.47" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="-E50_0" pos="15.08" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_7" lane="E2_0" pos="5.47" period="300.00" file="e1_7.xml"/>
+    <inductionLoop id="e1_8" lane="-E20_0" pos="15.08" period="300.00" file="e1_8.xml"/>
+</additional>
