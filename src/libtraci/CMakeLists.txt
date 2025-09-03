@@ -93,6 +93,8 @@ if (SWIG_FOUND)
                     COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libtraci
                     COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode package source:jar
                 )
+                # this dependency avoids concurrent maven access to the repo
+                add_dependencies(libtracijni libsumojni)
             else()
                 message(WARNING "Could not build libtraci jar, maven was not found.")
             endif()
