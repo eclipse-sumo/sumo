@@ -1,0 +1,76 @@
+Error: Could not build routeProbe with ID 'rp_0' in netedit; edge parent with ID '-E10' doesn't exist.
+Error: Could not build routeProbe with ID 'rp_1' in netedit; edge parent with ID 'E7' doesn't exist.
+Error: Could not build calibratorLane with ID 'ca_5' in netedit; lane parent with ID '-E9_1' doesn't exist.
+Error: Could not build calibratorLane with ID 'ca_6' in netedit; lane parent with ID 'E12_1' doesn't exist.
+Error: Could not build busStop with ID 'bs_0' in netedit; lane parent with ID '-E1_1' doesn't exist.
+Error: Could not build access with ID '' in netedit; busStop parent with ID 'bs_0' doesn't exist.
+Error: Could not build busStop with ID 'bs_1' in netedit; lane parent with ID 'E0_1' doesn't exist.
+Error: Could not build access with ID '' in netedit; lane parent with ID 'E0_0' doesn't exist.
+Error: Could not build busStop with ID 'bs_2' in netedit; lane parent with ID '-E0_1' doesn't exist.
+Error: Could not build access with ID '' in netedit; lane parent with ID '-E0_0' doesn't exist.
+Error: Could not build busStop with ID 'bs_4' in netedit; lane parent with ID 'E1_1' doesn't exist.
+Error: Could not build access with ID '' in netedit; busStop parent with ID 'bs_4' doesn't exist.
+Error: Could not build containerStop with ID 'ct_1' in netedit; lane parent with ID 'E11_0' doesn't exist.
+Error: Could not build containerStop with ID 'ct_4' in netedit; lane parent with ID '-E6_0' doesn't exist.
+Error: Could not build chargingStation with ID 'cs_1' in netedit; lane parent with ID '-E10_0' doesn't exist.
+Error: Could not build chargingStation with ID 'cs_3' in netedit; lane parent with ID 'E7_0' doesn't exist.
+Error: Could not build parkingArea with ID 'pa_0' in netedit; lane parent with ID '-E4_0' doesn't exist.
+Error: Could not build space with ID '' in netedit; parkingArea parent with ID 'pa_0' doesn't exist.
+Error: Could not build parkingArea with ID 'pa_2' in netedit; lane parent with ID '-E8_0' doesn't exist.
+Error: Could not build space with ID '' in netedit; parkingArea parent with ID 'pa_2' doesn't exist.
+Error: Could not build inductionLoop with ID 'e1_0' in netedit; lane parent with ID 'E0_1' doesn't exist.
+Error: Could not build inductionLoop with ID 'e1_1' in netedit; lane parent with ID '-E0_1' doesn't exist.
+Error: Could not build inductionLoop with ID 'e1_2' in netedit; lane parent with ID 'E1_1' doesn't exist.
+Error: Could not build inductionLoop with ID 'e1_8' in netedit; lane parent with ID '-E1_1' doesn't exist.
+Error: Could not build instantInductionLoop with ID 'e1i_0' in netedit; lane parent with ID 'E12_1' doesn't exist.
+Error: Could not build instantInductionLoop with ID 'e1i_1' in netedit; lane parent with ID '-E12_1' doesn't exist.
+Error: Could not build instantInductionLoop with ID 'e1i_2' in netedit; lane parent with ID 'E9_1' doesn't exist.
+Error: Could not build instantInductionLoop with ID 'e1i_3' in netedit; lane parent with ID '-E9_1' doesn't exist.
+Error: Could not build laneAreaDetector with ID 'e2_0' in netedit; lane parent with ID 'E1_1' doesn't exist.
+Error: Could not build laneAreaDetector with ID 'e2_1' in netedit; lane parent with ID '-E1_1' doesn't exist.
+Error: Could not build laneAreaDetector with ID 'e2_2' in netedit; lane parent with ID '-E0_1' doesn't exist.
+Error: Could not build laneAreaDetector with ID 'e2_3' in netedit; lane parent with ID 'E0_1' doesn't exist.
+Error: Could not build multiLaneAreaDetector with ID 'e2_4' in netedit; lane with ID 'E5_1' doesn't exist.
+Error: Could not build multiLaneAreaDetector with ID 'e2_5' in netedit; lane with ID 'E2_1' doesn't exist.
+Error: Could not build detEntry with ID '' in netedit; lane parent with ID '-E4_0' doesn't exist.
+Error: Could not build detExit with ID '' in netedit; lane parent with ID 'E11_0' doesn't exist.
+Error: Could not build detEntry with ID '' in netedit; lane parent with ID '-E8_0' doesn't exist.
+Error: Could not build detExit with ID '' in netedit; lane parent with ID '-E6_0' doesn't exist.
+Error: Could not build rerouter with ID 'rr_0' in netedit; edge with ID 'E12' doesn't exist.
+Error: Could not build rerouter with ID 'rr_1' in netedit; edge with ID '-E9' doesn't exist.
+Error: Could not build vaporizer with ID '' in netedit; edge parent with ID '-E10' doesn't exist.
+Error: Could not build vaporizer with ID '' in netedit; edge parent with ID 'E7' doesn't exist.
+Error: Could not build poiLane with ID 'poi_4' in netedit; lane parent with ID 'E0_1' doesn't exist.
+Error: Could not build poiLane with ID 'poi_5' in netedit; lane parent with ID '-E0_1' doesn't exist.
+Error: Could not build poiLane with ID 'poi_6' in netedit; lane parent with ID '-E1_1' doesn't exist.
+Error: Could not build poiLane with ID 'poi_7' in netedit; lane parent with ID 'E1_1' doesn't exist.
+Error: Could not build source with ID '-E0' in netedit; edge parent with ID 'taz_0' doesn't exist.
+Error: Could not build source with ID '-E0' in netedit; edge parent with ID 'taz_0' doesn't exist.
+Error: Could not build source with ID '-E6' in netedit; edge parent with ID 'taz_0' doesn't exist.
+Error: Could not build source with ID '-E6' in netedit; edge parent with ID 'taz_0' doesn't exist.
+Error: Could not build source with ID 'E11' in netedit; edge parent with ID 'taz_2' doesn't exist.
+Error: Could not build source with ID 'E11' in netedit; edge parent with ID 'taz_2' doesn't exist.
+Error: Could not build source with ID 'E0' in netedit; edge parent with ID 'taz_3' doesn't exist.
+Error: Could not build source with ID 'E0' in netedit; edge parent with ID 'taz_3' doesn't exist.
+Error: Loading of additionals.add.xml failed.
+Error: Could not build route with ID 'r_0' in netedit; edge with ID 'E11' doesn't exist.
+Error: Could not build route with ID 'r_0' in netedit; List of edges cannot be empty.
+Error: Could not build route with ID 'r_1' in netedit; edge with ID '-E6' doesn't exist.
+Error: Could not build route with ID 'r_1' in netedit; List of edges cannot be empty.
+Error: Could not build route with ID 'r_2' in netedit; edge with ID '-E8' doesn't exist.
+Error: Could not build route with ID 'r_2' in netedit; List of edges cannot be empty.
+Error: Could not build route with ID 'r_4' in netedit; edge with ID '-E4' doesn't exist.
+Error: Could not build route with ID 'r_4' in netedit; List of edges cannot be empty.
+Error: Could not build trip with ID 't_0' in netedit; edge parent with ID '-E10' doesn't exist.
+Error: Could not build vehicle with ID 'v_0' in netedit; route parent with ID 'r_4' doesn't exist.
+Error: Could not build flow with ID 'f_0' in netedit; edge parent with ID 'E7' doesn't exist.
+Warning: Invalid to edge 'E0' used in persontrip: edge->edge of person 'p_0'
+Warning: Invalid from edge '-E0' used in persontrip: edge->edge of personFlow 'pf_0'
+Warning: Invalid from edge 'E12' used in transport: edge->edge of container 'c_0'
+Warning: Invalid from edge '-E9' used in transport: edge->edge of containerFlow 'cf_0'
+Error: Could not build flowRoute with ID 'f_3' in netedit; route parent with ID 'r_2' doesn't exist.
+Error: Loading of routes.rou.xml failed.
+Warning: E3 'e3_0' needs at least one entry and one exit
+Warning: E3 'e3_1' needs at least one entry and one exit
+Warning: E3 'e3_2' needs at least one entry and one exit
+Warning: E3 'e3_3' needs at least one entry and one exit

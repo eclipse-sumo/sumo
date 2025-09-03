@@ -89,24 +89,20 @@ net:net.net.xml
 netas:netAs.net.xml
 
 additionals:additionals.add.xml
+additionals2:additionals2.add.xml
 additionalsas:additionalsAs.add.xml
-additionalssecondfile:additional.secondFile.add.xml
-additionalsthirdFilefile:additional.thirdFile.add.xml
 
 routes:routes.rou.xml
+routes2:routes2.rou.xml
 routesas:routesAs.rou.xml
-routesssecondfile:routes.secondFile.add.xml
-routessthirdFilefile:routes.thirdFile.add.xml
 
 datas:datas.dat.xml
+datas2:datas2.dat.xml
 datasas:datasAs.dat.xml
-datasssecondfile:datas.secondFile.add.xml
-datassthirdFilefile:datas.thirdFile.add.xml
 
 meandatas:datas.med.add.xml
+meandatas2:datas2.med.add.xml
 meandatasas:datasAs.med.add.xml
-meandatasssecondfile:datas.secondFile.med.add.xml
-meandatassthirdFilefile:datasAs.thirdFile.med.add.xml
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg

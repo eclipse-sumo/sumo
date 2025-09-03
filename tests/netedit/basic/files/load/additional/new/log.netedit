@@ -1,0 +1,9 @@
+Error: Could not build tripTAZs with ID 't_2' in netedit; taz parent with ID 'taz_3' doesn't exist.
+Error: Could not build tripTAZs with ID 't_2' in netedit; taz parent with ID 'taz_2' doesn't exist.
+Error: Could not build flowTAZs with ID 'f_2' in netedit; taz parent with ID 'taz_1' doesn't exist.
+Error: Could not build flowTAZs with ID 'f_2' in netedit; taz parent with ID 'taz_0' doesn't exist.
+Error: Loading of routes.rou.xml failed.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.

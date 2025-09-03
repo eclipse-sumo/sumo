@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-03 14:14:06 by Eclipse SUMO netedit Version v1_24_0+0604-bdb42aa6f40
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="e1_0_new" lane="-E0_0" pos="9.80" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_10_new" lane="E12_0" pos="9.80" period="300.00" file="e1_10.xml"/>
+    <inductionLoop id="e1_11_new" lane="-E12_0" pos="2.80" period="300.00" file="e1_11.xml"/>
+    <inductionLoop id="e1_12_new" lane="E9_0" pos="2.80" period="300.00" file="e1_12.xml"/>
+    <inductionLoop id="e1_13_new" lane="E9_1" pos="2.80" period="300.00" file="e1_13.xml"/>
+    <inductionLoop id="e1_14_new" lane="-E9_0" pos="9.80" period="300.00" file="e1_14.xml"/>
+    <inductionLoop id="e1_15_new" lane="-E9_1" pos="9.80" period="300.00" file="e1_15.xml"/>
+    <inductionLoop id="e1_1_new" lane="E0_0" pos="12.80" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_2_new" lane="E0_1" pos="12.80" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3_new" lane="-E1_0" pos="9.80" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4_new" lane="-E1_1" pos="9.80" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5_new" lane="-E0_1" pos="9.80" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_6_new" lane="E1_1" pos="12.80" period="300.00" file="e1_6.xml"/>
+    <inductionLoop id="e1_7_new" lane="E1_0" pos="12.80" period="300.00" file="e1_7.xml"/>
+    <inductionLoop id="e1_8_new" lane="-E12_1" pos="2.80" period="300.00" file="e1_8.xml"/>
+    <inductionLoop id="e1_9_new" lane="E12_1" pos="9.80" period="300.00" file="e1_9.xml"/>
+    <!-- Shapes -->
+    <poly id="po_0_new" color="red" fill="0" layer="0.00" shape="-20.000000,20.000000 -20.000000,10.000000 -10.000000,10.000000 -10.000000,20.000000 -20.000000,20.000000"/>
+    <poly id="po_1_new" color="red" fill="0" layer="0.00" shape="10.000000,20.000000 10.000000,10.000000 20.000000,10.000000 20.000000,20.000000 10.000000,20.000000"/>
+    <poly id="po_2_new" color="red" fill="0" layer="0.00" shape="10.000000,-10.000000 10.000000,-20.000000 20.000000,-20.000000 20.000000,-10.000000 10.000000,-10.000000"/>
+    <poly id="po_3_new" color="red" fill="0" layer="0.00" shape="-20.000000,-10.000000 -20.000000,-20.000000 -10.000000,-20.000000 -10.000000,-10.000000 -20.000000,-10.000000"/>
+</additional>

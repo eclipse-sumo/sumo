@@ -1,7 +1,0 @@
-Error: Could not build dataSet with ID 'meanDataEdge' in netedit; Found another dataSet with the same ID.
-Error: Could not build dataSet with ID 'meanDataLane' in netedit; Found another dataSet with the same ID.
-Error: Loading of meandata file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan171539.4668\netedit.gui\basic\configs\netecfg\open\overwritte\no\meandatas\datas.med.add.xml
-Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
-Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
-Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
-Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
