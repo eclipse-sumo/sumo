@@ -115,6 +115,12 @@ numerical values are supported for option **--meso-jam-threshold** {{DT_FLOAT}}:
   jammed)
 - value = 1: Jamming is disabled
 
+### Speeds
+
+Meso vehicles do not model their current speed. Therefore vehicle attributes concerning acceleration, departSpeed or arrivalSpeed take no effect.
+The only relevant attributes are those that concern the [maximum possible speed](VehicleSpeed.html#edgelane_speed_and_speedfactor): `maxSpeed`, `desiredMaxSpeed`,`speedFactor`, `speedDev`.
+The maximum speed is used to computed a lower bound on travel time along an edge. When the meso model computes a vehicle speed, it gives an estimated average speed along the current segment based on the earliest computed time for leaving the segment (which may include jam effects). If a vehicle is known to be blocked from leaving a segment it's speed is defined as 0.
+
 ### Further Congestion Effects
 
 Another mechanism which creates a negative correlation between density
