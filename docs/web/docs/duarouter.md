@@ -80,8 +80,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-n** {{DT_FILE}}<br> **--net-file** {{DT_FILE}} | Use FILE as SUMO-network to route on |
-| **-d** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE(s) |
-| **-t** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo routes, alternatives, flows, and trips from FILE(s) |
+| **-a** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE(s) |
+| **-r** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo routes, alternatives, flows, and trips from FILE(s) |
 | **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from; *default:* **./PHEMlight/** |
 | **--phemlight-year** {{DT_INT}} | Enable fleet age modelling with the given reference year in PHEMlight5; *default:* **0** |
 | **--phemlight-temperature** {{DT_FLOAT}} | Set ambient temperature to correct NOx emissions in PHEMlight5; *default:* **1.79769e+308** |

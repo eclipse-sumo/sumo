@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-21 21:32:03 by Eclipse SUMO netgenerate Version v1_23_1+1211-c292db0a7e7
+<!-- generated on 2025-09-03 14:39:19 by Eclipse SUMO netgenerate Version v1_24_0+0609-15168f51efc
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -106,6 +106,7 @@
             <xsd:element name="dlr-navteq.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output.removed-nodes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output.straight-threshold" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
@@ -257,7 +258,7 @@
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join.parallel-threshold" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-same" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
