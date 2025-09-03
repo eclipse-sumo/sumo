@@ -17,6 +17,7 @@
 # @date    2024-03-07
 
 import glob
+import logging
 import os
 import shutil
 import sys
@@ -27,6 +28,8 @@ import version
 
 
 def main():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
     SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(dirname(os.path.abspath(__file__)))))
     BUILD_CONFIG = join(SUMO_HOME, "tools", "build_config")
     shutil.copy(join(SUMO_HOME, "build_config", "pyproject.toml"), SUMO_HOME)
