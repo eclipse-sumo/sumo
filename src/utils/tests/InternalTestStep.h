@@ -48,32 +48,48 @@ public:
 
     public:
         /// @name basic actions
-        enum class Action {
+        enum class BasicAction {
             ACCEPT,     // press accept button
             CANCEL,     // press cancel button
             RESET,      // press reset button
             ABORT,      // abort dialog
-            CUSTOM      // custom action
+            NONE,       // no action
+        };
+
+        /// @name basic actions
+        enum class ExtendedAction {
+            DIRECTORY,  // set directory in dialog
+            FILENAME,   // set filename in dialog
+            NONE        // no extended action
         };
 
         /// @brief constructor for basic actions
-        DialogArgument(Action action);
+        DialogArgument(BasicAction basicAction);
+
+        /// @brief constructor for basic actions
+        DialogArgument(ExtendedAction extendedAction, const std::string& customAction);
 
         /// @brief constructor for custom actions
         DialogArgument(const std::string& customAction);
 
-        /// @brief constructor for custom actions and prefix to remove
+        /// @brief constructor for custom actions and prefix to remove in the action
         DialogArgument(const std::string& prefixToRemove, const std::string& customAction);
 
-        /// @brief get action
-        Action getAction() const;
+        /// @brief get basic action
+        BasicAction getBasicAction() const;
+
+        /// @brief get extended action
+        ExtendedAction getExtendedAction() const;
 
         /// @brief get custom action
         const std::string& getCustomAction() const;
 
     protected:
         /// @brief basic action
-        Action myAction = Action::CUSTOM;
+        BasicAction myBasicAction = BasicAction::NONE;
+
+        /// @brief extended action
+        ExtendedAction myExtendedAction = ExtendedAction::NONE;
 
         /// @brief action to be carried out in the dialog
         std::string myCustomAction;

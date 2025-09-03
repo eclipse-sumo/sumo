@@ -188,24 +188,25 @@ GNEDialog::openDialog(const bool focusButton) {
             // get current step and set next step
             const auto testStep = internalTest->setNextStep();
             // continue depending on the dialog argument action
-            switch (testStep->getDialogArgument()->getAction()) {
-                case InternalTestStep::DialogArgument::Action::ACCEPT:
+            switch (testStep->getDialogArgument()->getBasicAction()) {
+                case InternalTestStep::DialogArgument::BasicAction::ACCEPT:
                     onCmdAccept(internalTest, 0, nullptr);
                     break;
-                case InternalTestStep::DialogArgument::Action::CANCEL:
+                case InternalTestStep::DialogArgument::BasicAction::CANCEL:
                     onCmdCancel(internalTest, 0, nullptr);
                     break;
-                case InternalTestStep::DialogArgument::Action::RESET:
+                case InternalTestStep::DialogArgument::BasicAction::RESET:
                     onCmdReset(internalTest, 0, nullptr);
                     break;
-                case InternalTestStep::DialogArgument::Action::ABORT:
+                case InternalTestStep::DialogArgument::BasicAction::ABORT:
                     onCmdAbort(nullptr, 0, nullptr);
                     break;
-                case InternalTestStep::DialogArgument::Action::CUSTOM:
-                    runInternalTest(testStep->getDialogArgument());
-                    break;
                 default:
-                    handle(internalTest, testStep->getSelector(), testStep->getEvent());
+                    if (testStep->getDialogArgument()->getCustomAction().size() > 0) {
+                        runInternalTest(testStep->getDialogArgument());
+                    } else {
+                        handle(internalTest, testStep->getSelector(), testStep->getEvent());
+                    }
                     break;
             }
         }
