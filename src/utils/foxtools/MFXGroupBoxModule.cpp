@@ -72,7 +72,10 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
                                               frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                               TL("Expand"), nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
         myExtendButton->setTipText(TL("Expand frame to show all contents"));
-        myResetWidthButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
+        myResetWidthButton = new MFXButtonTooltip(headerFrame,
+                                                  frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                                  "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
+        myResetWidthButton->setTipText(TL("Shrink frame to default with"));
     }
     if (myOptions & Options::SAVE) {
         mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
