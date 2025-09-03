@@ -103,7 +103,6 @@ if __name__ == "__main__":
             try:
                 diffStat = subprocess.check_output(
                     ['git', 'diff', '--numstat', schemaFile], universal_newlines=True).split()
-                print(diffStat)
                 if diffStat[:2] == ["1", "1"]:
                     subprocess.check_call(['git', 'restore', schemaFile])
             except subprocess.CalledProcessError:
