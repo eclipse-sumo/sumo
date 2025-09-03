@@ -4240,7 +4240,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
             WRITE_ERROR(TLF("Loading of data file '%' failed", dataFileDialog.getFilename()));
         } else {
             // show info
-            WRITE_ERROR(TLF("Loading of data file '%' successfully", dataFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of data file '%' successfully", dataFileDialog.getFilename()));
             // enable demand elements if there is an error creating element
             if (previouslySaved && !dataHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->dataElementsSaved();
