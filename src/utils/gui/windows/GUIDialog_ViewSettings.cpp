@@ -969,7 +969,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         myParent->setBreakpoints(handler.getBreakpoints());
     }
     handler.applyViewport(myParent);
-    rebuildColorMatrices(true);
+    onCmdNameChange(nullptr, 0, nullptr);
 }
 
 
