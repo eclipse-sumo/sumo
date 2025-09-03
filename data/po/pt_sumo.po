@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-02 15:32+0200\n"
-"PO-Revision-Date: 2025-09-03 06:40+0000\n"
+"PO-Revision-Date: 2025-09-03 15:08+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.1-dev\n"
+"X-Generator: Weblate 5.13.1-rc\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -378,36 +378,38 @@ msgstr "O desvio padrão de velocidade padrão dos veículos"
 
 #: src/dfrouter/RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "Define o tempo de início; As definições anteriores serão descartadas"
 
 #: src/dfrouter/RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Define o tempo de fim; Definições posteriores serão descartadas; O padrão é "
+"um dia"
 
 #: src/dfrouter/RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "Lista os detectores sem fluxo (habilita -v)"
 
 #: src/dfrouter/RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "Imprimir fluxos de detectores agregados"
 
 #: src/dfrouter/RODFFrame.cpp:246 src/router/ROFrame.cpp:237
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "Desabilitar a saída do console da etapa de análise de rota"
 
 #: src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
-msgstr ""
+msgstr "Calculando tipos de detectores"
 
 #: src/dfrouter/RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "Tipos de detectores calculados:"
 
 #: src/dfrouter/RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr ""
+msgstr " % detector fonte"
 
 #: src/dfrouter/RODFNet.cpp:144
 #, c-format
@@ -450,13 +452,15 @@ msgstr ""
 #: src/dfrouter/RODFNet.cpp:614
 #, c-format
 msgid "Detector '%' has no flow."
-msgstr ""
+msgstr "Detector '%' não tem fluxo."
 
 #: src/dfrouter/RODFNet.cpp:693
 #, c-format
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
+"Encerrando a verificação para ser uma origem para o detector '%' devido ao "
+"limite de aresta visto."
 
 #: src/dfrouter/RODFNet.cpp:790
 #, c-format
@@ -464,6 +468,8 @@ msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Saindo da verificação para ser um destino do detector '%' devido ao limite "
+"de aresta visto."
 
 #: src/dfrouter/RODFNet.cpp:864
 #, c-format
