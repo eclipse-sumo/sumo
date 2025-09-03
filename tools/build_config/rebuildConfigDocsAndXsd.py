@@ -61,9 +61,10 @@ class ConfigReader(handler.ContentHandler):
             print("%s| Option | Description |\n|%s|%s|" % (title, 8 * "-", 13 * "-"), file=self._file)
         if self._level == 2:
             # entry
+            deprecated = set(attrs.get('deprecated', '').split())
             a = ""
             for s in attrs.get('synonymes', '').split():
-                if len(s) == 1:
+                if len(s) == 1 and s not in deprecated:
                     a = s
             print('|', end=' ', file=self._file)
             if a != "":
@@ -97,10 +98,18 @@ if __name__ == "__main__":
             cfg = subprocess.check_output([app, "--save-template", "stdout"], universal_newlines=True)
             docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
             parseString(cfg, ConfigReader(open(docs).readlines(), docs))
-            subprocess.check_call([app, "--save-schema",
-                                   os.path.join(homeDir, "data", "xsd", app + "Configuration.xsd")])
-        subprocess.call(['netedit', '--attribute-help-output', os.path.join(homeDir,
-                         "docs", "web", "docs", 'Netedit', 'attribute_help.md')])
+            schemaFile = os.path.join(homeDir, "data", "xsd", app + "Configuration.xsd")
+            subprocess.check_call([app, "--save-schema", schemaFile])
+            try:
+                diffStat = subprocess.check_output(
+                    ['git', 'diff', '--numstat', schemaFile], universal_newlines=True).split()
+                print(diffStat)
+                if diffStat[:2] == ["1", "1"]:
+                    subprocess.check_call(['git', 'restore', schemaFile])
+            except subprocess.CalledProcessError:
+                pass
+        subprocess.call(['netedit', '--attribute-help-output',
+                         os.path.join(homeDir, "docs", "web", "docs", 'Netedit', 'attribute_help.md')])
     elif len(sys.argv) == 2:
         app = sys.argv[1].lower()
         cfg = subprocess.check_output([app, "--save-template", "stdout"])
