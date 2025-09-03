@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-18 16:06:41 by Eclipse SUMO sumo Version v1_23_1+1171-abf54b0e8c3
+<!-- generated on 2025-09-03 13:21:23 by Eclipse SUMO sumo Version v1_24_0+0609-15168f51efc
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -40,7 +40,7 @@
         <weight-files value="" synonymes="w weights" type="FILE"/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+        <weight-attribute value="traveltime" synonymes="measure x" deprecated="measure" type="STR"/>
 
         <!-- Loads a network state from FILE -->
         <load-state value="" type="FILE"/>
@@ -88,10 +88,10 @@
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
 
         <!-- Write also empty edges completely when dumping -->
-        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" type="BOOL"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate-output.empty-edges netstate.empty-edges" deprecated="dump-empty-edges" type="BOOL"/>
 
         <!-- Write positions and speeds with the given precision (default 2) -->
-        <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" type="INT"/>
+        <netstate-dump.precision value="2" synonymes="dump-precision netstate-output.precision netstate.precision" deprecated="dump-precision" type="INT"/>
 
         <!-- Save the emission values of each vehicle -->
         <emission-output value="" type="FILE"/>
@@ -685,28 +685,28 @@
         <device.rerouting.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
-        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR[]"/>
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" deprecated="device.rerouting.knownveh" type="STR[]"/>
 
         <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
         <device.rerouting.deterministic value="false" type="BOOL"/>
 
         <!-- The period with which the vehicle shall be rerouted -->
-        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period" deprecated="device.routing.period" type="TIME"/>
 
         <!-- The rerouting period before depart -->
-        <device.rerouting.pre-period value="60" synonymes="device.routing.pre-period" type="TIME"/>
+        <device.rerouting.pre-period value="60" synonymes="device.routing.pre-period" deprecated="device.routing.pre-period" type="TIME"/>
 
         <!-- The weight of prior edge weights for exponential moving average -->
-        <device.rerouting.adaptation-weight value="0" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
+        <device.rerouting.adaptation-weight value="0" synonymes="device.routing.adaptation-weight" deprecated="device.routing.adaptation-weight" type="FLOAT"/>
 
         <!-- The number of steps for moving average weight of prior edge weights -->
-        <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" type="INT"/>
+        <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" deprecated="device.routing.adaptation-steps" type="INT"/>
 
         <!-- The interval for updating the edge weights -->
-        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" deprecated="device.routing.adaptation-interval" type="TIME"/>
 
         <!-- Use zones (districts) as routing start- and endpoints -->
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL"/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" deprecated="device.routing.with-taz" type="BOOL"/>
 
         <!-- Set routing flags (8 ignores temporary blockages) -->
         <device.rerouting.mode value="0" type="STR"/>
@@ -733,13 +733,13 @@
         <person-device.rerouting.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;rerouting&apos; device to named persons -->
-        <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR[]"/>
+        <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" deprecated="person-device.rerouting.knownveh" type="STR[]"/>
 
         <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
         <person-device.rerouting.deterministic value="false" type="BOOL"/>
 
         <!-- The period with which the person shall be rerouted -->
-        <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME"/>
+        <person-device.rerouting.period value="0" synonymes="person-device.routing.period" deprecated="person-device.routing.period" type="TIME"/>
 
         <!-- Set routing flags (8 ignores temporary blockages) -->
         <person-device.rerouting.mode value="0" type="STR"/>
@@ -772,7 +772,7 @@
         <xml-validation.routes value="local" type="STR"/>
 
         <!-- Disables output of warnings -->
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL"/>
 
         <!-- Aggregate warnings of the same type whenever more than INT occur -->
         <aggregate-warnings value="-1" type="INT"/>
@@ -826,7 +826,7 @@
         <device.emissions.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;emissions&apos; device to named vehicles -->
-        <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR[]"/>
+        <device.emissions.explicit value="" synonymes="device.emissions.knownveh" deprecated="device.emissions.knownveh" type="STR[]"/>
 
         <!-- The &apos;emissions&apos; devices are set deterministic using a fraction of 1000 -->
         <device.emissions.deterministic value="false" type="BOOL"/>
@@ -844,7 +844,7 @@
         <device.btreceiver.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
-        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR[]"/>
+        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" deprecated="device.btreceiver.knownveh" type="STR[]"/>
 
         <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
         <device.btreceiver.deterministic value="false" type="BOOL"/>
@@ -862,7 +862,7 @@
         <device.btsender.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btsender&apos; device to named vehicles -->
-        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR[]"/>
+        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" deprecated="device.btsender.knownveh" type="STR[]"/>
 
         <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
         <device.btsender.deterministic value="false" type="BOOL"/>
@@ -871,7 +871,7 @@
         <person-device.btsender.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btsender&apos; device to named persons -->
-        <person-device.btsender.explicit value="" synonymes="person-device.btsender.knownveh" type="STR[]"/>
+        <person-device.btsender.explicit value="" synonymes="person-device.btsender.knownveh" deprecated="person-device.btsender.knownveh" type="STR[]"/>
 
         <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
         <person-device.btsender.deterministic value="false" type="BOOL"/>
@@ -880,7 +880,7 @@
         <person-device.btreceiver.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btreceiver&apos; device to named persons -->
-        <person-device.btreceiver.explicit value="" synonymes="person-device.btreceiver.knownveh" type="STR[]"/>
+        <person-device.btreceiver.explicit value="" synonymes="person-device.btreceiver.knownveh" deprecated="person-device.btreceiver.knownveh" type="STR[]"/>
 
         <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
         <person-device.btreceiver.deterministic value="false" type="BOOL"/>
@@ -892,7 +892,7 @@
         <device.stationfinder.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;stationfinder&apos; device to named vehicles -->
-        <device.stationfinder.explicit value="" synonymes="device.stationfinder.knownveh" type="STR[]"/>
+        <device.stationfinder.explicit value="" synonymes="device.stationfinder.knownveh" deprecated="device.stationfinder.knownveh" type="STR[]"/>
 
         <!-- The &apos;stationfinder&apos; devices are set deterministic using a fraction of 1000 -->
         <device.stationfinder.deterministic value="false" type="BOOL"/>
@@ -955,7 +955,7 @@
         <device.battery.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;battery&apos; device to named vehicles -->
-        <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR[]"/>
+        <device.battery.explicit value="" synonymes="device.battery.knownveh" deprecated="device.battery.knownveh" type="STR[]"/>
 
         <!-- The &apos;battery&apos; devices are set deterministic using a fraction of 1000 -->
         <device.battery.deterministic value="false" type="BOOL"/>
@@ -970,7 +970,7 @@
         <device.example.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;example&apos; device to named vehicles -->
-        <device.example.explicit value="" synonymes="device.example.knownveh" type="STR[]"/>
+        <device.example.explicit value="" synonymes="device.example.knownveh" deprecated="device.example.knownveh" type="STR[]"/>
 
         <!-- The &apos;example&apos; devices are set deterministic using a fraction of 1000 -->
         <device.example.deterministic value="false" type="BOOL"/>
@@ -985,7 +985,7 @@
         <device.ssm.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;ssm&apos; device to named vehicles -->
-        <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]"/>
+        <device.ssm.explicit value="" synonymes="device.ssm.knownveh" deprecated="device.ssm.knownveh" type="STR[]"/>
 
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
@@ -1033,7 +1033,7 @@
         <device.toc.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;toc&apos; device to named vehicles -->
-        <device.toc.explicit value="" synonymes="device.toc.knownveh" type="STR[]"/>
+        <device.toc.explicit value="" synonymes="device.toc.knownveh" deprecated="device.toc.knownveh" type="STR[]"/>
 
         <!-- The &apos;toc&apos; devices are set deterministic using a fraction of 1000 -->
         <device.toc.deterministic value="false" type="BOOL"/>
@@ -1102,7 +1102,7 @@
         <device.driverstate.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;driverstate&apos; device to named vehicles -->
-        <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR[]"/>
+        <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" deprecated="device.driverstate.knownveh" type="STR[]"/>
 
         <!-- The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000 -->
         <device.driverstate.deterministic value="false" type="BOOL"/>
@@ -1144,7 +1144,7 @@
         <device.bluelight.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;bluelight&apos; device to named vehicles -->
-        <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR[]"/>
+        <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" deprecated="device.bluelight.knownveh" type="STR[]"/>
 
         <!-- The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000 -->
         <device.bluelight.deterministic value="false" type="BOOL"/>
@@ -1162,7 +1162,7 @@
         <device.fcd.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;fcd&apos; device to named vehicles -->
-        <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR[]"/>
+        <device.fcd.explicit value="" synonymes="device.fcd.knownveh" deprecated="device.fcd.knownveh" type="STR[]"/>
 
         <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
         <device.fcd.deterministic value="false" type="BOOL"/>
@@ -1180,7 +1180,7 @@
         <person-device.fcd.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;fcd&apos; device to named persons -->
-        <person-device.fcd.explicit value="" synonymes="person-device.fcd.knownveh" type="STR[]"/>
+        <person-device.fcd.explicit value="" synonymes="person-device.fcd.knownveh" deprecated="person-device.fcd.knownveh" type="STR[]"/>
 
         <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
         <person-device.fcd.deterministic value="false" type="BOOL"/>
@@ -1195,7 +1195,7 @@
         <device.elechybrid.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;elechybrid&apos; device to named vehicles -->
-        <device.elechybrid.explicit value="" synonymes="device.elechybrid.knownveh" type="STR[]"/>
+        <device.elechybrid.explicit value="" synonymes="device.elechybrid.knownveh" deprecated="device.elechybrid.knownveh" type="STR[]"/>
 
         <!-- The &apos;elechybrid&apos; devices are set deterministic using a fraction of 1000 -->
         <device.elechybrid.deterministic value="false" type="BOOL"/>
@@ -1207,7 +1207,7 @@
         <device.taxi.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;taxi&apos; device to named vehicles -->
-        <device.taxi.explicit value="" synonymes="device.taxi.knownveh" type="STR[]"/>
+        <device.taxi.explicit value="" synonymes="device.taxi.knownveh" deprecated="device.taxi.knownveh" type="STR[]"/>
 
         <!-- The &apos;taxi&apos; devices are set deterministic using a fraction of 1000 -->
         <device.taxi.deterministic value="false" type="BOOL"/>
@@ -1237,7 +1237,7 @@
         <device.glosa.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;glosa&apos; device to named vehicles -->
-        <device.glosa.explicit value="" synonymes="device.glosa.knownveh" type="STR[]"/>
+        <device.glosa.explicit value="" synonymes="device.glosa.knownveh" deprecated="device.glosa.knownveh" type="STR[]"/>
 
         <!-- The &apos;glosa&apos; devices are set deterministic using a fraction of 1000 -->
         <device.glosa.deterministic value="false" type="BOOL"/>
@@ -1270,7 +1270,7 @@
         <device.tripinfo.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;tripinfo&apos; device to named vehicles -->
-        <device.tripinfo.explicit value="" synonymes="device.tripinfo.knownveh" type="STR[]"/>
+        <device.tripinfo.explicit value="" synonymes="device.tripinfo.knownveh" deprecated="device.tripinfo.knownveh" type="STR[]"/>
 
         <!-- The &apos;tripinfo&apos; devices are set deterministic using a fraction of 1000 -->
         <device.tripinfo.deterministic value="false" type="BOOL"/>
@@ -1282,7 +1282,7 @@
         <device.vehroute.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;vehroute&apos; device to named vehicles -->
-        <device.vehroute.explicit value="" synonymes="device.vehroute.knownveh" type="STR[]"/>
+        <device.vehroute.explicit value="" synonymes="device.vehroute.knownveh" deprecated="device.vehroute.knownveh" type="STR[]"/>
 
         <!-- The &apos;vehroute&apos; devices are set deterministic using a fraction of 1000 -->
         <device.vehroute.deterministic value="false" type="BOOL"/>
@@ -1294,7 +1294,7 @@
         <device.friction.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;friction&apos; device to named vehicles -->
-        <device.friction.explicit value="" synonymes="device.friction.knownveh" type="STR[]"/>
+        <device.friction.explicit value="" synonymes="device.friction.knownveh" deprecated="device.friction.knownveh" type="STR[]"/>
 
         <!-- The &apos;friction&apos; devices are set deterministic using a fraction of 1000 -->
         <device.friction.deterministic value="false" type="BOOL"/>
@@ -1312,7 +1312,7 @@
         <device.fcd-replay.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;fcd-replay&apos; device to named vehicles -->
-        <device.fcd-replay.explicit value="" synonymes="device.fcd-replay.knownveh" type="STR[]"/>
+        <device.fcd-replay.explicit value="" synonymes="device.fcd-replay.knownveh" deprecated="device.fcd-replay.knownveh" type="STR[]"/>
 
         <!-- The &apos;fcd-replay&apos; devices are set deterministic using a fraction of 1000 -->
         <device.fcd-replay.deterministic value="false" type="BOOL"/>
@@ -1387,10 +1387,10 @@
 
     <random_number>
         <!-- Initialises the random number generator with the current system time -->
-        <random value="false" synonymes="abs-rand" type="BOOL"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL"/>
 
         <!-- Initialises the random number generator with the given value -->
-        <seed value="23423" synonymes="srand" type="INT"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT"/>
 
         <!-- Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations (should be at least the number of threads for repeatable simulations). -->
         <thread-rngs value="64" type="INT"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO duarouter Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-09-03 13:21:24 by Eclipse SUMO duarouter Version v1_24_0+0609-15168f51efc
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -31,10 +31,10 @@
         <net-file value="" synonymes="n net" type="FILE"/>
 
         <!-- Read additional network data (districts, bus stops) from FILE(s) -->
-        <additional-files value="" synonymes="a additional d districts taz-files" type="FILE"/>
+        <additional-files value="" synonymes="a additional d districts taz-files" deprecated="d districts" type="FILE"/>
 
         <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
-        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE"/>
+        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" deprecated="alternative-files alternatives-files f flow-files flows t trip-files trips" type="FILE"/>
 
         <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
@@ -52,7 +52,7 @@
         <lane-weight-files value="" type="FILE"/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+        <weight-attribute value="traveltime" synonymes="measure x" deprecated="measure" type="STR"/>
 
         <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
         <junction-taz value="false" type="BOOL"/>
@@ -187,10 +187,10 @@
         <restriction-params value="" type="STR[]"/>
 
         <!-- Interpolate edge weights at interval boundaries -->
-        <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
+        <weights.interpolate value="false" synonymes="interpolate" deprecated="interpolate" type="BOOL"/>
 
         <!-- Expand the end of the last loaded weight interval to infinity -->
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+        <weights.expand value="false" synonymes="expand-weights" deprecated="expand-weights" type="BOOL"/>
 
         <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
         <weights.minor-penalty value="1.5" type="FLOAT"/>
@@ -226,10 +226,10 @@
         <scale-suffix value="." type="STR"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
-        <gawron.beta value="0.9" synonymes="gBeta" type="FLOAT"/>
+        <gawron.beta value="0.9" synonymes="gBeta" deprecated="gBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as Gawron&apos;s a -->
-        <gawron.a value="0.5" synonymes="gA" type="FLOAT"/>
+        <gawron.a value="0.5" synonymes="gA" deprecated="gA" type="FLOAT"/>
 
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false" type="BOOL"/>
@@ -250,13 +250,13 @@
         <logit value="false" type="BOOL"/>
 
         <!-- Use FLOAT as logit&apos;s beta -->
-        <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
+        <logit.beta value="-1" synonymes="lBeta" deprecated="lBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as logit&apos;s gamma -->
-        <logit.gamma value="1" synonymes="lGamma" type="FLOAT"/>
+        <logit.gamma value="1" synonymes="lGamma" deprecated="lGamma" type="FLOAT"/>
 
         <!-- Use FLOAT as logit&apos;s theta (negative values mean auto-estimation) -->
-        <logit.theta value="-1" synonymes="lTheta" type="FLOAT"/>
+        <logit.theta value="-1" synonymes="lTheta" deprecated="lTheta" type="FLOAT"/>
 
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.75" type="FLOAT"/>
@@ -340,7 +340,7 @@
         <xml-validation.routes value="local" type="STR"/>
 
         <!-- Disables output of warnings -->
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL"/>
 
         <!-- Aggregate warnings of the same type whenever more than INT occur -->
         <aggregate-warnings value="-1" type="INT"/>
@@ -364,7 +364,7 @@
         <language value="C" type="STR"/>
 
         <!-- Continue if a route could not be build -->
-        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" deprecated="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
 
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1" type="INT"/>
@@ -376,10 +376,10 @@
 
     <random_number>
         <!-- Initialises the random number generator with the current system time -->
-        <random value="false" synonymes="abs-rand" type="BOOL"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL"/>
 
         <!-- Initialises the random number generator with the given value -->
-        <seed value="23423" synonymes="srand" type="INT"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT"/>
 
     </random_number>
 

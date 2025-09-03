@@ -405,66 +405,81 @@
 
 <!-- types for options in configuration files -->
 
-    <xsd:complexType name="boolOptionType">
-        <xsd:attribute name="value" type="boolType" use="required"/>
+    <xsd:complexType name="optionType">
         <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="deprecated" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="boolOptionType">
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="boolType" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="intOptionType">
-        <xsd:attribute name="value" type="xsd:int" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="xsd:int" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="floatOptionType">
-        <xsd:attribute name="value" type="floatType" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="floatType" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="timeOptionType">
-        <xsd:attribute name="value" type="timeTypeWithErrorValue" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="timeTypeWithErrorValue" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="strOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="strArrayOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="fileOptionType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="intArrayOptionType">
-        <xsd:attribute name="value" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\-)?(\d+)(,(\-)?(\d+))*"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+        <xsd:complexContent>
+            <xsd:extension base="optionType">
+                <xsd:attribute name="value" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:pattern value="(\-)?(\d+)(,(\-)?(\d+))*"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:simpleType name="offsetType">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO marouter Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-09-03 13:21:24 by Eclipse SUMO marouter Version v1_24_0+0609-15168f51efc
 -->
 
 <marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -16,14 +16,14 @@
 
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
-        <additional-files value="" synonymes="a additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE(s)"/>
-        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r trip-files trips" type="FILE" help="Read sumo routes, alternatives, flows, and trips from FILE(s)"/>
+        <additional-files value="" synonymes="a additional d districts taz-files" deprecated="d districts" type="FILE" help="Read additional network data (districts, bus stops) from FILE(s)"/>
+        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r trip-files trips" deprecated="alternative-files alternatives-files f flow-files flows trip-files trips" type="FILE" help="Read sumo routes, alternatives, flows, and trips from FILE(s)"/>
         <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from"/>
         <phemlight-year value="0" type="INT" help="Enable fleet age modelling with the given reference year in PHEMlight5"/>
         <phemlight-temperature value="1.79769e+308" type="FLOAT" help="Set ambient temperature to correct NOx emissions in PHEMlight5"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
-        <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
+        <weight-attribute value="traveltime" synonymes="measure x" deprecated="measure" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <junction-taz value="false" type="BOOL" help="Initialize a TAZ for every junction to use attributes toJunction and fromJunction"/>
         <od-matrix-files value="" synonymes="m od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE" help="Loads O/D-matrix in Amitran format from FILE(s)"/>
@@ -49,7 +49,7 @@
         <output.column-header value="tag" type="STR" help="How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;)"/>
         <output.column-separator value=";" type="STR" help="Separator in CSV output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
-        <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
+        <ignore-vehicle-type value="false" synonymes="no-vtype" deprecated="no-vtype" type="BOOL" help="Does not save vtype information"/>
         <netload-output value="" type="FILE" help="Writes edge loads and final costs into FILE"/>
         <all-pairs-output value="" type="FILE" help="Writes complete distance matrix into FILE"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
@@ -61,8 +61,8 @@
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <restriction-params value="" type="STR[]" help="Comma separated list of param keys to compare for additional restrictions"/>
-        <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand the end of the last loaded weight interval to infinity"/>
+        <weights.interpolate value="false" synonymes="interpolate" deprecated="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
+        <weights.expand value="false" synonymes="expand-weights" deprecated="expand-weights" type="BOOL" help="Expand the end of the last loaded weight interval to infinity"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
         <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
@@ -82,18 +82,18 @@
         <left-turn-penalty value="0" type="FLOAT" help="Use left-turn penalty FLOAT to calculate link travel time when searching routes"/>
         <paths value="1" type="INT" help="Use INTEGER as the number of paths needed to be searched for each OD pair at each iteration"/>
         <paths.penalty value="1" type="FLOAT" help="Penalize existing routes with FLOAT to find secondary routes"/>
-        <upperbound value="0.5" synonymes="upper" type="FLOAT" help="Use FLOAT as the upper bound to determine auxiliary link cost"/>
-        <lowerbound value="0.15" synonymes="lower" type="FLOAT" help="Use FLOAT as the lower bound to determine auxiliary link cost"/>
+        <upperbound value="0.5" synonymes="upper" deprecated="upper" type="FLOAT" help="Use FLOAT as the upper bound to determine auxiliary link cost"/>
+        <lowerbound value="0.15" synonymes="lower" deprecated="lower" type="FLOAT" help="Use FLOAT as the lower bound to determine auxiliary link cost"/>
         <max-iterations value="20" synonymes="i" type="INT" help="maximal number of iterations for new route searching in incremental and stochastic user assignment"/>
         <max-inner-iterations value="1000" type="INT" help="maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment"/>
         <route-choice-method value="logit" type="STR" help="Choose a route choice method: gawron, logit, or lohse"/>
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
+        <gawron.beta value="0.3" synonymes="gBeta" deprecated="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
+        <gawron.a value="0.05" synonymes="gA" deprecated="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>
         <skip-new-routes value="false" type="BOOL" help="Only reuse routes from input, do not calculate new ones"/>
-        <logit.beta value="0.15" synonymes="lBeta" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s beta for the commonality factor"/>
-        <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s gamma for the commonality factor"/>
-        <logit.theta value="0.01" synonymes="lTheta" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s theta"/>
+        <logit.beta value="0.15" synonymes="lBeta" deprecated="lBeta" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s beta for the commonality factor"/>
+        <logit.gamma value="1" synonymes="lGamma" deprecated="lGamma" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s gamma for the commonality factor"/>
+        <logit.theta value="0.01" synonymes="lTheta" deprecated="lTheta" type="FLOAT" help="Use FLOAT as (c-)logit&apos;s theta"/>
     </processing>
 
     <defaults>
@@ -119,7 +119,7 @@
         <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.routes value="local" type="STR" help="Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
@@ -127,14 +127,14 @@
         <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
         <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
-        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL" help="Continue if a route could not be build"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" deprecated="continue-on-unbuild dismiss-loading-errors" type="BOOL" help="Continue if a route could not be build"/>
         <stats-period value="-1" type="INT" help="Defines how often statistics shall be printed"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of route parsing step"/>
     </report>
 
     <random_number>
-        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
-        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
 </marouterConfiguration>
