@@ -937,15 +937,18 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 }
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(name);
+                const std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
-                    os << "\" synonymes=\"";
-                    for (auto synonym = synonymes.begin(); synonym != synonymes.end(); synonym++) {
-                        if (synonym != synonymes.begin()) {
-                            os << " ";
-                        }
-                        os << (*synonym);
+                    os << "\" synonymes=\"" << toString(synonymes);
+                }
+                std::string deprecated;
+                for (const auto& synonym : synonymes) {
+                    if (myDeprecatedSynonymes.count(synonym) > 0) {
+                        deprecated += " " + synonym;
                     }
+                }
+                if (deprecated != "") {
+                    os << "\" deprecated=\"" << deprecated.substr(1);
                 }
                 os << "\" type=\"" << o->getTypeName();
                 if (!addComments) {
