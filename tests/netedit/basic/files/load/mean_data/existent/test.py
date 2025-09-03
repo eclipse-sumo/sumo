@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # move mouse (to avoid problems with file menu)
-netedit.moveMouse(referencePosition, netedit.positions.reference, 100, 0)
+netedit.moveMouse(referencePosition, netedit.positions.reference, 200, 0)
 
 # open network
 netedit.loadFile("meanData", "datas2.med.add.xml")
