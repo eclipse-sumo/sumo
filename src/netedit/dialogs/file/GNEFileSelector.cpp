@@ -379,7 +379,7 @@ GNEFileSelector::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
     // if ESC key is pressed, close dialog aborting
     FXEvent* event = (FXEvent*)ptr;
     if (event->code == KEY_Return) {
-        return myFileDialog->onCmdAccept(obj, sel, ptr);
+        return onCmdAccept(obj, sel, ptr);
     } else {
         return FXVerticalFrame::onKeyPress(obj, sel, ptr);
     }
