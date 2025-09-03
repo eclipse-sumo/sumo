@@ -4419,7 +4419,7 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
             WRITE_ERROR(TLF("Loading of meandata file '%' failed", meanDataFileDialog.getFilename()));
         } else {
             // show info
-            WRITE_ERROR(TLF("Loading of meandata file '%' successfully", meanDataFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of meandata file '%' successfully", meanDataFileDialog.getFilename()));
             // enable demand elements if there is an error creating element
             if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->meanDatasSaved();
