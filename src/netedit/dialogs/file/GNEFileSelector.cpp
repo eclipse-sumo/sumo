@@ -153,6 +153,8 @@ GNEFileSelector::GNEFileSelector(GNEFileDialog* fileDialog, const std::vector<st
     myFileFilterComboBox->setNumVisible(FXMIN((int)extensions.size(), 12));
     // parse extensions
     parseExtensions(extensions);
+    // apply first filter
+    myFileSelector->setPattern(FXFileSelector::patternFromText(extensions.front().c_str()));
 }
 
 
@@ -937,17 +939,7 @@ GNEFileSelector::parseExtensions(const std::vector<std::string>& extensions) {
     // convert extensions in FXString
     for (const auto& extension : extensions) {
         // first get all characters within () excluding spaces
-        std::string cleanExtension;
-        bool insideParentheses = false;
-        for (char c : extension) {
-            if (c == '(') {
-                insideParentheses = true;
-            } else if (c == ')') {
-                insideParentheses = false;
-            } else if (insideParentheses && (c != ' ')) {
-                cleanExtension += c;
-            }
-        }
+        const std::string cleanExtension = FXFileSelector::patternFromText(extension.c_str()).text();
         // declare subextensions
         std::vector<std::string> subExtensions;
         // now subdivide
