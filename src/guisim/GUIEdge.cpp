@@ -192,7 +192,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("routing speed [m/s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem(TL("time penalty [s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
     ret->mkItem(TL("brutto occupancy [%]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem(TL("flow [veh/h]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
+    ret->mkItem(TL("edge flow [veh/h/m]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem(TL("vehicles [#]"), true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
@@ -203,7 +203,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("segment jam threshold [%]"), false, segment->getRelativeJamThreshold() * 100);
     ret->mkItem(TL("segment brutto occupancy [%]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getRelativeOccupancy, 100));
     ret->mkItem(TL("segment mean vehicle speed [m/s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getMeanSpeed));
-    ret->mkItem(TL("segment flow [veh/h/lane]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
+    ret->mkItem(TL("segment flow [veh/h/m]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
     ret->mkItem(TL("segment vehicles [#]"), true, new CastingFunctionBinding<MESegment, int, int>(segment, &MESegment::getCarNumber));
     ret->mkItem(TL("segment leader leave time"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
     ret->mkItem(TL("segment headway [s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
