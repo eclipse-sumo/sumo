@@ -160,7 +160,7 @@ protected:
     Result myResult = Result::CANCEL;
 
     /// @brief open dialog
-    void openDialog(const bool focusButton = true);
+    void openDialog(FXWindow* focusableElement = nullptr);
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();

@@ -18,6 +18,7 @@
 // Dialog used for opening/saving files
 /****************************************************************************/
 
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <netedit/GNEApplicationWindow.h>
 
@@ -53,7 +54,7 @@ GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std:
         myFileSelector->setDirectory(gCurrentFolder);
     }
     // open dialog without focusing the button
-    openDialog(false);
+    openDialog(myFileSelector->getFilenameTextField());
 }
 
 

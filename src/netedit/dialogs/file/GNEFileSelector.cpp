@@ -617,6 +617,12 @@ GNEFileSelector::setImageSize(FXint size) {
 }
 
 
+MFXTextFieldIcon*
+GNEFileSelector::getFilenameTextField() const {
+    return myFilenameTextField;
+}
+
+
 long
 GNEFileSelector::onCmdItemSelected(FXObject*, FXSelector, void* ptr) {
     const FXint index = (FXint)(FXival)ptr;
