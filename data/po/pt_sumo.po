@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-02 15:32+0200\n"
+"POT-Creation-Date: 2025-09-04 10:07+0200\n"
 "PO-Revision-Date: 2025-09-03 15:08+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
-"\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
+"br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -11404,6 +11404,10 @@ msgstr "Expandir"
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
+msgstr ""
+
+#: src/utils/foxtools/MFXGroupBoxModule.cpp:78
+msgid "Shrink frame to default with"
 msgstr ""
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:87

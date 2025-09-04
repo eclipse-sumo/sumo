@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-02 15:32+0200\n"
+"POT-Creation-Date: 2025-09-04 10:07+0200\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -11627,6 +11627,10 @@ msgstr "展开"
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
 msgstr "展开框架以显示所有内容"
+
+#: src/utils/foxtools/MFXGroupBoxModule.cpp:78
+msgid "Shrink frame to default with"
+msgstr ""
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
