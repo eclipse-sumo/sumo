@@ -47,7 +47,7 @@ public:
 #endif
     /// @brief bijection entry
     struct Entry {
-        const char* str;
+        const std::string str;
         const T key;
     };
 #ifdef _MSC_VER
