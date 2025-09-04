@@ -77,7 +77,7 @@ protected:
     bool myErrorCreatingElement = false;
 
     /// @brief overwrite elements
-    bool myOverwritteElements = false;
+    bool myOverwriteElements = false;
 
     /// @brief remain elements
     bool myRemainElements = false;
@@ -139,7 +139,7 @@ protected:
     /// @}
 
     /// @brief write warning overwritting element
-    void writeWarningOverwritting(const SumoXMLTag tag, const std::string& id);
+    void writeWarningOverwriting(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write warning duplicated element
     bool writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
