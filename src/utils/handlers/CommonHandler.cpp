@@ -45,6 +45,12 @@ CommonHandler::isErrorCreatingElement() const {
 
 
 void
+CommonHandler::forceOverwritteElements() {
+    myOverwritteElements = true;
+}
+
+
+void
 CommonHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
@@ -330,7 +336,8 @@ CommonHandler::writeWarningOverwritting(const SumoXMLTag tag, const std::string&
 
 bool
 CommonHandler::writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+    WRITE_WARNING(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+    return false;
 }
 
 
@@ -375,6 +382,14 @@ CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag pa
 bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag) {
     return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTag)));
+}
+
+
+bool
+CommonHandler::writeErrorAbortLoading() {
+    WRITE_ERROR(TLF("Loading of filename '%' aborted", myFilename));
+    myAbortLoading = true;
+    return false;
 }
 
 /****************************************************************************/

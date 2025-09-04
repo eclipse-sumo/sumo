@@ -277,7 +277,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
                                      myRouteBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // create route
         routeHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation

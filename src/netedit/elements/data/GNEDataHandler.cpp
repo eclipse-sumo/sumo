@@ -18,16 +18,17 @@
 // Builds data objects for netedit
 /****************************************************************************/
 
-#include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DataInterval.h>
+#include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_GenericData.h>
-#include <netedit/elements/data/GNEEdgeRelData.h>
-#include <netedit/elements/data/GNEEdgeData.h>
-#include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/dialogs/basic/GNEOverwritteElement.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDataHandler.h"
@@ -36,11 +37,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
+GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
     DataHandler(file),
     myNet(net),
-    myAllowUndoRedo(allowUndoRedo),
-    myOverwrite(overwrite) {
+    myAllowUndoRedo(allowUndoRedo) {
 }
 
 
@@ -265,15 +265,22 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
     auto dataSet = myNet->getAttributeCarriers()->retrieveDataSet(id, false);
     // if demand exist, check if overwrite (delete)
     if (dataSet) {
-        if (!myAllowUndoRedo) {
-            // only overwrite if allow undo-redo
-            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
-        } else if (myOverwrite) {
-            // delete demand element (and all of their childrens)
+        if (myOverwritteElements) {
+            // delete data element (and all of their childrens)
             myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
         } else {
-            // duplicated dataSet
-            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            // open overwrite dialog
+            GNEOverwritteElement keepElementsDialog(dataSet);
+            // continue depending of result
+            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+                // delete data element (and all of their childrens)
+                myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
+            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+                // duplicated demand
+                return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
+            } else {
+                return writeErrorAbortLoading();
+            }
         }
     }
     return true;

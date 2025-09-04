@@ -40,7 +40,7 @@ class GNEAdditionalHandler : public AdditionalHandler {
 
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite);
+    GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -709,9 +709,6 @@ private:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
-
-    /// @brief check if overwrite
-    const bool myOverwrite;
 
     /// @brief invalidate default constructo
     GNEAdditionalHandler() = delete;

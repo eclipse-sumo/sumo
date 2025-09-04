@@ -244,7 +244,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build additional
     additionalHandler.parseSumoBaseObject(myBaseAdditional);
     // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -308,7 +308,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                     // declare additional handler
                     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseAdditional);
                     // Refresh additional Parent Selector (For additionals that have a limited number of children)

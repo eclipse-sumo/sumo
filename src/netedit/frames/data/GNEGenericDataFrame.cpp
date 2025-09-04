@@ -153,8 +153,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
     } else {
         // build data set
         GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
-                                   myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(),
-                                   false);
+                                   myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
         refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID));
@@ -326,8 +325,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             // declare dataHandler
             GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
-                                       myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(),
-                                       false);
+                                       myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // build data interval
             dataHandler.buildDataInterval(nullptr, dataSet->getID(), begin, end);
         }

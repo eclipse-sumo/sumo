@@ -19,12 +19,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_TAZSourceSink.h>
+#include <netedit/dialogs/basic/GNEOverwritteElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
@@ -66,11 +67,10 @@
 // GNEAdditionalHandler method definitions
 // ===========================================================================
 
-GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite) :
+GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo) :
     AdditionalHandler(filename),
     myNet(net),
-    myAllowUndoRedo(allowUndoRedo),
-    myOverwrite(overwrite) {
+    myAllowUndoRedo(allowUndoRedo) {
 }
 
 
@@ -2048,19 +2048,25 @@ GNEAdditionalHandler::retrieveAdditionalElement(const std::vector<SumoXMLTag> ta
 bool
 GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* additionalElement) {
     if (additionalElement) {
-        if (myAllowUndoRedo && myOverwrite) {
-            writeWarningOverwritting(tag, additionalElement->getID());
+        if (myOverwritteElements) {
             // delete element
             myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
-            // continue creating new element
-            return true;
         } else {
-            // write warning duplicated additional element
-            return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
+            // open overwrite dialog
+            GNEOverwritteElement keepElementsDialog(additionalElement);
+            // continue depending of result
+            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+                // delete element
+                myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
+            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+                // duplicated demand
+                return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
+            } else {
+                return writeErrorAbortLoading();
+            }
         }
-    } else {
-        return true;
     }
+    return true;
 }
 
 /****************************************************************************/

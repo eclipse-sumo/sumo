@@ -48,6 +48,9 @@ public:
     /// @brief get flag for mark if a element wasn't created
     bool isErrorCreatingElement() const;
 
+    /// @brief force overwritte elements (used if we're reloading elements)
+    void forceOverwritteElements();
+
 protected:
     /// @brief filename
     const std::string myFilename;
@@ -57,6 +60,12 @@ protected:
 
     /// @brief flag for mark if a element wasn't created
     bool myErrorCreatingElement = false;
+
+    /// @brief overwrite elements
+    bool myOverwritteElements = false;
+
+    /// @brief abort loading
+    bool myAbortLoading = false;
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
@@ -137,6 +146,9 @@ protected:
 
     /// @brief write error "invalid parent element" without giving IDs
     bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag);
+
+    /// @brief write error abort loading
+    bool writeErrorAbortLoading();
 
 private:
     /// @brief invalidate default onstructor

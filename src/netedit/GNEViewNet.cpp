@@ -2816,7 +2816,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
     // check polygon
     if (polygonUnderMouse) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // triangulate shape
         const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
         // begin undo-list
@@ -2972,7 +2972,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // check what type of POI will be transformed
         if (POI->getTagProperty()->getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary

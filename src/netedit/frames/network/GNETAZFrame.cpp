@@ -1491,7 +1491,7 @@ GNETAZFrame::shapeDrawed() {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // Write info

@@ -22,7 +22,6 @@
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/dialogs/basic/GNEOverwritteElement.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEAboutDialog.h>
@@ -3810,27 +3809,12 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // declare overwrite flag
-        bool overwriteElements = false;
-        // check if open question dialog box
-        if (myNet->getSavingFilesHandler()->existAdditionalFilename(additionalFileDialog.getFilename())) {
-            // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(this, "additional");
-            // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ABORT) {
-                // abort load
-                return 0;
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
-                // enable overwriteElements
-                overwriteElements = true;
-            }
-        }
         // flag for save current saving status
         const auto previouslySaved = myNet->getSavingStatus()->isAdditionalsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, additionalFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, additionalFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("load additionals from '%'", additionalFileDialog.getFilename()));
         // Run parser
@@ -3870,7 +3854,7 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     // iterate over all additional files
     for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFilenames()) {
         // Create general handler
-        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of additional file '%' failed.", savingFile));
@@ -4031,27 +4015,12 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
                                  GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // declare overwrite flag
-        bool overwriteElements = false;
-        // check if open question dialog box
-        if (myNet->getSavingFilesHandler()->existDemandFilename(routeFileDialog.getFilename())) {
-            // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(this, "route");
-            // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ABORT) {
-                // abort load
-                return 0;
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
-                // enable overwriteElements
-                overwriteElements = true;
-            }
-        }
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isDemandElementsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create generic handler
-        GNEGeneralHandler handler(myNet, routeFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
+        GNEGeneralHandler handler(myNet, routeFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading demand elements from '%'", routeFileDialog.getFilename()));
         // Run parser for additionals
@@ -4091,7 +4060,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // iterate over all demand elements
     for (const auto& demandFileName : myNet->getSavingFilesHandler()->getDemandFilenames()) {
         // Create handler
-        GNEGeneralHandler handler(myNet, demandFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        GNEGeneralHandler handler(myNet, demandFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // Run parser for additionals
         if (!handler.parse()) {
             WRITE_ERROR(TLF("Reloading of route file '%'failed.", demandFileName));
@@ -4209,21 +4178,6 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
                                 GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // declare overwrite flag
-        bool overwriteElements = false;
-        // check if open question dialog box
-        if (myNet->getSavingFilesHandler()->existDataFilename(dataFileDialog.getFilename())) {
-            // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(this, "data");
-            // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ABORT) {
-                // abort load
-                return 0;
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
-                // enable overwriteElements
-                overwriteElements = true;
-            }
-        }
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isDataElementsSaved();
         // disable update data
@@ -4231,7 +4185,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEDataHandler dataHandler(myNet, dataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
+        GNEDataHandler dataHandler(myNet, dataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("loading data elements from '%'", dataFileDialog.getFilename()));
         // Run data parser
@@ -4275,7 +4229,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // iterate over all data elements
     for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames()) {
         // Create additional handler
-        GNEDataHandler dataHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+        GNEDataHandler dataHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // Run data parser
         if (!dataHandler.parse()) {
             WRITE_ERROR(TL("Reloading of data file failed: ") + savingFile);
@@ -4390,27 +4344,12 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
                                     GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // declare overwrite flag
-        bool overwriteElements = false;
-        // check if open question dialog box
-        if (myNet->getSavingFilesHandler()->existMeanDataFilename(meanDataFileDialog.getFilename())) {
-            // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(this, "meanData");
-            // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ABORT) {
-                // abort load
-                return 0;
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
-                // enable overwriteElements
-                overwriteElements = true;
-            }
-        }
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isMeanDatasSaved();
         // disable validation for meanDatas
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create meanData handler
-        GNEGeneralHandler generalHandler(myNet, meanDataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, meanDataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("load meanDatas from '%'", meanDataFileDialog.getFilename()));
         // Run parser
@@ -4450,7 +4389,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     // iterate over all data elements
     for (const auto& savingFile : myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames()) {
         // Create general handler
-        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false, true);
+        GNEGeneralHandler generalHandler(myNet, savingFile, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + savingFile);
@@ -4860,7 +4799,7 @@ GNEApplicationWindow::loadAdditionalElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
@@ -4916,7 +4855,7 @@ GNEApplicationWindow::loadDemandElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
@@ -4962,7 +4901,7 @@ GNEApplicationWindow::loadDataElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading data elements from '") + file + "'");
                 // declare general handler
-                GNEDataHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                GNEDataHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
@@ -5008,7 +4947,7 @@ GNEApplicationWindow::loadMeanDataElements() {
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TL("loading meanData elements from '") + file + "'");
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false, false);
+                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);

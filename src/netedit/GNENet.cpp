@@ -1492,7 +1492,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         const auto additionalFiles = StringTokenizer(OptionsCont::getOptions().getString("additional-files"), ";").getVector();
         for (const auto& file : additionalFiles) {
             // Create additional handler
-            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
+            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR(TL("Loading of additional file failed: ") + file);
@@ -1504,7 +1504,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
         // Create general handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of route file failed: ") + OptionsCont::getOptions().getString("route-files"));
@@ -1515,7 +1515,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load datas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
         // Create data handler
-        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false, true);
+        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false);
         // Run parser
         if (!dataHandler.parse()) {
             WRITE_ERROR(TL("Loading of data file failed: ") + OptionsCont::getOptions().getString("data-files"));
@@ -1526,7 +1526,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load meanDatas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("meandata-files").size() > 0) {
         // Create meanData handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of meandata file failed: ") + OptionsCont::getOptions().getString("meandata-files"));

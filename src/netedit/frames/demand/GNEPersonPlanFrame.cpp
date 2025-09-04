@@ -244,7 +244,7 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     } else {
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), myPersonSelector->getCurrentDemandElement()->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // check if person plan can be created
         if (routeHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(), myPersonSelector->getCurrentDemandElement(),
                                          myPersonPlanAttributesEditor, myPlanCreator, false)) {

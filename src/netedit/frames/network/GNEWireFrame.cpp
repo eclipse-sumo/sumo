@@ -133,7 +133,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                 // declare additional handler
                 GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                        myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                                       myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                                       myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
                 // build additional
                 additionalHandler.parseSumoBaseObject(myBaseWire);
                 // Refresh wire Parent Selector (For additionals that have a limited number of children)
@@ -250,7 +250,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties* tagProperty) {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // build wire
         additionalHandler.parseSumoBaseObject(myBaseWire);
         // Refresh wire Parent Selector (For wires that have a limited number of children)

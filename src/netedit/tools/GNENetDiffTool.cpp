@@ -153,7 +153,7 @@ GNENetDiffTool::loadShapes(const std::string& file) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, myApplicationWindow->isUndoRedoAllowed(), true);
+    GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, myApplicationWindow->isUndoRedoAllowed());
     // begin undoList operation
     undoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load shapes from '") + file + "'");
     // Run parser
