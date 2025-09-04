@@ -1747,7 +1747,7 @@ GNEApplicationWindow::loadNetwork(const std::string& networkFile) {
         neteditOptions.resetWritable();
         neteditOptions.set("net-file", networkFile);
         // set status bar
-        setStatusBarText(TL("Loading network file '%'.", networkFile));
+        setStatusBarText(TLF("Loading network file '%'.", networkFile));
         // load network
         myLoadThread->loadNetworkOrConfig();
         // add it into recent nets
@@ -1775,7 +1775,7 @@ GNEApplicationWindow::loadConfiguration(const std::string& configurationFile) {
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", configurationFile);
         // set status bar
-        setStatusBarText(TL("Loading configuration file '%'.", configurationFile));
+        setStatusBarText(TLF("Loading configuration file '%'.", configurationFile));
         // load config
         myLoadThread->loadNetworkOrConfig();
         // add it into recent configs
@@ -1814,7 +1814,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", OSMFile);
         // set status bar
-        setStatusBarText(TL("Loading OSM file '%'.", OSMFile));
+        setStatusBarText(TLF("Loading OSM file '%'.", OSMFile));
         // load config
         myLoadThread->loadNetworkOrConfig();
     }
