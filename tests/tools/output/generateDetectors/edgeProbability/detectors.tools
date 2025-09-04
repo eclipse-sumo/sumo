@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-04 15:07:44.297366 by generateDetectors.py v1_24_0+0637-756b29dc47b
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output value="det.add.xml"/>
+    <edge-probability value="0.5"/>
+    <detector-type value="instantInductionLoop"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="1o_0" lane="1o_0" pos="244.32" file="det.out.xml"/>
+    <instantInductionLoop id="1si_0" lane="1si_0" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="1si_1" lane="1si_1" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="1si_2" lane="1si_2" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="2fi_0" lane="2fi_0" pos="124.25" file="det.out.xml"/>
+    <instantInductionLoop id="3o_0" lane="3o_0" pos="244.32" file="det.out.xml"/>
+    <instantInductionLoop id="3si_0" lane="3si_0" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="3si_1" lane="3si_1" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="3si_2" lane="3si_2" pos="118.58" file="det.out.xml"/>
+    <instantInductionLoop id="4fi_0" lane="4fi_0" pos="124.25" file="det.out.xml"/>
+    <instantInductionLoop id="4o_0" lane="4o_0" pos="244.32" file="det.out.xml"/>
+</additional>
