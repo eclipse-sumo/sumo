@@ -21,6 +21,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/handlers/CommonHandler.h>
 
 #include "GNEOverwriteElement.h"
 
@@ -28,15 +30,18 @@
 // member method definitions
 // ===========================================================================
 
-GNEOverwriteElement::GNEOverwriteElement(const GNEAttributeCarrier* AC) :
+GNEOverwriteElement::GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC) :
     GNEDialog(AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
               TLF("Overwrite % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
-              GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
+              GNEDialog::Buttons::YES_NO_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC),
+    myCommonHandler(commonHandler) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add information label
     new FXLabel(infoFrame, TLF("There is already a % '%'. Overwrite?", AC->getTagProperty()->getTagStr(), AC->getID()).c_str(),
                 nullptr, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // add checkButton
+    myApplySolutionToAllCheckButon =  new FXCheckButton(infoFrame, TL("Apply this solution to all conflicted elements"), nullptr, 0, GUIDesignCheckButton);
     // open modal dialog
     openDialog();
 }
@@ -49,6 +54,32 @@ GNEOverwriteElement::~GNEOverwriteElement() {
 void
 GNEOverwriteElement::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
+}
+
+
+
+long
+GNEOverwriteElement::onCmdAccept(FXObject*, FXSelector, void*) {
+    if (myApplySolutionToAllCheckButon->getCheck() == TRUE) {
+        myCommonHandler->forceOverwriteElements();
+    }
+    return closeDialogAccepting();
+}
+
+
+long
+GNEOverwriteElement::onCmdCancel(FXObject*, FXSelector, void*) {
+    if (myApplySolutionToAllCheckButon->getCheck() == TRUE) {
+        myCommonHandler->forceRemainElements();
+    }
+    return closeDialogCanceling();
+}
+
+
+long
+GNEOverwriteElement::onCmdAbort(FXObject*, FXSelector, void*) {
+    myCommonHandler->abortLoading();
+    return closeDialogAborting();
 }
 
 /****************************************************************************/

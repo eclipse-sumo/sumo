@@ -2051,18 +2051,21 @@ GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* addition
         if (myOverwriteElements) {
             // delete element
             myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
+        } else if (myRemainElements) {
+            // duplicated demand
+            return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement keepElementsDialog(additionalElement);
+            GNEOverwriteElement overwriteElementDialog(this, additionalElement);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
+            if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element
                 myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
+            } else if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
             } else {
-                return writeErrorAbortLoading();
+                return false;
             }
         }
     }

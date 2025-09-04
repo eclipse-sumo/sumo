@@ -38,15 +38,45 @@ CommonHandler::CommonHandler(const std::string& filename) :
 CommonHandler::~CommonHandler() {}
 
 
+void
+CommonHandler::forceOverwriteElements() {
+    myOverwriteElements = true;
+}
+
+
+void
+CommonHandler::forceRemainElements() {
+    myRemainElements = true;
+}
+
+
+void
+CommonHandler::abortLoading() {
+    myAbortLoading = true;
+}
+
+
 bool
 CommonHandler::isErrorCreatingElement() const {
     return myErrorCreatingElement;
 }
 
 
-void
-CommonHandler::forceOverwriteElements() {
-    myOverwriteElements = true;
+bool
+CommonHandler::isForceOverwriteElements() const {
+    return myOverwriteElements;
+}
+
+
+bool
+CommonHandler::isForceRemainElements() const {
+    return myRemainElements;
+}
+
+
+bool
+CommonHandler::isAbortLoading() const {
+    return myAbortLoading;
 }
 
 
@@ -382,14 +412,6 @@ CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag pa
 bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag) {
     return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTag)));
-}
-
-
-bool
-CommonHandler::writeErrorAbortLoading() {
-    WRITE_ERROR(TLF("Loading of filename '%' aborted", myFilename));
-    myAbortLoading = true;
-    return false;
 }
 
 /****************************************************************************/

@@ -2714,18 +2714,21 @@ GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElem
         if (myOverwriteElements) {
             // delete element
             myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
+        } else if (myRemainElements) {
+            // duplicated demand
+            return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement keepElementsDialog(demandElement);
+            GNEOverwriteElement overwriteElementDialog(this, demandElement);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
+            if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element
                 myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
+            } else if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
             } else {
-                return writeErrorAbortLoading();
+                return false;
             }
         }
     }

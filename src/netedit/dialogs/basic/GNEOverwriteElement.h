@@ -26,6 +26,7 @@
 // class declarations
 // ===========================================================================
 
+class CommonHandler;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -36,13 +37,34 @@ class GNEOverwriteElement : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEOverwriteElement(const GNEAttributeCarrier* AC);
+    GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC);
 
     /// @brief destructor
     ~GNEOverwriteElement();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @name FOX-callbacks
+    /// @{
+
+    /// @brief called when accept or yes button is pressed (can be reimplemented in children)
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief called when cancel or no button is pressed (can be reimplemented in children)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief called when abort is called either closing dialog or pressing abort button (can be reimplemented in children)
+    long onCmdAbort(FXObject*, FXSelector, void*);
+
+    /// @}
+
+protected:
+    /// @brief pointer to common handler
+    CommonHandler* myCommonHandler = nullptr;
+
+    /// @brief apply solpution to all checkButton
+    FXCheckButton* myApplySolutionToAllCheckButon = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

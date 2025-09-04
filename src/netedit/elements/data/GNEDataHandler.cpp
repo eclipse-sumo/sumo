@@ -268,18 +268,21 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
         if (myOverwriteElements) {
             // delete data element (and all of their childrens)
             myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
+        } else if (myRemainElements) {
+            // duplicated dataset
+            return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         } else {
             // open overwrite dialog
-            GNEOverwriteElement keepElementsDialog(dataSet);
+            GNEOverwriteElement overwriteElementDialog(this, dataSet);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
+            if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete data element (and all of their childrens)
                 myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
-                // duplicated demand
+            } else if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
+                // duplicated dataset
                 return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
             } else {
-                return writeErrorAbortLoading();
+                return false;
             }
         }
     }
