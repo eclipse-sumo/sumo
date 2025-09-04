@@ -21,7 +21,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_GenericData.h>
-#include <netedit/dialogs/basic/GNEOverwritteElement.h>
+#include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
@@ -265,17 +265,17 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
     auto dataSet = myNet->getAttributeCarriers()->retrieveDataSet(id, false);
     // if demand exist, check if overwrite (delete)
     if (dataSet) {
-        if (myOverwritteElements) {
+        if (myOverwriteElements) {
             // delete data element (and all of their childrens)
             myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
         } else {
             // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(dataSet);
+            GNEOverwriteElement keepElementsDialog(dataSet);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete data element (and all of their childrens)
                 myNet->deleteDataSet(dataSet, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
             } else {

@@ -53,7 +53,7 @@ public:
     ~GNEGeneralHandler();
 
     /// @brief force overwritte elements (used if we're reloading elements)
-    void forceOverwritteElements();
+    void forceOverwriteElements();
 
     /// @brief run post parser tasks
     bool postParserTasks();

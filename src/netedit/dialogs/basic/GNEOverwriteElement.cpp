@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOverwritteElement.cpp
+/// @file    GNEOverwriteElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 ///
@@ -22,13 +22,13 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
 
-#include "GNEOverwritteElement.h"
+#include "GNEOverwriteElement.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEOverwritteElement::GNEOverwritteElement(const GNEAttributeCarrier* AC) :
+GNEOverwriteElement::GNEOverwriteElement(const GNEAttributeCarrier* AC) :
     GNEDialog(AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
               TLF("Overwrite % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
               GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
@@ -42,12 +42,12 @@ GNEOverwritteElement::GNEOverwritteElement(const GNEAttributeCarrier* AC) :
 }
 
 
-GNEOverwritteElement::~GNEOverwritteElement() {
+GNEOverwriteElement::~GNEOverwriteElement() {
 }
 
 
 void
-GNEOverwritteElement::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+GNEOverwriteElement::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
 }
 

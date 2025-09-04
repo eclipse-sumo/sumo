@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOverwritteElement.h
+/// @file    GNEOverwriteElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
@@ -32,22 +32,22 @@ class GNEAttributeCarrier;
 // class definitions
 // ===========================================================================
 
-class GNEOverwritteElement : public GNEDialog {
+class GNEOverwriteElement : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEOverwritteElement(const GNEAttributeCarrier* AC);
+    GNEOverwriteElement(const GNEAttributeCarrier* AC);
 
     /// @brief destructor
-    ~GNEOverwritteElement();
+    ~GNEOverwriteElement();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEOverwritteElement(const GNEOverwritteElement&) = delete;
+    GNEOverwriteElement(const GNEOverwriteElement&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEOverwritteElement& operator=(const GNEOverwritteElement&) = delete;
+    GNEOverwriteElement& operator=(const GNEOverwriteElement&) = delete;
 };

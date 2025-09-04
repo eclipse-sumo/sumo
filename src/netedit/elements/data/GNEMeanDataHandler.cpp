@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_MeanData.h>
-#include <netedit/dialogs/basic/GNEOverwritteElement.h>
+#include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -187,17 +187,17 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
     auto meanDataElement = myNet->getAttributeCarriers()->retrieveMeanData(tag, id, false);
     // if meanData exist, check if overwrite (delete)
     if (meanDataElement) {
-        if (myOverwritteElements) {
+        if (myOverwriteElements) {
             // delete meanData element (and all of their childrens)
             myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
         } else {
             // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(meanDataElement);
+            GNEOverwriteElement keepElementsDialog(meanDataElement);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete meanData element (and all of their childrens)
                 myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
             } else {

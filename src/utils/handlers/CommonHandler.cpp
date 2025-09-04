@@ -45,8 +45,8 @@ CommonHandler::isErrorCreatingElement() const {
 
 
 void
-CommonHandler::forceOverwritteElements() {
-    myOverwritteElements = true;
+CommonHandler::forceOverwriteElements() {
+    myOverwriteElements = true;
 }
 
 
@@ -329,7 +329,7 @@ CommonHandler::checkValidDemandElementID(const SumoXMLTag tag, const std::string
 
 
 void
-CommonHandler::writeWarningOverwritting(const SumoXMLTag tag, const std::string& id) {
+CommonHandler::writeWarningOverwriting(const SumoXMLTag tag, const std::string& id) {
     WRITE_WARNING(TLF("Overwriting % with ID '%'", toString(tag), id));
 }
 

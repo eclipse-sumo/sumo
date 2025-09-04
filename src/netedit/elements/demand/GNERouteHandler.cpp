@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/dialogs/basic/GNEOverwritteElement.h>
+#include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -2711,17 +2711,17 @@ GNERouteHandler::retrieveDemandElement(const std::vector<SumoXMLTag> tags, const
 bool
 GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement) {
     if (demandElement) {
-        if (myOverwritteElements) {
+        if (myOverwriteElements) {
             // delete element
             myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
         } else {
             // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(demandElement);
+            GNEOverwriteElement keepElementsDialog(demandElement);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element
                 myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
             } else {

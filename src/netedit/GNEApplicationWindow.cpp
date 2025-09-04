@@ -3855,7 +3855,7 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, additionalFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
-        generalHandler.forceOverwritteElements();
+        generalHandler.forceOverwriteElements();
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of additional file '%' failed.", additionalFileName));
@@ -4064,7 +4064,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
         // Create handler
         GNEGeneralHandler generalHandler(myNet, demandFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
-        generalHandler.forceOverwritteElements();
+        generalHandler.forceOverwriteElements();
         // Run parser for additionals
         if (!generalHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of route file '%' failed.", demandFileName));
@@ -4237,7 +4237,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEDataHandler dataHandler(myNet, dataFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
-        dataHandler.forceOverwritteElements();
+        dataHandler.forceOverwriteElements();
         // Run data parser
         if (!dataHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of data file '%' failed.", dataFileName));
@@ -4401,7 +4401,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, meanDataFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
-        generalHandler.forceOverwritteElements();
+        generalHandler.forceOverwriteElements();
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TLF("Reloading of meanData file '%' failed.", meanDataFileName));

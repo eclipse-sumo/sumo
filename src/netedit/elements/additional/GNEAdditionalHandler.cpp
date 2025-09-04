@@ -21,7 +21,7 @@
 
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
-#include <netedit/dialogs/basic/GNEOverwritteElement.h>
+#include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -2048,17 +2048,17 @@ GNEAdditionalHandler::retrieveAdditionalElement(const std::vector<SumoXMLTag> ta
 bool
 GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* additionalElement) {
     if (additionalElement) {
-        if (myOverwritteElements) {
+        if (myOverwriteElements) {
             // delete element
             myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
         } else {
             // open overwrite dialog
-            GNEOverwritteElement keepElementsDialog(additionalElement);
+            GNEOverwriteElement keepElementsDialog(additionalElement);
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::ACCEPT) {
+            if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element
                 myNet->deleteAdditional(additionalElement, myNet->getViewNet()->getUndoList());
-            } else if (keepElementsDialog.getResult() == GNEOverwritteElement::Result::CANCEL) {
+            } else if (keepElementsDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
             } else {

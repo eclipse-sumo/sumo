@@ -38,10 +38,10 @@ GNEGeneralHandler::~GNEGeneralHandler() {}
 
 
 void
-GNEGeneralHandler::forceOverwritteElements() {
-    myAdditionalHandler.forceOverwritteElements();
-    myDemandHandler.forceOverwritteElements();
-    myMeanDataHandler.forceOverwritteElements();
+GNEGeneralHandler::forceOverwriteElements() {
+    myAdditionalHandler.forceOverwriteElements();
+    myDemandHandler.forceOverwriteElements();
+    myMeanDataHandler.forceOverwriteElements();
 }
 
 

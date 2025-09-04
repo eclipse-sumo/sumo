@@ -48,8 +48,8 @@ public:
     /// @brief get flag for mark if a element wasn't created
     bool isErrorCreatingElement() const;
 
-    /// @brief force overwritte elements (used if we're reloading elements)
-    void forceOverwritteElements();
+    /// @brief force overwrite elements (used if we're reloading elements)
+    void forceOverwriteElements();
 
 protected:
     /// @brief filename
@@ -62,7 +62,7 @@ protected:
     bool myErrorCreatingElement = false;
 
     /// @brief overwrite elements
-    bool myOverwritteElements = false;
+    bool myOverwriteElements = false;
 
     /// @brief abort loading
     bool myAbortLoading = false;
@@ -115,13 +115,13 @@ protected:
     /// @brief check if the given detector ID is valid
     bool checkValidDetectorID(const SumoXMLTag tag, const std::string& value);
 
-    /// @brief check if the given demand elmement ID is valid
+    /// @brief check if the given demand element ID is valid
     bool checkValidDemandElementID(const SumoXMLTag tag, const std::string& value);
 
     /// @}
 
-    /// @brief write warning overwritting element
-    void writeWarningOverwritting(const SumoXMLTag tag, const std::string& id);
+    /// @brief write warning overwriting element
+    void writeWarningOverwriting(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write warning duplicated element
     bool writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);
