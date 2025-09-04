@@ -52,6 +52,9 @@ public:
     /// @brief Destructor
     ~GNEGeneralHandler();
 
+    /// @brief force overwritte elements (used if we're reloading elements)
+    void forceOverwritteElements();
+
     /// @brief run post parser tasks
     bool postParserTasks();
 

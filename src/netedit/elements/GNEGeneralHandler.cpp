@@ -37,6 +37,14 @@ GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const
 GNEGeneralHandler::~GNEGeneralHandler() {}
 
 
+void
+GNEGeneralHandler::forceOverwritteElements() {
+    myAdditionalHandler.forceOverwritteElements();
+    myDemandHandler.forceOverwritteElements();
+    myMeanDataHandler.forceOverwritteElements();
+}
+
+
 bool
 GNEGeneralHandler::postParserTasks() {
     if (isAdditionalFile()) {
