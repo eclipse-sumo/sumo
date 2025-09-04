@@ -18,10 +18,9 @@
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
 
-#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEOverwritteElement.h"
 
@@ -29,8 +28,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEOverwritteElement::GNEOverwritteElement(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
-    GNEDialog(applicationWindow, TLF("Overwritte % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
+GNEOverwritteElement::GNEOverwritteElement(const GNEAttributeCarrier* AC) :
+    GNEDialog(AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+              TLF("Overwritte % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
               GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);

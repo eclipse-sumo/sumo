@@ -23,6 +23,12 @@
 #include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNEAttributeCarrier;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -30,7 +36,7 @@ class GNEOverwritteElement : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEOverwritteElement(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC);
+    GNEOverwritteElement(const GNEAttributeCarrier* AC);
 
     /// @brief destructor
     ~GNEOverwritteElement();
