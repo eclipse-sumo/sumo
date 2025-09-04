@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 12:41+0200\n"
+"POT-Creation-Date: 2025-09-04 10:07+0200\n"
 "PO-Revision-Date: 2025-08-21 11:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.1-rc\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -738,6 +738,8 @@ msgid ""
 "Only use the intended public transport line rather than any alternative line "
 "that stops at the destination"
 msgstr ""
+"Usar únicamente la línea de transporte público prevista y no cualquier otra "
+"que también pare en el destino"
 
 #: src/duarouter/RODUAFrame.cpp:189 src/microsim/MSFrame.cpp:688
 msgid ""
@@ -760,6 +762,8 @@ msgid ""
 "The option --weights.random-factor should not be used together with astar "
 "and precomputed distances."
 msgstr ""
+"La opción --weights.random-factor no debe utilizarse junto con astar y "
+"distancias precomputadas."
 
 #: src/duarouter/RODUAFrame.cpp:241 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
@@ -803,6 +807,8 @@ msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Enrutador de ruta más corta y calculador de DUE (equilibrio dinámico de "
+"usuario) para la simulación microscópica y multimodal de tráfico SUMO."
 
 #: src/jtrrouter/ROJTREdge.cpp:64
 #, c-format
@@ -862,7 +868,7 @@ msgstr "La arista '%' declarada como sumidero no es conocida."
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
 msgid "The from-edge '%' in flow '%' is not known."
-msgstr ""
+msgstr "No se conoce la arista de origen '%' en el flujo '%'."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -981,11 +987,12 @@ msgstr "Se encontraron % definiciones de meanData con ID '%'."
 #: src/libsumo/Person.cpp:149
 msgid "Edge '%' does not occur within the remaining walk of person '%'."
 msgstr ""
+"La arista '%' no aparece dentro de la caminata restante de la persona '%'."
 
 #: src/libsumo/Person.cpp:162
 #, c-format
 msgid "Person '%' is not walking"
-msgstr ""
+msgstr "La persona '%' no está caminando"
 
 #: src/libsumo/Person.cpp:585
 #, c-format
@@ -1019,6 +1026,8 @@ msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
 msgstr ""
+"No se pueden verificar todos los bloqueos en swapConstraints porque la ruta "
+"para el vehículo '%' aún no se ha calculado"
 
 #: src/libsumo/Vehicle.cpp:1288 src/libsumo/Vehicle.cpp:1426
 msgid "Unsupported parameter '%'"
@@ -1134,6 +1143,8 @@ msgstr "La influencia del tiempo de viaje de intervalos anteriores"
 #: src/marouter/ROMAFrame.cpp:99
 msgid "Parameter key(s) defining source (and sink) taz"
 msgstr ""
+"Clave(s) de parámetro que definen las zonas de análisis de tráfico de origen "
+"(y de destino)"
 
 #: src/marouter/ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
@@ -1222,12 +1233,16 @@ msgid ""
 "maximal number of iterations for new route searching in incremental and "
 "stochastic user assignment"
 msgstr ""
+"número máximo de iteraciones para la búsqueda de nuevas rutas en la "
+"asignación incremental y estocástica de usuarios"
 
 #: src/marouter/ROMAFrame.cpp:198
 msgid ""
 "maximal number of inner iterations for user equilibrium calculation in the "
 "stochastic user assignment"
 msgstr ""
+"número máximo de iteraciones internas para el cálculo del equilibrio del "
+"usuario en la asignación estocástica del usuario"
 
 #: src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
@@ -1312,6 +1327,8 @@ msgid ""
 "Teleporting vehicle '%'; waited too long%, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr ""
+"Teleportando vehículo '%'; ha esperado demasiado% desde la arista '%':% "
+"hacia la arista '%':%, tiempo=%."
 
 #: src/mesosim/MESegment.cpp:374 src/microsim/MSBaseVehicle.cpp:1096
 msgid "Vehicle '%' has no valid route. %"
@@ -2171,6 +2188,9 @@ msgid ""
 "Sets the fraction of minGap that must be maintained to avoid collision "
 "detection. If a negative value is given, the carFollowModel parameter is used"
 msgstr ""
+"Establece la fracción de minGap que debe mantenerse para evitar la detección "
+"de colisiones. Si se proporciona un valor negativo, se utiliza el parámetro "
+"del modelo por defecto"
 
 #: src/microsim/MSFrame.cpp:413
 msgid ""
@@ -4365,6 +4385,11 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
+"Qué conflictos se excluirán del registro según el tipo de conflicto con el "
+"que hayan sido clasificados (combinación de valores en 'ego', 'foe', '', o "
+"cualquier código numérico válido de tipo de conflicto). Un valor vacío "
+"registrará todos, y 'ego'/'foe' se refieren a un subconjunto específico de "
+"tipos de conflicto."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:271
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -5511,6 +5536,14 @@ msgid ""
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"El programa '%' en la tlLogic '%' es incompatible con la lógica en el cruce "
+"'%' (conflicto mutuo entre los índices de enlace %,% los índices de semáforo "
+"%,% y la fase %).\n"
+"  Para evitar bloqueos/colisiones, haga una de las siguientes acciones: "
+"reconstruya el plan de señalización con una versión más reciente de "
+"netconvert/netedit\n"
+"  o reconstruya la red con la opción '--tls.ignore-internal-junction-jam', o "
+"incluya el programa al construir."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:537
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -6294,6 +6327,9 @@ msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr ""
+"No se puede aplicar la información de señal de giro para la arista '%' "
+"porque hay % conexiones señalizadas con direcciones '%' pero la arista de "
+"destino '%' solo tiene % carriles adecuados"
 
 #: src/netbuild/NBEdge.cpp:2848
 msgid ""
@@ -10665,6 +10701,10 @@ msgid ""
 "assigned to the substation '%'. Please define proper <overheadWireClamp .../"
 "> in additional files before defining overhead wire section."
 msgstr ""
+"La abrazadera de catenaria '%' definida en una sección de catenaria, no se "
+"asignó a la subestación '%'. Por favor, defina correctamente "
+"<overheadWireClamp .../> en archivos adicionales antes de definir la sección "
+"de catenaria."
 
 #: src/netload/NLTriggerBuilder.cpp:404
 msgid ""
@@ -12410,6 +12450,10 @@ msgid ""
 "defaults for its vehicle class. Please use a different emission model or "
 "complete the vType definition with further parameters."
 msgstr ""
+"El tipo de vehículo '%' usa la clase de emisiones '%' que no tiene valores "
+"predeterminados adecuados para su clase de vehículo. Por favor, use un "
+"modelo de emisiones diferente o complete la definición de tipo de vehículo "
+"con parámetros adicionales."
 
 #: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
@@ -12695,6 +12739,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
+"No se pudo construir % con ID '%' en netedit; se requiere una ruta, una ruta "
+"incrustada o un atributo from-to (Arista, cruce o TAZ)."
 
 #: src/utils/handlers/CommonHandler.cpp:235
 msgid ""
@@ -13340,6 +13386,10 @@ msgid ""
 "during checking of the circuit. The circuit is disconnected, please adjust "
 "the definition of the section (with substation '%')."
 msgstr ""
+"El nodo de circuito o la fuente de voltaje con ID interno '%' no ha sido "
+"visitado durante la comprobación del circuito. El circuito está "
+"desconectado, por favor ajuste la definición de la sección (con la "
+"subestación '%')."
 
 #: src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
