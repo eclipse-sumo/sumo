@@ -122,7 +122,7 @@ if (SWIG_FOUND)
             swig_link_libraries(libtracics libtracistatic ${libtcpip})
         endif()
         ADD_CUSTOM_COMMAND(TARGET libtracics POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
         set_target_properties(libtracics PROPERTIES FOLDER "libtraci" PREFIX "")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -134,10 +134,12 @@ if (SWIG_FOUND)
         set(CMAKE_SWIG_FLAGS "-keyword") # is necessary for using keyword args
 # other options which should be evaluated: -builtin, -modern, -extranative
         set(SWIG_OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
-        set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libtraci)
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libtraci)
+        if (NOT ISOLATED_BUILD)
+            set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libtraci)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libtraci)
 #            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/tools/libtraci)
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libtraci)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libtraci)
+        endif()
         set(SWIG_MODULE_libtraci_EXTRA_DEPS ${libtraci_HEADERS} ../libsumo/libsumo_typemap.i)
         if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
             if (CLANG_COMPILER)

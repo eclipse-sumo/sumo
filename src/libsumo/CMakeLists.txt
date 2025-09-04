@@ -53,8 +53,10 @@ set(libsumostatic_STAT_SRCS
     VehicleType.h
 )
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+if (NOT ISOLATED_BUILD)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+endif()
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 add_dependencies(libsumostatic generate-version-h install_dll)
 set_target_properties(libsumostatic PROPERTIES FOLDER "libsumo" PREFIX ""
@@ -165,7 +167,7 @@ if (SWIG_FOUND)
         endif()
         swig_link_libraries(libsumocs ${sumo_link_libraries})
         ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
         set_target_properties(libsumocs PROPERTIES FOLDER "libsumo" PREFIX "")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
@@ -179,10 +181,12 @@ if (SWIG_FOUND)
             set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} -DHAVE_LIBSUMOGUI)
         endif()
         set(SWIG_OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
-        set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)
+        if (NOT ISOLATED_BUILD)
+            set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)
 #            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/tools/libsumo)
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libsumo)
+            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/tools/libsumo)
+        endif()
         set(SWIG_MODULE_libsumo_EXTRA_DEPS ${LIBSUMO_HEADERS} libsumo_typemap.i)
         if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
             if (CLANG_COMPILER)
