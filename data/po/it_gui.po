@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 12:41+0200\n"
+"POT-Creation-Date: 2025-09-04 16:39+0200\n"
 "PO-Revision-Date: 2025-08-08 08:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10451,12 +10451,16 @@ msgstr "Un piccolo robot non occupato"
 msgid "Reserved for user-defined semantics"
 msgstr "Classe da definire dall'utilizzatore"
 
-#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:33
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:35
 msgid "Overwrite % '%'"
 msgstr ""
 
-#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:38
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
+msgstr ""
+
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:44
+msgid "Apply this solution to all conflicted elements"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
@@ -12026,30 +12030,30 @@ msgstr "Apri dialog o%"
 msgid "Invalid index"
 msgstr "Indice invalido"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:87
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:88
 msgid "add meanDataEdge"
 msgstr "aggiungi arco MeanData"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:136
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:137
 msgid "add meanDataLane"
 msgstr "aggiungi corsia MeanData"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:158
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:176
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "Non ho potuto costruire % in netedit"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:158
 msgid "Edge doesn't exist."
 msgstr "L'arco non esiste."
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:176
 #, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr "L'attributo '%' non esiste."
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:219
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:223
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
 "Non ho potuto creare % con l'indice identificativo '%' in netedit; Valore "

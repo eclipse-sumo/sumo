@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 12:41+0200\n"
+"POT-Creation-Date: 2025-09-04 16:39+0200\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -10120,12 +10120,16 @@ msgstr ""
 msgid "Reserved for user-defined semantics"
 msgstr "保留用於使用者自行定義的語義"
 
-#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:33
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:35
 msgid "Overwrite % '%'"
 msgstr ""
 
-#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:38
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
+msgstr ""
+
+#: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:44
+msgid "Apply this solution to all conflicted elements"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
@@ -11667,30 +11671,30 @@ msgstr "開啟 % 對話框"
 msgid "Invalid index"
 msgstr "無效的索引"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:87
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:88
 msgid "add meanDataEdge"
 msgstr "新增平均資料路段(meanDataEdge)"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:136
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:137
 msgid "add meanDataLane"
 msgstr "新增平均資料車道(meanDataLane)"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:158
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:176
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "無法在 netedit 中建置 %"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:158
 msgid "Edge doesn't exist."
 msgstr "路段不存在。"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:176
 #, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr "屬性'%'不存在。"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:219
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:223
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
 

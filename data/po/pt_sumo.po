@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 10:07+0200\n"
+"POT-Creation-Date: 2025-09-04 16:38+0200\n"
 "PO-Revision-Date: 2025-09-03 15:08+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
 "br>\n"
@@ -1242,34 +1242,34 @@ msgstr ""
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:235
+#: src/mesosim/MEVehicle.cpp:237
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:262
+#: src/mesosim/MEVehicle.cpp:264
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1712
+#: src/mesosim/MEVehicle.cpp:395 src/microsim/MSVehicle.cpp:1712
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1727
+#: src/mesosim/MEVehicle.cpp:412 src/microsim/MSVehicle.cpp:1727
 #, c-format
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:596
+#: src/mesosim/MEVehicle.cpp:598
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr ""
 
-#: src/mesosim/MEVehicle.cpp:632
+#: src/mesosim/MEVehicle.cpp:634
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
 msgstr ""
 
@@ -11503,207 +11503,202 @@ msgstr ""
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:964
+#: src/utils/handlers/AdditionalHandler.cpp:967
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1119
+#: src/utils/handlers/AdditionalHandler.cpp:1122
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1122
+#: src/utils/handlers/AdditionalHandler.cpp:1125
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1447
+#: src/utils/handlers/AdditionalHandler.cpp:1450
 msgid "Calibrators need either an edge or a lane"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1495
+#: src/utils/handlers/AdditionalHandler.cpp:1498
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1910
+#: src/utils/handlers/AdditionalHandler.cpp:1913
 msgid "X and Y must be be defined together in POIs"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1916
+#: src/utils/handlers/AdditionalHandler.cpp:1919
 msgid "lane and position must be defined together in POIs"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1922
+#: src/utils/handlers/AdditionalHandler.cpp:1925
 msgid "lon and lat must be be defined together in POIs"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1948
+#: src/utils/handlers/AdditionalHandler.cpp:1951
 #: src/utils/shapes/ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:2044
+#: src/utils/handlers/AdditionalHandler.cpp:2047
 msgid "Calibrator Flows have to be defined within a %."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:2054
+#: src/utils/handlers/AdditionalHandler.cpp:2057
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:63
+#: src/utils/handlers/CommonHandler.cpp:93
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:65
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:73
+#: src/utils/handlers/CommonHandler.cpp:103
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:75
+#: src/utils/handlers/CommonHandler.cpp:105
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:113
+#: src/utils/handlers/CommonHandler.cpp:143
 msgid "'%' must be defined within the definition of a %."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:116
+#: src/utils/handlers/CommonHandler.cpp:146
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:119
+#: src/utils/handlers/CommonHandler.cpp:149
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:131
+#: src/utils/handlers/CommonHandler.cpp:161
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:167
+#: src/utils/handlers/CommonHandler.cpp:197
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:170
+#: src/utils/handlers/CommonHandler.cpp:200
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:173
+#: src/utils/handlers/CommonHandler.cpp:203
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:176
+#: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:235
+#: src/utils/handlers/CommonHandler.cpp:265
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:241
+#: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:253
-#: src/utils/handlers/CommonHandler.cpp:271
+#: src/utils/handlers/CommonHandler.cpp:283
+#: src/utils/handlers/CommonHandler.cpp:301
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:259
-#: src/utils/handlers/CommonHandler.cpp:277
+#: src/utils/handlers/CommonHandler.cpp:289
+#: src/utils/handlers/CommonHandler.cpp:307
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:290
+#: src/utils/handlers/CommonHandler.cpp:320
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:298
-#: src/utils/handlers/CommonHandler.cpp:310
-#: src/utils/handlers/CommonHandler.cpp:322
+#: src/utils/handlers/CommonHandler.cpp:328
+#: src/utils/handlers/CommonHandler.cpp:340
+#: src/utils/handlers/CommonHandler.cpp:352
 msgid "Could not build %; ID cannot be empty"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:300
-#: src/utils/handlers/CommonHandler.cpp:324
+#: src/utils/handlers/CommonHandler.cpp:330
+#: src/utils/handlers/CommonHandler.cpp:354
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:312
+#: src/utils/handlers/CommonHandler.cpp:342
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:333
+#: src/utils/handlers/CommonHandler.cpp:363
 msgid "Overwriting % with ID '%'"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:339
+#: src/utils/handlers/CommonHandler.cpp:369
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:354
+#: src/utils/handlers/CommonHandler.cpp:384
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:360
+#: src/utils/handlers/CommonHandler.cpp:390
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:366
+#: src/utils/handlers/CommonHandler.cpp:396
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:372
+#: src/utils/handlers/CommonHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:378
+#: src/utils/handlers/CommonHandler.cpp:408
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:384
+#: src/utils/handlers/CommonHandler.cpp:414
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:390
-#, c-format
-msgid "Loading of filename '%' aborted"
-msgstr ""
-
-#: src/utils/handlers/DataHandler.cpp:120
+#: src/utils/handlers/DataHandler.cpp:123
 msgid "Data elements cannot load attributes as params"
 msgstr ""
 
@@ -11711,52 +11706,52 @@ msgstr ""
 msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:646
+#: src/utils/handlers/RouteHandler.cpp:649
 msgid "an embedded route cannot have their own ID"
-msgstr ""
-
-#: src/utils/handlers/RouteHandler.cpp:713
-#: src/utils/handlers/RouteHandler.cpp:803
-msgid ""
-"Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:716
 #: src/utils/handlers/RouteHandler.cpp:806
+msgid ""
+"Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
+msgstr ""
+
+#: src/utils/handlers/RouteHandler.cpp:719
+#: src/utils/handlers/RouteHandler.cpp:809
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:981
+#: src/utils/handlers/RouteHandler.cpp:984
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1100
+#: src/utils/handlers/RouteHandler.cpp:1103
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1143
+#: src/utils/handlers/RouteHandler.cpp:1146
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1151
-#: src/utils/handlers/RouteHandler.cpp:1153
+#: src/utils/handlers/RouteHandler.cpp:1154
+#: src/utils/handlers/RouteHandler.cpp:1156
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1239
+#: src/utils/handlers/RouteHandler.cpp:1242
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1254
+#: src/utils/handlers/RouteHandler.cpp:1257
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1256
+#: src/utils/handlers/RouteHandler.cpp:1259
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 
@@ -12475,6 +12470,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1830
@@ -12487,7 +12483,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1871
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1877
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1888
-msgid "XML files (*.xml,*.xml.gz)"
+msgid "XML files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
@@ -12510,199 +12506,196 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1878
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1883
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1889
-msgid "All files (*)"
+msgid "All files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
-msgid "Plain text files (*.txt)"
+msgid "Plain text files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
-msgid "CSV files (*.txt)"
+msgid "CSV files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
-msgid "Open scene graph  files (*.osg)"
+msgid "Open scene graph files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
-msgid ""
-"All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,"
-"*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+msgid "All Image Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-msgid "GIF Image (*.gif)"
+msgid "GIF Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-msgid "BMP Image (*.bmp)"
+msgid "BMP Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-msgid "XPM Image (*.xpm)"
+msgid "XPM Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-msgid "PCX Image (*.pcx)"
+msgid "PCX Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-msgid "ICO Image (*.ico)"
+msgid "ICO Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-msgid "RGB Image (*.rgb)"
+msgid "RGB Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-msgid "XBM Image (*.xbm)"
+msgid "XBM Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
-msgid "TARGA Image (*.tga)"
+msgid "TARGA Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
-msgid "PNG Image (*.png)"
+msgid "PNG Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-msgid "JPEG Image (*.jpg,*.jpeg)"
+msgid "JPEG Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
-msgid "TIFF Image (*.tif,*.tiff)"
+msgid "TIFF Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-msgid "Postscript (*.ps)"
+msgid "Postscript"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-msgid "Encapsulated Postscript (*.eps)"
+msgid "Encapsulated Postscript"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
-msgid "Portable Document Format (*.pdf)"
+msgid "Portable Document Format"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
-msgid "Scalable Vector Graphics (*.svg)"
+msgid "Scalable Vector Graphics"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
-msgid "LATEX text strings (*.tex)"
+msgid "LATEX text strings"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
-msgid "Portable LaTeX Graphics (*.pgf)"
+msgid "Portable LaTeX Graphics"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
-msgid "All Files (*)"
+msgid "All Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
-msgid ""
-"All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*."
-"png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
-"hevc,*.mp4)"
+msgid "All Image and Video Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
-msgid "All Video Files (*.h264,*.hevc,*.mp4)"
+msgid "All Video Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
-msgid "G264 Video (*.h264)"
+msgid "G264 Video"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
-msgid "HEVC Video (*.hevc)"
+msgid "HEVC Video"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-msgid "MP4 Video (*.mp4)"
+msgid "MP4 Video"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+msgid "Portable"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+msgid "Plain text"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
-msgid "View settings files (*.xml,*.xml.gz)"
+msgid "View settings files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1811
-msgid "State GZipped XML files (*.xml.gz)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-msgid "XML files (*.xml)"
+msgid "State GZipped XML files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817
-msgid "Sumo config files (*.sumocfg)"
+msgid "Sumo config"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
-msgid "Netedit config files (*.netecfg)"
+msgid "Netedit config files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1829
-msgid "Netconvert config files (*.netccfg)"
+msgid "Netconvert config files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1835
-msgid "OSM network files (*.osm,*.osm.gz)"
+msgid "OSM network files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1841
-msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
+msgid "SUMO network files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1847
-msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
+msgid "TLS files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1853
-msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
+msgid "Junction files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
+msgid "Edge type files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-msgid "Additional files (*.add.xml,*.add.xml.gz)"
+msgid "Additional files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1876
-msgid "Route files (*.rou.xml,*.rou.xml.gz)"
+msgid "Route files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1882
-msgid "Edge data files (*.xml,*.xml.gz)"
+msgid "Edge data files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1887
-msgid "Mean data files (*.add.xml,*.add.xml.gz)"
+msgid "Mean data files"
 msgstr ""
 
 #: src/utils/xml/XMLSubSys.cpp:73
