@@ -28,8 +28,10 @@ set(libtracistatic_STAT_SRCS
     VehicleType.cpp
 )
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+if (NOT ISOLATED_BUILD)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+endif()
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
 add_dependencies(libtracistatic generate-version-h install_dll)
 set_target_properties(libtracistatic PROPERTIES FOLDER "libtraci" PREFIX ""

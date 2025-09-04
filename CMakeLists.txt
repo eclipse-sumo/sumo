@@ -720,9 +720,14 @@ set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 # i18n target
 find_package(Gettext)
 if (Gettext_FOUND)
-    set(I18N_DATA ${CMAKE_SOURCE_DIR}/data/locale/tr/LC_MESSAGES/sumo.mo)
+    if (ISOLATED_BUILD)
+        set(LOCALE_DIR ${CMAKE_BINARY_DIR}/data)
+    else()
+        set(LOCALE_DIR ${CMAKE_SOURCE_DIR}/data)
+    endif()
+    set(I18N_DATA ${LOCALE_DIR}/locale/tr/LC_MESSAGES/sumo.mo)
     add_custom_command(OUTPUT ${I18N_DATA}
-                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/i18n.py -m
+                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/i18n.py -m -o ${LOCALE_DIR}
                        DEPENDS ${CMAKE_SOURCE_DIR}/data/po/tr_gui.po)
 else ()
     message(WARNING "Gettext tools not found, translation files will not be generated.")
