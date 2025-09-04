@@ -11,41 +11,43 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEKeepElementsDialog.cpp
+/// @file    GNEOverwritteElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 ///
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
 
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEKeepElementsDialog.h"
+#include "GNEOverwritteElement.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
-    GNEDialog(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIIcon::QUESTION_SMALL,
-              GNEDialog::Buttons::KEEPNEW_KEEPOLD_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create label
-    new FXLabel(mainFrame, (TLF("Selected % file was already loaded.", elementType) + "\n" +
-                            TL("Keep new or old elements?")).c_str(), nullptr, GUIDesignLabelKeepElements);
+GNEOverwritteElement::GNEOverwritteElement(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
+    GNEDialog(applicationWindow, TLF("Overwritte % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
+              GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
+    // create dialog layout (obtained from FXMessageBox)
+    auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    // add information label
+    new FXLabel(infoFrame, TLF("There is already a % '%'. Overwritte?", AC->getTagProperty()->getTagStr(), AC->getID()).c_str(),
+                nullptr, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // open modal dialog
     openDialog();
 }
 
 
-GNEKeepElementsDialog::~GNEKeepElementsDialog() {
+GNEOverwritteElement::~GNEOverwritteElement() {
 }
 
 
 void
-GNEKeepElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+GNEOverwritteElement::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
 }
 

@@ -394,23 +394,6 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             myFocusButton = myAcceptButton;
             break;
         }
-        case Buttons::KEEPNEW_KEEPOLD_CANCEL: {
-            // keep new button (using accept)
-            myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new changes"),
-                             GUIIconSubSys::getIcon(GUIIcon::YES), this,
-                             MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
-            // keep old button (using cancel)
-            myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old changes"),
-                             GUIIconSubSys::getIcon(GUIIcon::NO), this,
-                             MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
-            // cancel button (using abort)
-            myAbortButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel changes"),
-                            GUIIconSubSys::getIcon(GUIIcon::CANCEL), this,
-                            MID_GNE_ABORT, GUIDesignButtonDialog);
-            // set focus button
-            myFocusButton = myAcceptButton;
-            break;
-        }
         case Buttons::RUN_CANCEL_RESET: {
             // run button
             myRunButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"),

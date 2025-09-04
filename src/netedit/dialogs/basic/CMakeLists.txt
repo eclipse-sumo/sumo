@@ -7,6 +7,8 @@ set(netedit_dialogs_basic_SRCS
     GNEHelpBasicDialog.h
     GNEInformationBasicDialog.cpp
     GNEInformationBasicDialog.h
+    GNEOverwritteElement.cpp
+    GNEOverwritteElement.h
     GNEQuestionBasicDialog.cpp
     GNEQuestionBasicDialog.h
     GNEWarningBasicDialog.cpp

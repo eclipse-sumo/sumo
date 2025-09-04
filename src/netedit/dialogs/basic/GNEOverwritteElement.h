@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEKeepElementsDialog.h
+/// @file    GNEOverwritteElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
@@ -20,28 +20,28 @@
 #pragma once
 #include <config.h>
 
-#include "GNEDialog.h"
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEKeepElementsDialog : public GNEDialog {
+class GNEOverwritteElement : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType);
+    GNEOverwritteElement(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC);
 
     /// @brief destructor
-    ~GNEKeepElementsDialog();
+    ~GNEOverwritteElement();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEKeepElementsDialog(const GNEKeepElementsDialog&) = delete;
+    GNEOverwritteElement(const GNEOverwritteElement&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEKeepElementsDialog& operator=(const GNEKeepElementsDialog&) = delete;
+    GNEOverwritteElement& operator=(const GNEOverwritteElement&) = delete;
 };

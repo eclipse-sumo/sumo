@@ -46,7 +46,6 @@ public:
         ACCEPT_CANCEL,          // accept/cancel buttons
         ACCEPT_CANCEL_RESET,    // accept/cancel/reset buttons
         SAVE_DONTSAVE_CANCEL,   // save/don't save/cancel buttons
-        KEEPNEW_KEEPOLD_CANCEL, // keep new/keep old/cancel buttons
         RUN_CANCEL_RESET,       // run/cancel/reset buttons (used in tools dialogs)
         RUN_ADVANCED_CANCEL,    // run/advanced/cancel buttons (used in tools dialogs)
         RERUN_BACK_CLOSE        // rerun-abort/back buttons (used in run dialogs)
