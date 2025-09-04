@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 10:08+0200\n"
+"POT-Creation-Date: 2025-09-04 12:41+0200\n"
 "PO-Revision-Date: 2025-02-27 06:33+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -22,32 +22,32 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
 #: src/gui/GUIApplicationWindow.cpp:2271
-#: src/netedit/GNEApplicationWindow.cpp:565
-#: src/netedit/GNEApplicationWindow.cpp:569
-#: src/netedit/GNEApplicationWindow.cpp:573
+#: src/netedit/GNEApplicationWindow.cpp:564
+#: src/netedit/GNEApplicationWindow.cpp:568
+#: src/netedit/GNEApplicationWindow.cpp:572
+#: src/netedit/GNEApplicationWindow.cpp:1660
+#: src/netedit/GNEApplicationWindow.cpp:1661
 #: src/netedit/GNEApplicationWindow.cpp:1662
-#: src/netedit/GNEApplicationWindow.cpp:1663
-#: src/netedit/GNEApplicationWindow.cpp:1664
 msgid "N/A"
 msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:308
-#: src/netedit/GNEApplicationWindow.cpp:566
+#: src/netedit/GNEApplicationWindow.cpp:565
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr "元の座標（netconvertでの座標変換前）"
 
 #: src/gui/GUIApplicationWindow.cpp:311
-#: src/netedit/GNEApplicationWindow.cpp:570
+#: src/netedit/GNEApplicationWindow.cpp:569
 msgid "Network coordinate"
 msgstr "ネットワーク座標"
 
 #: src/gui/GUIApplicationWindow.cpp:339
-#: src/netedit/GNEApplicationWindow.cpp:593
+#: src/netedit/GNEApplicationWindow.cpp:592
 msgid "Ready."
 msgstr "準備完了。"
 
 #: src/gui/GUIApplicationWindow.cpp:462
-#: src/netedit/GNEApplicationWindow.cpp:1410
+#: src/netedit/GNEApplicationWindow.cpp:1409
 msgid "&File"
 msgstr "&ファイル"
 
@@ -93,7 +93,7 @@ msgid "Load edge related data for visualization."
 msgstr "リンク関連データをロードして表示します。"
 
 #: src/gui/GUIApplicationWindow.cpp:480
-#: src/netedit/GNEApplicationWindow.cpp:1094
+#: src/netedit/GNEApplicationWindow.cpp:1093
 msgid "&Reload"
 msgstr "&再読み込み"
 
@@ -119,7 +119,7 @@ msgstr "現在の設定をファイルに保存します。"
 
 #: src/gui/GUIApplicationWindow.cpp:490
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
-#: src/netedit/dialogs/GNEDialog.cpp:458
+#: src/netedit/dialogs/GNEDialog.cpp:441
 msgid "Close"
 msgstr "閉じる"
 
@@ -128,17 +128,17 @@ msgid "Close the simulation."
 msgstr "シミュレーションを閉じます。"
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1431
+#: src/netedit/GNEApplicationWindow.cpp:1429
 msgid "&Quit"
 msgstr "&終了"
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1431
+#: src/netedit/GNEApplicationWindow.cpp:1429
 msgid "Quit the Application."
 msgstr "アプリケーションを終了します。"
 
 #: src/gui/GUIApplicationWindow.cpp:507
-#: src/netedit/GNEApplicationWindow.cpp:1446
+#: src/netedit/GNEApplicationWindow.cpp:1444
 msgid "&Edit"
 msgstr "&編集"
 
@@ -256,7 +256,7 @@ msgid "Toggle full screen mode on/off."
 msgstr "全画面モードのオンオフを切り替えます。"
 
 #: src/gui/GUIApplicationWindow.cpp:552
-#: src/netedit/GNEApplicationWindow.cpp:1482
+#: src/netedit/GNEApplicationWindow.cpp:1480
 msgid "&Locate"
 msgstr "&検索"
 
@@ -386,8 +386,8 @@ msgstr ""
 msgid "Simulation"
 msgstr "シミュレーション"
 
-#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:416
-#: src/netedit/dialogs/GNEDialog.cpp:433
+#: src/gui/GUIApplicationWindow.cpp:591 src/netedit/dialogs/GNEDialog.cpp:399
+#: src/netedit/dialogs/GNEDialog.cpp:416
 msgid "Run"
 msgstr "実行"
 
@@ -454,7 +454,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "ファイルから現在のシミュレーションの状態を読み込みます。"
 
 #: src/gui/GUIApplicationWindow.cpp:611
-#: src/netedit/GNEApplicationWindow.cpp:1553
+#: src/netedit/GNEApplicationWindow.cpp:1551
 msgid "&Window"
 msgstr "&ウィンドウ"
 
@@ -557,7 +557,7 @@ msgid "Clear the message window."
 msgstr "メッセージウィンドウをクリアします。"
 
 #: src/gui/GUIApplicationWindow.cpp:655
-#: src/netedit/GNEApplicationWindow.cpp:1559
+#: src/netedit/GNEApplicationWindow.cpp:1557
 msgid "&Help"
 msgstr "&ヘルプ"
 
@@ -747,10 +747,8 @@ msgid "Open Shapes"
 msgstr "シェイプを開く"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
-#: src/netedit/GNEApplicationWindow.cpp:4866
-#: src/netedit/GNEApplicationWindow.cpp:4922
-#: src/netedit/GNEApplicationWindow.cpp:4968
-#: src/netedit/GNEApplicationWindow.cpp:5014
+#: src/netedit/GNEApplicationWindow.cpp:4921
+#: src/netedit/GNEApplicationWindow.cpp:4967
 #, c-format
 msgid "Loading of % failed."
 msgstr "%のロードに失敗しました。"
@@ -776,7 +774,7 @@ msgid "Quick-Reloading."
 msgstr "クイックリロード中。"
 
 #: src/gui/GUIApplicationWindow.cpp:1176
-#: src/netedit/GNEApplicationWindow.cpp:1166
+#: src/netedit/GNEApplicationWindow.cpp:1165
 msgid "Already loading!"
 msgstr "既にロード済みです！"
 
@@ -2450,581 +2448,613 @@ msgstr "ミクロ・多モード交通シミュレーションSUMOのGUI版で�
 msgid "This system has no OpenGL support. Exiting."
 msgstr "このシステムはOpenGLをサポートしていません。終了します。"
 
-#: src/netedit/GNEApplicationWindow.cpp:524
+#: src/netedit/GNEApplicationWindow.cpp:523
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "ミクロ・多モード交通シミュレーションです。"
 
-#: src/netedit/GNEApplicationWindow.cpp:561
+#: src/netedit/GNEApplicationWindow.cpp:560
 msgid "Recomputing"
 msgstr "再計算中"
 
-#: src/netedit/GNEApplicationWindow.cpp:562
+#: src/netedit/GNEApplicationWindow.cpp:561
 msgid "Recomputing is needed"
 msgstr "再計算が必要です"
 
-#: src/netedit/GNEApplicationWindow.cpp:574
+#: src/netedit/GNEApplicationWindow.cpp:573
 msgid "Test coordinate"
 msgstr "テスト座標"
 
-#: src/netedit/GNEApplicationWindow.cpp:739
+#: src/netedit/GNEApplicationWindow.cpp:738
 msgid "netconvert config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:755
-#: src/netedit/GNEApplicationWindow.cpp:3364
+#: src/netedit/GNEApplicationWindow.cpp:754
+#: src/netedit/GNEApplicationWindow.cpp:3362
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:771
+#: src/netedit/GNEApplicationWindow.cpp:770
 msgid "OpenStreetMap file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:787
-#: src/netedit/GNEApplicationWindow.cpp:3516
+#: src/netedit/GNEApplicationWindow.cpp:786
+#: src/netedit/GNEApplicationWindow.cpp:3514
 msgid "netedit config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:812
-#: src/netedit/GNEApplicationWindow.cpp:3631
+#: src/netedit/GNEApplicationWindow.cpp:811
+#: src/netedit/GNEApplicationWindow.cpp:3629
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:902
-#: src/netedit/GNEApplicationWindow.cpp:3749
+#: src/netedit/GNEApplicationWindow.cpp:901
+#: src/netedit/GNEApplicationWindow.cpp:3747
 msgid "Traffic Light definitions file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:912
+#: src/netedit/GNEApplicationWindow.cpp:911
 msgid "loading TLS Programs from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:932
+#: src/netedit/GNEApplicationWindow.cpp:931
 msgid "loading TLS Programs from '"
 msgstr "信号機プログラムをローディング中 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:961
-#: src/netedit/GNEApplicationWindow.cpp:3773
+#: src/netedit/GNEApplicationWindow.cpp:960
+#: src/netedit/GNEApplicationWindow.cpp:3771
 msgid "EdgeTypes file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:977
-msgid "Loaded edge types from '"
-msgstr "リンクタイプをロードしました '"
+#: src/netedit/GNEApplicationWindow.cpp:976
+msgid "Loaded edge types from '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:979
-#: src/netedit/GNEApplicationWindow.cpp:1012
+#: src/netedit/GNEApplicationWindow.cpp:978
+#: src/netedit/GNEApplicationWindow.cpp:1011
 msgid "load edgeTypes"
 msgstr "EdgeTypeをロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1010
-msgid "Reloaded edge types from '"
-msgstr "リンクタイプをリロードしました '"
+#: src/netedit/GNEApplicationWindow.cpp:1009
+msgid "Reloaded edge types from '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1067
+#: src/netedit/GNEApplicationWindow.cpp:1066
 msgid "Reloading netedit config file '"
 msgstr "neteditコンフィグファイルをリロードしています '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1071
+#: src/netedit/GNEApplicationWindow.cpp:1070
 msgid "Reloading sumo config file '"
 msgstr "sumoのコンフィグファイルをリロードしています '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1075
-#: src/netedit/GNEApplicationWindow.cpp:1136
+#: src/netedit/GNEApplicationWindow.cpp:1074
+#: src/netedit/GNEApplicationWindow.cpp:1135
 msgid "Reloading network file '"
 msgstr "ネットワークファイルをリロードしています '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1091
+#: src/netedit/GNEApplicationWindow.cpp:1090
 msgid "&Reload Netedit config"
 msgstr "&Neteditコンフィグをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1092
+#: src/netedit/GNEApplicationWindow.cpp:1091
 msgid "&Reload Sumo config"
 msgstr "&Sumoコンフィグをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1093
+#: src/netedit/GNEApplicationWindow.cpp:1092
 msgid "&Reload Network"
 msgstr "&ネットワークをリロード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1331
-msgid "Loading of '"
-msgstr "ローディング中 '"
+#: src/netedit/GNEApplicationWindow.cpp:1330
+#, c-format
+msgid "Loading of network '%' failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1336
-msgid "'"
-msgstr "'"
+#: src/netedit/GNEApplicationWindow.cpp:1335
+#, c-format
+msgid "Network '%' loaded"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1336
-msgid "' loaded."
-msgstr "' をロードしました。"
-
-#: src/netedit/GNEApplicationWindow.cpp:1435
+#: src/netedit/GNEApplicationWindow.cpp:1433
 msgid "&Modes"
 msgstr "&モード"
 
-#: src/netedit/GNEApplicationWindow.cpp:1471
+#: src/netedit/GNEApplicationWindow.cpp:1469
 msgid "L&ock"
 msgstr "&ロック"
 
-#: src/netedit/GNEApplicationWindow.cpp:1478
+#: src/netedit/GNEApplicationWindow.cpp:1476
 msgid "&Processing"
 msgstr "&処理中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1505
+#: src/netedit/GNEApplicationWindow.cpp:1503
 msgid "&Tools"
 msgstr "&ツール"
 
-#: src/netedit/GNEApplicationWindow.cpp:1507
+#: src/netedit/GNEApplicationWindow.cpp:1505
 msgid "Assign"
 msgstr "割り当て"
 
-#: src/netedit/GNEApplicationWindow.cpp:1508
+#: src/netedit/GNEApplicationWindow.cpp:1506
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
 msgstr "車輛検知器"
 
-#: src/netedit/GNEApplicationWindow.cpp:1509
+#: src/netedit/GNEApplicationWindow.cpp:1507
 msgid "Districts"
 msgstr "地区"
 
-#: src/netedit/GNEApplicationWindow.cpp:1510
+#: src/netedit/GNEApplicationWindow.cpp:1508
 msgid "DRT"
 msgstr "デマンド型交通（DRT）"
 
-#: src/netedit/GNEApplicationWindow.cpp:1512
+#: src/netedit/GNEApplicationWindow.cpp:1510
 msgid "CityBrain"
 msgstr "シティブレイン"
 
-#: src/netedit/GNEApplicationWindow.cpp:1513
+#: src/netedit/GNEApplicationWindow.cpp:1511
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:1512
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1515
+#: src/netedit/GNEApplicationWindow.cpp:1513
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1516
+#: src/netedit/GNEApplicationWindow.cpp:1514
 msgid "Import"
 msgstr "インポート"
 
-#: src/netedit/GNEApplicationWindow.cpp:1517
+#: src/netedit/GNEApplicationWindow.cpp:1515
 msgid "Net"
 msgstr "道路網"
 
-#: src/netedit/GNEApplicationWindow.cpp:1518
+#: src/netedit/GNEApplicationWindow.cpp:1516
 msgid "Output"
 msgstr "出力"
 
-#: src/netedit/GNEApplicationWindow.cpp:1519
+#: src/netedit/GNEApplicationWindow.cpp:1517
 #: src/netedit/GNEApplicationWindowHelper.cpp:704
 #: src/netedit/GNETagPropertiesDatabase.cpp:2068
 #: src/netedit/GNETagPropertiesDatabase.cpp:2543
 msgid "Route"
 msgstr "ルート"
 
-#: src/netedit/GNEApplicationWindow.cpp:1521
+#: src/netedit/GNEApplicationWindow.cpp:1519
 msgid "TLS"
 msgstr "信号機"
 
-#: src/netedit/GNEApplicationWindow.cpp:1522
+#: src/netedit/GNEApplicationWindow.cpp:1520
 msgid "Trigger"
 msgstr "トリガー"
 
-#: src/netedit/GNEApplicationWindow.cpp:1523
+#: src/netedit/GNEApplicationWindow.cpp:1521
 msgid "Turn-defs"
 msgstr "右左折の定義"
 
-#: src/netedit/GNEApplicationWindow.cpp:1524
+#: src/netedit/GNEApplicationWindow.cpp:1522
 msgid "Visualization"
 msgstr "表示"
 
-#: src/netedit/GNEApplicationWindow.cpp:1525
+#: src/netedit/GNEApplicationWindow.cpp:1523
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1615
+#: src/netedit/GNEApplicationWindow.cpp:1613
 msgid "Network computed"
 msgstr "ネットワーク計算済み"
 
-#: src/netedit/GNEApplicationWindow.cpp:1619
+#: src/netedit/GNEApplicationWindow.cpp:1617
 msgid "Press F5"
 msgstr "F5キーを押下"
 
-#: src/netedit/GNEApplicationWindow.cpp:1620
+#: src/netedit/GNEApplicationWindow.cpp:1618
 msgid "Network requires recomputing"
 msgstr "ネットワークの再計算が必要"
 
-#: src/netedit/GNEApplicationWindow.cpp:1697
-msgid "Loading console arguments"
-msgstr "コンソール引数を読み込み中"
+#: src/netedit/GNEApplicationWindow.cpp:1695
+msgid "Loading console arguments."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1725
+#: src/netedit/GNEApplicationWindow.cpp:1723
 msgid "Creating new network."
 msgstr "新しいネットワークを作成中です。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1736
-msgid "Trying to load an empty network"
-msgstr "空のネットワークの読み込みを試行中"
+#: src/netedit/GNEApplicationWindow.cpp:1734
+msgid "Trying to load an empty network."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1752
-msgid "Loading network file '"
-msgstr "ネットワークファイルをローディング中 '"
+#: src/netedit/GNEApplicationWindow.cpp:1750
+msgid "Loading network file '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1764
-msgid "Trying to load an empty configuration"
-msgstr "空の構成の読み込みを試行中"
+#: src/netedit/GNEApplicationWindow.cpp:1762
+msgid "Trying to load an empty configuration."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1780
-msgid "Loading configuration file '"
-msgstr "設定ファイルを読み込み中 '"
+#: src/netedit/GNEApplicationWindow.cpp:1778
+msgid "Loading configuration file '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1819
-msgid "Loading OSM file '"
-msgstr "OSMファイルを読み込み中 '"
+#: src/netedit/GNEApplicationWindow.cpp:1817
+msgid "Loading OSM file '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1836
+#: src/netedit/GNEApplicationWindow.cpp:1834
 msgid "Recompute with volatile options"
 msgstr "変更可能なオプションも含めて再計算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1837
+#: src/netedit/GNEApplicationWindow.cpp:1835
 msgid "Changes produced in the net due a recomputing with"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1838
+#: src/netedit/GNEApplicationWindow.cpp:1836
 msgid "volatile options cannot be undone. Continue?"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2144
-#: src/netedit/GNEApplicationWindow.cpp:2204
-msgid "Running "
-msgstr "実行中 "
+#: src/netedit/GNEApplicationWindow.cpp:2142
+#: src/netedit/GNEApplicationWindow.cpp:2202
+msgid "Running '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2167
-msgid "Loading network '"
-msgstr "ネットワークをローディング中 '"
+#: src/netedit/GNEApplicationWindow.cpp:2165
+#, c-format
+msgid "Loading network '%' in SUMO-GUI."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2167
-#: src/netedit/GNEApplicationWindow.cpp:2176
-msgid "' in SUMO-GUI"
-msgstr "SUMO-GUIの '"
+#: src/netedit/GNEApplicationWindow.cpp:2174
+#, c-format
+msgid "Loading sumo config '%' in SUMO-GUI."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:2176
-msgid "Loading sumo config '"
-msgstr "sumoコンフィグを読み込み中 '"
-
-#: src/netedit/GNEApplicationWindow.cpp:2593
+#: src/netedit/GNEApplicationWindow.cpp:2591
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "元に戻す"
 
-#: src/netedit/GNEApplicationWindow.cpp:2624
+#: src/netedit/GNEApplicationWindow.cpp:2622
 #: src/netedit/GNEApplicationWindowHelper.cpp:1285
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "やり直す"
 
-#: src/netedit/GNEApplicationWindow.cpp:3343
-msgid "Saving Network failed!"
-msgstr "ネットワークの保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3341
+msgid "Saving network failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3347
-msgid "Network saved in '"
-msgstr "ネットワークを ' に保存しました"
+#: src/netedit/GNEApplicationWindow.cpp:3345
+msgid "Network saved in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3353
-msgid "Could not save network in '"
-msgstr "ネットワークを ' に保存できません"
+#: src/netedit/GNEApplicationWindow.cpp:3351
+msgid "Could not save network in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3388
+#: src/netedit/GNEApplicationWindow.cpp:3386
 msgid "plain XML file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3413
-msgid "Plain XML saved with prefix '"
-msgstr "プレーンXMLをprefix ' で保存しました"
+#: src/netedit/GNEApplicationWindow.cpp:3411
+msgid "Plain XML saved with prefix '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3416
-msgid "Saving plain xml failed!"
-msgstr "プレーンXMLの保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3414
+msgid "Saving plain xml failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3431
+#: src/netedit/GNEApplicationWindow.cpp:3429
 msgid "joined junctions file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3441
-msgid "Joined junctions saved to '%'"
+#: src/netedit/GNEApplicationWindow.cpp:3439
+msgid "Joined junctions saved to '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3444
-msgid "Saving joined junctions failed!"
-msgstr "結合された交差点の保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3442
+msgid "Saving joined junctions failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3473
-#: src/netedit/GNEApplicationWindow.cpp:3477
-#: src/netedit/GNEApplicationWindow.cpp:3481
-#: src/netedit/GNEApplicationWindow.cpp:3485
-#: src/netedit/GNEApplicationWindow.cpp:3489
-msgid "Saving of netedit configuration aborted"
-msgstr "Neteditの構成の保存を中止しました"
+#: src/netedit/GNEApplicationWindow.cpp:3471
+#: src/netedit/GNEApplicationWindow.cpp:3475
+#: src/netedit/GNEApplicationWindow.cpp:3479
+#: src/netedit/GNEApplicationWindow.cpp:3483
+#: src/netedit/GNEApplicationWindow.cpp:3487
+msgid "Saving of netedit configuration aborted."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3498
-msgid "Netedit configuration saved in '"
-msgstr "Neteditの構成が ' に保存されました"
+#: src/netedit/GNEApplicationWindow.cpp:3496
+msgid "Netedit configuration saved in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3504
-msgid "Could not save netedit configuration in '"
-msgstr "neteditの構成を ' に保存できませんでした"
+#: src/netedit/GNEApplicationWindow.cpp:3502
+msgid "Could not save netedit configuration in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3580
-#: src/netedit/GNEApplicationWindow.cpp:3584
-#: src/netedit/GNEApplicationWindow.cpp:3588
-#: src/netedit/GNEApplicationWindow.cpp:3592
-#: src/netedit/GNEApplicationWindow.cpp:3596
+#: src/netedit/GNEApplicationWindow.cpp:3578
+#: src/netedit/GNEApplicationWindow.cpp:3582
+#: src/netedit/GNEApplicationWindow.cpp:3586
+#: src/netedit/GNEApplicationWindow.cpp:3590
+#: src/netedit/GNEApplicationWindow.cpp:3594
 msgid "Saving of SUMO configuration aborted"
 msgstr "SUMOの構成の保存を中止しました"
 
-#: src/netedit/GNEApplicationWindow.cpp:3611
-msgid "SUMO configuration saved in '"
-msgstr "SUMOの構成が ' に保存されました"
+#: src/netedit/GNEApplicationWindow.cpp:3609
+msgid "SUMO configuration saved in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3619
-msgid "Could not save SUMO configuration in '"
-msgstr "SUMOの構成を ' に保存できませんでした"
+#: src/netedit/GNEApplicationWindow.cpp:3617
+msgid "Could not save SUMO configuration in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3676
-msgid "TLS Programs saved in '"
-msgstr "信号機のプログラムを ' に保存しました"
+#: src/netedit/GNEApplicationWindow.cpp:3674
+msgid "TLS Programs saved in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3679
-msgid "Saving TLS Programs failed!"
-msgstr "信号機のプログラムの保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3677
+msgid "Saving TLS Programs failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3720
-msgid "EdgeType saved in '"
-msgstr "EdgeTypeを ' に保存しました"
+#: src/netedit/GNEApplicationWindow.cpp:3718
+msgid "EdgeType saved in '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3723
-msgid "Saving edgeTypes failed!"
-msgstr "EdgeTypeの保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3721
+msgid "Saving edgeTypes failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3807
-#: src/netedit/GNEApplicationWindow.cpp:3960
+#: src/netedit/GNEApplicationWindow.cpp:3805
+#: src/netedit/GNEApplicationWindow.cpp:3946
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3835
+#: src/netedit/GNEApplicationWindow.cpp:3818
 msgid "load additionals from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3839
+#: src/netedit/GNEApplicationWindow.cpp:3822
 #, c-format
-msgid "Loading of additional file '%' failed"
+msgid "Loading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3842
+#: src/netedit/GNEApplicationWindow.cpp:3825
 #, c-format
-msgid "Loading of additional file '%'successfully: "
+msgid "Loading of additional file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3867
+#: src/netedit/GNEApplicationWindow.cpp:3850
 msgid "reloading additionals"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3876
+#: src/netedit/GNEApplicationWindow.cpp:3861
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3932
-msgid "Additionals saved"
+#: src/netedit/GNEApplicationWindow.cpp:3863
+#, c-format
+msgid "Reloading of additional file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3935
-msgid "Saving additional aborted"
-msgstr "構造物の保存を中止しました"
+#: src/netedit/GNEApplicationWindow.cpp:3918
+msgid "Additionals saved."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3940
-msgid "Saving additionals failed!"
-msgstr "構造物の保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:3921
+msgid "Saving additional aborted."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3967
+#: src/netedit/GNEApplicationWindow.cpp:3926
+msgid "Saving additional elements failed"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:3953
 msgid "saving of unified additional elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3987
+#: src/netedit/GNEApplicationWindow.cpp:3973
 msgid "JuPedSim elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4009
-msgid "JuPedSim elements saved"
+#: src/netedit/GNEApplicationWindow.cpp:3995
+msgid "JuPedSim elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4012
-msgid "Saving JuPedSim aborted"
-msgstr "JuPedSimの保存を中止しました"
+#: src/netedit/GNEApplicationWindow.cpp:3998
+msgid "Saving JuPedSim elements aborted."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4018
-msgid "Saving JuPedSim elements failed!"
-msgstr "JuPedSimエレメントの保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:4004
+msgid "Saving JuPedSim elements failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4028
-#: src/netedit/GNEApplicationWindow.cpp:4179
+#: src/netedit/GNEApplicationWindow.cpp:4014
+#: src/netedit/GNEApplicationWindow.cpp:4154
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4056
+#: src/netedit/GNEApplicationWindow.cpp:4027
 msgid "loading demand elements from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4060
+#: src/netedit/GNEApplicationWindow.cpp:4031
 #, c-format
-msgid "Loading of route file '%' failed"
+msgid "Loading of route file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4063
+#: src/netedit/GNEApplicationWindow.cpp:4034
 #, c-format
-msgid "Loading of route file '%' successfully"
+msgid "Loading of route file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4088
+#: src/netedit/GNEApplicationWindow.cpp:4059
 msgid "reloading demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4097
+#: src/netedit/GNEApplicationWindow.cpp:4070
 #, c-format
-msgid "Reloading of route file '%'failed."
+msgid "Reloading of route file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4151
-msgid "Demand elements saved"
+#: src/netedit/GNEApplicationWindow.cpp:4072
+#, c-format
+msgid "Reloading of route file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4154
-#: src/netedit/GNEApplicationWindow.cpp:4337
-msgid "Saving demand elements aborted"
-msgstr "交通需要エレメントの保存を中止"
-
-#: src/netedit/GNEApplicationWindow.cpp:4159
-#: src/netedit/GNEApplicationWindow.cpp:4517
-msgid "Saving demand elements failed!"
-msgstr "交通需要エレメントの保存に失敗しました！"
-
-#: src/netedit/GNEApplicationWindow.cpp:4186
-msgid "saving of unified demand elements in '%'"
+#: src/netedit/GNEApplicationWindow.cpp:4126
+msgid "Demand elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4206
-#: src/netedit/GNEApplicationWindow.cpp:4362
+#: src/netedit/GNEApplicationWindow.cpp:4129
+#: src/netedit/GNEApplicationWindow.cpp:4301
+msgid "Saving demand elements aborted."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4134
+msgid "Saving demand elements failed"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4161
+msgid "saving of unified demand elements in '%'."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4181
+#: src/netedit/GNEApplicationWindow.cpp:4326
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
 msgid "Data elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4236
-msgid "loading data elements from '%'"
+#: src/netedit/GNEApplicationWindow.cpp:4196
+#: src/netedit/GNEApplicationWindow.cpp:4916
+msgid "loading data elements from '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4240
+#: src/netedit/GNEApplicationWindow.cpp:4200
 #, c-format
-msgid "Loading of data file '%' failed"
+msgid "Loading of data file '%' failed."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4203
+#, c-format
+msgid "Loading of data file '%' successfully."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4232
+msgid "reloading data elements"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4243
 #, c-format
-msgid "Loading of data file '%' successfully"
+msgid "Reloading of data file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4272
-msgid "reloading data elements"
+#: src/netedit/GNEApplicationWindow.cpp:4245
+#, c-format
+msgid "Reloading of data file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4281
-msgid "Reloading of data file failed: "
-msgstr "データファイルのリロードに失敗しました: "
-
-#: src/netedit/GNEApplicationWindow.cpp:4334
-msgid "Data elements saved"
+#: src/netedit/GNEApplicationWindow.cpp:4298
+msgid "Data elements saved."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4342
-msgid "Saving data elements failed!"
-msgstr "データ要素の保存に失敗しました！"
+#: src/netedit/GNEApplicationWindow.cpp:4306
+msgid "Saving data elements failed"
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4369
+#: src/netedit/GNEApplicationWindow.cpp:4333
 msgid "saving of unified data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4387
-#: src/netedit/GNEApplicationWindow.cpp:4537
+#: src/netedit/GNEApplicationWindow.cpp:4351
+#: src/netedit/GNEApplicationWindow.cpp:4490
 msgid "MeanData elements file"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4415
+#: src/netedit/GNEApplicationWindow.cpp:4364
 msgid "load meanDatas from '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4419
+#: src/netedit/GNEApplicationWindow.cpp:4368
 #, c-format
-msgid "Loading of meandata file '%' failed"
+msgid "Loading of meandata file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4422
+#: src/netedit/GNEApplicationWindow.cpp:4371
 #, c-format
-msgid "Loading of meandata file '%' successfully"
+msgid "Loading of meandata file '%' successfully."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4447
+#: src/netedit/GNEApplicationWindow.cpp:4396
 msgid "reloading meanDatas"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4456 src/netedit/GNENet.cpp:1534
-msgid "Loading of meandata file successfully: "
-msgstr "MeanDataファイルの読み込みが完了しました: "
+#: src/netedit/GNEApplicationWindow.cpp:4407
+#, c-format
+msgid "Reloading of meanData file '%' failed."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4509
+#: src/netedit/GNEApplicationWindow.cpp:4409
+#, c-format
+msgid "Reloading of meanData file '%' successfully."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4462
 msgid "MeanDatas elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4512
+#: src/netedit/GNEApplicationWindow.cpp:4465
 msgid "Saving MeanData elements aborted"
 msgstr "MeanDataエレメントの保存を中止しました"
 
-#: src/netedit/GNEApplicationWindow.cpp:4544
+#: src/netedit/GNEApplicationWindow.cpp:4470
+msgid "Saving demand elements failed!"
+msgstr "交通需要エレメントの保存に失敗しました！"
+
+#: src/netedit/GNEApplicationWindow.cpp:4497
 msgid "saving of unified mean data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4854
+#: src/netedit/GNEApplicationWindow.cpp:4807
 msgid "loading additional elements from '"
 msgstr "' から構造物エレメントを読み込み中"
 
-#: src/netedit/GNEApplicationWindow.cpp:4861
-msgid "loading additionals from '"
-msgstr "' から構造物を読み込み中"
+#: src/netedit/GNEApplicationWindow.cpp:4814
+msgid "loading additionals from '%'."
+msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4910
-#: src/netedit/GNEApplicationWindow.cpp:4917
+#: src/netedit/GNEApplicationWindow.cpp:4819
+#: src/netedit/GNEApplicationWindow.cpp:4875
+#, c-format
+msgid "Loading of '%' failed."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4863
 msgid "loading demand elements from '"
 msgstr "交通需要エレメントを ' から読み込み中"
 
-#: src/netedit/GNEApplicationWindow.cpp:4956
-#: src/netedit/GNEApplicationWindow.cpp:4963
+#: src/netedit/GNEApplicationWindow.cpp:4870
+msgid "loading demand elements from '%'."
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4909
 msgid "loading data elements from '"
 msgstr "データ要素を ' から読み込み中"
 
-#: src/netedit/GNEApplicationWindow.cpp:5002
-#: src/netedit/GNEApplicationWindow.cpp:5009
+#: src/netedit/GNEApplicationWindow.cpp:4955
 msgid "loading meanData elements from '"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindow.cpp:4962
+msgid "loading meanData elements from '%'."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:135
@@ -4720,6 +4750,10 @@ msgstr "データファイルの読み込みが完了しました: "
 #: src/netedit/GNENet.cpp:1532
 msgid "Loading of meandata file failed: "
 msgstr "meanDataファイルの読み込みに失敗しました: "
+
+#: src/netedit/GNENet.cpp:1534
+msgid "Loading of meandata file successfully: "
+msgstr "MeanDataファイルの読み込みが完了しました: "
 
 #: src/netedit/GNENet.cpp:1542
 msgid "Finished computing junctions."
@@ -9192,7 +9226,7 @@ msgid "Data sets"
 msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:3475
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:210
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:209
 msgid "Interval"
 msgstr ""
 
@@ -9705,8 +9739,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:334 src/netedit/dialogs/GNEDialog.cpp:351
 #: src/netedit/dialogs/GNEDialog.cpp:373 src/netedit/dialogs/GNEDialog.cpp:386
-#: src/netedit/dialogs/GNEDialog.cpp:407 src/netedit/dialogs/GNEDialog.cpp:420
-#: src/netedit/dialogs/GNEDialog.cpp:441
+#: src/netedit/dialogs/GNEDialog.cpp:403 src/netedit/dialogs/GNEDialog.cpp:424
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:93
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:920
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1365
@@ -9723,58 +9756,37 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:424
+#: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:407
 msgid "Reset"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:424
+#: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:407
 msgid "Reset changes"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:399
-msgid "Keep new"
-msgstr ""
-
-#: src/netedit/dialogs/GNEDialog.cpp:399
-msgid "Keep new changes"
-msgstr ""
-
-#: src/netedit/dialogs/GNEDialog.cpp:403
-msgid "Keep old"
-msgstr ""
-
-#: src/netedit/dialogs/GNEDialog.cpp:403
-msgid "Keep old changes"
-msgstr ""
-
-#: src/netedit/dialogs/GNEDialog.cpp:407
-#: src/netedit/frames/network/GNETAZFrame.cpp:393
-msgid "Cancel changes"
-msgstr ""
-
-#: src/netedit/dialogs/GNEDialog.cpp:437
+#: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:437
+#: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced options"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:450
+#: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:211
 msgid "Rerun"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:450
+#: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:212
 msgid "Rerun tool"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:454
+#: src/netedit/dialogs/GNEDialog.cpp:437
 msgid "Back"
 msgstr ""
 
-#: src/netedit/dialogs/GNEDialog.cpp:454
+#: src/netedit/dialogs/GNEDialog.cpp:437
 msgid "Back to tool dialog"
 msgstr ""
 
@@ -9812,20 +9824,6 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:48
 msgid "Definition"
-msgstr ""
-
-#: src/netedit/dialogs/GNEKeepElementsDialog.cpp:31
-#, c-format
-msgid "Keep % elements"
-msgstr ""
-
-#: src/netedit/dialogs/GNEKeepElementsDialog.cpp:36
-#, c-format
-msgid "Selected % file was already loaded."
-msgstr ""
-
-#: src/netedit/dialogs/GNEKeepElementsDialog.cpp:37
-msgid "Keep new or old elements?"
 msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:291
@@ -10107,6 +10105,14 @@ msgstr ""
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:179
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:180
 msgid "Reserved for user-defined semantics"
+msgstr ""
+
+#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:33
+msgid "Overwrite % '%'"
+msgstr ""
+
+#: src/netedit/dialogs/basic/GNEOverwritteElement.cpp:38
+msgid "There is already a % '%'. Overwrite?"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
@@ -11661,7 +11667,7 @@ msgstr ""
 msgid "Attribute '%' doesn't exist."
 msgstr ""
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:212
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:219
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
 
@@ -12464,11 +12470,6 @@ msgstr ""
 msgid "Move element down one lane"
 msgstr ""
 
-#: src/netedit/frames/GNEAttributesEditorRow.cpp:438
-#, c-format
-msgid "% file"
-msgstr ""
-
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:631
 msgid "Reparent"
 msgstr ""
@@ -12725,8 +12726,8 @@ msgid "Data elements"
 msgstr ""
 
 #: src/netedit/frames/GNEFrame.cpp:254
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:457
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:530
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:455
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:528
 msgid "Scale: Min -> Max"
 msgstr ""
 
@@ -12833,8 +12834,8 @@ msgid "Show all attributes"
 msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:480
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:506
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:529
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:504
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:527
 msgid "<all>"
 msgstr ""
 
@@ -13744,15 +13745,15 @@ msgstr ""
 msgid "Invalid duplicated dataSet ID"
 msgstr ""
 
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:213
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:212
 msgid "Create new interval"
 msgstr ""
 
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:231
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:230
 msgid "create interval"
 msgstr ""
 
-#: src/netedit/frames/data/GNEGenericDataFrame.cpp:431
+#: src/netedit/frames/data/GNEGenericDataFrame.cpp:429
 msgid "Data attributes"
 msgstr ""
 
@@ -14631,19 +14632,19 @@ msgstr ""
 msgid "Using clipboard"
 msgstr ""
 
-#: src/netedit/frames/network/GNEShapeFrame.cpp:226
+#: src/netedit/frames/network/GNEShapeFrame.cpp:227
 msgid "Shapes"
 msgstr ""
 
-#: src/netedit/frames/network/GNEShapeFrame.cpp:284
+#: src/netedit/frames/network/GNEShapeFrame.cpp:285
 msgid "Current selected shape isn't valid."
 msgstr ""
 
-#: src/netedit/frames/network/GNEShapeFrame.cpp:331
+#: src/netedit/frames/network/GNEShapeFrame.cpp:332
 msgid "Polygon shape cannot be empty"
 msgstr ""
 
-#: src/netedit/frames/network/GNEShapeFrame.cpp:470
+#: src/netedit/frames/network/GNEShapeFrame.cpp:471
 msgid "POILane can be only placed over lanes"
 msgstr ""
 
@@ -14710,6 +14711,10 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:390
 msgid "Confirm changes"
+msgstr ""
+
+#: src/netedit/frames/network/GNETAZFrame.cpp:393
+msgid "Cancel changes"
 msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:423
@@ -17110,6 +17115,120 @@ msgstr ""
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+
+#~ msgid "Loaded edge types from '"
+#~ msgstr "リンクタイプをロードしました '"
+
+#~ msgid "Reloaded edge types from '"
+#~ msgstr "リンクタイプをリロードしました '"
+
+#~ msgid "Loading of '"
+#~ msgstr "ローディング中 '"
+
+#~ msgid "'"
+#~ msgstr "'"
+
+#~ msgid "' loaded."
+#~ msgstr "' をロードしました。"
+
+#~ msgid "Loading console arguments"
+#~ msgstr "コンソール引数を読み込み中"
+
+#~ msgid "Trying to load an empty network"
+#~ msgstr "空のネットワークの読み込みを試行中"
+
+#~ msgid "Loading network file '"
+#~ msgstr "ネットワークファイルをローディング中 '"
+
+#~ msgid "Trying to load an empty configuration"
+#~ msgstr "空の構成の読み込みを試行中"
+
+#~ msgid "Loading configuration file '"
+#~ msgstr "設定ファイルを読み込み中 '"
+
+#~ msgid "Loading OSM file '"
+#~ msgstr "OSMファイルを読み込み中 '"
+
+#~ msgid "Running "
+#~ msgstr "実行中 "
+
+#~ msgid "Loading network '"
+#~ msgstr "ネットワークをローディング中 '"
+
+#~ msgid "' in SUMO-GUI"
+#~ msgstr "SUMO-GUIの '"
+
+#~ msgid "Loading sumo config '"
+#~ msgstr "sumoコンフィグを読み込み中 '"
+
+#~ msgid "Saving Network failed!"
+#~ msgstr "ネットワークの保存に失敗しました！"
+
+#~ msgid "Network saved in '"
+#~ msgstr "ネットワークを ' に保存しました"
+
+#~ msgid "Could not save network in '"
+#~ msgstr "ネットワークを ' に保存できません"
+
+#~ msgid "Plain XML saved with prefix '"
+#~ msgstr "プレーンXMLをprefix ' で保存しました"
+
+#~ msgid "Saving plain xml failed!"
+#~ msgstr "プレーンXMLの保存に失敗しました！"
+
+#~ msgid "Saving joined junctions failed!"
+#~ msgstr "結合された交差点の保存に失敗しました！"
+
+#~ msgid "Saving of netedit configuration aborted"
+#~ msgstr "Neteditの構成の保存を中止しました"
+
+#~ msgid "Netedit configuration saved in '"
+#~ msgstr "Neteditの構成が ' に保存されました"
+
+#~ msgid "Could not save netedit configuration in '"
+#~ msgstr "neteditの構成を ' に保存できませんでした"
+
+#~ msgid "SUMO configuration saved in '"
+#~ msgstr "SUMOの構成が ' に保存されました"
+
+#~ msgid "Could not save SUMO configuration in '"
+#~ msgstr "SUMOの構成を ' に保存できませんでした"
+
+#~ msgid "TLS Programs saved in '"
+#~ msgstr "信号機のプログラムを ' に保存しました"
+
+#~ msgid "Saving TLS Programs failed!"
+#~ msgstr "信号機のプログラムの保存に失敗しました！"
+
+#~ msgid "EdgeType saved in '"
+#~ msgstr "EdgeTypeを ' に保存しました"
+
+#~ msgid "Saving edgeTypes failed!"
+#~ msgstr "EdgeTypeの保存に失敗しました！"
+
+#~ msgid "Saving additional aborted"
+#~ msgstr "構造物の保存を中止しました"
+
+#~ msgid "Saving additionals failed!"
+#~ msgstr "構造物の保存に失敗しました！"
+
+#~ msgid "Saving JuPedSim aborted"
+#~ msgstr "JuPedSimの保存を中止しました"
+
+#~ msgid "Saving JuPedSim elements failed!"
+#~ msgstr "JuPedSimエレメントの保存に失敗しました！"
+
+#~ msgid "Saving demand elements aborted"
+#~ msgstr "交通需要エレメントの保存を中止"
+
+#~ msgid "Reloading of data file failed: "
+#~ msgstr "データファイルのリロードに失敗しました: "
+
+#~ msgid "Saving data elements failed!"
+#~ msgstr "データ要素の保存に失敗しました！"
+
+#~ msgid "loading additionals from '"
+#~ msgstr "' から構造物を読み込み中"
 
 #~ msgid "flow [veh/h/lane]"
 #~ msgstr "交通流率[veh/h/lane]"

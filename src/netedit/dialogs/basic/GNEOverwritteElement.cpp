@@ -30,12 +30,12 @@
 
 GNEOverwritteElement::GNEOverwritteElement(const GNEAttributeCarrier* AC) :
     GNEDialog(AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TLF("Overwritte % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
+              TLF("Overwrite % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
               GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add information label
-    new FXLabel(infoFrame, TLF("There is already a % '%'. Overwritte?", AC->getTagProperty()->getTagStr(), AC->getID()).c_str(),
+    new FXLabel(infoFrame, TLF("There is already a % '%'. Overwrite?", AC->getTagProperty()->getTagStr(), AC->getID()).c_str(),
                 nullptr, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // open modal dialog
     openDialog();

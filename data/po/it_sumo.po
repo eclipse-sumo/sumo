@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-09-04 10:07+0200\n"
+"POT-Creation-Date: 2025-09-04 12:41+0200\n"
 "PO-Revision-Date: 2025-08-05 08:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -13261,22 +13261,22 @@ msgstr ""
 "L'attributo '%' definito in % con il codice identificativo '%' non ha un "
 "valore valido (dato come '%')."
 
-#: src/utils/handlers/CommonHandler.cpp:57
+#: src/utils/handlers/CommonHandler.cpp:63
 msgid "Parameters must be defined within an object"
 msgstr "I parametri devono essere definiti all'interno di un oggetto"
 
-#: src/utils/handlers/CommonHandler.cpp:59
+#: src/utils/handlers/CommonHandler.cpp:65
 msgid "Parameters cannot be defined within another parameter."
 msgstr "Non si possono definire parametri all'interno di un altro parametro."
 
-#: src/utils/handlers/CommonHandler.cpp:67
+#: src/utils/handlers/CommonHandler.cpp:73
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Errore analizzando la chiave di un parametro generico di %. La chiave non "
 "deve essere vuota"
 
-#: src/utils/handlers/CommonHandler.cpp:69
+#: src/utils/handlers/CommonHandler.cpp:75
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -13284,69 +13284,69 @@ msgstr ""
 "Errore analizzando la chiave di un parametro generico di %. La chiave "
 "contiene dei caratteri invalidi"
 
-#: src/utils/handlers/CommonHandler.cpp:107
+#: src/utils/handlers/CommonHandler.cpp:113
 msgid "'%' must be defined within the definition of a %."
 msgstr "'%' deve essere definito/a all'interno della definizione di un/a %."
 
-#: src/utils/handlers/CommonHandler.cpp:110
+#: src/utils/handlers/CommonHandler.cpp:116
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 "'%' deve essere definito/a all'interno della definizione di un/a % "
 "(incontrato % '%')."
 
-#: src/utils/handlers/CommonHandler.cpp:113
+#: src/utils/handlers/CommonHandler.cpp:119
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 "'%' deve essere definito/a all'interno della definizione di un/a % "
 "(incontrato %)."
 
-#: src/utils/handlers/CommonHandler.cpp:125
+#: src/utils/handlers/CommonHandler.cpp:131
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:161
+#: src/utils/handlers/CommonHandler.cpp:167
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:164
+#: src/utils/handlers/CommonHandler.cpp:170
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:167
+#: src/utils/handlers/CommonHandler.cpp:173
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:170
+#: src/utils/handlers/CommonHandler.cpp:176
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:229
+#: src/utils/handlers/CommonHandler.cpp:235
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:235
+#: src/utils/handlers/CommonHandler.cpp:241
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:247
-#: src/utils/handlers/CommonHandler.cpp:265
+#: src/utils/handlers/CommonHandler.cpp:253
+#: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:253
-#: src/utils/handlers/CommonHandler.cpp:271
+#: src/utils/handlers/CommonHandler.cpp:259
+#: src/utils/handlers/CommonHandler.cpp:277
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
@@ -13354,29 +13354,29 @@ msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "L'attributo % deve essere maggiore di zero (%)."
 
-#: src/utils/handlers/CommonHandler.cpp:284
+#: src/utils/handlers/CommonHandler.cpp:290
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; % "
 "è invalido % ()"
 
-#: src/utils/handlers/CommonHandler.cpp:292
-#: src/utils/handlers/CommonHandler.cpp:304
-#: src/utils/handlers/CommonHandler.cpp:316
+#: src/utils/handlers/CommonHandler.cpp:298
+#: src/utils/handlers/CommonHandler.cpp:310
+#: src/utils/handlers/CommonHandler.cpp:322
 msgid "Could not build %; ID cannot be empty"
 msgstr ""
 "% non poteva essere costruito; Il codice identificativo non può essere "
 "lasciato vuoto"
 
-#: src/utils/handlers/CommonHandler.cpp:294
-#: src/utils/handlers/CommonHandler.cpp:318
+#: src/utils/handlers/CommonHandler.cpp:300
+#: src/utils/handlers/CommonHandler.cpp:324
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "Il codice identificativo contiene dei caratteri invalidi."
 
-#: src/utils/handlers/CommonHandler.cpp:306
+#: src/utils/handlers/CommonHandler.cpp:312
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
@@ -13384,49 +13384,54 @@ msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "Il codice identificativo del rivelatore contiene dei caratteri invalidi."
 
-#: src/utils/handlers/CommonHandler.cpp:327
+#: src/utils/handlers/CommonHandler.cpp:333
 msgid "Overwriting % with ID '%'"
 msgstr "Sovrascrittura di % con il codice identificativo '%' in corso"
 
-#: src/utils/handlers/CommonHandler.cpp:333
+#: src/utils/handlers/CommonHandler.cpp:339
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "Ce n'è un altro % con lo stesso codice identificativo."
 
-#: src/utils/handlers/CommonHandler.cpp:347
+#: src/utils/handlers/CommonHandler.cpp:354
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "Posizione invalida sulla corsia."
 
-#: src/utils/handlers/CommonHandler.cpp:353
+#: src/utils/handlers/CommonHandler.cpp:360
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "L'elenco di archi non può essere vuoto."
 
-#: src/utils/handlers/CommonHandler.cpp:359
+#: src/utils/handlers/CommonHandler.cpp:366
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 "% con il codice identificativo '%' non poteva essere costruito in netedit; "
 "L'elenco di corsie non è valido."
 
-#: src/utils/handlers/CommonHandler.cpp:365
+#: src/utils/handlers/CommonHandler.cpp:372
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:371
+#: src/utils/handlers/CommonHandler.cpp:378
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:377
+#: src/utils/handlers/CommonHandler.cpp:384
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
+msgstr ""
+
+#: src/utils/handlers/CommonHandler.cpp:390
+#, c-format
+msgid "Loading of filename '%' aborted"
 msgstr ""
 
 #: src/utils/handlers/DataHandler.cpp:120
