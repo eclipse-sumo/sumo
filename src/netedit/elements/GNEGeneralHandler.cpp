@@ -87,6 +87,7 @@ GNEGeneralHandler::isMeanDataFile() const {
 
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+    // continue depending of tag
     switch (tag) {
         case SUMO_TAG_LOCATION:
             // process in Network handler
