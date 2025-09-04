@@ -90,7 +90,7 @@ if (SWIG_FOUND)
                     COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libtraci.Constants
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
-                    COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libtraci
+                    COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libtraci $<TARGET_FILE_DIR:libtracijni>
                     COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode package source:jar
                 )
                 # this dependency avoids concurrent maven access to the repo
@@ -122,7 +122,7 @@ if (SWIG_FOUND)
             swig_link_libraries(libtracics libtracistatic ${libtcpip})
         endif()
         ADD_CUSTOM_COMMAND(TARGET libtracics POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "$<TARGET_FILE_DIR:libtracics>/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
         set_target_properties(libtracics PROPERTIES FOLDER "libtraci" PREFIX "")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

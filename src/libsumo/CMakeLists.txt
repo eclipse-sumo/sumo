@@ -133,7 +133,7 @@ if (SWIG_FOUND)
                     COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libsumo.Constants
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libsumo
-                    COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libsumo
+                    COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libsumo $<TARGET_FILE_DIR:libsumojni>
                     COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode package source:jar
                 )
             else()
@@ -167,7 +167,7 @@ if (SWIG_FOUND)
         endif()
         swig_link_libraries(libsumocs ${sumo_link_libraries})
         ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "$<TARGET_FILE_DIR:libsumocs>/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
         set_target_properties(libsumocs PROPERTIES FOLDER "libsumo" PREFIX "")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
