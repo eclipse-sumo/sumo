@@ -27,6 +27,7 @@
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -124,15 +125,20 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                               const Parameterised::Map& parameters) {
     // get dataSet
     GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
-    if (dataSet != nullptr) {
+    if (dataSet) {
         // get interval
         GNEDataInterval* dataInterval = dataSet->retrieveInterval(
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
                                             sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
-        if (dataInterval != nullptr) {
+        if (dataInterval) {
             // get data
             GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-            if (edge) {
+            if (edge == nullptr) {
+                return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
+            } else if (dataInterval->edgeRelSingleExists(edge)) {
+                return writeError(TLF("There is already a edgeRel defined in edge '%'.", edge));
+            } else {
+                // create edge data
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
@@ -144,8 +150,6 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                     edgeData->incRef("buildEdgeData");
                 }
                 return true;
-            } else {
-                return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
             }
         } else {
             return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATAINTERVAL);
@@ -174,24 +178,21 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                 return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
             } else if (toEdge == nullptr) {
                 return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
+            } else if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
+                return writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
             } else {
-                // avoid duplicated edgeRel in the same interval
-                if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
-                    return writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
+                GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
                 } else {
-                    GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
-                    if (myAllowUndoRedo) {
-                        myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
-                        myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-                        myNet->getViewNet()->getUndoList()->end();
-                    } else {
-                        dataInterval->addGenericDataChild(edgeData);
-                        fromEdge->addChildElement(edgeData);
-                        toEdge->addChildElement(edgeData);
-                        edgeData->incRef("buildEdgeRelationData");
-                    }
-                    return true;
+                    dataInterval->addGenericDataChild(edgeData);
+                    fromEdge->addChildElement(edgeData);
+                    toEdge->addChildElement(edgeData);
+                    edgeData->incRef("buildEdgeRelationData");
                 }
+                return true;
             }
         } else {
             return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);

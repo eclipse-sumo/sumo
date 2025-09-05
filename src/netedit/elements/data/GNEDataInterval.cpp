@@ -263,6 +263,19 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
+GNEDataInterval::edgeRelSingleExists(const GNEEdge* edge) const {
+    // interate over all edgeRels and check edge parents
+    for (const auto& genericData : myGenericDataChildren) {
+        if ((genericData->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) &&
+                (genericData->getParentEdges().front() == edge)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 GNEDataInterval::edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const {
     // interate over all edgeRels and check edge parents
     for (const auto& genericData : myGenericDataChildren) {

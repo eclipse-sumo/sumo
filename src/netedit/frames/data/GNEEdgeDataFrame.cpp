@@ -46,14 +46,12 @@ bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const GNEViewNetHelper::MouseButtonKeyPressed& /*mouseButtonKeyPressed*/) {
     // first check if we clicked over an edge
     if (viewObjects.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
-        // first check if the given interval there is already a EdgeData for the given ID
-        for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty()->getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
-                // write warning
-                WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), viewObjects.getEdgeFront()->getID());
-                // abort edge data creation
-                return false;
-            }
+        // check if exist already a edge rel single in the given edge
+        if (myIntervalSelector->getDataInterval()->edgeRelSingleExists(viewObjects.getEdgeFront())) {
+            // write warning
+            WRITE_WARNINGF(TL("There is already a % in edge '%'"), toString(GNE_TAG_EDGEREL_SINGLE), viewObjects.getEdgeFront()->getID());
+            // abort edge data creation
+            return false;
         }
         // check if parameters are valid
         if (myGenericDataAttributesEditor->checkAttributes(true)) {
