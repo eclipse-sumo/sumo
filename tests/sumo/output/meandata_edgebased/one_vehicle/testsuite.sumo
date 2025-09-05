@@ -1,6 +1,9 @@
 # One output; sampling at 1s
 interval1s
 
+# One output; sampling at 1s
+interval1s_aggregate
+
 # One output; sampling at 15s
 interval15s
 
