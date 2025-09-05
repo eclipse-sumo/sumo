@@ -9,12 +9,15 @@ title: ChangeLog
 - sumo
   - Fixed crash in rail simulation after rerouting #16958
   - Rerouters with parkingAreaReroute now take into account `parkingBadges` and `acceptedBadges` #16966
-  - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967
+  - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967  
 
 - netedit
+  - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regressio in 1.11.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
-
+  - Transforming a vehicle with route id into a flow now preserves the route id #17017
+  - Disabled "Assign E1 Detector" mode for invalid tlTypes #16949
+  - Loading a new network now resets the additional, routes and data files #17038
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -22,18 +25,37 @@ title: ChangeLog
   - Fixed inconsistent behavior when setting option **--default.spreadtype** for OSM import #16952
   - Fixed inconsistent behavior when writing spreadType #16951
   - Fixed unstable right-of-way on re-import (due to rounding of speeds) #16971
-  - Sidewalks and bike-lanes are now discounted when computing junctionPriorities #1637 
+  - Sidewalks and bike-lanes are now discounted when computing junctionPriorities #1637
+  - Fixed invalid ptstop-output when loading stops and splits #17028
+  - Fixed missing bidi-edge after split #17033
+
 
 - sumo-gui
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
+  - Edge and junction locator now works in [alternative-network mode](Simulation/Railways.md#abstract_networks) #17022
+  - Loaded color scheme no longer resets on immediate modification #16976
+  - Fixed misleading edge parameter dialog flow descriptions #16981 (meso)
+  - Fixed crash when running while having network parameter window open #17043 (meso)
 
 - meso
+  - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
   - Fixed error when loading state with high event times #16936
+  - Fixed invalid edgeData output with `aggregated="true"` #16982
+ 
+- tools
+  - abstractRail.py: fixed failure to use all loaded stops #17023
+  - abstractRail.py: fixed bug where option **--horizontal** sometimes didn't work #17025
+  - abstractRail.py: now gracefully handles stop input with invalid startPos or endPos #17027
+  - abstractRail.py: corrected naming of temporary net when using .net.xml.gz input with option **--split** #17029
  
 ### Enhancements
 
 - sumo
   - Option **--max-num-persons 0** can now be used to run a simulation without persons. #16965
+
+- netedit
+  - Now translating additional tooltips #12652
+  - The overwrite-elements dialog can now remember the user choice #17041
  
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
@@ -42,6 +64,9 @@ title: ChangeLog
 
 - tools
   - net2geojson.py: now permits exporting of edge AND lane shapes by using options **--edges --lanes** #16774
+  - abstractRail.py: Added option **--main-stops** for filtering stops when determining region angle #17024
+  - generateDetectors.py: Added option **--edge-probability** to allow randomization per edge #17044
+
 
 ### Miscellaneous
 
