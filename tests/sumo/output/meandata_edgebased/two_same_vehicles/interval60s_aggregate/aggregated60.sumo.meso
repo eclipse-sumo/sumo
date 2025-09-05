@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-15 11:01:58 by Eclipse SUMO sumo Version v1_12_0+0574-8000752
+<!-- generated on 2025-09-05 12:52:16 by Eclipse SUMO sumo Version v1_24_0+0657-d10b115a6ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -29,12 +29,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -43,17 +41,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="AGGREGATED" sampledSeconds="100.00" numEdges="44" traveltime="1760.00" overlapTraveltime="1760.30" density="0.09" laneDensity="0.00" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="2" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="AGGREGATED" sampledSeconds="113.00" numEdges="44" traveltime="1760.00" overlapTraveltime="1760.30" density="0.11" laneDensity="0.00" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="2" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="AGGREGATED" sampledSeconds="120.00" numEdges="44" traveltime="1760.00" overlapTraveltime="1760.30" density="0.11" laneDensity="0.00" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="AGGREGATED" sampledSeconds="60.00" numEdges="44" traveltime="1760.00" overlapTraveltime="1760.30" density="0.11" laneDensity="0.00" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="AGGREGATED" sampledSeconds="62.00" numEdges="44" traveltime="1760.00" overlapTraveltime="1760.30" density="0.12" laneDensity="0.00" occupancy="0.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
