@@ -48,6 +48,7 @@
     <Compile Include="frames\network\tls.py" />
     <Compile Include="frames\select.py" />
     <Compile Include="general\contextualMenu.py" />
+    <Compile Include="general\overwrite.py" />
     <Compile Include="general\fixElements.py" />
     <Compile Include="general\functions.py" />
     <Compile Include="general\modes.py" />
