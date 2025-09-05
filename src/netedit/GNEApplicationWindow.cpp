@@ -1198,6 +1198,25 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
+        // reset files
+        auto& neteditOptions = OptionsCont::getOptions();
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", "");
+        neteditOptions.set("sumocfg-file", "");
+        neteditOptions.set("net-file", "");
+        neteditOptions.set("tls-file", "");
+        neteditOptions.set("edgetypes-file", "");
+        neteditOptions.set("additional-files", "");
+        neteditOptions.set("route-files", "");
+        neteditOptions.set("meandata-files", "");
+        neteditOptions.set("data-files", "");
+        // also in sumoConfig
+        mySumoOptions.resetWritable();
+        mySumoOptions.set("configuration-file", "");
+        mySumoOptions.set("net-file", "");
+        mySumoOptions.set("additional-files", "");
+        mySumoOptions.set("route-files", "");
+        mySumoOptions.set("data-files", "");
         return 1;
     } else {
         return 0;
