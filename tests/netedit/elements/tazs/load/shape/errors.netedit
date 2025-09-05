@@ -1,2 +1,2 @@
 Error: Attribute 'shape' in definition of taz 'TAZ_02' is not a valid list of positions.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

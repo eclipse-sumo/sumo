@@ -5,5 +5,5 @@ Error: Invalid vehicle id ''.
 Error: vehicle cannot be created
 Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
 Error: vehicle cannot be created
-Error: Could not build vehicleWithRoute with ID 'vehicle_valid' in netedit; Found another vehicleWithRoute with the same ID.
-Error: Loading of routes.rou.xml failed.
+Warning: Could not build vehicleWithRoute with ID 'vehicle_valid' in netedit; Found another vehicleWithRoute with the same ID.
+Error: Loading of 'routes.rou.xml' failed.

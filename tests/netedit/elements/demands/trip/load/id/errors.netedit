@@ -5,5 +5,4 @@ Error: Invalid trip id ''.
 Error: trip cannot be created
 Error: Invalid trip id 'id with spaces'. Contains invalid characters.
 Error: trip cannot be created
-Error: Could not build trip with ID 'trip_valid' in netedit; Found another trip with the same ID.
-Error: Loading of routes.rou.xml failed.
+Error: Loading of 'routes.rou.xml' failed.

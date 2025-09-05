@@ -1,2 +1,2 @@
 Error: Attribute 'color' in definition of taz 'TAZ_1' Invalid color definition 'dummycolor'.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

@@ -1,2 +1,2 @@
 Error: 'detEntry' must be defined within the definition of a e3Detector.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

@@ -1,2 +1,2 @@
 Error: Attribute 'imgFile' in definition of vType 'vType1' is empty.
-Error: Loading of routes.rou.xml failed.
+Error: Loading of 'routes.rou.xml' failed.

@@ -1,3 +1,3 @@
 Error: Attribute 'type' in definition of flow 'CFlow01' is empty.
 Error: Could not build flow with ID '' in netedit; vType parent with ID 'dummy' doesn't exist.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

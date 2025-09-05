@@ -2,4 +2,4 @@ Error: Attribute 'speedThreshold' in definition of entryExitDetector 'entryExitD
 Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_1' Invalid Number Format (double) dummyX.
 Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_2' is not a valid position.
 Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_3' Invalid Number Format (double) dummyY.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

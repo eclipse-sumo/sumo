@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a parkingArea.
 Error: Could not build parkingArea with ID 'ID with spaces' in netedit; ID contains invalid characters.
-Error: Could not build parkingArea with ID 'parkingArea_0' in netedit; Found another parkingArea with the same ID.
-Error: Loading of additionals.add.xml failed.
+Warning: Could not build parkingArea with ID 'parkingArea_0' in netedit; Found another parkingArea with the same ID.
+Error: Loading of 'additionals.add.xml' failed.
