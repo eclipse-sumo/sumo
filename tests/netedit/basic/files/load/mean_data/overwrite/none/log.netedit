@@ -1,0 +1,16 @@
+Warning: Could not build edgeData with ID 'meanDataEdge1' in netedit; Found another edgeData with the same ID.
+Warning: Could not build edgeData with ID 'meanDataEdge2' in netedit; Found another edgeData with the same ID.
+Warning: Could not build edgeData with ID 'meanDataEdge3' in netedit; Found another edgeData with the same ID.
+Warning: Could not build edgeData with ID 'meanDataEdge4' in netedit; Found another edgeData with the same ID.
+Warning: Could not build edgeData with ID 'meanDataEdge5' in netedit; Found another edgeData with the same ID.
+Warning: Could not build edgeData with ID 'meanDataEdge6' in netedit; Found another edgeData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane1' in netedit; Found another laneData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane2' in netedit; Found another laneData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane3' in netedit; Found another laneData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane4' in netedit; Found another laneData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane5' in netedit; Found another laneData with the same ID.
+Warning: Could not build laneData with ID 'meanDataLane6' in netedit; Found another laneData with the same ID.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.

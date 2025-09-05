@@ -1,0 +1,8 @@
+Warning: Could not build route with ID 'r_1' in netedit; Found another route with the same ID.
+Warning: Could not build route with ID 'r_4' in netedit; Found another route with the same ID.
+Warning: Could not build tripJunctions with ID 't_1' in netedit; Found another tripJunctions with the same ID.
+Warning: Could not build vehicle with ID 'v_0' in netedit; Found another vehicle with the same ID.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.

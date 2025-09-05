@@ -26,10 +26,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile("network", "net2.net.xml")
+netedit.loadFile(referencePosition, "network", "net2.net.xml")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentShortcut("network")
 
 # quit netedit
 netedit.quit(neteditProcess)

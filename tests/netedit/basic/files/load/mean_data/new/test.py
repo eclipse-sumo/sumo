@@ -25,11 +25,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# move mouse (to avoid problems with file menu)
-netedit.moveMouse(referencePosition, netedit.positions.reference, 200, 0)
-
 # open network
-netedit.loadFile("meanData", "datas2.med.add.xml")
+netedit.loadFile(referencePosition, "meanData", "datas2.med.add.xml")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
