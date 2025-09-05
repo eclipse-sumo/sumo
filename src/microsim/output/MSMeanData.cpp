@@ -432,7 +432,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myInitTime(SUMOTime_MAX),
     myEdges(edges),
     myPrintDefaults(printDefaults),
-    myDumpInternal(withInternal),
+    myDumpInternal(withInternal && MSGlobals::gUsingInternalLanes),
     myTrackVehicles(trackVehicles),
     myWrittenAttributes(OutputDevice::parseWrittenAttributes(StringTokenizer(writeAttributes).getVector(), "meandata '" + id + "'")),
     myAggregate(aggregate)
