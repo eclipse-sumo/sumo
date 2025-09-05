@@ -70,5 +70,8 @@ vtypes
 # two vehicles sampling at 15s with internal lanes
 internal
 
+# two vehicles sampling at 15s with internal lanes
+internal_empty
+
 # count teleporting vehicles
 teleporting
