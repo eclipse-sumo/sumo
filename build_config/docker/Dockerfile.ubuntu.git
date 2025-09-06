@@ -8,11 +8,11 @@
 # If you don't need certain features and rather have a smaller container you can comment the unneeded parts below
 
 # We are dividing the build into multiple stages to reduce the size of the resulting image
-FROM ubuntu:jammy as build
+FROM ubuntu:jammy AS build
 
 ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
-ARG JUPEDSIM_VERSION=v1.3.0
+ARG JUPEDSIM_VERSION=v1.3.1
 
 RUN apt-get -qq update && \
     apt-get -y install git ca-certificates lsb-release wget
