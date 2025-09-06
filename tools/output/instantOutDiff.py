@@ -91,7 +91,7 @@ def write_diff(options):
                 countMismatch.add(len(times), det)
                 absCountMismatch.add(len(times), det)
 
-        outf.write('<instantOutDiff\n>')
+        outf.write('</instantOutDiff>\n')
 
     print(countMismatch)
     print(absCountMismatch)
