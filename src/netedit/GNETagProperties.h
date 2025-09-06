@@ -239,7 +239,7 @@ public:
     /// @brief get hierarchical parent of this element
     const GNETagProperties* getHierarchicalParent() const;
 
-    /// @brief get all parents, beginning from current element (root not included) untils this element
+    /// @brief get all parents, beginning from current element (root not included) until this element
     const std::vector<const GNETagProperties*> getHierarchicalParentsRecuersively() const;
 
     /// @brief get children of this tag property
@@ -256,7 +256,7 @@ public:
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
 
-    /// @brief check if this is a hirearchical tag
+    /// @brief check if this is a hierarchical tag
     bool isHierarchicalTag() const;
 
     /// @brief network elements
