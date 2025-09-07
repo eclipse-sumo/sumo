@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-07 10:08:21.996585 by routeSampler.py v1_24_0+0672-a589ef74758
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <od-files value="input_turns.xml"/>
+    <taz-files value="input_districts.xml"/>
+    <mismatch-output value="edgedata.xml"/>
+    <write-flows value="number"/>
+</configuration>
+-->
+
+<data>
+    <interval id="deficit" begin="0.0" end="99.0">
+        <edge id="15" measuredCount="3" deficit="3" GEH="14.77"/>
+        <edgeRelation from="1_2" to="2_0" measuredCount="5" deficit="0" GEH="0.00"/>
+    </interval>
+</data>
