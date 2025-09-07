@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-02-26 08:53+0000\n"
-"Last-Translator: TransTony <wt20010624@163.com>\n"
+"PO-Revision-Date: 2025-09-08 06:41+0000\n"
+"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.2-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -3490,7 +3490,7 @@ msgstr "＆路段"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:615
 msgid "Create junction and edges."
-msgstr "创建交叉口和道路。"
+msgstr "创建路口和路段。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:619
 msgid "&Traffic light"
@@ -5086,7 +5086,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:572
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
 msgid "Junction"
-msgstr "枢纽"
+msgstr "路口，枢纽"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:579
 #: src/netedit/GNETagPropertiesDatabase.cpp:1395
@@ -12940,7 +12940,7 @@ msgstr ""
 #: src/netedit/frames/GNEPathCreator.cpp:277
 #: src/netedit/frames/GNEPlanCreator.cpp:779
 msgid "Double junctions aren't allowed"
-msgstr "不允许有双重交叉口"
+msgstr "不允许有双重路口"
 
 #: src/netedit/frames/GNEPathCreator.cpp:285
 msgid "Only two junctions are allowed"
@@ -13489,7 +13489,7 @@ msgstr "选择信息"
 #: src/netedit/frames/common/GNESelectorFrame.cpp:100
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2124
 msgid "Junctions"
-msgstr "交叉口"
+msgstr "路口"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:101
 #: src/netedit/frames/network/GNETAZFrame.cpp:1156
@@ -14483,7 +14483,7 @@ msgstr "清除路段"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:182
 msgid "Crossing parameters"
-msgstr "交叉口的参数"
+msgstr "人行横道参数"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:452
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1438
@@ -14493,7 +14493,7 @@ msgstr "创建"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:455
 msgid "Create crossing"
-msgstr "创建交叉口"
+msgstr "创建人行横道"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:482
 msgid ""
