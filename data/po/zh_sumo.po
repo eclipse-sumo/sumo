@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2024-12-11 12:11+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2025-09-08 06:42+0000\n"
+"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1301,13 +1301,13 @@ msgstr "在新路径中没有找到当前的路段'%'"
 
 #: src/microsim/MSBaseVehicle.cpp:596
 msgid "Vehicle is on junction-internal edge leading elsewhere"
-msgstr "车辆在交叉口--内侧路段领先于其他地方"
+msgstr "车辆在路口——内侧路段领先于其他地方"
 
 #: src/microsim/MSBaseVehicle.cpp:609
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
-msgstr "车辆正驶过交叉口处，并致力于移动到另一个继任路段"
+msgstr "车辆正驶过路口处，并试图移动到另一个后继路段"
 
 #: src/microsim/MSBaseVehicle.cpp:705
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
@@ -1422,7 +1422,7 @@ msgstr "类型为 '%' 的设备不存在"
 
 #: src/microsim/MSBaseVehicle.cpp:2696
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
-msgstr "车辆 '%' 不支持交叉口模型（junctionModel）参数 '%'。"
+msgstr "车辆 '%' 不支持路口模型（junctionModel）参数 '%'。"
 
 #: src/microsim/MSBaseVehicle.cpp:2742
 msgid "could not interpret routing.mode '%'"
