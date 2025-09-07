@@ -1251,7 +1251,8 @@ def writeMismatch(options, mismatchf, countData, begin, end):
             mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
                 cd.edgeTuple[0], cd.origCount, cd.count, geh))
         elif len(cd.edgeTuple) == 2:
-            relationPrefix = '        <edgeRelation from="%s" to="%s" ' % cd.edgeTuple
+            tag = 'tazRelation' if cd.isTaz else 'edgeRelation'
+            relationPrefix = '        <%s from="%s" to="%s" ' % ((tag,) + cd.edgeTuple)
             if cd.isRatio:
                 deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
                 mismatchf.write('%smeasuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n'
