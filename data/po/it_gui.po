@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-08-08 08:44+0000\n"
+"PO-Revision-Date: 2025-09-09 06:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -1609,7 +1609,7 @@ msgstr "occupazione greggia [%]"
 
 #: src/guisim/GUIEdge.cpp:195
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "flusso di arco [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:199
 msgid "segment index"
@@ -1641,7 +1641,7 @@ msgstr "velocità media dei veicoli nel segmento [m/s]"
 
 #: src/guisim/GUIEdge.cpp:206
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "flusso del segmento [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment vehicles [#]"
@@ -2488,11 +2488,11 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "file di rete"
 
 #: src/netedit/GNEApplicationWindow.cpp:770
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "file OpenStreetMap"
 
 #: src/netedit/GNEApplicationWindow.cpp:786
 #: src/netedit/GNEApplicationWindow.cpp:3514
@@ -2534,7 +2534,7 @@ msgstr "carica tipi di arco (edgeType)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1009
 msgid "Reloaded edge types from '%'."
-msgstr ""
+msgstr "Tipi di archi ricaricati da '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1066
 msgid "Reloading netedit config file '"
@@ -2564,12 +2564,12 @@ msgstr "&Ricarica rete"
 #: src/netedit/GNEApplicationWindow.cpp:1330
 #, c-format
 msgid "Loading of network '%' failed"
-msgstr ""
+msgstr "Il caricamento della rete '%' è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:1335
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "Rete '%' caricata"
 
 #: src/netedit/GNEApplicationWindow.cpp:1433
 msgid "&Modes"
@@ -2686,19 +2686,19 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1750
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "Caricamento del file di rete '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1762
 msgid "Trying to load an empty configuration."
-msgstr ""
+msgstr "Tentando di caricare una configurazione vuota."
 
 #: src/netedit/GNEApplicationWindow.cpp:1778
 msgid "Loading configuration file '%'."
-msgstr ""
+msgstr "Caricamento del file di configurazione '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1817
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "Caricamento del file OSM '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1834
 msgid "Recompute with volatile options"
@@ -2715,17 +2715,17 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:2142
 #: src/netedit/GNEApplicationWindow.cpp:2202
 msgid "Running '%'."
-msgstr ""
+msgstr "Eseguendo '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:2165
 #, c-format
 msgid "Loading network '%' in SUMO-GUI."
-msgstr ""
+msgstr "Caricamento della rete '%' in sumo-gui."
 
 #: src/netedit/GNEApplicationWindow.cpp:2174
 #, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
-msgstr ""
+msgstr "Caricamento della configurazione sumo '%' in sumo-gui."
 
 #: src/netedit/GNEApplicationWindow.cpp:2591
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
