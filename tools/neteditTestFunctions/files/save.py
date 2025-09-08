@@ -24,45 +24,42 @@ from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
 from ..input.mouse import moveMouse
 
 
-def saveNew(element):
+def saveNewFile(element):
     """
-    @brief save existent element using shortcut (without opening a saving dialog)
+    @brief save new file
     """
     filename = ""
     if (element == "network"):
         typeTwoKeys('ctrl', 's')
-        filename = "new.net.net.xml"
-    elif (element == "additionals"):
+        filename = "net2.net.xml"
+    elif (element == "additional"):
         typeThreeKeys('ctrl', 'shift', 'a')
-        filename = "new.additionals.add.xml"
-    elif (element == "demands"):
+        filename = "additionals2.add.xml"
+    elif (element == "demand"):
         typeThreeKeys('ctrl', 'shift', 'd')
-        filename = "new.routes.rou.xml"
-    elif (element == "datas"):
+        filename = "routes2.rou.xml"
+    elif (element == "data"):
         typeThreeKeys('ctrl', 'shift', 'b')
-        filename = "new.datas.dat.xml"
-    elif (element == "meanDatas"):
+        filename = "datas2.dat.xml"
+    elif (element == "meanData"):
         typeThreeKeys('ctrl', 'shift', 'm')
-        filename = "new.meanDatas.add.xml"
+        filename = "datas2.med.add.xml"
     elif (element == "xml"):
         typeTwoKeys('ctrl', 'l')
-        filename = "new.xml"
+        filename = "net2.xml"
     elif (element == "sumoConfig"):
         typeThreeKeys('ctrl', 'shift', 's')
-        filename = "new.config.sumocfg"
+        filename = "config2.sumocfg"
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
-        filename = "new.config.netecfg"
-    # wait for open dialog
+        filename = "config2.netecfg"
+    # wait for dialog
     time.sleep(2)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    # set filename
     updateText(filename)
     typeKey('enter')
-    # wait for saving
+    # wait for load
     time.sleep(2)
 
 
