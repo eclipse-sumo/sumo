@@ -63,7 +63,7 @@ def saveNewFile(element):
     time.sleep(2)
 
 
-def saveExistentShortcut(element):
+def saveExistentFile(element):
     """
     @brief save existent element using shortcut (without opening a saving dialog)
     """
