@@ -354,8 +354,8 @@ private:
     /// @brief process changeEditMode function
     void changeEditMode();
 
-    /// @brief process save function
-    void saveExistentShortcut();
+    /// @brief process save existent function
+    void saveExistentFile();
 
     /// @brief process check undo-redo function
     void checkUndoRedo() const;

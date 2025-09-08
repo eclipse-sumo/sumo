@@ -288,8 +288,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         deleteMeanData();
     } else if (function == "copyMeanData") {
         copyMeanData();
-    } else if (function == "saveExistentShortcut") {
-        saveExistentShortcut();
+    } else if (function == "saveExistentFile") {
+        saveExistentFile();
     } else if (function == "checkUndoRedo") {
         checkUndoRedo();
     } else if (function == "delete") {
@@ -1296,7 +1296,7 @@ InternalTestStep::changeEditMode() {
 
 
 void
-InternalTestStep::saveExistentShortcut() {
+InternalTestStep::saveExistentFile() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("save", 0, "<\"string\">");
