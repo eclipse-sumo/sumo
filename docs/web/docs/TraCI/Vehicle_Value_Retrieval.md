@@ -875,6 +875,7 @@ Some carFollowModels permit access to further vehicle-specific parameters.
 - [carFollowModel.ignoreIDs](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_carfollowmodel_parameters)
 - [carFollowModel.ignoreTypes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_carfollowmodel_parameters)
 - carFollowModel.caccCommunicationsOverride (only CACC)
+- carFollowModel.caccVehicleMode (only CACC)
 
 ### Supported junctionModel Parameters
 
