@@ -2,8 +2,9 @@
 set(Python_FIND_REGISTRY LAST)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" ON)
-option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" OFF)
-option(ISOLATED_BUILD "Do not pollute the source directory on building" OFF)
+option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)")
+option(ISOLATED_BUILD "Do not pollute the source directory on building")
+option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" ON)
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)")
 option(PPROF "Link the pprof profiler library (applies to gcc/clang builds only)")
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)")
@@ -304,8 +305,6 @@ endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
-    # set option for install debug and release runtime dlls
-    option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
@@ -599,9 +598,14 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 # installation
 if (MSVC)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-        set(CMAKE_INSTALL_PREFIX "sumo-${PACKAGE_VERSION}")
+        set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
-    install(DIRECTORY bin/ DESTINATION bin
+    if (ISOLATED_BUILD)
+        set(SUMO_BIN_DIR ${CMAKE_CURRENT_BINARY_DIR}/bin/)
+    else()
+        set(SUMO_BIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin/)
+    endif()
+    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin
             FILES_MATCHING
             PATTERN "*.bat"
             PATTERN "*.dll"
@@ -609,7 +613,7 @@ if (MSVC)
             PATTERN "*_Debug.dll" EXCLUDE
             PATTERN "gtest*.dll" EXCLUDE)
     # files which end with "d" but are not debug
-    install(DIRECTORY bin/ DESTINATION bin
+    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin
             FILES_MATCHING
             PATTERN "thriftmd.dll"
             PATTERN "zstd.dll")
@@ -671,10 +675,15 @@ if (SUMO_LIBRARIES AND WIN32)
     # filter release DLLs
     execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
                     OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
+    if (ISOLATED_BUILD)
+        set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR})
+    else()
+        set(TARGET_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
     # copy debug dlls
     foreach(DLL_PATH ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
         get_filename_component(DLL_BASENAME ${DLL_PATH} NAME)
-        set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
+        set(TARGET_DLL ${TARGET_DIR}/bin/${DLL_BASENAME})
         list(FIND TARGET_ALL_DLLS ${TARGET_DLL} DLL_KNOWN)
         list(FIND SUMO_LIBRARIES_RELEASE_DLL ${DLL_PATH} IS_RELEASE_DLL)
         list(FIND GTEST_DLL ${DLL_PATH} IS_TEST_DLL)
@@ -697,19 +706,19 @@ if (SUMO_LIBRARIES AND WIN32)
         get_filename_component(OSG_PLUGIN_DLL_BASENAME ${OSG_PLUGIN_DLL} NAME)
         get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DLL} DIRECTORY)
         get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DIR} NAME)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}/${OSG_PLUGIN_DLL_BASENAME})
+        set(OSG_TARGET ${TARGET_DIR}/bin/${OSG_PLUGIN_DIR}/${OSG_PLUGIN_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${TARGET_DIR}/bin/${OSG_PLUGIN_DIR}
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
     if (PROJ_FOUND)
         # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
+        set(PROJ_DATA ${TARGET_DIR}/share/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${CMAKE_SOURCE_DIR}/share/proj
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${TARGET_DIR}/share/proj
                            DEPENDS ${PROJ_INCLUDE_DIR}/../share/proj/proj.db)
+        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share)
     endif ()
-    install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
 endif()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
