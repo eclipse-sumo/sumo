@@ -4416,7 +4416,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
     // iterate over all data elements
-    for (const auto& meanDataFileName : myViewNet->getNet()->getSavingFilesHandler()->getDataFilenames()) {
+    for (const auto& meanDataFileName : myViewNet->getNet()->getSavingFilesHandler()->getMeanDataFilenames()) {
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, meanDataFileName, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
