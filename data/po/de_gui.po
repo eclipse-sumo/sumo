@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-08-29 10:01+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2025-09-09 06:21+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.1-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
@@ -1607,7 +1607,7 @@ msgstr "Bruttobelegungsgrad [%]"
 
 #: src/guisim/GUIEdge.cpp:195
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "Kantenfluss [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:199
 msgid "segment index"
@@ -1639,7 +1639,7 @@ msgstr "mittlere Fahrzeuggeschwindigkeit im Segment [m/s]"
 
 #: src/guisim/GUIEdge.cpp:206
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "Segmentfluss [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment vehicles [#]"
