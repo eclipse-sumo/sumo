@@ -198,7 +198,7 @@ public:
 
     /// @brief keyboard functions
     //@{
-    virtual long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
     //@}
 
     /// @name FOX-callbacks

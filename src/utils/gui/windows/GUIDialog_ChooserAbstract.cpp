@@ -47,7 +47,7 @@ FXDEFMAP(GUIDialog_ChooserAbstract) GUIDialog_ChooserAbstractMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                 GUIDialog_ChooserAbstract::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,           GUIDialog_ChooserAbstract::onChgText),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,           GUIDialog_ChooserAbstract::onCmdText),
-    FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onListKeyPress),
+    FXMAPFUNC(SEL_KEYPRESS, 0,                          GUIDialog_ChooserAbstract::onKeyPress),
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onChgList),
     FXMAPFUNC(SEL_DESELECTED, MID_CHOOSER_LIST,         GUIDialog_ChooserAbstract::onChgListSel),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER,         GUIDialog_ChooserAbstract::onCmdFilter),
@@ -247,7 +247,7 @@ GUIDialog_ChooserAbstract::onCmdText(FXObject*, FXSelector, void*) {
 
 
 long
-GUIDialog_ChooserAbstract::onListKeyPress(FXObject*, FXSelector, void* ptr) {
+GUIDialog_ChooserAbstract::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (event->code == KEY_Return) {
         onCmdText(nullptr, 0, nullptr);
@@ -258,9 +258,11 @@ GUIDialog_ChooserAbstract::onListKeyPress(FXObject*, FXSelector, void* ptr) {
     } else if (event->code == KEY_Left || (event->code == KEY_Up && myList->getCurrentItem() == 0)) {
         myTextEntry->setFocus();
         return 1;
+    } else if (event->code == KEY_Escape) {
+        close(true);
+        return 1;
     }
-    // let other elements handle the keypress
-    return 0;
+    return FXMainWindow::onKeyPress(o, sel, ptr);
 }
 
 

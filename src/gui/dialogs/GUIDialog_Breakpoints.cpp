@@ -26,6 +26,7 @@
 #include <iostream>
 #include <fstream>
 #include <set>
+#include <fxkeys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -56,6 +57,7 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,        GUIDialog_Breakpoints::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_TIMELINK_BREAKPOINT,  GUIDialog_Breakpoints::onCmdUpdateBreakpoints),
     FXMAPFUNC(SEL_REPLACED, MID_TABLE,         GUIDialog_Breakpoints::onCmdEditTable),
+    FXMAPFUNC(SEL_KEYPRESS, 0,                 GUIDialog_Breakpoints::onKeyPress),
 };
 
 
@@ -136,6 +138,17 @@ GUIDialog_Breakpoints::rebuildList() {
     }
     // insert dummy last field
     myTable->setItemText((int)myBreakpoints->size(), 0, " ");
+}
+
+
+long
+GUIDialog_Breakpoints::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    const FXEvent* e = (FXEvent*) ptr;
+    if(e->code==KEY_Escape){
+        onCmdClose(nullptr, 0, nullptr);
+        return 1;
+    }
+    return FXMainWindow::onKeyPress(o, sel, ptr);
 }
 
 

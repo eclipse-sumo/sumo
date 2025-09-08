@@ -25,6 +25,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <fxkeys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -47,6 +48,7 @@ FXDEFMAP(GUIDialog_GLChosenEditor) GUIDialog_GLChosenEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_DESELECT,   GUIDialog_GLChosenEditor::onCmdDeselect),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,      GUIDialog_GLChosenEditor::onCmdClear),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,             GUIDialog_GLChosenEditor::onCmdClose),
+    FXMAPFUNC(SEL_KEYPRESS, 0,                      GUIDialog_GLChosenEditor::onKeyPress),
 };
 
 FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap, ARRAYNUMBER(GUIDialog_GLChosenEditorMap))
@@ -184,6 +186,17 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*, FXSelector, void*) {
     rebuildList();
     myParent->updateChildren();
     return 1;
+}
+
+
+long
+GUIDialog_GLChosenEditor::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    const FXEvent* e = (FXEvent*) ptr;
+    if(e->code==KEY_Escape){
+        onCmdClose(nullptr, 0, nullptr);
+        return 1;
+    }
+    return FXMainWindow::onKeyPress(o, sel, ptr);
 }
 
 
