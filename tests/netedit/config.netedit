@@ -67,25 +67,15 @@ copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:loadViewport.xml
 
 [collate_file]
-neteconfigas:configAs.netecfg
-sumoconfigas:configAs.sumo
 
-netcon:net.con.xml
-netedg:net.edg.xml
-netnod:net.nod.xml
-nettll:net.tll.xml
+netcon:net2.con.xml
+netedg:net2.edg.xml
+netnod:net2.nod.xml
+nettll:net2.tll.xml
 
-sumonet:sumo.net.xml
-sumocon:sumo.con.xml
-sumoedg:sumo.edg.xml
-sumonod:sumo.nod.xml
-sumotll:sumo.tll.xml
-
-netccfgnet:netccfg.net.xml
-netccfgcon:netccfg.con.xml
-netccfgedg:netccfg.edg.xml
-netccfgnod:netccfg.nod.xml
-netccfgtll:netccfg.tll.xml
+neteditcfg2:config2.netecfg
+sumocfg2:config2.sumocfg
+netccfg2:config2.netecfg
 
 net:net.net.xml
 net2:net2.net.xml
@@ -93,18 +83,22 @@ net2:net2.net.xml
 additionals:additionals.add.xml
 additionals2:additionals2.add.xml
 additionals3:additionals3.add.xml
+additionalsconfig:config2.add.xml
 
 routes:routes.rou.xml
 routes2:routes2.rou.xml
 routes3:routes3.rou.xml
+routesconfig:config2.rou.xml
 
 datas:datas.dat.xml
 datas2:datas2.dat.xml
 datas3:datas3.dat.xml
+datasconfig:config2.dat.xml
 
 meandatas:datas.med.add.xml
 meandatas2:datas2.med.add.xml
 meandatas3:datas3.med.add.xml
+meandatasconfig:config2.med.add.xml
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
@@ -126,6 +120,9 @@ additionals2:\\{REPLACE /}
 additionals3:<!-- generated{[->]}-->
 additionals3:\\{REPLACE /}
 
+additionalsconfig:<!-- generated{[->]}-->
+additionalsconfig:\\{REPLACE /}
+
 routes:<!-- generated{[->]}-->
 routes:\\{REPLACE /}
 
@@ -134,6 +131,9 @@ routes2:\\{REPLACE /}
 
 routes3:<!-- generated{[->]}-->
 routes3:\\{REPLACE /}
+
+routesconfig:<!-- generated{[->]}-->
+routesconfig:\\{REPLACE /}
 
 datas:<!-- generated{[->]}-->
 datas:\\{REPLACE /}
@@ -144,6 +144,9 @@ datas2:\\{REPLACE /}
 datas3:<!-- generated{[->]}-->
 datas3:\\{REPLACE /}
 
+datasconfig:<!-- generated{[->]}-->
+datasconfig:\\{REPLACE /}
+
 meandatas:<!-- generated{[->]}-->
 meandatas:\\{REPLACE /}
 
@@ -153,16 +156,17 @@ meandatas2:\\{REPLACE /}
 meandatas3:<!-- generated{[->]}-->
 meandatas3:\\{REPLACE /}
 
+meandatasconfig:<!-- generated{[->]}-->
+meandatasconfig:\\{REPLACE /}
+
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
 
-neteconfig:<!--{[->]}-->
-neteconfig2:<!--{[->]}-->
-
-sumoconfig:<!--{[->]}-->
-sumoconfig2:<!--{[->]}-->
+neteditcfg2:<!--{[->]}-->
+sumocfg2:<!--{[->]}-->
+netccfg2:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]

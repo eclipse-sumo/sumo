@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-08 14:27:04 by Eclipse SUMO netedit Version v1_24_0+0694-8759db60147
+<!-- generated on 2025-09-08 15:42:10 by Eclipse SUMO netedit Version v1_24_0+0694-8759db60147
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,24 +14,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.08Sep142546.22500\netedit.external\basic\files\save\network\net2.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.08Sep142546.22500\netedit.external\basic\files\save\network\net2.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
     <netedit>
-        <new-network value="false"/>
         <ignore-supermode-question value="true"/>
         <ignore.additionalelements value="0"/>
         <ignore.routeelements value="0"/>
@@ -54,15 +63,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </neteditConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-E0" to="Edge3" fromLane="1" toLane="1"/>
 
-    <location netOffset="0.00,0.00" convBoundary="-34.00,-26.00,32.00,-26.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <connection from="E0" to="Edge0" fromLane="1" toLane="1" keepClear="0"/>
 
-    <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="66.00" shape="-34.00,-27.60 32.00,-27.60"/>
-    </edge>
+    <connection from="Edge0" to="Edge1" fromLane="1" toLane="1"/>
 
-    <junction id="J0" type="dead_end" x="-34.00" y="-26.00" incLanes="" intLanes="" shape="-34.00,-26.00 -34.00,-29.20"/>
-    <junction id="J1" type="dead_end" x="32.00" y="-26.00" incLanes="E0_0" intLanes="" shape="32.00,-29.20 32.00,-26.00"/>
+    <connection from="Edge1" to="Edge2" fromLane="1" toLane="1"/>
 
-</net>
+    <connection from="Edge2" to="E0" fromLane="1" toLane="1"/>
+
+    <connection from="Edge3" to="Edge4" fromLane="1" toLane="1"/>
+
+    <connection from="Edge4" to="Edge5" fromLane="1" toLane="1"/>
+
+    <connection from="Edge5" to="-E0" fromLane="1" toLane="1"/>
+
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
+
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
+
+</connections>

@@ -16,7 +16,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net2.netedit"/>
+        <net-file value="net.netedit"/>
+        <route-files value="routesconfig.netedit"/>
+        <additional-files value="additionalsconfig.netedit"/>
         <junction-taz value="true"/>
     </input>
 

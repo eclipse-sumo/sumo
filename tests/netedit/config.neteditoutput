@@ -9,6 +9,7 @@ copy_test_path:net2.netedit
 copy_test_path:additionals.netedit
 copy_test_path:additionals2.netedit
 copy_test_path:additionals3.netedit
+copy_test_path:additionalsconfig.netedit
 
 copy_test_path:meandatas.netedit
 copy_test_path:meandatas2.netedit
@@ -17,6 +18,7 @@ copy_test_path:meandatas3.netedit
 copy_test_path:routes.netedit
 copy_test_path:routes2.netedit
 copy_test_path:routes3.netedit
+copy_test_path:routesconfig.netedit
 
 copy_test_path:datas.netedit
 copy_test_path:datas2.netedit

@@ -25,6 +25,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
+# go to demand mode
+netedit.changeSupermode("demand")
+
 # go to route mode
 netedit.changeMode("route")
 
@@ -35,6 +38,27 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeKey("enter")
+
+# Go to data supermode
+netedit.changeSupermode("data")
+
+# change to edgeData
+netedit.changeMode("edgeData")
+
+# create dataSet
+netedit.createDataSet("newDataSet")
+
+# create data interval
+netedit.createDataInterval("0", "3600")
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# change to edgeData
+netedit.changeMode("meanData")
+
+# create mean data
+netedit.createMeanData()
 
 # open network
 netedit.saveNewFile("demand")

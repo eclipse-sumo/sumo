@@ -25,21 +25,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# Change to create edge mode
-netedit.changeMode("createEdge")
-
-# Create one way edge
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
-
-# open network
-netedit.saveNewFile("network")
-
-# Check undo redo
-netedit.checkUndoRedo(referencePosition)
-
 # save Netedit config
-netedit.saveExistentFile("neteditConfig")
+netedit.saveNewFile("xml")
 
 # quit netedit
 netedit.quit(neteditProcess)

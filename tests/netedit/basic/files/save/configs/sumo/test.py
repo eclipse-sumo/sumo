@@ -25,21 +25,55 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# Change to create edge mode
-netedit.changeMode("createEdge")
+# go to additional mode
+netedit.changeMode("additional")
 
-# Create one way edge
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+# select busStop
+netedit.changeElement("additionalFrame", "busStop")
 
-# open network
-netedit.saveNewFile("network")
+# create busStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# go to demand mode
+netedit.changeSupermode("demand")
+
+# go to route mode
+netedit.changeMode("route")
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+
+# press enter to create route
+netedit.typeKey("enter")
+
+# Go to data supermode
+netedit.changeSupermode("data")
+
+# change to edgeData
+netedit.changeMode("edgeData")
+
+# create dataSet
+netedit.createDataSet("newDataSet")
+
+# create data interval
+netedit.createDataInterval("0", "3600")
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# change to edgeData
+netedit.changeMode("meanData")
+
+# create mean data
+netedit.createMeanData()
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentFile("neteditConfig")
+netedit.saveNewFile("sumoConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)
