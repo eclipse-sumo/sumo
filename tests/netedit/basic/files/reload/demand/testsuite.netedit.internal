@@ -1,11 +1,3 @@
-configs
+single
 
-network
-
-additional
-
-demand
-
-data
-
-mean_data
+multiple

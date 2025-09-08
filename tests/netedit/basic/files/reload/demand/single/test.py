@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.reloadFile(referencePosition, "demand")
+netedit.reloadFile(referencePosition, "demand", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

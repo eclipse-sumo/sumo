@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # reload network
-netedit.reloadFile(referencePosition, "network")
+netedit.reloadFile(referencePosition, "network", False)
 
 # save Netedit config
 netedit.saveExistentShortcut("network")

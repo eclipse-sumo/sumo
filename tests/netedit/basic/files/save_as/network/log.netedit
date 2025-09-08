@@ -1,0 +1,6 @@
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: 6 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

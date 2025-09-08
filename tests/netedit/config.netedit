@@ -43,18 +43,21 @@ copy_test_path:net2.net.xml
 
 copy_test_path:additionals.add.xml
 copy_test_path:additionals2.add.xml
+copy_test_path:additionals3.add.xml
 
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
-
-copy_test_path:vtypes.rou.xml
-copy_test_path:vtypes2.rou.xml
+copy_test_path:routes3.rou.xml
 
 copy_test_path:datas.dat.xml
 copy_test_path:datas2.dat.xml
+copy_test_path:datas3.dat.xml
 
 copy_test_path:datas.med.add.xml
 copy_test_path:datas2.med.add.xml
+copy_test_path:datas3.med.add.xml
+
+copy_test_path:vtypes.rou.xml
 
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -62,7 +65,6 @@ copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:loadViewport.xml
-
 
 [collate_file]
 neteconfigas:configAs.netecfg
@@ -86,23 +88,23 @@ netccfgnod:netccfg.nod.xml
 netccfgtll:netccfg.tll.xml
 
 net:net.net.xml
-netas:netAs.net.xml
+net2:net2.net.xml
 
 additionals:additionals.add.xml
 additionals2:additionals2.add.xml
-additionalsas:additionalsAs.add.xml
+additionals3:additionals3.add.xml
 
 routes:routes.rou.xml
 routes2:routes2.rou.xml
-routesas:routesAs.rou.xml
+routes3:routes3.rou.xml
 
 datas:datas.dat.xml
 datas2:datas2.dat.xml
-datasas:datasAs.dat.xml
+datas3:datas3.dat.xml
 
 meandatas:datas.med.add.xml
 meandatas2:datas2.med.add.xml
-meandatasas:datasAs.med.add.xml
+meandatas3:datas3.med.add.xml
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
@@ -111,10 +113,9 @@ selection:selection.txt
 errorScreenshot:errorScreenshot.png
 viewport:viewport.xml
 
-
 [run_dependent_text]
 net:<!--{[->]}-->
-netas:<!--{[->]}-->
+net2:<!--{[->]}-->
 
 additionals:<!-- generated{[->]}-->
 additionals:\\{REPLACE /}
@@ -122,8 +123,8 @@ additionals:\\{REPLACE /}
 additionals2:<!-- generated{[->]}-->
 additionals2:\\{REPLACE /}
 
-additionalsas:<!-- generated{[->]}-->
-additionalsas:\\{REPLACE /}
+additionals3:<!-- generated{[->]}-->
+additionals3:\\{REPLACE /}
 
 routes:<!-- generated{[->]}-->
 routes:\\{REPLACE /}
@@ -131,8 +132,8 @@ routes:\\{REPLACE /}
 routes2:<!-- generated{[->]}-->
 routes2:\\{REPLACE /}
 
-routesas:<!-- generated{[->]}-->
-routesas:\\{REPLACE /}
+routes3:<!-- generated{[->]}-->
+routes3:\\{REPLACE /}
 
 datas:<!-- generated{[->]}-->
 datas:\\{REPLACE /}
@@ -140,8 +141,8 @@ datas:\\{REPLACE /}
 datas2:<!-- generated{[->]}-->
 datas2:\\{REPLACE /}
 
-datasas:<!-- generated{[->]}-->
-datasas:\\{REPLACE /}
+datas3:<!-- generated{[->]}-->
+datas3:\\{REPLACE /}
 
 meandatas:<!-- generated{[->]}-->
 meandatas:\\{REPLACE /}
@@ -149,8 +150,8 @@ meandatas:\\{REPLACE /}
 meandatas2:<!-- generated{[->]}-->
 meandatas2:\\{REPLACE /}
 
-meandatasas:<!-- generated{[->]}-->
-meandatasas:\\{REPLACE /}
+meandatas3:<!-- generated{[->]}-->
+meandatas3:\\{REPLACE /}
 
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
@@ -158,10 +159,10 @@ netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
 
 neteconfig:<!--{[->]}-->
-neteconfigas:<!--{[->]}-->
+neteconfig2:<!--{[->]}-->
 
 sumoconfig:<!--{[->]}-->
-sumoconfigas:<!--{[->]}-->
+sumoconfig2:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]

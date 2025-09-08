@@ -5,23 +5,22 @@ binary:$SUMO_BINARY
 
 copy_test_path:net.netedit
 copy_test_path:net2.netedit
-copy_test_path:netas.netedit
 
 copy_test_path:additionals.netedit
 copy_test_path:additionals2.netedit
-copy_test_path:additionalsas.netedit
+copy_test_path:additionals3.netedit
 
 copy_test_path:meandatas.netedit
 copy_test_path:meandatas2.netedit
-copy_test_path:meandatasas.netedit
+copy_test_path:meandatas3.netedit
 
 copy_test_path:routes.netedit
 copy_test_path:routes2.netedit
-copy_test_path:routesas.netedit
+copy_test_path:routes3.netedit
 
 copy_test_path:datas.netedit
 copy_test_path:datas2.netedit
-copy_test_path:datasas.netedit
+copy_test_path:datas3.netedit
 
 copy_test_path:sumo.sumocfg
 copy_test_path:sumoas.sumocfg

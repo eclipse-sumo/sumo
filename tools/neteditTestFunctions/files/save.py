@@ -17,18 +17,11 @@
 
 # imports
 import time
-from ..enums.attributesEnum import attrs
 from ..constants import TEXTTEST_SANDBOX
+from ..enums.attributesEnum import attrs
+from ..enums.viewPositions import positions
 from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
-
-# declare saveAs files
-_NETWORKFILE_SAVEAS = "netAs.net.xml"
-_ADDITIONALFILE_SAVEAS = "additionalsAs.add.xml"
-_DEMANDFILE_SAVEAS = "routesAs.rou.xml"
-_DATAFILE_SAVEAS = "datasAs.dat.xml"
-_MEANDATA_SAVEAS = "meanDatasAs.add.xml"
-_SUMOCONFIG_SAVEAS = "configAs.sumocfg"
-_NETEDITCONFIG_SAVEAS = "configAs.netecfg"
+from ..input.mouse import moveMouse
 
 
 def saveNew(element):
@@ -95,7 +88,7 @@ def saveExistentShortcut(element):
     time.sleep(2)
 
 
-def saveAs(element):
+def saveFileAs(referencePosition, type: str, multiple: bool):
     """
     @brief save the given element type as
     """
@@ -103,50 +96,56 @@ def saveAs(element):
     menuJumps = 0
     subMenuJumps = 0
     filename = ""
-    if (element == "network"):
+    extra = 0
+    if (multiple):
+        extra = 1
+    if (type == "network"):
         menuJumps = attrs.toolbar.file.saveNetworkAs
-        filename = _NETWORKFILE_SAVEAS
-    elif (element == "additionals"):
+        filename = "net2.net.xml"
+    elif (type == "additional"):
         menuJumps = attrs.toolbar.file.aditionalElements.menu
-        subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs
-        filename = _ADDITIONALFILE_SAVEAS
-    elif (element == "demands"):
+        subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs + extra
+        filename = "additionals3.add.xml"
+    elif (type == "jupedsim"):
+        menuJumps = attrs.toolbar.file.aditionalElements.menu
+        subMenuJumps = attrs.toolbar.file.aditionalElements.saveJupedsim
+        filename = "additionals3.add.xml"
+    elif (type == "demand"):
         menuJumps = attrs.toolbar.file.demandElements.menu
-        subMenuJumps = attrs.toolbar.file.demandElements.saveAs
-        filename = _DEMANDFILE_SAVEAS
-    elif (element == "datas"):
+        subMenuJumps = attrs.toolbar.file.demandElements.saveAs + extra
+        filename = "routes3.rou.xml"
+    elif (type == "data"):
         menuJumps = attrs.toolbar.file.dataElements.menu
         subMenuJumps = attrs.toolbar.file.dataElements.saveAs
-        filename = _DATAFILE_SAVEAS
-    elif (element == "meanDatas"):
+        filename = "datas3.dat.xml"
+    elif (type == "meanData"):
         menuJumps = attrs.toolbar.file.meanDataElements.menu
-        subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs
-        filename = _MEANDATA_SAVEAS
-    elif (element == "sumoConfig"):
+        subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs + extra
+        filename = "datas3.med.add.xml"
+    elif (type == "sumoConfig"):
         menuJumps = attrs.toolbar.file.sumoConfig.menu
         subMenuJumps = attrs.toolbar.file.sumoConfig.saveAs
-        filename = _SUMOCONFIG_SAVEAS
-    elif (element == "neteditConfig"):
+        filename = "sumo2.sumocfg"
+    elif (type == "neteditConfig"):
         menuJumps = attrs.toolbar.file.neteditConfig.menu
-        subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs
-        filename = _NETEDITCONFIG_SAVEAS
+        subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs + extra
+        filename = "netedit2.netecfg"
+    # move mouse (to avoid problems with file menu)
+    moveMouse(referencePosition, positions.reference, 200, 0)
     # go to menu command
     typeTwoKeys('alt', 'f')
     for _ in range(menuJumps):
         typeKey('down')
     typeKey('space')
-    for _ in range(subMenuJumps):
-        typeKey('down')
-    typeKey('space')
-    # wait for open dialog
+    if (subMenuJumps > 0):
+        for _ in range(subMenuJumps):
+            typeKey('down')
+        typeKey('space')
+    # wait for dialog
     time.sleep(2)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    # go to sandbox folder
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    # set filename
     updateText(filename)
     typeKey('enter')
-    # wait for saving
+    # wait for load
     time.sleep(2)
