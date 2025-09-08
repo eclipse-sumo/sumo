@@ -50,7 +50,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.bugs.ticket10591.junction)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

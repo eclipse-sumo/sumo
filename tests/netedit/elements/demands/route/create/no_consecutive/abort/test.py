@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("esc")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

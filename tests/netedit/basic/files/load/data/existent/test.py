@@ -32,7 +32,7 @@ netedit.loadFile(referencePosition, "data", "datas2.dat.xml")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

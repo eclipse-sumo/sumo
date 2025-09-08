@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.reloadFile(referencePosition, "network", False)
 
 # save Netedit config
-netedit.saveExistentShortcut("network")
+netedit.saveExistentFile("network")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.ride.junction.edge.inspectSelection.arriva
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

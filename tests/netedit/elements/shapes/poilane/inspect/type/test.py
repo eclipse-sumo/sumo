@@ -47,7 +47,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.type, "<<myOwnTy
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -68,7 +68,7 @@ netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.duration, "3.5")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

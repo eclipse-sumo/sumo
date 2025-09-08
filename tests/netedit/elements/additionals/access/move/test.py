@@ -52,7 +52,7 @@ netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edge
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # fix position
 netedit.typeKey("space")

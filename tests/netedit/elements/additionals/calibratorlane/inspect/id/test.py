@@ -71,7 +71,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "corr
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

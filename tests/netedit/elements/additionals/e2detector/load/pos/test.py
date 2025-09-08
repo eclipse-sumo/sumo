@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # save
 netedit.typeKey("space")

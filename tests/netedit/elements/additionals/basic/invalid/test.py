@@ -41,7 +41,7 @@ netedit.changeElement("additionalFrame", "busStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

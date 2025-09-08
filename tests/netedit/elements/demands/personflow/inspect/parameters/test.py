@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 netedit.checkParameters(referencePosition, netedit.attrs.personFlow.inspect.parameters)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # save persons
 # quit netedit

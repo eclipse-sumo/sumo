@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.containe
 netedit.checkParameters(referencePosition, netedit.attrs.container.inspect.parameters)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # save containers
 # quit netedit

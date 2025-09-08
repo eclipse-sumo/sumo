@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPosLat, "4.2")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

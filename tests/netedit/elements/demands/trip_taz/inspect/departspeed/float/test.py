@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departSpeed, "20")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 netedit.delete()
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

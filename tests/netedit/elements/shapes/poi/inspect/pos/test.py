@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "20.40,7.50")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

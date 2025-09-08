@@ -32,7 +32,7 @@ netedit.changeMode("move")
 netedit.changeEditMode(netedit.attrs.modes.network.moveElevation)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

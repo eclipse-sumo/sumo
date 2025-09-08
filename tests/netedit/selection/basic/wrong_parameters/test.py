@@ -87,7 +87,7 @@ netedit.selectNetworkItems("junction", "id", "J0")
 netedit.delete()
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

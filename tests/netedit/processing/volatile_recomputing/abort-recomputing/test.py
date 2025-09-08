@@ -36,7 +36,7 @@ netedit.computeJunctions()
 time.sleep(10)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # wait for output
 time.sleep(10)

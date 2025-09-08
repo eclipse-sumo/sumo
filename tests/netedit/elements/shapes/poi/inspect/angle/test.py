@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.poi.inspect.angle, "30")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "berlin_ico
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -69,7 +69,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "0.3"
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # save containers
 # quit netedit

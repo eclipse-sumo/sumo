@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.checkParametersOverlapped(referencePosition, netedit.attrs.entryExit.inspectSelection.parameters)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

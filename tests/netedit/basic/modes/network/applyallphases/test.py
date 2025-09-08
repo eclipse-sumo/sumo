@@ -32,7 +32,7 @@ netedit.changeMode("TLS")
 netedit.changeEditMode(netedit.attrs.modes.network.applyAllPhases)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -32,7 +32,7 @@ netedit.changeMode("delete")
 netedit.leftClick(referencePosition, netedit.positions.elements.junction4)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

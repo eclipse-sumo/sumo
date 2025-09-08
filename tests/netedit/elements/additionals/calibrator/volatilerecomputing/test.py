@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(["--sidewalks.guess", 
 netedit.computeJunctionsVolatileOptions("yes")
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

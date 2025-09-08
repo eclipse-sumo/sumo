@@ -32,7 +32,7 @@ netedit.computeJunctions()
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # type space (for dialog)
 netedit.typeKey("space")

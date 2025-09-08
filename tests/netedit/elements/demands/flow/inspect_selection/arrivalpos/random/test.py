@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.arrivalPos, "random"
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

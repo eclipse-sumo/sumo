@@ -58,7 +58,7 @@ netedit.moveElement(referencePosition, netedit.positions.elements.additionals.sq
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

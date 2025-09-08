@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.t
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

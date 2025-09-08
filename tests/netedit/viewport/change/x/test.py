@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.setViewport("", "13", "", "", "")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

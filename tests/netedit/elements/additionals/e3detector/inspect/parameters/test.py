@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.checkParameters(referencePosition, netedit.attrs.E3.inspect.parameters)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.color, "red")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

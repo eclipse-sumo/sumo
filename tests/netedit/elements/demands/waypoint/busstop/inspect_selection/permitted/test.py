@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.permitted
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

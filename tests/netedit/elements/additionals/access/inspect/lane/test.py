@@ -64,7 +64,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.access.inspect.lane, "E4_0")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # set friendlyPos
 netedit.typeKey("space")

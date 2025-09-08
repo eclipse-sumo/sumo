@@ -32,7 +32,7 @@ netedit.changeSupermode("data")
 netedit.changeEditMode(netedit.attrs.modes.data.junctionShape)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

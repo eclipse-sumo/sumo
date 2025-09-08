@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "customID")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

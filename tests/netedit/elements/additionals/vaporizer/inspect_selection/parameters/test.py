@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vapo
 netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspectSelection.parameters)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -49,7 +49,7 @@ netedit.computeJunctions()
 time.sleep(2)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)
