@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <fstream>
+#include <fxkeys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -61,6 +62,7 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
+    FXMAPFUNC(SEL_KEYPRESS, 0,                              GUIDialog_ViewSettings::onKeyPress),
     // settings
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onCmdSaveSetting),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onUpdSaveSetting),
@@ -77,7 +79,7 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_CLEAR_DECALS,       GUIDialog_ViewSettings::onCmdClearDecals),
 };
 
-FXIMPLEMENT(GUIDialog_ViewSettings,             FXDialogBox,    GUIDialog_ViewSettingsMap,  ARRAYNUMBER(GUIDialog_ViewSettingsMap))
+FXIMPLEMENT(GUIDialog_ViewSettings,             FXTopWindow,    GUIDialog_ViewSettingsMap,  ARRAYNUMBER(GUIDialog_ViewSettingsMap))
 FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMap,          ARRAYNUMBER(GUIDialog_SizeMap))
 
 
@@ -89,7 +91,10 @@ FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMa
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings) :
-    FXDialogBox(parent, TL("View Settings"), GUIDesignViewSettingsMainDialog),
+    FXTopWindow(parent, TL("View Settings"),
+            GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
+            GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
+            GUIDesignViewSettingsMainDialog),
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
     myParent(parent),
     mySettings(settings),
@@ -208,7 +213,7 @@ GUIDialog_ViewSettings::show() {
     // create myNewDecalsTable
     myDecalsTable->create();
     myDecalsTable->fillTable();
-    FXDialogBox::show();
+    FXTopWindow::show();
 }
 
 
@@ -240,6 +245,17 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
     mySettings->copy(myBackup);
     myParent->update();
     return 1;
+}
+
+
+long
+GUIDialog_ViewSettings::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    const FXEvent* e = (FXEvent*) ptr;
+    if(e->code==KEY_Escape){
+        onCmdCancel(nullptr, 0, nullptr);
+        return 1;
+    }
+    return FXTopWindow::onKeyPress(o, sel, ptr);
 }
 
 
