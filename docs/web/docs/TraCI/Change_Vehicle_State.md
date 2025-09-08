@@ -604,6 +604,19 @@ call](../TraCI/GenericParameters.md#set_parameter).
   laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
   of the vehicle. i.e. *lcStrategic*)
 
+## Supported carFollowModel Parameters
+
+Some carFollowModels permit access to further vehicle-specific parameters.
+
+- [carFollowModel.ignoreIDs](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_carfollowmodel_parameters)
+- [carFollowModel.ignoreTypes](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_carfollowmodel_parameters)
+- carFollowModel.caccCommunicationsOverride (only CACC)
+
+## Supported junctionModel Parameters
+
+- [junctionModel.ignoreIDs](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters)
+- [junctionModel.ignoreTypes](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#transient_parameters)
+
 # Relationship between lanechange model attributes and vTypes
 
 All [lanechange model attributes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) are initialized from the vehicles vType and then stored in the individual lane change model instance of each vehicle. This has important consequences
