@@ -97,7 +97,7 @@ jobs:
       run: echo 'WHEEL_DIR=https://sumo.dlr.de/daily/wheels' >> $GITHUB_ENV
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 
