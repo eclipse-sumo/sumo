@@ -1556,6 +1556,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         }
         if (distToCrossing + crossingWidth < 0 && !sameTarget
                 && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing + crossingWidth + ego->getVehicleType().getLength() < 0)) {
+            if (gDebugFlag1) {
+                std::cout << " ignore:egoBeyondCrossingPoint\n";
+            }
             continue; // vehicle is behind the crossing point, continue with next foe lane
         }
         bool ignoreGreenCont = false;
