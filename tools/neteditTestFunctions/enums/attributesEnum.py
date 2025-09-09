@@ -34,18 +34,19 @@ class attrs:
             saveNetworkAs = 9
             savePlainXML = 10
             saveJoinedJunctions = 11
-            reloadConfig = 12
             reloadNetwork = 13
 
             class neteditConfig:
                 menu = 14
                 save = 1
-                saveAs = 2
+                saveAs = 1
+                reload = 3
 
             class sumoConfig:
                 menu = 15
                 save = 1
                 saveAs = 2
+                reload = 2
 
             class trafficLights:
                 menu = 16

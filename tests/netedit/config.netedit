@@ -10,8 +10,11 @@ copy_test_path:test.py
 copy_test_path:gui-settings.xml
 
 copy_test_path:netedit.netecfg
+copy_test_path:netedit2.netecfg
 copy_test_path:sumo.sumocfg
+copy_test_path:sumo2.sumocfg
 copy_test_path:netccfg.netecfg
+copy_test_path:netccfg2.netecfg
 
 copy_test_path:netedit_open.netecfg
 copy_test_path:sumo_open.sumocfg
@@ -55,7 +58,7 @@ copy_test_path:datas3.dat.xml
 
 copy_test_path:meandatas.dat.add.xml
 copy_test_path:meandatas2.dat.add.xml
-copy_test_path:datas3.med.add.xml
+copy_test_path:meandatas3.dat.add.xml
 
 copy_test_path:vtypes.rou.xml
 
@@ -68,14 +71,29 @@ copy_test_path:loadViewport.xml
 
 [collate_file]
 
-netcon:net2.con.xml
-netedg:net2.edg.xml
-netnod:net2.nod.xml
-nettll:net2.tll.xml
+netedit2:netedit2.netecfg
+netedit3:netedit3.netecfg
 
-neteditcfg2:config2.netecfg
-sumocfg2:config2.sumocfg
-netccfg2:config2.netecfg
+sumo2:sumo2.sumocfg
+sumo3:sumo3.sumocfg
+
+config2:config2.netecfg
+config3:config3.netecfg
+
+netcon:net.con.xml
+netedg:net.edg.xml
+netnod:net.nod.xml
+nettll:net.tll.xml
+
+netcon2:net2.con.xml
+netedg2:net2.edg.xml
+netnod2:net2.nod.xml
+nettll2:net2.tll.xml
+
+netcon3:net3.con.xml
+netedg3:net3.edg.xml
+netnod3:net3.nod.xml
+nettll3:net3.tll.xml
 
 net:net.net.xml
 net2:net2.net.xml
@@ -83,22 +101,34 @@ net2:net2.net.xml
 additionals:additionals.add.xml
 additionals2:additionals2.add.xml
 additionals3:additionals3.add.xml
-additionalsconfig:config2.add.xml
+additionalsconfig2:sumo2.add.xml
+additionalsconfig3:sumo3.add.xml
+additionalsconfig2:netedit2.add.xml
+additionalsconfig3:netedit3.add.xml
 
 routes:routes.rou.xml
 routes2:routes2.rou.xml
 routes3:routes3.rou.xml
-routesconfig:config2.rou.xml
+routesconfig2:sumo2.rou.xml
+routesconfig3:sumo3.rou.xml
+routesconfig2:netedit2.rou.xml
+routesconfig2:netedit3.rou.xml
 
 datas:datas.dat.xml
 datas2:datas2.dat.xml
 datas3:datas3.dat.xml
-datasconfig:config2.dat.xml
+datasconfig2:sumo2.dat.xml
+datasconfig3:sumo3.dat.xml
+datasconfig2:netedit2.dat.xml
+datasconfig3:netedit3.dat.xml
 
 meandatas:meandatas.dat.add.xml
 meandatas2:meandatas2.dat.add.xml
-meandatas3:datas3.med.add.xml
-meandatasconfig:config2.med.add.xml
+meandatas3:meandatas3.dat.add.xml
+meandatasconfig2:sumo2.dat.add.xml
+meandatasconfig3:sumo3.dat.add.xml
+meandatasconfig2:netedit2.dat.add.xml
+meandatasconfig3:netedit3.dat.add.xml
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
@@ -120,8 +150,11 @@ additionals2:\\{REPLACE /}
 additionals3:<!-- generated{[->]}-->
 additionals3:\\{REPLACE /}
 
-additionalsconfig:<!-- generated{[->]}-->
-additionalsconfig:\\{REPLACE /}
+additionalsconfig2:<!-- generated{[->]}-->
+additionalsconfig2:\\{REPLACE /}
+
+additionalsconfig3:<!-- generated{[->]}-->
+additionalsconfig3:\\{REPLACE /}
 
 routes:<!-- generated{[->]}-->
 routes:\\{REPLACE /}
@@ -132,8 +165,11 @@ routes2:\\{REPLACE /}
 routes3:<!-- generated{[->]}-->
 routes3:\\{REPLACE /}
 
-routesconfig:<!-- generated{[->]}-->
-routesconfig:\\{REPLACE /}
+routesconfig2:<!-- generated{[->]}-->
+routesconfig2:\\{REPLACE /}
+
+routesconfig3:<!-- generated{[->]}-->
+routesconfig3:\\{REPLACE /}
 
 datas:<!-- generated{[->]}-->
 datas:\\{REPLACE /}
@@ -144,8 +180,11 @@ datas2:\\{REPLACE /}
 datas3:<!-- generated{[->]}-->
 datas3:\\{REPLACE /}
 
-datasconfig:<!-- generated{[->]}-->
-datasconfig:\\{REPLACE /}
+datasconfig2:<!-- generated{[->]}-->
+datasconfig2:\\{REPLACE /}
+
+datasconfig3:<!-- generated{[->]}-->
+datasconfig3:\\{REPLACE /}
 
 meandatas:<!-- generated{[->]}-->
 meandatas:\\{REPLACE /}
@@ -156,8 +195,11 @@ meandatas2:\\{REPLACE /}
 meandatas3:<!-- generated{[->]}-->
 meandatas3:\\{REPLACE /}
 
-meandatasconfig:<!-- generated{[->]}-->
-meandatasconfig:\\{REPLACE /}
+meandatasconfig2:<!-- generated{[->]}-->
+meandatasconfig2:\\{REPLACE /}
+
+meandatasconfig3:<!-- generated{[->]}-->
+meandatasconfig3:\\{REPLACE /}
 
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
@@ -165,8 +207,13 @@ netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
 
 neteditcfg2:<!--{[->]}-->
+neteditcfg3:<!--{[->]}-->
+
 sumocfg2:<!--{[->]}-->
+sumocfg3:<!--{[->]}-->
+
 netccfg2:<!--{[->]}-->
+netccfg3:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]

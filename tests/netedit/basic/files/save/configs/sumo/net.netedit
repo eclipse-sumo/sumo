@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-08 14:39:26 by Eclipse SUMO netedit Version v1_24_0+0694-8759db60147
+<!-- generated on 2025-09-09 13:05:52 by Eclipse SUMO netedit Version v1_24_0+0704-9d1cfe3b5fa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <sumocfg-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.09Sep125818.22524\netedit.external\basic\files\save\configs\sumo\sumo2.sumocfg"/>
         <sumo-net-file value="net.net.xml"/>
     </input>
 

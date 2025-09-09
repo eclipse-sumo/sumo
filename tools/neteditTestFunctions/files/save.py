@@ -49,10 +49,10 @@ def saveNewFile(element):
         filename = "net2.xml"
     elif (element == "sumoConfig"):
         typeThreeKeys('ctrl', 'shift', 's')
-        filename = "config2.sumocfg"
+        filename = "sumo2.sumocfg"
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
-        filename = "config2.netecfg"
+        filename = "netedit2.netecfg"
     # wait for dialog
     time.sleep(2)
     updateText(TEXTTEST_SANDBOX)
@@ -122,11 +122,11 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
     elif (type == "sumoConfig"):
         menuJumps = attrs.toolbar.file.sumoConfig.menu
         subMenuJumps = attrs.toolbar.file.sumoConfig.saveAs
-        filename = "sumo2.sumocfg"
+        filename = "sumo3.sumocfg"
     elif (type == "neteditConfig"):
         menuJumps = attrs.toolbar.file.neteditConfig.menu
         subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs + extra
-        filename = "netedit2.netecfg"
+        filename = "netedit3.netecfg"
     # move mouse (to avoid problems with file menu)
     moveMouse(referencePosition, positions.reference, 200, 0)
     # go to menu command

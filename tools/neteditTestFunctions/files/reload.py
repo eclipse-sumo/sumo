@@ -87,12 +87,22 @@ def reloadFile(referencePosition, type: str, multiple: bool):
     # open load mean data dialog (because doesn't have shortcut)
     typeTwoKeys('alt', 'f')
     # continue depending of type
-    if (type == "config"):
-        for _ in range(attrs.toolbar.file.reloadConfig):
+    if (type == "network"):
+        for _ in range(attrs.toolbar.file.reloadNetwork):
             typeKey('down')
         typeKey('space')
-    elif (type == "network"):
-        for _ in range(attrs.toolbar.file.reloadNetwork):
+    elif (type == "sumoConfig"):
+        for _ in range(attrs.toolbar.file.sumoConfig.menu):
+            typeKey('down')
+        typeKey('space')
+        for _ in range(attrs.toolbar.file.sumoConfig.reload):
+            typeKey('down')
+        typeKey('space')
+    elif (type == "neteditConfig"):
+        for _ in range(attrs.toolbar.file.neteditConfig.menu):
+            typeKey('down')
+        typeKey('space')
+        for _ in range(attrs.toolbar.file.neteditConfig.reload):
             typeKey('down')
         typeKey('space')
     elif (type == "additional"):
