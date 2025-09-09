@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-09 10:25+0000\n"
+"PO-Revision-Date: 2025-09-10 08:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2671,7 +2671,7 @@ msgstr "Das Netz muss neu berechnet werden"
 
 #: src/netedit/GNEApplicationWindow.cpp:1695
 msgid "Loading console arguments."
-msgstr ""
+msgstr "Die Kommandozeilenargumente werden geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:1723
 msgid "Creating new network."
@@ -2679,23 +2679,23 @@ msgstr "Erstellt ein neues Netz."
 
 #: src/netedit/GNEApplicationWindow.cpp:1734
 msgid "Trying to load an empty network."
-msgstr ""
+msgstr "Versuche, ein leeres Netz zu laden."
 
 #: src/netedit/GNEApplicationWindow.cpp:1750
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "Die Netzdatei '%' wird geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:1762
 msgid "Trying to load an empty configuration."
-msgstr ""
+msgstr "Versuche, eine leere Konfiguration zu laden."
 
 #: src/netedit/GNEApplicationWindow.cpp:1778
 msgid "Loading configuration file '%'."
-msgstr ""
+msgstr "Die Konfigurationsdatei '%' wird geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:1817
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "Die OSM-Datei '%' wird geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:1834
 msgid "Recompute with volatile options"
