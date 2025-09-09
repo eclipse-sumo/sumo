@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\additionals.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\routes.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\datas.med.add.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\meandatas.dat.add.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jan110902.17492\netedit.gui\network\junctions\inspect\tls\selected\tllayout\default\net.net.xml"/>
     </input>
 

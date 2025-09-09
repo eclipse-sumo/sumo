@@ -1,3 +1,3 @@
 Error: Attribute 'id' in definition of a edgeData is empty.
 Warning: Could not build edgeData with ID 'ed_0' in netedit; Found another edgeData with the same ID.
-Error: Loading of datas.med.add.xml failed.
+Error: Loading of meandatas.dat.add.xml failed.

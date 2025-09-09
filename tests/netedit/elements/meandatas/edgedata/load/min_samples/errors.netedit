@@ -1,4 +1,4 @@
 Error: Attribute 'minSamples' in definition of edgeData 'ed_0' is empty.
 Error: Attribute 'minSamples' in definition of edgeData 'ed_1' Invalid Number Format (double) dummy.
 Error: Could not build edgeData with ID 'ed_2' in netedit; Attribute minSamples cannot be negative (-12.00).
-Error: Loading of datas.med.add.xml failed.
+Error: Loading of meandatas.dat.add.xml failed.

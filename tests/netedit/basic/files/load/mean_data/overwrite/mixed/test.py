@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "meanData", "datas2.med.add.xml")
+netedit.loadFile(referencePosition, "meanData", "meandatas2.dat.add.xml")
 
 # accept overwritting
 netedit.overwritingAccept()

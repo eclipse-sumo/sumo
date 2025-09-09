@@ -53,8 +53,8 @@ copy_test_path:datas.dat.xml
 copy_test_path:datas2.dat.xml
 copy_test_path:datas3.dat.xml
 
-copy_test_path:datas.med.add.xml
-copy_test_path:datas2.med.add.xml
+copy_test_path:meandatas.dat.add.xml
+copy_test_path:meandatas2.dat.add.xml
 copy_test_path:datas3.med.add.xml
 
 copy_test_path:vtypes.rou.xml
@@ -95,8 +95,8 @@ datas2:datas2.dat.xml
 datas3:datas3.dat.xml
 datasconfig:config2.dat.xml
 
-meandatas:datas.med.add.xml
-meandatas2:datas2.med.add.xml
+meandatas:meandatas.dat.add.xml
+meandatas2:meandatas2.dat.add.xml
 meandatas3:datas3.med.add.xml
 meandatasconfig:config2.med.add.xml
 

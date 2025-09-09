@@ -7,7 +7,7 @@
         <additional-files value="C:\Data\SUMO\tests\netedit\basic\additionals2.add.xml"/>
         <route-files value="C:\Data\SUMO\tests\netedit\basic\routes2.rou.xml"/>
         <data-files value="C:\Data\SUMO\tests\netedit\basic\datas2.dat.xml"/>
-        <meandata-files value="C:\Data\SUMO\tests\netedit\basic\datas2.med.add.xml"/>
+        <meandata-files value="C:\Data\SUMO\tests\netedit\basic\meandatas2.dat.add.xml"/>
         <sumo-net-file value="C:\Data\SUMO\tests\netedit\basic\net2.net.xml"/>
     </input>
 

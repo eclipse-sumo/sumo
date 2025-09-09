@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/additionals.add.xml"/>
         <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/routes.rou.xml"/>
         <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/datas.dat.xml"/>
-        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/datas.med.add.xml"/>
+        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/meandatas.dat.add.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Apr160035.568994/netedit.gui/selection/bugs/ticket2948/net.net.xml"/>
     </input>
 

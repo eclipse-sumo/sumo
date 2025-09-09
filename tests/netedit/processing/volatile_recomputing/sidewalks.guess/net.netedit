@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\additionals.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\routes.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\datas.med.add.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\meandatas.dat.add.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\net.net.xml"/>
     </input>
 

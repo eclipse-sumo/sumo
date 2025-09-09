@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <additional-files value="additionals.add.xml"/>
-        <meandata-files value="datas.med.add.xml,datas2.med.add.xml"/>
+        <meandata-files value="meandatas.dat.add.xml,meandatas2.dat.add.xml"/>
         <route-files value="routes.rou.xml"/>
         <data-files value="datas.dat.xml"/>
         <sumo-net-file value="net.net.xml"/>
