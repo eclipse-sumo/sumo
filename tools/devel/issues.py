@@ -84,7 +84,7 @@ def main():
         url += "&state=all"
     for issue in get_all(s, url):
         update = {}
-        if options.set_type:
+        if options.set_type and issue.get("type") != options.set_type:
             update["type"] = options.set_type
         if options.set_assignee:
             update["assignee"] = options.set_assignee
