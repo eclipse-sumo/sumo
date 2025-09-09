@@ -4465,7 +4465,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     }
     // check if we have to set the output filename
     if ((sel == MID_GNE_AUTOMATICFILENAME) && savingFileHandler->getMeanDataFilenames().empty()) {
-        savingFileHandler->updateMeanDataEmptyFilenames(*(static_cast<std::string*>(ptr)) + "add.xml");
+        savingFileHandler->updateMeanDataEmptyFilenames(*(static_cast<std::string*>(ptr)) + ".dat.add.xml");
     }
     // check if we have to open save as dialog
     if (savingFileHandler->getMeanDataFilenames().empty()) {
