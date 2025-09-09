@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    netedit_main.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Feb 2011
 ///
 // Main for netedit (adapted from guisim_main)
