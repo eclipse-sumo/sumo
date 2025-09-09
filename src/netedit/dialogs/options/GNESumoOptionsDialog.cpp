@@ -17,6 +17,7 @@
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>

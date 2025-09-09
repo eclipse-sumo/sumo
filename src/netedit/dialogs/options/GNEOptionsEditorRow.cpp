@@ -17,6 +17,7 @@
 ///
 // Row used in GNEOptionsEditor to edit options
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
 #include <netedit/GNEApplicationWindow.h>

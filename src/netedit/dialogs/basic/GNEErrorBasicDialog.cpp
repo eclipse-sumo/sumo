@@ -17,6 +17,7 @@
 ///
 // Custom FXDialogBox error dialog used in Netedit that supports internal tests
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEErrorBasicDialog.h"
 

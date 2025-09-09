@@ -19,7 +19,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about changed memory layout due to virtual base class */
+#pragma warning(disable: 4435)
+#endif
 #include <arrow/io/api.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>

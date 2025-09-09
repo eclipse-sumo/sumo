@@ -17,6 +17,7 @@
 ///
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>

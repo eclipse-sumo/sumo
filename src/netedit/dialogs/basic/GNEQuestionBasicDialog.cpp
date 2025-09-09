@@ -17,6 +17,7 @@
 ///
 // Custom FXDialogBox question dialog used in Netedit that supports internal tests
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEQuestionBasicDialog.h"
 

@@ -17,6 +17,7 @@
 ///
 // Custom FXDialogBox warning dialog used in Netedit that supports internal tests
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEWarningBasicDialog.h"
 

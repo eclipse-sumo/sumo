@@ -17,6 +17,7 @@
 ///
 // Custom FXDialogBox information dialog used in Netedit that supports internal tests
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEInformationBasicDialog.h"
 

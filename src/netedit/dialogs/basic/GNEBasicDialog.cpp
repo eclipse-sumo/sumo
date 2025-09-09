@@ -17,6 +17,7 @@
 ///
 // A basic dialog with simple buttons (ok, accept, cancel, etc.)
 /****************************************************************************/
+#include <config.h>
 
 #include <utils/gui/images/GUIIconSubSys.h>
 
