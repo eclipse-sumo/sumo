@@ -30,3 +30,12 @@ same_to_detour
 
 # secondary passenger has subroute of the first passenger
 subroute
+
+# secondary and third passenger has subroute of the first passenger
+subroute3
+
+# the routes have a long overlapping piece
+overlap_long
+
+# the routes have a short overlapping piece
+overlap_short
