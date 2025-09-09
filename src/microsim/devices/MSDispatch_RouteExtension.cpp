@@ -85,14 +85,15 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
         router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
         const bool pickup = std::find(route.begin(), route.end(), res2->from) != route.end();
         const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
+        const bool pickup2 = std::find(route2.begin(), route2.end(), first->from) != route2.end();
+        const bool dropoff2 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
-                                               << " pickup=" << pickup << " startFirst=" << (std::find(route2.begin(), route2.end(), first->from) != route2.end())
-                                               << " dropoff=" << dropoff << " endLast=" << (std::find(route2.begin(), route2.end(), last->to) != route2.end())
+                                               << " pickup=" << pickup << " startFirst=" << pickup2
+                                               << " dropoff=" << dropoff << " endLast=" << dropoff2
                                                << "\n";
 #endif
-        if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
-                (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
+        if ((pickup || pickup2) && (dropoff || dropoff2)) {
             std::vector<const Reservation*>::iterator resSeqIt = sequence.begin();
             EdgePosVector::iterator edgeIt = posSequence.begin();
             if (pickup) {
