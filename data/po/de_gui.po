@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-09 06:21+0000\n"
+"PO-Revision-Date: 2025-09-09 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2478,38 +2478,38 @@ msgstr "Test-Koordinate"
 
 #: src/netedit/GNEApplicationWindow.cpp:738
 msgid "netconvert config file"
-msgstr ""
+msgstr "netconvert-Konfigurationsdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:754
 #: src/netedit/GNEApplicationWindow.cpp:3362
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "Netzdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:770
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "OpenStreetMap-Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:786
 #: src/netedit/GNEApplicationWindow.cpp:3514
 msgid "netedit config file"
-msgstr ""
+msgstr "netedit-Konfigurationsdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:811
 #: src/netedit/GNEApplicationWindow.cpp:3629
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
-msgstr ""
+msgstr "sumo-Konfigurationsdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:901
 #: src/netedit/GNEApplicationWindow.cpp:3747
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "LSA-Definitionsdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:911
 msgid "loading TLS Programs from '%'"
-msgstr ""
+msgstr "Laden der LSA-Programme aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:931
 msgid "loading TLS Programs from '"
@@ -2518,11 +2518,11 @@ msgstr "Lädt LSA-Programme aus '"
 #: src/netedit/GNEApplicationWindow.cpp:960
 #: src/netedit/GNEApplicationWindow.cpp:3771
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "Kantentypdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:976
 msgid "Loaded edge types from '%'."
-msgstr ""
+msgstr "Kantentypen aus '%' geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:978
 #: src/netedit/GNEApplicationWindow.cpp:1011
@@ -2531,7 +2531,7 @@ msgstr "Lade Kantentypen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1009
 msgid "Reloaded edge types from '%'."
-msgstr ""
+msgstr "Kantentypen aus '%' erneut geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:1066
 msgid "Reloading netedit config file '"
@@ -2561,12 +2561,12 @@ msgstr "Netz erneut laden"
 #: src/netedit/GNEApplicationWindow.cpp:1330
 #, c-format
 msgid "Loading of network '%' failed"
-msgstr ""
+msgstr "Das Netz '%' konnte nicht geladen werden"
 
 #: src/netedit/GNEApplicationWindow.cpp:1335
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "Netz '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1433
 msgid "&Modes"
