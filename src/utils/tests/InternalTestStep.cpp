@@ -308,6 +308,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createDataInterval();
     } else if (function == "openAboutDialog") {
         openAboutDialog();
+    } else if (function == "loadFile") {
+        loadFile();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -1592,6 +1594,48 @@ InternalTestStep::openAboutDialog() {
         myMessageID = MID_HOTKEY_F12_ABOUT;
         // close dialog
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "close about dialog");
+    }
+}
+
+
+void
+InternalTestStep::loadFile() {
+    if (myArguments.size() != 3) {
+        writeError("loadFile", 0, "<referencePosition, type, file>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        const auto file = getStringArgument(myArguments[2]);
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG;
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_HOTKEY_CTRL_M_OPENSUMOCONFIG;
+        } else if (type == "netconvertConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE;
+        } else if (type == "network") {
+            myMessageID = MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK;
+        } else if (type == "additional") {
+            myMessageID = MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS;
+        } else if (type == "demand") {
+            myMessageID = MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS;
+        } else if (type == "data") {
+            myMessageID = MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS;
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // set filename dialog
+        if (sandboxDirectory) {
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::DIRECTORY, sandboxDirectory), "sandbox directory");
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+        }
+        // set file
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::FILENAME, file), "filename");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
     }
 }
 

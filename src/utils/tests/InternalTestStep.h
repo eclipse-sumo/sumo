@@ -58,9 +58,9 @@ public:
 
         /// @name basic actions
         enum class ExtendedAction {
-            DIRECTORY,  // set directory in dialog
-            FILENAME,   // set filename in dialog
-            NONE        // no extended action
+            DIRECTORY,      // set directory in dialog
+            FILENAME,       // set filename in dialog
+            NONE            // no extended action
         };
 
         /// @brief constructor for basic actions
@@ -383,6 +383,9 @@ private:
 
     /// @brief process openAboutDialog function
     void openAboutDialog();
+
+    /// @brief process load file function
+    void loadFile();
 
     /// @brief process undo function
     void undo() const;

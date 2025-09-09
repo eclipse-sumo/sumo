@@ -67,8 +67,12 @@ GNEFileDialog::~GNEFileDialog() {
 
 
 void
-GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // not yet finish
+GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    if (dialogArgument->getExtendedAction() == InternalTestStep::DialogArgument::ExtendedAction::DIRECTORY) {
+        myFileSelector->setDirectory(dialogArgument->getCustomAction().c_str());
+    } else if (dialogArgument->getExtendedAction() == InternalTestStep::DialogArgument::ExtendedAction::FILENAME) {
+        myFileSelector->setFilename(dialogArgument->getCustomAction().c_str());
+    }
 }
 
 
