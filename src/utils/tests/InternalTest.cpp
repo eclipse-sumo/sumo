@@ -180,6 +180,7 @@ InternalTest::InternalTest(const std::string& testFile) {
         for (const auto& clearLine : lines) {
             new InternalTestStep(this, clearLine);
         }
+        new InternalTestStep(this, "netedit.finish");
     }
 }
 
@@ -229,6 +230,12 @@ InternalTest::getCurrentStep() const {
 bool
 InternalTest::isRunning() const {
     return myRunning;
+}
+
+
+void
+InternalTest::stopTests() {
+    myRunning = false;
 }
 
 

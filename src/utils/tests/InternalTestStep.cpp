@@ -124,6 +124,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     // continue depending of function
     if (function == "setupAndStart") {
         setupAndStart();
+    } else if (function == "finish") {
+        finish();
     } else if ((function == "leftClick") || (function == "leftClickData")) {
         mouseClick("left", "");
     } else if (function == "leftClickControl") {
@@ -446,6 +448,8 @@ InternalTestStep::parseStep(const std::string& rowText) {
     // first check if this is the netedit.setupAndStart function
     if (rowText.find("netedit.setupAndStart") != std::string::npos) {
         return "setupAndStart";
+    } else if (rowText.find("netedit.finish") != std::string::npos) {
+        return "finish";
     } else if (rowText.compare(0, 8, "netedit.") != 0) {
         // proces only lines that start with "netedit."
         return "";
@@ -533,6 +537,14 @@ InternalTestStep::setupAndStart() {
               toString(MOUSE_REFERENCE_Y) << std::endl;
     // set first mouse position
     myTestSystem->updateLastMovedPosition(MOUSE_REFERENCE_X, MOUSE_REFERENCE_Y);
+}
+
+
+void
+InternalTestStep::finish() {
+    myCategory = Category::FINISH;
+    myUpdateView = false;
+    std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
 }
 
 
@@ -1607,7 +1619,12 @@ InternalTestStep::loadFile() {
         // get type and file
         const auto type = getStringArgument(myArguments[1]);
         const auto file = getStringArgument(myArguments[2]);
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
         const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
         // continue depending of type
         if (type == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG;
@@ -1628,13 +1645,10 @@ InternalTestStep::loadFile() {
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
+        // write info
+        std::cout << file << std::endl;
         // set filename dialog
-        if (sandboxDirectory) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::DIRECTORY, sandboxDirectory), "sandbox directory");
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
-        }
-        // set file
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::FILENAME, file), "filename");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::FILEPATH, workingDirectory + "/" + file), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
     }
 }

@@ -49,6 +49,9 @@ public:
     /// @brief Destructor
     virtual ~GNEFileSelector();
 
+    /// @brief set path (either file or directory, used for testing)
+    void setPath(const std::string& path);
+
     /// @brief Change file name
     void setFilename(const FXString& path);
 

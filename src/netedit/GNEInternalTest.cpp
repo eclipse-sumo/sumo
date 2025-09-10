@@ -42,34 +42,31 @@ GNEInternalTest::~GNEInternalTest() {}
 
 void
 GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow) {
-    bool writeClosedSucessfully = false;
-    myRunning = true;
-    const auto viewNet = applicationWindow->getViewNet();
-    const auto viewParent = viewNet->getViewParent();
-    // process every step
-    while (getCurrentStep()) {
-        // get current step and set next step
-        const auto testStep = setNextStep();
-        // check if we have to process it in main windows, abstract view or specific view
-        if (testStep->getCategory() == InternalTestStep::Category::APP) {
-            applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
-        } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-            viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
-        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), testStep->getEvent());
-        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
-            writeClosedSucessfully = true;
+    if (!myTestFinished) {
+        myRunning = true;
+        const auto viewNet = applicationWindow->getViewNet();
+        const auto viewParent = viewNet->getViewParent();
+        // process every step
+        while (getCurrentStep() && myRunning) {
+            // get current step and set next step
+            const auto testStep = setNextStep();
+            // check if we have to process it in main windows, abstract view or specific view
+            if (testStep->getCategory() == InternalTestStep::Category::APP) {
+                applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
+                viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
+                viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
+                viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
+            } else if (testStep->getCategory() == InternalTestStep::Category::FINISH) {
+                myTestFinished = true;
+            }
+            // check if update view after execute step
+            if (testStep->updateView()) {
+                viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+            }
         }
-        // check if update view after execute step
-        if (testStep->updateView()) {
-            viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-        }
-    }
-    // check if print netedit closed sucessfully
-    if (writeClosedSucessfully) {
-        std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
     }
 }
 

@@ -175,6 +175,12 @@ GNEFileSelector::~GNEFileSelector() {
 }
 
 
+void
+GNEFileSelector::setPath(const std::string& path) {
+    myFilenameTextField->setText(path.c_str(), TRUE);
+}
+
+
 long
 GNEFileSelector::onUpdNewFolder(FXObject* sender, FXSelector, void*) {
     // check if directory is writable

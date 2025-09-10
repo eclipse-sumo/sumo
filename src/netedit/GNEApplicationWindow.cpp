@@ -789,6 +789,10 @@ GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
                                          GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of netconvertFile
     if ((neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         // reset netedit options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
@@ -814,6 +818,10 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
                                       GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of netconvertFile
     if ((sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
@@ -833,6 +841,10 @@ long
 GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         auto& neteditOptions = OptionsCont::getOptions();
         // get existent configuration file
         const auto neteditConfigFile = neteditOptions.getString("configuration-file");
@@ -856,6 +868,10 @@ GNEApplicationWindow::onCmdReloadSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // reset options
         myLoadThread->fillOptions(neteditOptions);
@@ -1045,6 +1061,10 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current file
     if (onCmdClose(0, 0, 0) == 1) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         // store size, position and viewport
         storeWindowSizeAndPos();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
@@ -1117,6 +1137,10 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current file
     if (onCmdClose(0, 0, 0) == 1) {
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         // store size, position and viewport
         storeWindowSizeAndPos();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
@@ -2339,9 +2363,6 @@ long
 GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
     if (myInternalTest && !myInternalTest->isRunning()) {
         myInternalTest->runNeteditInternalTests(this);
-        // after running, remove internal tests
-        delete myInternalTest;
-        myInternalTest = nullptr;
     }
     return 1;
 }

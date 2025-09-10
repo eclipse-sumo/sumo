@@ -668,8 +668,9 @@ protected:
     GNELoadThread* myLoadThread = nullptr;
 
     /// @brief internal test system
+public:
     GNEInternalTest* myInternalTest = nullptr;
-
+private:
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
 

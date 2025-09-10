@@ -157,6 +157,9 @@ public:
     /// @brief check if test is running
     bool isRunning() const;
 
+    /// @brief stop tests
+    void stopTests();
+
     /// @brief get currentTime
     FXint getTime() const;
 
@@ -197,6 +200,9 @@ protected:
 
     /// @brief flag to indicate if test is running
     bool myRunning = false;
+
+    /// @brief flag to check if test was finished
+    bool myTestFinished = false;
 
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;

@@ -35,6 +35,7 @@ public:
     enum class Category {
         META,           // Meta step (used for packing set of steps like click or write)
         INIT,           // Setup and start step
+        FINISH,         // Write last line
         APP,            // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
@@ -58,8 +59,7 @@ public:
 
         /// @name basic actions
         enum class ExtendedAction {
-            DIRECTORY,      // set directory in dialog
-            FILENAME,       // set filename in dialog
+            FILEPATH,       // set file path (directory + filename) in dialog
             NONE            // no extended action
         };
 
@@ -230,6 +230,9 @@ private:
 
     /// @brief process setupAndStart function
     void setupAndStart();
+
+    /// @brief finish function
+    void finish();
 
     /// @brief process click function
     void mouseClick(const std::string& button, const std::string& modifier) const;
