@@ -316,6 +316,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         saveNewFile();
     } else if (function == "saveFileAs") {
         saveFileAs();
+    } else if (function == "reloadFile") {
+        reloadFile();
     } else if (function == "overwritingAccept") {
         overwritingAccept();
     } else if (function == "overwritingCancel") {
@@ -1707,7 +1709,7 @@ InternalTestStep::saveNewFile() {
             file = "datas2.dat.xml";
         } else if (type == "meanData") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
-            file = "datas2.med.add.xml";
+            file = "meandatas2.dat.add.xml";
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
@@ -1759,7 +1761,7 @@ InternalTestStep::saveFileAs() {
             file = "datas3.dat.xml";
         } else if (type == "meanData") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED;
-            file = "datas3.med.add.xml";
+            file = "meandatas3.dat.add.xml";
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
@@ -1768,6 +1770,36 @@ InternalTestStep::saveFileAs() {
         // set filename dialog
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::reloadFile() {
+    if (myArguments.size() != 3) {
+        writeError("reloadFile", 0, "<referencePosition, type, bool>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG;
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG;
+        } else if (type == "network") {
+            myMessageID = MID_HOTKEY_CTRL_R_RELOAD;
+        } else if (type == "additional") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS;
+        } else if (type == "demand") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS;
+        } else if (type == "data") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS;
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
     }
 }
 

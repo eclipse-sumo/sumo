@@ -396,6 +396,9 @@ private:
     /// @brief process save file as function
     void saveFileAs();
 
+    /// @brief process reload file function
+    void reloadFile();
+
     /// @brief process overwriting accept function
     void overwritingAccept();
 
