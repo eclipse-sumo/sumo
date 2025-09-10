@@ -448,7 +448,9 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
             // draw route partial lane
             drawRoutePartialLane(s, d, segment, offsetFront, routeGeometry, exaggeration);
             // draw name
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
+                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            }
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }

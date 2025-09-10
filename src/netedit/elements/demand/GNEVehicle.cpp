@@ -1124,8 +1124,6 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                     GLHelper::popMatrix();
                 }
             }
-            // Draw name if isn't being drawn for selecting
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
