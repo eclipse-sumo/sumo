@@ -1083,6 +1083,13 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
             GLHelper::setColor(pathColor);
             // draw geometry
             GUIGeometry::drawGeometry(d, vehicleGeometry, width);
+            // show index over every edge
+            if (isInspected && s.showRouteIndex) {
+                const double textSize = s.vehicleName.size / s.scale;
+                std::string label = toString(segment->getLaneIndex());
+                Position pos = segment->getLane()->getLaneShape().front() - Position(0, textSize * 1);
+                GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
+            }
             // Pop last matrix
             GLHelper::popMatrix();
             // check if we have to draw a red line to the next segment (if next segment isnt' a junction

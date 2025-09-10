@@ -453,6 +453,15 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
             }
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // show index over every edge
+            if (s.showRouteIndex && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                    myNet->getViewNet()->getInspectedElements().isACInspected(this)) {
+                const double textSize = s.vehicleName.size / s.scale;
+                std::string label = toString(segment->getLaneIndex());
+                Position pos = segment->getLane()->getLaneShape().front() - Position(0, textSize * 1);
+                // use layer above all demand elements
+                GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, GLO_TAZ);
+            }
         }
         // calculate contour
         segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, exaggeration,
