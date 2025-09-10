@@ -2024,7 +2024,8 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
     myScaleLength = new FXCheckButton(matrixShow, TL("Scale length with geometry"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myScaleLength->setCheck(mySettings->scaleLength);
-    myShowParkingInfo = new FXCheckButton(matrixShow, TL("Show parking info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    const std::string parkingInfo = mySettings->netedit ? TL("Show stopping info") : TL("Show parking info");
+    myShowParkingInfo = new FXCheckButton(matrixShow, parkingInfo.c_str(), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
     myShowChargingInfo = new FXCheckButton(matrixShow, TL("Show charging info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowChargingInfo->setCheck(mySettings->showChargingInfo);
