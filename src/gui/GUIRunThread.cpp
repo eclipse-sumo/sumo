@@ -337,7 +337,7 @@ GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string&
 
 bool
 GUIRunThread::simulationIsStartable() const {
-    return myNet != nullptr && myHalting;
+    return myNet != nullptr && myHalting && myOk;
 }
 
 
@@ -349,7 +349,7 @@ GUIRunThread::simulationIsStopable() const {
 
 bool
 GUIRunThread::simulationIsStepable() const {
-    return myNet != nullptr && myHalting;
+    return myNet != nullptr && myHalting && myOk;
 }
 
 
