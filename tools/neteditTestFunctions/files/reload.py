@@ -83,7 +83,7 @@ def reloadFile(referencePosition, type: str, multiple: bool):
     if (multiple):
         extra = 1
     # move mouse (to avoid problems with file menu)
-    moveMouse(referencePosition, positions.reference, 200, 0)
+    moveMouse(referencePosition, positions.reference, 200, 0, False)
     # open load mean data dialog (because doesn't have shortcut)
     typeTwoKeys('alt', 'f')
     # continue depending of type

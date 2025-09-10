@@ -45,7 +45,7 @@ def loadFile(referencePosition, type: str, file: str):
         typeTwoKeys('ctrl', 'b')
     elif (type == "meanData"):
         # move mouse (to avoid problems with file menu)
-        moveMouse(referencePosition, positions.reference, 200, 0)
+        moveMouse(referencePosition, positions.reference, 200, 0, False)
         # open load mean data dialog (because doesn't have shortcut)
         typeTwoKeys('alt', 'f')
         for _ in range(attrs.toolbar.file.meanDataElements.menu):

@@ -128,7 +128,7 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
         subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs + extra
         filename = "netedit3.netecfg"
     # move mouse (to avoid problems with file menu)
-    moveMouse(referencePosition, positions.reference, 200, 0)
+    moveMouse(referencePosition, positions.reference, 200, 0, False)
     # go to menu command
     typeTwoKeys('alt', 'f')
     for _ in range(menuJumps):
