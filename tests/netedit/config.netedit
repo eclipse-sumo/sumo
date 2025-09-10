@@ -97,6 +97,7 @@ nettll3:net3.tll.xml
 
 net:net.net.xml
 net2:net2.net.xml
+net3:net3.net.xml
 
 additionals:additionals.add.xml
 additionals2:additionals2.add.xml
@@ -138,8 +139,10 @@ errorScreenshot:errorScreenshot.png
 viewport:viewport.xml
 
 [run_dependent_text]
+
 net:<!--{[->]}-->
 net2:<!--{[->]}-->
+net3:<!--{[->]}-->
 
 additionals:<!-- generated{[->]}-->
 additionals:\\{REPLACE /}

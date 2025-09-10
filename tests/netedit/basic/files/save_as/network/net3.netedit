@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-08 09:17:50 by Eclipse SUMO netedit Version v1_24_0+0675-b62b98222ae
+<!-- generated on 2025-09-10 15:29:43 by Eclipse SUMO netedit Version v1_24_0+0738-5463b5fd2b3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,12 +18,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route-files value="routes.rou.xml"/>
         <data-files value="datas.dat.xml"/>
         <meandata-files value="meandatas.dat.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.08Sep091718.11988\netedit.external\basic\files\save_as\network\net2.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.3_from_10Sep150403.3520\netedit.internal\basic\files\save_as\network\net3.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.08Sep091718.11988\netedit.external\basic\files\save_as\network\net2.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.3_from_10Sep150403.3520\netedit.internal\basic\files\save_as\network\net3.net.xml"/>
     </output>
 
     <processing>

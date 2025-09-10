@@ -98,7 +98,7 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
         extra = 1
     if (type == "network"):
         menuJumps = attrs.toolbar.file.saveNetworkAs
-        filename = "net2.net.xml"
+        filename = "net3.net.xml"
     elif (type == "additional"):
         menuJumps = attrs.toolbar.file.aditionalElements.menu
         subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs + extra

@@ -1693,8 +1693,6 @@ InternalTestStep::saveNewFile() {
         } else if (type == "xml") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
             file = "net2.xml";
-        } else if (type == "netconvertConfig") {
-            myMessageID = MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE;
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
             file = "net2.net.xml";
