@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-10 08:11+0000\n"
+"PO-Revision-Date: 2025-09-11 12:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2712,17 +2712,17 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:2142
 #: src/netedit/GNEApplicationWindow.cpp:2202
 msgid "Running '%'."
-msgstr ""
+msgstr "'%' wird ausgeführt."
 
 #: src/netedit/GNEApplicationWindow.cpp:2165
 #, c-format
 msgid "Loading network '%' in SUMO-GUI."
-msgstr ""
+msgstr "Das Netz '%' wird in sumo-gui geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:2174
 #, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
-msgstr ""
+msgstr "Die sumo-Konfiguration '%' wird in sumo-gui geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:2591
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
@@ -2740,15 +2740,15 @@ msgstr "Wiederherstellen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3341
 msgid "Saving network failed"
-msgstr ""
+msgstr "Ladevorgang des Netzes fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3345
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "Netz in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3351
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "Das Netz konnte nicht in '%' gespeichert werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:3386
 msgid "plain XML file"
