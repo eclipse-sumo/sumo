@@ -206,14 +206,14 @@ netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
 
-neteditcfg2:<!--{[->]}-->
-neteditcfg3:<!--{[->]}-->
+netedit2:<!--{[->]}-->
+netedit3:<!--{[->]}-->
 
-sumocfg2:<!--{[->]}-->
-sumocfg3:<!--{[->]}-->
+sumo2:<!--{[->]}-->
+sumo3:<!--{[->]}-->
 
-netccfg2:<!--{[->]}-->
-netccfg3:<!--{[->]}-->
+config2:<!--{[->]}-->
+config3:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]
