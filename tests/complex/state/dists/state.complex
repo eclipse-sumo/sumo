@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-10 11:17:56 by Eclipse SUMO sumo Version v1_24_0+0723-219b84fca77
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_24_0+0723-219b84fca77" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="r#0" state="1" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <route id="r#1" state="1" edges="2/1to1/1 1/1to0/1"/>
+    <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <routeDistribution id="r" state="1" routes="r#0 r#1" probabilities="1.00 1.00"/>
+    <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="0"/>
+    <vType id="v1" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.10" accel="1.8" decel="4.5" sigma="0"/>
+    <vType id="v2" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.90" accel="2.8" decel="4.5" sigma="0"/>
+    <vTypeDistribution id="v" vTypes="v1 v2" probabilities="0.10 0.90"/>
+    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 100.00 0 16.86 49000 0 0" pos="21.40 18.40 5.60" speed="5.60 4.80" angle="270.00" posLat="0.00" waitingTime="100000 1 7000 18000">
+        <device id="vehroute_0" state="0 0.00 10.00 100.00 0"/>
+    </vehicle>
+    <vehicle id="1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 5000 1 100.00 0 12.92 49000 0 0" pos="10.80 7.80 4.80" speed="4.80 4.00" angle="270.00" posLat="0.00" waitingTime="100000 1 6000 13000">
+        <device id="vehroute_1" state="0 0.00 10.00 100.00 0"/>
+    </vehicle>
+    <lane id="3/1to2/1_0">
+        <vehicles value="1 0"/>
+    </lane>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+</snapshot>
