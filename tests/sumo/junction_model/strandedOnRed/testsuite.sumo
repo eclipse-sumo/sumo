@@ -1,2 +1,5 @@
 # the stranded vehicle is not obstructing all lanes of flow. Vehicles should nevertheless yield
 not_obstructing
+
+# the stranded vehicle is not obstructing all lanes of flow. Vehicles should nevertheless yield
+not_obstructing_behind
