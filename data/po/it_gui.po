@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-09 06:21+0000\n"
+"PO-Revision-Date: 2025-09-11 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2858,7 +2858,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3863
 #, c-format
 msgid "Reloading of additional file '%' successfully."
-msgstr ""
+msgstr "ll file di elementi addizionali '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:3918
 msgid "Additionals saved."
@@ -10071,15 +10071,15 @@ msgstr "Editore grafico per reti stradali e reti di infrastrutture."
 
 #: src/netedit/dialogs/GNEColorDialog.cpp:43
 msgid "Edit color"
-msgstr ""
+msgstr "Modifica colore"
 
 #: src/netedit/dialogs/GNEDialog.cpp:313 src/netedit/dialogs/GNEDialog.cpp:326
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: src/netedit/dialogs/GNEDialog.cpp:317 src/netedit/dialogs/GNEDialog.cpp:330
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/netedit/dialogs/GNEDialog.cpp:334 src/netedit/dialogs/GNEDialog.cpp:351
 #: src/netedit/dialogs/GNEDialog.cpp:373 src/netedit/dialogs/GNEDialog.cpp:386
@@ -10092,7 +10092,7 @@ msgstr "Annulla"
 
 #: src/netedit/dialogs/GNEDialog.cpp:347
 msgid "Don't Save"
-msgstr ""
+msgstr "Non salvare"
 
 #: src/netedit/dialogs/GNEDialog.cpp:360 src/netedit/dialogs/GNEDialog.cpp:369
 #: src/netedit/dialogs/GNEDialog.cpp:382
@@ -10106,7 +10106,7 @@ msgstr "Resetta"
 
 #: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:407
 msgid "Reset changes"
-msgstr ""
+msgstr "Resetta modifiche"
 
 #: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced"
@@ -10114,7 +10114,7 @@ msgstr "Avanzato"
 
 #: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced options"
-msgstr ""
+msgstr "Opzioni avanzate"
 
 #: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:211
@@ -10124,7 +10124,7 @@ msgstr "Esegui di nuovo"
 #: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:212
 msgid "Rerun tool"
-msgstr ""
+msgstr "Esegui utensile di nuovo"
 
 #: src/netedit/dialogs/GNEDialog.cpp:437
 msgid "Back"
@@ -10132,7 +10132,7 @@ msgstr "Indietro"
 
 #: src/netedit/dialogs/GNEDialog.cpp:437
 msgid "Back to tool dialog"
-msgstr ""
+msgstr "Torna indietro al dialogo di utensile"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:43
 msgid "Custom Geometry Point"
@@ -11201,7 +11201,7 @@ msgstr "Salva archi invalidi"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:66
 msgid "Select invalid edges"
-msgstr ""
+msgstr "Seleziona archi invalidi"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:67
 msgid "Select invalid edges and abort saving"
