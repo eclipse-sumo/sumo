@@ -380,7 +380,7 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Routes are drawn in drawJunctionPartialGL
+    // Routes are drawn in drawLanePartialGL and drawJunctionPartialGL
 }
 
 
