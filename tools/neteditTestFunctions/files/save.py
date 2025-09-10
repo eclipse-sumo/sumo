@@ -43,7 +43,7 @@ def saveNewFile(element):
         filename = "datas2.dat.xml"
     elif (element == "meanData"):
         typeThreeKeys('ctrl', 'shift', 'm')
-        filename = "datas2.med.add.xml"
+        filename = "meandatas2.dat.add.xml"
     elif (element == "xml"):
         typeTwoKeys('ctrl', 'l')
         filename = "net2.xml"
@@ -118,7 +118,7 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
     elif (type == "meanData"):
         menuJumps = attrs.toolbar.file.meanDataElements.menu
         subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs + extra
-        filename = "datas3.med.add.xml"
+        filename = "meandatas3.dat.add.xml"
     elif (type == "sumoConfig"):
         menuJumps = attrs.toolbar.file.sumoConfig.menu
         subMenuJumps = attrs.toolbar.file.sumoConfig.saveAs
