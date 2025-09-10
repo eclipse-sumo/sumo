@@ -185,23 +185,28 @@ GNEDialog::openDialog(FXWindow* focusableElement) {
     const auto internalTest = myApplicationWindow->getInternalTest();
     if (internalTest) {
         myTesting = true;
+        bool closeDialog = false;
         // execute every dialog step
-        while (internalTest->getCurrentStep() && internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG) {
+        while (internalTest->getCurrentStep() && !closeDialog &&
+                (internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG)) {
             // get current step and set next step
             const auto testStep = internalTest->setNextStep();
             // continue depending on the dialog argument action
             switch (testStep->getDialogArgument()->getBasicAction()) {
                 case InternalTestStep::DialogArgument::BasicAction::ACCEPT:
                     onCmdAccept(internalTest, 0, nullptr);
+                    closeDialog = true;
                     break;
                 case InternalTestStep::DialogArgument::BasicAction::CANCEL:
                     onCmdCancel(internalTest, 0, nullptr);
+                    closeDialog = true;
                     break;
                 case InternalTestStep::DialogArgument::BasicAction::RESET:
                     onCmdReset(internalTest, 0, nullptr);
                     break;
                 case InternalTestStep::DialogArgument::BasicAction::ABORT:
                     onCmdAbort(nullptr, 0, nullptr);
+                    closeDialog = true;
                     break;
                 default:
                     if (testStep->getDialogArgument()->getCustomAction().size() > 0) {

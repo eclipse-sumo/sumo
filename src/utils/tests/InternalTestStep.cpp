@@ -312,6 +312,18 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         openAboutDialog();
     } else if (function == "loadFile") {
         loadFile();
+    } else if (function == "saveNewFile") {
+        saveNewFile();
+    } else if (function == "saveFileAs") {
+        saveFileAs();
+    } else if (function == "overwritingAccept") {
+        overwritingAccept();
+    } else if (function == "overwritingCancel") {
+        overwritingCancel();
+    } else if (function == "overwritingAbort") {
+        overwritingAbort();
+    } else if (function == "overwritingApplyToAll") {
+        overwritingApplyToAll();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -1648,9 +1660,147 @@ InternalTestStep::loadFile() {
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::FILEPATH, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
     }
+}
+
+
+void
+InternalTestStep::saveNewFile() {
+    if (myArguments.size() != 1) {
+        writeError("saveNewFile", 0, "<type>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[0]);
+        std::string file;
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
+            file = "netedit2.netecfg";
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
+            file = "sumo2.sumocfg";
+        } else if (type == "xml") {
+            myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
+            file = "net2.xml";
+        } else if (type == "netconvertConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE;
+        } else if (type == "network") {
+            myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
+            file = "net2.net.xml";
+        } else if (type == "additional") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
+            file = "additionals2.add.xml";
+        } else if (type == "demand") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
+            file = "routes2.rou.xml";
+        } else if (type == "data") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
+            file = "datas2.dat.xml";
+        } else if (type == "meanData") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
+            file = "datas2.med.add.xml";
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::saveFileAs() {
+    if (myArguments.size() != 3) {
+        writeError("saveFileAs", 0, "<referencePosition, type, bool>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        std::string file;
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS;
+            file = "netedit3.netecfg";
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS;
+            file = "sumo3.sumocfg";
+        } else if (type == "network") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVENETWORK_AS;
+            file = "net3.net.xml";
+        } else if (type == "additional") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED;
+            file = "additionals3.add.xml";
+        } else if (type == "jupedsim") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS;
+            file = "additionals3.add.xml";
+        } else if (type == "demand") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED;
+            file = "routes3.rou.xml";
+        } else if (type == "data") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED;
+            file = "datas3.dat.xml";
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED;
+            file = "datas3.med.add.xml";
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::overwritingAccept() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::ACCEPT);
+    myDescription = "accept overwriting";
+}
+
+
+void
+InternalTestStep::overwritingCancel() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::CANCEL);
+    myDescription = "discard overwriting";
+}
+
+
+void
+InternalTestStep::overwritingAbort() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::ABORT);
+    myDescription = "abort overwriting";
+}
+
+
+void
+InternalTestStep::overwritingApplyToAll() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, "applyToAll");
+    myDescription = "apply to all";
 }
 
 

@@ -53,8 +53,10 @@ GNEOverwriteElement::~GNEOverwriteElement() {
 
 
 void
-GNEOverwriteElement::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+GNEOverwriteElement::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    if (dialogArgument->getCustomAction() == "applyToAll") {
+        myApplySolutionToAllCheckButon->setCheck(TRUE);
+    }
 }
 
 

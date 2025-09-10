@@ -1777,6 +1777,10 @@ GNEApplicationWindow::loadNetwork(const std::string& networkFile) {
         WRITE_ERROR(TL("Trying to load an empty network."));
     } else {
         auto& neteditOptions = OptionsCont::getOptions();
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
         // store size, position and viewport
         storeWindowSizeAndPos();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view

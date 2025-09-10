@@ -59,8 +59,8 @@ public:
 
         /// @name basic actions
         enum class ExtendedAction {
-            FILEPATH,       // set file path (directory + filename) in dialog
-            NONE            // no extended action
+            CUSTOM,     // custom extended action
+            NONE        // no extended action
         };
 
         /// @brief constructor for basic actions
@@ -389,6 +389,24 @@ private:
 
     /// @brief process load file function
     void loadFile();
+
+    /// @brief process save new file function
+    void saveNewFile();
+
+    /// @brief process save file as function
+    void saveFileAs();
+
+    /// @brief process overwriting accept function
+    void overwritingAccept();
+
+    /// @brief process overwriting cancel function
+    void overwritingCancel();
+
+    /// @brief process overwriting abort function
+    void overwritingAbort();
+
+    /// @brief process overwriting apply to all function
+    void overwritingApplyToAll();
 
     /// @brief process undo function
     void undo() const;

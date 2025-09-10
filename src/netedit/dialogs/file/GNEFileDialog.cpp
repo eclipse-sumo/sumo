@@ -68,7 +68,7 @@ GNEFileDialog::~GNEFileDialog() {
 
 void
 GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    if (dialogArgument->getExtendedAction() == InternalTestStep::DialogArgument::ExtendedAction::FILEPATH) {
+    if (dialogArgument->getCustomAction().size() > 0) {
         myFileSelector->setPath(dialogArgument->getCustomAction());
     }
 }
