@@ -460,7 +460,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
                 std::string label = toString(segment->getLaneIndex());
                 Position pos = segment->getLane()->getLaneShape().front() - Position(0, textSize * 1);
                 // use layer above all demand elements
-                GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, GLO_TAZ);
+                GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, GLO_VEHICLELABELS);
             }
         }
         // calculate contour

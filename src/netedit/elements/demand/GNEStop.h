@@ -236,6 +236,8 @@ protected:
     void drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor& color,
                                    const double width, const double exaggeration) const;
 
+    void drawStopLabel(const GUIVisualizationSettings& s) const;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
