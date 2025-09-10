@@ -1100,6 +1100,9 @@ MSFrame::checkOptions() {
     if (!oc.isDefault("weights.random-factor") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances"))) {
         WRITE_WARNING(TL("The option --weights.random-factor should not be used together with astar and precomputed distances."));
     }
+    if (oc.getInt("threads") > 1) {
+        WRITE_WARNING(TL("The option --threads has known problems and does NOT provide meaningful speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). Using it is not recommended!"));
+    }
 
 #ifdef JPS_VERSION
     const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
