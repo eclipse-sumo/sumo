@@ -355,6 +355,24 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
+
+                // check for near-intersection (internal junctions for a side road which are only relevant when they have stranded vehicles))
+                if (!haveIntersection && foeLane->getLinkCont()[0]->getViaLane() != nullptr) {
+                    const Position waitPos = foeLane->getShape().back();
+                    const double dist = lane->getShape().distance2D(waitPos, true);
+                    if (dist != GeomHelper::INVALID_OFFSET && dist < lane->getWidth() / 2) {
+                        // risk of collision
+                        intersections1.clear();
+                        intersections2.clear();
+                        intersections1.push_back(lane->getShape().nearest_offset_to_point2D(waitPos));
+                        intersections2.push_back(foeLane->getShape().length());
+                        haveIntersection = true;
+#ifdef MSLink_DEBUG_CROSSING_POINTS_DETAILS
+                        std::cout << "    link=" << myIndex << " " << getDescription() << " almostIntersection with foeLane " << foeLane->getID() << " offset=" << intersections1.back() << "\n";
+#endif
+                    }
+                }
+
                 double conflictSize = foeLane->getWidth();
                 ConflictFlag flag = CONFLICT_NO_INTERSECTION;
                 if (haveIntersection) {
