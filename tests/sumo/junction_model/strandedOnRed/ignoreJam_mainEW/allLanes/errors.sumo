@@ -1,0 +1,9 @@
+Warning: Vehicle 'b.0'; junction collision with vehicle 'stranded', lane=':J1_6_1', gap=-1.00, time=17.00, stage=move.
+Warning: Vehicle 'c.0'; junction collision with vehicle 'stranded', lane=':J1_6_2', gap=-1.00, time=17.00, stage=move.
+Warning: Vehicle 'b.1'; junction collision with vehicle 'stranded', lane=':J1_6_1', gap=-1.00, time=19.00, stage=move.
+Warning: Vehicle 'b.3'; junction collision with vehicle 'stranded', lane=':J1_6_1', gap=-1.00, time=22.00, stage=move.
+Warning: Vehicle 'c.3'; junction collision with vehicle 'stranded', lane=':J1_6_2', gap=-1.00, time=22.00, stage=move.
+Warning: Vehicle 'b.5'; junction collision with vehicle 'stranded', lane=':J1_6_1', gap=-1.00, time=25.00, stage=move.
+Warning: Vehicle 'c.5'; junction collision with vehicle 'stranded', lane=':J1_6_2', gap=-1.00, time=25.00, stage=move.
+Warning: Vehicle 'c.7'; junction collision with vehicle 'stranded', lane=':J1_6_2', gap=-1.00, time=28.00, stage=move.
+Warning: Vehicle 'b.7'; junction collision with vehicle 'stranded', lane=':J1_6_1', gap=-1.00, time=28.00, stage=move.
