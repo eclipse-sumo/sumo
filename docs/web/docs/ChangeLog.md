@@ -15,7 +15,7 @@ title: ChangeLog
 
 - netedit
   - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
-  - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regressio in 1.11.0)
+  - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
