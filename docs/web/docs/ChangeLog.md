@@ -9,15 +9,21 @@ title: ChangeLog
 - sumo
   - Fixed crash in rail simulation after rerouting #16958
   - Rerouters with parkingAreaReroute now take into account `parkingBadges` and `acceptedBadges` #16966
-  - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967  
+  - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967
+  - Fixed bug where taxi dispatch algorithm *routeExtension* takes detours when a ride is shared between 3 or more persons #17059
+  - Fixed empty missing vehroute-output when **--vehroute-output.sorted** and **--load-state** are used #16987
 
 - netedit
+  - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regressio in 1.11.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
   - Disabled "Assign E1 Detector" mode for invalid tlTypes #16949
   - Loading a new network now resets the additional, routes and data files #17038
+  - Ensuring all text in dialogs is translated #17045
+  - Fixed vehicle id written upside down #17060
+
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -36,6 +42,10 @@ title: ChangeLog
   - Loaded color scheme no longer resets on immediate modification #16976
   - Fixed misleading edge parameter dialog flow descriptions #16981 (meso)
   - Fixed crash when running while having network parameter window open #17043 (meso)
+  - Start button is disabled when loading simulation aborts with an error #17063
+  - Fixed wrong entries / paths for recent config #16906
+  - Settings dialog now cancels changes on ESC #17050
+
 
 - meso
   - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
@@ -47,6 +57,7 @@ title: ChangeLog
   - abstractRail.py: fixed bug where option **--horizontal** sometimes didn't work #17025
   - abstractRail.py: now gracefully handles stop input with invalid startPos or endPos #17027
   - abstractRail.py: corrected naming of temporary net when using .net.xml.gz input with option **--split** #17029
+  - routeSampler.py: mismatch-output for tazRelations is now also written as tazRelations #17049
  
 ### Enhancements
 
@@ -56,6 +67,11 @@ title: ChangeLog
 - netedit
   - Now translating additional tooltips #12652
   - The overwrite-elements dialog can now remember the user choice #17041
+  - Gui setting 'show route index' now works for inspected routes and vehicles #17013
+  - Gui setting 'show stop info' now work for inspected routes and vehicles #17014
+
+- sumo-gui
+  - Various dialogs can now be closed with ESC #15463
  
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
@@ -66,11 +82,15 @@ title: ChangeLog
   - net2geojson.py: now permits exporting of edge AND lane shapes by using options **--edges --lanes** #16774
   - abstractRail.py: Added option **--main-stops** for filtering stops when determining region angle #17024
   - generateDetectors.py: Added option **--edge-probability** to allow randomization per edge #17044
-
+  - instantOutToEdgeData.py: new tool to convert induction loop output to edgeData #17048
+  
 
 ### Miscellaneous
 
 - Option **--junctions.join-same** whas changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
+- sumo now warns when setting option **--threads** with an argument greater than 1 #17057
+- Added warnings and errors for different problems with a configuration file #17069
+
 
 ## Version 1.24.0 (22.07.2025)
 
