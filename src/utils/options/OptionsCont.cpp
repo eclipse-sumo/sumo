@@ -978,8 +978,8 @@ OptionsCont::writeSchema(std::ostream& os) {
     writeXMLHeader(os, false);
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
-    os << "    <xsd:element name=\"" << app << "Configuration\" type=\"configurationType\"/>\n\n";
-    os << "    <xsd:complexType name=\"configurationType\">\n";
+    os << "    <xsd:element name=\"" << app << "Configuration\" type=\"" << app << "ConfigurationType\"/>\n\n";
+    os << "    <xsd:complexType name=\"" << app << "ConfigurationType\">\n";
     os << "        <xsd:all>\n";
     for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration") {

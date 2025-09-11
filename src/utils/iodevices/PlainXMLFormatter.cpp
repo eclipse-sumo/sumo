@@ -46,7 +46,7 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
         }
         into << ">\n";
         if (writeMetadata) {
-            into << "    <metadata created_on=\"" << StringUtils::isoTimeString() << "\" created_by=\"" << oc.getFullName() << "\">\n";
+            into << "    <metadata created_at=\"" << StringUtils::isoTimeString() << "\" created_by=\"" << oc.getFullName() << "\">\n";
             oc.writeConfiguration(into, true, false, false, "", false, true, "        ");
             into << "    </metadata>\n";
         }
