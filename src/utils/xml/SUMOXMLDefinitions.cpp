@@ -1844,7 +1844,7 @@ StringBijection<NetFileExtension>::Entry SUMOXMLDefinitions::netFileExtensionVal
 };
 
 StringBijection<TLSFileExtension>::Entry SUMOXMLDefinitions::TLSFileExtensionValues[] = {
-    {TL("TLS files") + std::string(" (*.ttl.xml,*.ttl.xml.gz)"),    TLSFileExtension::TTL_XML},
+    {TL("TLS files") + std::string(" (*.tll.xml,*.tll.xml.gz)"),    TLSFileExtension::TTL_XML},
     {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),            TLSFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                         TLSFileExtension::ALL} //< must be the last one
 };
