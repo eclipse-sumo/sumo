@@ -35,7 +35,7 @@ netedit.changeElement("additionalFrame", "busStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # open network
-netedit.saveNewFile("additional")
+netedit.saveNewFile(referencePosition, "additional")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

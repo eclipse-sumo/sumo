@@ -24,7 +24,7 @@ from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
 from ..input.mouse import moveMouse
 
 
-def saveNewFile(element):
+def saveNewFile(referencePosition, element):
     """
     @brief save new file
     """
@@ -53,6 +53,15 @@ def saveNewFile(element):
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
         filename = "netedit2.netecfg"
+    elif (element == "joinedJunctions"):
+        filename = "joinedjunctions2.nod.xml"
+        # move mouse (to avoid problems with file menu)
+        moveMouse(referencePosition, positions.reference, 200, 0, False)
+        # go to menu command
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.saveJoinedJunctions):
+            typeKey('down')
+        typeKey('space')
     # wait for dialog
     time.sleep(2)
     updateText(TEXTTEST_SANDBOX)

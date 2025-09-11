@@ -1667,12 +1667,12 @@ InternalTestStep::loadFile() {
 
 void
 InternalTestStep::saveNewFile() {
-    if (myArguments.size() != 1) {
-        writeError("saveNewFile", 0, "<type>");
+    if (myArguments.size() != 2) {
+        writeError("saveNewFile", 0, "<referencePosition, type>");
     } else {
         myCategory = Category::APP;
         // get type and file
-        const auto type = getStringArgument(myArguments[0]);
+        const auto type = getStringArgument(myArguments[1]);
         std::string file;
         // get working directory
         std::string workingDirectory = FXSystem::getCurrentDirectory().text();
@@ -1690,6 +1690,9 @@ InternalTestStep::saveNewFile() {
         } else if (type == "xml") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
             file = "net2.xml";
+        } else if (type == "joinedJunctions") {
+            myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
+            file = "joinedjunctions2.nod.xml";
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
             file = "net2.net.xml";

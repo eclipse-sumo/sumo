@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # open network
-netedit.saveNewFile("demand")
+netedit.saveNewFile(referencePosition, "demand")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

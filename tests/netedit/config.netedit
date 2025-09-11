@@ -131,6 +131,8 @@ meandatasconfig3:sumo3.dat.add.xml
 meandatasconfig2:netedit2.dat.add.xml
 meandatasconfig3:netedit3.dat.add.xml
 
+joinedjunctions2:joinedjunctions2.nod.xml
+
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
@@ -222,6 +224,8 @@ sumo3:<!--{[->]}-->
 
 config2:<!--{[->]}-->
 config3:<!--{[->]}-->
+
+joinedjunctions2:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]

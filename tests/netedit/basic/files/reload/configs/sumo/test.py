@@ -38,7 +38,7 @@ netedit.reloadFile(referencePosition, "sumoConfig", False)
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNewFile("sumoConfig")
+netedit.saveNewFile(referencePosition, "sumoConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

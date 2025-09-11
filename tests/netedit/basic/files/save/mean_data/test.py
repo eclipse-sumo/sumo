@@ -35,7 +35,7 @@ netedit.changeMode("meanData")
 netedit.createMeanData()
 
 # open network
-netedit.saveNewFile("meanData")
+netedit.saveNewFile(referencePosition, "meanData")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

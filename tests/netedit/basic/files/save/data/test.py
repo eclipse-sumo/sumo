@@ -41,7 +41,7 @@ netedit.createDataInterval("0", "3600")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # open network
-netedit.saveNewFile("data")
+netedit.saveNewFile(referencePosition, "data")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
