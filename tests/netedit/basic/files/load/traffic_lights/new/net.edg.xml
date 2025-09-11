@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 13:30:52 by Eclipse SUMO netedit Version v1_24_0+0749-0e520f68dcb
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\new\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+
+    <edge id="-E0" from="Junction0" to="Junction3" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E1" from="J1" to="J0" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E2" from="J1" to="J5" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E2.20" from="J5" to="J2" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E3" from="J3" to="J2" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E4" from="J0" to="J4" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E40" from="J4" to="J3" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E5" from="J4" to="J6" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-E6" from="J7" to="J5" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-Edge0" from="J7" to="Junction0" priority="-1" numLanes="1" speed="13.89" length="32.50" width="3.00" disallow="pedestrian"/>
+    <edge id="-Edge3" from="J6" to="Junction3" priority="-1" numLanes="1" speed="13.89" length="28.75" width="3.00" disallow="pedestrian"/>
+    <edge id="E0" from="Junction3" to="Junction0" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E1" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E2" from="J2" to="J5" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E20" from="J5" to="J1" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E3" from="J2" to="J3" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E4" from="J3" to="J4" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E4.20" from="J4" to="J0" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E5" from="J6" to="J4" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="E6" from="J5" to="J7" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="Edge0" from="Junction0" to="J7" priority="-1" numLanes="1" speed="13.89" length="32.50" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge0.35" from="J7" to="Junction1" priority="-1" numLanes="1" speed="13.89" length="32.50" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge1" from="Junction1" to="Junction2" priority="-1" numLanes="1" speed="13.89" length="30.00" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge2" from="Junction2" to="J6" priority="-1" numLanes="1" speed="13.89" length="28.75" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge3" from="Junction3" to="J6" priority="-1" numLanes="1" speed="13.89" length="28.75" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge3.35" from="J6" to="Junction2" priority="-1" numLanes="1" speed="13.89" length="28.75" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge4" from="Junction2" to="Junction1" priority="-1" numLanes="1" speed="13.89" length="30.00" width="3.00" disallow="pedestrian"/>
+    <edge id="Edge5" from="Junction1" to="J7" priority="-1" numLanes="1" speed="13.89" length="32.50" width="3.00" disallow="pedestrian"/>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+</edges>

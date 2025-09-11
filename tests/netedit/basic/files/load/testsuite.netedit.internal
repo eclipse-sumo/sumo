@@ -2,6 +2,10 @@ configs
 
 network
 
+traffic_lights
+
+edge_types
+
 additional
 
 demand

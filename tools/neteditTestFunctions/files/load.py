@@ -37,6 +37,10 @@ def loadFile(referencePosition, type: str, file: str):
         typeThreeKeys('ctrl', 'shift', 'o')
     elif (type == "network"):
         typeTwoKeys('ctrl', 'o')
+    elif (type == "trafficLights"):
+        typeTwoKeys('ctrl', 'k')
+    elif (type == "edgeTypes"):
+        typeTwoKeys('ctrl', 'h')
     elif (type == "additional"):
         typeTwoKeys('ctrl', 'a')
     elif (type == "demand"):
