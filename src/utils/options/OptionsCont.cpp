@@ -348,7 +348,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
     for (const auto& addresse : myAddresses) {
-        if (addresse.second->isFileName() && addresse.second->isSet()) {
+        if (addresse.first != "configuration-file" && addresse.second->isFileName() && addresse.second->isSet()) {
             StringVector fileList = StringVector(addresse.second->getStringVector());
             for (auto& file : fileList) {
                 file = FileHelpers::checkForRelativity(file, configuration);
