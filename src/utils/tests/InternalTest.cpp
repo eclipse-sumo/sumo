@@ -214,16 +214,16 @@ InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
 
 
 InternalTestStep*
-InternalTest::setNextStep() {
-    const auto currentStep = myCurrentTestStep;
-    myCurrentTestStep = myCurrentTestStep->getNextStep();
-    return currentStep;
+InternalTest::getCurrentStep() const {
+    return myCurrentTestStep;
 }
 
 
 InternalTestStep*
-InternalTest::getCurrentStep() const {
-    return myCurrentTestStep;
+InternalTest::setNextStep() {
+    const auto currentStep = myCurrentTestStep;
+    myCurrentTestStep = myCurrentTestStep->getNextStep();
+    return currentStep;
 }
 
 

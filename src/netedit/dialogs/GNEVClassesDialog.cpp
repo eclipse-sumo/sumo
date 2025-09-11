@@ -191,13 +191,7 @@ GNEVClassesDialog::~GNEVClassesDialog() {
 
 void
 GNEVClassesDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    if (dialogArgument->getBasicAction() == InternalTestStep::DialogArgument::BasicAction::ACCEPT) {
-        onCmdAccept(nullptr, 0, nullptr);
-    } else if (dialogArgument->getBasicAction() == InternalTestStep::DialogArgument::BasicAction::CANCEL) {
-        onCmdCancel(nullptr, 0, nullptr);
-    } else if (dialogArgument->getBasicAction() == InternalTestStep::DialogArgument::BasicAction::RESET) {
-        onCmdReset(nullptr, 0, nullptr);
-    } else if (dialogArgument->getCustomAction() == "allVehicles") {
+    if (dialogArgument->getCustomAction() == "allVehicles") {
         onCmdSelectAll(nullptr, 0, nullptr);
     } else if (dialogArgument->getCustomAction() == "disallowAll") {
         onCmdUnselectAll(nullptr, 0, nullptr);

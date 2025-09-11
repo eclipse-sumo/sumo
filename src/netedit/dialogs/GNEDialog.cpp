@@ -190,32 +190,28 @@ GNEDialog::openDialog(FXWindow* focusableElement) {
         bool closeDialog = false;
         // execute every dialog step
         while (internalTest->getCurrentStep() && !closeDialog &&
-                (internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG)) {
-            // get current step and set next step
+                (internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG) &&
+                (internalTest->getCurrentStep()->getDialogArgument()->getType() == myType)) {
+            // set next step
             const auto testStep = internalTest->setNextStep();
             // continue depending on the dialog argument action
-            switch (testStep->getDialogArgument()->getBasicAction()) {
-                case InternalTestStep::DialogArgument::BasicAction::ACCEPT:
+            switch (testStep->getDialogArgument()->getAction()) {
+                case InternalTestStep::DialogArgument::Action::ACCEPT:
                     onCmdAccept(internalTest, 0, nullptr);
                     closeDialog = true;
                     break;
-                case InternalTestStep::DialogArgument::BasicAction::CANCEL:
+                case InternalTestStep::DialogArgument::Action::CANCEL:
                     onCmdCancel(internalTest, 0, nullptr);
                     closeDialog = true;
                     break;
-                case InternalTestStep::DialogArgument::BasicAction::RESET:
+                case InternalTestStep::DialogArgument::Action::RESET:
                     onCmdReset(internalTest, 0, nullptr);
                     break;
-                case InternalTestStep::DialogArgument::BasicAction::ABORT:
+                case InternalTestStep::DialogArgument::Action::ABORT:
                     onCmdAbort(nullptr, 0, nullptr);
-                    closeDialog = true;
                     break;
                 default:
-                    if (testStep->getDialogArgument()->getCustomAction().size() > 0) {
-                        runInternalTest(testStep->getDialogArgument());
-                    } else {
-                        handle(internalTest, testStep->getSelector(), testStep->getEvent());
-                    }
+                    runInternalTest(testStep->getDialogArgument());
                     break;
             }
         }

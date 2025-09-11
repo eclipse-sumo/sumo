@@ -44,24 +44,22 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // InternalTestStep::DialogArgument - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::DialogArgument::DialogArgument(InternalTestStep::DialogArgument::BasicAction basicAction) :
-    myBasicAction(basicAction) {
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, Action action) :
+    myType(type),
+    myAction(action) {
 }
 
 
-InternalTestStep::DialogArgument::DialogArgument(ExtendedAction extendedAction, const std::string& customAction) :
-    myExtendedAction(extendedAction),
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& customAction) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
     myCustomAction(customAction) {
 }
 
 
-
-InternalTestStep::DialogArgument::DialogArgument(const std::string& customAction) :
-    myCustomAction(customAction) {
-}
-
-
-InternalTestStep::DialogArgument::DialogArgument(const std::string& prefixToRemove, const std::string& customAction) :
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& prefixToRemove, const std::string& customAction) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
     myCustomAction(customAction) {
     // remove prefix from custom action
     if (prefixToRemove.size() > 0) {
@@ -72,16 +70,15 @@ InternalTestStep::DialogArgument::DialogArgument(const std::string& prefixToRemo
     }
 }
 
-
-InternalTestStep::DialogArgument::BasicAction
-InternalTestStep::DialogArgument::getBasicAction() const {
-    return myBasicAction;
+DialogType
+InternalTestStep::DialogArgument::getType() const {
+    return myType;
 }
 
 
-InternalTestStep::DialogArgument::ExtendedAction
-InternalTestStep::DialogArgument::getExtendedAction() const {
-    return myExtendedAction;
+InternalTestStep::DialogArgument::Action
+InternalTestStep::DialogArgument::getAction() const {
+    return myAction;
 }
 
 
@@ -766,9 +763,9 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("139,131,120"), "set color");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::COLOR, "139,131,120"), "set color");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::COLOR, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -782,9 +779,9 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -798,11 +795,11 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -817,11 +814,11 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::CANCEL), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::CANCEL), "accept vClasses");
     }
 }
 
@@ -835,13 +832,13 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         // open dialog
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("disallowAll"), "disallow all");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument("netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press reset
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::RESET), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::RESET), "accept vClasses");
         // press accept
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept vClasses");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -983,9 +980,9 @@ InternalTestStep::fixCrossings() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix crossings
-        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix crossings");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_NETWORKELEMENTS, getStringArgument(myArguments[0])), "fix crossings");
         // accept changes
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept fix");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_NETWORKELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -999,9 +996,9 @@ InternalTestStep::fixStoppingPlace() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix stoppingPlace
-        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix stoppingPlace in dialog");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_ADDITIONALELEMENTS, getStringArgument(myArguments[0])), "fix stoppingPlace in dialog");
         // accept changes
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept fix");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_ADDITIONALELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1015,9 +1012,9 @@ InternalTestStep::fixRoute() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
         // fix route
-        new InternalTestStep(myTestSystem, new DialogArgument(getStringArgument(myArguments[0])), "fix route in dialog");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_DEMANDELEMENTS, getStringArgument(myArguments[0])), "fix route in dialog");
         // accept changes
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "accept fix");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_DEMANDELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1619,7 +1616,7 @@ InternalTestStep::openAboutDialog() {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_F12_ABOUT;
         // close dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "close about dialog");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::ABOUT, DialogArgument::Action::ACCEPT), "close about dialog");
     }
 }
 
@@ -1662,8 +1659,8 @@ InternalTestStep::loadFile() {
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }
 
@@ -1714,8 +1711,8 @@ InternalTestStep::saveNewFile() {
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }
 
@@ -1766,8 +1763,8 @@ InternalTestStep::saveFileAs() {
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, workingDirectory + "/" + file), "filepath");
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "go to directory");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }
 
@@ -1786,7 +1783,7 @@ InternalTestStep::reloadFile() {
         } else if (type == "sumoConfig") {
             myMessageID = MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG;
         } else if (type == "network") {
-            myMessageID = MID_HOTKEY_CTRL_R_RELOAD;
+            myMessageID = MID_GNE_TOOLBARFILE_RELOADNETWORK;
         } else if (type == "additional") {
             myMessageID = MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS;
         } else if (type == "demand") {
@@ -1805,7 +1802,7 @@ InternalTestStep::reloadFile() {
 void
 InternalTestStep::overwritingAccept() {
     myCategory = Category::DIALOG;
-    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::ACCEPT);
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::ACCEPT);
     myDescription = "accept overwriting";
 }
 
@@ -1813,7 +1810,7 @@ InternalTestStep::overwritingAccept() {
 void
 InternalTestStep::overwritingCancel() {
     myCategory = Category::DIALOG;
-    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::CANCEL);
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::CANCEL);
     myDescription = "discard overwriting";
 }
 
@@ -1821,7 +1818,7 @@ InternalTestStep::overwritingCancel() {
 void
 InternalTestStep::overwritingAbort() {
     myCategory = Category::DIALOG;
-    myDialogArgument = new DialogArgument(DialogArgument::BasicAction::ABORT);
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::ABORT);
     myDescription = "abort overwriting";
 }
 
@@ -1829,7 +1826,7 @@ InternalTestStep::overwritingAbort() {
 void
 InternalTestStep::overwritingApplyToAll() {
     myCategory = Category::DIALOG;
-    myDialogArgument = new DialogArgument(DialogArgument::ExtendedAction::CUSTOM, "applyToAll");
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, "applyToAll");
     myDescription = "apply to all";
 }
 
@@ -2049,11 +2046,11 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         const auto dialogArgument = getStringArgument(myArguments[0]);
         // press space to confirm changes (updating view)
         if (dialogArgument == "yes") {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ACCEPT), "close accepting");
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ACCEPT), "close accepting");
         } else if (dialogArgument == "no") {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::CANCEL), "close canceling");
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::CANCEL), "close canceling");
         } else {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::BasicAction::ABORT), "close aborting");
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ABORT), "close aborting");
         }
     }
 }
