@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-03 14:39:19 by Eclipse SUMO netgenerate Version v1_24_0+0609-15168f51efc
+<!-- generated on 2025-09-11T16:03:33.661687+01:00 by Eclipse SUMO netgenerate v1_24_0+0766-b295674de6f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="netgenerateConfiguration" type="configurationType"/>
+    <xsd:element name="netgenerateConfiguration" type="netgenerateConfigurationType"/>
 
-    <xsd:complexType name="configurationType">
+    <xsd:complexType name="netgenerateConfigurationType">
         <xsd:all>
             <xsd:element name="grid_network" type="grid_networkTopicType" minOccurs="0"/>
             <xsd:element name="spider_network" type="spider_networkTopicType" minOccurs="0"/>
@@ -82,6 +82,7 @@
     <xsd:complexType name="outputTopicType">
         <xsd:all>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>

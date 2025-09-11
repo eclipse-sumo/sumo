@@ -403,6 +403,16 @@
         <xsd:attribute name="href" type="xsd:string"/>
     </xsd:complexType>
 
+    <xsd:simpleType name="offsetType">
+        <xsd:union memberTypes="floatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="begin"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
 <!-- types for options in configuration files -->
 
     <xsd:complexType name="optionType">
@@ -481,15 +491,5 @@
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
-
-    <xsd:simpleType name="offsetType">
-        <xsd:union memberTypes="floatType">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="begin"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:union>
-    </xsd:simpleType>
 
 </xsd:schema>

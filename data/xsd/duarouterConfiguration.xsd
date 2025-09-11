@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-21 21:32:03 by Eclipse SUMO duarouter Version v1_23_1+1211-c292db0a7e7
+<!-- generated on 2025-09-11T16:03:32.419733+01:00 by Eclipse SUMO duarouter v1_24_0+0766-b295674de6f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="duarouterConfiguration" type="configurationType"/>
+    <xsd:element name="duarouterConfiguration" type="duarouterConfigurationType"/>
 
-    <xsd:complexType name="configurationType">
+    <xsd:complexType name="duarouterConfigurationType">
         <xsd:all>
             <xsd:element name="input" type="inputTopicType" minOccurs="0"/>
             <xsd:element name="output" type="outputTopicType" minOccurs="0"/>
@@ -43,6 +43,7 @@
             <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="named-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
