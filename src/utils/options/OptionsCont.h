@@ -176,7 +176,7 @@ public:
      */
     void writeConfiguration(std::ostream& os, const bool filled,
                             const bool complete, const bool addComments, const std::string& relativeTo = "",
-                            const bool forceRelative = false, const bool inComment = false) const;
+                            const bool forceRelative = false, const bool inComment = false, const std::string& indent = "") const;
 
     /** @brief Writes the xml schema for the configuration
      *

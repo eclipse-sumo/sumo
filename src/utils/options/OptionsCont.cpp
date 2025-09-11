@@ -885,12 +885,12 @@ OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSiz
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                                 const bool complete, const bool addComments, const std::string& relativeTo,
-                                const bool forceRelative, const bool inComment) const {
+                                const bool forceRelative, const bool inComment, const std::string& indent) const {
     if (!inComment) {
         writeXMLHeader(os, false);
     }
     const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
-    os << "<" << app << "Configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+    os << indent << "<" << app << "Configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
        << "xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" << app << "Configuration.xsd\">\n\n";
     for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
@@ -910,14 +910,14 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 continue;
             }
             if (!hadOne) {
-                os << "    <" << subtopic << ">\n";
+                os << indent << "    <" << subtopic << ">\n";
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->\n";
+                os << indent << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->\n";
             }
             // write the option and the value (if given)
-            os << "        <" << name << " value=\"";
+            os << indent << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
@@ -965,10 +965,10 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             hadOne = true;
         }
         if (hadOne) {
-            os << "    </" << subtopic << ">\n\n";
+            os << indent << "    </" << subtopic << ">\n\n";
         }
     }
-    os << "</" << app << "Configuration>" << std::endl;  // flushing seems like a good idea here
+    os << indent << "</" << app << "Configuration>" << std::endl;  // flushing seems like a good idea here
 }
 
 
@@ -1022,8 +1022,9 @@ OptionsCont::writeSchema(std::ostream& os) {
 void
 OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
+    os << "<!-- ";
     if (!getBool("write-metadata")) {
-        os << "<!-- generated on " << StringUtils::isoTimeString() << " by " << myFullName << "\n";
+        os << "generated on " << StringUtils::isoTimeString() << " by " << myFullName << "\n";
     }
     if (getBool("write-license")) {
         os << "This data file and the accompanying materials\n"
