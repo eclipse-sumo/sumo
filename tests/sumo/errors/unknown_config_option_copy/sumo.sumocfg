@@ -1,0 +1,5 @@
+<configuration>
+    <net-file value="net.net.xml" extraAttr="foobar"/>
+    <route-files values="input_routes.rou.xml"/>
+    <additional-files/>
+</configuration>
