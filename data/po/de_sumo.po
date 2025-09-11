@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-08-04 06:44+0000\n"
+"PO-Revision-Date: 2025-09-11 14:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -875,7 +875,7 @@ msgstr "Die als Ziel deklarierte Kante '%' ist nicht bekannt."
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
 msgid "The from-edge '%' in flow '%' is not known."
-msgstr ""
+msgstr "Die Ausgangskante '%' des Flusses '%' ist unbekannt."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -1360,7 +1360,7 @@ msgstr "Fahrzeug '%' hat keine zulässige Route. %"
 #: src/mesosim/METriggeredCalibrator.cpp:84
 #, c-format
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
-msgstr ""
+msgstr "Einsatz des Fahrzeugs '%' durch Calibrator '%' fehlgeschlagen!"
 
 #: src/mesosim/METriggeredCalibrator.cpp:130
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -3293,7 +3293,7 @@ msgstr "Methode wird nicht unterstützt"
 #: src/microsim/MSLink.cpp:252
 #, c-format
 msgid "Internal lane '%' has % predecessors"
-msgstr ""
+msgstr "Der interne Fahrstreifen '%' hat % Vorgänger"
 
 #: src/microsim/MSNet.cpp:190 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
@@ -3376,17 +3376,19 @@ msgstr "Laden vom Stand '%' ist fehlgeschlagen."
 
 #: src/microsim/MSParkingArea.cpp:86
 msgid "Only a numerical departPos is supported for % '%'"
-msgstr ""
+msgstr "Es wird nur ein numerischer Wert für departPos in % '%' unterstützt"
 
 #: src/microsim/MSParkingArea.cpp:88
 msgid "Invalid departPos for % '%'"
-msgstr ""
+msgstr "Ungültiger Wert für departPos in % '%'"
 
 #: src/microsim/MSRightOfWayJunction.cpp:91
 msgid ""
 "Found invalid logic position of a link for junction '%' (%, max %) -> "
 "(network error)"
 msgstr ""
+"Eine Verbindung im Knotenpunkt '%' befindet sich an einer ungültigen "
+"logischen Position (%, max %) -> (Netzfehler)"
 
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:110
 msgid "Taz usage was requested but no taz present in % '%'!"
@@ -4272,7 +4274,7 @@ msgstr "Unbekannter Fahrstreifen '%' von Fahrzeug '%' in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:352
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "Unbekannter Fahrzeugtyp '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
