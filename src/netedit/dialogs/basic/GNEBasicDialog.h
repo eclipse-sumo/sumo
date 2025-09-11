@@ -31,8 +31,8 @@ class GNEBasicDialog : public GNEDialog {
 public:
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                   const std::string& info, GUIIcon titleIcon, GNEDialog::Buttons buttons,
-                   GUIIcon largeIcon);
+                   const std::string& info, GUIIcon titleIcon, DialogType type,
+                   GNEDialog::Buttons buttons, GUIIcon largeIcon);
 
     /// @brief Destructor
     ~GNEBasicDialog();

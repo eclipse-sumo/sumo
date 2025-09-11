@@ -27,7 +27,7 @@
 
 GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GUIIcon::INFORMATION_SMALL,
+    GNEBasicDialog(applicationWindow, name, info, GUIIcon::INFORMATION_SMALL, DialogType::BASIC_INFORMATION,
                    GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
 }
 
@@ -35,5 +35,5 @@ GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* appli
 GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
         const std::string& infoLineA, const std::string& infoLineB) :
     GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::INFORMATION_SMALL,
-                   GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
+                   DialogType::BASIC_INFORMATION, GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
 }

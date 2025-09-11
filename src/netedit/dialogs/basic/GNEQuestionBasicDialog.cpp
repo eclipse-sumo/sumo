@@ -28,7 +28,7 @@
 GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow,
         GNEDialog::Buttons buttons, const std::string& name, const std::string& info) :
     GNEBasicDialog(applicationWindow, name, info, GUIIcon::QUESTION_SMALL,
-                   buttons, GUIIcon::QUESTION_LARGE) {
+                   DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }
 
 
@@ -36,5 +36,5 @@ GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* application
         GNEDialog::Buttons buttons, const std::string& name, const std::string& infoLineA,
         const std::string& infoLineB) :
     GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
-                   buttons, GUIIcon::QUESTION_LARGE) {
+                   DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }
