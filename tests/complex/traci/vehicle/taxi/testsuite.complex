@@ -56,3 +56,6 @@ redispatch_on_internal
 
 # dispatch a taxi that hasn't yet entered the network
 undeparted
+
+# dispatch a taxi to service a single customer
+control_idle
