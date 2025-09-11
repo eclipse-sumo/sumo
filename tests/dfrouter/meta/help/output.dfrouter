@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_23_1+0813-5f3c910f36e
+Eclipse SUMO dfrouter v1_24_0+0753-7ddc191931e
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -22,6 +22,8 @@ Input Options:
 Output Options:
   --write-license                      Include license info into every output
                                         file
+  --write-metadata                     Write parsable metadata (configuration
+                                        etc.) instead of comments
   --output-prefix STR                  Prefix which is applied to all output
                                         files. The special string 'TIME' is
                                         replaced by the current time.

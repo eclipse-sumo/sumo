@@ -11,7 +11,7 @@ output:\r{REPLACE \n}
 output:[0-9\.]+ms{REPLACE (TIME)}
 output:spent [0-9\.]+s{REPLACE spent (TIME)}
 output:Duration [0-9\.]+s{REPLACE Duration (TIME)}
-output:Version
+output:Eclipse SUMO .* v*
 output:Build features
 log:[0-9\.]+ms{REPLACE (TIME)}
 log:spent [0-9\.]+s{REPLACE spent (TIME)}

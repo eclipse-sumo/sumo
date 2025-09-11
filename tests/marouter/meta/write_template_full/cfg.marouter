@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-03 13:21:24 by Eclipse SUMO marouter Version v1_24_0+0609-15168f51efc
+<!-- generated on 2025-09-11T14:39:47.096250+01:00 by Eclipse SUMO marouter v1_24_0+0753-7ddc191931e
 -->
 
 <marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -41,6 +41,7 @@
         <emissions.volumetric-fuel value="false" type="BOOL" help="Return fuel consumption values in (legacy) unit l instead of mg"/>
         <named-routes value="false" type="BOOL" help="Write vehicles that reference routes by their id"/>
         <write-license value="false" type="BOOL" help="Include license info into every output file"/>
+        <write-metadata value="false" type="BOOL" help="Write parsable metadata (configuration etc.) instead of comments"/>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>

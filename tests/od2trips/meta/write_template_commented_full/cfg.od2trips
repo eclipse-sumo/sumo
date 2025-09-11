@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-03 13:21:24 by Eclipse SUMO od2trips Version v1_24_0+0609-15168f51efc
+<!-- generated on 2025-09-11T14:39:47.503937+01:00 by Eclipse SUMO od2trips v1_24_0+0753-7ddc191931e
 -->
 
 <od2tripsConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -47,6 +47,9 @@
     <output>
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
+
+        <!-- Write parsable metadata (configuration etc.) instead of comments -->
+        <write-metadata value="false" type="BOOL"/>
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
