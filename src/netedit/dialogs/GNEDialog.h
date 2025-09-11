@@ -23,6 +23,8 @@
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/tests/InternalTestStep.h>
 
+#include "GNEDialogEnum.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -72,12 +74,12 @@ public:
 
     /// @brief constructor for resizable dialogs
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, Buttons buttons, OpenType openType,
+              GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
               ResizeMode resizeMode);
 
     /// @brief constructor for resizable dialogs with layout explicit
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, Buttons buttons, OpenType openType,
+              GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
               ResizeMode resizeMode, const int width, const int height);
 
     /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
@@ -154,6 +156,9 @@ protected:
 
     /// @brief advanced button
     FXButton* myAdvancedButton = nullptr;
+
+    /// @brief dialog type
+    DialogType myType = DialogType::DEFAULT;
 
     /// @brief result to indicate if this dialog was closed accepting or rejecting changes
     Result myResult = Result::CANCEL;

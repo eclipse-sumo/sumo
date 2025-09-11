@@ -469,8 +469,8 @@ GNEParametersDialog::ParametersOperations::GNEParameterHandler::myStartElement(i
 // ---------------------------------------------------------------------------
 
 GNEParametersDialog::GNEParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters) :
-    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
+    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE, DialogType::PARAMETERS,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myOriginalParameters(parameters) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);

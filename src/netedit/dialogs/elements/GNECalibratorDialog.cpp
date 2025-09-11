@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
-    GNETemplateElementDialog<GNEAdditional>(calibrator) {
+    GNETemplateElementDialog<GNEAdditional>(calibrator, DialogType::CALIBRATOR) {
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);

@@ -32,8 +32,9 @@
 GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string elementFile,
                              const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
                              GNEFileDialog::ConfigType configType):
-    GNEDialog(applicationWindow, TLF("Save % as", elementFile), GUIIcon::SAVE, GNEDialog::Buttons::ACCEPT_CANCEL,
-              GNEDialog::OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
+    GNEDialog(applicationWindow, TLF("Save % as", elementFile), GUIIcon::SAVE,
+              DialogType::FILE, GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL,
+              GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
     // update title and icon if we are opening
     if (openMode != GNEFileDialog::OpenMode::SAVE) {
         updateIcon(GUIIcon::OPEN);

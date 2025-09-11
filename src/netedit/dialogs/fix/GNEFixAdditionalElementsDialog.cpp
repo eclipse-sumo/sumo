@@ -279,7 +279,8 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObje
 
 GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow* mainWindow,
         const std::vector<GNEAdditional*>& elements) :
-    GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL) {
+    GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL,
+                         DialogType::FIX_ADDITIONALELEMENTS) {
     // create position options
     myPositionOptions = new PositionOptions(this);
     // create consecutive lane options

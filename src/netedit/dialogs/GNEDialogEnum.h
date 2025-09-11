@@ -11,24 +11,45 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHelpBasicDialog.cpp
+/// @file    GNEDialogEnum.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2025
 ///
-// Custom FXDialogBox help dialog used in Netedit that supports internal tests
+// Enums for list all dialog types (used for Internal tests)
 /****************************************************************************/
+#pragma once
 #include <config.h>
 
-#include <sstream>
-
-#include "GNEHelpBasicDialog.h"
-
 // ===========================================================================
-// method definitions
+// enumeration
 // ===========================================================================
 
-GNEHelpBasicDialog::GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow,
-                                       const std::string& name, const std::ostringstream& stream) :
-    GNEBasicDialog(applicationWindow, name, stream.str(), GUIIcon::HELP,
-                   GNEDialog::Buttons::OK, GUIIcon::EMPTY) {
-}
+enum class DialogType {
+    ABOUT,
+    ATTRIBUTECARRIER,
+    BASIC,
+    CALIBRATOR,
+    COLOR,
+    FILE,
+    FILEPATH,
+    FIX_ADDITIONALELEMENTS,
+    FIX_DEMANDELEMENTS,
+    FIX_NETWORKELEMENTS,
+    GEOMETRYPOINT,
+    HELP,
+    NETGENERATE,
+    OPTIONS_NETEDIT,
+    OPTIONS_NETGENERATE,
+    OPTIONS_SUMO,
+    OVERWRITE,
+    PARAMETERS,
+    PYTHON,
+    REROUTER,
+    REROUTERINTERVAL,
+    RUN,
+    UNDOLIST,
+    VCLASS,
+    VSS,
+    VTYPE,
+    DEFAULT
+};

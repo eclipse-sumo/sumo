@@ -163,7 +163,7 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog(FXObject*, 
 // ---------------------------------------------------------------------------
 
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC) {
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
     // Create auxiliar frames for rows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));

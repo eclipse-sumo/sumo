@@ -30,7 +30,8 @@
 
 GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
                                      const std::string& info, const std::string& originalFilePath) :
-    GNEDialog(applicationWindow, title.c_str(), GUIIcon::OPEN, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
+    GNEDialog(applicationWindow, title.c_str(), GUIIcon::OPEN, DialogType::FILEPATH,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalFilePath(originalFilePath) {
     // create dialog layout (obtained from FXMessageBox)
     //auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);

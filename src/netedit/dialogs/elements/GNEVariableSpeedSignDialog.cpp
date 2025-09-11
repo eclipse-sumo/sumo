@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
-    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign) {
+    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign, DialogType::VSS) {
     // create variableSpeedSign steps element list
     myVariableSpeedSignSteps = new VariableSpeedSignStepsList(this);
     // open dialog

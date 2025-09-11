@@ -116,7 +116,7 @@ GNEVClassesDialog::VClassRow::onCmdToggleVClass(FXObject*, FXSelector, void*) {
 GNEVClassesDialog::GNEVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
                                      const std::string originalVClasses) :
     GNEDialog(mainWindow, TLF("Edit vClasses of attribute '%'", toString(attr)), GUIIcon::GREENVEHICLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
+              DialogType::VCLASS, GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalVClasses(originalVClasses),
     myEditedVClasses(originalVClasses) {
     // label for selection options

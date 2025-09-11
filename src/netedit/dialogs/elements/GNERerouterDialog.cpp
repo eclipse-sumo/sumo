@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
-    GNETemplateElementDialog<GNEAdditional>(rerouter) {
+    GNETemplateElementDialog<GNEAdditional>(rerouter, DialogType::REROUTER) {
     // create rerouter intervals element list
     myRerouterIntervals = new RerouterIntervalsList(this);
     // open dialog

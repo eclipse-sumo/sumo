@@ -42,9 +42,8 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 // member method definitions
 // ===========================================================================
 
-GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow,
-                           const std::string& name, GUIIcon titleIcon) :
-    GNEDialog(applicationWindow, name, titleIcon, GNEDialog::Buttons::RERUN_BACK_CLOSE,
+GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon) :
+    GNEDialog(applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_CLOSE,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);

@@ -41,10 +41,11 @@
 // method definitions
 // ===========================================================================
 
-GNENetgenerateOptionsDialog::GNENetgenerateOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
-        const OptionsCont& originalOptionsContainer) :
+GNENetgenerateOptionsDialog::GNENetgenerateOptionsDialog(GNEApplicationWindow* applicationWindow,
+        OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer) :
     GNEDialog(applicationWindow, TL("Run netgenerate with advanced options"), GUIIcon::NETGENERATE,
-              GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 800, 600) {
+              DialogType::OPTIONS_NETGENERATE, GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL,
+              GNEDialog::ResizeMode::RESIZABLE, 800, 600) {
     // build options editor
     myOptionsEditor = new GNEOptionsEditor(this, "Netgenerate", optionsContainer, originalOptionsContainer);
     // open modal dialog

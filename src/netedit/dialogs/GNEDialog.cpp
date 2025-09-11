@@ -56,12 +56,13 @@ FXIMPLEMENT_ABSTRACT(GNEDialog, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDia
 // ===========================================================================
 
 GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-                     GUIIcon titleIcon, Buttons buttons, OpenType openType,
+                     GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
                      ResizeMode resizeMode) :
     FXDialogBox(applicationWindow->getApp(), name.c_str(),
                 (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStatic : GUIDesignGNEDialogResizable,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
+    myType(type),
     myOpenType(openType) {
     // build dialog
     buildDialog(titleIcon, buttons);
@@ -69,12 +70,13 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
 
 
 GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-                     GUIIcon titleIcon, Buttons buttons, OpenType openType,
+                     GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
                      ResizeMode resizeMode, const int width, const int height) :
     FXDialogBox(applicationWindow->getApp(), name.c_str(),
                 (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStaticExplicit : GUIDesignGNEDialogResizableExplicit,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
+    myType(type),
     myOpenType(openType) {
     // build dialog
     buildDialog(titleIcon, buttons);
