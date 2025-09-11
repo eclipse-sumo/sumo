@@ -246,7 +246,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Builds vehicle routes for SUMO using detector values."));
-    oc.setApplicationName("dfrouter", "Eclipse SUMO dfrouter Version " VERSION_STRING);
+    oc.setApplicationName("dfrouter", "Eclipse SUMO dfrouter " VERSION_STRING);
     int ret = 0;
     RODFNet* net = nullptr;
     RODFDetectorCon* detectors = nullptr;

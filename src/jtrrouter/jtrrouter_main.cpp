@@ -180,7 +180,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios."));
-    oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter Version " VERSION_STRING);
+    oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
     try {

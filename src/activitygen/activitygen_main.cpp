@@ -87,7 +87,7 @@ main(int argc, char* argv[]) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(
         TL("Generates trips of persons throughout a day for the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("activitygen", "Eclipse SUMO activitygen Version " VERSION_STRING);
+    oc.setApplicationName("activitygen", "Eclipse SUMO activitygen " VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
     int ret = 0;
     RONet* net = nullptr;

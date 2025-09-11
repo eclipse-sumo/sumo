@@ -59,7 +59,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Computes emissions by driving a time line using SUMO's emission models."));
-    oc.setApplicationName("emissionsDrivingCycle", "Eclipse SUMO emissionsDrivingCycle Version " VERSION_STRING);
+    oc.setApplicationName("emissionsDrivingCycle", "Eclipse SUMO emissionsDrivingCycle " VERSION_STRING);
 
     // add options
     SystemFrame::addConfigurationOptions(oc);

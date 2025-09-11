@@ -417,6 +417,8 @@ private:
 protected:
     const std::string myFilename;
 
+    bool myWriteMetadata;
+
     /// @brief The formatter for XML, CSV or Parquet
     OutputFormatter* myFormatter;
 

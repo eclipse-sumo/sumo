@@ -348,10 +348,12 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
     for (const auto& addresse : myAddresses) {
-        if (addresse.first != "configuration-file" && addresse.second->isFileName() && addresse.second->isSet()) {
+        if (addresse.second->isFileName() && addresse.second->isSet()) {
             StringVector fileList = StringVector(addresse.second->getStringVector());
             for (auto& file : fileList) {
-                file = FileHelpers::checkForRelativity(file, configuration);
+                if (addresse.first != "configuration-file") {
+                    file = FileHelpers::checkForRelativity(file, configuration);
+                }
                 try {
                     file = StringUtils::urlDecode(file);
                 } catch (NumberFormatException& e) {
@@ -1019,13 +1021,10 @@ OptionsCont::writeSchema(std::ostream& os) {
 
 void
 OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
-    time_t rawtime;
-    char buffer [80];
-
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
-    time(&rawtime);
-    strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
-    os << buffer << myFullName << "\n";
+    if (!getBool("write-metadata")) {
+        os << "<!-- generated on " << StringUtils::isoTimeString() << " by " << myFullName << "\n";
+    }
     if (getBool("write-license")) {
         os << "This data file and the accompanying materials\n"
            "are made available under the terms of the Eclipse Public License v2.0\n"
@@ -1038,7 +1037,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
            "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n"
            "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later\n";
     }
-    if (includeConfig) {
+    if (includeConfig && !getBool("write-metadata")) {
         writeConfiguration(os, true, false, false, "", false, true);
     }
     os << "-->\n\n";

@@ -339,7 +339,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes."));
-    oc.setApplicationName("marouter", "Eclipse SUMO marouter Version " VERSION_STRING);
+    oc.setApplicationName("marouter", "Eclipse SUMO marouter " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
     try {

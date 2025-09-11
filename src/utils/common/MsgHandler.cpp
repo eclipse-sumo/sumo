@@ -26,7 +26,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include <chrono>
 #ifdef WIN32
 #define NOMINMAX
 #include <windows.h>
@@ -341,21 +340,7 @@ MsgHandler::cleanupOnEnd() {
 
 
 std::string
-MsgHandler::buildTimestampPrefix(void) const {
-    std::stringstream prefix;
-    const std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
-    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
-    const std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
-
-    char timeString[21];
-    std::strftime(timeString, 21, "[%F %T", std::localtime(&now_time_t));
-    prefix << timeString << '.' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
-    return prefix.str();
-}
-
-
-std::string
-MsgHandler::buildProcessIdPrefix(void) const {
+MsgHandler::buildProcessIdPrefix() const {
     std::stringstream prefix;
     prefix << "[PID: ";
 #ifdef WIN32

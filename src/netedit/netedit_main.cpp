@@ -48,7 +48,7 @@ main(int argc, char** argv) {
     // get the options
     auto& neteditOptions = OptionsCont::getOptions();
     neteditOptions.setApplicationDescription(TL("Graphical editor for SUMO networks, demand and additional infrastructure."));
-    neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
+    neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit " VERSION_STRING);
     // preload registry from sumo to decide on language
     FXRegistry reg("SUMO GUI", "sumo-gui");
     reg.read();

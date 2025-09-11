@@ -208,6 +208,32 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
 }
 
 
+std::string
+StringUtils::isoTimeString(const std::chrono::time_point<std::chrono::system_clock>* const timeRef) {
+    const std::chrono::system_clock::time_point now = timeRef == nullptr ? std::chrono::system_clock::now() : *timeRef;
+    const auto now_seconds = std::chrono::time_point_cast<std::chrono::seconds>(now);
+    const std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    const auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(now - now_seconds).count();
+    std::tm local_tm = *std::localtime(&now_c);
+
+    // Get the time zone offset
+    std::time_t utc_time = std::time(nullptr);
+    std::tm utc_tm = *std::gmtime(&utc_time);
+    const double offset = std::difftime(std::mktime(&local_tm), std::mktime(&utc_tm)) / 3600.0;
+    const int hours_offset = static_cast<int>(offset);
+    const int minutes_offset = static_cast<int>((offset - hours_offset) * 60);
+
+    // Format the time
+    std::ostringstream oss;
+    oss << std::put_time(&local_tm, "%Y-%m-%dT%H:%M:%S") << "."
+        << std::setw(6) << std::setfill('0') << std::abs(microseconds)
+        << (hours_offset >= 0 ? "+" : "-")
+        << std::setw(2) << std::setfill('0') << std::abs(hours_offset) << ":"
+        << std::setw(2) << std::setfill('0') << std::abs(minutes_offset);
+    return oss.str();
+}
+
+
 bool
 StringUtils::startsWith(const std::string& str, const std::string prefix) {
     return str.compare(0, prefix.length(), prefix) == 0;

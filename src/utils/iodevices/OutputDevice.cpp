@@ -123,6 +123,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
 #endif
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
+    dev->myWriteMetadata = oc.exists("write-metadata") && oc.getBool("write-metadata");
     myOutputDevices[name] = dev;
     return *dev;
 }
@@ -251,7 +252,7 @@ OutputDevice::writeXMLHeader(const std::string& rootElement,
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
         attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, includeConfig);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, myWriteMetadata, includeConfig);
 }
 
 

@@ -232,7 +232,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate Version " VERSION_STRING);
+    oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate " VERSION_STRING);
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
