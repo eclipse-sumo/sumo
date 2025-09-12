@@ -207,7 +207,7 @@ NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& 
     OutputDevice& device = OutputDevice::getDevice(prefix + ".typ.xml");
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    device.writeXMLHeader("types", "types_file.xsd", attrs);
+    device.writeXMLHeader(toString(SUMO_TAG_TYPES), "types_file.xsd", attrs);
     std::set<std::string> usedTypes = ec.getUsedTypes();
     tc.writeEdgeTypes(device, usedTypes);
     device.close();

@@ -148,6 +148,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "split",                                  SUMO_TAG_SPLIT },
     { "node",                                   SUMO_TAG_NODE },
     { "type",                                   SUMO_TAG_TYPE },
+    { "types",                                  SUMO_TAG_TYPES },
     { "laneType",                               SUMO_TAG_LANETYPE },
     { "detectorDefinition",                     SUMO_TAG_DETECTOR_DEFINITION },
     { "routeDistribution",                      SUMO_TAG_ROUTE_DISTRIBUTION },

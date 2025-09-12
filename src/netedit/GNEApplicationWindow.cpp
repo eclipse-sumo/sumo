@@ -923,17 +923,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         // set file to load
         neteditOptions.resetWritable();
         neteditOptions.set("tls-file", TLSfileDialog.getFilename());
-        // Run parser
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("loading TLS Programs from '%'", TLSfileDialog.getFilename()));
-        myNet->computeNetwork(this);
-        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(TLSfileDialog.getFilename()) == false) {
-            // Abort undo/redo
-            myUndoList->abortAllChangeGroups();
-        } else {
-            // commit undo/redo operation
-            myUndoList->end();
-            update();
-        }
+        // load traffic lights
+        loadTrafficLights(false);
     }
     return 1;
 }
@@ -941,19 +932,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
-    // Run parser
-    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TL("loading TLS Programs from '") + neteditOptions.getString("tls-file") + "'");
-    myNet->computeNetwork(this);
-    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(neteditOptions.getString("tls-file")) == false) {
-        // Abort undo/redo
-        myUndoList->abortAllChangeGroups();
-    } else {
-        // commit undo/redo operation
-        myUndoList->end();
-        update();
-    }
+    // load traffic lights
+    loadTrafficLights(true);
     return 1;
 }
 
@@ -982,32 +962,8 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // set file to load
         neteditOptions.resetWritable();
         neteditOptions.set("edgetypes-file", edgeTypesFileDialog.getFilename());
-        // declare type container
-        NBTypeCont typeContainerAux;
-        // declare type handler
-        NIXMLTypesHandler handler(typeContainerAux);
         // load edge types
-        NITypeLoader::load(handler, {edgeTypesFileDialog.getFilename()}, "types");
-        // write information
-        WRITE_MESSAGE(TLF("Loaded edge types from '%'.", toString(typeContainerAux.size())));
-        // now create GNETypes based on typeContainerAux
-        myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TL("load edgeTypes"));
-        // iterate over typeContainerAux
-        for (const auto& auxEdgeType : typeContainerAux) {
-            // create new edge type
-            GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
-            // add lane types
-            for (const auto& laneType : auxEdgeType.second->laneTypeDefinitions) {
-                edgeType->addLaneType(new GNELaneType(edgeType, laneType));
-            }
-            // add it using undoList
-            myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
-
-        }
-        // end undo list
-        myViewNet->getUndoList()->end();
-        // refresh edge type selector
-        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+        loadEdgeTypes(false);
     }
     return 1;
 }
@@ -1015,32 +971,8 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
-    // declare type container
-    NBTypeCont typeContainerAux;
-    // declare type handler
-    NIXMLTypesHandler handler(typeContainerAux);
     // load edge types
-    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgetypes-file")}, "types");
-    // write information
-    WRITE_MESSAGE(TLF("Reloaded edge types from '%'.", toString(typeContainerAux.size())));
-    // now create GNETypes based on typeContainerAux
-    myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TL("load edgeTypes"));
-    // iterate over typeContainerAux
-    for (const auto& auxEdgeType : typeContainerAux) {
-        // create new edge type
-        GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
-        // add lane types
-        for (const auto& laneType : auxEdgeType.second->laneTypeDefinitions) {
-            edgeType->addLaneType(new GNELaneType(edgeType, laneType));
-        }
-        // add it using undoList
-        myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
-
-    }
-    // end undo list
-    myViewNet->getUndoList()->end();
-    // refresh edge type selector
-    myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    loadEdgeTypes(true);
     return 0;
 }
 
@@ -5026,6 +4958,73 @@ GNEApplicationWindow::loadMeanDataElements() {
         if (!myAllowUndoRedoLoading) {
             myUndoList->clear();
         }
+    }
+}
+
+
+void
+GNEApplicationWindow::loadTrafficLights(const bool reloading) {
+    // get TLS file
+    const auto tlsFile = OptionsCont::getOptions().getString("tls-file");
+    // check if file exist
+    if (tlsFile.size() > 0) {
+        // Run parser
+        if (reloading) {
+            WRITE_MESSAGE(TL("Reloading TLS programs"));
+            myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("reloading TLS Programs from '%'", tlsFile));
+        } else {
+            WRITE_MESSAGE(TLF("Loading TLS programs from '%'", tlsFile));
+            myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("loading TLS Programs from '%'", tlsFile));
+        }
+        myNet->computeNetwork(this);
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(tlsFile) == false) {
+            // Abort undo/redo
+            myUndoList->abortAllChangeGroups();
+        } else {
+            // commit undo/redo operation
+            myUndoList->end();
+            update();
+        }
+    }
+}
+
+
+void
+GNEApplicationWindow::loadEdgeTypes(const bool reloading) {
+    // get edgeType file
+    const auto edgeTypeFile = OptionsCont::getOptions().getString("edgetypes-file");
+    // check if file exist
+    if (edgeTypeFile.size() > 0) {
+        // declare type container
+        NBTypeCont typeContainerAux;
+        // declare type handler
+        NIXMLTypesHandler handler(typeContainerAux);
+        // load edge types
+        NITypeLoader::load(handler, {edgeTypeFile}, toString(SUMO_TAG_TYPES));
+        // now create GNETypes based on typeContainerAux
+        if (reloading) {
+            WRITE_MESSAGE(TL("Reloading edge types"));
+            myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TLF("loading edge types from '%'", edgeTypeFile));
+        } else {
+            WRITE_MESSAGE(TLF("Loading edge types from '%'", edgeTypeFile));
+            myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TLF("reloading edge types from '%'", edgeTypeFile));
+        }
+        // iterate over typeContainerAux
+        for (const auto& auxEdgeType : typeContainerAux) {
+            // create new edge type
+            GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
+            // add lane types
+            for (const auto& laneType : auxEdgeType.second->laneTypeDefinitions) {
+                edgeType->addLaneType(new GNELaneType(edgeType, laneType));
+            }
+            // add it using undoList
+            myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
+
+        }
+        // end undo list
+        myViewNet->getUndoList()->end();
+        // refresh edge type selector
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
 }
 

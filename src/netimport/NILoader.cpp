@@ -79,9 +79,9 @@ NILoader::load(OptionsCont& oc) {
         if (oc.isSet("opendrive-files")) {
             files.push_back(opendriveTypemap);
         }
-        ok &= NITypeLoader::load(handler, files, "types", true);
+        ok &= NITypeLoader::load(handler, files, toString(SUMO_TAG_TYPES), true);
     } else {
-        ok &= NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+        ok &= NITypeLoader::load(handler, oc.getStringVector("type-files"), toString(SUMO_TAG_TYPES));
     }
     // try to load height data so it is ready for use by other importers
     NBHeightMapper::loadIfSet(oc);

@@ -2881,7 +2881,7 @@ GNENet::saveEdgeTypes(const std::string& filename) {
     // open device
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open tag
-    device.openTag(SUMO_TAG_TYPE);
+    device.openTag(SUMO_TAG_TYPES);
     // write edge types
     myNetBuilder->getTypeCont().writeEdgeTypes(device);
     // close tag

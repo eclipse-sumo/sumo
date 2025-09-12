@@ -646,6 +646,12 @@ public:
     /// @brief load meanData elements
     void loadMeanDataElements();
 
+    /// @brief load traffic lights
+    void loadTrafficLights(const bool reloading);
+
+    /// @brief load meanData elements
+    void loadEdgeTypes(const bool reloading);
+
     /// @name functions related with test system
     /// @{
 

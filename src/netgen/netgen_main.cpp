@@ -257,7 +257,7 @@ main(int argc, char** argv) {
         nb.applyOptions(oc);
         if (oc.isSet("type-files")) {
             NIXMLTypesHandler handler(nb.getTypeCont());
-            NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+            NITypeLoader::load(handler, oc.getStringVector("type-files"), toString(SUMO_TAG_TYPES));
         }
         // build the netgen-network description
         NGNet* net = buildNetwork(nb);
