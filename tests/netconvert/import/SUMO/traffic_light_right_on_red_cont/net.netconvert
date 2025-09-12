@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-12T11:55:24.637956+01:00 by Eclipse SUMO netconvert v1_24_0+0775-e5cacd7995f
+<!-- generated on 2025-09-12T13:15:28.391485+01:00 by Eclipse SUMO netconvert v1_24_0+0777-0db499636ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -92,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="C" type="traffic_light_right_on_red" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 SC_1" intLanes=":C_0_0 :C_4_0 :C_2_0 :C_2_1" shape="100.00,107.90 106.40,107.90 106.73,105.84 107.15,105.12 107.73,104.61 108.48,104.30 109.40,104.20 109.40,100.00 107.73,99.67 107.15,99.25 106.73,98.67 106.48,97.92 106.40,97.00 100.00,97.00 99.83,100.44 99.62,101.65 99.33,102.51 98.96,103.03 98.50,103.20 98.50,106.40 99.33,106.57 99.62,106.77 99.83,107.07 99.96,107.44">
         <request index="0" response="1100" foes="1110" cont="0"/>
         <request index="1" response="1101" foes="1101" cont="1"/>
-        <request index="2" response="0000" foes="0011" cont="0"/>
-        <request index="3" response="0000" foes="0011" cont="0"/>
+        <request index="2" response="0010" foes="0011" cont="0"/>
+        <request index="3" response="0010" foes="0011" cont="0"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="" intLanes="" shape="200.00,100.00 200.00,104.20"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes="" shape="106.40,200.00 100.00,200.00"/>
