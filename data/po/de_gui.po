@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-11 12:01+0000\n"
+"PO-Revision-Date: 2025-09-13 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10102,7 +10102,7 @@ msgstr "Abbrechen"
 
 #: src/netedit/dialogs/GNEDialog.cpp:347
 msgid "Don't Save"
-msgstr ""
+msgstr "Nicht speichern"
 
 #: src/netedit/dialogs/GNEDialog.cpp:360 src/netedit/dialogs/GNEDialog.cpp:369
 #: src/netedit/dialogs/GNEDialog.cpp:382
@@ -10162,7 +10162,7 @@ msgstr "Zurücksetzen auf vorherige Werte"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:34
 msgid "Parameters of %"
-msgstr ""
+msgstr "Parameter von %"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:45
 msgid "Attribute"
