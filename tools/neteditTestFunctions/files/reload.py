@@ -105,6 +105,20 @@ def reloadFile(referencePosition, type: str, multiple: bool):
         for _ in range(attrs.toolbar.file.neteditConfig.reload):
             typeKey('down')
         typeKey('space')
+    elif (type == "trafficLights"):
+        for _ in range(attrs.toolbar.file.trafficLights.menu):
+            typeKey('down')
+        typeKey('space')
+        for _ in range(attrs.toolbar.file.trafficLights.reload):
+            typeKey('down')
+        typeKey('space')
+    elif (type == "edgeTypes"):
+        for _ in range(attrs.toolbar.file.edgeTypes.menu):
+            typeKey('down')
+        typeKey('space')
+        for _ in range(attrs.toolbar.file.edgeTypes.reload):
+            typeKey('down')
+        typeKey('space')
     elif (type == "additional"):
         for _ in range(attrs.toolbar.file.aditionalElements.menu):
             typeKey('down')

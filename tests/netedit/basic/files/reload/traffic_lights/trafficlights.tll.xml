@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 13:28:21 by Eclipse SUMO netedit Version v1_24_0+0749-0e520f68dcb
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="J4" type="static" programID="1" offset="5">
+        <phase duration="50" state="GGGGGGGGGGGrrrrrGGGr"/>
+        <phase duration="3"  state="GGGGGGGGyyGrrrrryyGr"/>
+        <phase duration="60" state="GGGGGGGGrrGGGrGrrrGG"/>
+        <phase duration="3"  state="GGyGGGyGrryyGrGrrryy"/>
+        <phase duration="70" state="GGrGGGrGGrrrGGGGGrrr"/>
+        <phase duration="3"  state="GGrGGGrGGrrryyyyGrrr"/>
+    </tlLogic>
+    <tlLogic id="Junction0" type="static" programID="1" offset="1">
+        <phase duration="80" state="GG"/>
+    </tlLogic>
+    <tlLogic id="Junction1" type="static" programID="1" offset="2">
+        <phase duration="70" state="GG"/>
+    </tlLogic>
+    <tlLogic id="Junction2" type="static" programID="1" offset="3">
+        <phase duration="60" state="GG"/>
+    </tlLogic>
+    <tlLogic id="Junction3" type="static" programID="1" offset="4">
+        <phase duration="50" state="GG"/>
+    </tlLogic>
+
+    <connection from="-E0" to="Edge3" fromLane="0" toLane="0" tl="Junction3" linkIndex="1"/>
+    <connection from="-E1" to="-E4" fromLane="0" toLane="0" tl="J4" linkIndex="1"/>
+    <connection from="-E2" to="E6" fromLane="0" toLane="0" tl="J4" linkIndex="18"/>
+    <connection from="-E2" to="-E2.20" fromLane="0" toLane="0" tl="J4" linkIndex="19"/>
+    <connection from="-E2.20" to="E3" fromLane="0" toLane="0" tl="J4" linkIndex="5"/>
+    <connection from="-E3" to="E2" fromLane="0" toLane="0" tl="J4" linkIndex="4"/>
+    <connection from="-E4" to="-E40" fromLane="0" toLane="0" tl="J4" linkIndex="12"/>
+    <connection from="-E4" to="-E5" fromLane="0" toLane="0" tl="J4" linkIndex="13"/>
+    <connection from="-E40" to="-E3" fromLane="0" toLane="0" tl="J4" linkIndex="7"/>
+    <connection from="-E6" to="-E2.20" fromLane="0" toLane="0" tl="J4" linkIndex="16"/>
+    <connection from="-E6" to="E20" fromLane="0" toLane="0" tl="J4" linkIndex="17"/>
+    <connection from="-Edge0" to="-E0" fromLane="0" toLane="0" tl="Junction0" linkIndex="1"/>
+    <connection from="-Edge3" to="E0" fromLane="0" toLane="0" tl="Junction3" linkIndex="0"/>
+    <connection from="E0" to="Edge0" fromLane="0" toLane="0" tl="Junction0" linkIndex="0"/>
+    <connection from="E1" to="-E2" fromLane="0" toLane="0" tl="J4" linkIndex="2"/>
+    <connection from="E2" to="E20" fromLane="0" toLane="0" tl="J4" linkIndex="14"/>
+    <connection from="E2" to="E6" fromLane="0" toLane="0" tl="J4" linkIndex="15"/>
+    <connection from="E20" to="-E1" fromLane="0" toLane="0" tl="J4" linkIndex="3"/>
+    <connection from="E3" to="E4" fromLane="0" toLane="0" tl="J4" linkIndex="6"/>
+    <connection from="E4" to="-E5" fromLane="0" toLane="0" tl="J4" linkIndex="10"/>
+    <connection from="E4" to="E4.20" fromLane="0" toLane="0" tl="J4" linkIndex="11"/>
+    <connection from="E4.20" to="E1" fromLane="0" toLane="0" tl="J4" linkIndex="0"/>
+    <connection from="E5" to="E4.20" fromLane="0" toLane="0" tl="J4" linkIndex="8"/>
+    <connection from="E5" to="-E40" fromLane="0" toLane="0" tl="J4" linkIndex="9"/>
+    <connection from="Edge0.35" to="Edge1" fromLane="0" toLane="0" tl="Junction1" linkIndex="1"/>
+    <connection from="Edge1" to="Edge2" fromLane="0" toLane="0" tl="Junction2" linkIndex="0"/>
+    <connection from="Edge3.35" to="Edge4" fromLane="0" toLane="0" tl="Junction2" linkIndex="1"/>
+    <connection from="Edge4" to="Edge5" fromLane="0" toLane="0" tl="Junction1" linkIndex="0"/>
+</tlLogics>
