@@ -13,7 +13,10 @@ plain_tll_offset_begin
 unregulated
 
 # test node type "traffic_light_right_on_red"
-right_on_red
+right_on_red_default
+
+# test node type "traffic_light_right_on_red"
+right_on_red_cont
 
 # test node type "traffic_light_right_on_red" with one lane in each direction
 right_on_red_1lane
