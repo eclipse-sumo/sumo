@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-11 14:21+0000\n"
+"PO-Revision-Date: 2025-09-13 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4286,15 +4286,15 @@ msgstr "Keine Kante von Fahrzeug '%' zur Zeit % in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:368
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "Verdoppelte Person '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:381
 msgid "Could not add route '%'."
-msgstr ""
+msgstr "Die Route '%' konnte nicht hinzugefügt werden."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:390
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "Verdoppeltes Fahrzeug '%'."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -5493,6 +5493,8 @@ msgid ""
 "Error when evaluating expression '%':\n"
 "  %"
 msgstr ""
+"Fehler bei der Auswertung des Ausdrucks '%':\n"
+"  %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1232
 msgid "Invalid empty condition '%'"
@@ -5504,7 +5506,7 @@ msgstr "Nicht unterstützter Zustand '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1279
 msgid "Parsing expressions with % elements ('%') is not supported"
-msgstr ""
+msgstr "Ausdrücke mit % Elementen ('%') zu analysieren wird nicht unterstützt"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1310
 msgid "Division by 0 in condition '%'"
@@ -5512,15 +5514,15 @@ msgstr "Division durch 0 in Zustand '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1319
 msgid "Unsupported operator '%' in condition '%'"
-msgstr ""
+msgstr "Nicht unterstützter Operator '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1328
 msgid "Function '%' requires % arguments but % were given"
-msgstr ""
+msgstr "Die Funktion '%' verlangt % Argumente, aber es wurden % übergeben"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1343
 msgid "Error when evaluating function '%' with args '%' (%)"
-msgstr ""
+msgstr "Fehler bei der Auswertung von Funktion '%' mit den Argumenten '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1361
 #, c-format
@@ -5533,11 +5535,11 @@ msgstr "Ungültiger leerer Ausdruck"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1438
 msgid "Invalid link index '%' in expression '%'"
-msgstr ""
+msgstr "Ungültiger Verbindungsindex '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1443
 msgid "Unsupported function '%' in expression '%'"
-msgstr ""
+msgstr "Nicht unterstützte Funktion '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1487
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -5545,12 +5547,14 @@ msgstr "Fehler beim Abrufen der Bedingungen '%' für LSA-Logik '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1502
 msgid "Unknown condition '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Unbekannte Bedingung '%' für die verkehrsabhängige LSA '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1533
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1550
 msgid "Invalid lane '%' in key '%' for actuated traffic light '%'"
 msgstr ""
+"Ungültiger Fahrstreifen '%' im Schlüssel '%' für die verkehrsabhängige LSA "
+"'%'"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -12059,6 +12063,8 @@ msgstr ""
 #: src/router/ROFrame.cpp:163
 msgid "Backtrack on route if the detour is longer than the gap by FACTOR"
 msgstr ""
+"Entlang der Route zurückverfolgen, falls der Umweg den Abstand um den FAKTOR "
+"übersteigt"
 
 #: src/router/ROFrame.cpp:175
 msgid "Aggregate routing queries with the same origin"
@@ -13045,7 +13051,7 @@ msgstr ""
 #: src/utils/foxtools/MFXUtils.cpp:46
 #, c-format
 msgid "Overwrite '%s'?"
-msgstr ""
+msgstr "'%s' überschreiben?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
