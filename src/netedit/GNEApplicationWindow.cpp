@@ -3729,6 +3729,8 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
         // change value of "tls-file"
         neteditOptions.resetWritable();
         neteditOptions.set("tls-file", TLSfileDialog.getFilename());
+        // enable save netedit config
+        myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet
         myViewNet->setFocus();
         // save TLS Programs
@@ -3753,6 +3755,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
         // change value of "edgetypes-file"
         neteditOptions.resetWritable();
         neteditOptions.set("edgetypes-file", edgeTypeFileDialog.getFilename());
+        // enable save netedit config
+        myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet
         myViewNet->setFocus();
         // save edgeTypes
