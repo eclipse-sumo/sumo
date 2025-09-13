@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-08-05 08:51+0000\n"
+"PO-Revision-Date: 2025-09-13 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -871,7 +871,7 @@ msgstr "L'arco '%' dichiarato come scarico è sconosciuto."
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
 msgid "The from-edge '%' in flow '%' is not known."
-msgstr ""
+msgstr "L'arco iniziale '%' nel flusso '%' è sconosciuto."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -1356,7 +1356,7 @@ msgstr "Il veicolo '%' non tiene un itinerario valido. %"
 #: src/mesosim/METriggeredCalibrator.cpp:84
 #, c-format
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
-msgstr ""
+msgstr "L'emissione del veicolo '%' dal calibrator '%' è fallita!"
 
 #: src/mesosim/METriggeredCalibrator.cpp:130
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -3291,7 +3291,7 @@ msgstr "Metodo non supportato"
 #: src/microsim/MSLink.cpp:252
 #, c-format
 msgid "Internal lane '%' has % predecessors"
-msgstr ""
+msgstr "La corsia interna '%' tiene % predecessori"
 
 #: src/microsim/MSNet.cpp:190 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
@@ -3375,10 +3375,11 @@ msgstr "Il caricamento dello stato da '%' è fallito."
 #: src/microsim/MSParkingArea.cpp:86
 msgid "Only a numerical departPos is supported for % '%'"
 msgstr ""
+"Solamente valori numerici sono supportati per l'attributo departPos di % '%'"
 
 #: src/microsim/MSParkingArea.cpp:88
 msgid "Invalid departPos for % '%'"
-msgstr ""
+msgstr "Valore invalido per departPos di % '%'"
 
 #: src/microsim/MSRightOfWayJunction.cpp:91
 msgid ""
