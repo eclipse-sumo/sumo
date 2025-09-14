@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="r_0" edges="E10 E11" name="new"/>
-    <route id="r_1" edges="-E7 -E6" name="new"/>
-    <route id="r_2" edges="-E2 -E8" name="new"/>
-    <route id="r_4" edges="-E5 -E4" name="new"/>
+    <route id="r_0" edges="E10 E11"/>
+    <route id="r_1" edges="-E7 -E6"/>
+    <route id="r_2" edges="-E2 -E8"/>
+    <route id="r_4" edges="-E5 -E4"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="t_0" depart="0.00" from="-E11" to="-E10" name="new"/>
-    <trip id="t_1" depart="0.00" fromJunction="J3" toJunction="J4" name="new"/>
-    <trip id="t_2" depart="0.00" fromTaz="taz_3" toTaz="taz_2" name="new"/>
-    <vehicle id="v_0" depart="0.00" route="r_4" name="new"/>
+    <trip id="t_0" depart="0.00" from="-E11" to="-E10"/>
+    <trip id="t_1" depart="0.00" fromJunction="J3" toJunction="J4"/>
+    <trip id="t_2" depart="0.00" fromTaz="taz_3" toTaz="taz_2"/>
+    <vehicle id="v_0" depart="0.00" route="r_4"/>
 </routes>
