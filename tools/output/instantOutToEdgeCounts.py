@@ -87,7 +87,7 @@ def main(options):
     with sumolib.openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edgeData", options=options, rootAttrs=None)
 
-        edgeCounts = defaultdict(lambda : 0)
+        edgeCounts = defaultdict(lambda: 0)
 
         for event in sumolib.xml.parse_fast(options.detdata, 'instantOut', ['id', 'time', 'state']):
             if event.state == options.eType:

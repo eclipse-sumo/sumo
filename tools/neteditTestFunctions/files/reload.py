@@ -18,11 +18,11 @@
 # imports
 import time
 import pyautogui
-from ..constants import DELAY_RELOAD, TEXTTEST_SANDBOX
+from ..constants import DELAY_RELOAD
 from ..enums.attributesEnum import attrs
 from ..enums.viewPositions import positions
-from ..general.functions import typeTwoKeys, waitQuestion
-from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
+from ..general.functions import waitQuestion
+from ..input.keyboard import typeKey, typeTwoKeys
 from ..input.mouse import moveMouse
 
 
