@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-13 12:02+0000\n"
+"PO-Revision-Date: 2025-09-14 17:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -13046,7 +13046,7 @@ msgstr "Zum Suchen tippen..."
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 msgid "File Exists"
-msgstr ""
+msgstr "Die Datei existiert"
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 #, c-format
@@ -14294,7 +14294,7 @@ msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1877
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1888
 msgid "XML files"
-msgstr ""
+msgstr "XML-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1738
@@ -14317,83 +14317,83 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1883
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1889
 msgid "All files"
-msgstr ""
+msgstr "Alle Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text files"
-msgstr ""
+msgstr "Textdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "CSV files"
-msgstr ""
+msgstr "CSV-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "Open scene graph files"
-msgstr ""
+msgstr "OpenSceneGraph-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
 msgid "All Image Files"
-msgstr ""
+msgstr "Alle Bilddateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
 msgid "GIF Image"
-msgstr ""
+msgstr "GIF-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
 msgid "BMP Image"
-msgstr ""
+msgstr "BMP-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
 msgid "XPM Image"
-msgstr ""
+msgstr "XPM-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
 msgid "PCX Image"
-msgstr ""
+msgstr "PCX-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "ICO Image"
-msgstr ""
+msgstr "ICO-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
 msgid "RGB Image"
-msgstr ""
+msgstr "RGB-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1785
 msgid "XBM Image"
-msgstr ""
+msgstr "XBM-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
 msgid "TARGA Image"
-msgstr ""
+msgstr "TARGA-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
 msgid "PNG Image"
-msgstr ""
+msgstr "PNG-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
 msgid "JPEG Image"
-msgstr ""
+msgstr "JPEG-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "TIFF Image"
-msgstr ""
+msgstr "TIFF-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
 msgid "Postscript"
-msgstr ""
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
