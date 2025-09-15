@@ -391,6 +391,12 @@ private:
     /// @brief process reload file function
     void reloadFile();
 
+    /// @brief process select edge type function
+    void selectEdgeType();
+
+    /// @brief process create new edge type function
+    void createNewEdgeType();
+
     /// @brief process overwriting accept function
     void overwritingAccept();
 

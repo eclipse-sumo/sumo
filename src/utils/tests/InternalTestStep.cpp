@@ -315,6 +315,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         saveFileAs();
     } else if (function == "reloadFile") {
         reloadFile();
+    } else if (function == "selectEdgeType") {
+        selectEdgeType();
+    } else if (function == "createNewEdgeType") {
+        createNewEdgeType();
     } else if (function == "overwritingAccept") {
         overwritingAccept();
     } else if (function == "overwritingCancel") {
@@ -1645,6 +1649,10 @@ InternalTestStep::loadFile() {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE;
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK;
+        } else if (type == "trafficLights") {
+            myMessageID = MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS;
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES;
         } else if (type == "additional") {
             myMessageID = MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS;
         } else if (type == "demand") {
@@ -1696,6 +1704,12 @@ InternalTestStep::saveNewFile() {
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
             file = "net2.net.xml";
+        } else if (type == "trafficLights") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
+            file = "trafficlights2.tll.xml";
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
+            file = "edgetypes2.typ.xml";
         } else if (type == "additional") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
             file = "additionals2.add.xml";
@@ -1745,6 +1759,12 @@ InternalTestStep::saveFileAs() {
         } else if (type == "network") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVENETWORK_AS;
             file = "net3.net.xml";
+        } else if (type == "trafficLights") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS;
+            file = "trafficlights3.tll.xml";
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS;
+            file = "edgetypes3.typ.xml";
         } else if (type == "additional") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED;
             file = "additionals3.add.xml";
@@ -1787,6 +1807,10 @@ InternalTestStep::reloadFile() {
             myMessageID = MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG;
         } else if (type == "network") {
             myMessageID = MID_GNE_TOOLBARFILE_RELOADNETWORK;
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES;
+        } else if (type == "trafficLights") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS;
         } else if (type == "additional") {
             myMessageID = MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS;
         } else if (type == "demand") {
@@ -1796,8 +1820,46 @@ InternalTestStep::reloadFile() {
         } else if (type == "meanData") {
             myMessageID = MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS;
         } else {
-            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+            WRITE_ERRORF("Invalid type '%' used in function reloadFile", type);
         }
+    }
+}
+
+
+void
+InternalTestStep::selectEdgeType() {
+    if (myArguments.size() != 0) {
+        writeError("selectEdgeType", 0, "<>");
+    } else {
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus edge frame");
+        // got to type
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.select"); i++) {
+            buildPressKeyEvent(Category::APP, "tab", false);
+        }
+        // select edge type
+        buildPressKeyEvent(Category::APP, "space", true);
+    }
+}
+
+
+void
+InternalTestStep::createNewEdgeType() {
+    if (myArguments.size() != 1 && checkBoolArgument(myArguments[0])) {
+        writeError("createNewEdgeType", 0, "<bool>");
+    } else {
+        const auto existent = getBoolArgument(myArguments[0]);
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus edge frame");
+        if (existent) {
+            for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.createExistent"); i++) {
+                buildPressKeyEvent(Category::APP, "tab", false);
+            }
+        } else {
+            for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.createNew"); i++) {
+                buildPressKeyEvent(Category::APP, "tab", false);
+            }
+        }
+        // select edge type
+        buildPressKeyEvent(Category::APP, "space", true);
     }
 }
 
