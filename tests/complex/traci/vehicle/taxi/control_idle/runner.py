@@ -69,6 +69,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
         controlIdle = True
         traci.vehicle.changeTarget(taxi, "D2D1")
         traci.vehicle.resume(taxi)
-        traci.vehicle.setStop(taxi, "D2D1", pos="50", duration=-1, flags=traci.constants.STOP_TRIGGERED)
+        traci.vehicle.setStop(taxi, "D2D1", pos=50, duration=-1, flags=traci.constants.STOP_TRIGGERED)
 
 traci.close()
