@@ -2,6 +2,6 @@
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:include schemaLocation="types/base.xsd"/>
-    <xsd:include schemaLocation="types/duarouterConfigurationType.xsd"/>
-    <xsd:element name="duarouterConfiguration" type="duarouterConfigurationType"/>
+    <xsd:include schemaLocation="types/emissionsMapConfigurationType.xsd"/>
+    <xsd:element name="emissionsMapConfiguration" type="emissionsMapConfigurationType"/>
 </xsd:schema>

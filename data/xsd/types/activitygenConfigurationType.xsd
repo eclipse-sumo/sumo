@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-15T13:31:26.839798+01:00 by Eclipse SUMO activitygen v1_24_0+0791-bfa764d4c7b
+-->
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="activitygenConfigurationType">
+        <xsd:all>
+            <xsd:element name="input" type="activitygeninputTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="activitygenoutputTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="activitygenprocessingTopicType" minOccurs="0"/>
+            <xsd:element name="time" type="activitygentimeTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="activitygenreportTopicType" minOccurs="0"/>
+            <xsd:element name="random_number" type="activitygenrandom_numberTopicType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygeninputTopicType">
+        <xsd:all>
+            <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="stat-file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygenoutputTopicType">
+        <xsd:all>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygenprocessingTopicType">
+        <xsd:all>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygentimeTopicType">
+        <xsd:all>
+            <xsd:element name="begin" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="end" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="duration-d" type="intOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygenreportTopicType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="debug" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="activitygenrandom_numberTopicType">
+        <xsd:all>
+            <xsd:element name="random" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="seed" type="intOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

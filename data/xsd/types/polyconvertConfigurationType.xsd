@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-15T13:31:29.254203+01:00 by Eclipse SUMO polyconvert v1_24_0+0791-bfa764d4c7b
+-->
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="polyconvertConfigurationType">
+        <xsd:all>
+            <xsd:element name="input" type="polyconvertinputTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="polyconvertoutputTopicType" minOccurs="0"/>
+            <xsd:element name="projection" type="polyconvertprojectionTopicType" minOccurs="0"/>
+            <xsd:element name="pruning" type="polyconvertpruningTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="polyconvertprocessingTopicType" minOccurs="0"/>
+            <xsd:element name="building_defaults" type="polyconvertbuilding_defaultsTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="polyconvertreportTopicType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertinputTopicType">
+        <xsd:all>
+            <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-poly-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-poi-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="visum-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="visum.language-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="xml-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="osm-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="osm.keep-full-type" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.use-name" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.merge-relations" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geojson-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.id-column" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.type-columns" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.use-running-id" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.add-param" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.fill" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="type-file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertoutputTopicType">
+        <xsd:all>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-tdp-output" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertprojectionTopicType">
+        <xsd:all>
+            <xsd:element name="simple-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.scale" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="proj.rotate" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="proj.utm" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="proj.inverse" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdnutm" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.plain-geo" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertpruningTopicType">
+        <xsd:all>
+            <xsd:element name="prune.in-net" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="prune.in-net.offsets" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.boundary" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.keep-list" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.explicit" type="strArrayOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertprocessingTopicType">
+        <xsd:all>
+            <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="offset.z" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="all-attributes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="poi-layer-offset" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="flatten" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertbuilding_defaultsTopicType">
+        <xsd:all>
+            <xsd:element name="color" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="fill" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="icon" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="layer" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="discard" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="polyconvertreportTopicType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

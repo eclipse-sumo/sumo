@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-15T13:31:29.116611+01:00 by Eclipse SUMO od2trips v1_24_0+0791-bfa764d4c7b
+-->
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="od2tripsConfigurationType">
+        <xsd:all>
+            <xsd:element name="input" type="od2tripsinputTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="od2tripsoutputTopicType" minOccurs="0"/>
+            <xsd:element name="time" type="od2tripstimeTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="od2tripsprocessingTopicType" minOccurs="0"/>
+            <xsd:element name="defaults" type="od2tripsdefaultsTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="od2tripsreportTopicType" minOccurs="0"/>
+            <xsd:element name="random_number" type="od2tripsrandom_numberTopicType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsinputTopicType">
+        <xsd:all>
+            <xsd:element name="taz-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-attribute" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsoutputTopicType">
+        <xsd:all>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="flow-output.probability" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrians" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="persontrips" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="persontrips.modes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripstimeTopicType">
+        <xsd:all>
+            <xsd:element name="begin" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="end" type="timeOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsprocessingTopicType">
+        <xsd:all>
+            <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="spread.uniform" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="different-source-sink" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="timeline" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsdefaultsTopicType">
+        <xsd:all>
+            <xsd:element name="departlane" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="departpos" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="departspeed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivallane" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivalpos" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivalspeed" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsreportTopicType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="od2tripsrandom_numberTopicType">
+        <xsd:all>
+            <xsd:element name="random" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="seed" type="intOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

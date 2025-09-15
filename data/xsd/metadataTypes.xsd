@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:simpleType name="metadataType">
-        <xsd:restriction base="xsd:string"/>
-    </xsd:simpleType>
-</xsd:schema>

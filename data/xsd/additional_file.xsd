@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="metadataTypes.xsd"/>
-    <xsd:include schemaLocation="routeTypes.xsd"/>
-    <xsd:include schemaLocation="tazTypes.xsd"/>
+    <xsd:include schemaLocation="types/metadata.xsd"/>
+    <xsd:include schemaLocation="types/route.xsd"/>
+    <xsd:include schemaLocation="types/taz.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
     <xsd:element name="rerouterValue" type="rerouterValuesType"/>
@@ -708,7 +708,7 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <!-- differs from baseTypes.xsd/tlLogicType in 'type' being optional here -->
+    <!-- differs from types/base.xsd/tlLogicType in 'type' being optional here -->
     <xsd:complexType name="tlLogicAdditionalType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="phase" type="phaseType"/>
