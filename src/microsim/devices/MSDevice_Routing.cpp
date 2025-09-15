@@ -68,6 +68,12 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
     oc.addDescription("device.rerouting.adaptation-interval", "Routing", TL("The interval for updating the edge weights"));
 
+    oc.doRegister("device.rerouting.threshold.factor", new Option_Float(1));
+    oc.addDescription("device.rerouting.threshold.factor", "Routing", TL("Only reroute if the new route is faster than the current route by the given factor"));
+
+    oc.doRegister("device.rerouting.threshold.constant", new Option_String("0", "TIME"));
+    oc.addDescription("device.rerouting.threshold.constant", "Routing", TL("Only reroute if the new route is faster than the current route by the given TIME"));
+
     oc.doRegister("device.rerouting.with-taz", new Option_Bool(false));
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
     oc.addSynonyme("device.rerouting.with-taz", "with-taz");
@@ -165,6 +171,8 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
     myRerouteRailSignal(holder.getBoolParam("device.rerouting.railsignal", true)),
     myLastLaneEntryTime(-1),
     myRerouteAfterStop(false),
+    myThresholdFactor(holder.getFloatParam("device.rerouting.threshold.factor", true, 1)),
+    myThresholdTime(STEPS2TIME(holder.getTimeParam("device.rerouting.threshold.constant", true, 0))),
     myActive(true) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
@@ -297,6 +305,15 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     }
     myLastRouting = currentTime;
     MSRoutingEngine::reroute(myHolder, currentTime, "device.rerouting", onInit);
+}
+
+
+bool
+MSDevice_Routing::sufficientSaving(double oldCost, double newCost) {
+    if (newCost == 0) {
+        return true;
+    }
+    return (oldCost / newCost > myThresholdFactor) && (oldCost - newCost > myThresholdTime);
 }
 
 

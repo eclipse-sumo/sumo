@@ -483,12 +483,27 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     const double routeCost = router.recomputeCosts(edges, this, t);
     const double previousCost = onInit ? routeCost : router.recomputeCosts(oldEdgesRemaining, this, t);
     const double savings = previousCost - routeCost;
+    bool savingsOk = onInit || info != "device.rerouting" || gWeightsRandomFactor != 1;
+    if (!savingsOk) {
+        MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(getDevice(typeid(MSDevice_Routing)));
+        assert(routingDevice != 0);
+        savingsOk = routingDevice->sufficientSaving(previousCost, routeCost);
+        if (!savingsOk) {
+            std::string dummyMsg;
+            if (!hasValidRoute(dummyMsg, oldEdgesRemaining.begin(), oldEdgesRemaining.end(), true)) {
+                // the old route is prohibted (i.e. due to temporary permission changes)
+                savingsOk = true;
+            }
+        }
+    }
     //if (getID() == "43") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
     //    << " onInit=" << onInit
     //        << " prevEdges=" << toString(oldEdgesRemaining)
     //        << " newEdges=" << toString(edges)
     //        << "\n";
-    replaceRouteEdges(edges, routeCost, savings, info, onInit);
+    if (savingsOk) {
+        replaceRouteEdges(edges, routeCost, savings, info, onInit);
+    }
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
