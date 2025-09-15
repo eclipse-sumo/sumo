@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "additional", "additionals2.add.xml")
+netedit.loadFile(referencePosition, "additional", "additionals2.add.xml", 0)
 
 # accept overwritting
 netedit.overwritingAccept()

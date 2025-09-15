@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "demand", "routes2.rou.xml")
+netedit.loadFile(referencePosition, "demand", "routes2.rou.xml", 0)
 
 # toggle all
 netedit.overwritingApplyToAll()

@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "trafficLights", "trafficlights.tll.xml")
+netedit.loadFile(referencePosition, "trafficLights", "trafficlights.tll.xml", 0)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

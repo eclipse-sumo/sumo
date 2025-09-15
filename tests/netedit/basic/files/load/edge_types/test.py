@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "edgeTypes", "edgetypes.typ.xml")
+netedit.loadFile(referencePosition, "edgeTypes", "edgetypes.typ.xml", 0)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
