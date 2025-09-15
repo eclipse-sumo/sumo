@@ -92,13 +92,14 @@ class ConfigReader(handler.ContentHandler):
 if __name__ == "__main__":
     homeDir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     if len(sys.argv) == 1:
-        for app in ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
-                    "od2trips", "polyconvert", "netgenerate", "netconvert",
-                    "sumo", "netedit"):
+        for app in ("activitygen", "dfrouter", "duarouter",
+                    "emissionsDrivingCycle", "emissionsMap", "jtrrouter", "marouter",
+                    "netconvert", "netedit", "netgenerate", "od2trips", "polyconvert", "sumo"):
             cfg = subprocess.check_output([app, "--save-template", "stdout"], universal_newlines=True)
             docs = os.path.join(homeDir, "docs", "web", "docs", app + ".md")
-            parseString(cfg, ConfigReader(open(docs).readlines(), docs))
-            schemaFile = os.path.join(homeDir, "data", "xsd", app + "Configuration.xsd")
+            if os.path.exists(docs):
+                parseString(cfg, ConfigReader(open(docs).readlines(), docs))
+            schemaFile = os.path.join(homeDir, "data", "xsd", "types", app + "ConfigurationType.xsd")
             subprocess.check_call([app, "--save-schema", schemaFile])
             try:
                 diffStat = subprocess.check_output(

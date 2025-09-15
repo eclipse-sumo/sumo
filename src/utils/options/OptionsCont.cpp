@@ -976,9 +976,7 @@ void
 OptionsCont::writeSchema(std::ostream& os) {
     const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
     writeXMLHeader(os, false);
-    os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
-    os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
-    os << "    <xsd:element name=\"" << app << "Configuration\" type=\"" << app << "ConfigurationType\"/>\n\n";
+    os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n";
     os << "    <xsd:complexType name=\"" << app << "ConfigurationType\">\n";
     os << "        <xsd:all>\n";
     for (std::string subtopic : mySubTopics) {
@@ -987,7 +985,7 @@ OptionsCont::writeSchema(std::ostream& os) {
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         subtopic = StringUtils::to_lower_case(subtopic);
-        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "TopicType\" minOccurs=\"0\"/>\n";
+        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << app << subtopic << "TopicType\" minOccurs=\"0\"/>\n";
     }
     os << "        </xsd:all>\n";
     os << "    </xsd:complexType>\n\n";
@@ -998,7 +996,7 @@ OptionsCont::writeSchema(std::ostream& os) {
         const std::vector<std::string>& entries = mySubTopicEntries.find(subtopic)->second;
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         subtopic = StringUtils::to_lower_case(subtopic);
-        os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
+        os << "    <xsd:complexType name=\"" << app << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         for (const auto& entry : entries) {
             Option* o = getSecure(entry);
