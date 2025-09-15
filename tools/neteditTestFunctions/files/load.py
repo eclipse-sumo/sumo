@@ -24,7 +24,7 @@ from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
 from ..input.mouse import moveMouse
 
 
-def loadFile(referencePosition, type: str, file: str, extension: int):
+def loadFile(referencePosition, type: str, file: str, extension: str, extensionIndex: int):
     """
     @brief load file config using dialog
     """
@@ -67,11 +67,11 @@ def loadFile(referencePosition, type: str, file: str, extension: int):
     typeKey('enter')
     # set extension
     typeKey('tab')
-    for _ in range(0, extension):
+    for _ in range(0, extensionIndex):
         typeKey('down')
     typeTwoKeys('shift', 'tab')
     # set file
-    updateText(file)
+    updateText(file + "." + extension)
     typeKey('enter')
     # wait for load
     time.sleep(2)

@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "network", "net2.net.xml", 0)
+netedit.loadFile(referencePosition, "network", "net2", "net.xml", 0)
 
 # save Netedit config
 netedit.saveExistentFile("network")

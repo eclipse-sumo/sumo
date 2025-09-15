@@ -57,57 +57,51 @@ copy_test_path:net.txt
 
 copy_test_path:trafficlights.tll.xml
 copy_test_path:trafficlights2.tll.xml
+copy_test_path:trafficlights2.tll.xml.gz
+copy_test_path:trafficlights2.xml
+copy_test_path:trafficlights2.xml.gz
+copy_test_path:trafficlights2.txt
 copy_test_path:trafficlights3.tll.xml
-
-copy_test_path:trafficlights.tll.xml.gz
-copy_test_path:trafficlights.xml
-copy_test_path:trafficlights.xml.gz
-copy_test_path:trafficlights.txt
 
 copy_test_path:edgetypes.typ.xml
 copy_test_path:edgetypes2.typ.xml
+copy_test_path:edgetypes2.typ.xml.gz
+copy_test_path:edgetypes2.xml
+copy_test_path:edgetypes2.xml.gz
+copy_test_path:edgetypes2.txt
 copy_test_path:edgetypes3.typ.xml
-
-copy_test_path:edgetypes.typ.xml.gz
-copy_test_path:edgetypes.xml
-copy_test_path:edgetypes.xml.gz
-copy_test_path:edgetypes.txt
 
 copy_test_path:additionals.add.xml
 copy_test_path:additionals2.add.xml
+copy_test_path:additionals2.add.xml.gz
+copy_test_path:additionals2.xml
+copy_test_path:additionals2.xml.gz
+copy_test_path:additionals2.txt
 copy_test_path:additionals3.add.xml
-
-copy_test_path:additionals.add.xml.gz
-copy_test_path:additionals.xml
-copy_test_path:additionals.xml.gz
-copy_test_path:additionals.txt
 
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
+copy_test_path:routes2.rou.xml.gz
+copy_test_path:routes2.xml
+copy_test_path:routes2.xml.gz
+copy_test_path:routes2.txt
 copy_test_path:routes3.rou.xml
-
-copy_test_path:routes.rou.xml.gz
-copy_test_path:routes.xml
-copy_test_path:routes.xml.gz
-copy_test_path:routes.txt
 
 copy_test_path:datas.dat.xml
 copy_test_path:datas2.dat.xml
+copy_test_path:datas2.dat.xml.gz
+copy_test_path:datas2.xml
+copy_test_path:datas2.xml.gz
+copy_test_path:datas2.txt
 copy_test_path:datas3.dat.xml
-
-copy_test_path:datas.dat.xml.gz
-copy_test_path:datas.xml
-copy_test_path:datas.xml.gz
-copy_test_path:datas.txt
 
 copy_test_path:meandatas.dat.add.xml
 copy_test_path:meandatas2.dat.add.xml
+copy_test_path:meandatas2.dat.add.xml.gz
+copy_test_path:meandatas2.xml
+copy_test_path:meandatas2.xml.gz
+copy_test_path:meandatas2.txt
 copy_test_path:meandatas3.dat.add.xml
-
-copy_test_path:meandatas.dat.add.xml.gz
-copy_test_path:meandatas.xml
-copy_test_path:meandatas.xml.gz
-copy_test_path:meandatas.txt
 
 copy_test_path:vtypes.rou.xml
 
@@ -152,15 +146,12 @@ net2:net2.net.xml
 net3:net3.net.xml
 
 net_xml:net2.xml
-net_xml_gz:net2.xml.gz
 net_txt:net2.txt
 
 trafficlights:trafficlights.tll.xml
 
 trafficlights_ttl_xml:trafficlights2.tll.xml
-trafficlights_ttl_xml_gz:trafficlights2.tll.xml.gz
 trafficlights_xml:trafficlights2.xml
-trafficlights_xml_gz:trafficlights2.xml.gz
 trafficlights_txt:trafficlights2.txt
 
 trafficlights3:trafficlights3.tll.xml
@@ -168,9 +159,7 @@ trafficlights3:trafficlights3.tll.xml
 edgetypes:edgetypes.typ.xml
 
 edgetypes_typ_xml:edgetypes2.typ.xml
-edgetypes_typ_xml_gz:edgetypes2.typ.xml.gz
 edgetypes_xml:edgetypes2.xml
-edgetypes_xml_gz:edgetypes2.xml.gz
 edgetypes_txt:edgetypes2.txt
 
 edgetypes3:edgetypes3.typ.xml
@@ -178,9 +167,7 @@ edgetypes3:edgetypes3.typ.xml
 additionals:additionals.add.xml
 
 additionals_add_xml:additionals2.add.xml
-additionals_add_xml_gz:additionals2.add.xml.gz
 additionals_xml:additionals2.xml
-additionals_xml_gz:additionals2.xml.gz
 additionals_txt:additionals2.txt
 
 additionals3:additionals3.add.xml
@@ -192,12 +179,11 @@ additionalsconfig3:netedit3.add.xml
 routes:routes.rou.xml
 
 routes_rou_xml:routes2.rou.xml
-routes_rou_xml_gz:routes2.rou.xml.gz
 routes_xml:routes2.xml
-routes_xml_gz:routes2.xml.gz
 routes_txt:routes2.txt
 
 routes3:routes3.rou.xml
+
 routesconfig2:sumo2.rou.xml
 routesconfig3:sumo3.rou.xml
 routesconfig2:netedit2.rou.xml
@@ -206,12 +192,11 @@ routesconfig2:netedit3.rou.xml
 datas:datas.dat.xml
 
 datas_dat_xml:datas2.dat.xml
-datas_dat_xml_gz:datas2.dat.xml.gz
 datas_xml:datas2.xml
-datas_xml_gz:datas2.xml.gz
 datas_txt:datas2.txt
 
 datas3:datas3.dat.xml
+
 datasconfig2:sumo2.dat.xml
 datasconfig3:sumo3.dat.xml
 datasconfig2:netedit2.dat.xml
@@ -219,22 +204,19 @@ datasconfig3:netedit3.dat.xml
 
 meandatas:meandatas.dat.add.xml
 
-meandatas3_add_xml:meandatas3.dat.add.xml
-meandatas3_add_xml_gz:meandatas3.dat.add.xml.gz
-meandatas3_xml:meandatas3.dat.xml
-meandatas3_xml_gz:meandatas3.dat.xml.gz
-meandatas3_txt:meandatas3.txt
+meandatas_add_xml:meandatas2.dat.add.xml
+meandatas_xml:meandatas2.xml
+meandatas_txt:meandatas2.txt
 
 meandatas3:meandatas3.dat.add.xml
+
 meandatasconfig2:sumo2.dat.add.xml
 meandatasconfig3:sumo3.dat.add.xml
 meandatasconfig2:netedit2.dat.add.xml
 meandatasconfig3:netedit3.dat.add.xml
 
 joinedjunctions_nod_xml:joinedjunctions2.nod.xml
-joinedjunctions_nod_xml_gz:joinedjunctions2.nod.xml.gz
 joinedjunctions_xml:joinedjunctions2.xml
-joinedjunctions_xml_gz:joinedjunctions2.xml.gz
 joinedjunctions_txt:joinedjunctions2.txt
 
 guisettingsoutput:guisettingsoutput.xml
@@ -253,8 +235,12 @@ net3:<!--{[->]}-->
 additionals:<!-- generated{[->]}-->
 additionals:\\{REPLACE /}
 
-additionals2:<!-- generated{[->]}-->
-additionals2:\\{REPLACE /}
+additionals_add_xml:<!-- generated{[->]}-->
+additionals_add_xml:\\{REPLACE /}
+additionals_xml:<!-- generated{[->]}-->
+additionals_xml:\\{REPLACE /}
+additionals_txt:<!-- generated{[->]}-->
+additionals_txt:\\{REPLACE /}
 
 additionals3:<!-- generated{[->]}-->
 additionals3:\\{REPLACE /}
@@ -268,8 +254,12 @@ additionalsconfig3:\\{REPLACE /}
 routes:<!-- generated{[->]}-->
 routes:\\{REPLACE /}
 
-routes2:<!-- generated{[->]}-->
-routes2:\\{REPLACE /}
+routes_rou_xml:<!-- generated{[->]}-->
+routes_rou_xml:\\{REPLACE /}
+routes_xml:<!-- generated{[->]}-->
+routes_xml:\\{REPLACE /}
+routes_txt:<!-- generated{[->]}-->
+routes_txt:\\{REPLACE /}
 
 routes3:<!-- generated{[->]}-->
 routes3:\\{REPLACE /}
@@ -283,8 +273,12 @@ routesconfig3:\\{REPLACE /}
 datas:<!-- generated{[->]}-->
 datas:\\{REPLACE /}
 
-datas2:<!-- generated{[->]}-->
-datas2:\\{REPLACE /}
+datas_dat_xml:<!-- generated{[->]}-->
+datas_dat_xml:\\{REPLACE /}
+datas_xml:<!-- generated{[->]}-->
+datas_xml:\\{REPLACE /}
+datas_txt:<!-- generated{[->]}-->
+datas_txt:\\{REPLACE /}
 
 datas3:<!-- generated{[->]}-->
 datas3:\\{REPLACE /}
@@ -298,8 +292,12 @@ datasconfig3:\\{REPLACE /}
 meandatas:<!-- generated{[->]}-->
 meandatas:\\{REPLACE /}
 
-meandatas2:<!-- generated{[->]}-->
-meandatas2:\\{REPLACE /}
+meandatas_add_xml:<!-- generated{[->]}-->
+meandatas_add_xml:\\{REPLACE /}
+meandatas_xml:<!-- generated{[->]}-->
+meandatas_xml:\\{REPLACE /}
+meandatas_txt:<!-- generated{[->]}-->
+meandatas_txt:\\{REPLACE /}
 
 meandatas3:<!-- generated{[->]}-->
 meandatas3:\\{REPLACE /}
