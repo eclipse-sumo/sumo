@@ -70,6 +70,7 @@ GNEFileDialog::~GNEFileDialog() {
 void
 GNEFileDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
     if (dialogArgument->getCustomAction().size() > 0) {
+        myFileSelector->setFilter(dialogArgument->getIndex());
         myFileSelector->setPath(dialogArgument->getCustomAction());
     }
 }

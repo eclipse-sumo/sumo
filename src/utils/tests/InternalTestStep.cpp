@@ -57,6 +57,14 @@ InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::str
 }
 
 
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& customAction, const int index) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
+    myCustomAction(customAction),
+    myIndex(index) {
+}
+
+
 InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& prefixToRemove, const std::string& customAction) :
     myType(type),
     myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
@@ -69,6 +77,7 @@ InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::str
         }
     }
 }
+
 
 DialogType
 InternalTestStep::DialogArgument::getType() const {
@@ -85,6 +94,12 @@ InternalTestStep::DialogArgument::getAction() const {
 const std::string&
 InternalTestStep::DialogArgument::getCustomAction() const {
     return myCustomAction;
+}
+
+
+int
+InternalTestStep::DialogArgument::getIndex() const {
+    return myIndex;
 }
 
 // ---------------------------------------------------------------------------
@@ -1627,13 +1642,15 @@ InternalTestStep::openAboutDialog() {
 
 void
 InternalTestStep::loadFile() {
-    if (myArguments.size() != 3) {
-        writeError("loadFile", 0, "<referencePosition, type, file>");
+    if ((myArguments.size() != 5) || !checkIntArgument(myArguments[4])) {
+        writeError("loadFile", 0, "<referencePosition, type, file, extension, extensionIndex>");
     } else {
         myCategory = Category::APP;
         // get type and file
         const auto type = getStringArgument(myArguments[1]);
         const auto file = getStringArgument(myArguments[2]);
+        const auto extension = getStringArgument(myArguments[3]);
+        const auto extensionIndex = getIntArgument(myArguments[4]);
         // get working directory
         std::string workingDirectory = FXSystem::getCurrentDirectory().text();
         const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
@@ -1665,9 +1682,9 @@ InternalTestStep::loadFile() {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
         // write info
-        std::cout << file << std::endl;
+        std::cout << file << "." << extension << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file + "." + extension, extensionIndex), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }

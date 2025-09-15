@@ -64,6 +64,9 @@ public:
         /// @brief constructor for basic actions
         DialogArgument(DialogType type, const std::string& customAction);
 
+        /// @brief constructor for basic actions and index
+        DialogArgument(DialogType type, const std::string& customAction, const int index);
+
         /// @brief constructor for custom actions and prefix to remove in the action
         DialogArgument(DialogType type, const std::string& prefixToRemove, const std::string& customAction);
 
@@ -76,6 +79,9 @@ public:
         /// @brief get custom action
         const std::string& getCustomAction() const;
 
+        /// @brief get index
+        int getIndex() const;
+
     protected:
         /// @brief dialog type
         DialogType myType = DialogType::DEFAULT;
@@ -85,6 +91,9 @@ public:
 
         /// @brief action to be carried out in the dialog
         std::string myCustomAction;
+
+        /// @brief index
+        int myIndex = 0;
 
     private:
         /// @brief invalidated default constructor

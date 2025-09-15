@@ -181,6 +181,12 @@ GNEFileSelector::setPath(const std::string& path) {
 }
 
 
+void
+GNEFileSelector::setFilter(const int index) {
+    myFileFilterComboBox->setCurrentItem(index, TRUE);
+}
+
+
 long
 GNEFileSelector::onUpdNewFolder(FXObject* sender, FXSelector, void*) {
     // check if directory is writable

@@ -52,6 +52,9 @@ public:
     /// @brief set path (either file or directory, used for testing)
     void setPath(const std::string& path);
 
+    /// @brief set file filter (used for testing)
+    void setFilter(const int index);
+
     /// @brief Change file name
     void setFilename(const FXString& path);
 
