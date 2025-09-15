@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-09 16:12:37 by Eclipse SUMO sumo Version v1_24_0+0707-1f52c1fe50c
+<!-- generated on 2025-09-15T15:21:32.033240+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,29 +49,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="1" depart="0.00" arrival="65.00">
-        <ride from="B1C1" to="C1D1" arrivalPos="190.40" lines="taxi"/>
+    <person id="1" depart="0.00" arrival="51.00">
+        <ride from="B1C1" to="C1D1" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="2" depart="0.00" arrival="187.00">
+    <person id="2" depart="0.00" arrival="146.00">
         <ride from="C1D1" to="D1E1" arrivalPos="190.40" lines="taxi"/>
     </person>
 
-    <person id="0" depart="0.00" arrival="268.00">
+    <person id="0" depart="0.00" arrival="227.00">
         <ride from="A1B1" to="E1F1" arrivalPos="190.40" lines="taxi"/>
     </person>
 
     <vehicle id="taxi" type="taxi" depart="0.00">
         <routeDistribution>
             <route replacedOnEdge="A2A1" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A2A1"/>
-            <route replacedOnEdge="A2A1" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2A1 A1B1 B1C1 C1D1 C1D1 D1E1 E1F1"/>
-            <route edges="A2A1 A1B1 B1C1 C1D1 D1C1 C1D1 D1E1 E1F1"/>
+            <route edges="A2A1 A1B1 B1C1 C1D1 D1E1 E1F1"/>
         </routeDistribution>
         <stop lane="A2A1_1" triggered="person"/>
         <stop lane="A1B1_1" permitted="0" actType="pickup 0 (0)"/>
         <stop lane="B1C1_1" permitted="1" actType="pickup 1 (1)"/>
-        <stop lane="C1D1_1" actType="dropOff 1 (1)"/>
         <stop lane="C1D1_1" permitted="2" actType="pickup 2 (2)"/>
+        <stop lane="C1D1_1" actType="dropOff 1 (1)"/>
         <stop lane="D1E1_1" actType="dropOff 2 (2)"/>
         <stop lane="E1F1_1" actType="dropOff 0 (0)"/>
     </vehicle>
