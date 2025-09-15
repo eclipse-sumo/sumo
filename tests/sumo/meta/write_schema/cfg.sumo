@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
-<!-- generated on 2025-09-15T15:08:38.813868+01:00 by Eclipse SUMO sumo v1_24_0+0791-bfa764d4c7b
-=======
-<!-- generated on 2025-09-15T15:03:04.686638+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
->>>>>>> daa1cba4853 (patching meta results refs #4635)
+<!-- generated on 2025-09-15T15:27:54.808206+01:00 by Eclipse SUMO sumo v1_24_0+0803-4a5b10223ec
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
