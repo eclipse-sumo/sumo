@@ -591,8 +591,8 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
         header = u'<?xml version="1.0" encoding="UTF-8"?>\n\n'
     else:
         header = u''
-    header += u'<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
-                                                             version.gitDescribe(), optionString)
+    header += u'<!-- generated on %s by Eclipse SUMO %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
+                                                                          version.gitDescribe(), optionString)
     if root is not None:
         if rootAttrs is None:
             header += u'<%s>\n' % root
