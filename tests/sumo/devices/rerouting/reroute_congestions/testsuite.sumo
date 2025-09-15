@@ -12,3 +12,9 @@ delayed_insertion_departLaneBest
 
 # all vehicles have the device due to trip def and reroute every 120s and write exit times
 exit_times
+
+# all vehicles have the device due to trip def and reroute every 120s
+thresholdConstant_10
+
+# all vehicles have the device due to trip def and reroute every 120s
+thresholdFactor_1.1
