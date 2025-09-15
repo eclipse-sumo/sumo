@@ -106,6 +106,14 @@ net:net.net.xml
 net2:net2.net.xml
 net3:net3.net.xml
 
+trafficlights:trafficlights.tll.xml
+trafficlights2:trafficlights2.tll.xml
+trafficlights3:trafficlights3.tll.xml
+
+edgetypes:edgetypes.typ.xml
+edgetypes2:edgetypes2.typ.xml
+edgetypes3:edgetypes3.typ.xml
+
 additionals:additionals.add.xml
 additionals2:additionals2.add.xml
 additionals3:additionals3.add.xml

@@ -32,6 +32,12 @@ def saveNewFile(referencePosition, element):
     if (element == "network"):
         typeTwoKeys('ctrl', 's')
         filename = "net2.net.xml"
+    elif (element == "trafficLights"):
+        typeThreeKeys('ctrl', 'shift', 'k')
+        filename = "trafficlights2.tll.xml"
+    elif (element == "edgeTypes"):
+        typeThreeKeys('ctrl', 'shift', 'h')
+        filename = "edgetypes2.typ.xml"
     elif (element == "additional"):
         typeThreeKeys('ctrl', 'shift', 'a')
         filename = "additionals2.add.xml"
@@ -108,6 +114,14 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
     if (type == "network"):
         menuJumps = attrs.toolbar.file.saveNetworkAs
         filename = "net3.net.xml"
+    elif (type == "trafficLights"):
+        menuJumps = attrs.toolbar.file.trafficLights.menu
+        subMenuJumps = attrs.toolbar.file.trafficLights.saveAs + extra
+        filename = "trafficlights3.tll.xml"
+    elif (type == "edgeTypes"):
+        menuJumps = attrs.toolbar.file.edgeTypes.menu
+        subMenuJumps = attrs.toolbar.file.edgeTypes.saveAs + extra
+        filename = "edgetypes3.typ.xml"
     elif (type == "additional"):
         menuJumps = attrs.toolbar.file.aditionalElements.menu
         subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs + extra

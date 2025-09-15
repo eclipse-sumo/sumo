@@ -42,6 +42,7 @@
     <Compile Include="frames\elements.py" />
     <Compile Include="frames\move.py" />
     <Compile Include="frames\network\additional.py" />
+    <Compile Include="frames\network\createEdge.py" />
     <Compile Include="frames\network\connection.py" />
     <Compile Include="frames\network\crossing.py" />
     <Compile Include="frames\network\shape.py" />

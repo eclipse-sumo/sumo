@@ -361,6 +361,11 @@ class attrs:
             helpDialog = 24
             reset = 25
 
+        class edgeType:
+            select = 7
+            createNew = 5
+            createExistent = 7
+
         class template:
             create = 32
             copy = 33
