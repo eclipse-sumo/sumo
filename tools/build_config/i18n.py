@@ -120,7 +120,8 @@ def main(args=None):
     for lang in options.lang:
         po_files = ["%s/data/po/%s_%s" % (options.sumo_home, lang, os.path.basename(pot)[:-1])
                     for pot in (pot_file, gui_pot_file, py_pot_file)]
-        os.makedirs("%s/po" % options.out_dir, exist_ok=True)
+        if not os.path.exists("%s/po" % options.out_dir):
+            os.makedirs("%s/po" % options.out_dir)
         merged_po_file = "%s/po/%s.po" % (options.out_dir, lang)
         subprocess.check_call([path + "msgcat"] + po_files + ["--output-file=" + merged_po_file])
         d = "%s/locale/%s/LC_MESSAGES" % (options.out_dir, lang)
