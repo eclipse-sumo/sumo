@@ -1,2 +1,2 @@
 Error: Could not build busStop with ID 'busStop_00' in netedit; Found another busStop with the same ID.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.
