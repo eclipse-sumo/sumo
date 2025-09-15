@@ -42,6 +42,8 @@ The options related to this routing are:
 | **--device.rerouting.with-taz**                  | false          | Use [traffic assignment zones (TAZ/districts)](../Demand/Importing_O/D_Matrices.md#describing_the_taz) as routing end points                        |
 | **--device.rerouting.init-with-loaded-weights**  | false          | Use option **--weight-files** for initializing the edge weights at simulation start           |
 | **--device.rerouting.mode**  | 0          | configure handling of [temporary obstructions](../Simulation/Routing.md#handling_of_temporary_obstructions)    |
+| **--device.rerouting.improvement-threshold** {{DT_FLOAT}} | 0.0 (disabled) | The minimum relative improvement (0.25 = 25%) required to accept a new route |
+| **--device.rerouting.improvement-threshold** {{DT_FLOAT}} | 0.0 (disabled) | The minimum relative improvement (0.25 = 25%) required to accept a new route |
 
 
 

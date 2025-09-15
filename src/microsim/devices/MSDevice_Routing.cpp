@@ -94,6 +94,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", TL("Save adapting weights to FILE"));
+
+    oc.doRegister("device.rerouting.improvement-threshold", new Option_Float(0.0));
+    oc.addDescription("device.rerouting.improvement-threshold", "Routing", TL("The minimum relative improvement (0.25 = 25%) required to accept a new route"));
 }
 
 

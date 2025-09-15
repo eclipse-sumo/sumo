@@ -292,6 +292,7 @@
             <xsd:element name="device.rerouting.railsignal" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.bike-speeds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.improvement-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="person-device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>

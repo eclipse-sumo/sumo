@@ -488,7 +488,23 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     //        << " prevEdges=" << toString(oldEdgesRemaining)
     //        << " newEdges=" << toString(edges)
     //        << "\n";
-    replaceRouteEdges(edges, routeCost, savings, info, onInit);
+    
+    // Check improvement threshold before accepting new route
+    bool acceptRoute = onInit; // Always accept route during initialization
+    if (!onInit && !edges.empty()) {
+        const double improvementThreshold = OptionsCont::getOptions().getFloat("device.rerouting.improvement-threshold");
+        if (improvementThreshold > 0.0 && previousCost > 0.0) {
+            const double improvementRatio = savings / previousCost;
+            acceptRoute = improvementRatio >= improvementThreshold;
+        } else {
+            acceptRoute = true; // Accept if no threshold set or invalid previous cost
+        }
+    }
+    
+    if (acceptRoute) {
+        replaceRouteEdges(edges, routeCost, savings, info, onInit);
+    }
+    
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
@@ -2220,7 +2236,6 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
             return false;
         };
     }
-    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg);
 }
 
 
