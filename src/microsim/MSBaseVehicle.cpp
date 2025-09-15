@@ -1024,9 +1024,15 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
         start = route->begin();
     }
     const bool checkJumps = route == myRoute;  // the edge iterators in the stops are invalid otherwise
-    MSRouteIterator last = route->end() - 1;
+    return hasValidRoute(msg, start, route->end(), checkJumps);
+}
+
+
+bool
+MSBaseVehicle::hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps) const {
+    MSRouteIterator lastValid = last - 1;
     // check connectivity, first
-    for (MSRouteIterator e = start; e != last; ++e) {
+    for (MSRouteIterator e = start; e != lastValid; ++e) {
         const MSEdge& next = **(e + 1);
         if ((*e)->allowedLanes(next, myType->getVehicleClass()) == nullptr) {
             if (!checkJumps || !hasJump(e)) {
@@ -1038,7 +1044,6 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
             }
         }
     }
-    last = route->end();
     // check usable lanes, then
     for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->prohibits(this)) {

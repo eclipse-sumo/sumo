@@ -522,6 +522,8 @@ public:
      */
     bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const;
 
+    bool hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps) const;
+
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg);
 
