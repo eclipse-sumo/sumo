@@ -256,9 +256,6 @@ public:
     /// @brief called when the command/FXCall save edgeTypes as is executed
     long onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save edgeTypes as is updated
-    long onUpdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
-
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionalElements(FXObject*, FXSelector, void*);
 
