@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:46.937105+01:00 by Eclipse SUMO sumo v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-09-15T15:03:04.582564+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -707,6 +707,12 @@
 
         <!-- The interval for updating the edge weights -->
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" deprecated="device.routing.adaptation-interval" type="TIME"/>
+
+        <!-- Only reroute if the new route is faster than the current route by the given factor -->
+        <device.rerouting.threshold.factor value="1" type="FLOAT"/>
+
+        <!-- Only reroute if the new route is faster than the current route by the given TIME -->
+        <device.rerouting.threshold.constant value="0" type="TIME"/>
 
         <!-- Use zones (districts) as routing start- and endpoints -->
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" deprecated="device.routing.with-taz" type="BOOL"/>
@@ -1448,9 +1454,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

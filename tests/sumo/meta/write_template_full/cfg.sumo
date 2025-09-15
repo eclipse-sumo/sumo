@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:46.756708+01:00 by Eclipse SUMO sumo v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-09-15T15:03:04.564320+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -250,6 +250,8 @@
         <device.rerouting.adaptation-weight value="0" synonymes="device.routing.adaptation-weight" deprecated="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights for exponential moving average"/>
         <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" deprecated="device.routing.adaptation-steps" type="INT" help="The number of steps for moving average weight of prior edge weights"/>
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" deprecated="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
+        <device.rerouting.threshold.factor value="1" type="FLOAT" help="Only reroute if the new route is faster than the current route by the given factor"/>
+        <device.rerouting.threshold.constant value="0" type="TIME" help="Only reroute if the new route is faster than the current route by the given TIME"/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" deprecated="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing start- and endpoints"/>
         <device.rerouting.mode value="0" type="STR" help="Set routing flags (8 ignores temporary blockages)"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
@@ -539,7 +541,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

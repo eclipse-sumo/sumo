@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <!-- generated on 2025-09-15T15:08:38.813868+01:00 by Eclipse SUMO sumo v1_24_0+0791-bfa764d4c7b
+=======
+<!-- generated on 2025-09-15T15:03:04.686638+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
+>>>>>>> daa1cba4853 (patching meta results refs #4635)
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -280,6 +284,8 @@
             <xsd:element name="device.rerouting.adaptation-weight" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-steps" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.threshold.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.threshold.constant" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
@@ -611,7 +617,6 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
