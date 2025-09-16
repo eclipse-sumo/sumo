@@ -1692,12 +1692,14 @@ InternalTestStep::loadFile() {
 
 void
 InternalTestStep::saveNewFile() {
-    if (myArguments.size() != 2) {
-        writeError("saveNewFile", 0, "<referencePosition, type>");
+    if ((myArguments.size() != 4) || !checkIntArgument(myArguments[3])) {
+        writeError("saveNewFile", 0, "<referencePosition, type, extension, extensionIndex>");
     } else {
         myCategory = Category::APP;
         // get type and file
         const auto type = getStringArgument(myArguments[1]);
+        const auto extension = getStringArgument(myArguments[2]);
+        const auto extensionIndex = getIntArgument(myArguments[3]);
         std::string file;
         // get working directory
         std::string workingDirectory = FXSystem::getCurrentDirectory().text();
@@ -1708,44 +1710,44 @@ InternalTestStep::saveNewFile() {
         // continue depending of type
         if (type == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
-            file = "netedit2.netecfg";
+            file = "netedit2." + extension;
         } else if (type == "sumoConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
-            file = "sumo2.sumocfg";
+            file = "sumo2." + extension;
         } else if (type == "xml") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
-            file = "net2.xml";
+            file = "net2." + extension;
         } else if (type == "joinedJunctions") {
             myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
-            file = "joinedjunctions2.nod.xml";
+            file = "joinedjunctions2." + extension;
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
-            file = "net2.net.xml";
+            file = "net2." + extension;
         } else if (type == "trafficLights") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
-            file = "trafficlights2.tll.xml";
+            file = "trafficlights2." + extension;
         } else if (type == "edgeTypes") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
-            file = "edgetypes2.typ.xml";
+            file = "edgetypes2." + extension;
         } else if (type == "additional") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
-            file = "additionals2.add.xml";
+            file = "additionals2." + extension;
         } else if (type == "demand") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
-            file = "routes2.rou.xml";
+            file = "routes2." + extension;
         } else if (type == "data") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
-            file = "datas2.dat.xml";
+            file = "datas2." + extension;
         } else if (type == "meanData") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
-            file = "meandatas2.dat.add.xml";
+            file = "meandatas2.dat." + extension;
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file, extensionIndex), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }

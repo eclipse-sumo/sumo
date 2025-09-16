@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # save Netedit config
-netedit.saveNewFile(referencePosition, "xml")
+netedit.saveNewFile(referencePosition, "xml", "xml", 0)
 
 # quit netedit
 netedit.quit(neteditProcess)

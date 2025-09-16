@@ -1,1 +1,10 @@
-Error: Cannot read file 'C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep085841.20524\netedit.internal\basic\files\load\traffic_lights\new\tll_xml_gz\trafficlights2.tll.xml.gz'!
+Error: Cannot load traffic light program for unknown id 'J4', programID '0'.
+Error: Cannot load traffic light program for unknown id 'Junction0', programID '0'.
+Error: Cannot load traffic light program for unknown id 'Junction1', programID '0'.
+Error: Cannot load traffic light program for unknown id 'Junction2', programID '0'.
+Error: Cannot load traffic light program for unknown id 'Junction3', programID '0'.
+Error: The traffic light 'Junction3' is not known.
+Error: The traffic light 'J4' is not known.
+Error: The traffic light 'J4' is not known.
+Error: The traffic light 'J4' is not known.
+Error: The traffic light 'J4' is not known.

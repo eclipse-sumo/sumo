@@ -73,7 +73,7 @@ netedit.createMeanData()
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNewFile(referencePosition, "sumoConfig")
+netedit.saveNewFile(referencePosition, "sumoConfig", "sumocfg", 0)
 
 # quit netedit
 netedit.quit(neteditProcess)

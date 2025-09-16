@@ -24,43 +24,43 @@ from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
 from ..input.mouse import moveMouse
 
 
-def saveNewFile(referencePosition, element):
+def saveNewFile(referencePosition, element: str, extension: str, extensionIndex: int):
     """
     @brief save new file
     """
     filename = ""
     if (element == "network"):
         typeTwoKeys('ctrl', 's')
-        filename = "net2.net.xml"
+        filename = "net2"
     elif (element == "trafficLights"):
         typeThreeKeys('ctrl', 'shift', 'k')
-        filename = "trafficlights2.tll.xml"
+        filename = "trafficlights2"
     elif (element == "edgeTypes"):
         typeThreeKeys('ctrl', 'shift', 'h')
-        filename = "edgetypes2.typ.xml"
+        filename = "edgetypes2"
     elif (element == "additional"):
         typeThreeKeys('ctrl', 'shift', 'a')
-        filename = "additionals2.add.xml"
+        filename = "additionals2"
     elif (element == "demand"):
         typeThreeKeys('ctrl', 'shift', 'd')
-        filename = "routes2.rou.xml"
+        filename = "routes2"
     elif (element == "data"):
         typeThreeKeys('ctrl', 'shift', 'b')
-        filename = "datas2.dat.xml"
+        filename = "datas2"
     elif (element == "meanData"):
         typeThreeKeys('ctrl', 'shift', 'm')
-        filename = "meandatas2.dat.add.xml"
+        filename = "meandatas2.dat"
     elif (element == "xml"):
         typeTwoKeys('ctrl', 'l')
-        filename = "net2.xml"
+        filename = "net2"
     elif (element == "sumoConfig"):
         typeThreeKeys('ctrl', 'shift', 's')
-        filename = "sumo2.sumocfg"
+        filename = "sumo2"
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
-        filename = "netedit2.netecfg"
+        filename = "netedit2"
     elif (element == "joinedJunctions"):
-        filename = "joinedjunctions2.nod.xml"
+        filename = "joinedjunctions2"
         # move mouse (to avoid problems with file menu)
         moveMouse(referencePosition, positions.reference, 200, 0, False)
         # go to menu command
@@ -70,9 +70,16 @@ def saveNewFile(referencePosition, element):
         typeKey('space')
     # wait for dialog
     time.sleep(2)
+    # set folder
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    updateText(filename)
+    # set extension
+    typeKey('tab')
+    for _ in range(0, extensionIndex):
+        typeKey('down')
+    typeTwoKeys('shift', 'tab')
+    # set file
+    updateText(filename + "." + extension)
     typeKey('enter')
     # wait for load
     time.sleep(2)

@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "demand", "routes2", "rou.xml.gz", 0)
+netedit.loadFile(referencePosition, "demand", "routes2", "rou.xml.gz", 1)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
