@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-16 07:28+0000\n"
+"PO-Revision-Date: 2025-09-17 08:14+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -833,7 +833,7 @@ msgstr "Abrir rede no netedit"
 #: src/gui/GUIApplicationWindow.cpp:1833
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "Carregamento de '%' falhou!"
 
 #: src/gui/GUIApplicationWindow.cpp:1847
 #, c-format
@@ -842,7 +842,7 @@ msgstr "'%' carregado."
 
 #: src/gui/GUIApplicationWindow.cpp:1950
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "Semáforo Interativo SUMO"
 
 #: src/gui/GUIApplicationWindow.cpp:1952
 msgid "SUMO Interactive Demand-Responsive-Transport"
@@ -891,7 +891,7 @@ msgstr "Fechando (devido a um erro)."
 
 #: src/gui/GUIRunThread.cpp:273
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "Simulação iniciou no tempo: %."
 
 #: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:475
 msgid "Save Snapshot"
@@ -900,6 +900,7 @@ msgstr "Salvar captura de tela"
 #: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:489
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr ""
+"Nenhuma extensão de arquivo foi especificada - salvando a imagem como PNG."
 
 #: src/gui/GUISUMOViewParent.cpp:166 src/netedit/GNEViewParent.cpp:494
 msgid "Saving failed."
@@ -907,11 +908,11 @@ msgstr "Salvamento falhou."
 
 #: src/gui/GUISUMOViewParent.cpp:168 src/netedit/GNEViewParent.cpp:496
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "Captura de tela salva com sucesso!"
 
 #: src/gui/GUISUMOViewParent.cpp:212 src/gui/GUISUMOViewParent.cpp:261
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "ID de mensagem desconhecido em onCmdLocate"
 
 #: src/gui/GUISUMOViewParent.cpp:226 src/netedit/GNEViewParent.cpp:522
 msgid "Junction Chooser"
@@ -936,11 +937,11 @@ msgstr "Seletor de contêiner"
 
 #: src/gui/GUISUMOViewParent.cpp:246
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "Seletor de semáforo"
 
 #: src/gui/GUISUMOViewParent.cpp:250
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "Seletor de Objetos Adicionais"
 
 #: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:615
 msgid "POI Chooser"
@@ -964,7 +965,7 @@ msgstr "condições"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:345
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "Ocorreu um estouro (overflow) na computação de tempo."
 
 #: src/gui/GUIViewTraffic.cpp:110 src/netedit/GNEViewNet.cpp:381
 msgid "Locate Junctions"
@@ -972,7 +973,7 @@ msgstr "Localizar junções"
 
 #: src/gui/GUIViewTraffic.cpp:110
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "Localiza uma junção na rede."
 
 #: src/gui/GUIViewTraffic.cpp:115 src/netedit/GNEViewNet.cpp:385
 msgid "Locate Edges"
@@ -980,7 +981,7 @@ msgstr "Localizar Arestas"
 
 #: src/gui/GUIViewTraffic.cpp:115
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "Localiza uma aresta na rede."
 
 #: src/gui/GUIViewTraffic.cpp:120 src/netedit/GNEViewNet.cpp:393
 msgid "Locate Vehicles"
@@ -988,7 +989,7 @@ msgstr "Localizar veículos"
 
 #: src/gui/GUIViewTraffic.cpp:120
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "Localiza um veículo na rede."
 
 #: src/gui/GUIViewTraffic.cpp:125 src/netedit/GNEViewNet.cpp:397
 msgid "Locate Persons"
@@ -996,7 +997,7 @@ msgstr "Localizar Pessoas"
 
 #: src/gui/GUIViewTraffic.cpp:125
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "Localiza uma pessoa na rede."
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate Container"
@@ -1004,7 +1005,7 @@ msgstr "Localizar Contêiners"
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "Localiza um contêiner na rede."
 
 #: src/gui/GUIViewTraffic.cpp:135 src/netedit/GNEViewNet.cpp:420
 msgid "Locate TLS"
@@ -1012,7 +1013,7 @@ msgstr "Localizar semáforos"
 
 #: src/gui/GUIViewTraffic.cpp:135
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "Localiza um semáforo na rede."
 
 #: src/gui/GUIViewTraffic.cpp:140 src/netedit/GNEViewNet.cpp:424
 msgid "Locate Additional"
@@ -1020,7 +1021,7 @@ msgstr "Localizar Adicional"
 
 #: src/gui/GUIViewTraffic.cpp:140
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "Localiza uma estrutura adicional na rede."
 
 #: src/gui/GUIViewTraffic.cpp:145 src/netedit/GNEViewNet.cpp:428
 msgid "Locate PoI"
@@ -1028,7 +1029,7 @@ msgstr "Localizar Ponto de Interesse"
 
 #: src/gui/GUIViewTraffic.cpp:145
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "Localiza um ponto de interesse na rede."
 
 #: src/gui/GUIViewTraffic.cpp:150 src/netedit/GNEViewNet.cpp:432
 msgid "Locate Polygon"
@@ -1036,26 +1037,29 @@ msgstr "Localizar polígono"
 
 #: src/gui/GUIViewTraffic.cpp:150
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "Localiza um polígono na rede."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:39
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "Sobre Eclipse SUMO sumo-gui"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
 "Graphical user interface for the microscopic, multi-modal traffic simulation "
 "SUMO."
 msgstr ""
+"Interface gráfica de usuário para a simulação de tráfego microscópica e "
+"multimodal do SUMO."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "Inclui JuPedSom %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAboutDialog.cpp:59
 msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
+"Essa aplicação é baseada no código providenciado pelo projeto Eclipse SUMO."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
 #: src/netedit/dialogs/GNEAboutDialog.cpp:60
@@ -1063,6 +1067,8 @@ msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
 msgstr ""
+"Esses componentes principais estão disponíveis sob as condições da Licença "
+"Pública Eclipse v2."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1075,19 +1081,19 @@ msgstr "OK"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
-msgstr ""
+msgstr "Sair ao finalizar a simulação"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "Começar a simulação automaticamente ao carregar e recarregar"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:66
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "Recomeçar simulação após o final (Modo demo)"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "Localizar elementos ao clicar em mensagens"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
@@ -4291,7 +4297,7 @@ msgstr ""
 
 #: src/netedit/GNEExternalRunner.cpp:108
 msgid "starting process...\n"
-msgstr ""
+msgstr "iniciando processo...\n"
 
 #: src/netedit/GNEExternalRunner.cpp:124
 msgid "error processing command\n"
@@ -4299,7 +4305,7 @@ msgstr ""
 
 #: src/netedit/GNEExternalRunner.cpp:138
 msgid "process finished\n"
-msgstr ""
+msgstr "processo finalizado\n"
 
 #: src/netedit/GNELoadThread.cpp:98
 #, c-format
@@ -4627,6 +4633,8 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
 msgstr ""
+"Selecione o desvio de velocidade padrão. Um valor negativo implica padrões "
+"específicos de vClass (0.1 para a classe de passageiro padrão)"
 
 #: src/netedit/GNELoadThread.cpp:548
 msgid "Failed to reset options."
@@ -5385,6 +5393,8 @@ msgid ""
 "if set to false, vehicles which pass this (lane-2-lane) connection) will not "
 "worry about blocking the intersection"
 msgstr ""
+"se definido como falso, veículos que passarem por esta conexão (faixa-para-"
+"faixa) não se preocuparão em bloquear o cruzamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1049
 msgid ""
@@ -5651,6 +5661,8 @@ msgid ""
 "If set to true, no error will be reported if vehicles leave the detector "
 "without first entering it"
 msgstr ""
+"Se definido como verdadeiro, nenhum erro será reportado caso os veículos "
+"saiam do detector sem primeiro terem entrado nele"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1596
 msgid ""
@@ -6005,6 +6017,8 @@ msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
+"ID do segmento de fio aéreo, ao início do qual a braçadeira de fio aéreo "
+"está conectada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2436
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
@@ -6015,6 +6029,8 @@ msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
 msgstr ""
+"ID do segmento de fio aéreo, ao fim do qual a braçadeira de fio aéreo está "
+"conectada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2446
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
@@ -7583,6 +7599,8 @@ msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
 msgstr ""
+"Uma string que especifica o ID de uma linha de transporte público que pode "
+"ser usada ao especificar viagens de pessoas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7334
 msgid "The number of occupied seats when the vehicle is inserted"
@@ -7960,6 +7978,8 @@ msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
+"Fator para configurar a assimetria do limiar ao mudar para a esquerda ou "
+"para a direita visando ganho de velocidade."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7866
 msgid "Upper bound on lateral speed when standing."
@@ -7993,6 +8013,8 @@ msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr ""
+"Fator de diferença de velocidade para a disposição de ultrapassar um veículo "
+"vizinho antes de mudar de faixa (limiar = fator * limite de velocidade)."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7912
 msgid "The id of the person type to use for this person"
@@ -8055,12 +8077,16 @@ msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
+"Parâmetro a ser aplicado ao veículo para rastrear o ID da viagem dentro de "
+"uma rota de transporte público cíclica"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8012
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
+"Novo atributo de linha a ser definido no veículo ao alcançar esta parada ("
+"para rota de transporte público cíclica)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8018
 msgid "Speed to be kept while driving between startPos and endPos"
@@ -8455,6 +8481,8 @@ msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
 msgstr ""
+"O limiar baseado em tempo que descreve quanto tempo deve passar para que um "
+"veículo seja reconhecido como em parada)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8767
 msgid ""
@@ -14222,7 +14250,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:169
 msgid "Clear Selected"
-msgstr ""
+msgstr "Limpar selecionados"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:169
 msgid "Clears all connections of all selected objects"
@@ -14230,7 +14258,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:172
 msgid "Reset Selected"
-msgstr ""
+msgstr "Reestabelecer selecionados"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:172
 msgid "Recomputes connections at all selected junctions"
@@ -14257,27 +14285,27 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:333
 msgid "Possible Target"
-msgstr ""
+msgstr "Possível destino"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:338
 msgid "Source lane"
-msgstr ""
+msgstr "Faixa de origem"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:342
 msgid "Target lane"
-msgstr ""
+msgstr "Faixa destino"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:346
 msgid "Target (pass)"
-msgstr ""
+msgstr "Destino (sem conflito)"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:362
 msgid "Edit Connections"
-msgstr ""
+msgstr "Editar conexões"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:428
 msgid "modify connections"
-msgstr ""
+msgstr "modificar conexões"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:479
 msgid "Pedestrian connections are generated automatically"
@@ -15056,6 +15084,8 @@ msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
+"Deletar um programa de semáforo. Se todos os programas forem deletados, o "
+"cruzamento se tornará um cruzamento prioritário."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Reset single"
@@ -15164,7 +15194,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
-msgstr ""
+msgstr "Agrupar Sig."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1892
 msgid ""
@@ -15180,7 +15210,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "Desagrupar Sig."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1899
 msgid "Let every connection use a distinct index (reverse state grouping)"
@@ -15194,7 +15224,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2080
 msgid "invalid column"
-msgstr ""
+msgstr "coluna inválida"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2546
 msgid "Error deleting phase '"
@@ -15234,7 +15264,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:70
 msgid "Experimental Part"
-msgstr ""
+msgstr "Parte experimental"
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:71
 msgid "Warning: The netedit overhead editor is still in experimental state."
@@ -15260,11 +15290,11 @@ msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:119
 msgid "Original network"
-msgstr ""
+msgstr "Rede original"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:122
 msgid "Modified network"
-msgstr ""
+msgstr "Rede modificada"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:125
 msgid "Output prefix network"
@@ -15322,15 +15352,15 @@ msgstr ""
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:78
 msgid "&Load selection"
-msgstr ""
+msgstr "&Carregar seleção"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:80
 msgid "&Save selection"
-msgstr ""
+msgstr "&Salvar seleção"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:84
 msgid "&Deselect chosen"
-msgstr ""
+msgstr "&Deselecionar escolhidos"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:86
 msgid "&Clear selection"
