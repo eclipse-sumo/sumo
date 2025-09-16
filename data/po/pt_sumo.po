@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-16 07:28+0000\n"
+"PO-Revision-Date: 2025-09-17 08:14+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
@@ -423,11 +423,11 @@ msgstr ""
 #: src/dfrouter/RODFNet.cpp:146
 #, c-format
 msgid " % invalid detectors"
-msgstr ""
+msgstr " % detectores inválidos"
 
 #: src/dfrouter/RODFNet.cpp:281
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "Não foi possível fechar a rota pra '%'"
 
 #: src/dfrouter/RODFNet.cpp:439
 #, c-format
@@ -435,14 +435,16 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"Detector '%' não tem fluxo.\n"
+" Tentando reconstruir."
 
 #: src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " Não foi possível criar a lista com fluxos anteriores."
 
 #: src/dfrouter/RODFNet.cpp:504
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " Não foi possível gerar a lista dos últimos fluxos."
 
 #: src/dfrouter/RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
@@ -2174,6 +2176,8 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
 msgstr ""
+"Selecione o desvio de velocidade padrão. Um valor negativo implica padrões "
+"específicos de vClass (0.1 para a classe de passageiro padrão)"
 
 #: src/microsim/MSFrame.cpp:534
 msgid ""
