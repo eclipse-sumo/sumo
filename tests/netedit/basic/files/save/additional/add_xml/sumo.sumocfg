@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net.netedit"/>
-        <additional-files value="additionals2.netedit"/>
+        <additional-files value="additionals_add_xml.netedit"/>
         <junction-taz value="true"/>
     </input>
 

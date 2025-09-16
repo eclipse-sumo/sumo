@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net.netedit"/>
-        <route-files value="routes.netedit,routes2.netedit"/>
+        <route-files value="routes.netedit,routes_rou_xml.netedit"/>
         <additional-files value="additionals.netedit,meandatas.netedit"/>
         <junction-taz value="true"/>
     </input>

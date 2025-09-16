@@ -3,34 +3,49 @@ import_config_file:../config_all
 
 binary:$SUMO_BINARY
 
-copy_test_path:net.netedit
-copy_test_path:net2.netedit
-
 copy_test_path:net.net.xml
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:meandatas.dat.add.xml
 
+copy_test_path:net.netedit
+copy_test_path:net_net_xml.netedit
+copy_test_path:net_net_xml_gz.netedit
+copy_test_path:net_xml.netedit
+copy_test_path:net_xml_gz.netedit
+copy_test_path:net_txt.netedit
+copy_test_path:net3.netedit
+
 copy_test_path:additionals.netedit
-copy_test_path:additionals2.netedit
+copy_test_path:additionals_add_xml.netedit
+copy_test_path:additionals_add_xml_gz.netedit
+copy_test_path:additionals_xml.netedit
+copy_test_path:additionals_xml_gz.netedit
+copy_test_path:additionals_txt.netedit
 copy_test_path:additionals3.netedit
 copy_test_path:additionalsconfig.netedit
 
 copy_test_path:meandatas.netedit
-copy_test_path:meandatas2.netedit
+copy_test_path:meandatas_add_xml.netedit
+copy_test_path:meandatas_add_xml_gz.netedit
+copy_test_path:meandatas_xml.netedit
+copy_test_path:meandatas_xml_gz.netedit
+copy_test_path:meandatas_txt.netedit
 copy_test_path:meandatas3.netedit
 
 copy_test_path:routes.netedit
-copy_test_path:routes2.netedit
+copy_test_path:routes_rou_xml.netedit
+copy_test_path:routes_rou_xml_gz.netedit
+copy_test_path:routes_xml.netedit
+copy_test_path:routes_xml_gz.netedit
+copy_test_path:routes_txt.netedit
 copy_test_path:routes3.netedit
 copy_test_path:routesconfig.netedit
 
-copy_test_path:datas.netedit
-copy_test_path:datas2.netedit
-copy_test_path:datas3.netedit
-
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo2.netedit
+copy_test_path:sumo2_xml.netedit
+copy_test_path:sumo2_txt.netedit
 copy_test_path:sumo3.netedit
 
 copy_test_path:shapes.netedit
