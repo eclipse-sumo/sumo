@@ -1816,19 +1816,19 @@ StringBijection<StateFileExtension>::Entry SUMOXMLDefinitions::stateFileExtensio
 
 StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
     {TL("Sumo config") + std::string(" files (*.sumocfg)"), SumoConfigFileExtension::SUMOCONF},
-    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),    SumoConfigFileExtension::XML},
+    {TL("XML files") + std::string(" (*.xml)"),              SumoConfigFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                 SumoConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NeteditConfigFileExtension>::Entry SUMOXMLDefinitions::neteditConfigFileExtensionValues[] = {
     {TL("Netedit config files") + std::string(" (*.netecfg)"),  NeteditConfigFileExtension::NETECFG},
-    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),        NeteditConfigFileExtension::XML},
+    {TL("XML files") + std::string(" (*.xml)"),                  NeteditConfigFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                     NeteditConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netconvertConfigFileExtensionValues[] = {
     {TL("Netconvert config files") + std::string(" (*.netccfg)"),   NetconvertConfigFileExtension::NETCCFG},
-    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),            NetconvertConfigFileExtension::XML},
+    {TL("XML files") + std::string(" (*.xml"),                      NetconvertConfigFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                         NetconvertConfigFileExtension::ALL} //< must be the last one
 };
 
