@@ -36,6 +36,8 @@ on a lane. The parameters have the following meanings:
 | name           | string      | simple String                                                                                |             | Container stop name. This is only used for visualization purposes.                                                          |
 | color           | color      | see [color definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#colors)                                                                                | "83,89,172"            | Container stop color. This is only used for visualization purposes.                                                               |
 | lines          | string list | A list of names separated by spaces (' ')                                                    |             | meant to be the names of the logistic lines that stop at this container stop. This is only used for visualization purposes. |
+| angle          | float (degrees) | The angle at which containers are drawn. This is only used for visualization purposes. |
+
 
 !!! caution
     Please note that container stops must be added to a config via the *--additional-files* parameter
@@ -73,6 +75,18 @@ This means you can either use a
 container stop or a lane position to define where a vehicle has to stop.
 For a complete list of attributes for the "stop"-element of a vehicle
 see [Specification\#Stops](index.md#stops).
+
+## Access Lanes
+
+Each containerStop may have additional child elements to model access from
+other parts of the network (e.g. road access to a stop on the rail
+network). This takes the following form:
+
+```xml
+<containerStop id="myStop" lane="A_0" startPos="230" endPos="250">
+   <access lane="B_0" pos="150"/>
+</containerStop>
+```
 
 # Trailers and Rail Cars
 
