@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </input>
 
     <output>
+		<edgetypes-file value="edgetypes.typ.xml"/>
         <write-license value="true"/>
     </output>
 

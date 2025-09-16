@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-16T08:32:47.229725+01:00 by Eclipse SUMO netedit v1_24_0+0808-23e0c7cb3b6
+<!-- generated on 2025-09-16T08:32:22.643857+01:00 by Eclipse SUMO netedit v1_24_0+0808-23e0c7cb3b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </input>
 
     <output>
-        <edgetypes-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep083209.8128\netedit.internal\basic\files\load\edge_types\existent\edgetypes2.typ.xml"/>
+        <edgetypes-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep083209.8128\netedit.internal\basic\files\load\edge_types\new\typ_xml_gz\edgetypes2.typ.xml.gz"/>
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
@@ -69,9 +69,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <type id="edgeType_0" numLanes="6" allow="bus"/>
-    <type id="edgeType_1" numLanes="8" allow="bus"/>
-    <type id="edgeType_2" numLanes="8" allow="bus">
+    <type id="edgeType_0" numLanes="2"/>
+    <type id="edgeType_0_new" numLanes="6" allow="bus"/>
+    <type id="edgeType_1" numLanes="3" allow="tram rail_urban rail rail_electric rail_fast cable_car subway"/>
+    <type id="edgeType_1_new" numLanes="8" allow="bus"/>
+    <type id="edgeType_2" numLanes="4">
+        <laneType index="0" speed="10.00"/>
+        <laneType index="1" speed="11.00"/>
+        <laneType index="2" speed="12.00"/>
+        <laneType index="3" speed="13.00"/>
+    </type>
+    <type id="edgeType_2_new" numLanes="8" allow="bus">
         <laneType index="0" speed="14.00"/>
         <laneType index="1" speed="15.00"/>
         <laneType index="2" speed="16.00"/>

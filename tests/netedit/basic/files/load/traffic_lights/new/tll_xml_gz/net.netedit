@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11 13:41:16 by Eclipse SUMO netedit Version v1_24_0+0749-0e520f68dcb
+<!-- generated on 2025-09-16T08:58:54.138419+01:00 by Eclipse SUMO netedit v1_24_0+0808-23e0c7cb3b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </input>
 
     <output>
-        <tls-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.11Sep134002.19480\netedit.external\basic\files\load\traffic_lights\new\trafficlights.tll.xml"/>
+        <tls-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep085841.20524\netedit.internal\basic\files\load\traffic_lights\new\tll_xml_gz\trafficlights2.tll.xml.gz"/>
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>

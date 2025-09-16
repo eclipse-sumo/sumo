@@ -34,9 +34,9 @@
 -->
 
 <types version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
-    <type id="edgeType_0" numLanes="3" allow="bus"/>
-    <type id="edgeType_1" numLanes="4" allow="bus"/>
-    <type id="edgeType_2" numLanes="4" allow="bus">
+    <type id="edgeType_0_new" numLanes="3" allow="bus"/>
+    <type id="edgeType_1_new" numLanes="4" allow="bus"/>
+    <type id="edgeType_2_new" numLanes="4" allow="bus">
         <laneType index="0" speed="14.00"/>
         <laneType index="1" speed="15.00"/>
         <laneType index="2" speed="16.00"/>

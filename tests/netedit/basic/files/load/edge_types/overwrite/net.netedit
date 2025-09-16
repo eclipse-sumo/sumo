@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11 14:25:05 by Eclipse SUMO netedit Version v1_24_0+0749-0e520f68dcb
+<!-- generated on 2025-09-16T08:24:53.156450+01:00 by Eclipse SUMO netedit v1_24_0+0808-23e0c7cb3b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </input>
 
     <output>
-        <edgetypes-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.11Sep142117.3268\netedit.external\basic\files\load\edge_types\overwrite\edgetypes.typ.xml"/>
+        <edgetypes-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep082433.22052\netedit.internal\basic\files\load\edge_types\overwrite\edgetypes2.typ.xml"/>
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
@@ -69,17 +69,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <type id="edgeType_0" numLanes="6"/>
-    <type id="edgeType_1" numLanes="8" allow="pedestrian"/>
-    <type id="edgeType_2" numLanes="8">
-        <laneType index="0" speed="4.00"/>
-        <laneType index="1" speed="5.00"/>
-        <laneType index="2" speed="6.00"/>
-        <laneType index="3" speed="7.00"/>
-        <laneType index="4" speed="4.00"/>
-        <laneType index="5" speed="5.00"/>
-        <laneType index="6" speed="6.00"/>
-        <laneType index="7" speed="7.00"/>
+    <type id="edgeType_0" numLanes="6" allow="bus"/>
+    <type id="edgeType_1" numLanes="8" allow="bus"/>
+    <type id="edgeType_2" numLanes="8" allow="bus">
+        <laneType index="0" speed="14.00"/>
+        <laneType index="1" speed="15.00"/>
+        <laneType index="2" speed="16.00"/>
+        <laneType index="3" speed="17.00"/>
+        <laneType index="4" speed="14.00"/>
+        <laneType index="5" speed="15.00"/>
+        <laneType index="6" speed="16.00"/>
+        <laneType index="7" speed="17.00"/>
     </type>
 
     <edge id=":J0_0" function="internal">
