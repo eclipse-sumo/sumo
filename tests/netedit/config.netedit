@@ -11,17 +11,15 @@ copy_test_path:gui-settings.xml
 
 copy_test_path:netedit.netecfg
 copy_test_path:netedit2.netecfg
-
-copy_test_path:netedit.xml
-copy_test_path:netedit.xml.gz
-copy_test_path:netedit.txt
+copy_test_path:netedit2.xml
+copy_test_path:netedit2.xml.gz
+copy_test_path:netedit2.txt
 
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo2.sumocfg
-
-copy_test_path:sumo.xml
-copy_test_path:sumo.xml.gz
-copy_test_path:sumo.txt
+copy_test_path:sumo2.xml
+copy_test_path:sumo2.xml.gz
+copy_test_path:sumo2.txt
 
 copy_test_path:netccfg.netecfg
 copy_test_path:netccfg2.netecfg
@@ -115,9 +113,15 @@ copy_test_path:loadViewport.xml
 [collate_file]
 
 netedit2:netedit2.netecfg
+netedit2_xml:netedit2.xml
+netedit2_xml_gz:netedit2.xml.gz
+netedit2_txt:netedit2.txt
 netedit3:netedit3.netecfg
 
 sumo2:sumo2.sumocfg
+sumo2_xml:sumo2.xml
+sumo2_xml_gz:sumo2.xml.gz
+sumo2_txt:sumo2.txt
 sumo3:sumo3.sumocfg
 
 config2:config2.netecfg
