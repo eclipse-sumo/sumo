@@ -263,6 +263,24 @@ net_txt:\\{REPLACE /}
 net3:<!--{[->]}-->
 net3:\\{REPLACE /}
 
+trafficlights_ttl_xml:<!--{[->]}-->
+trafficlights_ttl_xml:\\{REPLACE /}
+trafficlights_ttl_xml_gz:
+trafficlights_xml:<!--{[->]}-->
+trafficlights_xml:\\{REPLACE /}
+trafficlights_xml_gz:
+trafficlights_txt:<!--{[->]}-->
+trafficlights_txt:\\{REPLACE /}
+
+edgetypes_typ_xml:<!--{[->]}-->
+edgetypes_typ_xml:\\{REPLACE /}
+edgetypes_typ_xml_gz:
+edgetypes_xml:<!--{[->]}-->
+edgetypes_xml:\\{REPLACE /}
+edgetypes_xml_gz:
+edgetypes_txt:<!--{[->]}-->
+edgetypes_txt:\\{REPLACE /}
+
 additionals:<!-- generated{[->]}-->
 additionals:\\{REPLACE /}
 
