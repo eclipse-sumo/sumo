@@ -89,7 +89,8 @@ bool
 GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                    const std::string& laneID, const double startPos, const double endPos, const std::string& name,
                                    const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
-                                   const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
+                                   const RGBColor& color, const bool friendlyPosition, const double angle,
+                                   const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement(NamespaceIDs::busStops, id);
     if (!checkElement(SUMO_TAG_BUS_STOP, element)) {
@@ -111,7 +112,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* /*s
         } else {
             // build busStop
             GNEAdditional* busStop = GNEBusStop::buildBusStop(id, myNet, myFilename, lane, startPos, endPos, name, lines, personCapacity,
-                                     parkingLength, color, friendlyPosition, parameters);
+                                     parkingLength, color, friendlyPosition, angle, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(busStop, TL("add bus stop '") + id + "'");
@@ -132,7 +133,8 @@ bool
 GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                      const std::string& laneID, const double startPos, const double endPos, const std::string& name,
                                      const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
-                                     const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
+                                     const RGBColor& color, const bool friendlyPosition, const double angle,
+                                     const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement(NamespaceIDs::busStops, id);
     if (!checkElement(SUMO_TAG_TRAIN_STOP, element)) {
@@ -154,7 +156,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* /
         } else {
             // build trainStop
             GNEAdditional* trainStop = GNEBusStop::buildTrainStop(id, myNet, myFilename, lane, startPos, endPos, name, lines, personCapacity,
-                                       parkingLength, color, friendlyPosition, parameters);
+                                       parkingLength, color, friendlyPosition, angle, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(trainStop, TL("add train stop '") + id + "'");
