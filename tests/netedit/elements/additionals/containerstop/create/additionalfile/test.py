@@ -35,13 +35,13 @@ netedit.changeElement("additionalFrame", "containerStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeAdditionalFileDialog(netedit.attrs.containerStop.create.additionalFileButton)
+netedit.modifyFileDialog("additional", netedit.attrs.containerStop.create.additionalFileButton)
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeAdditionalFile(netedit.attrs.containerStop.create.additionalFile)
+netedit.modifyFile("additional", netedit.attrs.containerStop.create.additionalFile)
 
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

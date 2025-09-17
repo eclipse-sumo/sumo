@@ -35,13 +35,13 @@ netedit.changeElement("additionalFrame", "busStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeAdditionalFileDialog(netedit.attrs.busStop.create.additionalFileButton)
+netedit.modifyFileDialog("additional", netedit.attrs.busStop.create.additionalFileButton)
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeAdditionalFile(netedit.attrs.busStop.create.additionalFile)
+netedit.modifyFile("additional", netedit.attrs.busStop.create.additionalFile)
 
 # create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

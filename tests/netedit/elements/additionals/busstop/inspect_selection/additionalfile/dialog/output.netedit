@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 648 - 372
-C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Mar132645.7364\netedit.gui\elements\additionals\busstop\inspect_selection\additionalfile\dialog
-additional.secondFile.add.xml
+C:\Users\alva_pa\.texttest\tmp\netedit.external.17Sep145627.31732\netedit.external\elements\additionals\busstop\inspect_selection\additionalfile\dialog
+additionals2.add.xml
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
