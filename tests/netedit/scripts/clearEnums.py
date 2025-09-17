@@ -27,7 +27,7 @@ def removeEqual(line):
 
 
 # load
-with open("../attributesEnum.py", "r") as fp:
+with open("../../../tools/neteditTestFunctions/enums/attributesEnum.py", "r") as fp:
     lines = fp.readlines()
 
 # process lines
