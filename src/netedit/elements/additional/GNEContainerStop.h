@@ -45,11 +45,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in] color containerStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle container stop angle
      * @param[in] parameters generic parameters
      */
-    GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
-                     const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength,
-                     const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
+    GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
+                     const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
+                     const double angle, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEContainerStop();

@@ -49,13 +49,14 @@ GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename,
                                    SumoXMLTag tag, GNELane* lane, const double startPos, const double endPos,
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
-                                   const Parameterised::Map& parameters) :
+                                   const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
     Parameterised(parameters),
     myStartPosition(startPos),
     myEndPosition(endPos),
     myFriendlyPosition(friendlyPosition),
-    myColor(color) {
+    myColor(color),
+    myAngle(angle) {
     // set parents
     setParent<GNELane*>(lane);
 }
@@ -261,6 +262,10 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
+    // angle (if defined)
+    if (myAngle != 0) {
+        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    }
 }
 
 
@@ -293,6 +298,8 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
             } else {
                 return toString(myColor);
             }
+        case SUMO_ATTR_ANGLE:
+            return toString(myAngle);
         // special attributes used during creation or edition
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
@@ -337,6 +344,8 @@ GNEStoppingPlace::getStoppingPlaceAttributeDouble(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_CENTER:
             return ((getStoppingPlaceAttributeDouble(SUMO_ATTR_ENDPOS) - getStoppingPlaceAttributeDouble(SUMO_ATTR_STARTPOS)) * 0.5) + getStoppingPlaceAttributeDouble(SUMO_ATTR_STARTPOS);
+        case SUMO_ATTR_ANGLE:
+            return myAngle;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -353,6 +362,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& 
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_ANGLE:
         // special attributes used during creation or edition
         case GNE_ATTR_SHIFTLANEINDEX:
         case GNE_ATTR_REFERENCE:
@@ -410,6 +420,12 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
             } else {
                 return canParse<RGBColor>(value);
             }
+        case SUMO_ATTR_ANGLE:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         // special attributes used during creation or edition
         case GNE_ATTR_SHIFTLANEINDEX:
             return true;
@@ -464,6 +480,13 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
                 myColor = RGBColor::INVISIBLE;
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
+            }
+            break;
+        case SUMO_ATTR_ANGLE:
+            if (value.empty()) {
+                myAngle = 0;
+            } else {
+                myAngle = GNEAttributeCarrier::parse<double>(value);
             }
             break;
         // special attributes used during creation or edition

@@ -308,6 +308,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                        obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
                                        obj->getColorAttribute(SUMO_ATTR_COLOR),
                                        obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                       obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                                        obj->getParameters())) {
                     obj->markAsCreated();
                 }
@@ -920,6 +921,7 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -934,6 +936,7 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
         myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY, containerCapacity);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
@@ -961,7 +964,6 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, TIME2STEPS(900));
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
     const std::string parkingAreaID = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, id.c_str(), parsedOk, "");
-
     // check charge type
     if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
@@ -1012,7 +1014,6 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     const bool lefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, id.c_str(), parsedOk, false);
-
     // continue if flag is ok
     if (parsedOk) {
         // set tag

@@ -231,7 +231,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
 bool
 GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const std::string& laneID,
         const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity,
-        const double parkingLength, const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters) {
+        const double parkingLength, const RGBColor& color, const bool friendlyPosition, const double angle, const Parameterised::Map& parameters) {
     // check conditions
     const auto element = retrieveAdditionalElement({SUMO_TAG_CONTAINER_STOP}, id);
     if (!checkElement(SUMO_TAG_CONTAINER_STOP, element)) {
@@ -253,7 +253,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
         } else {
             // build containerStop
             GNEAdditional* containerStop = new GNEContainerStop(id, myNet, myFilename, lane, startPos, endPos, name, lines, containerCapacity, parkingLength,
-                    color, friendlyPosition, parameters);
+                    color, friendlyPosition, angle, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(containerStop, TL("add container stop '") + id + "'");

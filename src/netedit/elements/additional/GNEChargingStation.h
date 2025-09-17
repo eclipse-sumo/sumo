@@ -50,9 +50,11 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
-                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                       const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID, bool friendlyPosition, const Parameterised::Map& parameters);
+    GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
+                       const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
+                       const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
+                       const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEChargingStation();

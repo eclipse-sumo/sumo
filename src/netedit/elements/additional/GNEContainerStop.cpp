@@ -37,9 +37,9 @@ GNEContainerStop::GNEContainerStop(GNENet* net) :
 
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
-                                   const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
-                                   bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, filename, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, color, parameters),
+                                   const std::string& name, const std::vector<std::string>& lines, const int containerCapacity, const double parkingLength,
+                                   const RGBColor& color, const bool friendlyPosition, const double angle, const Parameterised::Map& parameters) :
+    GNEStoppingPlace(id, net, filename, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, color, angle, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),
     myParkingLength(parkingLength) {
@@ -54,20 +54,9 @@ GNEContainerStop::~GNEContainerStop() {}
 void
 GNEContainerStop::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    if (myStartPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
-    }
-    if (myEndPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
-    }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    }
+    // write common attributes
+    writeStoppingPlaceAttributes(device);
+    // write specific attributes
     if (getAttribute(SUMO_ATTR_LINES) != myTagProperty->getDefaultStringValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
@@ -76,9 +65,6 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
     }
     if (myParkingLength != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
-    }
-    if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
-        device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);

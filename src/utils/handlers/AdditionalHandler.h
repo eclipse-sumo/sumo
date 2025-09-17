@@ -113,12 +113,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in[ color containerStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle containerStop's angle
      * @param[in] parameters generic parameters
      */
     virtual bool buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                     const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                                    const Parameterised::Map& parameters) = 0;
+                                    const double angle, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a charging Station
      * @param[in] sumoBaseObject sumo base object used for build

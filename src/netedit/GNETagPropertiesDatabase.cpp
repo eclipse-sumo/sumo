@@ -1259,6 +1259,12 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Optional space definition for vehicles that park at this stop"),
                                    "", "0");
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ANGLE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Angle of container stop"),
+                                   "0");
     }
     currentTag = SUMO_TAG_CHARGING_STATION;
     {

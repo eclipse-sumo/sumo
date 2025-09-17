@@ -52,7 +52,7 @@ public:
      */
     static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                                    int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                    const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
                                     const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for train stops
@@ -72,7 +72,7 @@ public:
      */
     static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                                      int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
+                                      const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
                                       const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -167,8 +167,8 @@ private:
      */
     GNEBusStop(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename,
                GNELane* lane, const double startPos, const double endPos, const std::string& name,
-               const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
+               const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
+               const RGBColor& color, const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Invalidated copy constructor.
     GNEBusStop(const GNEBusStop&) = delete;
