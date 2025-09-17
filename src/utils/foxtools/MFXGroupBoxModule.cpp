@@ -75,7 +75,7 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
         myResetWidthButton = new MFXButtonTooltip(headerFrame,
                                                   frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                                   "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
-        myResetWidthButton->setTipText(TL("Shrink frame to default with"));
+        myResetWidthButton->setTipText(TL("Shrink frame to default width"));
     }
     if (myOptions & Options::SAVE) {
         mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
