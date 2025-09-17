@@ -1526,7 +1526,7 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
     {"0",              ParkingType::ONROAD },   // default: park on the street
     {"1",              ParkingType::OFFROAD },    // parking off the street
-    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park of the street if there is an opportunity for it
+    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park off the street if there is an opportunity for it
 };
 
 StringBijection<ChargeType>::Entry SUMOXMLDefinitions::chargeTypeValues[] = {
