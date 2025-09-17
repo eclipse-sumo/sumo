@@ -22,11 +22,12 @@
 
 #include <utils/handlers/MeanDataHandler.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNENet;
+class GNEEdge;
 
 // ===========================================================================
 // class definitions
@@ -37,7 +38,7 @@ class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
     /// @brief Constructor
-    GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite);
+    GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo);
 
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();
@@ -71,9 +72,6 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
-
-    /// @brief check if overwrite
-    const bool myOverwrite;
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);

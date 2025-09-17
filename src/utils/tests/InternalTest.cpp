@@ -164,8 +164,12 @@ InternalTest::InternalTest(const std::string& testFile) {
         std::vector<std::pair<bool, std::string> > linesRaw;
         // read full lines until end of file
         while (std::getline(strm, line)) {
-            // ignore comments (#) and all lines that doesn't start with netedit.
-            if (!line.empty() && (line[0] != '#')) {
+            // filter lines
+            if (!line.empty() &&                // emty lines
+                    !(line[0] == '#') &&            // comments
+                    !startWith(line, "import") &&   // imports
+                    !startWith(line, "time.") &&    // time calls
+                    !startWith(line, "sys.")) {     // sys calls
                 linesRaw.push_back(std::make_pair(startWith(line, "netedit."), line));
             }
         }
@@ -176,14 +180,62 @@ InternalTest::InternalTest(const std::string& testFile) {
         for (const auto& clearLine : lines) {
             new InternalTestStep(this, clearLine);
         }
+        new InternalTestStep(this, "netedit.finish");
     }
 }
 
 
 InternalTest::~InternalTest() {
-    for (auto testStep : myTestSteps) {
-        delete testStep;
+    // delete all test steps
+    while (myInitialTestStep != nullptr) {
+        // store next step
+        auto nextStep = myInitialTestStep->getNextStep();
+        // delete current step
+        delete myInitialTestStep;
+        // set next step as initial step
+        myInitialTestStep = nextStep;
     }
+}
+
+
+void
+InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
+    if (myLastTestStep == nullptr) {
+        // set initial step
+        myInitialTestStep = internalTestStep;
+        myLastTestStep = internalTestStep;
+        myCurrentTestStep = internalTestStep;
+    } else {
+        // set next step
+        myLastTestStep->setNextStep(internalTestStep);
+        myLastTestStep = internalTestStep;
+    }
+}
+
+
+InternalTestStep*
+InternalTest::getCurrentStep() const {
+    return myCurrentTestStep;
+}
+
+
+InternalTestStep*
+InternalTest::setNextStep() {
+    const auto currentStep = myCurrentTestStep;
+    myCurrentTestStep = myCurrentTestStep->getNextStep();
+    return currentStep;
+}
+
+
+bool
+InternalTest::isRunning() const {
+    return myRunning;
+}
+
+
+void
+InternalTest::stopTests() {
+    myRunning = false;
 }
 
 
@@ -193,32 +245,6 @@ InternalTest::getTime() const {
                std::chrono::duration_cast<std::chrono::milliseconds>(
                    std::chrono::steady_clock::now().time_since_epoch()
                ).count());
-}
-
-
-void
-InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
-    myTestSteps.push_back(internalTestStep);
-}
-
-
-InternalTestStep*
-InternalTest::getCurrentStep() const {
-    if (myCurrentStep < myTestSteps.size()) {
-        return myTestSteps.at(myCurrentStep);
-    } else {
-        return nullptr;
-    }
-}
-
-
-InternalTestStep*
-InternalTest::getLastTestStep() const {
-    if (myTestSteps.empty()) {
-        return nullptr;
-    } else {
-        return myTestSteps.back();
-    }
 }
 
 

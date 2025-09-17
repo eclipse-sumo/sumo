@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeEditMode(netedit.attrs.modes.demand.showShapes)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

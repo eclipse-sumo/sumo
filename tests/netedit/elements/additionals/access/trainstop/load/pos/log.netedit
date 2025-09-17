@@ -1,0 +1,6 @@
+Error: Attribute 'pos' in definition of a access is empty.
+Error: Could not build access with ID 'trainStop_0' in netedit; Invalid position over lane.
+Error: Could not build access with ID 'trainStop_0' in netedit; Invalid position over lane.
+Error: Could not build trainStop with ID 'trainStop_1' in netedit; Invalid position over lane.
+Error: Could not build access with ID '' in netedit; trainStop parent with ID 'trainStop_1' doesn't exist.
+Error: Loading of 'additionals.add.xml' failed.

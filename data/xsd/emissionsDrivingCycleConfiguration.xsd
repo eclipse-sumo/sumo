@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="types/base.xsd"/>
+    <xsd:include schemaLocation="types/emissionsDrivingCycleConfigurationType.xsd"/>
+    <xsd:element name="emissionsDrivingCycleConfiguration" type="emissionsDrivingCycleConfigurationType"/>
+</xsd:schema>

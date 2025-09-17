@@ -75,6 +75,11 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief keyboard functions
+    //@{
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    //@}
+
     /// @brief Callback: The selected item shall be centered within the calling view
     long onCmdCenter(FXObject*, FXSelector, void*);
 
@@ -89,9 +94,6 @@ public:
 
     /// @brief Callback: Selects to current item if enter is pressed
     long onCmdText(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Selects to current item if enter is pressed
-    long onListKeyPress(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Current list item has changed
     long onChgList(FXObject*, FXSelector, void*);

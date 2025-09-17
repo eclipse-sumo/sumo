@@ -1,3 +1,3 @@
 Error: Attribute 'lane' is missing in definition of busStop 'busStop_01'.
 Error: Could not build busStop with ID 'busStop_02' in netedit; lane parent with ID 'dummyLane' doesn't exist.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

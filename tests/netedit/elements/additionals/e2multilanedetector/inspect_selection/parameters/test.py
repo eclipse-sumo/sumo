@@ -45,6 +45,6 @@ netedit.checkParametersOverlapped(referencePosition, netedit.attrs.E2Multilane.i
 
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 # quit netedit
 netedit.quit(neteditProcess)

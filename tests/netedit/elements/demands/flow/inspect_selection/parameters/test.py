@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleE
 netedit.checkParameters(referencePosition, netedit.attrs.flow.inspectSelection.parameters)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

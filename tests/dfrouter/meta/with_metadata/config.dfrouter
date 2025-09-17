@@ -1,0 +1,3 @@
+[run_dependent_text]
+pois:created_at="[^"]*"{REPLACE created_at="<timestamp>"}
+pois:created_by="[^"]*"{REPLACE created_by="<tool>"}

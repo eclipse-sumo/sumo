@@ -50,8 +50,9 @@ FXIMPLEMENT(MFXTextFieldSearch, MFXTextFieldIcon, MFXTextFieldSearchMap, ARRAYNU
 // member method definitions
 // ===========================================================================
 
-MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    MFXTextFieldIcon(p, ncols, GUIIconSubSys::getIcon(GUIIcon::SEARCH), tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
+MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, MFXStaticToolTip* staticToolTip, FXObject* tgt, FXSelector sel,
+                                       FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    MFXTextFieldIcon(p, staticToolTip, GUIIcon::SEARCH, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
     myTarget(tgt) {
 }
 
@@ -87,15 +88,15 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
     }
     // Draw caret
     if (flags & FLAG_CARET) {
-        int xx = coord(cursor) - 1;
+        int xx = coord(myCursorPosition) - 1;
         xx += ICON_SPACING + ICON_SIZE;
-        dc.setForeground(cursorColor);
+        dc.setForeground(myCursorColor);
         dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
         dc.fillRectangle(xx - 2, padtop + border, 5, 1);
         dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
     }
     // draw icon
-    dc.drawIcon(icon, 3, border + padtop + (height - padbottom - padtop - (border << 1) - ICON_SIZE) / 2);
+    dc.drawIcon(myIcon, 3, border + padtop + (height - padbottom - padtop - (border << 1) - ICON_SIZE) / 2);
     return 1;
 }
 
@@ -138,11 +139,11 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
     if (to <= fm) {
         return;
     }
-    dc.setFont(font);
+    dc.setFont(myFont);
     // Text color
     dc.setForeground(FXRGBA(128, 128, 128, 255));
     // Height
-    hh = font->getFontHeight();
+    hh = myFont->getFontHeight();
     // Text sticks to top of field
     if (options & JUSTIFY_TOP) {
         yy = padtop + border;
@@ -153,33 +154,33 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
         // Text centered in y
         yy = border + padtop + (height - padbottom - padtop - (border << 1) - hh) / 2;
     }
-    if (anchor < cursor) {
-        si = anchor;
-        ei = cursor;
+    if (myAnchorPosition < myCursorPosition) {
+        si = myAnchorPosition;
+        ei = myCursorPosition;
     } else {
-        si = cursor;
-        ei = anchor;
+        si = myCursorPosition;
+        ei = myAnchorPosition;
     }
     // Normal mode
-    ww = font->getTextWidth(searchString.text(), searchString.length());
+    ww = myFont->getTextWidth(searchString.text(), searchString.length());
     // Text sticks to right of field
     if (options & JUSTIFY_RIGHT) {
-        xx = shift + rr - ww;
+        xx = myShiftAmount + rr - ww;
     } else if (options & JUSTIFY_LEFT) {
         // Text sticks on left of field
-        xx = shift + ll;
+        xx = myShiftAmount + ll;
     } else {
         // Text centered in field
-        xx = shift + mm - ww / 2;
+        xx = myShiftAmount + mm - ww / 2;
     }
     // add icon spacing
     xx += ICON_SPACING + ICON_SIZE;
     // Reduce to avoid drawing excessive amounts of text
-    lx = xx + font->getTextWidth(&searchString[0], fm);
-    rx = lx + font->getTextWidth(&searchString[fm], to - fm);
+    lx = xx + myFont->getTextWidth(&searchString[0], fm);
+    rx = lx + myFont->getTextWidth(&searchString[fm], to - fm);
     while (fm < to) {
         t = searchString.inc(fm);
-        cw = font->getTextWidth(&searchString[fm], t - fm);
+        cw = myFont->getTextWidth(&searchString[fm], t - fm);
         if (lx + cw >= 0) {
             break;
         }
@@ -188,7 +189,7 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
     }
     while (fm < to) {
         t = searchString.dec(to);
-        cw = font->getTextWidth(&searchString[t], to - t);
+        cw = myFont->getTextWidth(&searchString[t], to - t);
         if (rx - cw < width) {
             break;
         }
@@ -203,7 +204,7 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
         ei = to;
     }
     // draw text
-    xx += font->getTextWidth(searchString.text(), fm);
-    yy += font->getFontAscent();
+    xx += myFont->getTextWidth(searchString.text(), fm);
+    yy += myFont->getFontAscent();
     dc.drawText(xx, yy, &searchString[fm], to - fm);
 }

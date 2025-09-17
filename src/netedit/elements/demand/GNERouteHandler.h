@@ -31,6 +31,7 @@ class GNEContainer;
 class GNEDemandElement;
 class GNEEdge;
 class GNEJunction;
+class GNENet;
 class GNEPerson;
 class GNEPlanCreator;
 class GNETAZ;
@@ -46,7 +47,7 @@ class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
+    GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();
@@ -292,7 +293,7 @@ protected:
     /// @brief get element by ID
     GNEDemandElement* retrieveDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if element exist, and if overwritte
+    /// @brief check if element exist, and if overwrite
     bool checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement);
 
 private:
@@ -307,9 +308,6 @@ private:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
-
-    /// @brief flag to check if overwrite elements
-    const bool myOverwrite;
 
     /// @brief invalidate default onstructor
     GNERouteHandler() = delete;

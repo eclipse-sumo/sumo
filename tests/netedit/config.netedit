@@ -10,18 +10,19 @@ copy_test_path:test.py
 copy_test_path:gui-settings.xml
 
 copy_test_path:netedit.netecfg
+copy_test_path:netedit2.netecfg
+copy_test_path:netedit2.xml
+copy_test_path:netedit2.xml.gz
+copy_test_path:netedit2.txt
+
 copy_test_path:sumo.sumocfg
+copy_test_path:sumo2.sumocfg
+copy_test_path:sumo2.xml
+copy_test_path:sumo2.xml.gz
+copy_test_path:sumo2.txt
+
 copy_test_path:netccfg.netecfg
-
-copy_test_path:netedit_open.netecfg
-copy_test_path:sumo_open.sumocfg
-copy_test_path:netccfg_open.netecfg
-
-copy_test_path:net.con.xml
-copy_test_path:net.edg.xml
-copy_test_path:net.nod.xml
-copy_test_path:net.tll.xml
-copy_test_path:net.net.xml
+copy_test_path:netccfg2.netecfg
 
 copy_test_path:sumo.con.xml
 copy_test_path:sumo.edg.xml
@@ -35,11 +36,72 @@ copy_test_path:netccfg.nod.xml
 copy_test_path:netccfg.tll.xml
 copy_test_path:netccfg.net.xml
 
+copy_test_path:net.con.xml
+copy_test_path:net.edg.xml
+copy_test_path:net.nod.xml
+copy_test_path:net.tll.xml
+copy_test_path:net.net.xml
+
+copy_test_path:net2.con.xml
+copy_test_path:net2.edg.xml
+copy_test_path:net2.nod.xml
+copy_test_path:net2.tll.xml
+copy_test_path:net2.net.xml
+
+copy_test_path:net.net.xml.gz
+copy_test_path:net.xml
+copy_test_path:net.xml.gz
+copy_test_path:net.txt
+
+copy_test_path:trafficlights.tll.xml
+copy_test_path:trafficlights2.tll.xml
+copy_test_path:trafficlights2.tll.xml.gz
+copy_test_path:trafficlights2.xml
+copy_test_path:trafficlights2.xml.gz
+copy_test_path:trafficlights2.txt
+copy_test_path:trafficlights3.tll.xml
+
+copy_test_path:edgetypes.typ.xml
+copy_test_path:edgetypes2.typ.xml
+copy_test_path:edgetypes2.typ.xml.gz
+copy_test_path:edgetypes2.xml
+copy_test_path:edgetypes2.xml.gz
+copy_test_path:edgetypes2.txt
+copy_test_path:edgetypes3.typ.xml
+
 copy_test_path:additionals.add.xml
+copy_test_path:additionals2.add.xml
+copy_test_path:additionals2.add.xml.gz
+copy_test_path:additionals2.xml
+copy_test_path:additionals2.xml.gz
+copy_test_path:additionals2.txt
+copy_test_path:additionals3.add.xml
+
 copy_test_path:routes.rou.xml
-copy_test_path:vtypes.rou.xml
+copy_test_path:routes2.rou.xml
+copy_test_path:routes2.rou.xml.gz
+copy_test_path:routes2.xml
+copy_test_path:routes2.xml.gz
+copy_test_path:routes2.txt
+copy_test_path:routes3.rou.xml
+
 copy_test_path:datas.dat.xml
-copy_test_path:datas.med.add.xml
+copy_test_path:datas2.dat.xml
+copy_test_path:datas2.dat.xml.gz
+copy_test_path:datas2.xml
+copy_test_path:datas2.xml.gz
+copy_test_path:datas2.txt
+copy_test_path:datas3.dat.xml
+
+copy_test_path:meandatas.dat.add.xml
+copy_test_path:meandatas2.dat.add.xml
+copy_test_path:meandatas2.dat.add.xml.gz
+copy_test_path:meandatas2.dat.xml
+copy_test_path:meandatas2.dat.xml.gz
+copy_test_path:meandatas2.dat.txt
+copy_test_path:meandatas3.dat.add.xml
+
+copy_test_path:vtypes.rou.xml
 
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -48,50 +110,134 @@ copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:loadViewport.xml
 
-
 [collate_file]
-neteconfigas:configAs.netecfg
-sumoconfigas:configAs.sumo
+
+netedit2:netedit2.netecfg
+netedit2_xml:netedit2.xml
+netedit2_xml_gz:netedit2.xml.gz
+netedit2_txt:netedit2.txt
+netedit3:netedit3.netecfg
+
+sumo2:sumo2.sumocfg
+sumo2_xml:sumo2.xml
+sumo2_xml_gz:sumo2.xml.gz
+sumo2_txt:sumo2.txt
+sumo3:sumo3.sumocfg
+
+config2:config2.netecfg
+config3:config3.netecfg
 
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
+nettyp:net.typ.xml
 
-sumonet:sumo.net.xml
-sumocon:sumo.con.xml
-sumoedg:sumo.edg.xml
-sumonod:sumo.nod.xml
-sumotll:sumo.tll.xml
+netcon2:net2.con.xml
+netedg2:net2.edg.xml
+netnod2:net2.nod.xml
+nettll2:net2.tll.xml
+nettyp2:net2.typ.xml
 
-netccfgnet:netccfg.net.xml
-netccfgcon:netccfg.con.xml
-netccfgedg:netccfg.edg.xml
-netccfgnod:netccfg.nod.xml
-netccfgtll:netccfg.tll.xml
+netcon3:net3.con.xml
+netedg3:net3.edg.xml
+netnod3:net3.nod.xml
+nettll3:net3.tll.xml
+nettyp3:net3.typ.xml
 
 net:net.net.xml
-netas:netAs.net.xml
+net_net_xml:net2.net.xml
+net_net_xml_gz:net2.net.xml.gz
+net_xml:net2.xml
+net_xml_gz:net2.xml.gz
+net_txt:net2.txt
+
+net3:net3.net.xml
+
+trafficlights:trafficlights.tll.xml
+
+trafficlights_ttl_xml:trafficlights2.tll.xml
+trafficlights_ttl_xml_gz:trafficlights2.tll.xml.gz
+trafficlights_xml:trafficlights2.xml
+trafficlights_xml_gz:trafficlights2.xml.gz
+trafficlights_txt:trafficlights2.txt
+
+trafficlights3:trafficlights3.tll.xml
+
+edgetypes:edgetypes.typ.xml
+
+edgetypes_typ_xml:edgetypes2.typ.xml
+edgetypes_typ_xml_gz:edgetypes2.typ.xml.gz
+edgetypes_xml:edgetypes2.xml
+edgetypes_xml_gz:edgetypes2.xml.gz
+edgetypes_txt:edgetypes2.txt
+
+edgetypes3:edgetypes3.typ.xml
 
 additionals:additionals.add.xml
-additionalsas:additionalsAs.add.xml
-additionalssecondfile:additional.secondFile.add.xml
-additionalsthirdFilefile:additional.thirdFile.add.xml
+
+additionals_add_xml:additionals2.add.xml
+additionals_add_xml_gz:additionals2.add.xml.gz
+additionals_xml:additionals2.xml
+additionals_xml_gz:additionals2.xml.gz
+additionals_txt:additionals2.txt
+
+additionals3:additionals3.add.xml
+additionalsconfig2:sumo2.add.xml
+additionalsconfig3:sumo3.add.xml
+additionalsconfig2:netedit2.add.xml
+additionalsconfig3:netedit3.add.xml
 
 routes:routes.rou.xml
-routesas:routesAs.rou.xml
-routesssecondfile:routes.secondFile.add.xml
-routessthirdFilefile:routes.thirdFile.add.xml
+
+routes_rou_xml:routes2.rou.xml
+routes_rou_xml_gz:routes2.rou.xml.gz
+routes_xml:routes2.xml
+routes_xml_gz:routes2.xml.gz
+routes_txt:routes2.txt
+
+routes3:routes3.rou.xml
+
+routesconfig2:sumo2.rou.xml
+routesconfig3:sumo3.rou.xml
+routesconfig2:netedit2.rou.xml
+routesconfig2:netedit3.rou.xml
 
 datas:datas.dat.xml
-datasas:datasAs.dat.xml
-datasssecondfile:datas.secondFile.add.xml
-datassthirdFilefile:datas.thirdFile.add.xml
 
-meandatas:datas.med.add.xml
-meandatasas:datasAs.med.add.xml
-meandatasssecondfile:datas.secondFile.med.add.xml
-meandatassthirdFilefile:datasAs.thirdFile.med.add.xml
+datas_dat_xml:datas2.dat.xml
+datas_dat_xml_gz:datas2.dat.xml.gz
+datas_xml:datas2.xml
+datas_xml_gz:datas2.xml.gz
+datas_txt:datas2.txt
+
+datas3:datas3.dat.xml
+
+datasconfig2:sumo2.dat.xml
+datasconfig3:sumo3.dat.xml
+datasconfig2:netedit2.dat.xml
+datasconfig3:netedit3.dat.xml
+
+meandatas:meandatas.dat.add.xml
+
+meandatas_add_xml:meandatas2.dat.add.xml
+meandatas_add_xml_gz:meandatas2.dat.add.xml.gz
+meandatas_xml:meandatas2.dat.xml
+meandatas_xml_gz:meandatas2.dat.xml.gz
+meandatas_txt:meandatas2.dat.txt
+
+meandatas3:meandatas3.dat.add.xml
+
+meandatasconfig2:sumo2.dat.add.xml
+meandatasconfig3:sumo3.dat.add.xml
+meandatasconfig2:netedit2.dat.add.xml
+meandatasconfig3:netedit3.dat.add.xml
+
+joinedjunctions_nod_xml:joinedjunctions2.nod.xml
+joinedjunctions_nod_xml_gz:joinedjunctions2.nod.xml.gz
+joinedjunctions_xml:joinedjunctions2.xml
+joinedjunctions_xml_gz:joinedjunctions2.xml.gz
+joinedjunctions_txt:joinedjunctions2.txt
 
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
@@ -100,69 +246,155 @@ selection:selection.txt
 errorScreenshot:errorScreenshot.png
 viewport:viewport.xml
 
-
 [run_dependent_text]
+
 net:<!--{[->]}-->
-netas:<!--{[->]}-->
+net:\\{REPLACE /}
+
+net_net_xml:<!--{[->]}-->
+net_net_xml:\\{REPLACE /}
+net_net_xml_gz:
+net_xml:<!--{[->]}-->
+net_xml:\\{REPLACE /}
+net_xml_gz:
+net_txt:<!--{[->]}-->
+net_txt:\\{REPLACE /}
+
+net3:<!--{[->]}-->
+net3:\\{REPLACE /}
+
+trafficlights_ttl_xml:<!--{[->]}-->
+trafficlights_ttl_xml:\\{REPLACE /}
+trafficlights_ttl_xml_gz:
+trafficlights_xml:<!--{[->]}-->
+trafficlights_xml:\\{REPLACE /}
+trafficlights_xml_gz:
+trafficlights_txt:<!--{[->]}-->
+trafficlights_txt:\\{REPLACE /}
+
+edgetypes_typ_xml:<!--{[->]}-->
+edgetypes_typ_xml:\\{REPLACE /}
+edgetypes_typ_xml_gz:
+edgetypes_xml:<!--{[->]}-->
+edgetypes_xml:\\{REPLACE /}
+edgetypes_xml_gz:
+edgetypes_txt:<!--{[->]}-->
+edgetypes_txt:\\{REPLACE /}
 
 additionals:<!-- generated{[->]}-->
 additionals:\\{REPLACE /}
 
-additionalsas:<!-- generated{[->]}-->
-additionalsas:\\{REPLACE /}
+additionals_add_xml:<!-- generated{[->]}-->
+additionals_add_xml:\\{REPLACE /}
+additionals_add_xml_gz:
+additionals_xml:<!-- generated{[->]}-->
+additionals_xml:\\{REPLACE /}
+additionals_xml_gz:
+additionals_txt:<!-- generated{[->]}-->
+additionals_txt:\\{REPLACE /}
 
-additionalssecondfile:<!-- generated{[->]}-->
-additionalssecondfile:\\{REPLACE /}
+additionals3:<!-- generated{[->]}-->
+additionals3:\\{REPLACE /}
 
-additionalsthirdFilefile:<!-- generated{[->]}-->
-additionalsthirdFilefile:\\{REPLACE /}
+additionalsconfig2:<!-- generated{[->]}-->
+additionalsconfig2:\\{REPLACE /}
+
+additionalsconfig3:<!-- generated{[->]}-->
+additionalsconfig3:\\{REPLACE /}
 
 routes:<!-- generated{[->]}-->
 routes:\\{REPLACE /}
 
-routesas:<!-- generated{[->]}-->
-routesas:\\{REPLACE /}
+routes_rou_xml:<!-- generated{[->]}-->
+routes_rou_xml:\\{REPLACE /}
+routes_rou_xml_gz:
+routes_xml:<!-- generated{[->]}-->
+routes_xml:\\{REPLACE /}
+routes_xml_gz:
+routes_txt:<!-- generated{[->]}-->
+routes_txt:\\{REPLACE /}
 
-routesssecondfile:<!-- generated{[->]}-->
-routesssecondfile:\\{REPLACE /}
+routes3:<!-- generated{[->]}-->
+routes3:\\{REPLACE /}
 
-routessthirdFilefile:<!-- generated{[->]}-->
-routessthirdFilefile:\\{REPLACE /}
+routesconfig2:<!-- generated{[->]}-->
+routesconfig2:\\{REPLACE /}
+
+routesconfig3:<!-- generated{[->]}-->
+routesconfig3:\\{REPLACE /}
 
 datas:<!-- generated{[->]}-->
 datas:\\{REPLACE /}
 
-datasas:<!-- generated{[->]}-->
-datasas:\\{REPLACE /}
+datas_dat_xml:<!-- generated{[->]}-->
+datas_dat_xml:\\{REPLACE /}
+datas_dat_xml_gz:
+datas_xml:<!-- generated{[->]}-->
+datas_xml:\\{REPLACE /}
+datas_xml_gz:
+datas_txt:<!-- generated{[->]}-->
+datas_txt:\\{REPLACE /}
 
-datasssecondfile:<!-- generated{[->]}-->
-datasssecondfile:\\{REPLACE /}
+datas3:<!-- generated{[->]}-->
+datas3:\\{REPLACE /}
 
-datassthirdFilefile:<!-- generated{[->]}-->
-datassthirdFilefile:\\{REPLACE /}
+datasconfig2:<!-- generated{[->]}-->
+datasconfig2:\\{REPLACE /}
+
+datasconfig3:<!-- generated{[->]}-->
+datasconfig3:\\{REPLACE /}
 
 meandatas:<!-- generated{[->]}-->
 meandatas:\\{REPLACE /}
 
-meandatasas:<!-- generated{[->]}-->
-meandatasas:\\{REPLACE /}
+meandatas_add_xml:<!-- generated{[->]}-->
+meandatas_add_xml:\\{REPLACE /}
+meandatas_add_xml_gz:
+meandatas_xml:<!-- generated{[->]}-->
+meandatas_xml:\\{REPLACE /}
+meandatas_xml_gz:
+meandatas_txt:<!-- generated{[->]}-->
+meandatas_txt:\\{REPLACE /}
 
-meandatasssecondfile:<!-- generated{[->]}-->
-meandatasssecondfile:\\{REPLACE /}
+meandatas3:<!-- generated{[->]}-->
+meandatas3:\\{REPLACE /}
 
-meandatassthirdFilefile:<!-- generated{[->]}-->
-meandatassthirdFilefile:\\{REPLACE /}
+meandatasconfig2:<!-- generated{[->]}-->
+meandatasconfig2:\\{REPLACE /}
+
+meandatasconfig3:<!-- generated{[->]}-->
+meandatasconfig3:\\{REPLACE /}
 
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
+nettyp:<!--{[->]}-->
 
-neteconfig:<!--{[->]}-->
-neteconfigas:<!--{[->]}-->
+netcon2:<!--{[->]}-->
+netedg2:<!--{[->]}-->
+netnod2:<!--{[->]}-->
+nettll2:<!--{[->]}-->
+nettyp2:<!--{[->]}-->
 
-sumoconfig:<!--{[->]}-->
-sumoconfigas:<!--{[->]}-->
+netedit2:<!--{[->]}-->
+netedit2_xml:<!--{[->]}-->
+netedit2_txt:<!--{[->]}-->
+netedit3:<!--{[->]}-->
+
+sumo2:<!--{[->]}-->
+sumo2_xml:<!--{[->]}-->
+sumo2_txt:<!--{[->]}-->
+sumo3:<!--{[->]}-->
+
+config2:<!--{[->]}-->
+config3:<!--{[->]}-->
+
+joinedjunctions_nod_xml:<!--{[->]}-->
+joinedjunctions_nod_xml_gz:
+joinedjunctions_xml:<!--{[->]}-->
+joinedjunctions_xml_gz:
+joinedjunctions_txt:<!--{[->]}-->
 
 output:\[log\]
 output:\[info\]
@@ -171,6 +403,9 @@ output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
+output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
+output:vm3dgl: Failed to initialize svga driver.
+output:vm3dgl: Falling back to LLVMPipe.
 
 guisettingsoutput:<scheme{[->]}</scheme>
 

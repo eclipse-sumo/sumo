@@ -457,27 +457,27 @@ GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
     if (menuCommand) {
         // check if change color
         if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "de") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "pt") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_PT))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "it") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_IT))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "zh") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "zh-Hant") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
-            menuCommand->setTextColor(FXRGB(0, 0, 255));
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else {
-            menuCommand->setTextColor(FXRGB(0, 0, 0));
+            menuCommand->setTextColor(GUIDesignTextColorBlack);
         }
     }
     return 1;

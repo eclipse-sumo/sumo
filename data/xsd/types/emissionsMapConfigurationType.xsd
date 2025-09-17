@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-15T13:31:27.692107+01:00 by Eclipse SUMO emissionsMap v1_24_0+0791-bfa764d4c7b
+-->
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="emissionsMapConfigurationType">
+        <xsd:all>
+            <xsd:element name="input" type="emissionsMapinputTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="emissionsMapprocessingTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="emissionsMapoutputTopicType" minOccurs="0"/>
+            <xsd:element name="emissions" type="emissionsMapemissionsTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="emissionsMapreportTopicType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsMapinputTopicType">
+        <xsd:all>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsMapprocessingTopicType">
+        <xsd:all>
+            <xsd:element name="iterate" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="emission-class" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="v-min" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="v-max" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="v-step" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="a-min" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="a-max" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="a-step" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="s-min" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="s-max" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="s-step" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsMapoutputTopicType">
+        <xsd:all>
+            <xsd:element name="output" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsMapemissionsTopicType">
+        <xsd:all>
+            <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-year" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-temperature" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsMapreportTopicType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

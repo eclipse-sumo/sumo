@@ -1,0 +1,27 @@
+/* XPM */
+static const char *filedialog_filemove_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1 ",
+"  c None",
+". c #7F7F65",
+"X c #B3B38E",
+"o c black",
+"O c #FFFFCB",
+/* pixels */
+"                ",
+"......          ",
+".XXXX..         ",
+".XXXX.X.        ",
+".X..X....       ",
+".XXXXXXX.       ",
+".X...XXoooooo   ",
+".XXXXXXoOOOOoo  ",
+".X...XXoOOOOoOo ",
+".XXXXXXoOooOoooo",
+".......oOOOOOOOo",
+"       oOoooooOo",
+"       oOOOOOOOo",
+"       oOoooooOo",
+"       oOOOOOOOo",
+"       ooooooooo"
+};

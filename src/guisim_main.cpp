@@ -55,7 +55,7 @@ main(int argc, char** argv) {
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("GUI version of the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
+    oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI " VERSION_STRING);
     gSimulation = true;
     // preload registry from sumo to decide on language
     FXRegistry reg("SUMO GUI", "sumo-gui");

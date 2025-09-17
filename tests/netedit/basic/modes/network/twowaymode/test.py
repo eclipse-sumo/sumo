@@ -35,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 netedit.changeMode("inspect")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

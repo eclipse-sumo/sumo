@@ -35,7 +35,7 @@ export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppres
 export UBSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_ubsan_suppressions.txt
 
 rm -f $STATUSLOG
-echo -n "$FILEPREFIX " > $STATUSLOG
+echo -n "$(uname -s)_$(uname -m)_$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 if test -e $PREFIX/sumo_test_env/bin/activate; then
@@ -55,7 +55,7 @@ if make -j32 >> $MAKELOG 2>&1; then
   date >> $MAKELOG
   make lisum >> $MAKELOG 2>&1
   if make install >> $MAKELOG 2>&1; then
-    if test "$FILEPREFIX" == "gcc4_64"; then
+    if test "$FILEPREFIX" == "gcc"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
   else
@@ -139,14 +139,14 @@ echo "--" >> $STATUSLOG
 
 # netedit tests
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
-  if test "$FILEPREFIX" == "gcc4_64"; then
+  if test "$FILEPREFIX" == "gcc"; then
     # send SIGTERM to the netedit tests after some time and SIGKILL sometime later
     # This will not work on macOS unless "brew install coreutils" has been executed
-    timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX} -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
-  fi
-  if test "$FILEPREFIX" == "extraNetedit"; then
-    timeout -k 540m 510m tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}netedit_ext_batch_result
+    export SUMO_REPORT=$PREFIX/${FILEPREFIX}netedit_ext_report
+    timeout -k 540m 510m tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX} -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
     killall -9 -q fluxbox Xvfb
   fi

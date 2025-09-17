@@ -73,8 +73,8 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     // create check button for new data set
     myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new dataSet"), this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create MFXComboBoxIcon
-    myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+    myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), genericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
     myHorizontalFrameNewID = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelThickedFixed(100));
@@ -144,7 +144,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
     // get string
     const std::string dataSetID = myNewDataSetIDTextField->getText().text();
     // check conditions
-    if (myNewDataSetIDTextField->getTextColor() == FXRGB(255, 0, 0)) {
+    if (myNewDataSetIDTextField->getTextColor() == GUIDesignTextColorRed) {
         WRITE_WARNING(TL("Invalid dataSet ID"));
     } else if (dataSetID.empty()) {
         WRITE_WARNING(TL("Invalid empty dataSet ID"));
@@ -153,8 +153,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
     } else {
         // build data set
         GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
-                                   myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(),
-                                   false);
+                                   myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
         refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID));
@@ -326,8 +325,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             // declare dataHandler
             GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
-                                       myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(),
-                                       false);
+                                       myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // build data interval
             dataHandler.buildDataInterval(nullptr, dataSet->getID(), begin, end);
         }
@@ -351,18 +349,18 @@ GNEGenericDataFrame::IntervalSelector::onCmdSetIntervalAttribute(FXObject* obj, 
     if (obj == myBeginTextField) {
         // check if begin value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
-            myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+            myBeginTextField->setTextColor(GUIDesignTextColorBlack);
             myBeginTextField->killFocus();
         } else {
-            myBeginTextField->setTextColor(FXRGB(255, 0, 0));
+            myBeginTextField->setTextColor(GUIDesignTextColorRed);
         }
     } else if (obj == myEndTextField) {
         // check if end value can be parsed to double
         if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
-            myEndTextField->setTextColor(FXRGB(0, 0, 0));
+            myEndTextField->setTextColor(GUIDesignTextColorBlack);
             myEndTextField->killFocus();
         } else {
-            myEndTextField->setTextColor(FXRGB(255, 0, 0));
+            myEndTextField->setTextColor(GUIDesignTextColorRed);
         }
     }
     return 1;
@@ -433,8 +431,8 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {
     // Create MFXComboBoxIcon
-    myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SELECT, GUIDesignComboBox);
+    myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), genericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
     myMinMaxLabel = buildRainbow(this);
     // refresh interval selector

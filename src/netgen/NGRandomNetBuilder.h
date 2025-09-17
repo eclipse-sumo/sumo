@@ -93,7 +93,7 @@ private:
 
     /** @brief Creates new random node
      *
-     * Returns true, if creation was successfull.
+     * Returns true, if creation was successful.
      *
      * @param[in] baseNode ?
      * @todo Describe better

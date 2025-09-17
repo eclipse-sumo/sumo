@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="routeTypes.xsd" />
-    <xsd:include schemaLocation="tazTypes.xsd"/>
+    <xsd:include schemaLocation="types/metadata.xsd"/>
+    <xsd:include schemaLocation="types/route.xsd"/>
+    <xsd:include schemaLocation="types/taz.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
     <xsd:element name="rerouterValue" type="rerouterValuesType"/>
 
     <xsd:complexType name="additionalType">
         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="metadata" type="metadataType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="vTypeProbe" type="vTypeProbeType" minOccurs="0"/>
             <xsd:element name="e1Detector" type="e1DetectorType" minOccurs="0"/>
@@ -440,6 +442,7 @@
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="startPos" type="floatType"/>
         <xsd:attribute name="endPos" type="floatType"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="personCapacity" type="nonNegativeIntType" use="optional"/>
@@ -706,7 +709,7 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <!-- differs from baseTypes.xsd/tlLogicType in 'type' being optional here -->
+    <!-- differs from types/base.xsd/tlLogicType in 'type' being optional here -->
     <xsd:complexType name="tlLogicAdditionalType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="phase" type="phaseType"/>

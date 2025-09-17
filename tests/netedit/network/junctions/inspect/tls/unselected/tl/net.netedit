@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\additionals.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\routes.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\datas.med.add.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\meandatas.dat.add.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\tls\unselected\tl\net.net.xml"/>
     </input>
 

@@ -105,8 +105,11 @@ public:
     /// @brief Returns the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
     std::string getParametersStr(const std::string kvsep = "=", const std::string sep = "|") const;
 
-    /// @brief set the inner key/value map in map<string, string> format
+    /// @brief set the given key/value map in map<string, string> format
     void setParameters(const Parameterised& params);
+
+    /// @brief set the given key/value vector in map<string, string> format
+    void setParameters(const std::vector<std::pair<std::string, std::string> >& params);
 
     /**@brief set the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
      * @param[in] paramsString A serialized key-value map

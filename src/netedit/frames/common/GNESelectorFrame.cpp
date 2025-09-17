@@ -18,9 +18,14 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
@@ -356,7 +361,8 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         dev.close();
     } catch (IOError& e) {
         // open message box error
-        FXMessageBox::error(getCollapsableFrame(), MBOX_OK, "Storing Selection failed", "%s", e.what());
+        GNEErrorBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                            TL("Storing Selection failed"), e.what());
     }
     return 1;
 }
@@ -594,14 +600,14 @@ GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() const
 
 bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
-    // open question box
-    const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(),
-                          MBOX_YES_NO, "Confirm selection operation", "There are locked elements in the current selection.\nApply operation to locked elements?");
-    if (answer != 1) { //1:yes, 2:no, 4:esc
-        return false;
-    } else {
-        return true;
-    }
+    // open question dialog box
+    const auto questionDialog = GNEQuestionBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                GNEDialog::Buttons::YES_NO,
+                                TL("Confirm selection operation"),
+                                TL("There are locked elements in the current selection."),
+                                TL("Apply operation to locked elements?"));
+    // check result
+    return (questionDialog.getResult() == GNEDialog::Result::ACCEPT);
 }
 
 // ---------------------------------------------------------------------------
@@ -633,10 +639,11 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     mySelectorFrameParent(selectorFrameParent),
     myCurrentSelectedParent(Selection::ALL),
     myCurrentSelectedChild(Selection::ALL) {
+    const auto staticTooltipMenu = selectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create label for parents
     new FXLabel(getCollapsableFrame(), TL("Select parents"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create MFXComboBoxIcon for parent comboBox
-    myParentsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+    myParentsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
                                             this, MID_GNE_SELECT, GUIDesignComboBox);
     // create parent buttons
     FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -647,7 +654,7 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create label for parents
     new FXLabel(getCollapsableFrame(), TL("Select children"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create MFXComboBoxIcon for parent comboBox
-    myChildrenComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+    myChildrenComboBox = new MFXComboBoxIcon(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECT, GUIDesignComboBox);
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -675,7 +682,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
                 mySelectParentsButton->enable();
                 myUnselectParentsButton->enable();
                 // change text color
-                myParentsComboBox->setTextColor(FXRGB(0, 0, 0));
+                myParentsComboBox->setTextColor(GUIDesignTextColorBlack);
                 // set current selected parent
                 myCurrentSelectedParent = item.first;
                 return 1;
@@ -686,7 +693,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
         // disable buttons
         mySelectParentsButton->disable();
         myUnselectParentsButton->disable();
-        myParentsComboBox->setTextColor(FXRGB(255, 0, 0));
+        myParentsComboBox->setTextColor(GUIDesignTextColorRed);
         return 1;
     } else if (obj == myChildrenComboBox) {
         for (const auto& item : myItems) {
@@ -695,7 +702,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
                 mySelectChildrenButton->enable();
                 myUnselectChildrenButton->enable();
                 // change text color
-                myChildrenComboBox->setTextColor(FXRGB(0, 0, 0));
+                myChildrenComboBox->setTextColor(GUIDesignTextColorBlack);
                 // set current selected parent
                 myCurrentSelectedChild = item.first;
                 return 1;
@@ -706,7 +713,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
         // disable buttons
         mySelectChildrenButton->disable();
         myUnselectChildrenButton->disable();
-        myChildrenComboBox->setTextColor(FXRGB(255, 0, 0));
+        myChildrenComboBox->setTextColor(GUIDesignTextColorRed);
         return 1;
     }
     return 0;

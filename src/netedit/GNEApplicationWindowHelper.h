@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/dialogs/file/GNEFileDialog.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXRecentNetworks.h>
@@ -59,7 +60,7 @@ struct GNEApplicationWindowHelper {
     struct ToolbarsGrip {
 
         /// @brief constructor
-        ToolbarsGrip(GNEApplicationWindow* GNEApp);
+        ToolbarsGrip(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu toolbar grips
         void buildMenuToolbarsGrip();
@@ -93,7 +94,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myPythonToolBarShellMenu = nullptr;
@@ -127,7 +128,7 @@ struct GNEApplicationWindowHelper {
     struct MenuBarFile {
 
         /// @brief constructor
-        MenuBarFile(GNEApplicationWindow* GNEApp);
+        MenuBarFile(GNEApplicationWindow* applicationWindow);
 
         /// @brief build recent network
         void buildRecentNetworkFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentNetworkFiles);
@@ -143,7 +144,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         MenuBarFile(const MenuBarFile&) = delete;
@@ -156,7 +157,7 @@ struct GNEApplicationWindowHelper {
     struct FileMenuCommands {
 
         /// @brief constructor
-        FileMenuCommands(GNEApplicationWindow* GNEApp);
+        FileMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSumoConfig,
@@ -205,7 +206,7 @@ struct GNEApplicationWindowHelper {
         void buildMeanDataSection(FXMenuPane* menuPane);
 
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp = nullptr;
+        GNEApplicationWindow* myApplicationWindow = nullptr;
 
         /// @brief FXMenuCascade for neteditConfig
         FXMenuCascade* myNeteditConfigMenuCascade = nullptr;
@@ -427,7 +428,7 @@ struct GNEApplicationWindowHelper {
         };
 
         /// @brief constructor
-        ModesMenuCommands(GNEApplicationWindow* GNEApp);
+        ModesMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build modes menu commands
         void buildModesMenuCommands(FXMenuPane* modesMenu);
@@ -452,7 +453,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         ModesMenuCommands(const ModesMenuCommands&) = delete;
@@ -468,7 +469,7 @@ struct GNEApplicationWindowHelper {
         struct NetworkViewOptions {
 
             /// @brief default constructor
-            NetworkViewOptions(GNEApplicationWindow* GNEApp);
+            NetworkViewOptions(GNEApplicationWindow* applicationWindow);
 
             /// @brief build menu checks
             void buildNetworkViewOptionsMenuChecks(FXMenuPane* editMenu);
@@ -532,7 +533,7 @@ struct GNEApplicationWindowHelper {
 
         private:
             /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
+            GNEApplicationWindow* myApplicationWindow;
 
             /// @brief Invalidated copy constructor.
             NetworkViewOptions(const NetworkViewOptions&) = delete;
@@ -545,7 +546,7 @@ struct GNEApplicationWindowHelper {
         struct DemandViewOptions {
 
             /// @brief default constructor
-            DemandViewOptions(GNEApplicationWindow* GNEApp);
+            DemandViewOptions(GNEApplicationWindow* applicationWindow);
 
             /// @brief build menu checks
             void buildDemandViewOptionsMenuChecks(FXMenuPane* editMenu);
@@ -594,7 +595,7 @@ struct GNEApplicationWindowHelper {
 
         private:
             /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
+            GNEApplicationWindow* myApplicationWindow;
 
             /// @brief Invalidated copy constructor.
             DemandViewOptions(const DemandViewOptions&) = delete;
@@ -607,7 +608,7 @@ struct GNEApplicationWindowHelper {
         struct DataViewOptions {
 
             /// @brief default constructor
-            DataViewOptions(GNEApplicationWindow* GNEApp);
+            DataViewOptions(GNEApplicationWindow* applicationWindow);
 
             /// @brief build menu checks
             void buildDataViewOptionsMenuChecks(FXMenuPane* editMenu);
@@ -647,7 +648,7 @@ struct GNEApplicationWindowHelper {
 
         private:
             /// @brief pointer to current GNEApplicationWindow
-            GNEApplicationWindow* myGNEApp;
+            GNEApplicationWindow* myApplicationWindow;
 
             /// @brief Invalidated copy constructor.
             DataViewOptions(const DataViewOptions&) = delete;
@@ -657,7 +658,7 @@ struct GNEApplicationWindowHelper {
         };
 
         /// @brief constructor
-        EditMenuCommands(GNEApplicationWindow* GNEApp);
+        EditMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build undo-redo menu commands
         void buildUndoRedoMenuCommands(FXMenuPane* editMenu);
@@ -712,7 +713,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         EditMenuCommands(const EditMenuCommands&) = delete;
@@ -725,7 +726,7 @@ struct GNEApplicationWindowHelper {
     struct LockMenuCommands {
 
         /// @brief constructor
-        LockMenuCommands(GNEApplicationWindow* GNEApp);
+        LockMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildLockMenuCommands(FXMenuPane* editMenu);
@@ -859,7 +860,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         LockMenuCommands(const LockMenuCommands&) = delete;
@@ -872,7 +873,7 @@ struct GNEApplicationWindowHelper {
     struct ProcessingMenuCommands {
 
         /// @brief constructor
-        ProcessingMenuCommands(GNEApplicationWindow* GNEApp);
+        ProcessingMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildProcessingMenuCommands(FXMenuPane* processingMenu);
@@ -951,7 +952,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief separator for optionsMenu
         FXMenuSeparator* myOptionsSeparator = nullptr;
@@ -970,14 +971,14 @@ struct GNEApplicationWindowHelper {
     struct LocateMenuCommands {
 
         /// @brief constructor
-        LocateMenuCommands(GNEApplicationWindow* GNEApp);
+        LocateMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildLocateMenuCommands(FXMenuPane* locateMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         LocateMenuCommands(const LocateMenuCommands&) = delete;
@@ -990,7 +991,7 @@ struct GNEApplicationWindowHelper {
     struct ToolsMenuCommands {
 
         /// @brief constructor
-        ToolsMenuCommands(GNEApplicationWindow* GNEApp);
+        ToolsMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief destructor
         ~ToolsMenuCommands();
@@ -999,19 +1000,13 @@ struct GNEApplicationWindowHelper {
         void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
 
         /// @brief show tool
-        long showTool(FXObject* menuCommand) const;
-
-        /// @brief show netgenerate dialog
-        long showNetgenerateDialog() const;
+        long showTool(FXObject* menuCommand);
 
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
 
         /// @brief run postprocessing
         long postProcessing(FXObject* menuCommand) const;
-
-        /// @brief run netgenerate dialog
-        long runNetgenerateDialog(const OptionsCont* netgenerateOptions) const;
 
     private:
         /// @brief map with python tools
@@ -1020,17 +1015,8 @@ struct GNEApplicationWindowHelper {
         /// @brief python tool dialog
         GNEPythonToolDialog* myPythonToolDialog = nullptr;
 
-        /// @brief netgenerate dialog
-        GNENetgenerateDialog* myNetgenerateDialog = nullptr;
-
-        /// @brief run python tool dialog
-        GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;
-
-        /// @brief run netgenerate dialog
-        GNERunNetgenerateDialog* myRunNetgenerateDialog = nullptr;
-
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         ToolsMenuCommands(const ToolsMenuCommands&) = delete;
@@ -1043,14 +1029,14 @@ struct GNEApplicationWindowHelper {
     struct WindowsMenuCommands {
 
         /// @brief constructor
-        WindowsMenuCommands(GNEApplicationWindow* GNEApp);
+        WindowsMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         WindowsMenuCommands(const WindowsMenuCommands&) = delete;
@@ -1063,14 +1049,14 @@ struct GNEApplicationWindowHelper {
     struct HelpMenuCommands {
 
         /// @brief constructor
-        HelpMenuCommands(GNEApplicationWindow* GNEApp);
+        HelpMenuCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildHelpMenuCommands(FXMenuPane* helpMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         HelpMenuCommands(const HelpMenuCommands&) = delete;
@@ -1083,7 +1069,7 @@ struct GNEApplicationWindowHelper {
     struct SupermodeCommands {
 
         /// @brief constructor
-        SupermodeCommands(GNEApplicationWindow* GNEApp);
+        SupermodeCommands(GNEApplicationWindow* applicationWindow);
 
         /// @brief build menu commands
         void buildSupermodeCommands(FXMenuPane* editMenu);
@@ -1108,7 +1094,7 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief Invalidated copy constructor.
         SupermodeCommands(const SupermodeCommands&) = delete;
@@ -1177,57 +1163,6 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
-    /// @brief open xml file dialog
-    static std::string openXMLFileDialog(FXWindow* window, bool save, bool multi);
-
-    /// @brief open netconvert file dialog
-    static std::string openNetworkFileDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open netconvert file dialog
-    static std::string openNetconvertFileDialog(FXWindow* window);
-
-    /// @brief open plain xml file dialog
-    static std::string savePlainXMLFileDialog(FXWindow* window);
-
-    /// @brief open joined junctions file dialog
-    static std::string saveJoinedJunctionsFileDialog(FXWindow* window);
-
-    /// @brief open tool file dialog
-    static std::string saveToolLog(FXWindow* window);
-
-    /// @brief open OSM file dialog
-    static std::string openOSMFileDialog(FXWindow* window);
-
-    /// @brief open netedit config file dialog
-    static std::string openNeteditConfigFileDialog(FXWindow* window, bool save);
-
-    /// @brief open SUMO config file dialog
-    static std::string openSumoConfigFileDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open TLS file dialog
-    static std::string openTLSFileDialog(FXWindow* window, bool save);
-
-    /// @brief open edgeType file dialog
-    static std::string openEdgeTypeFileDialog(FXWindow* window, bool save);
-
-    /// @brief open additional dialog
-    static std::string openAdditionalFileDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open route file dialog
-    static std::string openRouteFileDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open data file dialog
-    static std::string openDataFileDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open meandata filename dialog
-    static std::string openMeanDataDialog(FXWindow* window, bool save, bool multi = false);
-
-    /// @brief open option dialog
-    static std::string openOptionFileDialog(FXWindow* window, bool save);
-
-    /// @brief open filename dialog (general)
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon,
-                                      const std::string& extensions, bool save, bool multi = false);
 private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

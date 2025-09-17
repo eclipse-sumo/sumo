@@ -33,8 +33,8 @@
 // member method definitions
 // ===========================================================================
 
-GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* GNEApp, const std::string& toolPath, FXMenuPane* menu) :
-    GNEPythonTool(GNEApp, toolPath, "", menu) {
+GNENetDiffTool::GNENetDiffTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath, FXMenuPane* menu) :
+    GNEPythonTool(applicationWindow, toolPath, "", menu) {
     // fill options
     fillNetDiffOptions(myPythonToolsOptions);
     fillNetDiffOptions(myPythonToolsOptionsOriginal);
@@ -60,9 +60,9 @@ GNENetDiffTool::setCurrentValues() {
 void
 GNENetDiffTool::postProcessing() {
     // first check if there is a network
-    if (myGNEApp->getViewNet()) {
+    if (myApplicationWindow->getViewNet()) {
         // get selector operator modul from selector frame
-        auto selectorModul = myGNEApp->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionOperationModul();
+        auto selectorModul = myApplicationWindow->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionOperationModul();
         // select elements
         if (myPythonToolsOptions.getBool("select-modified")) {
             selectorModul->loadFromFile(myPythonToolsOptions.getString("outprefix") + ".changed.sel.txt");
@@ -149,11 +149,11 @@ GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
 void
 GNENetDiffTool::loadShapes(const std::string& file) {
     // get undo list
-    auto undoList = myGNEApp->getUndoList();
+    auto undoList = myApplicationWindow->getUndoList();
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEGeneralHandler generalHandler(myGNEApp->getViewNet()->getNet(), file, myGNEApp->isUndoRedoAllowed(), true);
+    GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, myApplicationWindow->isUndoRedoAllowed());
     // begin undoList operation
     undoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load shapes from '") + file + "'");
     // Run parser
@@ -169,7 +169,7 @@ GNENetDiffTool::loadShapes(const std::string& file) {
     // restore validation for additionals
     XMLSubSys::setValidation("auto", "auto", "auto");
     // update view
-    myGNEApp->getViewNet()->update();
+    myApplicationWindow->getViewNet()->update();
 }
 
 /****************************************************************************/

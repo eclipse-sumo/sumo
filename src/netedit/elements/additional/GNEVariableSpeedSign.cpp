@@ -19,13 +19,13 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/elements/GNEVariableSpeedSignDialog.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignSymbol.h"

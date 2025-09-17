@@ -368,9 +368,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the kilometrage/mileage
     myCurrentEdge->setDistance(attrs.getOpt<double>(SUMO_ATTR_DISTANCE, myCurrentID.c_str(), ok, myCurrentEdge->getDistance()));
-    // preserve bidi edge (only as boo, the actual edge will be recomputed)
+    // preserve bidi edge (only as bool, the actual edge will be recomputed)
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentID.c_str(), ok, "");
-    myCurrentEdge->setBidi(myCurrentEdge->getBidiEdge() != nullptr || bidi != "");
+    myCurrentEdge->setBidi(myCurrentEdge->getBidiEdge() != nullptr || myCurrentEdge->isBidi() || bidi != "");
 
     myLastParameterised.push_back(myCurrentEdge);
 }

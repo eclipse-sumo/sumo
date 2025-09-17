@@ -152,9 +152,6 @@ protected:
     /// @brief Length of Parking Area (by default (endPos - startPos) / roadsideCapacity
     double myLength;
 
-    /// @brief Angle of Parking Area
-    double myAngle;
-
     /// @brief lefthand
     bool myLefthand;
 

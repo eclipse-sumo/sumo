@@ -49,7 +49,7 @@ public:
      *
      * @param[in] oc The options container to fill
      * @param[in] args The command line arguments
-     * @return Whether the parsing was successfull
+     * @return Whether the parsing was successful
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
     static bool parse(const std::vector<std::string>& args, const bool ignoreAppenders = false);
@@ -59,7 +59,7 @@ private:
      *
      * @param[in] arg1 The first token to parse
      * @param[in] arg2 The second token to parse, 0 if there is none
-     * @param[in, out] ok Whether the parsing was successfull
+     * @param[in, out] ok Whether the parsing was successful
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */

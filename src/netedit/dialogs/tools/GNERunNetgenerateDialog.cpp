@@ -36,38 +36,33 @@
 // ===========================================================================
 
 FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunNetgenerateDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunNetgenerateDialog::onCmdSaveLog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunNetgenerateDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunNetgenerateDialog::onCmdRerun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunNetgenerateDialog::onCmdBack),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunNetgenerateDialog::onCmdClose),
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent)
 };
 
 // Object implementation
-FXIMPLEMENT(GNERunNetgenerateDialog, MFXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
+FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "", GUIDesignDialogBoxExplicit(0, 0)),
-    myGNEApp(GNEApp) {
+GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions) :
+    GNEDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE,
+              GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE, OpenType::MODAL,
+              GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // create run tool
     myRunNetgenerate = new GNERunNetgenerate(this, myEvents, myThreadEvent);
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
-    // create content frame
-    auto contentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create header frame
-    auto headerFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    auto headerFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrame);
     // adjust padding
     headerFrame->setPadLeft(0);
     headerFrame->setPadRight(0);
@@ -75,31 +70,19 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
                               GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonIcon);
     new FXLabel(headerFrame, TL("Console output"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // create text
-    auto textFrame = new FXVerticalFrame(contentFrame, GUIDesignFrameThick);
+    auto textFrame = new FXVerticalFrame(myContentFrame, GUIDesignFrameThick);
     myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // create buttons Abort, rerun and back
-    auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAbortButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Abort"), "", TL("abort running"),
-                    GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_ABORT, GUIDesignButtonAccept);
-    myRerunButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("rerun tool"),
-                    GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RERUN,  GUIDesignButtonReset);
-    myBackButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("back to tool dialog"),
-                   GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_BACK, GUIDesignButtonAccept);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // add separator
-    new FXSeparator(contentFrame);
-    // create button ok
-    buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myCloseButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("close dialog"),
-                    GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // resize
-    resize(640, 480);
+    // set netgenerate options
+    myNetgenerateOptions = netgenerateOptions;
+    // reset error flag
+    myError = false;
+    // open modal dialog before running netgenerate
+    openDialog();
+    // run tool
+    myRunNetgenerate->run(myNetgenerateOptions);
 }
 
 
@@ -107,52 +90,29 @@ GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
 
 
 void
-GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
-    // finish
-}
-
-
-GNEApplicationWindow*
-GNERunNetgenerateDialog::getGNEApp() const {
-    return myGNEApp;
-}
-
-
-void
-GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
-    // set title
-    setTitle("Netgenerate output");
-    // refresh APP
-    getApp()->refresh();
-    // clear text
-    myText->setText("");
-    // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
-    // set netgenerate options
-    myNetgenerateOptions = netgenerateOptions;
-    // reset error flag
-    myError = false;
-    // run tool
-    myRunNetgenerate->run(myNetgenerateOptions);
+GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 
 void
 GNERunNetgenerateDialog::updateDialog() {
-    // update buttons
-    if (myRunNetgenerate->isRunning()) {
-        myAbortButton->enable();
-        myRerunButton->disable();
-        myBackButton->disable();
-        myCloseButton->disable();
-    } else {
-        myAbortButton->disable();
-        myRerunButton->enable();
-        myBackButton->enable();
-        myCloseButton->enable();
-    }
+    /*
+        // update buttons
+        if (myRunNetgenerate->isRunning()) {
+            myAbortButton->enable();
+            myRerunButton->disable();
+            myBackButton->disable();
+            myCloseButton->disable();
+        } else {
+            myAbortButton->disable();
+            myRerunButton->enable();
+            myBackButton->enable();
+            myCloseButton->enable();
+        }
+    */
     // update dialog
-    MFXDialogBox::update();
+    GNEDialog::update();
 }
 
 
@@ -197,12 +157,12 @@ long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
     onCmdCancel(nullptr, 0, nullptr);
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
+    return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
 }
 
 
 long
-GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
+GNERunNetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     myText->setText("", 0);
@@ -212,7 +172,7 @@ GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     } else {
         // don't run this again
         myError = true;
-        return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+        return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
     }
 }
 
@@ -273,10 +233,6 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
     }
 
     return 1;
-}
-
-GNERunNetgenerateDialog::GNERunNetgenerateDialog() :
-    myGNEApp(nullptr) {
 }
 
 /****************************************************************************/

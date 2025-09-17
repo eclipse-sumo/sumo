@@ -1,0 +1,26 @@
+/* XPM */
+static const char *filedialog_filecopy_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1 ",
+"  c #None",
+". c black",
+"X c white",
+"o c #FFFFCB",
+/* pixels */
+"                ",
+"......          ",
+".XXXX..         ",
+".XXXX.X.        ",
+".X..X....       ",
+".XXXXXXX.       ",
+".X...XX......   ",
+".XXXXXX.oooo..  ",
+".X...XX.oooo.o. ",
+".XXXXXX.o..o....",
+"........ooooooo.",
+"       .o.....o.",
+"       .ooooooo.",
+"       .o.....o.",
+"       .ooooooo.",
+"       ........."
+};

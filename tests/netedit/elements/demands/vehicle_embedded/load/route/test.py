@@ -32,13 +32,13 @@ netedit.changeSupermode("demand")
 netedit.checkUndoRedo(referencePosition)
 
 # save routes
-netedit.saveExistentShortcut("demands")
+netedit.saveExistentFile("demands")
 
 # remove invalid routes
 netedit.typeKey("space")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

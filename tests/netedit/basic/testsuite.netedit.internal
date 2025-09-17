@@ -1,4 +1,4 @@
-configs
+files
 
 modes
 
@@ -7,5 +7,3 @@ quit
 overlapping
 
 about_dialog
-
-pyautogui_error

@@ -44,7 +44,7 @@ netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.vClass, "pedestri
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

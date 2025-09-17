@@ -84,7 +84,9 @@ def main():
         url += "&state=all"
     for issue in get_all(s, url):
         update = {}
-        if options.set_type:
+        issue_type = None if issue.get("type") is None else issue["type"].get("name")
+        milestone = None if issue.get("milestone") is None else issue["milestone"].get("title")
+        if options.set_type and issue_type != options.set_type:
             update["type"] = options.set_type
         if options.set_assignee:
             update["assignee"] = options.set_assignee
@@ -94,8 +96,8 @@ def main():
         if update:
             response = s.patch(f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}", json=update)
         if options.add_label:
-            response = s.post(
-                f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels", {"labels": [options.add_label]})
+            response = s.post(f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels",
+                              {"labels": [options.add_label]})
         if options.remove_label:
             response = s.delete(
                 f"{BASE_URL}/repos/{options.repository}/issues/{issue['number']}/labels/{options.remove_label}")
@@ -106,8 +108,8 @@ def main():
                    "title": issue["title"],
                    "assignees": [assignee["login"] for assignee in issue.get("assignees", [])],
                    "labels": [label["name"] for label in issue.get("labels", [])],
-                   "milestone": None if issue.get("milestone") is None else issue["milestone"].get("title"),
-                   "type": issue.get("type")})
+                   "milestone": milestone,
+                   "type": issue_type})
 
 
 if __name__ == "__main__":

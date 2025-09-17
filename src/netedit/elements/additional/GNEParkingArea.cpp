@@ -41,13 +41,12 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNENet* net, const std::st
                                const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
                                const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, filename, SUMO_TAG_PARKING_AREA, lane, startPos,
-                     endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
+                     endPos, name, friendlyPosition, RGBColor::INVISIBLE, angle, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
-    myAngle(angle),
     myLefthand(lefthand),
     myAcceptedBadges(badges) {
     // update centering boundary without updating grid
@@ -75,9 +74,6 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     }
     if (myLength != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_LENGTH)) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    }
-    if (myAngle != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_ANGLE)) {
-        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
     if (myDepartPos != myTagProperty->getDefaultStringValue(SUMO_ATTR_DEPARTPOS)) {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
@@ -222,8 +218,6 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
             return toString(myLength);
-        case SUMO_ATTR_ANGLE:
-            return toString(myAngle);
         case SUMO_ATTR_LEFTHAND:
             return toString(myLefthand);
         default:
@@ -242,8 +236,6 @@ GNEParkingArea::getAttributeDouble(SumoXMLAttr key) const {
             const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
             return (myLength > 0) ? myLength : spaceDim;
         }
-        case SUMO_ATTR_ANGLE:
-            return myAngle;
         default:
             return getStoppingPlaceAttributeDouble(key);
     }
@@ -259,7 +251,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ONROAD:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_LEFTHAND:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -305,8 +296,6 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value) && (parse<double>(value) > 0);
             }
-        case SUMO_ATTR_ANGLE:
-            return canParse<double>(value);
         case SUMO_ATTR_LEFTHAND:
             return canParse<bool>(value);
         default:
@@ -373,9 +362,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (const auto& space : getChildAdditionals()) {
                 space->updateGeometry();
             }
-            break;
-        case SUMO_ATTR_ANGLE:
-            myAngle = parse<double>(value);
             break;
         case SUMO_ATTR_LEFTHAND:
             myLefthand = parse<bool>(value);

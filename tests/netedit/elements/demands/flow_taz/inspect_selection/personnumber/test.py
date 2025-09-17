@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.personNumber, "3"
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

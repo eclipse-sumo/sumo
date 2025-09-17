@@ -34,18 +34,19 @@ class attrs:
             saveNetworkAs = 9
             savePlainXML = 10
             saveJoinedJunctions = 11
-            reloadConfig = 12
             reloadNetwork = 13
 
             class neteditConfig:
                 menu = 14
                 save = 1
-                saveAs = 2
+                saveAs = 1
+                reload = 3
 
             class sumoConfig:
                 menu = 15
                 save = 1
                 saveAs = 2
+                reload = 2
 
             class trafficLights:
                 menu = 16
@@ -360,6 +361,11 @@ class attrs:
             helpDialog = 24
             reset = 25
 
+        class edgeType:
+            select = 7
+            createNew = 5
+            createExistent = 7
+
         class template:
             create = 32
             copy = 33
@@ -669,18 +675,19 @@ class attrs:
             name = 7
             colorButton = 8
             color = 9
-            lines = 10
-            personCapacity = 11
-            parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            angle = 10
+            lines = 11
+            personCapacity = 12
+            parkingLength = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
 
         class inspect:
             id = 2
@@ -692,38 +699,40 @@ class attrs:
             name = 8
             colorButton = 9
             color = 10
-            lines = 11
-            personCapacity = 12
-            parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
+            angle = 11
+            lines = 12
+            personCapacity = 13
+            parkingLength = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
 
         class inspectSelection:
             friendlyPos = 2
             name = 3
             colorButton = 4
             color = 5
-            lines = 6
-            personCapacity = 7
-            parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
+            angle = 6
+            lines = 7
+            personCapacity = 8
+            parkingLength = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
     # trainStop
 
@@ -734,18 +743,19 @@ class attrs:
             name = 7
             colorButton = 8
             color = 9
-            lines = 10
-            personCapacity = 11
-            parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            angle = 10
+            lines = 11
+            personCapacity = 12
+            parkingLength = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
 
         class inspect:
             id = 2
@@ -757,38 +767,40 @@ class attrs:
             name = 8
             colorButton = 9
             color = 10
-            lines = 11
-            personCapacity = 12
-            parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
+            angle = 11
+            lines = 12
+            personCapacity = 13
+            parkingLength = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
 
         class inspectSelection:
             friendlyPos = 2
             name = 3
             colorButton = 4
             color = 5
-            lines = 6
-            personCapacity = 7
-            parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
+            angle = 6
+            lines = 7
+            personCapacity = 8
+            parkingLength = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
     # containerStop
 
@@ -799,18 +811,19 @@ class attrs:
             name = 7
             colorButton = 8
             color = 9
-            lines = 10
-            containerCapacity = 11
-            parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            angle = 10
+            lines = 11
+            containerCapacity = 12
+            parkingLength = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
 
         class inspect:
             id = 2
@@ -822,38 +835,40 @@ class attrs:
             name = 8
             colorButton = 9
             color = 10
-            lines = 11
-            containerCapacity = 12
-            parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
+            angle = 11
+            lines = 12
+            containerCapacity = 13
+            parkingLength = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
 
         class inspectSelection:
             friendlyPos = 2
             name = 3
             colorButton = 4
             color = 5
-            lines = 6
-            containerCapacity = 7
-            parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
+            angle = 6
+            lines = 7
+            containerCapacity = 8
+            parkingLength = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
     # until here
 

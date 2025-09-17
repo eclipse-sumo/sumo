@@ -82,13 +82,13 @@ netedit.computeJunctions()
 netedit.redo(referencePosition, 8)
 
 # save network
-netedit.saveExistentShortcut("network")
+netedit.saveExistentFile("network")
 
 # press space to fix crossings
 netedit.typeKey("space")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

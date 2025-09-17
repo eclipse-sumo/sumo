@@ -17,15 +17,14 @@ on:
 
 jobs:
   build:
-    # runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
-        jps_version: ['v1.3.0']
+        jps_version: ['v1.3.1']
         # include:
         #   - build_type: full
         #     jps_version: master
@@ -33,7 +32,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: sumo
         fetch-depth: 0
@@ -64,7 +63,7 @@ jobs:
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}

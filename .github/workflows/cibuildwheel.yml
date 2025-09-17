@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Cloning SUMO
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: sumo
           fetch-depth: 0
@@ -43,7 +43,7 @@ jobs:
           python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
 
       - name: Building wheel eclipse-sumo
-        uses: pypa/cibuildwheel@v3.0.1
+        uses: pypa/cibuildwheel@v3.1.4
         with:
           package-dir: sumo
           output-dir: wheelhouse
@@ -60,7 +60,7 @@ jobs:
           python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-libsumo-sk.py sumo/setup.py
 
       - name: Building wheel libsumo
-        uses: pypa/cibuildwheel@v3.0.1
+        uses: pypa/cibuildwheel@v3.1.4
         with:
           package-dir: sumo
           output-dir: wheelhouse
@@ -91,7 +91,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         filter: tree:0
@@ -99,13 +99,13 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         path: python-wheels
         merge-multiple: true
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 

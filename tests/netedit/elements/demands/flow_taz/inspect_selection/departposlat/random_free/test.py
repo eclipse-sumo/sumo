@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departPosLat, "ra
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

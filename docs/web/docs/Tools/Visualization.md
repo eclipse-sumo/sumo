@@ -860,6 +860,21 @@ the weight file can be shown. It can be useful to adapt the simulation step leng
 ```
 sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
 ```
+After that, you need to do the following settings:
+
+* Choose "edgeData" for coloring:
+
+<img width="332" height="453" alt="1" src="https://github.com/user-attachments/assets/e6ebd7f2-5edd-4bb5-ac8a-71be7c53f8c5" />
+
+* Choose the data type and recalibrate the interval thresholds for coloring:
+   
+<img width="492" height="327" alt="2" src="https://github.com/user-attachments/assets/73372922-2c11-4722-bed2-51c9501ea17a" />
+
+* Set color edge legend (optional):
+
+<img width="188" height="262" alt="3" src="https://github.com/user-attachments/assets/ba57342b-6b2c-432f-a8a9-41631bf6dafe" />
+
+Regarding "Recalibrate Rainbow" it is done with use of the data read in the current step. So, it may be needed to run some steps to get data sometimes before klicking "Recalibrate Rainbow". Moreover, the result may be different if data in another step are used. Alternatively, you can (1) set min and max next to the icon "Recalibrate Rainbow" directly or (2) set the interval threshold for each interval manuelly.
 
 ## Intersection Flow Diagram
 

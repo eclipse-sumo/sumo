@@ -92,7 +92,8 @@ public:
         SYMBOL =                1 << 11,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
         EXTENDED =              1 << 12,    // Element contains extended attributes (Usually vTypes)
         HIERARCHICAL =          1 << 13,    // Element is a hierarchical
-        NO_PROPERTY =           1 << 14,    // Element doesn't have properties
+        LISTED =                1 << 14,    // Element is a listed elements (for example, rerouter children)
+        NO_PROPERTY =           1 << 15,    // Element doesn't have properties
     };
 
     /// @brief element in which this element is placed
@@ -238,7 +239,7 @@ public:
     /// @brief get hierarchical parent of this element
     const GNETagProperties* getHierarchicalParent() const;
 
-    /// @brief get all parents, beginning from current element (root not included) untils this element
+    /// @brief get all parents, beginning from current element (root not included) until this element
     const std::vector<const GNETagProperties*> getHierarchicalParentsRecuersively() const;
 
     /// @brief get children of this tag property
@@ -255,7 +256,7 @@ public:
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
 
-    /// @brief check if this is a hirearchical tag
+    /// @brief check if this is a hierarchical tag
     bool isHierarchicalTag() const;
 
     /// @brief network elements
@@ -524,6 +525,9 @@ public:
 
     /// @brief return true if Tag correspond to an element that has to be placed in RTREE
     bool isPlacedInRTree() const;
+
+    /// @brief return true if Tag correspond to a listed element
+    bool isListedElement() const;
 
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;

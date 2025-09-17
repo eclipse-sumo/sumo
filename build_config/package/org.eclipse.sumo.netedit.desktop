@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=netedit %F
+Icon=org.eclipse.sumo.netedit
+Terminal=false
+Name=Sumo Netedit
+GenericName=Sumo Netedit
+Comment=Network and Demand Editor for the Traffic Simulation SUMO
+Comment[de_DE]=Netz- und Nachfrageeditor für die Verkehrssimulation SUMO
+Categories=Education;Science;Construction;Geography;Engineering;
+MimeType=application/netedit-configuration;
+Keywords=multi-modal;traffic;simulation;transport;mapping;routing

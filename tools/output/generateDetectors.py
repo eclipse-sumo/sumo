@@ -54,7 +54,9 @@ def get_options(args=None):
     ap.add_option("--relpos", default=0.5,
                   help="relative detector position along the edge [0,1] or 'random'")
     ap.add_option("--probability", type=float, default=1,
-                  help="app detector with the given probability ]0, 1]")
+                  help="build detector with the given probability ]0, 1] (lanewise)")
+    ap.add_option("--edge-probability", type=float, default=1, dest="edgeProbability",
+                  help="build detector with the given probability ]0, 1] (edgewise)")
     ap.add_option("-t", "--detector-type", dest="dType", default="inductionLoop",
                   help="one of %s or the corresponding shortcut %s" % (
                       list(SHORT_NAMES.values()),
@@ -112,6 +114,8 @@ def main(options):
             endPos = 'endPos="-1" '
 
         for edge in net.getEdges():
+            if options.edgeProbability < 1 and random.random() > options.edgeProbability:
+                continue
             for lane in edge.getLanes():
                 if not lane.allows(options.vclass):
                     continue

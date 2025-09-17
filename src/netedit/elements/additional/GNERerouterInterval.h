@@ -23,18 +23,6 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERerouter;
-class GNERerouterDialog;
-class GNEClosingLaneReroute;
-class GNEClosingReroute;
-class GNEDestProbReroute;
-class GNERouteProbReroute;
-class GNEParkingAreaReroute;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -44,10 +32,7 @@ public:
     /// @brief default constructor
     GNERerouterInterval(GNENet* net);
 
-    /// @brief constructor (Used in GNERerouterDialog)
-    GNERerouterInterval(GNERerouterDialog* rerouterDialog);
-
-    /// @brief constructor
+    /// @brief parameter constructor
     GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end);
 
     /// @brief destructor

@@ -40,7 +40,7 @@ class GNEAdditionalHandler : public AdditionalHandler {
 
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite);
+    GNEAdditionalHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -62,12 +62,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in[ color busStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
     bool buildBusStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                       const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                      const Parameterised::Map& parameters);
+                      const double angle, const Parameterised::Map& parameters);
 
     /**@brief Builds a train stop
      * @param[in] sumoBaseObject sumo base object used for build
@@ -81,12 +82,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in[ color trainStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle trainStop's angle
      * @param[in] parameters generic parameters
      */
     bool buildTrainStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                         const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                         const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                        const Parameterised::Map& parameters);
+                        const double angle, const Parameterised::Map& parameters);
 
     /**@brief Builds an Access
      * @param[in] sumoBaseObject sumo base object used for build
@@ -112,12 +114,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in[ color containerStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle container stops's angle
      * @param[in] parameters generic parameters
      */
     bool buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                             const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                             const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                            const Parameterised::Map& parameters);
+                            const double angle, const Parameterised::Map& parameters);
 
     /**@brief Builds a charging Station
      * @param[in] sumoBaseObject sumo base object used for build
@@ -431,7 +434,7 @@ public:
      * @param[in] time step's time
      * @param[in] speed step's speed
      */
-    bool buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const std::string& speed);
+    bool buildVariableSpeedSignStep(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOTime time, const double speed);
 
     /**@brief Builds a vaporizer (lane speed additional)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -700,7 +703,7 @@ protected:
     /// @brief get element by ID
     GNEAdditional* retrieveAdditionalElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief check if element exist, and if overwritte
+    /// @brief check if element exist, and if overwrite
     bool checkElement(const SumoXMLTag tag, GNEAdditional* additional);
 
 private:
@@ -709,9 +712,6 @@ private:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
-
-    /// @brief check if overwrite
-    const bool myOverwrite;
 
     /// @brief invalidate default constructo
     GNEAdditionalHandler() = delete;

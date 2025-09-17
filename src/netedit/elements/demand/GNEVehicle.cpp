@@ -910,7 +910,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // drawing name at GLO_MAX fails unless translating z
                 glTranslated(0, MIN2(length / 2, double(5)), -getType());
                 glScaled(1 / exaggeration, 1 / upscaleLength, 1);
-                glRotated(vehicleRotation, 0, 0, -1);
+                glRotated(-vehicleRotation, 0, 0, -1);
                 drawName(Position(0, 0), s.scale, getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                 // draw line
                 if (s.vehicleName.show(this) && line != "") {
@@ -1083,6 +1083,13 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
             GLHelper::setColor(pathColor);
             // draw geometry
             GUIGeometry::drawGeometry(d, vehicleGeometry, width);
+            // show index over every edge
+            if (isInspected && s.showRouteIndex) {
+                const double textSize = s.vehicleName.size / s.scale;
+                std::string label = toString(segment->getLaneIndex());
+                Position pos = segment->getLane()->getLaneShape().front() - Position(0, textSize * 1);
+                GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
+            }
             // Pop last matrix
             GLHelper::popMatrix();
             // check if we have to draw a red line to the next segment (if next segment isnt' a junction
@@ -1124,8 +1131,6 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                     GLHelper::popMatrix();
                 }
             }
-            // Draw name if isn't being drawn for selecting
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }

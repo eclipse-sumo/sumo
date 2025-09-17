@@ -1,3 +1,2 @@
-Error: Could not build entryExitDetector with ID 'entryExitDetector_0' in netedit; Found another entryExitDetector with the same ID.
 Error: Attribute 'id' is missing in definition of a entryExitDetector.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

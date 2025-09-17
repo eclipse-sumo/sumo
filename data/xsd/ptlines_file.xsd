@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="routeTypes.xsd" />
+    <xsd:include schemaLocation="types/route.xsd" />
 
     <xsd:element name="ptLines" type="ptLinesType"/>
 

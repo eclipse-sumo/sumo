@@ -27,7 +27,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(["--crossings.guess"])
 
 # Recompute with volatile options
-netedit.computeJunctionsVolatileOptions()
+netedit.computeJunctionsVolatileOptions("yes")
 
 # recompute
 netedit.computeJunctions()
@@ -36,7 +36,7 @@ netedit.computeJunctions()
 time.sleep(10)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # wait for output
 time.sleep(10)

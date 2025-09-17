@@ -58,7 +58,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.period, "120
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

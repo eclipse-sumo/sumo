@@ -58,8 +58,8 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                        const std::map<SumoXMLAttr, std::string>& attrs,
-                        bool includeConfig = true);
+                        const std::map<SumoXMLAttr, std::string>& attrs, bool writeMetadata,
+                        bool includeConfig);
 
     /** @brief Opens an XML tag
      *

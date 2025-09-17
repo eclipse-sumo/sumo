@@ -20,14 +20,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-13, macos-14, macos-15]
-        jps_version: ['v1.3.0']
+        jps_version: ['v1.3.1']
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: sumo
         fetch-depth: 0
@@ -44,7 +44,7 @@ jobs:
 
     - name: Cloning jupedsim
       if: matrix.os != 'macos-13'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}

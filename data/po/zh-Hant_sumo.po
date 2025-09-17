@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-08 10:03+0000\n"
+"POT-Creation-Date: 2025-09-04 16:38+0200\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -1250,24 +1250,24 @@ msgstr "校估器(calibrator) '%' 沒有效路徑。"
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
 msgstr "校估器(calibrator)的路徑 '%' 內沒有路段 '%'; 校估器為 '%'。"
 
-#: src/mesosim/MEVehicle.cpp:235
+#: src/mesosim/MEVehicle.cpp:237
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
 "在中觀交通模擬(meso)內,整合停靠點(join stops)尚不可用(車輛 '%', 路段 '%')。"
 
-#: src/mesosim/MEVehicle.cpp:262
+#: src/mesosim/MEVehicle.cpp:264
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
 msgstr "車輛 '%' 在路段 '%' 上有多個停靠點,時間=% (停靠點輸出將會被整合)。"
 
-#: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1712
+#: src/mesosim/MEVehicle.cpp:395 src/microsim/MSVehicle.cpp:1712
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr "受到容量限制，車輛 '%' 忽略在車道 '%' 上觸發的停靠點(triggered stop)。"
 
-#: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1727
+#: src/mesosim/MEVehicle.cpp:412 src/microsim/MSVehicle.cpp:1727
 #, c-format
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
@@ -1276,11 +1276,11 @@ msgstr ""
 "受到容量限制，車輛 '%' 忽略在車道 '%' 上觸發的貨櫃停靠點(container triggered "
 "stop)。"
 
-#: src/mesosim/MEVehicle.cpp:596
+#: src/mesosim/MEVehicle.cpp:598
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "錯誤:狀態中有無效車輛（可能是在微觀狀態）!"
 
-#: src/mesosim/MEVehicle.cpp:632
+#: src/mesosim/MEVehicle.cpp:634
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
 msgstr ""
 
@@ -3019,7 +3019,7 @@ msgid ""
 "(network error)"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
+#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:110
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr "已要求使用交通分區(TAZ),但是沒有交通分區存在於 % '%'!"
 
@@ -3033,7 +3033,7 @@ msgstr "車輛類型分配 '%' 是空的。"
 msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr "另一個有識別名(id) '%' 的車輛類型(或分配)已經存在。"
 
-#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:360
+#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:359
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr "忽略內部路徑的識別名(Ids) (車輛 '%')。"
 
@@ -3064,7 +3064,7 @@ msgid ""
 "first edge '%'%"
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:490
+#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:489
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr "無法在路線 % 中使用'until'重複停靠點，因為未定義週期時間(cycleTime)。"
@@ -3091,7 +3091,7 @@ msgstr "另一個具有識別名(id) '%' 的路徑(或是分配)已經存在。"
 msgid "Route distribution '%' is empty."
 msgstr "路徑分配 '%' 是空的。"
 
-#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:647
+#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:646
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
@@ -3202,8 +3202,8 @@ msgstr ""
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1169
-#: src/router/RORouteHandler.cpp:1288
+#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1168
+#: src/router/RORouteHandler.cpp:1287
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3215,7 +3215,7 @@ msgstr ""
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr "忽略 % 的抵達位置(arrivalPos)，因為它位於給定的停靠點 '%' 之外。"
 
-#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1190
+#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1189
 msgid "No destination edge for %."
 msgstr "% 沒有目的地路段。"
 
@@ -3223,17 +3223,17 @@ msgstr "% 沒有目的地路段。"
 msgid "Cannot define person stage without person."
 msgstr ""
 
-#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1210
+#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1209
 msgid "Start edge not defined for person '%'."
 msgstr "人員 '%' 的開始路段沒有定義。"
 
 #: src/microsim/MSRouteHandler.cpp:1560 src/microsim/MSRouteHandler.cpp:1634
-#: src/router/RORouteHandler.cpp:1221 src/router/RORouteHandler.cpp:1279
+#: src/router/RORouteHandler.cpp:1220 src/router/RORouteHandler.cpp:1278
 msgid "Non-positive walking duration for '%'."
 msgstr "'%' 有非正值的步行時間。"
 
 #: src/microsim/MSRouteHandler.cpp:1592 src/microsim/MSRouteHandler.cpp:1640
-#: src/router/RORouteHandler.cpp:1283
+#: src/router/RORouteHandler.cpp:1282
 msgid "Non-positive walking speed for '%'."
 msgstr "'%' 有非正值的步行速度。"
 
@@ -3367,8 +3367,8 @@ msgstr " 由於未知原因"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr "車輛 '%' 在車道 '%'% 的末端緊急停車(減速度=%，偏移值=%)，時間=%。"
 
 #: src/microsim/MSVehicle.cpp:4750
@@ -5250,8 +5250,8 @@ msgstr "人員 '%' 在路段 '%' 上被壅塞住，時間=%。"
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:255
@@ -5414,8 +5414,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:575
@@ -5949,49 +5949,49 @@ msgstr "無法插入路段 '%' (在分割路段 '%' 之前)。"
 msgid "Could not insert edge '%' after split of edge '%'."
 msgstr "無法插入路段 '%'(在分割路段 '%' 之後)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1394
+#: src/netbuild/NBEdgeCont.cpp:1407
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "載入的圓環 '%'正被 '%' 替換。"
 
-#: src/netbuild/NBEdgeCont.cpp:1807
+#: src/netbuild/NBEdgeCont.cpp:1820
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "路段 '%' 與路段 '%' 重疊了 %。"
 
-#: src/netbuild/NBEdgeCont.cpp:1823
+#: src/netbuild/NBEdgeCont.cpp:1836
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "路段 '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1825
+#: src/netbuild/NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "路段 '%' 的坡度(grade)為 %%。"
 
-#: src/netbuild/NBEdgeCont.cpp:1835
+#: src/netbuild/NBEdgeCont.cpp:1848
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "連接線(connection) '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: src/netbuild/NBEdgeCont.cpp:1837
+#: src/netbuild/NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "連接線(connection) '%' 的坡度(grade)為 %%。"
 
-#: src/netbuild/NBEdgeCont.cpp:1877
+#: src/netbuild/NBEdgeCont.cpp:1890
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "不結合(joining)的輕軌電車(tram)路段 '%', 此路段有 % 車道。"
 
-#: src/netbuild/NBEdgeCont.cpp:1957
+#: src/netbuild/NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "輕軌電車(tram)路段 '%' 和 '%' 不明確 (針對車道 '%')。"
 
-#: src/netbuild/NBEdgeCont.cpp:2112 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netbuild/NBEdgeCont.cpp:2125 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "路段的 '%' 從節點(from-node)'%' 未知。"
 
-#: src/netbuild/NBEdgeCont.cpp:2116 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netbuild/NBEdgeCont.cpp:2129 src/netimport/NIImporter_SUMO.cpp:144
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
@@ -9390,43 +9390,43 @@ msgstr "未知的交通號誌布置(layout) '%';發生在節點 '%'。"
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr "將交通號誌類型由 '%' 更改為 '%'; 相關的交通號誌識別名是(tl) '%'。"
 
-#: src/netimport/NIXMLPTHandler.cpp:159
+#: src/netimport/NIXMLPTHandler.cpp:166
 #, c-format
 msgid "Edge '%' for stop '%' not found"
 msgstr "找不到路段 '%' 給停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:167
+#: src/netimport/NIXMLPTHandler.cpp:174
 #, c-format
 msgid "Lane '%' for stop '%' not found"
 msgstr "找不到車道(lane) '%' 給停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:185
+#: src/netimport/NIXMLPTHandler.cpp:209
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr "無法增加大眾運輸停靠站 '%' (已經存在)"
 
-#: src/netimport/NIXMLPTHandler.cpp:204
+#: src/netimport/NIXMLPTHandler.cpp:228
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "找不到連接通道(access)相接的路段 '%' 到停靠點 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:240
+#: src/netimport/NIXMLPTHandler.cpp:264
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 
-#: src/netimport/NIXMLPTHandler.cpp:281
+#: src/netimport/NIXMLPTHandler.cpp:305
 msgid "Found route outside line definition"
 msgstr "找到路徑外界線(route outside line)的定義"
 
-#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
+#: src/netimport/NIXMLPTHandler.cpp:315 src/netimport/NIXMLPTHandler.cpp:335
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "路徑中路段 '%' 無法找到; 路線(line)為 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:330
+#: src/netimport/NIXMLPTHandler.cpp:354
 msgid "Stop '%' within line '%' not found"
 msgstr "停靠點 '%' 無法找到; 路線(line)為 '%'"
 
-#: src/netimport/NIXMLPTHandler.cpp:346
+#: src/netimport/NIXMLPTHandler.cpp:370
 msgid "Stop '%' within route '%' not found"
 msgstr "停靠點 '%' 無法找到; 路徑(route)為 '%'"
 
@@ -10194,124 +10194,6 @@ msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr "忽略選項 \"proj.plain-geo\", 因為沒有定義地理坐標轉換"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "無法存取網路檔案 '%' 以進行載入。"
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' 必須為正值 （在 % '%' 的定義中）。"
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "缺少出發地 '%' 和目的地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "缺少出發地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "缺少目的地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "分區 '%' 沒有起點。"
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "分區 '%' 沒有迄點。"
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段。"
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"每秒 % 車輛的流量密度不能用簡單的姬率表示。 設定回到均勻間距(even spacing)。"
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "讀取 % 時,到了文件結尾。"
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "損壞的期間定義 '%'。"
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "損壞的係數(factor)： '%'。"
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "缺少帶有 % 分區名稱的列(line)。"
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "缺少分區 % 的列(line)。"
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "找到比分區更多的輸入項目(entries)。"
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "在 '%' 列中有不是數字的車輛編號。"
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "在列 '%' 中至少缺少一項資訊。"
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "無法開啟 '%'。"
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr "'%' 不包含有關所描述時間的必要資訊。"
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "無法讀取要載入的矩陣(matrix)檔案 '%' 。"
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "無法讀取要載入的路徑檔案 '%'。"
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr "假設一天時間線有 24 個登錄項目，但得到 %。"
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "損壞的時間線定義: '%' 中缺少一個值。"
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "從檔案載入 TAZ （分區; 也來自路網）"
@@ -10403,6 +10285,124 @@ msgstr "沒有載入任何分區(districts)。"
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "沒有載入任何車輛。"
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "無法存取網路檔案 '%' 以進行載入。"
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' 必須為正值 （在 % '%' 的定義中）。"
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "缺少出發地 '%' 和目的地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "缺少出發地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "缺少目的地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "分區 '%' 沒有起點。"
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "分區 '%' 沒有迄點。"
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段。"
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"每秒 % 車輛的流量密度不能用簡單的姬率表示。 設定回到均勻間距(even spacing)。"
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "讀取 % 時,到了文件結尾。"
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "損壞的期間定義 '%'。"
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "損壞的係數(factor)： '%'。"
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "缺少帶有 % 分區名稱的列(line)。"
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "缺少分區 % 的列(line)。"
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "找到比分區更多的輸入項目(entries)。"
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "在 '%' 列中有不是數字的車輛編號。"
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "在列 '%' 中至少缺少一項資訊。"
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "無法開啟 '%'。"
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr "'%' 不包含有關所描述時間的必要資訊。"
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "無法讀取要載入的矩陣(matrix)檔案 '%' 。"
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "無法讀取要載入的路徑檔案 '%'。"
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr "假設一天時間線有 24 個登錄項目，但得到 %。"
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "損壞的時間線定義: '%' 中缺少一個值。"
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -11010,51 +11010,51 @@ msgstr "這裡有不屬於車輛 '%' 的原始路徑的停等路段(stop edges)�
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "“路段 '%' 未連接到路段 '%'; 車輛: '%'。"
 
-#: src/router/RORouteHandler.cpp:234
+#: src/router/RORouteHandler.cpp:233
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr "人員 '%' 的觸發出發(triggered departure)需要從一個乘車(ride)開始。"
 
-#: src/router/RORouteHandler.cpp:236
+#: src/router/RORouteHandler.cpp:235
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
 "貨櫃 '%' 的觸發出發(triggered departure)需要從一個運送(transport)開始。"
 
-#: src/router/RORouteHandler.cpp:258
+#: src/router/RORouteHandler.cpp:257
 #, c-format
 msgid "Found % outside container element"
 msgstr "找到 % 外部貨櫃元素"
 
-#: src/router/RORouteHandler.cpp:382
+#: src/router/RORouteHandler.cpp:381
 msgid "No probability for route %, using default."
 msgstr "無路徑 % 的機率，使用預設值。"
 
-#: src/router/RORouteHandler.cpp:537
+#: src/router/RORouteHandler.cpp:536
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr "忽略內部路徑分佈的識別名(ids) (車輛 '%')。"
 
-#: src/router/RORouteHandler.cpp:697
+#: src/router/RORouteHandler.cpp:696
 msgid "Discarding person '%' because her plan is empty"
 msgstr "丟棄人員(person) '%', 因為他/她的計劃是空的"
 
-#: src/router/RORouteHandler.cpp:724
+#: src/router/RORouteHandler.cpp:723
 msgid "Discarding personFlow '%' because their plan is empty"
 msgstr "丟棄人流量(personFlow) '%', 因為他/她的計劃是空的"
 
-#: src/router/RORouteHandler.cpp:732
+#: src/router/RORouteHandler.cpp:731
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr "機率的人流量(personFlow) '%' 必須指定結束時間"
 
-#: src/router/RORouteHandler.cpp:809
+#: src/router/RORouteHandler.cpp:808
 msgid "Discarding container '%' because its plan is empty"
 msgstr "丟棄貨櫃 '%', 因為它的計劃是空的"
 
-#: src/router/RORouteHandler.cpp:826
+#: src/router/RORouteHandler.cpp:825
 msgid "Discarding containerFlow '%' because its plan is empty"
 msgstr "丟棄貨櫃流量(containerFlow) '%', 因為它的計劃是空的"
 
-#: src/router/RORouteHandler.cpp:1126
+#: src/router/RORouteHandler.cpp:1125
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 "貨櫃 '%' 的觸發出發(triggered departure)需要一個唯一的列值(unique lines "
@@ -11072,7 +11072,7 @@ msgstr "收到中斷信號, 試圖正常退出。"
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "微觀多運具模式交通模擬軟體。"
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "退出 (由於錯誤)。"
 
@@ -11402,15 +11402,15 @@ msgstr "從字串(string)到雙精度(doubles)的無效轉換 (%)"
 msgid "Invalid conversion from string to double (empty value)"
 msgstr "從字串(string)到雙精度(doubles)的無效轉換 (空值)"
 
-#: src/utils/common/Parameterised.cpp:187
+#: src/utils/common/Parameterised.cpp:196
 msgid "Invalid format of parameter (%)"
 msgstr "參數的格式無效 (%)"
 
-#: src/utils/common/Parameterised.cpp:212
+#: src/utils/common/Parameterised.cpp:221
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr "屬性 (%) 的格式無效。 屬性必須以字母開頭"
 
-#: src/utils/common/Parameterised.cpp:219
+#: src/utils/common/Parameterised.cpp:228
 msgid "Invalid format of attribute (%)"
 msgstr "屬性 (%) 的格式無效"
 
@@ -11693,9 +11693,22 @@ msgstr "展開 (Expand)"
 msgid "Expand frame to show all contents"
 msgstr "展開框架以顯示所有內容"
 
-#: src/utils/foxtools/MFXTextFieldSearch.cpp:86
+#: src/utils/foxtools/MFXGroupBoxModule.cpp:78
+msgid "Shrink frame to default with"
+msgstr ""
+
+#: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
 msgstr "鍵入搜尋..."
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+msgid "File Exists"
+msgstr ""
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+#, c-format
+msgid "Overwrite '%s'?"
+msgstr ""
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -11777,27 +11790,27 @@ msgstr "嘗試減去不同長度的 PositionVectors。"
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:970
+#: src/utils/handlers/AdditionalHandler.cpp:967
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1125
+#: src/utils/handlers/AdditionalHandler.cpp:1122
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1128
+#: src/utils/handlers/AdditionalHandler.cpp:1125
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:1453
+#: src/utils/handlers/AdditionalHandler.cpp:1450
 msgid "Calibrators need either an edge or a lane"
 msgstr "校估器需要一個路段或一個車道"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1501
+#: src/utils/handlers/AdditionalHandler.cpp:1498
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -11805,176 +11818,176 @@ msgstr ""
 "校估流量(CalibratorFlows)需要屬性 每小時車輛數(vehsPerHour) 或 速度(speed)或"
 "類型(type) (或這些屬性的任意組合)"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1916
+#: src/utils/handlers/AdditionalHandler.cpp:1913
 msgid "X and Y must be be defined together in POIs"
 msgstr "X 和 Y 必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1922
+#: src/utils/handlers/AdditionalHandler.cpp:1919
 msgid "lane and position must be defined together in POIs"
 msgstr "車道和位置必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1928
+#: src/utils/handlers/AdditionalHandler.cpp:1925
 msgid "lon and lat must be be defined together in POIs"
 msgstr "經度(lon)和緯度(lat)必須一起定義於興趣點(POIs)內"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1954
+#: src/utils/handlers/AdditionalHandler.cpp:1951
 #: src/utils/shapes/ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:2050
+#: src/utils/handlers/AdditionalHandler.cpp:2047
 msgid "Calibrator Flows have to be defined within a %."
 msgstr ""
 
-#: src/utils/handlers/AdditionalHandler.cpp:2060
+#: src/utils/handlers/AdditionalHandler.cpp:2057
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:57
+#: src/utils/handlers/CommonHandler.cpp:93
 msgid "Parameters must be defined within an object"
 msgstr "參數必須定義在一個物件(object)內"
 
-#: src/utils/handlers/CommonHandler.cpp:59
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "Parameters cannot be defined within another parameter."
 msgstr "參數無法定義於其它參數內。"
 
-#: src/utils/handlers/CommonHandler.cpp:67
+#: src/utils/handlers/CommonHandler.cpp:103
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
 
-#: src/utils/handlers/CommonHandler.cpp:69
+#: src/utils/handlers/CommonHandler.cpp:105
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
 
-#: src/utils/handlers/CommonHandler.cpp:107
+#: src/utils/handlers/CommonHandler.cpp:143
 msgid "'%' must be defined within the definition of a %."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:110
+#: src/utils/handlers/CommonHandler.cpp:146
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:113
+#: src/utils/handlers/CommonHandler.cpp:149
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:125
+#: src/utils/handlers/CommonHandler.cpp:161
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:161
+#: src/utils/handlers/CommonHandler.cpp:197
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:164
+#: src/utils/handlers/CommonHandler.cpp:200
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:167
+#: src/utils/handlers/CommonHandler.cpp:203
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:170
+#: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:229
+#: src/utils/handlers/CommonHandler.cpp:265
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:235
+#: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:247
-#: src/utils/handlers/CommonHandler.cpp:265
+#: src/utils/handlers/CommonHandler.cpp:283
+#: src/utils/handlers/CommonHandler.cpp:301
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:253
-#: src/utils/handlers/CommonHandler.cpp:271
+#: src/utils/handlers/CommonHandler.cpp:289
+#: src/utils/handlers/CommonHandler.cpp:307
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:284
+#: src/utils/handlers/CommonHandler.cpp:320
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:292
-#: src/utils/handlers/CommonHandler.cpp:304
-#: src/utils/handlers/CommonHandler.cpp:316
+#: src/utils/handlers/CommonHandler.cpp:328
+#: src/utils/handlers/CommonHandler.cpp:340
+#: src/utils/handlers/CommonHandler.cpp:352
 msgid "Could not build %; ID cannot be empty"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:294
-#: src/utils/handlers/CommonHandler.cpp:318
+#: src/utils/handlers/CommonHandler.cpp:330
+#: src/utils/handlers/CommonHandler.cpp:354
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "無法在 netedit 中構建 % (其識別名(ID)為 '%'); ID 含有無效字元。"
 
-#: src/utils/handlers/CommonHandler.cpp:306
+#: src/utils/handlers/CommonHandler.cpp:342
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:327
+#: src/utils/handlers/CommonHandler.cpp:363
 msgid "Overwriting % with ID '%'"
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:333
+#: src/utils/handlers/CommonHandler.cpp:369
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:347
+#: src/utils/handlers/CommonHandler.cpp:384
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:353
+#: src/utils/handlers/CommonHandler.cpp:390
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:359
+#: src/utils/handlers/CommonHandler.cpp:396
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:365
+#: src/utils/handlers/CommonHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:371
+#: src/utils/handlers/CommonHandler.cpp:408
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:377
+#: src/utils/handlers/CommonHandler.cpp:414
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/DataHandler.cpp:120
+#: src/utils/handlers/DataHandler.cpp:123
 msgid "Data elements cannot load attributes as params"
 msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 
@@ -11982,30 +11995,30 @@ msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 
-#: src/utils/handlers/RouteHandler.cpp:646
+#: src/utils/handlers/RouteHandler.cpp:649
 msgid "an embedded route cannot have their own ID"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:713
-#: src/utils/handlers/RouteHandler.cpp:803
+#: src/utils/handlers/RouteHandler.cpp:716
+#: src/utils/handlers/RouteHandler.cpp:806
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:716
-#: src/utils/handlers/RouteHandler.cpp:806
+#: src/utils/handlers/RouteHandler.cpp:719
+#: src/utils/handlers/RouteHandler.cpp:809
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:981
+#: src/utils/handlers/RouteHandler.cpp:984
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1100
+#: src/utils/handlers/RouteHandler.cpp:1103
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1143
+#: src/utils/handlers/RouteHandler.cpp:1146
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -12014,22 +12027,22 @@ msgstr ""
 "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用"
 "屬性(attributes)!"
 
-#: src/utils/handlers/RouteHandler.cpp:1151
-#: src/utils/handlers/RouteHandler.cpp:1153
+#: src/utils/handlers/RouteHandler.cpp:1154
+#: src/utils/handlers/RouteHandler.cpp:1156
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: src/utils/handlers/RouteHandler.cpp:1239
+#: src/utils/handlers/RouteHandler.cpp:1242
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: src/utils/handlers/RouteHandler.cpp:1254
+#: src/utils/handlers/RouteHandler.cpp:1257
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: src/utils/handlers/RouteHandler.cpp:1256
+#: src/utils/handlers/RouteHandler.cpp:1259
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"
@@ -12059,7 +12072,7 @@ msgstr ""
 msgid "Could not redirect to NUL device (%)."
 msgstr "無法重定向到NUL裝置 (%)。"
 
-#: src/utils/iodevices/ParquetFormatter.h:201
+#: src/utils/iodevices/ParquetFormatter.h:165
 msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
@@ -12385,42 +12398,42 @@ msgstr "多邊形 '%' 已經存在。"
 msgid "Loading of shapes from % failed."
 msgstr "從 % 中載入形狀(shapes)失敗。"
 
-#: src/utils/tests/InternalTest.cpp:292
+#: src/utils/tests/InternalTest.cpp:311
 msgid "Could not open attributes enum file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:306
+#: src/utils/tests/InternalTest.cpp:325
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:323 src/utils/tests/InternalTest.cpp:373
-#: src/utils/tests/InternalTest.cpp:408
+#: src/utils/tests/InternalTest.cpp:342 src/utils/tests/InternalTest.cpp:392
+#: src/utils/tests/InternalTest.cpp:427
 msgid "Could not open view positions file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:351
+#: src/utils/tests/InternalTest.cpp:370
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:353
+#: src/utils/tests/InternalTest.cpp:372
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:355
+#: src/utils/tests/InternalTest.cpp:374
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:389 src/utils/tests/InternalTest.cpp:428
+#: src/utils/tests/InternalTest.cpp:408 src/utils/tests/InternalTest.cpp:447
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:391 src/utils/tests/InternalTest.cpp:430
-#: src/utils/tests/InternalTest.cpp:432 src/utils/tests/InternalTest.cpp:434
+#: src/utils/tests/InternalTest.cpp:410 src/utils/tests/InternalTest.cpp:449
+#: src/utils/tests/InternalTest.cpp:451 src/utils/tests/InternalTest.cpp:453
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
@@ -12770,6 +12783,11 @@ msgid "The XML-parser could not be build."
 msgstr "無法建立XML解析器(parser)。"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
@@ -12779,7 +12797,7 @@ msgstr "無法建立XML解析器(parser)。"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1871
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1877
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1888
-msgid "XML files (*.xml,*.xml.gz)"
+msgid "XML files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
@@ -12802,203 +12820,196 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1878
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1883
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1889
-msgid "All files (*)"
-msgstr "所有檔案 (*)"
+msgid "All files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
-msgid "Plain text files (*.txt)"
+msgid "Plain text files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
-msgid "CSV files (*.txt)"
+msgid "CSV files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
-msgid "Open scene graph  files (*.osg)"
+msgid "Open scene graph files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
-msgid ""
-"All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,"
-"*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+msgid "All Image Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-msgid "GIF Image (*.gif)"
+msgid "GIF Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-msgid "BMP Image (*.bmp)"
+msgid "BMP Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-msgid "XPM Image (*.xpm)"
+msgid "XPM Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-msgid "PCX Image (*.pcx)"
+msgid "PCX Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-msgid "ICO Image (*.ico)"
+msgid "ICO Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-msgid "RGB Image (*.rgb)"
+msgid "RGB Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-msgid "XBM Image (*.xbm)"
+msgid "XBM Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
-msgid "TARGA Image (*.tga)"
+msgid "TARGA Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
-msgid "PNG Image (*.png)"
+msgid "PNG Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-msgid "JPEG Image (*.jpg,*.jpeg)"
+msgid "JPEG Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
-msgid "TIFF Image (*.tif,*.tiff)"
+msgid "TIFF Image"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-msgid "Postscript (*.ps)"
+msgid "Postscript"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-msgid "Encapsulated Postscript (*.eps)"
+msgid "Encapsulated Postscript"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
-msgid "Portable Document Format (*.pdf)"
+msgid "Portable Document Format"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
-msgid "Scalable Vector Graphics (*.svg)"
+msgid "Scalable Vector Graphics"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
-msgid "LATEX text strings (*.tex)"
+msgid "LATEX text strings"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
-msgid "Portable LaTeX Graphics (*.pgf)"
+msgid "Portable LaTeX Graphics"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
-msgid "All Files (*)"
+msgid "All Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
-msgid ""
-"All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*."
-"png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
-"hevc,*.mp4)"
+msgid "All Image and Video Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
-msgid "All Video Files (*.h264,*.hevc,*.mp4)"
+msgid "All Video Files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
-msgid "G264 Video (*.h264)"
+msgid "G264 Video"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
-msgid "HEVC Video (*.hevc)"
+msgid "HEVC Video"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-msgid "MP4 Video (*.mp4)"
+msgid "MP4 Video"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-msgid "XML files (*.xml)"
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+msgid "Portable"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+msgid "Plain text"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
-msgid "View settings files (*.xml,*.xml.gz)"
+msgid "View settings files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1811
-msgid "State GZipped XML files (*.xml.gz)"
+msgid "State GZipped XML files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817
-msgid "Sumo config files (*.sumocfg)"
+msgid "Sumo config"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
-msgid "Netedit config files (*.netecfg)"
+msgid "Netedit config files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1829
-msgid "Netconvert config files (*.netccfg)"
+msgid "Netconvert config files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1835
-msgid "OSM network files (*.osm,*.osm.gz)"
+msgid "OSM network files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1841
-msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
+msgid "SUMO network files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1847
-msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
+msgid "TLS files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1853
-msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
+msgid "Junction files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
+msgid "Edge type files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-msgid "Additional files (*.add.xml,*.add.xml.gz)"
+msgid "Additional files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1876
-msgid "Route files (*.rou.xml,*.rou.xml.gz)"
+msgid "Route files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1882
-msgid "Edge data files (*.xml,*.xml.gz)"
+msgid "Edge data files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1887
-msgid "Mean data files (*.add.xml,*.add.xml.gz)"
+msgid "Mean data files"
 msgstr ""
 
 #: src/utils/xml/XMLSubSys.cpp:73
@@ -13047,6 +13058,9 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "當解析'%'時,發生未指定的錯誤"
+
+#~ msgid "All files (*)"
+#~ msgstr "所有檔案 (*)"
 
 #~ msgid "Joining junctions with identical coordinates"
 #~ msgstr "正在合併具有相同坐標的路口"

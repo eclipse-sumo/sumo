@@ -31,6 +31,8 @@
 #undef NOMINMAX
 #endif
 
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "MFXLinkLabel.h"
 
 
@@ -83,7 +85,7 @@ FXIMPLEMENT(MFXLinkLabel, FXLabel, MFXLinkLabelMap, ARRAYNUMBER(MFXLinkLabelMap)
 
 MFXLinkLabel::MFXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) : FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
     setDefaultCursor(getApp()->getDefaultCursor(DEF_HAND_CURSOR));
-    setTextColor(FXRGB(0, 0, 255));
+    setTextColor(GUIDesignTextColorBlue);
 }
 
 MFXLinkLabel::~MFXLinkLabel() {

@@ -18,8 +18,6 @@
 // Frame for select person/container plans
 /****************************************************************************/
 
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
 #include <netedit/elements/additional/GNEAccess.h>
 #include <netedit/elements/additional/GNEBusStop.h>
 #include <netedit/elements/additional/GNECalibrator.h>
@@ -29,41 +27,45 @@
 #include <netedit/elements/additional/GNEClosingReroute.h>
 #include <netedit/elements/additional/GNEContainerStop.h>
 #include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNEEntryExitDetector.h>
 #include <netedit/elements/additional/GNEInductionLoopDetector.h>
 #include <netedit/elements/additional/GNEInstantInductionLoopDetector.h>
 #include <netedit/elements/additional/GNELaneAreaDetector.h>
 #include <netedit/elements/additional/GNEMultiEntryExitDetector.h>
-#include <netedit/elements/additional/GNEEntryExitDetector.h>
-#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEOverheadWire.h>
 #include <netedit/elements/additional/GNEParkingArea.h>
 #include <netedit/elements/additional/GNEParkingAreaReroute.h>
 #include <netedit/elements/additional/GNEParkingSpace.h>
+#include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>
-#include <netedit/elements/additional/GNERouteProbReroute.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/additional/GNERouteProbReroute.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
-#include <netedit/elements/additional/GNETractionSubstation.h>
-#include <netedit/elements/additional/GNEOverheadWire.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNEPersonTrip.h>
-#include <netedit/elements/demand/GNETransport.h>
-#include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEStop.h>
+#include <netedit/elements/demand/GNEStopPlan.h>
+#include <netedit/elements/demand/GNETranship.h>
+#include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVehicle.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/elements/demand/GNEWalk.h>
-#include <netedit/elements/demand/GNEStopPlan.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -88,8 +90,8 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     MFXGroupBoxModule(frameParent, TL("Plan type")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
-    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
-                                          this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                          false, GUIDesignComboBoxVisibleItems, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // get net
     const auto net = myFrameParent->getViewNet()->getNet();
     // continue depending of plan type
@@ -110,7 +112,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     // set myCurrentPlanTemplate
     myCurrentPlanTemplate = myPlanTemplates.front();
     // set color of myTypeMatchBox to black (valid)
-    myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+    myPlansComboBox->setTextColor(GUIDesignTextColorBlack);
     myPlansComboBox->killFocus();
     // GNEPlanSelector is always shown
     show();
@@ -299,7 +301,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
             // update myCurrentPlanTemplate
             myCurrentPlanTemplate = planTemplate;
             // set color of myTypeMatchBox to black (valid)
-            myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+            myPlansComboBox->setTextColor(GUIDesignTextColorBlack);
             myPlansComboBox->killFocus();
             // call tag selected function
             myFrameParent->tagSelected();
@@ -309,7 +311,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // reset myCurrentPlanTemplate
     myCurrentPlanTemplate = std::make_pair(nullptr, nullptr);
     // set color of myTypeMatchBox to red (invalid)
-    myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
+    myPlansComboBox->setTextColor(GUIDesignTextColorRed);
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
@@ -319,7 +321,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
 bool
 GNEPlanSelector::isPlanValid() const {
     if (myCurrentPlanTemplate.second) {
-        return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
+        return myPlansComboBox->getTextColor() == GUIDesignTextColorBlack;
     } else {
         return false;
     }

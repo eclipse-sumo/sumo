@@ -134,6 +134,10 @@ GUIJunctionWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
 
 Boundary
 GUIJunctionWrapper::getCenteringBoundary() const {
+    if (GUIGlobals::gSecondaryShape) {
+        const Position& p = myJunction.getPosition(true);
+        return Boundary(p.x() - 1, p.y() - 1, p.x() + 1, p.y() + 1);
+    }
     Boundary b = myBoundary;
     b.grow(1);
     return b;

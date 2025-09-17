@@ -21,11 +21,17 @@
 #include <config.h>
 
 #include "fxheader.h"
-#include "MFXStaticToolTip.h"
 
-/**
- * @class MFXLabelTooltip
- */
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXStaticToolTip;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
 class MFXLabelTooltip : public FXButton {
     /// @brief fox declaration
     FXDECLARE(MFXLabelTooltip)

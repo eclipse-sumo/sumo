@@ -20,54 +20,34 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXTextFieldTooltip.h>
-#include <vector>
-#include <string>
-
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEUndoList;
-class GNEApplicationWindow;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEUndoListDialog
- * @brief Dialog for edit rerouters
- */
-class GNEUndoListDialog : protected FXTopWindow {
+class GNEUndoListDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEUndoListDialog)
 
 public:
     /// @brief Constructor
-    GNEUndoListDialog(GNEApplicationWindow* GNEApp);
+    GNEUndoListDialog(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
     ~GNEUndoListDialog();
 
-    /// @brief show window
-    void show();
-    using FXTopWindow::show; // to silence the warning C4266 about a hidden function
-
-    /// @brief hide window
-    void hide();
-
-    /// @brief check if dialog is shown
-    bool shown() const;
-
-    /// @brief Move the focus to this window
-    void setFocus();
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event after press close button
-    long onCmdClose(FXObject*, FXSelector, void*);
 
     /// @brief event after select row
     long onCmdSelectRow(FXObject*, FXSelector, void*);
@@ -75,15 +55,6 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEUndoListDialog)
-
-    /// @brief update list destroying and creating rows
-    void updateList();
-
-    /// @brief recalc list destroying and creating rows
-    void recalcList();
-
     /// @struct class for keep every row value
     struct UndoListRow {
         /// @brief constructor
@@ -141,14 +112,17 @@ protected:
         FXLabel* myIcon = nullptr;
 
         /// @brief textField description
-        MFXTextFieldTooltip* myTextFieldDescription = nullptr;
+        MFXTextFieldIcon* myTextFieldDescription = nullptr;
 
         /// @brief textField timeStamp
         FXTextField* myTextFieldTimeStamp = nullptr;
     };
 
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEUndoListDialog)
+
+    /// @brief update list destroying and creating rows
+    void updateList();
 
     /// @brief frame for rows
     FXVerticalFrame* myRowFrame = nullptr;

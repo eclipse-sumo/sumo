@@ -121,6 +121,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("write-license", new Option_Bool(false));
     oc.addDescription("write-license", "Output", TL("Include license info into every output file"));
 
+    oc.doRegister("write-metadata", new Option_Bool(false));
+    oc.addDescription("write-metadata", "Output", TL("Write parsable metadata (configuration etc.) instead of comments"));
+
     oc.doRegister("output-prefix", new Option_String());
     oc.addDescription("output-prefix", "Output", TL("Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time."));
 

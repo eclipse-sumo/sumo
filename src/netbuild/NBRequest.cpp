@@ -733,7 +733,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " itc=" <<  indirectLeftTurnConflict(from, c, *i, connected[k], zipper)
                                   << " bc=" <<  bidiConflict(from, c, *i, connected[k], false)
                                   << " ec=" << (myJunction->extraConflict(c.tlLinkIndex, connected[k].tlLinkIndex) && (myForbids[idx2][idx] || myForbids[idx][idx2]))
-                                  << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
+                                  << " tlscc=" << myJunction->tlsStrandedConflict(from, c, *i, connected[k])
                                   << "\n";
                     }
 #endif
@@ -748,7 +748,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             || bidiConflict(from, c, *i, connected[k], false)
                             // the extra conflict could be specific to another connection within the same signal group
                             || (myJunction->extraConflict(c.tlLinkIndex, connected[k].tlLinkIndex) && (myForbids[idx2][idx] || myForbids[idx][idx2]))
-                            || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
+                            || (myJunction->tlsStrandedConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
                        ) {
                         result += '1';

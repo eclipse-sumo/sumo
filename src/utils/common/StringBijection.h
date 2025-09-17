@@ -47,7 +47,7 @@ public:
 #endif
     /// @brief bijection entry
     struct Entry {
-        const char* str;
+        const std::string str;
         const T key;
     };
 #ifdef _MSC_VER
@@ -152,6 +152,7 @@ public:
     }
 
     /// @brief get multiline string (all strings concatenated and separated by '\n')
+    /// @note this will be removed after unifying all FXFileDialog
     std::string getMultilineString() const {
         std::string result;
         if (myT2String.size() > 0) {

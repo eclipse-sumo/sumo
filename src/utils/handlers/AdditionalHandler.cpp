@@ -249,500 +249,479 @@ AdditionalHandler::endParseAttributes() {
 
 void
 AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
-    // switch tag
-    switch (obj->getTag()) {
-        // Stopping Places
-        case SUMO_TAG_BUS_STOP:
-            if (buildBusStop(obj,
-                             obj->getStringAttribute(SUMO_ATTR_ID),
-                             obj->getStringAttribute(SUMO_ATTR_LANE),
-                             obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                             obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                             obj->getStringAttribute(SUMO_ATTR_NAME),
-                             obj->getStringListAttribute(SUMO_ATTR_LINES),
-                             obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                             obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                             obj->getColorAttribute(SUMO_ATTR_COLOR),
-                             obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                             obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_TRAIN_STOP:
-            if (buildTrainStop(obj,
-                               obj->getStringAttribute(SUMO_ATTR_ID),
-                               obj->getStringAttribute(SUMO_ATTR_LANE),
-                               obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                               obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                               obj->getStringAttribute(SUMO_ATTR_NAME),
-                               obj->getStringListAttribute(SUMO_ATTR_LINES),
-                               obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
-                               obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
-                               obj->getColorAttribute(SUMO_ATTR_COLOR),
-                               obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                               obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_ACCESS:
-            if (buildAccess(obj,
-                            obj->getStringAttribute(SUMO_ATTR_LANE),
-                            obj->getStringAttribute(SUMO_ATTR_POSITION),
-                            obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                            obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                            obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            if (buildContainerStop(obj,
+    // check if loading was aborted
+    if (!myAbortLoading) {
+        // switch tag
+        switch (obj->getTag()) {
+            // Stopping Places
+            case SUMO_TAG_BUS_STOP:
+                if (buildBusStop(obj,
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getStringAttribute(SUMO_ATTR_LANE),
+                                 obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                                 obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                 obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
+                                 obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                                 obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                 obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                if (buildTrainStop(obj,
                                    obj->getStringAttribute(SUMO_ATTR_ID),
                                    obj->getStringAttribute(SUMO_ATTR_LANE),
                                    obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
                                    obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                                    obj->getStringAttribute(SUMO_ATTR_NAME),
                                    obj->getStringListAttribute(SUMO_ATTR_LINES),
-                                   obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
+                                   obj->getIntAttribute(SUMO_ATTR_PERSON_CAPACITY),
                                    obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
                                    obj->getColorAttribute(SUMO_ATTR_COLOR),
                                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                   obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                                    obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            if (buildChargingStation(obj,
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_ACCESS:
+                if (buildAccess(obj,
+                                obj->getStringAttribute(SUMO_ATTR_LANE),
+                                obj->getStringAttribute(SUMO_ATTR_POSITION),
+                                obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                if (buildContainerStop(obj,
+                                       obj->getStringAttribute(SUMO_ATTR_ID),
+                                       obj->getStringAttribute(SUMO_ATTR_LANE),
+                                       obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                                       obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                       obj->getStringAttribute(SUMO_ATTR_NAME),
+                                       obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                       obj->getIntAttribute(SUMO_ATTR_CONTAINER_CAPACITY),
+                                       obj->getDoubleAttribute(SUMO_ATTR_PARKING_LENGTH),
+                                       obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                       obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                       obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                       obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                if (buildChargingStation(obj,
+                                         obj->getStringAttribute(SUMO_ATTR_ID),
+                                         obj->getStringAttribute(SUMO_ATTR_LANE),
+                                         obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                                         obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                                         obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
+                                         obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
+                                         obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
+                                         obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                                         obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
+                                         obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
+                                         obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                         obj->getStringAttribute(SUMO_ATTR_PARKING_AREA),
+                                         obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                if (buildParkingArea(obj,
                                      obj->getStringAttribute(SUMO_ATTR_ID),
                                      obj->getStringAttribute(SUMO_ATTR_LANE),
                                      obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
                                      obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                     obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
                                      obj->getStringAttribute(SUMO_ATTR_NAME),
-                                     obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
-                                     obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
-                                     obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
-                                     obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
-                                     obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
-                                     obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
+                                     obj->getStringListAttribute(SUMO_ATTR_ACCEPTED_BADGES),
                                      obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                     obj->getStringAttribute(SUMO_ATTR_PARKING_AREA),
+                                     obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
+                                     obj->getBoolAttribute(SUMO_ATTR_ONROAD),
+                                     obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                                     obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                                     obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                     obj->getBoolAttribute(SUMO_ATTR_LEFTHAND),
                                      obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_PARKING_AREA:
-            if (buildParkingArea(obj,
-                                 obj->getStringAttribute(SUMO_ATTR_ID),
-                                 obj->getStringAttribute(SUMO_ATTR_LANE),
-                                 obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                                 obj->getStringAttribute(SUMO_ATTR_DEPARTPOS),
-                                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                                 obj->getStringListAttribute(SUMO_ATTR_ACCEPTED_BADGES),
-                                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                 obj->getIntAttribute(SUMO_ATTR_ROADSIDE_CAPACITY),
-                                 obj->getBoolAttribute(SUMO_ATTR_ONROAD),
-                                 obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                                 obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                                 obj->getBoolAttribute(SUMO_ATTR_LEFTHAND),
-                                 obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_PARKING_SPACE:
-            if (buildParkingSpace(obj,
-                                  obj->getDoubleAttribute(SUMO_ATTR_X),
-                                  obj->getDoubleAttribute(SUMO_ATTR_Y),
-                                  obj->getDoubleAttribute(SUMO_ATTR_Z),
-                                  obj->getStringAttribute(SUMO_ATTR_NAME),
-                                  obj->getStringAttribute(SUMO_ATTR_WIDTH),
-                                  obj->getStringAttribute(SUMO_ATTR_LENGTH),
-                                  obj->getStringAttribute(SUMO_ATTR_ANGLE),
-                                  obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
-                                  obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // Detectors
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            // build E1
-            if (buildE1Detector(obj,
-                                obj->getStringAttribute(SUMO_ATTR_ID),
-                                obj->getStringAttribute(SUMO_ATTR_LANE),
-                                obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                obj->getPeriodAttribute(),
-                                obj->getStringAttribute(SUMO_ATTR_FILE),
-                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
-                                obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
-                                obj->getStringAttribute(SUMO_ATTR_NAME),
-                                obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
-                if (buildSingleLaneDetectorE2(obj,
-                                              obj->getStringAttribute(SUMO_ATTR_ID),
-                                              obj->getStringAttribute(SUMO_ATTR_LANE),
-                                              obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                              obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
-                                              obj->getPeriodAttribute(),
-                                              obj->getStringAttribute(SUMO_ATTR_TLID),
-                                              obj->getStringAttribute(SUMO_ATTR_FILE),
-                                              obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                              obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
-                                              obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
-                                              obj->getStringAttribute(SUMO_ATTR_NAME),
-                                              obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                                              obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                                              obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                                              obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                              obj->getBoolAttribute(SUMO_ATTR_SHOW_DETECTOR),
-                                              obj->getParameters())) {
                     obj->markAsCreated();
                 }
-            } else {
-                if (buildMultiLaneDetectorE2(obj,
-                                             obj->getStringAttribute(SUMO_ATTR_ID),
-                                             obj->getStringListAttribute(SUMO_ATTR_LANES),
-                                             obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                             obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                                             obj->getPeriodAttribute(),
-                                             obj->getStringAttribute(SUMO_ATTR_TLID),
-                                             obj->getStringAttribute(SUMO_ATTR_FILE),
-                                             obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                             obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
-                                             obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
-                                             obj->getStringAttribute(SUMO_ATTR_NAME),
-                                             obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                                             obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                                             obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                                             obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                             obj->getBoolAttribute(SUMO_ATTR_SHOW_DETECTOR),
-                                             obj->getParameters())) {
+                break;
+            case SUMO_TAG_PARKING_SPACE:
+                if (buildParkingSpace(obj,
+                                      obj->getDoubleAttribute(SUMO_ATTR_X),
+                                      obj->getDoubleAttribute(SUMO_ATTR_Y),
+                                      obj->getDoubleAttribute(SUMO_ATTR_Z),
+                                      obj->getStringAttribute(SUMO_ATTR_NAME),
+                                      obj->getStringAttribute(SUMO_ATTR_WIDTH),
+                                      obj->getStringAttribute(SUMO_ATTR_LENGTH),
+                                      obj->getStringAttribute(SUMO_ATTR_ANGLE),
+                                      obj->getDoubleAttribute(SUMO_ATTR_SLOPE),
+                                      obj->getParameters())) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            if (buildDetectorE3(obj,
-                                obj->getStringAttribute(SUMO_ATTR_ID),
-                                obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                                obj->getPeriodAttribute(),
-                                obj->getStringAttribute(SUMO_ATTR_FILE),
-                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
-                                obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
-                                obj->getStringAttribute(SUMO_ATTR_NAME),
-                                obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                                obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
-                                obj->getBoolAttribute(SUMO_ATTR_OPEN_ENTRY),
-                                obj->getBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL),
-                                obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            if (buildDetectorEntry(obj,
-                                   obj->getStringAttribute(SUMO_ATTR_LANE),
-                                   obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                   obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                   obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_DET_EXIT:
-            if (buildDetectorExit(obj,
-                                  obj->getStringAttribute(SUMO_ATTR_LANE),
-                                  obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                  obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            if (buildDetectorE1Instant(obj,
-                                       obj->getStringAttribute(SUMO_ATTR_ID),
-                                       obj->getStringAttribute(SUMO_ATTR_LANE),
-                                       obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                       obj->getStringAttribute(SUMO_ATTR_FILE),
-                                       obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                       obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
-                                       obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
-                                       obj->getStringAttribute(SUMO_ATTR_NAME),
-                                       obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                       obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // TAZs
-        case SUMO_TAG_TAZ:
-            if (buildTAZ(obj,
-                         obj->getStringAttribute(SUMO_ATTR_ID),
-                         obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                         obj->getPositionAttribute(SUMO_ATTR_CENTER),
-                         obj->getBoolAttribute(SUMO_ATTR_FILL),
-                         obj->getColorAttribute(SUMO_ATTR_COLOR),
-                         obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                         obj->getStringAttribute(SUMO_ATTR_NAME),
-                         obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_TAZSOURCE:
-            if (buildTAZSource(obj,
-                               obj->getStringAttribute(SUMO_ATTR_ID),
-                               obj->getDoubleAttribute(SUMO_ATTR_WEIGHT))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_TAZSINK:
-            if (buildTAZSink(obj,
-                             obj->getStringAttribute(SUMO_ATTR_ID),
-                             obj->getDoubleAttribute(SUMO_ATTR_WEIGHT))) {
-                obj->markAsCreated();
-            }
-            break;
-        // Variable Speed Sign
-        case SUMO_TAG_VSS:
-            if (buildVariableSpeedSign(obj,
-                                       obj->getStringAttribute(SUMO_ATTR_ID),
-                                       obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                                       obj->getStringListAttribute(SUMO_ATTR_LANES),
-                                       obj->getStringAttribute(SUMO_ATTR_NAME),
-                                       obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                       obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_STEP:
-            if (buildVariableSpeedSignStep(obj,
-                                           obj->getTimeAttribute(SUMO_ATTR_TIME),
-                                           obj->getStringAttribute(SUMO_ATTR_SPEED))) {
-                obj->markAsCreated();
-            }
-            break;
-        // Calibrator
-        case SUMO_TAG_CALIBRATOR:
-            if (buildEdgeCalibrator(obj,
-                                    obj->getStringAttribute(SUMO_ATTR_ID),
-                                    obj->getStringAttribute(SUMO_ATTR_EDGE),
-                                    obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                                    obj->getStringAttribute(SUMO_ATTR_OUTPUT),
-                                    obj->getPeriodAttribute(),
-                                    obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
-                                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                    obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case GNE_TAG_CALIBRATOR_LANE:
-            if (buildLaneCalibrator(obj,
+                break;
+            // Detectors
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                // build E1
+                if (buildE1Detector(obj,
                                     obj->getStringAttribute(SUMO_ATTR_ID),
                                     obj->getStringAttribute(SUMO_ATTR_LANE),
                                     obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                    obj->getStringAttribute(SUMO_ATTR_NAME),
-                                    obj->getStringAttribute(SUMO_ATTR_OUTPUT),
                                     obj->getPeriodAttribute(),
-                                    obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
-                                    obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                    obj->getStringAttribute(SUMO_ATTR_FILE),
                                     obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                    obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
+                                    obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                                    obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                                     obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_FLOW:
-            if (buildCalibratorFlow(obj,
-                                    obj->getVehicleParameter())) {
-                obj->markAsCreated();
-            }
-            break;
-        // Rerouter
-        case SUMO_TAG_REROUTER:
-            if (buildRerouter(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                              obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                              obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                              obj->getStringAttribute(SUMO_ATTR_NAME),
-                              obj->getBoolAttribute(SUMO_ATTR_OFF),
-                              obj->getBoolAttribute(SUMO_ATTR_OPTIONAL),
-                              obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
-                              obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                              obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_CLOSING_LANE_REROUTE:
-            if (buildClosingLaneReroute(obj,
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
+                    if (buildSingleLaneDetectorE2(obj,
+                                                  obj->getStringAttribute(SUMO_ATTR_ID),
+                                                  obj->getStringAttribute(SUMO_ATTR_LANE),
+                                                  obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                                  obj->getDoubleAttribute(SUMO_ATTR_LENGTH),
+                                                  obj->getPeriodAttribute(),
+                                                  obj->getStringAttribute(SUMO_ATTR_TLID),
+                                                  obj->getStringAttribute(SUMO_ATTR_FILE),
+                                                  obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                                  obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
+                                                  obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                                  obj->getStringAttribute(SUMO_ATTR_NAME),
+                                                  obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                                  obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                                                  obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                                  obj->getBoolAttribute(SUMO_ATTR_SHOW_DETECTOR),
+                                                  obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                } else {
+                    if (buildMultiLaneDetectorE2(obj,
+                                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                                 obj->getStringListAttribute(SUMO_ATTR_LANES),
+                                                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                                 obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                                 obj->getPeriodAttribute(),
+                                                 obj->getStringAttribute(SUMO_ATTR_TLID),
+                                                 obj->getStringAttribute(SUMO_ATTR_FILE),
+                                                 obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                                 obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
+                                                 obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                                                 obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                                 obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                                                 obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                                 obj->getBoolAttribute(SUMO_ATTR_SHOW_DETECTOR),
+                                                 obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                if (buildDetectorE3(obj,
+                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                    obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                    obj->getPeriodAttribute(),
+                                    obj->getStringAttribute(SUMO_ATTR_FILE),
+                                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                    obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
+                                    obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                                    obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                    obj->getDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD),
+                                    obj->getBoolAttribute(SUMO_ATTR_OPEN_ENTRY),
+                                    obj->getBoolAttribute(SUMO_ATTR_EXPECT_ARRIVAL),
+                                    obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_DET_ENTRY:
+                if (buildDetectorEntry(obj,
+                                       obj->getStringAttribute(SUMO_ATTR_LANE),
+                                       obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                       obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                       obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_DET_EXIT:
+                if (buildDetectorExit(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_LANE),
+                                      obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                      obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                      obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+                if (buildDetectorE1Instant(obj,
+                                           obj->getStringAttribute(SUMO_ATTR_ID),
+                                           obj->getStringAttribute(SUMO_ATTR_LANE),
+                                           obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                           obj->getStringAttribute(SUMO_ATTR_FILE),
+                                           obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                           obj->getStringListAttribute(SUMO_ATTR_NEXT_EDGES),
+                                           obj->getStringAttribute(SUMO_ATTR_DETECT_PERSONS),
+                                           obj->getStringAttribute(SUMO_ATTR_NAME),
+                                           obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                           obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            // TAZs
+            case SUMO_TAG_TAZ:
+                if (buildTAZ(obj,
+                             obj->getStringAttribute(SUMO_ATTR_ID),
+                             obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                             obj->getPositionAttribute(SUMO_ATTR_CENTER),
+                             obj->getBoolAttribute(SUMO_ATTR_FILL),
+                             obj->getColorAttribute(SUMO_ATTR_COLOR),
+                             obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                             obj->getStringAttribute(SUMO_ATTR_NAME),
+                             obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_TAZSOURCE:
+                if (buildTAZSource(obj,
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getDoubleAttribute(SUMO_ATTR_WEIGHT))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_TAZSINK:
+                if (buildTAZSink(obj,
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getDoubleAttribute(SUMO_ATTR_WEIGHT))) {
+                    obj->markAsCreated();
+                }
+                break;
+            // Variable Speed Sign
+            case SUMO_TAG_VSS:
+                if (buildVariableSpeedSign(obj,
+                                           obj->getStringAttribute(SUMO_ATTR_ID),
+                                           obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                           obj->getStringListAttribute(SUMO_ATTR_LANES),
+                                           obj->getStringAttribute(SUMO_ATTR_NAME),
+                                           obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                           obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_STEP:
+                if (buildVariableSpeedSignStep(obj,
+                                               obj->getTimeAttribute(SUMO_ATTR_TIME),
+                                               obj->getDoubleAttribute(SUMO_ATTR_SPEED))) {
+                    obj->markAsCreated();
+                }
+                break;
+            // Calibrator
+            case SUMO_TAG_CALIBRATOR:
+                if (buildEdgeCalibrator(obj,
+                                        obj->getStringAttribute(SUMO_ATTR_ID),
+                                        obj->getStringAttribute(SUMO_ATTR_EDGE),
+                                        obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                        obj->getStringAttribute(SUMO_ATTR_NAME),
+                                        obj->getStringAttribute(SUMO_ATTR_OUTPUT),
+                                        obj->getPeriodAttribute(),
+                                        obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                                        obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                        obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                        obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case GNE_TAG_CALIBRATOR_LANE:
+                if (buildLaneCalibrator(obj,
+                                        obj->getStringAttribute(SUMO_ATTR_ID),
+                                        obj->getStringAttribute(SUMO_ATTR_LANE),
+                                        obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                        obj->getStringAttribute(SUMO_ATTR_NAME),
+                                        obj->getStringAttribute(SUMO_ATTR_OUTPUT),
+                                        obj->getPeriodAttribute(),
+                                        obj->getStringAttribute(SUMO_ATTR_ROUTEPROBE),
+                                        obj->getDoubleAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD),
+                                        obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                        obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_FLOW:
+                if (buildCalibratorFlow(obj,
+                                        obj->getVehicleParameter())) {
+                    obj->markAsCreated();
+                }
+                break;
+            // Rerouter
+            case SUMO_TAG_REROUTER:
+                if (buildRerouter(obj,
+                                  obj->getStringAttribute(SUMO_ATTR_ID),
+                                  obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                  obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                                  obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                                  obj->getStringAttribute(SUMO_ATTR_NAME),
+                                  obj->getBoolAttribute(SUMO_ATTR_OFF),
+                                  obj->getBoolAttribute(SUMO_ATTR_OPTIONAL),
+                                  obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
+                                  obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                  obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_CLOSING_LANE_REROUTE:
+                if (buildClosingLaneReroute(obj,
+                                            obj->getStringAttribute(SUMO_ATTR_ID),
+                                            parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW),
+                                                    obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_CLOSING_REROUTE:
+                if (buildClosingReroute(obj,
                                         obj->getStringAttribute(SUMO_ATTR_ID),
                                         parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW),
                                                 obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_CLOSING_REROUTE:
-            if (buildClosingReroute(obj,
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_DEST_PROB_REROUTE:
+                if (buildDestProbReroute(obj,
+                                         obj->getStringAttribute(SUMO_ATTR_ID),
+                                         obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_PARKING_AREA_REROUTE:
+                if (buildParkingAreaReroute(obj,
+                                            obj->getStringAttribute(SUMO_ATTR_ID),
+                                            obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                                            obj->getBoolAttribute(SUMO_ATTR_VISIBLE))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_ROUTE_PROB_REROUTE:
+                if (buildRouteProbReroute(obj,
+                                          obj->getStringAttribute(SUMO_ATTR_ID),
+                                          obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_INTERVAL:
+                // check if is aREROUTER interval
+                if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
+                    if (buildRerouterInterval(obj,
+                                              obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                              obj->getTimeAttribute(SUMO_ATTR_END))) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            // Route probe
+            case SUMO_TAG_ROUTEPROBE:
+                if (buildRouteProbe(obj,
                                     obj->getStringAttribute(SUMO_ATTR_ID),
-                                    parseVehicleClasses(obj->getStringAttribute(SUMO_ATTR_ALLOW),
-                                            obj->getStringAttribute(SUMO_ATTR_DISALLOW)))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_DEST_PROB_REROUTE:
-            if (buildDestProbReroute(obj,
-                                     obj->getStringAttribute(SUMO_ATTR_ID),
-                                     obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_PARKING_AREA_REROUTE:
-            if (buildParkingAreaReroute(obj,
-                                        obj->getStringAttribute(SUMO_ATTR_ID),
-                                        obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                                        obj->getBoolAttribute(SUMO_ATTR_VISIBLE))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_ROUTE_PROB_REROUTE:
-            if (buildRouteProbReroute(obj,
+                                    obj->getStringAttribute(SUMO_ATTR_EDGE),
+                                    obj->getPeriodAttribute(),
+                                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                                    obj->getStringAttribute(SUMO_ATTR_FILE),
+                                    obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                    obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            // Vaporizer (deprecated)
+            case SUMO_TAG_VAPORIZER:
+                if (buildVaporizer(obj,
+                                   obj->getStringAttribute(SUMO_ATTR_EDGE),
+                                   obj->getTimeAttribute(SUMO_ATTR_BEGIN),
+                                   obj->getTimeAttribute(SUMO_ATTR_END),
+                                   obj->getStringAttribute(SUMO_ATTR_NAME),
+                                   obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            // wire elements
+            case SUMO_TAG_TRACTION_SUBSTATION:
+                if (buildTractionSubstation(obj,
+                                            obj->getStringAttribute(SUMO_ATTR_ID),
+                                            obj->getPositionAttribute(SUMO_ATTR_POSITION),
+                                            obj->getDoubleAttribute(SUMO_ATTR_VOLTAGE),
+                                            obj->getDoubleAttribute(SUMO_ATTR_CURRENTLIMIT),
+                                            obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+                if (buildOverheadWire(obj,
                                       obj->getStringAttribute(SUMO_ATTR_ID),
-                                      obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_INTERVAL:
-            // check if is VSS or a REROUTER interval
-            if (obj->getParentSumoBaseObject()->getTag() == SUMO_TAG_REROUTER) {
-                if (buildRerouterInterval(obj,
-                                          obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                                          obj->getTimeAttribute(SUMO_ATTR_END))) {
+                                      obj->getStringAttribute(SUMO_ATTR_SUBSTATIONID),
+                                      obj->getStringListAttribute(SUMO_ATTR_LANES),
+                                      obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
+                                      obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
+                                      obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                      obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN),
+                                      obj->getParameters())) {
                     obj->markAsCreated();
                 }
-            } else {
-                if (buildVariableSpeedSignStep(obj,
-                                               obj->getTimeAttribute(SUMO_ATTR_TIME),
-                                               obj->getStringAttribute(SUMO_ATTR_SPEED))) {
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+                if (buildOverheadWireClamp(obj,
+                                           obj->getStringAttribute(SUMO_ATTR_ID),
+                                           obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_START),
+                                           obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART),
+                                           obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END),
+                                           obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND),
+                                           obj->getParameters())) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        // Route probe
-        case SUMO_TAG_ROUTEPROBE:
-            if (buildRouteProbe(obj,
-                                obj->getStringAttribute(SUMO_ATTR_ID),
-                                obj->getStringAttribute(SUMO_ATTR_EDGE),
-                                obj->getPeriodAttribute(),
-                                obj->getStringAttribute(SUMO_ATTR_NAME),
-                                obj->getStringAttribute(SUMO_ATTR_FILE),
-                                obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                                obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // Vaporizer (deprecated)
-        case SUMO_TAG_VAPORIZER:
-            if (buildVaporizer(obj,
-                               obj->getStringAttribute(SUMO_ATTR_EDGE),
-                               obj->getTimeAttribute(SUMO_ATTR_BEGIN),
-                               obj->getTimeAttribute(SUMO_ATTR_END),
-                               obj->getStringAttribute(SUMO_ATTR_NAME),
-                               obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // wire elements
-        case SUMO_TAG_TRACTION_SUBSTATION:
-            if (buildTractionSubstation(obj,
-                                        obj->getStringAttribute(SUMO_ATTR_ID),
-                                        obj->getPositionAttribute(SUMO_ATTR_POSITION),
-                                        obj->getDoubleAttribute(SUMO_ATTR_VOLTAGE),
-                                        obj->getDoubleAttribute(SUMO_ATTR_CURRENTLIMIT),
-                                        obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_OVERHEAD_WIRE_SECTION:
-            if (buildOverheadWire(obj,
-                                  obj->getStringAttribute(SUMO_ATTR_ID),
-                                  obj->getStringAttribute(SUMO_ATTR_SUBSTATIONID),
-                                  obj->getStringListAttribute(SUMO_ATTR_LANES),
-                                  obj->getDoubleAttribute(SUMO_ATTR_STARTPOS),
-                                  obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
-                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                  obj->getStringListAttribute(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN),
-                                  obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
-            if (buildOverheadWireClamp(obj,
-                                       obj->getStringAttribute(SUMO_ATTR_ID),
-                                       obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_START),
-                                       obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANESTART),
-                                       obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_END),
-                                       obj->getStringAttribute(SUMO_ATTR_OVERHEAD_WIRECLAMP_LANEEND),
-                                       obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // Polygon
-        case SUMO_TAG_POLY:
-            if (buildPolygon(obj,
-                             obj->getStringAttribute(SUMO_ATTR_ID),
-                             obj->getStringAttribute(SUMO_ATTR_TYPE),
-                             obj->getColorAttribute(SUMO_ATTR_COLOR),
-                             obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                             obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                             obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                             obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                             obj->getBoolAttribute(SUMO_ATTR_GEO),
-                             obj->getBoolAttribute(SUMO_ATTR_FILL),
-                             obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
-                             obj->getStringAttribute(SUMO_ATTR_NAME),
-                             obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // POI
-        case SUMO_TAG_POI:
-            // check if we want to create a POI, POILane or POIGEO
-            if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
-                // build POI over view
-                if (buildPOI(obj,
-                             obj->getStringAttribute(SUMO_ATTR_ID),
-                             obj->getStringAttribute(SUMO_ATTR_TYPE),
-                             obj->getColorAttribute(SUMO_ATTR_COLOR),
-                             obj->getDoubleAttribute(SUMO_ATTR_X),
-                             obj->getDoubleAttribute(SUMO_ATTR_Y),
-                             obj->getStringAttribute(SUMO_ATTR_ICON),
-                             obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                             obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                             obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                             obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                             obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                             obj->getStringAttribute(SUMO_ATTR_NAME),
-                             obj->getParameters())) {
-                    obj->markAsCreated();
-                }
-            } else if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
-                // build POI over Lane
-                if (buildPOILane(obj,
+                break;
+            // Polygon
+            case SUMO_TAG_POLY:
+                if (buildPolygon(obj,
                                  obj->getStringAttribute(SUMO_ATTR_ID),
                                  obj->getStringAttribute(SUMO_ATTR_TYPE),
                                  obj->getColorAttribute(SUMO_ATTR_COLOR),
-                                 obj->getStringAttribute(SUMO_ATTR_LANE),
-                                 obj->getDoubleAttribute(SUMO_ATTR_POSITION),
-                                 obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
-                                 obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
+                                 obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                                 obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                 obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                 obj->getBoolAttribute(SUMO_ATTR_GEO),
+                                 obj->getBoolAttribute(SUMO_ATTR_FILL),
+                                 obj->getDoubleAttribute(SUMO_ATTR_LINEWIDTH),
+                                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                                 obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            // POI
+            case SUMO_TAG_POI:
+                // check if we want to create a POI, POILane or POIGEO
+                if (obj->hasDoubleAttribute(SUMO_ATTR_X)) {
+                    // build POI over view
+                    if (buildPOI(obj,
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getStringAttribute(SUMO_ATTR_TYPE),
+                                 obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                 obj->getDoubleAttribute(SUMO_ATTR_X),
+                                 obj->getDoubleAttribute(SUMO_ATTR_Y),
                                  obj->getStringAttribute(SUMO_ATTR_ICON),
                                  obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                                  obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
@@ -751,57 +730,78 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
                                  obj->getStringAttribute(SUMO_ATTR_NAME),
                                  obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                } else if (obj->hasStringAttribute(SUMO_ATTR_LANE)) {
+                    // build POI over Lane
+                    if (buildPOILane(obj,
+                                     obj->getStringAttribute(SUMO_ATTR_ID),
+                                     obj->getStringAttribute(SUMO_ATTR_TYPE),
+                                     obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                     obj->getStringAttribute(SUMO_ATTR_LANE),
+                                     obj->getDoubleAttribute(SUMO_ATTR_POSITION),
+                                     obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                     obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
+                                     obj->getStringAttribute(SUMO_ATTR_ICON),
+                                     obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                                     obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                     obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                                     obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                                     obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                                     obj->getStringAttribute(SUMO_ATTR_NAME),
+                                     obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                } else {
+                    // build POIGEO over view
+                    if (buildPOIGeo(obj,
+                                    obj->getStringAttribute(SUMO_ATTR_ID),
+                                    obj->getStringAttribute(SUMO_ATTR_TYPE),
+                                    obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                    obj->getDoubleAttribute(SUMO_ATTR_LON),
+                                    obj->getDoubleAttribute(SUMO_ATTR_LAT),
+                                    obj->getStringAttribute(SUMO_ATTR_ICON),
+                                    obj->getDoubleAttribute(SUMO_ATTR_LAYER),
+                                    obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
+                                    obj->getStringAttribute(SUMO_ATTR_IMGFILE),
+                                    obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
+                                    obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
+                                    obj->getStringAttribute(SUMO_ATTR_NAME),
+                                    obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            // Jps WalkableArea
+            case GNE_TAG_JPS_WALKABLEAREA:
+                if (buildJpsWalkableArea(obj,
+                                         obj->getStringAttribute(SUMO_ATTR_ID),
+                                         obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                         obj->getBoolAttribute(SUMO_ATTR_GEO),
+                                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                                         obj->getParameters())) {
                     obj->markAsCreated();
                 }
-            } else {
-                // build POIGEO over view
-                if (buildPOIGeo(obj,
-                                obj->getStringAttribute(SUMO_ATTR_ID),
-                                obj->getStringAttribute(SUMO_ATTR_TYPE),
-                                obj->getColorAttribute(SUMO_ATTR_COLOR),
-                                obj->getDoubleAttribute(SUMO_ATTR_LON),
-                                obj->getDoubleAttribute(SUMO_ATTR_LAT),
-                                obj->getStringAttribute(SUMO_ATTR_ICON),
-                                obj->getDoubleAttribute(SUMO_ATTR_LAYER),
-                                obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
-                                obj->getStringAttribute(SUMO_ATTR_IMGFILE),
-                                obj->getDoubleAttribute(SUMO_ATTR_WIDTH),
-                                obj->getDoubleAttribute(SUMO_ATTR_HEIGHT),
-                                obj->getStringAttribute(SUMO_ATTR_NAME),
-                                obj->getParameters())) {
-                    obj->markAsCreated();
-                }
-            }
-            break;
-        // Jps WalkableArea
-        case GNE_TAG_JPS_WALKABLEAREA:
-            if (buildJpsWalkableArea(obj,
+                break;
+            // Jps Obstacle
+            case GNE_TAG_JPS_OBSTACLE:
+                if (buildJpsObstacle(obj,
                                      obj->getStringAttribute(SUMO_ATTR_ID),
                                      obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                                      obj->getBoolAttribute(SUMO_ATTR_GEO),
                                      obj->getStringAttribute(SUMO_ATTR_NAME),
                                      obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        // Jps Obstacle
-        case GNE_TAG_JPS_OBSTACLE:
-            if (buildJpsObstacle(obj,
-                                 obj->getStringAttribute(SUMO_ATTR_ID),
-                                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                                 obj->getBoolAttribute(SUMO_ATTR_GEO),
-                                 obj->getStringAttribute(SUMO_ATTR_NAME),
-                                 obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        default:
-            break;
-    }
-    // now iterate over childrens
-    for (const auto& child : obj->getSumoBaseObjectChildren()) {
-        // call this function recursively
-        parseSumoBaseObject(child);
+                    obj->markAsCreated();
+                }
+                break;
+            default:
+                break;
+        }
+        // now iterate over childrens
+        for (const auto& child : obj->getSumoBaseObjectChildren()) {
+            // call this function recursively
+            parseSumoBaseObject(child);
+        }
     }
 }
 
@@ -822,6 +822,7 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -837,6 +838,7 @@ AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
@@ -859,6 +861,7 @@ AdditionalHandler::parseTrainStopAttributes(const SUMOSAXAttributes& attrs) {
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -874,6 +877,7 @@ AdditionalHandler::parseTrainStopAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
@@ -891,7 +895,7 @@ AdditionalHandler::parseAccessAttributes(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", parsedOk, -1.00, false); /* in future updates, INVALID_DOUBLE */
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "", parsedOk, false);
     // check parent
-    checkParsedParent(SUMO_TAG_ACCESS, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, parsedOk);
+    checkParsedParent(SUMO_TAG_ACCESS, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP, SUMO_TAG_CONTAINER_STOP}, parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -923,6 +927,7 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -938,6 +943,7 @@ AdditionalHandler::parseContainerStopAttributes(const SUMOSAXAttributes& attrs) 
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ANGLE, angle);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
@@ -964,7 +970,6 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, TIME2STEPS(900));
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
     const std::string parkingAreaID = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, id.c_str(), parsedOk, "");
-
     // check charge type
     if ((chargeType != "normal") && (chargeType != "battery-exchange") && (chargeType != "fuel")) {
         writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
@@ -1015,7 +1020,6 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, 0);
     const bool lefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, id.c_str(), parsedOk, false);
-
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1427,7 +1431,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
     // needed attributes
     const SUMOTime time = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", parsedOk);
     // optional attributes
-    const std::string speed = attrs.getOpt<std::string>(SUMO_ATTR_SPEED, "", parsedOk, "");
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, OptionsCont::getOptions().getFloat("default.speed"));
     // check parent
     checkParsedParent(SUMO_TAG_STEP, {SUMO_TAG_VSS}, parsedOk);
     // continue if flag is ok
@@ -1436,7 +1440,7 @@ AdditionalHandler::parseVariableSpeedSignStepAttributes(const SUMOSAXAttributes&
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_STEP);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_TIME, time);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }

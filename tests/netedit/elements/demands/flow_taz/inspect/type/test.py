@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "custom_vType")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

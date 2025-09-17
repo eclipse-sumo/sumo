@@ -627,7 +627,7 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     if (myType == 'f') {
         myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrame);
     } else {
-        myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrameFixWidth);
+        myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrameFixedWidth(100));
     }
     // create top label
     switch (myType) {
@@ -662,7 +662,7 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     if (myType == 'f') {
         myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrame);
     } else {
-        myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixWidth);
+        myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixedWidth(100));
     }
     // create elements
     myVerticalFrame->create();

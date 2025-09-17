@@ -321,7 +321,7 @@ protected:
     double myAngle;
 
     /// @brief row depth of waiting transportables
-    const double myTransportableDepth;
+    double myTransportableDepth;
     /// @brief the with of waiting transportables
     double myTransportableWidth;
 

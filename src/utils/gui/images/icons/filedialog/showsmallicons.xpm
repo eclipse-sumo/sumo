@@ -1,0 +1,26 @@
+/* XPM */
+static const char *filedialog_showsmallicons_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1 ",
+"  c None",
+". c black",
+"X c white",
+"o c #00007F",
+/* pixels */
+"                ",
+"                ",
+"..      ..      ",
+".Xo ... .Xo ... ",
+"ooo     ooo     ",
+"                ",
+"                ",
+"..      ..      ",
+".Xo ... .Xo ... ",
+"ooo     ooo     ",
+"                ",
+"                ",
+"..      ..      ",
+".Xo ... .Xo ... ",
+"ooo     ooo     ",
+"                "
+};

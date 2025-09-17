@@ -48,47 +48,50 @@ DataHandler::parse() {
 
 void
 DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
-    // switch tag
-    switch (obj->getTag()) {
-        // Stopping Places
-        case SUMO_TAG_INTERVAL:
-            if (buildDataInterval(obj,
+    // check if loading was aborted
+    if (!myAbortLoading) {
+        // switch tag
+        switch (obj->getTag()) {
+            // Stopping Places
+            case SUMO_TAG_INTERVAL:
+                if (buildDataInterval(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_ID),
+                                      obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                      obj->getDoubleAttribute(SUMO_ATTR_END))) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_EDGE:
+                if (buildEdgeData(obj,
                                   obj->getStringAttribute(SUMO_ATTR_ID),
-                                  obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                                  obj->getDoubleAttribute(SUMO_ATTR_END))) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_EDGE:
-            if (buildEdgeData(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_EDGEREL:
-            if (buildEdgeRelationData(obj,
-                                      obj->getStringAttribute(SUMO_ATTR_FROM),
-                                      obj->getStringAttribute(SUMO_ATTR_TO),
-                                      obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_TAZREL:
-            if (buildTAZRelationData(obj,
-                                     obj->getStringAttribute(SUMO_ATTR_FROM),
-                                     obj->getStringAttribute(SUMO_ATTR_TO),
-                                     obj->getParameters())) {
-                obj->markAsCreated();
-            }
-            break;
-        default:
-            break;
-    }
-    // now iterate over childrens
-    for (const auto& child : obj->getSumoBaseObjectChildren()) {
-        // call this function recursively
-        parseSumoBaseObject(child);
+                                  obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_EDGEREL:
+                if (buildEdgeRelationData(obj,
+                                          obj->getStringAttribute(SUMO_ATTR_FROM),
+                                          obj->getStringAttribute(SUMO_ATTR_TO),
+                                          obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            case SUMO_TAG_TAZREL:
+                if (buildTAZRelationData(obj,
+                                         obj->getStringAttribute(SUMO_ATTR_FROM),
+                                         obj->getStringAttribute(SUMO_ATTR_TO),
+                                         obj->getParameters())) {
+                    obj->markAsCreated();
+                }
+                break;
+            default:
+                break;
+        }
+        // now iterate over childrens
+        for (const auto& child : obj->getSumoBaseObjectChildren()) {
+            // call this function recursively
+            parseSumoBaseObject(child);
+        }
     }
 }
 

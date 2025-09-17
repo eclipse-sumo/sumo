@@ -109,6 +109,10 @@ public:
         return myGivenStartPos >= 0;
     }
 
+    void resetLoaded() {
+        myGivenStartPos = -1;
+    }
+
     void setIsPlatform() {
         myIsPlatform = true;
     }

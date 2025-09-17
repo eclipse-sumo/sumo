@@ -180,7 +180,7 @@ RouteHandler::endParseAttributes() {
                 }
                 break;
             case SUMO_TAG_ROUTE_DISTRIBUTION:
-                // overwritte probabilities in children
+                // overwrite probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_ROUTES).size(); i++) {
                     const auto& routeID = obj->getStringListAttribute(SUMO_ATTR_ROUTES).at(i);
                     if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
@@ -203,7 +203,7 @@ RouteHandler::endParseAttributes() {
                 delete obj;
                 break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
-                // overwritte probabilities in children
+                // overwrite probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_VTYPES).size(); i++) {
                     const auto& vTypeID = obj->getStringListAttribute(SUMO_ATTR_VTYPES).at(i);
                     if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
@@ -255,270 +255,273 @@ RouteHandler::endParseAttributes() {
 
 void
 RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
-    // switch tag
-    switch (obj->getTag()) {
-        // vTypes
-        case SUMO_TAG_VTYPE:
-            // check if parse vType or Ref
-            if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
-                if (buildVTypeRef(obj,
-                                    obj->getStringAttribute(SUMO_ATTR_REFID),
-                                    obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
-                    obj->markAsCreated();
-                }
-            } else {
-                if (buildVType(obj,
-                                obj->getVehicleTypeParameter())) {
-                    obj->markAsCreated();
-                }
-            }
-            break;
-        case SUMO_TAG_VTYPE_DISTRIBUTION:
-            if (buildVTypeDistribution(obj,
-                                       obj->getStringAttribute(SUMO_ATTR_ID),
-                                       obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC))) {
-                obj->markAsCreated();
-            }
-            break;
-        // route
-        case SUMO_TAG_ROUTE:
-            // embedded routes are created in build<Vehicle/Flow>EmbeddedRoute
-            if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
-                if (buildRouteRef(obj,
-                                  obj->getStringAttribute(SUMO_ATTR_REFID),
-                                  obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
-                    obj->markAsCreated();
-                }
-            } else if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
-                if (buildRoute(obj,
-                               obj->getStringAttribute(SUMO_ATTR_ID),
-                               obj->getVClass(),
-                               obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                               obj->getColorAttribute(SUMO_ATTR_COLOR),
-                               obj->getIntAttribute(SUMO_ATTR_REPEAT),
-                               obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                               obj->getDoubleAttribute(SUMO_ATTR_PROB),
-                               obj->getParameters())) {
-                    obj->markAsCreated();
-                }
-            }
-            break;
-        case SUMO_TAG_ROUTE_DISTRIBUTION:
-            if (buildRouteDistribution(obj,
-                                       obj->getStringAttribute(SUMO_ATTR_ID))) {
-                obj->markAsCreated();
-            }
-            break;
-        // vehicles
-        case SUMO_TAG_TRIP:
-            if (checkVehicleParents(obj)) {
-                if (isOverFromToEdges(obj)) {
-                    // build trip with from-to edges
-                    if (buildTrip(obj,
-                                  obj->getVehicleParameter(),
-                                  obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
-                                  obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
-                        obj->markAsCreated();
-                    }
-                } else if (isOverFromToJunctions(obj)) {
-                    // build trip with from-to junctions
-                    if (buildTripJunctions(obj,
-                                           obj->getVehicleParameter(),
-                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
-                        obj->markAsCreated();
-                    }
-                } else if (isOverFromToTAZs(obj)) {
-                    // build trip with from-to TAZs
-                    if (buildTripTAZs(obj,
-                                      obj->getVehicleParameter(),
-                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
-                        obj->markAsCreated();
-                    }
-                }
-            }
-            break;
-        case SUMO_TAG_VEHICLE:
-            if (checkVehicleParents(obj)) {
-                if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                    // build vehicle over route
-                    if (buildVehicleOverRoute(obj,
-                                              obj->getVehicleParameter())) {
+    // check if loading was aborted
+    if (!myAbortLoading) {
+        // switch tag
+        switch (obj->getTag()) {
+            // vTypes
+            case SUMO_TAG_VTYPE:
+                // check if parse vType or Ref
+                if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
+                    if (buildVTypeRef(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_REFID),
+                                      obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
                         obj->markAsCreated();
                     }
                 } else {
-                    const auto embeddedRoute = getEmbeddedRoute(obj);
-                    if (embeddedRoute) {
-                        // build vehicle with embedded route
-                        if (buildVehicleEmbeddedRoute(obj,
-                                                      obj->getVehicleParameter(),
-                                                      embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
-                                                      embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
-                                                      embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
-                                                      embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                                      embeddedRoute->getParameters())) {
+                    if (buildVType(obj,
+                                   obj->getVehicleTypeParameter())) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            case SUMO_TAG_VTYPE_DISTRIBUTION:
+                if (buildVTypeDistribution(obj,
+                                           obj->getStringAttribute(SUMO_ATTR_ID),
+                                           obj->getIntAttribute(SUMO_ATTR_DETERMINISTIC))) {
+                    obj->markAsCreated();
+                }
+                break;
+            // route
+            case SUMO_TAG_ROUTE:
+                // embedded routes are created in build<Vehicle/Flow>EmbeddedRoute
+                if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
+                    if (buildRouteRef(obj,
+                                      obj->getStringAttribute(SUMO_ATTR_REFID),
+                                      obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                        obj->markAsCreated();
+                    }
+                } else if (obj->hasStringAttribute(SUMO_ATTR_ID)) {
+                    if (buildRoute(obj,
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getVClass(),
+                                   obj->getStringListAttribute(SUMO_ATTR_EDGES),
+                                   obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                   obj->getIntAttribute(SUMO_ATTR_REPEAT),
+                                   obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                   obj->getDoubleAttribute(SUMO_ATTR_PROB),
+                                   obj->getParameters())) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            case SUMO_TAG_ROUTE_DISTRIBUTION:
+                if (buildRouteDistribution(obj,
+                                           obj->getStringAttribute(SUMO_ATTR_ID))) {
+                    obj->markAsCreated();
+                }
+                break;
+            // vehicles
+            case SUMO_TAG_TRIP:
+                if (checkVehicleParents(obj)) {
+                    if (isOverFromToEdges(obj)) {
+                        // build trip with from-to edges
+                        if (buildTrip(obj,
+                                      obj->getVehicleParameter(),
+                                      obj->hasStringAttribute(SUMO_ATTR_FROM) ? obj->getStringAttribute(SUMO_ATTR_FROM) : "",
+                                      obj->hasStringAttribute(SUMO_ATTR_TO) ? obj->getStringAttribute(SUMO_ATTR_TO) : "")) {
+                            obj->markAsCreated();
+                        }
+                    } else if (isOverFromToJunctions(obj)) {
+                        // build trip with from-to junctions
+                        if (buildTripJunctions(obj,
+                                               obj->getVehicleParameter(),
+                                               obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                               obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                            obj->markAsCreated();
+                        }
+                    } else if (isOverFromToTAZs(obj)) {
+                        // build trip with from-to TAZs
+                        if (buildTripTAZs(obj,
+                                          obj->getVehicleParameter(),
+                                          obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                          obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
                             obj->markAsCreated();
                         }
                     }
                 }
-            }
-            break;
-        // flows
-        case SUMO_TAG_FLOW:
-            if (checkVehicleParents(obj)) {
-                if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-                    // build flow over route
-                    if (buildFlowOverRoute(obj,
-                                           obj->getVehicleParameter())) {
-                        obj->markAsCreated();
+                break;
+            case SUMO_TAG_VEHICLE:
+                if (checkVehicleParents(obj)) {
+                    if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                        // build vehicle over route
+                        if (buildVehicleOverRoute(obj,
+                                                  obj->getVehicleParameter())) {
+                            obj->markAsCreated();
+                        }
+                    } else {
+                        const auto embeddedRoute = getEmbeddedRoute(obj);
+                        if (embeddedRoute) {
+                            // build vehicle with embedded route
+                            if (buildVehicleEmbeddedRoute(obj,
+                                                          obj->getVehicleParameter(),
+                                                          embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
+                                                          embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
+                                                          embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
+                                                          embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                                          embeddedRoute->getParameters())) {
+                                obj->markAsCreated();
+                            }
+                        }
                     }
-                } else if (isOverFromToEdges(obj)) {
-                    // build flow with from-to edges
-                    if (buildFlow(obj,
-                                  obj->getVehicleParameter(),
-                                  obj->getStringAttribute(SUMO_ATTR_FROM),
-                                  obj->getStringAttribute(SUMO_ATTR_TO))) {
-                        obj->markAsCreated();
-                    }
-                } else if (isOverFromToJunctions(obj)) {
-                    // build flow with from-to junctions
-                    if (buildFlowJunctions(obj,
-                                           obj->getVehicleParameter(),
-                                           obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                                           obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
-                        obj->markAsCreated();
-                    }
-                } else if (isOverFromToTAZs(obj)) {
-                    // build flow with from-to TAZs
-                    if (buildFlowTAZs(obj,
+                }
+                break;
+            // flows
+            case SUMO_TAG_FLOW:
+                if (checkVehicleParents(obj)) {
+                    if (obj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                        // build flow over route
+                        if (buildFlowOverRoute(obj,
+                                               obj->getVehicleParameter())) {
+                            obj->markAsCreated();
+                        }
+                    } else if (isOverFromToEdges(obj)) {
+                        // build flow with from-to edges
+                        if (buildFlow(obj,
                                       obj->getVehicleParameter(),
-                                      obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
-                                      obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
-                        obj->markAsCreated();
-                    }
+                                      obj->getStringAttribute(SUMO_ATTR_FROM),
+                                      obj->getStringAttribute(SUMO_ATTR_TO))) {
+                            obj->markAsCreated();
+                        }
+                    } else if (isOverFromToJunctions(obj)) {
+                        // build flow with from-to junctions
+                        if (buildFlowJunctions(obj,
+                                               obj->getVehicleParameter(),
+                                               obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
+                                               obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION))) {
+                            obj->markAsCreated();
+                        }
+                    } else if (isOverFromToTAZs(obj)) {
+                        // build flow with from-to TAZs
+                        if (buildFlowTAZs(obj,
+                                          obj->getVehicleParameter(),
+                                          obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
+                                          obj->getStringAttribute(SUMO_ATTR_TO_TAZ))) {
+                            obj->markAsCreated();
+                        }
 
-                } else {
-                    const auto embeddedRoute = getEmbeddedRoute(obj);
-                    if (embeddedRoute) {
-                        // build flow with embedded route
-                        if (buildFlowEmbeddedRoute(obj,
-                                                   obj->getVehicleParameter(),
-                                                   embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
-                                                   embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
-                                                   embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
-                                                   embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
-                                                   embeddedRoute->getParameters())) {
-                            obj->markAsCreated();
+                    } else {
+                        const auto embeddedRoute = getEmbeddedRoute(obj);
+                        if (embeddedRoute) {
+                            // build flow with embedded route
+                            if (buildFlowEmbeddedRoute(obj,
+                                                       obj->getVehicleParameter(),
+                                                       embeddedRoute->getStringListAttribute(SUMO_ATTR_EDGES),
+                                                       embeddedRoute->getColorAttribute(SUMO_ATTR_COLOR),
+                                                       embeddedRoute->getIntAttribute(SUMO_ATTR_REPEAT),
+                                                       embeddedRoute->getTimeAttribute(SUMO_ATTR_CYCLETIME),
+                                                       embeddedRoute->getParameters())) {
+                                obj->markAsCreated();
+                            }
                         }
                     }
                 }
-            }
-            break;
-        // persons
-        case SUMO_TAG_PERSON:
-            if (buildPerson(obj,
-                            obj->getVehicleParameter())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_PERSONFLOW:
-            if (buildPersonFlow(obj,
+                break;
+            // persons
+            case SUMO_TAG_PERSON:
+                if (buildPerson(obj,
                                 obj->getVehicleParameter())) {
-                obj->markAsCreated();
-            }
-            break;
-        // person plans
-        case SUMO_TAG_PERSONTRIP:
-            if (checkPersonPlanParents(obj)) {
-                if (buildPersonTrip(obj,
-                                    obj->getPlanParameters(),
-                                    obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                                    obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                                    obj->getStringListAttribute(SUMO_ATTR_MODES),
-                                    obj->getStringListAttribute(SUMO_ATTR_LINES),
-                                    obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
-                                    obj->getStringAttribute(SUMO_ATTR_GROUP))) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        case SUMO_TAG_RIDE:
-            if (checkPersonPlanParents(obj)) {
-                if (buildRide(obj,
-                              obj->getPlanParameters(),
-                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                              obj->getStringListAttribute(SUMO_ATTR_LINES),
-                              obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                break;
+            case SUMO_TAG_PERSONFLOW:
+                if (buildPersonFlow(obj,
+                                    obj->getVehicleParameter())) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        case SUMO_TAG_WALK:
-            if (checkPersonPlanParents(obj)) {
-                if (buildWalk(obj,
-                              obj->getPlanParameters(),
-                              obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                              obj->getDoubleAttribute(SUMO_ATTR_SPEED),
-                              obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
-                    obj->markAsCreated();
+                break;
+            // person plans
+            case SUMO_TAG_PERSONTRIP:
+                if (checkPersonPlanParents(obj)) {
+                    if (buildPersonTrip(obj,
+                                        obj->getPlanParameters(),
+                                        obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                        obj->getStringListAttribute(SUMO_ATTR_VTYPES),
+                                        obj->getStringListAttribute(SUMO_ATTR_MODES),
+                                        obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                        obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
+                                        obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                        obj->markAsCreated();
+                    }
                 }
-            }
-            break;
-        // container
-        case SUMO_TAG_CONTAINER:
-            if (buildContainer(obj,
-                               obj->getVehicleParameter())) {
-                obj->markAsCreated();
-            }
-            break;
-        case SUMO_TAG_CONTAINERFLOW:
-            if (buildContainerFlow(obj,
-                                   obj->getVehicleParameter())) {
-                obj->markAsCreated();
-            }
-            break;
-        // container plans
-        case SUMO_TAG_TRANSPORT:
-            if (checkContainerPlanParents(obj)) {
-                if (buildTransport(obj,
-                                   obj->getPlanParameters(),
-                                   obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                                   obj->getStringListAttribute(SUMO_ATTR_LINES),
-                                   obj->getStringAttribute(SUMO_ATTR_GROUP))) {
-                    obj->markAsCreated();
-                }
-            }
-            break;
-        case SUMO_TAG_TRANSHIP:
-            if (checkContainerPlanParents(obj)) {
-                if (buildTranship(obj,
+                break;
+            case SUMO_TAG_RIDE:
+                if (checkPersonPlanParents(obj)) {
+                    if (buildRide(obj,
                                   obj->getPlanParameters(),
                                   obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                                  obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
+                                  obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                  obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            case SUMO_TAG_WALK:
+                if (checkPersonPlanParents(obj)) {
+                    if (buildWalk(obj,
+                                  obj->getPlanParameters(),
+                                  obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                                   obj->getDoubleAttribute(SUMO_ATTR_SPEED),
                                   obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            // container
+            case SUMO_TAG_CONTAINER:
+                if (buildContainer(obj,
+                                   obj->getVehicleParameter())) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        // stops
-        case SUMO_TAG_STOP:
-            if (checkStopParents(obj)) {
-                if (buildStop(obj,
-                              obj->getPlanParameters(),
-                              obj->getStopParameter())) {
+                break;
+            case SUMO_TAG_CONTAINERFLOW:
+                if (buildContainerFlow(obj,
+                                       obj->getVehicleParameter())) {
                     obj->markAsCreated();
                 }
-            }
-            break;
-        default:
-            break;
-    }
-    // now iterate over childrens
-    for (const auto& child : obj->getSumoBaseObjectChildren()) {
-        // call this function recursively
-        parseSumoBaseObject(child);
+                break;
+            // container plans
+            case SUMO_TAG_TRANSPORT:
+                if (checkContainerPlanParents(obj)) {
+                    if (buildTransport(obj,
+                                       obj->getPlanParameters(),
+                                       obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                       obj->getStringListAttribute(SUMO_ATTR_LINES),
+                                       obj->getStringAttribute(SUMO_ATTR_GROUP))) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            case SUMO_TAG_TRANSHIP:
+                if (checkContainerPlanParents(obj)) {
+                    if (buildTranship(obj,
+                                      obj->getPlanParameters(),
+                                      obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                                      obj->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
+                                      obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                                      obj->getTimeAttribute(SUMO_ATTR_DURATION))) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            // stops
+            case SUMO_TAG_STOP:
+                if (checkStopParents(obj)) {
+                    if (buildStop(obj,
+                                  obj->getPlanParameters(),
+                                  obj->getStopParameter())) {
+                        obj->markAsCreated();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        // now iterate over childrens
+        for (const auto& child : obj->getSumoBaseObjectChildren()) {
+            // call this function recursively
+            parseSumoBaseObject(child);
+        }
     }
 }
 

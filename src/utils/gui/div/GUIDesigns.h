@@ -34,6 +34,21 @@ class MFXMenuCheckIcon;
 // Definitions
 // ===========================================================================
 
+/// @brief black color (for correct text)
+#define GUIDesignTextColorBlack FXRGB(0, 0, 0)
+
+/// @brief blue color (for default text)
+#define GUIDesignTextColorBlue FXRGB(0, 0, 255)
+
+/// @brief red color (for invalid text)
+#define GUIDesignTextColorRed FXRGB(255, 0, 0)
+
+/// @brief white background color (for valid text)
+#define GUIDesignBackgroundColorWhite FXRGB(255, 255, 255)
+
+/// @brief red background color (for invalid text)
+#define GUIDesignBackgroundColorRed FXRGBA(255, 213, 213, 255)
+
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
 
@@ -70,8 +85,11 @@ class MFXMenuCheckIcon;
 /// @brief text field with min width (used in TLS table)
 #define GUIDesignTextFieldTLSTable                      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field used in file dialog
+#define GUIDesignTextFieldFileDialog                    (FRAME_THICK | FRAME_SUNKEN | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief Num of column of text field
-#define GUIDesignTextFieldNCol          1
+#define GUIDesignTextFieldNCol                          1
 
 /// @}
 
@@ -110,6 +128,9 @@ class MFXMenuCheckIcon;
 
 /// @brief checkable button placed in popup (for example, locate buttons)
 #define GUIDesignButtonPopup                    (ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED)
+
+/// @brief button only with icon
+#define GUIDesignButtonIconFileDialog           (BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -150,22 +171,10 @@ class MFXMenuCheckIcon;
 /// @name FXButtons for dialogs
 /// @{
 /// @brief OK Button
-#define GUIDesignButtonOK                   (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Accept Button
-#define GUIDesignButtonAccept               (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonDialog                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignDialogButtonsHeight, 2, 2, 2, 2
 
 /// @brief Configuration Button
-#define GUIDesignButtonConfiguration        (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 140, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Cancel Button
-#define GUIDesignButtonCancel               (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Reset Button
-#define GUIDesignButtonReset                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Advanced Button
-#define GUIDesignButtonAdvanced             (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonConfiguration         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 140, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief overwrite Button
 #define GUIDesignButtonKeepElements         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 120, GUIDesignHeight, 2, 2, 2, 2
@@ -175,13 +184,6 @@ class MFXMenuCheckIcon;
 
 /// @brief Button with custom width (used in GNEGeometryPointDialog)
 #define GUIDesignButtonCustomWidth(width)   (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
-
-///  @brief button for saving elements in GUISaveDialog
-#define GUIDesignSaveDialogButtonInitial    (BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
-
-///  @brief button for saving elements in GUISaveDialog
-#define GUIDesignSaveDialogButton           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
-
 /// @}
 
 
@@ -232,7 +234,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignRadioButtonSquared     (RADIOBUTTON_NORMAL | FRAME_THICK |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
-#define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
+#define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -290,25 +292,42 @@ class MFXMenuCheckIcon;
 /// @name MFXComboBoxIcon
 /// @{
 /// @brief Combo box editable extended over the all frame
-#define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBox                           (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable)
-#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStatic                     (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static (not editable) extended over the all frame
-#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxStaticExtended             (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
-#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignComboBoxAttribute                  (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief comboBox with thick frame, width 180
-#define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief comboBox with thick frame, width 100
-#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+/// @brief comboBox with thick frame, fixed width
+#define GUIDesignComboBoxFixed(customWidth)         (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, customWidth, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
+
+/// @brief Combo box used in filed dialog
+#define GUIDesignComboBoxFileDialog                 (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 300, GUIDesignHeight, 2, 2, 2, 2
+
+/// @}
+
+
+/// @name GNEDialog
+/// @{
+/// @brief design for GNEDialogs
+#define GUIDesignGNEDialogStatic                (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE)
+
+/// @brief design for GNEDialogs explicit
+#define GUIDesignGNEDialogStaticExplicit        (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | LAYOUT_EXPLICIT)
+
+/// @brief design for GNEDialogs resizable
+#define GUIDesignGNEDialogResizable             (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_RESIZE)
+
+/// @brief design for GNEDialogs resizable with explicit layout
+#define GUIDesignGNEDialogResizableExplicit     (DECOR_TITLE | DECOR_BORDER | DECOR_CLOSE | DECOR_RESIZE | LAYOUT_EXPLICIT)
 
 /// @}
 
@@ -375,10 +394,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignScrollWindow                               (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for scroll windows extended over Y and fix width
-#define GUIDesignScrollWindowFixed                          (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+#define GUIDesignScrollWindowFixedWidth(customWidth)        (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, customWidth, 0
 
 /// @brief design for the content scroll of UndoList
-#define GUIDesignContentsScrollUndoList                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+#define GUIDesignScrollWindowFixed(width, height)           (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, width, height
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame                    (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
@@ -394,6 +413,18 @@ class MFXMenuCheckIcon;
 
 /// @brief design for auxiliar (Without borders) frame with fixed width and extended height
 #define GUIDesignAuxiliarFrameFixedWidth(width)             (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for content frame used in dialog
+#define GUIDesignDialogContentFrame                         (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief design for content horizontal frame used in dialog
+#define GUIDesignDialogContentHorizontalFrame               (LAYOUT_FILL_X), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief design for content vertical frame used in dialog
+#define GUIDesignDialogContentVerticalFrame                 (LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief design for content frame used in dialog
+#define GUIDesignDialogButtonsHorizontalFrame               (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 24
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame                    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -413,11 +444,11 @@ class MFXMenuCheckIcon;
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
 #define GUIDesignCollapsableFrame                           (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief design for auxiliar vertical frames with fixed width (used in TLSTable and DecalsTable)
-#define GUIDesignAuxiliarFrameFixWidth                      (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
 #define GUIDesignAuxiliarFrameFixHeight                     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for filebox frame
+#define GUIDesignFileBoxFrame                               (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 
@@ -437,7 +468,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
 
 /// @brief design for toolbar supermodes (grip + buttons)
-#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, 23 + (3 * 100)
+#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, GUIDesignHeight + (3 * 100)
 
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
@@ -596,25 +627,10 @@ class MFXMenuCheckIcon;
 /// @name design for dialog boxes
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
-#define GUIDesignDialogBox                                      (DECOR_CLOSE | DECOR_TITLE)
-
-/// @brief design for standard dialog box that can be stretched (But not shrunk)
-#define GUIDesignDialogBoxStretchable                           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
-
-/// @brief design for standard dialog box that can be shrunk (But not stretched)
-#define GUIDesignDialogBoxShrinkable                            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
-
-/// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
-
-/// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignAuxiliarDialogBoxResizable                     (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignDialogBox                          (DECOR_CLOSE | DECOR_TITLE)
 
 /// @brief design for dialog box with specific width and height (for example, additional dialogs)
-#define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
-
-/// @brief design for dialog box with specific width and height that can be stretched (But not shrunk)
-#define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
+#define GUIDesignDialogBoxExplicit(width, height)   (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
 /// @}
 
@@ -630,11 +646,11 @@ class MFXMenuCheckIcon;
 /// @brief design for table extended over frame but with limited Height
 #define GUIDesignTableLimitedHeight     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
-/// @brief design for tables used in additional dialogs
-#define GUIDesignTableAdditionals       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief design for tables used in ElementLists
+#define GUIDesignElementListExtended    (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 400, 0, 2, 2, 2, 2
 
-/// @brief design for tables used in GNEFixDemandElements dialogs
-#define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
+/// @brief design for tables used in GNEFixDemandElementsDialog dialogs
+#define GUIDesignTableFixElements       (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 500, 250, 2, 2, 2, 2
 
 /// @}
 
@@ -691,6 +707,12 @@ class MFXMenuCheckIcon;
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
+/// @brief desing for FXDirBox
+#define GUIDesignFileList                       (ICONLIST_MINI_ICONS | ICONLIST_BROWSESELECT | ICONLIST_AUTOSIZE | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0
+
+/// @brief desing for FXDirBox
+#define GUIDesignDirBox                         (DIRBOX_NO_OWN_ASSOC | FRAME_SUNKEN | FRAME_THICK | LAYOUT_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 1, 1, 1, 1
+
 // ===========================================================================
 // Implementation
 // ===========================================================================
@@ -728,6 +750,11 @@ public:
     static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
                                    FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                                    FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build check button
+    static FXCheckButton* buildFXCheckButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+            FXObject* tgt, FXSelector sel, FXuint opts = CHECKBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief build radio button
     static FXRadioButton* buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,

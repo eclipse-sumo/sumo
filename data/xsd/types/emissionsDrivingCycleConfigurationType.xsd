@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-15T13:31:27.570730+01:00 by Eclipse SUMO emissionsDrivingCycle v1_24_0+0791-bfa764d4c7b
+-->
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="emissionsDrivingCycleConfigurationType">
+        <xsd:all>
+            <xsd:element name="input" type="emissionsDrivingCycleinputTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="emissionsDrivingCycleprocessingTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="emissionsDrivingCycleoutputTopicType" minOccurs="0"/>
+            <xsd:element name="emissions" type="emissionsDrivingCycleemissionsTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="emissionsDrivingCyclereportTopicType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsDrivingCycleinputTopicType">
+        <xsd:all>
+            <xsd:element name="timeline-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="timeline-file.skip" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="timeline-file.separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="netstate-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="emission-class" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsDrivingCycleprocessingTopicType">
+        <xsd:all>
+            <xsd:element name="compute-a" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="compute-a.forward" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="compute-a.zero-correction" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="skip-first" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="kmh" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="have-slope" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="slope" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="begin" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="end" type="timeOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsDrivingCycleoutputTopicType">
+        <xsd:all>
+            <xsd:element name="output" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.attributes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="sum-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsDrivingCycleemissionsTopicType">
+        <xsd:all>
+            <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-year" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-temperature" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsDrivingCyclereportTopicType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="quiet" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

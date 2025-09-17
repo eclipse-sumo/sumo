@@ -1,4 +1,4 @@
 Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double) dummmyPosition.
 Error: Attribute 'pos' in definition of a detExit Invalid Number Format (double) dummmyPosition.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.
 Warning: E3 'entryExitDetector_0' needs at least one entry and one exit

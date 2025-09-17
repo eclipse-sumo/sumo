@@ -1,0 +1,17 @@
+# test node type "traffic_light_right_on_red"
+ror_default
+
+# test node type "traffic_light_right_on_red"
+ror_cont
+
+# test node type "traffic_light_right_on_red" with one lane in each direction
+ror_1lane
+
+# test connection guessing for right-on-red
+ror_3lanes_out
+
+# adapt junction logic to custom tls program
+ror_custom_program
+
+# default traffic_light with an added right_on_red program
+ror_extra_program

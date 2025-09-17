@@ -42,6 +42,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GN
     myProbability(probability) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
+    setParent<GNEEdge*>(newEdgeDestination);
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }

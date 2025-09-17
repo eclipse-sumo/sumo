@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.selection.lane)
 netedit.delete()
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # clear invalid crossings
 netedit.typeKey("space")

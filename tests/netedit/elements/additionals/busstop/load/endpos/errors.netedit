@@ -2,4 +2,4 @@ Error: Attribute 'endPos' in definition of busStop 'busStop_02' Invalid Number F
 Error: Could not build busStop with ID 'busStop_03' in netedit; Invalid position over lane.
 Error: Could not build busStop with ID 'busStop_04' in netedit; Invalid position over lane.
 Error: Could not build busStop with ID 'busStop_05' in netedit; Invalid position over lane.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

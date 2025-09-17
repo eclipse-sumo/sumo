@@ -39,9 +39,8 @@ public:
      * @param[in] net GNENet
      * @param[in] file Name of the parsed file
      * @param[in] allowUndoRedo enable or disable undoRedo
-     * @param[in] overwrite enable or disable overwrite elements
      */
-    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
+    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEDataHandler();
@@ -98,9 +97,6 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
-
-    /// @brief check if overwrite
-    const bool myOverwrite;
 
     /// @brief check if given ID correspond to a duplicated dataSet
     bool checkDuplicatedDataSet(const std::string& id);

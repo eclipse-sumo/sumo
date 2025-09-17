@@ -382,7 +382,7 @@ All time values in options and xml input may always be given as seconds or in "H
 # Using Python tools from the Command Line
 
 Many [tools](../Tools/index.md) that are distributed by SUMO (in the
-{{SUMO}}/tools folder are written in the [python](https://www.python.org/)
+{{SUMO}}/tools folder) are written in the [python](https://www.python.org/)
 programming language. To use them, **Python 3.7 or later** must be [installed on your computer](https://www.python.org/downloads/).
 
 Then you need to make sure that the [environment variable *SUMO_HOME*](Basic_Computer_Skills.md#sumo_home) is set. The

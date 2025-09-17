@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Access A -->
+    <trainStop id="trainStopA" lane="EdgeCenter1_0" startPos="23.00" endPos="33.00">
+        <access lane="Edge1_0" pos="15.00" length="10" friendlyPos="0">
+            <param key="KeyA1" value="valueA1"/>
+            <param key="KeyA3" value="valueA2"/>
+            <param key="KeyA2" value="valueA3"/>
+        </access>
+    </trainStop>
+
+    <!-- Access B -->
+    <trainStop id="trainStopB" lane="EdgeCenter0_0" startPos="23.00" endPos="33.00">
+        <access lane="Edge3_0" pos="8.00" length="20" friendlyPos="1">
+            <param key="KeyB1" value="valueB1"/>
+            <param key="KeyB3" value="valueB2"/>
+            <param key="KeyB2" value="valueB3"/>
+        </access>
+    </trainStop>
+</additional>

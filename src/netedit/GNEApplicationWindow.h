@@ -26,12 +26,13 @@
 // class declarations
 // ===========================================================================
 
-class GNEInternalTest;
-class GNELoadThread;
-class GNETagPropertiesDatabase;
-class GNEUndoList;
-class GNEUndoListDialog;
 class GUIEvent;
+class GNEUndoListDialog;
+class GNEUndoList;
+class GNETagPropertiesDatabase;
+class GNELoadThread;
+class GNEInternalTest;
+class GNEExternalRunner;
 
 // ===========================================================================
 // class definition
@@ -87,10 +88,21 @@ public:
     void setStatusBarText(const std::string& statusBarText);
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
-    long computeJunctionWithVolatileOptions(const InternalTestStep::DialogTest* modalArguments);
+    long computeJunctionWithVolatileOptions();
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
+
+    /// @name functions related with external runner
+    /// @{
+
+    /// @brief get external runner
+    GNEExternalRunner* getExternalRunner() const;
+
+    /// @brief set external runner
+    void setExternalRunner(GNEExternalRunner* externalRunner);
+
+    /// @}
 
     /// @name Inter-thread event handling
     /// @{
@@ -243,9 +255,6 @@ public:
 
     /// @brief called when the command/FXCall save edgeTypes as is executed
     long onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save edgeTypes as is updated
-    long onUpdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionalElements(FXObject*, FXSelector, void*);
@@ -419,7 +428,7 @@ public:
     long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
 
     /// @brief called when user press a process button (or a shortcut)
-    long onCmdProcessButton(FXObject* sender, FXSelector sel, void* arg);
+    long onCmdProcessButton(FXObject* sender, FXSelector sel, void*);
 
     /// @brief called if the user hints ctrl + T
     long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);
@@ -567,9 +576,6 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
-    /// @brief get pointer to undoList dialog
-    GNEUndoListDialog* getUndoListDialog();
-
     /// @brief get pointer to viewNet
     GNEViewNet* getViewNet();
 
@@ -637,6 +643,12 @@ public:
     /// @brief load meanData elements
     void loadMeanDataElements();
 
+    /// @brief load traffic lights
+    void loadTrafficLights(const bool reloading);
+
+    /// @brief load meanData elements
+    void loadEdgeTypes(const bool reloading);
+
     /// @name functions related with test system
     /// @{
 
@@ -652,12 +664,16 @@ protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
 
+    /// @brief external runner for running external tools
+    GNEExternalRunner* myExternalRunner = nullptr;
+
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
 
     /// @brief internal test system
+public:
     GNEInternalTest* myInternalTest = nullptr;
-
+private:
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
 
@@ -736,9 +752,6 @@ protected:
 
     /// @brief the one and only undo list
     GNEUndoList* myUndoList = nullptr;
-
-    /// @brief undoList dialog
-    GNEUndoListDialog* myUndoListDialog = nullptr;
 
     /// @brief Input file pattern
     std::string myConfigPattern;

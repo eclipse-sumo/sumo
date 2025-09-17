@@ -54,7 +54,7 @@ netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.departPosLat, "right
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

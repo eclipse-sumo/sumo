@@ -36,22 +36,22 @@ enum class GUIEventType {
     /// @brief send when a simulation step has been performed
     SIMULATION_STEP,
 
-    /// @brief send when a message occured
+    /// @brief send when a message occurred
     MESSAGE_OCCURRED,
 
-    /// @brief send when a warning occured
+    /// @brief send when a warning occurred
     WARNING_OCCURRED,
 
-    /// @brief send when a error occured
+    /// @brief send when a error occurred
     ERROR_OCCURRED,
 
-    /// @brief send when a debug occured
+    /// @brief send when a debug occurred
     DEBUG_OCCURRED,
 
-    /// @brief send when a gldebug occured
+    /// @brief send when a gldebug occurred
     GLDEBUG_OCCURRED,
 
-    /// @brief send when a status change occured
+    /// @brief send when a status change occurred
     STATUS_OCCURRED,
 
     /**@brief Send when a new should be opened (via TraCI) */

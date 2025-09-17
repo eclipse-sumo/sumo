@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.lat, "20.40")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

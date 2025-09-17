@@ -237,7 +237,7 @@ GNECrossingFrame::CrossingParameters::enableCrossingParameters(bool hasTLS) {
         myCrossingPriorityCheckButton->setCheck(crossingTagProperties->getDefaultBoolValue(SUMO_ATTR_PRIORITY));
     }
     myCrossingWidth->setText(crossingTagProperties->getDefaultStringValue(SUMO_ATTR_WIDTH).c_str());
-    myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
+    myCrossingWidth->setTextColor(GUIDesignTextColorBlack);
 }
 
 
@@ -372,10 +372,10 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
     // change color of textfield dependig of myCurrentParametersValid
     if (myCurrentParametersValid) {
-        myCrossingEdges->setTextColor(FXRGB(0, 0, 0));
+        myCrossingEdges->setTextColor(GUIDesignTextColorBlack);
         myCrossingEdges->killFocus();
     } else {
-        myCrossingEdges->setTextColor(FXRGB(255, 0, 0));
+        myCrossingEdges->setTextColor(GUIDesignTextColorRed);
         myCurrentParametersValid = false;
     }
     // Update edge colors
@@ -426,10 +426,10 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     // Check width
     if (GNEAttributeCarrier::canParse<double>(myCrossingWidth->getText().text()) &&
             GNEAttributeCarrier::parse<double>(myCrossingWidth->getText().text()) > 0) {
-        myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
+        myCrossingWidth->setTextColor(GUIDesignTextColorBlack);
         myCrossingWidth->killFocus();
     } else {
-        myCrossingWidth->setTextColor(FXRGB(255, 0, 0));
+        myCrossingWidth->setTextColor(GUIDesignTextColorRed);
         myCurrentParametersValid = false;
     }
 

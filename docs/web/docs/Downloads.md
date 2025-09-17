@@ -199,6 +199,7 @@ see [the notes below](Downloads.md#note_on_licensing). The following packages ca
 <li>Windows zip with all extras (contains GPL code): <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64extra-git.zip">https://sumo.dlr.de/daily/sumo-win64extra-git.zip</a><?php getInfo("sumo-win64extra-git.zip","d",true);?></li>
 <li>Windows 64-bit binaries of the SUMO game: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-game-win64-git.zip">https://sumo.dlr.de/daily/sumo-game-win64-git.zip</a><?php getInfo("sumo-game-win64-git.zip","d",true);?></li>
 <li>Windows 64-bit debug version: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64Debug-git.zip">https://sumo.dlr.de/daily/sumo-win64Debug-git.zip</a><?php getInfo("sumo-win64Debug-git.zip","d",true);?></li>
+<li>macOS pkg installer: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-git.pkg">sumo-git.pkg</a><?php getInfo("sumo-git.pkg","r",false);?></li>
 </ul>
 
 The nightly builds are also available as [Python wheels](https://sumo.dlr.de/daily/wheels/).

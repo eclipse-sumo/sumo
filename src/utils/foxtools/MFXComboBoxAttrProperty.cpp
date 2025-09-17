@@ -20,16 +20,15 @@
 
 #include <netedit/GNEAttributeProperties.h>
 
-
 #include "MFXComboBoxAttrProperty.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxAttrProperty::MFXComboBoxAttrProperty(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
+MFXComboBoxAttrProperty::MFXComboBoxAttrProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    MFXComboBoxIcon(p, cols, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+    MFXComboBoxIcon(p, staticToolTip, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 

@@ -52,7 +52,7 @@ netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.de
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

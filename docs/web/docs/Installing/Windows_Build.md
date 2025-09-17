@@ -41,6 +41,7 @@ may also [download pre-built Windows binaries](../Downloads.md).
 CMake settings can easily be modified, loaded and saved using *Project -> CMake Settings* in Visual Studio.
 
 ![](../images/vs_cmake_settings.png)
+
 Editing the CMake settings using Visual Studio
 
 ### Optional but still recommended steps

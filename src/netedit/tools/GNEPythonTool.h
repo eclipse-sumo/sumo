@@ -37,14 +37,11 @@ class GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
+    GNEPythonTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
                   const std::string& templateStr, FXMenuPane* menu);
 
     /// @brief destructor
     virtual ~GNEPythonTool();
-
-    /// @brief get to GNEApplicationWindow
-    GNEApplicationWindow* getGNEApp() const;
 
     /// @brief get tool name
     const std::string& getToolName() const;
@@ -74,15 +71,11 @@ public:
     void saveConfiguration(const std::string& file) const;
 
 protected:
-    /// @brief get command (python + script)
-    std::string getCommandPath() const;
-
-protected:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
+    /// @brief application window
+    GNEApplicationWindow* myApplicationWindow = nullptr;
 
     /// @brief menu command associated with this tool
-    FXMenuCommand* myMenuCommand;
+    FXMenuCommand* myMenuCommand = nullptr;
 
     /// @brief tools options
     OptionsCont myPythonToolsOptions;
@@ -95,6 +88,9 @@ protected:
 
     /// @brief tool name
     const std::string myPythonToolName;
+
+    /// @brief get command (python + script)
+    std::string getCommandPath() const;
 
 private:
     /// @brief Invalidated copy constructor.

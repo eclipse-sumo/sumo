@@ -23,6 +23,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPythonToolDialog.h"
@@ -40,7 +41,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,  GNEPythonToolDialog::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
     FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onUpdRequiredAttributes),
@@ -48,68 +48,40 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialog::onCmdSetVisualization),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onUpdRequiredAttributes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPythonToolDialog, MFXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
+FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "Tool", GUIDesignAuxiliarDialogBoxResizable),
-    myGNEApp(GNEApp) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
-    // create main content frame
-    auto verticalContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
+GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
+    GNEDialog(applicationWindow, TL("Tool"), GUIIcon::TOOL_PYTHON, DialogType::PYTHON,
+              GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL, ResizeMode::RESIZABLE) {
     // create options
-    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
+    auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
-            GNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+            applicationWindow->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
-    auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Save toolcfg"),
+    auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, applicationWindow->getStaticTooltipMenu(), TL("Save toolcfg"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
     saveFile->setTipText(TL("Save file with tool configuration"));
-    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg"),
+    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, applicationWindow->getStaticTooltipMenu(), TL("Load toolcfg"),
                                          GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
     loadFile->setTipText(TL("Load file with tool configuration"));
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // add separators
-    new FXSeparator(verticalContentFrame);
+    new FXSeparator(myContentFrame);
     // Create scroll frame for content rows
-    auto contentScrollWindow = new FXScrollWindow(verticalContentFrame, GUIDesignScrollWindow);
+    auto contentScrollWindow = new FXScrollWindow(myContentFrame, GUIDesignScrollWindow);
     auto horizontalRowFrames = new FXHorizontalFrame(contentScrollWindow, LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH);
     myArgumentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
     myArgumentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
-    // add separator
-    new FXSeparator(verticalContentFrame);
-    // create buttons centered
-    auto horizontalButtonsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
-    auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue options are mandatory"), nullptr, GUIDesignLabelFixed(200));
-    blueLabel->setTextColor(FXRGB(0, 0, 255));
-    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Run"), "", TL("run python tool"),
-                              GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Close"), "", TL("close tool dialog"),
-                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Reset"), "", TL("reset to default values"),
-                              GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
-    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-}
-
-
-GNEPythonToolDialog::~GNEPythonToolDialog() {}
-
-
-void
-GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // set tool
     myPythonTool = tool;
     // set title
@@ -127,22 +99,17 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 120;
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
-    // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
-    // refresh APP
-    getApp()->refresh();
+    // open dialog
+    openDialog();
 }
+
+
+GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 
 void
-GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
-    // finish
-}
-
-
-GNEApplicationWindow*
-GNEPythonToolDialog::getGNEApplicationWindow() const {
-    return myGNEApp;
+GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 
@@ -156,12 +123,12 @@ long
 GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    if (myGNEApp->getViewNet()) {
-        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
-        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    if (myApplicationWindow->getViewNet()) {
+        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
+        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
     }
     // enable/disable static tooltip
-    myGNEApp->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    myApplicationWindow->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
     // save in registry
     getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
     update();
@@ -173,10 +140,13 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options file"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::SAVE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if (file.size() > 0) {
-        myPythonTool->saveConfiguration(file);
+    if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        myPythonTool->saveConfiguration(optionsFileDialog.getFilename());
     }
     return 1;
 }
@@ -185,9 +155,12 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
+    const auto optionsFileDialog = GNEFileDialog(myApplicationWindow, TL("options file"),
+                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                   GNEFileDialog::ConfigType::NETEDIT);
     // check file
-    if ((file.size() > 0) && myPythonTool->loadConfiguration(file)) {
+    if ((optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) && myPythonTool->loadConfiguration(optionsFileDialog.getFilename())) {
         // rebuild arguments
         buildArguments((mySortedCheckButton->getCheck() == TRUE), (myGroupedCheckButton->getCheck() == TRUE));
     }
@@ -208,15 +181,7 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide dialog
     hide();
     // run tool
-    return myGNEApp->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
-}
-
-
-long
-GNEPythonToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // hide dialog
-    hide();
-    return 1;
+    return myApplicationWindow->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
 }
 
 
@@ -266,11 +231,6 @@ GNEPythonToolDialog::CategoryOptions::sortByName() {
 }
 
 
-GNEPythonToolDialog::GNEPythonToolDialog() :
-    myGNEApp(nullptr) {
-}
-
-
 void
 GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     // clear arguments and categories
@@ -311,29 +271,29 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             argumentFrame = (numInsertedArguments < halfNumArguments) ? myArgumentFrameLeft : myArgumentFrameRight;
             // continue depending of type
             if (option.second->isInteger()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isFloat()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isBool()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isNetwork()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isAdditional()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isRoute()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isData()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isSumoConfig()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isEdge()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isEdgeVector()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else {
-                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             }
             numInsertedArguments++;
         }

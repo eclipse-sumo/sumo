@@ -21,13 +21,12 @@ on:
 
 jobs:
   build-manylinux-wheels:
-    # runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Cloning SUMO
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         filter: tree:0
@@ -75,29 +74,30 @@ jobs:
   ###################
   test-wheels:
     needs: [build-manylinux-wheels]
-    # runs-on: ubuntu-latest
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     env:
       WHEEL_DIR: manylinux-wheels
     strategy:
       fail-fast: false
       matrix:
-        python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13, '3.13t']
+        python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Downloading Wheels artifact
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
+      with:
+        path: manylinux-wheels
 
     - name: Setting wheel directory
       if: github.event.schedule == '5 8 * * *'
       run: echo 'WHEEL_DIR=https://sumo.dlr.de/daily/wheels' >> $GITHUB_ENV
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 

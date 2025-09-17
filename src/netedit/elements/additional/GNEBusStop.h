@@ -48,12 +48,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in] color busStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
     static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                                    int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
-                                    const Parameterised::Map& parameters);
+                                    const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
+                                    const double angle, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for train stops
      * @param[in] id trainStop ID
@@ -68,12 +69,13 @@ public:
      * @param[in] parkingLength parking length
      * @param[in] color busStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
     static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                                      int personCapacity, double parkingLength, const RGBColor& color, bool friendlyPosition,
-                                      const Parameterised::Map& parameters);
+                                      const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
+                                      const double angle, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEBusStop();
@@ -163,12 +165,14 @@ private:
      * @param[in] parkingLength parking length
      * @param[in] color busStop color
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
     GNEBusStop(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename,
                GNELane* lane, const double startPos, const double endPos, const std::string& name,
-               const std::vector<std::string>& lines, int personCapacity, double parkingLength,
-               const RGBColor& color, bool friendlyPosition, const Parameterised::Map& parameters);
+               const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
+               const RGBColor& color, const bool friendlyPosition, const double angle,
+               const Parameterised::Map& parameters);
 
     /// @brief Invalidated copy constructor.
     GNEBusStop(const GNEBusStop&) = delete;

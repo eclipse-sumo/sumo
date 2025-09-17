@@ -23,6 +23,9 @@
 #include <ostream>
 
 #ifdef _MSC_VER
+/* Disable warning about unmatched push / pop.
+   TODO Re-enable this once it has been solved upstream, see https://github.com/apache/arrow/issues/47099 */
+#pragma warning(suppress: 5032)
 #pragma warning(push)
 /* Disable warning about unused parameters */
 #pragma warning(disable: 4100)
@@ -40,10 +43,11 @@
 #pragma warning(disable: 4800)
 #endif
 #include <arrow/api.h>
-#include <arrow/io/interfaces.h>
-#include <arrow/status.h>
 #include <parquet/arrow/writer.h>
 #ifdef _MSC_VER
+/* Disable warning about unmatched push / pop.
+   TODO Re-enable this once it has been solved upstream, see https://github.com/apache/arrow/issues/47099 */
+#pragma warning(suppress: 5031)
 #pragma warning(pop)
 #endif
 
@@ -54,46 +58,6 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class ArrowOStreamWrapper : public arrow::io::OutputStream {
-public:
-    ArrowOStreamWrapper(std::ostream& out)
-        : myOStream(out), myAmOpen(true) {}
-
-    arrow::Status Close() override {
-        myAmOpen = false;
-        return arrow::Status::OK();
-    }
-
-    arrow::Status Flush() override {
-        myOStream.flush();
-        return arrow::Status::OK();
-    }
-
-    arrow::Result<int64_t> Tell() const override {
-        return myOStream.tellp();
-    }
-
-    bool closed() const override {
-        return !myAmOpen;
-    }
-
-    arrow::Status Write(const void* data, int64_t nbytes) override {
-        if (!myAmOpen) {
-            return arrow::Status::IOError("Write on closed stream");
-        }
-        myOStream.write(reinterpret_cast<const char*>(data), nbytes);
-        if (!myOStream) {
-            return arrow::Status::IOError("Failed to write to ostream");
-        }
-        return arrow::Status::OK();
-    }
-
-private:
-    std::ostream& myOStream;
-    bool myAmOpen;
-};
-
-
 /**
  * @class ParquetFormatter
  * @brief Output formatter for Parquet output

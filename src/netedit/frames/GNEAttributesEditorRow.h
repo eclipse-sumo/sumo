@@ -28,7 +28,7 @@
 
 class GNEAttributeCarrier;
 class MFXLabelTooltip;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -79,7 +79,7 @@ public:
     long onCmdOpenColorDialog(FXObject* sender, FXSelector, void* arg);
 
     /// @brief called when user press "open allow" dialog
-    long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
+    long onCmdOpenVClassDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "open file" dialog
     long onCmdOpenFileDialog(FXObject*, FXSelector, void*);
@@ -164,7 +164,7 @@ private:
     MFXButtonTooltip* myAttributeButton = nullptr;
 
     /// @brief pointer to text field for modify values
-    MFXTextFieldTooltip* myValueTextField = nullptr;
+    MFXTextFieldIcon* myValueTextField = nullptr;
 
     /// @brief pointer to combo box for select choices
     MFXComboBoxIcon* myValueComboBox = nullptr;

@@ -297,6 +297,16 @@ If a taxi is not in state empty the following re-dispatch calls are supported
 - new reservations include all previous unique reservation ids exactly twice: reset current route and stops and treat as complete new dispatch. If one of the persons of the earlier reservation is already picked up, ignore the first occurrence of the reservation in the reservation list
 - new reservations mentions include all previous unique reservation ids once or twice, all customers that are mentioned once are already picked up: reset current route and stops, use the single-occurrence ids as as drop-of
 
+## Controlling Idle Taxis
+
+The default idle algorithm ("stop") aims to ensure that the taxi doesn't exit the simulation (which were to happen if it ever drives past the final edge of it's route). To this end, it makes the taxi stop where it is or uses an existing stop on the route of the taxi and sets it to `triggered="person"` (which effectively makes the taxi wait indefinitely until the next dispatch).
+
+In oder to send an idle taxi to another destination, the following things need to happend in order:
+
+1. The taxi needs to extend it's route (i.e. with `vehicle.changeTarget` or `vehicle.setRoute`)
+2. The current stop must be aborted with `vehicle.resume`
+3. A new stop must be added (i.e. with `vehicle.setStop`.
+
 # Outputs
 
 The Taxi device generates output within a tripinfo-output file in the following

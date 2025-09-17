@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="base.xsd"/>
+    <xsd:include schemaLocation="activitygenConfigurationType.xsd"/>
+    <xsd:include schemaLocation="dfrouterConfigurationType.xsd"/>
+    <xsd:include schemaLocation="duarouterConfigurationType.xsd"/>
+    <xsd:include schemaLocation="jtrrouterConfigurationType.xsd"/>
+    <xsd:include schemaLocation="marouterConfigurationType.xsd"/>
+    <xsd:include schemaLocation="netconvertConfigurationType.xsd"/>
+    <xsd:include schemaLocation="neteditConfigurationType.xsd"/>
+    <xsd:include schemaLocation="netconvertConfigurationType.xsd"/>
+    <xsd:include schemaLocation="netgenerateConfigurationType.xsd"/>
+    <xsd:include schemaLocation="od2tripsConfigurationType.xsd"/>
+    <xsd:include schemaLocation="polyconvertConfigurationType.xsd"/>
+    <xsd:include schemaLocation="sumoConfigurationType.xsd"/>
+
+    <xsd:complexType name="metadataType">
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+            <xsd:element name="activitygenConfiguration" type="activitygenConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="dfrouterConfiguration" type="dfrouterConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="duarouterConfiguration" type="duarouterConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="jtrrouterConfiguration" type="jtrrouterConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="marouterConfiguration" type="marouterConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="netconvertConfiguration" type="netconvertConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="neteditConfiguration" type="neteditConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="netgenerateConfiguration" type="netgenerateConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="od2tripsConfiguration" type="od2tripsConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="polyconvertConfiguration" type="polyconvertConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="sumoConfiguration" type="sumoConfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="created_at" type="xsd:string" use="required"/>
+        <xsd:attribute name="created_by" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+</xsd:schema>

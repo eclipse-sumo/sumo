@@ -115,7 +115,7 @@ protected:
      *  is stored, this method invokes an XML reader on all the files set for this option.
      * @param[in] mmlWhat The option to get the file list from
      * @param[in] isNet   whether a network gets loaded
-     * @return Whether loading of all files was successfull
+     * @return Whether loading of all files was successful
      */
     bool load(const std::string& mmlWhat, const bool isNet = false);
 

@@ -35,14 +35,21 @@ PlainXMLFormatter::PlainXMLFormatter(const int defaultIndentation)
 
 bool
 PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                  const std::map<SumoXMLAttr, std::string>& attrs, bool includeConfig) {
+                                  const std::map<SumoXMLAttr, std::string>& attrs,
+                                  bool writeMetadata, bool includeConfig) {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(into, includeConfig);
+        const OptionsCont& oc = OptionsCont::getOptions();
+        oc.writeXMLHeader(into, includeConfig);
         openTag(into, rootElement);
         for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
             writeAttr(into, it->first, it->second);
         }
         into << ">\n";
+        if (writeMetadata) {
+            into << "    <metadata created_at=\"" << StringUtils::isoTimeString() << "\" created_by=\"" << oc.getFullName() << "\">\n";
+            oc.writeConfiguration(into, true, false, false, "", false, true, "        ");
+            into << "    </metadata>\n";
+        }
         myHavePendingOpener = false;
         return true;
     }

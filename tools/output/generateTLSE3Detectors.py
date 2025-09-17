@@ -102,7 +102,7 @@ def getOptions():
 def writeEntryExit(options, edge, detector_xml, writeExit=True):
     stopOnTLS = True
     stopOnTurnaround = not options.followTurnaround
-    input_edges = network.getDownstreamEdges(
+    input_edges = network.getUpstreamEdges(
         edge, options.requested_detector_length, stopOnTLS, stopOnTurnaround)
     input_edges.sort(key=lambda vals: vals[0].getID())
     for firstEdge, position, intermediate, aborted in input_edges:

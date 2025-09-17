@@ -1,6 +1,53 @@
-Running main() from ./googletest/src/gtest_main.cc
-[==========] Running 46 tests from 5 test suites.
+Running main() from D:\DLR\SUMOLibraries_builder\googletest-1.15.2\googletest\src\gtest_main.cc
+[==========] Running 54 tests from 6 test suites.
 [----------] Global test environment set-up.
+[----------] 4 tests from FileHelpers
+[ RUN      ] FileHelpers.test_method_checkForRelativity
+[       OK ] FileHelpers.test_method_checkForRelativity (0 ms)
+[ RUN      ] FileHelpers.test_method_getConfigurationRelative
+[       OK ] FileHelpers.test_method_getConfigurationRelative (0 ms)
+[ RUN      ] FileHelpers.test_method_getFilePath
+[       OK ] FileHelpers.test_method_getFilePath (0 ms)
+[ RUN      ] FileHelpers.test_method_fixRelative
+[       OK ] FileHelpers.test_method_fixRelative (0 ms)
+[----------] 4 tests from FileHelpers (0 ms total)
+
+[----------] 8 tests from RandHelper
+[ RUN      ] RandHelper.test_rand_range
+[       OK ] RandHelper.test_rand_range (0 ms)
+[ RUN      ] RandHelper.test_rand_range_float
+[       OK ] RandHelper.test_rand_range_float (0 ms)
+[ RUN      ] RandHelper.test_rand_range_int
+[       OK ] RandHelper.test_rand_range_int (0 ms)
+[ RUN      ] RandHelper.test_rand_range_two_float
+[       OK ] RandHelper.test_rand_range_two_float (0 ms)
+[ RUN      ] RandHelper.test_rand_range_two_int
+[       OK ] RandHelper.test_rand_range_two_int (0 ms)
+[ RUN      ] RandHelper.test_uniform
+[       OK ] RandHelper.test_uniform (0 ms)
+[ RUN      ] RandHelper.test_norm
+[       OK ] RandHelper.test_norm (0 ms)
+[ RUN      ] RandHelper.test_sequence
+[       OK ] RandHelper.test_sequence (0 ms)
+[----------] 8 tests from RandHelper (0 ms total)
+
+[----------] 7 tests from RGBColor
+[ RUN      ] RGBColor.test_parseColor_with_wrong_string
+[       OK ] RGBColor.test_parseColor_with_wrong_string (0 ms)
+[ RUN      ] RGBColor.test_parseColor
+[       OK ] RGBColor.test_parseColor (0 ms)
+[ RUN      ] RGBColor.test_parseColor_with_a_short_string
+[       OK ] RGBColor.test_parseColor_with_a_short_string (0 ms)
+[ RUN      ] RGBColor.test_interpolate
+[       OK ] RGBColor.test_interpolate (0 ms)
+[ RUN      ] RGBColor.test_interpolate_weight_1
+[       OK ] RGBColor.test_interpolate_weight_1 (0 ms)
+[ RUN      ] RGBColor.test_interpolate_weight_0
+[       OK ] RGBColor.test_interpolate_weight_0 (0 ms)
+[ RUN      ] RGBColor.test_operator_equal
+[       OK ] RGBColor.test_operator_equal (0 ms)
+[----------] 7 tests from RGBColor (0 ms total)
+
 [----------] 10 tests from StringTokenizer
 [ RUN      ] StringTokenizer.test_split_with_whitechar
 [       OK ] StringTokenizer.test_split_with_whitechar (0 ms)
@@ -23,17 +70,6 @@ Running main() from ./googletest/src/gtest_main.cc
 [ RUN      ] StringTokenizer.test_method_getVector
 [       OK ] StringTokenizer.test_method_getVector (0 ms)
 [----------] 10 tests from StringTokenizer (0 ms total)
-
-[----------] 4 tests from FileHelpers
-[ RUN      ] FileHelpers.test_method_checkForRelativity
-[       OK ] FileHelpers.test_method_checkForRelativity (0 ms)
-[ RUN      ] FileHelpers.test_method_getConfigurationRelative
-[       OK ] FileHelpers.test_method_getConfigurationRelative (0 ms)
-[ RUN      ] FileHelpers.test_method_getFilePath
-[       OK ] FileHelpers.test_method_getFilePath (0 ms)
-[ RUN      ] FileHelpers.test_method_fixRelative
-[       OK ] FileHelpers.test_method_fixRelative (0 ms)
-[----------] 4 tests from FileHelpers (0 ms total)
 
 [----------] 15 tests from StringUtils
 [ RUN      ] StringUtils.test_method_prune
@@ -66,24 +102,7 @@ Running main() from ./googletest/src/gtest_main.cc
 [       OK ] StringUtils.test_parseDist (0 ms)
 [ RUN      ] StringUtils.test_parseSpeed
 [       OK ] StringUtils.test_parseSpeed (0 ms)
-[----------] 15 tests from StringUtils (0 ms total)
-
-[----------] 7 tests from RGBColor
-[ RUN      ] RGBColor.test_parseColor_with_wrong_string
-[       OK ] RGBColor.test_parseColor_with_wrong_string (0 ms)
-[ RUN      ] RGBColor.test_parseColor
-[       OK ] RGBColor.test_parseColor (0 ms)
-[ RUN      ] RGBColor.test_parseColor_with_a_short_string
-[       OK ] RGBColor.test_parseColor_with_a_short_string (0 ms)
-[ RUN      ] RGBColor.test_interpolate
-[       OK ] RGBColor.test_interpolate (0 ms)
-[ RUN      ] RGBColor.test_interpolate_weight_1
-[       OK ] RGBColor.test_interpolate_weight_1 (0 ms)
-[ RUN      ] RGBColor.test_interpolate_weight_0
-[       OK ] RGBColor.test_interpolate_weight_0 (0 ms)
-[ RUN      ] RGBColor.test_operator_equal
-[       OK ] RGBColor.test_operator_equal (0 ms)
-[----------] 7 tests from RGBColor (0 ms total)
+[----------] 15 tests from StringUtils (1 ms total)
 
 [----------] 10 tests from ValueTimeLine
 [ RUN      ] ValueTimeLine.test_get_single_nocollect
@@ -109,5 +128,5 @@ Running main() from ./googletest/src/gtest_main.cc
 [----------] 10 tests from ValueTimeLine (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 46 tests from 5 test suites ran. (0 ms total)
-[  PASSED  ] 46 tests.
+[==========] 54 tests from 6 test suites ran. (2 ms total)
+[  PASSED  ] 54 tests.

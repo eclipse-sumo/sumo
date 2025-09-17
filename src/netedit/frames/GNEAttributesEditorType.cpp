@@ -18,21 +18,21 @@
 // Row used for edit attributes
 /****************************************************************************/
 
+#include <netedit/dialogs/elements/GNECalibratorDialog.h>
+#include <netedit/dialogs/elements/GNERerouterDialog.h>
+#include <netedit/dialogs/elements/GNEVariableSpeedSignDialog.h>
+#include <netedit/dialogs/GNEParametersDialog.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEInternalTest.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
-#include <netedit/elements/additional/GNECalibrator.h>
-#include <netedit/elements/additional/GNERerouter.h>
-#include <netedit/elements/additional/GNEVariableSpeedSign.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAttributesEditor.h"
@@ -200,7 +200,7 @@ GNEAttributesEditorType::refreshAttributesEditor() {
             }
             // specific for single edited attributes
             if ((myEditedACs.size() == 1) && tagProperty->hasDialog()) {
-                // udpate and show edit dialog
+                // update and show edit dialog
                 myOpenDialogButton->setText(TLF("Open % dialog", tagProperty->getTagStr()).c_str());
                 myOpenDialogButton->setIcon(GUIIconSubSys::getIcon(tagProperty->getGUIIcon()));
                 myOpenDialogButton->show();
@@ -395,11 +395,14 @@ GNEAttributesEditorType::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
 long
 GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector, void*) {
     // obtain edited AC (temporal), until unification of
-    const auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
+    auto demandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myEditedACs.front()->getTagProperty()->getTag(), myEditedACs.front()->getID(), false);
     // open vehicle type dialog
     if (demandElement) {
-        GNEVehicleTypeDialog(demandElement, true);  // NOSONAR, constructor returns after dialog has been closed
-        refreshAttributesEditor();
+        // open dialog
+        const auto vTypeDialog = GNEVehicleTypeDialog(demandElement);
+        if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
+            refreshAttributesEditor();
+        }
     }
     return 1;
 }
@@ -407,9 +410,31 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
-    // get internal test (for code legibly)
-    const auto internalTest = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
-    if (GNESingleParametersDialog(this).openModalDialog(internalTest)) {
+    // create parameters dialog
+    const auto singleParametersDialog = GNEParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getACParametersMap());
+    // continue depending of result
+    if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        if (isEditorTypeCreator()) {
+            // Set new value of attribute in all edited ACs without undo-redo
+            for (const auto& editedAC : myEditedACs) {
+                editedAC->setACParameters(singleParametersDialog.getEditedParameters());
+            }
+        } else if (isEditorTypeEditor()) {
+            const auto undoList = myFrameParent->getViewNet()->getUndoList();
+            const auto tagProperty = myEditedACs.front()->getTagProperty();
+            // first check if we're editing a single attribute or an ID
+            if (myEditedACs.size() > 1) {
+                undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
+            }
+            // Set new value of attribute in all edited ACs
+            for (const auto& editedAC : myEditedACs) {
+                editedAC->setACParameters(singleParametersDialog.getEditedParameters(), undoList);
+            }
+            // finish change multiple attributes or ID Attributes
+            if (myEditedACs.size() > 1) {
+                undoList->end();
+            }
+        }
         refreshAttributesEditor();
     }
     return 1;

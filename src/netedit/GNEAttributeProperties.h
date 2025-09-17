@@ -76,7 +76,8 @@ public:
         EXTENDEDEDITOR =    1 << 3,    // Attribute cannot be edited in editor, but is editable in extended Dialog
         GEOEDITOR =         1 << 4,    // Attribute can be edited only in geo editor
         FLOWEDITOR =        1 << 5,    // Attribute can be edited only in flow editor
-        NO_EDIT =           1 << 6,    // No edit property defined
+        DIALOGEDITOR =      1 << 6,    // Attribute can be edited in dialog editor
+        NO_EDIT =           1 << 7,    // No edit property defined
     };
 
     /// @brief parameter constructor for attribute properties without default values
@@ -105,7 +106,7 @@ public:
     void setDiscreteValues(const std::vector<std::string>& discreteValues);
 
     /// @brief set discrete values
-    void setFilenameExtensions(const std::string& extensions);
+    void setFilenameExtensions(const std::vector<std::string>& extensions);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -171,7 +172,7 @@ public:
     const std::vector<std::string>& getDiscreteValues() const;
 
     /// @brief get filename extensions in string format used in open dialogs
-    const std::string& getFilenameExtensions() const;
+    const std::vector<std::string>& getFilenameExtensions() const;
 
     /// @brief get tag synonym
     SumoXMLAttr getAttrSynonym() const;
@@ -290,6 +291,9 @@ public:
     /// @brief return true if attribute can be modified in edit mode
     bool isEditMode() const;
 
+    /// @brief return true if attribute can be modified in dialog editor
+    bool isDialogEditor() const;
+
     /// @}
 
 private:
@@ -339,7 +343,7 @@ private:
     std::vector<std::string> myDiscreteValues;
 
     /// @brief filename extensions used in open dialogs (by default empty)
-    std::string myFilenameExtensions;
+    std::vector<std::string> myFilenameExtensions;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
     SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;

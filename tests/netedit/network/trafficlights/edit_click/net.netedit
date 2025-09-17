@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\additionals.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\routes.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\datas.med.add.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\meandatas.dat.add.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan154459.22644\netedit.gui\network\trafficlights\edit_click\net.net.xml"/>
     </input>
 

@@ -1526,6 +1526,29 @@ enum {
     MID_GNE_BUTTON_ADD,
     /// @brief remove button
     MID_GNE_BUTTON_REMOVE,
+    /// @brief config button (used in GNEFileDialog)
+    MID_GNE_BUTTON_CONFIG,
+
+    /// @}
+
+    /// @name ElementTable messages
+    /// @{
+    /// @brief edit row
+    MID_GNE_ELEMENTTABLE_EDIT,
+    /// @brief remove row
+    MID_GNE_ELEMENTTABLE_REMOVE,
+    /// @brief open dialog element
+    MID_GNE_ELEMENTTABLE_DIALOG_ELEMENT,
+    /// @brief open dialog vClass
+    MID_GNE_ELEMENTTABLE_DIALOG_VCLASS,
+
+    /// @name ElementList messages
+    /// @{
+
+    /// @brief add element in ElementList
+    MID_GNE_ELEMENTLIST_ADD,
+    /// @brief sort elements in ElementList
+    MID_GNE_ELEMENTLIST_SORT,
 
     /// @}
 
@@ -1546,30 +1569,10 @@ enum {
 
     /// @brief select table interval
     MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,
-    /// @brief change table closing lane reroute reroute
-    MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE,
-    /// @brief change table route closing reroute
-    MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,
-    /// @brief change table destination probability reroute
-    MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,
-    /// @brief change table route probability reroute
-    MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,
-    /// @brief change table parkingAreaReroute
-    MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE,
     /// @brief add interval
     MID_GNE_REROUTEDIALOG_ADD_INTERVAL,
     /// @brief sort rerouter intervals
     MID_GNE_REROUTEDIALOG_SORT_INTERVAL,
-    /// @brief add closing lane reroute
-    MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE,
-    /// @brief add closing reroute
-    MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE,
-    /// @brief add destination probability route
-    MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE,
-    /// @brief add route probability route
-    MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE,
-    /// @brief add parkingAreaReroute
-    MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE,
     /// @brief edit interval
     MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,
 
@@ -1592,19 +1595,19 @@ enum {
 
     /// @}
 
-    /// @name allowDisallow Dialog messages
+    /// @name allow vClasses Dialog messages
     /// @{
 
     /// @brief select/unselect single vehicle
-    MID_GNE_ALLOWDISALLOW_CHANGE,
+    MID_GNE_ALLOWVCLASSES_TOGGLE,
     /// @brief select all vehicles
-    MID_GNE_ALLOWDISALLOW_SELECTALL,
+    MID_GNE_ALLOWVCLASSES_SELECTALL,
     /// @brief unselect all vehicles
-    MID_GNE_ALLOWDISALLOW_UNSELECTALL,
+    MID_GNE_ALLOWVCLASSES_UNSELECTALL,
     /// @brief select only non road vehicles
-    MID_GNE_ALLOWDISALLOW_ONLY_ROAD,
+    MID_GNE_ALLOWVCLASSES_ONLY_ROAD,
     /// @brief select only rail vehicles
-    MID_GNE_ALLOWDISALLOW_ONLY_RAIL,
+    MID_GNE_ALLOWVCLASSES_ONLY_RAIL,
 
     /// @}
 
@@ -1734,8 +1737,6 @@ enum {
 
     /// @brief run tests
     MID_RUNTESTS,
-    /// @brief execute internal test in modal dialog
-    MID_INTERNALTEST,
 
     /// @{
 

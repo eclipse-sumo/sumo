@@ -66,7 +66,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.parent, "inval
 netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.parent, "e3_1")
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

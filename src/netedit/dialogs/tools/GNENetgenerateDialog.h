@@ -20,21 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <utils/options/OptionsCont.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXDialogBox.h>
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEApplicationWindow;
+class MFXCheckableButton;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetgenerateDialog : protected MFXDialogBox {
+class GNENetgenerateDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNENetgenerateDialog)
 
@@ -43,16 +41,13 @@ class GNENetgenerateDialog : protected MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNENetgenerateDialog(GNEApplicationWindow* GNEApp);
+    GNENetgenerateDialog(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
     ~GNENetgenerateDialog();
 
-    /// @brief open dialog
-    void openDialog();
-
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{
@@ -64,16 +59,16 @@ public:
     long onCmdSetOutput(FXObject*, FXSelector, void*);
 
     /// @brief set grid mode
-    long onCmdSetGrid(FXObject*, FXSelector, void*);
+    long onCmdSetGridNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set spider
-    long onCmdSetSpider(FXObject*, FXSelector, void*);
+    long onCmdSetSpiderNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set random grid
-    long onCmdSetRandomGrid(FXObject*, FXSelector, void*);
+    long onCmdSetRandomNetworkGridNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set random
-    long onCmdSetRandom(FXObject*, FXSelector, void*);
+    long onCmdSetRandomNetwork(FXObject*, FXSelector, void*);
 
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
@@ -81,21 +76,15 @@ public:
     /// @brief event after press advanced button
     long onCmdAdvanced(FXObject*, FXSelector, void*);
 
-    /// @brief check if settings are enabled
-    long onUpdSettingsConfigured(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
     /// @brief FOX needs this
-    GNENetgenerateDialog();
+    FOX_CONSTRUCTOR(GNENetgenerateDialog);
 
 private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
+    /// @brief flag to indicate if networkType was selected
+    bool mySelectedNetworktypeFlag = false;
 
     /// @brief grid network
     FXLabel* myGridNetworkLabel = nullptr;
@@ -124,11 +113,8 @@ private:
     /// @brief output text field
     FXTextField* myOutputTextField = nullptr;
 
-    /// @brief run button
-    FXButton* myRunButton = nullptr;
-
-    /// @brief advanced button
-    FXButton* myAdvancedButton = nullptr;
+    /// @brief update run buttons
+    void updateRunButtons();
 
     /// @brief Invalidated copy constructor.
     GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;

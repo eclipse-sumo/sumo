@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspect.color, "12,13,14")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # save containers
 # quit netedit

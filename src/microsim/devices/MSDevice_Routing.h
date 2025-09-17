@@ -171,6 +171,9 @@ public:
         myActive = active;
     }
 
+    /// @brief whether the change in saving is enough to trigger rerouting
+    bool sufficientSaving(double oldCost, double newCost);
+
 private:
 
     /** @brief Constructor
@@ -238,6 +241,12 @@ private:
 
     /// @brief Whether the equipped vehicle missed a reroute while stopping and should do so after the stop has ended
     bool myRerouteAfterStop;
+
+    // Only reroute if the new route is faster than the current route by factor
+    double myThresholdFactor;
+
+    // Only reroute if the new route is faster than the current route by seconds
+    double myThresholdTime;
 
     /// @brief Whether the equipped vehicle may perform rerouting
     bool myActive;

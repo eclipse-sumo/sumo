@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(["--sidewalks.guess", 
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
 # Recompute with volatile options
-netedit.computeJunctionsVolatileOptions()
+netedit.computeJunctionsVolatileOptions("yes")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

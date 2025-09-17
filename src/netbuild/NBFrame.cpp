@@ -366,7 +366,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     if (!forNetgen) {
         oc.doRegister("junctions.attach-removed", new Option_Float(-1));
         oc.addDescription("junctions.attach-removed", "Junctions",
-                "Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks)");
+                          "Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks)");
     }
 
     oc.doRegister("max-join-ids", new Option_Integer(4));

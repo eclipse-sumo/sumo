@@ -244,7 +244,7 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     } else {
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), myContainerSelector->getCurrentDemandElement()->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // check if container plan can be created
         if (routeHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(), myContainerSelector->getCurrentDemandElement(),
                                             myContainerPlanAttributesEditor, myPlanCreator, false)) {

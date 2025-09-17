@@ -22,11 +22,14 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/dialogs/GNEVClassesDialog.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
-#include <netedit/dialogs/GNEAllowVClassesDialog.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/dialogs/GNEFixNetworkElements.h>
+#include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -83,7 +86,6 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
-#include "GNEInternalTest.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -296,14 +298,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     buildEditModeControls();
     // set this net in Net
     myNet->setViewNet(this);
-    // create allow VClasses dialog
-    myAllowVClassesDialog = new GNEAllowVClassesDialog(this);
-    // create fix network elements dialog
-    myFixNetworkElementsDialog = new GNEFixNetworkElements(this);
-    // create fix demand elements dialog
-    myFixAdditionalElementsDialog = new GNEFixAdditionalElements(this);
-    // create fix demand elements dialog
-    myFixDemandElementsDialog = new GNEFixDemandElements(this);
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
     // Reset textures
@@ -325,7 +319,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
 
 
 GNEViewNet::~GNEViewNet() {
-    delete myAllowVClassesDialog;
 }
 
 
@@ -813,30 +806,6 @@ GNEViewNet::getEditNetworkElementShapes() const {
 }
 
 
-GNEAllowVClassesDialog*
-GNEViewNet::getAllowVClassesDialog() const {
-    return myAllowVClassesDialog;
-}
-
-
-GNEFixNetworkElements*
-GNEViewNet::getFixNetworkElementsDialog() const {
-    return myFixNetworkElementsDialog;
-}
-
-
-GNEFixAdditionalElements*
-GNEViewNet::getFixAdditionalElementsDialog() const {
-    return myFixAdditionalElementsDialog;
-}
-
-
-GNEFixDemandElements*
-GNEViewNet::getFixDemandElementsDialog() const {
-    return myFixDemandElementsDialog;
-}
-
-
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
                               const GUIVisualizationRainbowSettings& rs) {
@@ -953,15 +922,20 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
     } else if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked()) {
         return true;
     } else {
+        alreadyAsked = true;
         // open question box
         const std::string header = TL("Confirm Junction Merger");
-        const std::string body = (TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", movedJunction->getMicrosimID(), targetJunction->getMicrosimID(), movedJunction->getMicrosimID(), targetJunction->getMicrosimID()));
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-        alreadyAsked = true;
-        if (answer != 1) { //1:yes, 2:no, 4:esc
-            return false;
-        } else {
+        const std::string body = TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')",
+                                     movedJunction->getMicrosimID(),
+                                     targetJunction->getMicrosimID(),
+                                     movedJunction->getMicrosimID(),
+                                     targetJunction->getMicrosimID());
+        const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+        // continue depending of result
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return true;
+        } else {
+            return false;
         }
     }
 }
@@ -975,20 +949,19 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     }
     std::string body;
     if (expectedSupermode == Supermode::NETWORK) {
-        body = (operation + TL(" requires switch to network mode. Continue?"));
+        body = TLF("% requires switch to network mode. Continue?", operation);
     } else if (expectedSupermode == Supermode::DEMAND) {
-        body = (operation + TL(" requires switch to demand mode. Continue?"));
+        body = TLF("% requires switch to demand mode. Continue?", operation);
     } else if (expectedSupermode == Supermode::DATA) {
-        body = (operation + TL(" requires switch to data mode. Continue?"));
+        body = TLF("% requires switch to data mode. Continue?", operation);
     } else {
         throw ProcessError("invalid expected supermode");
     }
-    // open question box
-    const auto answer = FXMessageBox::question(myApp, MBOX_YES_NO, TL("Confirm switch mode"), "%s", body.c_str());
-    // restore focus to view net
-    setFocus();
-    // return answer
-    if (answer == MBOX_CLICKED_YES) {
+    // open question dialog
+    const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
+                                TL("Confirm switch mode"), body);
+    // continue depending of result
+    if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myEditModes.setSupermode(expectedSupermode, true);
         return true;
     } else {
@@ -1042,7 +1015,8 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         const std::string header = TL("Multiple lane in the same edge selected");
         const std::string bodyA = TL("There are selected lanes that belong to the same edge.");
         const std::string bodyB = TLF("Only one lane per edge will be restricted to %.", toString(vclass));
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
+        // Show warning dialog
+        GNEWarningBasicDialog(myViewParent->getGNEAppWindows(), header, bodyA, bodyB);
     }
     // If we handeln a set of lanes
     if (mapOfEdgesAndLanes.size() > 0) {
@@ -1057,15 +1031,18 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         // if all edges parent own a Sidewalk, stop function
         if (counter == (int)mapOfEdgesAndLanes.size()) {
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
-            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            const std::string body = TLF("All lanes own already another lane in the same edge with a restriction for %", toString(vclass));
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }
@@ -1122,14 +1099,17 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         if (counter == (int)setOfEdges.size()) {
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("All lanes own already another lane in the same edge with a restriction to %.", toString(vclass));
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }
@@ -1200,14 +1180,17 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
         if (counter == 0) {
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("The selected lanes and edges don't have a restriction to %.", toString(vclass));
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }
@@ -2833,7 +2816,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
     // check polygon
     if (polygonUnderMouse) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // triangulate shape
         const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
         // begin undo-list
@@ -2989,7 +2972,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // check what type of POI will be transformed
         if (POI->getTagProperty()->getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
@@ -3089,14 +3072,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         auto edgeGeometry = edge->getNBEdge()->getGeometry();
         // get index position
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = edgeGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), edgeGeometry[index]);
         // now check position
-        if (newPosition != edgeGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != edgeGeometry[index])) {
             // update new position
-            edgeGeometry[index] = newPosition;
+            edgeGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(edge, TL("change edge Geometry Point position"));
             // continue depending of index
@@ -3121,14 +3102,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         PositionVector polygonGeometry = poly->getShape();
         // get index position
         const int index = polygonGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = polygonGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), polygonGeometry[index]);
         // now check position
-        if (newPosition != polygonGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != polygonGeometry[index])) {
             // update new position
-            polygonGeometry[index] = newPosition;
+            polygonGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(poly, TL("change polygon Geometry Point position"));
             // change shape
@@ -3141,14 +3120,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         PositionVector TAZGeometry = TAZ->getAdditionalGeometry().getShape();
         // get index position
         const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = TAZGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), TAZGeometry[index]);
         // now check position
-        if (newPosition != TAZGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != TAZGeometry[index])) {
             // update new position
-            TAZGeometry[index] = newPosition;
+            TAZGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(TAZ, TL("change TAZ Geometry Point position"));
             // change shape

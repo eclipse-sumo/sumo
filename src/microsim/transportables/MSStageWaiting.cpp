@@ -88,7 +88,8 @@ MSStageWaiting::getPosition(SUMOTime /* now */) const {
 
 double
 MSStageWaiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(myDestination, myArrivalPos) + M_PI / 2 * (MSGlobals::gLefthand ? -1 : 1);
+    const double offset = myDestinationStop == nullptr ? M_PI / 2 : myDestinationStop->getAngle();
+    return getEdgeAngle(myDestination, myArrivalPos) + offset * (MSGlobals::gLefthand ? -1 : 1);
 }
 
 

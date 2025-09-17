@@ -104,7 +104,7 @@ public:
         SIMSTATE_CONNECTION_CLOSED,
         /// @brief An error occurred during the simulation step
         SIMSTATE_ERROR_IN_SIM,
-        /// @brief An external interrupt occured
+        /// @brief An external interrupt occurred
         SIMSTATE_INTERRUPTED,
         /// @brief The simulation had too many teleports
         SIMSTATE_TOO_MANY_TELEPORTS
@@ -876,7 +876,7 @@ protected:
     /// @brief Maximum number of teleports.
     int myMaxTeleports;
 
-    /// @brief whether an interrupt occured
+    /// @brief whether an interrupt occurred
     bool myAmInterrupted;
 
 

@@ -107,7 +107,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>%s/bin</outputDirectory>
+                    <outputDirectory>%s</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -115,7 +115,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <outputDirectory>%s/bin</outputDirectory>
+                    <outputDirectory>%s</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -131,4 +131,4 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         </resources>
     </build>
 </project>
-""" % (sys.argv[1], v, root, root, root))
+""" % (sys.argv[1], v, sys.argv[2], sys.argv[2], root))

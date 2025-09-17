@@ -75,11 +75,12 @@ public:
      * @return whether something has been written
      */
     virtual bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                const std::map<SumoXMLAttr, std::string>& attrs,
-                                bool includeConfig = true) {
+                                const std::map<SumoXMLAttr, std::string>& attrs, bool writeMetadata,
+                                bool includeConfig) {
         UNUSED_PARAMETER(into);
         UNUSED_PARAMETER(rootElement);
         UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(writeMetadata);
         UNUSED_PARAMETER(includeConfig);
         return false;
     }

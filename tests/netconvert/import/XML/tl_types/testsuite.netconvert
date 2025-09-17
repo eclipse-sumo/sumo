@@ -1,4 +1,5 @@
 NEMA
+right_on_red
 default
 default_actuated
 static
@@ -11,21 +12,6 @@ plain_tll_offset_begin
 
 # test a tl-controlled junction which has no junction logic
 unregulated
-
-# test node type "traffic_light_right_on_red"
-right_on_red
-
-# test node type "traffic_light_right_on_red" with one lane in each direction
-right_on_red_1lane
-
-# test connection guessing for right-on-red
-right_on_red_3lanes_out
-
-# adapt junction logic to custom tls program
-right_on_red_custom_program
-
-# default traffic_light with an added right_on_red program
-traffic_light_program_right_on_red
 
 # load program with extra transition states
 extra_transitions

@@ -82,7 +82,7 @@ netedit.redo(referencePosition, 2)
 netedit.typeKey("enter")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

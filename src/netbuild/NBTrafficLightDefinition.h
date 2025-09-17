@@ -470,7 +470,7 @@ protected:
     mutable bool myNeedsContRelationReady;
 
     typedef std::set<std::pair<int, int> > ExtraConflicts;
-    // extra conflcits that arises if the signal plan permits conflicting streams to drive at the same time (i.e. right-on-red)
+    // extra conflicts that arises if the signal plan permits conflicting streams to drive at the same time (i.e. right-on-red)
     mutable ExtraConflicts myExtraConflicts;
     mutable bool myExtraConflictsReady;
 

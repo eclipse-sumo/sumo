@@ -19,213 +19,59 @@
 import time
 from ..enums.attributesEnum import attrs
 from ..enums.viewPositions import positions
-from ..constants import TEXTTEST_SANDBOX, DELAY_SAVING
+from ..constants import TEXTTEST_SANDBOX
 from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
-from ..input.mouse import leftClick
+from ..input.mouse import moveMouse
 
 
-def openNeteditConfigAs(waitTime=2):
+def loadFile(referencePosition, type: str, file: str, extension: str, extensionIndex: int):
     """
-    @brief load netedit config using dialog
+    @brief load file config using dialog
     """
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'e')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("config.netecfg")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def openSumoConfigAs(referencePosition):
-    """
-    @brief load netedit config using dialog
-    """
-    # click over reference (to avoid problem with undo-redo)
-    leftClick(referencePosition, positions.reference)
-    # open save network as dialog
-    typeTwoKeys('ctrl', 'm')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("config.sumocfg")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(DELAY_SAVING)
-
-
-def loadNetwork(useShortcut, waitTime=2):
-    """
-    @brief load network using dialog
-    """
-    if (useShortcut):
+    # continue depending of type
+    if (type == "neteditConfig"):
+        typeTwoKeys('ctrl', 'e')
+    elif (type == "sumoConfig"):
+        typeTwoKeys('ctrl', 'm')
+    elif (type == "netconvertConfig"):
+        typeThreeKeys('ctrl', 'shift', 'o')
+    elif (type == "network"):
         typeTwoKeys('ctrl', 'o')
-    else:
-        typeTwoKeys('alt', 'f')
-        for _ in range(attrs.toolbar.file.loadNetwork):
-            typeKey('down')
-        typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("net.net.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def loadAdditionalElements(useShortcut, waitTime=2):
-    """
-    @brief load additional using dialog
-    """
-    if (useShortcut):
+    elif (type == "trafficLights"):
+        typeTwoKeys('ctrl', 'k')
+    elif (type == "edgeTypes"):
+        typeTwoKeys('ctrl', 'h')
+    elif (type == "additional"):
         typeTwoKeys('ctrl', 'a')
-    else:
-        typeTwoKeys('alt', 'f')
-        for _ in range(attrs.toolbar.file.aditionalElements.menu):
-            typeKey('down')
-        typeKey('space')
-        for _ in range(attrs.toolbar.file.aditionalElements.load):
-            typeKey('down')
-        typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("additionals.add.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def loadDemandElements(useShortcut, waitTime=2):
-    """
-    @brief load demand elements using dialog
-    """
-    if (useShortcut):
+    elif (type == "demand"):
         typeTwoKeys('ctrl', 'd')
-    else:
-        typeTwoKeys('alt', 'f')
-        for _ in range(attrs.toolbar.file.demandElements.menu):
-            typeKey('down')
-        typeKey('space')
-        for _ in range(attrs.toolbar.file.demandElements.load):
-            typeKey('down')
-        typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("routes.rou.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def loadDataElements(useShortcut, waitTime=2):
-    """
-    @brief load data elements using dialog
-    """
-    if (useShortcut):
+    elif (type == "data"):
         typeTwoKeys('ctrl', 'b')
-    else:
+    elif (type == "meanData"):
+        # move mouse (to avoid problems with file menu)
+        moveMouse(referencePosition, positions.reference, 200, 0, False)
+        # open load mean data dialog (because doesn't have shortcut)
         typeTwoKeys('alt', 'f')
-        for _ in range(attrs.toolbar.file.dataElements.menu):
+        for _ in range(attrs.toolbar.file.meanDataElements.menu):
             typeKey('down')
         typeKey('space')
-        for _ in range(attrs.toolbar.file.dataElements.load):
+        for _ in range(attrs.toolbar.file.meanDataElements.load):
             typeKey('down')
         typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
+        # jump to filename TextField
+        typeTwoKeys('alt', 'f')
+    # wait for dialog
+    time.sleep(2)
+    # set folder
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    updateText("datas.dat.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def loadMeanDataElements(waitTime=2):
-    """
-    @brief load mean data elements using dialog
-    """
-    # open load mean data dialog (because doesn't have shortcut)
-    typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.meanDataElements.menu):
+    # set extension
+    typeKey('tab')
+    for _ in range(0, extensionIndex):
         typeKey('down')
-    typeKey('space')
-    for _ in range(attrs.toolbar.file.meanDataElements.load):
-        typeKey('down')
-    typeKey('space')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    # wait for saving
-    time.sleep(waitTime)
-    updateText(TEXTTEST_SANDBOX)
+    typeTwoKeys('shift', 'tab')
+    # set file
+    updateText(file + "." + extension)
     typeKey('enter')
-    updateText("datas.med.add.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def openNeteditConfigShortcut(waitTime=2):
-    """
-    @brief open configuration using shortcut
-    """
-    # open configuration dialog
-    typeTwoKeys('ctrl', 'e')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("netedit_open.netecfg")
-    typeKey('enter')
-    # wait for loading
-    time.sleep(waitTime)
-
-
-def openNetworkShortcut(waitTime=2):
-    """
-    @brief open configuration using shortcut
-    """
-    # open configuration dialog
-    typeTwoKeys('ctrl', 'e')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("config.net.xml")
-    typeKey('enter')
-    # wait for loading
-    time.sleep(waitTime)
-
-
-def openConfigurationShortcut(waitTime=2):
-    """
-    @brief open configuration using shortcut
-    """
-    # open configuration dialog
-    typeThreeKeys('ctrl', 'shift', 'o')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("config.netccfg")
-    typeKey('enter')
-    # wait for loading
-    time.sleep(waitTime)
+    # wait for load
+    time.sleep(2)

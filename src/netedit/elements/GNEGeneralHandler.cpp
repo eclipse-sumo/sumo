@@ -26,15 +26,23 @@
 // method definitions
 // ===========================================================================
 
-GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
+GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
     GeneralHandler(file),
-    myAdditionalHandler(net, file, allowUndoRedo, overwrite),
-    myDemandHandler(net, file, allowUndoRedo, overwrite),
-    myMeanDataHandler(net, file, allowUndoRedo, overwrite) {
+    myAdditionalHandler(net, file, allowUndoRedo),
+    myDemandHandler(net, file, allowUndoRedo),
+    myMeanDataHandler(net, file, allowUndoRedo) {
 }
 
 
 GNEGeneralHandler::~GNEGeneralHandler() {}
+
+
+void
+GNEGeneralHandler::forceOverwriteElements() {
+    myAdditionalHandler.forceOverwriteElements();
+    myDemandHandler.forceOverwriteElements();
+    myMeanDataHandler.forceOverwriteElements();
+}
 
 
 bool
@@ -79,6 +87,7 @@ GNEGeneralHandler::isMeanDataFile() const {
 
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+    // continue depending of tag
     switch (tag) {
         case SUMO_TAG_LOCATION:
             // process in Network handler
@@ -129,6 +138,29 @@ GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     // maximum 10 tagTypes
     if (myQueue.size() > 10) {
         myQueue.pop_front();
+    }
+    // check if update handlers
+    const bool abortLoading = myAdditionalHandler.isAbortLoading() ||
+                              myDemandHandler.isAbortLoading() ||
+                              myMeanDataHandler.isAbortLoading();
+    const bool forceOverwrite = myAdditionalHandler.isForceOverwriteElements() ||
+                                myDemandHandler.isForceOverwriteElements() ||
+                                myMeanDataHandler.isForceOverwriteElements();
+    const bool forceRemain = myAdditionalHandler.isForceRemainElements() ||
+                             myDemandHandler.isForceRemainElements() ||
+                             myMeanDataHandler.isForceRemainElements();
+    if (abortLoading) {
+        myAdditionalHandler.abortLoading();
+        myDemandHandler.abortLoading();
+        myMeanDataHandler.abortLoading();
+    } else if (forceOverwrite) {
+        myAdditionalHandler.forceOverwriteElements();
+        myDemandHandler.forceOverwriteElements();
+        myMeanDataHandler.forceOverwriteElements();
+    } else if (forceRemain) {
+        myAdditionalHandler.forceRemainElements();
+        myDemandHandler.forceRemainElements();
+        myMeanDataHandler.forceRemainElements();
     }
 }
 

@@ -17,7 +17,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\additionals.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\routes.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\datas.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\datas.med.add.xml"/>
+        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\meandatas.dat.add.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\only_rail_vehicles\net.net.xml"/>
     </input>
 

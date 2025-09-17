@@ -17,175 +17,75 @@
 
 # imports
 import time
-from ..enums.attributesEnum import attrs
 from ..constants import TEXTTEST_SANDBOX
+from ..enums.attributesEnum import attrs
+from ..enums.viewPositions import positions
 from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
+from ..input.mouse import moveMouse
 
 
-# declare delay in saving
-_DELAY_OPENDIALOG = 1
-_DELAY_SAVING = 2
-
-# declare new files
-_NETWORKFILE_NEW = "net.net.xml"
-_ADDITIONALFILE_NEW = "additionals.add.xml"
-_DEMANDFILE_NEW = "routes.rou.xml"
-_DATAFILE_NEW = "datas.dat.xml"
-_MEANDATA_NEW = "meanDatas.add.xml"
-_PLAINXML_NEW = "net"
-_SUMOCONFIG_NEW = "configNew.sumocfg"
-_NETEDITCONFIG_NEW = "configNew.netecfg"
-
-# declare saveAs files
-_NETWORKFILE_SAVEAS = "netAs.net.xml"
-_ADDITIONALFILE_SAVEAS = "additionalsAs.add.xml"
-_DEMANDFILE_SAVEAS = "routesAs.rou.xml"
-_DATAFILE_SAVEAS = "datasAs.dat.xml"
-_MEANDATA_SAVEAS = "meanDatasAs.add.xml"
-_SUMOCONFIG_SAVEAS = "configAs.sumocfg"
-_NETEDITCONFIG_SAVEAS = "configAs.netecfg"
-
-
-def saveNew(element):
+def saveNewFile(referencePosition, element: str, extension: str, extensionIndex: int):
     """
-    @brief save new element (without opening a saving dialog)
-    """
-    # first obstain number of jumps
-    menuJumps = 0
-    subMenuJumps = 0
-    filename = ""
-    if (element == "network"):
-        menuJumps = attrs.toolbar.file.saveNetwork
-        filename = _NETWORKFILE_NEW
-    elif (element == "additionals"):
-        menuJumps = attrs.toolbar.file.aditionalElements.menu
-        subMenuJumps = attrs.toolbar.file.aditionalElements.save
-        filename = _ADDITIONALFILE_NEW
-    elif (element == "demands"):
-        menuJumps = attrs.toolbar.file.demandElements.menu
-        subMenuJumps = attrs.toolbar.file.demandElements.save
-        filename = _DEMANDFILE_NEW
-    elif (element == "datas"):
-        menuJumps = attrs.toolbar.file.dataElements.menu
-        subMenuJumps = attrs.toolbar.file.dataElements.save
-        filename = _DATAFILE_NEW
-    elif (element == "meanDatas"):
-        menuJumps = attrs.toolbar.file.meanDataElements.menu
-        subMenuJumps = attrs.toolbar.file.meanDataElements.save
-        filename = _PLAINXML_NEW
-    elif (element == "sumoConfig"):
-        menuJumps = attrs.toolbar.file.sumoConfig.menu
-        subMenuJumps = attrs.toolbar.file.sumoConfig.save
-        filename = _SUMOCONFIG_NEW
-    elif (element == "neteditConfig"):
-        menuJumps = attrs.toolbar.file.neteditConfig.menu
-        subMenuJumps = attrs.toolbar.file.neteditConfig.save
-        filename = _NETEDITCONFIG_NEW
-    # go to menu command
-    typeTwoKeys('alt', 'f')
-    for _ in range(menuJumps):
-        typeKey('down')
-    typeKey('space')
-    for _ in range(subMenuJumps):
-        typeKey('down')
-    # select space
-    typeKey('space')
-    # wait for open dialog
-    time.sleep(_DELAY_OPENDIALOG)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    # set filename
-    updateText(filename)
-    typeKey('enter')
-    # wait for saving
-    time.sleep(_DELAY_SAVING)
-
-
-def saveNewShortcut(element):
-    """
-    @brief save existent element using shortcut (without opening a saving dialog)
+    @brief save new file
     """
     filename = ""
     if (element == "network"):
         typeTwoKeys('ctrl', 's')
-        filename = _NETWORKFILE_NEW
-    elif (element == "additionals"):
+        filename = "net2"
+    elif (element == "trafficLights"):
+        typeThreeKeys('ctrl', 'shift', 'k')
+        filename = "trafficlights2"
+    elif (element == "edgeTypes"):
+        typeThreeKeys('ctrl', 'shift', 'h')
+        filename = "edgetypes2"
+    elif (element == "additional"):
         typeThreeKeys('ctrl', 'shift', 'a')
-        filename = _ADDITIONALFILE_NEW
-    elif (element == "demands"):
+        filename = "additionals2"
+    elif (element == "demand"):
         typeThreeKeys('ctrl', 'shift', 'd')
-        filename = _DEMANDFILE_NEW
-    elif (element == "datas"):
+        filename = "routes2"
+    elif (element == "data"):
         typeThreeKeys('ctrl', 'shift', 'b')
-        filename = _DATAFILE_NEW
-    elif (element == "meanDatas"):
+        filename = "datas2"
+    elif (element == "meanData"):
         typeThreeKeys('ctrl', 'shift', 'm')
-        filename = _MEANDATA_NEW
+        filename = "meandatas2.dat"
     elif (element == "xml"):
         typeTwoKeys('ctrl', 'l')
-        filename = _PLAINXML_NEW
+        filename = "net2"
     elif (element == "sumoConfig"):
         typeThreeKeys('ctrl', 'shift', 's')
-        filename = _SUMOCONFIG_NEW
+        filename = "sumo2"
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
-        filename = _NETEDITCONFIG_NEW
-    # wait for open dialog
-    time.sleep(_DELAY_OPENDIALOG)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
+        filename = "netedit2"
+    elif (element == "joinedJunctions"):
+        filename = "joinedjunctions2"
+        # move mouse (to avoid problems with file menu)
+        moveMouse(referencePosition, positions.reference, 200, 0, False)
+        # go to menu command
+        typeTwoKeys('alt', 'f')
+        for _ in range(attrs.toolbar.file.saveJoinedJunctions):
+            typeKey('down')
+        typeKey('space')
+    # wait for dialog
+    time.sleep(2)
+    # set folder
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    # set filename
-    updateText(filename)
+    # set extension
+    typeKey('tab')
+    for _ in range(0, extensionIndex):
+        typeKey('down')
+    typeTwoKeys('shift', 'tab')
+    # set file
+    updateText(filename + "." + extension)
     typeKey('enter')
-    # wait for saving
-    time.sleep(_DELAY_SAVING)
+    # wait for load
+    time.sleep(2)
 
 
-def saveExistent(element):
-    """
-    @brief save existent element (without opening a saving dialog)
-    """
-    # first obstain number of jumps
-    menuJumps = 0
-    subMenuJumps = 0
-    if (element == "network"):
-        menuJumps = attrs.toolbar.file.saveNetwork
-    elif (element == "additionals"):
-        menuJumps = attrs.toolbar.file.aditionalElements.menu
-        subMenuJumps = attrs.toolbar.file.aditionalElements.save
-    elif (element == "demands"):
-        menuJumps = attrs.toolbar.file.demandElements.menu
-        subMenuJumps = attrs.toolbar.file.demandElements.save
-    elif (element == "datas"):
-        menuJumps = attrs.toolbar.file.dataElements.menu
-        subMenuJumps = attrs.toolbar.file.dataElements.save
-    elif (element == "meanDatas"):
-        menuJumps = attrs.toolbar.file.meanDataElements.menu
-        subMenuJumps = attrs.toolbar.file.meanDataElements.save
-    elif (element == "sumoConfig"):
-        menuJumps = attrs.toolbar.file.sumoConfig.menu
-        subMenuJumps = attrs.toolbar.file.sumoConfig.save
-    elif (element == "neteditConfig"):
-        menuJumps = attrs.toolbar.file.neteditConfig.menu
-        subMenuJumps = attrs.toolbar.file.neteditConfig.save
-    # go to menu command
-    typeTwoKeys('alt', 'f')
-    for _ in range(menuJumps):
-        typeKey('down')
-    typeKey('space')
-    for _ in range(subMenuJumps):
-        typeKey('down')
-    # select space
-    typeKey('space')
-    # wait for saving
-    time.sleep(_DELAY_SAVING)
-
-
-def saveExistentShortcut(element):
+def saveExistentFile(element):
     """
     @brief save existent element using shortcut (without opening a saving dialog)
     """
@@ -204,10 +104,10 @@ def saveExistentShortcut(element):
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
     # wait for debug (due recomputing)
-    time.sleep(_DELAY_SAVING)
+    time.sleep(2)
 
 
-def saveAs(element):
+def saveFileAs(referencePosition, type: str, multiple: bool):
     """
     @brief save the given element type as
     """
@@ -215,50 +115,64 @@ def saveAs(element):
     menuJumps = 0
     subMenuJumps = 0
     filename = ""
-    if (element == "network"):
+    extra = 0
+    if (multiple):
+        extra = 1
+    if (type == "network"):
         menuJumps = attrs.toolbar.file.saveNetworkAs
-        filename = _NETWORKFILE_SAVEAS
-    elif (element == "additionals"):
+        filename = "net3.net.xml"
+    elif (type == "trafficLights"):
+        menuJumps = attrs.toolbar.file.trafficLights.menu
+        subMenuJumps = attrs.toolbar.file.trafficLights.saveAs + extra
+        filename = "trafficlights3.tll.xml"
+    elif (type == "edgeTypes"):
+        menuJumps = attrs.toolbar.file.edgeTypes.menu
+        subMenuJumps = attrs.toolbar.file.edgeTypes.saveAs + extra
+        filename = "edgetypes3.typ.xml"
+    elif (type == "additional"):
         menuJumps = attrs.toolbar.file.aditionalElements.menu
-        subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs
-        filename = _ADDITIONALFILE_SAVEAS
-    elif (element == "demands"):
+        subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs + extra
+        filename = "additionals3.add.xml"
+    elif (type == "jupedsim"):
+        menuJumps = attrs.toolbar.file.aditionalElements.menu
+        subMenuJumps = attrs.toolbar.file.aditionalElements.saveJupedsim
+        filename = "additionals3.add.xml"
+    elif (type == "demand"):
         menuJumps = attrs.toolbar.file.demandElements.menu
-        subMenuJumps = attrs.toolbar.file.demandElements.saveAs
-        filename = _DEMANDFILE_SAVEAS
-    elif (element == "datas"):
+        subMenuJumps = attrs.toolbar.file.demandElements.saveAs + extra
+        filename = "routes3.rou.xml"
+    elif (type == "data"):
         menuJumps = attrs.toolbar.file.dataElements.menu
-        subMenuJumps = attrs.toolbar.file.dataElements.saveAs
-        filename = _DATAFILE_SAVEAS
-    elif (element == "meanDatas"):
+        subMenuJumps = attrs.toolbar.file.dataElements.saveAs + extra
+        filename = "datas3.dat.xml"
+    elif (type == "meanData"):
         menuJumps = attrs.toolbar.file.meanDataElements.menu
-        subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs
-        filename = _MEANDATA_SAVEAS
-    elif (element == "sumoConfig"):
+        subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs + extra
+        filename = "meandatas3.dat.add.xml"
+    elif (type == "sumoConfig"):
         menuJumps = attrs.toolbar.file.sumoConfig.menu
         subMenuJumps = attrs.toolbar.file.sumoConfig.saveAs
-        filename = _SUMOCONFIG_SAVEAS
-    elif (element == "neteditConfig"):
+        filename = "sumo3.sumocfg"
+    elif (type == "neteditConfig"):
         menuJumps = attrs.toolbar.file.neteditConfig.menu
-        subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs
-        filename = _NETEDITCONFIG_SAVEAS
+        subMenuJumps = attrs.toolbar.file.neteditConfig.saveAs + extra
+        filename = "netedit3.netecfg"
+    # move mouse (to avoid problems with file menu)
+    moveMouse(referencePosition, positions.reference, 200, 0, False)
     # go to menu command
     typeTwoKeys('alt', 'f')
     for _ in range(menuJumps):
         typeKey('down')
     typeKey('space')
-    for _ in range(subMenuJumps):
-        typeKey('down')
-    typeKey('space')
-    # wait for open dialog
-    time.sleep(_DELAY_OPENDIALOG)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    # go to sandbox folder
+    if (subMenuJumps > 0):
+        for _ in range(subMenuJumps):
+            typeKey('down')
+        typeKey('space')
+    # wait for dialog
+    time.sleep(2)
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    # set filename
     updateText(filename)
     typeKey('enter')
-    # wait for saving
-    time.sleep(_DELAY_SAVING)
+    # wait for load
+    time.sleep(2)

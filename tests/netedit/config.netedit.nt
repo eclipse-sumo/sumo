@@ -1,0 +1,2 @@
+# do not run in parallel on Windows
+config_module:default

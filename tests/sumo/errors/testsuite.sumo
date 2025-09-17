@@ -16,6 +16,9 @@ unknown_option
 # Tests what happens if an unknown option is passed via config
 unknown_config_option
 
+# Tests what happens if the value attribute is missing or misspelled in a config
+unknown_config_option_copy
+
 # Tests what happens the first parameter is missing
 # disabled because the --mesosim param interferes
 # missing_first_param

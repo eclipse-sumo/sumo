@@ -258,6 +258,8 @@ enum SumoXMLTag {
     SUMO_TAG_NODE,
     /// @brief type (edge)
     SUMO_TAG_TYPE,
+    /// @brief types (edge)
+    SUMO_TAG_TYPES,
     /// @brief lane type
     SUMO_TAG_LANETYPE,
     /// @brief definition of a detector

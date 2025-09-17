@@ -1,0 +1,24 @@
+/* XPM */
+static const char *filedialog_filedelete_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 2 1 ",
+"  c #B2C0DC",
+". c #840000",
+/* pixels */
+"                ",
+" ...         .  ",
+" ....      ..   ",
+"  ....    ..    ",
+"    ...  ..     ",
+"     .....      ",
+"      ...       ",
+"     .....      ",
+"    ...  ..     ",
+"   ...    ..    ",
+"  ...      .    ",
+" ....       .   ",
+" ...            ",
+"  .          .  ",
+"                ",
+"                "
+};

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-11 14:09:51 by Eclipse SUMO netedit Version v1_24_0+0749-0e520f68dcb
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <node-files value="D:\SUMO\tests\netedit\basic\files\load\edge_types\existent\net.nod.xml"/>
+        <edge-files value="D:\SUMO\tests\netedit\basic\files\load\edge_types\existent\net.edg.xml"/>
+        <connection-files value="D:\SUMO\tests\netedit\basic\files\load\edge_types\existent\net.con.xml"/>
+        <tllogic-files value="D:\SUMO\tests\netedit\basic\files\load\edge_types\existent\net.tll.xml"/>
+        <type-files value="D:\SUMO\tests\netedit\basic\files\load\edge_types\existent\net.typ.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<types version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="edgeType_0" numLanes="3" allow="bus"/>
+    <type id="edgeType_1" numLanes="4" allow="bus"/>
+    <type id="edgeType_2" numLanes="4" allow="bus">
+        <laneType index="0" speed="14.00"/>
+        <laneType index="1" speed="15.00"/>
+        <laneType index="2" speed="16.00"/>
+        <laneType index="3" speed="17.00"/>
+    </type>
+
+</types>

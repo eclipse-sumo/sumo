@@ -1,9 +1,7 @@
-Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [290.9669845476892, -88.5383101458865])
-Cannot compute track ordering for edge '142019441#2' because it runs orthogonal to the main line (intersects: [299.4103526938561, -98.89319089626952])
-Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [514.34838448136, -224.05724693879893])
-Cannot compute track ordering for edge '636850729#2' because it runs orthogonal to the main line (intersects: [-497.10948454799654, -607.6429526739521, -705.6350193276885])
-Cannot compute track ordering for edge '636850730' because it runs orthogonal to the main line (intersects: [-488.1983802506875, -628.5373683323123, -686.5034025774657])
-Optimization failed
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [243.1085206727148, -189.49294908058073])
+Cannot compute track ordering for edge '142019441#2' because it runs orthogonal to the main line (intersects: [251.91963646431395, -199.15446454424819])
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [427.1257427695964, -287.0891852222412])
+Optimization failed for region ALL
 Warning: Found angle of 180.00 degrees at edge '-427588057#0', segment 0.
 Warning: Found sharp turn with radius 0.00 at the start of edge '-427588057#0'.
 Warning: Found sharp turn with radius 8.42 at the start of edge '-56693794'.

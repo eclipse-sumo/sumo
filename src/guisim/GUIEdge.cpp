@@ -36,6 +36,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <gui/GUIGlobals.h>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
@@ -132,9 +133,10 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
+    const bool s2 = GUIGlobals::gSecondaryShape;
     if (!isTazConnector()) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            ret.add((*i)->getShape().getBoxBoundary());
+            ret.add((*i)->getShape(s2).getBoxBoundary());
         }
     } else {
         // take the starting coordinates of all follower edges and the endpoints
@@ -142,13 +144,13 @@ GUIEdge::getBoundary() const {
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
             const std::vector<MSLane*>& lanes = (*it)->getLanes();
             for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().front());
+                ret.add((*it_lane)->getShape(s2).front());
             }
         }
         for (MSEdgeVector::const_iterator it = myPredecessors.begin(); it != myPredecessors.end(); ++it) {
             const std::vector<MSLane*>& lanes = (*it)->getLanes();
             for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().back());
+                ret.add((*it_lane)->getShape(s2).back());
             }
         }
     }
@@ -190,7 +192,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("routing speed [m/s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
     ret->mkItem(TL("time penalty [s]"), true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getTimePenalty));
     ret->mkItem(TL("brutto occupancy [%]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem(TL("flow [veh/h/lane]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
+    ret->mkItem(TL("edge flow [veh/h/m]"), true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
     ret->mkItem(TL("vehicles [#]"), true, new CastingFunctionBinding<GUIEdge, int, int>(this, &MSEdge::getVehicleNumber));
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
@@ -201,7 +203,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("segment jam threshold [%]"), false, segment->getRelativeJamThreshold() * 100);
     ret->mkItem(TL("segment brutto occupancy [%]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getRelativeOccupancy, 100));
     ret->mkItem(TL("segment mean vehicle speed [m/s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getMeanSpeed));
-    ret->mkItem(TL("segment flow [veh/h/lane]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
+    ret->mkItem(TL("segment flow [veh/h/m]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
     ret->mkItem(TL("segment vehicles [#]"), true, new CastingFunctionBinding<MESegment, int, int>(segment, &MESegment::getCarNumber));
     ret->mkItem(TL("segment leader leave time"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
     ret->mkItem(TL("segment headway [s]"), true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));

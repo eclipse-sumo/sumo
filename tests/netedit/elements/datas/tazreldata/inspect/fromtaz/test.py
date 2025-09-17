@@ -64,7 +64,7 @@ netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_orange")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,9 +1,18 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- non valid name -->
-    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" name=";;;%%$$$" lines="line1 line2" friendlyPos="false"/>
+    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="dummy"/>
 
     <!-- valid name -->
-    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" name="custom Name" lines="line1 line2" friendlyPos="false"/>
+    <busStop id="busStop_01" lane="EdgeCenter1_1" startPos="5" endPos="10" angle=""/>
+
+	<!-- valid name -->
+    <busStop id="busStop_02" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="-12"/>
+
+	<!-- valid name -->
+    <busStop id="busStop_03" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="60000"/>
+
+	<!-- valid name -->
+    <busStop id="busStop_04" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="7.5"/>
 
 </additional>

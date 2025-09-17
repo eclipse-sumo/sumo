@@ -86,7 +86,15 @@ MSStoppingPlace::finishedLoading() {
         try {
             myTransportableWidth = StringUtils::toDouble(waitingWidth);
         } catch (ProcessError& e) {
-            WRITE_WARNINGF("Could not waitingWidth (m) '%' (%)", waitingWidth, e.what());
+            WRITE_WARNINGF("Could not load waitingWidth (m) '%' (%)", waitingWidth, e.what());
+        }
+    }
+    const std::string waitingDepth = getParameter("waitingDepth");
+    if (waitingDepth != "") {
+        try {
+            myTransportableDepth = StringUtils::toDouble(waitingDepth);
+        } catch (ProcessError& e) {
+            WRITE_WARNINGF("Could not load waitingDepth (m) '%' (%)", waitingWidth, e.what());
         }
     }
 }

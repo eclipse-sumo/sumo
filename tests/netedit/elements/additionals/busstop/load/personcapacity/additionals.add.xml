@@ -1,18 +1,18 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- missing personCapacity -->
-    <busStop id="busStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35"/>
 
     <!-- non valid format personCapacity (dummy) -->
-    <busStop id="busStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="dummyPersonCapacity" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="dummyPersonCapacity"/>
 
     <!-- non valid format personCapacity (negative) -->
-    <busStop id="busStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="-7" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="-7"/>
 
     <!-- non valid format personCapacity (double) -->
-    <busStop id="busStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="2.5" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="2.5"/>
 
     <!-- valid format personCapacity -->
-    <busStop id="busStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="6" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" personCapacity="6"/>
 
 </additional>

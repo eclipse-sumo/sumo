@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Cloning jupedsim
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
@@ -36,21 +36,28 @@ jobs:
 
     - name: Configuring Python
       # to avoid issues similar to https://github.com/saghul/pycares/issues/234
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.12'
 
     - name: Cloning SUMO
       # this does not a full clone to speed up the build, version number will be incorrect
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         path: sumo
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
+
+    - name: Setup fail-fast PowerShell
+      run: |
+        if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) {
+          New-Item -ItemType File -Path $PROFILE.CurrentUserAllHosts -Force | Out-Null
+        }
+        Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
 
     - name: ccache
       # do a clean build once a day

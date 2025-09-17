@@ -232,7 +232,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate Version " VERSION_STRING);
+    oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate " VERSION_STRING);
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
@@ -257,7 +257,7 @@ main(int argc, char** argv) {
         nb.applyOptions(oc);
         if (oc.isSet("type-files")) {
             NIXMLTypesHandler handler(nb.getTypeCont());
-            NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+            NITypeLoader::load(handler, oc.getStringVector("type-files"), toString(SUMO_TAG_TYPES));
         }
         // build the netgen-network description
         NGNet* net = buildNetwork(nb);

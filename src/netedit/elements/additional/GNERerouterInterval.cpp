@@ -23,7 +23,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
 
 #include "GNERerouterInterval.h"
 
@@ -33,15 +32,6 @@
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_INTERVAL, "") {
-}
-
-
-GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), SUMO_TAG_INTERVAL, "") {
-    // set parents
-    setParent<GNEAdditional*>(rerouterDialog->getEditedAdditional());
-    // update boundary of rerouter parent
-    rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
 }
 
 
@@ -232,7 +222,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
             if (canParse<SUMOTime>(value)) {
                 const auto end = parse<SUMOTime>(value);

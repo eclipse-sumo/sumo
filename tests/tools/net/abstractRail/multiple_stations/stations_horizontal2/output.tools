@@ -1,0 +1,9 @@
+Creating region file 'net.taz.xml'
+Reading net
+Processing region 'Schweizer Platz' with 2 edges
+Starting optimization with 7 inequalities
+Optimization succeeded after 0.0009295940399169922s (score=0.6000000000000001)
+Processing region 'Südbahnhof' with 25 edges
+Starting optimization with 128 inequalities
+Optimization succeeded after 0.0008924007415771484s (score=393.6)
+Building new net

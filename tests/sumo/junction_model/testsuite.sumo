@@ -59,5 +59,8 @@ minor_internalJunction
 # test effect of vehicle length and turning radius on required space check
 cutting_corner
 
+# test reaction to vehicles that are still on the intersection when their green phase has ended
+strandedOnRed
+
 # additional tests for bicycles not covered under the other topics
 bikes

@@ -1,0 +1,16 @@
+Warning: No flow intervals in calibrator 'ca_0'.
+Warning: No flow intervals in calibrator 'ca_1'.
+Warning: No flow intervals in calibrator 'ca_2'.
+Warning: No flow intervals in calibrator 'ca_3'.
+Warning: No flow intervals in calibrator 'ca_5'.
+Warning: No flow intervals in calibrator 'ca_6'.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vehicle 't_2_new' left e3Detector 'e3_0' without entering it, time=4.00.
+Warning: Vehicle 't_2_new' left e3Detector 'e3_0' without entering it, time=4.00.
+Warning: Vehicle 'v_0_new' arrived inside e3Detector 'e3_3', time=6.00.
+Warning: Vehicle 'v_0_new' arrived inside e3Detector 'e3_0', time=6.00.
+Warning: Vehicle 't_2_new' left e3Detector 'e3_1' without entering it, time=7.00.
+Warning: Vehicle 't_2_new' left e3Detector 'e3_1' without entering it, time=7.00.

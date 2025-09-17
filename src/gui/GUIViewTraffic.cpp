@@ -336,6 +336,14 @@ GUIViewTraffic::getPOIParamKeys() const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+
+void
+GUIViewTraffic::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
+    GUIGlobals::gSecondaryShape = myVisualizationSettings->secondaryShape;
+    GUISUMOAbstractView::centerTo(id, applyZoom, zoomDist);
+    GUIGlobals::gSecondaryShape = false;
+}
+
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // init view settings

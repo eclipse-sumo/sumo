@@ -31,7 +31,7 @@
 class GNEOverlappedInspection;
 class GNETLSTable;
 class MFXComboBoxIcon;
-class MFXTextFieldTooltip;
+class MFXTextFieldIcon;
 class MFXToggleButtonTooltip;
 class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
@@ -117,10 +117,10 @@ public:
         FXLabel* myJunctionIDLabel = nullptr;
 
         /// @brief text field for junction ID
-        MFXTextFieldTooltip* myJunctionIDTextField = nullptr;
+        MFXTextFieldIcon* myJunctionIDTextField = nullptr;
 
         /// @brief text field for junction ID
-        MFXTextFieldTooltip* myTLSIDTextField = nullptr;
+        MFXTextFieldIcon* myTLSIDTextField = nullptr;
 
         /// @brief ComboBox for TLS Types
         MFXComboBoxIcon* myTLSTypeComboBox = nullptr;

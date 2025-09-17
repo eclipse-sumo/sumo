@@ -18,12 +18,12 @@
 // The Widget for add additional elements
 /****************************************************************************/
 
+#include <netedit/dialogs/GNEHelpAttributesDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -85,16 +85,13 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
 
     // Create scroll windows with fixed width for contents
-    myScrollWindowsContents = new FXScrollWindow(this, GUIDesignScrollWindowFixed);
+    myScrollWindowsContents = new FXScrollWindow(this, GUIDesignScrollWindowFixedWidth(10));
 
     // Create frame for contents (in which GroupBox will be placed)
     myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignAuxiliarFrameFixedWidth(0));
 
     // Set font of header
     myFrameHeaderLabel->setFont(myFrameHeaderFont);
-
-    // set initial width (will be changed in the first update
-    setWidth(10);
 
     // Hide Frame
     FXVerticalFrame::hide();
@@ -187,74 +184,8 @@ GNEFrame::getScrollBarWidth() const {
 
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
-    MFXDialogBox* attributesHelpDialog = new MFXDialogBox(myScrollWindowsContents, (TL("Parameters of ") + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
-    // Create FXTable
-    FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
-    attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
-    int sizeColumnDescription = 0;
-    int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
-    myTable->setVisibleColumns(4);
-    myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
-    myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, TL("Attribute"));
-    myTable->setColumnText(1, TL("Category"));
-    myTable->setColumnText(2, TL("Description"));
-    myTable->setColumnText(3, TL("Definition"));
-    myTable->getRowHeader()->setWidth(0);
-    myTable->setColumnHeaderHeight(GUIDesignHeight);
-    // Iterate over vector of additional parameters
-    int itemIndex = 0;
-    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
-        // Set attribute
-        FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
-        attributeItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 0, attributeItem);
-        // Set description of element
-        FXTableItem* categoryItem = new FXTableItem("");
-        categoryItem->setText(attrProperty->getCategory().c_str());
-        categoryItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 1, categoryItem);
-        // Set description of element
-        FXTableItem* descriptionItem = new FXTableItem("");
-        descriptionItem->setText(attrProperty->getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
-        descriptionItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 2, descriptionItem);
-        // Set definition
-        FXTableItem* definitionItem = new FXTableItem(attrProperty->getDefinition().c_str());
-        definitionItem->setJustify(FXTableItem::LEFT);
-        myTable->setItem(itemIndex, 3, definitionItem);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
-        itemIndex++;
-    }
-    myTable->fitRowsToContents(0, itemIndex);
-    // set header
-    FXHeader* header = myTable->getColumnHeader();
-    header->setItemJustify(0, JUSTIFY_CENTER_X);
-    header->setItemSize(0, 120);
-    header->setItemJustify(0, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 100);
-    header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(2, sizeColumnDescription * 8);
-    header->setItemJustify(2, JUSTIFY_CENTER_X);
-    header->setItemSize(3, sizeColumnDefinitions * 6);
-    // Create horizontal separator
-    new FXHorizontalSeparator(attributesHelpDialog, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(attributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // create Dialog
-    attributesHelpDialog->create();
-    // show in the given position
-    attributesHelpDialog->show(PLACEMENT_CURSOR);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    getApp()->runModalFor(attributesHelpDialog);
+    // open help dialog with attributes of the given attribute carrier
+    GNEHelpAttributesDialog(myViewNet->getViewParent()->getGNEAppWindows(), AC);
 }
 
 

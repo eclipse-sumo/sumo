@@ -47,13 +47,13 @@ netedit.redo(referencePosition, 2)
 netedit.computeJunctions()
 
 # save routes
-netedit.saveExistentShortcut("demands")
+netedit.saveExistentFile("demands")
 
 # press space to fix crossings
 netedit.typeKey("space")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

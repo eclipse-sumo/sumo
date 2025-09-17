@@ -1,0 +1,13 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/edgediff_file.xsd">
+    <edge id="442079933#1">
+        <split pos="53.928431926832445" id="-440029534#0.1564"/>
+        <split pos="382.97063609221755" id="-440029534#0.1235"/>
+        <split pos="993.3253017456095" id="-440029534#0.625"/>
+    </edge>
+    <edge id="-440029534#0">
+        <split pos="625.2646982543904" id="-440029534#0.625"/>
+        <split pos="1235.6193639077824" id="-440029534#0.1235"/>
+        <split pos="1564.6615680731675" id="-440029534#0.1564"/>
+    </edge>
+
+</edges>

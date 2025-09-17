@@ -23,13 +23,6 @@
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEVariableSpeedSign;
-class GNEVariableSpeedSignDialog;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -40,7 +33,7 @@ public:
     GNEVariableSpeedSignStep(GNENet* net);
 
     /// @brief constructor
-    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed);
+    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSign, const SUMOTime time, const double speed);
 
     /// @brief destructor
     ~GNEVariableSpeedSignStep();
@@ -58,13 +51,13 @@ public:
     */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
+    /// @brief check if current additional is valid to be written into XML
     bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    /// @brief return a string with the current additional problem
     std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem (must be reimplemented in all detector children)
+    /// @brief fix additional problem
     void fixAdditionalProblem();
 
     /// @}
@@ -93,7 +86,8 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
+                           const GNENetworkElement* newElement, GNEUndoList* undoList);
 
     /// @}
 
@@ -159,7 +153,7 @@ protected:
     SUMOTime myTime = 0;
 
     /// @brief speed in this timeStep
-    std::string mySpeed;
+    double mySpeed;
 
 private:
     /// @brief method for setting the attribute and nothing else

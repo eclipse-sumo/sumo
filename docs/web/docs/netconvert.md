@@ -76,8 +76,8 @@ the following formats:
 - any input files may be combined
 - "plain XML" files will be applied last and can be used to patch/update previously loaded elements
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
-- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same FLOAT --edges.join** can be set. It may be useful tp combine this with option **--geometry.split** to create additional attachment points (or see below for an alternative). When using **--geometry.split** it is recommended to call netconvert a second time with **--geometry.remove** afterwards.
-- If a network was processed with option **--geometry.remove**, this may have removed intermediate junctions that would be needed when merging networks (i.e. when later adding roads with a lower road class). If the network provides edge param `removedNodeIds` (which is accomplished by combining **--geometry.remove** with **--output.removed-nodes**), then option **--junctions.attach-removed FLOAT** can be used to split edges as need and re-attach the merged roads.  
+- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same FLOAT --edges.join** can be set. It may be useful to combine this with option **--geometry.split** to create additional attachment points (or see below for an alternative). When using **--geometry.split** it is recommended to call netconvert a second time with **--geometry.remove** afterwards.
+- If a network was processed with option **--geometry.remove**, this may have removed intermediate junctions that would be needed when merging networks (i.e. when later adding roads with a lower road class). If the network provides edge param `removedNodeIds` (which is accomplished by combining **--geometry.remove** with **--output.removed-nodes**), then option **--junctions.attach-removed FLOAT** can be used to split edges as need and re-attach the merged roads.
 
 ## Export
 
@@ -199,7 +199,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction IDs |
-| **--prefix.junction** {{DT_STR}} | Defines a prefix for unction IDs |
+| **--prefix.junction** {{DT_STR}} | Defines a prefix for junction IDs |
 | **--prefix.edge** {{DT_STR}} | Defines a prefix for edge IDs |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATSim format |
@@ -209,6 +209,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--dlr-navteq.precision** {{DT_INT}} | The network coordinates are written with the specified level of output precision; *default:* **2** |
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
+| **--output.removed-nodes** {{DT_BOOL}} | Writes IDs of nodes remove with --geometry.remove into edge param; *default:* **false** |
 | **--street-sign-output** {{DT_FILE}} | Writes street signs as POIs to FILE |
 | **--ptstop-output** {{DT_FILE}} | Writes public transport stops to FILE |
 | **--ptline-output** {{DT_FILE}} | Writes public transport lines to FILE |
@@ -421,7 +422,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
 | **--junctions.join.parallel-threshold** {{DT_FLOAT}} | The angular threshold in degress for rejection of parallel edges when joining junctions; *default:* **30** |
 | **--junctions.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to exclude from joining |
-| **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
+| **--junctions.join-same** {{DT_FLOAT}} | Joins junctions that have similar coordinates even if not connected; *default:* **-1** |
+| **--junctions.attach-removed** {{DT_FLOAT}} | Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks); *default:* **-1** |
 | **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |

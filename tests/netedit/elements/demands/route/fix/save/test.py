@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # fix
 netedit.fixRoute("saveRouteInvalids")

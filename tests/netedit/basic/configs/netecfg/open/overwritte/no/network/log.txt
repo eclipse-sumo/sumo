@@ -1,1 +1,0 @@
-Error: Cannot read file 'D:\SUMO\tests\netedit\basic\configs\netecfg\open\network\gui-settings.xml'!

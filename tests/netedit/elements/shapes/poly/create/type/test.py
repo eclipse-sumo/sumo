@@ -49,7 +49,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

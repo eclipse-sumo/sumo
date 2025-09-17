@@ -612,7 +612,7 @@ public:
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC, bool checkOnlyTLS = false) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
-    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
+    bool tlsStrandedConflict(const NBEdge* from, const NBEdge::Connection& c,
                          const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
 
 

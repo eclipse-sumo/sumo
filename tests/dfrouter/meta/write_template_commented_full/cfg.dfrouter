@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO dfrouter Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-09-11T14:39:47.404700+01:00 by Eclipse SUMO dfrouter v1_24_0+0753-7ddc191931e
 -->
 
 <dfrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -34,13 +34,16 @@
         <detector-files value="" synonymes="d detectors" type="FILE"/>
 
         <!-- Loads detector flows from FILE(s) -->
-        <measure-files value="" synonymes="detector-flow-files detflows f" type="FILE"/>
+        <measure-files value="" synonymes="detector-flow-files detflows f" deprecated="detector-flow-files" type="FILE"/>
 
     </input>
 
     <output>
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
+
+        <!-- Write parsable metadata (configuration etc.) instead of comments -->
+        <write-metadata value="false" type="BOOL"/>
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
@@ -73,7 +76,7 @@
         <routes-for-all value="false" type="BOOL"/>
 
         <!-- Saves typed detectors to FILE -->
-        <detector-output value="" synonymes="detectors-output" type="FILE"/>
+        <detector-output value="" synonymes="detectors-output" deprecated="detectors-output" type="FILE"/>
 
         <!-- Saves detector positions as pois to FILE -->
         <detectors-poi-output value="" type="FILE"/>
@@ -91,7 +94,7 @@
         <emitters-poi-output value="" type="FILE"/>
 
         <!-- Saves variable seed sign definitions for sink detectors to FILE -->
-        <variable-speed-sign-output value="" synonymes="speed-trigger-output" type="FILE"/>
+        <variable-speed-sign-output value="" synonymes="speed-trigger-output" deprecated="speed-trigger-output" type="FILE"/>
 
         <!-- Saves rerouter definitions for sink detectors to FILE -->
         <end-reroute-output value="" type="FILE"/>
@@ -121,13 +124,13 @@
         <revalidate-routes value="false" type="BOOL"/>
 
         <!-- Keeps routes even if they have exhausted max-search-depth -->
-        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends" type="BOOL"/>
+        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends" deprecated="keep-unfound-ends" type="BOOL"/>
 
         <!-- Keeps routes even if a shorter one exists -->
         <keep-longer-routes value="false" type="BOOL"/>
 
         <!-- Number of edges to follow a route without passing a detector -->
-        <max-search-depth value="30" synonymes="max-nodet-follower" type="INT"/>
+        <max-search-depth value="30" synonymes="max-nodet-follower" deprecated="max-nodet-follower" type="INT"/>
 
         <!-- Writes only emission times -->
         <emissions-only value="false" type="BOOL"/>
@@ -142,7 +145,7 @@
         <keep-turnarounds value="false" type="BOOL"/>
 
         <!-- Minimum distance in meters between start and end node of every route -->
-        <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT"/>
+        <min-route-length value="-1" synonymes="min-dist min-distance" deprecated="min-dist min-distance" type="FLOAT"/>
 
         <!-- generate random departure times for emitted vehicles -->
         <randomize-flows value="false" type="BOOL"/>
@@ -157,7 +160,7 @@
         <time-step value="60" type="TIME"/>
 
         <!-- Write calibrators to FILE -->
-        <calibrator-output value="false" synonymes="write-calibrators" type="BOOL"/>
+        <calibrator-output value="false" synonymes="write-calibrators" deprecated="write-calibrators" type="BOOL"/>
 
         <!-- Include routes in the output which have no vehicles -->
         <include-unused-routes value="false" type="BOOL"/>
@@ -232,7 +235,7 @@
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL"/>
 
         <!-- Aggregate warnings of the same type whenever more than INT occur -->
         <aggregate-warnings value="-1" type="INT"/>
@@ -268,10 +271,10 @@
 
     <random_number>
         <!-- Initialises the random number generator with the current system time -->
-        <random value="false" synonymes="abs-rand" type="BOOL"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL"/>
 
         <!-- Initialises the random number generator with the given value -->
-        <seed value="23423" synonymes="srand" type="INT"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT"/>
 
     </random_number>
 

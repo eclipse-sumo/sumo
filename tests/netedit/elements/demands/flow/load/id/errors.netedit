@@ -4,5 +4,4 @@ Error: Invalid flow id ''.
 Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: flow cannot be created
-Error: Could not build flow with ID 'flow_valid' in netedit; Found another flow with the same ID.
-Error: Loading of routes.rou.xml failed.
+Error: Loading of 'routes.rou.xml' failed.

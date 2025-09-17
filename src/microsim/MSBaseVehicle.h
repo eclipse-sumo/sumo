@@ -522,6 +522,8 @@ public:
      */
     bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const;
 
+    bool hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIterator last, bool checkJumps) const;
+
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg);
 
@@ -1073,11 +1075,11 @@ protected:
 
 
     ConstMSEdgeVector optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-            const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
+                                      const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
 
     ConstMSEdgeVector routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
-        int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
+                                      std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
+                                      int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
 
 
 protected:

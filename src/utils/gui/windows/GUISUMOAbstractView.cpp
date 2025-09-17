@@ -41,15 +41,17 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXSingleEventThread.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUICursorDialog.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon.h>
@@ -1760,7 +1762,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
         return 0;
     }
     for (int j = 0; j < picSize; j++) {
-        result[j] = FXRGB(0, 0, 0);
+        result[j] = GUIDesignTextColorBlack;
     }
     bool valid = true;
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {

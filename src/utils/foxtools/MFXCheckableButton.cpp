@@ -19,8 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include "MFXStaticToolTip.h"
 #include "MFXCheckableButton.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
     FXMAPFUNC(SEL_PAINT,    0,  MFXCheckableButton::onPaint),
@@ -30,8 +34,10 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
     FXMAPFUNC(SEL_MOTION,   0,  MFXCheckableButton::onMotion),
 };
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
-// Object implementation
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
 
 MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip,
@@ -144,6 +150,5 @@ MFXCheckableButton::setColors() {
         }
     }
 }
-
 
 /****************************************************************************/

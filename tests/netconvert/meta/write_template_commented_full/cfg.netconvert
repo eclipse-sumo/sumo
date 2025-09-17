@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-31 12:33:56 by Eclipse SUMO netconvert Version v1_24_0+0083-3372591c45b
+<!-- generated on 2025-09-11T14:39:47.469033+01:00 by Eclipse SUMO netconvert v1_24_0+0753-7ddc191931e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,22 +28,22 @@
 
     <input>
         <!-- Read SUMO-net from FILE -->
-        <sumo-net-file value="" synonymes="net-file s sumo-net" type="FILE"/>
+        <sumo-net-file value="" synonymes="net-file s sumo-net" deprecated="sumo-net" type="FILE"/>
 
         <!-- Read XML-node defs from FILE -->
-        <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE"/>
+        <node-files value="" synonymes="n nodes xml-node-files xml-nodes" deprecated="xml-node-files xml-nodes" type="FILE"/>
 
         <!-- Read XML-edge defs from FILE -->
-        <edge-files value="" synonymes="e edges xml-edge-files xml-edges" type="FILE"/>
+        <edge-files value="" synonymes="e edges xml-edge-files xml-edges" deprecated="xml-edge-files xml-edges" type="FILE"/>
 
         <!-- Read XML-connection defs from FILE -->
-        <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE"/>
+        <connection-files value="" synonymes="connections x xml-connection-files xml-connections" deprecated="xml-connection-files xml-connections" type="FILE"/>
 
         <!-- Read XML-traffic light defs from FILE -->
         <tllogic-files value="" synonymes="i" type="FILE"/>
 
         <!-- Read XML-type defs from FILE -->
-        <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE"/>
+        <type-files value="" synonymes="t types xml-type-files xml-types" deprecated="xml-type-files xml-types" type="FILE"/>
 
         <!-- Reads public transport stops from FILE -->
         <ptstop-files value="" type="FILE"/>
@@ -55,10 +55,10 @@
         <polygon-files value="" type="FILE"/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos; -->
-        <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE"/>
+        <shapefile-prefix value="" synonymes="arcview shapefile tiger" deprecated="arcview tiger" type="FILE"/>
 
         <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos; -->
-        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE"/>
+        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" deprecated="elmar2" type="FILE"/>
 
         <!-- Read OSM-network from path &apos;FILE(s)&apos; -->
         <osm-files value="" synonymes="osm" type="FILE"/>
@@ -73,7 +73,7 @@
         <vissim-file value="" synonymes="vissim" type="FILE"/>
 
         <!-- Read RoboCup-net from DIR -->
-        <robocup-dir value="" synonymes="robocup robocup-net" type="FILE"/>
+        <robocup-dir value="" synonymes="robocup robocup-net" deprecated="robocup-net" type="FILE"/>
 
         <!-- Read MATSim-net from FILE -->
         <matsim-files value="" synonymes="matsim" type="FILE"/>
@@ -92,6 +92,9 @@
     <output>
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
+
+        <!-- Write parsable metadata (configuration etc.) instead of comments -->
+        <write-metadata value="false" type="BOOL"/>
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
@@ -199,7 +202,7 @@
 
     <projection>
         <!-- Uses a simple method for projection -->
-        <simple-projection value="false" synonymes="proj.simple" type="BOOL"/>
+        <simple-projection value="false" synonymes="proj.simple" deprecated="proj.simple" type="BOOL"/>
 
         <!-- Scaling factor for input coordinates -->
         <proj.scale value="1" type="FLOAT"/>
@@ -238,7 +241,7 @@
         <flatten value="false" type="BOOL"/>
 
         <!-- If edge shapes do not end at the node positions, extend them -->
-        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" deprecated="xml.keep-shape" type="BOOL"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
@@ -259,10 +262,10 @@
         <dismiss-vclasses value="false" type="BOOL"/>
 
         <!-- Splits edges across geometry nodes -->
-        <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
+        <geometry.split value="false" synonymes="split-geometry" deprecated="split-geometry" type="BOOL"/>
 
         <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
-        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
+        <geometry.remove value="false" synonymes="R remove-geometry" deprecated="remove-geometry" type="BOOL"/>
 
         <!-- Ensure that the given list of edges is not modified -->
         <geometry.remove.keep-edges.explicit value="" type="STR[]"/>
@@ -331,13 +334,13 @@
         <geometry.max-grade.fix value="true" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
-        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" deprecated="disable-normalize-node-positions" type="BOOL"/>
 
         <!-- Adds FLOAT to net x-positions -->
-        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT"/>
+        <offset.x value="0" synonymes="x-offset-to-apply" deprecated="x-offset-to-apply" type="FLOAT"/>
 
         <!-- Adds FLOAT to net y-positions -->
-        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" deprecated="y-offset-to-apply" type="FLOAT"/>
 
         <!-- Adds FLOAT to net z-positions -->
         <offset.z value="0" type="FLOAT"/>
@@ -346,7 +349,7 @@
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
 
         <!-- Enable roundabout-guessing -->
-        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
+        <roundabouts.guess value="true" synonymes="guess-roundabouts" deprecated="guess-roundabouts" type="BOOL"/>
 
         <!-- Structures with a circumference above FLOAT threshold are not classified as roundabout -->
         <roundabouts.guess.max-length value="3500" type="FLOAT"/>
@@ -388,22 +391,22 @@
 
     <building_defaults>
         <!-- The default number of lanes in an edge -->
-        <default.lanenumber value="1" synonymes="L lanenumber" type="INT"/>
+        <default.lanenumber value="1" synonymes="L lanenumber" deprecated="lanenumber" type="INT"/>
 
         <!-- The default width of lanes -->
-        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
+        <default.lanewidth value="-1" synonymes="lanewidth" deprecated="lanewidth" type="FLOAT"/>
 
         <!-- The default method for computing lane shapes from edge shapes -->
         <default.spreadtype value="right" type="STR"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
+        <default.speed value="13.89" synonymes="S speed" deprecated="speed" type="FLOAT"/>
 
         <!-- The default friction on an edge -->
-        <default.friction value="1" synonymes="friction" type="FLOAT"/>
+        <default.friction value="1" synonymes="friction" deprecated="friction" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
-        <default.priority value="-1" synonymes="P priority" type="INT"/>
+        <default.priority value="-1" synonymes="P priority" deprecated="priority" type="INT"/>
 
         <!-- The default edge type -->
         <default.type value="" type="STR"/>
@@ -454,25 +457,25 @@
         <tls.discard-simple value="false" type="BOOL"/>
 
         <!-- Interprets STR[] as list of junctions to be controlled by TLS -->
-        <tls.set value="" synonymes="explicite-tls" type="STR[]"/>
+        <tls.set value="" synonymes="explicite-tls" deprecated="explicite-tls" type="STR[]"/>
 
         <!-- Interprets STR[] as list of junctions to be not controlled by TLS -->
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]"/>
+        <tls.unset value="" synonymes="explicite-no-tls" deprecated="explicite-no-tls" type="STR[]"/>
 
         <!-- Turns on TLS guessing -->
-        <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
+        <tls.guess value="false" synonymes="guess-tls" deprecated="guess-tls" type="BOOL"/>
 
         <!-- Sets minimum value for the sum of all incoming lane speeds when guessing TLS -->
         <tls.guess.threshold value="69.4444" type="FLOAT"/>
 
         <!-- Sets district nodes as tls-controlled -->
-        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL"/>
+        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" deprecated="tls-guess.district-nodes" type="BOOL"/>
 
         <!-- Includes node clusters into guess -->
-        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" deprecated="tls-guess.joining" type="BOOL"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
-        <tls.join value="false" synonymes="try-join-tls" type="BOOL"/>
+        <tls.join value="false" synonymes="try-join-tls" deprecated="try-join-tls" type="BOOL"/>
 
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
@@ -499,16 +502,16 @@
         <tls.cycle.time value="90" type="INT"/>
 
         <!-- Use INT as green phase duration -->
-        <tls.green.time value="31" synonymes="traffic-light-green" type="INT"/>
+        <tls.green.time value="31" synonymes="traffic-light-green" deprecated="traffic-light-green" type="INT"/>
 
         <!-- Defines smallest vehicle deceleration -->
-        <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT"/>
+        <tls.yellow.min-decel value="3" synonymes="D min-decel" deprecated="min-decel" type="FLOAT"/>
 
         <!-- Given yellow times are patched even if being too short -->
-        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL"/>
+        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" deprecated="patch-small-tyellow" type="BOOL"/>
 
         <!-- Set INT as fixed time for yellow phase durations -->
-        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT"/>
+        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" deprecated="traffic-light-yellow" type="INT"/>
 
         <!-- Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow -->
         <tls.red.time value="5" type="INT"/>
@@ -541,10 +544,10 @@
         <tls.scramble.time value="5" type="INT"/>
 
         <!-- TLSs in STR[] will be shifted by half-phase -->
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]"/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" deprecated="tl-logics.half-offset" type="STR[]"/>
 
         <!-- TLSs in STR[] will be shifted by quarter-phase -->
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]"/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" deprecated="tl-logics.quarter-offset" type="STR[]"/>
 
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
@@ -574,37 +577,37 @@
 
     <ramp_guessing>
         <!-- Enable ramp-guessing -->
-        <ramps.guess value="false" synonymes="guess-ramps" type="BOOL"/>
+        <ramps.guess value="false" synonymes="guess-ramps" deprecated="guess-ramps" type="BOOL"/>
 
         <!-- Guess on-ramps and mark acceleration lanes if they exist but do not add new lanes -->
         <ramps.guess-acceleration-lanes value="true" type="BOOL"/>
 
         <!-- Treat edges with speed &gt; FLOAT as no ramps -->
-        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT"/>
+        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" deprecated="ramp-guess.max-ramp-speed" type="FLOAT"/>
 
         <!-- Treat edges with speed &lt; FLOAT as no highways -->
-        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT"/>
+        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" deprecated="ramp-guess.min-highway-speed" type="FLOAT"/>
 
         <!-- Use FLOAT as ramp-length -->
-        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT"/>
+        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" deprecated="ramp-guess.ramp-length" type="FLOAT"/>
 
         <!-- Use FLOAT as minimum ramp-length -->
         <ramps.min-weave-length value="50" type="FLOAT"/>
 
         <!-- Tries to handle the given edges as ramps -->
-        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite" deprecated="ramp-guess.explicite" type="STR[]"/>
 
         <!-- Do not consider the given edges as ramps -->
         <ramps.unset value="" type="STR[]"/>
 
         <!-- Avoids edge splitting -->
-        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL"/>
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" deprecated="ramp-guess.no-split" type="BOOL"/>
 
     </ramp_guessing>
 
     <edge_removal>
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
-        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
+        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" deprecated="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR[] -->
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]"/>
@@ -643,7 +646,7 @@
         <remove-edges.by-type value="" type="STR[]"/>
 
         <!-- Removes isolated edges -->
-        <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
+        <remove-edges.isolated value="false" synonymes="remove-isolated" deprecated="remove-isolated" type="BOOL"/>
 
         <!-- Only keep lanes with width in meters &gt; FLOAT -->
         <keep-lanes.min-width value="0.01" type="FLOAT"/>
@@ -655,7 +658,7 @@
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL"/>
 
         <!-- Do not regulate nodes in STR[] -->
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]"/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" deprecated="keep-unregulated.nodes" type="STR[]"/>
 
         <!-- Do not regulate district nodes -->
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL"/>
@@ -676,7 +679,7 @@
         <no-turnarounds value="false" type="BOOL"/>
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
-        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" deprecated="no-tls-turnarounds" type="BOOL"/>
 
         <!-- Disables building turnarounds at geometry-like junctions -->
         <no-turnarounds.geometry value="true" type="BOOL"/>
@@ -859,13 +862,13 @@
         <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]"/>
 
         <!-- The search radius for finding suitable road accesses for rail stops -->
-        <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
+        <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" deprecated="osm.stop-output.footway-access-distance" type="FLOAT"/>
 
         <!-- The maximum road accesses registered per rail stops -->
-        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT"/>
+        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" deprecated="osm.stop-output.footway-max-accesses" type="INT"/>
 
         <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
-        <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT"/>
+        <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" deprecated="osm.stop-output.footway-access-factor" type="FLOAT"/>
 
     </railway>
 
@@ -946,16 +949,16 @@
         <matsim.lanes-from-capacity value="false" type="BOOL"/>
 
         <!-- Read edge ids from column STR -->
-        <shapefile.street-id value="" synonymes="arcview.street-id" type="STR"/>
+        <shapefile.street-id value="" synonymes="arcview.street-id" deprecated="arcview.street-id" type="STR"/>
 
         <!-- Read from-node ids from column STR -->
-        <shapefile.from-id value="" synonymes="arcview.from-id" type="STR"/>
+        <shapefile.from-id value="" synonymes="arcview.from-id" deprecated="arcview.from-id" type="STR"/>
 
         <!-- Read to-node ids from column STR -->
-        <shapefile.to-id value="" synonymes="arcview.to-id" type="STR"/>
+        <shapefile.to-id value="" synonymes="arcview.to-id" deprecated="arcview.to-id" type="STR"/>
 
         <!-- Read type ids from column STR -->
-        <shapefile.type-id value="" synonymes="arcview.type-id" type="STR"/>
+        <shapefile.type-id value="" synonymes="arcview.type-id" deprecated="arcview.type-id" type="STR"/>
 
         <!-- Read lane number from column STR -->
         <shapefile.laneNumber value="" type="STR"/>
@@ -979,13 +982,13 @@
         <shapefile.add-params value="" type="STR[]"/>
 
         <!-- Uses edge type defaults on problems -->
-        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL"/>
+        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" deprecated="arcview.use-defaults-on-failure" type="BOOL"/>
 
         <!-- Insert edges in both directions -->
-        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" type="BOOL"/>
+        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" deprecated="arcview.all-bidi" type="BOOL"/>
 
         <!-- Guess the proper projection -->
-        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" deprecated="arcview.guess-projection" type="BOOL"/>
 
         <!-- Use traditional axis order (lon, lat) -->
         <shapefile.traditional-axis-mapping value="false" type="BOOL"/>
@@ -997,7 +1000,7 @@
         <dlr-navteq.keep-length value="false" type="BOOL"/>
 
         <!-- Structure join offset -->
-        <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT"/>
+        <vissim.join-distance value="5" synonymes="vissim.offset" deprecated="vissim.offset" type="FLOAT"/>
 
         <!-- Use FLOAT as default speed -->
         <vissim.default-speed value="50" type="FLOAT"/>
@@ -1024,19 +1027,19 @@
         <visum.connector-speeds value="100" type="FLOAT"/>
 
         <!-- Sets connector lane number -->
-        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT"/>
+        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" deprecated="visum.connector-laneno" type="INT"/>
 
         <!-- Excludes connectors -->
         <visum.no-connectors value="true" type="BOOL"/>
 
         <!-- Computes the number of lanes from the edges&apos; capacities -->
-        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL"/>
+        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" deprecated="visum.recompute-laneno" type="BOOL"/>
 
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
         <visum.verbose-warnings value="false" type="BOOL"/>
 
         <!-- The factor for flow to no. lanes conversion -->
-        <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT"/>
+        <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" deprecated="capacity-norm" type="FLOAT"/>
 
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
@@ -1087,7 +1090,7 @@
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL"/>
 
         <!-- Aggregate warnings of the same type whenever more than INT occur -->
         <aggregate-warnings value="-1" type="INT"/>
@@ -1111,7 +1114,7 @@
         <language value="C" type="STR"/>
 
         <!-- Continue on broken input -->
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" deprecated="dismiss-loading-errors" type="BOOL"/>
 
         <!-- Continue on invalid connections -->
         <ignore-errors.connections value="false" type="BOOL"/>
@@ -1126,10 +1129,10 @@
 
     <random_number>
         <!-- Initialises the random number generator with the current system time -->
-        <random value="false" synonymes="abs-rand" type="BOOL"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL"/>
 
         <!-- Initialises the random number generator with the given value -->
-        <seed value="23423" synonymes="srand" type="INT"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT"/>
 
     </random_number>
 

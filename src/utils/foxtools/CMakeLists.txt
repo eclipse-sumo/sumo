@@ -17,8 +17,6 @@ set(utils_foxtools_STAT_SRCS
    MFXComboBoxTagProperty.h
    MFXDecalsTable.cpp
    MFXDecalsTable.h
-   MFXDialogBox.cpp
-   MFXDialogBox.h
    MFXDynamicLabel.cpp
    MFXDynamicLabel.h
    MFXGroupBoxModule.cpp
@@ -58,8 +56,6 @@ set(utils_foxtools_STAT_SRCS
    MFXTextFieldIcon.h
    MFXTextFieldSearch.cpp
    MFXTextFieldSearch.h
-   MFXTextFieldTooltip.cpp
-   MFXTextFieldTooltip.h
    MFXThreadEvent.cpp
    MFXThreadEvent.h
    MFXToggleButtonTooltip.cpp

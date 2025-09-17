@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="trainStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" file="fileA.txt" lines="line1 line2" friendlyPos="false">
+    <trainStop id="trainStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" file="fileA.txt">
 
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>

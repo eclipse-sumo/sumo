@@ -337,7 +337,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     mySignalPosition(to == tpl->myTo ? tpl->mySignalPosition : Position::INVALID),
     mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr),
     myIsOffRamp(false),
-    myIsBidi(false),
+    myIsBidi(tpl->myIsBidi),
     myIndex(-1) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
@@ -3246,13 +3246,13 @@ void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
                     if (fixOppositeLengths) {
                         const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
                         WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
-                                oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
+                                       oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
                         setLoadedLength(avgLength);
                         oppEdge->setLoadedLength(avgLength);
                     } else {
                         WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
-                                ") differs in length from edge '" + getID() + "' (length " +
-                                toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                                    ") differs in length from edge '" + getID() + "' (length " +
+                                    toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
                         getLaneStruct(getNumLanes() - 1).oppositeID = "";
                     }
                 }

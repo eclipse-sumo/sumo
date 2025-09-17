@@ -29,6 +29,8 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -43,10 +45,9 @@
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/changes/GNEChange_RegisterJoin.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEMeanData.h>
@@ -65,15 +66,11 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
-#include "GNETagPropertiesDatabase.h"
-#include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"
-#include "GNEInternalTest.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -1495,7 +1492,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         const auto additionalFiles = StringTokenizer(OptionsCont::getOptions().getString("additional-files"), ";").getVector();
         for (const auto& file : additionalFiles) {
             // Create additional handler
-            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
+            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR(TL("Loading of additional file failed: ") + file);
@@ -1507,7 +1504,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
         // Create general handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of route file failed: ") + OptionsCont::getOptions().getString("route-files"));
@@ -1518,7 +1515,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load datas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
         // Create data handler
-        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false, true);
+        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false);
         // Run parser
         if (!dataHandler.parse()) {
             WRITE_ERROR(TL("Loading of data file failed: ") + OptionsCont::getOptions().getString("data-files"));
@@ -1529,7 +1526,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load meanDatas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("meandata-files").size() > 0) {
         // Create meanData handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_ERROR(TL("Loading of meandata file failed: ") + OptionsCont::getOptions().getString("meandata-files"));
@@ -1650,17 +1647,18 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
-            // Ask confirmation to user
-            const std::string header = TL("Position of joined junction");
-            const std::string bodyA = TL("There is another unselected junction in the same position of joined junction.");
-            const std::string bodyB = TL("It will be joined with the other selected junctions. Continue?");
-            const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
-            if (answer != 1) { // 1:yes, 2:no, 4:esc
-                return false;
-            } else {
+            // open dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
+                                        TL("Position of joined junction"),
+                                        TL("There is another unselected junction in the same position of joined junction."),
+                                        TL("It will be joined with the other selected junctions. Continue?"));
+            // check dialog result
+            if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                 // select conflicted junction an join all again
                 junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
+            } else {
+                return false;
             }
         }
     }
@@ -1672,6 +1670,8 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // start with the join selected junctions
     undoList->begin(GUIIcon::JUNCTION, "Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
     GNEJunction* joined = createJunction(pos, undoList);
+    joined->setAttribute(SUMO_ATTR_ID, id, undoList);
+    // id must be set before type because it is used when creating a new tls
     joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     if (setTL) {
         joined->setAttribute(SUMO_ATTR_TLTYPE, toString(type), undoList);
@@ -1727,8 +1727,6 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& selectedJunction : selectedJunctions) {
         deleteJunction(selectedJunction, undoList);
     }
-    joined->setAttribute(SUMO_ATTR_ID, id, undoList);
-
     // check if joined junction had to change their original position to avoid errors
     if (pos != oldPos) {
         joined->setAttribute(SUMO_ATTR_POSITION, toString(oldPos), undoList);
@@ -1753,27 +1751,27 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             myInvalidCrossings.push_back(*i);
         }
     }
-
+    // continue depending of invalid crossings
     if (myInvalidCrossings.empty()) {
-        // open a dialog informing that there isn't crossing to remove
-        const std::string header = TL("Clear crossings");
-        const std::string body = TL("There are no invalid crossings to remove.");
-        FXMessageBox::warning(getApp(), MBOX_OK, (header).c_str(), "%s", (body).c_str());
+        // open a warning dialog informing that there isn't crossing to remove
+        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                              TL("Clear crossings"),
+                              TL("There are no invalid crossings to remove."));
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const std::string header = TL("Clear crossings");
-        const std::string body = TL("Crossings will be cleared. Continue?");
-        const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
+        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                    GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
+                                    TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
-        if (answer != 1) {
-            return false;
-        } else {
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
-            for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
-                deleteCrossing((*i), undoList);
+            for (const auto& crossing : myInvalidCrossings) {
+                deleteCrossing(crossing, undoList);
             }
             undoList->end();
+        } else {
+            return false;
         }
     }
     return true;
@@ -2150,7 +2148,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
     // special case for vTypes
     const std::unordered_map<const GUIGlObject*, GNEDemandElement*> types = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE);
     for (const auto& type : types) {
-        if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::False) {
+        if (type.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::FALSE_STR) {
             deleteDemandElement(type.second, undoList);
         }
     }
@@ -2224,33 +2222,27 @@ GNENet::removeExplicitTurnaround(std::string id) {
 bool
 GNENet::saveAdditionals() {
     // obtain invalid additionals depending of number of their parent lanes
-    std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
-    std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
+    std::vector<GNEAdditional*> invalidAdditionals;
     // iterate over additionals and obtain invalids
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         for (const auto& addditional : additionalPair.second) {
             // check if has to be fixed
-            if (addditional.second->getTagProperty()->hasAttribute(SUMO_ATTR_LANE) && !addditional.second->isAdditionalValid()) {
-                invalidSingleLaneAdditionals.push_back(addditional.second);
-            } else if (addditional.second->getTagProperty()->hasAttribute(SUMO_ATTR_LANES) && !addditional.second->isAdditionalValid()) {
-                invalidMultiLaneAdditionals.push_back(addditional.second);
+            if (!addditional.second->isAdditionalValid()) {
+                invalidAdditionals.push_back(addditional.second);
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
-    if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
-        // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
-        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixAdditionalElementsDialog()->openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == 0) {
+    // if there are invalid additionls, open GNEFixAdditionalElementsDialog
+    if (invalidAdditionals.size() > 0) {
+        // open fix additional elements dialog
+        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                           invalidAdditionals);
+        if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
-        } else {
-            saveAdditionalsConfirmed();
-            return true;
         }
-    } else {
-        saveAdditionalsConfirmed();
-        return true;
     }
+    saveAdditionalsConfirmed();
+    return true;
 }
 
 
@@ -2288,20 +2280,17 @@ GNENet::saveDemandElements() {
             }
         }
     }
-    // if there are invalid demand elements, open GNEFixDemandElements
+    // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
-        // 0 -> Canceled Saving, with or without selecting invalid demand elements
-        // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixDemandElementsDialog()->openDialog(invalidSingleLaneDemandElements) == 0) {
+        // open fix demand elements dialog
+        const auto fixDemandElement = GNEFixDemandElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                      invalidSingleLaneDemandElements);
+        if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
-        } else {
-            saveDemandElementsConfirmed();
-            return true;
         }
-    } else {
-        saveDemandElementsConfirmed();
-        return true;
     }
+    saveDemandElementsConfirmed();
+    return true;
 }
 
 
@@ -2892,7 +2881,7 @@ GNENet::saveEdgeTypes(const std::string& filename) {
     // open device
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open tag
-    device.openTag(SUMO_TAG_TYPE);
+    device.openTag(SUMO_TAG_TYPES);
     // write edge types
     myNetBuilder->getTypeCont().writeEdgeTypes(device);
     // close tag

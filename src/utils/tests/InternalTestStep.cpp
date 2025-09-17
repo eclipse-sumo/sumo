@@ -30,7 +30,6 @@
 // static member definitions
 // ===========================================================================
 
-const std::string InternalTestStep::DialogTest::colorValue = "139,131,120";
 // this offsets corresponds to the offset of the test magenta square
 constexpr int MOUSE_OFFSET_X = 24;
 constexpr int MOUSE_OFFSET_Y = 25;
@@ -42,21 +41,65 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// InternalTestStep::DialogTest - public methods
+// InternalTestStep::DialogArgument - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::DialogTest::DialogTest(const FXuint value) :
-    questionDialogValues({value}) {
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, Action action) :
+    myType(type),
+    myAction(action) {
 }
 
 
-InternalTestStep::DialogTest::DialogTest(const std::vector<FXuint>& values) :
-    questionDialogValues(values) {
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& customAction) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
+    myCustomAction(customAction) {
 }
 
 
-InternalTestStep::DialogTest::DialogTest(const std::string& solution) :
-    fixSolution(solution) {
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& customAction, const int index) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
+    myCustomAction(customAction),
+    myIndex(index) {
+}
+
+
+InternalTestStep::DialogArgument::DialogArgument(DialogType type, const std::string& prefixToRemove, const std::string& customAction) :
+    myType(type),
+    myAction(InternalTestStep::DialogArgument::Action::CUSTOM),
+    myCustomAction(customAction) {
+    // remove prefix from custom action
+    if (prefixToRemove.size() > 0) {
+        const auto pos = customAction.find(prefixToRemove);
+        if (pos != std::string::npos) {
+            myCustomAction.erase(pos, prefixToRemove.length());
+        }
+    }
+}
+
+
+DialogType
+InternalTestStep::DialogArgument::getType() const {
+    return myType;
+}
+
+
+InternalTestStep::DialogArgument::Action
+InternalTestStep::DialogArgument::getAction() const {
+    return myAction;
+}
+
+
+const std::string&
+InternalTestStep::DialogArgument::getCustomAction() const {
+    return myCustomAction;
+}
+
+
+int
+InternalTestStep::DialogArgument::getIndex() const {
+    return myIndex;
 }
 
 // ---------------------------------------------------------------------------
@@ -93,6 +136,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     // continue depending of function
     if (function == "setupAndStart") {
         setupAndStart();
+    } else if (function == "finish") {
+        finish();
     } else if ((function == "leftClick") || (function == "leftClickData")) {
         mouseClick("left", "");
     } else if (function == "leftClickControl") {
@@ -257,8 +302,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         deleteMeanData();
     } else if (function == "copyMeanData") {
         copyMeanData();
-    } else if (function == "saveExistentShortcut") {
-        saveExistentShortcut();
+    } else if (function == "saveExistentFile") {
+        saveExistentFile();
     } else if (function == "checkUndoRedo") {
         checkUndoRedo();
     } else if (function == "delete") {
@@ -275,6 +320,28 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createDataSet();
     } else if (function == "createDataInterval") {
         createDataInterval();
+    } else if (function == "openAboutDialog") {
+        openAboutDialog();
+    } else if (function == "loadFile") {
+        loadFile();
+    } else if (function == "saveNewFile") {
+        saveNewFile();
+    } else if (function == "saveFileAs") {
+        saveFileAs();
+    } else if (function == "reloadFile") {
+        reloadFile();
+    } else if (function == "selectEdgeType") {
+        selectEdgeType();
+    } else if (function == "createNewEdgeType") {
+        createNewEdgeType();
+    } else if (function == "overwritingAccept") {
+        overwritingAccept();
+    } else if (function == "overwritingCancel") {
+        overwritingCancel();
+    } else if (function == "overwritingAbort") {
+        overwritingAbort();
+    } else if (function == "overwritingApplyToAll") {
+        overwritingApplyToAll();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -289,7 +356,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
 
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
-                                   FXSelector messageID, Category category, const std::string description) :
+                                   FXSelector messageID, Category category,
+                                   const std::string& description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myMessageID(messageID),
@@ -302,7 +370,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
                                    Category category, FXEvent* event, const bool updateView,
-                                   const std::string description) :
+                                   const std::string& description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myCategory(category),
@@ -314,26 +382,15 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 }
 
 
-InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& solution,
-                                   const std::string description) :
-    myTestSystem(parent->myTestSystem),
-    myMessageID(MID_INTERNALTEST),
-    myDescription(description) {
-    // add this testStep to parent modal dialgo testSteps
-    parent->myDialogTestSteps.push_back(this);
-    // modal arguments
-    myDialogTest = new DialogTest(solution);
-}
-
-
-InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event,
-                                   const std::string description) :
-    myTestSystem(parent->myTestSystem),
-    myMessageType(messageType),
+InternalTestStep::InternalTestStep(InternalTest* testSystem, DialogArgument* dialogArgument,
+                                   const std::string& description) :
+    myTestSystem(testSystem),
+    myCategory(InternalTestStep::Category::DIALOG),
+    myUpdateView(false),
     myDescription(description),
-    myEvent(event) {
-    // add this testStep to parent modal dialgo testSteps
-    parent->myDialogTestSteps.push_back(this);
+    myDialogArgument(dialogArgument) {
+    // add this testStep to test system
+    testSystem->addTestSteps(this);
 }
 
 
@@ -341,17 +398,24 @@ InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
-    if (myDialogTest) {
-        delete myDialogTest;
+    if (myDialogArgument) {
+        delete myDialogArgument;
     }
     if (myTLSTableTest) {
         delete myTLSTableTest;
     }
-    // remove all key steps
-    for (auto modalDialogTestStep : myDialogTestSteps) {
-        delete modalDialogTestStep;
-    }
-    myDialogTestSteps.clear();
+}
+
+
+InternalTestStep*
+InternalTestStep::getNextStep() const {
+    return myNextStep;
+}
+
+
+void
+InternalTestStep::setNextStep(InternalTestStep* nextStep) {
+    myNextStep = nextStep;
 }
 
 
@@ -367,9 +431,9 @@ InternalTestStep::getMessageID() const {
 }
 
 
-InternalTestStep::DialogTest*
-InternalTestStep::getDialogTest() const {
-    return myDialogTest;
+InternalTestStep::DialogArgument*
+InternalTestStep::getDialogArgument() const {
+    return myDialogArgument;
 }
 
 
@@ -403,12 +467,6 @@ InternalTestStep::getEvent() const {
 }
 
 
-const std::vector<const InternalTestStep*>&
-InternalTestStep::getModalDialogTestSteps() const {
-    return myDialogTestSteps;
-}
-
-
 const std::string&
 InternalTestStep::getDescription() const {
     return myDescription;
@@ -420,6 +478,8 @@ InternalTestStep::parseStep(const std::string& rowText) {
     // first check if this is the netedit.setupAndStart function
     if (rowText.find("netedit.setupAndStart") != std::string::npos) {
         return "setupAndStart";
+    } else if (rowText.find("netedit.finish") != std::string::npos) {
+        return "finish";
     } else if (rowText.compare(0, 8, "netedit.") != 0) {
         // proces only lines that start with "netedit."
         return "";
@@ -507,6 +567,14 @@ InternalTestStep::setupAndStart() {
               toString(MOUSE_REFERENCE_Y) << std::endl;
     // set first mouse position
     myTestSystem->updateLastMovedPosition(MOUSE_REFERENCE_X, MOUSE_REFERENCE_Y);
+}
+
+
+void
+InternalTestStep::finish() {
+    myCategory = Category::FINISH;
+    myUpdateView = false;
+    std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
 }
 
 
@@ -612,7 +680,7 @@ InternalTestStep::typeKey() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", 0, "<key>");
     } else {
-        buildPressKeyEvent(getStringArgument(myArguments[0]), true);
+        buildPressKeyEvent(Category::APP, getStringArgument(myArguments[0]), true);
     }
 }
 
@@ -630,25 +698,25 @@ InternalTestStep::contextualMenuOperation() const {
         buildMouseClick(viewPosition, 0, 0, "right", "");
         // jump to the element
         for (int i = 0; i < contextualMenu.getMainMenuPosition(); i++) {
-            buildPressKeyEvent("down", false);
+            buildPressKeyEvent(Category::APP, "down", false);
         }
         // type space for select
-        buildPressKeyEvent("space", false);
+        buildPressKeyEvent(Category::APP, "space", false);
         // jump to the subMenuA
         if (contextualMenu.getSubMenuAPosition() > 0) {
             for (int i = 0; i < contextualMenu.getSubMenuAPosition(); i++) {
-                buildPressKeyEvent("down", false);
+                buildPressKeyEvent(Category::APP, "down", false);
             }
             // type space for select
-            buildPressKeyEvent("space", false);
+            buildPressKeyEvent(Category::APP, "space", false);
         }
         // jump to the subMenuB
         if (contextualMenu.getSubMenuBPosition() > 0) {
             for (int i = 0; i < contextualMenu.getSubMenuBPosition(); i++) {
-                buildPressKeyEvent("down", false);
+                buildPressKeyEvent(Category::APP, "down", false);
             }
             // type space for select
-            buildPressKeyEvent("space", false);
+            buildPressKeyEvent(Category::APP, "space", false);
         }
     }
 }
@@ -665,10 +733,10 @@ InternalTestStep::protectElements() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus delete frame");
         // jump to the element
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.delete.protectElements"); i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // press enter to confirm changes (updating view)
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
     }
 }
 
@@ -690,7 +758,7 @@ InternalTestStep::modifyAttribute(const int overlappedTabs) const {
         writeError("modifyAttribute", overlappedTabs, "<int/attributeEnum, \"string\">");
     } else {
         // modify attribute
-        modifyStringAttribute(getIntArgument(myArguments[0]), overlappedTabs, getStringArgument(myArguments[1]));
+        modifyStringAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs, getStringArgument(myArguments[1]));
     }
 }
 
@@ -701,7 +769,7 @@ InternalTestStep::modifyBoolAttribute(const int overlappedTabs) const {
         writeError("modifyBoolAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
         // modify bool attribute
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
     }
 }
 
@@ -712,21 +780,11 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
         writeError("modifyColorAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
         // open dialog
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
-        // get last event (openDialogEvent)
-        auto openDialogEvent = myTestSystem->getLastTestStep();
-        // go to the list of colors
-        for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
-        }
-        // select color
-        for (int i = 0; i < 6; i++) {
-            buildPressKeyEvent(openDialogEvent, "down");
-        }
-        // go to button
-        buildPressKeyEvent(openDialogEvent, "tab");
-        // press button
-        buildPressKeyEvent(openDialogEvent, "space");
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::COLOR, "139,131,120"), "set color");
+        // press accept
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::COLOR, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -738,23 +796,11 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
         writeError("modifyVClassDialog_NoDisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
-        // get last event (openDialogEvent)
-        auto openDialogEvent = myTestSystem->getLastTestStep();
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // jump to vClass
-        for (int i = 0; i < vClass; i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
-        // select vclass
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to accept button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        buildPressKeyEvent(openDialogEvent, "space");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -766,29 +812,13 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
         writeError("modifyVClassDialog_DisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
-        // get last event (openDialogEvent)
-        auto openDialogEvent = myTestSystem->getLastTestStep();
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to accept button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press accept
-        buildPressKeyEvent(openDialogEvent, "space");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -801,29 +831,13 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
         writeError("modifyVClassDialog_Cancel", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
-        // get last event (openDialogEvent)
-        auto openDialogEvent = myTestSystem->getLastTestStep();
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to cancel button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.cancel") - vClass); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
-        // press cancel
-        buildPressKeyEvent(openDialogEvent, "space");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
+        // press accept
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::CANCEL), "accept vClasses");
     }
 }
 
@@ -835,35 +849,15 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         writeError("modifyVClassDialog_Reset", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
-        // get last event (openDialogEvent)
-        auto openDialogEvent = myTestSystem->getLastTestStep();
-        // get vClass
-        const int vClass = getIntArgument(myArguments[1]);
-        // go to disallow all vehicles
-        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
-        // disallow all vehicles
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to vClass
-        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // select vClass
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to reset button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
-            buildPressKeyEvent(openDialogEvent, "tab");
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "disallowAll"), "disallow all");
+        // select vClass
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, "netedit.attrs.dialog.allowVClass.", myArguments[1]), "select vClass");
         // press reset
-        buildPressKeyEvent(openDialogEvent, "space");
-        // go to accept button
-        for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::RESET), "accept vClasses");
         // press accept
-        buildPressKeyEvent(openDialogEvent, "space");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::VCLASS, DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -880,32 +874,30 @@ InternalTestStep::modifyVTypeDialogAttribute() const {
         const auto value = getStringArgument(myArguments[2]);
         // first check if open dialog
         if (operation == "open") {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.type.buttons.dialog"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.type.buttons.dialog"), 0);
         }
-        // obtain last step
-        InternalTestStep* parentStep = myTestSystem->getLastTestStep();
         // print info
         std::cout << value << std::endl;
         // focus dialog
-        buildTwoPressKeyEvent(parentStep, "alt", "f");
+        buildTwoPressKeyEvent(Category::DIALOG, "alt", "f", false);
         // jump to the element
         for (int i = 0; i < tabs; i++) {
-            buildPressKeyEvent(parentStep, "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // write attribute character by character
         if (value.empty()) {
-            buildPressKeyEvent(parentStep, "delete");
+            buildPressKeyEvent(Category::DIALOG, "delete", false);
         } else {
             for (const char c : value) {
-                buildPressKeyEvent(parentStep, {c});
+                buildPressKeyEvent(Category::DIALOG, {c}, false);
             }
         }
         // press enter to confirm changes (updating view)
-        buildPressKeyEvent(parentStep, "enter");
+        buildPressKeyEvent(Category::DIALOG, "enter", false);
         // finally check if close dialog
         if (operation == "close") {
-            buildTwoPressKeyEvent(parentStep, "alt", "a");
-            buildPressKeyEvent(parentStep, "enter");
+            buildTwoPressKeyEvent(Category::DIALOG, "alt", "a", false);
+            buildPressKeyEvent(Category::DIALOG, "enter", false);
         }
     }
 }
@@ -937,9 +929,9 @@ InternalTestStep::createCrossing() const {
         writeError("createCrossing", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.createTLS.button"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.createTLS.button"), 0);
         } else {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.create.button"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.create.button"), 0);
         }
     }
 }
@@ -952,7 +944,7 @@ InternalTestStep::modifyCrossingDefaultValue() const {
     } else {
         const int tabs = getIntArgument(myArguments[0]);
         const auto value = getStringArgument(myArguments[1]);
-        modifyStringAttribute(tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"), value);
+        modifyStringAttribute(Category::APP, tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"), value);
     }
 }
 
@@ -963,7 +955,7 @@ InternalTestStep::modifyCrossingDefaultBoolValue() const {
         writeError("modifyCrossingDefaultBoolValue", 0, "<int>");
     } else {
         const int tabs = getIntArgument(myArguments[0]);
-        modifyBoolAttribute(tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"));
+        modifyBoolAttribute(Category::APP, tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"));
     }
 }
 
@@ -973,7 +965,7 @@ InternalTestStep::crossingClearEdges() const {
     if (myArguments.size() != 0) {
         writeError("crossingClearEdges", 0, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.clearEdges"), 0);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.clearEdges"), 0);
     }
 }
 
@@ -983,7 +975,7 @@ InternalTestStep::crossingInvertEdges() const {
     if (myArguments.size() != 0) {
         writeError("crossingInvertEdges", 0, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.invertEdges"), 0);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.invertEdges"), 0);
     }
 }
 
@@ -993,7 +985,7 @@ InternalTestStep::saveConnectionEdit() const {
     if (myArguments.size() != 0) {
         writeError("saveConnectionEdit", 0, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.connection.saveConnections"), 0);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.connection.saveConnections"), 0);
     }
 }
 
@@ -1004,10 +996,12 @@ InternalTestStep::fixCrossings() {
         writeError("fixCrossings", 0, "<str>");
     } else {
         // save config
-        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
-                                               Category::APP, "save netedit config");
-        // create fix dialog test
-        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix crossing in dialog");
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
+                             Category::APP, "save netedit config");
+        // fix crossings
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_NETWORKELEMENTS, getStringArgument(myArguments[0])), "fix crossings");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_NETWORKELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1018,10 +1012,12 @@ InternalTestStep::fixStoppingPlace() {
         writeError("fixStoppingPlace", 0, "<str>");
     } else {
         // save config
-        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
-                                               Category::APP, "save netedit config");
-        // create fix dialog test
-        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix stoppingPlace in dialog");
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
+                             Category::APP, "save netedit config");
+        // fix stoppingPlace
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_ADDITIONALELEMENTS, getStringArgument(myArguments[0])), "fix stoppingPlace in dialog");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_ADDITIONALELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1032,10 +1028,12 @@ InternalTestStep::fixRoute() {
         writeError("fixRoute", 0, "<str>");
     } else {
         // save config
-        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
-                                               Category::APP, "save netedit config");
-        // create fix dialog test
-        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix route in dialog");
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
+                             Category::APP, "save netedit config");
+        // fix route
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_DEMANDELEMENTS, getStringArgument(myArguments[0])), "fix route in dialog");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FIX_DEMANDELEMENTS, DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1045,7 +1043,7 @@ InternalTestStep::createTLS(const int overlappedTabs) const {
     if (myArguments.size() != 0) {
         writeError("createTLS", overlappedTabs, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.create"), overlappedTabs);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.create"), overlappedTabs);
     }
 }
 
@@ -1056,9 +1054,9 @@ InternalTestStep::copyTLS() const {
         writeError("copyTLS", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copyJoined"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copyJoined"), 0);
         } else {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copySingle"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copySingle"), 0);
         }
     }
 }
@@ -1069,7 +1067,7 @@ InternalTestStep::joinTSL() const {
     if (myArguments.size() != 0) {
         writeError("joinTSL", 0, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.joinTLS"), 0);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.joinTLS"), 0);
     }
 }
 
@@ -1079,7 +1077,7 @@ InternalTestStep::disJoinTLS() const {
     if (myArguments.size() != 0) {
         writeError("disJoinTLS", 0, "<>");
     } else {
-        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.disjoinTLS"), 0);
+        modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.disjoinTLS"), 0);
     }
 }
 
@@ -1090,9 +1088,9 @@ InternalTestStep::deleteTLS() const {
         writeError("deleteTLS", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteJoined"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteJoined"), 0);
         } else {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteSingle"), 0);
+            modifyBoolAttribute(Category::APP, myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteSingle"), 0);
         }
     }
 }
@@ -1214,16 +1212,16 @@ InternalTestStep::checkParameters(const int overlappedTabs) const {
     } else {
         const int tabs = getIntArgument(myArguments[1]);
         // check different values
-        modifyStringAttribute(tabs, overlappedTabs, "dummyGenericParameters");
-        modifyStringAttribute(tabs, overlappedTabs, "key1|key2|key3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=value1|key2=value2|key3=value3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=|key2=|key3=");
-        modifyStringAttribute(tabs, overlappedTabs, "");
-        modifyStringAttribute(tabs, overlappedTabs, "key1duplicated=value1|key1duplicated=value2|key3=value3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated");
-        modifyStringAttribute(tabs, overlappedTabs, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3");
-        modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "dummyGenericParameters");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1|key2|key3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=value1|key2=value2|key3=value3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=|key2=|key3=");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1duplicated=value1|key1duplicated=value2|key3=value3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3");
         // check undo-redo
         buildUndo(9);
         buildRedo(9);
@@ -1238,16 +1236,16 @@ InternalTestStep::checkDoubleParameters(const int overlappedTabs) const {
     } else {
         const int tabs = getIntArgument(myArguments[1]);
         // check different values
-        modifyStringAttribute(tabs, overlappedTabs, "dummyGenericParameters");
-        modifyStringAttribute(tabs, overlappedTabs, "key1|key2|key3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=1|key2=2|key3=3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=|key2=|key3=");
-        modifyStringAttribute(tabs, overlappedTabs, "");
-        modifyStringAttribute(tabs, overlappedTabs, "key1duplicated=1|key1duplicated=2|key3=3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=Duplicated|key2=Duplicated|key3=Duplicated");
-        modifyStringAttribute(tabs, overlappedTabs, "keyInvalid.;%>%$$=1|key2=2|key3=3");
-        modifyStringAttribute(tabs, overlappedTabs, "key1=Invalid%;%$<>$$%|key2=2|key3=3");
-        modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=1|keyFinal2=2|keyFinal3=3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "dummyGenericParameters");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1|key2|key3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=1|key2=2|key3=3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=|key2=|key3=");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1duplicated=1|key1duplicated=2|key3=3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=Duplicated|key2=Duplicated|key3=Duplicated");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "keyInvalid.;%>%$$=1|key2=2|key3=3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "key1=Invalid%;%$<>$$%|key2=2|key3=3");
+        modifyStringAttribute(Category::APP, tabs, overlappedTabs, "keyFinal1=1|keyFinal2=2|keyFinal3=3");
         // check undo-redo
         buildUndo(9);
         buildRedo(9);
@@ -1342,7 +1340,7 @@ InternalTestStep::changeEditMode() {
 
 
 void
-InternalTestStep::saveExistentShortcut() {
+InternalTestStep::saveExistentFile() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("save", 0, "<\"string\">");
@@ -1427,16 +1425,16 @@ InternalTestStep::selection() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus selection frame");
         // jump to the element
         for (int i = 0; i < numTabs; i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         if (selectionType == "save") {
-            buildPressKeyEvent("enter", false);
+            buildPressKeyEvent(Category::APP, "enter", false);
             // complete
         } else if (selectionType == "load") {
-            buildPressKeyEvent("enter", false);
+            buildPressKeyEvent(Category::APP, "enter", false);
             // complete
         } else {
-            buildPressKeyEvent("space", true);
+            buildPressKeyEvent(Category::APP, "space", true);
         }
     }
 }
@@ -1455,46 +1453,46 @@ InternalTestStep::selectNetworkItems() const  {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus selelection frame");
         // got to type
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.type"); i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // set network element
         for (const char c : "Network elements") {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // show info
         std::cout << "Network elements" << std::endl;
         // got to type
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.subType"); i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // set network element
         for (const char c : element) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // show info
         std::cout << element << std::endl;
         // got to attribute
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.attribute"); i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // set attribute
         for (const char c : attribute) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // show info
         std::cout << attribute << std::endl;
         // got to value
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.value"); i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // set value
         for (const char c : value) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // show info
         std::cout << value << std::endl;
         // press enter to confirm changes (updating view)
-        buildPressKeyEvent("enter", true);
+        buildPressKeyEvent(Category::APP, "enter", true);
     }
 }
 
@@ -1574,18 +1572,18 @@ InternalTestStep::createDataSet() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
         // jump to select additional argument
         for (int i = 0; i < 2; i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // create new dataSet
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
         // write additional character by character
         for (const char c : dataSetId) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // go to create new dataSet
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(Category::APP, "tab", false);
         // press enter to confirm changes (updating view)
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
     }
 }
 
@@ -1605,27 +1603,315 @@ InternalTestStep::createDataInterval() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
         // jump to create interval
         for (int i = 0; i < 6; i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // create new interval
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
         // go to begin
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(Category::APP, "tab", false);
         // write begin character by character
         for (const char c : begin) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // go to begin
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(Category::APP, "tab", false);
         // write end character by character
         for (const char c : end) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(Category::APP, {c}, false);
         }
         // go to create button
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(Category::APP, "tab", false);
         // press button
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
     }
+}
+
+
+void
+InternalTestStep::openAboutDialog() {
+    if (myArguments.size() != 0) {
+        writeError("openAboutDialog", 0, "<>");
+    } else {
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_F12_ABOUT;
+        // close dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::ABOUT, DialogArgument::Action::ACCEPT), "close about dialog");
+    }
+}
+
+
+void
+InternalTestStep::loadFile() {
+    if ((myArguments.size() != 5) || !checkIntArgument(myArguments[4])) {
+        writeError("loadFile", 0, "<referencePosition, type, file, extension, extensionIndex>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        const auto file = getStringArgument(myArguments[2]);
+        const auto extension = getStringArgument(myArguments[3]);
+        const auto extensionIndex = getIntArgument(myArguments[4]);
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG;
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_HOTKEY_CTRL_M_OPENSUMOCONFIG;
+        } else if (type == "netconvertConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE;
+        } else if (type == "network") {
+            myMessageID = MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK;
+        } else if (type == "trafficLights") {
+            myMessageID = MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS;
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES;
+        } else if (type == "additional") {
+            myMessageID = MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS;
+        } else if (type == "demand") {
+            myMessageID = MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS;
+        } else if (type == "data") {
+            myMessageID = MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS;
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << "." << extension << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file + "." + extension, extensionIndex), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::saveNewFile() {
+    if ((myArguments.size() != 4) || !checkIntArgument(myArguments[3])) {
+        writeError("saveNewFile", 0, "<referencePosition, type, extension, extensionIndex>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        const auto extension = getStringArgument(myArguments[2]);
+        const auto extensionIndex = getIntArgument(myArguments[3]);
+        std::string file;
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
+            file = "netedit2." + extension;
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
+            file = "sumo2." + extension;
+        } else if (type == "xml") {
+            myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
+            file = "net2." + extension;
+        } else if (type == "joinedJunctions") {
+            myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
+            file = "joinedjunctions2." + extension;
+        } else if (type == "network") {
+            myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
+            file = "net2." + extension;
+        } else if (type == "trafficLights") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
+            file = "trafficlights2." + extension;
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
+            file = "edgetypes2." + extension;
+        } else if (type == "additional") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
+            file = "additionals2." + extension;
+        } else if (type == "demand") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
+            file = "routes2." + extension;
+        } else if (type == "data") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
+            file = "datas2." + extension;
+        } else if (type == "meanData") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
+            file = "meandatas2.dat." + extension;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file, extensionIndex), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::saveFileAs() {
+    if (myArguments.size() != 3) {
+        writeError("saveFileAs", 0, "<referencePosition, type, bool>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        std::string file;
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS;
+            file = "netedit3.netecfg";
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS;
+            file = "sumo3.sumocfg";
+        } else if (type == "network") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVENETWORK_AS;
+            file = "net3.net.xml";
+        } else if (type == "trafficLights") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS;
+            file = "trafficlights3.tll.xml";
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS;
+            file = "edgetypes3.typ.xml";
+        } else if (type == "additional") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED;
+            file = "additionals3.add.xml";
+        } else if (type == "jupedsim") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS;
+            file = "additionals3.add.xml";
+        } else if (type == "demand") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED;
+            file = "routes3.rou.xml";
+        } else if (type == "data") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED;
+            file = "datas3.dat.xml";
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED;
+            file = "meandatas3.dat.add.xml";
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::reloadFile() {
+    if (myArguments.size() != 3) {
+        writeError("reloadFile", 0, "<referencePosition, type, bool>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        // continue depending of type
+        if (type == "neteditConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG;
+        } else if (type == "sumoConfig") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG;
+        } else if (type == "network") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOADNETWORK;
+        } else if (type == "edgeTypes") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES;
+        } else if (type == "trafficLights") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS;
+        } else if (type == "additional") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS;
+        } else if (type == "demand") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS;
+        } else if (type == "data") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS;
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function reloadFile", type);
+        }
+    }
+}
+
+
+void
+InternalTestStep::selectEdgeType() {
+    if (myArguments.size() != 0) {
+        writeError("selectEdgeType", 0, "<>");
+    } else {
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus edge frame");
+        // got to type
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.select"); i++) {
+            buildPressKeyEvent(Category::APP, "tab", false);
+        }
+        // select edge type
+        buildPressKeyEvent(Category::APP, "space", true);
+    }
+}
+
+
+void
+InternalTestStep::createNewEdgeType() {
+    if (myArguments.size() != 1 && checkBoolArgument(myArguments[0])) {
+        writeError("createNewEdgeType", 0, "<bool>");
+    } else {
+        const auto existent = getBoolArgument(myArguments[0]);
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus edge frame");
+        if (existent) {
+            for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.createExistent"); i++) {
+                buildPressKeyEvent(Category::APP, "tab", false);
+            }
+        } else {
+            for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.edge.edgeType.createNew"); i++) {
+                buildPressKeyEvent(Category::APP, "tab", false);
+            }
+        }
+        // select edge type
+        buildPressKeyEvent(Category::APP, "space", true);
+    }
+}
+
+
+void
+InternalTestStep::overwritingAccept() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::ACCEPT);
+    myDescription = "accept overwriting";
+}
+
+
+void
+InternalTestStep::overwritingCancel() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::CANCEL);
+    myDescription = "discard overwriting";
+}
+
+
+void
+InternalTestStep::overwritingAbort() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, DialogArgument::Action::ABORT);
+    myDescription = "abort overwriting";
+}
+
+
+void
+InternalTestStep::overwritingApplyToAll() {
+    myCategory = Category::DIALOG;
+    myDialogArgument = new DialogArgument(DialogType::OVERWRITE, "applyToAll");
+    myDescription = "apply to all";
 }
 
 
@@ -1767,14 +2053,14 @@ InternalTestStep::changeElement() const {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus " + frame);
             // jump to select additional argument
             for (int i = 0; i < numTabs; i++) {
-                buildPressKeyEvent("tab", false);
+                buildPressKeyEvent(Category::APP, "tab", false);
             }
             // write additional character by character
             for (const char c : element) {
-                buildPressKeyEvent({c}, false);
+                buildPressKeyEvent(Category::APP, {c}, false);
             }
             // press enter to confirm changes (updating view)
-            buildPressKeyEvent("enter", true);
+            buildPressKeyEvent(Category::APP, "enter", true);
         }
     }
 }
@@ -1807,16 +2093,16 @@ InternalTestStep::changePlan()  const {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus plan frame");
             // jump to select additional argument
             for (int i = 0; i < numTabs; i++) {
-                buildPressKeyEvent("tab", false);
+                buildPressKeyEvent(Category::APP, "tab", false);
             }
             // write additional character by character
             for (const char c : plan) {
-                buildPressKeyEvent({c}, false);
+                buildPressKeyEvent(Category::APP, {c}, false);
             }
             // print info
             std::cout << plan << std::endl;
             // press enter to confirm changes (updating view)
-            buildPressKeyEvent("enter", true);
+            buildPressKeyEvent(Category::APP, "enter", true);
         }
     }
 }
@@ -1835,17 +2121,21 @@ InternalTestStep::computeJunctions() {
 
 void
 InternalTestStep::computeJunctionsVolatileOptions() {
-    if (myArguments.size() > 1) {
-        writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
+    if (myArguments.size() != 1) {
+        writeError("computeJunctionsVolatileOptions", 0, "<yes/no/esc>");
     } else {
-        // due argument is optional, if not given, we assume True
-        FXuint result = DialogTest::yes;
-        if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
-            result = DialogTest::no;
-        }
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
-        myDialogTest = new DialogTest(result);
+        // get argument
+        const auto dialogArgument = getStringArgument(myArguments[0]);
+        // press space to confirm changes (updating view)
+        if (dialogArgument == "yes") {
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ACCEPT), "close accepting");
+        } else if (dialogArgument == "no") {
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::CANCEL), "close canceling");
+        } else {
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ABORT), "close aborting");
+        }
     }
 }
 
@@ -1863,16 +2153,16 @@ InternalTestStep::selectAdditionalChild() {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "select additional child");
         // jump to the element
         for (int i = 0; i < tabs; i++) {
-            buildPressKeyEvent("tab", false);
+            buildPressKeyEvent(Category::APP, "tab", false);
         }
         // jump to the element
         for (int i = 0; i < downs; i++) {
-            buildPressKeyEvent("down", false);
+            buildPressKeyEvent(Category::APP, "down", false);
         }
         // select additional child
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(Category::APP, "space", true);
         // leave
-        buildPressKeyEvent("tab", true);
+        buildPressKeyEvent(Category::APP, "tab", true);
     }
 }
 
@@ -1938,7 +2228,7 @@ InternalTestStep::createMeanData() {
     if (myArguments.size() != 0) {
         writeError("createMeanData", 0, "<>");
     } else {
-        modifyBoolAttribute(5, 0);
+        modifyBoolAttribute(Category::APP, 5, 0);
     }
 }
 
@@ -1948,7 +2238,7 @@ InternalTestStep::deleteMeanData() {
     if (myArguments.size() != 0) {
         writeError("deleteMeanData", 0, "<>");
     } else {
-        modifyBoolAttribute(6, 0);
+        modifyBoolAttribute(Category::APP, 6, 0);
     }
 }
 
@@ -1958,7 +2248,7 @@ InternalTestStep::copyMeanData() {
     if (myArguments.size() != 0) {
         writeError("copyMeanData", 0, "<>");
     } else {
-        modifyBoolAttribute(7, 0);
+        modifyBoolAttribute(Category::APP, 7, 0);
     }
 }
 
@@ -2081,7 +2371,7 @@ InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
     // focus frame
     new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus frame");
     // press enter to start drawing
-    buildPressKeyEvent("enter", true);
+    buildPressKeyEvent(Category::APP, "enter", true);
     // first edge
     buildMouseClick(viewPosition, 0, 0, "left", "");
     writeClickInfo(viewPosition, 0, 0, "");
@@ -2104,43 +2394,43 @@ InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
         writeClickInfo(viewPosition, 0, 0, "");
     }
     // press enter to end drawing
-    buildPressKeyEvent("enter", true);
+    buildPressKeyEvent(Category::APP, "enter", true);
 }
 
 
 void
-InternalTestStep::modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const {
+InternalTestStep::modifyStringAttribute(Category category, const int tabs, const int overlappedTabs, const std::string& value) const {
     // print info
     std::cout << value << std::endl;
     // focus frame
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus frame");
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, category, "focus frame");
     // jump to the element
     for (int i = 0; i < (tabs + overlappedTabs); i++) {
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(category, "tab", false);
     }
     // write attribute character by character
     if (value.empty()) {
-        buildPressKeyEvent("delete", false);
+        buildPressKeyEvent(category, "delete", false);
     } else {
         for (const char c : value) {
-            buildPressKeyEvent({c}, false);
+            buildPressKeyEvent(category, {c}, false);
         }
     }
     // press enter to confirm changes (updating view)
-    buildPressKeyEvent("enter", true);
+    buildPressKeyEvent(category, "enter", true);
 }
 
 
 void
-InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) const {
+InternalTestStep::modifyBoolAttribute(Category category, const int tabs, const int overlappedTabs) const {
     // focus frame
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus frame");
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, category, "focus frame");
     // jump to the element
     for (int i = 0; i < (tabs + overlappedTabs); i++) {
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(category, "tab", false);
     }
     // toogle attribute
-    buildPressKeyEvent("space", true);
+    buildPressKeyEvent(category, "space", true);
 }
 
 
@@ -2308,21 +2598,14 @@ InternalTestStep::buildKeyReleaseEvent(const std::string& key) const {
 
 
 void
-InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView, "key '" + key + "' pressed");
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView, "key '" + key + "' released");
+InternalTestStep::buildPressKeyEvent(Category category, const std::string& key, const bool updateView) const {
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, category, buildKeyPressEvent(key), updateView, "key '" + key + "' pressed");
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, category, buildKeyReleaseEvent(key), updateView, "key '" + key + "' released");
 }
 
 
 void
-InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const {
-    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key), "key '" + key + "' pressed in dialog");
-    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key), "key '" + key + "' released in dialog");
-}
-
-
-void
-InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
+InternalTestStep::buildTwoPressKeyEvent(Category category, const std::string& keyA, const std::string& keyB, const bool updateView) const {
     // create both events using keyB
     auto pressEvent = buildKeyPressEvent(keyB);
     auto releaseEvent = buildKeyPressEvent(keyB);
@@ -2337,29 +2620,8 @@ InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::stri
         pressEvent->state = ALTMASK;
         releaseEvent->state = ALTMASK;
     }
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, pressEvent, updateView, "keys '" + keyA + "' + '" + keyB + "' pressed");
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, releaseEvent, updateView, "keys '" + keyA + "' + '" + keyB + " pressed");
-}
-
-
-void
-InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const {
-    // create both events using keyB
-    auto pressEvent = buildKeyPressEvent(keyB);
-    auto releaseEvent = buildKeyPressEvent(keyB);
-    // check if set state
-    if (keyA == "shift") {
-        pressEvent->state = SHIFTMASK;
-        releaseEvent->state = SHIFTMASK;
-    } else if (keyA == "control") {
-        pressEvent->state = CONTROLMASK;
-        releaseEvent->state = CONTROLMASK;
-    } else if (keyA == "alt") {
-        pressEvent->state = ALTMASK;
-        releaseEvent->state = ALTMASK;
-    }
-    new InternalTestStep(parent, SEL_KEYPRESS, pressEvent, "keys '" + keyA + "' + '" + keyB + "' pressed in dialog");
-    new InternalTestStep(parent, SEL_KEYRELEASE, releaseEvent,  "keys '" + keyA + "' + '" + keyB + " pressed in dialog");
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, category, pressEvent, updateView, "keys '" + keyA + "' + '" + keyB + "' pressed");
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, category, releaseEvent, updateView, "keys '" + keyA + "' + '" + keyB + " pressed");
 }
 
 

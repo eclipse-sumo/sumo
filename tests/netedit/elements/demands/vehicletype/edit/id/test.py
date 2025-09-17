@@ -54,7 +54,7 @@ netedit.modifyAttribute(netedit.attrs.type.edit.id, "customID")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -22,13 +22,14 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/foxtools/MFXButtonTooltip.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 
 #include "GUIGlChildWindow.h"
@@ -153,8 +154,8 @@ GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                                            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
+    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, nullptr,
+                                            false, GUIDesignComboBoxVisibleItems, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                          myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Edit Coloring Schemes") + std::string("\t") + TL("Opens a menu which lets you edit the coloring schemes. (F9)")).c_str(),

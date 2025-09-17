@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-08-08 10:03+0000\n"
-"PO-Revision-Date: 2025-08-04 06:44+0000\n"
+"POT-Creation-Date: 2025-09-04 16:38+0200\n"
+"PO-Revision-Date: 2025-09-14 17:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -875,7 +875,7 @@ msgstr "Die als Ziel deklarierte Kante '%' ist nicht bekannt."
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
 msgid "The from-edge '%' in flow '%' is not known."
-msgstr ""
+msgstr "Die Ausgangskante '%' des Flusses '%' ist unbekannt."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -1360,7 +1360,7 @@ msgstr "Fahrzeug '%' hat keine zulässige Route. %"
 #: src/mesosim/METriggeredCalibrator.cpp:84
 #, c-format
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
-msgstr ""
+msgstr "Einsatz des Fahrzeugs '%' durch Calibrator '%' fehlgeschlagen!"
 
 #: src/mesosim/METriggeredCalibrator.cpp:130
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1381,13 +1381,13 @@ msgstr "Keine gültigen Routen im Kalibrator '%'."
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
 msgstr "Route '%' in Kalibrator '%' beinhaltet nicht die Kante '%'."
 
-#: src/mesosim/MEVehicle.cpp:235
+#: src/mesosim/MEVehicle.cpp:237
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
 "Verbindungshalte sind nicht anwendbar für die mesoskopische Simulation "
 "(Fahrzeug '%', Abschnitt '%')."
 
-#: src/mesosim/MEVehicle.cpp:262
+#: src/mesosim/MEVehicle.cpp:264
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
@@ -1395,7 +1395,7 @@ msgstr ""
 "Fahrzeug '%' hat mehrere Halte auf den Abschnitt '%'; zur Zeit=% (stop-"
 "output wird zusammengeführt)."
 
-#: src/mesosim/MEVehicle.cpp:393 src/microsim/MSVehicle.cpp:1712
+#: src/mesosim/MEVehicle.cpp:395 src/microsim/MSVehicle.cpp:1712
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
@@ -1403,7 +1403,7 @@ msgstr ""
 "Fahrzeug '%' ignoriert ausgelösten Halt auf Fahrstreifen '%' aufgrund von "
 "Kapazitätsengpässen."
 
-#: src/mesosim/MEVehicle.cpp:410 src/microsim/MSVehicle.cpp:1727
+#: src/mesosim/MEVehicle.cpp:412 src/microsim/MSVehicle.cpp:1727
 #, c-format
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
@@ -1412,11 +1412,11 @@ msgstr ""
 "Fahrzeug '%' ignoriert aufgrund von Kapazitätsengpässen den von Containern "
 "ausgelösten Halt auf Fahrstreifen '%'."
 
-#: src/mesosim/MEVehicle.cpp:596
+#: src/mesosim/MEVehicle.cpp:598
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "Fehler: Ungültige Fahrzeuge im Stand (kann ein Mikrostand sein)!"
 
-#: src/mesosim/MEVehicle.cpp:632
+#: src/mesosim/MEVehicle.cpp:634
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
 msgstr "Unbekanntes Segment '%:%' des Fahrzeugs '%' im geladenen Zustand."
 
@@ -3293,7 +3293,7 @@ msgstr "Methode wird nicht unterstützt"
 #: src/microsim/MSLink.cpp:252
 #, c-format
 msgid "Internal lane '%' has % predecessors"
-msgstr ""
+msgstr "Der interne Fahrstreifen '%' hat % Vorgänger"
 
 #: src/microsim/MSNet.cpp:190 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
@@ -3376,19 +3376,21 @@ msgstr "Laden vom Stand '%' ist fehlgeschlagen."
 
 #: src/microsim/MSParkingArea.cpp:86
 msgid "Only a numerical departPos is supported for % '%'"
-msgstr ""
+msgstr "Es wird nur ein numerischer Wert für departPos in % '%' unterstützt"
 
 #: src/microsim/MSParkingArea.cpp:88
 msgid "Invalid departPos for % '%'"
-msgstr ""
+msgstr "Ungültiger Wert für departPos in % '%'"
 
 #: src/microsim/MSRightOfWayJunction.cpp:91
 msgid ""
 "Found invalid logic position of a link for junction '%' (%, max %) -> "
 "(network error)"
 msgstr ""
+"Eine Verbindung im Knotenpunkt '%' befindet sich an einer ungültigen "
+"logischen Position (%, max %) -> (Netzfehler)"
 
-#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
+#: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:110
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr ""
 "Die Nutzung der Verkehrsumlegungszone wurde angefordert, aber es ist keine "
@@ -3405,7 +3407,7 @@ msgid "Another vehicle type (or distribution) with the id '%' exists."
 msgstr ""
 "Anderer Fahrzeugtyp (oder Verteilung) mit der ID '%' existiert bereits."
 
-#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:360
+#: src/microsim/MSRouteHandler.cpp:345 src/router/RORouteHandler.cpp:359
 msgid "Ids of internal routes are ignored (vehicle '%')."
 msgstr "IDs interner Routen werden ignoriert (Fahrzeug '%')."
 
@@ -3439,7 +3441,7 @@ msgstr ""
 "Nicht zusammenhängende Route '%' im Wiederholungsfall. Die letzte Kante '%' "
 "ist nicht mt der ersten Kante '%' verbunden%"
 
-#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:490
+#: src/microsim/MSRouteHandler.cpp:474 src/router/RORouteHandler.cpp:489
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
@@ -3469,7 +3471,7 @@ msgstr "Eine andere Route (oder Verteilung) mit der ID '%' existiert."
 msgid "Route distribution '%' is empty."
 msgstr "Routenverteilung '%' ist leer."
 
-#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:647
+#: src/microsim/MSRouteHandler.cpp:635 src/router/RORouteHandler.cpp:646
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
@@ -3592,8 +3594,8 @@ msgstr ""
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "Haltekante '%' fehlt im 'via'-Attribut von % '%'."
 
-#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1169
-#: src/router/RORouteHandler.cpp:1288
+#: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1168
+#: src/router/RORouteHandler.cpp:1287
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3608,7 +3610,7 @@ msgstr ""
 "Ignoriere Ankunftsposition für %, da diese außerhalb des gegebenen Halts '%' "
 "ist."
 
-#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1190
+#: src/microsim/MSRouteHandler.cpp:1516 src/router/RORouteHandler.cpp:1189
 msgid "No destination edge for %."
 msgstr "Keine Zielkante für %."
 
@@ -3616,17 +3618,17 @@ msgstr "Keine Zielkante für %."
 msgid "Cannot define person stage without person."
 msgstr "Es kann kein Personenabschnitt ohne eine Person definiert werden."
 
-#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1210
+#: src/microsim/MSRouteHandler.cpp:1549 src/router/RORouteHandler.cpp:1209
 msgid "Start edge not defined for person '%'."
 msgstr "Keine definierte Startkante für Person '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1560 src/microsim/MSRouteHandler.cpp:1634
-#: src/router/RORouteHandler.cpp:1221 src/router/RORouteHandler.cpp:1279
+#: src/router/RORouteHandler.cpp:1220 src/router/RORouteHandler.cpp:1278
 msgid "Non-positive walking duration for '%'."
 msgstr "Keine positive Wegedauer für '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1592 src/microsim/MSRouteHandler.cpp:1640
-#: src/router/RORouteHandler.cpp:1283
+#: src/router/RORouteHandler.cpp:1282
 msgid "Non-positive walking speed for '%'."
 msgstr "Keine positive Gehgeschwindigkeit für '%'."
 
@@ -3776,8 +3778,8 @@ msgstr " aus unbekannten Gründen"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr ""
 "Fahrzeug '%' führt einen Nothalt am Ende des Fahrstreifens '%'% durch "
 "(Verzögerung=%, Versatz=%), zur Zeit=%."
@@ -3793,8 +3795,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
-"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit "
-"Verzögerung=%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
+"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit Verzögerung="
+"%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
 
 #: src/microsim/MSVehicle.cpp:5688 src/microsim/MSVehicle.cpp:5777
 msgid "Vehicle '%' skips stop on lane '%' time=%."
@@ -4272,7 +4274,7 @@ msgstr "Unbekannter Fahrstreifen '%' von Fahrzeug '%' in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:352
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "Unbekannter Fahrzeugtyp '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
@@ -4284,15 +4286,15 @@ msgstr "Keine Kante von Fahrzeug '%' zur Zeit % in der FCD-Abspieldatei."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:368
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "Verdoppelte Person '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:381
 msgid "Could not add route '%'."
-msgstr ""
+msgstr "Die Route '%' konnte nicht hinzugefügt werden."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:390
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "Verdoppeltes Fahrzeug '%'."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -5491,6 +5493,8 @@ msgid ""
 "Error when evaluating expression '%':\n"
 "  %"
 msgstr ""
+"Fehler bei der Auswertung des Ausdrucks '%':\n"
+"  %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1232
 msgid "Invalid empty condition '%'"
@@ -5502,7 +5506,7 @@ msgstr "Nicht unterstützter Zustand '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1279
 msgid "Parsing expressions with % elements ('%') is not supported"
-msgstr ""
+msgstr "Ausdrücke mit % Elementen ('%') zu analysieren wird nicht unterstützt"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1310
 msgid "Division by 0 in condition '%'"
@@ -5510,15 +5514,15 @@ msgstr "Division durch 0 in Zustand '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1319
 msgid "Unsupported operator '%' in condition '%'"
-msgstr ""
+msgstr "Nicht unterstützter Operator '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1328
 msgid "Function '%' requires % arguments but % were given"
-msgstr ""
+msgstr "Die Funktion '%' verlangt % Argumente, aber es wurden % übergeben"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1343
 msgid "Error when evaluating function '%' with args '%' (%)"
-msgstr ""
+msgstr "Fehler bei der Auswertung von Funktion '%' mit den Argumenten '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1361
 #, c-format
@@ -5531,11 +5535,11 @@ msgstr "Ungültiger leerer Ausdruck"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1438
 msgid "Invalid link index '%' in expression '%'"
-msgstr ""
+msgstr "Ungültiger Verbindungsindex '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1443
 msgid "Unsupported function '%' in expression '%'"
-msgstr ""
+msgstr "Nicht unterstützte Funktion '%' im Ausdruck '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1487
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -5543,12 +5547,14 @@ msgstr "Fehler beim Abrufen der Bedingungen '%' für LSA-Logik '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1502
 msgid "Unknown condition '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Unbekannte Bedingung '%' für die verkehrsabhängige LSA '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1533
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1550
 msgid "Invalid lane '%' in key '%' for actuated traffic light '%'"
 msgstr ""
+"Ungültiger Fahrstreifen '%' im Schlüssel '%' für die verkehrsabhängige LSA "
+"'%'"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -5949,8 +5955,8 @@ msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 "Das Fahrzeug '%' wird über die maximale Belegung % hinaus mit der erzeugten "
 "Person '%' beladen (zur Zeit %)"
@@ -6139,8 +6145,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 "Ungültige Entfernungsberechnung für Fahrzeug '%' ausgehend vom Haltepunkt "
 "'%' zur Zeit %."
@@ -6745,49 +6751,49 @@ msgid "Could not insert edge '%' after split of edge '%'."
 msgstr ""
 "Kante '%' konnte nach der Teilung von Kante '%' nicht eingefügt werden."
 
-#: src/netbuild/NBEdgeCont.cpp:1394
+#: src/netbuild/NBEdgeCont.cpp:1407
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "Ersetzte geladenen Kreisverkehr '%' mit '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:1807
+#: src/netbuild/NBEdgeCont.cpp:1820
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "Kante '%' überlappt sich mit Kante '%' bei %."
 
-#: src/netbuild/NBEdgeCont.cpp:1823
+#: src/netbuild/NBEdgeCont.cpp:1836
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "Kante '%' hat einen vertikalen Sprung von %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1825
+#: src/netbuild/NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "Kante '%' hat eine Steigung von %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1835
+#: src/netbuild/NBEdgeCont.cpp:1848
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "Verbindung '%' hat einen vertikalen Sprung von %m."
 
-#: src/netbuild/NBEdgeCont.cpp:1837
+#: src/netbuild/NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "Verbindung '%' hat eine Steigung von %%."
 
-#: src/netbuild/NBEdgeCont.cpp:1877
+#: src/netbuild/NBEdgeCont.cpp:1890
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "Nicht vereinigte Straßenbahnkante '%' mit % Fahrstreifen."
 
-#: src/netbuild/NBEdgeCont.cpp:1957
+#: src/netbuild/NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "Mehrdeutige Straßenbahnkanten '%' und '%' für Fahrstreifen '%'."
 
-#: src/netbuild/NBEdgeCont.cpp:2112 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netbuild/NBEdgeCont.cpp:2125 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "Der Ausgangsknoten von Kante '%' ist nicht bekannt."
 
-#: src/netbuild/NBEdgeCont.cpp:2116 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netbuild/NBEdgeCont.cpp:2129 src/netimport/NIImporter_SUMO.cpp:144
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
@@ -10496,45 +10502,45 @@ msgstr "Unbekanntes LSA-Layout '%' für den Knoten '%'."
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr "Änderung des LSA-Typs '%' in '%' an LSA '%'."
 
-#: src/netimport/NIXMLPTHandler.cpp:159
+#: src/netimport/NIXMLPTHandler.cpp:166
 #, c-format
 msgid "Edge '%' for stop '%' not found"
 msgstr "Kante '%' für den Halt '%' nicht gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:167
+#: src/netimport/NIXMLPTHandler.cpp:174
 #, c-format
 msgid "Lane '%' for stop '%' not found"
 msgstr "Fahrstreifen '%' für Halt '%' nicht gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:185
+#: src/netimport/NIXMLPTHandler.cpp:209
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr "ÖV-Haltestelle '%' konnte nicht hinzugefügt werden (existiert bereits)"
 
-#: src/netimport/NIXMLPTHandler.cpp:204
+#: src/netimport/NIXMLPTHandler.cpp:228
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
 msgstr "Kante '%' für den Zugang zum Halt '%' nicht gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:240
+#: src/netimport/NIXMLPTHandler.cpp:264
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
 "Doppelte ptLine-ID '%' gefunden; Es wird angenommen, dass Überschreiben "
 "gewünscht ist."
 
-#: src/netimport/NIXMLPTHandler.cpp:281
+#: src/netimport/NIXMLPTHandler.cpp:305
 msgid "Found route outside line definition"
 msgstr "Route außerhalb der Zeilendefinition gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:291 src/netimport/NIXMLPTHandler.cpp:311
+#: src/netimport/NIXMLPTHandler.cpp:315 src/netimport/NIXMLPTHandler.cpp:335
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
 msgstr "Kante '%' in der Route der Linie '%' nicht gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:330
+#: src/netimport/NIXMLPTHandler.cpp:354
 msgid "Stop '%' within line '%' not found"
 msgstr "Halt '%' innerhalb der Linie '%' nicht gefunden"
 
-#: src/netimport/NIXMLPTHandler.cpp:346
+#: src/netimport/NIXMLPTHandler.cpp:370
 msgid "Stop '%' within route '%' not found"
 msgstr "Halt '%' innerhalb der Route '%' nicht gefunden"
 
@@ -11383,129 +11389,6 @@ msgid ""
 msgstr ""
 "Ignoriere Option \"proj.plain-geo\", da keine geo-conversion definiert wurde"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr "Der Bezirk '%' verfügt über keine gültige Quelle."
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr "Der Bezirk '%' verfügt über kein gültiges Ziel."
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' muss positiv sein (in der Definition von % '%')."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "Bezirk '%' hat keine Quelle."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "Bezirk '%' hat kein Ziel."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
-"nicht gefunden werden."
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
-"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
-"zurückgefallen."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "Dateiende beim Lesen von %."
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "Ungültige Perioden-Definition '%'."
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Ungültiger Faktor: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Fehlende Zeile mit % Bezirksnamen."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Fehlende Zeile für Bezirk %."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Mehr Einträge als Bezirke gefunden."
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "Keine numerische Fahrzeuganzahl in Zeile '%'."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "Mindestens eine Information in Zeile '%' fehlt."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "Konnte '%' nicht öffnen."
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr ""
-"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus FILE(s)"
@@ -11608,6 +11491,129 @@ msgstr "Keine Bezirke geladen."
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "Keine Fahrzeuge geladen."
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr "Der Bezirk '%' verfügt über keine gültige Quelle."
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr "Der Bezirk '%' verfügt über kein gültiges Ziel."
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' muss positiv sein (in der Definition von % '%')."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "Bezirk '%' hat keine Quelle."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "Bezirk '%' hat kein Ziel."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
+"nicht gefunden werden."
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
+"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
+"zurückgefallen."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "Dateiende beim Lesen von %."
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "Ungültige Perioden-Definition '%'."
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Ungültiger Faktor: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Fehlende Zeile mit % Bezirksnamen."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Fehlende Zeile für Bezirk %."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Mehr Einträge als Bezirke gefunden."
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "Keine numerische Fahrzeuganzahl in Zeile '%'."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "Mindestens eine Information in Zeile '%' fehlt."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "Konnte '%' nicht öffnen."
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr ""
+"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -12057,6 +12063,8 @@ msgstr ""
 #: src/router/ROFrame.cpp:163
 msgid "Backtrack on route if the detour is longer than the gap by FACTOR"
 msgstr ""
+"Entlang der Route zurückverfolgen, falls der Umweg den Abstand um den FAKTOR "
+"übersteigt"
 
 #: src/router/ROFrame.cpp:175
 msgid "Aggregate routing queries with the same origin"
@@ -12265,54 +12273,54 @@ msgstr ""
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "Kante '%' wurde nicht mit Kante '%' für das Fahrzeug '%' verbunden."
 
-#: src/router/RORouteHandler.cpp:234
+#: src/router/RORouteHandler.cpp:233
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr ""
 "Die ausgelöste Abfahrt für Person '%' erfordert das Starten einer Fahrt."
 
-#: src/router/RORouteHandler.cpp:236
+#: src/router/RORouteHandler.cpp:235
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
 "Die ausgelöste Abfahrt für den Container '%' erfordert das Starten eines "
 "Transportes."
 
-#: src/router/RORouteHandler.cpp:258
+#: src/router/RORouteHandler.cpp:257
 #, c-format
 msgid "Found % outside container element"
 msgstr "% außerhalb des Containerelements gefunden"
 
-#: src/router/RORouteHandler.cpp:382
+#: src/router/RORouteHandler.cpp:381
 msgid "No probability for route %, using default."
 msgstr "Keine Wahrscheinlichkeit für Route %, nutze Standard."
 
-#: src/router/RORouteHandler.cpp:537
+#: src/router/RORouteHandler.cpp:536
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
 msgstr "IDs von internen Routenverteilungen werden ignoriert (Fahrzeug '%')."
 
-#: src/router/RORouteHandler.cpp:697
+#: src/router/RORouteHandler.cpp:696
 msgid "Discarding person '%' because her plan is empty"
 msgstr "Verwerfe Person '%', da ihr Plan leer ist"
 
-#: src/router/RORouteHandler.cpp:724
+#: src/router/RORouteHandler.cpp:723
 msgid "Discarding personFlow '%' because their plan is empty"
 msgstr "Verwerfe Personenfluss '%', da ihr Plan leer ist"
 
-#: src/router/RORouteHandler.cpp:732
+#: src/router/RORouteHandler.cpp:731
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr ""
 "für den probabilistischen Personenfluss '%' muss eine Endzeit angeben werden"
 
-#: src/router/RORouteHandler.cpp:809
+#: src/router/RORouteHandler.cpp:808
 msgid "Discarding container '%' because its plan is empty"
 msgstr "Container '%' wird verworfen, weil sein Plan leer ist"
 
-#: src/router/RORouteHandler.cpp:826
+#: src/router/RORouteHandler.cpp:825
 msgid "Discarding containerFlow '%' because its plan is empty"
 msgstr "Containerfluss '%' wird verworfen, da sein Plan leer ist"
 
-#: src/router/RORouteHandler.cpp:1126
+#: src/router/RORouteHandler.cpp:1125
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 "Die ausgelöste Abfahrt für den Container '%' benötigt einen eindeutigen "
@@ -12331,7 +12339,7 @@ msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Abbruch wegen Fehler."
 
@@ -12707,17 +12715,17 @@ msgstr "Ungültige Konvertierung von String zu Double (%)"
 msgid "Invalid conversion from string to double (empty value)"
 msgstr "Ungültige Konvertierung von String zu Double (leerer Wert)"
 
-#: src/utils/common/Parameterised.cpp:187
+#: src/utils/common/Parameterised.cpp:196
 msgid "Invalid format of parameter (%)"
 msgstr "Ungültiges Format für den Parameter (%)"
 
-#: src/utils/common/Parameterised.cpp:212
+#: src/utils/common/Parameterised.cpp:221
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr ""
 "Ungültiger Format für Attribut '%'. Attribute müssen mit einem Buchstaben "
 "anfangen"
 
-#: src/utils/common/Parameterised.cpp:219
+#: src/utils/common/Parameterised.cpp:228
 msgid "Invalid format of attribute (%)"
 msgstr "Ungültiges Format für Attribut (%)"
 
@@ -13028,9 +13036,22 @@ msgstr "Erweitern"
 msgid "Expand frame to show all contents"
 msgstr "Rahmen erweitern, um alle Inhalte anzuzeigen"
 
-#: src/utils/foxtools/MFXTextFieldSearch.cpp:86
+#: src/utils/foxtools/MFXGroupBoxModule.cpp:78
+msgid "Shrink frame to default with"
+msgstr ""
+
+#: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
 msgstr "Zum Suchen tippen..."
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+msgid "File Exists"
+msgstr "Die Datei existiert"
+
+#: src/utils/foxtools/MFXUtils.cpp:46
+#, c-format
+msgid "Overwrite '%s'?"
+msgstr "'%s' überschreiben?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -13117,11 +13138,11 @@ msgstr "Versuch Positionsvektoren unterschiedlicher Länge zu subtrahieren."
 msgid "Trying to add PositionVectors of different lengths."
 msgstr "Versuche PositionVector verschiedener Länge zu addieren."
 
-#: src/utils/handlers/AdditionalHandler.cpp:970
+#: src/utils/handlers/AdditionalHandler.cpp:967
 msgid "Invalid charge type '%' defined in chargingStation '%'."
 msgstr "Ungültiger Ladetyp '%' in der Ladestation '%' definiert."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1125
+#: src/utils/handlers/AdditionalHandler.cpp:1122
 msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
@@ -13129,7 +13150,7 @@ msgstr ""
 "'pos', 'endPos' and 'length' können nicht gemeinsam in der Definition eines "
 "Fahrstreifendetektors genutzt werden."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1128
+#: src/utils/handlers/AdditionalHandler.cpp:1125
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
@@ -13137,11 +13158,11 @@ msgstr ""
 "Ein einzelner Fahrstreifendetektor benötigt zwei Parameter aus 'pos', "
 "'endPos' und 'length'."
 
-#: src/utils/handlers/AdditionalHandler.cpp:1453
+#: src/utils/handlers/AdditionalHandler.cpp:1450
 msgid "Calibrators need either an edge or a lane"
 msgstr "Kalibratoren benötigen entweder eine Kante oder Fahrstreifen"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1501
+#: src/utils/handlers/AdditionalHandler.cpp:1498
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
@@ -13149,50 +13170,50 @@ msgstr ""
 "Kalibrationsfluss braucht entweder das Attribut Fahrzeuge pro Stunde, die "
 "Geschwindigkeit oder den Typ (oder eine Kombination von diesen)"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1916
+#: src/utils/handlers/AdditionalHandler.cpp:1913
 msgid "X and Y must be be defined together in POIs"
 msgstr "X und Y müssen zusammen in POIs definiert sein"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1922
+#: src/utils/handlers/AdditionalHandler.cpp:1919
 msgid "lane and position must be defined together in POIs"
 msgstr "Fahrstreifen und Position müssen zusammen in POIs definiert sein"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1928
+#: src/utils/handlers/AdditionalHandler.cpp:1925
 msgid "lon and lat must be be defined together in POIs"
 msgstr "lon und lat müssen zusammen in POIs definiert sein"
 
-#: src/utils/handlers/AdditionalHandler.cpp:1954
+#: src/utils/handlers/AdditionalHandler.cpp:1951
 #: src/utils/shapes/ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
 msgstr "Ungültiges Icon % für PoI '%' - nutze Standard-Icon"
 
-#: src/utils/handlers/AdditionalHandler.cpp:2050
+#: src/utils/handlers/AdditionalHandler.cpp:2047
 msgid "Calibrator Flows have to be defined within a %."
 msgstr "Calibrator-Flüsse müsen innerhalb eines/einer % definiert werden."
 
-#: src/utils/handlers/AdditionalHandler.cpp:2060
+#: src/utils/handlers/AdditionalHandler.cpp:2057
 msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr "Das Attribut '%' des % mit der ID '%' hat einen ungültigen Wert ('%')."
 
-#: src/utils/handlers/CommonHandler.cpp:57
+#: src/utils/handlers/CommonHandler.cpp:93
 msgid "Parameters must be defined within an object"
 msgstr "Parameter müssen innerhalb eines Objektes definiert werden"
 
-#: src/utils/handlers/CommonHandler.cpp:59
+#: src/utils/handlers/CommonHandler.cpp:95
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 "Parameter können nicht innerhalb eines anderen Parameters definiert werden."
 
-#: src/utils/handlers/CommonHandler.cpp:67
+#: src/utils/handlers/CommonHandler.cpp:103
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Fehler beim Einlesen des Schlüssels von % generischem Parameter. Schlüssel "
 "kann nicht leer sein"
 
-#: src/utils/handlers/CommonHandler.cpp:69
+#: src/utils/handlers/CommonHandler.cpp:105
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -13200,29 +13221,29 @@ msgstr ""
 "Fehler beim Einlesen des Schlüssels von % generischem Parameter. Schlüssel "
 "beinhaltet ungültige Zeichen"
 
-#: src/utils/handlers/CommonHandler.cpp:107
+#: src/utils/handlers/CommonHandler.cpp:143
 msgid "'%' must be defined within the definition of a %."
 msgstr "'%' muss innerhalb der Definition eines/einer % definiert werden."
 
-#: src/utils/handlers/CommonHandler.cpp:110
+#: src/utils/handlers/CommonHandler.cpp:146
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
 "'%' muss innerhalb der Definition eines/einer % definiert werden (% '%' "
 "vorgefunden)."
 
-#: src/utils/handlers/CommonHandler.cpp:113
+#: src/utils/handlers/CommonHandler.cpp:149
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
 "'%' muss innerhalb der Definition eines/einer % definiert werden (% "
 "vorgefunden)."
 
-#: src/utils/handlers/CommonHandler.cpp:125
+#: src/utils/handlers/CommonHandler.cpp:161
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; '%' ist keine gültige "
 "Fahrzeugtyp-ID."
 
-#: src/utils/handlers/CommonHandler.cpp:161
+#: src/utils/handlers/CommonHandler.cpp:197
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
@@ -13230,7 +13251,7 @@ msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Es kann in einer "
 "Definition sowohl eine externe und eine interne Route geben."
 
-#: src/utils/handlers/CommonHandler.cpp:164
+#: src/utils/handlers/CommonHandler.cpp:200
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
@@ -13238,7 +13259,7 @@ msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Es dürfen keine "
 "mehrfachen from-to-Attribute existieren."
 
-#: src/utils/handlers/CommonHandler.cpp:167
+#: src/utils/handlers/CommonHandler.cpp:203
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
@@ -13247,7 +13268,7 @@ msgstr ""
 "gleichen Definition nicht sowohl from-to-Attribute als auch Routen "
 "existieren."
 
-#: src/utils/handlers/CommonHandler.cpp:170
+#: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
@@ -13256,14 +13277,14 @@ msgstr ""
 "eine Route, eine interne Route oder from-to-Attribute benötigt (Kante, "
 "Knotenpunkt oder TAZ)."
 
-#: src/utils/handlers/CommonHandler.cpp:229
+#: src/utils/handlers/CommonHandler.cpp:265
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % darf "
 "keinen negativen Wert annehmen."
 
-#: src/utils/handlers/CommonHandler.cpp:235
+#: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
@@ -13271,16 +13292,16 @@ msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % muss "
 "einen Wert größer Null annehmen."
 
-#: src/utils/handlers/CommonHandler.cpp:247
-#: src/utils/handlers/CommonHandler.cpp:265
+#: src/utils/handlers/CommonHandler.cpp:283
+#: src/utils/handlers/CommonHandler.cpp:301
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % darf "
 "keinen negativen Wert annehmen (%)."
 
-#: src/utils/handlers/CommonHandler.cpp:253
-#: src/utils/handlers/CommonHandler.cpp:271
+#: src/utils/handlers/CommonHandler.cpp:289
+#: src/utils/handlers/CommonHandler.cpp:307
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
@@ -13288,26 +13309,26 @@ msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Das Attribut % muss "
 "einen Wert größer Null annehmen (%)."
 
-#: src/utils/handlers/CommonHandler.cpp:284
+#: src/utils/handlers/CommonHandler.cpp:320
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; % ist ungültig % ()"
 
-#: src/utils/handlers/CommonHandler.cpp:292
-#: src/utils/handlers/CommonHandler.cpp:304
-#: src/utils/handlers/CommonHandler.cpp:316
+#: src/utils/handlers/CommonHandler.cpp:328
+#: src/utils/handlers/CommonHandler.cpp:340
+#: src/utils/handlers/CommonHandler.cpp:352
 msgid "Could not build %; ID cannot be empty"
 msgstr "Konnte % nicht erstellen; ID darf nicht leer sein"
 
-#: src/utils/handlers/CommonHandler.cpp:294
-#: src/utils/handlers/CommonHandler.cpp:318
+#: src/utils/handlers/CommonHandler.cpp:330
+#: src/utils/handlers/CommonHandler.cpp:354
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; ID beinhaltet ungültige "
 "Zeichen."
 
-#: src/utils/handlers/CommonHandler.cpp:306
+#: src/utils/handlers/CommonHandler.cpp:342
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
@@ -13315,58 +13336,58 @@ msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Die Detektor-ID enthält "
 "ungültige Zeichen."
 
-#: src/utils/handlers/CommonHandler.cpp:327
+#: src/utils/handlers/CommonHandler.cpp:363
 msgid "Overwriting % with ID '%'"
 msgstr "% wird mit ID '%' überschrieben"
 
-#: src/utils/handlers/CommonHandler.cpp:333
+#: src/utils/handlers/CommonHandler.cpp:369
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Es wurde ein "
 "anderes %-Objekt mit der gleichern ID gefunden."
 
-#: src/utils/handlers/CommonHandler.cpp:347
+#: src/utils/handlers/CommonHandler.cpp:384
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültige "
 "Fahrstreifenposition."
 
-#: src/utils/handlers/CommonHandler.cpp:353
+#: src/utils/handlers/CommonHandler.cpp:390
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Die Kantenliste "
 "darf nicht leer sein."
 
-#: src/utils/handlers/CommonHandler.cpp:359
+#: src/utils/handlers/CommonHandler.cpp:396
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 "% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültige Liste an "
 "Fahrstreifen."
 
-#: src/utils/handlers/CommonHandler.cpp:365
+#: src/utils/handlers/CommonHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; Das Elternelement vom "
 "Typ % mit der ID '%' existiert nicht."
 
-#: src/utils/handlers/CommonHandler.cpp:371
+#: src/utils/handlers/CommonHandler.cpp:408
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 "Konnte % nicht in netedit erstellen; Das Elternelement mit der ID "
 "'%' existiert nicht."
 
-#: src/utils/handlers/CommonHandler.cpp:377
+#: src/utils/handlers/CommonHandler.cpp:414
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 "Konnte % nicht in netedit erstellen; Das Elternelement vom Typ % existiert "
 "nicht."
 
-#: src/utils/handlers/DataHandler.cpp:120
+#: src/utils/handlers/DataHandler.cpp:123
 msgid "Data elements cannot load attributes as params"
 msgstr "Datenelemente können keine Attribute laden wie Parameter"
 
@@ -13374,38 +13395,38 @@ msgstr "Datenelemente können keine Attribute laden wie Parameter"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "MeanData-Elemente können keine Attribute als Parameter laden"
 
-#: src/utils/handlers/RouteHandler.cpp:646
+#: src/utils/handlers/RouteHandler.cpp:649
 msgid "an embedded route cannot have their own ID"
 msgstr "eine interne Route kann keine eigene ID haben"
 
-#: src/utils/handlers/RouteHandler.cpp:713
-#: src/utils/handlers/RouteHandler.cpp:803
+#: src/utils/handlers/RouteHandler.cpp:716
+#: src/utils/handlers/RouteHandler.cpp:806
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 "Die Attribute 'from', 'fromJunction' und 'fromTaz' können nicht gemeinsam "
 "definiert werden"
 
-#: src/utils/handlers/RouteHandler.cpp:716
-#: src/utils/handlers/RouteHandler.cpp:806
+#: src/utils/handlers/RouteHandler.cpp:719
+#: src/utils/handlers/RouteHandler.cpp:809
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 "Die Attribute 'to', 'toJunction' und 'toTaz' können nicht gemeinsam "
 "definiert werden"
 
-#: src/utils/handlers/RouteHandler.cpp:981
+#: src/utils/handlers/RouteHandler.cpp:984
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 "Die Attribute 'speed' und 'duration' schließen sich bei der Definition eines "
 "Fußwegs gegenseitig aus"
 
-#: src/utils/handlers/RouteHandler.cpp:1100
+#: src/utils/handlers/RouteHandler.cpp:1103
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 "Die Attribute 'speed' und 'duration' schließen sich bei der Definition einer "
 "Umladung gegenseitig aus"
 
-#: src/utils/handlers/RouteHandler.cpp:1143
+#: src/utils/handlers/RouteHandler.cpp:1146
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -13414,24 +13435,24 @@ msgstr ""
 "Die Definition von Fahrzeugfolgeparametern als Kindelemente des vType '%' is "
 "veraltet —verwende stattdessen Attribute!"
 
-#: src/utils/handlers/RouteHandler.cpp:1151
-#: src/utils/handlers/RouteHandler.cpp:1153
+#: src/utils/handlers/RouteHandler.cpp:1154
+#: src/utils/handlers/RouteHandler.cpp:1156
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
 msgstr "Ungültiger eingelesener eingebetteter VType"
 
-#: src/utils/handlers/RouteHandler.cpp:1239
+#: src/utils/handlers/RouteHandler.cpp:1242
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 "Ein Halt muss entweder mit einer Kante oder mit einen Fahrstreifen definiert "
 "werden, nicht beides"
 
-#: src/utils/handlers/RouteHandler.cpp:1254
+#: src/utils/handlers/RouteHandler.cpp:1257
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "Ein Halt darf nur innerhalb eines Halteplatzes definiert werden"
 
-#: src/utils/handlers/RouteHandler.cpp:1256
+#: src/utils/handlers/RouteHandler.cpp:1259
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "Ein Halt muss innerhalb einer Kante, Fahrstreifen oder in einem Halteplatz "
@@ -13464,7 +13485,7 @@ msgstr "Unbekanntes Attribut '%' nach % zu schreiben."
 msgid "Could not redirect to NUL device (%)."
 msgstr "NUL Einrichtung (%) konnte nicht umgeleitet werden."
 
-#: src/utils/iodevices/ParquetFormatter.h:201
+#: src/utils/iodevices/ParquetFormatter.h:165
 msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
@@ -13819,42 +13840,42 @@ msgstr "Polygon '%' existiert bereits."
 msgid "Loading of shapes from % failed."
 msgstr "Laden von Formen von % fehlgeschlagen."
 
-#: src/utils/tests/InternalTest.cpp:292
+#: src/utils/tests/InternalTest.cpp:311
 msgid "Could not open attributes enum file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:306
+#: src/utils/tests/InternalTest.cpp:325
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:323 src/utils/tests/InternalTest.cpp:373
-#: src/utils/tests/InternalTest.cpp:408
+#: src/utils/tests/InternalTest.cpp:342 src/utils/tests/InternalTest.cpp:392
+#: src/utils/tests/InternalTest.cpp:427
 msgid "Could not open view positions file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:351
+#: src/utils/tests/InternalTest.cpp:370
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:353
+#: src/utils/tests/InternalTest.cpp:372
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:355
+#: src/utils/tests/InternalTest.cpp:374
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:389 src/utils/tests/InternalTest.cpp:428
+#: src/utils/tests/InternalTest.cpp:408 src/utils/tests/InternalTest.cpp:447
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:391 src/utils/tests/InternalTest.cpp:430
-#: src/utils/tests/InternalTest.cpp:432 src/utils/tests/InternalTest.cpp:434
+#: src/utils/tests/InternalTest.cpp:410 src/utils/tests/InternalTest.cpp:449
+#: src/utils/tests/InternalTest.cpp:451 src/utils/tests/InternalTest.cpp:453
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
@@ -14258,6 +14279,11 @@ msgid "The XML-parser could not be build."
 msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
@@ -14267,8 +14293,8 @@ msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1871
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1877
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1888
-msgid "XML files (*.xml,*.xml.gz)"
-msgstr "XML-Dateien (*.xml,*.xml.gz)"
+msgid "XML files"
+msgstr "XML-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1738
@@ -14290,209 +14316,196 @@ msgstr "XML-Dateien (*.xml,*.xml.gz)"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1878
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1883
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1889
-msgid "All files (*)"
-msgstr "Alle Dateien (*)"
+msgid "All files"
+msgstr "Alle Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
-msgid "Plain text files (*.txt)"
-msgstr "Textdateien (*.txt)"
+msgid "Plain text files"
+msgstr "Textdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
-msgid "CSV files (*.txt)"
-msgstr "CSV-Dateien (*.txt)"
+msgid "CSV files"
+msgstr "CSV-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
-msgid "Open scene graph  files (*.osg)"
-msgstr "OpenSceneGraph-Datei (*.osg)"
+msgid "Open scene graph files"
+msgstr "OpenSceneGraph-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
-msgid ""
-"All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,"
-"*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
-msgstr ""
-"Alle Bilddateien (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*."
-"jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+msgid "All Image Files"
+msgstr "Alle Bilddateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-msgid "GIF Image (*.gif)"
-msgstr "GIF-Bild (*.gif)"
+msgid "GIF Image"
+msgstr "GIF-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-msgid "BMP Image (*.bmp)"
-msgstr "BMP-Bild (*.bmp)"
+msgid "BMP Image"
+msgstr "BMP-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-msgid "XPM Image (*.xpm)"
-msgstr "XPM-Bild (*.xpm)"
+msgid "XPM Image"
+msgstr "XPM-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-msgid "PCX Image (*.pcx)"
-msgstr "PCX-Bild (*.pcx)"
+msgid "PCX Image"
+msgstr "PCX-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-msgid "ICO Image (*.ico)"
-msgstr "ICO-Bild (*.ico)"
+msgid "ICO Image"
+msgstr "ICO-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-msgid "RGB Image (*.rgb)"
-msgstr "RGB-Bild (*.rgb)"
+msgid "RGB Image"
+msgstr "RGB-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-msgid "XBM Image (*.xbm)"
-msgstr "XBM-Bild (*.xbm)"
+msgid "XBM Image"
+msgstr "XBM-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
-msgid "TARGA Image (*.tga)"
-msgstr "TARGA-Bild (*.tga)"
+msgid "TARGA Image"
+msgstr "TARGA-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
-msgid "PNG Image (*.png)"
-msgstr "PNG-Bild (*.png)"
+msgid "PNG Image"
+msgstr "PNG-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-msgid "JPEG Image (*.jpg,*.jpeg)"
-msgstr "JPEG-Bild (*.jpg,*.jpeg)"
+msgid "JPEG Image"
+msgstr "JPEG-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
-msgid "TIFF Image (*.tif,*.tiff)"
-msgstr "TIFF-Bild (*.tif,*.tiff)"
+msgid "TIFF Image"
+msgstr "TIFF-Bild"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-msgid "Postscript (*.ps)"
-msgstr "Postscript (*.ps)"
+msgid "Postscript"
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-msgid "Encapsulated Postscript (*.eps)"
-msgstr "Encapsulated Postscript (*.eps)"
+msgid "Encapsulated Postscript"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
-#, fuzzy
-msgid "Portable Document Format (*.pdf)"
-msgstr "Portable Document Format (*.pdf)"
+msgid "Portable Document Format"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
-msgid "Scalable Vector Graphics (*.svg)"
-msgstr "Scalable Vector Graphics (*.svg)"
+msgid "Scalable Vector Graphics"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
-msgid "LATEX text strings (*.tex)"
-msgstr "LATEX Text-Strings (*.tex)"
+msgid "LATEX text strings"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
-msgid "Portable LaTeX Graphics (*.pgf)"
-msgstr "Portierbare LaTeX-Grafik (*.pgf)"
+msgid "Portable LaTeX Graphics"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
-msgid "All Files (*)"
-msgstr "Alle Dateien (*)"
+msgid "All Files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
-msgid ""
-"All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*."
-"png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
-"hevc,*.mp4)"
+msgid "All Image and Video Files"
 msgstr ""
-"Alle Bild- und Videodateien (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,"
-"*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
-"hevc,*.mp4)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
-msgid "All Video Files (*.h264,*.hevc,*.mp4)"
-msgstr "Alle Videodateien (*.h264,*.hevc,*.mp4)"
+msgid "All Video Files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
-msgid "G264 Video (*.h264)"
-msgstr "G264 Video (*.h264)"
+msgid "G264 Video"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
-msgid "HEVC Video (*.hevc)"
-msgstr "HEVC Video (*.hevc)"
+msgid "HEVC Video"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-msgid "MP4 Video (*.mp4)"
-msgstr "MP4 Video (*.mp4)"
+msgid "MP4 Video"
+msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-msgid "XML files (*.xml)"
-msgstr "XMl-Dateien (*.xml)"
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+msgid "Portable"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+msgid "Plain text"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
-msgid "View settings files (*.xml,*.xml.gz)"
-msgstr "Ansichtseinstellungsdateien (*.xml,*.xml.gz)"
+msgid "View settings files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1811
-msgid "State GZipped XML files (*.xml.gz)"
-msgstr "GZip-Standdateien (*.xml.gz)"
+msgid "State GZipped XML files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817
-msgid "Sumo config files (*.sumocfg)"
-msgstr "Sumo-Konfigurationsdateien (*.sumocfg)"
+msgid "Sumo config"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
-msgid "Netedit config files (*.netecfg)"
-msgstr "Netedit-Konfigurationsdateien (*.sumocfg)"
+msgid "Netedit config files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1829
-msgid "Netconvert config files (*.netccfg)"
-msgstr "Netconvert-Konfigurationsdateien (*.netccfg)"
+msgid "Netconvert config files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1835
-msgid "OSM network files (*.osm,*.osm.gz)"
-msgstr "OSM-Netzdateien (*.osm,*.osm.gz)"
+msgid "OSM network files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1841
-msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
-msgstr "SUMO-Netzdateien (*.net.xml,*.net.xml.gz)"
+msgid "SUMO network files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1847
-msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
-msgstr "LSA-Dateien (*.ttl.xml,*.ttl.xml.gz)"
+msgid "TLS files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1853
-msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
-msgstr "Knotendateien (*.nod.xml,*.nod.xml.gz)"
+msgid "Junction files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
-msgstr "Kantentypdateien (*.ttl.xml,*.ttl.xml.gz)"
+msgid "Edge type files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-msgid "Additional files (*.add.xml,*.add.xml.gz)"
-msgstr "Dateien mit weiteren Elementen (*.add.xml,*.add.xml.gz)"
+msgid "Additional files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1876
-msgid "Route files (*.rou.xml,*.rou.xml.gz)"
-msgstr "Routen-Dateien (*.rou.xml,*.rou.xml.gz)"
+msgid "Route files"
+msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1882
-msgid "Edge data files (*.xml,*.xml.gz)"
+msgid "Edge data files"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1887
-msgid "Mean data files (*.add.xml,*.add.xml.gz)"
+msgid "Mean data files"
 msgstr ""
 
 #: src/utils/xml/XMLSubSys.cpp:73
@@ -14544,6 +14557,143 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
+
+#~ msgid "XML files (*.xml,*.xml.gz)"
+#~ msgstr "XML-Dateien (*.xml,*.xml.gz)"
+
+#~ msgid "All files (*)"
+#~ msgstr "Alle Dateien (*)"
+
+#~ msgid "Plain text files (*.txt)"
+#~ msgstr "Textdateien (*.txt)"
+
+#~ msgid "CSV files (*.txt)"
+#~ msgstr "CSV-Dateien (*.txt)"
+
+#~ msgid "Open scene graph  files (*.osg)"
+#~ msgstr "OpenSceneGraph-Datei (*.osg)"
+
+#~ msgid ""
+#~ "All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*."
+#~ "jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+#~ msgstr ""
+#~ "Alle Bilddateien (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*."
+#~ "jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
+
+#~ msgid "GIF Image (*.gif)"
+#~ msgstr "GIF-Bild (*.gif)"
+
+#~ msgid "BMP Image (*.bmp)"
+#~ msgstr "BMP-Bild (*.bmp)"
+
+#~ msgid "XPM Image (*.xpm)"
+#~ msgstr "XPM-Bild (*.xpm)"
+
+#~ msgid "PCX Image (*.pcx)"
+#~ msgstr "PCX-Bild (*.pcx)"
+
+#~ msgid "ICO Image (*.ico)"
+#~ msgstr "ICO-Bild (*.ico)"
+
+#~ msgid "RGB Image (*.rgb)"
+#~ msgstr "RGB-Bild (*.rgb)"
+
+#~ msgid "XBM Image (*.xbm)"
+#~ msgstr "XBM-Bild (*.xbm)"
+
+#~ msgid "TARGA Image (*.tga)"
+#~ msgstr "TARGA-Bild (*.tga)"
+
+#~ msgid "PNG Image (*.png)"
+#~ msgstr "PNG-Bild (*.png)"
+
+#~ msgid "JPEG Image (*.jpg,*.jpeg)"
+#~ msgstr "JPEG-Bild (*.jpg,*.jpeg)"
+
+#~ msgid "TIFF Image (*.tif,*.tiff)"
+#~ msgstr "TIFF-Bild (*.tif,*.tiff)"
+
+#~ msgid "Postscript (*.ps)"
+#~ msgstr "Postscript (*.ps)"
+
+#~ msgid "Encapsulated Postscript (*.eps)"
+#~ msgstr "Encapsulated Postscript (*.eps)"
+
+#, fuzzy
+#~ msgid "Portable Document Format (*.pdf)"
+#~ msgstr "Portable Document Format (*.pdf)"
+
+#~ msgid "Scalable Vector Graphics (*.svg)"
+#~ msgstr "Scalable Vector Graphics (*.svg)"
+
+#~ msgid "LATEX text strings (*.tex)"
+#~ msgstr "LATEX Text-Strings (*.tex)"
+
+#~ msgid "Portable LaTeX Graphics (*.pgf)"
+#~ msgstr "Portierbare LaTeX-Grafik (*.pgf)"
+
+#~ msgid "All Files (*)"
+#~ msgstr "Alle Dateien (*)"
+
+#~ msgid ""
+#~ "All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*."
+#~ "tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*."
+#~ "h264,*.hevc,*.mp4)"
+#~ msgstr ""
+#~ "Alle Bild- und Videodateien (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*."
+#~ "tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*."
+#~ "h264,*.hevc,*.mp4)"
+
+#~ msgid "All Video Files (*.h264,*.hevc,*.mp4)"
+#~ msgstr "Alle Videodateien (*.h264,*.hevc,*.mp4)"
+
+#~ msgid "G264 Video (*.h264)"
+#~ msgstr "G264 Video (*.h264)"
+
+#~ msgid "HEVC Video (*.hevc)"
+#~ msgstr "HEVC Video (*.hevc)"
+
+#~ msgid "MP4 Video (*.mp4)"
+#~ msgstr "MP4 Video (*.mp4)"
+
+#~ msgid "View settings files (*.xml,*.xml.gz)"
+#~ msgstr "Ansichtseinstellungsdateien (*.xml,*.xml.gz)"
+
+#~ msgid "State GZipped XML files (*.xml.gz)"
+#~ msgstr "GZip-Standdateien (*.xml.gz)"
+
+#~ msgid "XML files (*.xml)"
+#~ msgstr "XMl-Dateien (*.xml)"
+
+#~ msgid "Sumo config files (*.sumocfg)"
+#~ msgstr "Sumo-Konfigurationsdateien (*.sumocfg)"
+
+#~ msgid "Netedit config files (*.netecfg)"
+#~ msgstr "Netedit-Konfigurationsdateien (*.sumocfg)"
+
+#~ msgid "Netconvert config files (*.netccfg)"
+#~ msgstr "Netconvert-Konfigurationsdateien (*.netccfg)"
+
+#~ msgid "OSM network files (*.osm,*.osm.gz)"
+#~ msgstr "OSM-Netzdateien (*.osm,*.osm.gz)"
+
+#~ msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
+#~ msgstr "SUMO-Netzdateien (*.net.xml,*.net.xml.gz)"
+
+#~ msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
+#~ msgstr "LSA-Dateien (*.ttl.xml,*.ttl.xml.gz)"
+
+#~ msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
+#~ msgstr "Knotendateien (*.nod.xml,*.nod.xml.gz)"
+
+#~ msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
+#~ msgstr "Kantentypdateien (*.ttl.xml,*.ttl.xml.gz)"
+
+#~ msgid "Additional files (*.add.xml,*.add.xml.gz)"
+#~ msgstr "Dateien mit weiteren Elementen (*.add.xml,*.add.xml.gz)"
+
+#~ msgid "Route files (*.rou.xml,*.rou.xml.gz)"
+#~ msgstr "Routen-Dateien (*.rou.xml,*.rou.xml.gz)"
 
 #~ msgid "Joining junctions with identical coordinates"
 #~ msgstr "Vereinige Knotenpunkte mit identischen Koordinaten"

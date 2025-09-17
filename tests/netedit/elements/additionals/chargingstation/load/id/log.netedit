@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a chargingStation.
 Error: Could not build chargingStation with ID 'id with spaces' in netedit; ID contains invalid characters.
-Error: Could not build chargingStation with ID 'chargingStation_0' in netedit; Found another chargingStation with the same ID.
-Error: Loading of additionals.add.xml failed.
+Warning: Could not build chargingStation with ID 'chargingStation_0' in netedit; Found another chargingStation with the same ID.
+Error: Loading of 'additionals.add.xml' failed.

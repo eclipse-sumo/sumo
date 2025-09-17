@@ -46,11 +46,12 @@ public:
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] color stoppingPlace color
+     * @param[in] angle stoppingPlace angle
      * @param[in] parameters generic parameters
      */
     GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, GNELane* lane,
                      const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
-                     const RGBColor& color, const Parameterised::Map& parameters);
+                     const RGBColor& color, const double angle, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -172,6 +173,9 @@ protected:
 
     /// @brief RGB color
     RGBColor myColor = RGBColor::INVISIBLE;
+
+    /// @brief angle
+    double myAngle = 0;
 
     /// @brief size (only use in templates)
     double mySize = 10;

@@ -121,7 +121,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Builds and writes an emissions map for SUMO's emission models."));
-    oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
+    oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap " VERSION_STRING);
     // add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Input");

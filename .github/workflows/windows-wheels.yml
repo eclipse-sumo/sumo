@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [libsumo]
-        python_version: [3.9, '3.10', 3.11, 3.12, 3.13.3]
+        python_version: [3.9, '3.10', 3.11, 3.12, 3.13]
         include:
           - build_type: sumo
             python_version: 3.12
@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         filter: tree:0
@@ -45,16 +45,29 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
 
+    - name: Setup fail-fast PowerShell
+      run: |
+        if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) {
+          New-Item -ItemType File -Path $PROFILE.CurrentUserAllHosts -Force | Out-Null
+        }
+        Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
+
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
         architecture: x64
+
+    - name: Configuring Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '21'
 
     - name: ccache
       # do a clean build once a day
@@ -137,21 +150,22 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         path: python-wheels
         merge-multiple: true
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 
     - name: Preparing Python environment
       run: |
+        dir python-wheels
         python -m pip install texttest
         python -m pip install -f python-wheels eclipse_sumo
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV

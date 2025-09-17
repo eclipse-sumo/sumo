@@ -18,10 +18,12 @@
 // Frame for select demand elements
 /****************************************************************************/
 
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -51,8 +53,8 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXM
                     myTagType(tagType),
 mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -74,8 +76,8 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
         }
     }
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -259,7 +261,7 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
             if (demandElement.second->getID() == myDemandElementsComboBox->getText().text()) {
                 // set color of myTypeMatchBox to black (valid)
-                myDemandElementsComboBox->setTextColor(FXRGB(0, 0, 0));
+                myDemandElementsComboBox->setTextColor(GUIDesignTextColorBlack);
                 myDemandElementsComboBox->killFocus();
                 // Set new current demand element
                 myCurrentDemandElement = demandElement.second;
@@ -274,7 +276,7 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     // call demandElementSelected function
     myFrameParent->demandElementSelected();
     // change color of myDemandElementsComboBox to red (invalid)
-    myDemandElementsComboBox->setTextColor(FXRGB(255, 0, 0));
+    myDemandElementsComboBox->setTextColor(GUIDesignTextColorRed);
     return 1;
 }
 

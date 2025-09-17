@@ -39,6 +39,7 @@
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <gui/GUIGlobals.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -1102,9 +1103,10 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
 
 Boundary
 GUILane::getCenteringBoundary() const {
+    const PositionVector& shape = GUIGlobals::gSecondaryShape && myShape2.size() > 0 ? myShape2 : myShape;
     Boundary b;
-    b.add(myShape[0]);
-    b.add(myShape[-1]);
+    b.add(shape[0]);
+    b.add(shape[-1]);
     b.grow(RENDERING_BUFFER);
     // ensure that vehicles and persons on the side are drawn even if the edge
     // is outside the view

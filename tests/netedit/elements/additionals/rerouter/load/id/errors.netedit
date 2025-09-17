@@ -1,3 +1,2 @@
 Error: Attribute 'id' is missing in definition of a rerouter.
-Error: Could not build rerouter with ID 'customID' in netedit; Found another rerouter with the same ID.
-Error: Loading of additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.

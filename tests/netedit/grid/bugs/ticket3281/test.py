@@ -48,7 +48,7 @@ netedit.moveElement(referencePosition, netedit.positions.network.edge.center,
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

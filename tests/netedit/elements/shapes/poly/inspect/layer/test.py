@@ -54,7 +54,7 @@ netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "2.5")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -50,13 +50,13 @@ netedit.computeJunctions()
 netedit.redo(referencePosition, 1)
 
 # save routes
-netedit.saveExistentShortcut("demands")
+netedit.saveExistentFile("demands")
 
 # remove invalid connections
 netedit.typeKey("space")
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

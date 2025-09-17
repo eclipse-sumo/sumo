@@ -1,5 +1,5 @@
 Error: Attribute 'id' is missing in definition of a busStop.
 Error: Could not build busStop with ID 'ID with spaces' in netedit; ID contains invalid characters.
-Error: Could not build busStop with ID 'busStop_00' in netedit; Found another busStop with the same ID.
-Error: Could not build trainStop with ID 'busStop_00' in netedit; Found another busStop with the same ID.
-Error: Loading of additionals.add.xml failed.
+Warning: Could not build busStop with ID 'busStop_00' in netedit; Found another busStop with the same ID.
+Warning: Could not build trainStop with ID 'busStop_00' in netedit; Found another busStop with the same ID.
+Error: Loading of 'additionals.add.xml' failed.

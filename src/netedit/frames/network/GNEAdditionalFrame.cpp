@@ -244,7 +244,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // declare additional handler
     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build additional
     additionalHandler.parseSumoBaseObject(myBaseAdditional);
     // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -308,7 +308,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                     // declare additional handler
                     GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                            myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseAdditional);
                     // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -420,7 +420,20 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
         }
         // continue depending of parents
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            WRITE_WARNING(TLF("A % must be selected before insertion of %.", toString(tagProperty->getXMLParentTags().front()), tagProperty->getTagStr()));
+            std::string messageError = toString(tagProperty->getXMLParentTags().front());
+            if (tagProperty->getXMLParentTags().size() > 1) {
+                const int numParents = (int)tagProperty->getXMLParentTags().size();
+                messageError.clear();
+                for (int i = 0; i < numParents; i++) {
+                    messageError.append(toString(tagProperty->getXMLParentTags().at(i)));
+                    if (i == numParents - 2) {
+                        messageError.append(" or ");
+                    } else if (i < (numParents - 2)) {
+                        messageError.append(", ");
+                    }
+                }
+            }
+            WRITE_WARNING(TLF("A % must be selected before insertion of %.", messageError, tagProperty->getTagStr()));
             return false;
         } else {
             // set parent tag // POSSIBLE ERROR WITH ACCESS AND BUSSTOPS!

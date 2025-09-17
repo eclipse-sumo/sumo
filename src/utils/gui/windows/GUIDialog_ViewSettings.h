@@ -43,7 +43,7 @@ class MFXComboBoxIcon;
  *
  * @todo Check whether saving/loading settings should be done via XML
  */
-class GUIDialog_ViewSettings : public FXDialogBox, public GUIPersistentWindowPos {
+class GUIDialog_ViewSettings : public FXTopWindow, public GUIPersistentWindowPos {
     /// @brief FOX Declaration
     FXDECLARE(GUIDialog_ViewSettings)
 
@@ -186,7 +186,7 @@ public:
 
     /// @brief show view settings dialog
     void show();
-    using FXDialogBox::show; // to silence the warning C4266 about a hidden function
+    using FXTopWindow::show; // to silence the warning C4266 about a hidden function
 
     /// @brief get GUISUMOAbstractView parent
     GUISUMOAbstractView* getSUMOAbstractView();
@@ -195,6 +195,11 @@ public:
      * @param[in, out] settings The current settings that can be changed
      */
     void setCurrent(GUIVisualizationSettings* settings);
+
+    /// @brief keyboard functions
+    //@{
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    //@}
 
     /// @name FOX-callbacks
     /// @{

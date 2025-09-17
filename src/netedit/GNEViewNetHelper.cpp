@@ -3446,14 +3446,15 @@ GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
+    const auto staticTooltip = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // create interval label
     FXLabel* genericDataLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                            "Data type", 0, GUIDesignLabelThickedFixed(100));
+                                            TL("Data type"), 0, GUIDesignLabelThickedFixed(100));
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
-            MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed, myViewNet,
+            MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxFixed(180));
     myGenericDataTypesComboBox->create();
     // fill combo box
     myGenericDataTypesComboBox->appendIconItem("<all>");
@@ -3462,16 +3463,16 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myGenericDataTypesComboBox->appendIconItem(toString(SUMO_TAG_TAZREL).c_str());
     // create dataSet label
     FXLabel* dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                        "Data sets", 0, GUIDesignLabelThickedFixed(100));
+                                        TL("Data sets"), 0, GUIDesignLabelThickedFixed(100));
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed,
-            myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed,
+            myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxFixed(180));
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
     myIntervalCheckBox = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                           "Interval", myViewNet, MID_GNE_INTERVALBAR_LIMITED, GUIDesignCheckButtonAttribute);
+                                           TL("Interval"), myViewNet, MID_GNE_INTERVALBAR_LIMITED, GUIDesignCheckButtonAttribute);
     myIntervalCheckBox->create();
     // create textfield for begin
     myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3483,12 +3484,12 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myEndTextField->create();
     // create parameter label
     FXLabel* parameterLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                          "Parameter", 0, GUIDesignLabelThickedFixed(100));
+                                          TL("Parameter"), 0, GUIDesignLabelThickedFixed(100));
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsFixed,
-            myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
+            staticTooltip, false, GUIDesignComboBoxVisibleItemsFixed,
+            myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxFixed(180));
     myParametersComboBox->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -3609,7 +3610,7 @@ GNEViewNetHelper::IntervalBar::markForUpdate() {
 
 SumoXMLTag
 GNEViewNetHelper::IntervalBar::getGenericDataType() const {
-    if (myGenericDataTypesComboBox->isEnabled() && (myGenericDataTypesComboBox->getTextColor() == FXRGB(0, 0, 0))) {
+    if (myGenericDataTypesComboBox->isEnabled() && (myGenericDataTypesComboBox->getTextColor() == GUIDesignTextColorBlack)) {
         if (myGenericDataTypesComboBox->getText() == toString(GNE_TAG_EDGEREL_SINGLE).c_str()) {
             return GNE_TAG_EDGEREL_SINGLE;
         } else if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) {
@@ -3626,7 +3627,7 @@ GNEDataSet*
 GNEViewNetHelper::IntervalBar::getDataSet() const {
     if (!myDataSetsComboBox->isEnabled() ||
             (myDataSetsComboBox->getCurrentItem() == 0) ||
-            (myDataSetsComboBox->getTextColor() == FXRGB(255, 0, 0))) {
+            (myDataSetsComboBox->getTextColor() == GUIDesignTextColorRed)) {
         return nullptr;
     } else {
         return myViewNet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetsComboBox->getText().text());
@@ -3658,7 +3659,7 @@ std::string
 GNEViewNetHelper::IntervalBar::getParameter() const {
     if (!myParametersComboBox->isEnabled() ||
             (myParametersComboBox->getCurrentItem() == 0) ||
-            (myParametersComboBox->getTextColor() == FXRGB(255, 0, 0))) {
+            (myParametersComboBox->getTextColor() == GUIDesignTextColorRed)) {
         return "";
     } else {
         return myParametersComboBox->getText().text();
@@ -3672,9 +3673,9 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
             (myGenericDataTypesComboBox->getText() == toString(GNE_TAG_EDGEREL_SINGLE).c_str()) ||
             (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) ||
             (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str())) {
-        myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+        myGenericDataTypesComboBox->setTextColor(GUIDesignTextColorBlack);
     } else {
-        myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+        myGenericDataTypesComboBox->setTextColor(GUIDesignTextColorRed);
     }
     // update view net
     myViewNet->updateViewNet();
@@ -3685,9 +3686,9 @@ void
 GNEViewNetHelper::IntervalBar::setDataSet() {
     // check if exist
     if (std::find(myDataSets.begin(), myDataSets.end(), myDataSetsComboBox->getText().text()) != myDataSets.end()) {
-        myDataSetsComboBox->setTextColor(FXRGB(0, 0, 0));
+        myDataSetsComboBox->setTextColor(GUIDesignTextColorBlack);
     } else {
-        myDataSetsComboBox->setTextColor(FXRGB(255, 0, 0));
+        myDataSetsComboBox->setTextColor(GUIDesignTextColorRed);
     }
     // update view net
     myViewNet->updateViewNet();
@@ -3713,11 +3714,11 @@ void
 GNEViewNetHelper::IntervalBar::setBegin() {
     if (myBeginTextField->getText().empty()) {
         myBeginTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMinimumBegin()).c_str());
-        myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+        myBeginTextField->setTextColor(GUIDesignTextColorBlack);
     } else if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text())) {
-        myBeginTextField->setTextColor(FXRGB(0, 0, 0));
+        myBeginTextField->setTextColor(GUIDesignTextColorBlack);
     } else {
-        myBeginTextField->setTextColor(FXRGB(255, 0, 0));
+        myBeginTextField->setTextColor(GUIDesignTextColorRed);
     }
     // update view net
     myViewNet->updateViewNet();
@@ -3728,11 +3729,11 @@ void
 GNEViewNetHelper::IntervalBar::setEnd() {
     if (myEndTextField->getText().empty()) {
         myEndTextField->setText(toString(myViewNet->getNet()->getDataSetIntervalMaximumEnd()).c_str());
-        myEndTextField->setTextColor(FXRGB(0, 0, 0));
+        myEndTextField->setTextColor(GUIDesignTextColorBlack);
     } else if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text())) {
-        myEndTextField->setTextColor(FXRGB(0, 0, 0));
+        myEndTextField->setTextColor(GUIDesignTextColorBlack);
     } else {
-        myEndTextField->setTextColor(FXRGB(255, 0, 0));
+        myEndTextField->setTextColor(GUIDesignTextColorRed);
     }
     // update view net
     myViewNet->updateViewNet();
@@ -3743,9 +3744,9 @@ void
 GNEViewNetHelper::IntervalBar::setParameter() {
     // check if exist
     if (myParameters.count(myParametersComboBox->getText().text()) > 0) {
-        myParametersComboBox->setTextColor(FXRGB(0, 0, 0));
+        myParametersComboBox->setTextColor(GUIDesignTextColorBlack);
     } else {
-        myParametersComboBox->setTextColor(FXRGB(255, 0, 0));
+        myParametersComboBox->setTextColor(GUIDesignTextColorRed);
     }
     // update view net
     myViewNet->updateViewNet();

@@ -227,7 +227,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Shortest path router and DUE computer for the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("duarouter", "Eclipse SUMO duarouter Version " VERSION_STRING);
+    oc.setApplicationName("duarouter", "Eclipse SUMO duarouter " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
     try {

@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "50")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

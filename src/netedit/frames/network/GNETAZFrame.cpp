@@ -23,6 +23,8 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNETAZ.h>
@@ -669,15 +671,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // check if myDefaultTAZSourceWeight is greater than 0
             if (myDefaultTAZSourceWeight >= 0) {
                 // set valid color
-                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorBlack);
             } else {
                 // set invalid color
-                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorRed);
                 myDefaultTAZSourceWeight = 1;
             }
         } else {
             // set invalid color
-            myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldDefaultValueTAZSources->setTextColor(GUIDesignTextColorRed);
             myDefaultTAZSourceWeight = 1;
         }
     } else if (obj == myTextFieldDefaultValueTAZSinks) {
@@ -687,15 +689,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // check if myDefaultTAZSinkWeight is greater than 0
             if (myDefaultTAZSinkWeight >= 0) {
                 // set valid color
-                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorBlack);
             } else {
                 // set invalid color
-                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorRed);
                 myDefaultTAZSinkWeight = 1;
             }
         } else {
             // set invalid color
-            myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldDefaultValueTAZSinks->setTextColor(GUIDesignTextColorRed);
             myDefaultTAZSinkWeight = 1;
         }
     }
@@ -837,9 +839,11 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
                                  // multiple TAZs
                                  TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
                                  toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
-        // ask if continue
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
-        if (answer == 1) { // 1:yes, 2:no, 4:esc
+        // open question dialog
+        const auto questionDialog = GNEQuestionBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                    GNEDialog::Buttons::YES_NO, TL("Set zero fringe probabilities"), text);
+        // continue depending of answer
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, TL("set zero fringe probabilities"));
             for (const auto& source : sources) {
                 source->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
@@ -851,7 +855,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         }
     } else {
         // show information box
-        FXMessageBox::information(this, MBOX_OK, TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
+        GNEInformationBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                  TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
     }
     return 1;
 }
@@ -982,7 +987,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
             // check if myDefaultTAZSourceWeight is greater than 0
             if (newTAZSourceWeight >= 0) {
                 // set valid color in TextField
-                myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorBlack);
                 // enable save button
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
@@ -993,11 +998,11 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
-                myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorRed);
             }
         } else {
             // set invalid color
-            myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorRed);
         }
     } else if (obj == myTextFieldTAZSinkWeight) {
         // check if given value is valid
@@ -1006,7 +1011,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
             // check if myDefaultTAZSinkWeight is greater than 0
             if (newTAZSinkWeight >= 0) {
                 // set valid color in TextField
-                myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorBlack);
                 // enable save button
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
@@ -1017,11 +1022,11 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
-                myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorRed);
             }
         } else {
             // set invalid color
-            myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+            myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorRed);
         }
     }
     return 1;
@@ -1131,9 +1136,9 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         myStatisticsLabel->setText(information.str().c_str());
         // set TextFields (Text and color)
         myTextFieldTAZSourceWeight->setText(joinToString(weightSourceSet, " ").c_str());
-        myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldTAZSourceWeight->setTextColor(GUIDesignTextColorBlack);
         myTextFieldTAZSinkWeight->setText(joinToString(weightSinkSet, " ").c_str());
-        myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldTAZSinkWeight->setTextColor(GUIDesignTextColorBlack);
     } else {
         // hide TAZSources/Sinks frames
         myTAZSourceFrame->hide();
@@ -1486,7 +1491,7 @@ GNETAZFrame::shapeDrawed() {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseTAZ->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
                                                myBaseTAZ->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
-                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // build TAZ
         additionalHandler.parseSumoBaseObject(myBaseTAZ);
         // Write info

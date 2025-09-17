@@ -1,0 +1,5 @@
+-n net.net.xml -r input_routes.rou.xml --no-step-log
+--tripinfo-output tripinfos.xml -t
+--collision.action warn
+--collision.check-junctions
+--default.departspeed avg

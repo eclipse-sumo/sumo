@@ -1,0 +1,25 @@
+/* XPM */
+static const char *filedialog_filelink_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1 ",
+"  c None",
+". c black",
+"X c cyan",
+/* pixels */
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+" .....     .... ",
+".XXXXX.....XXXX.",
+".X.....XXX....X.",
+".XXXXX.....XXXX.",
+" .....     .... ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                "
+};

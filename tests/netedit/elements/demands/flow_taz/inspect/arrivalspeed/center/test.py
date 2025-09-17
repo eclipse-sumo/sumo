@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.arrivalPosLat, "center")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

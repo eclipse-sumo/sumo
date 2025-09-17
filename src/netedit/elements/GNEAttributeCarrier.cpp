@@ -45,8 +45,8 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const std::string GNEAttributeCarrier::LANE_START = TL("lane start");
 const std::string GNEAttributeCarrier::LANE_END = TL("lane end");
-const std::string GNEAttributeCarrier::True = toString(true);
-const std::string GNEAttributeCarrier::False = toString(false);
+const std::string GNEAttributeCarrier::TRUE_STR = toString(true);
+const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
 
 // ===========================================================================
 // method definitions
@@ -679,49 +679,20 @@ GNEAttributeCarrier::parseIDs(const std::vector<GNELane*>& ACs) {
     return joinToString(laneIDs, " ");
 }
 
-
-template<> std::string
-GNEAttributeCarrier::getACParameters() const {
-    std::string result;
+void
+GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+    // declare result string
+    std::string paramsStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (const auto& parameter : getACParametersMap()) {
-        result += parameter.first + "=" + parameter.second + "|";
+    for (const auto& parameter : parameters) {
+        paramsStr += parameter.first + "=" + parameter.second + "|";
     }
     // remove the last "|"
-    if (!result.empty()) {
-        result.pop_back();
+    if (!paramsStr.empty()) {
+        paramsStr.pop_back();
     }
-    return result;
-}
-
-
-template<> std::vector<std::pair<std::string, std::string> >
-GNEAttributeCarrier::getACParameters() const {
-    std::vector<std::pair<std::string, std::string> > result;
-    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-    for (const auto& parameter : getACParametersMap()) {
-        result.push_back(std::make_pair(parameter.first, parameter.second));
-    }
-    return result;
-}
-
-
-void
-GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList* undoList) {
-    // declare map
-    Parameterised::Map parametersMap;
-    // separate value in a vector of string using | as separator
-    StringTokenizer parametersTokenizer(parameters, "|", true);
-    // iterate over all values
-    while (parametersTokenizer.hasNext()) {
-        // obtain key and value and save it in myParameters
-        const std::vector<std::string> keyValue = StringTokenizer(parametersTokenizer.next(), "=", true).getVector();
-        if (keyValue.size() == 2) {
-            parametersMap[keyValue.front()] = keyValue.back();
-        }
-    }
-    // set setACParameters map
-    setACParameters(parametersMap, undoList);
+    // set parameters
+    setAttribute(GNE_ATTR_PARAMETERS, paramsStr);
 }
 
 
@@ -752,33 +723,6 @@ GNEAttributeCarrier::setACParameters(const Parameterised::Map& parameters, GNEUn
     }
     // set parameters
     setAttribute(GNE_ATTR_PARAMETERS, paramsStr, undoList);
-}
-
-
-void
-GNEAttributeCarrier::addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList) {
-    // get parametersMap
-    Parameterised::Map parametersMap = getACParametersMap();
-    // add (or update) attribute
-    parametersMap[key] = attribute;
-    // set attribute
-    setACParameters(parametersMap, undoList);
-}
-
-
-void
-GNEAttributeCarrier::removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList) {
-    // declare parametersMap
-    Parameterised::Map newParametersMap;
-    // iterate over parameters map
-    for (const auto& parameter : getACParametersMap()) {
-        // copy to newParametersMap if key is in keepKeys
-        if (std::find(keepKeys.begin(), keepKeys.end(), parameter.first) != keepKeys.end()) {
-            newParametersMap.insert(parameter);
-        }
-    }
-    // set newParametersMap map
-    setACParameters(newParametersMap, undoList);
 }
 
 
@@ -904,15 +848,15 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
             return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:
             if (mySelected) {
-                return True;
+                return TRUE_STR;
             } else {
-                return False;
+                return FALSE_STR;
             }
         case GNE_ATTR_FRONTELEMENT:
             if (myDrawInFront) {
-                return True;
+                return TRUE_STR;
             } else {
-                return False;
+                return FALSE_STR;
             }
         case GNE_ATTR_PARAMETERS:
             return parameterised->getParametersStr();

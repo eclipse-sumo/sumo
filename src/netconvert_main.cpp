@@ -96,7 +96,7 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription(TL("Network importer / builder for the microscopic, multi-modal traffic simulation SUMO."));
-    oc.setApplicationName("netconvert", "Eclipse SUMO netconvert Version " VERSION_STRING);
+    oc.setApplicationName("netconvert", "Eclipse SUMO netconvert " VERSION_STRING);
     int ret = 0;
     try {
         XMLSubSys::init();

@@ -1183,12 +1183,12 @@ MSTriggeredRerouter::resetClosedEdges(bool hasReroutingDevice, const SUMOTraffic
     // getRouterTT without prohibitions removes previous prohibitions
     if (o.isVehicle()) {
         hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(o.getRNGIndex(), o.getVClass())
-            : MSNet::getInstance()->getRouterTT(o.getRNGIndex());
+        ? MSRoutingEngine::getRouterTT(o.getRNGIndex(), o.getVClass())
+        : MSNet::getInstance()->getRouterTT(o.getRNGIndex());
     } else {
         hasReroutingDevice
-            ? MSRoutingEngine::getIntermodalRouterTT(o.getRNGIndex())
-            : MSNet::getInstance()->getIntermodalRouter(o.getRNGIndex(), 0);
+        ? MSRoutingEngine::getIntermodalRouterTT(o.getRNGIndex())
+        : MSNet::getInstance()->getIntermodalRouter(o.getRNGIndex(), 0);
     }
 }
 

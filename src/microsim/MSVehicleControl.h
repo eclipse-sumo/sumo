@@ -214,7 +214,7 @@ public:
     /** @brief Informs this control about a vehicle's departure
      *
      * If the mean waiting time shall be computed (f.e. for summary-output),
-     *  the absolut waiting time is increased by the waiting time of the given
+     *  the absolute waiting time is increased by the waiting time of the given
      *  vehicle.
      * @param[in] v The inserted vehicle
      */
@@ -223,7 +223,7 @@ public:
 
 
 
-    /// @name Retrieval of vehicle statistics (always accessable)
+    /// @name Retrieval of vehicle statistics (always accessible)
     /// @{
 
     /** @brief Returns the number of build vehicles
@@ -263,7 +263,7 @@ public:
     }
 
     /** @brief Returns the number of discarded vehicles
-     * @return The number of vehicles that could not be inserted and were permantently discarded
+     * @return The number of vehicles that could not be inserted and were permanently discarded
      */
     int getDiscardedVehicleNo() const {
         return myDiscarded;
@@ -643,7 +643,7 @@ private:
     /// @brief The aggregated time vehicles had to wait for departure (in seconds)
     double myTotalDepartureDelay;
 
-    /// @brief The aggregated time vehicles needed to aacomplish their route (in seconds)
+    /// @brief The aggregated time vehicles needed to accomplish their route (in seconds)
     double myTotalTravelTime;
     /// @}
 

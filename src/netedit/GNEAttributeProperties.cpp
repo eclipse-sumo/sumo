@@ -146,7 +146,7 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
 
 
 void
-GNEAttributeProperties::setFilenameExtensions(const std::string& extensions) {
+GNEAttributeProperties::setFilenameExtensions(const std::vector<std::string>& extensions) {
     if (isFileOpen() || isFileSave()) {
         myFilenameExtensions = extensions;
     } else {
@@ -379,7 +379,7 @@ GNEAttributeProperties::getDiscreteValues() const {
 }
 
 
-const std::string&
+const std::vector<std::string>&
 GNEAttributeProperties::getFilenameExtensions() const {
     return myFilenameExtensions;
 }
@@ -624,6 +624,12 @@ GNEAttributeProperties::isEditMode() const {
 }
 
 
+bool
+GNEAttributeProperties::isDialogEditor() const {
+    return myEditProperty & Edit::DIALOGEDITOR;
+}
+
+
 void
 GNEAttributeProperties::checkBuildConstraints() const {
 // check integrity only in debug mode
@@ -671,7 +677,7 @@ GNEAttributeProperties::parseDefaultValues(const std::string& defaultValue, cons
     } else if (isBool()) {
         myDefaultBoolValue = GNEAttributeCarrier::parse<bool>(defaultValue);
         if (overWritteDefaultString) {
-            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::True : GNEAttributeCarrier::False;
+            myDefaultStringValue = myDefaultBoolValue ? GNEAttributeCarrier::TRUE_STR : GNEAttributeCarrier::FALSE_STR;
         }
     } else if (isColor()) {
         myDefaultColorValue = GNEAttributeCarrier::parse<RGBColor>(defaultValue);

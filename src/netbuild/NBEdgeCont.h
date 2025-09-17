@@ -305,6 +305,8 @@ public:
         return &split->second;
     }
 
+    NBEdge* getSplitBase(const std::string& edgeID) const;
+
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
@@ -618,7 +620,7 @@ public:
     int removeLanesByWidth(NBDistrictCont& dc, const double minWidth);
 
     /// @brief return number of edges split
-    int attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist); 
+    int attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist);
 
 private:
     /// @brief compute the form factor for a loop of edges

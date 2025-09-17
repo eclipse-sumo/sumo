@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-31 12:33:56 by Eclipse SUMO netconvert Version v1_24_0+0083-3372591c45b
+<!-- generated on 2025-09-11T14:39:47.225409+01:00 by Eclipse SUMO netconvert v1_24_0+0753-7ddc191931e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -15,22 +15,22 @@
     </configuration>
 
     <input>
-        <sumo-net-file value="" synonymes="net-file s sumo-net" type="FILE" help="Read SUMO-net from FILE"/>
-        <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE" help="Read XML-node defs from FILE"/>
-        <edge-files value="" synonymes="e edges xml-edge-files xml-edges" type="FILE" help="Read XML-edge defs from FILE"/>
-        <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE" help="Read XML-connection defs from FILE"/>
+        <sumo-net-file value="" synonymes="net-file s sumo-net" deprecated="sumo-net" type="FILE" help="Read SUMO-net from FILE"/>
+        <node-files value="" synonymes="n nodes xml-node-files xml-nodes" deprecated="xml-node-files xml-nodes" type="FILE" help="Read XML-node defs from FILE"/>
+        <edge-files value="" synonymes="e edges xml-edge-files xml-edges" deprecated="xml-edge-files xml-edges" type="FILE" help="Read XML-edge defs from FILE"/>
+        <connection-files value="" synonymes="connections x xml-connection-files xml-connections" deprecated="xml-connection-files xml-connections" type="FILE" help="Read XML-connection defs from FILE"/>
         <tllogic-files value="" synonymes="i" type="FILE" help="Read XML-traffic light defs from FILE"/>
-        <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE" help="Read XML-type defs from FILE"/>
+        <type-files value="" synonymes="t types xml-type-files xml-types" deprecated="xml-type-files xml-types" type="FILE" help="Read XML-type defs from FILE"/>
         <ptstop-files value="" type="FILE" help="Reads public transport stops from FILE"/>
         <ptline-files value="" type="FILE" help="Reads public transport lines from FILE"/>
         <polygon-files value="" type="FILE" help="Reads polygons from FILE for embedding in network where applicable"/>
-        <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos;"/>
-        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos;"/>
+        <shapefile-prefix value="" synonymes="arcview shapefile tiger" deprecated="arcview tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos;"/>
+        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" deprecated="elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos;"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Read OSM-network from path &apos;FILE(s)&apos;"/>
         <opendrive-files value="" synonymes="opendrive" type="FILE" help="Read OpenDRIVE-network from FILE"/>
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
-        <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
+        <robocup-dir value="" synonymes="robocup robocup-net" deprecated="robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
         <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATSim-net from FILE"/>
         <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
         <heightmap.shapefiles value="" type="FILE" help="Read heightmap from ArcGIS shapefile"/>
@@ -39,6 +39,7 @@
 
     <output>
         <write-license value="false" type="BOOL" help="Include license info into every output file"/>
+        <write-metadata value="false" type="BOOL" help="Write parsable metadata (configuration etc.) instead of comments"/>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
@@ -76,7 +77,7 @@
     </output>
 
     <projection>
-        <simple-projection value="false" synonymes="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
+        <simple-projection value="false" synonymes="proj.simple" deprecated="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
         <proj.scale value="1" type="FLOAT" help="Scaling factor for input coordinates"/>
         <proj.rotate value="0" type="FLOAT" help="Rotation (clockwise degrees) for input coordinates"/>
         <proj.utm value="false" type="BOOL" help="Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)"/>
@@ -91,15 +92,15 @@
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h"/>
         <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
-        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" deprecated="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
         <kept-ids value="" type="FILE" help="Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
-        <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
-        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
+        <geometry.split value="false" synonymes="split-geometry" deprecated="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
+        <geometry.remove value="false" synonymes="R remove-geometry" deprecated="remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
         <geometry.remove.keep-edges.explicit value="" type="STR[]" help="Ensure that the given list of edges is not modified"/>
         <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <geometry.remove.keep-ptstops value="false" type="BOOL" help="Ensure that edges with public transport stops are not modified"/>
@@ -122,12 +123,12 @@
         <ptstop-output.no-bidi value="false" type="BOOL" help="Skips automatic generation of stops on the bidi-edge of a loaded stop"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge geometries with a grade above the warning threshold."/>
-        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
-        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
-        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" deprecated="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply" deprecated="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" deprecated="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
         <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
-        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <roundabouts.guess value="true" synonymes="guess-roundabouts" deprecated="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <roundabouts.guess.max-length value="3500" type="FLOAT" help="Structures with a circumference above FLOAT threshold are not classified as roundabout"/>
         <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
@@ -143,12 +144,12 @@
     </processing>
 
     <building_defaults>
-        <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
-        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
+        <default.lanenumber value="1" synonymes="L lanenumber" deprecated="lanenumber" type="INT" help="The default number of lanes in an edge"/>
+        <default.lanewidth value="-1" synonymes="lanewidth" deprecated="lanewidth" type="FLOAT" help="The default width of lanes"/>
         <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
-        <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
-        <default.friction value="1" synonymes="friction" type="FLOAT" help="The default friction on an edge"/>
-        <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
+        <default.speed value="13.89" synonymes="S speed" deprecated="speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.friction value="1" synonymes="friction" deprecated="friction" type="FLOAT" help="The default friction on an edge"/>
+        <default.priority value="-1" synonymes="P priority" deprecated="priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
         <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
@@ -167,13 +168,13 @@
     <tls_building>
         <tls.discard-loaded value="false" type="BOOL" help="Does not instantiate traffic lights loaded from other formats than plain-XML"/>
         <tls.discard-simple value="false" type="BOOL" help="Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
-        <tls.set value="" synonymes="explicite-tls" type="STR[]" help="Interprets STR[] as list of junctions to be controlled by TLS"/>
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]" help="Interprets STR[] as list of junctions to be not controlled by TLS"/>
-        <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
+        <tls.set value="" synonymes="explicite-tls" deprecated="explicite-tls" type="STR[]" help="Interprets STR[] as list of junctions to be controlled by TLS"/>
+        <tls.unset value="" synonymes="explicite-no-tls" deprecated="explicite-no-tls" type="STR[]" help="Interprets STR[] as list of junctions to be not controlled by TLS"/>
+        <tls.guess value="false" synonymes="guess-tls" deprecated="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
         <tls.guess.threshold value="69.4444" type="FLOAT" help="Sets minimum value for the sum of all incoming lane speeds when guessing TLS"/>
-        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
-        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL" help="Includes node clusters into guess"/>
-        <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
+        <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" deprecated="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" deprecated="tls-guess.joining" type="BOOL" help="Includes node clusters into guess"/>
+        <tls.join value="false" synonymes="try-join-tls" deprecated="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
         <tls.join-exclude value="" type="STR[]" help="Interprets STR[] as list of tls ids to exclude from joining"/>
         <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
@@ -182,10 +183,10 @@
         <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
         <tls.guess-signals.slack value="0" type="INT" help="Number of uncontrolled entry edges to accept and still consider the central node as a traffic light"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
-        <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
-        <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
-        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
-        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
+        <tls.green.time value="31" synonymes="traffic-light-green" deprecated="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
+        <tls.yellow.min-decel value="3" synonymes="D min-decel" deprecated="min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
+        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" deprecated="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
+        <tls.yellow.time value="-1" synonymes="traffic-light-yellow" deprecated="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.red.time value="5" type="INT" help="Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"/>
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
@@ -196,8 +197,8 @@
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
         <tls.scramble.time value="5" type="INT" help="Use INT as green phase duration for pedestrian scramble phase (s)."/>
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]" help="TLSs in STR[] will be shifted by half-phase"/>
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]" help="TLSs in STR[] will be shifted by quarter-phase"/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" deprecated="tl-logics.half-offset" type="STR[]" help="TLSs in STR[] will be shifted by half-phase"/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" deprecated="tl-logics.quarter-offset" type="STR[]" help="TLSs in STR[] will be shifted by quarter-phase"/>
         <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
         <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.no-mixed value="false" type="BOOL" help="Avoid phases with green and red signals for different connections from the same lane"/>
@@ -209,19 +210,19 @@
     </tls_building>
 
     <ramp_guessing>
-        <ramps.guess value="false" synonymes="guess-ramps" type="BOOL" help="Enable ramp-guessing"/>
+        <ramps.guess value="false" synonymes="guess-ramps" deprecated="guess-ramps" type="BOOL" help="Enable ramp-guessing"/>
         <ramps.guess-acceleration-lanes value="true" type="BOOL" help="Guess on-ramps and mark acceleration lanes if they exist but do not add new lanes"/>
-        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
-        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
-        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
+        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" deprecated="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
+        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" deprecated="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
+        <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" deprecated="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
         <ramps.min-weave-length value="50" type="FLOAT" help="Use FLOAT as minimum ramp-length"/>
-        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]" help="Tries to handle the given edges as ramps"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite" deprecated="ramp-guess.explicite" type="STR[]" help="Tries to handle the given edges as ramps"/>
         <ramps.unset value="" type="STR[]" help="Do not consider the given edges as ramps"/>
-        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" deprecated="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
     <edge_removal>
-        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
+        <keep-edges.min-speed value="-1" synonymes="edges-min-speed" deprecated="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]" help="Remove edges in STR[]"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]" help="Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options"/>
         <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
@@ -234,13 +235,13 @@
         <keep-edges.by-type value="" type="STR[]" help="Only keep edges where type is in STR[]"/>
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
         <remove-edges.by-type value="" type="STR[]" help="Remove edges where type is in STR[]"/>
-        <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
+        <remove-edges.isolated value="false" synonymes="remove-isolated" deprecated="remove-isolated" type="BOOL" help="Removes isolated edges"/>
         <keep-lanes.min-width value="0.01" type="FLOAT" help="Only keep lanes with width in meters &gt; FLOAT"/>
     </edge_removal>
 
     <unregulated_nodes>
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL" help="All nodes will be unregulated"/>
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]" help="Do not regulate nodes in STR[]"/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" deprecated="keep-unregulated.nodes" type="STR[]" help="Do not regulate nodes in STR[]"/>
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL" help="Do not regulate district nodes"/>
     </unregulated_nodes>
 
@@ -249,7 +250,7 @@
         <junctions.left-before-right value="false" type="BOOL" help="Build left-before-right junctions instead of right-before-left junctions"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
-        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" deprecated="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
         <no-turnarounds.geometry value="true" type="BOOL" help="Disables building turnarounds at geometry-like junctions"/>
         <no-turnarounds.except-deadend value="false" type="BOOL" help="Disables building turnarounds except at dead end junctions"/>
         <no-turnarounds.except-turnlane value="false" type="BOOL" help="Disables building turnarounds except at at junctions with a dedicated turning lane"/>
@@ -316,9 +317,9 @@
         <railway.geometry.straighten value="false" type="BOOL" help="Move junctions to straighten a sequence of rail edges"/>
         <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
         <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]" help="List rail classes that may run without rail signals"/>
-        <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
-        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>
-        <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
+        <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" deprecated="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
+        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" deprecated="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>
+        <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" deprecated="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
     </railway>
 
     <formats>
@@ -347,10 +348,10 @@
         <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
-        <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
-        <shapefile.from-id value="" synonymes="arcview.from-id" type="STR" help="Read from-node ids from column STR"/>
-        <shapefile.to-id value="" synonymes="arcview.to-id" type="STR" help="Read to-node ids from column STR"/>
-        <shapefile.type-id value="" synonymes="arcview.type-id" type="STR" help="Read type ids from column STR"/>
+        <shapefile.street-id value="" synonymes="arcview.street-id" deprecated="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
+        <shapefile.from-id value="" synonymes="arcview.from-id" deprecated="arcview.from-id" type="STR" help="Read from-node ids from column STR"/>
+        <shapefile.to-id value="" synonymes="arcview.to-id" deprecated="arcview.to-id" type="STR" help="Read to-node ids from column STR"/>
+        <shapefile.type-id value="" synonymes="arcview.type-id" deprecated="arcview.type-id" type="STR" help="Read type ids from column STR"/>
         <shapefile.laneNumber value="" type="STR" help="Read lane number from column STR"/>
         <shapefile.speed value="" type="STR" help="Read speed from column STR"/>
         <shapefile.length value="" type="STR" help="Read custom edge length from column STR"/>
@@ -358,13 +359,13 @@
         <shapefile.name value="" type="STR" help="Read (non-unique) name from column STR"/>
         <shapefile.node-join-dist value="0" type="FLOAT" help="Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)"/>
         <shapefile.add-params value="" type="STR[]" help="Add the list of field names as edge params"/>
-        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL" help="Uses edge type defaults on problems"/>
-        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" type="BOOL" help="Insert edges in both directions"/>
-        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guess the proper projection"/>
+        <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" deprecated="arcview.use-defaults-on-failure" type="BOOL" help="Uses edge type defaults on problems"/>
+        <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" deprecated="arcview.all-bidi" type="BOOL" help="Insert edges in both directions"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" deprecated="arcview.guess-projection" type="BOOL" help="Guess the proper projection"/>
         <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
         <dlr-navteq.tolerant-permissions value="false" type="BOOL" help="Allow more vehicle classes by default"/>
         <dlr-navteq.keep-length value="false" type="BOOL" help="The edge lengths given in the DLR Navteq-file will be kept"/>
-        <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT" help="Structure join offset"/>
+        <vissim.join-distance value="5" synonymes="vissim.offset" deprecated="vissim.offset" type="FLOAT" help="Structure join offset"/>
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>
         <vissim.report-unset-speeds value="false" type="BOOL" help="Writes lanes without an explicit speed set"/>
@@ -373,11 +374,11 @@
         <visum.use-type-laneno value="false" type="BOOL" help="Uses lane numbers from types"/>
         <visum.use-type-speed value="false" type="BOOL" help="Uses speeds from types"/>
         <visum.connector-speeds value="100" type="FLOAT" help="Sets connector speed"/>
-        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
+        <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" deprecated="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
         <visum.no-connectors value="true" type="BOOL" help="Excludes connectors"/>
-        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
+        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" deprecated="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
-        <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
+        <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" deprecated="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
         <opendrive.advance-stopline value="0" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
@@ -396,7 +397,7 @@
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
@@ -404,15 +405,15 @@
         <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
         <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" deprecated="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
         <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
         <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
     </report>
 
     <random_number>
-        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
-        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
+        <random value="false" synonymes="abs-rand" deprecated="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" deprecated="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
 </netconvertConfiguration>

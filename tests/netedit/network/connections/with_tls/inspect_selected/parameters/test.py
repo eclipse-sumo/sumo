@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.connection.connec
 netedit.checkParametersOverlapped(referencePosition, netedit.attrs.connection.inspectSelectionTLS.parameters)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

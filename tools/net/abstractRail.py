@@ -70,6 +70,8 @@ def get_options():
                     + " automatically split the network if needed")
     ap.add_argument("--filter-regions", dest="filterRegions",
                     help="filter regions by name or id")
+    ap.add_argument("--main-stops", dest="mainStops",
+                    help="determine main direction from stops names or ids")
     ap.add_argument("--keep-all", action="store_true", dest="keepAll", default=False,
                     help="keep original regions outside the filtered regions")
     ap.add_argument("--horizontal", action="store_true", dest="horizontal", default=False,
@@ -95,6 +97,9 @@ def get_options():
     if options.regionfile and options.split:
         ap.print_help()
         ap.exit("Error! Only one of the options --split or --region-file may be given")
+
+    if options.mainStops:
+        options.mainStops = set(options.mainStops.split(','))
 
     options.output_nodes = options.prefix + ".nod.xml"
     options.output_edges = options.prefix + ".edg.xml"
@@ -140,20 +145,59 @@ def initShapes(edges, nodeCoords, edgeShapes):
         edgeShapes[edge.getID()] = edge.getShape(True)
 
 
-def findMainline(options, name, net, edges):
+def getStops(stopfile, net):
+    stops = dict()  # edgeID -> (stopID, stopName, start, end)
+    for stop in sumolib.xml.parse(stopfile, ['busStop', 'trainStop']):
+        edgeID = stop.lane.rsplit('_', 1)[0]
+        if not net.hasEdge(edgeID):
+            sys.stderr.write("Warning: Unknown stop edge '%s'" % edgeID)
+            continue
+        edge = net.getEdge(edgeID)
+        startPos = float(stop.startPos)
+        endPos = float(stop.endPos)
+        if startPos < 0:
+            startPos += edge.getLength()
+            if startPos < 0:
+                startPos = 0
+        if startPos >= edge.getLength():
+            startPos = edge.getLength()
+        if endPos < 0:
+            endPos += edge.getLength()
+            if endPos < 0:
+                endPos = 0
+        if endPos >= edge.getLength():
+            endPos = edge.getLength()
+
+        expectedLength = min(50, edge.getLength())
+        if endPos - startPos < expectedLength:
+            mid = (endPos + startPos) / 2
+            startPos = max(0, mid - expectedLength)
+            endPos = min(edge.getLength(), mid + expectedLength)
+        stops[edgeID] = (stop.id, stop.getAttributeSecure("attr_name", stop.id),
+                         startPos, endPos)
+    return stops
+
+
+def findMainline(options, name, net, edges, stops):
     """use platforms to determine mainline orientation"""
     knownEdges = set([e.getID() for e in edges])
 
     angles = []
-    for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
-        # name = stop.getAttributeSecure("attr_name", stop.id)
-        edgeID = stop.lane.rsplit('_', 1)[0]
+    for edgeID, (stopID, stopName, startPos, endPos) in stops.items():
+        if options.mainStops and stopID not in options.mainStops and stopName not in options.mainStops:
+            continue
         if edgeID not in knownEdges:
             continue
         edge = net.getEdge(edgeID)
-        begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
-        endCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.endPos))
-        angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
+        begCoord = gh.positionAtShapeOffset(edge.getShape(), startPos)
+        endCoord = gh.positionAtShapeOffset(edge.getShape(), endPos)
+        assert (startPos != endPos)
+        assert (begCoord != endCoord)
+        angle = gh.angleTo2D(begCoord, endCoord)
+        if 180 < gh.naviDegree(angle) <= 360:
+            angle -= math.pi
+            begCoord, endCoord = endCoord, begCoord
+        angles.append((angle, (begCoord, endCoord)))
 
     if not angles:
         print("Warning: No stops loaded for region '%s'. Using median edge angle instead" % name, file=sys.stderr)
@@ -243,7 +287,7 @@ def differentOrderings(edgeIDs, o1, o2):
     return True
 
 
-def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
+def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, region):
     """
     precondition: network is rotated so that the mainLine is on the horizontal
     for each x-value we imagine a vertical line and find all the edges that intersect
@@ -296,7 +340,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                     print("sameOrdering:", prevOrdering, ordering)
 
     # step 3:
-    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords)
+    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region)
 
     # step 4: apply yValues to virtual nodes that were skipped
     if nodeYValues:
@@ -310,7 +354,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     return nodeYValues
 
 
-def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
+def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords, region):
     constrainedEdges = set()
     for _, ordering in orderings:
         for vNode in ordering:
@@ -409,7 +453,7 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
     res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
 
     if not res.success:
-        sys.stderr.write("Optimization failed\n")
+        sys.stderr.write("Optimization failed for region %s\n" % region)
         return dict()
 
     if options.verbose:
@@ -506,12 +550,17 @@ def getIndexOfClosestToZero(values):
     return result
 
 
-def cleanShapes(options, net, nodeCoords, edgeShapes):
+def cleanShapes(options, net, nodeCoords, edgeShapes, stops):
     """Ensure consistent edge shape in case the same edge was part of multiple regions"""
+
     for edgeID, shape in edgeShapes.items():
         edge = net.getEdge(edgeID)
         fromID = edge.getFromNode().getID()
         toID = edge.getToNode().getID()
+        if ((shape[0] != nodeCoords[fromID] or shape[-1] != nodeCoords[toID])
+                and options.horizontal and edgeID in stops and len(shape) == 2):
+            shape.insert(0, shape[0])
+            shape.append(shape[-1])
         shape[0] = nodeCoords[fromID]
         shape[-1] = nodeCoords[toID]
 
@@ -542,7 +591,10 @@ def splitNet(options):
             print("Splitting %s edges to ensure distinct regions" % numSplits)
 
         # rebuilt the network and stop file
-        options.netfile = options.netfile[:-8] + ".split.net.xml"
+        if options.netfile[-11:] == ".net.xml.gz":
+            options.netfile = options.netfile[:-11] + ".split.net.xml.gz"
+        else:
+            options.netfile = options.netfile[:-8] + ".split.net.xml"
         if options.stopfile[-8:] == ".add.xml":
             options.stopfile = options.stopfile[:-8] + ".split.add.xml"
         else:
@@ -570,21 +622,22 @@ def main(options):
     if options.verbose:
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
+    stops = getStops(options.stopfile, net)
 
     regions = loadRegions(options, net)
     multiRegions = len(regions) > 1
     nodeCoords = dict()
     edgeShapes = dict()
 
-    for name, edges in regions.items():
-        edges = filterBidi(edges)
+    for name, allEdges in regions.items():
+        edges = filterBidi(allEdges)
         if options.verbose:
             print("Processing region '%s' with %s edges" % (name, len(edges)))
         initShapes(edges, nodeCoords, edgeShapes)
-        mainLine = findMainline(options, name, net, edges)
+        mainLine = findMainline(options, name, net, allEdges, stops)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         if not options.skipYOpt:
-            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
+            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes, name)
             if nodeYValues:
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
                 if options.trackLength:
@@ -592,7 +645,7 @@ def main(options):
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal, multiRegions)
 
     if len(regions) > 1:
-        cleanShapes(options, net, nodeCoords, edgeShapes)
+        cleanShapes(options, net, nodeCoords, edgeShapes, stops)
 
     with open(options.output_nodes, 'w') as outf_nod:
         sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)

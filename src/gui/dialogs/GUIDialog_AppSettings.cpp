@@ -78,7 +78,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     myTable->setVisibleRows(numRows);
     myTable->setVisibleColumns(2);
     myTable->setTableSize(numRows, 2);
-    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setBackColor(GUIDesignBackgroundColorWhite);
     myTable->getRowHeader()->setWidth(0);
     myTable->setTableSize(numRows, 2);
     myTable->setColumnText(0, "Name");

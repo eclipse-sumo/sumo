@@ -1,0 +1,13 @@
+Error: Cannot read file 'D:\SUMO\tests\netedit\basic\files\save\joined_junctions\gui-settings.xml'!
+Warning: Intersecting left turns at junction 'clusterJ1_J3_J5_J6' from lane '-E9_0' and lane '-E12_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'clusterJ1_J3_J5_J6' from lane '-E7_0' and lane '-E2_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'clusterJ1_J3_J5_J6' from lane '-E7_0' and lane '-E2_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'clusterJ1_J3_J5_J6' from lane '-E7_0' and lane '-E1_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'clusterJ1_J3_J5_J6' from lane '-E7_0' and lane '-E2_0' (increase junction radius to avoid this).
+Warning: Ambiguity in turnarounds computation at junction 'clusterJ1_J3_J5_J6'.
+Warning: Ambiguity in turnarounds computation at junction 'clusterJ2_J4'.
+Warning: Ambiguity in turnarounds computation at junction 'clusterJ7_J8'.
+Warning: Ambiguity in turnarounds computation at junction 'clusterJ1_J3_J5_J6'.
+Warning: Ambiguity in turnarounds computation at junction 'clusterJ2_J4'.
+Warning: 12 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 62 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).

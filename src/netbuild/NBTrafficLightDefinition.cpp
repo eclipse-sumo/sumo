@@ -293,7 +293,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
 
 #ifdef DEBUG_RIGHT_OF_WAY
     if (DEBUGCOND) {
-        std::cout << "foribds tls=" << getID() << " from=" << possProhibitedFrom->getID() << " to=" << possProhibitedTo->getID() << " foeFrom=" << possProhibitorFrom->getID() << " foeTo=" << possProhibitorTo->getID() << " rnslp=" << regardNonSignalisedLowerPriority << " sameNodeOnly=" << sameNodeOnly;
+        std::cout << "forbids tls=" << getID() << " from=" << possProhibitedFrom->getID() << " to=" << possProhibitedTo->getID() << " foeFrom=" << possProhibitorFrom->getID() << " foeTo=" << possProhibitorTo->getID() << " rnslp=" << regardNonSignalisedLowerPriority << " sameNodeOnly=" << sameNodeOnly;
     }
 #endif
     if (incnode != outnode) {

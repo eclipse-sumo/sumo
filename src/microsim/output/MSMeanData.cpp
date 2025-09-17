@@ -432,7 +432,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myInitTime(SUMOTime_MAX),
     myEdges(edges),
     myPrintDefaults(printDefaults),
-    myDumpInternal(withInternal),
+    myDumpInternal(withInternal && MSGlobals::gUsingInternalLanes),
     myTrackVehicles(trackVehicles),
     myWrittenAttributes(OutputDevice::parseWrittenAttributes(StringTokenizer(writeAttributes).getVector(), "meandata '" + id + "'")),
     myAggregate(aggregate)
@@ -574,10 +574,18 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
         }
     }
     if (MSGlobals::gUseMesoSim) {
-        for (MSEdge* edge : myEdges) {
+        for (int i = 0; i < (int)myEdges.size(); i++) {
+            MSEdge* edge = myEdges[i];
+            std::vector<MeanDataValues*>& edgeValues = myMeasures[i];
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
             while (s != nullptr) {
-                s->prepareDetectorForWriting(*sumData);
+                for (MeanDataValues* meanData : edgeValues) {
+                    s->prepareDetectorForWriting(*meanData);
+                    meanData->addTo(*sumData);
+                    if (!MSNet::getInstance()->skipFinalReset()) {
+                        meanData->reset();
+                    }
+                }
                 s = s->getNextSegment();
             }
         }

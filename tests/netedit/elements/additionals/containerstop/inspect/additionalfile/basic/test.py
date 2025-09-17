@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # set invalid person number
-netedit.modifyAdditionalFileOverlapped(netedit.attrs.containerStop.inspect.additionalFile)
+netedit.modifyFileOverlapped("additional", netedit.attrs.containerStop.inspect.additionalFile)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

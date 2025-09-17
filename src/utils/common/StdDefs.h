@@ -30,7 +30,11 @@
 #define UNUSED_PARAMETER(x)  ((void)(x))
 
 #ifdef _MSC_VER
+#if _MSC_VER < 1943
 #define FALLTHROUGH /* do nothing */
+#else
+#define FALLTHROUGH [[fallthrough]]
+#endif
 #elif __GNUC__ < 7
 #define FALLTHROUGH /* do nothing */
 #else
@@ -126,9 +130,11 @@ extern double gWeightsWalkOppositeFactor; // factor for walking against flow of 
 /// the language for GUI elements and messages
 extern std::string gLanguage;
 
-/// the default size for GUI elements
+/// the default height for GUI elements
 extern int GUIDesignHeight;
 
+/// the default height for dialog buttons
+extern int GUIDesignDialogButtonsHeight;
 
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;

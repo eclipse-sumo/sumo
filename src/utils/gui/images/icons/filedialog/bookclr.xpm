@@ -1,0 +1,28 @@
+/* XPM */
+static const char *filedialog_bookclr_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1 ",
+"  c None",
+". c #0000D1",
+"X c #8A8AFF",
+"o c black",
+"O c red",
+"+ c navy",
+/* pixels */
+"       ..X      ",
+"      ..X       ",
+"...  ..X        ",
+" X....X    o    ",
+"  X...X   o     ",
+"  X....  oo     ",
+"  ..X ..oOOo    ",
+" ..X   ..OOo    ",
+" ..X  oO.O+o    ",
+" .X  ooOO+++oo  ",
+" XX o  o++++OOo ",
+" X o   o+++OOOo ",
+"  o    o++OOOo  ",
+" o      ooOOo   ",
+"o        ooo    ",
+"                "
+};

@@ -1,0 +1,26 @@
+/* XPM */
+static const char *filedialog_dirupicon_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1 ",
+"  c #None",
+". c black",
+"X c yellow",
+"o c white",
+/* pixels */
+"                ",
+"  .....         ",
+" .XoXoX.        ",
+"..............  ",
+".oXoXoXoXoXoXo. ",
+".XoXo.oXoXoXoX. ",
+".oXo...oXoXoXo. ",
+".Xo.....oXoXoX. ",
+".oXoX.XoXoXoXo. ",
+".XoXo.oXoXoXoX. ",
+".oXoX......oXo. ",
+".XoXoXoXoXoXoX. ",
+".oXoXoXoXoXoXo. ",
+"............... ",
+"                ",
+"                "
+};

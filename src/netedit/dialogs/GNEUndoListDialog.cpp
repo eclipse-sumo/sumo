@@ -21,6 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 
 #include "GNEUndoListDialog.h"
 
@@ -29,33 +30,40 @@
 // ===========================================================================
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEUndoListDialog::onCmdSelectRow),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
+FXIMPLEMENT(GNEUndoListDialog, GNEDialog, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), TL("Undo/Redo history"), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
-    myGNEApp(GNEApp) {
-    // create main frame
-    auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* applicationWindow) :
+    GNEDialog(applicationWindow, TL("Undo/Redo history"), GUIIcon::UNDOLIST,
+              DialogType::UNDOLIST, Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
     // create scroll windows for rows
-    auto* scrollWindowsContents = new FXScrollWindow(mainFrame, GUIDesignContentsScrollUndoList);
+    auto* scrollWindowsContents = new FXScrollWindow(myContentFrame, GUIDesignScrollWindowFixed(560, 400));
     myRowFrame = new FXVerticalFrame(scrollWindowsContents, GUIDesignAuxiliarFrame);
-    // add separator
-    new FXSeparator(mainFrame);
-    // create buttons centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(buttonsFrame, TL("OK\tclose dialog"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // set background clor
+    myRowFrame->setBackColor(GUIDesignBackgroundColorWhite);
+    // declare redo iterator over undoList and fill rows
+    GNEUndoList::RedoIterator itRedo(myApplicationWindow->getUndoList());
+    while (!itRedo.end()) {
+        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
+        itRedo++;
+    }
+    // declare undo iterator over undoList and fill rows
+    GNEUndoList::UndoIterator itUndo(myApplicationWindow->getUndoList());
+    while (!itUndo.end()) {
+        myGUIRows.push_back(new GUIRow(this, myRowFrame, myApplicationWindow->getStaticTooltipView()));
+        itUndo++;
+    }
+    //  update list
+    updateList();
+    // open dialog
+    openDialog();
 }
 
 
@@ -63,42 +71,8 @@ GNEUndoListDialog::~GNEUndoListDialog() {}
 
 
 void
-GNEUndoListDialog::show() {
-    // recalc list
-    recalcList();
-    // show
-    FXTopWindow::show(PLACEMENT_SCREEN);
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    myGNEApp->getApp()->runModalFor(this);
-
-}
-
-
-void
-GNEUndoListDialog::hide() {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    FXTopWindow::hide();
-}
-
-
-bool
-GNEUndoListDialog::shown() const {
-    return FXWindow::shown();
-}
-
-
-void
-GNEUndoListDialog::setFocus() {
-    FXWindow::setFocus();
-}
-
-
-long
-GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
-    // close dialog
-    hide();
-    return 1;
+GNEUndoListDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 
@@ -114,11 +88,11 @@ GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
     // now apply undo-redos
     if (index < 0) {
         for (int i = 0; i < (index * -1); i++) {
-            myGNEApp->getUndoList()->undo();
+            myApplicationWindow->getUndoList()->undo();
         }
     } else {
         for (int i = 0; i < index; i++) {
-            myGNEApp->getUndoList()->redo();
+            myApplicationWindow->getUndoList()->redo();
         }
     }
     // update list again
@@ -132,7 +106,7 @@ GNEUndoListDialog::updateList() {
     // declare vector of undoListRows
     std::vector<UndoListRow> undoListRows;
     // declare redo iterator over UndoList
-    GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
+    GNEUndoList::RedoIterator itRedo(myApplicationWindow->getUndoList());
     // declare index
     int index = 1;
     // fill undoListRows rows with elements to redo (in inverse)
@@ -145,7 +119,7 @@ GNEUndoListDialog::updateList() {
     // reverse undoListRows rows (because redo are inserted inverted)
     std::reverse(undoListRows.begin(), undoListRows.end());
     // declare undo iterator over UndoList
-    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
+    GNEUndoList::UndoIterator itUndo(myApplicationWindow->getUndoList());
     // reset index
     index = 0;
     // fill undoListRows with elements to undo
@@ -169,31 +143,6 @@ GNEUndoListDialog::updateList() {
 }
 
 
-void
-GNEUndoListDialog::recalcList() {
-    // first clear rows
-    for (auto& GUIRow : myGUIRows) {
-        delete GUIRow;
-    }
-    myGUIRows.clear();
-    // declare redo iterator over undoList and fill rows
-    GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
-    while (!itRedo.end()) {
-        myGUIRows.push_back(new GUIRow(this, myRowFrame, myGNEApp->getStaticTooltipView()));
-        itRedo++;
-    }
-    // declare undo iterator over undoList and fill rows
-    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
-    while (!itUndo.end()) {
-        myGUIRows.push_back(new GUIRow(this, myRowFrame, myGNEApp->getStaticTooltipView()));
-        itUndo++;
-    }
-    // recalc frame and update list
-    myRowFrame->recalc();
-    updateList();
-}
-
-
 GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string description_, const std::string timestamp_) :
     index(index_),
     icon(icon_),
@@ -208,16 +157,11 @@ GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalF
     // build icon label
     myIcon = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconThick);
     // build description label
-    myTextFieldDescription = new MFXTextFieldTooltip(horizontalFrame, staticToolTip, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextFieldDescription = new MFXTextFieldIcon(horizontalFrame, staticToolTip, GUIIcon::EMPTY, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDescription->setEditable(false);
     // build text label
     myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(70));
     myTextFieldTimeStamp->setEditable(false);
-    // create elements
-    horizontalFrame->create();
-    myIcon->create();
-    myTextFieldDescription->create();
-    myTextFieldTimeStamp->create();
 }
 
 
@@ -265,7 +209,7 @@ GNEUndoListDialog::GUIRow::getRadioButton() const {
 void
 GNEUndoListDialog::GUIRow::setRedBackground() {
     myRadioButton->setCheck(FALSE);
-    myRadioButton->setBackColor(FXRGBA(255, 213, 213, 255));
+    myRadioButton->setBackColor(GUIDesignBackgroundColorRed);
 }
 
 

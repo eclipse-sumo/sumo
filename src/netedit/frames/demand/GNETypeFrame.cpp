@@ -18,10 +18,13 @@
 // The Widget for edit Type elements (vehicle, person and container)
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -62,8 +65,8 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create MFXComboBoxIcon
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-                                         this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                         true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType.second->getID()) != 0) {
@@ -159,7 +162,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // set pointer
             myCurrentType = vType.second;
             // set color of myTypeMatchBox to black (valid)
-            myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+            myTypeComboBox->setTextColor(GUIDesignTextColorBlack);
             // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // show modules if selected item is valid
@@ -175,7 +178,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditor();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+    myTypeComboBox->setTextColor(GUIDesignTextColorRed);
     // update viewNet
     myTypeFrameParent->getViewNet()->updateViewNet();
     return 1;
@@ -334,14 +337,20 @@ void
 GNETypeFrame::TypeEditor::deleteType() {
     // show question dialog if vtype has already assigned vehicles
     if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() > 0) {
-        std::string plural = myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1 ? ("") : ("s");
+        // declare title and info
+        std::string title = TLF("remove % '%'", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID());
+        std::string info;
+        const std::string numChildren = toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size());
+        // continue depending of plural
+        if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1) {
+            info = TLF("Delete % '%' will remove one vehicle. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID());
+        } else {
+            info = TLF("Delete % '%' will remove % vehicles. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID(), numChildren);
+        }
         // Ask confirmation to user
-        FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                               ("Remove " + toString(SUMO_TAG_VTYPE) + "s").c_str(), "%s",
-                                               ("Delete " + toString(SUMO_TAG_VTYPE) + " '" + myTypeFrameParent->myTypeSelector->getCurrentType()->getID() +
-                                                "' will remove " + toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size()) +
-                                                " vehicle" + plural + ". Continue?").c_str());
-        if (answer == 1) { // 1:yes, 2:no, 4:esc
+        const auto questionDialog = GNEQuestionBasicDialog(myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, title, info);
+        // continue depending of answer
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // begin undo list operation
             myTypeFrameParent->myViewNet->getUndoList()->begin(myTypeFrameParent->myTypeSelector->getCurrentType(), ("delete vehicle type"));
             // remove vehicle type (and all of their children)

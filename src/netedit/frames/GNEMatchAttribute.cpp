@@ -19,13 +19,16 @@
 /****************************************************************************/
 
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/dialogs/basic/GNEHelpBasicDialog.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <utils/foxtools/MFXComboBoxAttrProperty.h>
 #include <utils/foxtools/MFXComboBoxTagProperty.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -61,16 +64,17 @@ GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
     MFXGroupBoxModule(selectorFrameParent, TL("Match Attribute")),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentEditedProperties(new CurrentEditedProperties(this)) {
+    const auto staticTooltipMenu = selectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create MFXComboBoxIcons (sum 1 due children)
     for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth() + 1; i++) {
-        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
                 this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
     }
     myShowOnlyCommonAttributes = new FXCheckButton(getCollapsableFrame(), TL("Only common"), this, MID_GNE_SELECTORFRAME_TOGGLECOMMON, GUIDesignCheckButton);
     myShowOnlyCommonAttributes->setCheck(FALSE);
     // Create MFXComboBoxIcon for Attributes
-    myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
+    myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
@@ -105,14 +109,14 @@ void
 GNEMatchAttribute::disableMatchAttribute() {
     for (const auto& tagComboBox : myTagComboBoxVector) {
         tagComboBox->disable();
-        tagComboBox->setTextColor(FXRGB(0, 0, 0));
+        tagComboBox->setTextColor(GUIDesignTextColorBlack);
     }
     myAttributeComboBox->disable();
     myMatchString->disable();
     myMatchStringButton->disable();
     // change colors to black (even if there are invalid values)
-    myAttributeComboBox->setTextColor(FXRGB(0, 0, 0));
-    myMatchString->setTextColor(FXRGB(0, 0, 0));
+    myAttributeComboBox->setTextColor(GUIDesignTextColorBlack);
+    myMatchString->setTextColor(GUIDesignTextColorBlack);
 }
 
 
@@ -297,10 +301,10 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     }
     if (valid) {
         mySelectorFrameParent->handleIDs(matches);
-        myMatchString->setTextColor(FXRGB(0, 0, 0));
+        myMatchString->setTextColor(GUIDesignTextColorBlack);
         myMatchString->killFocus();
     } else {
-        myMatchString->setTextColor(FXRGB(255, 0, 0));
+        myMatchString->setTextColor(GUIDesignTextColorRed);
     }
     return 1;
 
@@ -309,50 +313,32 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
-    // Create dialog box
-    MFXDialogBox* additionalNeteditAttributesHelpDialog = new MFXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
-    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
     help
-            << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
-            << TL("  according to the current 'Modification Mode'.\n")
-            << TL("     1. Select an object type from the first input box\n")
-            << TL("     2. Select an attribute from the second input box\n")
-            << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
+            << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection") << "\n"
+            << TL("  according to the current 'Modification Mode'.") << "\n"
+            << TL("     1. Select an object type from the first input box") << "\n"
+            << TL("     2. Select an attribute from the second input box") << "\n"
+            << TL("     3. Enter a 'match expression' in the third input box and press <return>") << "\n"
             << "\n"
-            << TL("- The empty expression matches all objects\n")
-            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
-            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
+            << TL("- The empty expression matches all objects") << "\n"
+            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.") << "\n"
+            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'") << "\n"
             << "\n"
-            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
-            << TL("     '' (no operator) matches if string is a substring of that object's attribute.\n")
-            << TL("     '=' matches if string is an exact match.\n")
-            << TL("     '!' matches if string is not a substring.\n")
-            << TL("     '^' matches if string is not an exact match.\n")
+            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.") << "\n"
+            << TL("     '' (no operator) matches if string is a substring of that object's attribute.") << "\n"
+            << TL("     '=' matches if string is an exact match.") << "\n"
+            << TL("     '!' matches if string is not a substring.") << "\n"
+            << TL("     '^' matches if string is not an exact match.") << "\n"
             << "\n"
-            << TL("- Examples:\n")
-            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
-            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
-            << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
-    // Create label with the help text
-    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // Create horizontal separator
-    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // create Dialog
-    additionalNeteditAttributesHelpDialog->create();
-    // show in the given position
-    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+            << TL("- Examples:")
+            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id") << "\n"
+            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'") << "\n"
+            << TL("     edge; speed; '>10' -> match all edges with a speed above 10");
+    // open help dialog
+    GNEHelpBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                       TL("Netedit parameters Help"), help);
     return 1;
 }
 

@@ -116,7 +116,7 @@ public:
      */
     static bool isAbsolute(const std::string& path);
 
-    /** @brief Returns the path from a configuration so that it is accessable from the current working directory
+    /** @brief Returns the path from a configuration so that it is accessible from the current working directory
      *
      * If the path is absolute, it is returned. Otherwise, the file's position
      *  is computed regarding the configuration path (see getConfigurationRelative).

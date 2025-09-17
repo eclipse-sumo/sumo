@@ -20,8 +20,13 @@
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
+
+#include "MFXStaticToolTip.h"
 #include "MFXMenuButtonTooltip.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
 FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,            0,                  MFXMenuButtonTooltip::onEnter),
@@ -35,6 +40,9 @@ FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXMenuButtonTooltip, FXMenuButton, MFXMenuButtonTooltipMap, ARRAYNUMBER(MFXMenuButtonTooltipMap))
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text, FXIcon* ic,
         FXPopup* pup, FXObject* optionalTarget, FXuint opts,

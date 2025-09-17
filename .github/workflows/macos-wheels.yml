@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         filter: tree:0
@@ -45,7 +45,7 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Set up Python ${{ matrix.python_version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 
@@ -107,16 +107,16 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         path: python-wheels
         merge-multiple: true
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python_version }}
 

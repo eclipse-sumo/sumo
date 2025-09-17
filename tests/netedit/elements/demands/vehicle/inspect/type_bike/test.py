@@ -61,7 +61,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.type, "DEFAULT_B
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

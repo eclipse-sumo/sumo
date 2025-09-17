@@ -1,18 +1,18 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- missing containerCapacity -->
-    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" />
 
     <!-- non valid format containerCapacity (dummy) -->
-    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="dummyPersonCapacity" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="dummyPersonCapacity" />
 
     <!-- non valid format containerCapacity (negative) -->
-    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="-7" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="-7" />
 
     <!-- non valid format containerCapacity (double) -->
-    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="2.5" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="2.5" />
 
     <!-- valid format containerCapacity -->
-    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="6" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" containerCapacity="6" />
 
 </additional>

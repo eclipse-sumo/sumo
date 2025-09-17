@@ -536,6 +536,15 @@
 #include "icons/sum.xpm"
 #include "icons/back.xpm"
 
+#include "icons/error_large.xpm"
+#include "icons/error_small.xpm"
+#include "icons/information_large.xpm"
+#include "icons/information_small.xpm"
+#include "icons/question_large.xpm"
+#include "icons/question_small.xpm"
+#include "icons/warning_large.xpm"
+#include "icons/warning_small.xpm"
+
 #include "icons/grid.xpm"
 #include "icons/grid1.xpm"
 #include "icons/grid2.xpm"
@@ -544,6 +553,23 @@
 #include "icons/geohack.xpm"
 #include "icons/googlemaps.xpm"
 #include "icons/osm.xpm"
+
+#include "icons/filedialog/bigfolder.xpm"
+#include "icons/filedialog/bookclr.xpm"
+#include "icons/filedialog/bookset.xpm"
+#include "icons/filedialog/dirupicon.xpm"
+#include "icons/filedialog/filecopy.xpm"
+#include "icons/filedialog/filedelete.xpm"
+#include "icons/filedialog/filehidden.xpm"
+#include "icons/filedialog/filelink.xpm"
+#include "icons/filedialog/filemove.xpm"
+#include "icons/filedialog/fileshown.xpm"
+#include "icons/filedialog/foldernew.xpm"
+#include "icons/filedialog/gotohome.xpm"
+#include "icons/filedialog/gotowork.xpm"
+#include "icons/filedialog/showbigicons.xpm"
+#include "icons/filedialog/showdetails.xpm"
+#include "icons/filedialog/showsmallicons.xpm"
 
 #include "icons/languages/de.xpm"
 #include "icons/languages/es.xpm"
@@ -1086,6 +1112,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
     myIcons[GUIIcon::BACK] = new FXXPMIcon(a, back_xpm);
 
+    myIcons[GUIIcon::ERROR_LARGE] = new FXXPMIcon(a, error_large_xpm);
+    myIcons[GUIIcon::ERROR_SMALL] = new FXXPMIcon(a, error_small_xpm);
+    myIcons[GUIIcon::INFORMATION_LARGE] = new FXXPMIcon(a, information_large_xpm);
+    myIcons[GUIIcon::INFORMATION_SMALL] = new FXXPMIcon(a, information_small_xpm);
+    myIcons[GUIIcon::QUESTION_LARGE] = new FXXPMIcon(a, question_large_xpm);
+    myIcons[GUIIcon::QUESTION_SMALL] = new FXXPMIcon(a, question_small_xpm);
+    myIcons[GUIIcon::WARNING_LARGE] = new FXXPMIcon(a, warning_large_xpm);
+    myIcons[GUIIcon::WARNING_SMALL] = new FXXPMIcon(a, warning_small_xpm);
+
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
     myIcons[GUIIcon::GRID2] = new FXXPMIcon(a, grid2_xpm);
@@ -1094,6 +1129,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
     myIcons[GUIIcon::GOOGLEMAPS] = new FXXPMIcon(a, googlemaps_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
+
+    myIcons[GUIIcon::FILEDIALOG_BOOK_CLR] = new FXXPMIcon(a, filedialog_bookclr_xpm);
+    myIcons[GUIIcon::FILEDIALOG_BOOK_SET] = new FXXPMIcon(a, filedialog_bookset_xpm);
+    myIcons[GUIIcon::FILEDIALOG_DIRUP_ICON] = new FXXPMIcon(a, filedialog_dirupicon_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_COPY] = new FXXPMIcon(a, filedialog_filecopy_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_DELETE] = new FXXPMIcon(a, filedialog_filedelete_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_HIDDEN] = new FXXPMIcon(a, filedialog_filehidden_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_LINK] = new FXXPMIcon(a, filedialog_filelink_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_MOVE] = new FXXPMIcon(a, filedialog_filemove_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FILE_SHOWN] = new FXXPMIcon(a, filedialog_fileshown_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FOLDER_BIG] = new FXXPMIcon(a, filedialog_bigfolder_xpm);
+    myIcons[GUIIcon::FILEDIALOG_FOLDER_NEW] = new FXXPMIcon(a, filedialog_foldernew_xpm);
+    myIcons[GUIIcon::FILEDIALOG_GOTO_HOME] = new FXXPMIcon(a, filedialog_gotohome_xpm);
+    myIcons[GUIIcon::FILEDIALOG_GOTO_WORK] = new FXXPMIcon(a, filedialog_gotowork_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_BIGICONS] = new FXXPMIcon(a, filedialog_showbigicons_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_DETAILS] = new FXXPMIcon(a, filedialog_showdetails_xpm);
+    myIcons[GUIIcon::FILEDIALOG_SHOW_SMALLICONS] = new FXXPMIcon(a, filedialog_showsmallicons_xpm);
 
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);

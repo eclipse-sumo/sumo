@@ -4,15 +4,15 @@
     <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10"/>
 
     <!-- missing ID -->
-    <busStop lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <busStop lane="EdgeCenter1_1" startPos="5" endPos="10"/>
 
     <!-- invalid ID -->
-    <busStop id="ID with spaces" lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <busStop id="ID with spaces" lane="EdgeCenter1_1" startPos="5" endPos="10"/>
 
     <!-- Duplicated ID -->
-    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10"/>
 
     <!-- Duplicated ID (train) -->
-    <trainStop id="busStop_00" lane="Edge3_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <trainStop id="busStop_00" lane="Edge3_1" startPos="5" endPos="10"/>
 
 </additional>

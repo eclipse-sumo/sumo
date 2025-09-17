@@ -17,7 +17,7 @@ destination folder must exist.
 
 ## Generated Output
 
-The full dump is a xml-file containing informtation about every edge,
+The full dump is a xml-file containing information about every edge,
 lane, vehicle and traffic light for each time step. A full dump-file
 looks like this:
 

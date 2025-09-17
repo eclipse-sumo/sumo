@@ -12,5 +12,8 @@ pos_random
 # Test with cross1lt1
 pos_custom
 probability
+
+# generate detectors all lanes of an edge or none
+edgeProbability
 E2
 E2_length

@@ -11,6 +11,9 @@ copy_test_path:forklift_right.png
 [run_dependent_text]
 output:Warning: detected OpenGL error 'invalid enumerant' at Before Renderer::compile
 output:StatsHandler::StatsHandler() Setting up GL2 compatible shaders
+output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
+output:vm3dgl: Failed to initialize svga driver.
+output:vm3dgl: Falling back to LLVMPipe.
 errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
 errors:MESA: error: ZINK: {LINES 2}
 

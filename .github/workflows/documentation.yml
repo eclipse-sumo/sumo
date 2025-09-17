@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Cloning repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Installing plantuml
       run: |
@@ -25,7 +25,7 @@ jobs:
         sudo apt-get install plantuml
 
     - name: Configuring Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
 
@@ -57,7 +57,7 @@ jobs:
         restore-keys: cache-lychee-
 
     - name: Cloning repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Lychee Link Checker
       uses: lycheeverse/lychee-action@v2

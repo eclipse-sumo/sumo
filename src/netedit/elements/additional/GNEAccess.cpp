@@ -239,6 +239,8 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
                 accessColor = s.colorSettings.selectedAdditionalColor;
             } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
                 accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+            } else if (getParentAdditionals().front()->getTagProperty()->getTag() == SUMO_TAG_CONTAINER_STOP) {
+                accessColor = s.colorSettings.containerStopColor;
             } else {
                 accessColor = s.colorSettings.busStopColor;
             }
@@ -415,8 +417,10 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) {
                 replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
-            } else {
+            } else if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr) {
                 replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value, 0);
+            } else {
+                replaceAdditionalParent(SUMO_TAG_CONTAINER_STOP, value, 0);
             }
             break;
         case GNE_ATTR_SHIFTLANEINDEX:

@@ -20,6 +20,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import platform
 import sys
 import subprocess
 import smtplib
@@ -91,7 +92,7 @@ def findErrors(line, warnings, errors, failed):
 def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toAddr="sumo-tests@dlr.de", testLog=None):
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])
-    print(build, end=' ', file=out)
+    print("_".join((platform.system(), platform.machine(), build)), end=' ', file=out)
     print(datetime.fromtimestamp(os.stat(makeLog).st_ctime).ctime(), file=out)
     print("--", file=out)
     print(basename(makeLog), file=out)

@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.angle, "32.5
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

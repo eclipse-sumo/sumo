@@ -123,6 +123,9 @@ private:
     /// @brief The currently read characters string
     std::string myValue;
 
+    /// @brief Whether a value attribute was read
+    bool myFoundValue;
+
     /** @brief Tries to set the named option to the given value
      *
      * Also evaluates whether it is a boolean or a filename option and

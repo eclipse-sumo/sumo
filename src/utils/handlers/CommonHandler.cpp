@@ -38,9 +38,45 @@ CommonHandler::CommonHandler(const std::string& filename) :
 CommonHandler::~CommonHandler() {}
 
 
+void
+CommonHandler::forceOverwriteElements() {
+    myOverwriteElements = true;
+}
+
+
+void
+CommonHandler::forceRemainElements() {
+    myRemainElements = true;
+}
+
+
+void
+CommonHandler::abortLoading() {
+    myAbortLoading = true;
+}
+
+
 bool
 CommonHandler::isErrorCreatingElement() const {
     return myErrorCreatingElement;
+}
+
+
+bool
+CommonHandler::isForceOverwriteElements() const {
+    return myOverwriteElements;
+}
+
+
+bool
+CommonHandler::isForceRemainElements() const {
+    return myRemainElements;
+}
+
+
+bool
+CommonHandler::isAbortLoading() const {
+    return myAbortLoading;
 }
 
 
@@ -323,14 +359,15 @@ CommonHandler::checkValidDemandElementID(const SumoXMLTag tag, const std::string
 
 
 void
-CommonHandler::writeWarningOverwritting(const SumoXMLTag tag, const std::string& id) {
+CommonHandler::writeWarningOverwriting(const SumoXMLTag tag, const std::string& id) {
     WRITE_WARNING(TLF("Overwriting % with ID '%'", toString(tag), id));
 }
 
 
 bool
 CommonHandler::writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+    WRITE_WARNING(TLF("Could not build % with ID '%' in netedit; Found another % with the same ID.", toString(tag), id, toString(checkedTag)));
+    return false;
 }
 
 

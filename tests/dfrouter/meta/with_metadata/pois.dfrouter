@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <metadata created_at="2025-09-11T15:57:31.506226+01:00" created_by="Eclipse SUMO dfrouter v1_24_0+0766-b295674de6f">
+        <dfrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
+
+            <input>
+                <net-file value="input_messstrecke.net.xml"/>
+                <detector-files value="input_messstrecke.det.xml"/>
+            </input>
+
+            <output>
+                <write-license value="true"/>
+                <write-metadata value="true"/>
+                <detectors-poi-output value="detectors.poi.xml"/>
+            </output>
+
+            <report>
+                <xml-validation value="never"/>
+            </report>
+
+        </dfrouterConfiguration>
+    </metadata>
+    <poi id="MQ11Fs1" type="source_detector_position" color="green" lane="ErnstRuska2O_0" pos="5.00"/>
+    <poi id="MQ11Fs2" type="source_detector_position" color="green" lane="ErnstRuska2O_1" pos="5.00"/>
+    <poi id="MQ12Fs1" type="between_detector_position" color="blue" lane="ErnstRuska2W_0" pos="-5.00"/>
+    <poi id="MQ12Fs2" type="between_detector_position" color="blue" lane="ErnstRuska2W_1" pos="-5.00"/>
+    <poi id="MQ13Fs1N" type="sink_detector_position" color="red" lane="EinsteinN_0" pos="5.00"/>
+    <poi id="MQ13Fs1S" type="discarded_detector_position" color="51,51,51" lane="EinsteinS_0" pos="-5.00"/>
+    <poi id="MQ21Fs1" type="between_detector_position" color="blue" lane="ErnstRuska231O_0" pos="-5.00"/>
+    <poi id="MQ21Fs2" type="between_detector_position" color="blue" lane="ErnstRuska231O_1" pos="-5.00"/>
+    <poi id="MQ21Fs3" type="between_detector_position" color="blue" lane="ErnstRuska231O_2" pos="-5.00"/>
+    <poi id="MQ25Fs1" type="between_detector_position" color="blue" lane="ErnstRuska231W_0" pos="5.00"/>
+    <poi id="MQ25Fs2" type="between_detector_position" color="blue" lane="ErnstRuska231W_1" pos="5.00"/>
+    <poi id="MQ22Fs1" type="between_detector_position" color="blue" lane="ErnstRuska232O_0" pos="-5.00"/>
+    <poi id="MQ22Fs2" type="between_detector_position" color="blue" lane="ErnstRuska232O_1" pos="-5.00"/>
+    <poi id="MQ24Fs1" type="between_detector_position" color="blue" lane="ErnstRuska232W_0" pos="5.00"/>
+    <poi id="MQ24Fs2" type="between_detector_position" color="blue" lane="ErnstRuska232W_1" pos="5.00"/>
+    <poi id="MQ23Fs1" type="between_detector_position" color="blue" lane="ErnstRuska3W_0" pos="-5.00"/>
+    <poi id="MQ23Fs2" type="between_detector_position" color="blue" lane="ErnstRuska3W_1" pos="-5.00"/>
+    <poi id="MQ26Fs1N" type="sink_detector_position" color="red" lane="HavestadtN_0" pos="5.00"/>
+    <poi id="MQ26Fs2N" type="sink_detector_position" color="red" lane="HavestadtN_1" pos="5.00"/>
+    <poi id="MQ28Fs1S" type="source_detector_position" color="green" lane="HavestadtS_0" pos="-5.00"/>
+    <poi id="MQ28Fs2S" type="source_detector_position" color="green" lane="HavestadtS_1" pos="-5.00"/>
+    <poi id="MQ31Fs1" type="between_detector_position" color="blue" lane="ErnstRuska3O_0" pos="-5.00"/>
+    <poi id="MQ31Fs2" type="between_detector_position" color="blue" lane="ErnstRuska3O_1" pos="-5.00"/>
+    <poi id="MQ34Fs1" type="between_detector_position" color="blue" lane="ErnstRuska3W_0" pos="5.00"/>
+    <poi id="MQ34Fs2" type="between_detector_position" color="blue" lane="ErnstRuska3W_1" pos="5.00"/>
+    <poi id="MQ32Fs1" type="between_detector_position" color="blue" lane="ErnstRuska4O_0" pos="5.00"/>
+    <poi id="MQ32Fs2" type="between_detector_position" color="blue" lane="ErnstRuska4O_1" pos="5.00"/>
+    <poi id="MQ33Fs1" type="between_detector_position" color="blue" lane="ErnstRuska4W_0" pos="-5.00"/>
+    <poi id="MQ33Fs2" type="between_detector_position" color="blue" lane="ErnstRuska4W_1" pos="-5.00"/>
+    <poi id="MQ35Fs1N" type="sink_detector_position" color="red" lane="VolmerN_0" pos="5.00"/>
+    <poi id="MQ35Fs1S" type="source_detector_position" color="green" lane="VolmerS_0" pos="-5.00"/>
+    <poi id="MQ41Fs1" type="between_detector_position" color="blue" lane="ErnstRuska4O_0" pos="-5.00"/>
+    <poi id="MQ41Fs2" type="between_detector_position" color="blue" lane="ErnstRuska4O_1" pos="-5.00"/>
+    <poi id="MQ44Fs1" type="between_detector_position" color="blue" lane="ErnstRuska4W_0" pos="5.00"/>
+    <poi id="MQ44Fs2" type="between_detector_position" color="blue" lane="ErnstRuska4W_1" pos="5.00"/>
+    <poi id="MQ42Fs1" type="sink_detector_position" color="red" lane="ErnstRuska5O_0" pos="5.00"/>
+    <poi id="MQ42Fs2" type="sink_detector_position" color="red" lane="ErnstRuska5O_1" pos="5.00"/>
+    <poi id="MQ43Fs1" type="source_detector_position" color="green" lane="ErnstRuska5W_0" pos="-5.00"/>
+    <poi id="MQ43Fs2" type="source_detector_position" color="green" lane="ErnstRuska5W_1" pos="-5.00"/>
+    <poi id="MQ43Fs3" type="source_detector_position" color="green" lane="ErnstRuska5W_2" pos="-5.00"/>
+    <poi id="MQ45Fs1N" type="source_detector_position" color="green" lane="AltglienickerBreitN_0" pos="-5.00"/>
+    <poi id="MQ45Fs2N" type="source_detector_position" color="green" lane="AltglienickerBreitN_1" pos="-5.00"/>
+    <poi id="MQ45Fs1S" type="sink_detector_position" color="red" lane="AltglienickerBreitS_0" pos="5.00"/>
+</additional>

@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.permitt
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -68,6 +68,11 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief keyboard functions
+    //@{
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    //@}
+
     /** @brief Called when the user presses the Load-button
      *
      * Opens a file dialog and forces the parent to load the list of selected

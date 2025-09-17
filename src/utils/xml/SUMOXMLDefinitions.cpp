@@ -148,6 +148,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "split",                                  SUMO_TAG_SPLIT },
     { "node",                                   SUMO_TAG_NODE },
     { "type",                                   SUMO_TAG_TYPE },
+    { "types",                                  SUMO_TAG_TYPES },
     { "laneType",                               SUMO_TAG_LANETYPE },
     { "detectorDefinition",                     SUMO_TAG_DETECTOR_DEFINITION },
     { "routeDistribution",                      SUMO_TAG_ROUTE_DISTRIBUTION },
@@ -1525,7 +1526,7 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
     {"0",              ParkingType::ONROAD },   // default: park on the street
     {"1",              ParkingType::OFFROAD },    // parking off the street
-    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park of the street if there is an opportunity for it
+    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park off the street if there is an opportunity for it
 };
 
 StringBijection<ChargeType>::Entry SUMOXMLDefinitions::chargeTypeValues[] = {
@@ -1729,164 +1730,164 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
 };
 
 StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
-    {TL("XML files (*.xml,*.xml.gz)"), XMLFileExtension::XML},
-    {TL("All files (*)"),               XMLFileExtension::ALL} //< must be the last one
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),    XMLFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                 XMLFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionValues[] = {
-    {TL("Plain text files (*.txt)"),    TXTFileExtension::TXT},
-    {TL("All files (*)"),               TXTFileExtension::ALL} //< must be the last one
+    {TL("Plain text files") + std::string(" (*.txt)"),  TXTFileExtension::TXT},
+    {TL("All files") + std::string(" (*)"),             TXTFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<CSVFileExtension>::Entry SUMOXMLDefinitions::CSVFileExtensionValues[] = {
-    {TL("CSV files (*.txt)"),   CSVFileExtension::CSV},
-    {TL("All files (*)"),       CSVFileExtension::ALL} //< must be the last one
+    {TL("CSV files") + std::string(" (*.txt)"), CSVFileExtension::CSV},
+    {TL("All files") + std::string(" (*)"),     CSVFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OSGFileExtension>::Entry SUMOXMLDefinitions::OSGFileExtensionValues[] = {
-    {TL("Open scene graph  files (*.osg)"), OSGFileExtension::OSG},
-    {TL("All files (*)"),                   OSGFileExtension::ALL} //< must be the last one
+    {TL("Open scene graph files") + std::string(" (*.osg)"),    OSGFileExtension::OSG},
+    {TL("All files") + std::string(" (*)"),                     OSGFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
-    {TL("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"),    ImageFileExtension::IMG},
-    {TL("GIF Image (*.gif)"),                                                                                                                       ImageFileExtension::GIF},
-    {TL("BMP Image (*.bmp)"),                                                                                                                       ImageFileExtension::BMP},
-    {TL("XPM Image (*.xpm)"),                                                                                                                       ImageFileExtension::XPM},
-    {TL("PCX Image (*.pcx)"),                                                                                                                       ImageFileExtension::PCX},
-    {TL("ICO Image (*.ico)"),                                                                                                                       ImageFileExtension::ICO},
-    {TL("RGB Image (*.rgb)"),                                                                                                                       ImageFileExtension::RGB},
-    {TL("XBM Image (*.xbm)"),                                                                                                                       ImageFileExtension::XBM},
-    {TL("TARGA Image (*.tga)"),                                                                                                                     ImageFileExtension::TGA},
-    {TL("PNG Image (*.png)"),                                                                                                                       ImageFileExtension::PNG},
-    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                               ImageFileExtension::JPG},
-    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                               ImageFileExtension::TIF},
-    {TL("Postscript (*.ps)"),                                                                                                                       ImageFileExtension::PS},
-    {TL("Encapsulated Postscript (*.eps)"),                                                                                                         ImageFileExtension::EPS},
-    {TL("Portable Document Format (*.pdf)"),                                                                                                        ImageFileExtension::PDF},
-    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                        ImageFileExtension::SVG},
-    {TL("LATEX text strings (*.tex)"),                                                                                                              ImageFileExtension::TEX},
-    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                         ImageFileExtension::PGF},
-    {TL("All Files (*)"),                                                                                                                           ImageFileExtension::ALL} //< must be the last one
+    {TL("All Image Files") + std::string(" (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"),  ImageFileExtension::IMG},
+    {TL("GIF Image") + std::string(" (*.gif)"),                                                                                                                     ImageFileExtension::GIF},
+    {TL("BMP Image") + std::string(" (*.bmp)"),                                                                                                                     ImageFileExtension::BMP},
+    {TL("XPM Image") + std::string(" (*.xpm)"),                                                                                                                     ImageFileExtension::XPM},
+    {TL("PCX Image") + std::string(" (*.pcx)"),                                                                                                                     ImageFileExtension::PCX},
+    {TL("ICO Image") + std::string(" (*.ico)"),                                                                                                                     ImageFileExtension::ICO},
+    {TL("RGB Image") + std::string(" (*.rgb)"),                                                                                                                     ImageFileExtension::RGB},
+    {TL("XBM Image") + std::string(" (*.xbm)"),                                                                                                                     ImageFileExtension::XBM},
+    {TL("TARGA Image") + std::string(" (*.tga)"),                                                                                                                   ImageFileExtension::TGA},
+    {TL("PNG Image") + std::string(" (*.png)"),                                                                                                                     ImageFileExtension::PNG},
+    {TL("JPEG Image") + std::string(" (*.jpg,*.jpeg)"),                                                                                                             ImageFileExtension::JPG},
+    {TL("TIFF Image") + std::string(" (*.tif,*.tiff)"),                                                                                                             ImageFileExtension::TIF},
+    {TL("Postscript") + std::string(" (*.ps)"),                                                                                                                     ImageFileExtension::PS},
+    {TL("Encapsulated Postscript") + std::string(" (*.eps)"),                                                                                                       ImageFileExtension::EPS},
+    {TL("Portable Document Format") + std::string(" (*.pdf)"),                                                                                                      ImageFileExtension::PDF},
+    {TL("Scalable Vector Graphics") + std::string(" (*.svg)"),                                                                                                      ImageFileExtension::SVG},
+    {TL("LATEX text strings") + std::string(" (*.tex)"),                                                                                                            ImageFileExtension::TEX},
+    {TL("Portable LaTeX Graphics") + std::string(" (*.pgf)"),                                                                                                       ImageFileExtension::PGF},
+    {TL("All Files") + std::string(" (*)"),                                                                                                                         ImageFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFileExtensionValues[] = {
-    {TL("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"),  ImageVideoFileExtension::IMG},
-    {TL("All Video Files (*.h264,*.hevc,*.mp4)"),                                                                                                                               ImageVideoFileExtension::VIDEO},
-    {TL("G264 Video (*.h264)"),                                                                                                                                                 ImageVideoFileExtension::H264},
-    {TL("HEVC Video (*.hevc)"),                                                                                                                                                 ImageVideoFileExtension::HEVC},
-    {TL("MP4 Video (*.mp4)"),                                                                                                                                                   ImageVideoFileExtension::MP4},
-    {TL("GIF Image (*.gif)"),                                                                                                                                                   ImageVideoFileExtension::GIF},
-    {TL("BMP Image (*.bmp)"),                                                                                                                                                   ImageVideoFileExtension::BMP},
-    {TL("XPM Image (*.xpm)"),                                                                                                                                                   ImageVideoFileExtension::XPM},
-    {TL("PCX Image (*.pcx)"),                                                                                                                                                   ImageVideoFileExtension::PCX},
-    {TL("ICO Image (*.ico)"),                                                                                                                                                   ImageVideoFileExtension::ICO},
-    {TL("RGB Image (*.rgb)"),                                                                                                                                                   ImageVideoFileExtension::RGB},
-    {TL("XBM Image (*.xbm)"),                                                                                                                                                   ImageVideoFileExtension::XBM},
-    {TL("TARGA Image (*.tga)"),                                                                                                                                                 ImageVideoFileExtension::TGA},
-    {TL("PNG Image (*.png)"),                                                                                                                                                   ImageVideoFileExtension::PNG},
-    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                                                           ImageVideoFileExtension::JPG},
-    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                                                           ImageVideoFileExtension::TIF},
-    {TL("Postscript (*.ps)"),                                                                                                                                                   ImageVideoFileExtension::PS},
-    {TL("Encapsulated Postscript (*.eps)"),                                                                                                                                     ImageVideoFileExtension::EPS},
-    {TL("Portable Document Format (*.pdf)"),                                                                                                                                    ImageVideoFileExtension::PDF},
-    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                                                    ImageVideoFileExtension::SVG},
-    {TL("LATEX text strings (*.tex)"),                                                                                                                                          ImageVideoFileExtension::TEX},
-    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                                                     ImageVideoFileExtension::PGF},
-    {TL("All Files (*)"),                                                                                                                                                       ImageVideoFileExtension::ALL} //< must be the last one
+    {TL("All Image and Video Files") + std::string(" (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"),    ImageVideoFileExtension::IMG},
+    {TL("All Video Files") + std::string(" (*.h264,*.hevc,*.mp4)"),                                                                                                                                 ImageVideoFileExtension::VIDEO},
+    {TL("G264 Video") + std::string(" (*.h264)"),                                                                                                                                                   ImageVideoFileExtension::H264},
+    {TL("HEVC Video") + std::string(" (*.hevc)"),                                                                                                                                                   ImageVideoFileExtension::HEVC},
+    {TL("MP4 Video") + std::string(" (*.mp4)"),                                                                                                                                                     ImageVideoFileExtension::MP4},
+    {TL("GIF Image") + std::string(" (*.gif)"),                                                                                                                                                     ImageVideoFileExtension::GIF},
+    {TL("BMP Image") + std::string(" (*.bmp)"),                                                                                                                                                     ImageVideoFileExtension::BMP},
+    {TL("XPM Image") + std::string(" (*.xpm)"),                                                                                                                                                     ImageVideoFileExtension::XPM},
+    {TL("PCX Image") + std::string(" (*.pcx)"),                                                                                                                                                     ImageVideoFileExtension::PCX},
+    {TL("ICO Image") + std::string("") + std::string(" (*.ico)"),                                                                                                                                   ImageVideoFileExtension::ICO},
+    {TL("RGB Image") + std::string(" (*.rgb)"),                                                                                                                                                     ImageVideoFileExtension::RGB},
+    {TL("XBM Image") + std::string(" (*.xbm)"),                                                                                                                                                     ImageVideoFileExtension::XBM},
+    {TL("TARGA Image") + std::string(" (*.tga)"),                                                                                                                                                   ImageVideoFileExtension::TGA},
+    {TL("PNG Image") + std::string(" (*.png)"),                                                                                                                                                     ImageVideoFileExtension::PNG},
+    {TL("JPEG Image") + std::string(" (*.jpg,*.jpeg)"),                                                                                                                                             ImageVideoFileExtension::JPG},
+    {TL("TIFF Image") + std::string(" (*.tif,*.tiff)"),                                                                                                                                             ImageVideoFileExtension::TIF},
+    {TL("Postscript") + std::string(" (*.ps)"),                                                                                                                                                     ImageVideoFileExtension::PS},
+    {TL("Encapsulated Postscript") + std::string(" (*.eps)"),                                                                                                                                       ImageVideoFileExtension::EPS},
+    {TL("Portable Document Format") + std::string(" (*.pdf)"),                                                                                                                                      ImageVideoFileExtension::PDF},
+    {TL("Scalable Vector Graphics") + std::string(" (*.svg)"),                                                                                                                                      ImageVideoFileExtension::SVG},
+    {TL("LATEX text strings") + std::string(" (*.tex)"),                                                                                                                                            ImageVideoFileExtension::TEX},
+    {TL("Portable") + std::string(" LaTeX Graphics (*.pgf)"),                                                                                                                                       ImageVideoFileExtension::PGF},
+    {TL("All Files") + std::string(" (*)"),                                                                                                                                                         ImageVideoFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
-    {TL("XML files (*.xml)"),           OutputFileExtension::XML},
-    {TL("Plain text files (*.txt)"),    OutputFileExtension::TXT},
-    {TL("All files (*)"),               OutputFileExtension::ALL} //< must be the last one
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),    OutputFileExtension::XML},
+    {TL("Plain text") + std::string(" files (*.txt)"),      OutputFileExtension::TXT},
+    {TL("All files") + std::string(" (*)"),                 OutputFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettingsFileExtensionValues[] = {
-    {TL("View settings files (*.xml,*.xml.gz)"),   ViewSettingsFileExtension::XML},
-    {TL("All files (*)"),                           ViewSettingsFileExtension::ALL} //< must be the last one
+    {TL("View settings files") + std::string(" (*.xml,*.xml.gz)"),  ViewSettingsFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         ViewSettingsFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<StateFileExtension>::Entry SUMOXMLDefinitions::stateFileExtensionValues[] = {
-    {TL("State GZipped XML files (*.xml.gz)"),  StateFileExtension::XML_GZ},
-    {TL("XML files (*.xml)"),                   StateFileExtension::XML},
-    {TL("All files (*)"),                       StateFileExtension::ALL} //< must be the last one
+    {TL("State GZipped XML files") + std::string(" (*.xml.gz)"),    StateFileExtension::XML_GZ},
+    {TL("XML files") + std::string(" (*.xml)"),                     StateFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         StateFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
-    {TL("Sumo config files (*.sumocfg)"),   SumoConfigFileExtension::SUMOCONF},
-    {TL("XML files (*.xml)"),               SumoConfigFileExtension::XML},
-    {TL("All files (*)"),                   SumoConfigFileExtension::ALL} //< must be the last one
+    {TL("Sumo config") + std::string(" files (*.sumocfg)"), SumoConfigFileExtension::SUMOCONF},
+    {TL("XML files") + std::string(" (*.xml)"),              SumoConfigFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                 SumoConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NeteditConfigFileExtension>::Entry SUMOXMLDefinitions::neteditConfigFileExtensionValues[] = {
-    {TL("Netedit config files (*.netecfg)"),    NeteditConfigFileExtension::NETECFG},
-    {TL("XML files (*.xml)"),                   NeteditConfigFileExtension::XML},
-    {TL("All files (*)"),                       NeteditConfigFileExtension::ALL} //< must be the last one
+    {TL("Netedit config files") + std::string(" (*.netecfg)"),  NeteditConfigFileExtension::NETECFG},
+    {TL("XML files") + std::string(" (*.xml)"),                  NeteditConfigFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                     NeteditConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netconvertConfigFileExtensionValues[] = {
-    {TL("Netconvert config files (*.netccfg)"), NetconvertConfigFileExtension::NETCCFG},
-    {TL("XML files (*.xml)"),                   NetconvertConfigFileExtension::XML},
-    {TL("All files (*)"),                       NetconvertConfigFileExtension::ALL} //< must be the last one
+    {TL("Netconvert config files") + std::string(" (*.netccfg)"),   NetconvertConfigFileExtension::NETCCFG},
+    {TL("XML files") + std::string(" (*.xml"),                      NetconvertConfigFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         NetconvertConfigFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
-    {TL("OSM network files (*.osm,*.osm.gz)"), OSMFileExtension::OSM},
-    {TL("XML files (*.xml,*.xml.gz)"),         OSMFileExtension::XML},
-    {TL("All files (*)"),                       OSMFileExtension::ALL} //< must be the last one
+    {TL("OSM network files") + std::string(" (*.osm,*.osm.gz)"),    OSMFileExtension::OSM},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),            OSMFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         OSMFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NetFileExtension>::Entry SUMOXMLDefinitions::netFileExtensionValues[] = {
-    {TL("SUMO network files (*.net.xml,*.net.xml.gz)"),    NetFileExtension::NET_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),                     NetFileExtension::XML},
-    {TL("All files (*)"),                                   NetFileExtension::ALL} //< must be the last one
+    {TL("SUMO network files") + std::string(" (*.net.xml,*.net.xml.gz)"),   NetFileExtension::NET_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),                    NetFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                                 NetFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<TLSFileExtension>::Entry SUMOXMLDefinitions::TLSFileExtensionValues[] = {
-    {TL("TLS files (*.ttl.xml,*.ttl.xml.gz)"), TLSFileExtension::TTL_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),         TLSFileExtension::XML},
-    {TL("All files (*)"),                       TLSFileExtension::ALL} //< must be the last one
+    {TL("TLS files") + std::string(" (*.tll.xml,*.tll.xml.gz)"),    TLSFileExtension::TTL_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),            TLSFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         TLSFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<JunctionFileExtension>::Entry SUMOXMLDefinitions::junctionFileExtensionValues[] = {
-    {TL("Junction files (*.nod.xml,*.nod.xml.gz)"),    JunctionFileExtension::NOD_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),                 JunctionFileExtension::XML},
-    {TL("All files (*)"),                               JunctionFileExtension::ALL} //< must be the last one
+    {TL("Junction files") + std::string(" (*.nod.xml,*.nod.xml.gz)"),   JunctionFileExtension::NOD_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),                JunctionFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                             JunctionFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<EdgeTypeFileExtension>::Entry SUMOXMLDefinitions::edgeTypeFileExtensionValues[] = {
-    {TL("Edge type files (*.ttl.xml,*.ttl.xml.gz)"),   EdgeTypeFileExtension::TYP_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),                 EdgeTypeFileExtension::XML},
-    {TL("All files (*)"),                               EdgeTypeFileExtension::ALL} //< must be the last one
+    {TL("Edge type files") + std::string(" (*.typ.xml,*.typ.xml.gz)"),  EdgeTypeFileExtension::TYP_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),                EdgeTypeFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                             EdgeTypeFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFileExtensionValues[] = {
-    {TL("Additional files (*.add.xml,*.add.xml.gz)"),  AdditionalFileExtension::ADD_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),                 AdditionalFileExtension::XML},
-    {TL("All files (*)"),                               AdditionalFileExtension::ALL} //< must be the last one
+    {TL("Additional files") + std::string(" (*.add.xml,*.add.xml.gz)"), AdditionalFileExtension::ADD_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),                AdditionalFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                             AdditionalFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ShapesFileExtension>::Entry SUMOXMLDefinitions::shapesFileExtensionValues[] = {
-    {TL("XML files (*.xml,*.xml.gz)"),                 ShapesFileExtension::XML},
-    {TL("All files (*)"),                               ShapesFileExtension::ALL} //< must be the last one
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),    ShapesFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                 ShapesFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
-    {TL("Route files (*.rou.xml,*.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
-    {TL("XML files (*.xml,*.xml.gz)"),             RouteFileExtension::XML},
-    {TL("All files (*)"),                           RouteFileExtension::ALL} //< must be the last one
+    {TL("Route files") + std::string(" (*.rou.xml,*.rou.xml.gz)"),  RouteFileExtension::ROU_XML},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),            RouteFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                         RouteFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileExtensionsValues[] = {
-    {TL("Edge data files (*.xml,*.xml.gz)"),   EdgeDataFileExtension::XML},
-    {TL("All files (*)"),                       EdgeDataFileExtension::ALL} //< must be the last one
+    {TL("Edge data files") + std::string(" (*.xml,*.xml.gz)"),  EdgeDataFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                     EdgeDataFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
-    {TL("Mean data files (*.add.xml,*.add.xml.gz)"),   MeanDataFileExtension::ADD},
-    {TL("XML files (*.xml,*.xml.gz)"),                 MeanDataFileExtension::XML},
-    {TL("All files (*)"),                               MeanDataFileExtension::ALL} //< must be the last one
+    {TL("Mean data files") + std::string(" (*.add.xml,*.add.xml.gz)"),  MeanDataFileExtension::ADD},
+    {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),                MeanDataFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                             MeanDataFileExtension::ALL} //< must be the last one
 };
 
 SequentialStringBijection SUMOXMLDefinitions::Tags(

@@ -42,12 +42,14 @@
     <Compile Include="frames\elements.py" />
     <Compile Include="frames\move.py" />
     <Compile Include="frames\network\additional.py" />
+    <Compile Include="frames\network\createEdge.py" />
     <Compile Include="frames\network\connection.py" />
     <Compile Include="frames\network\crossing.py" />
     <Compile Include="frames\network\shape.py" />
     <Compile Include="frames\network\tls.py" />
     <Compile Include="frames\select.py" />
     <Compile Include="general\contextualMenu.py" />
+    <Compile Include="general\overwrite.py" />
     <Compile Include="general\fixElements.py" />
     <Compile Include="general\functions.py" />
     <Compile Include="general\modes.py" />

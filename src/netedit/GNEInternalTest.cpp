@@ -21,9 +21,9 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
-#include <netedit/dialogs/GNEFixNetworkElements.h>
+#include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/frames/GNETLSTable.h>
 
 #include "GNEInternalTest.h"
@@ -42,53 +42,32 @@ GNEInternalTest::~GNEInternalTest() {}
 
 void
 GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow) {
-    bool writeClosedSucessfully = false;
-    myRunning = true;
-    const auto viewNet = applicationWindow->getViewNet();
-    const auto viewParent = viewNet->getViewParent();
-    // process every step
-    while (myCurrentStep < myTestSteps.size()) {
-        const auto testStep = myTestSteps.at(myCurrentStep);
-        // write description
-        // std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
-        //           << " of " << myTestSteps.size() << ": "
-        //           << testStep->getDescription() << std::endl;
-        // get argument (either event or modalDialogArgument or nullptr)
-        void* argument = nullptr;
-        if (testStep->getEvent()) {
-            argument = testStep->getEvent();
+    if (!myTestFinished) {
+        myRunning = true;
+        const auto viewNet = applicationWindow->getViewNet();
+        const auto viewParent = viewNet->getViewParent();
+        // process every step
+        while (getCurrentStep() && myRunning) {
+            // get current step and set next step
+            const auto testStep = setNextStep();
+            // check if we have to process it in main windows, abstract view or specific view
+            if (testStep->getCategory() == InternalTestStep::Category::APP) {
+                applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
+                viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
+                viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
+                viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
+            } else if (testStep->getCategory() == InternalTestStep::Category::FINISH) {
+                myTestFinished = true;
+            }
+            // check if update view after execute step
+            if (testStep->updateView()) {
+                viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+            }
         }
-        if (testStep->getDialogTest()) {
-            argument = testStep->getDialogTest();
-        }
-        // check if we have to process it in main windows, abstract view or specific view
-        if (testStep->getCategory() == InternalTestStep::Category::APP) {
-            applicationWindow->handle(this, testStep->getSelector(), argument);
-        } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-            viewNet->handle(this, testStep->getSelector(), argument);
-        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
-        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
-            writeClosedSucessfully = true;
-        }
-        // check if update view after execute step
-        if (testStep->updateView()) {
-            applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-        }
-        myCurrentStep++;
     }
-    // check if print netedit closed sucessfully
-    if (writeClosedSucessfully) {
-        std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
-    }
-}
-
-
-bool
-GNEInternalTest::isRunning() const {
-    return myRunning;
 }
 
 /****************************************************************************/

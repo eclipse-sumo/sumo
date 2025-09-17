@@ -45,8 +45,26 @@ public:
     /// @brief Destructor
     virtual ~CommonHandler();
 
+    /// @brief force overwritte elements (used if we're reloading elements)
+    void forceOverwriteElements();
+
+    /// @brief force remain elements (used if we're reloading elements)
+    void forceRemainElements();
+
+    /// @brief abort loading
+    void abortLoading();
+
     /// @brief get flag for mark if a element wasn't created
     bool isErrorCreatingElement() const;
+
+    /// @brief force overwritte elements (used if we're reloading elements)
+    bool isForceOverwriteElements() const;
+
+    /// @brief force remain elements (used if we're reloading elements)
+    bool isForceRemainElements() const;
+
+    /// @brief abort loading
+    bool isAbortLoading() const;
 
 protected:
     /// @brief filename
@@ -57,6 +75,15 @@ protected:
 
     /// @brief flag for mark if a element wasn't created
     bool myErrorCreatingElement = false;
+
+    /// @brief overwrite elements
+    bool myOverwriteElements = false;
+
+    /// @brief remain elements
+    bool myRemainElements = false;
+
+    /// @brief abort loading
+    bool myAbortLoading = false;
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);
@@ -112,7 +139,7 @@ protected:
     /// @}
 
     /// @brief write warning overwritting element
-    void writeWarningOverwritting(const SumoXMLTag tag, const std::string& id);
+    void writeWarningOverwriting(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write warning duplicated element
     bool writeWarningDuplicated(const SumoXMLTag tag, const std::string& id, const SumoXMLTag checkedTag);

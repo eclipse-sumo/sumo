@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.imgFile, "berlin_i
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

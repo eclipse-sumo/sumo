@@ -1,0 +1,26 @@
+/* XPM */
+static const char *filedialog_filehidden_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1 ",
+"  c None",
+". c #A0A0A4",
+"X c #C0C0FF",
+"o c gray82",
+/* pixels */
+"     ...        ",
+"    .X.X.       ",
+" ....XXX....    ",
+".oooo...oooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+".ooooooooooo.   ",
+" ...........    "
+};

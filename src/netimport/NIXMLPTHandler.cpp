@@ -152,8 +152,15 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
     const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
-    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
+    std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
+    if (edge == nullptr) {
+        edge = myEdgeCont.retrieve(edgeID, true);
+        if (edge != nullptr && myEdgeCont.getSplit(edge) == nullptr) {
+            // splits are treated later
+            edge = nullptr;
+        }
+    }
     if (edge == nullptr) {
         if (!myEdgeCont.wasIgnored(edgeID)) {
             WRITE_ERRORF(TL("Edge '%' for stop '%' not found"), edgeID, id);
@@ -179,8 +186,25 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         if (endPos < 0) {
             endPos += edge->getLoadedLength();
         }
+        if (myEdgeCont.wasRemoved(edgeID) && (
+                    startPos >= endPos || startPos < 0 || endPos < 0
+                    || startPos >= edge->getLoadedLength()
+                    || endPos >= edge->getLoadedLength())) {
+            NBEdge* longest = myEdgeCont.getSplitBase(edgeID);
+            if (longest != nullptr) {
+                edge = longest;
+            }
+        }
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
+        while (myEdgeCont.getSplit(edge) != nullptr) {
+            myCurrentStop->resetLoaded();
+            const std::pair<NBEdge*, NBEdge*> split = *myEdgeCont.getSplit(edge);
+            if (myCurrentStop->replaceEdge(edgeID, {split.first, split.second})) {
+                edge = split.first->getID() == myCurrentStop->getEdgeId() ? split.first : split.second;
+                edgeID = edge->getID();
+            }
+        }
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERRORF(TL("Could not add public transport stop '%' (already exists)"), id);
         }

@@ -18,10 +18,12 @@
 // Frame for select tags
 /****************************************************************************/
 
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -47,8 +49,8 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Ty
     myFrameParent(frameParent),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
-                                         this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                         true, GUIDesignComboBoxVisibleItems, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // update tag types without informing parent (because we're in the creator
     updateTagTypes(type, tag, false);
     // GNETagSelector is always shown
@@ -158,7 +160,7 @@ GNETagSelector::setCurrentTag(SumoXMLTag newTag, const bool informParent) {
         if (myTagsMatchBox->getItemText(i) == myCurrentTemplateAC->getTagProperty()->getTagStr()) {
             myTagsMatchBox->setCurrentItem(i);
             // set color of myTypeMatchBox to black (valid)
-            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->setTextColor(GUIDesignTextColorBlack);
             myTagsMatchBox->killFocus();
         }
     }
@@ -181,11 +183,11 @@ GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     myCurrentTemplateAC = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myTagsMatchBox->getText().text());
     if (myCurrentTemplateAC) {
         // set color of myTypeMatchBox to black (valid)
-        myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myTagsMatchBox->setTextColor(GUIDesignTextColorBlack);
         myTagsMatchBox->killFocus();
     } else {
         // set color of myTypeMatchBox to red (invalid)
-        myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myTagsMatchBox->setTextColor(GUIDesignTextColorRed);
     }
     // inform to frame parent that a tag was selected
     myFrameParent->tagSelected();

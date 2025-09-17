@@ -22,7 +22,8 @@
 /****************************************************************************/
 
 #include <netedit/GNETagProperties.h>
-#include <netedit/dialogs/GNEDialogACChooser.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/GNEACChooserDialog.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -405,7 +406,7 @@ GNEViewParent::getGNEAppWindows() const {
 
 
 void
-GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
+GNEViewParent::eraseACChooserDialog(GNEACChooserDialog* chooserDialog) {
     if (chooserDialog == nullptr) {
         throw ProcessError("ChooserDialog already deleted");
     } else if (chooserDialog == myACChoosers.ACChooserJunction) {
@@ -487,10 +488,10 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         file.append(".png");
         WRITE_MESSAGE(TL("No file extension was specified - saving Snapshot as PNG."));
     }
-    std::string error = myView->makeSnapshot(file);
-    if (error != "") {
-        // open message box
-        FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
+    const std::string error = myView->makeSnapshot(file);
+    if (error.size() > 0) {
+        // open error message box
+        GNEErrorBasicDialog(myGNEAppWindows, TL("Saving failed."), error.c_str());
     } else {
         WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }
@@ -513,7 +514,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         // declare a vector in which save attribute carriers to locate
         std::map<std::string, GNEAttributeCarrier*> ACsToLocate;
         int messageId = FXSELID(sel);
-        GNEDialogACChooser** chooserLoc = nullptr;
+        GNEACChooserDialog** chooserLoc = nullptr;
         std::string locateTitle;
         switch (messageId) {
             case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
@@ -634,12 +635,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         }
         if (*chooserLoc) {
             // restore focus in the existent chooser dialog
-            GNEDialogACChooser* chooser = *chooserLoc;
+            GNEACChooserDialog* chooser = *chooserLoc;
             chooser->restore();
             chooser->setFocus();
             chooser->raise();
         } else {
-            GNEDialogACChooser* chooser = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), locateTitle, ACsToLocate);
+            GNEACChooserDialog* chooser = new GNEACChooserDialog(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), locateTitle, ACsToLocate);
             *chooserLoc = chooser;
         }
         // update locator popup

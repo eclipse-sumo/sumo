@@ -35,13 +35,13 @@ netedit.changeElement("additionalFrame", "trainStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeAdditionalFileDialog(netedit.attrs.trainStop.create.additionalFileButton)
+netedit.modifyFileDialog("additional", netedit.attrs.trainStop.create.additionalFileButton)
 
 # try to create trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeAdditionalFile(netedit.attrs.trainStop.create.additionalFile)
+netedit.modifyFile("additional", netedit.attrs.trainStop.create.additionalFile)
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveExistentShortcut("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

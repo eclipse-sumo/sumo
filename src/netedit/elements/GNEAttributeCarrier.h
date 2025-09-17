@@ -231,24 +231,14 @@ public:
     /// @brief get parameters map
     virtual const Parameterised::Map& getACParametersMap() const = 0;
 
-    /// @brief get parameters
-    template<typename T>
-    T getACParameters() const;
+    /// @brief set parameters (string vector)
+    void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
 
-    /// @brief set parameters (string)
-    void setACParameters(const std::string& parameters, GNEUndoList* undoList);
-
-    /// @brief set parameters (map)
+    /// @brief set parameters (string vector, undoList)
     void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
 
-    /// @brief set parameters (string vector)
+    /// @brief set parameters (map, undoList)
     void setACParameters(const Parameterised::Map& parameters, GNEUndoList* undoList);
-
-    /// @brief add (or update attribute) key and attribute
-    void addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList);
-
-    /// @brief remove keys
-    void removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList);
 
     /// @}
 
@@ -323,10 +313,10 @@ public:
     /// @}
 
     /// @brief true value in string format (used for comparing boolean values in getAttribute(...))
-    static const std::string True;
+    static const std::string TRUE_STR;
 
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
-    static const std::string False;
+    static const std::string FALSE_STR;
 
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_23_1+1171-abf54b0e8c3
+Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -34,6 +34,8 @@ Input Options:
 Output Options:
   --write-license                      Include license info into every output
                                         file
+  --write-metadata                     Write parsable metadata (configuration
+                                        etc.) instead of comments
   --output-prefix STR                  Prefix which is applied to all output
                                         files. The special string 'TIME' is
                                         replaced by the current time.
@@ -511,6 +513,12 @@ Routing Options:
                                         average weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
                                         edge weights
+  --device.rerouting.threshold.factor FLOAT  Only reroute if the new route is
+                                        faster than the current route by the
+                                        given factor
+  --device.rerouting.threshold.constant TIME  Only reroute if the new route is
+                                        faster than the current route by the
+                                        given TIME
   --device.rerouting.with-taz          Use zones (districts) as routing start-
                                         and endpoints
   --device.rerouting.mode STR          Set routing flags (8 ignores temporary
@@ -1039,8 +1047,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

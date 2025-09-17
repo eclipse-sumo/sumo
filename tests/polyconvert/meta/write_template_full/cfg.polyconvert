@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:12 by Eclipse SUMO polyconvert Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-09-11T14:39:46.468784+01:00 by Eclipse SUMO polyconvert v1_24_0+0753-7ddc191931e
 -->
 
 <polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -26,19 +26,20 @@
         <osm.use-name value="false" type="BOOL" help="The id will be set from the given &apos;name&apos; attribute"/>
         <osm.merge-relations value="-1" type="FLOAT" help="If FLOAT &gt;= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"/>
         <geojson-files value="" type="FILE" help="Reads shapes from geojson FILE"/>
-        <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE"/>
-        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
+        <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" deprecated="shape-files" type="FILE" help="Reads shapes from shapefiles FILE"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" deprecated="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
         <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
-        <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
+        <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" deprecated="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
         <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR[]" help="Defines which columns form the type id (comma separated list)"/>
         <shapefile.use-running-id value="false" type="BOOL" help="A running number will be used as id"/>
         <shapefile.add-param value="false" type="BOOL" help="Extract all additional columns as params"/>
         <shapefile.fill value="" type="STR" help="[auto|true|false]. Forces the &apos;fill&apos; status to the given value. Default &apos;auto&apos; tries to determine it from the data type"/>
-        <type-file value="" synonymes="typemap" type="FILE" help="Reads types from FILE"/>
+        <type-file value="" synonymes="typemap" deprecated="typemap" type="FILE" help="Reads types from FILE"/>
     </input>
 
     <output>
         <write-license value="false" type="BOOL" help="Include license info into every output file"/>
+        <write-metadata value="false" type="BOOL" help="Write parsable metadata (configuration etc.) instead of comments"/>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
@@ -52,7 +53,7 @@
     </output>
 
     <projection>
-        <simple-projection value="false" synonymes="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
+        <simple-projection value="false" synonymes="proj.simple" deprecated="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
         <proj.scale value="1" type="FLOAT" help="Scaling factor for input coordinates"/>
         <proj.rotate value="0" type="FLOAT" help="Rotation (clockwise degrees) for input coordinates"/>
         <proj.utm value="false" type="BOOL" help="Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)"/>
@@ -64,16 +65,16 @@
     </projection>
 
     <pruning>
-        <prune.in-net value="false" synonymes="prune.on-net" type="BOOL" help="Enables pruning on net boundaries"/>
-        <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it."/>
+        <prune.in-net value="false" synonymes="prune.on-net" deprecated="prune.on-net" type="BOOL" help="Enables pruning on net boundaries"/>
+        <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" deprecated="prune.on-net.offsets" type="STR" help="Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it."/>
         <prune.boundary value="" type="STR" help="Uses STR as pruning boundary"/>
-        <prune.keep-list value="" synonymes="prune.ignore prune.keep" type="STR" help="Items in STR will be kept though out of boundary"/>
+        <prune.keep-list value="" synonymes="prune.ignore prune.keep" deprecated="prune.ignore" type="STR" help="Items in STR will be kept though out of boundary"/>
         <prune.explicit value="" synonymes="remove" type="STR[]" help="Items with names in STR[] will be removed"/>
     </pruning>
 
     <processing>
-        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
-        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply" deprecated="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" deprecated="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
         <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
@@ -98,7 +99,7 @@
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" deprecated="suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>

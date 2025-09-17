@@ -1,0 +1,8 @@
+Warning: Could not build inductionLoop with ID 'e1_10_new' in netedit; Found another inductionLoop with the same ID.
+Warning: Could not build inductionLoop with ID 'e1_12_new' in netedit; Found another inductionLoop with the same ID.
+Warning: Could not build inductionLoop with ID 'e1_14_new' in netedit; Found another inductionLoop with the same ID.
+Warning: Could not build inductionLoop with ID 'e1_1_new' in netedit; Found another inductionLoop with the same ID.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.

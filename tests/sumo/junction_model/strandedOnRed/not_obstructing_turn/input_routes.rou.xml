@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-08 14:00:08 by Eclipse SUMO netedit Version v1_24_0+0684-9c361f54f70
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="short"      length="3" minGap="7"/> 
+    <vType id="short_slow" length="3" minGap="7" accel="0.5"/> 
+    <flow id="v_0" begin="0.00" period="2" number="3">
+        <route edges="S -N"/>
+    </flow>
+    <vehicle id="v_1" depart="0.00" type="short" departLane="2">
+        <route edges="N -E"/>
+    </vehicle>
+    <vehicle id="stranded" depart="0.00" type="short_slow" departLane="2">
+        <route edges="N -E"/>
+    </vehicle>
+    <flow id="v_3" begin="0.00" period="2" number="12" departLane="2" arrivalLane="2">
+        <route edges="E -S"/>
+    </flow>
+</routes>

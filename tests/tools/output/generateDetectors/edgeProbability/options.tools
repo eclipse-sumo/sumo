@@ -1,0 +1,2 @@
+-n input_net.net.xml -o det.add.xml --detector-type instantInductionLoop
+--edge-probability 0.5

@@ -1,12 +1,9 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- missing lines -->
-    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" />
 
     <!-- non valid format lines -->
-    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" lines="line1, line2" name="containerStop" friendlyPos="false"/>
-
-    <!-- valid format lines -->
-    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" lines="lineA lineB" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" lines="line1, line2" />
 
 </additional>

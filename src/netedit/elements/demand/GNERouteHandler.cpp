@@ -18,6 +18,15 @@
 // Builds demand objects for netedit
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEOverwriteElement.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNENetHelper.h>
@@ -25,15 +34,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/frames/GNEAttributesEditor.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/NamespaceIDs.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -63,12 +65,11 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteHandler::GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
+GNERouteHandler::GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
     RouteHandler(file, false),
     myNet(net),
     myPlanObject(new CommonXMLStructure::SumoBaseObject(nullptr)),
-    myAllowUndoRedo(allowUndoRedo),
-    myOverwrite(overwrite) {
+    myAllowUndoRedo(allowUndoRedo) {
 }
 
 
@@ -1661,7 +1662,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // make a copy of the vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // obtain vClass
@@ -1669,13 +1670,12 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
+    GNEDemandElement* originalRoute = nullptr;
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
         // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().at(1)->getParentEdges();
-        // get original route color
-        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
+        originalRoute = originalVehicle->getParentDemandElements().at(1);
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1689,13 +1689,13 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
-    if (routeEdges.empty()) {
+    if (!originalRoute && routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1706,7 +1706,19 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // build embedded route
-            routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            if (originalRoute) {
+                for (const auto& edge : originalRoute->getParentEdges()) {
+                    edgeIDs.push_back(edge->getID());
+                }
+                routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            } else {
+                routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            }
+        } else if (originalRoute) {
+            // set route ID in vehicle parameters
+            vehicleParameters.routeid = originalRoute->getID();
+            // create vehicle
+            routeHandler.buildVehicleOverRoute(nullptr, vehicleParameters);
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
@@ -1740,7 +1752,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // obtain vClass
@@ -1748,13 +1760,12 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // set "yellow" as original route color
     RGBColor routeColor = RGBColor::YELLOW;
     // declare edges
+    GNEDemandElement* originalRoute = nullptr;
     std::vector<GNEEdge*> routeEdges;
     // obtain edges depending of tag
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
-        // get route edges
-        routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
-        // get original route color
-        routeColor = originalVehicle->getParentDemandElements().back()->getColor();
+        // get original route
+        originalRoute = originalVehicle->getParentDemandElements().back();
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
@@ -1768,13 +1779,13 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         edgeIDs.push_back(edge->getID());
     }
     // only continue if edges are valid
-    if (routeEdges.empty()) {
+    if (!originalRoute && routeEdges.empty()) {
         // declare header
         const std::string header = "Problem transforming to vehicle";
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
@@ -1797,7 +1808,19 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // build embedded route
-            routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            if (originalRoute) {
+                for (const auto& edge : originalRoute->getParentEdges()) {
+                    edgeIDs.push_back(edge->getID());
+                }
+                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            } else {
+                routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
+            }
+        } else if (originalRoute) {
+            // set route ID in vehicle parameters
+            vehicleParameters.routeid = originalRoute->getID();
+            // create vehicle
+            routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
@@ -1810,6 +1833,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // create vehicle
             routeHandler.buildFlowOverRoute(nullptr, vehicleParameters);
         }
+
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
@@ -1831,7 +1855,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // get route
@@ -1858,7 +1882,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_TRIP));
@@ -1893,7 +1917,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // declare route
@@ -1920,7 +1944,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1968,7 +1992,7 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -1979,7 +2003,7 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
         GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // obtain vehicle parameters
         SUMOVehicleParameter vehicleParameters = *originalVehicle;
         // begin undo-redo operation
@@ -2012,7 +2036,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2023,7 +2047,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
         GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // obtain vehicle parameters
         SUMOVehicleParameter vehicleParameters = *originalVehicle;
         // begin undo-redo operation
@@ -2065,7 +2089,7 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2076,7 +2100,7 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
         GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // obtain vehicle parameters
         SUMOVehicleParameter vehicleParameters = *originalVehicle;
         // begin undo-redo operation
@@ -2109,7 +2133,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
         // open message box
-        FXMessageBox::warning(originalVehicle->getNet()->getViewNet()->getApp(), MBOX_OK, header.c_str(), "%s", message.c_str());
+        GNEWarningBasicDialog(originalVehicle->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2120,7 +2144,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
         GNERouteHandler routeHandler(net, originalVehicle->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                     net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // obtain vehicle parameters
         SUMOVehicleParameter vehicleParameters = *originalVehicle;
         // begin undo-redo operation
@@ -2161,7 +2185,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalPerson);
     // declare route handler
     GNERouteHandler routeHandler(net, originalPerson->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain person parameters
     SUMOVehicleParameter personParameters = *originalPerson;
     // save ID
@@ -2198,7 +2222,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalPerson);
     // declare route handler
     GNERouteHandler routeHandler(net, originalPerson->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain person parameters
     SUMOVehicleParameter personParameters = *originalPerson;
     // get person plans
@@ -2240,7 +2264,7 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalContainer);
     // declare route handler
     GNERouteHandler routeHandler(net, originalContainer->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain container parameters
     SUMOVehicleParameter containerParameters = *originalContainer;
     // get container plans
@@ -2279,7 +2303,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalContainer);
     // declare route handler
     GNERouteHandler routeHandler(net, originalContainer->getAttribute(GNE_ATTR_DEMAND_FILE),
-                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+                                 net->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // obtain container parameters
     SUMOVehicleParameter containerParameters = *originalContainer;
     // get container plans
@@ -2687,19 +2711,28 @@ GNERouteHandler::retrieveDemandElement(const std::vector<SumoXMLTag> tags, const
 bool
 GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement) {
     if (demandElement) {
-        if (myAllowUndoRedo && myOverwrite) {
-            writeWarningOverwritting(tag, demandElement->getID());
+        if (myOverwriteElements) {
             // delete element
             myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
-            // continue creating new element
-            return true;
-        } else {
-            // write warning duplicated demand element
+        } else if (myRemainElements) {
+            // duplicated demand
             return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
+        } else {
+            // open overwrite dialog
+            GNEOverwriteElement overwriteElementDialog(this, demandElement);
+            // continue depending of result
+            if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
+                // delete element
+                myNet->deleteDemandElement(demandElement, myNet->getViewNet()->getUndoList());
+            } else if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
+                // duplicated demand
+                return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
+            } else {
+                return false;
+            }
         }
-    } else {
-        return true;
     }
+    return true;
 }
 
 /****************************************************************************/

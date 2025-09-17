@@ -80,14 +80,15 @@ TraCIServerAPI_ParkingArea::processSet(TraCIServer& server, tcpip::Storage& inpu
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
                 }
                 libsumo::ParkingArea::setParameter(id, name, value);
+                break;
             }
-            break;
             case libsumo::VAR_ACCESS_BADGE: {
                 std::vector<std::string> badges;
                 if (!server.readTypeCheckingStringList(inputStorage, badges)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "A string list is needed to update the ParkingArea access badges.", outputStorage);
                 }
                 libsumo::ParkingArea::setAcceptedBadges(id, badges);
+                break;
             }
             default:
                 break;

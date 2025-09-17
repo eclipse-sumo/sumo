@@ -37,6 +37,7 @@
 #include "SUMOAbstractRouter.h"
 
 //#define DijkstraRouter_DEBUG_QUERY
+//#define DijkstraRouter_DEBUG_QUERY_FRONTIER
 //#define DijkstraRouter_DEBUG_QUERY_VISITED
 //#define DijkstraRouter_DEBUG_QUERY_PERF
 //#define DijkstraRouter_DEBUG_BULKMODE
@@ -169,9 +170,11 @@ public:
                       << " TT=" << minimumInfo->effort
                       << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
                       << " Leave: " << minimumInfo->leaveTime << " Q: ";
+#ifdef DijkstraRouter_DEBUG_QUERY_FRONTIER
             for (const auto& edgeInfo : this->myFrontierList) {
                 std::cout << "\n   " << edgeInfo->effort << ", " << edgeInfo->edge->getID();
             }
+#endif
             std::cout << "\n";
 #endif
 #ifdef DijkstraRouter_DEBUG_QUERY_VISITED

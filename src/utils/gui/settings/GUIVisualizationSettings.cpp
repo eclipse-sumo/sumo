@@ -585,7 +585,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
-    disableHideByZoom(false),
+    disableHideByZoom(true),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),
