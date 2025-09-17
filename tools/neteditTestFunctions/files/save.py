@@ -143,7 +143,7 @@ def saveFileAs(referencePosition, type: str, multiple: bool):
         filename = "routes3.rou.xml"
     elif (type == "data"):
         menuJumps = attrs.toolbar.file.dataElements.menu
-        subMenuJumps = attrs.toolbar.file.dataElements.saveAs
+        subMenuJumps = attrs.toolbar.file.dataElements.saveAs + extra
         filename = "datas3.dat.xml"
     elif (type == "meanData"):
         menuJumps = attrs.toolbar.file.meanDataElements.menu
