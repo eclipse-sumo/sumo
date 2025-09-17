@@ -1,0 +1,2 @@
+Error: 'access' must be defined within the definition of a busStop, trainStop or containerStop.
+Error: Loading of 'additionals.add.xml' failed.

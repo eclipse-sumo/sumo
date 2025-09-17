@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="trainStop_0" lane="Edge4_1" startPos="9.00" endPos="15.00">
+
+        <!-- non valid lane (missing) -->
+        <access pos="1" length="10" friendlyPos="0"/>
+
+        <!-- non valid Lane (dummy) -->
+        <access lane="dummyLane" pos="1.1" length="10" friendlyPos="0"/>
+
+        <!-- Valid Lane -->
+        <access lane="Edge4_0" pos="1.2" length="10" friendlyPos="0"/>
+    </trainStop>
+</additional>

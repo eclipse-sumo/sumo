@@ -1,0 +1,27 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <containerStop id="containerStop_0" lane="Edge4_1" startPos="9.00" endPos="15.00">
+
+        <!-- non valid Position (dummy) -->
+        <access lane="Edge0_0" pos="dummyPosition" length="10" friendlyPos="0"/>
+
+        <!-- non valid Position (empty) -->
+        <access lane="Edge1_0" pos="" length="10" friendlyPos="0"/>
+
+        <!-- valid Position (negative) -->
+        <access lane="Edge2_0" pos="-1" length="10" friendlyPos="0"/>
+
+        <!-- non valid Position (overpassing lane) -->
+        <access lane="Edge3_0" pos="2000" length="10" friendlyPos="0"/>
+
+        <!-- valid Position -->
+        <access lane="Edge4_0" pos="1.1" length="10" friendlyPos="0"/>
+
+    </containerStop>
+
+    <containerStop id="containerStop_1" lane="Edge4_1" pos="9.00" endPos="33.00">
+
+        <!-- valid Position -->
+        <access lane="Edge5_0" pos="random" length="10" friendlyPos="0"/>
+
+    </containerStop>
+</additional>

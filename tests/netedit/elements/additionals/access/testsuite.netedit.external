@@ -1,17 +1,5 @@
-create
+busstop
 
-delete
+trainstop
 
-inspect
-
-inspect_selection
-
-load
-
-move
-
-volatile_recomputing
-
-fix
-
-contextual_menu
+containerstop
