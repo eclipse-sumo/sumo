@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-14 17:58+0000\n"
+"PO-Revision-Date: 2025-09-17 23:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7680,7 +7680,7 @@ msgstr " % Knotenpunkt-Ansammlung(en) vereinigt."
 
 #: src/netbuild/NBNetBuilder.cpp:259
 msgid "Joining junctions with similar coordinates"
-msgstr ""
+msgstr "Vereinigung von Knotenpunkten mit ähnlichen Koordinaten"
 
 #: src/netbuild/NBNetBuilder.cpp:263
 #, c-format
