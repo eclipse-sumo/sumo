@@ -808,15 +808,16 @@ class attrs:
             lines = 10
             containerCapacity = 11
             parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            angle = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
 
         class inspect:
             id = 2
@@ -831,16 +832,17 @@ class attrs:
             lines = 11
             containerCapacity = 12
             parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
+            angle = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
 
         class inspectSelection:
             friendlyPos = 2
@@ -850,16 +852,17 @@ class attrs:
             lines = 6
             containerCapacity = 7
             parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
+            angle = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
     # until here
 

@@ -1,35 +1,36 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" file="fileA.txt" lines="line1 line2" friendlyPos="false">
 
-    <!-- valid generic parameter (valid) -->
-    <param key="key1" value="value1"/>
+	<containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10">
 
-    <!-- empty generic parameter (invalid -->
-    <param/>
+		<!-- valid generic parameter (valid) -->
+		<param key="key1" value="value1"/>
 
-    <!-- missin key (invalid) -->
-    <param value="value2"/>
+		<!-- empty generic parameter (invalid -->
+		<param/>
 
-    <!-- empty key (invalid) -->
-    <param key="" value="value3"/>
+		<!-- missin key (invalid) -->
+		<param value="value2"/>
 
-    <!-- key contains invalid characters (invalid) -->
-    <param key="$$key with spaces%%" value="value4"/>
+		<!-- empty key (invalid) -->
+		<param key="" value="value3"/>
 
-    <!-- duplicated key (valid, overwrites the first one, show warning) -->
-    <param key="key1" value="value5"/>
+		<!-- key contains invalid characters (invalid) -->
+		<param key="$$key with spaces%%" value="value4"/>
 
-    <!-- missing value (invalid, value must exist)-->
-    <param key="key2"/>
+		<!-- duplicated key (valid, overwrites the first one, show warning) -->
+		<param key="key1" value="value5"/>
 
-    <!-- empty value (valid, value may be empty) -->
-    <param key="key2" value=""/>
+		<!-- missing value (invalid, value must exist)-->
+		<param key="key2"/>
 
-    <!-- value contains invalid characters (valid - no restrictions on value) -->
-    <param key="key3" value="$$value with spaces%%"/>
+		<!-- empty value (valid, value may be empty) -->
+		<param key="key2" value=""/>
 
-     <!-- valid generic parameter (valid) -->
-     <param key="keyFinal" value="valueFinal"/>
+		<!-- value contains invalid characters (valid - no restrictions on value) -->
+		<param key="key3" value="$$value with spaces%%"/>
+
+		 <!-- valid generic parameter (valid) -->
+		 <param key="keyFinal" value="valueFinal"/>
 
     </containerStop>
 

@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid name -->
+    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="dummy"/>
+
+    <!-- valid name -->
+    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="5" endPos="10" angle=""/>
+
+	<!-- valid name -->
+    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="-40"/>
+
+	<!-- valid name -->
+    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="6000"/>
+
+	<!-- valid name -->
+    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="5" endPos="10" angle="30"/>
+
+
+</additional>

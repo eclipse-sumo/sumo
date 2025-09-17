@@ -4,15 +4,15 @@
     <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10"/>
 
     <!-- missing ID -->
-    <containerStop lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop lane="EdgeCenter1_1" startPos="5" endPos="10" />
 
     <!-- invalid ID -->
-    <containerStop id="ID with spaces" lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="ID with spaces" lane="EdgeCenter1_1" startPos="5" endPos="10" />
 
     <!-- Duplicated ID -->
-    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" />
 
     <!-- Duplicated ID (train) -->
-    <trainStop id="containerStop_00" lane="Edge3_1" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <trainStop id="containerStop_00" lane="Edge3_1" startPos="5" endPos="10" />
 
 </additional>

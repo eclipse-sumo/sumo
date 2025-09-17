@@ -1,21 +1,21 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- missing start position -->
-    <containerStop id="containerStop_01" lane="EdgeCenter1_1" endPos="30" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_01" lane="EdgeCenter1_1" endPos="30" />
 
     <!-- non valid start position (dummy) -->
-    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="dummyStartPosition" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="dummyStartPosition" endPos="25" />
 
     <!-- non valid start position (negative) -->
-    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="-25" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="-25" endPos="25" />
 
     <!-- non valid start position (overpassing endPos) -->
-    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="45" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="45" endPos="25" />
 
     <!-- valid start position -->
-    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="10" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="10" endPos="25" />
 
     <!-- valid start position (Negative) -->
-    <containerStop id="containerStop_06" lane="EdgeCenter1_1" startPos="-40" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_06" lane="EdgeCenter1_1" startPos="-40" endPos="25" />
 
 </additional>

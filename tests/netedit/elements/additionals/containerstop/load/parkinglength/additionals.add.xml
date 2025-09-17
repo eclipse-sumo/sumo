@@ -1,18 +1,18 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- missing parkingLength -->
-    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_01" lane="EdgeCenter1_1" startPos="25" endPos="35" />
 
     <!-- non valid format parkingLength (dummy) -->
-    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="dummyparkingLength" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_02" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="dummyparkingLength" />
 
     <!-- non valid format parkingLength (negative) -->
-    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="-7" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="-7" />
 
     <!-- non valid format parkingLength (double) -->
-    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="2.5" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_04" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="2.5" />
 
     <!-- valid format parkingLength -->
-    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="6" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_05" lane="EdgeCenter1_1" startPos="25" endPos="35" parkingLength="6" />
 
 </additional>
