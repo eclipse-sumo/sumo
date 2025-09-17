@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-13 12:02+0000\n"
+"PO-Revision-Date: 2025-09-17 23:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2752,15 +2752,15 @@ msgstr "Das Netz konnte nicht in '%' gespeichert werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:3386
 msgid "plain XML file"
-msgstr ""
+msgstr "PlainXML-Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:3411
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "PlainXML-Datei mit Präfix '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3414
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "Speichervorgang der PlainXML-Datei fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3429
 msgid "joined junctions file"
