@@ -66,6 +66,10 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
     if (myParkingLength != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
+    // write all access
+    for (const auto& access : getChildAdditionals()) {
+        access->writeAdditional(device);
+    }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();

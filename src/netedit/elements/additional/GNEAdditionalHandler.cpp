@@ -177,10 +177,14 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     // get lane
     GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     // get busStop (or trainStop)
-    GNEAdditional* busStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_BUS_STOP);
-    if (busStop == nullptr) {
-        busStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_TRAIN_STOP);
+    const auto busStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_BUS_STOP);
+    const auto trainStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_TRAIN_STOP);
+    const auto containerStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_CONTAINER_STOP);
+    // check parent
+    if ((busStop == nullptr) && (trainStop == nullptr) && (containerStop == nullptr)) {
+        return writeErrorInvalidParent(SUMO_TAG_ACCESS, "", sumoBaseObject->getParentSumoBaseObject()->getTag(), sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     }
+    GNEAdditional* accessParent = busStop ? busStop : trainStop ? trainStop : containerStop;
     // pos double
     bool validPos = true;
     double posDouble = 0;
@@ -196,31 +200,30 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
             validPos = false;
         }
     }
-    // Check if busStop parent and lane is correct
+    // Check if lane is correct
     if (lane == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_ACCESS, "", SUMO_TAG_LANE, laneID);
-    } else if (busStop == nullptr) {
-        return writeErrorInvalidParent(SUMO_TAG_ACCESS, "", SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
     } else if (!validPos) {
-        return writeErrorInvalidPosition(SUMO_TAG_ACCESS, busStop->getID());
-    } else if ((length != -1) && !checkNegative(SUMO_TAG_ACCESS, busStop->getID(), SUMO_ATTR_LENGTH, length, true)) {
+        return writeErrorInvalidPosition(SUMO_TAG_ACCESS, accessParent->getID());
+    } else if ((length != -1) && !checkNegative(SUMO_TAG_ACCESS, accessParent->getID(), SUMO_ATTR_LENGTH, length, true)) {
         return false;
-    } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
-        return writeError(TL("Could not build access in netedit; busStop parent already owns an access in the edge '") + lane->getParentEdge()->getID() + "'");
-    } else if (!lane->allowPedestrians()) {
+    } else if (!accessCanBeCreated(accessParent, lane->getParentEdge())) {
+        return writeError(TLF("Could not build access in netedit; % '%' already owns an access in the edge '%'", accessParent->getTagStr(), accessParent->getID(), lane->getParentEdge()->getID()));
+    } else if (!containerStop && !lane->allowPedestrians()) {
+        // only for busStops and trainStops
         return writeError(TLF("Could not build access in netedit; The lane '%' doesn't support pedestrians", lane->getID()));
     } else {
         // build access
-        GNEAdditional* access = new GNEAccess(busStop, lane, posDouble, pos, friendlyPos, length, parameters);
+        GNEAdditional* access = new GNEAccess(accessParent, lane, posDouble, pos, friendlyPos, length, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + busStop->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + accessParent->getID() + "'");
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(access, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertAdditional(access);
             lane->addChildElement(access);
-            busStop->addChildElement(access);
+            accessParent->addChildElement(access);
             access->incRef("buildAccess");
         }
         return true;

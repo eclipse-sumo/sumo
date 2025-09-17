@@ -1215,7 +1215,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Over::LANE,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::ACCESS, GUIGlObjectType::GLO_ACCESS, currentTag, TL("Access"),
-        {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, FXRGBA(240, 255, 205, 255));
+        {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP, SUMO_TAG_CONTAINER_STOP}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillLaneAttribute(myTagProperties[currentTag], false);
 
