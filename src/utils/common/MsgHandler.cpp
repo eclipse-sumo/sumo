@@ -277,6 +277,9 @@ MsgHandler::setupI18n(const std::string& locale) {
     }
     bind_textdomain_codeset("sumo", "UTF-8");
     textdomain("sumo");
+#ifdef WIN32
+    SetConsoleOutputCP(CP_UTF8);
+#endif
 #else
     UNUSED_PARAMETER(locale);
 #endif
