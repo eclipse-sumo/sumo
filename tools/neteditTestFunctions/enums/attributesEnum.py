@@ -675,140 +675,10 @@ class attrs:
             name = 7
             colorButton = 8
             color = 9
-            lines = 10
-            personCapacity = 11
-            parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
-
-        class inspect:
-            id = 2
-            lane = 3
-            moveLane = 4
-            startPos = 5
-            endPos = 6
-            friendlyPos = 7
-            name = 8
-            colorButton = 9
-            color = 10
+            angle = 10
             lines = 11
             personCapacity = 12
             parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
-
-        class inspectSelection:
-            friendlyPos = 2
-            name = 3
-            colorButton = 4
-            color = 5
-            lines = 6
-            personCapacity = 7
-            parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
-
-    # trainStop
-
-    class trainStop:
-        class create:
-            id = 5
-            friendlyPos = 6
-            name = 7
-            colorButton = 8
-            color = 9
-            lines = 10
-            personCapacity = 11
-            parkingLength = 12
-            parameters = 14
-            parametersButton = 15
-            size = 17
-            forceSize = 18
-            reference = 19
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
-
-        class inspect:
-            id = 2
-            lane = 3
-            moveLane = 4
-            startPos = 5
-            endPos = 6
-            friendlyPos = 7
-            name = 8
-            colorButton = 9
-            color = 10
-            lines = 11
-            personCapacity = 12
-            parkingLength = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            size = 19
-            forceSize = 20
-            reference = 21
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
-
-        class inspectSelection:
-            friendlyPos = 2
-            name = 3
-            colorButton = 4
-            color = 5
-            lines = 6
-            personCapacity = 7
-            parkingLength = 8
-            parameters = 10
-            parametersButton = 11
-            frontButton = 13
-            size = 14
-            forceSize = 15
-            reference = 16
-            additionalFileButton = 18
-            additionalFile = 19
-            helpDialog = 20
-            reset = 21
-
-    # containerStop
-
-    class containerStop:
-        class create:
-            id = 5
-            friendlyPos = 6
-            name = 7
-            colorButton = 8
-            color = 9
-            lines = 10
-            containerCapacity = 11
-            parkingLength = 12
-            angle = 13
             parameters = 15
             parametersButton = 16
             size = 18
@@ -829,10 +699,10 @@ class attrs:
             name = 8
             colorButton = 9
             color = 10
-            lines = 11
-            containerCapacity = 12
-            parkingLength = 13
-            angle = 14
+            angle = 11
+            lines = 12
+            personCapacity = 13
+            parkingLength = 14
             parameters = 16
             parametersButton = 17
             frontButton = 19
@@ -849,10 +719,146 @@ class attrs:
             name = 3
             colorButton = 4
             color = 5
-            lines = 6
-            containerCapacity = 7
-            parkingLength = 8
-            angle = 9
+            angle = 6
+            lines = 7
+            personCapacity = 8
+            parkingLength = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
+
+    # trainStop
+
+    class trainStop:
+        class create:
+            id = 5
+            friendlyPos = 6
+            name = 7
+            colorButton = 8
+            color = 9
+            angle = 10
+            lines = 11
+            personCapacity = 12
+            parkingLength = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
+
+        class inspect:
+            id = 2
+            lane = 3
+            moveLane = 4
+            startPos = 5
+            endPos = 6
+            friendlyPos = 7
+            name = 8
+            colorButton = 9
+            color = 10
+            angle = 11
+            lines = 12
+            personCapacity = 13
+            parkingLength = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
+
+        class inspectSelection:
+            friendlyPos = 2
+            name = 3
+            colorButton = 4
+            color = 5
+            angle = 6
+            lines = 7
+            personCapacity = 8
+            parkingLength = 9
+            parameters = 11
+            parametersButton = 12
+            frontButton = 14
+            size = 15
+            forceSize = 16
+            reference = 17
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
+
+    # containerStop
+
+    class containerStop:
+        class create:
+            id = 5
+            friendlyPos = 6
+            name = 7
+            colorButton = 8
+            color = 9
+            angle = 10
+            lines = 11
+            containerCapacity = 12
+            parkingLength = 13
+            parameters = 15
+            parametersButton = 16
+            size = 18
+            forceSize = 19
+            reference = 20
+            additionalFileButton = 22
+            additionalFile = 23
+            helpDialog = 24
+            reset = 25
+
+        class inspect:
+            id = 2
+            lane = 3
+            moveLane = 4
+            startPos = 5
+            endPos = 6
+            friendlyPos = 7
+            name = 8
+            colorButton = 9
+            color = 10
+            angle = 11
+            lines = 12
+            containerCapacity = 13
+            parkingLength = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
+
+        class inspectSelection:
+            friendlyPos = 2
+            name = 3
+            colorButton = 4
+            color = 5
+            angle = 6
+            lines = 7
+            containerCapacity = 8
+            parkingLength = 9
             parameters = 11
             parametersButton = 12
             frontButton = 14

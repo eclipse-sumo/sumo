@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid name -->
+    <trainStop id="trainStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" name=";;;%%$$$"/>
+
+    <!-- valid name -->
+    <trainStop id="trainStop_01" lane="EdgeCenter1_1" startPos="5" endPos="10" name="custom Name"/>
+
+</additional>

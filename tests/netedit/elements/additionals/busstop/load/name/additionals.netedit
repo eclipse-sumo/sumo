@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 16:59:54 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2025-09-17T13:37:16.677482+01:00 by Eclipse SUMO netedit v1_24_0+0828-59f229c7197
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop_00" name=";;;%%$$$" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" lines="line1 line2"/>
+    <busStop id="busStop_02" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" angle="-12.00"/>
+    <busStop id="busStop_03" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" angle="60000.00"/>
+    <busStop id="busStop_04" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" angle="7.50"/>
 </additional>

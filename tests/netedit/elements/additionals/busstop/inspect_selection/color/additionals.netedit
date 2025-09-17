@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-12 14:01:46 by Eclipse SUMO netedit Version v1_22_0+0808-91687f8467b
+<!-- generated on 2025-09-17T12:28:18.091871+01:00 by Eclipse SUMO netedit v1_24_0+0828-59f229c7197
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStopA" name="busStop" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" color="125,60,200" lines="line1 line2" personCapacity="10" parkingLength="12.00">
+    <busStop id="busStopA" name="busStop" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" color="125,60,200" angle="40.00" lines="line1 line2" personCapacity="10" parkingLength="12.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </busStop>
-    <busStop id="busStopB" name="busStop" lane="EdgeCenter0_1" startPos="15.00" endPos="20.00" color="125,60,200" lines="line3 line4" personCapacity="20" parkingLength="15.00">
+    <busStop id="busStopB" name="busStop" lane="EdgeCenter0_1" startPos="15.00" endPos="20.00" color="125,60,200" angle="45.00" lines="line3 line4" personCapacity="20" parkingLength="15.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
