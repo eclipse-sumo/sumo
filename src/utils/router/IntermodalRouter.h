@@ -113,10 +113,12 @@ public:
     bool compute(const E* from, const E* to,
                  const double departPos, const std::string& originStopID,
                  const double arrivalPos, const std::string& stopID,
-                 const double speed, const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
+                 const double speed, const V* const vehicle, 
+                 const SUMOVTypeParameter& pars,
+                 const SVCPermissions modeSet, const SUMOTime msTime,
                  std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
-        _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
+        _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, nullptr, pars, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
         //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << " iFrom=" << myIntermodalNet->getDepartEdge(from, trip.departPos)->getID() << " iTo=" << (stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos))->getID() << "\n";
         const _IntermodalEdge* iFrom = originStopID != "" ? myIntermodalNet->getStopEdge(originStopID) : myIntermodalNet->getDepartEdge(from, trip.departPos);
@@ -259,7 +261,9 @@ public:
 
     void writeWeights(OutputDevice& dev) {
         createNet();
-        _IntermodalTrip trip(nullptr, nullptr, 0., 0., DEFAULT_PEDESTRIAN_SPEED, 0, 0, nullptr, SVC_PASSENGER | SVC_BICYCLE | SVC_BUS);
+        SUMOVTypeParameter dummyVT(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
+        _IntermodalTrip trip(nullptr, nullptr, 0., 0., DEFAULT_PEDESTRIAN_SPEED, 0, nullptr, 
+                dummyVT, nullptr, SVC_PASSENGER | SVC_BICYCLE | SVC_BUS);
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());

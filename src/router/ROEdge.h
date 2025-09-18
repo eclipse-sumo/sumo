@@ -509,6 +509,12 @@ public:
     /// @brief return the coordinates of the center of the given stop
     static const Position getStopPosition(const SUMOVehicleParameter::Stop& stop);
 
+    /// @brief return loaded edge preference based on routingType
+    double getPreference(const SUMOVTypeParameter& pars) const {
+        UNUSED_PARAMETER(pars);
+        return 1;
+    }
+
     /// @brief get edge priority (road class)
     int getPriority() const {
         return myPriority;

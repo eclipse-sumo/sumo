@@ -244,7 +244,7 @@ public:
     const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
     /// @brief retriefe edge type specific routing preference
-    double getPreference(const std::string& routingType, const SUMOVehicle* v) const;
+    double getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const;
 
     /// @brief add edge type specific routing preference
     void addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio); 

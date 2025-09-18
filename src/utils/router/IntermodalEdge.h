@@ -170,17 +170,20 @@ public:
     }
 
     static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge == nullptr ? 0. : edge->getTravelTime(trip, time);
+        return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * getRoutingFactor(edge, trip);
     }
 
     static inline double getTravelTimeStaticRandomized(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * RandHelper::rand(1., gWeightsRandomFactor);
+        return edge == nullptr ? 0. : edge->getTravelTime(trip, time) * RandHelper::rand(1., gWeightsRandomFactor) * getRoutingFactor(edge, trip);
     }
 
     static inline double getTravelTimeAggregated(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge == nullptr ? 0. : edge->getTravelTimeAggregated(trip, time);
+        return edge == nullptr ? 0. : edge->getTravelTimeAggregated(trip, time) * getRoutingFactor(edge, trip);
     }
 
+    static inline double getRoutingFactor(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip) {
+        return (edge == nullptr || edge->myEdge == nullptr || trip == nullptr) ? 1 : 1 / edge->myEdge->getPreference(trip->getVTypeParameter());
+    }
 
     virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;

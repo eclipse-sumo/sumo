@@ -352,7 +352,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(),
                                            trip->getDepartPos(), trip->getStopOrigin(),
                                            trip->getArrivalPos(), trip->getStopDest(),
-                                           speed, veh, trip->getModes(), time, result);
+                                           speed, veh, *getType(), trip->getModes(), time, result);
     bool carUsed = false;
     SUMOTime start = time;
     for (const ROIntermodalRouter::TripItem& item : result) {

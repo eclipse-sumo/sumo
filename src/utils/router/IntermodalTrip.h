@@ -27,6 +27,7 @@
 
 #include "EffortCalculator.h"
 
+class SUMOVTypeParameter;
 
 // ===========================================================================
 // class definitions
@@ -37,6 +38,7 @@ class IntermodalTrip {
 public:
     IntermodalTrip(const E* _from, const E* _to, double _departPos, double _arrivalPos,
                    double _speed, SUMOTime _departTime, const N* _node,
+                   const SUMOVTypeParameter& _pars,
                    const V* _vehicle = 0, const SVCPermissions _modeSet = SVC_PEDESTRIAN,
                    const EffortCalculator* const _calc = nullptr, const double _externalFactor = 0.) :
         from(_from),
@@ -46,6 +48,7 @@ public:
         speed(_speed),
         departTime(_departTime),
         node(_node),
+        pars(_pars),
         vehicle(_vehicle),
         modeSet(_modeSet),
         calc(_calc),
@@ -60,6 +63,10 @@ public:
 
     inline SUMOVehicleClass getVClass() const {
         return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
+    }
+
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return vehicle != 0 ? vehicle->getVTypeParameter() : pars;
     }
 
     /** @brief Returns whether this object is ignoring transient permission
@@ -91,6 +98,7 @@ public:
     const double speed;
     const SUMOTime departTime;
     const N* const node; // indicates whether only routing across this node shall be performed
+    const SUMOVTypeParameter& pars;
     const V* const vehicle; // indicates which vehicle may be used
     const SVCPermissions modeSet;
     const EffortCalculator* const calc;

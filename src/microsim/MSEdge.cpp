@@ -1689,6 +1689,12 @@ MSEdge::getLastBlocked(int index) const {
     return std::make_pair(-1, -1);
 }
 
+
+double
+MSEdge::getPreference(const SUMOVTypeParameter& pars) const {
+    return MSNet::getInstance()->getPreference(getRoutingType(), pars);
+}
+
 void
 MSEdge::clearState() {
     myPersons.clear();

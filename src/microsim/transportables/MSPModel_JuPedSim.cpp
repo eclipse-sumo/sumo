@@ -289,7 +289,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             }
             if (dir != UNDEFINED_DIRECTION) {
                 ConstMSEdgeVector crossingRoute;
-                MSNet::getInstance()->getPedestrianRouter(0).compute(prev, e, 0, 0, stage->getMaxSpeed(person), 0, dir == FORWARD ? prev->getToJunction() : prev->getFromJunction(), crossingRoute, true);
+                MSNet::getInstance()->getPedestrianRouter(0).compute(prev, e, 0, 0, stage->getMaxSpeed(person), 0,
+                        dir == FORWARD ? prev->getToJunction() : prev->getFromJunction(),
+                        person->getVTypeParameter(), crossingRoute, true);
                 const MSEdge* wa = nullptr;
                 for (const MSEdge* const ce : crossingRoute) {
                     if (ce->isCrossing()) {

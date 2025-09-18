@@ -326,6 +326,8 @@ public:
         return myRoutingType.empty() ? myEdgeType : myRoutingType;
     }
 
+    double getPreference(const SUMOVTypeParameter& pars) const;
+
     // @brief try to infer edge type for internal edges
     void inferEdgeType();
 

@@ -699,7 +699,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                                             : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
             const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
                                                 rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
-                                                tObject.getMaxSpeed(), nullptr, 0, now, items);
+                                                tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
             if (!rerouteDef->isVia) {
                 if (success) {
                     for (const MSTransportableRouter::TripItem& it : items) {
@@ -756,7 +756,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                                                 : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
                 success = router.compute(newEdge, lastEdge, newEdge->getLength() / 2., "",
                                          tObject.getParameter().arrivalPos, "",
-                                         tObject.getMaxSpeed(), nullptr, 0, now, items);
+                                         tObject.getMaxSpeed(), nullptr, tObject.getVTypeParameter(), 0, now, items);
             }
             if (success) {
                 for (const MSTransportableRouter::TripItem& it : items) {

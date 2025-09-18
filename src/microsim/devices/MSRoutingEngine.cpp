@@ -215,7 +215,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
         effort *= 1 + relativeInversePrio * myPriorityFactor;
     }
     if (myHavePreferences) {
-        effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v);
+        effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v->getVTypeParameter());
     }
     return effort;
 }

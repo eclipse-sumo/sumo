@@ -117,6 +117,10 @@ public:
         return *getType();
     }
 
+    inline const SUMOVTypeParameter& getVTypeParameter() const  {
+        return *getType();
+    }
+
     /// @brief Returns the vehicle's length
     inline double getLength() const {
         return getType()->length;

@@ -152,7 +152,7 @@ Person::getWalkingDistance(const std::string& personID, const std::string& edgeI
         edges.erase(it + 1, edges.end());
         double distance = 0;
         MSPedestrianRouter& router = MSNet::getInstance()->getPedestrianRouter(0);
-        router.recomputeWalkCosts(edges, p->getMaxSpeed(), p->getEdgePos(), pos, SIMSTEP, distance);
+        router.recomputeWalkCosts(edges, p->getMaxSpeed(), p->getEdgePos(), pos, SIMSTEP, p->getVTypeParameter(), distance);
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
@@ -872,7 +872,7 @@ Person::rerouteTraveltime(const std::string& personID) {
     double arrivalPos = destStage->getArrivalPos();
     double speed = p->getMaxSpeed();
     ConstMSEdgeVector newEdges;
-    MSNet::getInstance()->getPedestrianRouter(0).compute(from, to, departPos, arrivalPos, speed, 0, nullptr, newEdges);
+    MSNet::getInstance()->getPedestrianRouter(0).compute(from, to, departPos, arrivalPos, speed, 0, nullptr, p->getVTypeParameter(), newEdges);
     if (newEdges.empty()) {
         throw TraCIException("Could not find new route for person '" + personID + "'.");
     }
