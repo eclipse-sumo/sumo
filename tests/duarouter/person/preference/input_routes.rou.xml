@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t_0" vClass="pedestrian"/>
+    <vType id="t_1" vClass="wheelchair"/>
+
+    <person id="p_0" depart="0" type="t_0">
+        <personTrip depart="0.00" from="E0" to="E2"/>
+    </person>
+    <person id="p_1" depart="0" type="t_1">
+        <personTrip depart="100.00" from="E0" to="E2"/>
+    </person>
+    <person id="p_2" depart="0">
+        <personTrip depart="200.00" from="E0" to="E2"/>
+    </person>
+</routes>

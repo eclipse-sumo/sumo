@@ -5,6 +5,10 @@ opposite-factor
 
 # person with depart=triggered
 triggered
+
+# test edge type and vClass/vType specific routing preferences
+preference
+
 basic
 
 # use edges instead of from and to
