@@ -45,3 +45,4 @@ overwrite_type
 
 # make sure that allow="all" is written when this is not the edge type default (#14625)
 allow_all_type_disallows
+routingType

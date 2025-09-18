@@ -146,3 +146,6 @@ no_internal_lanes_add_crossings
 
 # network has a NEMA junction
 NEMA
+
+# Copy of routingType
+routingType

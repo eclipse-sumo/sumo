@@ -1,0 +1,2 @@
+-s input_net.net.xml
+-o net.net.xml -p plain
