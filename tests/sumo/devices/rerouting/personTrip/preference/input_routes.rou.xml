@@ -5,12 +5,12 @@
     <vType id="t_1" vClass="wheelchair"/>
 
     <person id="p_0" depart="0" type="t_0">
-        <personTrip depart="0.00" from="E0" to="E2"/>
+        <personTrip from="E0" to="E2"/>
     </person>
     <person id="p_1" depart="0" type="t_1">
-        <personTrip depart="100.00" from="E0" to="E2"/>
+        <personTrip from="E0" to="E2"/>
     </person>
     <person id="p_2" depart="0">
-        <personTrip depart="200.00" from="E0" to="E2"/>
+        <personTrip from="E0" to="E2"/>
     </person>
 </routes>
