@@ -61,6 +61,7 @@
             <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"/>
 
             <xsd:element name="type" type="typeType" minOccurs="0"/>
+            <xsd:element name="preference" type="preferenceType"/>
 
             <xsd:element name="include" type="includeType" minOccurs="0"/>
         </xsd:choice>
@@ -707,6 +708,13 @@
         <xsd:attribute name="width" type="floatType" use="optional"/>
         <xsd:attribute name="height" type="floatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="preferenceType">
+        <xsd:attribute name="routingType" type="idType" use="required"/>
+        <xsd:attribute name="vClasses" type="xsd:string" use="optional"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="priority" type="positiveFloatType" use="required"/>
     </xsd:complexType>
 
     <!-- differs from types/base.xsd/tlLogicType in 'type' being optional here -->
