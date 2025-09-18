@@ -119,6 +119,12 @@ GNEDataSet::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNEDataSet::getMoveElement() {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNEDataSet::getGUIGlObject() {
     return nullptr;

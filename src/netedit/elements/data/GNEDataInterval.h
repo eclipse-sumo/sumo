@@ -48,6 +48,9 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
+
     /// @brief update generic data child IDs
     void updateGenericDataIDs();
 

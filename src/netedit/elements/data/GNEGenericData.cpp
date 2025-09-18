@@ -63,6 +63,12 @@ GNEGenericData::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNEGenericData::getMoveElement() {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;

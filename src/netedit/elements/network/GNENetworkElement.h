@@ -46,6 +46,9 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
+
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */

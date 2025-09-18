@@ -48,6 +48,12 @@ GNEDataInterval::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNEDataInterval::getMoveElement() {
+    return nullptr;
+}
+
+
 void
 GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {

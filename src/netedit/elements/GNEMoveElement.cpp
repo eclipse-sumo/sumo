@@ -183,8 +183,16 @@ GNEMoveResult::clearLanes() {
 // GNEMoveElement method definitions
 // ===========================================================================
 
-GNEMoveElement::GNEMoveElement() :
-    myMoveElementLateralOffset(0) {
+GNEMoveElement::GNEMoveElement() {
+}
+
+
+GNEMoveElement::~GNEMoveElement() {}
+
+
+void
+GNEMoveElement::setMoveElementLateralOffset(const double value) {
+    myMoveElementLateralOffset = value;
 }
 
 

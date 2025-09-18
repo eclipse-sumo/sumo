@@ -61,6 +61,12 @@ GNETAZSourceSink::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNETAZSourceSink::getMoveElement() {
+    return nullptr;
+}
+
+
 void
 GNETAZSourceSink::writeTAZSourceSink(OutputDevice& device) const {
     // open source/sink tag

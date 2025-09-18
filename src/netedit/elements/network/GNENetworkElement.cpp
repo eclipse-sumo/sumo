@@ -52,6 +52,12 @@ GNENetworkElement::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNENetworkElement::getMoveElement() {
+    return this;
+}
+
+
 GUIGlObject*
 GNENetworkElement::getGUIGlObject() {
     return this;

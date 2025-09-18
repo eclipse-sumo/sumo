@@ -20,13 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/GNELaneMovableElement.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEStoppingPlace : public GNEAdditional, public Parameterised {
+class GNEStoppingPlace : public GNEAdditional, public GNELaneMovableElement, public Parameterised {
 
 public:
     /**@brief Default constructor
@@ -162,15 +164,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The relative start position this stopping place is located at (-1 means empty)
-    double myStartPosition = 0;
-
-    /// @brief The  position this stopping place is located at (-1 means empty)
-    double myEndPosition = 0;
-
-    /// @brief Flag for friendly position
-    bool myFriendlyPosition = false;
-
     /// @brief RGB color
     RGBColor myColor = RGBColor::INVISIBLE;
 

@@ -51,14 +51,10 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
+    GNELaneMovableElement(this, lane, startPos, endPos, friendlyPosition),
     Parameterised(parameters),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myFriendlyPosition(friendlyPosition),
     myColor(color),
     myAngle(angle) {
-    // set parents
-    setParent<GNELane*>(lane);
 }
 
 

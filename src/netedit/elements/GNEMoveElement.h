@@ -230,7 +230,7 @@ public:
     GNEMoveElement();
 
     //// @brief empty destructor
-    virtual ~GNEMoveElement() {}
+    virtual ~GNEMoveElement();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -246,9 +246,12 @@ public:
     /// @brief commit move element for the given offset
     static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList);
 
+    /// @brief set move element lateral offset
+    void setMoveElementLateralOffset(const double value);
+
 protected:
     /// @brief move element lateral offset (used by elements placed over lanes
-    double myMoveElementLateralOffset;
+    double myMoveElementLateralOffset = 0;
 
     /// @brief calculate move shape operation
     GNEMoveOperation* calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);

@@ -75,6 +75,12 @@ GNEMeanData::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNEMeanData::getMoveElement() {
+    return nullptr;
+}
+
+
 void
 GNEMeanData::writeMeanData(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());

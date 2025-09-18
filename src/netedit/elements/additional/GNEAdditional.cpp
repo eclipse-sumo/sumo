@@ -76,6 +76,12 @@ GNEAdditional::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNEAdditional::getMoveElement() {
+    return this;
+}
+
+
 void
 GNEAdditional::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // currently there isn't additionals with removable geometry points

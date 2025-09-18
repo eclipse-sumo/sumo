@@ -42,6 +42,12 @@ GNELaneTemplate::getHierarchicalElement() {
 }
 
 
+GNEMoveElement*
+GNELaneTemplate::getMoveElement() {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;

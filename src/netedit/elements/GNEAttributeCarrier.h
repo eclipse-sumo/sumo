@@ -29,6 +29,7 @@
 
 class GNEHierarchicalElement;
 class GNELane;
+class GNEMoveElement;
 class GNENet;
 class GNETagProperties;
 class GNEUndoList;
@@ -89,6 +90,9 @@ public:
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    virtual GNEMoveElement* getMoveElement() = 0;
 
     /// @name Function related front elements
     /// @{
