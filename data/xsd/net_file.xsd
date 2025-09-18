@@ -79,6 +79,7 @@
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="routingType" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
         <xsd:attribute name="distance" type="floatType"/>
         <xsd:attribute name="spreadType" type="spreadTypeType" use="optional"/>
