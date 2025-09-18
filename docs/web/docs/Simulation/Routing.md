@@ -129,7 +129,7 @@ As a consequence:
 Sometimes it is useful to customize route search for different [vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) or [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) with additional information while still taking travel times into account.
 
 For this use case the element `<preference>` can be loaded from additional files (with option **--additional-files**).
-Preferenes are defined with the following attributes
+Preferences are defined with the following attributes
 
 | Attribute Name  | Value Type        | Description                            |
 | --------------- | ----------------- | -------------------------------------- |
@@ -139,6 +139,14 @@ Preferenes are defined with the following attributes
 | vClasses        | id list           | A list of [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) to which this preference applies   |
 
 When the `<preference>` element is loaded, all listed `vTypes` and `vClasses` will have their edge travelTime divided by the defined `priority` value for all edges that have the given `routingType`. If an edge does not define attribute `routingType` it's `type` is used for matching preferences.
+
+Example:
+
+```xml
+<additional >
+    <preference routingType="typeB" vClasses="wheelchair" priority="4"/>
+</additional>
+```
 
 !!! note
     If a `<preference>` element defines neither `vTypes` nor `vClasses` it will apply the `priority` to all vehicles/persons.
