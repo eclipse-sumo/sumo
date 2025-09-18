@@ -146,7 +146,7 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const 
     if (e2 == nullptr) {
         return true; // null e2 is considered "greater", so e1 > e2 is true
     }
-
+    assert(e1 != nullptr && e2 != nullptr);
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getStartAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getStartAngle());
     const double length1 = e1->getGeometry().length2D();
@@ -191,6 +191,7 @@ NBContHelper::relative_incoming_edge_sorter::operator()(const NBEdge* e1, const 
     if (e2 == nullptr) {
         return true; // null e2 is considered "greater", so e1 > e2 is true
     }
+    assert(e1 != nullptr && e2 != nullptr);
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getEndAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getEndAngle());
     const double length1 = e1->getGeometry().length2D();
