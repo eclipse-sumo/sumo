@@ -32,6 +32,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 
 // ===========================================================================
@@ -310,6 +311,12 @@ GNEInternalLane::colorForLinksState(FXuint state) {
 
 std::string
 GNEInternalLane::getAttribute(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
+double
+GNEInternalLane::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 

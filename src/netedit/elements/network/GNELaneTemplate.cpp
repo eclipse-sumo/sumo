@@ -114,6 +114,12 @@ GNELaneTemplate::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNELaneTemplate::getAttributeDouble(SumoXMLAttr key) const {
+    return myLane->getAttributeDouble(key);
+}
+
+
 PositionVector
 GNELaneTemplate::getAttributePositionVector(SumoXMLAttr key) const {
     return myLane->getAttributePositionVector(key);

@@ -140,6 +140,12 @@ GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEEdgeTemplate::getAttributeDouble(SumoXMLAttr key) const {
+    return myEdge->getAttributeDouble(key);
+}
+
+
 PositionVector
 GNEEdgeTemplate::getAttributePositionVector(SumoXMLAttr key) const {
     return myEdge->getAttributePositionVector(key);

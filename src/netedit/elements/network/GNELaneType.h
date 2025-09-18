@@ -139,6 +139,12 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for getting the Attribute of an XML key in Position format
      * @param[in] key The attribute key
      * @return position with the value associated to key

@@ -1379,6 +1379,12 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEJunction::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNEJunction::getAttributePositionVector(SumoXMLAttr key) const {
     switch (key) {

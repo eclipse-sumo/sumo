@@ -221,6 +221,12 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNELaneType::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNELaneType::getAttributePositionVector(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
