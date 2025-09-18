@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-18T13:49:02.253455+01:00 by Eclipse SUMO duarouter v1_24_0+0872-c0a0c1c4242
+<!-- generated on 2025-09-18T13:55:41.611388+01:00 by Eclipse SUMO duarouter v1_24_0+0872-c0a0c1c4242
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="v_0" type="DEFAULT_BIKETYPE" depart="0.00">
         <routeDistribution last="0">
-            <route cost="54.00" probability="1.00000000" edges="E0 E1 E2"/>
+            <route cost="49.50" probability="1.00000000" edges="E0 E3 E2"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="v_1" depart="100.00">
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vType id="t_0" vClass="vip"/>
     <vehicle id="v_2" type="t_0" depart="200.00">
         <routeDistribution last="0">
-            <route cost="21.60" probability="1.00000000" edges="E0 E1 E2"/>
+            <route cost="19.80" probability="1.00000000" edges="E0 E3 E2"/>
         </routeDistribution>
     </vehicle>
 </routes>
