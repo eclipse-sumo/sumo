@@ -401,9 +401,6 @@ protected:
     /// @brief draw demand element children
     void drawDemandElementChildren(const GUIVisualizationSettings& s) const;
 
-    /// @brief get moveOperation for an element over single lane
-    GNEMoveOperation* getMoveOperationSingleLane(const double startPos, const double endPos);
-
     /// @brief get moveOperation for an element over multi lane
     GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
 

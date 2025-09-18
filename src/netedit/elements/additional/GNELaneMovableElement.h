@@ -42,16 +42,25 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNELaneMovableElement(GNEAttributeCarrier* element, GNELane* lane, const double startPos, const double endPos,
-                          const bool friendlyPosition);
+    GNELaneMovableElement(GNEAttributeCarrier* element, GNELane* lane, const double startPos,
+                          const double endPos, const bool friendlyPosition);
+
+    /**@brief Constructor
+     * @param[in] lanes Lanes of this StoppingPlace belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] friendlyPos enable or disable friendly position
+     */
+    GNELaneMovableElement(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
+                          const double startPos, const double endPos, const bool friendlyPosition);
 
     /// @brief Destructor
     ~GNELaneMovableElement();
 
-    /**@brief get lane movable move operation
+    /**@brief get lane movable move operation for elements with
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getLaneMovableMoveOperation();
+    GNEMoveOperation* getStartEndMoveOperation();
 
 protected:
     /// @brief pointer to element

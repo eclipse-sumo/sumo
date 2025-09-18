@@ -58,11 +58,22 @@ GNELaneMovableElement::GNELaneMovableElement(GNEAttributeCarrier* element, GNELa
 }
 
 
+GNELaneMovableElement::GNELaneMovableElement(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
+        const double startPos, const double endPos, const bool friendlyPosition) :
+    myElement(element),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myFriendlyPosition(friendlyPosition) {
+    // set parents
+    element->getHierarchicalElement()->setParents<GNELane*>(lanes);
+}
+
+
 GNELaneMovableElement::~GNELaneMovableElement() {}
 
 
 GNEMoveOperation*
-GNELaneMovableElement::getLaneMovableMoveOperation() {
+GNELaneMovableElement::getStartEndMoveOperation() {
     const auto& parentLanes = myElement->getHierarchicalElement()->getParentLanes();
     // get allow change lane
     const bool allowChangeLane = myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();

@@ -63,40 +63,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 
 GNEMoveOperation*
 GNEStoppingPlace::getMoveOperation() {
-    // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
-    // fist check if we're moving only extremes
-    if (drawMovingGeometryPoints()) {
-        // get geometry points under cursor
-        const auto geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(this);
-        // continue depending of moved element
-        if (geometryPoints.empty()) {
-            return nullptr;
-        } else if (geometryPoints.front() == 0) {
-            // move start position
-            return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
-        } else {
-            // move end position
-            return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
-        }
-    } else if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
-        // move both start and end positions
-        return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, myEndPosition,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
-    } else if (myStartPosition != INVALID_DOUBLE) {
-        // move only start position
-        return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
-    } else if (myEndPosition != INVALID_DOUBLE) {
-        // move only end position
-        return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
-    } else {
-        // start and end positions undefined, then nothing to move
-        return nullptr;
-    }
+    return getStartEndMoveOperation();
 }
 
 

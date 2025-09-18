@@ -902,36 +902,6 @@ GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) cons
 
 
 GNEMoveOperation*
-GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
-    // get allow change lane
-    const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
-    // fist check if we're moving only extremes
-    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // check if we clicked over start or end position
-        if (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move only start position
-            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
-        } else if (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move only end position
-            return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
-        } else {
-            return nullptr;
-        }
-    } else {
-        // move both start and end positions
-        return new GNEMoveOperation(this, getParentLanes().front(), startPos, endPos,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
-    }
-}
-
-
-GNEMoveOperation*
 GNEAdditional::getMoveOperationMultiLane(const double startPos, const double endPos) {
     // get snap radius
     const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;

@@ -176,9 +176,6 @@ public:
     /// @}
 
 protected:
-    /// @brief end position over lane (only for Multilane E2 detectors)
-    double myEndPositionOverLane = 0;
-
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold = 0;
 

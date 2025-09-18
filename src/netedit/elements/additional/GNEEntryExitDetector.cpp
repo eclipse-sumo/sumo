@@ -44,7 +44,7 @@ GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net)
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos,
         const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(parent, entryExitTag, pos, 0, lane, "", "", friendlyPos, parameters) {
+    GNEDetector(parent, entryExitTag, lane, pos, 0, "", "", friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -57,7 +57,7 @@ void
 GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    device.writeAttr(SUMO_ATTR_POSITION, myStartPosition);
     // write common detector parameters
     writeDetectorValues(device);
     // write parameters
@@ -72,7 +72,7 @@ GNEEntryExitDetector::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return fabs(myStartPosition) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     }
 }
 
@@ -82,16 +82,16 @@ GNEEntryExitDetector::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
-    if (GNEAdditionalHandler::checkLanePosition(myPositionOverLane, 0, len, myFriendlyPosition)) {
+    if (GNEAdditionalHandler::checkLanePosition(myStartPosition, 0, len, myFriendlyPosition)) {
         return "";
     } else {
         // declare variable for error position
         std::string errorPosition;
         // check positions over lane
-        if (myPositionOverLane < 0) {
+        if (myStartPosition < 0) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
-        if (myPositionOverLane > len) {
+        if (myStartPosition > len) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         return errorPosition;
@@ -102,7 +102,7 @@ GNEEntryExitDetector::getAdditionalProblem() const {
 void
 GNEEntryExitDetector::fixAdditionalProblem() {
     // declare new position
-    double newPositionOverLane = myPositionOverLane;
+    double newPositionOverLane = myStartPosition;
     // fix pos and length checkAndFixDetectorPosition
     double length = 0;
     GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
@@ -183,7 +183,7 @@ double
 GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            return myPositionOverLane;
+            return myStartPosition;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -345,7 +345,7 @@ GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEEntryExitDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
-    myPositionOverLane = moveResult.newFirstPos;
+    myStartPosition = moveResult.newFirstPos;
     // set lateral offset
     myMoveElementLateralOffset = moveResult.firstLaneOffset;
     // update geometry

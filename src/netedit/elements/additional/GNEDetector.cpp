@@ -41,59 +41,53 @@ GNEDetector::GNEDetector(GNENet* net, SumoXMLTag tag) :
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, const double pos, const SUMOTime period,
-                         GNELane* lane, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
-                         const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, tag, name),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myPeriod(period),
-    myOutputFilename(outputFilename),
-    myVehicleTypes(vehicleTypes),
-    myNextEdges(nextEdges),
-    myDetectPersons(detectPersons),
-    myFriendlyPosition(friendlyPos) {
-    // update output filename
-    if (outputFilename.empty()) {
-        myOutputFilename = id + ".xml";
-    }
-    // set parents
-    setParent<GNELane*>(lane);
-}
-
-
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, const double pos, const SUMOTime period,
-                         const std::vector<GNELane*>& lanes, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
-                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name, const bool friendlyPos,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, GNELane* lane,
+                         const double startPos, const double endPos, const SUMOTime period, const std::string& outputFilename,
+                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                         const std::string& detectPersons, const std::string& name, const bool friendlyPos,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
+    GNELaneMovableElement(this, lane, startPos, endPos, friendlyPos),
     Parameterised(parameters),
-    myPositionOverLane(pos),
     myPeriod(period),
     myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
     myNextEdges(nextEdges),
-    myDetectPersons(detectPersons),
-    myFriendlyPosition(friendlyPos) {
+    myDetectPersons(detectPersons) {
     // update output filename
     if (outputFilename.empty()) {
         myOutputFilename = id + ".xml";
     }
-    // set parents
-    setParents<GNELane*>(lanes);
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, const double pos, const SUMOTime period, GNELane* lane,
-                         const std::string& outputFilename, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEAdditional(additionalParent, tag, name),
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, const std::vector<GNELane*>& lanes,
+                         const double startPos, const double endPos, const SUMOTime period, const std::string& outputFilename,
+                         const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, filename, tag, name),
+    GNELaneMovableElement(this, lanes, startPos, endPos, friendlyPos),
     Parameterised(parameters),
-    myPositionOverLane(pos),
     myPeriod(period),
     myOutputFilename(outputFilename),
-    myFriendlyPosition(friendlyPos) {
+    myVehicleTypes(vehicleTypes),
+    myNextEdges(nextEdges),
+    myDetectPersons(detectPersons) {
+    // update output filename
+    if (outputFilename.empty()) {
+        myOutputFilename = id + ".xml";
+    }
+}
+
+
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, GNELane* lane, const double pos, const SUMOTime period,
+                         const std::string& outputFilename, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(additionalParent, tag, name),
+    GNELaneMovableElement(this, lane, pos, 0, friendlyPos),
+    Parameterised(parameters),
+    myPeriod(period),
+    myOutputFilename(outputFilename) {
     // set parents
-    setParent<GNELane*>(lane);
     setParent<GNEAdditional*>(additionalParent);
 }
 
@@ -107,20 +101,14 @@ GNEDetector::getMoveOperation() {
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
         return nullptr;
     } else if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
-        return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
+        return getStartEndMoveOperation();
     } else if (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
-        return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
+        return getMoveOperationMultiLane(myStartPosition, getAttributeDouble(SUMO_ATTR_ENDPOS));
     } else {
         // return move operation for detectors with single position placed over shape (E1, EntryExits..)
-        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+        return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
     }
-}
-
-
-double
-GNEDetector::getPositionOverLane() const {
-    return myPositionOverLane;
 }
 
 
@@ -159,12 +147,6 @@ GNEDetector::checkDrawMoveContour() const {
 }
 
 
-GNELane*
-GNEDetector::getLane() const {
-    return getParentLanes().front();
-}
-
-
 Position
 GNEDetector::getPositionInView() const {
     return myAdditionalGeometry.getShape().getPolygonCenter();
@@ -187,29 +169,29 @@ GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkEleme
         if (newE2Lanes.size() > 0) {
             setAttribute(SUMO_ATTR_LANES, newE2Lanes, undoList);
         }
-    } else if (splitPosition < myPositionOverLane) {
+    } else if (splitPosition < myStartPosition) {
         // change lane
         setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
         // now adjust start position
-        setAttribute(SUMO_ATTR_POSITION, toString(myPositionOverLane - splitPosition), undoList);
+        setAttribute(SUMO_ATTR_POSITION, toString(myStartPosition - splitPosition), undoList);
     }
 }
 
 
 double
 GNEDetector::getGeometryPositionOverLane() const {
-    double fixedPos = myPositionOverLane;
-    const double len = getLane()->getParentEdge()->getNBEdge()->getFinalLength();
+    double fixedPos = myStartPosition;
+    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     double length = 0;
     GNEAdditionalHandler::fixLanePosition(fixedPos, length, len);
-    return (fixedPos * getLane()->getLengthGeometryFactor());
+    return (fixedPos * getParentLanes().front()->getLengthGeometryFactor());
 }
 
 
 
 std::string
 GNEDetector::getParentName() const {
-    return getLane()->getID();
+    return getParentLanes().front()->getID();
 }
 
 
@@ -239,7 +221,7 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane);
+            return toString(myStartPosition);
         case SUMO_ATTR_PERIOD:
             if (myPeriod == SUMOTime_MAX_PERIOD) {
                 return "";
@@ -270,7 +252,7 @@ double
 GNEDetector::getDetectorAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            return myPositionOverLane;
+            return myStartPosition;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -387,7 +369,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
+            myStartPosition = parse<double>(value);
             break;
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
