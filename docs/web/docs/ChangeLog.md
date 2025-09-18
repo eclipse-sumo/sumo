@@ -63,7 +63,7 @@ title: ChangeLog
 
 - sumo
   - Option **--max-num-persons 0** can now be used to run a simulation without persons. #16965
-  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](../Simulation/Routing.md#routing_by_travel_time_and_routingtype) #9091
+  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) #9091
   - Added options **--device.rerouting.threshold.factor** and **--device.rerouting.threshold.constant** to avoid routing if the [improvement in travel time is too low](Demand/Automatic_Routing.md#improvement_thresholds) #4635
 
 - netedit
@@ -78,7 +78,7 @@ title: ChangeLog
   - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
 
 - duarouter
-  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](../Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
+  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
  
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
