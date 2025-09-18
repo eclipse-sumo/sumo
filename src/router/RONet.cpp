@@ -146,6 +146,51 @@ RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const d
 }
 
 
+double
+RONet::getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const {
+    if (gRoutingPreferences) {
+        auto it = myVTypePreferences.find(pars.id);
+        if (it != myVTypePreferences.end()) {
+            auto it2 = it->second.find(routingType);
+            if (it2 != it->second.end()) {
+                return it2->second;
+            }
+        }
+        auto it3 = myVClassPreferences.find(pars.vehicleClass);
+        if (it3 != myVClassPreferences.end()) {
+            auto it4 = it3->second.find(routingType);
+            if (it4 != it3->second.end()) {
+                return it4->second;
+            }
+        }
+        // fallback to generel preferences
+        it = myVTypePreferences.find("");
+        if (it != myVTypePreferences.end()) {
+            auto it2 = it->second.find(routingType);
+            if (it2 != it->second.end()) {
+                return it2->second;
+            }
+        }
+    }
+    return 1;
+}
+
+
+void
+RONet::addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio) {
+    myVClassPreferences[svc][routingType] = prio;
+    gRoutingPreferences = true;
+}
+
+
+void
+RONet::addPreference(const std::string& routingType, std::string vType, double prio) {
+    myVTypePreferences[vType][routingType] = prio;
+    gRoutingPreferences = true;
+}
+
+
+
 const std::map<SUMOVehicleClass, double>*
 RONet::getRestrictions(const std::string& id) const {
     std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = myRestrictions.find(id);

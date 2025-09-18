@@ -266,7 +266,7 @@ NLHandler::myStartElement(int element,
                     throw InvalidArgument("In preference for routingType '" + routingType + "', priority must be positve");
                 }
                 if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
-                    StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_VCLASSES, myCurrentVTypeDistributionID.c_str(), ok));
+                    StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_VCLASSES, routingType.c_str(), ok));
                     for (std::string className : st.getVector()) {
                         myNet.addPreference(routingType, getVehicleClassID(className), prio);
                     }
@@ -275,7 +275,7 @@ NLHandler::myStartElement(int element,
                     myNet.addPreference(routingType, "", prio);
                 }
                 if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-                    StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok));
+                    StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_VTYPES, routingType.c_str(), ok));
                     for (std::string typeName : st.getVector()) {
                         myNet.addPreference(routingType, typeName, prio);
                     }
