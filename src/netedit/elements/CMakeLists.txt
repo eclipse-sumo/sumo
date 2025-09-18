@@ -18,11 +18,13 @@ set(netedit_elements_SRCS
    GNEHierarchicalStructureChildren.h
    GNEHierarchicalStructureParents.cpp
    GNEHierarchicalStructureParents.h
+   GNELaneMovableElement.cpp
+   GNELaneMovableElement.h
    GNEMoveElement.cpp
    GNEMoveElement.h
    GNEPathElement.cpp
    GNEPathElement.h
-   )
+)
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})
 set_property(TARGET netedit_elements PROPERTY PROJECT_LABEL "z_netedit_elements")

@@ -1,0 +1,96 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNELaneMovableElement.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Dec 2015
+///
+// A abstract class to pack all functions related to move elements over lane(s)
+/****************************************************************************/
+#pragma once
+#include <config.h>
+
+#include <utils/gui/globjects/GUIGlObject.h>
+
+#include "GNEAttributeCarrier.h"
+#include "GNEHierarchicalElement.h"
+#include "GNEMoveElement.h"
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNELaneMovableElement : public virtual GNEHierarchicalElement, public virtual GNEAttributeCarrier, public virtual GUIGlObject, public virtual GNEMoveElement {
+
+public:
+    /// @brief Default constructor
+    GNELaneMovableElement();
+
+    /**@brief Constructor
+     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] startPos Start position of the StoppingPlace
+     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] friendlyPos enable or disable friendly position
+     */
+    GNELaneMovableElement(GNELane* lane, const double startPos, const double endPos,
+                          const bool friendlyPosition);
+
+    /// @brief Destructor
+    ~GNELaneMovableElement();
+
+    /**@brief get move operation
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    GNEMoveOperation* getMoveOperation();
+
+protected:
+    /// @brief The relative start position this stopping place is located at (-1 means empty)
+    double myStartPosition = 0;
+
+    /// @brief The  position this stopping place is located at (-1 means empty)
+    double myEndPosition = 0;
+
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition = false;
+
+    /// @brief size (only use in AttributeCarrier templates)
+    double mySize = 10;
+
+    /// @brief force size (only used in AttributeCarrier templates
+    bool myForceSize = false;
+
+    /// @brief reference position
+    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
+
+    /// @brief check if draw additional extrem geometry points
+    bool TESTdrawMovingGeometryPoints(const bool ignoreShift) const;
+
+private:
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
+
+    /// @brief set move shape
+    void setMoveShape(const GNEMoveResult& moveResult);
+
+    /// @brief commit move shape
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief adjust length
+    void adjustLength(const double length, GNEUndoList* undoList);
+
+    /// @brief Invalidate set new position in the view
+    void setPosition(const Position& pos) = delete;
+};
