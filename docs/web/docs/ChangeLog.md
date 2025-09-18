@@ -34,7 +34,7 @@ title: ChangeLog
   - Sidewalks and bike-lanes are now discounted when computing junctionPriorities #1637
   - Fixed invalid ptstop-output when loading stops and splits #17028
   - Fixed missing bidi-edge after split #17033
-
+  - Fixed bug where intersection rules changed on re-import #17077
 
 - sumo-gui
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
@@ -45,7 +45,7 @@ title: ChangeLog
   - Start button is disabled when loading simulation aborts with an error #17063
   - Fixed wrong entries / paths for recent config #16906
   - Settings dialog now cancels changes on ESC #17050
-
+  - containerStop: custom container angle now applys to plan item `<stop>` #17089
 
 - meso
   - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
@@ -63,6 +63,8 @@ title: ChangeLog
 
 - sumo
   - Option **--max-num-persons 0** can now be used to run a simulation without persons. #16965
+  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](../Simulation/Routing.md#routing_by_travel_time_and_routingtype) #9091
+  - Added options **--device.rerouting.threshold.factor** and **--device.rerouting.threshold.constant** to avoid routing if the [improvement in travel time is too low](Demand/Automatic_Routing.md#improvement_thresholds) #4635
 
 - netedit
   - Now translating additional tooltips #12652
@@ -72,11 +74,19 @@ title: ChangeLog
 
 - sumo-gui
   - Various dialogs can now be closed with ESC #15463
+  - busStop now support <param key="waitingDepth" value="FLOAT"/> to customize spacing of waiting transportables #17088
+  - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
+
+- duarouter
+  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](../Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
  
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
   - Added option **--junctions.attach-removed** which can be used to merge networks that were processed with option **--output.removed-nodes** and correctly re-attach at removed junctions #16968
   - Option **--junctions.join-same** now supports setting the matching distance for joining #16969
+  - Added new edge attribute `routingType` which can be used to influence routing together with the new `<preference>` element #17094
+  - Options **--railway.topology.extend-priority** and **--railway.topology.direction-priority** now set attribute `routingType` #17102
+
 
 - tools
   - net2geojson.py: now permits exporting of edge AND lane shapes by using options **--edges --lanes** #16774
@@ -90,7 +100,8 @@ title: ChangeLog
 - Option **--junctions.join-same** whas changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
 - sumo now warns when setting option **--threads** with an argument greater than 1 #17057
 - Added warnings and errors for different problems with a configuration file #17069
-
+- Command line output under Windows now usees UTF charset #17093
+- [Automatic rerouting](Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
 
 ## Version 1.24.0 (22.07.2025)
 
