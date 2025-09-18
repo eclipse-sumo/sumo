@@ -141,7 +141,7 @@ Preferenes are defined with the following attributes
 When the `<preference>` element is loaded, all listed `vTypes` and `vClasses` will have their edge travelTime divided by the defined `priority` value for all edges that have the given `routingType`. If an edge does not define attribute `routingType` it's `type` is used for matching preferences.
 
 !!! note
-    If a `<preference>` element defines neither `vTypes` nor `vClass` it will apply the `priority` to all vehicles/persons.
+    If a `<preference>` element defines neither `vTypes` nor `vClasses` it will apply the `priority` to all vehicles/persons.
 
 # Routing by *effort*
 
