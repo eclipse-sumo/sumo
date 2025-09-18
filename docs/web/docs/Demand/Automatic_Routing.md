@@ -23,7 +23,9 @@ thus adapts to jams and other changes in the network.
 The options listed below allow configuring which of the vehicles shall
 be equipped, how often rerouting decisions shall be made and how the
 estimation of travel times is computed from current and recent
-knowledge.
+knowledge. 
+
+Further information on [routing is available](../Simulation/Routing.md).
 
 # Options
 
