@@ -136,7 +136,17 @@ NBContHelper::edge_with_destination_finder::operator()(NBEdge* e) const {
  * ----------------------------------------------------------------------- */
 bool
 NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
-    assert(e1 != nullptr && e2 != nullptr);
+    // Handle null edge pointers gracefully
+    if (e1 == nullptr && e2 == nullptr) {
+        return false; // both null, considered equal
+    }
+    if (e1 == nullptr) {
+        return false; // null e1 is considered "greater", so e1 > e2 is false
+    }
+    if (e2 == nullptr) {
+        return true; // null e2 is considered "greater", so e1 > e2 is true
+    }
+    
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getStartAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getStartAngle());
     const double length1 = e1->getGeometry().length2D();
@@ -171,7 +181,17 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const 
  * ----------------------------------------------------------------------- */
 bool
 NBContHelper::relative_incoming_edge_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
-    assert(e1 != nullptr && e2 != nullptr);
+    // Handle null edge pointers gracefully
+    if (e1 == nullptr && e2 == nullptr) {
+        return false; // both null, considered equal
+    }
+    if (e1 == nullptr) {
+        return false; // null e1 is considered "greater", so e1 > e2 is false
+    }
+    if (e2 == nullptr) {
+        return true; // null e2 is considered "greater", so e1 > e2 is true
+    }
+    
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getEndAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getEndAngle());
     const double length1 = e1->getGeometry().length2D();
