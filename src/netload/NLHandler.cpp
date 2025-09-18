@@ -458,6 +458,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // get the edge type
     const std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    const std::string routingType = attrs.getOpt<std::string>(SUMO_ATTR_ROUTINGTYPE, id.c_str(), ok, "");
     // get the edge priority (only for visualization)
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
     // get the bidi-edge
@@ -471,7 +472,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi, distance);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, routingType, priority, bidi, distance);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
@@ -1605,7 +1606,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
 
         MSEdge* sink = MSEdge::dictionary(sinkID);
         if (sink == nullptr) {
-            sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            sink = myEdgeControlBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", "", -1, 0);
             MSEdge::dictionary(sinkID, sink);
             sink->initialize(new std::vector<MSLane*>());
         } else {
@@ -1620,7 +1621,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         }
         MSEdge* source = MSEdge::dictionary(sourceID);
         if (source == nullptr) {
-            source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+            source = myEdgeControlBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", "", -1, 0);
             MSEdge::dictionary(sourceID, source);
             source->initialize(new std::vector<MSLane*>());
         } else {

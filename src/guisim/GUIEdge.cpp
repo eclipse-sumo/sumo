@@ -63,9 +63,10 @@
 
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const SumoXMLEdgeFunc function,
-                 const std::string& streetName, const std::string& edgeType, int priority,
+                 const std::string& streetName, const std::string& edgeType,
+                 const std::string& routingType, int priority,
                  double distance) :
-    MSEdge(id, numericalID, function, streetName, edgeType, priority, distance),
+    MSEdge(id, numericalID, function, streetName, edgeType, routingType, priority, distance),
     GUIGlObject(GLO_EDGE, id, GUIIconSubSys::getIcon(GUIIcon::EDGE)),
     myLock(true)
 {}

@@ -60,12 +60,13 @@ NLEdgeControlBuilder::beginEdgeParsing(
     const std::string& id, const SumoXMLEdgeFunc function,
     const std::string& streetName,
     const std::string& edgeType,
+    const std::string& routingType,
     int priority,
     const std::string& bidi,
     double distance) {
     // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
     myLaneStorage->clear();
-    myActiveEdge = buildEdge(id, function, streetName, edgeType, priority, distance);
+    myActiveEdge = buildEdge(id, function, streetName, edgeType, routingType, priority, distance);
     if (MSEdge::dictionary(id) != nullptr) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
@@ -259,8 +260,9 @@ NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
 
 MSEdge*
 NLEdgeControlBuilder::buildEdge(const std::string& id, const SumoXMLEdgeFunc function,
-                                const std::string& streetName, const std::string& edgeType, const int priority, const double distance) {
-    return new MSEdge(id, myCurrentNumericalEdgeID++, function, streetName, edgeType, priority, distance);
+                                const std::string& streetName, const std::string& edgeType, const std::string& routingType,
+                                const int priority, const double distance) {
+    return new MSEdge(id, myCurrentNumericalEdgeID++, function, streetName, edgeType, routingType, priority, distance);
 }
 
 void NLEdgeControlBuilder::addCrossingEdges(const std::vector<std::string>& crossingEdges) {

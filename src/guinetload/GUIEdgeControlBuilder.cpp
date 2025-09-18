@@ -64,8 +64,9 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
 
 MSEdge*
 GUIEdgeControlBuilder::buildEdge(const std::string& id, const SumoXMLEdgeFunc function,
-                                 const std::string& streetName, const std::string& edgeType, const int priority, const double distance) {
-    return new GUIEdge(id, myCurrentNumericalEdgeID++, function, streetName, edgeType, priority, distance);
+                                 const std::string& streetName, const std::string& edgeType,
+                                 const std::string& routingType, const int priority, const double distance) {
+    return new GUIEdge(id, myCurrentNumericalEdgeID++, function, streetName, edgeType, routingType, priority, distance);
 }
 
 

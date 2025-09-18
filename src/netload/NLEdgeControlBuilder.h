@@ -77,6 +77,7 @@ public:
      */
     void beginEdgeParsing(const std::string& id, const SumoXMLEdgeFunc function,
                           const std::string& streetName, const std::string& edgeType,
+                          const std::string& routingType,
                           int priority,
                           const std::string& bidi,
                           double distance);
@@ -141,7 +142,8 @@ public:
      * @param[in] streetName The street name of the edge to build
      */
     virtual MSEdge* buildEdge(const std::string& id, const SumoXMLEdgeFunc function,
-                              const std::string& streetName, const std::string& edgeType, const int priority, const double distance);
+                              const std::string& streetName, const std::string& edgeType,
+                              const std::string& routingType, const int priority, const double distance);
 
     /** @brief add the crossingEdges in a crossing edge if present
      *

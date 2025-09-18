@@ -57,7 +57,7 @@
 // ===========================================================================
 // static member definition
 // ===========================================================================
-MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
+MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
 const std::string MESegment::OVERRIDE_TLS_PENALTIES("meso.tls.control");

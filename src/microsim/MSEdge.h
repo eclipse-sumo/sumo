@@ -98,8 +98,8 @@ public:
      * @param[in] streetName The street name for that edge
      */
     MSEdge(const std::string& id, int numericalID, const SumoXMLEdgeFunc function,
-           const std::string& streetName, const std::string& edgeType, int priority,
-           double distance);
+           const std::string& streetName, const std::string& edgeType,
+           const std::string& routingType, int priority, double distance);
 
 
     /// @brief Destructor.
@@ -318,6 +318,12 @@ public:
      */
     const std::string& getEdgeType() const {
         return myEdgeType;
+    }
+
+    /** @brief Returns the type of the edge
+     */
+    const std::string& getRoutingType() const {
+        return myRoutingType.empty() ? myEdgeType : myRoutingType;
     }
 
     // @brief try to infer edge type for internal edges
@@ -984,6 +990,9 @@ protected:
 
     /// @brief the type of the edge (optionally used during network creation)
     std::string myEdgeType;
+
+    /// @brief the routing type of the edge (used to look up vType and vClass specific routing preferences)
+    std::string myRoutingType;
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
