@@ -124,6 +124,25 @@ As a consequence:
 - the travel time of the lowest priority edge is multiplied with 1+PriorityFactor,
 - edges with in-between priorities will get a scaled penalty
 
+# Routing by Travel time and routingType
+
+Sometimes it is useful to customize route search for different [vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) or [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) with additional information while still taking travel times into account.
+
+For this use case the element `<preference>` can be loaded from additional files (with option **--additional-files**).
+Preferenes are defined with the following attributes
+
+| Attribute Name  | Value Type        | Description                            |
+| --------------- | ----------------- | -------------------------------------- |
+| **routingType** | id (string)       | The routingType or type of edges       |
+| **priority**    | float > 0         | The priority value for edges with that routingType |
+| vTypes          | id list           | A list of [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) to which this preference applies   |
+| vClasses        | id list           | A list of [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) to which this preference applies   |
+
+When the `<preference>` element is loaded, all listed `vTypes` and `vClasses` will have their edge travelTime divided by the defined `priority` value for all edges that have the given `routingType`. If an edge does not define attribute `routingType` it's `type` is used for matching preferences.
+
+!!! note
+    If a `<preference>` element defines neither `vTypes` nor `vClass` it will apply the `priority` to all vehicles/persons.
+
 # Routing by *effort*
 
 By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
