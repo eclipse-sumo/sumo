@@ -153,6 +153,16 @@ The device can be accessed using the TraCI function
 - has.rerouting.device ("true"): can be used to dynamically enable
   automatic rerouting
 
+# Improvement Thresholds
+
+By default, periodic rerouting will change a vehicles route if the new route is percieved to reduce the travelTime compared to the old route by any amount.
+Let `oldTime` be the estimated travelTime of the currentRoute and `newTime` the estimated time for the fastest route:
+
+- When setting option **--device.rerouting.threshold.factor FLOAT**, the route will be changed only if `oldTime / newTime > FLOAT`.
+- When setting option **--device.rerouting.threshold.constant FLOAT**, the route will be changed only if `oldTime - newTime > FLOAT`.
+
+When both options are set, both conditions must be met.
+
 # Randomness
 
 When setting the option **--weights.random-factor** {{DT_FLOAT}}, edge weights for routing are dynamically
