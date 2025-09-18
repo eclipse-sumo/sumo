@@ -1,0 +1,9 @@
+detour_vclass
+detour_vType
+detour_all
+
+# if routingType is set, it overrules edgeType
+routingType_overrides
+
+# if routingType is set, it overrules edgeType
+routingType_overrides2

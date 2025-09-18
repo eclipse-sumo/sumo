@@ -1,3 +1,6 @@
+# test edge type and vClass/vType specific routing preferences
+preference
+
 # load trips specified with coordinates
 geo
 
