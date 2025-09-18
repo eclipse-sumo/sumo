@@ -1198,6 +1198,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
             if (fromUniDir) {
                 if (!edge->isBidiRail()) {
                     edge->setPriority(4);
+                    edge->setRoutingType("4");
                     uni.insert(edge);
                 } else {
                     bidi.insert(edge);
@@ -1280,9 +1281,11 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
         }
         if (edge->getPriority() < 0) {
             edge->setPriority(prio);
+            edge->setRoutingType(toString(prio));
         }
         if (bidiEdge != nullptr && bidiEdge->getPriority() < 0) {
             bidiEdge->setPriority(bidiPrio);
+            bidiEdge->setRoutingType(toString(bidiPrio));
         }
     }
     std::map<int, int> numPrios;
