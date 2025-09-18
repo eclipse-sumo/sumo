@@ -228,6 +228,7 @@ GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem(TL("Type Information:"), false, "");
     ret->mkItem(TL("type [id]"), false, getEdgeType());
+    ret->mkItem(TL("routing type [id]"), false, getRoutingType());
     ret->mkItem(TL("tauff"), false, STEPS2TIME(edgeType.tauff));
     ret->mkItem(TL("taufj"), false, STEPS2TIME(edgeType.taufj));
     ret->mkItem(TL("taujf"), false, STEPS2TIME(edgeType.taujf));

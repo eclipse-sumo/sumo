@@ -1071,6 +1071,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem(TL("netto occupancy [%]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getNettoOccupancy, 100.));
     ret->mkItem(TL("pending insertions [#]"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getPendingEmits));
     ret->mkItem(TL("edge type"), false, myEdge->getEdgeType());
+    ret->mkItem(TL("routing type"), false, myEdge->getRoutingType());
     ret->mkItem(TL("type"), false, myLaneType);
     ret->mkItem(TL("priority"), false, myEdge->getPriority());
     ret->mkItem(TL("distance [km]"), false, myEdge->getDistance() / 1000);
