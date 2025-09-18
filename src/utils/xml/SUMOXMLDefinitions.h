@@ -57,6 +57,8 @@ enum SumoXMLTag {
     SUMO_TAG_JUNCTION,
     /// @brief begin/end of the description of an edge restriction
     SUMO_TAG_RESTRICTION,
+    /// @brief begin/end of the description of an edge preferences
+    SUMO_TAG_PREFERENCE,
     /// @brief edge-specific meso settings
     SUMO_TAG_MESO,
     /// @brief  A bus stop

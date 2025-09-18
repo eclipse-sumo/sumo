@@ -45,6 +45,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "poi",                                    SUMO_TAG_POI },
     { "junction",                               SUMO_TAG_JUNCTION },
     { "restriction",                            SUMO_TAG_RESTRICTION },
+    { "preference",                             SUMO_TAG_PREFERENCE },
     { "meso",                                   SUMO_TAG_MESO },
     { "busStop",                                SUMO_TAG_BUS_STOP },
     { "trainStop",                              SUMO_TAG_TRAIN_STOP },
