@@ -172,6 +172,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (ed->builtEdge != nullptr) {
             ed->builtEdge->setEdgeStopOffset(-1, ed->edgeStopOffset);
             ed->builtEdge->setBidi(ed->bidi != "");
+            ed->builtEdge->setRoutingType(ed->routingType);
         }
     }
     // assign further lane attributes (edges are built)
@@ -601,13 +602,12 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         myHaveSeenInternalEdge = true;
         return; // skip internal edges
     }
-    // get the type
-    myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the origin and the destination node
     myCurrentEdge->fromNode = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id.c_str(), ok, "");
     myCurrentEdge->toNode = attrs.getOpt<std::string>(SUMO_ATTR_TO, id.c_str(), ok, "");
     myCurrentEdge->priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    myCurrentEdge->routingType = attrs.getOpt<std::string>(SUMO_ATTR_ROUTINGTYPE, id.c_str(), ok, "");
     myCurrentEdge->shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
     NBNetBuilder::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);

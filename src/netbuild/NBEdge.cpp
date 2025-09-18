@@ -4037,6 +4037,11 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         reason = "speed";
         return false;
     }
+    // the routingType
+    if (myRoutingType != possContinuation->myRoutingType) {
+        reason = "routingType";
+        return false;
+    }
     // spreadtype should match or it will look ugly
     if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
         reason = "spreadType";

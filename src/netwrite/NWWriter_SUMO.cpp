@@ -491,6 +491,9 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, Lane
     if (e.getTypeID() != "") {
         into.writeAttr(SUMO_ATTR_TYPE, e.getTypeID());
     }
+    if (e.getRoutingType() != "") {
+        into.writeAttr(SUMO_ATTR_ROUTINGTYPE, e.getRoutingType());
+    }
     if (e.isMacroscopicConnector()) {
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CONNECTOR);
     }

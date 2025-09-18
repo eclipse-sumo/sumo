@@ -249,6 +249,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         if (e->getTypeID() != "") {
             edevice.writeAttr(SUMO_ATTR_TYPE, e->getTypeID());
         }
+        if (e->getRoutingType() != "") {
+            edevice.writeAttr(SUMO_ATTR_ROUTINGTYPE, e->getRoutingType());
+        }
         edevice.writeAttr(SUMO_ATTR_NUMLANES, e->getNumLanes());
         if (!e->hasLaneSpecificSpeed()) {
             edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
