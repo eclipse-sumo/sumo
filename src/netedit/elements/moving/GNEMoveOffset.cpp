@@ -18,10 +18,6 @@
 // Class used for define move offset
 /****************************************************************************/
 
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 
 #include "GNEMoveOffset.h"
 

@@ -47,4 +47,11 @@ public:
 
     /// @brief Z
     const double z;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEMoveOffset(const GNEMoveOffset&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEMoveOffset& operator=(const GNEMoveOffset&) = delete;
 };

@@ -19,9 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 
 #include "GNEMoveOperation.h"
 
@@ -50,6 +47,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     operationType(OperationType::ENTIRE_SHAPE) {
 }
 
+
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape,
                                    const bool _firstGeometryPoint,
@@ -61,6 +59,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstGeometryPoint(_firstGeometryPoint),
     operationType(_operationType) {
 }
+
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape,

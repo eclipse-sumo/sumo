@@ -37,7 +37,6 @@ class GUIGlObject;
 // class definitions
 // ===========================================================================
 
-/// @brief move element
 class GNEMoveElement {
 
 public:

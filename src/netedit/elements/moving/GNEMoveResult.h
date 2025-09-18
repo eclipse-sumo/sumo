@@ -26,7 +26,6 @@
 // class definitions
 // ===========================================================================
 
-/// @brief move result
 class GNEMoveResult {
 
 public:
