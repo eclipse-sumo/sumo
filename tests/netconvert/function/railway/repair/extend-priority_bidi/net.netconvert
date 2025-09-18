@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:55 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-09-18T14:34:13.496881+01:00 by Eclipse SUMO netconvert v1_24_0+0880-a00ea00ce9e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -213,106 +213,106 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":gneJ9_3_0" index="0" allow="rail" speed="27.78" length="8.68" shape="36.64,-64.01 38.72,-65.57 40.18,-66.73 41.76,-67.46 44.23,-67.71"/>
     </edge>
 
-    <edge id="-buffer1" from="gneJ1" to="gneJ0" priority="1" spreadType="center" bidi="buffer1">
+    <edge id="-buffer1" from="gneJ1" to="gneJ0" priority="1" routingType="1" spreadType="center" bidi="buffer1">
         <lane id="-buffer1_0" index="0" allow="rail" speed="27.78" length="75.36" shape="42.66,52.04 -32.69,50.63"/>
     </edge>
-    <edge id="-buffer2" from="gneJ15" to="gneJ14" priority="0" spreadType="center" bidi="buffer2">
+    <edge id="-buffer2" from="gneJ15" to="gneJ14" priority="0" routingType="0" spreadType="center" bidi="buffer2">
         <lane id="-buffer2_0" index="0" allow="rail" speed="27.78" length="60.80" shape="-69.67,-34.62 -8.87,-34.33"/>
     </edge>
-    <edge id="-buffer3" from="gneJ24" to="gneJ23" priority="1" spreadType="center" bidi="buffer3">
+    <edge id="-buffer3" from="gneJ24" to="gneJ23" priority="1" routingType="1" spreadType="center" bidi="buffer3">
         <lane id="-buffer3_0" index="0" allow="rail" speed="27.78" length="61.84" shape="-68.85,-112.38 -7.01,-112.11"/>
     </edge>
-    <edge id="-gneE1" from="gneJ2" to="gneJ1" priority="1" spreadType="center" bidi="gneE1">
+    <edge id="-gneE1" from="gneJ2" to="gneJ1" priority="1" routingType="1" spreadType="center" bidi="gneE1">
         <lane id="-gneE1_0" index="0" allow="rail" speed="27.78" length="77.27" shape="120.22,53.22 42.96,52.04"/>
     </edge>
-    <edge id="-gneE10" from="gneJ11" to="gneJ12" priority="3" spreadType="center" bidi="gneE10">
+    <edge id="-gneE10" from="gneJ11" to="gneJ12" priority="3" routingType="3" spreadType="center" bidi="gneE10">
         <lane id="-gneE10_0" index="0" allow="rail" speed="27.78" length="68.35" shape="208.97,-66.55 277.32,-67.42"/>
     </edge>
-    <edge id="-gneE11" from="gneJ14" to="gneJ9" priority="0" spreadType="center" bidi="gneE11">
+    <edge id="-gneE11" from="gneJ14" to="gneJ9" priority="0" routingType="0" spreadType="center" bidi="gneE11">
         <lane id="-gneE11_0" index="0" allow="rail" speed="27.78" length="53.45" shape="-7.99,-34.60 36.64,-64.01"/>
     </edge>
-    <edge id="-gneE13" from="gneJ19" to="gneJ18" priority="0" spreadType="center" bidi="gneE13">
+    <edge id="-gneE13" from="gneJ19" to="gneJ18" priority="0" routingType="0" spreadType="center" bidi="gneE13">
         <lane id="-gneE13_0" index="0" allow="rail" speed="27.78" length="64.78" shape="40.02,-152.46 -24.76,-152.73"/>
     </edge>
-    <edge id="-gneE14" from="gneJ20" to="gneJ19" priority="0" spreadType="center" bidi="gneE14">
+    <edge id="-gneE14" from="gneJ20" to="gneJ19" priority="0" routingType="0" spreadType="center" bidi="gneE14">
         <lane id="-gneE14_0" index="0" allow="rail" speed="27.78" length="91.44" shape="131.76,-152.46 40.32,-152.46"/>
     </edge>
-    <edge id="-gneE15" from="gneJ21" to="gneJ20" priority="0" spreadType="center" bidi="gneE15">
+    <edge id="-gneE15" from="gneJ21" to="gneJ20" priority="0" routingType="0" spreadType="center" bidi="gneE15">
         <lane id="-gneE15_0" index="0" allow="rail" speed="27.78" length="129.42" shape="269.43,-151.66 140.01,-152.45"/>
     </edge>
-    <edge id="-gneE16" from="gneJ22" to="gneJ20" priority="1" spreadType="center" bidi="gneE16">
+    <edge id="-gneE16" from="gneJ22" to="gneJ20" priority="1" routingType="1" spreadType="center" bidi="gneE16">
         <lane id="-gneE16_0" index="0" allow="rail" speed="27.78" length="59.37" shape="86.02,-112.44 133.05,-148.68"/>
     </edge>
-    <edge id="-gneE2" from="gneJ2" to="gneJ3" priority="1" spreadType="center" bidi="gneE2">
+    <edge id="-gneE2" from="gneJ2" to="gneJ3" priority="1" routingType="1" spreadType="center" bidi="gneE2">
         <lane id="-gneE2_0" index="0" allow="rail" speed="27.78" length="60.84" shape="128.38,53.32 189.22,53.69"/>
     </edge>
-    <edge id="-gneE20" from="gneJ25" to="gneJ6" priority="1" spreadType="center" bidi="gneE20">
+    <edge id="-gneE20" from="gneJ25" to="gneJ6" priority="1" routingType="1" spreadType="center" bidi="gneE20">
         <lane id="-gneE20_0" index="0" allow="rail" speed="27.78" length="70.46" shape="329.50,81.85 263.54,57.07"/>
     </edge>
-    <edge id="-gneE21" from="gneJ26" to="gneJ6" priority="1" spreadType="center" bidi="gneE21">
+    <edge id="-gneE21" from="gneJ26" to="gneJ6" priority="1" routingType="1" spreadType="center" bidi="gneE21">
         <lane id="-gneE21_0" index="0" allow="rail" speed="27.78" length="61.70" shape="323.35,37.21 263.73,53.12"/>
     </edge>
-    <edge id="-gneE22" from="gneJ5" to="gneJ28" priority="1" spreadType="center" shape="-14.72,7.75 -52.37,24.91 -141.99,23.26" bidi="gneE22">
+    <edge id="-gneE22" from="gneJ5" to="gneJ28" priority="1" routingType="1" spreadType="center" shape="-14.72,7.75 -52.37,24.91 -141.99,23.26" bidi="gneE22">
         <lane id="-gneE22_0" index="0" allow="rail" speed="27.78" length="122.30" shape="-22.64,11.36 -52.37,24.91 -141.99,23.26"/>
     </edge>
-    <edge id="-gneE23" from="gneJ5" to="gneJ29" priority="0" spreadType="center" bidi="gneE23">
+    <edge id="-gneE23" from="gneJ5" to="gneJ29" priority="0" routingType="0" spreadType="center" bidi="gneE23">
         <lane id="-gneE23_0" index="0" allow="rail" speed="27.78" length="117.82" shape="-23.43,7.67 -141.24,6.58"/>
     </edge>
-    <edge id="-gneE24" from="gneJ31" to="gneJ30" priority="0" spreadType="center" bidi="gneE24">
+    <edge id="-gneE24" from="gneJ31" to="gneJ30" priority="0" routingType="0" spreadType="center" bidi="gneE24">
         <lane id="-gneE24_0" index="0" allow="rail" speed="27.78" length="119.70" shape="30.95,-267.85 -88.75,-267.85"/>
     </edge>
-    <edge id="-gneE25" from="gneJ32" to="gneJ31" priority="0" spreadType="center" bidi="gneE25">
+    <edge id="-gneE25" from="gneJ32" to="gneJ31" priority="0" routingType="0" spreadType="center" bidi="gneE25">
         <lane id="-gneE25_0" index="0" allow="rail" speed="27.78" length="87.79" shape="119.04,-267.41 31.25,-267.85"/>
     </edge>
-    <edge id="-gneE26" from="gneJ33" to="gneJ32" priority="0" spreadType="center" bidi="gneE26">
+    <edge id="-gneE26" from="gneJ33" to="gneJ32" priority="0" routingType="0" spreadType="center" bidi="gneE26">
         <lane id="-gneE26_0" index="0" allow="rail" speed="27.78" length="72.39" shape="191.73,-266.91 119.34,-267.41"/>
     </edge>
-    <edge id="-gneE27" from="gneJ34" to="gneJ33" priority="0" spreadType="center" bidi="gneE27">
+    <edge id="-gneE27" from="gneJ34" to="gneJ33" priority="0" routingType="0" spreadType="center" bidi="gneE27">
         <lane id="-gneE27_0" index="0" allow="rail" speed="27.78" length="51.90" shape="243.88,-265.41 192.01,-266.91"/>
     </edge>
-    <edge id="-gneE28" from="gneJ35" to="gneJ34" priority="0" spreadType="center" bidi="gneE28">
+    <edge id="-gneE28" from="gneJ35" to="gneJ34" priority="0" routingType="0" spreadType="center" bidi="gneE28">
         <lane id="-gneE28_0" index="0" allow="rail" speed="27.78" length="58.79" shape="302.92,-263.09 244.18,-265.40"/>
     </edge>
-    <edge id="-gneE29" from="gneJ36" to="gneJ35" priority="0" spreadType="center" bidi="gneE29">
+    <edge id="-gneE29" from="gneJ36" to="gneJ35" priority="0" routingType="0" spreadType="center" bidi="gneE29">
         <lane id="-gneE29_0" index="0" allow="rail" speed="27.78" length="63.18" shape="366.36,-262.26 303.18,-263.08"/>
     </edge>
-    <edge id="-gneE3" from="gneJ4" to="gneJ2" priority="3" spreadType="center" bidi="gneE3">
+    <edge id="-gneE3" from="gneJ4" to="gneJ2" priority="3" routingType="3" spreadType="center" bidi="gneE3">
         <lane id="-gneE3_0" index="0" allow="rail" speed="27.78" length="58.66" shape="76.21,12.29 121.60,49.45"/>
     </edge>
-    <edge id="-gneE30" from="gneJ37" to="gneJ36" priority="0" spreadType="center" bidi="gneE30">
+    <edge id="-gneE30" from="gneJ37" to="gneJ36" priority="0" routingType="0" spreadType="center" bidi="gneE30">
         <lane id="-gneE30_0" index="0" allow="rail" speed="27.78" length="42.36" shape="409.02,-261.77 366.66,-262.26"/>
     </edge>
-    <edge id="-gneE4" from="gneJ5" to="gneJ4" priority="3" spreadType="center" bidi="gneE4">
+    <edge id="-gneE4" from="gneJ5" to="gneJ4" priority="3" routingType="3" spreadType="center" bidi="gneE4">
         <lane id="-gneE4_0" index="0" allow="rail" speed="27.78" length="88.20" shape="-12.84,7.84 75.27,11.93"/>
     </edge>
-    <edge id="-gneE5" from="gneJ3" to="gneJ6" priority="1" spreadType="center" bidi="gneE5">
+    <edge id="-gneE5" from="gneJ3" to="gneJ6" priority="1" routingType="1" spreadType="center" bidi="gneE5">
         <lane id="-gneE5_0" index="0" allow="rail" speed="27.78" length="55.80" shape="199.89,53.77 255.68,54.76"/>
     </edge>
-    <edge id="-gneE6" from="gneJ3" to="gneJ7" priority="0" spreadType="center" shape="198.03,53.74 122.84,87.76 -30.26,85.87" bidi="gneE6">
+    <edge id="-gneE6" from="gneJ3" to="gneJ7" priority="0" routingType="0" spreadType="center" shape="198.03,53.74 122.84,87.76 -30.26,85.87" bidi="gneE6">
         <lane id="-gneE6_0" index="0" allow="rail" speed="27.78" length="226.83" shape="190.00,57.37 122.84,87.76 -30.26,85.87"/>
     </edge>
-    <edge id="-gneE7" from="gneJ9" to="gneJ8" priority="0" spreadType="center" bidi="gneE7">
+    <edge id="-gneE7" from="gneJ9" to="gneJ8" priority="0" routingType="0" spreadType="center" bidi="gneE7">
         <lane id="-gneE7_0" index="0" allow="rail" speed="27.78" length="61.48" shape="35.54,-67.79 -25.94,-68.57"/>
     </edge>
-    <edge id="-gneE8" from="gneJ10" to="gneJ9" priority="0" spreadType="center" bidi="gneE8">
+    <edge id="-gneE8" from="gneJ10" to="gneJ9" priority="0" routingType="0" spreadType="center" bidi="gneE8">
         <lane id="-gneE8_0" index="0" allow="rail" speed="27.78" length="80.73" shape="124.96,-67.71 44.23,-67.71"/>
     </edge>
-    <edge id="-gneE9" from="gneJ10" to="gneJ11" priority="3" spreadType="center" bidi="gneE9">
+    <edge id="-gneE9" from="gneJ10" to="gneJ11" priority="3" routingType="3" spreadType="center" bidi="gneE9">
         <lane id="-gneE9_0" index="0" allow="rail" speed="27.78" length="83.46" shape="125.26,-67.71 208.71,-66.55"/>
     </edge>
-    <edge id="buffer1" from="gneJ0" to="gneJ1" priority="1" spreadType="center" bidi="-buffer1">
+    <edge id="buffer1" from="gneJ0" to="gneJ1" priority="1" routingType="1" spreadType="center" bidi="-buffer1">
         <lane id="buffer1_0" index="0" allow="rail" speed="27.78" length="75.36" shape="-32.69,50.63 42.66,52.04"/>
     </edge>
     <edge id="buffer2" from="gneJ14" to="gneJ15" priority="4" spreadType="center" bidi="-buffer2">
         <lane id="buffer2_0" index="0" allow="rail" speed="27.78" length="60.80" shape="-8.87,-34.33 -69.67,-34.62"/>
     </edge>
-    <edge id="buffer3" from="gneJ23" to="gneJ24" priority="1" spreadType="center" bidi="-buffer3">
+    <edge id="buffer3" from="gneJ23" to="gneJ24" priority="1" routingType="1" spreadType="center" bidi="-buffer3">
         <lane id="buffer3_0" index="0" allow="rail" speed="27.78" length="61.84" shape="-7.01,-112.11 -68.85,-112.38"/>
     </edge>
-    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1" spreadType="center" bidi="-gneE1">
+    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1" routingType="1" spreadType="center" bidi="-gneE1">
         <lane id="gneE1_0" index="0" allow="rail" speed="27.78" length="77.27" shape="42.96,52.04 120.22,53.22"/>
     </edge>
-    <edge id="gneE10" from="gneJ12" to="gneJ11" priority="0" spreadType="center" bidi="-gneE10">
+    <edge id="gneE10" from="gneJ12" to="gneJ11" priority="0" routingType="0" spreadType="center" bidi="-gneE10">
         <lane id="gneE10_0" index="0" allow="rail" speed="27.78" length="68.35" shape="277.32,-67.42 208.97,-66.55"/>
     </edge>
     <edge id="gneE11" from="gneJ9" to="gneJ14" priority="4" spreadType="center" bidi="-gneE11">
@@ -324,28 +324,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="gneE14" from="gneJ19" to="gneJ20" priority="4" spreadType="center" bidi="-gneE14">
         <lane id="gneE14_0" index="0" allow="rail" speed="27.78" length="91.44" shape="40.32,-152.46 131.76,-152.46"/>
     </edge>
-    <edge id="gneE15" from="gneJ20" to="gneJ21" priority="3" spreadType="center" bidi="-gneE15">
+    <edge id="gneE15" from="gneJ20" to="gneJ21" priority="3" routingType="3" spreadType="center" bidi="-gneE15">
         <lane id="gneE15_0" index="0" allow="rail" speed="27.78" length="129.42" shape="140.01,-152.45 269.43,-151.66"/>
     </edge>
-    <edge id="gneE16" from="gneJ20" to="gneJ22" priority="1" spreadType="center" bidi="-gneE16">
+    <edge id="gneE16" from="gneJ20" to="gneJ22" priority="1" routingType="1" spreadType="center" bidi="-gneE16">
         <lane id="gneE16_0" index="0" allow="rail" speed="27.78" length="59.37" shape="133.05,-148.68 86.02,-112.44"/>
     </edge>
-    <edge id="gneE17" from="gneJ22" to="gneJ23" priority="1" spreadType="center" bidi="gneE19">
+    <edge id="gneE17" from="gneJ22" to="gneJ23" priority="1" routingType="1" spreadType="center" bidi="gneE19">
         <lane id="gneE17_0" index="0" allow="rail" speed="27.78" length="91.76" shape="85.05,-112.11 -6.71,-112.11"/>
     </edge>
-    <edge id="gneE19" from="gneJ23" to="gneJ22" priority="1" spreadType="center" bidi="gneE17">
+    <edge id="gneE19" from="gneJ23" to="gneJ22" priority="1" routingType="1" spreadType="center" bidi="gneE17">
         <lane id="gneE19_0" index="0" allow="rail" speed="27.78" length="91.76" shape="-6.71,-112.11 85.05,-112.11"/>
     </edge>
-    <edge id="gneE2" from="gneJ3" to="gneJ2" priority="1" spreadType="center" bidi="-gneE2">
+    <edge id="gneE2" from="gneJ3" to="gneJ2" priority="1" routingType="1" spreadType="center" bidi="-gneE2">
         <lane id="gneE2_0" index="0" allow="rail" speed="27.78" length="60.84" shape="189.22,53.69 128.38,53.32"/>
     </edge>
-    <edge id="gneE20" from="gneJ6" to="gneJ25" priority="1" spreadType="center" bidi="-gneE20">
+    <edge id="gneE20" from="gneJ6" to="gneJ25" priority="1" routingType="1" spreadType="center" bidi="-gneE20">
         <lane id="gneE20_0" index="0" allow="rail" speed="27.78" length="70.46" shape="263.54,57.07 329.50,81.85"/>
     </edge>
-    <edge id="gneE21" from="gneJ6" to="gneJ26" priority="1" spreadType="center" bidi="-gneE21">
+    <edge id="gneE21" from="gneJ6" to="gneJ26" priority="1" routingType="1" spreadType="center" bidi="-gneE21">
         <lane id="gneE21_0" index="0" allow="rail" speed="27.78" length="61.70" shape="263.73,53.12 323.35,37.21"/>
     </edge>
-    <edge id="gneE22" from="gneJ28" to="gneJ5" priority="1" spreadType="center" shape="-141.99,23.26 -52.37,24.91 -14.72,7.75" bidi="-gneE22">
+    <edge id="gneE22" from="gneJ28" to="gneJ5" priority="1" routingType="1" spreadType="center" shape="-141.99,23.26 -52.37,24.91 -14.72,7.75" bidi="-gneE22">
         <lane id="gneE22_0" index="0" allow="rail" speed="27.78" length="122.30" shape="-141.99,23.26 -52.37,24.91 -22.64,11.36"/>
     </edge>
     <edge id="gneE23" from="gneJ29" to="gneJ5" priority="4" spreadType="center" bidi="-gneE23">
@@ -369,16 +369,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="gneE29" from="gneJ35" to="gneJ36" priority="4" spreadType="center" bidi="-gneE29">
         <lane id="gneE29_0" index="0" allow="rail" speed="27.78" length="63.18" shape="303.18,-263.08 366.36,-262.26"/>
     </edge>
-    <edge id="gneE3" from="gneJ2" to="gneJ4" priority="0" spreadType="center" bidi="-gneE3">
+    <edge id="gneE3" from="gneJ2" to="gneJ4" priority="0" routingType="0" spreadType="center" bidi="-gneE3">
         <lane id="gneE3_0" index="0" allow="rail" speed="27.78" length="58.66" shape="121.60,49.45 76.21,12.29"/>
     </edge>
     <edge id="gneE30" from="gneJ36" to="gneJ37" priority="4" spreadType="center" bidi="-gneE30">
         <lane id="gneE30_0" index="0" allow="rail" speed="27.78" length="42.36" shape="366.66,-262.26 409.02,-261.77"/>
     </edge>
-    <edge id="gneE4" from="gneJ4" to="gneJ5" priority="0" spreadType="center" bidi="-gneE4">
+    <edge id="gneE4" from="gneJ4" to="gneJ5" priority="0" routingType="0" spreadType="center" bidi="-gneE4">
         <lane id="gneE4_0" index="0" allow="rail" speed="27.78" length="88.20" shape="75.27,11.93 -12.84,7.84"/>
     </edge>
-    <edge id="gneE5" from="gneJ6" to="gneJ3" priority="1" spreadType="center" bidi="-gneE5">
+    <edge id="gneE5" from="gneJ6" to="gneJ3" priority="1" routingType="1" spreadType="center" bidi="-gneE5">
         <lane id="gneE5_0" index="0" allow="rail" speed="27.78" length="55.80" shape="255.68,54.76 199.89,53.77"/>
     </edge>
     <edge id="gneE6" from="gneJ7" to="gneJ3" priority="4" spreadType="center" shape="-30.26,85.87 122.84,87.76 198.03,53.74" bidi="-gneE6">
@@ -387,10 +387,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="gneE7" from="gneJ8" to="gneJ9" priority="4" spreadType="center" bidi="-gneE7">
         <lane id="gneE7_0" index="0" allow="rail" speed="27.78" length="61.48" shape="-25.94,-68.57 35.54,-67.79"/>
     </edge>
-    <edge id="gneE8" from="gneJ9" to="gneJ10" priority="3" spreadType="center" bidi="-gneE8">
+    <edge id="gneE8" from="gneJ9" to="gneJ10" priority="3" routingType="3" spreadType="center" bidi="-gneE8">
         <lane id="gneE8_0" index="0" allow="rail" speed="27.78" length="80.73" shape="44.23,-67.71 124.96,-67.71"/>
     </edge>
-    <edge id="gneE9" from="gneJ11" to="gneJ10" priority="0" spreadType="center" bidi="-gneE9">
+    <edge id="gneE9" from="gneJ11" to="gneJ10" priority="0" routingType="0" spreadType="center" bidi="-gneE9">
         <lane id="gneE9_0" index="0" allow="rail" speed="27.78" length="83.46" shape="208.71,-66.55 125.26,-67.71"/>
     </edge>
 
