@@ -113,10 +113,6 @@ public:
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    inline const SUMOVTypeParameter& getVehicleType() const  {
-        return *getType();
-    }
-
     inline const SUMOVTypeParameter& getVTypeParameter() const  {
         return *getType();
     }
