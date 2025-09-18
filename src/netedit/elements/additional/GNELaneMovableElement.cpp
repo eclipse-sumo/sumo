@@ -27,6 +27,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEMoveElement.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -35,9 +37,7 @@
 #include <utils/xml/NamespaceIDs.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
-#include "GNEAttributeCarrier.h"
 #include "GNELaneMovableElement.h"
-#include "GNEMoveElement.h"
 
 // ===========================================================================
 // member method definitions

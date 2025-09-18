@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNELaneMovableElement.h>
+#include "GNELaneMovableElement.h"
 
 #include "GNEAdditional.h"
 
