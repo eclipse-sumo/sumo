@@ -240,21 +240,18 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
-
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
-    /// @brief adjust length
-    void adjustLength(const double length, GNEUndoList* undoList);
-
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;
+
+    /// @brief Invalidated copy constructor.
+    GNEStoppingPlace(const GNEStoppingPlace&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEStoppingPlace& operator=(const GNEStoppingPlace& src) = delete;
 };

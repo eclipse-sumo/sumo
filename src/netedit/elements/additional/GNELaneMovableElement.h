@@ -48,10 +48,10 @@ public:
     /// @brief Destructor
     ~GNELaneMovableElement();
 
-    /**@brief get move operation
+    /**@brief get lane movable move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation();
+    GNEMoveOperation* getLaneMovableMoveOperation();
 
 protected:
     /// @brief pointer to element
@@ -81,16 +81,19 @@ protected:
     /// @brief get end position over lane that is applicable to the shape
     double getEndGeometryPositionOverLane() const;
 
-private:
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    void setLaneMovableMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    void commitLaneMovableMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief adjust length
-    void adjustLength(const double length, GNEUndoList* undoList);
+    void adjustLaneMovableLength(const double length, GNEUndoList* undoList);
 
-    /// @brief Invalidate set new position in the view
-    void setPosition(const Position& pos) = delete;
+private:
+    /// @brief Invalidated copy constructor.
+    GNELaneMovableElement(const GNELaneMovableElement&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNELaneMovableElement& operator=(const GNELaneMovableElement& src) = delete;
 };

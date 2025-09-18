@@ -62,7 +62,7 @@ GNELaneMovableElement::~GNELaneMovableElement() {}
 
 
 GNEMoveOperation*
-GNELaneMovableElement::getMoveOperation() {
+GNELaneMovableElement::getLaneMovableMoveOperation() {
     const auto& parentLanes = myElement->getHierarchicalElement()->getParentLanes();
     // get allow change lane
     const bool allowChangeLane = myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
@@ -158,7 +158,7 @@ GNELaneMovableElement::getEndGeometryPositionOverLane() const {
 
 
 void
-GNELaneMovableElement::setMoveShape(const GNEMoveResult& moveResult) {
+GNELaneMovableElement::setLaneMovableMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
         // change only start position
         myStartPosition = moveResult.newFirstPos;
@@ -186,7 +186,7 @@ GNELaneMovableElement::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNELaneMovableElement::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNELaneMovableElement::commitLaneMovableMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
     undoList->begin(myElement, "position of " + myElement->getTagStr());
     // set attributes depending of operation type
@@ -212,7 +212,7 @@ GNELaneMovableElement::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoL
 
 
 void
-GNELaneMovableElement::adjustLength(const double newLength, GNEUndoList* undoList) {
+GNELaneMovableElement::adjustLaneMovableLength(const double newLength, GNEUndoList* undoList) {
     const auto laneLength = myElement->getHierarchicalElement()->getParentLanes().front()->getLaneShapeLength();
     auto newStartPos = myStartPosition;
     auto newEndPos = myEndPosition;
