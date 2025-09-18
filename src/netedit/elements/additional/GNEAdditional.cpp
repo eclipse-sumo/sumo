@@ -890,20 +890,6 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
 }
 
 
-bool
-GNEAdditional::drawMovingGeometryPoints(const bool ignoreShift) const {
-    // get modes
-    const auto& modes = myNet->getViewNet()->getEditModes();
-    // check conditions
-    if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            (ignoreShift || myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 void
 GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) const {
     // draw child demand elements

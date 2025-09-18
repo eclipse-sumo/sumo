@@ -88,9 +88,7 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation*
 GNEPOI::getMoveOperation() {
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+    if (drawMovingGeometryPoints()) {
         // get snap radius
         const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         const double snapRadiusSquared = snapRadius * snapRadius;
@@ -356,7 +354,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(POIExaggeration);
         // check if draw moving geometry points (only if we have a defined image
-        const bool movingGeometryPoints = getShapeImgFile().empty() ? false : drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = getShapeImgFile().empty() ? false : drawMovingGeometryPoints();
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawPOI(getWidth(), getHeight(), d, isAttributeCarrierSelected())) {
             // draw POI

@@ -298,7 +298,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
     // check if E2 can be drawn
     if (segment->getLane() && (myTagProperty->getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints();
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
         // get detail level
@@ -392,7 +392,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             // draw E2 partial
             drawE2PartialJunction(s, d, onlyContour, offsetFront, E2Geometry, E2Exaggeration);
             // draw dotted contour
-            if (!drawMovingGeometryPoints(false)) {
+            if (!drawMovingGeometryPoints()) {
                 segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
         }

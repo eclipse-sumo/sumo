@@ -47,8 +47,8 @@ GNELaneMovableElement::GNELaneMovableElement() {
 }
 
 
-GNELaneMovableElement::GNELaneMovableElement(GNEAttributeCarrier* element, GNELane* lane, const double startPos, const double endPos,
-        const bool friendlyPosition) :
+GNELaneMovableElement::GNELaneMovableElement(GNEAttributeCarrier* element, GNELane* lane,
+        const double startPos, const double endPos, const bool friendlyPosition) :
     myElement(element),
     myStartPosition(startPos),
     myEndPosition(endPos),
@@ -67,7 +67,7 @@ GNELaneMovableElement::getMoveOperation() {
     // get allow change lane
     const bool allowChangeLane = myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
-    if (TESTdrawMovingGeometryPoints(false)) {
+    if (myElement->drawMovingGeometryPoints()) {
         // get geometry points under cursor
         const auto geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(myElement->getGUIGlObject());
         // continue depending of moved element
@@ -97,20 +97,6 @@ GNELaneMovableElement::getMoveOperation() {
     } else {
         // start and end positions undefined, then nothing to move
         return nullptr;
-    }
-}
-
-
-bool
-GNELaneMovableElement::TESTdrawMovingGeometryPoints(const bool ignoreShift) const {
-    // get modes
-    const auto& modes = myElement->getNet()->getViewNet()->getEditModes();
-    // check conditions
-    if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            (ignoreShift || myElement->getNet()->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
-        return true;
-    } else {
-        return false;
     }
 }
 

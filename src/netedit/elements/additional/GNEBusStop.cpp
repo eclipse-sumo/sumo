@@ -116,7 +116,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double busStopExaggeration = getExaggeration(s);
         // check if draw moving geometry points
-        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints();
         // get width
         const double stopWidth = (myTagProperty->getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
         // get detail level

@@ -398,9 +398,6 @@ protected:
                               const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
                               const std::string text) const;
 
-    /// @brief check if draw additional extrem geometry points
-    bool drawMovingGeometryPoints(const bool ignoreShift) const;
-
     /// @brief draw demand element children
     void drawDemandElementChildren(const GUIVisualizationSettings& s) const;
 

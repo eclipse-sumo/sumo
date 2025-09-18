@@ -75,9 +75,6 @@ protected:
     /// @brief reference position
     ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
-    /// @brief check if draw additional extrem geometry points
-    bool TESTdrawMovingGeometryPoints(const bool ignoreShift) const;
-
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;
 

@@ -62,9 +62,7 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 GNEMoveOperation*
 GNEParkingSpace::getMoveOperation() {
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+    if (drawMovingGeometryPoints()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -226,7 +224,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(spaceExaggeration);
         // check if draw moving geometry points
-        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints();
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw space

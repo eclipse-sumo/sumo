@@ -153,9 +153,7 @@ GNEStop::getMoveOperation() {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
-        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
-                myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        if (drawMovingGeometryPoints()) {
             // get snap radius
             const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
             // get mouse position
@@ -1516,9 +1514,7 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-            (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+    if (drawMovingGeometryPoints()) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix

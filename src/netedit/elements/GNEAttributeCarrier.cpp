@@ -160,6 +160,24 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
     }
 }
 
+
+bool
+GNEAttributeCarrier::drawMovingGeometryPoints() const {
+    // get modes
+    const auto& modes = myNet->getViewNet()->getEditModes();
+    // check conditions
+    if (!myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        return false;
+    } else if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return true;
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 void
 GNEAttributeCarrier::markForDrawingFront() {
     myNet->getViewNet()->getMarkFrontElements().markAC(this);
