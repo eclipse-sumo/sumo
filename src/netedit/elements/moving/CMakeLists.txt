@@ -1,6 +1,12 @@
 set(netedit_elements_moving_SRCS
    GNEMoveElement.cpp
    GNEMoveElement.h
+   GNEMoveOffset.cpp
+   GNEMoveOffset.h
+   GNEMoveOperation.cpp
+   GNEMoveOperation.h
+   GNEMoveResult.cpp
+   GNEMoveResult.h
 )
 
 add_library(netedit_elements_moving STATIC ${netedit_elements_moving_SRCS})

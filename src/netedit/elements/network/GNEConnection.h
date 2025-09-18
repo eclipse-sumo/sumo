@@ -19,15 +19,17 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
+#include <utils/gui/div/GUIGeometry.h>
+
+#include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEEdge;
 
+class GNEEdge;
 
 // ===========================================================================
 // class definitions
