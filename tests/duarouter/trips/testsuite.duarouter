@@ -12,6 +12,9 @@ via
 restrictionParams
 rail
 
+# test edge type and vClass/vType specific routing preferences
+preference
+
 # Tests false input
 errors
 
