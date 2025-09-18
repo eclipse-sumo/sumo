@@ -192,6 +192,7 @@ MSNet::getInstance(void) {
 
 void
 MSNet::initStatic() {
+    gRoutingPreferences = false;
     MSDriveWay::init();
 }
 
@@ -211,7 +212,6 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myVehiclesMoved(0),
     myPersonsMoved(0),
     myHavePermissions(false),
-    myHavePreferences(false),
     myHasInternalLinks(false),
     myJunctionHigherSpeeds(false),
     myHasElevation(false),
@@ -362,7 +362,7 @@ MSNet::getRestrictions(const std::string& id) const {
 
 double
 MSNet::getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const {
-    if (myHavePreferences) {
+    if (gRoutingPreferences) {
         auto it = myVTypePreferences.find(pars.id);
         if (it != myVTypePreferences.end()) {
             auto it2 = it->second.find(routingType);
@@ -393,14 +393,14 @@ MSNet::getPreference(const std::string& routingType, const SUMOVTypeParameter& p
 void
 MSNet::addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio) {
     myVClassPreferences[svc][routingType] = prio;
-    myHavePreferences = true;
+    gRoutingPreferences = true;
 }
 
 
 void
 MSNet::addPreference(const std::string& routingType, std::string vType, double prio) {
     myVTypePreferences[vType][routingType] = prio;
-    myHavePreferences = true;
+    gRoutingPreferences = true;
 }
 
 void

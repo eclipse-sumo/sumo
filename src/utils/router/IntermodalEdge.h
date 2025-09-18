@@ -182,7 +182,7 @@ public:
     }
 
     static inline double getRoutingFactor(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip) {
-        return (edge == nullptr || edge->myEdge == nullptr || trip == nullptr) ? 1 : 1 / edge->myEdge->getPreference(trip->getVTypeParameter());
+        return (!gRoutingPreferences || edge == nullptr || edge->myEdge == nullptr || trip == nullptr) ? 1 : 1 / edge->myEdge->getPreference(trip->getVTypeParameter());
     }
 
     virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {

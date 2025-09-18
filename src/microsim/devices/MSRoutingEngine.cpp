@@ -67,7 +67,6 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngi
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
-bool MSRoutingEngine::myHavePreferences(false);
 std::map<std::thread::id, SumoRNG*> MSRoutingEngine::myThreadRNGs;
 bool MSRoutingEngine::myHaveRoutingThreads(false);
 
@@ -155,7 +154,6 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
         myPriorityFactor = oc.getFloat("weights.priority-factor");
-        myHavePreferences = MSNet::getInstance()->hasPreferences();
         if (myPriorityFactor < 0) {
             throw ProcessError(TL("weights.priority-factor cannot be negative."));
         }
@@ -214,7 +212,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
         const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
         effort *= 1 + relativeInversePrio * myPriorityFactor;
     }
-    if (myHavePreferences) {
+    if (gRoutingPreferences) {
         effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v->getVTypeParameter());
     }
     return effort;
@@ -389,7 +387,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     const bool hasPermissions = MSNet::getInstance()->hasPermissions();
     myBikeSpeeds = oc.getBool("device.rerouting.bike-speeds");
-    myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0 || myBikeSpeeds || myHavePreferences) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
+    myEffortFunc = ((gWeightsRandomFactor != 1 || myPriorityFactor != 0 || myBikeSpeeds || gRoutingPreferences) ? &MSRoutingEngine::getEffortExtra : &MSRoutingEngine::getEffort);
 
     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router = nullptr;
     if (routingAlgorithm == "dijkstra") {

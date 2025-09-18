@@ -221,13 +221,6 @@ public:
     }
 
 
-    /** @brief Returns whether the network has edge type specific routing preferences
-     * @return whether preferences are present
-     */
-    bool hasPreferences() const {
-        return myHavePreferences;
-    }
-
     /** @brief Adds a restriction for an edge type
      * @param[in] id The id of the type
      * @param[in] svc The vehicle class the restriction refers to
@@ -976,9 +969,6 @@ protected:
 
     /// @brief Whether the network contains edges which not all vehicles may pass
     bool myHavePermissions;
-
-    /// @brief Whether the network contains edges which have customized routing preferences
-    bool myHavePreferences;
 
     /// @brief The vehicle class specific speed restrictions
     std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;

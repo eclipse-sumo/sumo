@@ -283,8 +283,6 @@ private:
     static double myMinEdgePriority;
     /// @brief the difference between maximum and minimum priority for all edges
     static double myEdgePriorityRange;
-    /// @brief whether edge-type specific routing preferences are loaded
-    static bool myHavePreferences;
 
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing the route cache

@@ -126,6 +126,7 @@ extern bool gSimulation; // whether the current application is sumo or sumo-gui 
 extern bool gIgnoreUnknownVClass; // whether the unknown vehicle classes shall be ignored on loading (for upward compatibility)
 extern double gWeightsRandomFactor; // randomization for edge weights
 extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
+extern bool gRoutingPreferences; // whether routing preferences have been loaded
 
 /// the language for GUI elements and messages
 extern std::string gLanguage;

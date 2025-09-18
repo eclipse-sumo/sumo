@@ -32,6 +32,7 @@ bool gSimulation = false;
 bool gIgnoreUnknownVClass = false;
 double gWeightsRandomFactor = 1;
 double gWeightsWalkOppositeFactor = 1;
+bool gRoutingPreferences = false;
 std::string gLanguage = "C";
 
 int GUIDesignHeight = 23;
