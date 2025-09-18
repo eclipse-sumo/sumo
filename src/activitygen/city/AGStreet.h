@@ -59,12 +59,12 @@ public:
          * @param[in] priority The edge priority (road class)
          * @return A proper instance of the named edge
          */
-        ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) {
-            return new AGStreet(name, from, to, getNextIndex(), priority, type);
+        ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type, const std::string& routingType) {
+            return new AGStreet(name, from, to, getNextIndex(), priority, type, routingType);
         }
     };
 
-    AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
+    AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType);
 
     /** @brief Provides the number of persons living in this street.
      *

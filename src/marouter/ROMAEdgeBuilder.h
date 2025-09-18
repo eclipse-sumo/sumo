@@ -69,7 +69,7 @@ public:
      * @return A proper instance of the named edge
      * @see ROEdge
      */
-    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type);
+    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type, const std::string& routingType);
     /// @}
 
 

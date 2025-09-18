@@ -54,13 +54,14 @@ double ROEdge::myEdgePriorityRange(0);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type) :
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType) :
     Named(id),
     myFromJunction(from),
     myToJunction(to),
     myIndex(index),
     myPriority(priority),
     myType(type),
+    myRoutingType(routingType),
     mySpeed(-1),
     myLength(0),
     myAmSink(false),

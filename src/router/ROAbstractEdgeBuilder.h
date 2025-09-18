@@ -69,7 +69,7 @@ public:
      * @param[in] priority The edge priority (road class)
      * @return A proper instance of the named edge
      */
-    virtual ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) = 0;
+    virtual ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type, const std::string& routingType) = 0;
     /// @}
 
 

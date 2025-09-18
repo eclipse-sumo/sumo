@@ -51,7 +51,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    RODFEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
+    RODFEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType);
 
 
     /// @brief Destructor

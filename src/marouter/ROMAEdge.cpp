@@ -29,8 +29,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROMAEdge::ROMAEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type)
-    : ROEdge(id, from, to, index, priority, type) {
+ROMAEdge::ROMAEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType)
+    : ROEdge(id, from, to, index, priority, type, routingType) {
 }
 
 

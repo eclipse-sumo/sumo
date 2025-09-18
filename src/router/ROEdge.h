@@ -79,7 +79,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
+    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type, const std::string& routingType);
 
     /** @brief Constructor for dummy edge, only used when building the connectivity graph **/
     ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p);
@@ -531,7 +531,7 @@ public:
     }
 
     const std::string& getRoutingType() const {
-        return myType;
+        return myRoutingType.empty() ? myType : myRoutingType;
     }
 
     const RONode* getFromJunction() const {
@@ -615,6 +615,9 @@ protected:
 
     /// @brief the type of this edge
     const std::string myType;
+
+    /// @brief the routing type of the edge (used to look up vType and vClass specific routing preferences)
+    const std::string myRoutingType;
 
     /// @brief The maximum speed allowed on this edge
     double mySpeed;

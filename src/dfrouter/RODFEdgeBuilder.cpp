@@ -36,8 +36,8 @@ RODFEdgeBuilder::~RODFEdgeBuilder() {}
 
 
 ROEdge*
-RODFEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) {
-    return new RODFEdge(name, from, to, getNextIndex(), priority, type);
+RODFEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type, const std::string& routingType) {
+    return new RODFEdge(name, from, to, getNextIndex(), priority, type, routingType);
 }
 
 
