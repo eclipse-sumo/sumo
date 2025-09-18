@@ -1,0 +1,1 @@
+Warning: Vehicle class 'bicycle' of vType 'DEFAULT_BIKETYPE' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation

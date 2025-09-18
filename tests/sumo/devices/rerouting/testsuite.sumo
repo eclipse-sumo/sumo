@@ -35,6 +35,9 @@ stops
 # test routing if vehicle speeds on the same edge strongly differ by turning direction
 turn_specific_speeds
 
+# test edge type and vClass/vType specific routing preferences
+preference
+
 # handle input errors
 invalid_adaptation_interval
 
