@@ -20,17 +20,17 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/globjects/GUIGlObject.h>
+// ===========================================================================
+// class declaration
+// ===========================================================================
 
-#include "GNEAttributeCarrier.h"
-#include "GNEHierarchicalElement.h"
-#include "GNEMoveElement.h"
+class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNELaneMovableElement : public virtual GNEHierarchicalElement, public virtual GNEAttributeCarrier, public virtual GUIGlObject, public virtual GNEMoveElement {
+class GNELaneMovableElement {
 
 public:
     /// @brief Default constructor
@@ -42,7 +42,7 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNELaneMovableElement(GNELane* lane, const double startPos, const double endPos,
+    GNELaneMovableElement(GNEAttributeCarrier* element, GNELane* lane, const double startPos, const double endPos,
                           const bool friendlyPosition);
 
     /// @brief Destructor
@@ -54,6 +54,9 @@ public:
     GNEMoveOperation* getMoveOperation();
 
 protected:
+    /// @brief pointer to element
+    GNEAttributeCarrier* myElement = nullptr;
+
     /// @brief The relative start position this stopping place is located at (-1 means empty)
     double myStartPosition = 0;
 
@@ -75,13 +78,13 @@ protected:
     /// @brief check if draw additional extrem geometry points
     bool TESTdrawMovingGeometryPoints(const bool ignoreShift) const;
 
-private:
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;
 
     /// @brief get end position over lane that is applicable to the shape
     double getEndGeometryPositionOverLane() const;
 
+private:
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
