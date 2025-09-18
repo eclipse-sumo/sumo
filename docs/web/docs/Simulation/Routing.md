@@ -124,6 +124,9 @@ As a consequence:
 - the travel time of the lowest priority edge is multiplied with 1+PriorityFactor,
 - edges with in-between priorities will get a scaled penalty
 
+!!! caution
+    option **-weights.priority-factor** does not apply to pedestrian and intermodal routing. To customize edge preferences for this kind of routing use [preferences](#routing_by_travel_time_and_routingtype).
+
 # Routing by Travel time and routingType
 
 Sometimes it is useful to customize route search for different [vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) or [vehicle types](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) with additional information while still taking travel times into account.
