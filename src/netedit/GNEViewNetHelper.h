@@ -21,14 +21,14 @@
 #include <config.h>
 
 #include <unordered_set>
-#include <netedit/elements/GNEMoveElement.h>
+#include <netedit/elements/moving/GNEMoveElement.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXLCDLabel.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
