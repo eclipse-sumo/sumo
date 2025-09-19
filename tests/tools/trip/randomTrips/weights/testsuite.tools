@@ -34,3 +34,6 @@ fringe_lefthand
 
 # load extra probability factors from file
 edge-types-file
+
+# load extra probability factors from file making use of edge routingType
+routingType

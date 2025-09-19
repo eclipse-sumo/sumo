@@ -225,13 +225,13 @@
     <edge id="152" from="1054" to="1055" name="Kekuléstraße" priority="3" type="highway.residential">
         <lane id="152_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="39.71" shape="721.74,361.23 698.65,342.53"/>
     </edge>
-    <edge id="153" from="1044" to="1055" name="Rutherfordstraße" priority="3" type="highway.residential">
+    <edge id="153" from="1044" to="1055" name="Rutherfordstraße" priority="3" type="highway.residential" routingType="routingTypeA">
         <lane id="153_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="97.29" shape="756.34,271.82 700.11,332.26"/>
     </edge>
-    <edge id="154" from="1055" to="1078" name="Rutherfordstraße" priority="3" type="highway.residential" shape="693.88,336.61 677.75,340.35 633.67,383.18">
+    <edge id="154" from="1055" to="1078" name="Rutherfordstraße" priority="3" type="highway.residential" shape="693.88,336.61 677.75,340.35 633.67,383.18" routingType="routingTypeA">
         <lane id="154_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="78.02" shape="688.82,339.43 678.55,341.81 638.03,381.18"/>
     </edge>
-    <edge id="155" from="1078" to="1079" name="Rutherfordstraße" priority="3" type="highway.residential" shape="633.67,383.18 620.59,408.02 615.54,417.63">
+    <edge id="155" from="1078" to="1079" name="Rutherfordstraße" priority="3" type="highway.residential" shape="633.67,383.18 620.59,408.02 615.54,417.63" routingType="routingTypeA">
         <lane id="155_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="38.93" shape="633.24,387.44 622.01,408.77 619.78,413.00"/>
     </edge>
     <edge id="156" from="1064" to="1063" name="Max-Born-Straße" priority="3" type="highway.residential" spreadType="center" shape="685.82,466.03 677.09,467.37 669.56,470.43 662.70,477.56 616.73,561.79">
@@ -408,13 +408,13 @@
     <edge id="41" from="1055" to="1054" name="Kekuléstraße" priority="3" type="highway.residential">
         <lane id="41_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="39.71" shape="700.66,340.04 723.76,358.75"/>
     </edge>
-    <edge id="42" from="1055" to="1044" name="Rutherfordstraße" priority="3" type="highway.residential">
+    <edge id="42" from="1055" to="1044" name="Rutherfordstraße" priority="3" type="highway.residential" routingType="routingTypeA">
         <lane id="42_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="97.29" shape="697.77,330.08 754.00,269.64"/>
     </edge>
-    <edge id="43" from="1078" to="1055" name="Rutherfordstraße" priority="3" type="highway.residential" shape="633.67,383.18 677.75,340.35 693.88,336.61">
+    <edge id="43" from="1078" to="1055" name="Rutherfordstraße" priority="3" type="highway.residential" shape="633.67,383.18 677.75,340.35 693.88,336.61" routingType="routingTypeA">
         <lane id="43_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="78.02" shape="635.80,378.88 676.95,338.89 688.10,336.31"/>
     </edge>
-    <edge id="44" from="1079" to="1078" name="Rutherfordstraße" priority="3" type="highway.residential" shape="615.54,417.63 620.59,408.02 633.67,383.18">
+    <edge id="44" from="1079" to="1078" name="Rutherfordstraße" priority="3" type="highway.residential" shape="615.54,417.63 620.59,408.02 633.67,383.18" routingType="routingTypeA">
         <lane id="44_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="38.93" shape="616.95,411.51 619.17,407.27 630.41,385.95"/>
     </edge>
     <edge id="45" from="1018" to="1046" name="Gottfried-Leibniz-Straße" priority="3" type="highway.residential">

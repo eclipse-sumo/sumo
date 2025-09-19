@@ -1,0 +1,7 @@
+highway.cycleway 0
+highway.footway 0
+highway.primary 20
+highway.residential 1
+highway.service 0
+highway.tertiary 2
+routingTypeA 100
