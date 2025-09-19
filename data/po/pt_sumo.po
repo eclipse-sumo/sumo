@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-17 08:14+0000\n"
+"PO-Revision-Date: 2025-09-20 18:02+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
@@ -418,7 +418,7 @@ msgstr " % detectores destino"
 #: src/dfrouter/RODFNet.cpp:145
 #, c-format
 msgid " % in-between detectors"
-msgstr ""
+msgstr " % detectores intermediários"
 
 #: src/dfrouter/RODFNet.cpp:146
 #, c-format
@@ -448,7 +448,7 @@ msgstr " Não foi possível gerar a lista dos últimos fluxos."
 
 #: src/dfrouter/RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
-msgstr ""
+msgstr "O detector '%' foi eliminado pois não existem fluxos para ele."
 
 #: src/dfrouter/RODFNet.cpp:614
 #, c-format
@@ -478,6 +478,8 @@ msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Saindo da verificação para ser uma fonte falsa para o detector '%' devido ao "
+"limite de aresta vista."
 
 #: src/dfrouter/RODFNet.cpp:998
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
