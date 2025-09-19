@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-17 08:14+0000\n"
+"PO-Revision-Date: 2025-09-20 18:02+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -1097,7 +1097,7 @@ msgstr "Localizar elementos ao clicar em mensagens"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "Deslocamento do ponto de interrupção ao clicar na mensagem de tempo"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
@@ -1159,19 +1159,19 @@ msgstr "Falha ao armazenar!"
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:246
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:249
 msgid "Time format error"
-msgstr ""
+msgstr "Erro de formato de tempo"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "- Solução de problemas gerais"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "- Lista de e-mails de usuários do SUMO"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:54
 msgid "- Send us an Email"
-msgstr ""
+msgstr "- Nos envie um e-mail"
 
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -1179,55 +1179,55 @@ msgstr ""
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "O atalho '%' não é suportado"
 
 #: src/guisim/GUIBaseVehicle.cpp:304
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "Parada acionada pela GUI não implementada para meso"
 
 #: src/guisim/GUIBaseVehicle.cpp:352
 msgid "Hide Current Route"
-msgstr ""
+msgstr "Esconder rota atual"
 
 #: src/guisim/GUIBaseVehicle.cpp:354
 msgid "Show Current Route"
-msgstr ""
+msgstr "Mostrar rota atual"
 
 #: src/guisim/GUIBaseVehicle.cpp:357
 msgid "Hide Future Route"
-msgstr ""
+msgstr "Esconder rota futura"
 
 #: src/guisim/GUIBaseVehicle.cpp:359
 msgid "Show Future Route"
-msgstr ""
+msgstr "Mostrar rota futura"
 
 #: src/guisim/GUIBaseVehicle.cpp:362
 msgid "Hide All Routes"
-msgstr ""
+msgstr "Esconder todas as rotas"
 
 #: src/guisim/GUIBaseVehicle.cpp:364
 msgid "Show All Routes"
-msgstr ""
+msgstr "Mostrar todas as rotas"
 
 #: src/guisim/GUIBaseVehicle.cpp:367 src/guisim/GUIBaseVehicle.cpp:370
 msgid "Draw looped routes"
-msgstr ""
+msgstr "Desenhar rotas circulares"
 
 #: src/guisim/GUIBaseVehicle.cpp:374
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "Esconder melhores faixas"
 
 #: src/guisim/GUIBaseVehicle.cpp:376
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "Mostrar melhores faixas"
 
 #: src/guisim/GUIBaseVehicle.cpp:379
 msgid "Hide Link Items"
-msgstr ""
+msgstr "Esconder itens de conexão"
 
 #: src/guisim/GUIBaseVehicle.cpp:381
 msgid "Show Link Items"
-msgstr ""
+msgstr "Mostrar itens de conexão"
 
 #: src/guisim/GUIBaseVehicle.cpp:385
 msgid "Start Tracking"
@@ -1263,6 +1263,7 @@ msgstr "Remover"
 #: src/guisim/GUIBaseVehicle.cpp:882 src/guisim/GUIVehicle.cpp:635
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr ""
+"O parâmetro do veículo '%' (chave '%') não é um número para o veículo '%'."
 
 #: src/guisim/GUIBusStop.cpp:149 src/guisim/GUIChargingStation.cpp:83
 #: src/guisim/GUIE2Collector.cpp:129 src/guisim/GUIE3Collector.cpp:80
@@ -1274,13 +1275,13 @@ msgstr "nome"
 #: src/guisim/GUIBusStop.cpp:150 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
 msgid "begin position [m]"
-msgstr ""
+msgstr "posição inicial [m]"
 
 #: src/guisim/GUIBusStop.cpp:151 src/guisim/GUIChargingStation.cpp:85
 #: src/guisim/GUIInductLoop.cpp:143 src/guisim/GUIOverheadWire.cpp:110
 #: src/guisim/GUIParkingArea.cpp:112
 msgid "end position [m]"
-msgstr ""
+msgstr "posição final"
 
 #: src/guisim/GUIBusStop.cpp:152
 msgid "lines"
@@ -1288,15 +1289,15 @@ msgstr "linhas"
 
 #: src/guisim/GUIBusStop.cpp:153
 msgid "parking length [m]"
-msgstr ""
+msgstr "comprimento de estacionamento [m]"
 
 #: src/guisim/GUIBusStop.cpp:157 src/guisim/GUIChargingStation.cpp:86
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "veículos parados [#]"
 
 #: src/guisim/GUIBusStop.cpp:158 src/guisim/GUIChargingStation.cpp:87
 msgid "last free pos [m]"
-msgstr ""
+msgstr "última posição livre [m]"
 
 #: src/guisim/GUIBusStop.cpp:172
 msgid "waiting for:"
@@ -1312,7 +1313,7 @@ msgstr "final do intervalo"
 
 #: src/guisim/GUICalibrator.cpp:297
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "fluxo desejado [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:298
 msgid "aspired speed"
@@ -1320,7 +1321,7 @@ msgstr "velocidade desejada"
 
 #: src/guisim/GUICalibrator.cpp:299
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "fluxo atual [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:300
 msgid "current speed"
@@ -1348,7 +1349,7 @@ msgstr "veículos removidos"
 
 #: src/guisim/GUICalibrator.cpp:306
 msgid "cleared in jam"
-msgstr ""
+msgstr "liberado no engarrafamento"
 
 #: src/guisim/GUICalibrator.cpp:313
 msgid "inactive until"
@@ -1356,11 +1357,11 @@ msgstr "inativo até"
 
 #: src/guisim/GUIChargingStation.cpp:88
 msgid "charging power [W]"
-msgstr ""
+msgstr "potência de carga [W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "eficiência de carregamento [#]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charge in transit [true/false]"
@@ -15426,7 +15427,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "Formato desconhecido!"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:91
 msgid "Unknown codec, falling back to HEVC!"
