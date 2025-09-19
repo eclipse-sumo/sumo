@@ -99,20 +99,72 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
 
 ### Routing in bidirectional networks
 
-When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
+When train tracks can be used in both directions, there is considerable freedom for trains when searching a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
+There are two ways in which this may be accomplished. They work the same way during network preparation but differ in their effects during simulation.
+Both methods are discussed below.
 
-To express this preference, the edges in the preferred direction and on the
-preferred side may be assigned a higher priority value. This value will be taken
-into account when setting option **--weights.priority-factor FLOAT** which applies to
-[sumo](../sumo.md) and [duarouter](../duarouter.md).
+### Using priority-factor
 
-At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where
+This method is suitable for rail-only simulation because the option it uses affects all vehicles in the simulation and may have adverse effects on road traffic.
+It's advantage lies in it's simplicity because it requires only a single option.
+
+To express routing preferences, the edges in the preferred direction and on the
+preferred side may be assigned a higher priority value (using edge attribute `priority`).
+This value will be taken into account during routing when setting option **--weights.priority-factor FLOAT**  (applicable to
+[sumo](../sumo.md) and [duarouter](../duarouter.md)).
+
+At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive an intermediate penalty according to the following code:
 
 ```
-  x = (edgePriority - minPriority) / (maxPriority - minPriority)
+ MinEdgePriority : minimum priority value of all edges
+ MaxEdgePriority : maximum priority value of all edges
+ EdgePriorityRange = MaxEdgePriority - MinEdgePriority
+
+ relativeInversePrio = 1 - ((edgePriority - MinEdgePriority) / EdgePriorityRange)
+ effort =  traveltime * (1 + relativeInversePrio * PriorityFactor)
 ```
 
-The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) as explained below.
+!!! note
+    When either trains or road vehicles are routed only outside the simulation this method can also be used for combined simulations by (by routing trains and cars separately and only using the option for train routing).
+
+### Using routingType and preference definitions
+
+This method is suitable for multi-modal simulations where road and rail vehicles must be routed in the same simulation.
+It also permits distinguishing fine-grained routing preferences (i.e. between regular rail service which adheres to the default directions and special service vehicles that may use any track in either direction).
+
+To express routing preferences, each rail edge should have it's `routingType` set corresponding to it's status as being in the main direction or in reverse to the main direction. While `routingType` may be an arbitrary string value, the existing [netconvert](../netconvert.md) tooling supports setting a `routingType` that takes on string values between '4' and '0' where '4' corresponds to the main direction and '0' to the reverse of the main direction (with values in between denoting different levels of certainty about directionality).
+
+The effect that each `routingType` takes during routing is expressed by loading `<preference>` elements from an additional file:
+During routing, the estimated travelTime of an edge with the given `routingType` is divided by the given priority value for an applicable `vClass` [(or `vType`)](Routing.md#routing_by_travel_time_and_routingtype).
+
+The following example has the same effect as setting option **weights.priority-factor 1** (but only applies to vClass *rail*).
+
+```xml
+<additional >
+    <preference routingType="4" vClasses="rail" priority="1"/>
+    <preference routingType="3" vClasses="rail" priority="0.8"/>
+    <preference routingType="2" vClasses="rail" priority="0.67"/>
+    <preference routingType="1" vClasses="rail" priority="0.57"/>
+    <preference routingType="0" vClasses="rail" priority="0.5"/>
+</additional>
+```
+
+The following example has the same effect as setting option **weights.priority-factor 3** (but only applies to vTypes *train1* and *train2*).
+
+```xml
+<additional >
+    <preference routingType="4" vTypes="train1 train2" priority="1"/>
+    <preference routingType="3" vClasses="rail" priority="0.57"/>
+    <preference routingType="2" vClasses="rail" priority="0.40"/>
+    <preference routingType="1" vClasses="rail" priority="0.31"/>
+    <preference routingType="0" vClasses="rail" priority="0.25"/>
+</additional>
+```
+
+### Setting edge priority and routingType
+
+The `priority` and corresponding `routingType` values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) as explained below.
+Note, that in both heuristics each railway edge will have their `priority` attribute set and it's `routingType` will be set equal the numerical priority value (converted to a string).
 
 #### Priority from partially restricted directionality
 
