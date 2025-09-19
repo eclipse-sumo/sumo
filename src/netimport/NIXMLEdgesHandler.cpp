@@ -522,6 +522,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             return;
         }
         e.node = myNodeCont.retrieve(nodeID);
+        e.offset = attrs.getOpt(SUMO_ATTR_OFFSET, nullptr, ok, 0.0);
         e.offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         if (e.node == nullptr) {
             double geomPos = e.pos;
