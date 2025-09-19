@@ -27,7 +27,7 @@ class Edge:
 
     """ Edges from a sumo network """
 
-    def __init__(self, id, fromN, toN, prio, function, name, edgeType=''):
+    def __init__(self, id, fromN, toN, prio, function, name, edgeType='', routingType=''):
         self._id = id
         self._from = fromN
         self._to = toN
@@ -52,6 +52,7 @@ class Edge:
         self._tls = None
         self._name = name
         self._type = edgeType
+        self._routingType = routingType
         self._params = {}
         self._bidi = None
         self._selected = False
@@ -76,6 +77,10 @@ class Edge:
 
     def getType(self):
         return self._type
+
+    def getRoutingType(self):
+        """ Return the effective routingType that would be used by duarouter or sumo"""
+        return self._routingType if self._routingType != "" else self._type
 
     def getTLS(self):
         return self._tls

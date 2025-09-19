@@ -284,11 +284,11 @@ class Net:
         if type is not None and node._type is None:
             node._type = type
 
-    def addEdge(self, id, fromID, toID, prio, function, name, edgeType=''):
+    def addEdge(self, id, fromID, toID, prio, function, name, edgeType='', routingType=''):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
-            e = edge.Edge(id, fromN, toN, prio, function, name, edgeType)
+            e = edge.Edge(id, fromN, toN, prio, function, name, edgeType, routingType)
             self._edges.append(e)
             self._id2edge[id] = e
             if function:
@@ -793,7 +793,8 @@ class NetReader(handler.ContentHandler):
                     self._crossingID2edgeIDs[edgeID] = attrs.get('crossingEdges').split(' ')
 
                 self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID, prio, function,
-                                                      attrs.get('name', ''), attrs.get('type', ''))
+                                                      attrs.get('name', ''), attrs.get('type', ''),
+                                                      attrs.get('routingType', ''))
 
                 self._currentEdge.setRawShape(convertShape(attrs.get('shape', '')))
 

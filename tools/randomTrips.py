@@ -520,7 +520,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 prob *= (angleDiff * (options.angle_weight - 1) + 1)
             else:
                 prob *= ((180 - angleDiff) * (options.angle_weight - 1) + 1)
-        prob *= options.typeFactors[edge.getType()]
+        prob *= options.typeFactors[edge.getRoutingType()]
 
         return prob
     return edge_probability
