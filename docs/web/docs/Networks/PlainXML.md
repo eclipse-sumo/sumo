@@ -704,6 +704,7 @@ The definition of a split uses the following attributes:
 | id                                         | id (string)             | The id of the newly created node. IDs of existing nodes may also be used. (by default the id is generated from the edge id and *pos*                          |
 | idBefore                                   | id (string)             | The id of the edge before the split (defaults to the original id)   |
 | idAfter                                    | id (string)             | The id of the edge after the split (defaults to <origID.pos\>)       |
+| offset                                     | float                   | Extra sideways shift to be applied to the edge after the split     |
 | type, tl, tlType, shape, radius, keepClear |                         | see [\#Node_Descriptions](#node_descriptions)                          |
 
 ## Roundabouts
