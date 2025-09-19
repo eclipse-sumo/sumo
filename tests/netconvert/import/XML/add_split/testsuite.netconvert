@@ -8,6 +8,12 @@ three_minus_right_zipper
 two_plus_left
 
 # beginning with two lanes, adding one to the left
+two_plus_left_offset
+
+# beginning with two lanes, adding one to the left
+two_plus_left_offset_centered
+
+# beginning with two lanes, adding one to the left
 two_plus_left_lefthand
 
 # the edge has per default two lanes but begins with three lanes
