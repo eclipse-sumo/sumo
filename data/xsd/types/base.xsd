@@ -355,6 +355,7 @@
         <xsd:attribute name="id" type="xsd:string" use="optional"/>
         <xsd:attribute name="idBefore" type="xsd:string" use="optional"/>
         <xsd:attribute name="idAfter" type="xsd:string" use="optional"/>
+        <xsd:attribute name="offset" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:simpleType name="signedTimeType">
