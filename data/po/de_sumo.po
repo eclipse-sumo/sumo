@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-17 23:42+0000\n"
+"PO-Revision-Date: 2025-09-20 18:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -14462,23 +14462,23 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1817
 msgid "Sumo config"
-msgstr ""
+msgstr "Sumo-Konfiguration"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Netedit config files"
-msgstr ""
+msgstr "Netedit-Konfigurationsdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1829
 msgid "Netconvert config files"
-msgstr ""
+msgstr "Netconvert-Konfigurationsdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1835
 msgid "OSM network files"
-msgstr ""
+msgstr "OSM-Netzdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1841
 msgid "SUMO network files"
-msgstr ""
+msgstr "Sumo-Netzdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1847
 msgid "TLS files"
