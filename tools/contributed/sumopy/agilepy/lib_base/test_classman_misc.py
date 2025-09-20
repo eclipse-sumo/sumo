@@ -17,7 +17,7 @@
 # @date    2012
 
 
-from classman import *
+from .classman import *
 c = ColConf('streetname', 'xxx',
             groupnames=['state'],
             perm='rw',

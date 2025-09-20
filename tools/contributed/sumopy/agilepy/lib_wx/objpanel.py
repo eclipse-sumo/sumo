@@ -23,7 +23,7 @@
 import string
 import random
 from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
-from wxmisc import KEYMAP, AgilePopupMenu, AgileToolbarMixin, get_tablecolors
+from .wxmisc import KEYMAP, AgilePopupMenu, AgileToolbarMixin, get_tablecolors
 import agilepy.lib_base.exports as ex
 import time
 from agilepy.lib_base.logger import Logger
@@ -83,13 +83,13 @@ def list_to_str(l, lb='', rb='', sep=','):
     else:
         s = lb
         for e in l[:-1]:
-            s += unicode(e)+sep
+            s += str(e)+sep
         # print '  returns',s+unicode(l[-1])+rb
-        return s+unicode(l[-1])+rb
+        return s+str(l[-1])+rb
 
 
 def is_list_flat(l):
-    if type(l) not in (types.ListType, types.TupleType):  # STRINGTYPES:
+    if type(l) not in (list, tuple):  # STRINGTYPES:
         # not a list
         return False
 
@@ -608,7 +608,7 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
         """
         value = self.get_value_obj()
         # strange way to convert numpy type numbers into native python numbers
-        if type(value) not in (types.IntType, types.LongType, types.FloatType, types.ComplexType):
+        if type(value) not in (int, int, float, complex):
             value = value.tolist()
         # print 'NumericWidgetContainer.get_valuewidget_write ',value,type(value),self._attrconf.digits_fraction
 
@@ -725,7 +725,7 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
             # set value to label
             # numpy returns dtype... even for scalars
             # make sure to convert value in a native python scalar
-            if type(value) not in (types.IntType, types.LongType, types.FloatType):
+            if type(value) not in (int, int, float):
                 value = value.tolist()
             self.valuewidget.SetValue(str(value))
 
@@ -826,9 +826,9 @@ class ChoiceWidgetContainer(WidgetContainer):
         """
         Generates the widgets representing this attribute.
         """
-        if type(self._attrconf.choices) in (OrderedDict, types.DictionaryType):
-            self._choicevalues = self._attrconf.choices.values()
-            self._choicenames = self._attrconf.choices.keys()
+        if type(self._attrconf.choices) in (OrderedDict, dict):
+            self._choicevalues = list(self._attrconf.choices.values())
+            self._choicenames = list(self._attrconf.choices.keys())
         else:
             self._choicevalues = list(self._attrconf.choices)
             self._choicenames = list(self._attrconf.choices)
@@ -851,7 +851,7 @@ class ChoiceWidgetContainer(WidgetContainer):
         # print 'ChoiceWidgetContainer.get_valuewidget_read',value,type(value)
         # print '  choices',self._attrconf.choices
 
-        if type(self._attrconf.choices) in (OrderedDict, types.DictionaryType):
+        if type(self._attrconf.choices) in (OrderedDict, dict):
             #value = self._attrconf.choices[value]
             value = self._choicenames[self._choicevalues.index(value)]
         # print '  value =',value
@@ -910,7 +910,7 @@ class ChoiceWidgetContainer(WidgetContainer):
             #ind = self._choicenames.index(value)
             ind = self._choicevalues.index(val)
         except:
-            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (self._attrconf.attrname, val)
+            print('WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (self._attrconf.attrname, val))
             return
         # print '  ind',ind,self.valuewidget
         if self._attrconf.is_writable():
@@ -936,7 +936,7 @@ class ChecklistWidgetContainer(ChoiceWidgetContainer):
         # print '  choices',self._attrconf.choices
 
         # mal values in list with .choices dictionary
-        if (len(values) > 0) & (type(self._attrconf.choices) in (OrderedDict, types.DictionaryType)):
+        if (len(values) > 0) & (type(self._attrconf.choices) in (OrderedDict, dict)):
             #value = self._attrconf.choices[value]
             values = []
             for val in self.get_value_obj():
@@ -1809,14 +1809,14 @@ class ScalarPanel(wx.Panel):
             return DatetimeWidgetContainer(self, attrconf, **args)
 
         # elif mt == 'number':
-        if tt in (types.IntType, types.LongType):
+        if tt in (int, int):
             return IntegerWidgetContainer(self, attrconf, **args)
-        elif tt in (types.FloatType, types.ComplexType):
+        elif tt in (float, complex):
             return NumericWidgetContainer(self, attrconf, **args)
 
         # check now native types
 
-        elif tt in (types.BooleanType,):
+        elif tt in (bool,):
             return BooleanWidgetContainer(self, attrconf, **args)
 
         elif tt in STRINGTYPES:
@@ -1825,7 +1825,7 @@ class ScalarPanel(wx.Panel):
         # elif tt in (types.InstanceType,types.ClassType):
         #    return ObjWidgetContainer(self,attrconf,**args)
 
-        elif tt in (types.ListType, types.TupleType):
+        elif tt in (list, tuple):
             return ListWidgetContainer(self, attrconf, **args)
 
         else:
@@ -2032,9 +2032,9 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                     if len(attrconf.choices) < 200:
                         # print '  choices=',attrconf.choices
                         # (types.ListType, types.TupleType):
-                        if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
+                        if type(attrconf.choices) in (OrderedDict, dict):
                             # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
-                            return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices.keys())
+                            return gridlib.GRID_VALUE_CHOICE+':'+','.join(list(attrconf.choices.keys()))
                         else:
                             # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
                             return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices)
@@ -2062,9 +2062,9 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                 if len(attrconf.choices) < 200:
                     # print '  dir(gridlib)',dir(gridlib)
                     # (types.ListType, types.TupleType):
-                    if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
+                    if type(attrconf.choices) in (OrderedDict, dict):
                         # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
-                        return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices.keys())
+                        return gridlib.GRID_VALUE_CHOICE+':'+','.join(list(attrconf.choices.keys()))
                     else:
                         # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
                         return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices)
@@ -2075,14 +2075,14 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
             else:
                 return gridlib.GRID_VALUE_STRING
 
-        elif tt in (types.LongType, types.IntType):
+        elif tt in (int, int):
             if (hasattr(attrconf, 'min') & hasattr(attrconf, 'max')):
                 return gridlib.GRID_VALUE_NUMBER+':'\
                     + str(attrconf.min)+','+str(attrconf.max)
             else:
                 return gridlib.GRID_VALUE_NUMBER
 
-        elif tt in (types.FloatType, types.ComplexType):
+        elif tt in (float, complex):
             if (hasattr(attrconf, 'digits_integer') & hasattr(attrconf, 'digits_fraction')):
                 return gridlib.GRID_VALUE_FLOAT+':'\
                     + str(attrconf.digits_integer)+','\
@@ -2093,7 +2093,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         elif tt in STRINGTYPES:
             return gridlib.GRID_VALUE_STRING
 
-        elif tt in (types.BooleanType,):
+        elif tt in (bool,):
             return gridlib.GRID_VALUE_BOOL
 
         else:
@@ -2139,11 +2139,11 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                     # choices should no longer osed to index id
                     # instead, the format_ids method should be used
                     # (types.ListType, types.TupleType):
-                    if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
-                        if attrconf.choices.values().count(val) > 0:
-                            ind = attrconf.choices.values().index(val)
+                    if type(attrconf.choices) in (OrderedDict, dict):
+                        if list(attrconf.choices.values()).count(val) > 0:
+                            ind = list(attrconf.choices.values()).index(val)
                             # print '  return',attrconf.choices.keys()[ind]
-                            return attrconf.choices.keys()[ind]
+                            return list(attrconf.choices.keys())[ind]
                         else:
                             return attrconf.get_linktab().format_ids([val])
                     else:
@@ -2170,11 +2170,11 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
 
             elif hasattr(attrconf, 'choices'):
                 # print '   attrconf.choices',attrconf.choices
-                if type(attrconf.choices) in (OrderedDict, types.DictionaryType):  # (types.ListType, types.TupleType):
-                    if attrconf.choices.values().count(val) > 0:
-                        ind = attrconf.choices.values().index(val)
+                if type(attrconf.choices) in (OrderedDict, dict):  # (types.ListType, types.TupleType):
+                    if list(attrconf.choices.values()).count(val) > 0:
+                        ind = list(attrconf.choices.values()).index(val)
                         # print '  return',attrconf.choices.keys()[ind]
-                        return attrconf.choices.keys()[ind]
+                        return list(attrconf.choices.keys())[ind]
                     else:
                         return val
                 else:
@@ -2249,9 +2249,9 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                 if hasattr(attrconf, 'choices'):
                     # print '  type(attrconf.choices)',type(attrconf.choices),type(attrconf.choices) in (OrderedDict, types.DictionaryType)
                     # (types.ListType, types.TupleType):
-                    if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
+                    if type(attrconf.choices) in (OrderedDict, dict):
                         # print '  set choices[value]',attrconf.choices[value]
-                        if attrconf.choices.has_key(value):
+                        if value in attrconf.choices:
                             attrconf[id] = attrconf.choices[value]
                         else:
                             attrconf[id] = value
@@ -2268,7 +2268,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                     attrconf[id] = value
                 else:
                     # TODO: for other types, like color or arrays, this must be done beforehand
-                    print 'WARNING in SetValue: cannot write to this type:', tt
+                    print('WARNING in SetValue: cannot write to this type:', tt)
             else:
                 # readonly
                 pass
@@ -2692,7 +2692,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         if dlg.ShowModal() == wx.ID_OK:
             # This returns a Python list of files that were selected.
             path = dlg.GetPath()
-            print 'on_export_csv', type(path), path
+            print('on_export_csv', type(path), path)
             if type(path) in STRINGTYPES:
                 self.tab.export_csv(path, sep=',',
                                     attrconfigs=self.GetTable().get_valueconfigs(),
@@ -2914,7 +2914,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         table = self.GetTable()
         id, attrconf = table.get_id_attrconf(event.GetRow(), event.GetCol())
         #miniframe=DataMiniFrame( self, table.obj, id =id, attrs = [attr])
-        print 'on_edit_cell_miniframe EventObject=', id, attrconf
+        print('on_edit_cell_miniframe EventObject=', id, attrconf)
         dlg = ObjPanelDialog(self, table.obj, id, attrconfigs=[attrconf], size=(350, 200),
                              #style = wxCAPTION | wxSYSTEM_MENU | wxTHICK_FRAME
                              func_apply=self.func_apply,
@@ -2984,7 +2984,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         evt.Skip()
 
     def OnRightDown(self, event):
-        print "hello", self.GetSelectedRows()
+        print("hello", self.GetSelectedRows())
 
     def apply(self):
         """
@@ -4315,7 +4315,7 @@ class NaviPanelMixin:
         event.Skip()
 
     def on_export_excel(self, event):
-        print 'on_export_excel'
+        print('on_export_excel')
         obj = self.objpanel.get_obj()
 
         #dirpath = self.get_scenario().get_workdirpath()
@@ -4334,7 +4334,7 @@ class NaviPanelMixin:
             return
 
     def on_export_csv(self, event):
-        print 'on_export_csv'
+        print('on_export_csv')
         obj = self.objpanel.get_obj()
 
         #dirpath = self.get_scenario().get_workdirpath()
@@ -4678,7 +4678,7 @@ if __name__ == '__main__':
     if n_test == 0:
         # simple scalar parameters, no table
         obj = TestClass()
-        print 'obj.ident', obj.ident
+        print('obj.ident', obj.ident)
 
     elif n_test == 1:
         obj = TestTableObjMan()
@@ -4699,7 +4699,7 @@ if __name__ == '__main__':
         obj = drawing
     elif n_test == -5:
         save_obj(drawing, 'test_drawing.obj')
-        print '\nreload'+60*'.'
+        print('\nreload'+60*'.')
         obj = load_obj('test_drawing.obj')
         obj.get_attrsman().print_attrs()
 
