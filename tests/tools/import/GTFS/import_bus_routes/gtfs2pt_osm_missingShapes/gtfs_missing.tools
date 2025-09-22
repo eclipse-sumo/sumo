@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-15 08:27:54.938048 by gtfs2pt.py v1_23_1+0041-b74dc590c91
+<!-- generated on 2025-09-22 10:36:48.843333 by Eclipse SUMO gtfs2pt.py v1_24_0+0909-73b20116483
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -11,12 +11,18 @@
     <bbox value="10.509219,52.256458,10.530758,52.270119"/>
     <network value="net.net.xml"/>
     <osm-routes value="ptlines.xml"/>
-    <repair value="True"/>
     <min-stops value="0"/>
 </configuration>
 -->
 
 <missingElements>
-    <stop id="120010007513" name="Braunschweig Schloss" ptLine="620" direction_id="1"/>
-    <stop id="120010034205" name="Braunschweig Rathaus" ptLine="620" direction_id="1"/>
+    <stop id="120010016104" name="Braunschweig Güldenstraße" ptLine="413" direction_id="1"/>
+    <stop id="120010016202" name="Braunschweig Holzhof" ptLine="413" direction_id="1"/>
+    <stop id="120010031501" name="Braunschweig Hintern Brüdern" ptLine="413" direction_id="1"/>
+    <stop id="120010032201" name="Braunschweig Packhof" ptLine="413" direction_id="1"/>
+    <stop id="120010041001" name="Braunschweig Südstraße" ptLine="413" direction_id="1"/>
+    <ptLine id="32616_3" name="429" trip_headsign="Braunschweig Hauptbahnhof" direction_id="0"/>
+    <stopSequence stop_id="120010001502_0" stop_name="Braunschweig Altstadtmarkt" ptLine="413" trip_headsign="Braunschweig Dieselstraße" direction_id="1" trip_id="132189814"/>
+    <stopSequence stop_id="120010001502_0" stop_name="Braunschweig Altstadtmarkt" ptLine="413" trip_headsign="Leiferde" direction_id="1" trip_id="132190299"/>
+    <stopSequence stop_id="120010034202_0" stop_name="Braunschweig Rathaus" ptLine="413" trip_headsign="Braunschweig Dieselstraße" direction_id="1" trip_id="132189814"/>
 </missingElements>

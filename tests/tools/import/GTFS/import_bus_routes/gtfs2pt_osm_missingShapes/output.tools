@@ -1,17 +1,14 @@
 Loading net
-function import_gtfs called at Sat, 17 May 2025 12:09:38 +0000
+function import_gtfs called at Mon, 22 Sep 2025 10:36:48 +0000
 Loading GTFS data "gtfs.zip"
-function import_gtfs finished after 0.267011 seconds
-function filter_gtfs called at Sat, 17 May 2025 12:09:38 +0000
-function filter_gtfs finished after 0.035914 seconds
-function import_osm called at Sat, 17 May 2025 12:09:38 +0000
-Reading up to time step: 0.00Reading up to time step: 200.00Success.
-Import and repair osm routes
-355 routes read, discarded for wrong mode: 65, outside of net 212, keeping 78
-77 of 78 routes have been imported, see 'gtfs_repair_errors.txt' for more information.
-function import_osm finished after 0.544160 seconds
-function map_gtfs_osm called at Sat, 17 May 2025 12:09:38 +0000
+function import_gtfs finished after 0.048229 seconds
+function filter_gtfs called at Mon, 22 Sep 2025 10:36:48 +0000
+function filter_gtfs finished after 0.016652 seconds
+function import_osm called at Mon, 22 Sep 2025 10:36:48 +0000
+Import osm routes
+function import_osm finished after 0.046682 seconds
+function map_gtfs_osm called at Mon, 22 Sep 2025 10:36:48 +0000
 Map stops and routes
-function map_gtfs_osm finished after 0.198958 seconds
+function map_gtfs_osm finished after 0.050440 seconds
 Generates stops and routes output
 Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information
