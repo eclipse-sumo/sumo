@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-20 18:02+0000\n"
+"PO-Revision-Date: 2025-09-23 16:02+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
@@ -520,7 +520,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:145
 msgid "Computing routes"
-msgstr ""
+msgstr "Calculando rotas"
 
 #: src/dfrouter/dfrouter_main.cpp:155
 msgid "The detector types are not defined; use in combination with a network"
@@ -536,7 +536,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:195
 msgid "Writing emitters"
-msgstr ""
+msgstr "Escrevendo emissores"
 
 #: src/dfrouter/dfrouter_main.cpp:207
 msgid "Writing emitter pois"
@@ -1196,7 +1196,7 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:391 src/od2trips_main.cpp:285
 msgid "Loading failed."
-msgstr ""
+msgstr "Carregamento falhou."
 
 #: src/mesosim/MELoop.cpp:89 src/microsim/MSVehicleTransfer.cpp:67
 #: src/microsim/MSVehicleTransfer.cpp:193
@@ -2749,15 +2749,15 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2045
 msgid "frontal collision"
-msgstr ""
+msgstr "colisão frontal"
 
 #: src/microsim/MSLane.cpp:2048
 msgid "side collision"
-msgstr ""
+msgstr "colisão lateral"
 
 #: src/microsim/MSLane.cpp:2051
 msgid "junction collision"
-msgstr ""
+msgstr "colisão em cruzamento"
 
 #: src/microsim/MSLane.cpp:2054
 msgid "collision"
@@ -2791,11 +2791,11 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2152
 msgid ", latGap="
-msgstr ""
+msgstr ", espaço lateral="
 
 #: src/microsim/MSLane.cpp:2179
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "Veículo '%'"
 
 #: src/microsim/MSLane.cpp:2208
 #, c-format
@@ -2918,7 +2918,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:965
 msgid "Unknown reason."
-msgstr ""
+msgstr "Razão desconhecida."
 
 #: src/microsim/MSNet.cpp:1540
 msgid ""
@@ -6171,7 +6171,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:317
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "Habilitar a suposição de rotatória"
 
 #: src/netbuild/NBFrame.cpp:321
 msgid ""
@@ -6339,7 +6339,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:728
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "Habilitar a suposição de rampa"
 
 #: src/netbuild/NBFrame.cpp:731
 msgid ""
@@ -6535,7 +6535,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:89
 msgid "Removing self-loops"
-msgstr ""
+msgstr "Remover loops internos"
 
 #: src/netbuild/NBNetBuilder.cpp:94
 msgid "Finding isolated roads"
@@ -6609,7 +6609,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:268
 msgid "Joining lanes"
-msgstr ""
+msgstr "Combinando faixas"
 
 #: src/netbuild/NBNetBuilder.cpp:271
 #, c-format
@@ -6623,7 +6623,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:307
 msgid "Reducing geometries"
-msgstr ""
+msgstr "Reduzindo geometria"
 
 #: src/netbuild/NBNetBuilder.cpp:314
 msgid "Joining similar edges"
@@ -6695,7 +6695,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:511
 msgid "Computing priorities"
-msgstr ""
+msgstr "Calculando prioridades"
 
 #: src/netbuild/NBNetBuilder.cpp:515
 msgid "Computing approached edges"
@@ -6728,7 +6728,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:547
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "Processando retornos"
 
 #: src/netbuild/NBNetBuilder.cpp:565
 msgid "Rechecking of lane endings"
@@ -7005,7 +7005,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2705
 msgid " Network boundaries:"
-msgstr ""
+msgstr " . Limites da rede:"
 
 #: src/netbuild/NBNodeCont.cpp:2738
 msgid "Attempt to rename node using existing id '%'"
@@ -7475,7 +7475,7 @@ msgstr ""
 
 #: src/netgen/netgen_main.cpp:270
 msgid " Generation done;"
-msgstr ""
+msgstr " Geração pronta;"
 
 #: src/netgen/netgen_main.cpp:271
 #, c-format
@@ -7655,7 +7655,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:204
 msgid "Import sidewalks"
-msgstr ""
+msgstr "Importar calçadas"
 
 #: src/netimport/NIFrame.cpp:207
 msgid ""
@@ -7665,7 +7665,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:210
 msgid "Import crossings"
-msgstr ""
+msgstr "Importar cruzamentos"
 
 #: src/netimport/NIFrame.cpp:213
 msgid "Import turning arrows from OSM to help with connection building"
@@ -7831,7 +7831,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:348
 msgid "Excludes connectors"
-msgstr ""
+msgstr "Excluir conectores"
 
 #: src/netimport/NIFrame.cpp:352
 msgid "Computes the number of lanes from the edges' capacities"
@@ -7993,7 +7993,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
-msgstr ""
+msgstr "Corregando nós"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:80
 #: src/netimport/NIImporter_DlrNavteq.cpp:105
@@ -8011,7 +8011,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
-msgstr ""
+msgstr "Carregando arestas"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
@@ -8938,7 +8938,7 @@ msgstr ""
 
 #: src/netimport/NILoader.cpp:125
 msgid " Import done:"
-msgstr ""
+msgstr " importação finalizada:"
 
 #: src/netimport/NILoader.cpp:127
 #, c-format
@@ -9442,7 +9442,7 @@ msgstr ""
 
 #: src/netload/NLBuilder.cpp:298
 msgid "Loading done."
-msgstr ""
+msgstr "Carregamento finalizado."
 
 #: src/netload/NLBuilder.cpp:403
 msgid "Wrong number of state file names!"
@@ -9884,7 +9884,7 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:204
 msgid "Writing network"
-msgstr ""
+msgstr "Escrevendo rede"
 
 #: src/netwrite/NWWriter_DlrNavteq.cpp:92
 msgid ""
@@ -10795,7 +10795,7 @@ msgstr ""
 
 #: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Fechando (devido a um erro)."
 
 #: src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
@@ -11039,7 +11039,7 @@ msgstr ""
 
 #: src/traci-server/TraCIServer.cpp:590
 msgid "  client connected"
-msgstr ""
+msgstr "  cliente contectado"
 
 #: src/traci-server/TraCIServer.cpp:723
 msgid ""
@@ -11081,7 +11081,7 @@ msgstr ""
 #: src/utils/common/MsgHandler.cpp:170
 #, c-format
 msgid " done (%ms)."
-msgstr ""
+msgstr " finalizado (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:172
 msgid " done."
@@ -11289,11 +11289,11 @@ msgstr ""
 
 #: src/utils/common/UtilExceptions.h:43 src/utils/xml/XMLSubSys.cpp:175
 msgid "Process Error"
-msgstr ""
+msgstr "Erro de processamento"
 
 #: src/utils/common/UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "Dados vazios"
 
 #: src/utils/common/UtilExceptions.h:99
 msgid "Invalid Number Format %"
@@ -11313,7 +11313,7 @@ msgstr ""
 
 #: src/utils/common/UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "Elemento desconhecido"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:82
 #: src/utils/distribution/Distribution_Parameterized.cpp:84
@@ -11367,11 +11367,11 @@ msgstr ""
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:73
 msgid "Add decal"
-msgstr ""
+msgstr "Adicionar imagem de fundo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:73
 msgid "Add decal."
-msgstr ""
+msgstr "Adiciona imagem de fundo."
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:159
 #: src/utils/foxtools/MFXDecalsTable.cpp:170
@@ -11389,19 +11389,19 @@ msgstr "Coluna inválida"
 #: src/utils/foxtools/MFXDecalsTable.cpp:340
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal"
-msgstr ""
+msgstr "Abrir imagem de fundo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:797
 msgid "Open decal."
-msgstr ""
+msgstr "Abre imagem de fundo."
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal"
-msgstr ""
+msgstr "Remover imagem de fundo"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:805
 msgid "Remove decal."
-msgstr ""
+msgstr "Remove imagem de fundo."
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:73
 msgid "Expand"
@@ -11464,7 +11464,7 @@ msgstr ""
 
 #: src/utils/geom/GeoConvHelper.cpp:307
 msgid "Inverses projection"
-msgstr ""
+msgstr "Inverter projeção"
 
 #: src/utils/geom/GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
@@ -11859,7 +11859,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:621 src/utils/options/OptionsCont.cpp:642
 msgid " Build features: "
-msgstr ""
+msgstr " Características da Build: "
 
 #: src/utils/options/OptionsCont.cpp:625
 msgid ""
@@ -11901,7 +11901,7 @@ msgstr ""
 
 #: src/utils/options/OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "Carregando confiuração"
 
 #: src/utils/options/OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
@@ -12443,7 +12443,7 @@ msgstr ""
 
 #: src/utils/xml/GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " Na linha/coluna "
 
 #: src/utils/xml/SAXWeightsHandler.cpp:130
 #: src/utils/xml/SAXWeightsHandler.cpp:157
@@ -12588,7 +12588,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
 msgid "Postscript"
-msgstr ""
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
@@ -12641,7 +12641,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Portable"
-msgstr ""
+msgstr "Portátil"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Plain text"
