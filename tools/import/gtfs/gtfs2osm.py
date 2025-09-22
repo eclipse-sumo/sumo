@@ -569,10 +569,14 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
 
             # get shape definition and define pt direction
             aux_shapes = shapes[shapes['shape_id'] == row.shape_id]
-            pt_orig = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.min()]
-            pt_dest = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.max()]
-            line_dir = get_line_dir((pt_orig.shape_pt_lon.iloc[0], pt_orig.shape_pt_lat.iloc[0]),
-                                    (pt_dest.shape_pt_lon.iloc[0], pt_dest.shape_pt_lat.iloc[0]))
+            if len(aux_shapes) == 0:
+                print("Warning! Missing shape data for shape_id '%s'" % row.shape_id, file=sys.stderr)
+                line_dir = 90
+            else:
+                pt_orig = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.min()]
+                pt_dest = aux_shapes[aux_shapes.shape_pt_sequence == aux_shapes.shape_pt_sequence.max()]
+                line_dir = get_line_dir((pt_orig.shape_pt_lon.iloc[0], pt_orig.shape_pt_lat.iloc[0]),
+                                        (pt_dest.shape_pt_lon.iloc[0], pt_dest.shape_pt_lat.iloc[0]))
 
             # get osm lines with same route name and pt type,
             # and if they have at least one matching stop name in osm and gtfs routes
