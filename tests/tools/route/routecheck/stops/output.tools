@@ -1,0 +1,6 @@
+fixing routes.rou.xml
+Warning: This script does not handle nested 'stop' elements properly.
+Warning: Unknown edge foo in route r_0
+Warning: This script does not handle nested 'stop' elements properly.
+Warning: Route r_1 disconnected between left2end and absEnd
+Warning: Route for vehicle 0_0 disconnected between beg2left and left2end

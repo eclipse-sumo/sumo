@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="0" accel="2.60" decel="4.50" sigma="0.5" length="3" minGap="2" maxSpeed="70.00" tau="1.00" vClass="passenger"/>
+   <route id="r_0" edges="absBeg beg2left foo left left2end end absEnd"/>
+   <route id="r_1" edges="absBeg beg2left left left2end absEnd"/>
+
+   <vehicle id="1_0" type="0" depart="0" route="r_0"/>
+   <vehicle id="2_0" type="0" depart="0" route="r_1"/>
+</routes>
