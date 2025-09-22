@@ -99,7 +99,7 @@ jobs:
 
     - name: Setting up SonarQube
       if: matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc'
-      uses: warchant/setup-sonar-scanner@v8
+      uses: warchant/setup-sonar-scanner@v9
       # with:
         # version: 6.0.0.4432
 
