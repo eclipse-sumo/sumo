@@ -32,6 +32,8 @@ vehicle.
   routes are connected
 - When working in **--fix**-mode a vehicle type file must be given
 - No tests for dealing with networks that have internal edges
+- Does not handle nested elements (i.e. stops) reliably
+- Does not handle named routes
 
 # findAllRoutes.py
 
