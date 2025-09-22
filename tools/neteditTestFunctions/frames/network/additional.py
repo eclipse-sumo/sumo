@@ -16,11 +16,8 @@
 # @date    28-05-25
 
 # imports
-import time
-from ...constants import TEXTTEST_SANDBOX
 from ...general.functions import focusOnFrame
-from ...frames.edit.basicAttribute import modifyAttribute
-from ...input.keyboard import typeKey, typeTwoKeys, updateText
+from ...input.keyboard import typeKey
 
 
 def selectAdditionalChild(attributeIndex, childNumber):
