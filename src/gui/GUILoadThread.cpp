@@ -111,7 +111,7 @@ GUILoadThread::run() {
                 myFile = oc.getString("net-file");
                 myParent->addRecentNetwork(FXPath::absolute(myFile.c_str()));
             }
-            myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
+            myEventQue.push_back(new GUIEvent_Message(TLF("Loading '%'.", myFile)));
             myEventThrow.signal();
         }
         myTitle = myFile;
