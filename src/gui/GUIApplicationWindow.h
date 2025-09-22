@@ -417,8 +417,10 @@ protected:
     /// @brief menuCheck for enable/disable load demand elements in netedit
     FXMenuCheck* myLoadDemandInNetedit = nullptr;
 
-    /// @brief menuCommand for open simulation/network in netedit
+    /// @brief menuCommand for opening simulation/network in netedit
     FXMenuCommand* myOpenInNetedit = nullptr;
+    /// @brief menuCommand for opening only the network in netedit
+    FXMenuCommand* myOpenNetInNetedit = nullptr;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;
