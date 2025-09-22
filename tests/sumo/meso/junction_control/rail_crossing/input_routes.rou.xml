@@ -7,6 +7,6 @@
 
    <flow id="EW" type="train" from="EC" to="CW" begin="0" end="400" period="55" departSpeed="max"/>
    <flow id="WE" type="train" from="WC" to="CE" begin="0" end="400" period="95" departSpeed="max">
-       <stop edge="WC" pos="-50" duration="30"/>
+       <stop edge="WC" endPos="-50" duration="30"/>
    </flow>
 </routes>

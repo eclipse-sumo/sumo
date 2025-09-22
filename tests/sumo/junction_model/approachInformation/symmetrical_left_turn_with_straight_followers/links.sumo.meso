@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:28:52 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2025-09-22T15:57:11.270770+01:00 by Eclipse SUMO sumo v1_24_0+0914-995ddafa143
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -27,12 +27,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <collision.check-junctions value="true"/>
         <time-to-teleport value="20"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -42,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <link-output>
@@ -107,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <approaching id="NE" impatience="0.01" arrivalTime="6.86" leaveTime="7.87" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CN_0">
-            <approaching id="SN" impatience="0.00" arrivalTime="8.53" leaveTime="9.82" arrivalSpeed="11.17" arrivalSpeedBraking="11.17" leaveSpeed="11.17" willPass="1"/>
+            <approaching id="SN" impatience="0.00" arrivalTime="8.53" leaveTime="9.68" arrivalSpeed="11.17" arrivalSpeedBraking="11.17" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="8.00">
@@ -115,17 +113,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <approaching id="NE" impatience="0.01" arrivalTime="6.86" leaveTime="7.87" arrivalSpeed="13.89" arrivalSpeedBraking="13.89" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CN_0">
-            <approaching id="SN" impatience="0.00" arrivalTime="8.53" leaveTime="9.82" arrivalSpeed="11.17" arrivalSpeedBraking="11.17" leaveSpeed="11.17" willPass="1"/>
+            <approaching id="SN" impatience="0.00" arrivalTime="8.53" leaveTime="9.68" arrivalSpeed="11.17" arrivalSpeedBraking="11.17" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.00">
         <link from="NC_0" via="" to="CS_0">
-            <approaching id="NS" impatience="0.00" arrivalTime="10.53" leaveTime="12.13" arrivalSpeed="9.05" arrivalSpeedBraking="9.05" leaveSpeed="9.05" willPass="1"/>
+            <approaching id="NS" impatience="0.00" arrivalTime="10.53" leaveTime="11.79" arrivalSpeed="9.05" arrivalSpeedBraking="9.05" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="10.00">
         <link from="NC_0" via="" to="CS_0">
-            <approaching id="NS" impatience="0.00" arrivalTime="10.53" leaveTime="12.13" arrivalSpeed="9.05" arrivalSpeedBraking="9.05" leaveSpeed="9.05" willPass="1"/>
+            <approaching id="NS" impatience="0.00" arrivalTime="10.53" leaveTime="11.79" arrivalSpeed="9.05" arrivalSpeedBraking="9.05" leaveSpeed="13.89" willPass="1"/>
         </link>
     </timestep>
     <timestep id="11.00"/>

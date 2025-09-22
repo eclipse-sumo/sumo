@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:28:52 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2025-09-22T15:57:11.265236+01:00 by Eclipse SUMO sumo v1_24_0+0914-995ddafa143
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -21,11 +21,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <precision value="4"/>
-        <netstate-dump.precision value="4"/>
-        <emission-output.precision value="4"/>
-        <battery-output.precision value="4"/>
-        <elechybrid-output.precision value="4"/>
-        <substations-output.precision value="4"/>
         <link-output value="linkstate.xml"/>
     </output>
 
@@ -33,12 +28,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <collision.check-junctions value="true"/>
         <time-to-teleport value="20"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -48,87 +41,87 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <link-output>
     <timestep id="0.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="1.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="2.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="3.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="4.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="5.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="6.0000">
         <link from="NC_0" via="" to="CE_0">
-            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8898" willPass="1"/>
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.152" leaveTime="8.161" arrivalSpeed="13.8898" arrivalSpeedBraking="13.8898" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="7.0000">
         <link from="NC_0" via="" to="CS_0">
-            <approaching id="NS" impatience="0.0000" arrivalTime="7.821" leaveTime="10.640" arrivalSpeed="10.9257" arrivalSpeedBraking="10.9257" leaveSpeed="10.9257" willPass="1"/>
+            <approaching id="NS" impatience="0.0000" arrivalTime="7.821" leaveTime="10.303" arrivalSpeed="10.9257" arrivalSpeedBraking="10.9257" leaveSpeed="13.8900" willPass="1"/>
         </link>
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0056" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0056" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="8.0000">
         <link from="SC_0" via="" to="CW_0">
-            <approaching id="SW" impatience="0.0111" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8911" arrivalSpeedBraking="13.8911" leaveSpeed="13.8911" willPass="1"/>
+            <approaching id="SW" impatience="0.0111" arrivalTime="6.389" leaveTime="8.398" arrivalSpeed="13.8900" arrivalSpeedBraking="13.8900" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.0000">
         <link from="SC_0" via="" to="CN_0">
-            <approaching id="SN" impatience="0.0000" arrivalTime="10.058" leaveTime="13.549" arrivalSpeed="8.8238" arrivalSpeedBraking="8.8238" leaveSpeed="8.8238" willPass="1"/>
+            <approaching id="SN" impatience="0.0000" arrivalTime="10.058" leaveTime="12.770" arrivalSpeed="8.8238" arrivalSpeedBraking="8.8238" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="10.0000">
         <link from="SC_0" via="" to="CN_0">
-            <approaching id="SN" impatience="0.0000" arrivalTime="10.058" leaveTime="13.549" arrivalSpeed="8.8238" arrivalSpeedBraking="8.8238" leaveSpeed="8.8238" willPass="1"/>
+            <approaching id="SN" impatience="0.0000" arrivalTime="10.058" leaveTime="12.770" arrivalSpeed="8.8238" arrivalSpeedBraking="8.8238" leaveSpeed="13.8900" willPass="1"/>
         </link>
     </timestep>
     <timestep id="11.0000"/>
