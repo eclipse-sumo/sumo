@@ -35,6 +35,9 @@ vehicle.
 - Does not handle nested elements (i.e. stops) reliably
 - Does not handle named routes
 
+!!! note
+    A alternative to routecheck.py is duarouter with options **--skip-new-routes --repair --ignore-errors --ptline-routing** which doesn't have the above limitations.
+
 # findAllRoutes.py
 
 The tool determines all possible routes between the given source and target edges. Example:
