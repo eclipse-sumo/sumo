@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-20 18:02+0000\n"
+"PO-Revision-Date: 2025-09-23 16:01+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -1369,7 +1369,7 @@ msgstr ""
 
 #: src/guisim/GUIChargingStation.cpp:91
 msgid "charge delay [s]"
-msgstr ""
+msgstr "atraso do carregamento [s]"
 
 #: src/guisim/GUIChargingStation.cpp:92
 msgid "charge type"
@@ -1378,7 +1378,7 @@ msgstr "tipo de carga"
 #: src/guisim/GUIChargingStation.cpp:93 src/guisim/GUIContainer.cpp:175
 #: src/guisim/GUIPerson.cpp:243 src/guisim/GUIVehicle.cpp:136
 msgid "waiting time [s]"
-msgstr ""
+msgstr "tempo de espera [s]"
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:230
 msgid "stage"
@@ -1390,11 +1390,11 @@ msgstr "índice da fase"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:233
 msgid "start edge [id]"
-msgstr ""
+msgstr "aresta inicial [id]"
 
 #: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:234
 msgid "dest edge [id]"
-msgstr ""
+msgstr "aresta destino [id]"
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
@@ -1429,7 +1429,7 @@ msgstr "ângulo [graus]"
 #: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:246
 #: src/guisim/GUIVehicle.cpp:148
 msgid "desired depart [s]"
-msgstr ""
+msgstr "saída desejada [s]"
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:256
 msgid "length"
@@ -1456,7 +1456,7 @@ msgstr "massa [kg]"
 #: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:262
 #: src/guisim/GUIVehicle.cpp:245
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "velocidade máxima [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:187
 #: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:235
@@ -1484,7 +1484,7 @@ msgstr "ocupação [%]"
 
 #: src/guisim/GUIE2Collector.cpp:141 src/guisim/GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "velocidade média [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
@@ -1492,7 +1492,7 @@ msgstr ""
 
 #: src/guisim/GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "número de congestionamentos [#]"
 
 #: src/guisim/GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
@@ -1512,7 +1512,7 @@ msgstr ""
 
 #: src/guisim/GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "paradas iniciadas [#]"
 
 #: src/guisim/GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
@@ -1520,11 +1520,11 @@ msgstr ""
 
 #: src/guisim/GUIE2Collector.cpp:159 src/guisim/GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "intervalo de velocidade [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:161 src/guisim/GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "ocupação de intervalo [%]"
 
 #: src/guisim/GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
@@ -1548,7 +1548,7 @@ msgstr ""
 
 #: src/guisim/GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "veículos dentro [#]"
 
 #: src/guisim/GUIE3Collector.cpp:88
 msgid "haltings [#]"
@@ -1572,7 +1572,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:186
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "velocidade máxima [m/s]"
 
 #: src/guisim/GUIEdge.cpp:188 src/guisim/GUILane.cpp:1064
 msgid "street name"
@@ -1580,11 +1580,11 @@ msgstr "nome da rua"
 
 #: src/guisim/GUIEdge.cpp:189 src/guisim/GUILane.cpp:1072
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "inserções pendentes [#]"
 
 #: src/guisim/GUIEdge.cpp:190
 msgid "mean friction [%]"
-msgstr ""
+msgstr "fricção média [%]"
 
 #: src/guisim/GUIEdge.cpp:191
 msgid "mean vehicle speed [m/s]"
@@ -1592,15 +1592,15 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:192 src/guisim/GUILane.cpp:1067
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "velocidade de roteamento [m/s]"
 
 #: src/guisim/GUIEdge.cpp:193 src/guisim/GUILane.cpp:1069
 msgid "time penalty [s]"
-msgstr ""
+msgstr "penalidade de tempo [s]"
 
 #: src/guisim/GUIEdge.cpp:194 src/guisim/GUILane.cpp:1070
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "taxa de ocupação bruta [%]"
 
 #: src/guisim/GUIEdge.cpp:195
 msgid "edge flow [veh/h/m]"
@@ -1616,7 +1616,7 @@ msgstr "filas de segmentos"
 
 #: src/guisim/GUIEdge.cpp:201
 msgid "segment length [m]"
-msgstr ""
+msgstr "comprimento do segmento [m]"
 
 #: src/guisim/GUIEdge.cpp:202
 msgid "segment allowed speed [m/s]"
@@ -1640,7 +1640,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "veículos no segmento [#]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment leader leave time"
@@ -2478,11 +2478,11 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:121
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "arquivo de rede"
 
 #: src/netedit/GNEApplicationWindow.cpp:770
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "arquivo do OpenStreetMap"
 
 #: src/netedit/GNEApplicationWindow.cpp:786
 #: src/netedit/GNEApplicationWindow.cpp:3514
@@ -2511,7 +2511,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:960
 #: src/netedit/GNEApplicationWindow.cpp:3771
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "arquivo de EdgeTypes"
 
 #: src/netedit/GNEApplicationWindow.cpp:976
 msgid "Loaded edge types from '%'."
@@ -2705,7 +2705,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:2142
 #: src/netedit/GNEApplicationWindow.cpp:2202
 msgid "Running '%'."
-msgstr ""
+msgstr "Executando '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:2165
 #, c-format
@@ -2851,7 +2851,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3918
 msgid "Additionals saved."
-msgstr ""
+msgstr "Adicionais salvos."
 
 #: src/netedit/GNEApplicationWindow.cpp:3921
 msgid "Saving additional aborted."
@@ -9244,11 +9244,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:3452
 msgid "Data type"
-msgstr ""
+msgstr "Tipo de dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:3466
 msgid "Data sets"
-msgstr ""
+msgstr "Conjuntos de dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:3475
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:209
@@ -9752,7 +9752,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEColorDialog.cpp:43
 msgid "Edit color"
-msgstr ""
+msgstr "Editar cor"
 
 #: src/netedit/dialogs/GNEDialog.cpp:313 src/netedit/dialogs/GNEDialog.cpp:326
 msgid "Yes"
@@ -9773,7 +9773,7 @@ msgstr "Cancelar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:347
 msgid "Don't Save"
-msgstr ""
+msgstr "Não salvar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:360 src/netedit/dialogs/GNEDialog.cpp:369
 #: src/netedit/dialogs/GNEDialog.cpp:382
@@ -9787,7 +9787,7 @@ msgstr "Reiniciar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:390 src/netedit/dialogs/GNEDialog.cpp:407
 msgid "Reset changes"
-msgstr ""
+msgstr "Reiniciar mudanças"
 
 #: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced"
@@ -9795,7 +9795,7 @@ msgstr "Avançado"
 
 #: src/netedit/dialogs/GNEDialog.cpp:420
 msgid "Advanced options"
-msgstr ""
+msgstr "Opções avançadas"
 
 #: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:211
@@ -9805,7 +9805,7 @@ msgstr "Executar de novo"
 #: src/netedit/dialogs/GNEDialog.cpp:433
 #: src/netedit/dialogs/run/GNERunDialog.cpp:212
 msgid "Rerun tool"
-msgstr ""
+msgstr "Reutilizar ferramenta"
 
 #: src/netedit/dialogs/GNEDialog.cpp:437
 msgid "Back"
@@ -9912,7 +9912,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:416
 msgid "Parameters Help"
-msgstr ""
+msgstr "Ajuda de parâmetros"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:439
 msgid "Key of Parameter not defined"
@@ -9965,7 +9965,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Duplicated Parameters"
-msgstr ""
+msgstr "Parâmetros duplicados"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Parameters with the same key aren't allowed"
@@ -10001,7 +10001,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:139
 msgid "Select vClasses"
-msgstr ""
+msgstr "Selecionar VClasses"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:144
 msgid "Default vehicle class"
@@ -10298,11 +10298,11 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:40
 msgid "Open %"
-msgstr ""
+msgstr "Abrir %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:84
 msgid "Visited Directories"
-msgstr ""
+msgstr "Diretórios visitados"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:97
 msgid "Directory:"
@@ -10310,11 +10310,11 @@ msgstr "Diretório:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 msgid "File Name:"
-msgstr ""
+msgstr "Nome do arquivo:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:220
 msgid "Copy File"
-msgstr ""
+msgstr "Copiar arquivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:220
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:265
@@ -10341,7 +10341,7 @@ msgstr ""
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:236
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:281
 msgid "Overwrite file"
-msgstr ""
+msgstr "Sobrescrever arquivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:236
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:281
@@ -10362,7 +10362,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:265
 msgid "Move File"
-msgstr ""
+msgstr "Mover arquivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:273
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:291
@@ -10378,7 +10378,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:311
 msgid "Deleting file"
-msgstr ""
+msgstr "Deletando arquivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:311
 msgid "Are you sure you want to delete the file:"
@@ -10404,23 +10404,23 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:398
 msgid "Home directory"
-msgstr ""
+msgstr "Diretório principal"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:399
 msgid "Work directory"
-msgstr ""
+msgstr "Diretório de trabalho"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:400
 msgid "Config directory"
-msgstr ""
+msgstr "Diretório de configuração"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:411
 msgid "Select all"
-msgstr ""
+msgstr "Selecionar todos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:415
 msgid "Sort by"
-msgstr ""
+msgstr "Organizar por"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:416
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
@@ -10446,7 +10446,7 @@ msgstr "Inverter"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:424
 msgid "Ignore case"
-msgstr ""
+msgstr "Ignorar maiúsculas e minúsculas"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:427
 msgid "View"
@@ -10454,11 +10454,11 @@ msgstr "Ver"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:428
 msgid "Small icons"
-msgstr ""
+msgstr "Ícones pequenos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:429
 msgid "Big icons"
-msgstr ""
+msgstr "Ícones grandes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:430
 msgid "Details"
@@ -10474,23 +10474,23 @@ msgstr "Colunas"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:435
 msgid "Hidden files"
-msgstr ""
+msgstr "Arquivos escondidos"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:436
 msgid "Preview images"
-msgstr ""
+msgstr "Previsualizar imagens"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:438
 msgid "Normal images"
-msgstr ""
+msgstr "Imagens normais"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:439
 msgid "Medium images"
-msgstr ""
+msgstr "Imagens médias"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:440
 msgid "Giant images"
-msgstr ""
+msgstr "Imagens gigantes"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:443
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:898
@@ -10500,16 +10500,16 @@ msgstr "Marcadores"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:446
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:843
 msgid "Set bookmark"
-msgstr ""
+msgstr "Colocar marcador"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:447
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:845
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Limpar marcadores"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:463
 msgid "New directory..."
-msgstr ""
+msgstr "Novo diretório..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:464
 msgid "Copy..."
@@ -10543,7 +10543,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:821
 msgid "already exists"
-msgstr ""
+msgstr "já existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:827
 msgid "Cannot create directory"
@@ -10565,7 +10565,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:845
 msgid "Clear bookmarks."
-msgstr ""
+msgstr "Limpa marcadores."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:871
 msgid "Go up one directory"
@@ -10772,7 +10772,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:301
 msgid "Stop positions"
-msgstr ""
+msgstr "Posições de parada"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:304
 msgid "Activate friendlyPos"
@@ -10813,7 +10813,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:405
 msgid "Person/container plans"
-msgstr ""
+msgstr "Planos de pessoas/contêineres"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:408
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:409
@@ -10983,7 +10983,7 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:143
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:158
 msgid "options file"
-msgstr ""
+msgstr "arquivo de opções"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:342
 msgid "Could not load configuration '"
@@ -11012,7 +11012,7 @@ msgstr "Selecionar o nome do arquivo"
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:574
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
 msgid "XML file"
-msgstr ""
+msgstr "arquivo XML"
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:45
 msgid "Edit SUMO options"
@@ -11040,7 +11040,7 @@ msgstr "Cancelar"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:204
 msgid "Abort running"
-msgstr ""
+msgstr "Cancelar execução"
 
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:31
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
@@ -11050,7 +11050,7 @@ msgstr ""
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:57
 msgid "Python Tool"
-msgstr ""
+msgstr "Ferramenta de Python"
 
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:60
 msgid "Grid"
@@ -12836,7 +12836,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:335
 msgid "- Examples:"
-msgstr ""
+msgstr "- Exemplos:"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:336
 msgid ""
@@ -13404,7 +13404,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:216
 msgid "Shift value"
-msgstr ""
+msgstr "Valor de deslocamento"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:220
 msgid "Apply shift value"
@@ -13421,7 +13421,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:296
 msgid "Z value"
-msgstr ""
+msgstr "Valor de Z"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:300
 msgid "Absolute value"
@@ -13928,7 +13928,7 @@ msgstr ""
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:61
 msgid "consecutive edges"
-msgstr ""
+msgstr "arestas consecutivas"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:76
 #: src/netedit/frames/demand/GNEStopFrame.cpp:82
@@ -15365,7 +15365,7 @@ msgstr "&Deselecionar escolhidos"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:86
 msgid "&Clear selection"
-msgstr ""
+msgstr "&Limpar seleção"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:90
 msgid "Cl&ose"
@@ -15435,7 +15435,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "Codec desconhecido!"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
@@ -15483,15 +15483,15 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:62
 msgid "Overlapped objects"
-msgstr ""
+msgstr "Objetos soprepostos"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:64
 msgid "Delete element"
-msgstr ""
+msgstr "Deletar elemento"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:66
 msgid "Select element"
-msgstr ""
+msgstr "Selecionar elemento"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:68
 msgid "Mark front element"
@@ -15533,7 +15533,7 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:358
 msgid "Show Parameter"
-msgstr ""
+msgstr "Mostrar parâmetro"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:367
 msgid "Show Type Parameter"
@@ -15553,12 +15553,12 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:403
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "Abrir manipulador..."
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:442
 #: src/utils/gui/globjects/GUIGlObject.cpp:465
 msgid "type: %"
-msgstr ""
+msgstr "tipo: %"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:58
 msgid "Replacing POI '%'"
@@ -15574,11 +15574,11 @@ msgstr ""
 
 #: src/utils/gui/images/GUITextureSubSys.cpp:191
 msgid "Undefined texture"
-msgstr ""
+msgstr "Textura indefinida"
 
 #: src/utils/gui/images/VClassIcons.cpp:106
 msgid "Invalid vClass"
-msgstr ""
+msgstr "vClass inválido"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
@@ -15618,11 +15618,11 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
 msgid "by selection"
-msgstr ""
+msgstr "por seleção"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
 msgid "by type"
-msgstr ""
+msgstr "por tipo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1848
@@ -15670,12 +15670,12 @@ msgstr "calçada"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:959
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1833
 msgid "bike lane"
-msgstr ""
+msgstr "ciclofaixa"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:960
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1834
 msgid "green verge"
-msgstr ""
+msgstr "canteiro verde"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:961
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1477
@@ -15697,7 +15697,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:964
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1838
 msgid "no passenger"
-msgstr ""
+msgstr "sem passageiro"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:965
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1839
@@ -15847,7 +15847,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1658
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1882
 msgid "by angle"
-msgstr ""
+msgstr "por ângulo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1091
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1580
@@ -15858,7 +15858,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1585
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1884
 msgid "by priority"
-msgstr ""
+msgstr "por prioridade"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1100
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1889
@@ -15872,7 +15872,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1116
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1903
 msgid "by inclination"
-msgstr ""
+msgstr "por inclinação"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1123
 msgid "by geometry-segment inclination"
@@ -15917,7 +15917,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1932
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1998
 msgid "missing data"
-msgstr ""
+msgstr "faltam dados"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1175
 msgid "by distance (kilometrage)"
@@ -15974,7 +15974,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1451
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1741
 msgid "by speed"
-msgstr ""
+msgstr "por velocidade"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1222
 msgid "by action step"
@@ -15982,7 +15982,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1222
 msgid "no action"
-msgstr ""
+msgstr "sem ação"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1223
 msgid "action in next step"
@@ -16026,12 +16026,12 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1319
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1768
 msgid "opposite lane"
-msgstr ""
+msgstr "faixa oposta"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1326
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1775
 msgid "by acceleration"
-msgstr ""
+msgstr "por aceleração"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1335
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1784
@@ -16089,12 +16089,12 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1424
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1456
 msgid "by mode"
-msgstr ""
+msgstr "por modo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1424
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1456
 msgid "waiting for insertion"
-msgstr ""
+msgstr "aguardando inserção"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1425
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1457
@@ -16112,7 +16112,7 @@ msgstr "dirigindo"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1428
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1459
 msgid "accessing trainStop"
-msgstr ""
+msgstr "acessando parada de trem"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1429
 msgid "waiting for ride"
@@ -16145,7 +16145,7 @@ msgstr "transbordo"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1499
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1961
 msgid "by height"
-msgstr ""
+msgstr "por altura"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1509
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1971
@@ -16253,12 +16253,12 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1691
 msgid "no TAZ"
-msgstr ""
+msgstr "sem TAZ"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1842
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1941
 msgid "data mode"
-msgstr ""
+msgstr "modo de dados"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1896
 msgid "by height at segment start"
@@ -16270,19 +16270,19 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1937
 msgid "junction bubble"
-msgstr ""
+msgstr "bolha de junção"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1938
 msgid "geometry points"
-msgstr ""
+msgstr "pontos de geometria"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1939
 msgid "connections missing"
-msgstr ""
+msgstr "conxões faltando"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1940
 msgid "custom shape"
-msgstr ""
+msgstr "forma customizada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1996
 msgid "by origin taz"
@@ -16306,7 +16306,7 @@ msgstr "Multiplot"
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:217
 msgid "Save Data"
-msgstr ""
+msgstr "Salvar dados"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:89
 msgid "Track"
@@ -16314,11 +16314,11 @@ msgstr "Seguir"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "&Hide Unselected"
-msgstr ""
+msgstr "&Esconder não selecionados"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "By &Name"
-msgstr ""
+msgstr "Por &Nome"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "Locate item by name"
@@ -16334,11 +16334,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:99
 msgid "&Filter substring"
-msgstr ""
+msgstr "&Filtrar subcadeia"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
 msgid "Select &all"
-msgstr ""
+msgstr "Selecionar &todos"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:100
 msgid "Select all items in list"
@@ -16346,7 +16346,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
 msgid "&Deselect all"
-msgstr ""
+msgstr "&Deselecionar todos"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
 msgid "Deselect all items in list"
@@ -16362,7 +16362,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:106
 msgid "case-sensitive search"
-msgstr ""
+msgstr "distinguir maiúsculas e minúsculas"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:108
 msgid "auto-center"
@@ -16371,7 +16371,7 @@ msgstr "auto centralizar"
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:336
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% objetos"
 
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load viewport from file"
@@ -16391,15 +16391,15 @@ msgstr "fechar"
 
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:214
 msgid "Load Viewport"
-msgstr ""
+msgstr "Carregar ponto de vista"
 
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:233
 msgid "Save Viewport"
-msgstr ""
+msgstr "Salvar ponto de vista"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:92
 msgid "View Settings"
-msgstr ""
+msgstr "Ver configurações"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1029
 msgid "Enter a name"
@@ -16420,16 +16420,16 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1180
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1197
 msgid "Load Decals"
-msgstr ""
+msgstr "Carregar imagem de fundo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1214
 msgid "Save Decals"
-msgstr ""
+msgstr "Salvar imagem de fundo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1288
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1353
 msgid "No Data"
-msgstr ""
+msgstr "Sem dados"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1624
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1669
@@ -16464,15 +16464,15 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1672
 msgid "Minimum Size"
-msgstr ""
+msgstr "Tamanho mínimo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1676
 msgid "Exaggerate by"
-msgstr ""
+msgstr "Exagerar por"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1715
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "Recalibrar arco-íris"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1722
 msgid "min"
@@ -16488,7 +16488,7 @@ msgstr "centro"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1737
 msgid "fix range"
-msgstr ""
+msgstr "corrigir intervalo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1782
 msgid "Save the setting to registry"
@@ -16508,7 +16508,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1788
 msgid "Export includes:"
-msgstr ""
+msgstr "Exportar incluídos:"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1789
 msgid "Viewport"
@@ -16536,11 +16536,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1816
 msgid "&Clear Decals"
-msgstr ""
+msgstr "&Limpar imagem de fundo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1821
 msgid "Toggle grid"
-msgstr ""
+msgstr "Ligar linhas de grade"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1825
 msgid "x-spacing"
@@ -16569,7 +16569,7 @@ msgstr "Interpolar"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1865
 msgid "Scale width"
-msgstr ""
+msgstr "Escalar largura"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1885
 msgid "Show bike markings"
@@ -16601,11 +16601,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1902
 msgid "Show sublanes"
-msgstr ""
+msgstr "Mostrar subfaixas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1905
 msgid "Show rails"
-msgstr ""
+msgstr "Mostrar ferrovias"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1908
 msgid "Spread bidirectional railways/roads"
@@ -16618,7 +16618,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1912
 msgid "Secondary shape"
-msgstr ""
+msgstr "Forma secundária"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1921
 msgid "Exaggerate width by"
@@ -16626,7 +16626,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1927
 msgid "Minimum size"
-msgstr ""
+msgstr "Tamanho mínimo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1933
 msgid "Show edge id"
@@ -16648,7 +16648,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2037
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2090
 msgid "Show As"
-msgstr ""
+msgstr "Mostrar como"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1950
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2040
@@ -16665,13 +16665,13 @@ msgstr "'caixas'"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2042
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2095
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'formas simples'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2043
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2096
 msgid "'raster images'"
-msgstr ""
+msgstr "'imagens raster'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1954
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2041
@@ -16680,7 +16680,7 @@ msgstr "'círculos'"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
 msgid "Scale size"
-msgstr ""
+msgstr "Escalar tamanho"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1990
 msgid "Show vehicle id"
@@ -16756,7 +16756,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2142
 msgid "Draw crossings/walkingareas"
-msgstr ""
+msgstr "Desenhar calçadas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2144
 msgid "Show lane to lane connections"
@@ -16828,12 +16828,12 @@ msgstr "elemento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2258
 msgid "POI detail"
-msgstr ""
+msgstr "Detalhes do ponto de interesse"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2263
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "Custom Layer"
-msgstr ""
+msgstr "Camada customizada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2269
 msgid "Show poi id"
@@ -16905,7 +16905,7 @@ msgstr "Tramado"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2433
 msgid "Draw boundaries"
-msgstr ""
+msgstr "Desenhar limites"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2436
 msgid "Force draw for rectangle selection"
@@ -16917,7 +16917,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2442
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "Recalcular limites"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2445
 msgid "Show geometry point indices"
@@ -16925,7 +16925,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2451
 msgid "3D view"
-msgstr ""
+msgstr "Visualização 3D"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2456
 msgid "Ignore color scheme for vehicles"
@@ -16949,15 +16949,15 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2472
 msgid "Sun brightness"
-msgstr ""
+msgstr "Brilho do sol"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2484
 msgid "Sky color"
-msgstr ""
+msgstr "Cor do céu"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter View"
-msgstr ""
+msgstr "Recentralizar visualização"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:120
 msgid "Recenter view to the simulated area."
@@ -16967,7 +16967,7 @@ msgstr ""
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1593
 msgctxt "Labels"
 msgid "Edit Viewport"
-msgstr ""
+msgstr "Editar janela de visualização"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:124
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
@@ -16985,7 +16985,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "Localizar Estruturas"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
@@ -17009,7 +17009,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "Fazer captura de tela"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
