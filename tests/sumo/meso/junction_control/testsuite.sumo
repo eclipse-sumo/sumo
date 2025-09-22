@@ -1,3 +1,10 @@
+tls_coordination
+
+# tests a problematic network:
+# - the network contains a roundabout. This may lead to dead-lock if junction control is switched off
+# - the network contains a faulty traffic light. This leads to bad flow if junction control is switched on
+network_problem
+
 # the basic cross net with junction control
 plain
 
@@ -26,12 +33,6 @@ no_control_flowPenalty1
 # the cross net without junction control
 no_control_flowPenalty40
 
-# tests a problematic network:
-# - the network contains a roundabout. This may lead to dead-lock if junction control is switched off
-# - the network contains a faulty traffic light. This leads to bad flow if junction control is switched on
-network_problem
-tls_coordination
-
 # the basic net without tls
 priority
 
@@ -40,3 +41,6 @@ priority_no_control
 
 # do not apply minorPenalty on top of tlsPenalty
 tlsPenalty_minorPenalty
+
+# see #17110
+rail_crossing
