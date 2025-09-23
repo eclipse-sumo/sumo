@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveElementLaneView.h
+/// @file    GNEMoveElementView.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2025
 ///
@@ -26,17 +26,17 @@
 // class definitions
 // ===========================================================================
 
-class GNEMoveElementLaneView : public GNEMoveElement {
+class GNEMoveElementView : public GNEMoveElement {
 
 public:
     /// @brief constructor
-    GNEMoveElementLaneView(GNEAttributeCarrier* element);
+    GNEMoveElementView(GNEAttributeCarrier* element);
 
     /// @brief constructor
-    GNEMoveElementLaneView(GNEAttributeCarrier* element, const Position& position);
+    GNEMoveElementView(GNEAttributeCarrier* element, const Position& position);
 
     //// @brief empty destructor
-    ~GNEMoveElementLaneView();
+    ~GNEMoveElementView();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -67,8 +67,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEMoveElementLaneView(const GNEMoveElementLaneView&) = delete;
+    GNEMoveElementView(const GNEMoveElementView&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEMoveElementLaneView& operator=(const GNEMoveElementLaneView&) = delete;
+    GNEMoveElementView& operator=(const GNEMoveElementView&) = delete;
 };

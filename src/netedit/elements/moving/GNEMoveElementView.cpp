@@ -24,28 +24,28 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
-#include "GNEMoveElementLaneView.h"
+#include "GNEMoveElementView.h"
 
 // ===========================================================================
 // Method definitions
 // ===========================================================================
 
-GNEMoveElementLaneView::GNEMoveElementLaneView(GNEAttributeCarrier* element) :
+GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
     myElement(element) {
 }
 
 
-GNEMoveElementLaneView::GNEMoveElementLaneView(GNEAttributeCarrier* element, const Position& position) :
+GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position) :
     myElement(element),
     myPosition(position) {
 }
 
 
-GNEMoveElementLaneView::~GNEMoveElementLaneView() {}
+GNEMoveElementView::~GNEMoveElementView() {}
 
 
 GNEMoveOperation*
-GNEMoveElementLaneView::getMoveOperation() {
+GNEMoveElementView::getMoveOperation() {
     if (myElement->drawMovingGeometryPoints()) {
         // get snap radius
         const double snap_radius = myElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
@@ -72,13 +72,13 @@ GNEMoveElementLaneView::getMoveOperation() {
 
 
 void
-GNEMoveElementLaneView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+GNEMoveElementView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do here
 }
 
 
 void
-GNEMoveElementLaneView::setMoveShape(const GNEMoveResult& moveResult) {
+GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
         myShapeLength[1] = moveResult.shapeToUpdate[1];
@@ -93,7 +93,7 @@ GNEMoveElementLaneView::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEMoveElementLaneView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEMoveElementView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
         undoList->begin(myElement, TLF("length of %", myElement->getTagStr()));
