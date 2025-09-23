@@ -341,7 +341,7 @@ GNEStop::updateGeometry() {
     // update geometry depending of parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
+        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMovingLateralOffset);
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
         myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
@@ -1478,7 +1478,7 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
         startPos = moveResult.newFirstPos;
         endPos = moveResult.newLastPos;
         // set lateral offset
-        myMoveElementLateralOffset = moveResult.firstLaneOffset;
+        myMovingLateralOffset = moveResult.firstLaneOffset;
     }
     // update geometry
     updateGeometry();

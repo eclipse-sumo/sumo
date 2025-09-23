@@ -753,7 +753,7 @@ GNEVehicle::updateGeometry() {
                 posOverLane = departPos;
             }
             // update Geometry
-            myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
+            myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMovingLateralOffset);
             // compute route embedded associated with this vehicle
             for (const auto& demandElement : getChildDemandElements()) {
                 if (demandElement->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
@@ -2258,7 +2258,7 @@ GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
         arrivalPos = moveResult.newFirstPos;
     }
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    myMovingLateralOffset = moveResult.firstLaneOffset;
     // update geometry
     updateGeometry();
 }
@@ -2267,7 +2267,7 @@ GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
-    myMoveElementLateralOffset = 0;
+    myMovingLateralOffset = 0;
     // check value
     if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // continue depending if we're moving first or last position

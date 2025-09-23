@@ -28,17 +28,12 @@
 // Method definitions
 // ===========================================================================
 
-GNEMoveElement::GNEMoveElement() {
+GNEMoveElement::GNEMoveElement(GNEAttributeCarrier* movedElement) :
+    myMovedElement(movedElement) {
 }
 
 
 GNEMoveElement::~GNEMoveElement() {}
-
-
-void
-GNEMoveElement::setMoveElementLateralOffset(const double value) {
-    myMoveElementLateralOffset = value;
-}
 
 
 GNEMoveOperation*

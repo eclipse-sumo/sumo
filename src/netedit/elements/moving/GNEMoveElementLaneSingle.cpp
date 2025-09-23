@@ -31,13 +31,13 @@
 // ===========================================================================
 
 GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element) :
-    myElement(element) {
+    GNEMoveElement(element) {
 }
 
 
 GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
         const double position, const bool friendlyPos) :
-    myElement(element),
+    GNEMoveElement(element),
     myPosition(position),
     myFriendlyPos(friendlyPos) {
     // set parents
@@ -51,8 +51,8 @@ GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
 GNEMoveOperation*
 GNEMoveElementLaneSingle::getMoveOperation() {
     // return move operation over a single position
-    return new GNEMoveOperation(this, myElement->getHierarchicalElement()->getParentLanes().front(), myPosition,
-                                myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
+    return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), myPosition,
+                                myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
 }
 
 
@@ -67,24 +67,24 @@ GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPosition = moveResult.newFirstPos;
     // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    myMovingLateralOffset = moveResult.firstLaneOffset;
     // update geometry
-    myElement->updateGeometry();
+    myMovedElement->updateGeometry();
 }
 
 
 void
 GNEMoveElementLaneSingle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
-    myMoveElementLateralOffset = 0;
+    myMovingLateralOffset = 0;
     // begin change attribute
-    undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
+    undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
     // set position
-    myElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+    myMovedElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
     if (moveResult.newFirstLane) {
         // set new lane
-        myElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
     undoList->end();

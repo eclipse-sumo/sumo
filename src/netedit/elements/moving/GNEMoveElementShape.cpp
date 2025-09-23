@@ -38,20 +38,20 @@ PositionVector GNEMoveElementShape::EMPTY_SHAPE;
 // ===========================================================================
 
 GNEMoveElementShape::GNEMoveElementShape(GNEAttributeCarrier* element) :
-    myElement(element),
+    GNEMoveElement(element),
     myMovingShape(EMPTY_SHAPE) {
 }
 
 
 GNEMoveElementShape::GNEMoveElementShape(GNEAttributeCarrier* element, PositionVector& shape, const bool alwaysClosed) :
-    myElement(element),
+    GNEMoveElement(element),
     myMovingShape(shape),
     myAlwaysClosed(alwaysClosed) {
 }
 
 
 GNEMoveElementShape::GNEMoveElementShape(GNEAttributeCarrier* element, PositionVector& shape, const Position& position, const bool alwaysClosed) :
-    myElement(element),
+    GNEMoveElement(element),
     myMovingShape(shape),
     myCenterPosition(position),
     myAlwaysClosed(alwaysClosed) {
@@ -64,17 +64,17 @@ GNEMoveElementShape::~GNEMoveElementShape() {}
 GNEMoveOperation*
 GNEMoveElementShape::getMoveOperation() {
     // get snap radius
-    const double snap_radius = myElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+    const double snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
     // check if we're moving center or shape
-    if (myCenterPosition.distanceSquaredTo2D(myElement->getNet()->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
+    if (myCenterPosition.distanceSquaredTo2D(myMovedElement->getNet()->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myCenterPosition);
-    } else if (myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
+    } else if (myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myMovingShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myElement->getGUIGlObject(), myMovingShape, myAlwaysClosed);
+        return calculateMoveShapeOperation(myMovedElement->getGUIGlObject(), myMovingShape, myAlwaysClosed);
     }
 }
 
@@ -90,7 +90,7 @@ GNEMoveElementShape::removeGeometryPoint(const Position clickedPosition, GNEUndo
         // get last index
         const int lastIndex = ((int)shape.size() - 1);
         // get snap radius
-        const double snap_radius = myElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        const double snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
         // check if we have to create a new index
         if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
             // check if we're deleting the first point
@@ -105,8 +105,8 @@ GNEMoveElementShape::removeGeometryPoint(const Position clickedPosition, GNEUndo
                 shape.erase(shape.begin() + index);
             }
             // commit new shape
-            undoList->begin(myElement, TLF("remove geometry point of %", myElement->getTagStr()));
-            GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_SHAPE, toString(shape), undoList);
+            undoList->begin(myMovedElement, TLF("remove geometry point of %", myMovedElement->getTagStr()));
+            GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_SHAPE, toString(shape), undoList);
             undoList->end();
         }
     }
@@ -136,7 +136,7 @@ GNEMoveElementShape::setMoveShape(const GNEMoveResult& moveResult) {
         myMovingShape.closePolygon();
     }
     // update geometry
-    myElement->updateGeometry();
+    myMovedElement->updateGeometry();
 }
 
 
@@ -144,19 +144,19 @@ void
 GNEMoveElementShape::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // commit center
-        undoList->begin(myElement, TLF("moving center of %", myElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front()), undoList);
+        undoList->begin(myMovedElement, TLF("moving center of %", myMovedElement->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
         // calculate offset between old and new shape
         Position newCenter = myCenterPosition;
         newCenter.add(moveResult.shapeToUpdate.getCentroid() - myMovingShape.getCentroid());
         // commit new shape and center
-        undoList->begin(myElement, TLF("moving entire shape of %", myElement->getTagStr()));
-        if (myElement->getTagProperty()->hasAttribute(SUMO_ATTR_CENTER)) {
-            GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_CENTER, toString(newCenter), undoList);
+        undoList->begin(myMovedElement, TLF("moving entire shape of %", myMovedElement->getTagStr()));
+        if (myMovedElement->getTagProperty()->hasAttribute(SUMO_ATTR_CENTER)) {
+            GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_CENTER, toString(newCenter), undoList);
         }
-        GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
+        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
         undoList->end();
     } else {
         // get lastIndex
@@ -170,8 +170,8 @@ GNEMoveElementShape::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLis
             closedShape[0] = moveResult.shapeToUpdate[lastIndex];
         }
         // commit new shape
-        undoList->begin(myElement, TLF("editing shape of %", myElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_SHAPE, toString(closedShape), undoList);
+        undoList->begin(myMovedElement, TLF("editing shape of %", myMovedElement->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_SHAPE, toString(closedShape), undoList);
         undoList->end();
     }
 }

@@ -42,7 +42,7 @@ class GNEMoveElement {
 
 public:
     /// @brief constructor
-    GNEMoveElement();
+    GNEMoveElement(GNEAttributeCarrier* movedElement);
 
     //// @brief empty destructor
     virtual ~GNEMoveElement();
@@ -61,12 +61,12 @@ public:
     /// @brief commit move element for the given offset
     static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList);
 
-    /// @brief set move element lateral offset
-    void setMoveElementLateralOffset(const double value);
-
 protected:
-    /// @brief move element lateral offset (used by elements placed over lanes
-    double myMoveElementLateralOffset = 0;
+    /// @brief pointer to element
+    GNEAttributeCarrier* myMovedElement = nullptr;
+
+    /// @brief move element lateral offset
+    double myMovingLateralOffset = 0;
 
     /// @brief calculate move shape operation
     GNEMoveOperation* calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);
@@ -99,6 +99,9 @@ private:
 
     /// @brief calculate width/height shape
     static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult);
+
+    /// @brief invalidate default constructor
+    GNEMoveElement() = delete;
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

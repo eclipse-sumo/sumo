@@ -31,12 +31,12 @@
 // ===========================================================================
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
-    myElement(element) {
+    GNEMoveElement(element) {
 }
 
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position) :
-    myElement(element),
+    GNEMoveElement(element),
     myPosition(position) {
 }
 
@@ -46,11 +46,11 @@ GNEMoveElementView::~GNEMoveElementView() {}
 
 GNEMoveOperation*
 GNEMoveElementView::getMoveOperation() {
-    if (myElement->drawMovingGeometryPoints()) {
+    if (myMovedElement->drawMovingGeometryPoints()) {
         // get snap radius
-        const double snap_radius = myElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const double snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
-        const Position mousePosition = myElement->getNet()->getViewNet()->getPositionInformation();
+        const Position mousePosition = myMovedElement->getNet()->getViewNet()->getPositionInformation();
         // check if we're editing width or height
         if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // edit length
@@ -88,7 +88,7 @@ GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
         myPosition = moveResult.shapeToUpdate.front();
     }
     // update geometry
-    myElement->updateGeometry();
+    myMovedElement->updateGeometry();
 }
 
 
@@ -96,16 +96,16 @@ void
 GNEMoveElementView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
-        undoList->begin(myElement, TLF("length of %", myElement->getTagStr()));
-        myElement->setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
+        undoList->begin(myMovedElement, TLF("length of %", myMovedElement->getTagStr()));
+        myMovedElement->setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(myElement, TLF("width of %", myElement->getTagStr()));
-        myElement->setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->begin(myMovedElement, TLF("width of %", myMovedElement->getTagStr()));
+        myMovedElement->setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else {
-        undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
+        undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
+        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         undoList->end();
     }
 }

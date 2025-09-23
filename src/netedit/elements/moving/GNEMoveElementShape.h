@@ -50,10 +50,7 @@ public:
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
 protected:
-    /// @brief pointer to element
-    GNEAttributeCarrier* myElement = nullptr;
-
-    /// @brief position over view
+    /// @brief center position
     Position myCenterPosition;
 
 private:

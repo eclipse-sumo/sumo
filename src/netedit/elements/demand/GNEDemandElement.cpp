@@ -51,6 +51,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std
     GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
                 GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
+    GNEMoveElement(this),
     myStackedLabelNumber(0) {
 }
 
@@ -61,6 +62,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXM
     GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
                 GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
+    GNEMoveElement(this),
     myStackedLabelNumber(0) {
 }
 #ifdef _MSC_VER
@@ -144,7 +146,7 @@ GNEDemandElement::getNextChildDemandElement(const GNEDemandElement* demandElemen
 
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
-    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
+    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMovingLateralOffset);
 }
 
 
@@ -156,7 +158,7 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
-    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
+    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMovingLateralOffset);
 }
 
 

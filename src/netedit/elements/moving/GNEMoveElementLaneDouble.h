@@ -62,9 +62,6 @@ public:
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
 protected:
-    /// @brief pointer to element
-    GNEAttributeCarrier* myElement = nullptr;
-
     /// @brief The relative start position this stopping place is located at (-1 means empty)
     double myStartPosition = 0;
 

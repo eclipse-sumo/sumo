@@ -125,7 +125,7 @@ GNEInstantInductionLoopDetector::fixAdditionalProblem() {
 void
 GNEInstantInductionLoopDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
