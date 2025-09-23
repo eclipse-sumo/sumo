@@ -60,7 +60,7 @@ set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG netedit${BINARY_SUFFI
 # link all previously compiled libraries to netedit. Every library was compiled in their own folder using own CMakeList.txt
 target_link_libraries(netedit gui_dialogs utils_gui_cursors utils_gui_shortcuts utils_tests utils_foxtools foreign_eulerspiral
         netedit_frames_common netedit_frames_network netedit_frames_demand netedit_frames_data netedit_frames
-        netedit_elements netedit_elements_moving netedit_elements_network netedit_elements_additional netedit_elements_demand
+        netedit_elements netedit_elements_network netedit_elements_additional netedit_elements_moving netedit_elements_demand
         netedit_elements_data netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs_run
         netedit_dialogs_tools netedit_dialogs_basic netedit_dialogs_file netedit_dialogs_fix netedit_dialogs_elements
         netedit_dialogs_elements_lists netedit_dialogs_options netedit_tools netedit_dialogs utils_gui_windows utils_gui_globjects
