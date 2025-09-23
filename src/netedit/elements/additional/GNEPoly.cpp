@@ -42,7 +42,8 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
-GNEAdditional("", net, "", tag, "") {
+                  GNEAdditional("", net, "", tag, ""),
+GNEMoveElementShape(this) {
 }
 
 
@@ -51,6 +52,7 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename
                  const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
     GNEAdditional(id, net, filename, SUMO_TAG_POLY, ""),
+    GNEMoveElementShape(this, myShape, false),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -79,6 +81,7 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", name, parameters),
     GNEAdditional(id, net, filename, tag, ""),
+    GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE)),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
     // set GEO shape
@@ -102,47 +105,9 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::
 GNEPoly::~GNEPoly() {}
 
 
-GNEMoveOperation*
-GNEPoly::getMoveOperation() {
-    // edit depending if shape is blocked
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
-        // move entire shape
-        return new GNEMoveOperation(this, myShape);
-    } else {
-        // continue depending of tag
-        switch (getTagProperty()->getTag()) {
-            case GNE_TAG_JPS_WALKABLEAREA:
-            case GNE_TAG_JPS_OBSTACLE:
-                // calculate move shape operation maintain shape closed
-                return calculateMoveShapeOperation(this, myShape, true);
-            default:
-                // calculate move shape operation
-                return calculateMoveShapeOperation(this, myShape, false);
-        }
-    }
-}
-
-
-void
-GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // get original shape
-    PositionVector shape = myShape;
-    // check shape size
-    if (shape.size() > 2) {
-        // obtain index
-        int index = shape.indexOfClosest(clickedPosition);
-        // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-        // check if we have to create a new index
-        if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-            // remove geometry point
-            shape.erase(shape.begin() + index);
-            // commit new shape
-            undoList->begin(this, "remove geometry point of " + getTagStr());
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
-            undoList->end();
-        }
-    }
+GNEMoveElement*
+GNEPoly::getMoveElement() {
+    return this;
 }
 
 
@@ -809,24 +774,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNEPoly::setMoveShape(const GNEMoveResult& moveResult) {
-    // update new shape
-    myShape = moveResult.shapeToUpdate;
-    // update geometry
-    myAdditionalGeometry.updateGeometry(myShape);
-}
-
-
-void
-GNEPoly::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
-    undoList->end();
 }
 
 

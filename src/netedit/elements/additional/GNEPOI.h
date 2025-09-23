@@ -21,6 +21,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -92,13 +94,8 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation() override;
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -241,6 +238,12 @@ protected:
     GNEContour myMovingContourRight;
 
 private:
+    /// @brief move element over single lane
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
+
+    /// @brief move POI over view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief draw POI
     void drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                  const bool movingGeometryPoints) const;
@@ -251,12 +254,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult) override;
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
     /// @brief Invalidated copy constructor.
     GNEPOI(const GNEPOI&) = delete;

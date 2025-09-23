@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -32,7 +34,7 @@ class GNEBusStop;
 // class definitions
 // ===========================================================================
 
-class GNEAccess : public GNEAdditional, public Parameterised {
+class GNEAccess : public GNEAdditional, public GNEMoveElementLaneSingle, public Parameterised {
 
 public:
     /// @brief Default constructor
@@ -53,10 +55,8 @@ public:
     /// @brief Destructor
     ~GNEAccess();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;
@@ -164,26 +164,14 @@ public:
 
 protected:
     /// @brief position over lane
-    double myPositionOverLane = 0;
-
-    /// @brief position over lane
     std::string mySpecialPosition;
 
     /// @brief Access length
     double myLength = 0;
 
-    /// @brief flag to check if friendly position is enabled
-    bool myFriendlyPosition = false;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEAccess(const GNEAccess&) = delete;

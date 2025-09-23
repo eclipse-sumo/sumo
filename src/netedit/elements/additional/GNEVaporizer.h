@@ -47,6 +47,11 @@ public:
     /// @brief Destructor
     ~GNEVaporizer();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() {
+        return nullptr;
+    }
+
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */

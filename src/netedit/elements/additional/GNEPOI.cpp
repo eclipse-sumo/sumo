@@ -86,6 +86,12 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
 GNEPOI::~GNEPOI() {}
 
 
+GNEMoveElement*
+GNEPOI::getMoveElement() {
+    return nullptr;
+}
+
+/*
 GNEMoveOperation*
 GNEPOI::getMoveOperation() {
     if (drawMovingGeometryPoints()) {
@@ -121,13 +127,7 @@ GNEPOI::getMoveOperation() {
         return new GNEMoveOperation(this, *this);
     }
 }
-
-
-void
-GNEPOI::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to remove
-}
-
+*/
 
 std::string
 GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {
@@ -750,48 +750,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             return setCommonAttribute(this, key, value);
-    }
-}
-
-
-void
-GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        myShapeHeight = moveResult.shapeToUpdate;
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        myShapeWidth = moveResult.shapeToUpdate;
-    } else {
-        if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-            myPosOverLane = moveResult.newFirstPos;
-        } else {
-            set(moveResult.shapeToUpdate.front());
-        }
-        // update geometry
-        updateGeometry();
-    }
-}
-
-
-void
-GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        undoList->begin(this, "height of " + getTagStr());
-        setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
-        undoList->end();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(this, "width of " + getTagStr());
-        setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
-        undoList->end();
-    } else {
-        undoList->begin(this, "position of " + getTagStr());
-        if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-        } else {
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-        }
-        undoList->end();
     }
 }
 

@@ -32,15 +32,16 @@
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, "") {
+    GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, ""),
+    GNEMoveElementView(this) {
 }
 
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
+    GNEMoveElementView(this, pos),
     Parameterised(parameters),
-    myPosition(pos),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
@@ -49,6 +50,12 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
 
 
 GNETractionSubstation::~GNETractionSubstation() {
+}
+
+
+GNEMoveElement*
+GNETractionSubstation::getMoveElement() {
+    return this;
 }
 
 
@@ -100,13 +107,6 @@ GNETractionSubstation::checkDrawMoveContour() const {
     } else {
         return false;
     }
-}
-
-
-GNEMoveOperation*
-GNETractionSubstation::getMoveOperation() {
-    // return move operation for additional placed in view
-    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -285,23 +285,6 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNETractionSubstation::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNETractionSubstation::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "position of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

@@ -49,6 +49,12 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalPare
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
+GNEMoveElement*
+GNEParkingAreaReroute::getMoveElement() {
+    return nullptr;
+}
+
+
 void
 GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);

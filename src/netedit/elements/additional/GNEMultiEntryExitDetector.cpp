@@ -34,7 +34,8 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, "") {
+    GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, ""),
+    GNEMoveElementView(this) {
 }
 
 
@@ -42,8 +43,8 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
+    GNEMoveElementView(this, pos),
     Parameterised(parameters),
-    myPosition(pos),
     myPeriod(freq),
     myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
@@ -63,13 +64,6 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
 
 
 GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {}
-
-
-GNEMoveOperation*
-GNEMultiEntryExitDetector::getMoveOperation() {
-    // return move operation for additional placed in view
-    return new GNEMoveOperation(this, myPosition);
-}
 
 
 void
@@ -432,23 +426,5 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             break;
     }
 }
-
-
-void
-GNEMultiEntryExitDetector::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEMultiEntryExitDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "position of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-    undoList->end();
-}
-
 
 /****************************************************************************/

@@ -42,6 +42,7 @@
 // ===========================================================================
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
+    GNEMoveElementLaneDouble(this),
     GNEDetector(net, tag) {
 }
 
@@ -50,8 +51,9 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, lane, pos, (pos + length), freq, outputFilename, vehicleTypes, nextEdges,
-                detectPersons, name, friendlyPos, parameters),
+    GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
+                detectPersons, name, parameters),
+    GNEMoveElementLaneDouble(this, lane, pos, (pos + length), friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -64,8 +66,9 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
         const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, lanes, pos, endPos, freq, outputFilename, vehicleTypes, nextEdges,
-                detectPersons, name, friendlyPos, parameters),
+    GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
+                detectPersons, name, parameters),
+    GNEMoveElementLaneDouble(this, lanes, pos, endPos, friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -75,6 +78,12 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
 
 
 GNELaneAreaDetector::~GNELaneAreaDetector() {
+}
+
+
+GNEMoveElement*
+GNELaneAreaDetector::getMoveElement() {
+    return this;
 }
 
 
@@ -411,6 +420,7 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
         case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_POSITION:
             return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPosition);
@@ -426,6 +436,8 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
             return toString(myJamThreshold);
         case SUMO_ATTR_SHOW_DETECTOR:
             return toString(myShow);
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
         default:
             return getDetectorAttribute(key);
     }
@@ -435,10 +447,13 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
 double
 GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_LENGTH:
-            return (myEndPosition - myStartPosition);
+        case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_POSITION:
+            return myStartPosition;
         case SUMO_ATTR_ENDPOS:
             return myEndPosition;
+        case SUMO_ATTR_LENGTH:
+            return (myEndPosition - myStartPosition);
         default:
             return getDetectorAttributeDouble(key);
     }
@@ -449,6 +464,8 @@ void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LANES:
+        case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_TLID:
         case SUMO_ATTR_LENGTH:
@@ -456,6 +473,7 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
         case SUMO_ATTR_SHOW_DETECTOR:
+        case SUMO_ATTR_FRIENDLY_POS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -474,6 +492,8 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<std::vector<GNELane*> >(myNet, value, true);
             }
+        case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
         case SUMO_ATTR_TLID:
@@ -488,6 +508,8 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_SHOW_DETECTOR:
+            return canParse<bool>(value);
+        case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         default:
             return isDetectorValid(key, value);
@@ -630,6 +652,14 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             replaceAdditionalParentLanes(value);
             break;
+        case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_POSITION:
+            myStartPosition = parse<double>(value);
+            // update geometry (except for template)
+            if (getParentLanes().size() > 0) {
+                updateGeometry();
+            }
+            break;
         case SUMO_ATTR_ENDPOS:
             myEndPosition = parse<double>(value);
             // update geometry (except for template)
@@ -659,142 +689,12 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHOW_DETECTOR:
             myShow = parse<bool>(value);
             break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
+            break;
         default:
             setDetectorAttribute(key, value);
             break;
-    }
-}
-
-
-void
-GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
-        // change only start position
-        myStartPosition = moveResult.newFirstPos;
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
-        // change only end position
-        myEndPosition = moveResult.newFirstPos;
-    } else {
-        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST) {
-            const auto difference = moveResult.newFirstPos - myStartPosition;
-            // change start position
-            myStartPosition = moveResult.newFirstPos;
-            myEndPosition += difference;
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST) {
-            const auto difference = moveResult.newFirstPos - myEndPosition;
-            // change end position
-            myStartPosition += difference;
-            myEndPosition = moveResult.newFirstPos;
-        }
-        // end position over lane
-        if (myStartPosition < 0) {
-            myStartPosition = 0;
-        } else if (myStartPosition > getParentLanes().front()->getLaneShapeLength()) {
-            myStartPosition = getParentLanes().front()->getLaneShapeLength();
-        }
-        // adjust position over lane
-        if (myEndPosition < 0) {
-            myEndPosition = 0;
-        } else if (myEndPosition > getParentLanes().back()->getLaneShapeLength()) {
-            myEndPosition = getParentLanes().back()->getLaneShapeLength();
-        }
-    }
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // begin change attribute
-    undoList->begin(this, "position of " + getTagStr());
-    // set attributes depending of operation type
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
-        // set only start position
-        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
-        // set only end position
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    } else {
-        double startPos = myStartPosition;
-        double endPos = myEndPosition;
-        // set positions
-        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST) {
-            const auto difference = moveResult.newFirstPos - myStartPosition;
-            // change start position
-            startPos = moveResult.newFirstPos;
-            endPos += difference;
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST) {
-            const auto difference = moveResult.newFirstPos - myEndPosition;
-            // change end position
-            startPos += difference;
-            endPos = moveResult.newFirstPos;
-        }
-        // end position over lane
-        if (startPos < 0) {
-            startPos = 0;
-        } else if (startPos > getParentLanes().front()->getLaneShapeLength()) {
-            startPos = getParentLanes().front()->getLaneShapeLength();
-        }
-        // adjust position over lane
-        if (endPos < 0) {
-            endPos = 0;
-        } else if (endPos > getParentLanes().back()->getLaneShapeLength()) {
-            endPos = getParentLanes().back()->getLaneShapeLength();
-        }
-        // set only end position
-        setAttribute(SUMO_ATTR_POSITION, toString(startPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), undoList);
-    }
-    // end change attribute
-    undoList->end();
-}
-
-
-double
-GNELaneAreaDetector::getStartGeometryPositionOverLane() const {
-    // get lane final and shape length
-    const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // get startPosition
-    double fixedPos = myStartPosition;
-    // adjust fixedPos
-    if (fixedPos < 0) {
-        fixedPos += laneLength;
-    }
-    fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
-    // return depending of fixedPos
-    if (fixedPos < 0) {
-        return 0;
-    } else if (fixedPos > (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS)) {
-        return (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
-    } else {
-        return fixedPos;
-    }
-}
-
-
-double
-GNELaneAreaDetector::getEndGeometryPositionOverLane() const {
-    // get lane final and shape length
-    const double laneLength = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    // get endPosition
-    double fixedPos = myEndPosition;
-    // adjust fixedPos
-    if (fixedPos < 0) {
-        fixedPos += laneLength;
-    }
-    fixedPos *= getParentLanes().back()->getLengthGeometryFactor();
-    // return depending of fixedPos
-    if (fixedPos < POSITION_EPS) {
-        return POSITION_EPS;
-    } else if (fixedPos > getParentLanes().back()->getLaneShapeLength()) {
-        return getParentLanes().back()->getLaneShapeLength();
-    } else {
-        return fixedPos;
     }
 }
 

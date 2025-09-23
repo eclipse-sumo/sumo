@@ -71,8 +71,6 @@ set(netedit_elements_additional_SRCS
    GNETractionSubstation.cpp
    GNEOverheadWire.h
    GNEOverheadWire.cpp
-   GNELaneMovableElement.cpp
-   GNELaneMovableElement.h
    )
 
 add_library(netedit_elements_additional STATIC ${netedit_elements_additional_SRCS})

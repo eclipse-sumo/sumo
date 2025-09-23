@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementView.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -32,7 +34,7 @@ class GNEEdge;
 // class definitions
 // ===========================================================================
 
-class GNERerouter : public GNEAdditional, public Parameterised {
+class GNERerouter : public GNEAdditional, public GNEMoveElementView, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -55,10 +57,8 @@ public:
     /// @brief Destructor
     ~GNERerouter();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
@@ -163,20 +163,17 @@ public:
     /// @}
 
 protected:
-    /// @brief position of rerouter in view
-    Position myPosition;
-
     /// @brief probability of rerouter
-    double myProbability;
+    double myProbability = 0;
 
     /// @brief attribute to enable or disable inactive initially
-    bool myOff;
+    bool myOff = false;
 
     /// @brief attribute to enable or disable request trigger
-    bool myOptional;
+    bool myOptional = false;
 
     /// @brief attribute to configure activation time threshold
-    SUMOTime myTimeThreshold;
+    SUMOTime myTimeThreshold = 0;
 
     /// @brief optional vehicle types for restricting the rerouter
     std::vector<std::string> myVTypes;
@@ -184,12 +181,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief rebuild Rerouter Symbols
     void rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList);

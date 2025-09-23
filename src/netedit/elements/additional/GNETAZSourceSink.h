@@ -46,11 +46,11 @@ public:
     /// @brief destructor
     ~GNETAZSourceSink();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
-
     /// @brief get GNEMoveElement associated with this AttributeCarrier
     GNEMoveElement* getMoveElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief write TAZ sourceSink
     void writeTAZSourceSink(OutputDevice& device) const;

@@ -48,6 +48,9 @@ public:
     /// @brief destructor
     ~GNEParkingAreaReroute();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
+
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */

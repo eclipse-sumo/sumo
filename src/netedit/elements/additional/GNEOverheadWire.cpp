@@ -38,7 +38,8 @@
 // ===========================================================================
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, "") {
+    GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
+    GNEMoveElementLaneDouble(this) {
 }
 
 
@@ -46,13 +47,10 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
+    GNEMoveElementLaneDouble(this, lanes, startPos, endPos, friendlyPos),
     Parameterised(parameters),
-    myStartPos(startPos),
-    myEndPos(endPos),
-    myFriendlyPosition(friendlyPos),
     myForbiddenInnerLanes(forbiddenInnerLanes) {
     // set parents
-    setParents<GNELane*>(lanes);
     setParent<GNEAdditional*>(substation);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -63,15 +61,9 @@ GNEOverheadWire::~GNEOverheadWire() {
 }
 
 
-GNEMoveOperation*
-GNEOverheadWire::getMoveOperation() {
-    // check modes and detector type
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
-        return getMoveOperationMultiLane(myStartPos, myEndPos);
-    } else {
-        return nullptr;
-    }
+GNEMoveElement*
+GNEOverheadWire::getMoveElement() {
+    return this;
 }
 
 
@@ -81,8 +73,8 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
     device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
-    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
+    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
@@ -103,10 +95,10 @@ GNEOverheadWire::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myStartPos >= 0) &&
-                   (myEndPos >= 0) &&
-                   ((myStartPos) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                   ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (myStartPosition >= 0) &&
+                   (myEndPosition >= 0) &&
+                   ((myStartPosition) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                   ((myEndPosition) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         return false;
@@ -127,17 +119,17 @@ GNEOverheadWire::getAdditionalProblem() const {
         return TL("lanes aren't connected");
     }
     // check positions over first lane
-    if (myStartPos < 0) {
+    if (myStartPosition < 0) {
         errorFirstLanePosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
     }
-    if (myStartPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
         errorFirstLanePosition = (toString(SUMO_ATTR_STARTPOS) + TL(" > lanes's length"));
     }
     // check positions over last lane
-    if (myEndPos < 0) {
+    if (myEndPosition < 0) {
         errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
     }
-    if (myEndPos > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    if (myEndPosition > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
         errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
     }
     // check separator
@@ -177,8 +169,8 @@ GNEOverheadWire::fixAdditionalProblem() {
         }
     } else {
         // declare new positions
-        double newPositionOverLane = myStartPos;
-        double newEndPositionOverLane = myEndPos;
+        double newPositionOverLane = myStartPosition;
+        double newEndPositionOverLane = myEndPosition;
         // fix pos and length checkAndFixDetectorPosition
         GNEAdditionalHandler::fixMultiLanePosition(
             newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
@@ -383,9 +375,9 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
         case SUMO_ATTR_STARTPOS:
-            return toString(myStartPos);
+            return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPos);
+            return toString(myEndPosition);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
@@ -402,20 +394,20 @@ double
 GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            if (myStartPos < 0) {
+            if (myStartPosition < 0) {
                 return 0;
-            } else if (myStartPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            } else if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             } else {
-                return myStartPos;
+                return myStartPosition;
             }
         case SUMO_ATTR_ENDPOS:
-            if (myEndPos < 0) {
+            if (myEndPosition < 0) {
                 return 0;
-            } else if (myEndPos > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            } else if (myEndPosition > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
                 return getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
             } else {
-                return myEndPos;
+                return myEndPosition;
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -511,9 +503,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_STARTPOS:
             if (value.empty() || (value == LANE_START)) {
-                myStartPos = INVALID_DOUBLE;
+                myStartPosition = INVALID_DOUBLE;
             } else {
-                myStartPos = parse<double>(value);
+                myStartPosition = parse<double>(value);
             }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
@@ -522,9 +514,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ENDPOS:
             if (value.empty() || (value == LANE_END)) {
-                myEndPos = INVALID_DOUBLE;
+                myEndPosition = INVALID_DOUBLE;
             } else {
-                myEndPos = parse<double>(value);
+                myEndPosition = parse<double>(value);
             }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
@@ -543,92 +535,6 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             setCommonAttribute(this, key, value);
             break;
-    }
-}
-
-void
-GNEOverheadWire::setMoveShape(const GNEMoveResult& moveResult) {
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
-        // change only start position
-        myStartPos = moveResult.newFirstPos;
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
-        // change only end position
-        myEndPos = moveResult.newFirstPos;
-    } else {
-        // change both position
-        myStartPos = moveResult.newFirstPos;
-        myEndPos = moveResult.newLastPos;
-    }
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEOverheadWire::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // begin change attribute
-    undoList->begin(this, "position of " + getTagStr());
-    // set attributes depending of operation type
-    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) ||
-            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
-        // set only start position
-        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-    } else if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
-        // set only end position
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    } else {
-        // set both positions
-        setAttribute(SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newLastPos), undoList);
-    }
-    // end change attribute
-    undoList->end();
-}
-
-
-double
-GNEOverheadWire::getStartGeometryPositionOverLane() const {
-    // get lane final and shape length
-    const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // get startPosition
-    double fixedPos = myStartPos;
-    // adjust fixedPos
-    if (fixedPos < 0) {
-        fixedPos += laneLength;
-    }
-    fixedPos *= getParentLanes().front()->getLengthGeometryFactor();
-    // return depending of fixedPos
-    if (fixedPos < 0) {
-        return 0;
-    } else if (fixedPos > (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS)) {
-        return (getParentLanes().front()->getLaneShapeLength() - POSITION_EPS);
-    } else {
-        return fixedPos;
-    }
-}
-
-
-double
-GNEOverheadWire::getEndGeometryPositionOverLane() const {
-    // get lane final and shape length
-    const double laneLength = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    // get endPosition
-    double fixedPos = myEndPos;
-    // adjust fixedPos
-    if (fixedPos < 0) {
-        fixedPos += laneLength;
-    }
-    fixedPos *= getParentLanes().back()->getLengthGeometryFactor();
-    // return depending of fixedPos
-    if (fixedPos < POSITION_EPS) {
-        return POSITION_EPS;
-    } else if (fixedPos > getParentLanes().back()->getLaneShapeLength()) {
-        return getParentLanes().back()->getLaneShapeLength();
-    } else {
-        return fixedPos;
     }
 }
 

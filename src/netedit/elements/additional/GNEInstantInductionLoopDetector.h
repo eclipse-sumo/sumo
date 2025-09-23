@@ -20,13 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+
 #include "GNEDetector.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEInstantInductionLoopDetector : public GNEDetector {
+class GNEInstantInductionLoopDetector : public GNEDetector, public GNEMoveElementLaneSingle {
 
 public:
     /// @brief default Constructor
@@ -54,6 +56,9 @@ public:
     /// @brief Destructor
     ~GNEInstantInductionLoopDetector();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
+
     /// @name members and functions relative to write additionals into XML
     /// @{
 
@@ -70,17 +75,6 @@ public:
 
     /// @brief fix additional problem
     void fixAdditionalProblem();
-
-    /// @}
-
-    /// @name inherited from GNEDetector
-    /// @{
-
-    /// @brief check if Position of detector is fixed
-    bool isDetectorPositionFixed() const;
-
-    /// @brief get lane
-    GNELane* getLane() const;
 
     /// @}
 
@@ -137,12 +131,6 @@ public:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEInstantInductionLoopDetector(const GNEInstantInductionLoopDetector&) = delete;

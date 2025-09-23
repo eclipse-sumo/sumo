@@ -20,13 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementView.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional, public Parameterised {
+class GNETractionSubstation : public GNEAdditional, public GNEMoveElementView, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -47,10 +49,8 @@ public:
     /// @brief Destructor
     ~GNETractionSubstation();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -152,9 +152,6 @@ public:
     /// @}
 
 protected:
-    /// @brief position of tractionSubstation in view
-    Position myPosition;
-
     /// @brief voltage
     double myVoltage = 0;
 
@@ -164,12 +161,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNETractionSubstation(const GNETractionSubstation&) = delete;

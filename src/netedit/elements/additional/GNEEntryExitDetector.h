@@ -20,18 +20,21 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+
 #include "GNEDetector.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEMultiEntryExitDetector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEEntryExitDetector : public GNEDetector {
+class GNEEntryExitDetector : public GNEDetector, public GNEMoveElementLaneSingle {
 
 public:
     /// @brief default Constructor
@@ -45,11 +48,14 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
-                         const Parameterised::Map& parameters);
+    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos,
+                         const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNEEntryExitDetector();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -127,12 +133,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEEntryExitDetector(const GNEEntryExitDetector&) = delete;

@@ -76,18 +76,6 @@ GNEAdditional::getHierarchicalElement() {
 }
 
 
-GNEMoveElement*
-GNEAdditional::getMoveElement() {
-    return this;
-}
-
-
-void
-GNEAdditional::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // currently there isn't additionals with removable geometry points
-}
-
-
 GUIGlObject*
 GNEAdditional::getGUIGlObject() {
     return this;
@@ -898,43 +886,6 @@ GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) cons
             demandElement->drawGL(s);
         }
     }
-}
-
-
-GNEMoveOperation*
-GNEAdditional::getMoveOperationMultiLane(const double startPos, const double endPos) {
-    // get snap radius
-    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-    // get mouse position
-    const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-    // calculate both geometries
-    GUIGeometry fromGeometry, toGeometry;
-    fromGeometry.updateGeometry(getParentLanes().front()->getLaneGeometry().getShape(), startPos, 0);
-    toGeometry.updateGeometry(getParentLanes().back()->getLaneGeometry().getShape(), endPos, 0);
-    // check if we clicked over start or end position
-    if (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move first position
-            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
-        } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // move last position
-            return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                        false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
-        }
-    } else {
-        auto segment = gViewObjectsHandler.getSelectedSegment(this);
-        if (segment) {
-            if (segment->getLaneIndex() == 0) {
-                return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                            false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_FIRST);
-            } else if (segment->getLaneIndex() == ((int)getParentLanes().size() - 1)) {
-                return new GNEMoveOperation(this, getParentLanes().front(), startPos, getParentLanes().back(), endPos,
-                                            false, GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_BOTH_LAST);
-            }
-        }
-    }
-    return nullptr;
 }
 
 

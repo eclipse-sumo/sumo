@@ -20,15 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include "GNELaneMovableElement.h"
-
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEDetector : public GNEAdditional, public GNELaneMovableElement, public Parameterised {
+class GNEDetector : public GNEAdditional, public Parameterised {
 
 public:
     /**@brief Default constructor
@@ -42,46 +40,18 @@ public:
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
-     * @param[in] lane parent lane
-     * @param[in] startPos start position of the detector on the lane
-     * @param[in] endPos start position of the detector on the lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
      * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] outputFilename The path to the output file.
      * @param[in] name detector name
-     * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
     GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag,
-                GNELane* lane, const double startPos, const double endPos, const SUMOTime period,
-                const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
-                const std::vector<std::string>& nextEdges, const std::string& detectPersons,
-                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
-
-    /**@brief Constructor
-     * @param[in] id Gl-id of the detector (Must be unique)
-     * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this AttributeCarrier is stored
-     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
-     * @param[in] lanes vector of parent lanes
-     * @param[in] startPos start position of the detector on the lane
-     * @param[in] endPos start position of the detector on the lane
-     * @param[in] period the aggregation period the values the detector collects shall be summed up.
-     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
-     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
-     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
-     * @param[in] outputFilename The path to the output file.
-     * @param[in] name detector name
-     * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] parameters generic parameters
-     */
-    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag,
-                const std::vector<GNELane*>& lanes, const double startPos, const double endPos,
                 const SUMOTime period, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
-                const std::vector<std::string>& nextEdges, const std::string& detectPersons,
-                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+                const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
+                const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -91,20 +61,16 @@ public:
      * @param[in] parentLanes vector of parent lanes
      * @param[in] outputFilename The path to the output file.
      * @param[in] name detector name
-     * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, GNELane* lane, const double pos,
-                const SUMOTime period, const std::string& outputFilename, const std::string& name,
-                const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, const SUMOTime period, const std::string& outputFilename,
+                const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEDetector();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    virtual GNEMoveElement* getMoveElement() = 0;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -274,12 +240,6 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief set move shape
-    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
-
-    /// @brief commit move shape
-    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief Invalidate return position of additional
     const Position& getPosition() const = delete;

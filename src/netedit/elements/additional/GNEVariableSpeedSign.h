@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementView.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -32,7 +34,7 @@ class GNEVariableSpeedSignStep;
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSign : public GNEAdditional, public Parameterised {
+class GNEVariableSpeedSign : public GNEAdditional, public GNEMoveElementView, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -54,10 +56,8 @@ public:
     /// @brief Destructor
     ~GNEVariableSpeedSign();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -163,21 +163,12 @@ public:
     /// @}
 
 protected:
-    /// @brief position of VSS in view
-    Position myPosition;
-
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief rebuild VSS Symbols
     void rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList);

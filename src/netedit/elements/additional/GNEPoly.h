@@ -20,6 +20,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <netedit/elements/moving/GNEMoveElementShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -36,7 +38,7 @@ class GNENetworkElement;
 // class definitions
 // ===========================================================================
 
-class GNEPoly : public TesselatedPolygon, public GNEAdditional {
+class GNEPoly : public TesselatedPolygon, public GNEAdditional, public GNEMoveElementShape  {
 
 public:
     /// @brief needed to avoid diamond problem between SUMOPolygon and GNEAdditional
@@ -80,13 +82,8 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation() override;
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -244,12 +241,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult) override;
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
     /// @brief draw polygon
     void drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

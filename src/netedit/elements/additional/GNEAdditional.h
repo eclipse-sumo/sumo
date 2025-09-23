@@ -40,7 +40,7 @@ class GUIGLObjectPopupMenu;
 // class definitions
 // ===========================================================================
 
-class GNEAdditional : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
+class GNEAdditional : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement {
 
 public:
     /**@brief Constructor
@@ -67,15 +67,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
-
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    virtual GNEMoveOperation* getMoveOperation() = 0;
-
-    /// @brief remove geometry point in the clicked position (Currently unused in shapes)
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+    virtual GNEMoveElement* getMoveElement() = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
@@ -402,9 +394,6 @@ protected:
     /// @brief draw demand element children
     void drawDemandElementChildren(const GUIVisualizationSettings& s) const;
 
-    /// @brief get moveOperation for an element over multi lane
-    GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
-
     /// @name JuPedSim values
     /// @{
 
@@ -439,12 +428,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief set move shape
-    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
-
-    /// @brief commit move shape
-    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief draw geometry point
     void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

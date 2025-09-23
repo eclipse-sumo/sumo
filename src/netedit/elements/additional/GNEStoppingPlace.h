@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNELaneMovableElement.h"
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
 
 #include "GNEAdditional.h"
 
@@ -28,7 +28,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEStoppingPlace : public GNEAdditional, public GNELaneMovableElement, public Parameterised {
+class GNEStoppingPlace : public GNEAdditional, public GNEMoveElementLaneDouble, public Parameterised {
 
 public:
     /**@brief Default constructor
@@ -58,10 +58,8 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -239,12 +237,6 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;

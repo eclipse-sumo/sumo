@@ -51,6 +51,12 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalPare
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
+GNEMoveElement*
+GNEClosingLaneReroute::getMoveElement() {
+    return nullptr;
+}
+
+
 void
 GNEClosingLaneReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);

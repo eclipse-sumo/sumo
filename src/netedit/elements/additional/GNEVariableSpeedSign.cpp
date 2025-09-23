@@ -35,7 +35,8 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_VSS, "") {
+    GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
+    GNEMoveElementView(this) {
 }
 
 
@@ -43,8 +44,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
+    GNEMoveElementView(this, pos),
     Parameterised(parameters),
-    myPosition(pos),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -52,6 +53,12 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
 
 
 GNEVariableSpeedSign::~GNEVariableSpeedSign() {
+}
+
+
+GNEMoveElement*
+GNEVariableSpeedSign::getMoveElement() {
+    return this;
 }
 
 
@@ -99,13 +106,6 @@ GNEVariableSpeedSign::GNEVariableSpeedSign::getAdditionalProblem() const {
 void
 GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
     // nothing to fix
-}
-
-
-GNEMoveOperation*
-GNEVariableSpeedSign::getMoveOperation() {
-    // return move operation for additional placed in view
-    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -330,23 +330,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNEVariableSpeedSign::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "position of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-    undoList->end();
 }
 
 

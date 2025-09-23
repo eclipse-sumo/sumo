@@ -42,7 +42,8 @@
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
-    GNEAdditional("", net, "", tag, "") {
+    GNEAdditional("", net, "", tag, ""),
+    GNEMoveElementLaneDouble(this) {
 }
 
 
@@ -51,7 +52,7 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
-    GNELaneMovableElement(this, lane, startPos, endPos, friendlyPosition),
+    GNEMoveElementLaneDouble(this, lane, startPos, endPos, friendlyPosition),
     Parameterised(parameters),
     myColor(color),
     myAngle(angle) {
@@ -61,9 +62,9 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
-GNEMoveOperation*
-GNEStoppingPlace::getMoveOperation() {
-    return getStartEndMoveOperation();
+GNEMoveElement*
+GNEStoppingPlace::getMoveElement() {
+    return this;
 }
 
 
@@ -624,18 +625,6 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
         mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, getType(),
                 exaggeration, getParentLanes().front()->getParentEdge());
     }
-}
-
-
-void
-GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
-    setLaneMovableMoveShape(moveResult);
-}
-
-
-void
-GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    commitLaneMovableMoveShape(moveResult, undoList);
 }
 
 /****************************************************************************/

@@ -55,15 +55,15 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZP
 GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
-GNEHierarchicalElement*
-GNETAZSourceSink::getHierarchicalElement() {
-    return this;
-}
-
-
 GNEMoveElement*
 GNETAZSourceSink::getMoveElement() {
     return nullptr;
+}
+
+
+GNEHierarchicalElement*
+GNETAZSourceSink::getHierarchicalElement() {
+    return this;
 }
 
 

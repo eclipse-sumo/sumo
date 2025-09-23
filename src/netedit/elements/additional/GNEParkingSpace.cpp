@@ -36,7 +36,7 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_PARKING_SPACE, ""),
-    mySlope(0) {
+    GNEMoveElementView(this) {
 }
 
 
@@ -44,8 +44,8 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(parkingAreaParent, SUMO_TAG_PARKING_SPACE, name),
+    GNEMoveElementView(this, pos),
     Parameterised(parameters),
-    myPosition(pos),
     myWidth(width),
     myLength(length),
     myAngle(angle),
@@ -60,30 +60,8 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
 GNEParkingSpace::~GNEParkingSpace() {}
 
 
-GNEMoveOperation*
-GNEParkingSpace::getMoveOperation() {
-    if (drawMovingGeometryPoints()) {
-        // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // check if we're editing width or height
-        if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit length
-            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
-        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
-        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
-        } else {
-            return nullptr;
-        }
-    } else {
-        // move entire space
-        return new GNEMoveOperation(this, myPosition);
-    }
+GNEMoveElement* GNEParkingSpace::getMoveElement() {
+    return this;
 }
 
 
@@ -479,40 +457,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             setCommonAttribute(this, key, value);
             break;
-    }
-}
-
-
-void
-GNEParkingSpace::setMoveShape(const GNEMoveResult& moveResult) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
-        myShapeLength[1] = moveResult.shapeToUpdate[1];
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        myShapeWidth = moveResult.shapeToUpdate;
-    } else {
-        myPosition = moveResult.shapeToUpdate.front();
-        // update geometry
-        updateGeometry();
-    }
-}
-
-
-void
-GNEParkingSpace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
-        undoList->begin(this, "length of " + getTagStr());
-        setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
-        undoList->end();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(this, "width of " + getTagStr());
-        setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
-        undoList->end();
-    } else {
-        undoList->begin(this, "position of " + getTagStr());
-        setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-        undoList->end();
     }
 }
 

@@ -20,13 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementView.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
+class GNEMultiEntryExitDetector : public GNEAdditional, public GNEMoveElementView, public Parameterised {
 
 public:
     /// @brief default constructor
@@ -57,10 +59,10 @@ public:
     /// @brief GNEMultiEntryExitDetector Destructor
     ~GNEMultiEntryExitDetector();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() {
+        return this;
+    }
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -162,9 +164,6 @@ public:
     /// @}
 
 protected:
-    /// @brief position of E3 in view
-    Position myPosition;
-
     /// @brief period of E3 detector
     SUMOTime myPeriod = 0;
 
@@ -198,12 +197,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEMultiEntryExitDetector(const GNEMultiEntryExitDetector&) = delete;

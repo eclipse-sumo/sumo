@@ -36,10 +36,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
-    myProbability(0),
-    myOff(false),
-    myOptional(false),
-    myTimeThreshold(0) {
+    GNEMoveElementView(this) {
 }
 
 
@@ -47,8 +44,8 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
+    GNEMoveElementView(this, pos),
     Parameterised(parameters),
-    myPosition(pos),
     myProbability(probability),
     myOff(off),
     myOptional(optional),
@@ -60,6 +57,12 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
 
 
 GNERerouter::~GNERerouter() {
+}
+
+
+GNEMoveElement*
+GNERerouter::getMoveElement() {
+    return this;
 }
 
 
@@ -134,13 +137,6 @@ GNERerouter::checkDrawMoveContour() const {
     } else {
         return false;
     }
-}
-
-
-GNEMoveOperation*
-GNERerouter::getMoveOperation() {
-    // return move operation for additional placed in view
-    return new GNEMoveOperation(this, myPosition);
 }
 
 
@@ -409,23 +405,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNERerouter::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "position of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-    undoList->end();
 }
 
 

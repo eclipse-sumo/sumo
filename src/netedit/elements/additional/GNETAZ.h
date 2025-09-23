@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEAdditional.h"
@@ -28,7 +29,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETAZ : public GNEAdditional, public TesselatedPolygon {
+class GNETAZ : public GNEAdditional, public TesselatedPolygon, public GNEMoveElementShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional
@@ -54,10 +55,8 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
@@ -65,9 +64,6 @@ public:
      * @return index of position vector
      */
     int getVertexIndex(Position pos, bool snapToGrid);
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -190,9 +186,6 @@ public:
     void updateTAZStatistic();
 
 protected:
-    /// @brief TAZ center
-    Position myTAZCenter;
-
     /// @brief TAZ center contour
     GNEContour myTAZCenterContour;
 
@@ -226,12 +219,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNETAZ(const GNETAZ&) = delete;

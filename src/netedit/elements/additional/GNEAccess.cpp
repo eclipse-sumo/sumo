@@ -40,22 +40,18 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
-    myPositionOverLane(0),
-    myLength(0),
-    myFriendlyPosition(false) {
+    GNEMoveElementLaneSingle(this) {
 }
 
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
                      const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
     GNEAdditional(busStop, SUMO_TAG_ACCESS, ""),
+    GNEMoveElementLaneSingle(this, lane, pos, friendlyPos),
     Parameterised(parameters),
-    myPositionOverLane(pos),
     mySpecialPosition(specialPos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+    myLength(length) {
     // set parents
-    setParent<GNELane*>(lane);
     setParent<GNEAdditional*>(busStop);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -65,12 +61,9 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
 GNEAccess::~GNEAccess() {
 }
 
-
-GNEMoveOperation*
-GNEAccess::getMoveOperation() {
-    // return move operation for additional placed over shape
-    return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
+/// @brief get GNEMoveElement associated with this AttributeCarrier
+inline GNEMoveElement* GNEAccess::getMoveElement() {
+    return this;
 }
 
 
@@ -78,12 +71,12 @@ void
 GNEAccess::updateGeometry() {
     // set start position
     double fixedPositionOverLane;
-    if (myPositionOverLane < 0) {
+    if (myPosition < 0) {
         fixedPositionOverLane = 0;
-    } else if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    } else if (myPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
         fixedPositionOverLane = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     } else {
-        fixedPositionOverLane = myPositionOverLane;
+        fixedPositionOverLane = myPosition;
     }
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor(), myMoveElementLateralOffset);
@@ -104,11 +97,11 @@ GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 void
 GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
-    if (splitPosition < myPositionOverLane) {
+    if (splitPosition < myPosition) {
         // change lane
         setAttribute(SUMO_ATTR_LANE, newElement->getID(), undoList);
         // now adjust start position
-        setAttribute(SUMO_ATTR_POSITION, toString(myPositionOverLane - splitPosition), undoList);
+        setAttribute(SUMO_ATTR_POSITION, toString(myPosition - splitPosition), undoList);
     }
 }
 
@@ -116,11 +109,11 @@ GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetworkElement
 bool
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
+    if (myFriendlyPos) {
         return true;
     } else {
-        if (myPositionOverLane != INVALID_DOUBLE) {
-            return (myPositionOverLane >= 0) && (myPositionOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+        if (myPosition != INVALID_DOUBLE) {
+            return (myPosition >= 0) && (myPosition <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
         } else {
             return false;
         }
@@ -136,8 +129,8 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
     if (myLength != -1) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    if (myFriendlyPos) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     device.closeTag();
 }
@@ -146,12 +139,12 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 bool
 GNEAccess::isAdditionalValid() const {
     // with friendly position enabled position is "always fixed"
-    if (myFriendlyPosition) {
+    if (myFriendlyPos) {
         return true;
-    } else if (myPositionOverLane == INVALID_DOUBLE) {
+    } else if (myPosition == INVALID_DOUBLE) {
         return true;
     } else {
-        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return fabs(myPosition) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     }
 }
 
@@ -160,16 +153,16 @@ std::string GNEAccess::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
-    if (GNEAdditionalHandler::checkLanePosition(myPositionOverLane, 0, len, myFriendlyPosition)) {
+    if (GNEAdditionalHandler::checkLanePosition(myPosition, 0, len, myFriendlyPos)) {
         return "";
     } else {
         // declare variable for error position
         std::string errorPosition;
         // check positions over lane
-        if (myPositionOverLane < 0) {
+        if (myPosition < 0) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
-        if (myPositionOverLane > len) {
+        if (myPosition > len) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         return errorPosition;
@@ -179,7 +172,7 @@ std::string GNEAccess::getAdditionalProblem() const {
 
 void GNEAccess::fixAdditionalProblem() {
     // declare new position
-    double newPositionOverLane = myPositionOverLane;
+    double newPositionOverLane = myPosition;
     // declare new length (but unsed in this context)
     double length = 0;
     // fix pos and length with fixLanePosition
@@ -278,10 +271,10 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
-            if (myPositionOverLane == INVALID_DOUBLE) {
+            if (myPosition == INVALID_DOUBLE) {
                 return mySpecialPosition;
             } else {
-                return toString(myPositionOverLane);
+                return toString(myPosition);
             }
         case SUMO_ATTR_LENGTH:
             if (myLength == -1) {
@@ -290,7 +283,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
                 return toString(myLength);
             }
         case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
+            return toString(myFriendlyPos);
         case GNE_ATTR_PARENT:
             if (isTemplate()) {
                 return "";
@@ -396,12 +389,12 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             if (value.empty()) {
-                myPositionOverLane = 0;
+                myPosition = 0;
             } else if (value == "random" || value == "doors" || value == "carriage") {
-                myPositionOverLane = INVALID_DOUBLE;
+                myPosition = INVALID_DOUBLE;
                 mySpecialPosition = value;
             } else {
-                myPositionOverLane = parse<double>(value);
+                myPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_LENGTH:
@@ -412,7 +405,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
+            myFriendlyPos = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) {
@@ -431,34 +424,5 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
 }
-
-
-void
-GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myPositionOverLane = moveResult.newFirstPos;
-    // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // reset lateral offset
-    myMoveElementLateralOffset = 0;
-    undoList->begin(this, "position of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    // check if lane has to be changed
-    if (moveResult.newFirstLane) {
-        // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-    }
-    // end change attribute
-    undoList->end();
-}
-
 
 /****************************************************************************/

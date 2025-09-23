@@ -46,6 +46,11 @@ public:
     /// @brief destructor
     ~GNERouteProbReroute();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() {
+        return nullptr;
+    }
+
     /// @name members and functions relative to write additionals into XML
     /// @{
 

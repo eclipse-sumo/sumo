@@ -20,13 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEOverheadWire : public GNEAdditional, public Parameterised {
+class GNEOverheadWire : public GNEAdditional, public GNEMoveElementLaneDouble, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -53,10 +55,8 @@ public:
     /// @brief Destructor
     ~GNEOverheadWire();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -171,33 +171,12 @@ public:
     /// @}
 
 protected:
-    /// @brief start position over lane
-    double myStartPos = 0;
-
-    /// @brief end position over lane
-    double myEndPos = 0;
-
-    /// @brief friendly position
-    bool myFriendlyPosition = false;
-
     /// @brief forbidden inner lanes
     std::vector<std::string> myForbiddenInnerLanes;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
 
     /// @brief Invalidated copy constructor.
     GNEOverheadWire(const GNEOverheadWire&) = delete;
