@@ -30,7 +30,7 @@ class GNEMoveElementLaneDouble : public GNEMoveElement {
 
 public:
     /// @brief Default constructor
-    GNEMoveElementLaneDouble();
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element);
 
     /**@brief Constructor
      * @param[in] lane Lane of this StoppingPlace belongs

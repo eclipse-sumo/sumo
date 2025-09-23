@@ -105,7 +105,7 @@ GNEMoveElementView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList
         undoList->end();
     } else {
         undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
-        myElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+        GNEChange_Attribute::changeAttribute(myElement, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         undoList->end();
     }
 }

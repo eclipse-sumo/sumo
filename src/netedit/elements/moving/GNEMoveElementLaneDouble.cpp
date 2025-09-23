@@ -43,7 +43,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEMoveElementLaneDouble::GNEMoveElementLaneDouble() {
+GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element) :
+    myElement(element) {
 }
 
 
