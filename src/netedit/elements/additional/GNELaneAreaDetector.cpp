@@ -42,9 +42,9 @@
 // ===========================================================================
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
-    GNEMoveElementLaneDouble(this),
-    GNEDetector(net, tag) {
-}
+    GNEDetector(net, tag), 
+    GNEMoveElementLaneDouble(this)
+{ }
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, double length, const SUMOTime freq,
