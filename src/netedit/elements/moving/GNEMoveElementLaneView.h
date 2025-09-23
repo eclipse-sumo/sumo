@@ -43,12 +43,21 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
 protected:
     /// @brief pointer to element
     GNEAttributeCarrier* myElement = nullptr;
 
     /// @brief position over view
     Position myPosition;
+
+    /// @brief shape width of Parking Space
+    PositionVector myShapeWidth;
+
+    /// @brief shape length of Parking Space
+    PositionVector myShapeLength;
 
 private:
     /// @brief set move shape

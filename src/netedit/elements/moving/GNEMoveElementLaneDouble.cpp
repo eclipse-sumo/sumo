@@ -112,6 +112,12 @@ GNEMoveElementLaneDouble::getMoveOperation() {
 }
 
 
+void
+GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
+}
+
+
 double
 GNEMoveElementLaneDouble::getStartGeometryPositionOverLane() const {
     const auto& parentLanes = myElement->getHierarchicalElement()->getParentLanes();

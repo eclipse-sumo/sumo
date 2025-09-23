@@ -46,15 +46,47 @@ GNEMoveElementLaneView::~GNEMoveElementLaneView() {}
 
 GNEMoveOperation*
 GNEMoveElementLaneView::getMoveOperation() {
-    // return move operation for element placed in view
-    return new GNEMoveOperation(this, myPosition);
+    if (myElement->drawMovingGeometryPoints()) {
+        // get snap radius
+        const double snap_radius = myElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        // get mouse position
+        const Position mousePosition = myElement->getNet()->getViewNet()->getPositionInformation();
+        // check if we're editing width or height
+        if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit length
+            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
+        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
+        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+            // edit width
+            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
+        } else {
+            return nullptr;
+        }
+    } else {
+        // move entire space
+        return new GNEMoveOperation(this, myPosition);
+    }
+}
+
+
+void
+GNEMoveElementLaneView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
 }
 
 
 void
 GNEMoveElementLaneView::setMoveShape(const GNEMoveResult& moveResult) {
-    // update position
-    myPosition = moveResult.shapeToUpdate.front();
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
+        myShapeLength[1] = moveResult.shapeToUpdate[1];
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        myShapeWidth = moveResult.shapeToUpdate;
+    } else {
+        myPosition = moveResult.shapeToUpdate.front();
+    }
     // update geometry
     myElement->updateGeometry();
 }
@@ -62,9 +94,20 @@ GNEMoveElementLaneView::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEMoveElementLaneView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
-    myElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
+    // check what are being updated
+    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
+        undoList->begin(myElement, TLF("length of %", myElement->getTagStr()));
+        myElement->setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
+        undoList->begin(myElement, TLF("width of %", myElement->getTagStr()));
+        myElement->setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
+    } else {
+        undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
+        myElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+        undoList->end();
+    }
 }
 
 /****************************************************************************/

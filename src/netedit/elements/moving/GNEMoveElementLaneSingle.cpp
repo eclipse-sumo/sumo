@@ -57,6 +57,12 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 
 
 void
+GNEMoveElementLaneSingle::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
+}
+
+
+void
 GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPosition = moveResult.newFirstPos;

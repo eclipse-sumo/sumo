@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include "GNEMoveElement.h"
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -55,6 +57,9 @@ public:
     * @note returned GNEMoveOperation can be nullptr
     */
     GNEMoveOperation* getMoveOperation();
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
 protected:
     /// @brief pointer to element

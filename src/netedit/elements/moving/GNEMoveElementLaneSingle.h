@@ -44,6 +44,9 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
 protected:
     /// @brief pointer to element
     GNEAttributeCarrier* myElement = nullptr;
