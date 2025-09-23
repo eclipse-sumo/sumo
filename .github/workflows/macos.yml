@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14, macos-15]
+        os: [macos-14, macos-15]
         jps_version: ['v1.3.1']
     runs-on: ${{ matrix.os }}
     env:
