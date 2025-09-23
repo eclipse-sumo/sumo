@@ -99,9 +99,6 @@ public:
 
     /// @}
 
-    /// @brief get position over lane that is applicable to the shape
-    double getGeometryPositionOverLane() const;
-
     /// @name Functions related with geometry of element
     /// @{
 

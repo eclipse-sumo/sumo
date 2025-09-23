@@ -551,11 +551,11 @@ GNEEdge::getMoveOperation() {
             }
         } else {
             // calculate move shape operation (because there are only an edge selected)
-            return calculateMoveShapeOperation(this, myNBEdge->getGeometry(), false);
+            return getEditShapeOperation(this, myNBEdge->getGeometry(), false);
         }
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, myNBEdge->getGeometry(), false);
+        return getEditShapeOperation(this, myNBEdge->getGeometry(), false);
     }
 }
 

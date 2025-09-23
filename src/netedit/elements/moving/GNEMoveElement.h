@@ -69,7 +69,7 @@ protected:
     double myMovingLateralOffset = 0;
 
     /// @brief calculate move shape operation
-    GNEMoveOperation* calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);
+    GNEMoveOperation* getEditShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);
 
 private:
     /// @brief set move shape

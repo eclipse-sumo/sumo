@@ -74,7 +74,7 @@ GNEMoveElementShape::getMoveOperation() {
         return new GNEMoveOperation(this, myMovingShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myMovedElement->getGUIGlObject(), myMovingShape, myAlwaysClosed);
+        return getEditShapeOperation(myMovedElement->getGUIGlObject(), myMovingShape, myAlwaysClosed);
     }
 }
 

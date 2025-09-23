@@ -178,7 +178,7 @@ GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getCrossingShape(), false);
+        return getEditShapeOperation(this, getCrossingShape(), false);
     } else {
         return nullptr;
     }

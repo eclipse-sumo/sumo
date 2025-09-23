@@ -80,11 +80,11 @@ protected:
     /// @brief reference position
     ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
+    /// @brief get start offset position over lane
+    double getStartOffsetPositionOverLane() const;
 
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
+    /// @brief get end offset position over lane
+    double getEndOffsetPositionOverLane() const;
 
     /// @brief adjust length
     void adjustLaneMovableLength(const double length, GNEUndoList* undoList);

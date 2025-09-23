@@ -54,6 +54,9 @@ protected:
     /// @brief friendly position
     bool myFriendlyPos = false;
 
+    /// @brief get offset position over lane
+    double getOffsetPositionOverLane() const;
+
 private:
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

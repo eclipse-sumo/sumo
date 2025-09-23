@@ -244,7 +244,7 @@ GNEConnection::getMoveOperation() {
         // get connection
         const auto& connection = getNBEdgeConnection();
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(), false);
+        return getEditShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(), false);
     } else {
         return nullptr;
     }

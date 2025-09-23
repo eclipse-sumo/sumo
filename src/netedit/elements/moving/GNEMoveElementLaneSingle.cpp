@@ -62,6 +62,34 @@ GNEMoveElementLaneSingle::removeGeometryPoint(const Position /*clickedPosition*/
 }
 
 
+double
+GNEMoveElementLaneSingle::getOffsetPositionOverLane() const {
+    const auto& lane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
+    // continue depending if we defined a end position
+    if (myPosition != INVALID_DOUBLE) {
+        // get lane final and shape length
+        const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
+        // get startPosition
+        double fixedPos = myPosition;
+        // adjust fixedPos
+        if (fixedPos < 0) {
+            fixedPos += laneLength;
+        }
+        fixedPos *= lane->getLengthGeometryFactor();
+        // return depending of fixedPos
+        if (fixedPos < 0) {
+            return 0;
+        } else if (fixedPos > (lane->getLaneShapeLength() - POSITION_EPS)) {
+            return (lane->getLaneShapeLength() - POSITION_EPS);
+        } else {
+            return fixedPos;
+        }
+    } else {
+        return 0;
+    }
+}
+
+
 void
 GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
     // change position

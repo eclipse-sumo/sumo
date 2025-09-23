@@ -443,7 +443,7 @@ GNELane::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getLaneShape(), false);
+        return getEditShapeOperation(this, getLaneShape(), false);
     } else {
         return nullptr;
     }

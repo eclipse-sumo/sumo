@@ -131,7 +131,7 @@ GNEWalkingArea::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getNBWalkingArea().shape, false);
+        return getEditShapeOperation(this, getNBWalkingArea().shape, false);
     } else {
         return nullptr;
     }

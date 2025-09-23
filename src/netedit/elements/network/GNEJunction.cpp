@@ -377,7 +377,7 @@ GNEJunction::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, myNBNode->getShape(), false);
+        return getEditShapeOperation(this, myNBNode->getShape(), false);
     } else {
         // return move junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());

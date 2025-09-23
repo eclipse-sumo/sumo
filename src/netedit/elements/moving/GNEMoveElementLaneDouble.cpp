@@ -120,24 +120,24 @@ GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/
 
 
 double
-GNEMoveElementLaneDouble::getStartGeometryPositionOverLane() const {
-    const auto& parentLanes = myMovedElement->getHierarchicalElement()->getParentLanes();
+GNEMoveElementLaneDouble::getStartOffsetPositionOverLane() const {
+    const auto& firstLane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
     if (myStartPosition != INVALID_DOUBLE) {
         // get lane final and shape length
-        const double laneLength = parentLanes.front()->getParentEdge()->getNBEdge()->getFinalLength();
+        const double laneLength = firstLane->getParentEdge()->getNBEdge()->getFinalLength();
         // get startPosition
         double fixedPos = myStartPosition;
         // adjust fixedPos
         if (fixedPos < 0) {
             fixedPos += laneLength;
         }
-        fixedPos *= parentLanes.front()->getLengthGeometryFactor();
+        fixedPos *= firstLane->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < 0) {
             return 0;
-        } else if (fixedPos > (parentLanes.front()->getLaneShapeLength() - POSITION_EPS)) {
-            return (parentLanes.front()->getLaneShapeLength() - POSITION_EPS);
+        } else if (fixedPos > (firstLane->getLaneShapeLength() - POSITION_EPS)) {
+            return (firstLane->getLaneShapeLength() - POSITION_EPS);
         } else {
             return fixedPos;
         }
@@ -148,29 +148,29 @@ GNEMoveElementLaneDouble::getStartGeometryPositionOverLane() const {
 
 
 double
-GNEMoveElementLaneDouble::getEndGeometryPositionOverLane() const {
-    const auto& parentLanes = myMovedElement->getHierarchicalElement()->getParentLanes();
+GNEMoveElementLaneDouble::getEndOffsetPositionOverLane() const {
+    const auto& lastLane = myMovedElement->getHierarchicalElement()->getParentLanes().back();
     // continue depending if we defined a end position
     if (myEndPosition != INVALID_DOUBLE) {
         // get lane final and shape length
-        const double laneLength = parentLanes.front()->getParentEdge()->getNBEdge()->getFinalLength();
+        const double laneLength = lastLane->getParentEdge()->getNBEdge()->getFinalLength();
         // get endPosition
         double fixedPos = myEndPosition;
         // adjust fixedPos
         if (fixedPos < 0) {
             fixedPos += laneLength;
         }
-        fixedPos *= parentLanes.front()->getLengthGeometryFactor();
+        fixedPos *= lastLane->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < POSITION_EPS) {
             return POSITION_EPS;
-        } else if (fixedPos > parentLanes.front()->getLaneShapeLength()) {
-            return parentLanes.front()->getLaneShapeLength();
+        } else if (fixedPos > lastLane->getLaneShapeLength()) {
+            return lastLane->getLaneShapeLength();
         } else {
             return fixedPos;
         }
     } else {
-        return parentLanes.back()->getLaneShapeLength();
+        return lastLane->getLaneShapeLength();
     }
 }
 

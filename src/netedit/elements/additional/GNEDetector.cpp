@@ -141,17 +141,6 @@ GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkEleme
 }
 
 
-double
-GNEDetector::getGeometryPositionOverLane() const {
-    double fixedPos = getAttributeDouble(SUMO_ATTR_POSITION);
-    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    double length = 0;
-    GNEAdditionalHandler::fixLanePosition(fixedPos, length, len);
-    return (fixedPos * getParentLanes().front()->getLengthGeometryFactor());
-}
-
-
-
 std::string
 GNEDetector::getParentName() const {
     return getParentLanes().front()->getID();
