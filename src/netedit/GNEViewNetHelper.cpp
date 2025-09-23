@@ -1590,7 +1590,9 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() && (markAC == myViewNet->myViewObjectsSelector.getAdditionalFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() &&
+               (markAC == myViewNet->myViewObjectsSelector.getAdditionalFront()) &&
+               myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveElement()) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveElement()->getMoveOperation();
         // continue if move operation is valid
