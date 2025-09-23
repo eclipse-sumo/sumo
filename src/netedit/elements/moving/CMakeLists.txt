@@ -5,6 +5,8 @@ set(netedit_elements_moving_SRCS
    GNEMoveElementLaneDouble.h
    GNEMoveElementLaneSingle.cpp
    GNEMoveElementLaneSingle.h
+   GNEMoveElementShape.cpp
+   GNEMoveElementShape.h
    GNEMoveElementView.cpp
    GNEMoveElementView.h
    GNEMoveOffset.cpp
