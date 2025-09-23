@@ -80,6 +80,7 @@ If you need to modify settings, you can edit the `CMakeCache.txt` by opening it 
 - If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/tests/source/repos/SUMOLibraries` and retry
 - If a wrong Python interpreter or library is found, edit the PYTHON_* variables
 - If you want to disable building the GUI (Fox) or usage of Proj, set the according library entries to an empty string
+- To enable console output for the *Release* build of graphical applications sumo-gui and netedit, set CONSOLE_RELEASE=1
 
 To make a debug build, you should ***not*** change CMAKE_BUILD_TYPE in the cache file. You should choose a different configuration in the GUI instead.
 
