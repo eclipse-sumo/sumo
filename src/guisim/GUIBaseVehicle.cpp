@@ -469,8 +469,9 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         */
     // draw the vehicle
     bool drawCarriages = false;
+    // do not upscale vehicles on physically impossible geometry factors > 1
     const double geometryFactor = (s.scaleLength ?
-                                   ((myVehicle.getLane() != nullptr
+                                   MIN2(1.0, (myVehicle.getLane() != nullptr
                                      ? myVehicle.getLane()->getLengthGeometryFactor(s2)
                                      : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor(s2) : 1)))
                                    : 1);
