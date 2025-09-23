@@ -27,6 +27,7 @@
 // class declaration
 // ===========================================================================
 
+class GNEAttributeCarrier;
 class GNELane;
 class GNEMoveOperation;
 class GNEUndoList;
