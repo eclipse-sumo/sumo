@@ -13,7 +13,7 @@
 /****************************************************************************/
 /// @file    GNEMoveElementLaneDouble.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Mar 2025
+/// @date    Sep 2025
 ///
 // Class used for elements that can be moved over a lane with two positions
 /****************************************************************************/

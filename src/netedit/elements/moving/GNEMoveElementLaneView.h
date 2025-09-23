@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveElementLaneSingle.h
+/// @file    GNEMoveElementLaneView.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2025
 ///
-// Class used for elements that can be moved over a lane with only one position
+// Class used for elements that can be moved over view
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -26,18 +26,17 @@
 // class definitions
 // ===========================================================================
 
-class GNEMoveElementLaneSingle : public GNEMoveElement {
+class GNEMoveElementLaneView : public GNEMoveElement {
 
 public:
     /// @brief constructor
-    GNEMoveElementLaneSingle(GNEAttributeCarrier* element);
+    GNEMoveElementLaneView(GNEAttributeCarrier* element);
 
     /// @brief constructor
-    GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-                             const double position, const bool friendlyPos);
+    GNEMoveElementLaneView(GNEAttributeCarrier* element, const Position& position);
 
     //// @brief empty destructor
-    ~GNEMoveElementLaneSingle();
+    ~GNEMoveElementLaneView();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -48,11 +47,8 @@ protected:
     /// @brief pointer to element
     GNEAttributeCarrier* myElement = nullptr;
 
-    /// @brief position over lane
-    double myPosition = 0;
-
-    /// @brief friendly position
-    bool myFriendlyPos = false;
+    /// @brief position over view
+    Position myPosition;
 
 private:
     /// @brief set move shape
@@ -62,8 +58,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEMoveElementLaneSingle(const GNEMoveElementLaneSingle&) = delete;
+    GNEMoveElementLaneView(const GNEMoveElementLaneView&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEMoveElementLaneSingle& operator=(const GNEMoveElementLaneSingle&) = delete;
+    GNEMoveElementLaneView& operator=(const GNEMoveElementLaneView&) = delete;
 };

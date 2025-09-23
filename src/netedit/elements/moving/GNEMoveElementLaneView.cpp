@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2025
 ///
-// Class used for elements that can be moved over a lane with only one position
+// Class used for elements that can be moved over view
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -24,63 +24,46 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
-#include "GNEMoveElementLaneSingle.h"
+#include "GNEMoveElementLaneView.h"
 
 // ===========================================================================
 // Method definitions
 // ===========================================================================
 
-GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element) :
+GNEMoveElementLaneView::GNEMoveElementLaneView(GNEAttributeCarrier* element) :
     myElement(element) {
 }
 
 
-GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-        const double position, const bool friendlyPos) :
+GNEMoveElementLaneView::GNEMoveElementLaneView(GNEAttributeCarrier* element, const Position& position) :
     myElement(element),
-    myPosition(position),
-    myFriendlyPos(friendlyPos) {
-    // set parents
-    element->getHierarchicalElement()->setParent<GNELane*>(lane);
+    myPosition(position) {
 }
 
 
-GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
+GNEMoveElementLaneView::~GNEMoveElementLaneView() {}
 
 
 GNEMoveOperation*
-GNEMoveElementLaneSingle::getMoveOperation() {
-    // return move operation over a single position
-    return new GNEMoveOperation(this, myElement->getHierarchicalElement()->getParentLanes().front(), myPosition,
-                                myElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
+GNEMoveElementLaneView::getMoveOperation() {
+    // return move operation for element placed in view
+    return new GNEMoveOperation(this, myPosition);
 }
 
 
 void
-GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
-    // change position
-    myPosition = moveResult.newFirstPos;
-    // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
+GNEMoveElementLaneView::setMoveShape(const GNEMoveResult& moveResult) {
+    // update position
+    myPosition = moveResult.shapeToUpdate.front();
     // update geometry
     myElement->updateGeometry();
 }
 
 
 void
-GNEMoveElementLaneSingle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // reset lateral offset
-    myMoveElementLateralOffset = 0;
-    // begin change attribute
+GNEMoveElementLaneView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->begin(myElement, TLF("position of %", myElement->getTagStr()));
-    // set position
     myElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    // check if lane has to be changed
-    if (moveResult.newFirstLane) {
-        // set new lane
-        myElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-    }
-    // end change attribute
     undoList->end();
 }
 
