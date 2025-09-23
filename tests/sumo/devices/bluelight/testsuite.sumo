@@ -24,6 +24,12 @@ turnlane_blocked
 # rescue lane on three-lane road, rescue vehicle must turn right
 3lanes_left
 
+# rescue lane on three-lane road
+3lanes_straight_blocked
+
+# rescue lane on three-lane road
+3lanes_straight_blocked2
+
 # multiple equipped vehicle in network with opposite direction driving (#9310)
 opposite_multiple
 
