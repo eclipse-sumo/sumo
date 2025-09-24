@@ -111,8 +111,10 @@ GUILoadThread::run() {
                 myFile = oc.getString("net-file");
                 myParent->addRecentNetwork(FXPath::absolute(myFile.c_str()));
             }
-            myEventQue.push_back(new GUIEvent_Message(TLF("Loading '%'.", myFile)));
-            myEventThrow.signal();
+            if (myFile.size() > 0) {
+                myEventQue.push_back(new GUIEvent_Message(TLF("Loading '%'.", myFile)));
+                myEventThrow.signal();
+            }
         }
         myTitle = myFile;
         if (!myAmLibsumo) {
@@ -166,69 +168,73 @@ GUILoadThread::run() {
     std::vector<std::string> guiSettingsFiles;
     bool osgView = false;
     GUIEdgeControlBuilder* eb = nullptr;
-    try {
-        net = new GUINet(
-            vehControl,
-            new GUIEventControl(),
-            new GUIEventControl(),
-            new GUIEventControl());
-        // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
-        std::map<int, TraCIServer::CmdExecutor> execs;
-        execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
-        execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
-        TraCIServer::openSocket(execs);
-        if (myAmLibsumo) {
-            libsumo::Helper::registerStateListener();
-        }
+    if (oc.isSet("net-file")) {
+        try {
+            net = new GUINet(
+                vehControl,
+                new GUIEventControl(),
+                new GUIEventControl(),
+                new GUIEventControl());
+            // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
+            std::map<int, TraCIServer::CmdExecutor> execs;
+            execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
+            execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
+            TraCIServer::openSocket(execs);
+            if (myAmLibsumo) {
+                libsumo::Helper::registerStateListener();
+            }
 
-        eb = new GUIEdgeControlBuilder();
-        GUIDetectorBuilder db(*net);
-        NLJunctionControlBuilder jb(*net, db);
-        GUITriggerBuilder tb;
-        NLHandler handler("", *net, db, tb, *eb, jb);
-        tb.setHandler(&handler);
-        NLBuilder builder(oc, *net, *eb, jb, db, handler);
-        MsgHandler::getErrorInstance()->clear();
-        MsgHandler::getWarningInstance()->clear();
-        MsgHandler::getMessageInstance()->clear();
-        if (!builder.build()) {
-            throw ProcessError();
-        } else {
-            net->initGUIStructures();
-            simStartTime = string2time(oc.getString("begin"));
-            simEndTime = string2time(oc.getString("end"));
-            guiSettingsFiles = oc.getStringVector("gui-settings-file");
-#ifdef HAVE_OSG
-            osgView = oc.getBool("osg-view");
-#endif
-            if (oc.isSet("edgedata-files")) {
-                if (!oc.isUsableFileList("edgedata-files")) {
-                    WRITE_ERRORF(TL("Could not load edgedata-files '%'"), oc.getString("edgedata-files"));
-                } else {
-                    for (const std::string& file : oc.getStringVector("edgedata-files")) {
-                        net->loadEdgeData(file);
+            eb = new GUIEdgeControlBuilder();
+            GUIDetectorBuilder db(*net);
+            NLJunctionControlBuilder jb(*net, db);
+            GUITriggerBuilder tb;
+            NLHandler handler("", *net, db, tb, *eb, jb);
+            tb.setHandler(&handler);
+            NLBuilder builder(oc, *net, *eb, jb, db, handler);
+            MsgHandler::getErrorInstance()->clear();
+            MsgHandler::getWarningInstance()->clear();
+            MsgHandler::getMessageInstance()->clear();
+            if (!builder.build()) {
+                throw ProcessError();
+            } else {
+                net->initGUIStructures();
+                simStartTime = string2time(oc.getString("begin"));
+                simEndTime = string2time(oc.getString("end"));
+                guiSettingsFiles = oc.getStringVector("gui-settings-file");
+    #ifdef HAVE_OSG
+                osgView = oc.getBool("osg-view");
+    #endif
+                if (oc.isSet("edgedata-files")) {
+                    if (!oc.isUsableFileList("edgedata-files")) {
+                        WRITE_ERRORF(TL("Could not load edgedata-files '%'"), oc.getString("edgedata-files"));
+                    } else {
+                        for (const std::string& file : oc.getStringVector("edgedata-files")) {
+                            net->loadEdgeData(file);
+                        }
                     }
                 }
             }
         }
-    } catch (ProcessError& e) {
-        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+        catch (ProcessError& e) {
+            if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+                WRITE_ERROR(e.what());
+            }
+            MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+            delete net;
+            net = nullptr;
+    #ifndef _DEBUG
+            }
+        catch (std::exception& e) {
             WRITE_ERROR(e.what());
+            delete net;
+            net = nullptr;
+    #endif
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-        delete net;
-        net = nullptr;
-#ifndef _DEBUG
-    } catch (std::exception& e) {
-        WRITE_ERROR(e.what());
-        delete net;
-        net = nullptr;
-#endif
+        if (net == nullptr) {
+            MSNet::clearAll();
+        }
+        delete eb;
     }
-    if (net == nullptr) {
-        MSNet::clearAll();
-    }
-    delete eb;
     submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView,
                         oc.getBool("registry-viewport"));
     return 0;

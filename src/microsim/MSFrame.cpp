@@ -896,10 +896,12 @@ bool
 MSFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
+    /*
     if (!oc.isSet("net-file") && oc.isDefault("remote-port")) {
         WRITE_ERROR(TL("No network file (-n) specified."));
         ok = false;
     }
+    */
     if (oc.getFloat("scale") < 0.) {
         WRITE_ERROR(TL("Invalid scaling factor."));
         ok = false;
