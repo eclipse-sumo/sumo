@@ -38,7 +38,7 @@ GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element)
 GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
         const double position, const bool friendlyPos) :
     GNEMoveElement(element),
-    myPosition(position),
+    myPosOverLane(position),
     myFriendlyPos(friendlyPos) {
     // set parents
     element->getHierarchicalElement()->setParent<GNELane*>(lane);
@@ -51,7 +51,7 @@ GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
 GNEMoveOperation*
 GNEMoveElementLaneSingle::getMoveOperation() {
     // return move operation over a single position
-    return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), myPosition,
+    return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), myPosOverLane,
                                 myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
 }
 
@@ -66,11 +66,11 @@ double
 GNEMoveElementLaneSingle::getOffsetPositionOverLane() const {
     const auto& lane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
-    if (myPosition != INVALID_DOUBLE) {
+    if (myPosOverLane != INVALID_DOUBLE) {
         // get lane final and shape length
         const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
         // get startPosition
-        double fixedPos = myPosition;
+        double fixedPos = myPosOverLane;
         // adjust fixedPos
         if (fixedPos < 0) {
             fixedPos += laneLength;
@@ -93,7 +93,7 @@ GNEMoveElementLaneSingle::getOffsetPositionOverLane() const {
 void
 GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
-    myPosition = moveResult.newFirstPos;
+    myPosOverLane = moveResult.newFirstPos;
     // set lateral offset
     myMovingLateralOffset = moveResult.firstLaneOffset;
     // update geometry

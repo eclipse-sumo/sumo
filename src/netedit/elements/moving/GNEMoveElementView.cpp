@@ -37,7 +37,7 @@ GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position) :
     GNEMoveElement(element),
-    myPosition(position) {
+    myPosOverView(position) {
 }
 
 
@@ -66,7 +66,7 @@ GNEMoveElementView::getMoveOperation() {
         }
     } else {
         // move entire space
-        return new GNEMoveOperation(this, myPosition);
+        return new GNEMoveOperation(this, myPosOverView);
     }
 }
 
@@ -85,7 +85,7 @@ GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         myShapeWidth = moveResult.shapeToUpdate;
     } else {
-        myPosition = moveResult.shapeToUpdate.front();
+        myPosOverView = moveResult.shapeToUpdate.front();
     }
     // update geometry
     myMovedElement->updateGeometry();

@@ -48,7 +48,7 @@ public:
 
 protected:
     /// @brief position over view
-    Position myPosition;
+    Position myPosOverView;
 
     /// @brief shape width of Parking Space
     PositionVector myShapeWidth;

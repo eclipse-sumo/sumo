@@ -42,7 +42,7 @@
 // ===========================================================================
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
-    GNEDetector(net, tag), 
+    GNEDetector(net, tag),
     GNEMoveElementLaneDouble(this)
 { }
 
@@ -94,12 +94,12 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     // continue depending of E2 type
     if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myStartPosition);
-        device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPosition - myStartPosition));
+        device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
+        device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPosPosOverLane - myStartPosOverLane));
     } else {
         device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-        device.writeAttr(SUMO_ATTR_POSITION, myStartPosition);
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+        device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
     }
     // write common detector parameters
     writeDetectorValues(device);
@@ -132,7 +132,7 @@ GNELaneAreaDetector::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myStartPosition >= 0) && (myEndPosition <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (myStartPosOverLane >= 0) && (myEndPosPosOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         // first check if there is connection between all consecutive lanes
@@ -141,10 +141,10 @@ GNELaneAreaDetector::isAdditionalValid() const {
             if (myFriendlyPosition) {
                 return true;
             } else {
-                return (myStartPosition >= 0) &&
-                       (myEndPosition >= 0) &&
-                       (myStartPosition <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                       (myEndPosition <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+                return (myStartPosOverLane >= 0) &&
+                       (myEndPosPosOverLane >= 0) &&
+                       (myStartPosOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                       (myEndPosPosOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
             }
         } else {
             return false;
@@ -159,10 +159,10 @@ GNELaneAreaDetector::getAdditionalProblem() const {
     std::string errorFirstLanePosition, separator, errorLastLanePosition;
     if (getParentLanes().size() == 1) {
         // check positions over lane
-        if (myStartPosition < 0) {
+        if (myStartPosOverLane < 0) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
-        if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+        if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
     } else {
@@ -175,17 +175,17 @@ GNELaneAreaDetector::getAdditionalProblem() const {
             return TL("lanes aren't connected");
         }
         // check positions over first lane
-        if (myStartPosition < 0) {
+        if (myStartPosOverLane < 0) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
-        if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+        if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         // check positions over last lane
-        if (myEndPosition < 0) {
+        if (myEndPosPosOverLane < 0) {
             errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
         }
-        if (myEndPosition > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+        if (myEndPosPosOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
             errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
         }
     }
@@ -202,8 +202,8 @@ void
 GNELaneAreaDetector::fixAdditionalProblem() {
     if (getParentLanes().size() == 1) {
         // obtain position and length
-        double newPositionOverLane = myStartPosition;
-        double newLength = (myEndPosition - myStartPosition);
+        double newPositionOverLane = myStartPosOverLane;
+        double newLength = (myEndPosPosOverLane - myStartPosOverLane);
         // fix pos and length using fixE2DetectorPosition
         GNEAdditionalHandler::fixLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
         // set new position and length
@@ -236,8 +236,8 @@ GNELaneAreaDetector::fixAdditionalProblem() {
             }
         } else {
             // declare new positions
-            double newPositionOverLane = myStartPosition;
-            double newEndPositionOverLane = myEndPosition;
+            double newPositionOverLane = myStartPosOverLane;
+            double newEndPositionOverLane = myEndPosPosOverLane;
             // fix pos and length checkAndFixDetectorPosition
             GNEAdditionalHandler::fixMultiLanePosition(
                 newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
@@ -421,13 +421,13 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getParentLanes());
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
-            return toString(myStartPosition);
+            return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPosition);
+            return toString(myEndPosPosOverLane);
         case SUMO_ATTR_TLID:
             return myTrafficLight;
         case SUMO_ATTR_LENGTH:
-            return toString(myEndPosition - myStartPosition);
+            return toString(myEndPosPosOverLane - myStartPosOverLane);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -449,11 +449,11 @@ GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
-            return myStartPosition;
+            return myStartPosOverLane;
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            return myEndPosPosOverLane;
         case SUMO_ATTR_LENGTH:
-            return (myEndPosition - myStartPosition);
+            return (myEndPosPosOverLane - myStartPosOverLane);
         default:
             return getDetectorAttributeDouble(key);
     }
@@ -654,14 +654,14 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
-            myStartPosition = parse<double>(value);
+            myStartPosOverLane = parse<double>(value);
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosition = parse<double>(value);
+            myEndPosPosOverLane = parse<double>(value);
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();
@@ -671,7 +671,7 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTrafficLight = value;
             break;
         case SUMO_ATTR_LENGTH:
-            myEndPosition = (myStartPosition + parse<double>(value));
+            myEndPosPosOverLane = (myStartPosOverLane + parse<double>(value));
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
                 updateGeometry();

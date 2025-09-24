@@ -73,7 +73,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         device.openTag(SUMO_TAG_REROUTER);
         device.writeAttr(SUMO_ATTR_ID, getID());
         device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
-        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
@@ -143,7 +143,7 @@ GNERerouter::checkDrawMoveContour() const {
 void
 GNERerouter::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -156,7 +156,7 @@ GNERerouter::updateGeometry() {
 
 Position
 GNERerouter::getPositionInView() const {
-    return myPosition;
+    return myPosOverView;
 }
 
 
@@ -219,7 +219,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor, true);
         // draw Rerouter
-        drawSquaredAdditional(s, myPosition, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
+        drawSquaredAdditional(s, myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
         // iterate over additionals and check if drawn
         for (const auto& interval : getChildAdditionals()) {
             // if rerouter or their intevals are selected, then draw
@@ -257,7 +257,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(edges);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_PROB:
@@ -377,7 +377,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

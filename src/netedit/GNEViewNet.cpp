@@ -3005,7 +3005,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 // add specific attributes
                 POIBaseObject->addStringAttribute(SUMO_ATTR_LANE, nearestLane->getID());
                 POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION, minorPosOverLane);
-                POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, POI->getFriendlyPos());
+                POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, (POI->getAttribute(SUMO_ATTR_FRIENDLY_POS) == GNEAttributeCarrier::TRUE_STR));
                 POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
                 // remove POI
                 myUndoList->begin(POI, TL("attach POI into lane"));

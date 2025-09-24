@@ -71,10 +71,10 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
-    device.writeAttr(SUMO_ATTR_X, myPosition.x());
-    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-    if (myPosition.z() != 0) {
-        device.writeAttr(SUMO_ATTR_Z, myPosition.z());
+    device.writeAttr(SUMO_ATTR_X, myPosOverView.x());
+    device.writeAttr(SUMO_ATTR_Y, myPosOverView.y());
+    if (myPosOverView.z() != 0) {
+        device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
     }
     if (myWidth.size() > 0) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
@@ -137,7 +137,7 @@ GNEParkingSpace::updateGeometry() {
     // rotate
     myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
     // move
-    myShapeLength.add(myPosition);
+    myShapeLength.add(myPosOverView);
     // calculate shape width
     PositionVector leftShape = myShapeLength;
     leftShape.move2side(width * -0.5);
@@ -151,7 +151,7 @@ GNEParkingSpace::updateGeometry() {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return myPosition;
+    return myPosOverView;
 }
 
 
@@ -164,7 +164,7 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     // first reset boundary
     myAdditionalBoundary.reset();
     // add position
-    myAdditionalBoundary.add(myPosition);
+    myAdditionalBoundary.add(myPosOverView);
     // grow width and length
     myAdditionalBoundary.grow(myShapeLength.length2D());
     myAdditionalBoundary.grow(myShapeWidth.length2D());
@@ -248,7 +248,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
@@ -420,7 +420,7 @@ void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update geometry
             updateGeometry();
             break;

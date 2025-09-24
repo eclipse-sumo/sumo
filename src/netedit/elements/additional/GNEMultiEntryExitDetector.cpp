@@ -85,7 +85,7 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
-        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
         if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
         }
@@ -157,13 +157,13 @@ GNEMultiEntryExitDetector::checkDrawMoveContour() const {
 void
 GNEMultiEntryExitDetector::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
 }
 
 
 Position
 GNEMultiEntryExitDetector::getPositionInView() const {
-    return myPosition;
+    return myPosOverView;
 }
 
 
@@ -206,7 +206,7 @@ GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3
-        drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+        drawSquaredAdditional(s, myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
     }
 }
 
@@ -217,7 +217,7 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+            return toString(myPosOverView);
         case SUMO_ATTR_PERIOD:
             if (myPeriod == SUMOTime_MAX_PERIOD) {
                 return "";
@@ -381,7 +381,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

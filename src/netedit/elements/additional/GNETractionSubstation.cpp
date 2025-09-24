@@ -63,7 +63,7 @@ void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+    device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
     if (myVoltage != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_VOLTAGE)) {
         device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
     }
@@ -113,13 +113,13 @@ GNETractionSubstation::checkDrawMoveContour() const {
 void
 GNETractionSubstation::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
 }
 
 
 Position
 GNETractionSubstation::getPositionInView() const {
-    return myPosition;
+    return myPosOverView;
 }
 
 
@@ -159,7 +159,7 @@ GNETractionSubstation::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw TractionSubstation
-    drawSquaredAdditional(s, myPosition, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
+    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
 }
 
 
@@ -178,7 +178,7 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(edges);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+            return toString(myPosOverView);
         case SUMO_ATTR_VOLTAGE:
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
@@ -269,7 +269,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

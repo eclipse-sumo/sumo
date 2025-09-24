@@ -157,10 +157,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty->getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
-            if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
+            if (movingGeometryPoints && (myStartPosOverLane != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
-            if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
+            if (movingGeometryPoints && (myEndPosPosOverLane != INVALID_DOUBLE)) {
                 drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix

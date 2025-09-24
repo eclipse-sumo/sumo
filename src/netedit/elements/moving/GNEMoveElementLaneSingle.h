@@ -49,7 +49,7 @@ public:
 
 protected:
     /// @brief position over lane
-    double myPosition = 0;
+    double myPosOverLane = 0;
 
     /// @brief friendly position
     bool myFriendlyPos = false;

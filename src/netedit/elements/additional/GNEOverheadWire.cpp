@@ -73,8 +73,8 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
     device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
-    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosOverLane);
+    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
@@ -95,10 +95,10 @@ GNEOverheadWire::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myStartPosition >= 0) &&
-                   (myEndPosition >= 0) &&
-                   ((myStartPosition) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                   ((myEndPosition) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (myStartPosOverLane >= 0) &&
+                   (myEndPosPosOverLane >= 0) &&
+                   ((myStartPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
+                   ((myEndPosPosOverLane) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         }
     } else {
         return false;
@@ -119,17 +119,17 @@ GNEOverheadWire::getAdditionalProblem() const {
         return TL("lanes aren't connected");
     }
     // check positions over first lane
-    if (myStartPosition < 0) {
+    if (myStartPosOverLane < 0) {
         errorFirstLanePosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
     }
-    if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
         errorFirstLanePosition = (toString(SUMO_ATTR_STARTPOS) + TL(" > lanes's length"));
     }
     // check positions over last lane
-    if (myEndPosition < 0) {
+    if (myEndPosPosOverLane < 0) {
         errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
     }
-    if (myEndPosition > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    if (myEndPosPosOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
         errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
     }
     // check separator
@@ -169,8 +169,8 @@ GNEOverheadWire::fixAdditionalProblem() {
         }
     } else {
         // declare new positions
-        double newPositionOverLane = myStartPosition;
-        double newEndPositionOverLane = myEndPosition;
+        double newPositionOverLane = myStartPosOverLane;
+        double newEndPositionOverLane = myEndPosPosOverLane;
         // fix pos and length checkAndFixDetectorPosition
         GNEAdditionalHandler::fixMultiLanePosition(
             newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
@@ -375,9 +375,9 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
         case SUMO_ATTR_STARTPOS:
-            return toString(myStartPosition);
+            return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPosition);
+            return toString(myEndPosPosOverLane);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
@@ -394,20 +394,20 @@ double
 GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
-            if (myStartPosition < 0) {
+            if (myStartPosOverLane < 0) {
                 return 0;
-            } else if (myStartPosition > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            } else if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
                 return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
             } else {
-                return myStartPosition;
+                return myStartPosOverLane;
             }
         case SUMO_ATTR_ENDPOS:
-            if (myEndPosition < 0) {
+            if (myEndPosPosOverLane < 0) {
                 return 0;
-            } else if (myEndPosition > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+            } else if (myEndPosPosOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
                 return getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
             } else {
-                return myEndPosition;
+                return myEndPosPosOverLane;
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -503,9 +503,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_STARTPOS:
             if (value.empty() || (value == LANE_START)) {
-                myStartPosition = INVALID_DOUBLE;
+                myStartPosOverLane = INVALID_DOUBLE;
             } else {
-                myStartPosition = parse<double>(value);
+                myStartPosOverLane = parse<double>(value);
             }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {
@@ -514,9 +514,9 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ENDPOS:
             if (value.empty() || (value == LANE_END)) {
-                myEndPosition = INVALID_DOUBLE;
+                myEndPosPosOverLane = INVALID_DOUBLE;
             } else {
-                myEndPosition = parse<double>(value);
+                myEndPosPosOverLane = parse<double>(value);
             }
             // update geometry (except for template)
             if (getParentLanes().size() > 0) {

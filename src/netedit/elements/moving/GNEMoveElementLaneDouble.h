@@ -62,11 +62,11 @@ public:
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
 protected:
-    /// @brief The relative start position this stopping place is located at (-1 means empty)
-    double myStartPosition = 0;
+    /// @brief The start position over lane
+    double myStartPosOverLane = 0;
 
-    /// @brief The  position this stopping place is located at (-1 means empty)
-    double myEndPosition = 0;
+    /// @brief The end position over lane
+    double myEndPosPosOverLane = 0;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition = false;
