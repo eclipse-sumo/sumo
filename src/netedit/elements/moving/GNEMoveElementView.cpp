@@ -48,19 +48,26 @@ GNEMoveOperation*
 GNEMoveElementView::getMoveOperation() {
     if (myMovedElement->drawMovingGeometryPoints()) {
         // get snap radius
-        const double snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const auto snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+        const auto snapRadiusSquared = (snap_radius * snap_radius);
         // get mouse position
         const Position mousePosition = myMovedElement->getNet()->getViewNet()->getPositionInformation();
-        // check if we're editing width or height
-        if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        // check what we're editing
+        if ((myShapeLength.size() > 0) && (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit length
             return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
-        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if ((myShapeWidth.size() > 0) && (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
-        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
+        } else if ((myShapeWidth.size() > 0) && (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
+        } else if ((myShapeHeight.size() > 0) && (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
+        } else if ((myShapeHeight.size() > 0) && (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+            // edit height
+            return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
         } else {
             return nullptr;
         }
@@ -84,6 +91,8 @@ GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
         myShapeLength[1] = moveResult.shapeToUpdate[1];
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         myShapeWidth = moveResult.shapeToUpdate;
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        myShapeWidth = moveResult.shapeToUpdate;
     } else {
         myPosOverView = moveResult.shapeToUpdate.front();
     }
@@ -102,6 +111,10 @@ GNEMoveElementView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         undoList->begin(myMovedElement, TLF("width of %", myMovedElement->getTagStr()));
         myMovedElement->setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
+        undoList->begin(myMovedElement, TLF("height of %", myMovedElement->getTagStr()));
+        myMovedElement->setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else {
         undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));

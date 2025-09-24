@@ -50,10 +50,13 @@ protected:
     /// @brief position over view
     Position myPosOverView;
 
-    /// @brief shape width of Parking Space
+    /// @brief shape width
     PositionVector myShapeWidth;
 
-    /// @brief shape length of Parking Space
+    /// @brief shape height
+    PositionVector myShapeHeight;
+
+    /// @brief shape length
     PositionVector myShapeLength;
 
 private:

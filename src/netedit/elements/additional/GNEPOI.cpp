@@ -102,43 +102,6 @@ GNEPOI::getMoveElement() {
     }
 }
 
-/*
-GNEMoveOperation*
-GNEPOI::getMoveOperation() {
-    if (drawMovingGeometryPoints()) {
-        // get snap radius
-        const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        const double snapRadiusSquared = snapRadius * snapRadius;
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // check if we're editing width or height
-        if ((myShapeWidth.size() == 0) || (myShapeHeight.size() == 0)) {
-            return nullptr;
-        } else if (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
-        } else if (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
-        } else {
-            return nullptr;
-        }
-    } else if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-        // return move operation for POI placed over lane
-        return new GNEMoveOperation(this, getParentLanes().front(), myPosOverLane,
-                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
-    } else {
-        // return move operation for a position in view
-        return new GNEMoveOperation(this, *this);
-    }
-}
-*/
 
 std::string
 GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {

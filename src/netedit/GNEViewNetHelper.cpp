@@ -1582,7 +1582,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         }
     } else if (myViewNet->myViewObjectsSelector.getPOIFront() && (markAC == myViewNet->myViewObjectsSelector.getPOIFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = nullptr;/*myViewNet->myViewObjectsSelector.getPOIFront()->getMoveOperation()*/;
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPOIFront()->getMoveElement()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperation = moveOperation;
@@ -1590,8 +1590,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() &&
-               (markAC == myViewNet->myViewObjectsSelector.getAdditionalFront()) &&
+    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() && (markAC == myViewNet->myViewObjectsSelector.getAdditionalFront()) &&
                myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveElement()) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveElement()->getMoveOperation();

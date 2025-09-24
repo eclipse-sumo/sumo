@@ -222,12 +222,6 @@ protected:
     /// @brief POI icon
     POIIcon myPOIIcon = POIIcon::NONE;
 
-    /// @brief shape width of POI
-    PositionVector myShapeWidth;
-
-    /// @brief shape height of POI
-    PositionVector myShapeHeight;
-
     /// @brief variable used for moving contour up
     GNEContour myMovingContourUp;
 
