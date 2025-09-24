@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-23 20:08+0000\n"
+"PO-Revision-Date: 2025-09-24 12:16+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -7702,23 +7702,23 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7474
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "Parâmetro SKRAUSSX 1"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7479
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "Parâmetro SKRAUSSX 2"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7484
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "Parâmetro SKRAUSSX 3"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7489
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "Parâmetro SKRAUSSX 4"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7494
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "Parâmetro SKRAUSSX 5"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7499
 msgid "EIDM Look ahead / preview parameter [s]"
@@ -7816,7 +7816,7 @@ msgstr "parâmetro Wiedemann"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7678
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "Parâmetro de fator MinGap"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7683
 msgid "K parameter"
@@ -7824,15 +7824,15 @@ msgstr "parâmetro K"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7688
 msgid "Kerner Phi parameter"
-msgstr ""
+msgstr "Parâmetro Kerner Phi"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7693
 msgid "IDM Delta parameter"
-msgstr ""
+msgstr "IDM parâmetro delta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7698
 msgid "IDM Stepping parameter"
-msgstr ""
+msgstr "IDM parâmetro de passo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7703
 msgid "Train Types"
@@ -8125,39 +8125,39 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8082
 msgid "Bus stop ID"
-msgstr ""
+msgstr "ID da parada de ônibus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8088
 msgid "Train stop ID"
-msgstr ""
+msgstr "ID da parada de trem"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8094
 msgid "Container stop ID"
-msgstr ""
+msgstr "ID da parada de contêiner"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8100
 msgid "Charging station ID"
-msgstr ""
+msgstr "ID de estação de carregamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8106
 msgid "Parking area ID"
-msgstr ""
+msgstr "ID da área de estacionamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8113
 msgid "Edge start ID"
-msgstr ""
+msgstr "ID da aresta inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8119
 msgid "TAZ start ID"
-msgstr ""
+msgstr "ID da zona de tráfego inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8125
 msgid "Junction start ID"
-msgstr ""
+msgstr "ID do cruzamento inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8131
 msgid "BusStop start ID"
-msgstr ""
+msgstr "ID da parada de ônibus inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8137
 msgid "TrainStop start ID"
