@@ -78,7 +78,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEMoveElementLaneSingle(this, lane, posOverLane, friendlyPos),
-    GNEMoveElementView(this),
+    GNEMoveElementView(this, Position(0, 0), width, height, 0),
     Parameterised(parameters),
     myPosLat(posLat) {
     // update centering boundary without updating grid
@@ -128,7 +128,7 @@ void
 GNEPOI::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_POI);
     // ID
-    device.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(GNEAttributeCarrier::getID()));
+    device.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     // type
     if (getShapeType().size() > 0) {
         device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
@@ -628,7 +628,7 @@ GNEPOI::isAttributeEnabled(SumoXMLAttr key) const {
 
 std::string
 GNEPOI::getPopUpID() const {
-    return getTagStr() + ": " + GNEAttributeCarrier::getID();
+    return getTagStr() + ": " + getID();
 }
 
 
@@ -770,8 +770,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         case SUMO_ATTR_POSITION: {
@@ -781,8 +781,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myPosOverView = parse<Position>(value);
             }
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         }
@@ -792,8 +792,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION_LAT:
             myPosLat = parse<double>(value);
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         case SUMO_ATTR_LON: {
@@ -804,8 +804,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update view position
             myPosOverView = pos;
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         }
@@ -817,8 +817,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update view position
             myPosOverView = pos;
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         }
@@ -837,14 +837,14 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             // first remove object from grid due img file affect to boundary
-            if (GNEAttributeCarrier::getID().size() > 0) {
+            if (getID().size() > 0) {
                 myNet->removeGLObjectFromGrid(this);
             }
             setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             // add object into grid again
-            if (GNEAttributeCarrier::getID().size() > 0) {
+            if (getID().size() > 0) {
                 myNet->addGLObjectIntoGrid(this);
             }
             break;
@@ -852,23 +852,23 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set new width
             myWidth = parse<double>(value);
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         case SUMO_ATTR_HEIGHT:
             // set new height
             myHeight = parse<double>(value);
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));
             // update boundary (except for template)
-            if (GNEAttributeCarrier::getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() == GNE_TAG_POILANE);
+            if (getID().size() > 0) {
+                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
             }
             break;
         case SUMO_ATTR_NAME:

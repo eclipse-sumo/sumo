@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/GNEContour.h>
+
 #include "GNEMoveElement.h"
 
 // ===========================================================================
@@ -71,6 +73,18 @@ protected:
 
     /// @brief shape length
     PositionVector myShapeLength;
+
+    /// @brief variable used for moving geometry point contour up
+    GNEContour myMovingContourUp;
+
+    /// @brief variable used for moving geometry point contour down
+    GNEContour myMovingContourDown;
+
+    /// @brief variable used for moving geometry point contour left
+    GNEContour myMovingContourLeft;
+
+    /// @brief variable used for moving geometry point contour right
+    GNEContour myMovingContourRight;
 
 private:
     /// @brief set move shape

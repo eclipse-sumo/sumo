@@ -167,18 +167,6 @@ protected:
     /// @brief Slope of Parking Space
     double mySlope = 0;
 
-    /// @brief variable used for moving contour up
-    GNEContour myMovingContourUp;
-
-    /// @brief variable used for moving contour down
-    GNEContour myMovingContourDown;
-
-    /// @brief variable used for moving contour left
-    GNEContour myMovingContourLeft;
-
-    /// @brief variable used for moving contour right
-    GNEContour myMovingContourRight;
-
 private:
     /// @brief draw space
     void drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

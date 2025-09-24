@@ -105,6 +105,8 @@ GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
         myShapeHeight = moveResult.shapeToUpdate;
     } else {
         myPosOverView = moveResult.shapeToUpdate.front();
+        // only update geometry in this case (because in the others the shapes are reset)
+        myMovedElement->updateGeometry();
     }
 }
 

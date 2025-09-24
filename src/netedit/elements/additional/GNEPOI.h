@@ -35,6 +35,9 @@
 class GNEPOI : public GNEAdditional, public Shape, public GNEMoveElementLaneSingle, public GNEMoveElementView, public Parameterised {
 
 public:
+    // avoid diamond problem
+    using GNEAttributeCarrier::getID;
+
     /// @brief Constructor
     GNEPOI(SumoXMLTag tag, GNENet* net);
 
@@ -214,18 +217,6 @@ protected:
 
     /// @brief POI icon
     POIIcon myPOIIcon = POIIcon::NONE;
-
-    /// @brief variable used for moving contour up
-    GNEContour myMovingContourUp;
-
-    /// @brief variable used for moving contour down
-    GNEContour myMovingContourDown;
-
-    /// @brief variable used for moving contour left
-    GNEContour myMovingContourLeft;
-
-    /// @brief variable used for moving contour right
-    GNEContour myMovingContourRight;
 
 private:
     /// @brief move element over single lane
