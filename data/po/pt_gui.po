@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-24 12:41+0000\n"
+"PO-Revision-Date: 2025-09-24 17:12+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -4438,7 +4438,7 @@ msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:348
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
-msgstr ""
+msgstr "Habilitar o infixo de aresta (<fromNodeID><infixo><toNodeID>)"
 
 #: src/netedit/GNELoadThread.cpp:353
 msgid "Prefix for busStop naming"
@@ -4698,7 +4698,7 @@ msgstr "inverter aresta"
 
 #: src/netedit/GNENet.cpp:1135
 msgid "add reversed edge"
-msgstr ""
+msgstr "adicionar aresta inversa"
 
 #: src/netedit/GNENet.cpp:1169
 msgid "merge junctions"
@@ -4726,7 +4726,7 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:1475
 msgid "Computing junctions ..."
-msgstr ""
+msgstr "Calculando junções..."
 
 #: src/netedit/GNENet.cpp:1498
 msgid "Loading of additional file failed: "
@@ -4762,7 +4762,7 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:1542
 msgid "Finished computing junctions."
-msgstr ""
+msgstr "Cálculo das junções finalizado."
 
 #: src/netedit/GNENet.cpp:1548
 msgid "Computing demand elements ..."
@@ -4815,7 +4815,7 @@ msgstr "limpar junções"
 
 #: src/netedit/GNENet.cpp:1811
 msgid "clear unused routes"
-msgstr ""
+msgstr "limpar rotas não utilizadas"
 
 #: src/netedit/GNENet.cpp:1866
 msgid "merge routes"
@@ -4823,7 +4823,7 @@ msgstr "combinar rotas"
 
 #: src/netedit/GNENet.cpp:1920
 msgid "adjust person plans"
-msgstr ""
+msgstr "ajustar planos de pessoas"
 
 #: src/netedit/GNENet.cpp:1960
 msgid "remove invalid demand elements"
@@ -4835,7 +4835,7 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:2011
 msgid "Junction isn't removable"
-msgstr ""
+msgstr "a junção não pode ser removida"
 
 #: src/netedit/GNENet.cpp:2023
 msgid "split junction"
@@ -4847,27 +4847,27 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:2103
 msgid "clear junction connections"
-msgstr ""
+msgstr "limpar conexões da junção"
 
 #: src/netedit/GNENet.cpp:2115
 msgid "reset junction connections"
-msgstr ""
+msgstr "reiniciar conexões da junção"
 
 #: src/netedit/GNENet.cpp:2126
 msgid "clear additional elements"
-msgstr ""
+msgstr "limpar elementos adicionais"
 
 #: src/netedit/GNENet.cpp:2139
 msgid "clear demand elements"
-msgstr ""
+msgstr "limpar elementos de demanda"
 
 #: src/netedit/GNENet.cpp:2161
 msgid "clear data elements"
-msgstr ""
+msgstr "limpar elementos de dados"
 
 #: src/netedit/GNENet.cpp:2172
 msgid "clear meanData elements"
-msgstr ""
+msgstr "limpar elementos meanData"
 
 #: src/netedit/GNENet.cpp:2541 src/netedit/GNENet.cpp:2663
 msgid "Duplicated ID"
@@ -4883,7 +4883,7 @@ msgstr ""
 
 #: src/netedit/GNENetHelper.cpp:3608
 msgid "Confirm close Network"
-msgstr ""
+msgstr "Confirmar fechamento da rede"
 
 #: src/netedit/GNENetHelper.cpp:3609
 msgid "You have unsaved changes in the network."
@@ -5532,7 +5532,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1286
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "Eficiência de carregamento [0,1]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1293
 msgid ""
@@ -5548,7 +5548,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1305
 msgid "Battery charging type"
-msgstr ""
+msgstr "Tipo de carregamento de bateria"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1312
 msgid "Waiting time before start charging"
@@ -7396,15 +7396,15 @@ msgstr "arquivo médio"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6972
 msgid "Toggle front element"
-msgstr ""
+msgstr "Alternar elemento frontal"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6977
 msgid "Toggle select element"
-msgstr ""
+msgstr "Alternar elemento selecionado"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6985
 msgid "Change element parent"
-msgstr ""
+msgstr "Trocar elemento pai"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6992
 msgid "Generic parameters (Format: key1=value1|key2=value2|..."
@@ -7417,7 +7417,7 @@ msgstr "parâmetros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7029
 msgid "Length of %"
-msgstr ""
+msgstr "Comprimento de %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7035
 msgid "Force size during creation"
@@ -7698,7 +7698,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:7461
 #: src/netedit/GNETagPropertiesDatabase.cpp:7468
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "Parâmetro do modelo de 'car-following'"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7474
 msgid "SKRAUSSX parameter 1"
@@ -8828,7 +8828,7 @@ msgstr "inverter % '%'"
 
 #: src/netedit/GNEViewNet.cpp:3055
 msgid "add reverse '%'"
-msgstr ""
+msgstr "adicionar '%' inverso"
 
 #: src/netedit/GNEViewNet.cpp:3082
 msgid "change edge Geometry Point position"
@@ -8852,7 +8852,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:3184
 msgid "duplicate selected lanes"
-msgstr ""
+msgstr "duplicar faixas selecionadas"
 
 #: src/netedit/GNEViewNet.cpp:3221
 msgid "reset custom lane shapes"
@@ -8864,19 +8864,19 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:3244
 msgid "reset opposite lanes"
-msgstr ""
+msgstr "reiniciar faixas opostas"
 
 #: src/netedit/GNEViewNet.cpp:3251
 msgid "reset opposite lane"
-msgstr ""
+msgstr "reiniciar faixa oposta"
 
 #: src/netedit/GNEViewNet.cpp:3310
 msgid "select lane reachability"
-msgstr ""
+msgstr "selecionar acessibilidade da faixa"
 
 #: src/netedit/GNEViewNet.cpp:3522
 msgid "reset edge endpoints"
-msgstr ""
+msgstr "reiniciar pontos finais da aresta"
 
 #: src/netedit/GNEViewNet.cpp:3567 src/netedit/GNEViewNet.cpp:3833
 #: src/netedit/GNEViewNet.cpp:3868 src/netedit/GNEViewNet.cpp:3891
@@ -8921,7 +8921,7 @@ msgstr " diagonal:"
 
 #: src/netedit/GNEViewNetHelper.cpp:2157
 msgid "selection using rectangle"
-msgstr ""
+msgstr "seleção usando um retângulo"
 
 #: src/netedit/GNEViewNetHelper.cpp:2190
 #, c-format
@@ -8942,19 +8942,19 @@ msgstr "Salvar rede"
 
 #: src/netedit/GNEViewNetHelper.cpp:2281
 msgid "Save network. (Ctrl+S)"
-msgstr ""
+msgstr "Salva a rede. (Ctrl+S)"
 
 #: src/netedit/GNEViewNetHelper.cpp:2289
 msgid "Save individual files"
-msgstr ""
+msgstr "Salvar arquivos individuais"
 
 #: src/netedit/GNEViewNetHelper.cpp:2289
 msgid "Save individual files."
-msgstr ""
+msgstr "Salva arquivos individuais."
 
 #: src/netedit/GNEViewNetHelper.cpp:2294
 msgid "Save additional elements"
-msgstr ""
+msgstr "Salvar elementos adicionais"
 
 #: src/netedit/GNEViewNetHelper.cpp:2294
 msgid "Save additional elements. (Ctrl+Shift+A)"
@@ -8962,7 +8962,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2299
 msgid "Save demand elements"
-msgstr ""
+msgstr "Salvar elementos de demanda"
 
 #: src/netedit/GNEViewNetHelper.cpp:2299
 msgid "Save demand elements. (Ctrl+Shift+D)"
@@ -8970,7 +8970,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2304
 msgid "Save data elements"
-msgstr ""
+msgstr "Salvar elementos de dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:2304
 msgid "Save data elements. (Ctrl+Shift+B)"
@@ -8994,7 +8994,7 @@ msgstr "Rede"
 
 #: src/netedit/GNEViewNetHelper.cpp:2402
 msgid "Edit network elements"
-msgstr ""
+msgstr "Editar elementos de rede"
 
 #: src/netedit/GNEViewNetHelper.cpp:2402
 msgid "Set mode for editing network elements. (F2)"
@@ -9020,7 +9020,7 @@ msgstr "Dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:2412
 msgid "Edit data elements"
-msgstr ""
+msgstr "Editar elementos de dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:2412
 msgid "Set mode for editing data demand. (F4)"
@@ -9028,11 +9028,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2420
 msgid "Change netedit view"
-msgstr ""
+msgstr "Trocar visualização do netedit"
 
 #: src/netedit/GNEViewNetHelper.cpp:2420
 msgid "Change netedit view."
-msgstr ""
+msgstr "Troca a visualização do netedit."
 
 #: src/netedit/GNEViewNetHelper.cpp:2425
 msgid "Set default view"
