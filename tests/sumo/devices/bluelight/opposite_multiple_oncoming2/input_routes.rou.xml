@@ -7,12 +7,12 @@
     </vType>
 
     <!-- LHF -->
-    <vType id="engine" accel="1.3" decel="4" emergencyDecel="7.0" sigma="0.5" length="8" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
+    <vType id="engine" accel="1.3" decel="4" emergencyDecel="7.0" sigma="0.5" length="8" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
         <param key="has.bluelight.device" value="true"/>
         <param key="has.tripinfo.device" value="true"/>
     </vType>
     <!-- DLK -->
-    <vType id="ladder" accel="1.0" decel="4" emergencyDecel="7.0" sigma="0.5" length="10" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
+    <vType id="ladder" accel="1.0" decel="4" emergencyDecel="7.0" sigma="0.5" length="10" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
         <param key="has.bluelight.device" value="true"/>
         <param key="has.tripinfo.device" value="true"/>
     </vType>
