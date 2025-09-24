@@ -114,20 +114,15 @@ GNEInductionLoopDetector::getAdditionalProblem() const {
 
 void
 GNEInductionLoopDetector::fixAdditionalProblem() {
-    // declare new position
-    double newPositionOverLane = myPosOverLane;
-    // fix pos and length checkAndFixDetectorPosition
-    double length = 0;
-    GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-    // set new position
-    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
+    // set fixed position
+    setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
 }
 
 
 void
 GNEInductionLoopDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getOffsetPositionOverLane(), myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getFixedPositionOverLane(), myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

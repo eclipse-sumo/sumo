@@ -171,14 +171,8 @@ std::string GNEAccess::getAdditionalProblem() const {
 
 
 void GNEAccess::fixAdditionalProblem() {
-    // declare new position
-    double newPositionOverLane = myPosOverLane;
-    // declare new length (but unsed in this context)
-    double length = 0;
-    // fix pos and length with fixLanePosition
-    GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-    // set new position
-    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
+    // set fixed position
+    setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
 }
 
 

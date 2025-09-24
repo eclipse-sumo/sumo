@@ -112,9 +112,9 @@ GNEStoppingPlace::getAdditionalProblem() const {
 
 void
 GNEStoppingPlace::fixAdditionalProblem() {
-    // calculate start and end positions
-    double startPos = getAttributeDouble(SUMO_ATTR_STARTPOS);
-    double endPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
+    // make a copy of start and end positions over lane
+    double startPos = myStartPosOverLane;
+    double endPos = myEndPosPosOverLane;
     // fix start and end positions using fixLaneDoublePosition
     GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
     // set new start and end positions
@@ -494,7 +494,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     laneShape.move2side(movingToSide * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myAdditionalGeometry.updateGeometry(laneShape, getStartOffsetPositionOverLane(), getEndOffsetPositionOverLane(), myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(laneShape, getStartFixedPositionOverLane(), getEndFixedPositionOverLane(), myMovingLateralOffset);
 }
 
 

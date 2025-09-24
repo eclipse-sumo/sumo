@@ -127,7 +127,7 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
 
 bool
 GNELaneAreaDetector::isAdditionalValid() const {
-    if (getParentLanes().size() == 1) {
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         // with friendly position enabled position are "always fixed"
         if (myFriendlyPosition) {
             return true;
@@ -157,7 +157,7 @@ std::string
 GNELaneAreaDetector::getAdditionalProblem() const {
     // declare variable for error position
     std::string errorFirstLanePosition, separator, errorLastLanePosition;
-    if (getParentLanes().size() == 1) {
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         // check positions over lane
         if (myStartPosOverLane < 0) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
@@ -200,16 +200,18 @@ GNELaneAreaDetector::getAdditionalProblem() const {
 
 void
 GNELaneAreaDetector::fixAdditionalProblem() {
-    if (getParentLanes().size() == 1) {
-        // obtain position and length
-        double newPositionOverLane = myStartPosOverLane;
-        double newLength = (myEndPosPosOverLane - myStartPosOverLane);
-        // fix pos and length using fixE2DetectorPosition
-        GNEAdditionalHandler::fixLanePosition(newPositionOverLane, newLength, getParentLanes().at(0)->getParentEdge()->getNBEdge()->getFinalLength());
-        // set new position and length
-        setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
-        setAttribute(SUMO_ATTR_LENGTH, toString(newLength), myNet->getViewNet()->getUndoList());
+    // continue depending of lane area detector type
+    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+        // make a copy of start and end positions over lane
+        double startPos = myStartPosOverLane;
+        double endPos = myEndPosPosOverLane;
+        // fix start and end positions using fixLaneDoublePosition
+        GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+        // set new start and end positions
+        setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
+        setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
     } else {
+        // first check if lanes are consecutives
         if (!areLaneConsecutives(getParentLanes())) {
             // build connections between all consecutive lanes
             bool foundConnection = true;
@@ -234,17 +236,19 @@ GNELaneAreaDetector::fixAdditionalProblem() {
                 // update lane iterator
                 i++;
             }
+        } else if (getParentLanes().size() == 1) {
+            // make a copy of start and end positions over lane
+            double startPos = myStartPosOverLane;
+            double endPos = myEndPosPosOverLane;
+            // fix start and end positions using fixLaneDoublePosition
+            GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+            // set new start and end positions
+            setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
+            setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
         } else {
-            // declare new positions
-            double newPositionOverLane = myStartPosOverLane;
-            double newEndPositionOverLane = myEndPosPosOverLane;
-            // fix pos and length checkAndFixDetectorPosition
-            GNEAdditionalHandler::fixMultiLanePosition(
-                newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
-                newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
-            // set new position and endPosition
-            setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
-            setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myNet->getViewNet()->getUndoList());
+            // set fixed positions
+            setAttribute(SUMO_ATTR_STARTPOS, toString(getStartFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
+            setAttribute(SUMO_ATTR_ENDPOS, toString(getEndFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
         }
     }
 }
@@ -258,7 +262,7 @@ GNELaneAreaDetector::updateGeometry() {
         computePathElement();
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartOffsetPositionOverLane(), getEndOffsetPositionOverLane(), myMovingLateralOffset);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartFixedPositionOverLane(), getEndFixedPositionOverLane(), myMovingLateralOffset);
     }
 }
 

@@ -638,12 +638,6 @@ public:
      */
     static bool checkLanePosition(double pos, const double length, const double laneLength, const bool friendlyPos);
 
-    /**@brief fix given position over lane
-     * @param[in] pos pos position of element over lane
-     * @param[in] laneLength Length of the lane
-     */
-    static void fixLanePosition(double& pos, double& length, const double laneLength);
-
     /**@brief check if enable friendly pos in small lanes
      * @param[in] pos pos position of element over lane
      * @param[in] length element's length
@@ -678,14 +672,6 @@ public:
      * @return true if the element positions is valid, false in otherwise
      */
     static bool checkMultiLanePosition(double fromPos, const double fromLaneLength, const double toPos, const double tolaneLength, const bool friendlyPos);
-
-    /**@brief fix the given positions over two lanes
-     * @param[in] fromPos position of element over first lane
-     * @param[in] fromLaneLength length of the first lane
-     * @param[in] toPos position of element over second lane
-     * @param[in] toLaneLength length of the second lane
-     */
-    static void fixMultiLanePosition(double fromPos, const double fromLaneLength, double toPos, const double tolaneLength);
 
 protected:
     /// @brief get additional parent

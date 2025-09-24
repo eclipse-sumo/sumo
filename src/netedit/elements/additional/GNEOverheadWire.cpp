@@ -143,6 +143,7 @@ GNEOverheadWire::getAdditionalProblem() const {
 
 void
 GNEOverheadWire::fixAdditionalProblem() {
+    // first check if lanes are consecutives
     if (!areLaneConsecutives(getParentLanes())) {
         // build connections between all consecutive lanes
         bool foundConnection = true;
@@ -167,17 +168,19 @@ GNEOverheadWire::fixAdditionalProblem() {
             // update lane iterator
             i++;
         }
+    } else if (getParentLanes().size() == 1) {
+        // make a copy of start and end positions over lane
+        double startPos = myStartPosOverLane;
+        double endPos = myEndPosPosOverLane;
+        // fix start and end positions using fixLaneDoublePosition
+        GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+        // set new start and end positions
+        setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
+        setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
     } else {
-        // declare new positions
-        double newPositionOverLane = myStartPosOverLane;
-        double newEndPositionOverLane = myEndPosPosOverLane;
-        // fix pos and length checkAndFixDetectorPosition
-        GNEAdditionalHandler::fixMultiLanePosition(
-            newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(),
-            newEndPositionOverLane, getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
-        // set new position and endPosition
-        setAttribute(SUMO_ATTR_STARTPOS, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
-        setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myNet->getViewNet()->getUndoList());
+        // set fixed positions
+        setAttribute(SUMO_ATTR_STARTPOS, toString(getStartFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
+        setAttribute(SUMO_ATTR_ENDPOS, toString(getEndFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
     }
 }
 

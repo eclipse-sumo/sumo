@@ -1838,27 +1838,6 @@ GNEAdditionalHandler::checkLanePosition(double pos, const double length, const d
 }
 
 
-void
-GNEAdditionalHandler::fixLanePosition(double& pos, double& length, const double laneLength) {
-    // negative pos means that start at the end of lane and count backward)
-    if (pos < 0) {
-        pos += laneLength;
-    }
-    // set position at the start
-    if (pos < 0) {
-        pos = 0;
-    }
-    // adjust pos
-    if (pos >= laneLength) {
-        pos = (laneLength - POSITION_EPS);
-    }
-    // adjust length
-    if ((length < 0) || ((pos + length) > laneLength)) {
-        length = POSITION_EPS;
-    }
-}
-
-
 bool
 GNEAdditionalHandler::checkFriendlyPosSmallLanes(double pos, const double length, const double laneLength, const bool friendlyPos) {
     if (friendlyPos == true) {
@@ -1957,14 +1936,6 @@ GNEAdditionalHandler::checkMultiLanePosition(double fromPos, const double fromLa
     } else {
         return (checkLanePosition(fromPos, 0, fromLaneLength, false) && checkLanePosition(toPos, 0, tolaneLength, false));
     }
-}
-
-
-void
-GNEAdditionalHandler::fixMultiLanePosition(double fromPos, const double fromLaneLength, double toPos, const double tolaneLength) {
-    double length = 0;
-    fixLanePosition(fromPos, length, fromLaneLength);
-    fixLanePosition(toPos, length, tolaneLength);
 }
 
 

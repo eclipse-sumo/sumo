@@ -120,7 +120,7 @@ GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/
 
 
 double
-GNEMoveElementLaneDouble::getStartOffsetPositionOverLane() const {
+GNEMoveElementLaneDouble::getStartFixedPositionOverLane() const {
     const auto& firstLane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
     if (myStartPosOverLane != INVALID_DOUBLE) {
@@ -148,7 +148,7 @@ GNEMoveElementLaneDouble::getStartOffsetPositionOverLane() const {
 
 
 double
-GNEMoveElementLaneDouble::getEndOffsetPositionOverLane() const {
+GNEMoveElementLaneDouble::getEndFixedPositionOverLane() const {
     const auto& lastLane = myMovedElement->getHierarchicalElement()->getParentLanes().back();
     // continue depending if we defined a end position
     if (myEndPosPosOverLane != INVALID_DOUBLE) {

@@ -55,7 +55,7 @@ protected:
     bool myFriendlyPos = false;
 
     /// @brief get offset position over lane
-    double getOffsetPositionOverLane() const;
+    double getFixedPositionOverLane() const;
 
 private:
     /// @brief set move shape

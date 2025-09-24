@@ -81,10 +81,10 @@ protected:
     ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
     /// @brief get start offset position over lane
-    double getStartOffsetPositionOverLane() const;
+    double getStartFixedPositionOverLane() const;
 
     /// @brief get end offset position over lane
-    double getEndOffsetPositionOverLane() const;
+    double getEndFixedPositionOverLane() const;
 
     /// @brief adjust length
     void adjustLaneMovableLength(const double length, GNEUndoList* undoList);
