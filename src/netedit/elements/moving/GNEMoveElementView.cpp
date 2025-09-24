@@ -41,6 +41,16 @@ GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Posit
 }
 
 
+GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position,
+                                       const double width, const double height, const double length) :
+    GNEMoveElement(element),
+    myPosOverView(position),
+    myWidth(width),
+    myHeight(height),
+    myLength(length) {
+}
+
+
 GNEMoveElementView::~GNEMoveElementView() {}
 
 

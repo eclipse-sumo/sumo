@@ -50,8 +50,9 @@ public:
      * @param[in] name ParkingArea's name
      * @param[in] parameters generic parameters
      */
-    GNEParkingSpace(GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
-                    const std::string& length, const std::string& angle, double slope, const std::string& name,
+    GNEParkingSpace(GNEAdditional* parkingAreaParent, const Position& pos,
+                    const double width, const double length, const double angle,
+                    const double slope, const std::string& name,
                     const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -160,14 +161,8 @@ public:
     /// @}
 
 protected:
-    /// @brief width of Parking Space
-    std::string myWidth;
-
-    /// @brief Length of Parking Space
-    std::string myLength;
-
     /// @brief Angle of Parking Space
-    std::string myAngle;
+    double myAngle;
 
     /// @brief Slope of Parking Space
     double mySlope = 0;

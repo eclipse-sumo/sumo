@@ -59,10 +59,8 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, ""),
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEMoveElementLaneSingle(this),
-    GNEMoveElementView(this, Position(xLon, yLat)),
-    Parameterised(parameters),
-    myWidth(width),
-    myHeight(height) {
+    GNEMoveElementView(this, Position(xLon, yLat), width, height, 0),
+    Parameterised(parameters) {
     // update position depending of GEO
     if (geo) {
         Position cartesian = myPosOverView;
@@ -82,9 +80,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     GNEMoveElementLaneSingle(this, lane, posOverLane, friendlyPos),
     GNEMoveElementView(this),
     Parameterised(parameters),
-    myPosLat(posLat),
-    myWidth(width),
-    myHeight(height) {
+    myPosLat(posLat) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

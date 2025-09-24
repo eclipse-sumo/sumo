@@ -32,8 +32,12 @@ public:
     /// @brief constructor
     GNEMoveElementView(GNEAttributeCarrier* element);
 
-    /// @brief constructor
+    /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, const Position& position);
+
+    /// @brief constructor with dynamic position
+    GNEMoveElementView(GNEAttributeCarrier* element, const Position& position,
+                       const double width, const double height, const double length);
 
     //// @brief empty destructor
     ~GNEMoveElementView();
@@ -49,6 +53,15 @@ public:
 protected:
     /// @brief position over view
     Position myPosOverView;
+
+    /// @brief width
+    double myWidth = 0;
+
+    /// @brief height
+    double myHeight = 0;
+
+    /// @brief length
+    double myLength = 0;
 
     /// @brief shape width
     PositionVector myShapeWidth;

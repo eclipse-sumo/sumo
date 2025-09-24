@@ -385,18 +385,19 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
         // get lane
         GNEAdditional* parkingArea = getAdditionalParent(sumoBaseObject, SUMO_TAG_PARKING_AREA);
         // get double values
-        const double widthDouble = width.empty() ? 0 : GNEAttributeCarrier::parse<double>(width);
-        const double lengthDouble = length.empty() ? 0 : GNEAttributeCarrier::parse<double>(length);
+        const double widthDouble = width.empty() ? INVALID_DOUBLE : GNEAttributeCarrier::parse<double>(width);
+        const double lengthDouble = length.empty() ? INVALID_DOUBLE : GNEAttributeCarrier::parse<double>(length);
+        const double angleDouble = angle.empty() ? INVALID_DOUBLE : GNEAttributeCarrier::parse<double>(angle);
         // check lane
         if (parkingArea == nullptr) {
             return writeErrorInvalidParent(SUMO_TAG_PARKING_SPACE, "", SUMO_TAG_PARKING_AREA, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-        } else if (!checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH, widthDouble, true)) {
+        } else if ((widthDouble != INVALID_DOUBLE) && !checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_WIDTH, widthDouble, true)) {
             return false;
-        } else if (!checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH, lengthDouble, true)) {
+        } else if ((lengthDouble != INVALID_DOUBLE) && !checkNegative(SUMO_TAG_PARKING_SPACE, parkingArea->getID(), SUMO_ATTR_LENGTH, lengthDouble, true)) {
             return false;
         } else {
             // build parkingSpace
-            GNEAdditional* parkingSpace = new GNEParkingSpace(parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters);
+            GNEAdditional* parkingSpace = new GNEParkingSpace(parkingArea, Position(x, y, z), widthDouble, lengthDouble, angleDouble, slope, name, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(parkingSpace, TL("add parking space in '") + parkingArea->getID() + "'");

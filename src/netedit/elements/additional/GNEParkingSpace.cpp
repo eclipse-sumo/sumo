@@ -41,13 +41,12 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net) :
 
 
 GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Position& pos,
-                                 const std::string& width, const std::string& length, const std::string& angle, double slope,
-                                 const std::string& name, const Parameterised::Map& parameters) :
+                                 const double width, const double length, const double angle,
+                                 const double slope, const std::string& name,
+                                 const Parameterised::Map& parameters) :
     GNEAdditional(parkingAreaParent, SUMO_TAG_PARKING_SPACE, name),
-    GNEMoveElementView(this, pos),
+    GNEMoveElementView(this, pos, width, 0, length),
     Parameterised(parameters),
-    myWidth(width),
-    myLength(length),
     myAngle(angle),
     mySlope(slope) {
     // set parents
@@ -76,13 +75,13 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     if (myPosOverView.z() != 0) {
         device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
     }
-    if (myWidth.size() > 0) {
+    if (myWidth != INVALID_DOUBLE) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
-    if (myLength.size() > 0) {
+    if (myLength != INVALID_DOUBLE) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
-    if (myAngle.size() > 0) {
+    if (myAngle != INVALID_DOUBLE) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
     if (mySlope != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_SLOPE)) {
@@ -252,11 +251,11 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
-            return myWidth;
+            return (myWidth != INVALID_DOUBLE) ? toString(myWidth) : "";
         case SUMO_ATTR_LENGTH:
-            return myLength;
+            return (myLength != INVALID_DOUBLE) ? toString(myLength) : "";
         case SUMO_ATTR_ANGLE:
-            return myAngle;
+            return (myAngle != INVALID_DOUBLE) ? toString(myAngle) : "";;
         case SUMO_ATTR_SLOPE:
             return toString(mySlope);
         case GNE_ATTR_PARENT:
@@ -275,11 +274,11 @@ double
 GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_WIDTH:
-            return myWidth.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH) : parse<double>(myWidth);
+            return (myWidth != INVALID_DOUBLE) ? myWidth : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH);
         case SUMO_ATTR_LENGTH:
-            return myLength.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH) : parse<double>(myLength);
+            return (myLength != INVALID_DOUBLE) ? myLength : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH);
         case SUMO_ATTR_ANGLE:
-            return myAngle.empty() ? getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE) : parse<double>(myAngle);
+            return (myAngle != INVALID_DOUBLE) ? myAngle : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -428,21 +427,33 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         case SUMO_ATTR_WIDTH:
-            myWidth = value;
+            if (value.empty()) {
+                myWidth = INVALID_DOUBLE;
+            } else {
+                myWidth = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentAdditionals().size() > 0) {
                 updateGeometry();
             }
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = value;
+            if (value.empty()) {
+                myLength = INVALID_DOUBLE;
+            } else {
+                myLength = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentAdditionals().size() > 0) {
                 updateGeometry();
             }
             break;
         case SUMO_ATTR_ANGLE:
-            myAngle = value;
+            if (value.empty()) {
+                myAngle = INVALID_DOUBLE;
+            } else {
+                myAngle = parse<double>(value);
+            }
             // update geometry (except for template)
             if (getParentAdditionals().size() > 0) {
                 updateGeometry();

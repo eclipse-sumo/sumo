@@ -213,12 +213,6 @@ protected:
     /// @brief lateral position;
     double myPosLat = 0;
 
-    /// @brief shape width
-    double myWidth = 0;
-
-    /// @brief shape height
-    double myHeight = 0;
-
     /// @brief POI icon
     POIIcon myPOIIcon = POIIcon::NONE;
 
