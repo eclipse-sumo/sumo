@@ -2974,7 +2974,19 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // check what type of POI will be transformed
-        if (POI->getTagProperty()->getTag() == SUMO_TAG_POI) {
+        if (POI->getTagProperty()->getTag() == GNE_TAG_POILANE) {
+            // get sumo base object of POI (And all common attributes)
+            CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+            // add specific attributes
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->getPositionInView().x());
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->getPositionInView().y());
+            // remove POI
+            myUndoList->begin(POI, TL("release POI from lane"));
+            myNet->deleteAdditional(POI, myUndoList);
+            // add new POI use route handler
+            additionalHandler.parseSumoBaseObject(POIBaseObject);
+            myUndoList->end();
+        } else {
             // obtain lanes around POI boundary
             std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
             std::vector<GNELane*> lanes;
@@ -3014,18 +3026,6 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 additionalHandler.parseSumoBaseObject(POIBaseObject);
                 myUndoList->end();
             }
-        } else {
-            // get sumo base object of POI (And all common attributes)
-            CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
-            // add specific attributes
-            POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->x());
-            POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->y());
-            // remove POI
-            myUndoList->begin(POI, TL("release POI from lane"));
-            myNet->deleteAdditional(POI, myUndoList);
-            // add new POI use route handler
-            additionalHandler.parseSumoBaseObject(POIBaseObject);
-            myUndoList->end();
         }
     }
     return 1;
