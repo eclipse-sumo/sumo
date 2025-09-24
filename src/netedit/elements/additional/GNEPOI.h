@@ -23,27 +23,18 @@
 
 #include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
-#include <utils/shapes/PointOfInterest.h>
+#include <utils/shapes/Shape.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEAdditional.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNELane;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEPOI : public PointOfInterest, public GNEAdditional {
+class GNEPOI : public GNEAdditional, public Shape, public GNEMoveElementLaneSingle, public GNEMoveElementView, public Parameterised {
 
 public:
-    /// @brief needed to avoid diamond problem between PointOfInterest and GNEAdditional
-    using GNEAdditional::getID;
-
     /// @brief Constructor
     GNEPOI(SumoXMLTag tag, GNENet* net);
 
@@ -219,6 +210,18 @@ public:
     std::string getHierarchyName() const override;
 
 protected:
+    /// @brief lateral position;
+    double myPosLat = 0;
+
+    /// @brief shape width
+    double myWidth = 0;
+
+    /// @brief shape height
+    double myHeight = 0;
+
+    /// @brief POI icon
+    POIIcon myPOIIcon = POIIcon::NONE;
+
     /// @brief shape width of POI
     PositionVector myShapeWidth;
 
