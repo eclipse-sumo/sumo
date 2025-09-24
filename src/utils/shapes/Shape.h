@@ -51,6 +51,11 @@ public:
     static const Parameterised::Map DEFAULT_PARAMETERS;
     /// @}
 
+    /** @brief default consructor
+     * @param[in] id The name of the shape
+     */
+    Shape(const std::string& id);
+
     /** @brief Constructor
      * @param[in] id The name of the shape
      * @param[in] type The (abstract) type of the shape

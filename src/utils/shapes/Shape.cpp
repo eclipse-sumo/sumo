@@ -41,6 +41,17 @@ const Parameterised::Map Shape::DEFAULT_PARAMETERS = Parameterised::Map();
 // member definitions
 // ===========================================================================
 
+Shape::Shape(const std::string& id) :
+    Named(id),
+    myType(DEFAULT_TYPE),
+    myColor(RGBColor::BLACK),
+    myLayer(DEFAULT_LAYER),
+    myNaviDegreeAngle(DEFAULT_ANGLE),
+    myImgFile(DEFAULT_IMG_FILE),
+    myName(DEFAULT_NAME) {
+}
+
+
 Shape::Shape(const std::string& id, const std::string& type, const RGBColor& color, double layer,
              double angle, const std::string& imgFile, const std::string& name) :
     Named(id),
