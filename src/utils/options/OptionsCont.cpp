@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -617,6 +618,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
 bool
 OptionsCont::processMetaOptions(bool missingOptions) {
     MsgHandler::setupI18n(getString("language"));
+    localizeDescriptions();
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
@@ -715,6 +717,18 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
     }
     return false;
+}
+
+
+void 
+OptionsCont::localizeDescriptions() {
+    if (!myAmLocalized && gLocaleInitialized) {
+        for (auto option : myAddresses) {
+            option.second->setDescription(TL(option.second->getDescription().c_str()));
+        }
+        setApplicationDescription(TL(myAppDescription.c_str()));
+        myAmLocalized = true;
+    }
 }
 
 

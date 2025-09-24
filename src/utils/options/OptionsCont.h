@@ -642,6 +642,8 @@ public:
      */
     bool processMetaOptions(bool missingOptions);
 
+    void localizeDescriptions();
+
     /// @brief return the list of subtopics
     const std::vector<std::string>& getSubTopics() const;
 
@@ -706,6 +708,9 @@ private:
      * @todo Describe parameter
      */
     void splitLines(std::ostream& os, std::string what, int offset, int nextOffset);
+
+    /// @brief Whether the descriptino has already been translated to the locale language
+    bool myAmLocalized = false;
 
     /// @brief The static options container used
     static OptionsCont myOptions;

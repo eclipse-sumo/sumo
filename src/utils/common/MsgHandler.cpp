@@ -285,6 +285,7 @@ MsgHandler::setupI18n(const std::string& locale) {
 #endif
     myWarningPrefix = TL("Warning: ");
     myErrorPrefix = TL("Error: ");
+    gLocaleInitialized = true;
 }
 
 

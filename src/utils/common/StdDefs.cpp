@@ -15,6 +15,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    2014-01-07
 ///
 /****************************************************************************/
@@ -30,6 +31,7 @@ int gPrecisionRandom = 4;
 bool gHumanReadableTime = false;
 bool gSimulation = false;
 bool gIgnoreUnknownVClass = false;
+bool gLocaleInitialized = false;
 double gWeightsRandomFactor = 1;
 double gWeightsWalkOppositeFactor = 1;
 bool gRoutingPreferences = false;
