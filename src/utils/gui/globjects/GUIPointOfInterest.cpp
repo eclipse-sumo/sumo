@@ -114,14 +114,14 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObje
 
 
 void
-GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool disableSelectionColor) {
+GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, bool disableSelectionColor) {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
     if (s.netedit && active != 1 && gSelected.isSelected(o->getType(), o->getGlID()) && disableSelectionColor) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
-        GLHelper::setColor(POI->getShapeColor());
+        GLHelper::setColor(shapeColor);
     } else if (active == 1) {
         GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(o->getType(), o->getGlID())));
     } else {

@@ -113,7 +113,7 @@ public:
     static bool checkDraw(const GUIVisualizationSettings& s, const GUIGlObject* o);
 
     /// @brief set color
-    static void setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool forceSelectionColor);
+    static void setColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, bool forceSelectionColor);
 
     /// @brief draw inner POI (before pushName() )
     static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor,
