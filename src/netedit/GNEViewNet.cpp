@@ -2988,22 +2988,15 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             myUndoList->end();
         } else {
             // obtain lanes around POI boundary
-            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
-            std::vector<GNELane*> lanes;
-            for (const auto& GLID : GLIDs) {
-                GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(GLID));
-                if (lane) {
-                    lanes.push_back(lane);
-                }
-            }
-            if (lanes.empty()) {
-                WRITE_WARNINGF(TL("No lanes around % to attach it"), toString(SUMO_TAG_POI));
+            getObjectsInBoundary(POI->getCenteringBoundary());
+            if (myViewObjectsSelector.getLaneFront() == nullptr) {
+                WRITE_WARNINGF("No lanes around the % '%' to attach it", toString(SUMO_TAG_POI), POI->getID());
             } else {
                 // obtain nearest lane to POI
-                GNELane* nearestLane = lanes.front();
+                GNELane* nearestLane = myViewObjectsSelector.getLaneFront();
                 double minorPosOverLane = nearestLane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
                 double minorLateralOffset = nearestLane->getLaneShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
-                for (const auto& lane : lanes) {
+                for (const auto& lane : myViewObjectsSelector.getLanes()) {
                     double posOverLane = lane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
                     double lateralOffset = lane->getLaneShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
                     if (lateralOffset < minorLateralOffset) {
