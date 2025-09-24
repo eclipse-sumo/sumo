@@ -164,9 +164,16 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     myAdditionalBoundary.reset();
     // add position
     myAdditionalBoundary.add(myPosOverView);
-    // grow width and length
-    myAdditionalBoundary.grow(myShapeLength.length2D());
-    myAdditionalBoundary.grow(myShapeWidth.length2D());
+    // add center
+    myAdditionalBoundary.add(myPosOverView);
+    // add width
+    for (const auto& pos : myShapeWidth) {
+        myAdditionalBoundary.add(pos);
+    }
+    // add length
+    for (const auto& pos : myShapeLength) {
+        myAdditionalBoundary.add(pos);
+    }
     // grow
     myAdditionalBoundary.grow(5);
     // add additional into RTREE again

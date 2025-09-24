@@ -102,12 +102,10 @@ GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
         myShapeWidth = moveResult.shapeToUpdate;
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        myShapeWidth = moveResult.shapeToUpdate;
+        myShapeHeight = moveResult.shapeToUpdate;
     } else {
         myPosOverView = moveResult.shapeToUpdate.front();
     }
-    // update geometry
-    myMovedElement->updateGeometry();
 }
 
 
