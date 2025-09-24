@@ -89,6 +89,9 @@ MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& i
 #ifdef DEBUG_BLUELIGHT
     std::cout << SIMTIME << " initialized device '" << id << "' with myReactionDist=" << myReactionDist << "\n";
 #endif
+    // set only once to permit TraCI override
+    MSVehicle& veh = dynamic_cast<MSVehicle&>(holder);
+    veh.getInfluencer().setSpeedMode(7);
 }
 
 
@@ -108,7 +111,6 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     MSVehicle& ego = dynamic_cast<MSVehicle&>(veh);
     MSVehicle::Influencer& redLight = ego.getInfluencer();
     const double vMax = ego.getLane()->getVehicleMaxSpeed(&ego);
-    redLight.setSpeedMode(7);
     if (ego.getSpeed() < 0.5 * vMax) {
         // advance as far as possible (assume vehicles will keep moving out of the way)
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
