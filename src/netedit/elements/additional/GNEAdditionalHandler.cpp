@@ -1622,8 +1622,10 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* /*sumoB
     } else if (!checkFileName(SUMO_TAG_POI, id, SUMO_ATTR_IMGFILE, imgFile)) {
         return false;
     } else {
+        // parse position
+        const auto pos = Position(x, y);
         // create POI
-        GNEPOI* POI = new GNEPOI(id, myNet, myFilename, type, color, x, y, false, icon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POI = new GNEPOI(id, myNet, myFilename, type, color, pos, false, icon, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POI, TL("add POI '") + id + "'");
@@ -1705,8 +1707,10 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* /*su
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
         return writeError(TLF("Could not build POI with ID '%' in netedit", id) + std::string("; ") + TL("Network requires a geo projection."));
     } else {
+        // parse position
+        const auto pos = Position(lon, lat);
         // create POIGEO
-        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFilename, type, color, lon, lat, true, icon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFilename, type, color, pos, true, icon, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POIGEO, TL("add POI '") + id + "'");

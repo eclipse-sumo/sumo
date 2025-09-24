@@ -44,8 +44,7 @@ public:
      * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
-     * @param[in] lon The position X or Lon of the POI
-     * @param[in] lat The position Y or Lat of the POI
+     * @param[in] pos The position X or Lon of the POI
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
@@ -56,8 +55,8 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon,
-           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
+    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color,
+           const Position& pos, const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
            const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor

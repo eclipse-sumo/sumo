@@ -53,13 +53,13 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon, const double yLat,
-               const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile, const double width, const double height,
-               const std::string& name, const Parameterised::Map& parameters) :
+GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const Position& pos,
+               const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile, const double width,
+               const double height, const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, ""),
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEMoveElementLaneSingle(this),
-    GNEMoveElementView(this, Position(xLon, yLat), width, height, 0),
+    GNEMoveElementView(this, pos, width, height, 0),
     Parameterised(parameters) {
     // update position depending of GEO
     if (geo) {
@@ -294,10 +294,18 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // reset boundary
     myAdditionalBoundary.reset();
-    // add position (this POI)
-    myAdditionalBoundary.add(getPositionInView());
+    // add center
+    myAdditionalBoundary.add(myPosOverView);
+    // add width
+    for (const auto& pos : myShapeWidth) {
+        myAdditionalBoundary.add(pos);
+    }
+    // add height
+    for (const auto& pos : myShapeHeight) {
+        myAdditionalBoundary.add(pos);
+    }
     // grow boundary
-    myAdditionalBoundary.grow(5 + std::max(myWidth * 0.5, myHeight * 0.5));
+    myAdditionalBoundary.grow(5);
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
