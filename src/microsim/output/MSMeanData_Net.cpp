@@ -274,75 +274,72 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
 #endif
 
     if (myParent == nullptr) {
-        if (sampleSeconds > 0) {
-            dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
-        }
+        dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_SPEED, sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. || sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds / speedLimit,
+                              attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_ENTERED, nVehEntered, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
-        if (nVehVaporized > 0) {
-            dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
-        }
-        if (nVehTeleported > 0) {
-            dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask);
-        }
+        dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
         dev.closeTag();
         return;
     }
-    if (sampleSeconds > myParent->myMinSamples) {
-        double overlapTraveltime = myParent->myMaxTravelTime;
-        if (travelledDistance > 0.f) {
-            // one vehicle has to drive lane length + vehicle length before it has left the lane
-            // thus we need to scale with an extended length, approximated by lane length + average vehicle length
-            overlapTraveltime = MIN2(overlapTraveltime, (myLaneLength + vehLengthSum / sampleSeconds) * sampleSeconds / travelledDistance);
-        }
+    const bool haveSamples = sampleSeconds > myParent->myMinSamples;
+    const bool haveSamplesOrDefault = haveSamples || defaultTravelTime >= 0.;
+    bool haveTravelTime = haveSamplesOrDefault;
+    double traveltime = myParent->myMaxTravelTime;
+    if (haveSamples) {
         if (numVehicles > 0) {
-            dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, sampleSeconds / numVehicles, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
+            traveltime = sampleSeconds / numVehicles;
         } else {
-            double traveltime = myParent->myMaxTravelTime;
+            traveltime = myParent->myMaxTravelTime;
             if (frontTravelledDistance > NUMERICAL_EPS) {
                 traveltime = MIN2(traveltime, myLaneLength * frontSampleSeconds / frontTravelledDistance);
-                dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, traveltime, attributeMask);
             } else if (defaultTravelTime >= 0.) {
-                dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
+                traveltime = defaultTravelTime;
+            } else {
+                haveTravelTime = false;
             }
-            dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
         }
     } else if (defaultTravelTime >= 0.) {
-        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_SPEED, myLaneLength / defaultTravelTime, attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : myLaneLength / defaultTravelTime / speedLimit, attributeMask);
+        traveltime = defaultTravelTime;
     }
+    dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, traveltime, attributeMask, !haveTravelTime);
+    double overlapTraveltime = myParent->myMaxTravelTime;
+    if (travelledDistance > 0.) {
+        // one vehicle has to drive lane length + vehicle length before it has left the lane
+        // thus we need to scale with an extended length, approximated by lane length + average vehicle length
+        overlapTraveltime = MIN2(overlapTraveltime, (myLaneLength + vehLengthSum / sampleSeconds) * sampleSeconds / travelledDistance);
+    }
+    dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask, !haveSamples);
+    dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask, !haveSamples);
+    double speed = 0.;
+    if (haveSamples) {
+        speed = travelledDistance / sampleSeconds;
+    } else if (defaultTravelTime > 0.) {
+        speed = myLaneLength / defaultTravelTime;
+    }
+    dev.writeOptionalAttr(SUMO_ATTR_SPEED, speed, attributeMask, !haveSamplesOrDefault);
+    dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : speed / speedLimit, attributeMask, !haveSamplesOrDefault);
     dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_ENTERED, nVehEntered, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDFROM, nVehLaneChangeFrom, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo, attributeMask);
-    if (nVehVaporized > 0) {
-        dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
-    }
-    if (nVehTeleported > 0) {
-        dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask);
-    }
+    dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
+    dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
     dev.closeTag();
 }
 
