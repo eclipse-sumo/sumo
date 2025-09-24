@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:39+0200\n"
-"PO-Revision-Date: 2025-09-24 12:16+0000\n"
+"PO-Revision-Date: 2025-09-24 12:41+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -8161,23 +8161,23 @@ msgstr "ID da parada de ônibus inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8137
 msgid "TrainStop start ID"
-msgstr ""
+msgstr "ID da parada de trem inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8143
 msgid "ContainerStop start ID"
-msgstr ""
+msgstr "ID da parada de contêiner inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8149
 msgid "ChargingStation start ID"
-msgstr ""
+msgstr "ID da estação de carregamento inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8155
 msgid "ParkingArea start ID"
-msgstr ""
+msgstr "ID da área de estacionamento inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8162
 msgid "Edge end ID"
-msgstr ""
+msgstr "ID da aresta final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8169
 msgid "The position at which the tranship shall enter the net"
@@ -8189,31 +8189,31 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8182
 msgid "TAZ end ID"
-msgstr ""
+msgstr "ID da zona de tráfego (TAZ) final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8188
 msgid "Junction end ID"
-msgstr ""
+msgstr "ID do cruzamento final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8194
 msgid "BusStop end ID"
-msgstr ""
+msgstr "ID da parada de ônibus final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8200
 msgid "TrainStop end ID"
-msgstr ""
+msgstr "ID da parada de trem final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8206
 msgid "ContainerStop end ID"
-msgstr ""
+msgstr "ID da parada de contêiner final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8212
 msgid "ChargingStation end ID"
-msgstr ""
+msgstr "ID da estação de carregamento final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8218
 msgid "ParkingArea end ID"
-msgstr ""
+msgstr "ID da área de estacionamento final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8231
 msgid ""
@@ -8386,7 +8386,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8568
 #: src/netedit/GNETagPropertiesDatabase.cpp:8573
 msgid "ID of %"
-msgstr ""
+msgstr "ID de %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8583
 msgid "Optional name for %"
@@ -8590,7 +8590,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:927
 msgid "Confirm Junction Merger"
-msgstr ""
+msgstr "Confirmar combinação de junções"
 
 #: src/netedit/GNEViewNet.cpp:928
 msgid ""
@@ -8612,7 +8612,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:962
 msgid "Confirm switch mode"
-msgstr ""
+msgstr "Confirmar modo de troca"
 
 #: src/netedit/GNEViewNet.cpp:1015
 msgid "Multiple lane in the same edge selected"
@@ -8642,7 +8642,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1060
 msgid "restrict lane to "
-msgstr ""
+msgstr "restringir faixa para "
 
 #: src/netedit/GNEViewNet.cpp:1100 src/netedit/GNEViewNet.cpp:1107
 #, c-format
@@ -8660,11 +8660,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1117
 msgid "add restrictions for "
-msgstr ""
+msgstr "adicionar restrições para "
 
 #: src/netedit/GNEViewNet.cpp:1127
 msgid "add vclass for "
-msgstr ""
+msgstr "adicionar vClass para "
 
 #: src/netedit/GNEViewNet.cpp:1181 src/netedit/GNEViewNet.cpp:1188
 #, c-format
@@ -8681,7 +8681,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1208
 msgid "Remove vclass for "
-msgstr ""
+msgstr "Remover classe de veículo para "
 
 #: src/netedit/GNEViewNet.cpp:1744
 msgid "Cannot delete in this mode"
@@ -8693,7 +8693,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1757
 msgid "delete network selection"
-msgstr ""
+msgstr "deletar seleção de rede"
 
 #: src/netedit/GNEViewNet.cpp:1767
 msgid "delete demand inspected elements"
@@ -8701,7 +8701,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1777
 msgid "delete demand selection"
-msgstr ""
+msgstr "deletar demanda selecionada"
 
 #: src/netedit/GNEViewNet.cpp:1787
 msgid "delete data inspected elements"
@@ -8709,11 +8709,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1797
 msgid "delete data selection"
-msgstr ""
+msgstr "deletar dados selecionados"
 
 #: src/netedit/GNEViewNet.cpp:2437
 msgid "Reverse selected edges"
-msgstr ""
+msgstr "Inverter arestas selecionadas"
 
 #: src/netedit/GNEViewNet.cpp:2444
 msgid "Reverse edge"
@@ -8725,7 +8725,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:2465
 msgid "Add reverse edge"
-msgstr ""
+msgstr "Adicionar aresta inversa"
 
 #: src/netedit/GNEViewNet.cpp:2479
 msgid "Add Reverse disconnected edge for selected edges"
@@ -8737,11 +8737,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:2515
 msgid "reset geometry points"
-msgstr ""
+msgstr "reiniciar pontos geométricos"
 
 #: src/netedit/GNEViewNet.cpp:2536
 msgid "straighten selected edges"
-msgstr ""
+msgstr "endireitar arestas selecionadas"
 
 #: src/netedit/GNEViewNet.cpp:2544
 msgid "straighten edge"
@@ -8749,7 +8749,7 @@ msgstr "endireitar aresta"
 
 #: src/netedit/GNEViewNet.cpp:2558
 msgid "smooth selected edges"
-msgstr ""
+msgstr "suavizar arestas selecionadas"
 
 #: src/netedit/GNEViewNet.cpp:2565
 msgid "smooth edge"
@@ -8761,7 +8761,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:2586
 msgid "straighten edge elevation"
-msgstr ""
+msgstr "endireitar elevação da aresta"
 
 #: src/netedit/GNEViewNet.cpp:2600
 msgid "smooth elevation of selected edges"
@@ -8769,15 +8769,15 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:2607
 msgid "smooth edge elevation"
-msgstr ""
+msgstr "suavizar elevação da aresta"
 
 #: src/netedit/GNEViewNet.cpp:2621
 msgid "reset edge lengths"
-msgstr ""
+msgstr "reiniciar comprimento das arestas"
 
 #: src/netedit/GNEViewNet.cpp:2650
 msgid "copy edge template"
-msgstr ""
+msgstr "copiar modelo de aresta"
 
 #: src/netedit/GNEViewNet.cpp:2678
 msgid "simplify shapes"
@@ -8785,11 +8785,11 @@ msgstr "simplificar formas"
 
 #: src/netedit/GNEViewNet.cpp:2720
 msgid "close polygon shapes"
-msgstr ""
+msgstr "fechar formas dos polígonos"
 
 #: src/netedit/GNEViewNet.cpp:2752
 msgid "open polygon shapes"
-msgstr ""
+msgstr "abrir formas dos polígonos"
 
 #: src/netedit/GNEViewNet.cpp:2799
 msgid "select within polygon boundary"
@@ -8803,7 +8803,7 @@ msgstr "triangular polígono"
 #: src/netedit/GNEViewNet.cpp:2904 src/netedit/GNEViewNet.cpp:2921
 #: src/netedit/GNEViewNet.cpp:2938 src/netedit/GNEViewNet.cpp:2953
 msgid "simplify edited shape"
-msgstr ""
+msgstr "simplificar formas editadas"
 
 #: src/netedit/GNEViewNet.cpp:2874
 msgid "straighten edited shape"
@@ -8824,7 +8824,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:3041
 msgid "reverse % '%'"
-msgstr ""
+msgstr "inverter % '%'"
 
 #: src/netedit/GNEViewNet.cpp:3055
 msgid "add reverse '%'"
