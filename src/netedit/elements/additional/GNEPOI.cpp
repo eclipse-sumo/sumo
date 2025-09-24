@@ -671,7 +671,7 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
             }
         } else {
             // fallback if no image is defined
-            GLHelper::drawFilledCircle(myWidth * 0.5 * exaggeration, s.poiDetail);
+            GLHelper::drawFilledCircle(std::max(myWidth, myHeight) * 0.5 * exaggeration, s.poiDetail);
             // check if draw polygon
             if (myPOIIcon != POIIcon::NONE) {
                 // translate
@@ -745,8 +745,7 @@ GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualiz
     } else {
         const auto parentEdgeBoundary = (getTagProperty()->getTag() == GNE_TAG_POILANE) ? getParentLanes().front()->getParentEdge() : nullptr;
         if (getShapeImgFile().empty()) {
-            const double radius = myWidth > myHeight ? myWidth : myHeight;
-            myAdditionalContour.calculateContourCircleShape(s, d, this, getPositionInView(), radius * 0.5, getShapeLayer(), exaggeration, parentEdgeBoundary);
+            myAdditionalContour.calculateContourCircleShape(s, d, this, getPositionInView(), std::max(myWidth, myHeight) * 0.5, getShapeLayer(), exaggeration, parentEdgeBoundary);
         } else {
             myAdditionalContour.calculateContourRectangleShape(s, d, this, getPositionInView(), myHeight * 0.5, myWidth * 0.5, getShapeLayer(), 0, 0, getShapeNaviDegree(), exaggeration, parentEdgeBoundary);
         }
