@@ -1,8 +1,0 @@
-# rerouting with optional rerouters (filtered for unreproducible crash #16909
-#optional
-
-# rerouting with action radius
-radius
-
-# testing proper route cleanup
-cleanup
