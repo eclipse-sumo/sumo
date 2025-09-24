@@ -308,51 +308,6 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             }
         }
     }
-
-    // ego is at the end of its current lane and cannot continue
-    const double distToEnd = ego.getLane()->getLength() - ego.getPositionOnLane();
-    //std::cout << SIMTIME << " " << getID() << " lane=" << ego.getLane()->getID() << " pos=" << ego.getPositionOnLane() << " distToEnd=" << distToEnd << " conts=" << toString(ego.getBestLanesContinuation()) << " furtherEdges=" << upcomingEdges.size() << "\n";
-    if (ego.getBestLanesContinuation().size() == 1 && distToEnd <= POSITION_EPS
-            // route continues
-            && upcomingEdges.size() > 1) {
-        const MSEdge* currentEdge = &ego.getLane()->getEdge();
-        // move onto the intersection as if there was a connection from the current lane
-        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1], ego.getVClass());
-        if (next == nullptr) {
-            next = upcomingEdges[1];
-        }
-        // pick the lane that causes the minimizes lateral jump
-        const std::vector<MSLane*>* allowed = next->allowedLanes(ego.getVClass());
-        MSLane* nextLane = next->getLanes().front();
-        double bestJump = std::numeric_limits<double>::max();
-        double newPosLat = 0;
-        if (allowed != nullptr) {
-            for (MSLane* nextCand : *allowed) {
-                for (auto ili : nextCand->getIncomingLanes()) {
-                    if (&ili.lane->getEdge() == currentEdge) {
-                        double jump = fabs(ego.getLatOffset(ili.lane) + ego.getLateralPositionOnLane());
-                        if (jump < bestJump) {
-                            //std::cout << SIMTIME << " nextCand=" << nextCand->getID() << " from=" << ili.lane->getID() << " jump=" << jump << "\n";
-                            bestJump = jump;
-                            nextLane = nextCand;
-                            // stay within newLane
-                            const double maxVehOffset = MAX2(0.0, nextLane->getWidth() - ego.getVehicleType().getWidth()) * 0.5;
-                            newPosLat = ego.getLatOffset(ili.lane) + ego.getLateralPositionOnLane();
-                            newPosLat = MAX2(-maxVehOffset, newPosLat);
-                            newPosLat = MIN2(maxVehOffset, newPosLat);
-                        }
-                    }
-                }
-            }
-        }
-        ego.leaveLane(NOTIFICATION_JUNCTION, nextLane);
-        ego.getLaneChangeModel().cleanupShadowLane();
-        ego.getLaneChangeModel().cleanupTargetLane();
-        ego.setTentativeLaneAndPosition(nextLane, 0, newPosLat); // update position
-        ego.enterLaneAtMove(nextLane);
-        // sublane model must adapt state to the new lane
-        ego.getLaneChangeModel().prepareStep();
-    }
     return true; // keep the device
 }
 

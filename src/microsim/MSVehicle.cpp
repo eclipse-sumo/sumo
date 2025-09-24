@@ -2611,6 +2611,27 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // move to next lane
         //  get the next link used
         std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+        if (lane->isLinkEnd(link) && myLaneChangeModel->hasBlueLight() && myCurrEdge != myRoute->end() - 1) {
+            // emergency vehicle is on the wrong lane. Obtain the link that it would use from the correct turning lane
+            const int currentIndex = lane->getIndex();
+            const MSLane* bestJump = nullptr;
+            for (const LaneQ& preb : getBestLanes()) {
+                if (preb.allowsContinuation &&
+                        (bestJump == nullptr
+                         || abs(currentIndex - preb.lane->getIndex()) < abs(currentIndex - bestJump->getIndex()))) {
+                    bestJump = preb.lane;
+                }
+            }
+            if (bestJump != nullptr) {
+                const MSEdge* nextEdge = *(myCurrEdge + 1);
+                for (auto cand_it = bestJump->getLinkCont().begin(); cand_it != bestJump->getLinkCont().end(); cand_it++) {
+                    if (&(*cand_it)->getLane()->getEdge() == nextEdge) {
+                        link = cand_it;
+                        break;
+                    }
+                }
+            }
+        }
 
         // Check whether this is a turn (to save info about the next upcoming turn)
         if (!encounteredTurn) {
