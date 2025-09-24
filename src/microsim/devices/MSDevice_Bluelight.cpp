@@ -205,9 +205,10 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             //emergency vehicle has to slow down when entering the rescue lane
             if (distanceDelta <= 10 && veh.getID() != veh2->getID() && myInfluencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
                 // set ev speed to 20 km/h 0 5.56 m/s
+                const double redSpeed = ego.getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 5.56);
                 std::vector<std::pair<SUMOTime, double> > speedTimeLine;
                 speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed()));
-                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(2), 5.56));
+                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(2), redSpeed));
                 redLight.setSpeedTimeLine(speedTimeLine);
             }
 
