@@ -66,6 +66,10 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosOverLane);
+    // friendly position (only if true)
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    }
     // write common detector parameters
     writeDetectorValues(device);
     // write parameters

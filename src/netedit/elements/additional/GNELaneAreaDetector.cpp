@@ -101,6 +101,10 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
         device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
     }
+    // friendly position (only if true)
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    }
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes
