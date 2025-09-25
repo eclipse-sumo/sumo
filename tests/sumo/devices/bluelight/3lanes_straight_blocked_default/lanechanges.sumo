@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-25T13:45:51.062582+01:00 by Eclipse SUMO sumo v1_24_0+0988-90d076c371e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <bluelight_device>
+        <device.bluelight.explicit value="rescue"/>
+    </bluelight_device>
+
+</sumoConfiguration>
+-->
+
+<lanechanges>
+    <change id="rescue" type="rescue" time="13.50" from="SC_1" to="SC_2" dir="1" speed="3.90" pos="3.90" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="79.70" origLeaderSecureGap="4.73" origLeaderSpeed="0.00"/>
+    <change id="rescue" type="rescue" time="17.50" from="SC_2" to="SC_1" dir="-1" speed="14.30" pos="42.90" reason="strategic|urgent" leaderGap="40.70" leaderSecureGap="33.58" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="rescue" type="rescue" time="18.50" from="SC_1" to="SC_2" dir="1" speed="13.52" pos="57.39" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="26.21" origLeaderSecureGap="20.29" origLeaderSpeed="0.00"/>
+</lanechanges>

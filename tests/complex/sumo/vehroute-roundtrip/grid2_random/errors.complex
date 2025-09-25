@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle '1743'; waited too long (yield), lane='-B2B3_1', time=1227.00.
+Warning: Vehicle '1743' teleports beyond arrival edge 'B2C2', time=1272.00.
+Warning: Teleporting vehicle '1669'; waited too long (yield), lane='C2B2_1', time=1275.00.
+Warning: Teleporting vehicle '1729'; waited too long (yield), lane='A2B2_1', time=1279.00.
+Warning: Vehicle '1669' ends teleporting on edge 'B2C2', time=1285.00.
+Warning: Vehicle '1729' ends teleporting on edge 'B2C2', time=1286.00.
+Warning: Teleporting vehicle '1743'; waited too long (yield), lane='-B2B3_1', time=1227.00.
+Warning: Vehicle '1743' teleports beyond arrival edge 'B2C2', time=1272.00.
+Warning: Teleporting vehicle '1669'; waited too long (yield), lane='C2B2_1', time=1275.00.
+Warning: Teleporting vehicle '1729'; waited too long (yield), lane='A2B2_1', time=1279.00.
+Warning: Vehicle '1669' ends teleporting on edge 'B2C2', time=1285.00.
+Warning: Vehicle '1729' ends teleporting on edge 'B2C2', time=1286.00.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 16:29:44 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
+<!-- generated on 2025-09-25T13:45:49.334377+01:00 by Eclipse SUMO sumo v1_24_0+0988-90d076c371e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.10" arrivalLane="beg_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="56.10" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.59" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.30" arrivalLane="beg_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="56.30" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.82" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
     <tripinfo id="slow_middle" depart="0.30" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.20" arrivalLane="beg_1" arrivalPos="2996.00" arrivalSpeed="25.00" duration="79.90" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

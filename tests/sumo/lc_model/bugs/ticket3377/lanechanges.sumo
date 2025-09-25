@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 13 08:48:53 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on 2025-09-25T13:45:43.297503+01:00 by Eclipse SUMO sumo v1_24_0+0988-90d076c371e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,12 +32,11 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <lanechanges>
     <change id="ego" type="tEgo" time="11.00" from="beg_0" to="beg_1" dir="1" speed="30.00" pos="335.10" reason="speedGain" leaderGap="123.90" leaderSecureGap="63.00" leaderSpeed="24.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="tEgo" time="21.00" from="beg_1" to="beg_2" dir="1" speed="30.00" pos="635.10" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="63.90" origLeaderSecureGap="63.00" origLeaderSpeed="24.00"/>
-    <change id="ego" type="tEgo" time="49.00" from="beg_2" to="beg_1" dir="-1" speed="30.00" pos="1475.10" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="94.10" followerSecureGap="0.00" followerSpeed="24.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="tEgo" time="66.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" pos="1985.10" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="tEgo" time="25.00" from="beg_1" to="beg_2" dir="1" speed="27.63" pos="749.69" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="45.31" origLeaderSecureGap="46.44" origLeaderSpeed="24.00"/>
+    <change id="ego" type="tEgo" time="50.00" from="beg_2" to="beg_1" dir="-1" speed="30.00" pos="1499.69" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="94.69" followerSecureGap="0.00" followerSpeed="24.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

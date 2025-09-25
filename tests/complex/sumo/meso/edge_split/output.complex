@@ -1,36 +1,37 @@
-Loading net-file from 'input_net.net.xml' ... done (1ms).
+Loading net-file from 'input_net.net.xml' ... done (4ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
-Simulation ended at time: 5578.00.
+Simulation version v1_24_0+0988-90d076c371e started with time: 0.00.
+Simulation ended at time: 5581.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.94s
- Real time factor: 5908.9
- UPS: 140074.152542
+ Duration: 2.51s
+ Real time factor: 2221.74
+ UPS: 52564.888535
 Vehicles:
  Inserted: 4000
  Running: 0
  Waiting: 0
+ Teleports: 1 (Yield: 1)
 Statistics (avg of 4000):
  RouteLength: 497.68
- Speed: 20.09
- Duration: 33.06
- WaitingTime: 7.73
- TimeLoss: 12.36
- DepartDelay: 533.37
+ Speed: 20.12
+ Duration: 33.01
+ WaitingTime: 7.74
+ TimeLoss: 12.32
+ DepartDelay: 534.89
 DijkstraRouter answered 4790 queries and explored 2.33 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'input_net.net.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+0988-90d076c371e started with time: 0.00.
 Simulation ended at time: 3622.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.35s
- Real time factor: 10408
- UPS: 257100.574713
+ Duration: 0.33s
+ Real time factor: 10844.3
+ UPS: 267877.245509
 Vehicles:
  Inserted: 4000
  Running: 0
@@ -44,40 +45,40 @@ Statistics (avg of 4000):
  DepartDelay: 0.40
 DijkstraRouter answered 4000 queries and explored 2.20 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'input_net2.net.xml' ... done (0ms).
+Loading net-file from 'input_net2.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
-Simulation ended at time: 5594.00.
+Simulation version v1_24_0+0988-90d076c371e started with time: 0.00.
+Simulation ended at time: 5583.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.56s
- Real time factor: 10061.2
- UPS: 238129.496403
+ Duration: 2.95s
+ Real time factor: 1889.98
+ UPS: 44812.796209
 Vehicles:
  Inserted: 4000
  Running: 0
  Waiting: 0
- Teleports: 2 (Yield: 2)
+ Teleports: 1 (Yield: 1)
 Statistics (avg of 4000):
- RouteLength: 497.67
+ RouteLength: 497.68
  Speed: 20.05
- Duration: 33.10
- WaitingTime: 7.79
- TimeLoss: 12.41
- DepartDelay: 537.88
+ Duration: 33.09
+ WaitingTime: 7.75
+ TimeLoss: 12.40
+ DepartDelay: 535.73
 DijkstraRouter answered 4790 queries and explored 2.00 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter spent 0.01s answering queries (0.00ms on average).
 Loading net-file from 'input_net2.net.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+0988-90d076c371e started with time: 0.00.
 Simulation ended at time: 3622.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.12s
- Real time factor: 30694.9
- UPS: 759338.983051
+ Duration: 0.74s
+ Real time factor: 4901.22
+ UPS: 121247.631935
 Vehicles:
  Inserted: 4000
  Running: 0
@@ -92,6 +93,6 @@ Statistics (avg of 4000):
 DijkstraRouter answered 4000 queries and explored 2.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Deviation split vs. joined (meso): -0.0013392857142856065
-Deviation split vs. joined (micro): -0.0012084592145014848
-Deviation meso vs. micro (split): 0.32335148215366005
-Deviation meso vs. micro (joined): 0.32326283987915416
+Deviation split vs. joined (micro): -0.0024176488365066605
+Deviation meso vs. micro (split): 0.32232656770675544
+Deviation meso vs. micro (joined): 0.32305832577818083

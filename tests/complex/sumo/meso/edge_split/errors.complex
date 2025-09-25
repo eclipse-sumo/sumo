@@ -1,6 +1,6 @@
+Warning: Teleporting vehicle 'flow_0.13'; waited too long (yield), lane='gneE1_0', time=2605.00.
+Warning: Vehicle 'flow_0.13' ends teleporting on edge 'gneE2', time=2605.00.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.6'; waited too long (yield), lane='gneE4_0', time=1457.00.
-Warning: Vehicle 'flow_0.6' ends teleporting on edge 'gneE2', time=1457.00.
-Warning: Teleporting vehicle 'flow_0.13'; waited too long (yield), lane='gneE4_0', time=2921.00.
-Warning: Vehicle 'flow_0.13' ends teleporting on edge 'gneE2', time=2921.00.
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (yield), lane='gneE4_0', time=602.00.
+Warning: Vehicle 'flow_0.2' ends teleporting on edge 'gneE2', time=602.00.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.

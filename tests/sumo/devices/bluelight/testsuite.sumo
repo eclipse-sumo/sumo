@@ -27,6 +27,9 @@ turnlane_blocked
 # rescue lane on three-lane road
 3lanes_straight_blocked
 
+# use the wrong turning lane (default lanechange model)
+3lanes_straight_blocked_default
+
 # rescue lane on three-lane road
 3lanes_straight_blocked2
 
