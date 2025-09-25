@@ -137,8 +137,6 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         }
     }
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
-    MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
-    vt->setPreferredLateralAlignment(LatAlignmentDefinition::ARBITRARY);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     // use edges on the way of the emergency vehicle
     std::vector<const MSEdge*> upcomingEdges;
