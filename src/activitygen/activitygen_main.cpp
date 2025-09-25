@@ -44,7 +44,6 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/iodevices/OutputDevice.h>
 //ActivityGen
 #include "AGFrame.h"
 #include "AGActivityGen.h"
