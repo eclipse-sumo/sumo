@@ -859,7 +859,17 @@ MSLaneChangerSublane::findClosestLeader(const MSLeaderDistanceInfo& leaders, con
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         CLeaderDist cand = leaders[i];
         if (cand.first != nullptr) {
-            const double rightSide = cand.first->getRightSideOnLane();
+            double rightSide = cand.first->getRightSideOnLane();
+            if (cand.first->getLane() != vehicle->getLane()) {
+                // the candidate may be a parial (sideways) occupier so getRightSideOnLane() cannot be used
+                rightSide += (cand.first->getCenterOnEdge(cand.first->getLane())
+                        - vehicle->getCenterOnEdge(vehicle->getLane()));
+            }
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (vehicle->isSelected()) {
+                std::cout << SIMTIME << " cand=" << cand.first->getID() << " rightSide=" << rightSide << "\n";
+            }
+#endif
             if (cand.second < leader.second
                     && rightSide < egoWidth
                     && vehicle->getLane()->getWidth() - rightSide - cand.first->getVehicleType().getWidth() < egoWidth) {
