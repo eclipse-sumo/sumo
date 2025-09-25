@@ -958,6 +958,16 @@ MSBaseVehicle::getRoutePosition() const {
 }
 
 
+int
+MSBaseVehicle::getNumRemainingEdges() const {
+    if (myParameter->arrivalEdge >= 0) {
+        return myParameter->arrivalEdge - getRoutePosition() + 1;
+    } else {
+        return myRoute->size() - getRoutePosition();
+    }
+}
+
+
 void
 MSBaseVehicle::resetRoutePosition(int index, DepartLaneDefinition departLaneProcedure) {
     myCurrEdge = myRoute->begin() + index;

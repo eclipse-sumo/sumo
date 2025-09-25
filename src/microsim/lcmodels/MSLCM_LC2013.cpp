@@ -1480,7 +1480,7 @@ MSLCM_LC2013::_wantsChange(
         // prepare urgent lane change maneuver
         // save the left space
         myLeftSpace = currentDist - posOnLane;
-        if (changeToBest && abs(bestLaneOffset) > 1) {
+        if (changeToBest && abs(bestLaneOffset) > 1 && myVehicle.getNumRemainingEdges() > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             myLeadingBlockerLength = MAX2(getExtraReservation(bestLaneOffset, neighDist - currentDist), myLeadingBlockerLength);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH

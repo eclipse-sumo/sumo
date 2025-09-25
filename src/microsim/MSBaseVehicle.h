@@ -436,6 +436,9 @@ public:
     /// @brief return index of edge within route
     int getRoutePosition() const;
 
+    /// @brief return the number of edges remaining in the route (include the current)
+    int getNumRemainingEdges() const;
+
     int getArrivalIndex() const {
         return myParameter->arrivalEdge;
     }
