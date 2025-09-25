@@ -19,13 +19,16 @@
 // A 2D- or 3D-Shape
 /****************************************************************************/
 #include <config.h>
+
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #include "Shape.h"
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 const std::string Shape::DEFAULT_TYPE = "";
 const double Shape::DEFAULT_LAYER = 0;
 const double Shape::DEFAULT_LINEWIDTH = 1;
@@ -66,5 +69,110 @@ Shape::Shape(const std::string& id, const std::string& type, const RGBColor& col
 
 Shape::~Shape() {}
 
+
+void
+Shape::writeShapeAttributes(OutputDevice& device, const RGBColor& defaultColor, const double defaultLayer) const {
+    // name
+    if (myName != DEFAULT_NAME) {
+        device.writeAttr(SUMO_ATTR_NAME, myName);
+    }
+    // type
+    if (myType != DEFAULT_TYPE) {
+        device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(myType));
+    }
+    // color
+    if (myColor != defaultColor) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
+    // layer
+    if (myLayer != defaultLayer) {
+        device.writeAttr(SUMO_ATTR_LAYER, myLayer);
+    }
+    // angle
+    if (myNaviDegreeAngle != Shape::DEFAULT_ANGLE) {
+        device.writeAttr(SUMO_ATTR_ANGLE, myNaviDegreeAngle);
+    }
+    // img file
+    if (myImgFile != Shape::DEFAULT_IMG_FILE) {
+        device.writeAttr(SUMO_ATTR_IMGFILE, myImgFile);
+    }
+}
+
+
+const std::string&
+Shape::getShapeType() const {
+    return myType;
+}
+
+
+const RGBColor&
+Shape::getShapeColor() const {
+    return myColor;
+}
+
+
+double
+Shape::getShapeLayer() const {
+    return myLayer;
+}
+
+
+double
+Shape::getShapeNaviDegree() const {
+    return myNaviDegreeAngle;
+}
+
+
+const std::string&
+Shape::getShapeImgFile() const {
+    return myImgFile;
+}
+
+
+const std::string&
+Shape::getShapeName() const {
+    return myName;
+}
+
+
+void
+Shape::setShapeType(const std::string& type) {
+    myType = type;
+}
+
+
+void
+Shape::setShapeColor(const RGBColor& col) {
+    myColor = col;
+}
+
+
+void
+Shape::setShapeAlpha(unsigned char alpha) {
+    myColor.setAlpha(alpha);
+}
+
+
+void
+Shape::setShapeLayer(const double layer) {
+    myLayer = layer;
+}
+
+
+void
+Shape::setShapeNaviDegree(const double angle) {
+    myNaviDegreeAngle = angle;
+}
+
+
+void
+Shape::setShapeImgFile(const std::string& imgFile) {
+    myImgFile = imgFile;
+}
+
+void
+Shape::setShapeName(const std::string& name) {
+    myName = name;
+}
 
 /****************************************************************************/

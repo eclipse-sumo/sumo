@@ -71,51 +71,43 @@ public:
     /// @brief Destructor
     virtual ~Shape();
 
+    /**@brief write shape attributes in a xml file
+    * @param[in] device device in which write parameters of shape
+    */
+    void writeShapeAttributes(OutputDevice& device, const RGBColor& defaultColor, const double defaultLayer) const;
+
     /// @name Getter
     /// @{
 
     /** @brief Returns the (abstract) type of the Shape
      * @return The Shape's (abstract) type
      */
-    inline const std::string& getShapeType() const {
-        return myType;
-    }
+    const std::string& getShapeType() const;
 
     /** @brief Returns the color of the Shape
      * @return The Shape's color
      */
-    inline const RGBColor& getShapeColor() const {
-        return myColor;
-    }
+    const RGBColor& getShapeColor() const;
 
     /** @brief Returns the layer of the Shape
      * @return The Shape's layer
      */
-    inline double getShapeLayer() const {
-        return myLayer;
-    }
+    double getShapeLayer() const;
 
     /** @brief Returns the angle of the Shape in navigational degrees
      * @return The Shape's rotation angle
      */
-    inline double getShapeNaviDegree() const {
-        return myNaviDegreeAngle;
-    }
+    double getShapeNaviDegree() const;
 
     /** @brief Returns the imgFile of the Shape
      * @return The Shape's rotation imgFile
      */
-    inline const std::string& getShapeImgFile() const {
-        return myImgFile;
-    }
+    const std::string& getShapeImgFile() const;
 
     /// @brief Returns the name of the Shape
-    inline const std::string getShapeName() const {
-        return myName;
-    }
+    const std::string& getShapeName() const;
 
     /// @}
-
 
     /// @name Setter
     /// @{
@@ -123,49 +115,35 @@ public:
     /** @brief Sets a new type
      * @param[in] type The new type to use
      */
-    inline void setShapeType(const std::string& type) {
-        myType = type;
-    }
+    void setShapeType(const std::string& type);
 
     /** @brief Sets a new color
      * @param[in] col The new color to use
      */
-    inline void setShapeColor(const RGBColor& col) {
-        myColor = col;
-    }
+    void setShapeColor(const RGBColor& col);
 
     /** @brief Sets a new alpha value
      * @param[in] alpha The new value to use
      */
-    inline void setShapeAlpha(unsigned char alpha) {
-        myColor.setAlpha(alpha);
-    }
+    void setShapeAlpha(unsigned char alpha);
 
     /** @brief Sets a new layer
      * @param[in] layer The new layer to use
      */
-    inline void setShapeLayer(const double layer) {
-        myLayer = layer;
-    }
+    void setShapeLayer(const double layer);
 
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    virtual void setShapeNaviDegree(const double angle) {
-        myNaviDegreeAngle = angle;
-    }
+    virtual void setShapeNaviDegree(const double angle);
 
     /** @brief Sets a new imgFile
      * @param[in] imgFile The new imgFile to use
      */
-    inline void setShapeImgFile(const std::string& imgFile) {
-        myImgFile = imgFile;
-    }
+    void setShapeImgFile(const std::string& imgFile);
 
     /// @brief Sets a new shape name
-    inline void setShapeName(const std::string& name) {
-        myName = name;
-    }
+    void setShapeName(const std::string& name);
 
     /// @}
 
