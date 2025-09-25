@@ -1912,9 +1912,29 @@ MSLCM_SL2015::_wantsChangeSublane(
             case LatAlignmentDefinition::COMPACT:
                 latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                 break;
-            case LatAlignmentDefinition::ARBITRARY:
+            case LatAlignmentDefinition::ARBITRARY: {
                 latDistSublane = myVehicle.getLateralPositionOnLane() - getPosLat();
+                const double hLW = myVehicle.getLane()->getWidth() * 0.5;
+                const double posLat = myVehicle.getLateralPositionOnLane();
+                if (fabs(posLat) > hLW) {
+                    // vehicle is not within it's current lane
+                    if (posLat > 0) {
+                        latDistSublane -= (posLat - hLW);
+                    } else {
+                        latDistSublane += (-posLat - hLW);
+                    }
+                } else {
+                    const double edgeWidth = myVehicle.getCurrentEdge()->getWidth();
+                    if (getWidth() < edgeWidth) {
+                        if (rightVehSide < 0) {
+                            latDistSublane -= rightVehSide;
+                        } else if (leftVehSide > edgeWidth) {
+                            latDistSublane -= leftVehSide - edgeWidth;
+                        }
+                    }
+                }
                 break;
+            }
             case LatAlignmentDefinition::GIVEN: {
                 // sublane alignment should not cause the vehicle to leave the lane
                 const double hw = myVehicle.getLane()->getWidth() / 2 - NUMERICAL_EPS;
