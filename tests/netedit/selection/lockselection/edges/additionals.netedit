@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-20 18:39:28 by Eclipse SUMO netedit Version v1_21_0+1592-32db52eb7dd
+<!-- generated on 2025-09-25T14:22:16.995612+01:00 by Eclipse SUMO netedit v1_24_0+0995-bd6e31d9754
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -80,14 +80,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <poly id="po_1" color="red" fill="1" layer="0.00" shape="8.000000,12.000000 8.000000,8.000000 12.000000,8.000000 12.000000,12.000000 8.000000,12.000000"/>
     <poly id="po_2" color="red" fill="1" layer="0.00" shape="8.000000,-8.000000 8.000000,-12.000000 12.000000,-12.000000 12.000000,-8.000000 8.000000,-8.000000"/>
     <poly id="po_3" color="red" fill="1" layer="0.00" shape="-8.000000,-8.000000 -12.000000,-8.000000 -12.000000,-12.000000 -8.000000,-12.000000 -8.000000,-8.000000"/>
-    <poi id="poi_0" color="red" layer="202.00" x="-26.00" y="8.00"/>
-    <poi id="poi_1" color="red" layer="202.00" x="-26.00" y="-8.00"/>
-    <poi id="poi_10" color="red" layer="202.00" lon="0.000234" lat="-0.000180"/>
-    <poi id="poi_11" color="red" layer="202.00" lon="-0.000234" lat="-0.000180"/>
-    <poi id="poi_2" color="red" layer="202.00" x="26.00" y="-8.00"/>
-    <poi id="poi_3" color="red" layer="202.00" x="26.00" y="8.00"/>
-    <poi id="poi_8" color="red" layer="202.00" lon="-0.000234" lat="0.000180"/>
-    <poi id="poi_9" color="red" layer="202.00" lon="0.000234" lat="0.000180"/>
+    <poi id="poi_0" x="-26.00" y="8.00"/>
+    <poi id="poi_1" x="-26.00" y="-8.00"/>
+    <poi id="poi_10" lon="0.000234" lat="-0.000180"/>
+    <poi id="poi_11" lon="-0.000234" lat="-0.000180"/>
+    <poi id="poi_2" x="26.00" y="-8.00"/>
+    <poi id="poi_3" x="26.00" y="8.00"/>
+    <poi id="poi_8" lon="-0.000234" lat="0.000180"/>
+    <poi id="poi_9" lon="0.000234" lat="0.000180"/>
     <!-- TAZs -->
     <taz id="taz_0" shape="-18.00,-14.00 -18.00,-16.00 -8.00,-16.00 -8.00,-14.00 -18.00,-14.00" fill="1" color="green">
         <tazSource id="-E6" weight="1.00"/>

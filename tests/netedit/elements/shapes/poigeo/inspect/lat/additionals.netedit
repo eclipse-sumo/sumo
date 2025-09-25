@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-11 11:08:37 by Eclipse SUMO netedit Version v1_20_0+1440-c0d3cf16543
+<!-- generated on 2025-09-25T14:11:11.281014+01:00 by Eclipse SUMO netedit v1_24_0+0995-bd6e31d9754
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,5 +15,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poi id="poi_0" color="red" layer="202.00" lon="-0.000180" lat="7.500000"/>
+    <poi id="poi_0" lon="-0.000180" lat="7.500000"/>
 </additional>

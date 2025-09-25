@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-10 15:28:46 by Eclipse SUMO netedit Version v1_23_1+0994-9cdebe74352
+<!-- generated on 2025-09-25T14:57:24.330029+01:00 by Eclipse SUMO netedit v1_24_0+0999-5f9ed61eb7c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <laneAreaDetector id="E2_01" lane="EdgeCenter0_0" pos="35.00" length="10.00" period="120.00" file="fileA.txt" jamThreshold="12.00"/>
-    <laneAreaDetector id="E2_03" lane="EdgeCenter0_0" pos="-50.00" length="10.00" period="120.00" file="fileA.txt" friendlyPos="1" jamThreshold="12.00"/>
-    <laneAreaDetector id="E2_04" lane="EdgeCenter0_0" pos="500.00" length="10.00" period="120.00" file="fileA.txt" friendlyPos="1" jamThreshold="12.00"/>
-    <laneAreaDetector id="E2_05" lane="EdgeCenter0_0" pos="36.00" length="800.00" period="120.00" file="fileA.txt" friendlyPos="1" jamThreshold="12.00"/>
+    <laneAreaDetector id="E2_03" lane="EdgeCenter0_0" pos="-50.00" length="10.00" friendlyPos="1" period="120.00" file="fileA.txt" jamThreshold="12.00"/>
+    <laneAreaDetector id="E2_04" lane="EdgeCenter0_0" pos="500.00" length="10.00" friendlyPos="1" period="120.00" file="fileA.txt" jamThreshold="12.00"/>
+    <laneAreaDetector id="E2_05" lane="EdgeCenter0_0" pos="36.00" length="800.00" friendlyPos="1" period="120.00" file="fileA.txt" jamThreshold="12.00"/>
 </additional>
