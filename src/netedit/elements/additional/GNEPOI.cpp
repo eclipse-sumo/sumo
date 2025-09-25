@@ -149,7 +149,7 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
     }
     // specific of poi lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front());
+        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
         device.writeAttr(SUMO_ATTR_POSITION, getFixedPositionOverLane());
         // posLat
         if (myPosLat != 0) {
