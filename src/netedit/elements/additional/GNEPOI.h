@@ -59,7 +59,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color,
-           const Position& pos, const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
+           const Position& pos, const bool geo, POIIcon icon, const double layer, const double angle, const std::string& imgFile,
            const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
@@ -81,7 +81,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane,
-           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
+           const double posOverLane, const bool friendlyPos, const double posLat, POIIcon icon, const double layer, const double angle,
            const std::string& imgFile, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor

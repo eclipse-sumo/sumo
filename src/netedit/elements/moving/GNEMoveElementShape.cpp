@@ -52,8 +52,8 @@ GNEMoveElementShape::GNEMoveElementShape(GNEAttributeCarrier* element, PositionV
 
 GNEMoveElementShape::GNEMoveElementShape(GNEAttributeCarrier* element, PositionVector& shape, const Position& position, const bool alwaysClosed) :
     GNEMoveElement(element),
-    myMovingShape(shape),
     myCenterPosition(position),
+    myMovingShape(shape),
     myAlwaysClosed(alwaysClosed) {
 }
 
