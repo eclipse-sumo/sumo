@@ -42,7 +42,8 @@ public:
     GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType);
 
     /// @brief constructor with tag type
-    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type>& tagTypes);
+    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,
+                             const std::vector<SumoXMLTag> exceptions = {});
 
     /// @brief destructor
     ~GNEDemandElementSelector();

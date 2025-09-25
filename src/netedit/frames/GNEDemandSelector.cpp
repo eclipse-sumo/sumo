@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementS
 // ===========================================================================
 
 GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType) :
-    MFXGroupBoxModule(frameParent, (TL("Parent ") + toString(demandElementTag)).c_str()),
+    MFXGroupBoxModule(frameParent, TLF("Parent %", toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}),
@@ -62,7 +62,8 @@ mySelectingMultipleElements(false) {
 }
 
 
-GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type>& tagTypes) :
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,
+        const std::vector<SumoXMLTag> exceptions) :
     MFXGroupBoxModule(frameParent, TL("Parent element")),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
@@ -72,7 +73,9 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     for (const auto& tagType : tagTypes) {
         const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType);
         for (const auto tagProperty : tagPropertiesByType) {
-            myDemandElementTags.push_back(tagProperty->getTag());
+            if (std::find(exceptions.begin(), exceptions.end(), tagProperty->getTag()) == exceptions.end()) {
+                myDemandElementTags.push_back(tagProperty->getTag());
+            }
         }
     }
     // Create MFXComboBoxIcon

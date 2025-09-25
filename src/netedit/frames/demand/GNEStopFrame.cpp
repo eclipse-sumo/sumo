@@ -125,7 +125,7 @@ GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEDemandElementSelector(this, {GNETagProperties::Type::VEHICLE, GNETagProperties::Type::ROUTE});
+    myStopParentSelector = new GNEDemandElementSelector(this, {GNETagProperties::Type::VEHICLE, GNETagProperties::Type::ROUTE}, {GNE_TAG_ROUTE_EMBEDDED});
 
     // Create item Selector module for Stops
     myStopTagSelector = new GNETagSelector(this, GNETagProperties::Type::STOP_VEHICLE, GNE_TAG_STOP_LANE);
