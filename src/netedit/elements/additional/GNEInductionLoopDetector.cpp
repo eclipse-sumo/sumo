@@ -73,7 +73,7 @@ GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_POSITION, myPosOverLane);
     // friendly position (only if true)
     if (myFriendlyPos) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     // write common parameters
     writeDetectorValues(device);
