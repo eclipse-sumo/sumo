@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-24 17:12+0000\n"
+"PO-Revision-Date: 2025-09-26 12:02+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -9842,11 +9842,11 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:70
 msgid "close accepting changes"
-msgstr ""
+msgstr "fechar e aceitar mudanças"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:71
 msgid "close discarding changes"
-msgstr ""
+msgstr "fechar e descartar mudanças"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:72
 msgid "reset to previous values"
@@ -10102,7 +10102,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:165
 msgid "Heavy rail vehicle"
-msgstr ""
+msgstr "Veículo ferroviário pesado"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:166
 msgid "A conveyance suspended on a cable"
@@ -10138,7 +10138,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:176
 msgid "A transport container"
-msgstr ""
+msgstr "Um contêiner de transporte"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:177
 msgid "An airplane"
@@ -10647,7 +10647,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:62
 msgid "Save invalid positions"
-msgstr ""
+msgstr "Salvar posições inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:63
 msgid "Save stopping places and E2 detectors with invalid positions"
@@ -10666,7 +10666,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:72
 msgid "Select invalid additionals"
-msgstr ""
+msgstr "Selecionar elementos adicionais inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:73
 msgid ""
@@ -10723,7 +10723,7 @@ msgstr "Rotas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:66
 msgid "Remove invalid routes"
-msgstr ""
+msgstr "Remover rotas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:67
 msgid "Remove invalid routes and save"
@@ -10732,7 +10732,7 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:71
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:72
 msgid "Save invalid routes"
-msgstr ""
+msgstr "Salvar rotas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:76
 msgid "Select invalid routes"
@@ -10764,7 +10764,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:190
 msgid "Remove invalid vehicles"
-msgstr ""
+msgstr "Remover veículos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:191
 msgid "Remove invalid vehicles and save"
@@ -10773,7 +10773,7 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:195
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:196
 msgid "Save invalid vehicles"
-msgstr ""
+msgstr "Salvar veículos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:200
 msgid "Select invalid vehicles"
@@ -10890,12 +10890,12 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:56
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:57
 msgid "Remove invalid edges"
-msgstr ""
+msgstr "Remover arestas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:61
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:62
 msgid "Save invalid edges"
-msgstr ""
+msgstr "Salvar arestas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:66
 msgid "Select invalid edges"
@@ -10907,16 +10907,16 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:92
 msgid "delete invalid edges"
-msgstr ""
+msgstr "deletar arestas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:101
 msgid "select invalid edges"
-msgstr ""
+msgstr "selecionar arestas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:142
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:143
 msgid "Remove invalid crossings"
-msgstr ""
+msgstr "Remover cruzamentos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:147
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:148
@@ -14344,6 +14344,8 @@ msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions)"
 msgstr ""
+"Segure <CTRL> ao clicar para criar conexões em conflito (ou seja, em nós "
+"zipper ou com permissões incompatíveis)"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:333
 msgid "Possible Target"
@@ -14563,6 +14565,8 @@ msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
 msgstr ""
+"Já existe outro cruzamento com as mesmas vias na junção; Cruzamentos "
+"duplicados não são permitidos."
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:506
 msgid "Click over junction to mark candidate edges."
