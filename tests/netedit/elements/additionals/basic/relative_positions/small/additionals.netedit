@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-19 11:02:46 by Eclipse SUMO netedit Version v1_21_0+1495-8a1daeff034
+<!-- generated on 2025-09-25T10:45:49.744551+01:00 by Eclipse SUMO netedit v1_24_0+0978-987cf28f5ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,9 +29,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </parkingArea>
     <chargingStation id="cs_0" lane="-E0_0" startPos="15.00" endPos="25.00" friendlyPos="1"/>
     <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="-E0_2" pos="50.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
-    <instantInductionLoop id="e1i_0" lane="-E0_2" pos="30.00" file="e1i_0.xml" friendlyPos="1"/>
-    <laneAreaDetector id="e2_0" lane="-E0_2" pos="35.00" length="10.00" period="300.00" file="e2_0.xml" friendlyPos="1"/>
+    <inductionLoop id="e1_0" lane="-E0_2" pos="50.00" friendlyPos="1" period="300.00" file="e1_0.xml"/>
+    <instantInductionLoop id="e1i_0" lane="-E0_2" pos="30.00" friendlyPos="1" file="e1i_0.xml"/>
+    <laneAreaDetector id="e2_0" lane="-E0_2" pos="35.00" length="10.00" friendlyPos="1" period="300.00" file="e2_0.xml"/>
     <entryExitDetector id="e3_0" pos="0.00,-20.00" period="300.00" file="e3_0.xml">
         <detEntry lane="-E0_1" pos="50.00" friendlyPos="1"/>
         <detExit lane="-E0_1" pos="10.00" friendlyPos="1"/>
