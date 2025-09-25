@@ -805,10 +805,10 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
         // calculate signPosition position
         Position signPosition = parentPosition;
+        // set position depending of indexes
+        signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-            // set position depending of indexes
-            signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
             // calculate colors
             const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
             const RGBColor secondColor = baseColor.changedBrightness(-30);
@@ -870,10 +870,10 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
                 GLHelper::popMatrix();
             }
             // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, getType(), 0, -2.3, 0, 1, nullptr);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.48, 2.75, getType(), -0.48, 0, 0, 1, nullptr);
     }
 }
 

@@ -978,6 +978,8 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
         } else {
             return writeError(TLF("Could not build interval with begin '%' and end '%' in '%' due overlapping.", toString(begin), toString(end), rerouter->getID()));
         }
+        // update centering boundary of rerouter parent
+        rerouter->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1006,6 +1008,8 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
             rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
         }
+        // update centering boundary of rerouter parent
+        rerouterInterval->getParentAdditionals().front()->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1034,6 +1038,8 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
             rerouterInterval->addChildElement(closingLaneReroute);
             closingLaneReroute->incRef("buildClosingLaneReroute");
         }
+        // update centering boundary of rerouter parent
+        rerouterInterval->getParentAdditionals().front()->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1061,6 +1067,8 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
             rerouterInterval->addChildElement(destProbReroute);
             destProbReroute->incRef("builDestProbReroute");
         }
+        // update centering boundary of rerouter parent
+        rerouterInterval->getParentAdditionals().front()->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1089,6 +1097,8 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
             rerouterInterval->addChildElement(parkingAreaReroute);
             parkingAreaReroute->incRef("builParkingAreaReroute");
         }
+        // update centering boundary of rerouter parent
+        rerouterInterval->getParentAdditionals().front()->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1117,6 +1127,8 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
             rerouterInterval->addChildElement(routeProbReroute);
             routeProbReroute->incRef("buildRouteProbReroute");
         }
+        // update centering boundary of rerouter parent
+        rerouterInterval->getParentAdditionals().front()->updateCenteringBoundary(true);
         return true;
     }
 }
@@ -1243,6 +1255,8 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
             VSS->addChildElement(variableSpeedSignStep);
             variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
         }
+        // update centering boundary of VSS parent
+        VSS->updateCenteringBoundary(true);
         return true;
     }
 }
