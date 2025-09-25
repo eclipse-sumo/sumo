@@ -96,7 +96,66 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s, this, this, false, s.poiUseCustomLayer ? s.poiCustomLayer : getShapeLayer(), getWidth(), getHeight());
+        const double exaggeration = getExaggeration(s);
+        const double layer = s.poiUseCustomLayer ? s.poiCustomLayer : getShapeLayer();
+        GLHelper::pushMatrix();
+        // set POI Color
+        setPOIColor(s, getShapeColor(), this, false);
+        // add extra offset z provided by icon to avoid overlapping
+        glTranslated(x(), y(), layer + (double)getIcon());
+        glRotated(-getShapeNaviDegree(), 0, 0, 1);
+        // check if has to be drawn as a circle or with an image
+        if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+            int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
+            if (textureID > 0) {
+                GUITexturesHelper::drawTexturedBox(textureID,
+                                                   getWidth() * -0.5 * exaggeration, getHeight() * -0.5 * exaggeration,
+                                                   getWidth() * 0.5 * exaggeration,  getHeight() * 0.5 * exaggeration);
+            }
+        } else {
+            // fallback if no image is defined
+            GLHelper::drawFilledCircle(std::max(getWidth(), getHeight()) * 0.5 * exaggeration, s.poiDetail);
+            // check if draw polygon
+            if (getIcon() != POIIcon::NONE) {
+                // translate
+                glTranslated(0, 0, 0.1);
+                // rotate
+                glRotated(180, 0, 0, 1);
+                // draw texture
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(getIcon()), exaggeration * 0.8);
+            }
+        }
+        GLHelper::popMatrix();
+        if (!s.drawForRectangleSelection) {
+            const Position namePos = *this;
+            drawName(namePos, s.scale, s.poiName, s.angle);
+            if (s.poiType.show(this)) {
+                const Position p = namePos + Position(0, -0.6 * s.poiType.size / s.scale);
+                GLHelper::drawTextSettings(s.poiType, getShapeType(), p, s.scale, s.angle);
+            }
+            if (s.poiText.show(this)) {
+                GLHelper::pushMatrix();
+                glTranslated(x(), y(), 0);
+                std::string value = getParameter(s.poiTextParam, "");
+                if (value != "") {
+                    auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
+                    glRotated(-s.angle, 0, 0, 1);
+                    glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * (double)lines.size(), 0);
+                    glRotated(s.angle, 0, 0, 1);
+                    // FONS_ALIGN_LEFT = 1
+                    // FONS_ALIGN_CENTER = 2
+                    // FONS_ALIGN_MIDDLE = 16
+                    const int align = (lines.size() > 1 ? 1 : 2) | 16;
+                    for (std::string& line : lines) {
+                        GLHelper::drawTextSettings(s.poiText, line, Position(0, 0), s.scale, s.angle, GLO_MAX, align);
+                        glRotated(-s.angle, 0, 0, 1);
+                        glTranslated(0, -0.7 * s.poiText.scaledSize(s.scale), 0);
+                        glRotated(s.angle, 0, 0, 1);
+                    }
+                }
+                GLHelper::popMatrix();
+            }
+        }
         // pop name
         GLHelper::popName();
     }
@@ -114,7 +173,7 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObje
 
 
 void
-GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, bool disableSelectionColor) {
+GUIPointOfInterest::setPOIColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, const bool disableSelectionColor) {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
     if (s.netedit && active != 1 && gSelected.isSelected(o->getType(), o->getGlID()) && disableSelectionColor) {
@@ -128,70 +187,5 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const RGBColor& 
         GLHelper::setColor(c.getScheme().getColor(0));
     }
 }
-
-
-void
-GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o,
-                                 const bool disableSelectionColor, const double layer, const double width, const double height) {
-    const double exaggeration = o->getExaggeration(s);
-    GLHelper::pushMatrix();
-    setColor(s, POI, o, disableSelectionColor);
-    // add extra offset z provided by icon to avoid overlapping
-    glTranslated(POI->x(), POI->y(), layer + (double)POI->getIcon());
-    glRotated(-POI->getShapeNaviDegree(), 0, 0, 1);
-    // check if has to be drawn as a circle or with an image
-    if (POI->getShapeImgFile() != DEFAULT_IMG_FILE) {
-        int textureID = GUITexturesHelper::getTextureID(POI->getShapeImgFile());
-        if (textureID > 0) {
-            GUITexturesHelper::drawTexturedBox(textureID,
-                                               width * -0.5 * exaggeration, height * -0.5 * exaggeration,
-                                               width * 0.5 * exaggeration,  height * 0.5 * exaggeration);
-        }
-    } else {
-        // fallback if no image is defined
-        GLHelper::drawFilledCircle(width * 0.5 * exaggeration, s.poiDetail);
-        // check if draw polygon
-        if (POI->getIcon() != POIIcon::NONE) {
-            // translate
-            glTranslated(0, 0, 0.1);
-            // rotate
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration * 0.8);
-        }
-    }
-    GLHelper::popMatrix();
-    if (!s.drawForRectangleSelection) {
-        const Position namePos = *POI;
-        o->drawName(namePos, s.scale, s.poiName, s.angle);
-        if (s.poiType.show(o)) {
-            const Position p = namePos + Position(0, -0.6 * s.poiType.size / s.scale);
-            GLHelper::drawTextSettings(s.poiType, POI->getShapeType(), p, s.scale, s.angle);
-        }
-        if (s.poiText.show(o)) {
-            GLHelper::pushMatrix();
-            glTranslated(POI->x(), POI->y(), 0);
-            std::string value = POI->getParameter(s.poiTextParam, "");
-            if (value != "") {
-                auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
-                glRotated(-s.angle, 0, 0, 1);
-                glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * (double)lines.size(), 0);
-                glRotated(s.angle, 0, 0, 1);
-                // FONS_ALIGN_LEFT = 1
-                // FONS_ALIGN_CENTER = 2
-                // FONS_ALIGN_MIDDLE = 16
-                const int align = (lines.size() > 1 ? 1 : 2) | 16;
-                for (std::string& line : lines) {
-                    GLHelper::drawTextSettings(s.poiText, line, Position(0, 0), s.scale, s.angle, GLO_MAX, align);
-                    glRotated(-s.angle, 0, 0, 1);
-                    glTranslated(0, -0.7 * s.poiText.scaledSize(s.scale), 0);
-                    glRotated(s.angle, 0, 0, 1);
-                }
-            }
-            GLHelper::popMatrix();
-        }
-    }
-}
-
 
 /****************************************************************************/

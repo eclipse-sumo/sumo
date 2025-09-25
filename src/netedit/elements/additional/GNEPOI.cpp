@@ -135,10 +135,6 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
     if (getShapeType().size() > 0) {
         device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
     }
-    // Icon
-    if (myPOIIcon != POIIcon::NONE) {
-        device.writeAttr(SUMO_ATTR_ICON, SUMOXMLDefinitions::POIIcons.getString(myPOIIcon));
-    }
     // color
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // layer
@@ -190,6 +186,10 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
     // height
     if (myHeight != Shape::DEFAULT_IMG_HEIGHT) {
         device.writeAttr(SUMO_ATTR_HEIGHT, myHeight);
+    }
+    // Icon
+    if (myPOIIcon != POIIcon::NONE) {
+        device.writeAttr(SUMO_ATTR_ICON, SUMOXMLDefinitions::POIIcons.getString(myPOIIcon));
     }
     // params
     writeParams(device);
@@ -651,8 +651,8 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
         const auto position = getPositionInView();
         // push matrix
         GLHelper::pushMatrix();
-        // set color
-        GUIPointOfInterest::setColor(s, getShapeColor(), this, drawUsingSelectColor());
+        // set POI color
+        GUIPointOfInterest::setPOIColor(s, getShapeColor(), this, drawUsingSelectColor());
         // add extra offset z provided by icon to avoid overlapping
         if (myDrawInFront) {
             glTranslated(position.x(), position.y(), GLO_FRONTELEMENT + (double)myPOIIcon);

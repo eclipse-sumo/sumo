@@ -36,6 +36,7 @@
  * @brief The GUI-version of a point of interest
  */
 class GUIPointOfInterest : public PointOfInterest, public GUIGlObject_AbstractAdd {
+
 public:
     /** @brief Constructor
      * @param[in] id The name of the POI
@@ -112,10 +113,6 @@ public:
     /// @brief check if POI can be drawn
     static bool checkDraw(const GUIVisualizationSettings& s, const GUIGlObject* o);
 
-    /// @brief set color
-    static void setColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, bool forceSelectionColor);
-
-    /// @brief draw inner POI (before pushName() )
-    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor,
-                             const double layer, const double width, const double height);
+    /// @brief set POI color
+    static void setPOIColor(const GUIVisualizationSettings& s, const RGBColor& shapeColor, const GUIGlObject* o, const bool forceSelectionColor);
 };
