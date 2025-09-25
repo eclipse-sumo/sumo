@@ -56,8 +56,8 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const Position& pos,
                const bool geo, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, ""),
-    Shape(id, type, color, layer, angle, imgFile, name),
+    GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
+    Shape(id, type, color, layer, angle, imgFile, ""),
     GNEMoveElementLaneSingle(this),
     GNEMoveElementView(this, pos, width, height, 0),
     Parameterised(parameters),
@@ -121,7 +121,7 @@ GNEPOI::getSumoBaseObject() const {
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_WIDTH, myWidth);
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_HEIGHT, myHeight);
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
-    POIBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_NAME, myAdditionalName);
     return POIBaseObject;
 }
 
@@ -131,17 +131,9 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_POI);
     // ID
     device.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-    // type
-    if (getShapeType().size() > 0) {
-        device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
-    }
-    // color
-    device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
-    // layer
-    device.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
-    // name
-    if (!getShapeName().empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
+    // name (note: Use additional name instead shape name)
+    if (myAdditionalName.size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
     }
     // specific of poi lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
@@ -171,14 +163,8 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
         }
     }
-    // angle
-    if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
-        device.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
-    }
-    // img file
-    if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
-        device.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
-    }
+    // write shape attributes
+    writeShapeAttributes(device, RGBColor::RED, Shape::DEFAULT_LAYER_POI);
     // width
     if (myWidth != Shape::DEFAULT_IMG_WIDTH) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
@@ -467,7 +453,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return toString(getShapeNaviDegree());
         case SUMO_ATTR_NAME:
-            return getShapeName();
+            return myAdditionalName;
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
@@ -873,7 +859,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_NAME:
-            setShapeName(value);
+            myAdditionalName = value;
             break;
         case GNE_ATTR_SHIFTLANEINDEX:
             shiftLaneIndex();
