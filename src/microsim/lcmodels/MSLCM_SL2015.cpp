@@ -3479,6 +3479,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
         const double edgeOverlap = MAX2(-rightVehSide, rightVehSide + myVehicle.getVehicleType().getWidth() - myVehicle.getCurrentEdge()->getWidth());
         // if vehicle is outside edge bounds. Permit stronger lateral maneuvering
         accelLat = MAX2(accelLat, 2 * edgeOverlap);
+        maxSpeedLat = MAX2(maxSpeedLat, edgeOverlap);
     }
 
 #ifdef DEBUG_MANEUVER
