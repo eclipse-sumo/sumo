@@ -1,3 +1,2 @@
-Warning: Vehicle 'f_0.1' performs emergency braking on lane 'E0_1' with decel=9.00, wished=4.50, severity=1.00, time=52.00.
-Warning: Teleporting vehicle 'f_0.1'; collision with vehicle 'f_1.7', lane='E0_1', gap=-1.33, latGap=-0.05, time=52.00, stage=move.
-Warning: Vehicle 'f_0.1' teleports beyond arrival edge 'E0', time=52.00.
+Warning: Vehicle 'f_1.17' performs emergency braking on lane 'E0_1' with decel=9.00, wished=4.50, severity=1.00, time=75.50.
+Warning: Vehicle 'f_0.10' performs emergency braking on lane 'E0_1' with decel=9.00, wished=4.50, severity=1.00, time=97.50.

@@ -1,3 +1,2 @@
-Warning: Teleporting vehicle 'flow_1.165'; side collision with vehicle 'flow_1.166', lane=':C_1_1', gap=-3.10, latGap=-0.38, time=861.00, stage=laneChange.
-Warning: Vehicle 'flow_1.165' ends teleporting on edge 'CS', time=861.00.
-Warning: Vehicle 'flow_1.166' ends teleporting on edge 'CS', time=861.00.
+Warning: Teleporting vehicle 'flow_0.101'; junction collision with vehicle 'flow_2.57', lane=':C_9_0', gap=-1.00, latGap=0.00, time=959.00, stage=move.
+Warning: Vehicle 'flow_0.101' ends teleporting on edge 'CN', time=959.00.
