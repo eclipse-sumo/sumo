@@ -201,7 +201,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contours
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.vaporizerSize,
-                s.additionalSettings.vaporizerSize, getType(), 0, 0, 0, vaporizerExaggeration, getParentEdges().front());
+                s.additionalSettings.vaporizerSize, getType(), 0, 0, (myAdditionalGeometry.getShapeRotations().front() * -1), vaporizerExaggeration, getParentEdges().front());
         mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), 0.3, vaporizerExaggeration,
                 true, true, 0, nullptr, getParentEdges().front());
     }
