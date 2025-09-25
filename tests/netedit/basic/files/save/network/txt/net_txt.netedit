@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-16T10:37:27.760842+01:00 by Eclipse SUMO netedit v1_24_0+0811-c889b5d66f5
+<!-- generated on 2025-09-25T10:40:42.874864+01:00 by Eclipse SUMO netedit v1_24_0+0978-987cf28f5ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,12 +14,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep103652.14632\netedit.internal\basic\files\save\network\txt\net2.txt"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.internal.25Sep104034.26739/netedit.internal/basic/files/save/network/txt/net2.txt"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep103652.14632\netedit.internal\basic\files\save\network\txt\net2.txt"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.internal.25Sep104034.26739/netedit.internal/basic/files/save/network/txt/net2.txt"/>
     </output>
 
     <processing>
@@ -56,13 +56,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-34.00,-26.00,32.00,-26.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-32.00,-26.00,32.00,-26.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="66.00" shape="-34.00,-27.60 32.00,-27.60"/>
+        <lane id="E0_0" index="0" speed="13.89" length="64.00" shape="-32.00,-27.60 32.00,-27.60"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="-34.00" y="-26.00" incLanes="" intLanes="" shape="-34.00,-26.00 -34.00,-29.20"/>
+    <junction id="J0" type="dead_end" x="-32.00" y="-26.00" incLanes="" intLanes="" shape="-32.00,-26.00 -32.00,-29.20"/>
     <junction id="J1" type="dead_end" x="32.00" y="-26.00" incLanes="E0_0" intLanes="" shape="32.00,-29.20 32.00,-26.00"/>
 
 </net>
