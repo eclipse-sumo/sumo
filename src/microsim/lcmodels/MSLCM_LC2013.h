@@ -199,8 +199,10 @@ protected:
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<double, int> Info;
 
-    /// @brief a value for tracking the probability that a change to the offset with the same sign is beneficial
-    double mySpeedGainProbability;
+    /// @brief a value for tracking the probability that a change to that side is beneficial
+    double mySpeedGainProbabilityLeft;
+    double mySpeedGainProbabilityRight;
+
     /* @brief a value for tracking the probability of following the/"Rechtsfahrgebot"
      * A larger negative value indicates higher probability for moving to the
      * right (as in mySpeedGainProbability) */
