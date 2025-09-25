@@ -2191,7 +2191,9 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
                          // ignore situations where the shadow lane is part of a double-connection with the current lane
                          && (myLaneChangeModel->getShadowLane() == nullptr
                              || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
-                             || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane()));
+                             || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != link->getLane())
+                         // emergency vehicles may do some crazy stuff
+                         && !myLaneChangeModel->hasBlueLight());
 
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
@@ -5481,12 +5483,14 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     if (!onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION, enteredLane);
         if (MSGlobals::gLateralResolution > 0) {
+            myFurtherLanesPosLat.push_back(myState.myPosLat);
             // transform lateral position when the lane width changes
             assert(oldLane != nullptr);
             const MSLink* const link = oldLane->getLinkTo(myLane);
             if (link != nullptr) {
-                myFurtherLanesPosLat.push_back(myState.myPosLat);
                 myState.myPosLat += link->getLateralShift();
+            } else {
+                myState.myPosLat += (oldLane->getCenterOnEdge() - myLane->getCanonicalPredecessorLane()->getRightSideOnEdge()) / 2;
             }
         } else if (fabs(myState.myPosLat) > NUMERICAL_EPS) {
             const double overlap = MAX2(0.0, getLateralOverlap(myState.myPosLat, oldLane));
