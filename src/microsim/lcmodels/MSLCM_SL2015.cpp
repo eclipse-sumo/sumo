@@ -84,6 +84,7 @@
 // ===========================================================================
 //#define DEBUG_MANEUVER
 //#define DEBUG_WANTSCHANGE
+//#define DEBUG_DECISION
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
 //#define DEBUG_STATE
@@ -1579,14 +1580,25 @@ MSLCM_SL2015::_wantsChangeSublane(
                 vMin *= (1 - myLaneDiscipline);
             }
             double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
-            const double currentLatDist = MIN2(MAX2(sublaneSides[i] - rightVehSide, minLatDist), maxLatDist);
+            double currentLatDist = sublaneSides[i] - rightVehSide;
+            if ((laneOffset == 0 && (currentLatDist > maxLatDist || currentLatDist < minLatDist))
+                    || (laneOffset < 0 && currentLatDist > maxLatDist)
+                    || (laneOffset > 0 && currentLatDist < minLatDist)) {
+#ifdef DEBUG_WANTSCHANGE
+                if (gDebugFlag2) {
+                    std::cout << "      i=" << i << " currentLatDist=" << currentLatDist << " outOfBounds\n";
+                }
+#endif
+                continue;
+            }
+            currentLatDist = MIN2(MAX2(currentLatDist, minLatDist), maxLatDist);
             if (currentLatDist > 0 && myVehicle.getLane()->getBidiLane() != nullptr) {
                 // penalize overtaking on the left if the lane is used in both
                 // directions
                 relativeGain *= 0.5;
             }
-            // @note this is biased for changing to the left since we compare the sublanes in ascending order
-            if (relativeGain > maxGain) {
+            // @note only consider change if it is compatible with the current direction (same sign or laneOffset == 0)
+            if (relativeGain > maxGain && currentLatDist * laneOffset >= 0) {
                 maxGain = relativeGain;
                 if (maxGain > GAIN_PERCEPTION_THRESHOLD) {
                     sublaneCompact = i;
@@ -1626,8 +1638,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                             << " side=" << sublaneSides[i]
                             << " rightSide=" << rightVehSide
                             << " latDistNice=" << latDistNice
-                            << " maxGainR=" << maxGainRight
-                            << " maxGainL=" << maxGainLeft
+                            << " maxGainR=" << (maxGainRight == -std::numeric_limits<double>::max() ? "n/a" : toString(maxGainRight))
+                            << " maxGainL=" << (maxGainLeft == -std::numeric_limits<double>::max() ? "n/a" : toString(maxGainLeft))
                             << "\n";
 #endif
             }
@@ -1776,7 +1788,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
         }
 
-        const double bidiRightFactor = myVehicle.getLane()->getBidiLane() == nullptr ? 1 : 0.05;
+        const double bidiRightFactor = myVehicle.getLane()->getBidiLane() == nullptr && !isOpposite() ? 1 : 0.05;
 #ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
@@ -1792,7 +1804,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
 
         // make changing on the right more attractive on bidi edges
-        if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight * bidiRightFactor, mySpeedGainProbabilityLeft)
+        if (latDist < 0 && mySpeedGainProbabilityRight >= myChangeProbThresholdRight * bidiRightFactor
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > mySpeedGainRemainTime) {
             ret |= LCA_SPEEDGAIN;
             if (!cancelRequest(ret | getLCA(ret, latDist), laneOffset)) {
@@ -2676,7 +2688,7 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     const bool can2 = ((sd2.state & LCA_BLOCKED) == 0);
     int reason1 = lowest_bit(sd1.state & LCA_CHANGE_REASONS);
     int reason2 = lowest_bit(sd2.state & LCA_CHANGE_REASONS);
-#ifdef DEBUG_WANTSCHANGE
+#ifdef DEBUG_DECISION
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " veh=" << myVehicle.getID()
                                   << " state1=" << toString((LaneChangeAction)sd1.state)
@@ -2734,7 +2746,17 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                 } else {
                     if (can1) {
                         if (can2) {
-                            return fabs(sd1.latDist) > fabs(sd2.latDist) ? sd1 : sd2;
+                            // break strategic ties with tactial concerns
+                            if (reason1 == LCA_STRATEGIC) {
+                                if (sd1.latDist <= sd2.latDist) {
+                                    return mySpeedGainProbabilityRight > mySpeedGainProbabilityLeft ? sd1 : sd2;
+                                } else {
+                                    return mySpeedGainProbabilityRight > mySpeedGainProbabilityLeft ? sd2 : sd1;
+                                }
+                            } else {
+                                // finish the shorter maneuver (i.e. continue the current maneuver)
+                                return fabs(sd1.maneuverDist) < fabs(sd2.maneuverDist) ? sd1 : sd2;
+                            }
                         } else {
                             return sd1;
                         }
