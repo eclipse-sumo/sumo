@@ -1,2 +1,0 @@
-# do not run in parallel on Windows
-queue_system_max_capacity:1

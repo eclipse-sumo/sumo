@@ -1,0 +1,2 @@
+# do not run too much in parallel on Windows
+queue_system_max_capacity:2
