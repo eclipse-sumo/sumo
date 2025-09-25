@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-12 14:36:02 by Eclipse SUMO netedit Version v1_22_0+0808-91687f8467b
+<!-- generated on 2025-09-25T15:59:17.740025+01:00 by Eclipse SUMO netedit v1_24_0+1002-27f213df888
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingAreaA" name="parkingArea1" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" onRoad="1" width="5.00" length="7.00" departPos="7" lefthand="1">
+    <parkingArea id="parkingAreaA" name="parkingArea1" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="1" angle="10.00" onRoad="1" width="5.00" length="7.00" departPos="7" lefthand="1">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA2"/>
         <param key="KeyA3" value="valueA3"/>
     </parkingArea>
-    <parkingArea id="parkingAreaB" name="parkingArea2" lane="EdgeCenter0_0" startPos="20.00" endPos="35.00" roadsideCapacity="10" width="6.00" length="8.00" angle="30.00" departPos="5" lefthand="1">
+    <parkingArea id="parkingAreaB" name="parkingArea2" lane="EdgeCenter0_0" startPos="20.00" endPos="35.00" angle="30.00" roadsideCapacity="10" width="6.00" length="8.00" departPos="5" lefthand="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB2"/>
         <param key="KeyB3" value="valueB3"/>
