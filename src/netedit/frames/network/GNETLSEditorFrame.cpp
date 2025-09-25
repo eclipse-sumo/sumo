@@ -156,6 +156,9 @@ GNETLSEditorFrame::updateModules() {
     if (myTLSPhases) {
         myTLSPhases->updateTLSPhases();
     }
+    if (myTLSFile) {
+        myTLSFile->updateTLSFile();
+    }
     update();
 }
 
