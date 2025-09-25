@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- chargingStation A -->
-    <chargingStation id="chargingStationA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" power="21000.00" efficiency="0.65" chargeInTransit="0" chargeDelay="1.00" name="chargingStationNameA" chargeType="battery-exchange" waitingTime="600" friendlyPos="false">
+    <chargingStation id="chargingStationA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" power="21000.00" efficiency="0.65" chargeInTransit="0" chargeDelay="1.00" name="chargingStationNameA" chargeType="battery-exchange" waitingTime="600" friendlyPos="false" angle="12">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </chargingStation>
 
     <!-- chargingStation B -->
-    <chargingStation id="chargingStationB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" name="chargingStationNameB" chargeType="fuel" waitingTime="500" friendlyPos="1">
+    <chargingStation id="chargingStationB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" name="chargingStationNameB" chargeType="fuel" waitingTime="500" friendlyPos="1" angle="14.6">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
