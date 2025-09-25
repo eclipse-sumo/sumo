@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-25 08:54+0000\n"
+"PO-Revision-Date: 2025-09-26 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -13062,7 +13062,7 @@ msgstr "Rahmen erweitern, um alle Inhalte anzuzeigen"
 
 #: src/utils/foxtools/MFXGroupBoxModule.cpp:78
 msgid "Shrink frame to default width"
-msgstr ""
+msgstr "Rahmen auf Standardbreite schrumpfen"
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
@@ -13645,7 +13645,7 @@ msgstr "Konfiguration '%' konnte nicht geladen werden."
 
 #: src/utils/options/OptionsLoader.cpp:74
 msgid "Ignoring attribute '%' for option '%'"
-msgstr ""
+msgstr "Attribut '%' der Option '%' wird ignoriert"
 
 #: src/utils/options/OptionsLoader.cpp:87
 msgid "Could not set option '%' (probably defined twice)."
