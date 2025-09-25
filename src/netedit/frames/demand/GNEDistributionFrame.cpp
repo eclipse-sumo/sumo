@@ -299,7 +299,6 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
 GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor* attributeEditorParent, const GNEDemandElement* key, const double probability) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myDistributionValuesEditorParent(attributeEditorParent),
-    myKey(key),
     myProbability(probability) {
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
@@ -484,8 +483,7 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),
-    myAttributesEditor(attributesEditor),
-    myDistributionValueTag(distributionValueTag) {
+    myAttributesEditor(attributesEditor) {
     // set relations
     myDistributionEditor->myDistributionSelector = myDistributionSelector;
     myDistributionSelector->myDistributionEditor = myDistributionEditor;

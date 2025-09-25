@@ -32,7 +32,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEPOI : public GNEAdditional, public Shape, public GNEMoveElementLaneSingle, public GNEMoveElementView, public Parameterised {
+class GNEPOI : public Shape, public GNEAdditional, public GNEMoveElementLaneSingle, public GNEMoveElementView, public Parameterised {
 
 public:
     // avoid diamond problem
@@ -88,7 +88,7 @@ public:
     ~GNEPOI();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() override;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -219,12 +219,6 @@ protected:
     POIIcon myPOIIcon = POIIcon::NONE;
 
 private:
-    /// @brief move element over single lane
-    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
-
-    /// @brief move POI over view
-    GNEMoveElementView* myMoveElementView = nullptr;
-
     /// @brief draw POI
     void drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                  const bool movingGeometryPoints) const;

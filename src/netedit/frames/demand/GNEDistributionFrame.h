@@ -229,9 +229,6 @@ public:
         /// @brief textField to modify the probability attribute
         MFXTextFieldIcon* myProbabilityTextField = nullptr;
 
-        /// @brief current Key
-        const GNEDemandElement* myKey = nullptr;
-
         /// @brief current probability
         double myProbability = 0;
     };
@@ -299,9 +296,6 @@ public:
 
         /// @brief attributes editor
         GNEAttributesEditor* myAttributesEditor;
-
-        /// @brief distribution value tag
-        SumoXMLTag myDistributionValueTag;
 
         /// @brief list of Attribute editor rows
         std::vector<DistributionRow*> myDistributionRows;
