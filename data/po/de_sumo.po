@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-04 16:38+0200\n"
-"PO-Revision-Date: 2025-09-20 18:02+0000\n"
+"PO-Revision-Date: 2025-09-25 08:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5661,6 +5661,8 @@ msgid ""
 "Can not switch tls '%' to program '%';\n"
 " The program is not known."
 msgstr ""
+"An der LSA '%' kann nicht zum Programm '%' gewechselt werden;\n"
+" Das Programm ist unbekannt."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:488
 #, c-format
@@ -5674,6 +5676,8 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:643
 msgid "Could not switch tls '%' to program '%': No such tls exists."
 msgstr ""
+"LSA '%' konnte nicht zum das Programm '%' wechseln: Es gibt keine LSA mit "
+"dieser Bezeichnung."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
@@ -6237,17 +6241,17 @@ msgstr ""
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:283
 #, c-format
 msgid "The main edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "Die Hauptkante '%' für den Rerouter '%' ist unbekannt."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:291
 #, c-format
 msgid "The siding edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "Die Nebengleiskante '%' für den Rerouter '%' ist unbekannt."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:298
 #, c-format
 msgid "The siding within rerouter '%' does not have a rail signal."
-msgstr ""
+msgstr "Das Nebengleis für Rerouter '%' verfügt nicht über ein Eisenbahnsignal."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:312
 msgid "rerouter '%': stationReroute requires a stopping place id."
@@ -7649,7 +7653,7 @@ msgstr " % Kanten aufgrund der Fahrstreifenbreite entfernt."
 #: src/netbuild/NBNetBuilder.cpp:137
 #, c-format
 msgid " Split % edges to attach removed nodes"
-msgstr ""
+msgstr " % Kanten auftrennen, um entfernte Knoten dort einzufügen"
 
 #: src/netbuild/NBNetBuilder.cpp:142
 msgid "Processing public transport stops"
