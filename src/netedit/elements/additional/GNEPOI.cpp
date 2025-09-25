@@ -46,8 +46,8 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    Shape(""),
     GNEAdditional("", net, "", tag, ""),
+    Shape(""),
     GNEMoveElementLaneSingle(this),
     GNEMoveElementView(this) {
 }
