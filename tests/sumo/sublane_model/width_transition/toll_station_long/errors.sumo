@@ -7,26 +7,22 @@ Warning: Vehicle 'v.3945'; collision with vehicle 'v.3778', lane='2_0', gap=-1.5
 Warning: Vehicle 'v.3945'; junction collision with vehicle 'v.3778', lane=':J1_0_1', gap=-7.38, latGap=-0.40, time=97.00, stage=move.
 Warning: Vehicle 'v.4889' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=112.00.
 Warning: Vehicle 'v.4945'; junction collision with vehicle 'v.4778', lane=':J1_0_0', gap=-4.62, latGap=-0.80, time=117.00, stage=move.
-Warning: Vehicle 'v.5612'; junction collision with vehicle 'v.5445', lane=':J1_0_1', gap=-3.12, latGap=-0.20, time=134.00, stage=move.
-Warning: Vehicle 'v.5612'; junction collision with vehicle 'v.5945', lane=':J1_0_1', gap=-7.13, latGap=-0.30, time=137.00, stage=move.
-Warning: Vehicle 'v.6112'; junction collision with vehicle 'v.5612', lane=':J1_0_1', gap=-4.65, latGap=-0.40, time=141.00, stage=move.
-Warning: Vehicle 'v.6389'; junction collision with vehicle 'v.5612', lane=':J1_0_1', gap=-4.72, latGap=-0.50, time=141.00, stage=move.
-Warning: Vehicle 'v.6112'; junction collision with vehicle 'v.6556', lane=':J1_0_1', gap=-6.31, latGap=-0.30, time=147.00, stage=move.
-Warning: Vehicle 'v.6112'; junction collision with vehicle 'v.6724', lane=':J1_0_1', gap=-6.09, latGap=-0.20, time=149.00, stage=move.
-Warning: Vehicle 'v.6890'; junction collision with vehicle 'v.6112', lane=':J1_0_1', gap=-5.54, latGap=-0.40, time=153.00, stage=move.
-Warning: Vehicle 'v.7224'; side collision with vehicle 'v.7557', lane=':J1_0_0', gap=-0.75, latGap=-0.50, time=165.00, stage=laneChange.
-Warning: Vehicle 'v.7224'; junction collision with vehicle 'v.7723', lane=':J1_0_0', gap=-6.93, latGap=-0.70, time=167.00, stage=move.
-Warning: Vehicle 'v.8556'; junction collision with vehicle 'v.8223', lane=':J1_0_1', gap=-3.15, latGap=-0.40, time=180.00, stage=move.
-Warning: Vehicle 'v.10556'; collision with vehicle 'v.10389', lane='2_0', gap=-5.13, latGap=-1.60, time=215.00, stage=move.
-Warning: Vehicle 'v.10056'; collision with vehicle 'v.10112', lane='3_1', gap=-2.25, latGap=-0.05, time=224.00, stage=move.
-Warning: Vehicle 'v.11723'; junction collision with vehicle 'v.11389', lane=':J1_0_1', gap=-6.94, latGap=-0.40, time=238.00, stage=move.
-Warning: Vehicle 'v.12723'; junction collision with vehicle 'v.13112', lane=':J1_0_2', gap=-5.18, latGap=-1.40, time=263.00, stage=move.
-Warning: Vehicle 'v.12834'; side collision with vehicle 'v.13000', lane=':J1_0_0', gap=-3.65, latGap=-0.20, time=265.00, stage=laneChange.
-Warning: Vehicle 'v.12723'; side collision with vehicle 'v.13612', lane='2.9_5', gap=-4.03, latGap=-0.10, time=274.00, stage=laneChange.
-Warning: Vehicle 'v.14223'; junction collision with vehicle 'v.14112', lane=':J1_0_3', gap=-7.05, latGap=-1.00, time=282.00, stage=move.
-Warning: Vehicle 'v.14445'; junction collision with vehicle 'v.14945', lane=':J1_0_1', gap=-7.27, latGap=-1.20, time=295.00, stage=move.
-Warning: Vehicle 'v.15778' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=309.00.
-Warning: Vehicle 'v.18334'; junction collision with vehicle 'v.18000', lane=':J1_0_1', gap=-6.58, latGap=-1.20, time=360.00, stage=move.
-Warning: Vehicle 'v.19112'; junction collision with vehicle 'v.19000', lane=':J1_0_3', gap=-6.02, latGap=-0.10, time=372.00, stage=move.
-Warning: Vehicle 'v.19334'; junction collision with vehicle 'v.19501', lane=':J1_0_2', gap=-2.14, latGap=-0.40, time=378.00, stage=move.
-Warning: Vehicle 'v.20001'; collision with vehicle 'v.19667', lane='2_1', gap=-0.06, latGap=-1.00, time=391.00, stage=move.
+Warning: Vehicle 'v.7890'; collision with vehicle 'v.7723', lane='2_0', gap=-1.00, latGap=-1.45, time=167.00, stage=move.
+Warning: Vehicle 'v.8057'; collision with vehicle 'v.8224', lane='2_1', gap=-4.60, latGap=-1.50, time=175.00, stage=move.
+Warning: Vehicle 'v.8724'; junction collision with vehicle 'v.8557', lane=':1_0_2', gap=-7.43, latGap=-0.80, time=192.00, stage=move.
+Warning: Vehicle 'v.9056'; collision with vehicle 'v.8889', lane='2_0', gap=-5.32, latGap=-1.60, time=194.00, stage=move.
+Warning: Vehicle 'v.9223'; collision with vehicle 'v.9612', lane='2_2', gap=-3.14, latGap=-0.90, time=200.00, stage=move.
+Warning: Vehicle 'v.9889'; junction collision with vehicle 'v.10112', lane=':J1_0_2', gap=-5.65, latGap=-1.60, time=210.00, stage=move.
+Warning: Vehicle 'v.10223'; side collision with vehicle 'v.10556', lane='2.9_1', gap=-3.76, latGap=-0.80, time=218.00, stage=laneChange.
+Warning: Vehicle 'v.11445'; junction collision with vehicle 'v.11278', lane=':J1_0_2', gap=-2.71, latGap=-0.50, time=234.00, stage=move.
+Warning: Vehicle 'v.12278'; collision with vehicle 'v.11556', lane='2_2', gap=-7.28, latGap=-0.40, time=248.00, stage=move.
+Warning: Vehicle 'v.12612'; collision with vehicle 'v.12445', lane='2_2', gap=-3.69, latGap=-1.40, time=252.00, stage=move.
+Warning: Vehicle 'v.12556'; junction collision with vehicle 'v.12223', lane=':J1_0_0', gap=-7.17, latGap=-1.60, time=254.00, stage=move.
+Warning: Vehicle 'v.13445' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=266.00.
+Warning: Vehicle 'v.13778' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=273.00.
+Warning: Vehicle 'v.14667'; side collision with vehicle 'v.14834', lane=':J1_0_0', gap=-6.44, latGap=-0.80, time=301.00, stage=laneChange.
+Warning: Vehicle 'v.15167'; collision with vehicle 'v.15334', lane='2_0', gap=-5.02, latGap=-1.65, time=308.00, stage=move.
+Warning: Vehicle 'v.15500'; collision with vehicle 'v.15778', lane='2_1', gap=-3.46, latGap=-1.00, time=313.00, stage=move.
+Warning: Vehicle 'v.16167'; junction collision with vehicle 'v.16500', lane=':J1_0_1', gap=-6.29, latGap=-0.30, time=326.00, stage=move.
+Warning: Vehicle 'v.17500'; side collision with vehicle 'v.17334', lane='2_0', gap=-2.99, latGap=-0.10, time=343.00, stage=laneChange.
+Warning: Vehicle 'v.18000'; junction collision with vehicle 'v.18278', lane=':J1_0_2', gap=-6.01, latGap=-1.40, time=358.00, stage=move.

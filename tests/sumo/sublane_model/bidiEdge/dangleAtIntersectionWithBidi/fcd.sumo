@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-29 12:39:46 by Eclipse SUMO sumo Version v1_20_0+0266-5834d3c8483
+<!-- generated on 2025-09-25T15:52:36.345089+01:00 by Eclipse SUMO sumo v1_24_0+1001-1ebcc990531
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
@@ -5353,156 +5353,156 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="507.50">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.10" angle="181.15" type="AV_Easymile" speed="0.05" pos="104.72" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.16" y="3006.76" angle="359.31" type="bike_bicycle" speed="3.27" pos="0.19" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.16" y="3006.76" angle="359.24" type="bike_bicycle" speed="3.27" pos="0.19" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1297.68" y="3007.46" angle="95.81" type="bike_bicycle" speed="5.23" pos="2.00" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="507.60">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.09" angle="181.15" type="AV_Easymile" speed="0.10" pos="104.73" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.10" y="3007.07" angle="357.01" type="bike_bicycle" speed="3.20" pos="0.51" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.09" y="3007.07" angle="356.82" type="bike_bicycle" speed="3.20" pos="0.51" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1298.21" y="3007.40" angle="95.81" type="bike_bicycle" speed="5.29" pos="2.53" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="507.70">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.08" angle="181.14" type="AV_Easymile" speed="0.15" pos="104.74" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.03" y="3007.37" angle="354.51" type="bike_bicycle" speed="3.11" pos="0.82" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.01" y="3007.37" angle="354.18" type="bike_bicycle" speed="3.11" pos="0.82" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1298.74" y="3007.35" angle="95.81" type="bike_bicycle" speed="5.35" pos="3.07" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="507.80">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.06" angle="181.13" type="AV_Easymile" speed="0.20" pos="104.76" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.94" y="3007.67" angle="351.85" type="bike_bicycle" speed="3.02" pos="1.12" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.93" y="3007.67" angle="351.38" type="bike_bicycle" speed="3.02" pos="1.12" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1299.28" y="3007.29" angle="95.81" type="bike_bicycle" speed="5.41" pos="3.61" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="507.90">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.03" angle="181.12" type="AV_Easymile" speed="0.24" pos="104.78" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.64" y="3008.35" angle="344.91" type="bike_bicycle" speed="2.91" pos="1.41" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.62" y="3008.34" angle="344.35" type="bike_bicycle" speed="2.91" pos="1.41" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1299.82" y="3007.24" angle="95.81" type="bike_bicycle" speed="5.47" pos="4.15" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.00">
         <vehicle id="Easymiles.0" x="1289.80" y="3012.00" angle="181.10" type="AV_Easymile" speed="0.29" pos="104.81" lane="a_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.45" y="3008.56" angle="338.89" type="bike_bicycle" speed="2.80" pos="1.69" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.42" y="3008.55" angle="338.23" type="bike_bicycle" speed="2.80" pos="1.69" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1300.37" y="3007.18" angle="95.81" type="bike_bicycle" speed="5.52" pos="4.71" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.10">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.97" angle="181.09" type="AV_Easymile" speed="0.34" pos="0.01" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.25" y="3008.75" angle="334.28" type="bike_bicycle" speed="2.67" pos="1.96" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.22" y="3008.73" angle="333.52" type="bike_bicycle" speed="2.67" pos="1.96" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1300.93" y="3007.13" angle="95.81" type="bike_bicycle" speed="5.57" pos="5.26" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.20">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.93" angle="181.08" type="AV_Easymile" speed="0.39" pos="0.05" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.06" y="3008.93" angle="329.93" type="bike_bicycle" speed="2.54" pos="2.21" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.03" y="3008.92" angle="329.44" type="bike_bicycle" speed="2.54" pos="2.21" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1301.49" y="3007.07" angle="95.81" type="bike_bicycle" speed="5.62" pos="5.82" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.30">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.89" angle="181.07" type="AV_Easymile" speed="0.43" pos="0.09" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1289.62" y="3009.35" angle="322.69" type="bike_bicycle" speed="2.40" pos="2.46" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1289.60" y="3009.33" angle="322.47" type="bike_bicycle" speed="2.40" pos="2.46" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1302.05" y="3007.01" angle="95.81" type="bike_bicycle" speed="5.66" pos="6.39" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.40">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.84" angle="181.06" type="AV_Easymile" speed="0.46" pos="0.14" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1289.40" y="3009.44" angle="317.64" type="bike_bicycle" speed="2.26" pos="2.68" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1289.39" y="3009.42" angle="317.57" type="bike_bicycle" speed="2.26" pos="2.68" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1302.62" y="3006.95" angle="95.81" type="bike_bicycle" speed="5.71" pos="6.96" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.50">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.80" angle="181.05" type="AV_Easymile" speed="0.48" pos="0.18" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1289.21" y="3009.53" angle="310.63" type="bike_bicycle" speed="2.12" pos="2.89" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1289.20" y="3009.51" angle="310.75" type="bike_bicycle" speed="2.12" pos="2.89" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1303.19" y="3006.90" angle="95.81" type="bike_bicycle" speed="5.75" pos="7.54" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.60">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.75" angle="181.03" type="AV_Easymile" speed="0.50" pos="0.23" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1289.00" y="3009.62" angle="307.80" type="bike_bicycle" speed="2.24" pos="3.12" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1288.99" y="3009.61" angle="308.04" type="bike_bicycle" speed="2.24" pos="3.12" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1303.76" y="3006.84" angle="95.81" type="bike_bicycle" speed="5.78" pos="8.11" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.70">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.69" angle="181.02" type="AV_Easymile" speed="0.53" pos="0.29" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1288.79" y="3009.73" angle="305.19" type="bike_bicycle" speed="2.35" pos="3.35" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1288.79" y="3009.73" angle="305.55" type="bike_bicycle" speed="2.35" pos="3.35" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1304.34" y="3006.78" angle="95.81" type="bike_bicycle" speed="5.82" pos="8.70" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.80">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.64" angle="181.01" type="AV_Easymile" speed="0.56" pos="0.34" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1288.57" y="3009.86" angle="302.78" type="bike_bicycle" speed="2.47" pos="3.60" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1288.57" y="3009.85" angle="303.24" type="bike_bicycle" speed="2.47" pos="3.60" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1304.93" y="3006.72" angle="95.81" type="bike_bicycle" speed="5.85" pos="9.28" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="508.90">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.58" angle="181.00" type="AV_Easymile" speed="0.60" pos="0.40" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1288.13" y="3010.02" angle="297.24" type="bike_bicycle" speed="2.59" pos="3.86" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1288.13" y="3010.02" angle="297.79" type="bike_bicycle" speed="2.59" pos="3.86" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1305.51" y="3006.66" angle="95.81" type="bike_bicycle" speed="5.89" pos="9.87" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.00">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.51" angle="180.99" type="AV_Easymile" speed="0.64" pos="0.47" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1287.87" y="3010.10" angle="292.17" type="bike_bicycle" speed="2.71" pos="4.13" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1287.87" y="3010.10" angle="292.55" type="bike_bicycle" speed="2.71" pos="4.13" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1306.10" y="3006.60" angle="95.81" type="bike_bicycle" speed="5.92" pos="10.46" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.10">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.45" angle="180.97" type="AV_Easymile" speed="0.68" pos="0.53" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1287.60" y="3010.18" angle="290.43" type="bike_bicycle" speed="2.82" pos="4.41" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1287.60" y="3010.18" angle="290.74" type="bike_bicycle" speed="2.82" pos="4.41" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1306.69" y="3006.54" angle="95.81" type="bike_bicycle" speed="5.94" pos="11.06" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.20">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.37" angle="180.96" type="AV_Easymile" speed="0.71" pos="0.61" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1287.32" y="3010.26" angle="288.41" type="bike_bicycle" speed="2.94" pos="4.71" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1287.32" y="3010.26" angle="288.66" type="bike_bicycle" speed="2.94" pos="4.71" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1307.29" y="3006.48" angle="95.81" type="bike_bicycle" speed="5.97" pos="11.65" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.30">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.30" angle="180.95" type="AV_Easymile" speed="0.75" pos="0.68" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1287.02" y="3010.35" angle="286.14" type="bike_bicycle" speed="3.06" pos="5.01" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1287.02" y="3010.35" angle="286.35" type="bike_bicycle" speed="3.06" pos="5.01" lane=":j2_6_0" slope="0.00"/>
         <vehicle id="ped29" x="1307.88" y="3006.42" angle="95.81" type="bike_bicycle" speed="6.00" pos="12.25" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.40">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.22" angle="180.94" type="AV_Easymile" speed="0.77" pos="0.76" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1286.64" y="3010.43" angle="282.61" type="bike_bicycle" speed="3.17" pos="0.21" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1286.64" y="3010.43" angle="282.77" type="bike_bicycle" speed="3.17" pos="0.21" lane="-c_0" slope="0.00"/>
         <vehicle id="ped29" x="1308.48" y="3006.36" angle="95.81" type="bike_bicycle" speed="6.02" pos="12.85" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.50">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.14" angle="180.92" type="AV_Easymile" speed="0.79" pos="0.84" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1286.32" y="3010.49" angle="281.91" type="bike_bicycle" speed="3.29" pos="0.54" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1286.32" y="3010.49" angle="282.04" type="bike_bicycle" speed="3.29" pos="0.54" lane="-c_0" slope="0.00"/>
         <vehicle id="ped29" x="1309.08" y="3006.30" angle="95.81" type="bike_bicycle" speed="6.04" pos="13.46" lane="-e_0" slope="0.00"/>
     </timestep>
     <timestep time="509.60">
         <vehicle id="Easymiles.0" x="1289.80" y="3011.06" angle="180.91" type="AV_Easymile" speed="0.80" pos="0.92" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1285.98" y="3010.54" angle="281.06" type="bike_bicycle" speed="3.40" pos="0.88" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1285.98" y="3010.54" angle="281.17" type="bike_bicycle" speed="3.40" pos="0.88" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="509.70">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.98" angle="180.90" type="AV_Easymile" speed="0.82" pos="1.00" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1285.64" y="3010.61" angle="280.09" type="bike_bicycle" speed="3.51" pos="1.23" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1285.64" y="3010.61" angle="280.17" type="bike_bicycle" speed="3.51" pos="1.23" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="509.80">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.90" angle="180.89" type="AV_Easymile" speed="0.84" pos="1.08" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1285.28" y="3010.67" angle="279.00" type="bike_bicycle" speed="3.63" pos="1.59" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1285.28" y="3010.67" angle="279.06" type="bike_bicycle" speed="3.63" pos="1.59" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="509.90">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.81" angle="180.88" type="AV_Easymile" speed="0.87" pos="1.17" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1284.91" y="3010.73" angle="279.06" type="bike_bicycle" speed="3.74" pos="1.96" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1284.91" y="3010.73" angle="279.11" type="bike_bicycle" speed="3.74" pos="1.96" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.00">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.72" angle="180.87" type="AV_Easymile" speed="0.92" pos="1.26" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1284.53" y="3010.80" angle="279.25" type="bike_bicycle" speed="3.85" pos="2.35" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1284.53" y="3010.80" angle="279.29" type="bike_bicycle" speed="3.85" pos="2.35" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.10">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.62" angle="180.86" type="AV_Easymile" speed="0.97" pos="1.36" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1284.14" y="3010.87" angle="279.41" type="bike_bicycle" speed="3.96" pos="2.74" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1284.14" y="3010.87" angle="279.43" type="bike_bicycle" speed="3.96" pos="2.74" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.20">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.52" angle="180.85" type="AV_Easymile" speed="1.02" pos="1.46" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1283.74" y="3010.93" angle="279.52" type="bike_bicycle" speed="4.06" pos="3.15" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1283.74" y="3010.93" angle="279.54" type="bike_bicycle" speed="4.06" pos="3.15" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.30">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.41" angle="180.84" type="AV_Easymile" speed="1.07" pos="1.57" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1283.33" y="3011.01" angle="279.61" type="bike_bicycle" speed="4.17" pos="3.57" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1283.33" y="3011.01" angle="279.63" type="bike_bicycle" speed="4.17" pos="3.57" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.40">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.30" angle="180.83" type="AV_Easymile" speed="1.12" pos="1.68" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1282.91" y="3011.08" angle="279.68" type="bike_bicycle" speed="4.28" pos="4.00" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1282.91" y="3011.08" angle="279.69" type="bike_bicycle" speed="4.28" pos="4.00" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.50">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.18" angle="180.82" type="AV_Easymile" speed="1.17" pos="1.80" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1282.48" y="3011.15" angle="279.73" type="bike_bicycle" speed="4.38" pos="4.43" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1282.48" y="3011.15" angle="279.74" type="bike_bicycle" speed="4.38" pos="4.43" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.60">
         <vehicle id="Easymiles.0" x="1289.80" y="3010.06" angle="180.81" type="AV_Easymile" speed="1.22" pos="1.92" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1282.04" y="3011.23" angle="279.77" type="bike_bicycle" speed="4.48" pos="4.88" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1282.04" y="3011.23" angle="279.78" type="bike_bicycle" speed="4.48" pos="4.88" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.70">
         <vehicle id="Easymiles.0" x="1289.80" y="3009.93" angle="180.81" type="AV_Easymile" speed="1.27" pos="2.05" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1281.58" y="3011.31" angle="279.80" type="bike_bicycle" speed="4.58" pos="5.34" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1281.58" y="3011.31" angle="279.81" type="bike_bicycle" speed="4.58" pos="5.34" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="510.80">
         <vehicle id="Easymiles.0" x="1289.80" y="3009.80" angle="180.80" type="AV_Easymile" speed="1.32" pos="2.18" lane=":j2_13_0" slope="0.00"/>
@@ -5518,7 +5518,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="511.10">
         <vehicle id="Easymiles.0" x="1289.80" y="3009.38" angle="180.79" type="AV_Easymile" speed="1.47" pos="2.61" lane=":j2_13_0" slope="0.00"/>
-        <vehicle id="bike9" x="1279.69" y="3011.64" angle="279.85" type="bike_bicycle" speed="4.96" pos="7.27" lane="-c_0" slope="0.00"/>
+        <vehicle id="bike9" x="1279.69" y="3011.64" angle="279.86" type="bike_bicycle" speed="4.96" pos="7.27" lane="-c_0" slope="0.00"/>
     </timestep>
     <timestep time="511.20">
         <vehicle id="Easymiles.0" x="1289.80" y="3009.22" angle="180.79" type="AV_Easymile" speed="1.51" pos="2.76" lane=":j2_13_0" slope="0.00"/>
