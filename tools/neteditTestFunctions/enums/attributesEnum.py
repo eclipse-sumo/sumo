@@ -994,17 +994,16 @@ class attrs:
             onRoad = 12
             width = 13
             length = 14
-            angle = 15
-            lefthand = 16
-            parameters = 18
-            parametersButton = 19
-            size = 21
-            forceSize = 22
-            reference = 23
-            additionalFileButton = 25
-            additionalFile = 26
-            helpDialog = 27
-            reset = 28
+            lefthand = 15
+            parameters = 17
+            parametersButton = 18
+            size = 20
+            forceSize = 21
+            reference = 22
+            additionalFileButton = 24
+            additionalFile = 25
+            helpDialog = 26
+            reset = 27
 
         class inspect:
             id = 2
@@ -1021,18 +1020,17 @@ class attrs:
             onRoad = 13
             width = 14
             length = 15
-            angle = 16
-            lefthand = 17
-            parameters = 19
-            parametersButton = 20
-            frontButton = 22
-            size = 23
-            forceSize = 24
-            reference = 25
-            additionalFileButton = 27
-            additionalFile = 28
-            helpDialog = 29
-            reset = 30
+            lefthand = 16
+            parameters = 18
+            parametersButton = 19
+            frontButton = 20
+            size = 22
+            forceSize = 23
+            reference = 24
+            additionalFileButton = 26
+            additionalFile = 27
+            helpDialog = 28
+            reset = 29
 
         class inspectSelection:
             friendlyPos = 2
@@ -1044,18 +1042,17 @@ class attrs:
             onRoad = 8
             width = 9
             length = 10
-            angle = 11
-            lefthand = 12
-            parameters = 14
-            parametersButton = 15
-            frontButton = 17
-            size = 18
-            forceSize = 19
-            reference = 20
-            additionalFileButton = 22
-            additionalFile = 23
-            helpDialog = 24
-            reset = 25
+            lefthand = 11
+            parameters = 13
+            parametersButton = 14
+            frontButton = 16
+            size = 17
+            forceSize = 18
+            reference = 19
+            additionalFileButton = 21
+            additionalFile = 22
+            helpDialog = 23
+            reset = 24
 
     # parkingSpace
 
