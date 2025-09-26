@@ -98,7 +98,7 @@ GNEConnection::updateGeometry() {
                 }
                 // add from lane shape one step before
                 if (laneShapeFrom.length() > 1) {
-                    // set lenght depending of turn arounds
+                    // set length depending of turn arounds
                     if (turnAround) {
                         connectionShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 0.5));
                     } else {
@@ -111,7 +111,7 @@ GNEConnection::updateGeometry() {
                 connectionShape.push_back(laneShapeTo.front());
                 // add to lane shape one step after
                 if (laneShapeTo.length() > 1) {
-                    // set lenght depending of turn arounds
+                    // set length depending of turn arounds
                     if (turnAround) {
                         connectionShape.push_back(laneShapeTo.positionAtOffset(0.5));
                     } else {
