@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-10 18:45:44 by Eclipse SUMO netedit Version v1_24_0+0735-c8c0c6dab2c
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-09-26T12:34:55.713546+01:00 by Eclipse SUMO netconvert v1_24_0+1030-7e971aa37fb
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net2.net.xml"/>
+        <sumo-net-file value="defaultNet_mainEW/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net2.net.xml"/>
+        <output-file value="defaultNet_mainEW/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,7 +30,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -148,8 +148,8 @@
         <request index="3"  response="111100001111000000" foes="111110001111000000" cont="0"/>
         <request index="4"  response="100001101111000000" foes="100001101111000000" cont="1"/>
         <request index="5"  response="000000000000000000" foes="000001100000000000" cont="0"/>
-        <request index="6"  response="000010000000010000" foes="100011100000011111" cont="0"/>
-        <request index="7"  response="000010000000010000" foes="100011100000011111" cont="0"/>
+        <request index="6"  response="000000000000010000" foes="100011100000011111" cont="0"/>
+        <request index="7"  response="000000000000010000" foes="100011100000011111" cont="0"/>
         <request index="8"  response="000010000000010000" foes="100011100000011111" cont="0"/>
         <request index="9"  response="011010000000010000" foes="011011100000011110" cont="1"/>
         <request index="10" response="011000000000000000" foes="011000000000000000" cont="0"/>

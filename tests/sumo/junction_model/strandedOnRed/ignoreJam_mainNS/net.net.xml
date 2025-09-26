@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-10 18:46:51 by Eclipse SUMO netconvert Version v1_24_0+0735-c8c0c6dab2c
+<!-- generated on 2025-09-26T12:35:23.393962+01:00 by Eclipse SUMO netconvert v1_24_0+1030-7e971aa37fb
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="ignoreJam_mainNS/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net_ij.net.xml"/>
+        <output-file value="ignoreJam_mainNS/net.net.xml"/>
     </output>
 
     <processing>
@@ -20,7 +20,7 @@
     </processing>
 
     <tls_building>
-        <tls.ignore-internal-junction-jam value="true"/>
+        <tls.ignore-internal-junction-jam value="1"/>
     </tls_building>
 
     <junctions>

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-10 18:37:31 by Eclipse SUMO netedit Version v1_24_0+0735-c8c0c6dab2c
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-09-26T12:35:07.498619+01:00 by Eclipse SUMO netconvert v1_24_0+1030-7e971aa37fb
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumocfg-file value="test.sumocfg"/>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="defaultNet_mainNS/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="defaultNet_mainNS/net.net.xml"/>
     </output>
 
     <processing>
@@ -31,11 +30,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <ignore.routeelements value="false"/>
-    </netedit>
-
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -148,8 +143,8 @@
     <junction id="J0" type="dead_end" x="-100.00" y="-100.00" incLanes="-W_0 -W_1 -W_2" intLanes="" shape="-100.00,-100.00 -100.00,-90.40 -100.00,-100.00"/>
     <junction id="J1" type="traffic_light" x="0.00" y="-100.00" incLanes="N_0 N_1 N_2 E_0 E_1 E_2 S_0 S_1 S_2 W_0 W_1 W_2" intLanes=":J1_0_0 :J1_1_0 :J1_1_1 :J1_1_2 :J1_18_0 :J1_5_0 :J1_6_0 :J1_6_1 :J1_6_2 :J1_19_0 :J1_10_0 :J1_11_0 :J1_11_1 :J1_20_0 :J1_14_0 :J1_15_0 :J1_15_1 :J1_21_0" shape="-9.60,-86.40 9.60,-86.40 10.04,-88.62 10.60,-89.40 11.38,-89.96 12.38,-90.29 13.60,-90.40 13.60,-109.60 11.38,-110.04 10.60,-110.60 10.04,-111.38 9.71,-112.38 9.60,-113.60 -9.60,-113.60 -10.04,-111.38 -10.60,-110.60 -11.38,-110.04 -12.38,-109.71 -13.60,-109.60 -13.60,-90.40 -11.38,-89.96 -10.60,-89.40 -10.04,-88.62 -9.71,-87.62">
         <request index="0"  response="000000000000000000" foes="000000000111000000" cont="0"/>
-        <request index="1"  response="100000001000000000" foes="111110001111000000" cont="0"/>
-        <request index="2"  response="100000001000000000" foes="111110001111000000" cont="0"/>
+        <request index="1"  response="100000000000000000" foes="111110001111000000" cont="0"/>
+        <request index="2"  response="100000000000000000" foes="111110001111000000" cont="0"/>
         <request index="3"  response="100000001000000000" foes="111110001111000000" cont="0"/>
         <request index="4"  response="100001101000000000" foes="100001101111000000" cont="1"/>
         <request index="5"  response="000001100000000000" foes="000001100000000000" cont="0"/>
