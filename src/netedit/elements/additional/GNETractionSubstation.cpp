@@ -62,7 +62,8 @@ GNETractionSubstation::getMoveElement() {
 void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move atributes
     writeMoveAttributes(device);
     // write specific attributes

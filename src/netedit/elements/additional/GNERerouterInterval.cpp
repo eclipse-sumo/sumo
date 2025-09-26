@@ -54,6 +54,9 @@ GNERerouterInterval::writeAdditional(OutputDevice& device) const {
     // avoid write empty intervals
     if (getChildAdditionals().size() > 0) {
         device.openTag(SUMO_TAG_INTERVAL);
+        // write common additional attributes
+        writeAdditionalAttributes(device);
+        // write specific attributes
         device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
         device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write all rerouter interval

@@ -35,7 +35,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSign,
-                                                   const SUMOTime time, const double speed) :
+        const SUMOTime time, const double speed) :
     GNEAdditional(variableSpeedSign, SUMO_TAG_STEP, ""),
     myTime(time),
     mySpeed(speed) {
@@ -52,6 +52,9 @@ GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 void
 GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STEP);
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // write specific attributes
     device.writeAttr(SUMO_ATTR_TIME, time2string(myTime));
     device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     device.closeTag();

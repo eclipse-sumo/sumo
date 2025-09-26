@@ -124,7 +124,8 @@ GNEAccess::isAccessPositionFixed() const {
 void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ACCESS);
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move attributes
     writeMoveAttributes(device);
     // write specific attributes

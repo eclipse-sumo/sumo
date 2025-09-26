@@ -52,6 +52,9 @@ GNEClosingReroute::~GNEClosingReroute() {}
 void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // write specific attributes
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
     if (getAttribute(SUMO_ATTR_ALLOW) != "authority") {
         if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {

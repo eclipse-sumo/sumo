@@ -70,10 +70,12 @@ GNEOverheadWire::getMoveElement() {
 void
 GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move atributes
     writeMoveAttributes(device);
+    // write specific attributes
+    device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
     if (!myForbiddenInnerLanes.empty()) {
         device.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, myForbiddenInnerLanes);
     }

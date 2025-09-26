@@ -58,6 +58,9 @@ GNEParkingAreaReroute::getMoveElement() {
 void
 GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // write specific attributes
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_PARKING));
     if (myProbability != 1.0) {
         device.writeAttr(SUMO_ATTR_PROB, myProbability);
