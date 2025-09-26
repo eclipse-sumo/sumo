@@ -48,23 +48,25 @@ GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element)
 }
 
 
-GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element, GNELane* lane, const double startPos,
-        const double endPos, const bool friendlyPosition) :
+GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+        GNELane* lane, const double startPos, const double endPos, const bool friendlyPosition) :
     GNEMoveElement(element),
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
-    myFriendlyPosition(friendlyPosition) {
+    myFriendlyPosition(friendlyPosition),
+    myPosAttributes(posAttributes) {
     // set parents
     element->getHierarchicalElement()->setParent<GNELane*>(lane);
 }
 
 
-GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
-        const double startPos, const double endPos, const bool friendlyPosition) :
+GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+        const std::vector<GNELane*>& lanes, const double startPos, const double endPos, const bool friendlyPosition) :
     GNEMoveElement(element),
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
-    myFriendlyPosition(friendlyPosition) {
+    myFriendlyPosition(friendlyPosition),
+    myPosAttributes(posAttributes) {
     // set parents
     element->getHierarchicalElement()->setParents<GNELane*>(lanes);
 }
@@ -109,6 +111,48 @@ GNEMoveElementLaneDouble::getMoveOperation() {
     } else {
         // start and end positions undefined, then nothing to move
         return nullptr;
+    }
+}
+
+
+void
+GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device) const {
+    // lane/s
+    if (myMovedElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
+        device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
+    } else {
+        device.writeAttr(SUMO_ATTR_LANES, myMovedElement->getAttribute(SUMO_ATTR_LANES));
+    }
+    // start and end positions
+    if (myPosAttributes == PosAttributes::STARTPOS_ENDPOS) {
+        if (myStartPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_STARTPOS)) {
+            device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosOverLane);
+        }
+        if (myEndPosPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_ENDPOS)) {
+            device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
+        }
+    }
+    // pos and length
+    if (myPosAttributes == PosAttributes::POS_LENGTH) {
+        if (myStartPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_POSITION)) {
+            device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
+        }
+        if (myEndPosPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_LENGTH)) {
+            device.writeAttr(SUMO_ATTR_LENGTH, (myEndPosPosOverLane - myStartPosOverLane));
+        }
+    }
+    // start and end positions
+    if (myPosAttributes == PosAttributes::POS_ENDPOS) {
+        if (myStartPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_POSITION)) {
+            device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
+        }
+        if (myEndPosPosOverLane != myMovedElement->getTagProperty()->getDefaultDoubleValue(SUMO_ATTR_ENDPOS)) {
+            device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
+        }
+    }
+    // friendly position (only if true)
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
 }
 

@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/iodevices/OutputDevice.h>
+
 #include "GNEMoveElement.h"
 
 // ===========================================================================
@@ -29,26 +31,39 @@
 class GNEMoveElementLaneDouble : public GNEMoveElement {
 
 public:
+    /// @brief type of attributes
+    enum class PosAttributes {
+        STARTPOS_ENDPOS,    /// @brief starPosition and endPosition
+        POS_LENGTH,         /// @brief position and length
+        POS_ENDPOS          /// @brief position and endPosition
+    };
+
     /// @brief Default constructor
     GNEMoveElementLaneDouble(GNEAttributeCarrier* element);
 
     /**@brief Constructor
+     * @param[in] element moved element
+     * @param[in] posAttributes position atttributes
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, GNELane* lane, const double startPos,
-                             const double endPos, const bool friendlyPosition);
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+                             GNELane* lane, const double startPos, const double endPos,
+                             const bool friendlyPosition);
 
     /**@brief Constructor
+     * @param[in] element moved element
+     * @param[in] posAttributes position atttributes
      * @param[in] lanes Lanes of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
-                             const double startPos, const double endPos, const bool friendlyPosition);
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+                             const std::vector<GNELane*>& lanes, const double startPos,
+                             const double endPos, const bool friendlyPosition);
 
     /// @brief Destructor
     ~GNEMoveElementLaneDouble();
@@ -57,6 +72,9 @@ public:
     * @note returned GNEMoveOperation can be nullptr
     */
     GNEMoveOperation* getMoveOperation();
+
+    /// @brief write move attributes
+    void writeMoveAttributes(OutputDevice& device) const;
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -90,6 +108,9 @@ protected:
     void adjustLaneMovableLength(const double length, GNEUndoList* undoList);
 
 private:
+    /// @brief pos attributes
+    PosAttributes myPosAttributes = PosAttributes::STARTPOS_ENDPOS;
+
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 

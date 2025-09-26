@@ -28,8 +28,6 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class GNELane;
-class GNEMoveOperation;
 class GNEUndoList;
 class GNEViewNet;
 class GUIGlObject;

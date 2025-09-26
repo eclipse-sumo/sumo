@@ -47,13 +47,13 @@ GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
 { }
 
 
-GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, double length, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const double length, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
-        const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
+        const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, lane, pos, (pos + length), friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::POS_LENGTH, lane, pos, (pos + length), friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -62,13 +62,13 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
 }
 
 
-GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, double pos, double endPos, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, const double pos, const double endPos, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
-        const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
+        const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
         const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, lanes, pos, endPos, friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::POS_ENDPOS, lanes, pos, endPos, friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -91,20 +91,8 @@ void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // continue depending of E2 type
-    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
-        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
-        device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPosPosOverLane - myStartPosOverLane));
-    } else {
-        device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-        device.writeAttr(SUMO_ATTR_POSITION, myStartPosOverLane);
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
-    }
-    // friendly position (only if true)
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    }
+    // write move atributes
+    writeMoveAttributes(device);
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes

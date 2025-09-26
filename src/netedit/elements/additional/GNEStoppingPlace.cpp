@@ -52,7 +52,7 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
-    GNEMoveElementLaneDouble(this, lane, startPos, endPos, friendlyPosition),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::STARTPOS_ENDPOS, lane, startPos, endPos, friendlyPosition),
     Parameterised(parameters),
     myColor(color),
     myAngle(angle) {
@@ -209,19 +209,8 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
-    // lane
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    // start and end positions
-    if (myStartPosOverLane != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_STARTPOS)) {
-        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosOverLane);
-    }
-    if (myEndPosPosOverLane != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_ENDPOS)) {
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
-    }
-    // friendly position (only if true)
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    }
+    // write move atributes
+    writeMoveAttributes(device);
     // color (if defined)
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);

@@ -47,7 +47,7 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    GNEMoveElementLaneDouble(this, lanes, startPos, endPos, friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::STARTPOS_ENDPOS, lanes, startPos, endPos, friendlyPos),
     Parameterised(parameters),
     myForbiddenInnerLanes(forbiddenInnerLanes) {
     // set parents
@@ -72,12 +72,8 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
-    device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosOverLane);
-    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosPosOverLane);
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    }
+    // write move atributes
+    writeMoveAttributes(device);
     if (!myForbiddenInnerLanes.empty()) {
         device.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN, myForbiddenInnerLanes);
     }

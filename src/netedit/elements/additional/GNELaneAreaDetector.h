@@ -58,7 +58,7 @@ public:
     GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const double length,
                         const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
-                        const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
+                        const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
                         const bool show, const Parameterised::Map& parameters);
 
     /**@brief Constructor for Multi-Lane detectors
@@ -82,10 +82,10 @@ public:
      * @param[in] show detector in sumo-gui
      * @param[in] parameters generic parameters
      */
-    GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, double pos, double endPos,
+    GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, const double pos, const double endPos,
                         const SUMOTime freq, const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                         const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
-                        const SUMOTime timeThreshold, double speedThreshold, const double jamThreshold, const bool friendlyPos,
+                        const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
                         const bool show, const Parameterised::Map& parameters);
 
     /// @brief Destructor
