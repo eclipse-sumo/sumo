@@ -91,11 +91,12 @@ network). This takes the following form:
 ## Spacing of waiting containers
 
 The spacing between waiting containers defaults to 2.5. This is appropriate when standard shipping containers of 2.44m width are stacked next to each other in paralle..
-When containers are stacked at a different angle, the distance along the stop must be increased. This can be done with param `waitingWidth`:
+When containers are stacked at a different angle, the distance along the stop must be increased. This can be done with params:
 
 ```xml
 <containerStop id="ct_5" angle="0" lane="324040749#0_0" startPos="0.00" endPos="630.00">
         <param key="waitingWidth" value="13"/>
+        <param key="waitingDepth" value="2.44"/>
  </containerStop>
 ```
 
