@@ -494,6 +494,7 @@
         </xsd:attribute>
         <xsd:attribute name="waitingTime" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="parkingArea" type="xsd:string" use="optional"/>
+        <xsd:attribute name="angle" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="overheadWireSegmentType">
