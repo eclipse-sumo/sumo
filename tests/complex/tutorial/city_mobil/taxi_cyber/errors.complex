@@ -1,3 +1,7 @@
+Warning: Person 'v7.6p1' is jammed on edge 'cyber6to7', time=657.00.
+Warning: Person 'v-7.8p1' is jammed on edge 'cyber6to7', time=1174.00.
+Warning: Person 'v-7.9p0' is jammed on edge 'cyber6to7', time=1174.00.
+Warning: Person 'v-7.8p0' is jammed on edge 'cyber6to7', time=1175.00.
 Warning: Vehicle 'c.0' aborted waiting for a person that will never come.
 Warning: Vehicle 'c.1' aborted waiting for a person that will never come.
 Warning: Vehicle 'c.2' aborted waiting for a person that will never come.

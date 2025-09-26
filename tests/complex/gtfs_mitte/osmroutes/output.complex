@@ -1,10 +1,12 @@
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.02Apr073429.2111038/complex.perf/gtfs_mitte/osmroutes/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.26Sep085546.1501128/complex.perf/gtfs_mitte/osmroutes/test'.
 generating trips...
 Skipping line '1231708' because it only drives at night
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
 Skipping line '2202086' because it only drives at night
+Extending up to route split between 319339413#2 and -1102154066#3
+Extending up to route split between 1102154066#2 and 1105526087
 Skipping line '2206192' because it only drives at night
 Skipping line '2211984' because it only drives at night
 Skipping line '2211985' because it only drives at night
@@ -12,6 +14,8 @@ Skipping line '2441959' because it only drives at night
 Skipping line '2441960' because it only drives at night
 Skipping line '2512806' because it only drives at night
 Skipping line '2512807' because it only drives at night
+Extending up to route split between 384294422#1 and 391559412
+Extending up to route split between 199847347#2 and 387141734
 Cannot extend route to fringe for line '2679013' (not enough edges given)
 Cannot extend route to fringe for line '2679014' (not enough edges given)
 Skipping line '28286' because it only drives at night
@@ -19,35 +23,24 @@ Skipping line '3353027' because it only drives at night
 Skipping line '35040' because it only drives at night
 Skipping line '6187328' because it only drives at night
 Skipping line '6187329' because it only drives at night
-Imported 105 lines with 304 stops and skipped 16 lines
+Imported 103 lines with 300 stops and skipped 16 lines
    bus: 45
    light_rail: 18
    subway: 8
-   train: 12
+   train: 10
    tram: 22
 done.
 running SUMO to determine actual departure times...
 done.
-Success.
 creating routes...
 done.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Wed, 02 Apr 2025 07:34:54 +0000
-function import_gtfs finished after 0.305527 seconds
-function filter_gtfs called at Wed, 02 Apr 2025 07:34:54 +0000
-function filter_gtfs finished after 0.139707 seconds
-function import_osm called at Wed, 02 Apr 2025 07:34:54 +0000
-function import_osm finished after 0.009160 seconds
-function map_gtfs_osm called at Wed, 02 Apr 2025 07:34:54 +0000
-function map_gtfs_osm finished after 1.664220 seconds
+function import_gtfs called at Fri, 26 Sep 2025 08:57:28 +0000
+function import_gtfs finished after 0.881090 seconds
+function filter_gtfs called at Fri, 26 Sep 2025 08:57:29 +0000
+function filter_gtfs finished after 0.488058 seconds
+function import_osm called at Fri, 26 Sep 2025 08:57:29 +0000
+function import_osm finished after 0.031218 seconds
+function map_gtfs_osm called at Fri, 26 Sep 2025 08:57:29 +0000
+function map_gtfs_osm finished after 4.723733 seconds
 Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information

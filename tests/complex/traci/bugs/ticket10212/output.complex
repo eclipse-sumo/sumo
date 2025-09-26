@@ -1,6 +1,6 @@
  Retrying in 1 seconds
 0.1 right=((), ()) left=((), ()) center=((), ())
-0.2 right=((), ()) left=((), ()) center=(('left', 'sublane'), ('right', 'sublane'))
+0.2 right=((), ()) left=((), ()) center=(('right', 'sublane'), ('right', 'sublane'))
 0.3 right=((), ()) left=((), ()) center=(('left', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'), ('stay', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'))
 0.4 right=((), ()) left=((), ()) center=(('left', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'), ('stay', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'))
 0.5 right=((), ()) left=((), ()) center=(('left', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'), ('stay', 'blocked by left leader', 'blocked by left follower', 'overlapping', 'sublane'))
