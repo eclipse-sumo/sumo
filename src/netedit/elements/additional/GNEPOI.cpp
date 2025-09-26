@@ -59,7 +59,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
     Shape(id, type, color, layer, angle, imgFile, ""),
     GNEMoveElementLaneSingle(this),
-    GNEMoveElementView(this, pos, width, height, 0),
+    GNEMoveElementView(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, height, 0),
     Parameterised(parameters),
     myPOIIcon(icon) {
     // update position depending of GEO
@@ -79,7 +79,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEMoveElementLaneSingle(this, lane, posOverLane, friendlyPos),
-    GNEMoveElementView(this, Position(0, 0), width, height, 0),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, Position(0, 0), width, height, 0),
     Parameterised(parameters),
     myPosLat(posLat),
     myPOIIcon(icon) {
@@ -144,20 +144,8 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_POSITION_LAT, myPosLat);
         }
     } else {
-        // specific of POI geos
-        if (getTagProperty()->getTag() == GNE_TAG_POIGEO) {
-            device.setPrecision(gPrecisionGeo);
-            device.writeAttr(SUMO_ATTR_LON, getAttributeDouble(SUMO_ATTR_LON));
-            device.writeAttr(SUMO_ATTR_LAT, getAttributeDouble(SUMO_ATTR_LAT));
-            device.setPrecision();
-        } else {
-            device.writeAttr(SUMO_ATTR_X, myPosOverView.x());
-            device.writeAttr(SUMO_ATTR_Y, myPosOverView.y());
-        }
-        // z
-        if (myPosOverView.z() != 0) {
-            device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
-        }
+        // write move attributes
+        GNEMoveElementView::writeMoveAttributes(device);
     }
     // write shape attributes
     writeShapeAttributes(device, RGBColor::RED, Shape::DEFAULT_LAYER_POI);

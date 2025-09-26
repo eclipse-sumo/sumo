@@ -31,15 +31,24 @@
 class GNEMoveElementView : public GNEMoveElement {
 
 public:
+    /// @brief attributes format
+    enum class AttributesFormat {
+        POSITION,   /// @brief position format
+        CARTESIAN,  /// @brief cartesian format (x, y, z)
+        GEO         /// @brief geo format (lon, lat, z)
+    };
+
     /// @brief constructor
     GNEMoveElementView(GNEAttributeCarrier* element);
 
     /// @brief constructor for element with fixed size
-    GNEMoveElementView(GNEAttributeCarrier* element, const Position& position);
+    GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
+                       const Position& position);
 
     /// @brief constructor with dynamic position
-    GNEMoveElementView(GNEAttributeCarrier* element, const Position& position,
-                       const double width, const double height, const double length);
+    GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
+                       const Position& position, const double width, const double height,
+                       const double length);
 
     //// @brief empty destructor
     ~GNEMoveElementView();
@@ -48,6 +57,9 @@ public:
      * @note returned GNEMoveOperation can be nullptr
      */
     GNEMoveOperation* getMoveOperation();
+
+    /// @brief write move attributes
+    void writeMoveAttributes(OutputDevice& device) const;
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -87,6 +99,9 @@ protected:
     GNEContour myMovingContourRight;
 
 private:
+    /// @brief pos attributes format
+    AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
+
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 

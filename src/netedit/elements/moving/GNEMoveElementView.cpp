@@ -35,19 +35,22 @@ GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
 }
 
 
-GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position) :
+GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
+                                       const Position& position) :
     GNEMoveElement(element),
-    myPosOverView(position) {
+    myPosOverView(position),
+    myAttributesFormat(attributesFormat) {
 }
 
 
-GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, const Position& position,
-                                       const double width, const double height, const double length) :
+GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
+                                       const Position& position, const double width, const double height, const double length) :
     GNEMoveElement(element),
     myPosOverView(position),
     myWidth(width),
     myHeight(height),
-    myLength(length) {
+    myLength(length),
+    myAttributesFormat(attributesFormat)  {
 }
 
 
@@ -84,6 +87,32 @@ GNEMoveElementView::getMoveOperation() {
     } else {
         // move entire space
         return new GNEMoveOperation(this, myPosOverView);
+    }
+}
+
+
+void
+GNEMoveElementView::writeMoveAttributes(OutputDevice& device) const {
+    // position format
+    if (myAttributesFormat == AttributesFormat::POSITION) {
+        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
+    } else {
+        // x-y format
+        if (myAttributesFormat == AttributesFormat::CARTESIAN) {
+            device.writeAttr(SUMO_ATTR_X, myPosOverView.x());
+            device.writeAttr(SUMO_ATTR_Y, myPosOverView.y());
+        }
+        // geo format
+        if (myAttributesFormat == AttributesFormat::GEO) {
+            device.setPrecision(gPrecisionGeo);
+            device.writeAttr(SUMO_ATTR_LON, myMovedElement->getAttributeDouble(SUMO_ATTR_LON));
+            device.writeAttr(SUMO_ATTR_LAT, myMovedElement->getAttributeDouble(SUMO_ATTR_LAT));
+            device.setPrecision();
+        }
+        // z
+        if (myPosOverView.z() != 0) {
+            device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
+        }
     }
 }
 

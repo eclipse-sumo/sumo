@@ -44,7 +44,7 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
-    GNEMoveElementView(this, pos),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
     myProbability(probability),
     myOff(off),
@@ -72,8 +72,10 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_EDGES).size() > 0) {
         device.openTag(SUMO_TAG_REROUTER);
         device.writeAttr(SUMO_ATTR_ID, getID());
+        // write move atributes
+        writeMoveAttributes(device);
+        // write specific attributes
         device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
-        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }

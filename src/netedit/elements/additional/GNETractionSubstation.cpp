@@ -40,7 +40,7 @@ GNETractionSubstation::GNETractionSubstation(GNENet* net) :
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
-    GNEMoveElementView(this, pos),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
@@ -63,7 +63,9 @@ void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
+    // write move atributes
+    writeMoveAttributes(device);
+    // write specific attributes
     if (myVoltage != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_VOLTAGE)) {
         device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
     }

@@ -43,7 +43,7 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
-    GNEMoveElementView(this, pos),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
     myPeriod(freq),
     myOutputFilename(outputFilename),
@@ -85,7 +85,9 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
-        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
+        // write move atributes
+        writeMoveAttributes(device);
+        // write specific attributes
         if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
         }

@@ -44,7 +44,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
-    GNEMoveElementView(this, pos),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
@@ -68,8 +68,10 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_LANES).size() > 0) {
         device.openTag(SUMO_TAG_VSS);
         device.writeAttr(SUMO_ATTR_ID, getID());
+        // write move atributes
+        writeMoveAttributes(device);
+        // write specific attributes
         device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-        device.writeAttr(SUMO_ATTR_POSITION, myPosOverView);
         if (!myAdditionalName.empty()) {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }

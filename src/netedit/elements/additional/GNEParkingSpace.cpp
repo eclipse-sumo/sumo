@@ -45,7 +45,7 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
                                  const double slope, const std::string& name,
                                  const Parameterised::Map& parameters) :
     GNEAdditional(parkingAreaParent, SUMO_TAG_PARKING_SPACE, name),
-    GNEMoveElementView(this, pos, width, 0, length),
+    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, 0, length),
     Parameterised(parameters),
     myAngle(angle),
     mySlope(slope) {
@@ -70,11 +70,9 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
-    device.writeAttr(SUMO_ATTR_X, myPosOverView.x());
-    device.writeAttr(SUMO_ATTR_Y, myPosOverView.y());
-    if (myPosOverView.z() != 0) {
-        device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
-    }
+    // write move atributes
+    writeMoveAttributes(device);
+    // write specific attributes
     if (myWidth != INVALID_DOUBLE) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
