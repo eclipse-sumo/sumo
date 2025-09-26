@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-13 12:02+0000\n"
+"PO-Revision-Date: 2025-09-26 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4278,7 +4278,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:352
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "Tipo di veicolo sconosciuto '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
@@ -4292,15 +4292,15 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:368
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "Persona raddoppiata '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:381
 msgid "Could not add route '%'."
-msgstr ""
+msgstr "Non ho potuto aggiungere l'itinerario '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:390
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "Veicolo raddoppiato '%'."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -5513,6 +5513,8 @@ msgid ""
 "Error when evaluating expression '%':\n"
 "  %"
 msgstr ""
+"Errore analizzando l'espressione '%':\n"
+"  %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1232
 msgid "Invalid empty condition '%'"
@@ -5524,7 +5526,7 @@ msgstr "Condizione '%' non supportata"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1279
 msgid "Parsing expressions with % elements ('%') is not supported"
-msgstr ""
+msgstr "Non è supportato analizzare espressioni con % elementi ('%')"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1310
 msgid "Division by 0 in condition '%'"
@@ -5532,15 +5534,15 @@ msgstr "Divisione per 0 in condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1319
 msgid "Unsupported operator '%' in condition '%'"
-msgstr ""
+msgstr "Operatore non supportato '%' nella condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1328
 msgid "Function '%' requires % arguments but % were given"
-msgstr ""
+msgstr "La funzione '%' richiede % argumenti ma % sono stati dati"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1343
 msgid "Error when evaluating function '%' with args '%' (%)"
-msgstr ""
+msgstr "Errore analizzando la funzione '%' con gli argumenti '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1361
 #, c-format
