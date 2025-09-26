@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 10:34:32 by Eclipse SUMO netconvert Version v1_24_0+0102-c3f50d280c3
+<!-- generated on 2025-09-26T11:33:01.763578+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -153,8 +153,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_21_0 :C_21_1 :C_5_0 :C_6_0 :C_6_1 :C_22_0 :C_9_0 :C_9_1 :C_11_0 :C_11_1 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0 :C_18_0 :C_18_1 :C_26_0" shape="93.60,110.40 106.40,110.40 106.84,108.18 107.40,107.40 108.18,106.84 109.18,106.51 110.40,106.40 110.40,91.60 108.18,91.16 107.40,90.60 106.84,89.82 106.51,88.82 106.40,87.60 93.60,87.60 93.16,89.82 92.60,90.60 91.82,91.16 90.82,91.49 89.60,91.60 89.60,106.40 91.82,106.84 92.60,107.40 93.16,108.18 93.49,109.18">
         <request index="0"  response="000000000000000000000" foes="000000000000011000000" cont="0"/>
-        <request index="1"  response="100110000000100000000" foes="111111110000111000000" cont="0"/>
-        <request index="2"  response="100110000000100000000" foes="111111010000111000000" cont="0"/>
+        <request index="1"  response="100110000000000000000" foes="111111110000111000000" cont="0"/>
+        <request index="2"  response="100010000000100000000" foes="111111010000111000000" cont="0"/>
         <request index="3"  response="100010011111100000000" foes="111011011111111000000" cont="1"/>
         <request index="4"  response="100010001110100000000" foes="111010001110111000000" cont="1"/>
         <request index="5"  response="000000001100000000000" foes="100010001100000000000" cont="0"/>
@@ -163,7 +163,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="8"  response="011011011100000011110" foes="011011011100000011110" cont="1"/>
         <request index="9"  response="000000000000000000000" foes="000001000000000001000" cont="0"/>
         <request index="10" response="000000000000000000000" foes="011001000000000011000" cont="0"/>
-        <request index="11" response="100010000000100000000" foes="111011000000111111000" cont="0"/>
+        <request index="11" response="000010000000100000000" foes="111011000000111111000" cont="0"/>
         <request index="12" response="100010000000100000000" foes="111011000000111111000" cont="0"/>
         <request index="13" response="100010000000100000110" foes="111011000000111000110" cont="1"/>
         <request index="14" response="000000000000000000110" foes="000100000000000000110" cont="0"/>

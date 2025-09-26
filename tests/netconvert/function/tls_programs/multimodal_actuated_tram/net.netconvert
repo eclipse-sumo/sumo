@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-05 16:12:09 by Eclipse SUMO netconvert Version v1_22_0+0665-ba2a511bcfc
+<!-- generated on 2025-09-26T11:32:58.480117+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -205,7 +205,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="3404653526" type="dead_end" x="0.91" y="196.57" incLanes="30424335#0_0 30424335#0_1" intLanes="" shape="2.87,199.10 -1.05,194.04"/>
     <junction id="380479927" type="dead_end" x="444.39" y="83.32" incLanes="" intLanes="" shape="444.12,81.74 444.66,84.90"/>
     <junction id="3833322970" type="dead_end" x="440.03" y="80.64" incLanes="138330831#14_0" intLanes="" shape="439.81,79.05 440.25,82.23"/>
-    <junction id="468444799" type="priority" x="121.78" y="178.72" incLanes="-39140174#4_0 515351950#0_0" intLanes=":468444799_0_0 :468444799_1_0" shape="119.73,181.19 124.15,176.56 124.08,176.49 124.02,176.40 119.76,181.20">
+    <junction id="468444799" type="priority" x="121.78" y="178.72" incLanes="-39140174#4_0 515351950#0_0" intLanes=":468444799_0_0 :468444799_1_0" shape="119.73,181.19 124.15,176.56 124.08,176.49 124.02,176.40 119.76,181.19">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -215,7 +215,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="Gueldenstr" type="traffic_light" x="86.88" y="131.94" incLanes="5134789#0_0 320399276_0 320399276_1 320399276_2 320399276_3 292614141#5_0 376743572#0_0 376743572#0_1 376743572#0_2 376743572#0_3 376743572#0_4 60922609#0_0 60922609#0_1 60922609#0_2 60922609#0_3" intLanes=":Gueldenstr_0_0 :Gueldenstr_1_0 :Gueldenstr_1_1 :Gueldenstr_21_0 :Gueldenstr_4_0 :Gueldenstr_5_0 :Gueldenstr_6_0 :Gueldenstr_6_1 :Gueldenstr_22_0 :Gueldenstr_23_0 :Gueldenstr_10_0 :Gueldenstr_11_0 :Gueldenstr_12_0 :Gueldenstr_24_0 :Gueldenstr_24_1 :Gueldenstr_25_0 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_26_0 :Gueldenstr_27_0" shape="84.56,147.56 86.61,145.10 101.24,136.20 103.99,137.91 105.16,136.51 106.14,135.86 107.40,135.24 108.92,134.66 110.72,134.11 97.75,108.95 93.97,110.95 90.62,112.04 87.71,112.22 85.22,111.50 83.18,109.87 81.56,107.34 60.63,123.49 61.43,125.68 61.41,126.66 61.13,127.58 60.58,128.42 59.75,129.20 67.56,139.34 70.19,138.16 70.46,139.00 70.04,140.80 68.93,143.54 67.12,147.25 72.82,150.17 80.20,147.94 83.40,148.10 83.53,147.37 83.69,147.21 83.91,147.19 84.20,147.31">
         <request index="0"  response="000000000000000000000" foes="000000110010011000000" cont="0"/>
-        <request index="1"  response="010000000000100000000" foes="011111110010111000000" cont="0"/>
+        <request index="1"  response="010000000000000000000" foes="011111110010111000000" cont="0"/>
         <request index="2"  response="010000000000100000000" foes="011111110010111000000" cont="0"/>
         <request index="3"  response="010000001000100000000" foes="011100001011111000000" cont="1"/>
         <request index="4"  response="010000001000000000000" foes="010000001000000100000" cont="0"/>

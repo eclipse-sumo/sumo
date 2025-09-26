@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:08 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2025-09-26T11:32:55.698386+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -1792,7 +1792,7 @@
         <request index="2"  response="011100010011100000" foes="011100010111100000" cont="1"/>
         <request index="3"  response="010000010000010000" foes="010000010000010000" cont="1"/>
         <request index="4"  response="000000000000000000" foes="010000010000001000" cont="0"/>
-        <request index="5"  response="000000100000000100" foes="110000110000000111" cont="0"/>
+        <request index="5"  response="000000000000000100" foes="110000110000000111" cont="0"/>
         <request index="6"  response="000000100000000100" foes="110000110000000111" cont="0"/>
         <request index="7"  response="001110100000000100" foes="001111110000000110" cont="1"/>
         <request index="8"  response="001100000000000100" foes="001100000000000100" cont="1"/>
@@ -1801,7 +1801,7 @@
         <request index="11" response="011100000011100010" foes="111100000011100010" cont="1"/>
         <request index="12" response="000010000010000010" foes="000010000010000010" cont="1"/>
         <request index="13" response="000000000000000000" foes="000001000010000010" cont="0"/>
-        <request index="14" response="000000100000000100" foes="000000111110000110" cont="0"/>
+        <request index="14" response="000000100000000000" foes="000000111110000110" cont="0"/>
         <request index="15" response="000000100000000100" foes="000000111110000110" cont="0"/>
         <request index="16" response="000000100001110100" foes="000000110001111110" cont="1"/>
         <request index="17" response="000000100001100000" foes="000000100001100000" cont="1"/>
@@ -2131,7 +2131,7 @@
     </junction>
     <junction id="cluster_492462300_671564296" type="traffic_light" x="413.35" y="517.80" incLanes="143308532#7_0 143308532#7_1 206579062#0_0 206579062#0_1 206579057_0 206579057_1 206579057_2 206579063#0_0 206579063#0_1" intLanes=":cluster_492462300_671564296_0_0 :cluster_492462300_671564296_1_0 :cluster_492462300_671564296_1_1 :cluster_492462300_671564296_18_0 :cluster_492462300_671564296_19_0 :cluster_492462300_671564296_5_0 :cluster_492462300_671564296_6_0 :cluster_492462300_671564296_20_0 :cluster_492462300_671564296_21_0 :cluster_492462300_671564296_9_0 :cluster_492462300_671564296_10_0 :cluster_492462300_671564296_10_1 :cluster_492462300_671564296_22_0 :cluster_492462300_671564296_23_0 :cluster_492462300_671564296_14_0 :cluster_492462300_671564296_15_0 :cluster_492462300_671564296_24_0 :cluster_492462300_671564296_25_0" shape="425.88,526.61 426.29,508.26 424.16,507.78 423.50,507.23 423.11,506.45 422.99,505.47 423.13,504.27 412.87,502.05 410.77,504.77 408.64,505.82 405.79,506.68 402.23,507.34 397.96,507.79 400.70,529.55 402.85,529.72 403.57,530.17 404.03,530.87 404.26,531.83 404.23,533.03 414.67,534.16 415.19,532.06 416.25,530.29 417.84,528.87 419.98,527.78 422.66,527.02">
         <request index="0"  response="000000000000000000" foes="100001000001000000" cont="0"/>
-        <request index="1"  response="010000000010000000" foes="011111000011000000" cont="0"/>
+        <request index="1"  response="010000000000000000" foes="011111000011000000" cont="0"/>
         <request index="2"  response="010000000010000000" foes="011111000011000000" cont="0"/>
         <request index="3"  response="010000111010000000" foes="011000111111000000" cont="1"/>
         <request index="4"  response="010000110000000000" foes="010000110000000000" cont="1"/>
@@ -2140,7 +2140,7 @@
         <request index="7"  response="001001110000001110" foes="001011110000001110" cont="1"/>
         <request index="8"  response="001000001000001000" foes="001000001000001000" cont="1"/>
         <request index="9"  response="000000000000000000" foes="001000000100001000" cont="0"/>
-        <request index="10" response="010000000010000000" foes="011000000011111000" cont="0"/>
+        <request index="10" response="000000000010000000" foes="011000000011111000" cont="0"/>
         <request index="11" response="010000000010000000" foes="011000000011111000" cont="0"/>
         <request index="12" response="010000000010000111" foes="111000000011000111" cont="1"/>
         <request index="13" response="000000000010000110" foes="000000000010000110" cont="1"/>

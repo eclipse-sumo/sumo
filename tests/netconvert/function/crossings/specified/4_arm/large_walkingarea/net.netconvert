@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-09 15:21:10 by Eclipse SUMO netconvert Version v1_23_1+0031-a46029fb78e
+<!-- generated on 2025-09-26T11:33:02.209415+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -165,12 +165,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="C" type="traffic_light" x="106.36" y="92.46" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 SC_0 SC_1 SC_2 WC_0 WC_1 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_10_0 :C_1_0 :C_1_1 :C_11_0 :C_4_0 :C_12_0 :C_6_0 :C_6_1 :C_13_0 :C_9_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="101.98,131.88 120.62,129.47 119.27,118.46 118.23,108.56 117.62,100.17 117.55,93.68 118.12,89.50 119.46,88.02 119.52,75.49 115.40,75.43 111.97,75.31 109.25,75.13 107.22,74.88 105.89,74.56 105.26,74.18 89.73,84.78 94.78,92.56 99.00,100.10 101.80,106.90 102.64,112.47 100.93,116.29 96.12,117.86 96.63,130.60 99.51,130.65 100.54,130.81 101.30,131.07 101.78,131.43">
         <request index="0"  response="10010000000000" foes="10010000010000" cont="1"/>
         <request index="1"  response="01010100000000" foes="01011100010000" cont="0"/>
-        <request index="2"  response="01010100000000" foes="01011100010000" cont="0"/>
+        <request index="2"  response="01010000000000" foes="01011100010000" cont="0"/>
         <request index="3"  response="00110011000000" foes="00110011000000" cont="1"/>
         <request index="4"  response="10100011000111" foes="10100011000111" cont="0"/>
         <request index="5"  response="01100000000000" foes="01101000000000" cont="1"/>
         <request index="6"  response="01010000001000" foes="01011000011000" cont="0"/>
-        <request index="7"  response="01010000001000" foes="01011000011000" cont="0"/>
+        <request index="7"  response="01010000000000" foes="01011000011000" cont="0"/>
         <request index="8"  response="11000000000110" foes="11000000000110" cont="1"/>
         <request index="9"  response="10100011100110" foes="10100011100110" cont="0"/>
         <request index="10" response="00000000000000" foes="00000011001111" cont="0"/>

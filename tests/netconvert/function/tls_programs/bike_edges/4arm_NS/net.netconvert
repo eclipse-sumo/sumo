@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:08 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-09-26T11:32:58.062435+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -218,7 +218,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="clusterC_J1_J2_J5_#1more" type="traffic_light" x="100.18" y="100.18" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 E0_0 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2 E2_0" intLanes=":clusterC_J1_J2_J5_#1more_0_0 :clusterC_J1_J2_J5_#1more_1_0 :clusterC_J1_J2_J5_#1more_1_1 :clusterC_J1_J2_J5_#1more_24_0 :clusterC_J1_J2_J5_#1more_25_0 :clusterC_J1_J2_J5_#1more_5_0 :clusterC_J1_J2_J5_#1more_6_0 :clusterC_J1_J2_J5_#1more_6_1 :clusterC_J1_J2_J5_#1more_26_0 :clusterC_J1_J2_J5_#1more_27_0 :clusterC_J1_J2_J5_#1more_10_0 :clusterC_J1_J2_J5_#1more_28_0 :clusterC_J1_J2_J5_#1more_12_0 :clusterC_J1_J2_J5_#1more_13_0 :clusterC_J1_J2_J5_#1more_13_1 :clusterC_J1_J2_J5_#1more_29_0 :clusterC_J1_J2_J5_#1more_30_0 :clusterC_J1_J2_J5_#1more_17_0 :clusterC_J1_J2_J5_#1more_18_0 :clusterC_J1_J2_J5_#1more_18_1 :clusterC_J1_J2_J5_#1more_31_0 :clusterC_J1_J2_J5_#1more_32_0 :clusterC_J1_J2_J5_#1more_22_0 :clusterC_J1_J2_J5_#1more_33_0" shape="83.86,113.47 116.54,113.99 117.04,110.66 117.61,109.50 118.40,108.67 119.41,108.17 120.63,108.00 120.63,92.00 118.12,91.37 117.25,90.59 116.63,89.49 116.28,88.08 116.18,86.35 84.33,86.34 83.84,89.48 83.22,90.58 82.36,91.37 81.25,91.84 79.90,92.00 79.90,108.00 82.11,108.61 82.89,109.37 83.44,110.43 83.76,111.80">
         <request index="0"  response="010000000000000000000000" foes="110000000000000011000000" cont="0"/>
-        <request index="1"  response="000100000000000100000000" foes="100111111000100111000000" cont="0"/>
+        <request index="1"  response="000100000000000000000000" foes="100111111000100111000000" cont="0"/>
         <request index="2"  response="000100000000000100000000" foes="100111111000100111000000" cont="0"/>
         <request index="3"  response="000100000110010100000000" foes="100111000110011111000000" cont="1"/>
         <request index="4"  response="000100000110000000000000" foes="000100000110000000000000" cont="1"/>
@@ -230,7 +230,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="10" response="000000000000000100000000" foes="100011000001000111101000" cont="0"/>
         <request index="11" response="010000101111000100000110" foes="010000101111000100000110" cont="1"/>
         <request index="12" response="000000000000010000000000" foes="000011000000110000000000" cont="0"/>
-        <request index="13" response="000100000000000100000000" foes="100111000000100111111000" cont="0"/>
+        <request index="13" response="000000000000000100000000" foes="100111000000100111111000" cont="0"/>
         <request index="14" response="000100000000000100000000" foes="100111000000100111111000" cont="0"/>
         <request index="15" response="010100000000000100000110" foes="011111000000100111000110" cont="1"/>
         <request index="16" response="000000000000000100000110" foes="000000000000000100000110" cont="1"/>

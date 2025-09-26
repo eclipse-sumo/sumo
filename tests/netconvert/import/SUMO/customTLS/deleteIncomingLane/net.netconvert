@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:46 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-09-26T11:32:52.958546+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -158,13 +158,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2"  response="1110011100000" foes="1111011100000" cont="0"/>
         <request index="3"  response="1100111100000" foes="1100111100000" cont="1"/>
         <request index="4"  response="0000100000000" foes="0000100000000" cont="1"/>
-        <request index="5"  response="0001000001000" foes="0001100001111" cont="0"/>
+        <request index="5"  response="0000000001000" foes="0001100001111" cont="0"/>
         <request index="6"  response="0001000001000" foes="0001100001111" cont="0"/>
         <request index="7"  response="1101000001000" foes="1101100001110" cont="1"/>
         <request index="8"  response="1100011100000" foes="1100011111000" cont="0"/>
         <request index="9"  response="1100011100110" foes="1100011100110" cont="1"/>
         <request index="10" response="0000000000000" foes="0000000000110" cont="0"/>
-        <request index="11" response="0001000001000" foes="0001110001110" cont="0"/>
+        <request index="11" response="0001000000000" foes="0001110001110" cont="0"/>
         <request index="12" response="0001000001000" foes="0001110001110" cont="0"/>
     </junction>
     <junction id="E" type="priority" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="200.00,100.00 200.00,93.60 200.00,100.00">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-09-26T11:32:51.491378+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <visum-file value="visum.net"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -46,111 +46,111 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="80" priority="991" numLanes="56" speed="13.89" allow="pedestrian passenger" oneway="0"/>
 
     <edge id=":15_0" function="internal">
-        <lane id=":15_0_0" index="0" allow="pedestrian passenger" speed="8.34" length="7.99" shape="1063.73,557.40 1060.57,557.11 1058.19,557.02 1056.61,557.14 1055.82,557.46"/>
+        <lane id=":15_0_0" index="0" allow="pedestrian passenger" speed="8.34" length="7.99" shape="1063.73,557.40 1060.56,557.11 1058.19,557.02 1056.61,557.14 1055.82,557.46"/>
     </edge>
     <edge id=":15_1" function="internal">
-        <lane id=":15_1_0" index="0" allow="pedestrian passenger" speed="7.89" length="11.92" shape="1063.73,557.40 1062.15,556.60 1060.92,554.59 1060.04,551.38 1059.53,546.95"/>
+        <lane id=":15_1_0" index="0" allow="pedestrian passenger" speed="7.89" length="11.92" shape="1063.73,557.40 1062.14,556.60 1060.91,554.59 1060.04,551.38 1059.53,546.95"/>
     </edge>
     <edge id=":15_2" function="internal">
-        <lane id=":15_2_0" index="0" allow="pedestrian passenger" speed="9.64" length="8.86" shape="1053.47,555.29 1054.84,553.49 1055.78,551.54 1056.27,549.43 1056.34,547.17"/>
+        <lane id=":15_2_0" index="0" allow="pedestrian passenger" speed="9.64" length="8.86" shape="1053.47,555.29 1054.84,553.49 1055.77,551.54 1056.27,549.43 1056.33,547.17"/>
     </edge>
     <edge id=":15_3" function="internal">
-        <lane id=":15_3_0" index="0" allow="pedestrian passenger" speed="11.14" length="14.69" shape="1053.47,555.29 1055.08,554.49 1058.02,554.11 1062.31,554.16 1067.92,554.65"/>
+        <lane id=":15_3_0" index="0" allow="pedestrian passenger" speed="11.14" length="14.69" shape="1053.47,555.29 1055.08,554.49 1058.02,554.11 1062.30,554.16 1067.92,554.65"/>
     </edge>
     <edge id=":16_0" function="internal">
-        <lane id=":16_0_0" index="0" allow="pedestrian passenger" speed="7.75" length="9.03" shape="1093.76,553.69 1092.19,552.91 1090.24,552.78 1087.92,553.30 1085.22,554.47"/>
+        <lane id=":16_0_0" index="0" allow="pedestrian passenger" speed="7.74" length="9.03" shape="1093.76,553.69 1092.19,552.90 1090.24,552.77 1087.92,553.30 1085.23,554.47"/>
     </edge>
     <edge id=":16_1" function="internal">
-        <lane id=":16_1_0" index="0" allow="pedestrian passenger" speed="9.58" length="8.86" shape="1091.73,543.58 1092.12,545.81 1092.92,547.82 1094.13,549.62 1095.76,551.19"/>
+        <lane id=":16_1_0" index="0" allow="pedestrian passenger" speed="9.58" length="8.86" shape="1091.73,543.58 1092.12,545.81 1092.92,547.82 1094.13,549.61 1095.76,551.19"/>
     </edge>
     <edge id=":16_2" function="internal">
-        <lane id=":16_2_0" index="0" allow="pedestrian passenger" speed="8.70" length="11.74" shape="1088.54,543.83 1088.58,547.71 1088.04,550.77 1086.92,553.03 1085.22,554.47"/>
+        <lane id=":16_2_0" index="0" allow="pedestrian passenger" speed="8.71" length="11.75" shape="1088.54,543.82 1088.58,547.70 1088.04,550.77 1086.92,553.03 1085.23,554.47"/>
     </edge>
     <edge id=":16_3" function="internal">
-        <lane id=":16_3_0" index="0" allow="pedestrian passenger" speed="10.01" length="4.63" shape="1081.06,553.03 1085.30,551.15"/>
+        <lane id=":16_3_0" index="0" allow="pedestrian passenger" speed="10.00" length="4.63" shape="1081.07,553.04 1085.30,551.15"/>
     </edge>
     <edge id=":16_4" function="internal">
-        <lane id=":16_4_0" index="0" allow="pedestrian passenger" speed="10.01" length="10.91" shape="1085.30,551.15 1085.84,550.91 1089.88,549.89 1093.19,549.98 1095.76,551.19"/>
+        <lane id=":16_4_0" index="0" allow="pedestrian passenger" speed="10.00" length="10.91" shape="1085.30,551.15 1085.84,550.90 1089.88,549.89 1093.19,549.98 1095.76,551.19"/>
     </edge>
     <edge id=":22_0" function="internal">
         <lane id=":22_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="7.78" shape="320.92,557.70 313.22,558.22"/>
         <lane id=":22_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="7.78" shape="320.77,554.51 312.94,555.03"/>
     </edge>
     <edge id=":22_2" function="internal">
-        <lane id=":22_2_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.57" shape="312.40,548.65 314.86,547.94 316.35,546.73 317.84,545.54 320.30,544.92"/>
+        <lane id=":22_2_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.57" shape="312.40,548.65 314.86,547.94 316.35,546.72 317.84,545.54 320.30,544.92"/>
         <lane id=":22_2_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.57" shape="312.67,551.84 315.10,551.13 316.56,549.92 318.03,548.73 320.46,548.11"/>
         <lane id=":22_2_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.57" shape="312.67,551.84 320.61,551.31"/>
     </edge>
     <edge id=":23_0" function="internal">
         <lane id=":23_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.41" shape="508.99,544.46 506.64,545.12 505.24,546.33 503.84,547.56 501.50,548.29"/>
-        <lane id=":23_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.41" shape="508.77,541.27 506.39,541.93 504.97,543.14 503.56,544.37 501.18,545.11"/>
-        <lane id=":23_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.41" shape="508.77,541.27 500.87,541.92"/>
+        <lane id=":23_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.41" shape="508.77,541.26 506.39,541.93 504.97,543.14 503.56,544.37 501.18,545.11"/>
+        <lane id=":23_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.41" shape="508.77,541.26 500.87,541.92"/>
     </edge>
     <edge id=":23_3" function="internal">
-        <lane id=":23_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.07" shape="500.24,535.56 508.34,534.88"/>
+        <lane id=":23_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.07" shape="500.24,535.55 508.34,534.88"/>
         <lane id=":23_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.07" shape="500.55,538.74 508.55,538.07"/>
     </edge>
     <edge id=":24_0" function="internal">
-        <lane id=":24_0_0" index="0" allow="pedestrian passenger" speed="13.89" length="7.39" shape="434.95,659.04 435.13,661.23 435.19,662.73 435.14,664.23 435.01,666.42"/>
+        <lane id=":24_0_0" index="0" allow="pedestrian passenger" speed="13.89" length="7.39" shape="434.95,659.05 435.13,661.23 435.19,662.73 435.15,664.23 435.01,666.42"/>
     </edge>
     <edge id=":24_1" function="internal">
         <lane id=":24_1_0" index="0" allow="pedestrian passenger" speed="13.89" length="8.09" shape="431.82,666.22 430.99,663.95 428.85,663.03 426.59,662.11 425.39,659.85"/>
-        <lane id=":24_1_1" index="1" allow="pedestrian passenger" speed="13.89" length="8.09" shape="431.82,666.22 431.45,664.14 430.40,662.90 429.25,661.65 428.58,659.58"/>
-        <lane id=":24_1_2" index="2" allow="pedestrian passenger" speed="13.89" length="8.09" shape="431.82,666.22 431.94,664.17 431.98,662.76 431.93,661.36 431.76,659.31"/>
+        <lane id=":24_1_1" index="1" allow="pedestrian passenger" speed="13.89" length="8.09" shape="431.82,666.22 431.46,664.14 430.40,662.90 429.25,661.65 428.58,659.58"/>
+        <lane id=":24_1_2" index="2" allow="pedestrian passenger" speed="13.89" length="8.09" shape="431.82,666.22 431.94,664.17 431.98,662.76 431.93,661.36 431.77,659.31"/>
     </edge>
     <edge id=":25_0" function="internal">
-        <lane id=":25_0_0" index="0" allow="pedestrian passenger" speed="13.89" length="0.26" shape="414.23,444.70 414.21,444.44"/>
+        <lane id=":25_0_0" index="0" allow="pedestrian passenger" speed="13.89" length="0.26" shape="414.24,444.70 414.21,444.44"/>
     </edge>
     <edge id=":25_1" function="internal">
-        <lane id=":25_1_0" index="0" allow="pedestrian passenger" speed="13.89" length="0.31" shape="417.39,444.13 417.42,444.45"/>
+        <lane id=":25_1_0" index="0" allow="pedestrian passenger" speed="13.89" length="0.31" shape="417.40,444.13 417.43,444.45"/>
     </edge>
     <edge id=":26_0" function="internal">
-        <lane id=":26_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1742.87,519.89 1740.70,518.53 1738.80,518.24 1736.91,517.94 1734.79,516.54"/>
-        <lane id=":26_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1745.06,517.56 1742.91,516.22 1741.02,515.94 1739.15,515.65 1737.03,514.26"/>
-        <lane id=":26_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1745.06,517.56 1739.28,511.99"/>
+        <lane id=":26_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1742.86,519.89 1740.69,518.53 1738.79,518.24 1736.91,517.94 1734.78,516.54"/>
+        <lane id=":26_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1745.06,517.56 1742.90,516.22 1741.02,515.94 1739.14,515.65 1737.03,514.27"/>
+        <lane id=":26_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.61" shape="1745.06,517.56 1739.27,511.99"/>
     </edge>
     <edge id=":26_3" function="internal">
         <lane id=":26_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="7.88" shape="1746.02,505.15 1751.64,510.57"/>
-        <lane id=":26_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="7.88" shape="1743.77,507.43 1749.45,512.90"/>
-        <lane id=":26_3_2" index="2" allow="pedestrian passenger" speed="19.44" length="7.88" shape="1741.53,509.71 1747.25,515.23"/>
+        <lane id=":26_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="7.88" shape="1743.77,507.43 1749.44,512.90"/>
+        <lane id=":26_3_2" index="2" allow="pedestrian passenger" speed="19.44" length="7.88" shape="1741.52,509.71 1747.25,515.23"/>
     </edge>
     <edge id=":27_0" function="internal">
-        <lane id=":27_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="7.77" shape="1019.24,495.64 1011.53,495.83"/>
+        <lane id=":27_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="7.77" shape="1019.25,495.64 1011.54,495.82"/>
         <lane id=":27_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="7.77" shape="1019.23,492.44 1011.40,492.63"/>
     </edge>
     <edge id=":27_2" function="internal">
-        <lane id=":27_2_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.12,486.24 1013.61,485.63 1015.15,484.48 1016.69,483.36 1019.18,482.84"/>
-        <lane id=":27_2_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.26,489.43 1013.71,488.83 1015.23,487.68 1016.74,486.56 1019.20,486.04"/>
-        <lane id=":27_2_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.26,489.43 1019.21,489.24"/>
+        <lane id=":27_2_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.12,486.23 1013.61,485.63 1015.15,484.47 1016.70,483.35 1019.19,482.84"/>
+        <lane id=":27_2_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.26,489.43 1013.71,488.83 1015.23,487.67 1016.75,486.55 1019.20,486.04"/>
+        <lane id=":27_2_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.57" shape="1011.26,489.43 1019.22,489.24"/>
     </edge>
     <edge id=":28_0" function="internal">
-        <lane id=":28_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1704.60,490.49 1703.17,489.40 1702.17,488.69 1701.12,488.04 1699.56,487.14"/>
-        <lane id=":28_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1706.54,487.95 1705.01,486.78 1703.94,486.01 1702.81,485.32 1701.14,484.36"/>
-        <lane id=":28_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1708.49,485.41 1706.85,484.16 1705.70,483.34 1704.51,482.60 1702.72,481.58"/>
+        <lane id=":28_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1704.60,490.48 1703.17,489.39 1702.17,488.68 1701.13,488.03 1699.57,487.14"/>
+        <lane id=":28_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1706.54,487.94 1705.01,486.77 1703.94,486.01 1702.82,485.31 1701.15,484.36"/>
+        <lane id=":28_0_2" index="2" allow="pedestrian passenger" speed="19.44" length="6.49" shape="1708.49,485.40 1706.85,484.15 1705.71,483.34 1704.51,482.60 1702.73,481.57"/>
     </edge>
     <edge id=":28_3" function="internal">
-        <lane id=":28_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1705.88,476.01 1708.30,476.82 1710.23,476.71 1712.09,476.70 1714.33,477.79"/>
-        <lane id=":28_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1704.30,478.79 1706.61,479.54 1708.46,479.38 1710.24,479.32 1712.38,480.33"/>
-        <lane id=":28_3_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1704.30,478.79 1706.20,479.88 1707.47,480.67 1708.69,481.54 1710.44,482.87"/>
+        <lane id=":28_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1705.88,476.01 1708.30,476.81 1710.23,476.71 1712.09,476.69 1714.33,477.78"/>
+        <lane id=":28_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1704.30,478.79 1706.62,479.53 1708.46,479.38 1710.25,479.31 1712.38,480.32"/>
+        <lane id=":28_3_2" index="2" allow="pedestrian passenger" speed="19.44" length="8.21" shape="1704.30,478.79 1706.20,479.88 1707.48,480.67 1708.70,481.53 1710.44,482.86"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" allow="pedestrian passenger" speed="7.50" length="12.00" shape="417.16,562.08 416.48,558.16 415.21,555.39 413.33,553.79 410.86,553.34"/>
+        <lane id=":3_0_0" index="0" allow="pedestrian passenger" speed="7.50" length="12.00" shape="417.16,562.08 416.48,558.16 415.20,555.39 413.33,553.79 410.86,553.34"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" allow="pedestrian passenger" speed="13.89" length="27.50" shape="420.35,561.81 420.07,552.45 420.55,544.83 421.17,538.83 421.32,534.37"/>
+        <lane id=":3_1_0" index="0" allow="pedestrian passenger" speed="13.89" length="27.50" shape="420.34,561.81 420.07,552.45 420.55,544.83 421.17,538.83 421.32,534.37"/>
     </edge>
     <edge id=":3_2" function="internal">
-        <lane id=":3_2_0" index="0" allow="pedestrian passenger" speed="9.39" length="7.06" shape="423.54,561.54 423.53,554.89 423.64,554.49"/>
+        <lane id=":3_2_0" index="0" allow="pedestrian passenger" speed="9.39" length="7.06" shape="423.53,561.54 423.53,554.89 423.63,554.49"/>
     </edge>
     <edge id=":3_14" function="internal">
-        <lane id=":3_14_0" index="0" allow="pedestrian passenger" speed="9.39" length="12.65" shape="423.64,554.49 424.80,550.01 427.33,546.91 431.13,545.59"/>
+        <lane id=":3_14_0" index="0" allow="pedestrian passenger" speed="9.39" length="12.65" shape="423.63,554.49 424.80,550.01 427.33,546.91 431.12,545.59"/>
     </edge>
     <edge id=":3_3" function="internal">
-        <lane id=":3_3_0" index="0" allow="pedestrian passenger" speed="6.61" length="9.24" shape="432.07,555.14 429.55,555.74 427.83,556.96 426.88,558.81 426.72,561.27"/>
+        <lane id=":3_3_0" index="0" allow="pedestrian passenger" speed="6.61" length="9.24" shape="432.07,555.14 429.55,555.74 427.82,556.96 426.88,558.81 426.72,561.27"/>
     </edge>
     <edge id=":3_4" function="internal">
         <lane id=":3_4_0" index="0" allow="pedestrian passenger" speed="19.44" length="21.29" shape="432.07,555.14 425.69,555.23 421.24,554.45 416.90,553.57 410.86,553.34"/>
-        <lane id=":3_4_1" index="1" allow="pedestrian passenger" speed="19.44" length="21.29" shape="431.75,551.96 425.44,552.04 421.03,551.26 416.73,550.37 410.71,550.15"/>
+        <lane id=":3_4_1" index="1" allow="pedestrian passenger" speed="19.44" length="21.29" shape="431.75,551.96 425.43,552.04 421.03,551.26 416.73,550.37 410.70,550.15"/>
     </edge>
     <edge id=":3_6" function="internal">
         <lane id=":3_6_0" index="0" allow="pedestrian passenger" speed="9.28" length="4.02" shape="431.44,548.77 427.46,548.20"/>
@@ -159,7 +159,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3_15_0" index="0" allow="pedestrian passenger" speed="9.28" length="15.74" shape="427.46,548.20 424.45,545.61 422.40,541.00 421.32,534.37"/>
     </edge>
     <edge id=":3_7" function="internal">
-        <lane id=":3_7_0" index="0" allow="pedestrian passenger" speed="7.28" length="11.75" shape="424.51,534.11 425.16,537.95 426.43,540.61 428.32,542.09 430.81,542.40"/>
+        <lane id=":3_7_0" index="0" allow="pedestrian passenger" speed="7.28" length="11.75" shape="424.51,534.11 425.16,537.95 426.43,540.61 428.31,542.09 430.81,542.40"/>
     </edge>
     <edge id=":3_8" function="internal">
         <lane id=":3_8_0" index="0" allow="pedestrian passenger" speed="13.89" length="27.25" shape="424.51,534.11 426.72,561.27"/>
@@ -168,14 +168,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3_9_0" index="0" allow="pedestrian passenger" speed="10.21" length="8.33" shape="424.51,534.11 424.10,540.86 423.40,542.27"/>
     </edge>
     <edge id=":3_16" function="internal">
-        <lane id=":3_16_0" index="0" allow="pedestrian passenger" speed="10.21" length="15.96" shape="423.40,542.27 421.66,545.77 417.20,548.87 410.71,550.15"/>
+        <lane id=":3_16_0" index="0" allow="pedestrian passenger" speed="10.21" length="15.96" shape="423.40,542.27 421.66,545.77 417.20,548.87 410.70,550.15"/>
     </edge>
     <edge id=":3_10" function="internal">
-        <lane id=":3_10_0" index="0" allow="pedestrian passenger" speed="7.89" length="14.08" shape="410.24,540.56 415.26,539.96 418.77,538.73 420.79,536.87 421.32,534.37"/>
+        <lane id=":3_10_0" index="0" allow="pedestrian passenger" speed="7.89" length="14.08" shape="410.24,540.56 415.25,539.96 418.77,538.73 420.79,536.87 421.32,534.37"/>
     </edge>
     <edge id=":3_11" function="internal">
         <lane id=":3_11_0" index="0" allow="pedestrian passenger" speed="19.44" length="20.82" shape="410.24,540.56 416.41,540.77 420.66,541.66 424.85,542.46 430.81,542.40"/>
-        <lane id=":3_11_1" index="1" allow="pedestrian passenger" speed="19.44" length="20.82" shape="410.40,543.75 416.62,543.97 420.93,544.85 425.15,545.64 431.13,545.59"/>
+        <lane id=":3_11_1" index="1" allow="pedestrian passenger" speed="19.44" length="20.82" shape="410.39,543.75 416.62,543.97 420.92,544.85 425.15,545.65 431.12,545.59"/>
     </edge>
     <edge id=":3_13" function="internal">
         <lane id=":3_13_0" index="0" allow="pedestrian passenger" speed="10.49" length="7.56" shape="410.55,546.95 417.15,547.57 417.97,548.01"/>
@@ -184,152 +184,152 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3_17_0" index="0" allow="pedestrian passenger" speed="10.49" length="16.89" shape="417.97,548.01 422.05,550.17 425.24,554.74 426.72,561.27"/>
     </edge>
     <edge id=":4_0" function="internal">
-        <lane id=":4_0_0" index="0" allow="pedestrian passenger" speed="6.43" length="9.03" shape="582.22,545.13 581.79,542.68 580.67,540.98 578.88,540.04 576.39,539.86"/>
+        <lane id=":4_0_0" index="0" allow="pedestrian passenger" speed="6.43" length="9.03" shape="582.22,545.13 581.79,542.68 580.68,540.98 578.88,540.04 576.40,539.86"/>
     </edge>
     <edge id=":4_1" function="internal">
-        <lane id=":4_1_0" index="0" allow="pedestrian passenger" speed="8.96" length="16.66" shape="582.22,545.13 582.55,539.83 583.92,535.89 586.32,533.31 589.77,532.10"/>
+        <lane id=":4_1_0" index="0" allow="pedestrian passenger" speed="8.97" length="16.66" shape="582.22,545.13 582.55,539.83 583.92,535.89 586.33,533.31 589.77,532.09"/>
     </edge>
     <edge id=":4_2" function="internal">
-        <lane id=":4_2_0" index="0" allow="pedestrian passenger" speed="6.87" length="9.37" shape="590.63,538.44 588.28,539.12 586.63,540.45 585.67,542.42 585.42,545.03"/>
+        <lane id=":4_2_0" index="0" allow="pedestrian passenger" speed="6.87" length="9.37" shape="590.63,538.44 588.28,539.12 586.63,540.45 585.68,542.42 585.42,545.03"/>
     </edge>
     <edge id=":4_3" function="internal">
-        <lane id=":4_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.20" shape="590.63,538.44 576.39,539.86"/>
+        <lane id=":4_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.20" shape="590.63,538.44 576.40,539.86"/>
         <lane id=":4_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.20" shape="590.20,535.27 576.18,536.66"/>
     </edge>
     <edge id=":4_5" function="internal">
-        <lane id=":4_5_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.77" shape="575.74,530.28 589.34,528.93"/>
-        <lane id=":4_5_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.77" shape="575.96,533.47 589.77,532.10"/>
+        <lane id=":4_5_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.77" shape="575.74,530.28 589.34,528.92"/>
+        <lane id=":4_5_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.77" shape="575.96,533.47 589.77,532.09"/>
     </edge>
     <edge id=":4_7" function="internal">
         <lane id=":4_7_0" index="0" allow="pedestrian passenger" speed="8.61" length="3.28" shape="575.96,533.47 579.22,533.87"/>
     </edge>
     <edge id=":4_8" function="internal">
-        <lane id=":4_8_0" index="0" allow="pedestrian passenger" speed="8.61" length="13.78" shape="579.22,533.87 579.95,533.96 582.86,536.05 584.68,539.74 585.42,545.03"/>
+        <lane id=":4_8_0" index="0" allow="pedestrian passenger" speed="8.61" length="13.78" shape="579.22,533.87 579.96,533.96 582.86,536.05 584.69,539.74 585.42,545.03"/>
     </edge>
     <edge id=":5_0" function="internal">
-        <lane id=":5_0_0" index="0" allow="pedestrian passenger" speed="6.62" length="8.95" shape="1053.26,501.12 1052.76,498.65 1051.66,496.90 1049.94,495.85 1047.61,495.51"/>
+        <lane id=":5_0_0" index="0" allow="pedestrian passenger" speed="6.62" length="8.95" shape="1053.26,501.12 1052.76,498.65 1051.66,496.90 1049.94,495.85 1047.62,495.51"/>
     </edge>
     <edge id=":5_1" function="internal">
-        <lane id=":5_1_0" index="0" allow="pedestrian passenger" speed="8.74" length="17.28" shape="1056.45,500.90 1056.36,494.35 1057.11,489.62 1058.69,486.72 1061.10,485.65"/>
-        <lane id=":5_1_1" index="1" allow="pedestrian passenger" speed="8.00" length="14.34" shape="1056.45,500.90 1056.45,495.74 1057.26,492.01 1058.87,489.71 1061.27,488.85"/>
+        <lane id=":5_1_0" index="0" allow="pedestrian passenger" speed="8.74" length="17.28" shape="1056.45,500.90 1056.37,494.35 1057.11,489.62 1058.69,486.72 1061.10,485.65"/>
+        <lane id=":5_1_1" index="1" allow="pedestrian passenger" speed="8.00" length="14.34" shape="1056.45,500.90 1056.46,495.74 1057.26,492.01 1058.87,489.71 1061.27,488.85"/>
     </edge>
     <edge id=":5_3" function="internal">
-        <lane id=":5_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.92" shape="1061.62,495.24 1047.61,495.51"/>
-        <lane id=":5_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.92" shape="1061.44,492.04 1047.60,492.31"/>
+        <lane id=":5_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.92" shape="1061.62,495.24 1047.62,495.51"/>
+        <lane id=":5_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.92" shape="1061.45,492.04 1047.60,492.31"/>
     </edge>
     <edge id=":5_5" function="internal">
-        <lane id=":5_5_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.53" shape="1047.55,482.71 1060.92,482.46"/>
+        <lane id=":5_5_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.53" shape="1047.56,482.71 1060.93,482.46"/>
         <lane id=":5_5_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.53" shape="1047.57,485.91 1061.10,485.65"/>
-        <lane id=":5_5_2" index="2" allow="pedestrian passenger" speed="19.44" length="13.53" shape="1047.58,489.11 1061.27,488.85"/>
+        <lane id=":5_5_2" index="2" allow="pedestrian passenger" speed="19.44" length="13.53" shape="1047.59,489.11 1061.27,488.85"/>
     </edge>
     <edge id=":6_0" function="internal">
-        <lane id=":6_0_0" index="0" allow="pedestrian passenger" speed="6.48" length="9.03" shape="1093.49,493.41 1091.06,493.92 1089.39,495.08 1088.47,496.90 1088.31,499.37"/>
+        <lane id=":6_0_0" index="0" allow="pedestrian passenger" speed="6.48" length="9.03" shape="1093.49,493.41 1091.06,493.92 1089.39,495.08 1088.48,496.90 1088.31,499.38"/>
     </edge>
     <edge id=":6_1" function="internal">
         <lane id=":6_1_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.37" shape="1093.49,493.41 1079.13,494.29"/>
-        <lane id=":6_1_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.37" shape="1093.29,490.22 1078.96,491.09"/>
+        <lane id=":6_1_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.37" shape="1093.29,490.22 1078.96,491.10"/>
     </edge>
     <edge id=":6_3" function="internal">
-        <lane id=":6_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.76" shape="1078.44,481.51 1082.75,481.77 1085.66,482.69 1088.57,483.61 1092.88,483.83"/>
-        <lane id=":6_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.76" shape="1078.61,484.70 1082.93,484.96 1085.85,485.89 1088.77,486.80 1093.08,487.02"/>
+        <lane id=":6_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.75" shape="1078.44,481.51 1082.75,481.77 1085.66,482.70 1088.57,483.61 1092.88,483.83"/>
+        <lane id=":6_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.75" shape="1078.61,484.70 1082.93,484.97 1085.85,485.89 1088.77,486.81 1093.09,487.03"/>
     </edge>
     <edge id=":6_5" function="internal">
-        <lane id=":6_5_0" index="0" allow="pedestrian passenger" speed="8.17" length="2.30" shape="1078.78,487.90 1081.01,488.47"/>
+        <lane id=":6_5_0" index="0" allow="pedestrian passenger" speed="8.17" length="2.30" shape="1078.79,487.90 1081.01,488.47"/>
     </edge>
     <edge id=":6_6" function="internal">
-        <lane id=":6_6_0" index="0" allow="pedestrian passenger" speed="8.17" length="12.27" shape="1081.01,488.47 1081.21,488.52 1083.07,490.68 1084.38,494.38 1085.12,499.62"/>
+        <lane id=":6_6_0" index="0" allow="pedestrian passenger" speed="8.17" length="12.27" shape="1081.01,488.47 1081.21,488.52 1083.08,490.68 1084.38,494.38 1085.12,499.62"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" allow="pedestrian passenger" speed="6.51" length="9.02" shape="1452.12,467.31 1451.55,464.91 1450.35,463.26 1448.51,462.38 1446.04,462.25"/>
     </edge>
     <edge id=":7_1" function="internal">
-        <lane id=":7_1_0" index="0" allow="pedestrian passenger" speed="8.68" length="16.83" shape="1452.12,467.31 1452.19,462.04 1453.48,458.15 1456.00,455.66 1459.76,454.55"/>
+        <lane id=":7_1_0" index="0" allow="pedestrian passenger" speed="8.67" length="16.83" shape="1452.12,467.31 1452.19,462.04 1453.48,458.15 1456.00,455.66 1459.75,454.55"/>
     </edge>
     <edge id=":7_2" function="internal">
-        <lane id=":7_2_0" index="0" allow="pedestrian passenger" speed="6.51" length="9.03" shape="1460.36,460.92 1457.96,461.50 1456.32,462.71 1455.43,464.55 1455.31,467.02"/>
+        <lane id=":7_2_0" index="0" allow="pedestrian passenger" speed="6.51" length="9.02" shape="1460.36,460.92 1457.96,461.50 1456.31,462.71 1455.43,464.55 1455.31,467.02"/>
     </edge>
     <edge id=":7_3" function="internal">
-        <lane id=":7_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.38" shape="1460.36,460.92 1446.04,462.25"/>
-        <lane id=":7_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.38" shape="1460.06,457.73 1445.75,459.06"/>
+        <lane id=":7_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.37" shape="1460.36,460.92 1446.04,462.25"/>
+        <lane id=":7_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.37" shape="1460.06,457.73 1445.75,459.06"/>
     </edge>
     <edge id=":7_5" function="internal">
         <lane id=":7_5_0" index="0" allow="pedestrian passenger" speed="19.44" length="14.35" shape="1445.17,452.69 1459.45,451.36"/>
-        <lane id=":7_5_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.35" shape="1445.46,455.88 1459.76,454.55"/>
+        <lane id=":7_5_1" index="1" allow="pedestrian passenger" speed="19.44" length="14.35" shape="1445.46,455.88 1459.75,454.55"/>
     </edge>
     <edge id=":7_7" function="internal">
-        <lane id=":7_7_0" index="0" allow="pedestrian passenger" speed="8.67" length="3.70" shape="1445.46,455.88 1449.14,456.25"/>
+        <lane id=":7_7_0" index="0" allow="pedestrian passenger" speed="8.67" length="3.69" shape="1445.46,455.88 1449.14,456.25"/>
     </edge>
     <edge id=":7_8" function="internal">
         <lane id=":7_8_0" index="0" allow="pedestrian passenger" speed="8.67" length="13.14" shape="1449.14,456.25 1449.36,456.27 1452.30,458.26 1454.28,461.85 1455.31,467.02"/>
     </edge>
     <edge id=":8_0" function="internal">
         <lane id=":8_0_0" index="0" allow="pedestrian passenger" speed="19.44" length="12.82" shape="1684.20,478.43 1681.25,476.21 1679.57,474.15 1677.80,472.27 1674.60,470.59"/>
-        <lane id=":8_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="12.82" shape="1685.78,475.65 1682.69,473.35 1680.90,471.24 1679.04,469.31 1675.68,467.58"/>
+        <lane id=":8_0_1" index="1" allow="pedestrian passenger" speed="19.44" length="12.82" shape="1685.78,475.65 1682.69,473.35 1680.90,471.24 1679.03,469.31 1675.68,467.58"/>
     </edge>
     <edge id=":8_2" function="internal">
         <lane id=":8_2_0" index="0" allow="pedestrian passenger" speed="9.00" length="3.32" shape="1687.36,472.87 1684.87,470.67"/>
     </edge>
     <edge id=":8_8" function="internal">
-        <lane id=":8_8_0" index="0" allow="pedestrian passenger" speed="9.00" length="12.87" shape="1684.87,470.67 1684.74,470.55 1683.47,467.36 1683.54,463.27 1684.96,458.30"/>
+        <lane id=":8_8_0" index="0" allow="pedestrian passenger" speed="9.00" length="12.87" shape="1684.87,470.67 1684.74,470.56 1683.46,467.36 1683.54,463.27 1684.96,458.30"/>
     </edge>
     <edge id=":8_3" function="internal">
-        <lane id=":8_3_0" index="0" allow="pedestrian passenger" speed="6.90" length="9.13" shape="1687.94,459.46 1687.35,461.91 1687.58,464.03 1688.63,465.83 1690.52,467.30"/>
+        <lane id=":8_3_0" index="0" allow="pedestrian passenger" speed="6.90" length="9.13" shape="1687.94,459.46 1687.34,461.91 1687.57,464.04 1688.63,465.83 1690.52,467.30"/>
     </edge>
     <edge id=":8_4" function="internal">
-        <lane id=":8_4_0" index="0" allow="pedestrian passenger" speed="8.68" length="16.56" shape="1687.94,459.46 1685.58,464.09 1682.75,466.98 1679.45,468.15 1675.68,467.58"/>
+        <lane id=":8_4_0" index="0" allow="pedestrian passenger" speed="8.68" length="16.56" shape="1687.94,459.46 1685.58,464.09 1682.75,466.99 1679.45,468.15 1675.68,467.58"/>
     </edge>
     <edge id=":8_5" function="internal">
-        <lane id=":8_5_0" index="0" allow="pedestrian passenger" speed="6.51" length="8.87" shape="1677.84,461.55 1680.22,462.04 1682.20,461.66 1683.78,460.42 1684.96,458.30"/>
+        <lane id=":8_5_0" index="0" allow="pedestrian passenger" speed="6.51" length="8.87" shape="1677.84,461.55 1680.22,462.04 1682.19,461.67 1683.77,460.42 1684.96,458.30"/>
     </edge>
     <edge id=":8_6" function="internal">
-        <lane id=":8_6_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.67" shape="1677.84,461.55 1681.74,462.96 1684.37,464.02 1686.90,465.28 1690.52,467.30"/>
-        <lane id=":8_6_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.67" shape="1676.76,464.56 1680.50,465.92 1683.03,466.93 1685.47,468.15 1688.94,470.08"/>
+        <lane id=":8_6_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.67" shape="1677.84,461.55 1681.73,462.96 1684.36,464.02 1686.90,465.28 1690.52,467.30"/>
+        <lane id=":8_6_1" index="1" allow="pedestrian passenger" speed="19.44" length="13.67" shape="1676.76,464.57 1680.50,465.92 1683.03,466.94 1685.47,468.15 1688.94,470.08"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" allow="pedestrian passenger" speed="6.39" length="9.04" shape="1770.11,545.63 1768.08,544.18 1766.10,543.76 1764.17,544.37 1762.29,546.01"/>
+        <lane id=":9_0_0" index="0" allow="pedestrian passenger" speed="6.39" length="9.04" shape="1770.11,545.62 1768.08,544.17 1766.10,543.75 1764.17,544.37 1762.29,546.01"/>
     </edge>
     <edge id=":9_1" function="internal">
-        <lane id=":9_1_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.64" shape="1770.11,545.63 1757.32,533.50"/>
+        <lane id=":9_1_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.64" shape="1770.11,545.62 1757.32,533.50"/>
         <lane id=":9_1_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.64" shape="1772.32,543.31 1759.51,531.17"/>
     </edge>
     <edge id=":9_3" function="internal">
-        <lane id=":9_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="18.07" shape="1766.10,524.18 1769.61,528.18 1771.44,531.42 1773.26,534.67 1776.74,538.69"/>
+        <lane id=":9_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="18.07" shape="1766.09,524.18 1769.60,528.18 1771.43,531.42 1773.25,534.66 1776.74,538.69"/>
         <lane id=":9_3_1" index="1" allow="pedestrian passenger" speed="19.44" length="18.07" shape="1763.90,526.51 1767.41,530.50 1769.23,533.74 1771.05,536.98 1774.53,541.00"/>
     </edge>
     <edge id=":9_5" function="internal">
-        <lane id=":9_5_0" index="0" allow="pedestrian passenger" speed="9.43" length="4.97" shape="1761.71,528.84 1764.79,532.74"/>
+        <lane id=":9_5_0" index="0" allow="pedestrian passenger" speed="9.43" length="4.97" shape="1761.70,528.84 1764.79,532.74"/>
     </edge>
     <edge id=":9_8" function="internal">
         <lane id=":9_8_0" index="0" allow="pedestrian passenger" speed="9.43" length="14.42" shape="1764.79,532.74 1764.92,532.91 1766.09,537.12 1765.21,541.49 1762.29,546.01"/>
     </edge>
     <edge id=":9_6" function="internal">
-        <lane id=":9_6_0" index="0" allow="pedestrian passenger" speed="6.74" length="9.41" shape="1757.44,541.84 1758.89,539.61 1759.36,537.48 1758.84,535.44 1757.32,533.50"/>
+        <lane id=":9_6_0" index="0" allow="pedestrian passenger" speed="6.74" length="9.41" shape="1757.44,541.84 1758.89,539.61 1759.36,537.48 1758.83,535.44 1757.32,533.50"/>
     </edge>
     <edge id=":9_7" function="internal">
         <lane id=":9_7_0" index="0" allow="pedestrian passenger" speed="8.58" length="17.15" shape="1759.86,543.92 1763.78,540.25 1767.53,538.54 1771.11,538.79 1774.53,541.00"/>
     </edge>
 
     <edge id="-13" from="14" to="4" priority="-1" type="80" shape="831.91,806.00 620.34,627.37 585.37,594.28 583.49,534.56">
-        <lane id="-13_0" index="0" allow="pedestrian passenger" speed="13.89" length="375.67" shape="830.88,807.22 619.27,628.56 583.79,594.99 582.22,545.13"/>
+        <lane id="-13_0" index="0" allow="pedestrian passenger" speed="13.89" length="375.68" shape="830.88,807.22 619.27,628.56 583.79,594.99 582.22,545.13"/>
     </edge>
     <edge id="-14" from="18" to="15" priority="-1" type="0">
-        <lane id="-14_0" index="0" allow="pedestrian passenger" speed="13.89" length="167.18" shape="940.16,678.21 1053.47,555.29"/>
+        <lane id="-14_0" index="0" allow="pedestrian passenger" speed="13.89" length="167.17" shape="940.16,678.21 1053.47,555.29"/>
     </edge>
     <edge id="-15" from="17" to="16" priority="-1" type="0" shape="1260.98,699.45 1130.22,580.76 1087.13,546.34">
-        <lane id="-15_0" index="0" allow="pedestrian passenger" speed="13.89" length="221.88" shape="1259.91,700.64 1129.18,581.98 1093.76,553.69"/>
+        <lane id="-15_0" index="0" allow="pedestrian passenger" speed="13.89" length="221.87" shape="1259.90,700.63 1129.18,581.98 1093.76,553.69"/>
     </edge>
     <edge id="-16" from="16" to="15" priority="-1" type="0" shape="1087.13,546.34 1085.87,552.33 1078.62,556.12 1069.48,556.43 1063.80,555.80 1061.28,549.18">
-        <lane id="-16_0" index="0" allow="pedestrian passenger" speed="13.89" length="22.32" shape="1085.22,554.47 1079.04,557.70 1069.42,558.03 1063.73,557.40"/>
+        <lane id="-16_0" index="0" allow="pedestrian passenger" speed="13.89" length="22.33" shape="1085.23,554.47 1079.04,557.71 1069.42,558.03 1063.73,557.40"/>
     </edge>
     <edge id="-19" from="19" to="7" priority="-1" type="0" shape="1322.24,673.08 1447.93,531.30 1453.99,522.41 1456.82,514.32 1456.02,492.07 1452.76,456.82">
-        <lane id="-19_0" index="0" allow="pedestrian passenger" speed="13.89" length="254.76" shape="1321.04,672.02 1446.66,530.32 1452.55,521.68 1455.21,514.07 1454.42,492.17 1452.12,467.31"/>
+        <lane id="-19_0" index="0" allow="pedestrian passenger" speed="13.89" length="254.76" shape="1321.04,672.02 1446.67,530.31 1452.55,521.68 1455.21,514.08 1454.42,492.17 1452.12,467.31"/>
     </edge>
     <edge id="-20" from="20" to="8" priority="-1" type="0" shape="1275.01,0.00 1312.65,102.63 1365.86,132.29 1399.00,151.48 1589.16,343.38 1610.97,354.72 1643.47,366.43 1669.56,390.98 1689.50,412.68 1693.83,419.27 1696.74,426.93 1695.42,435.70 1682.76,468.42">
-        <lane id="-20_0" index="0" allow="pedestrian passenger" speed="13.89" length="654.04" shape="1276.52,-0.55 1313.95,101.52 1366.65,130.90 1399.99,150.20 1590.12,342.08 1611.61,353.25 1644.33,365.04 1670.69,389.86 1690.77,411.70 1695.27,418.54 1698.38,426.75 1696.98,436.11 1687.94,459.46"/>
+        <lane id="-20_0" index="0" allow="pedestrian passenger" speed="13.89" length="654.05" shape="1276.51,-0.55 1313.95,101.52 1366.65,130.90 1399.99,150.20 1590.12,342.08 1611.61,353.25 1644.32,365.04 1670.70,389.85 1690.77,411.69 1695.26,418.54 1698.38,426.75 1696.98,436.11 1687.94,459.46"/>
     </edge>
     <edge id="-21" from="22" to="3" priority="-1" type="0">
         <lane id="-21_0" index="0" allow="pedestrian passenger" speed="19.44" length="90.04" shape="320.30,544.92 410.24,540.56"/>
-        <lane id="-21_1" index="1" allow="pedestrian passenger" speed="19.44" length="90.04" shape="320.46,548.11 410.40,543.75"/>
+        <lane id="-21_1" index="1" allow="pedestrian passenger" speed="19.44" length="90.04" shape="320.46,548.11 410.39,543.75"/>
         <lane id="-21_2" index="2" allow="pedestrian passenger" speed="19.44" length="90.04" shape="320.61,551.31 410.55,546.95"/>
     </edge>
     <edge id="-22" from="22" to="2" priority="-1" type="0">
@@ -337,8 +337,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-22_1" index="1" allow="pedestrian passenger" speed="19.44" length="313.95" shape="312.94,555.03 0.14,581.74"/>
     </edge>
     <edge id="-23" from="23" to="4" priority="-1" type="0">
-        <lane id="-23_0" index="0" allow="pedestrian passenger" speed="19.44" length="67.56" shape="508.34,534.88 575.74,530.28"/>
-        <lane id="-23_1" index="1" allow="pedestrian passenger" speed="19.44" length="67.56" shape="508.55,538.07 575.96,533.47"/>
+        <lane id="-23_0" index="0" allow="pedestrian passenger" speed="19.44" length="67.57" shape="508.34,534.88 575.74,530.28"/>
+        <lane id="-23_1" index="1" allow="pedestrian passenger" speed="19.44" length="67.57" shape="508.55,538.07 575.96,533.47"/>
     </edge>
     <edge id="-24" from="23" to="3" priority="-1" type="0">
         <lane id="-24_0" index="0" allow="pedestrian passenger" speed="19.44" length="69.77" shape="501.50,548.29 432.07,555.14"/>
@@ -346,157 +346,157 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-24_2" index="2" allow="pedestrian passenger" speed="19.44" length="69.77" shape="500.87,541.92 431.44,548.77"/>
     </edge>
     <edge id="-25" from="24" to="12" priority="-1" type="0">
-        <lane id="-25_0" index="0" allow="pedestrian passenger" speed="13.89" length="146.61" shape="435.01,666.42 425.80,812.74"/>
+        <lane id="-25_0" index="0" allow="pedestrian passenger" speed="13.89" length="146.61" shape="435.01,666.42 425.81,812.74"/>
     </edge>
     <edge id="-26" from="24" to="3" priority="-1" type="0">
         <lane id="-26_0" index="0" allow="pedestrian passenger" speed="13.89" length="98.12" shape="425.39,659.85 417.16,562.08"/>
-        <lane id="-26_1" index="1" allow="pedestrian passenger" speed="13.89" length="98.12" shape="428.58,659.58 420.35,561.81"/>
-        <lane id="-26_2" index="2" allow="pedestrian passenger" speed="13.89" length="98.12" shape="431.76,659.31 423.54,561.54"/>
+        <lane id="-26_1" index="1" allow="pedestrian passenger" speed="13.89" length="98.12" shape="428.58,659.58 420.34,561.81"/>
+        <lane id="-26_2" index="2" allow="pedestrian passenger" speed="13.89" length="98.12" shape="431.77,659.31 423.53,561.54"/>
     </edge>
     <edge id="-27" from="25" to="3" priority="-1" type="0">
-        <lane id="-27_0" index="0" allow="pedestrian passenger" speed="13.89" length="89.95" shape="417.42,444.45 424.51,534.11"/>
+        <lane id="-27_0" index="0" allow="pedestrian passenger" speed="13.89" length="89.95" shape="417.43,444.45 424.51,534.11"/>
     </edge>
     <edge id="-28" from="25" to="13" priority="-1" type="0" shape="415.82,444.43 405.79,340.52 377.00,167.49">
         <lane id="-28_0" index="0" allow="pedestrian passenger" speed="13.89" length="279.55" shape="414.21,444.44 404.20,340.73 375.42,167.75"/>
     </edge>
     <edge id="-29" from="21" to="9" priority="-1" type="0" shape="1511.62,837.39 1596.57,739.54 1676.15,643.83 1767.97,536.94">
-        <lane id="-29_0" index="0" allow="pedestrian passenger" speed="13.89" length="384.37" shape="1508.00,834.24 1592.91,736.43 1672.48,640.74 1757.44,541.84"/>
-        <lane id="-29_1" index="1" allow="pedestrian passenger" speed="13.89" length="384.37" shape="1510.42,836.34 1595.35,738.50 1674.92,642.80 1759.86,543.92"/>
+        <lane id="-29_0" index="0" allow="pedestrian passenger" speed="13.89" length="384.37" shape="1508.00,834.24 1592.91,736.43 1672.48,640.73 1757.44,541.84"/>
+        <lane id="-29_1" index="1" allow="pedestrian passenger" speed="13.89" length="384.37" shape="1510.41,836.34 1595.35,738.50 1674.93,642.80 1759.86,543.92"/>
     </edge>
     <edge id="-30" from="26" to="9" priority="-1" type="0">
-        <lane id="-30_0" index="0" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1751.64,510.57 1766.10,524.18"/>
-        <lane id="-30_1" index="1" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1749.45,512.90 1763.90,526.51"/>
-        <lane id="-30_2" index="2" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1747.25,515.23 1761.71,528.84"/>
+        <lane id="-30_0" index="0" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1751.64,510.57 1766.09,524.18"/>
+        <lane id="-30_1" index="1" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1749.44,512.90 1763.90,526.51"/>
+        <lane id="-30_2" index="2" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1747.25,515.23 1761.70,528.84"/>
     </edge>
     <edge id="-32" from="27" to="5" priority="-1" type="0">
-        <lane id="-32_0" index="0" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1019.18,482.84 1047.55,482.71"/>
+        <lane id="-32_0" index="0" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1019.19,482.84 1047.56,482.71"/>
         <lane id="-32_1" index="1" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1019.20,486.04 1047.57,485.91"/>
-        <lane id="-32_2" index="2" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1019.21,489.24 1047.58,489.11"/>
+        <lane id="-32_2" index="2" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1019.22,489.24 1047.59,489.11"/>
     </edge>
     <edge id="-33" from="27" to="4" priority="-1" type="0" shape="1015.26,490.86 956.41,493.38 888.64,500.74 783.56,510.20 696.87,517.55 635.40,527.53 583.49,534.56">
-        <lane id="-33_0" index="0" allow="pedestrian passenger" speed="19.44" length="423.46" shape="1011.53,495.83 956.78,498.17 889.11,505.52 783.98,514.98 697.46,522.32 636.11,532.28 590.63,538.44"/>
-        <lane id="-33_1" index="1" allow="pedestrian passenger" speed="19.44" length="423.46" shape="1011.40,492.63 956.53,494.98 888.80,502.33 783.70,511.79 697.07,519.14 635.64,529.12 590.20,535.27"/>
+        <lane id="-33_0" index="0" allow="pedestrian passenger" speed="19.44" length="423.46" shape="1011.54,495.82 956.77,498.17 889.11,505.52 783.98,514.98 697.46,522.32 636.11,532.28 590.63,538.44"/>
+        <lane id="-33_1" index="1" allow="pedestrian passenger" speed="19.44" length="423.46" shape="1011.40,492.63 956.53,494.98 888.80,502.33 783.70,511.79 697.07,519.14 635.64,529.11 590.20,535.27"/>
     </edge>
     <edge id="-34" from="28" to="26" priority="-1" type="0" shape="1706.58,481.92 1718.86,491.33 1731.61,502.18 1743.25,513.66">
-        <lane id="-34_0" index="0" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1714.33,477.79 1723.88,485.11 1737.02,496.27 1746.02,505.15"/>
-        <lane id="-34_1" index="1" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1712.38,480.33 1721.87,487.60 1734.86,498.63 1743.77,507.43"/>
-        <lane id="-34_2" index="2" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1710.44,482.87 1719.86,490.09 1732.69,501.00 1741.53,509.71"/>
+        <lane id="-34_0" index="0" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1714.33,477.78 1723.89,485.10 1737.02,496.28 1746.02,505.15"/>
+        <lane id="-34_1" index="1" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1712.38,480.32 1721.88,487.59 1734.86,498.64 1743.77,507.43"/>
+        <lane id="-34_2" index="2" allow="pedestrian passenger" speed="19.44" length="41.52" shape="1710.44,482.86 1719.87,490.08 1732.69,501.00 1741.52,509.71"/>
     </edge>
     <edge id="-35" from="28" to="8" priority="-1" type="0">
-        <lane id="-35_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1699.56,487.14 1684.20,478.43"/>
-        <lane id="-35_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1701.14,484.36 1685.78,475.65"/>
-        <lane id="-35_2" index="2" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1702.72,481.58 1687.36,472.87"/>
+        <lane id="-35_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1699.57,487.14 1684.20,478.43"/>
+        <lane id="-35_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1701.15,484.36 1685.78,475.65"/>
+        <lane id="-35_2" index="2" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1702.73,481.57 1687.36,472.87"/>
     </edge>
     <edge id="-5" from="6" to="5" priority="-1" type="0">
         <lane id="-5_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1079.13,494.29 1061.62,495.24"/>
-        <lane id="-5_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1078.96,491.09 1061.44,492.04"/>
+        <lane id="-5_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1078.96,491.10 1061.45,492.04"/>
     </edge>
     <edge id="-6" from="7" to="6" priority="-1" type="0" shape="1452.76,456.82 1416.01,460.16 1248.03,475.73 1169.77,482.69 1109.14,487.61 1082.72,489.29">
-        <lane id="-6_0" index="0" allow="pedestrian passenger" speed="19.44" length="353.89" shape="1446.04,462.25 1416.45,464.94 1248.46,480.51 1170.18,487.48 1109.48,492.40 1093.49,493.41"/>
-        <lane id="-6_1" index="1" allow="pedestrian passenger" speed="19.44" length="353.89" shape="1445.75,459.06 1416.15,461.75 1248.17,477.32 1169.91,484.29 1109.25,489.20 1093.29,490.22"/>
+        <lane id="-6_0" index="0" allow="pedestrian passenger" speed="19.44" length="353.89" shape="1446.04,462.25 1416.45,464.94 1248.46,480.51 1170.18,487.47 1109.49,492.40 1093.49,493.41"/>
+        <lane id="-6_1" index="1" allow="pedestrian passenger" speed="19.44" length="353.89" shape="1445.75,459.06 1416.16,461.75 1248.17,477.32 1169.91,484.28 1109.26,489.21 1093.29,490.22"/>
     </edge>
     <edge id="-7" from="8" to="7" priority="-1" type="0" shape="1682.76,468.42 1666.80,462.69 1654.47,458.49 1633.01,452.24 1609.67,448.56 1583.56,446.71 1562.36,446.41 1488.02,453.47 1452.76,456.82">
-        <lane id="-7_0" index="0" allow="pedestrian passenger" speed="19.44" length="217.90" shape="1674.60,470.59 1665.22,467.22 1653.03,463.07 1631.96,456.94 1609.12,453.33 1583.35,451.51 1562.55,451.21 1488.48,458.25 1460.36,460.92"/>
-        <lane id="-7_1" index="1" allow="pedestrian passenger" speed="19.44" length="217.90" shape="1675.68,467.58 1666.28,464.20 1653.99,460.02 1632.66,453.81 1609.49,450.15 1583.49,448.31 1562.43,448.01 1488.18,455.06 1460.06,457.73"/>
+        <lane id="-7_0" index="0" allow="pedestrian passenger" speed="19.44" length="217.90" shape="1674.60,470.59 1665.22,467.22 1653.02,463.07 1631.96,456.93 1609.13,453.33 1583.36,451.51 1562.55,451.21 1488.47,458.25 1460.36,460.92"/>
+        <lane id="-7_1" index="1" allow="pedestrian passenger" speed="19.44" length="217.90" shape="1675.68,467.58 1666.27,464.20 1653.99,460.02 1632.66,453.80 1609.49,450.15 1583.49,448.31 1562.42,448.01 1488.17,455.06 1460.06,457.73"/>
     </edge>
     <edge id="-9" from="10" to="9" priority="-1" type="0" shape="2060.03,844.92 1924.11,695.17 1866.47,631.12 1767.97,536.94">
-        <lane id="-9_0" index="0" allow="pedestrian passenger" speed="19.44" length="416.90" shape="2056.47,848.14 1920.55,698.38 1863.02,634.47 1770.11,545.63"/>
-        <lane id="-9_1" index="1" allow="pedestrian passenger" speed="19.44" length="416.90" shape="2058.84,845.99 1922.92,696.24 1865.32,632.24 1772.32,543.31"/>
+        <lane id="-9_0" index="0" allow="pedestrian passenger" speed="19.44" length="416.91" shape="2056.48,848.15 1920.55,698.39 1863.02,634.46 1770.11,545.62"/>
+        <lane id="-9_1" index="1" allow="pedestrian passenger" speed="19.44" length="416.91" shape="2058.85,846.00 1922.92,696.24 1865.32,632.23 1772.32,543.31"/>
     </edge>
     <edge id="13" from="4" to="14" priority="-1" type="80" shape="583.49,534.56 585.37,594.28 620.34,627.37 831.91,806.00">
-        <lane id="13_0" index="0" allow="pedestrian passenger" speed="13.89" length="372.86" shape="585.42,545.03 586.95,593.57 621.41,626.17 832.94,804.78"/>
+        <lane id="13_0" index="0" allow="pedestrian passenger" speed="13.89" length="372.86" shape="585.42,545.03 586.95,593.57 621.41,626.18 832.94,804.78"/>
     </edge>
     <edge id="14" from="15" to="18" priority="-1" type="0">
-        <lane id="14_0" index="0" allow="pedestrian passenger" speed="13.89" length="167.18" shape="1055.82,557.46 942.51,680.38"/>
+        <lane id="14_0" index="0" allow="pedestrian passenger" speed="13.89" length="167.17" shape="1055.82,557.46 942.52,680.37"/>
     </edge>
     <edge id="15" from="16" to="17" priority="-1" type="0" shape="1087.13,546.34 1130.22,580.76 1260.98,699.45">
         <lane id="15_0" index="0" allow="pedestrian passenger" speed="13.89" length="222.08" shape="1095.76,551.19 1131.26,579.54 1262.06,698.27"/>
     </edge>
     <edge id="16" from="15" to="16" priority="-1" type="0" shape="1061.28,549.18 1063.80,555.80 1069.48,556.43 1078.62,556.12 1085.87,552.33 1087.13,546.34">
-        <lane id="16_0" index="0" allow="pedestrian passenger" speed="13.89" length="13.52" shape="1067.92,554.65 1069.54,554.83 1078.20,554.53 1081.06,553.03"/>
+        <lane id="16_0" index="0" allow="pedestrian passenger" speed="13.89" length="13.53" shape="1067.92,554.65 1069.54,554.83 1078.20,554.53 1081.07,553.04"/>
     </edge>
     <edge id="17" from="15" to="5" priority="-1" type="80">
-        <lane id="17_0" index="0" allow="pedestrian passenger" speed="13.89" length="46.15" shape="1056.34,547.17 1053.26,501.12"/>
+        <lane id="17_0" index="0" allow="pedestrian passenger" speed="13.89" length="46.15" shape="1056.33,547.17 1053.26,501.12"/>
         <lane id="17_1" index="1" allow="pedestrian passenger" speed="13.89" length="46.15" shape="1059.53,546.95 1056.45,500.90"/>
     </edge>
     <edge id="18" from="6" to="16" priority="-1" type="0">
-        <lane id="18_0" index="0" allow="pedestrian passenger" speed="13.89" length="44.34" shape="1088.31,499.37 1091.73,543.58"/>
-        <lane id="18_1" index="1" allow="pedestrian passenger" speed="13.89" length="44.34" shape="1085.12,499.62 1088.54,543.83"/>
+        <lane id="18_0" index="0" allow="pedestrian passenger" speed="13.89" length="44.33" shape="1088.31,499.38 1091.73,543.58"/>
+        <lane id="18_1" index="1" allow="pedestrian passenger" speed="13.89" length="44.33" shape="1085.12,499.62 1088.54,543.82"/>
     </edge>
     <edge id="19" from="7" to="19" priority="-1" type="0" shape="1452.76,456.82 1456.02,492.07 1456.82,514.32 1453.99,522.41 1447.93,531.30 1322.24,673.08">
-        <lane id="19_0" index="0" allow="pedestrian passenger" speed="13.89" length="257.40" shape="1455.31,467.02 1457.61,491.97 1458.43,514.56 1455.43,523.13 1449.19,532.29 1323.43,674.14"/>
+        <lane id="19_0" index="0" allow="pedestrian passenger" speed="13.89" length="257.40" shape="1455.31,467.02 1457.62,491.97 1458.43,514.56 1455.43,523.14 1449.19,532.29 1323.44,674.14"/>
     </edge>
     <edge id="20" from="8" to="20" priority="-1" type="0" shape="1682.76,468.42 1695.42,435.70 1696.74,426.93 1693.83,419.27 1689.50,412.68 1669.56,390.98 1643.47,366.43 1610.97,354.72 1589.16,343.38 1399.00,151.48 1365.86,132.29 1312.65,102.63 1275.01,0.00">
-        <lane id="20_0" index="0" allow="pedestrian passenger" speed="13.89" length="651.78" shape="1684.96,458.30 1693.86,435.29 1695.09,427.11 1692.40,420.00 1688.24,413.67 1668.42,392.11 1642.62,367.83 1610.32,356.19 1588.20,344.68 1398.02,152.76 1365.07,133.68 1311.35,103.74 1273.51,0.55"/>
+        <lane id="20_0" index="0" allow="pedestrian passenger" speed="13.89" length="651.78" shape="1684.96,458.30 1693.86,435.29 1695.10,427.11 1692.40,420.00 1688.23,413.67 1668.42,392.11 1642.62,367.82 1610.33,356.19 1588.20,344.68 1398.01,152.76 1365.07,133.68 1311.35,103.74 1273.51,0.55"/>
     </edge>
     <edge id="21" from="3" to="22" priority="-1" type="0">
         <lane id="21_0" index="0" allow="pedestrian passenger" speed="19.44" length="90.04" shape="410.86,553.34 320.92,557.70"/>
-        <lane id="21_1" index="1" allow="pedestrian passenger" speed="19.44" length="90.04" shape="410.71,550.15 320.77,554.51"/>
+        <lane id="21_1" index="1" allow="pedestrian passenger" speed="19.44" length="90.04" shape="410.70,550.15 320.77,554.51"/>
     </edge>
     <edge id="22" from="2" to="22" priority="-1" type="0">
         <lane id="22_0" index="0" allow="pedestrian passenger" speed="19.44" length="313.95" shape="-0.41,575.37 312.40,548.65"/>
-        <lane id="22_1" index="1" allow="pedestrian passenger" speed="19.44" length="313.95" shape="-0.14,578.55 312.67,551.84"/>
+        <lane id="22_1" index="1" allow="pedestrian passenger" speed="19.44" length="313.95" shape="-0.14,578.56 312.67,551.84"/>
     </edge>
     <edge id="23" from="4" to="23" priority="-1" type="0">
-        <lane id="23_0" index="0" allow="pedestrian passenger" speed="19.44" length="67.56" shape="576.39,539.86 508.99,544.46"/>
-        <lane id="23_1" index="1" allow="pedestrian passenger" speed="19.44" length="67.56" shape="576.18,536.66 508.77,541.27"/>
+        <lane id="23_0" index="0" allow="pedestrian passenger" speed="19.44" length="67.57" shape="576.40,539.86 508.99,544.46"/>
+        <lane id="23_1" index="1" allow="pedestrian passenger" speed="19.44" length="67.57" shape="576.18,536.66 508.77,541.26"/>
     </edge>
     <edge id="24" from="3" to="23" priority="-1" type="0">
-        <lane id="24_0" index="0" allow="pedestrian passenger" speed="19.44" length="69.77" shape="430.81,542.40 500.24,535.56"/>
-        <lane id="24_1" index="1" allow="pedestrian passenger" speed="19.44" length="69.77" shape="431.13,545.59 500.55,538.74"/>
+        <lane id="24_0" index="0" allow="pedestrian passenger" speed="19.44" length="69.77" shape="430.81,542.40 500.24,535.55"/>
+        <lane id="24_1" index="1" allow="pedestrian passenger" speed="19.44" length="69.77" shape="431.12,545.59 500.55,538.74"/>
     </edge>
     <edge id="25" from="12" to="24" priority="-1" type="0">
         <lane id="25_0" index="0" allow="pedestrian passenger" speed="13.89" length="146.61" shape="422.61,812.54 431.82,666.22"/>
     </edge>
     <edge id="26" from="3" to="24" priority="-1" type="0">
-        <lane id="26_0" index="0" allow="pedestrian passenger" speed="13.89" length="98.12" shape="426.72,561.27 434.95,659.04"/>
+        <lane id="26_0" index="0" allow="pedestrian passenger" speed="13.89" length="98.12" shape="426.72,561.27 434.95,659.05"/>
     </edge>
     <edge id="27" from="3" to="25" priority="-1" type="0">
-        <lane id="27_0" index="0" allow="pedestrian passenger" speed="13.89" length="89.95" shape="421.32,534.37 414.23,444.70"/>
+        <lane id="27_0" index="0" allow="pedestrian passenger" speed="13.89" length="89.95" shape="421.32,534.37 414.24,444.70"/>
     </edge>
     <edge id="28" from="13" to="25" priority="-1" type="0" shape="377.00,167.49 405.79,340.52 415.82,444.43">
-        <lane id="28_0" index="0" allow="pedestrian passenger" speed="13.89" length="279.77" shape="378.58,167.22 407.38,340.32 417.39,444.13"/>
+        <lane id="28_0" index="0" allow="pedestrian passenger" speed="13.89" length="279.77" shape="378.58,167.23 407.38,340.31 417.40,444.13"/>
     </edge>
     <edge id="29" from="9" to="21" priority="-1" type="0" shape="1767.97,536.94 1676.15,643.83 1596.57,739.54 1511.62,837.39">
-        <lane id="29_0" index="0" allow="pedestrian passenger" speed="13.89" length="384.39" shape="1762.29,546.01 1677.37,644.87 1597.79,740.57 1512.83,838.44"/>
+        <lane id="29_0" index="0" allow="pedestrian passenger" speed="13.89" length="384.39" shape="1762.29,546.01 1677.37,644.86 1597.79,740.58 1512.83,838.44"/>
     </edge>
     <edge id="30" from="9" to="26" priority="-1" type="0">
-        <lane id="30_0" index="0" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1757.32,533.50 1742.87,519.89"/>
+        <lane id="30_0" index="0" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1757.32,533.50 1742.86,519.89"/>
         <lane id="30_1" index="1" allow="pedestrian passenger" speed="19.44" length="19.86" shape="1759.51,531.17 1745.06,517.56"/>
     </edge>
     <edge id="32" from="5" to="27" priority="-1" type="0">
-        <lane id="32_0" index="0" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1047.61,495.51 1019.24,495.64"/>
+        <lane id="32_0" index="0" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1047.62,495.51 1019.25,495.64"/>
         <lane id="32_1" index="1" allow="pedestrian passenger" speed="19.44" length="28.37" shape="1047.60,492.31 1019.23,492.44"/>
     </edge>
     <edge id="33" from="4" to="27" priority="-1" type="0" shape="583.49,534.56 635.40,527.53 696.87,517.55 783.56,510.20 888.64,500.74 956.41,493.38 1015.26,490.86">
-        <lane id="33_0" index="0" allow="pedestrian passenger" speed="19.44" length="424.04" shape="589.34,528.93 634.70,522.79 696.28,512.78 783.14,505.41 888.17,495.96 956.05,488.60 1011.12,486.24"/>
-        <lane id="33_1" index="1" allow="pedestrian passenger" speed="19.44" length="424.04" shape="589.77,532.10 635.17,525.95 696.68,515.96 783.42,508.60 888.48,499.15 956.29,491.79 1011.26,489.43"/>
+        <lane id="33_0" index="0" allow="pedestrian passenger" speed="19.44" length="424.04" shape="589.34,528.92 634.69,522.78 696.28,512.78 783.14,505.42 888.17,495.96 956.05,488.59 1011.12,486.23"/>
+        <lane id="33_1" index="1" allow="pedestrian passenger" speed="19.44" length="424.04" shape="589.77,532.09 635.16,525.95 696.67,515.96 783.42,508.61 888.48,499.15 956.29,491.78 1011.26,489.43"/>
     </edge>
     <edge id="34" from="26" to="28" priority="-1" type="0" shape="1743.25,513.66 1731.61,502.18 1718.86,491.33 1706.58,481.92">
-        <lane id="34_0" index="0" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1734.79,516.54 1726.21,508.08 1713.83,497.56 1704.60,490.49"/>
-        <lane id="34_1" index="1" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1737.03,514.26 1728.37,505.72 1715.84,495.07 1706.54,487.95"/>
-        <lane id="34_2" index="2" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1739.28,511.99 1730.53,503.36 1717.85,492.58 1708.49,485.41"/>
+        <lane id="34_0" index="0" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1734.78,516.54 1726.20,508.08 1713.83,497.56 1704.60,490.48"/>
+        <lane id="34_1" index="1" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1737.03,514.27 1728.36,505.72 1715.84,495.07 1706.54,487.94"/>
+        <lane id="34_2" index="2" allow="pedestrian passenger" speed="19.44" length="40.32" shape="1739.27,511.99 1730.53,503.36 1717.85,492.58 1708.49,485.40"/>
     </edge>
     <edge id="35" from="8" to="28" priority="-1" type="0">
         <lane id="35_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1690.52,467.30 1705.88,476.01"/>
         <lane id="35_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.66" shape="1688.94,470.08 1704.30,478.79"/>
     </edge>
     <edge id="5" from="5" to="6" priority="-1" type="0">
-        <lane id="5_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1060.92,482.46 1078.44,481.51"/>
+        <lane id="5_0" index="0" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1060.93,482.46 1078.44,481.51"/>
         <lane id="5_1" index="1" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1061.10,485.65 1078.61,484.70"/>
-        <lane id="5_2" index="2" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1061.27,488.85 1078.78,487.90"/>
+        <lane id="5_2" index="2" allow="pedestrian passenger" speed="19.44" length="17.54" shape="1061.27,488.85 1078.79,487.90"/>
     </edge>
     <edge id="6" from="6" to="7" priority="-1" type="0" shape="1082.72,489.29 1109.14,487.61 1169.77,482.69 1248.03,475.73 1416.01,460.16 1452.76,456.82">
-        <lane id="6_0" index="0" allow="pedestrian passenger" speed="19.44" length="353.72" shape="1092.88,483.83 1108.79,482.82 1169.37,477.91 1247.59,470.95 1415.57,455.38 1445.17,452.69"/>
-        <lane id="6_1" index="1" allow="pedestrian passenger" speed="19.44" length="353.72" shape="1093.08,487.02 1109.02,486.01 1169.64,481.10 1247.88,474.13 1415.86,458.57 1445.46,455.88"/>
+        <lane id="6_0" index="0" allow="pedestrian passenger" speed="19.44" length="353.71" shape="1092.88,483.83 1108.79,482.82 1169.36,477.91 1247.60,470.95 1415.57,455.38 1445.17,452.69"/>
+        <lane id="6_1" index="1" allow="pedestrian passenger" speed="19.44" length="353.71" shape="1093.09,487.03 1109.02,486.01 1169.63,481.10 1247.89,474.14 1415.86,458.57 1445.46,455.88"/>
     </edge>
     <edge id="7" from="7" to="8" priority="-1" type="0" shape="1452.76,456.82 1488.02,453.47 1562.36,446.41 1583.56,446.71 1609.67,448.56 1633.01,452.24 1654.47,458.49 1666.80,462.69 1682.76,468.42">
-        <lane id="7_0" index="0" allow="pedestrian passenger" speed="19.44" length="220.71" shape="1459.45,451.36 1487.57,448.69 1562.17,441.60 1583.76,441.92 1610.21,443.78 1634.06,447.55 1655.92,453.91 1668.39,458.16 1677.84,461.55"/>
-        <lane id="7_1" index="1" allow="pedestrian passenger" speed="19.44" length="220.71" shape="1459.76,454.55 1487.87,451.88 1562.30,444.81 1583.63,445.11 1609.85,446.97 1633.36,450.68 1654.96,456.97 1667.33,461.18 1676.76,464.56"/>
+        <lane id="7_0" index="0" allow="pedestrian passenger" speed="19.44" length="220.72" shape="1459.45,451.36 1487.57,448.69 1562.17,441.61 1583.76,441.91 1610.21,443.79 1634.06,447.55 1655.92,453.91 1668.38,458.16 1677.84,461.55"/>
+        <lane id="7_1" index="1" allow="pedestrian passenger" speed="19.44" length="220.72" shape="1459.75,454.55 1487.87,451.88 1562.30,444.81 1583.63,445.11 1609.85,446.97 1633.36,450.68 1654.95,456.96 1667.33,461.18 1676.76,464.57"/>
     </edge>
     <edge id="9" from="9" to="10" priority="-1" type="0" shape="1767.97,536.94 1866.47,631.12 1924.11,695.17 2060.03,844.92">
         <lane id="9_0" index="0" allow="pedestrian passenger" speed="19.44" length="417.36" shape="1776.74,538.69 1869.92,627.78 1927.67,691.95 2063.58,841.69"/>
-        <lane id="9_1" index="1" allow="pedestrian passenger" speed="19.44" length="417.36" shape="1774.53,541.00 1867.62,630.01 1925.30,694.09 2061.21,843.84"/>
+        <lane id="9_1" index="1" allow="pedestrian passenger" speed="19.44" length="417.36" shape="1774.53,541.00 1867.62,630.01 1925.30,694.10 2061.21,843.84"/>
     </edge>
 
     <tlLogic id="3" type="static" programID="0" offset="0">
@@ -540,25 +540,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="10" type="dead_end" x="2060.03" y="844.92" incLanes="9_0 9_1" intLanes="" shape="2060.03,844.92 2064.77,840.62 2060.03,844.92"/>
     <junction id="12" type="dead_end" x="424.21" y="812.64" incLanes="-25_0" intLanes="" shape="424.21,812.64 427.40,812.84 424.21,812.64"/>
-    <junction id="13" type="dead_end" x="377.00" y="167.49" incLanes="-28_0" intLanes="" shape="377.00,167.49 373.84,168.01 377.00,167.49"/>
-    <junction id="14" type="dead_end" x="831.91" y="806.00" incLanes="13_0" intLanes="" shape="831.91,806.00 833.97,803.56 831.91,806.00"/>
-    <junction id="15" type="priority" x="1061.28" y="549.18" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0" shape="1061.64,558.78 1070.11,553.21 1067.49,553.11 1065.32,552.63 1063.60,551.76 1062.32,550.51 1061.50,548.87 1061.13,546.85 1054.74,547.27 1054.59,549.82 1054.26,551.00 1053.77,552.13 1053.12,553.20 1052.30,554.21 1057.00,558.54 1058.28,558.25 1059.20,558.34 1060.15,558.51 1061.00,558.67">
+    <junction id="13" type="dead_end" x="377.00" y="167.49" incLanes="-28_0" intLanes="" shape="377.00,167.49 373.84,168.02 377.00,167.49"/>
+    <junction id="14" type="dead_end" x="831.91" y="806.00" incLanes="13_0" intLanes="" shape="831.91,806.00 833.97,803.55 831.91,806.00"/>
+    <junction id="15" type="priority" x="1061.28" y="549.18" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0" shape="1061.64,558.78 1070.11,553.21 1067.49,553.11 1065.32,552.63 1063.59,551.76 1062.32,550.51 1061.50,548.87 1061.12,546.85 1054.74,547.27 1054.59,549.82 1054.26,551.00 1053.77,552.13 1053.11,553.20 1052.29,554.21 1057.00,558.54 1058.28,558.25 1059.20,558.35 1060.14,558.51 1060.99,558.67">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0010" cont="0"/>
     </junction>
-    <junction id="16" type="priority" x="1087.13" y="546.34" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_1_0 :16_2_0 :16_4_0" shape="1092.77,554.94 1096.76,549.94 1094.99,548.11 1094.34,547.07 1093.84,545.95 1093.51,544.74 1093.33,543.46 1086.95,543.95 1086.20,546.68 1085.11,548.07 1083.55,549.47 1081.50,550.88 1078.98,552.32 1087.30,555.19 1089.46,554.35 1090.42,554.22 1091.29,554.27 1092.07,554.51">
+    <junction id="16" type="priority" x="1087.13" y="546.34" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_1_0 :16_2_0 :16_4_0" shape="1092.77,554.94 1096.76,549.94 1094.99,548.11 1094.34,547.07 1093.84,545.94 1093.51,544.74 1093.33,543.45 1086.94,543.95 1086.20,546.67 1085.11,548.06 1083.55,549.47 1081.51,550.88 1078.99,552.32 1087.30,555.19 1089.46,554.35 1090.42,554.21 1091.28,554.27 1092.07,554.51">
         <request index="0" response="0100" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1000" cont="0"/>
         <request index="2" response="0000" foes="1001" cont="0"/>
         <request index="3" response="0110" foes="0110" cont="1"/>
     </junction>
-    <junction id="17" type="dead_end" x="1260.98" y="699.45" incLanes="15_0" intLanes="" shape="1260.98,699.45 1263.14,697.08 1260.98,699.45"/>
+    <junction id="17" type="dead_end" x="1260.98" y="699.45" incLanes="15_0" intLanes="" shape="1260.98,699.45 1263.13,697.08 1260.98,699.45"/>
     <junction id="18" type="dead_end" x="941.34" y="679.29" incLanes="14_0" intLanes="" shape="941.34,679.29 943.69,681.46 941.34,679.29"/>
     <junction id="19" type="dead_end" x="1322.24" y="673.08" incLanes="19_0" intLanes="" shape="1322.24,673.08 1324.63,675.20 1322.24,673.08"/>
-    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="-0.00,580.15 0.54,586.53 -0.00,580.15"/>
-    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,0.00 1272.01,1.10 1275.01,0.00"/>
+    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="0.00,580.15 0.54,586.53 0.00,580.15"/>
+    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,0.00 1272.01,1.10 1275.01,-0.00"/>
     <junction id="21" type="dead_end" x="1511.62" y="837.39" incLanes="29_0" intLanes="" shape="1511.62,837.39 1514.04,839.49 1511.62,837.39"/>
     <junction id="22" type="priority" x="316.73" y="553.10" incLanes="21_0 21_1 22_0 22_1" intLanes=":22_0_0 :22_0_1 :22_2_0 :22_2_1 :22_2_2" shape="321.00,559.30 320.23,543.32 317.18,544.30 316.24,545.13 315.30,545.97 314.07,546.67 312.26,547.06 313.35,559.81">
         <request index="0" response="00000" foes="00000" cont="0"/>
@@ -567,24 +567,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="23" type="priority" x="504.67" y="539.94" incLanes="23_0 23_1 24_0 24_1" intLanes=":23_0_0 :23_0_1 :23_0_2 :23_3_0 :23_3_1" shape="509.10,546.05 508.23,533.28 500.08,533.96 501.65,549.89 504.51,548.77 505.37,547.92 506.24,547.08 507.39,546.41">
+    <junction id="23" type="priority" x="504.67" y="539.94" incLanes="23_0 23_1 24_0 24_1" intLanes=":23_0_0 :23_0_1 :23_0_2 :23_3_0 :23_3_1" shape="509.10,546.05 508.23,533.28 500.08,533.96 501.65,549.88 504.51,548.77 505.37,547.92 506.24,547.08 507.39,546.41">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="24" type="priority" x="433.65" y="662.63" incLanes="26_0 25_0" intLanes=":24_0_0 :24_1_0 :24_1_1 :24_1_2" shape="436.55,658.91 423.79,659.98 430.22,666.11 436.61,666.52 436.77,663.70 436.79,662.71 436.76,661.72 436.68,660.52">
+    <junction id="24" type="priority" x="433.65" y="662.63" incLanes="26_0 25_0" intLanes=":24_0_0 :24_1_0 :24_1_1 :24_1_2" shape="436.55,658.91 423.79,659.99 430.22,666.12 436.61,666.52 436.77,663.70 436.79,662.71 436.76,661.73 436.68,660.53">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="25" type="priority" x="415.82" y="444.43" incLanes="27_0 28_0" intLanes=":25_0_0 :25_1_0" shape="412.64,444.82 419.02,444.32 418.99,443.98 412.62,444.59">
+    <junction id="25" type="priority" x="415.82" y="444.43" incLanes="27_0 28_0" intLanes=":25_0_0 :25_1_0" shape="412.64,444.82 419.02,444.32 418.99,443.98 412.62,444.60">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="26" type="priority" x="1743.25" y="513.66" incLanes="30_0 30_1 -34_0 -34_1 -34_2" intLanes=":26_0_0 :26_0_1 :26_0_2 :26_3_0 :26_3_1 :26_3_2" shape="1741.77,521.05 1752.74,509.40 1747.14,504.01 1733.66,517.68 1736.44,519.26 1737.69,519.39 1738.94,519.52 1740.28,519.97">
+    <junction id="26" type="priority" x="1743.25" y="513.66" incLanes="30_0 30_1 -34_0 -34_1 -34_2" intLanes=":26_0_0 :26_0_1 :26_0_2 :26_3_0 :26_3_1 :26_3_2" shape="1741.76,521.05 1752.73,509.40 1747.14,504.01 1733.66,517.68 1736.44,519.26 1737.68,519.39 1738.94,519.53 1740.27,519.97">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -592,14 +592,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000000" cont="0"/>
     </junction>
-    <junction id="27" type="priority" x="1015.26" y="490.86" incLanes="32_0 32_1 33_0 33_1" intLanes=":27_0_0 :27_0_1 :27_2_0 :27_2_1 :27_2_2" shape="1019.25,497.24 1019.18,481.24 1016.09,482.09 1015.11,482.88 1014.14,483.68 1012.88,484.32 1011.05,484.64 1011.60,497.42">
+    <junction id="27" type="priority" x="1015.26" y="490.86" incLanes="32_0 32_1 33_0 33_1" intLanes=":27_0_0 :27_0_1 :27_2_0 :27_2_1 :27_2_2" shape="1019.25,497.24 1019.18,481.24 1016.09,482.09 1015.12,482.87 1014.14,483.68 1012.88,484.32 1011.06,484.63 1011.60,497.42">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="28" type="priority" x="1706.58" y="481.92" incLanes="34_0 34_1 34_2 35_0 35_1" intLanes=":28_0_0 :28_0_1 :28_0_2 :28_3_0 :28_3_1 :28_3_2" shape="1703.62,491.76 1715.30,476.52 1712.36,475.31 1711.11,475.38 1709.84,475.48 1708.40,475.33 1706.67,474.62 1698.77,488.54 1700.64,489.62 1701.28,490.02 1701.90,490.45 1702.64,491.00">
+    <junction id="28" type="priority" x="1706.58" y="481.92" incLanes="34_0 34_1 34_2 35_0 35_1" intLanes=":28_0_0 :28_0_1 :28_0_2 :28_3_0 :28_3_1 :28_3_2" shape="1703.62,491.75 1715.30,476.51 1712.36,475.31 1711.11,475.37 1709.84,475.48 1708.40,475.33 1706.67,474.61 1698.78,488.53 1700.65,489.61 1701.29,490.02 1701.91,490.45 1702.64,491.00">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -607,23 +607,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000000" cont="0"/>
     </junction>
-    <junction id="3" type="traffic_light" x="423.99" y="547.90" incLanes="-26_0 -26_1 -26_2 -24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -21_2" intLanes=":3_0_0 :3_1_0 :3_14_0 :3_3_0 :3_4_0 :3_4_1 :3_15_0 :3_7_0 :3_8_0 :3_16_0 :3_10_0 :3_11_0 :3_11_1 :3_17_0" shape="415.56,562.21 428.32,561.14 428.60,558.88 429.13,558.04 429.91,557.41 430.94,556.97 432.22,556.73 430.65,540.81 428.38,540.23 427.53,539.30 426.86,537.95 426.39,536.18 426.10,533.99 419.72,534.49 418.80,536.76 417.49,537.60 415.62,538.25 413.17,538.70 410.16,538.96 410.94,554.94 413.23,555.66 414.09,556.66 414.77,558.09 415.26,559.94">
+    <junction id="3" type="traffic_light" x="423.99" y="547.90" incLanes="-26_0 -26_1 -26_2 -24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -21_2" intLanes=":3_0_0 :3_1_0 :3_14_0 :3_3_0 :3_4_0 :3_4_1 :3_15_0 :3_7_0 :3_8_0 :3_16_0 :3_10_0 :3_11_0 :3_11_1 :3_17_0" shape="415.56,562.21 428.32,561.14 428.60,558.88 429.12,558.04 429.90,557.41 430.94,556.97 432.22,556.73 430.65,540.81 428.38,540.23 427.52,539.30 426.86,537.95 426.39,536.18 426.10,533.99 419.72,534.49 418.80,536.76 417.49,537.60 415.61,538.25 413.17,538.70 410.16,538.96 410.94,554.94 413.23,555.66 414.09,556.66 414.77,558.09 415.26,559.94">
         <request index="0"  response="00000000110000" foes="00000000110000" cont="0"/>
         <request index="1"  response="11110001110000" foes="11111001110000" cont="0"/>
         <request index="2"  response="11100101110000" foes="11100101110000" cont="1"/>
         <request index="3"  response="00000000000000" foes="10000100000000" cont="0"/>
-        <request index="4"  response="00001000000100" foes="10001100000111" cont="0"/>
+        <request index="4"  response="00000000000100" foes="10001100000111" cont="0"/>
         <request index="5"  response="00001000000100" foes="10001100000111" cont="0"/>
         <request index="6"  response="01111000000100" foes="01111100000110" cont="1"/>
         <request index="7"  response="01100000000000" foes="01100000000000" cont="0"/>
         <request index="8"  response="11100001111000" foes="11100001111100" cont="0"/>
         <request index="9"  response="11100001110010" foes="11100001110010" cont="1"/>
         <request index="10" response="00000000000000" foes="00000001000010" cont="0"/>
-        <request index="11" response="00001000000100" foes="00001111000110" cont="0"/>
+        <request index="11" response="00001000000000" foes="00001111000110" cont="0"/>
         <request index="12" response="00001000000100" foes="00001111000110" cont="0"/>
         <request index="13" response="00001000111100" foes="00001100111110" cont="1"/>
     </junction>
-    <junction id="4" type="priority" x="583.49" y="534.56" incLanes="-13_0 -33_0 -33_1 -23_0 -23_1" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0 :4_3_1 :4_5_0 :4_5_1 :4_8_0" shape="580.62,545.18 587.02,544.98 587.38,542.46 587.90,541.53 588.65,540.81 589.63,540.31 590.84,540.02 589.12,527.34 575.63,528.68 576.50,541.45 578.73,541.75 579.53,542.25 580.11,542.99 580.47,543.97">
+    <junction id="4" type="priority" x="583.49" y="534.56" incLanes="-13_0 -33_0 -33_1 -23_0 -23_1" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0 :4_3_1 :4_5_0 :4_5_1 :4_8_0" shape="580.62,545.18 587.02,544.98 587.38,542.46 587.91,541.53 588.66,540.81 589.64,540.31 590.84,540.02 589.13,527.34 575.63,528.68 576.51,541.45 578.74,541.74 579.53,542.25 580.11,542.99 580.47,543.96">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
@@ -633,7 +633,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
-    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_1_1 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.66,501.22 1058.04,500.80 1058.34,498.69 1058.83,497.93 1059.56,497.37 1060.52,497.00 1061.70,496.83 1060.84,480.86 1047.55,481.11 1047.62,497.11 1049.74,497.56 1050.51,498.13 1051.09,498.93 1051.47,499.96">
+    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_1_1 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.66,501.22 1058.05,500.80 1058.34,498.69 1058.84,497.93 1059.56,497.37 1060.52,497.00 1061.71,496.84 1060.84,480.86 1047.55,481.11 1047.63,497.11 1049.75,497.56 1050.51,498.13 1051.09,498.93 1051.47,499.96">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="11111000" foes="11111000" cont="0"/>
@@ -643,7 +643,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="00000000" foes="00000110" cont="0"/>
         <request index="7" response="00000000" foes="00000110" cont="0"/>
     </junction>
-    <junction id="6" type="priority" x="1082.72" y="489.29" incLanes="-6_0 -6_1 5_0 5_1 5_2" intLanes=":6_0_0 :6_1_0 :6_1_1 :6_3_0 :6_3_1 :6_6_0" shape="1083.53,499.74 1089.91,499.25 1090.18,497.01 1090.67,496.20 1091.41,495.59 1092.38,495.20 1093.59,495.01 1092.78,482.23 1089.69,482.20 1087.42,481.75 1085.57,481.10 1083.71,480.44 1081.45,479.98 1078.35,479.91 1079.22,495.89 1081.47,496.22 1082.29,496.74 1082.91,497.50 1083.32,498.50">
+    <junction id="6" type="priority" x="1082.72" y="489.29" incLanes="-6_0 -6_1 5_0 5_1 5_2" intLanes=":6_0_0 :6_1_0 :6_1_1 :6_3_0 :6_3_1 :6_6_0" shape="1083.53,499.75 1089.91,499.25 1090.18,497.01 1090.68,496.20 1091.41,495.60 1092.38,495.20 1093.59,495.01 1092.78,482.24 1089.69,482.20 1087.42,481.75 1085.57,481.10 1083.72,480.44 1081.45,479.98 1078.36,479.91 1079.22,495.89 1081.47,496.22 1082.29,496.75 1082.91,497.51 1083.32,498.51">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
         <request index="2" response="000000" foes="100000" cont="0"/>
@@ -661,7 +661,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
-    <junction id="8" type="traffic_light" x="1682.76" y="468.42" incLanes="-35_0 -35_1 -35_2 -20_0 7_0 7_1" intLanes=":8_0_0 :8_0_1 :8_8_0 :8_3_0 :8_4_0 :8_5_0 :8_6_0 :8_6_1" shape="1683.41,479.82 1691.31,465.91 1689.59,464.40 1689.14,463.48 1688.97,462.44 1689.06,461.29 1689.44,460.03 1683.47,457.73 1682.28,459.60 1681.49,460.13 1680.58,460.38 1679.55,460.35 1678.39,460.05 1674.06,472.09 1676.37,473.17 1677.85,474.34 1678.90,475.61 1679.91,476.95 1681.28,478.35">
+    <junction id="8" type="traffic_light" x="1682.76" y="468.42" incLanes="-35_0 -35_1 -35_2 -20_0 7_0 7_1" intLanes=":8_0_0 :8_0_1 :8_8_0 :8_3_0 :8_4_0 :8_5_0 :8_6_0 :8_6_1" shape="1683.42,479.83 1691.30,465.91 1689.59,464.40 1689.14,463.48 1688.96,462.44 1689.06,461.30 1689.43,460.04 1683.47,457.73 1682.28,459.60 1681.49,460.13 1680.58,460.38 1679.55,460.35 1678.38,460.05 1674.06,472.10 1676.37,473.17 1677.85,474.35 1678.90,475.61 1679.91,476.95 1681.29,478.36">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
@@ -671,7 +671,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="00000000" foes="00011100" cont="0"/>
         <request index="7" response="00000000" foes="00011100" cont="0"/>
     </junction>
-    <junction id="9" type="traffic_light" x="1767.97" y="536.94" incLanes="-9_0 -9_1 -30_0 -30_1 -30_2 -29_0 -29_1" intLanes=":9_0_0 :9_1_0 :9_1_1 :9_3_0 :9_3_1 :9_8_0 :9_6_0 :9_7_0" shape="1769.00,546.78 1777.85,537.53 1775.26,534.72 1773.65,532.37 1772.54,530.26 1771.42,528.14 1769.81,525.80 1767.19,523.02 1756.22,534.67 1757.52,536.57 1757.68,537.57 1757.52,538.61 1757.03,539.68 1756.22,540.80 1763.51,547.05 1765.27,545.67 1766.18,545.47 1767.11,545.58 1768.05,546.02">
+    <junction id="9" type="traffic_light" x="1767.97" y="536.94" incLanes="-9_0 -9_1 -30_0 -30_1 -30_2 -29_0 -29_1" intLanes=":9_0_0 :9_1_0 :9_1_1 :9_3_0 :9_3_1 :9_8_0 :9_6_0 :9_7_0" shape="1769.00,546.78 1777.85,537.53 1775.25,534.72 1773.65,532.37 1772.54,530.25 1771.42,528.14 1769.80,525.80 1767.19,523.02 1756.22,534.67 1757.51,536.57 1757.68,537.57 1757.51,538.61 1757.03,539.68 1756.22,540.80 1763.50,547.05 1765.27,545.67 1766.18,545.47 1767.11,545.58 1768.05,546.02">
         <request index="0" response="00000000" foes="00100000" cont="0"/>
         <request index="1" response="00000000" foes="11100000" cont="0"/>
         <request index="2" response="00000000" foes="11100000" cont="0"/>
@@ -683,7 +683,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <junction id=":16_4_0" type="internal" x="1085.30" y="551.15" incLanes=":16_3_0 18_0 18_1" intLanes=":16_1_0 :16_2_0"/>
-    <junction id=":3_14_0" type="internal" x="423.64" y="554.49" incLanes=":3_2_0 -27_0" intLanes=":3_4_0 :3_4_1 :3_6_0 :3_7_0 :3_8_0 :3_11_0 :3_11_1 :3_13_0"/>
+    <junction id=":3_14_0" type="internal" x="423.63" y="554.49" incLanes=":3_2_0 -27_0" intLanes=":3_4_0 :3_4_1 :3_6_0 :3_7_0 :3_8_0 :3_11_0 :3_11_1 :3_13_0"/>
     <junction id=":3_15_0" type="internal" x="427.46" y="548.20" incLanes=":3_6_0 -21_0 -21_1" intLanes=":3_1_0 :3_2_0 :3_8_0 :3_9_0 :3_10_0 :3_11_0 :3_11_1"/>
     <junction id=":3_16_0" type="internal" x="423.40" y="542.27" incLanes=":3_9_0 -26_0 -26_1" intLanes=":3_0_0 :3_1_0 :3_4_0 :3_4_1 :3_6_0 :3_11_0 :3_11_1 :3_13_0"/>
     <junction id=":3_17_0" type="internal" x="417.97" y="548.01" incLanes=":3_13_0 -24_0 -24_1" intLanes=":3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_4_1 :3_8_0 :3_9_0"/>

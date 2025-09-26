@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:59 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-09-26T11:32:46.940900+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <show-errors.connections-first-try value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -41,13 +41,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-681043.90,-5705098.27" convBoundary="0.00,0.00,793.35,615.19" origBoundary="5.538970,51.449400,5.678834,51.482295" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":42722822_0" function="internal">
-        <lane id=":42722822_0_0" index="0" speed="3.62" length="4.57" shape="141.56,615.06 140.87,616.29 140.12,616.74 139.31,616.41 138.44,615.29"/>
+        <lane id=":42722822_0_0" index="0" speed="3.63" length="4.57" shape="141.56,615.06 140.87,616.29 140.12,616.74 139.31,616.41 138.44,615.29"/>
     </edge>
     <edge id=":7152678.-165_0" function="internal">
-        <lane id=":7152678.-165_0_0" index="0" speed="3.86" length="8.92" shape="362.80,470.29 355.09,468.15"/>
+        <lane id=":7152678.-165_0_0" index="0" speed="3.86" length="8.92" shape="362.80,470.30 355.09,468.15"/>
         <lane id=":7152678.-165_0_1" index="1" speed="3.86" length="8.92" shape="363.66,467.21 355.95,465.07"/>
-        <lane id=":7152678.-165_0_2" index="2" speed="3.86" length="8.92" shape="363.66,467.21 361.42,466.07 360.23,464.60 359.05,463.13 356.81,461.98"/>
-        <lane id=":7152678.-165_0_3" index="3" speed="3.86" length="8.92" shape="363.66,467.21 361.33,465.53 360.66,463.06 359.99,460.59 357.67,458.90"/>
+        <lane id=":7152678.-165_0_2" index="2" speed="3.86" length="8.92" shape="363.66,467.21 361.42,466.07 360.23,464.60 359.05,463.13 356.81,461.99"/>
+        <lane id=":7152678.-165_0_3" index="3" speed="3.86" length="8.92" shape="363.66,467.21 361.34,465.53 360.66,463.06 359.99,460.59 357.67,458.90"/>
     </edge>
     <edge id=":cluster_42717004_42717128_42717332_42717527_0" function="internal">
         <lane id=":cluster_42717004_42717128_42717332_42717527_0_0" index="0" speed="5.79" length="12.74" shape="210.97,425.96 206.76,425.05 203.46,425.13 201.07,426.19 199.60,428.23"/>
@@ -133,17 +133,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="7152669_1" index="1" speed="7.72" length="198.14" shape="196.63,427.04 143.94,558.13 138.90,580.58 141.56,615.06"/>
     </edge>
     <edge id="7152674" from="42722822" to="cluster_42717004_42717128_42717332_42717527" priority="7" spreadType="center" shape="136.89,616.04 135.67,599.45 133.49,582.67 133.71,557.08 145.29,505.16 180.64,411.27">
-        <lane id="7152674_0" index="0" speed="7.72" length="203.37" shape="135.25,615.54 134.08,599.61 131.89,582.77 132.11,556.90 143.75,504.70 176.10,418.79"/>
+        <lane id="7152674_0" index="0" speed="7.72" length="203.37" shape="135.25,615.53 134.08,599.61 131.89,582.77 132.11,556.90 143.75,504.70 176.10,418.79"/>
         <lane id="7152674_1" index="1" speed="7.72" length="203.37" shape="138.44,615.29 137.26,599.29 135.09,582.57 135.31,557.26 146.83,505.62 179.07,419.98"/>
     </edge>
     <edge id="7152678" from="42720124" to="7152678.-165" priority="9" spreadType="center" shape="773.52,545.26 691.77,535.65 631.47,526.80 490.50,498.75 363.68,468.88 359.38,467.68">
-        <lane id="7152678_0" index="0" speed="3.86" length="417.75" shape="773.33,546.85 691.56,537.24 631.19,528.38 490.16,500.31 363.29,470.43 362.80,470.29"/>
-        <lane id="7152678_1" index="1" speed="3.86" length="417.75" shape="773.70,543.67 691.98,534.07 631.74,525.23 490.84,497.18 364.08,467.33 363.66,467.21"/>
+        <lane id="7152678_0" index="0" speed="3.86" length="417.75" shape="773.33,546.85 691.56,537.24 631.20,528.38 490.16,500.31 363.28,470.43 362.80,470.30"/>
+        <lane id="7152678_1" index="1" speed="3.86" length="417.75" shape="773.71,543.67 691.98,534.06 631.74,525.22 490.84,497.19 364.08,467.33 363.66,467.21"/>
     </edge>
     <edge id="7152678.-165" from="7152678.-165" to="cluster_42717004_42717128_42717332_42717527" priority="9" spreadType="center" shape="360.23,464.60 309.27,450.41 201.89,418.23">
         <lane id="7152678.-165_0" index="0" speed="3.86" length="150.09" shape="355.09,468.15 307.94,455.02 210.97,425.96"/>
         <lane id="7152678.-165_1" index="1" speed="3.86" length="150.09" shape="355.95,465.07 308.83,451.95 211.88,422.89"/>
-        <lane id="7152678.-165_2" index="2" speed="3.86" length="150.09" shape="356.81,461.98 309.71,448.87 212.80,419.83"/>
+        <lane id="7152678.-165_2" index="2" speed="3.86" length="150.09" shape="356.81,461.99 309.71,448.87 212.80,419.83"/>
         <lane id="7152678.-165_3" index="3" speed="3.86" length="150.09" shape="357.67,458.90 310.60,445.80 213.71,416.76"/>
     </edge>
     <edge id="7152680" from="cluster_42717004_42717128_42717332_42717527" to="42719485" priority="9" spreadType="center" shape="212.01,396.20 313.98,426.62 368.08,441.49 411.10,452.06 495.59,471.62 558.87,488.75 649.39,504.23 731.01,516.06 793.35,522.74">
@@ -176,7 +176,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="42716127" type="dead_end" x="0.00" y="345.87" incLanes="7152684_0 7152684_1" intLanes="" shape="-1.19,348.84 1.19,342.90"/>
     <junction id="42719485" type="dead_end" x="793.35" y="522.74" incLanes="7152680_0 7152680_1" intLanes="" shape="793.69,519.56 793.01,525.92"/>
     <junction id="42720124" type="dead_end" x="773.89" y="542.08" incLanes="" intLanes="" shape="773.89,542.08 773.14,548.44"/>
-    <junction id="42722822" type="priority" x="139.98" y="615.19" incLanes="7152669_0 7152669_1" intLanes=":42722822_0_0" shape="140.04,615.19 133.66,615.66 146.35,614.70">
+    <junction id="42722822" type="priority" x="139.98" y="615.19" incLanes="7152669_0 7152669_1" intLanes=":42722822_0_0" shape="140.04,615.19 133.65,615.66 146.35,614.70">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="7152678.-165" type="priority" x="360.23" y="464.60" incLanes="7152678_0 7152678_1" intLanes=":7152678.-165_0_0 :7152678.-165_0_1 :7152678.-165_0_2 :7152678.-165_0_3" shape="362.37,471.84 364.09,465.67 362.27,464.67 361.44,463.21 360.75,459.82 359.91,458.36 358.10,457.36 354.66,469.69">
@@ -191,7 +191,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2"  response="0111100000011100000" foes="0111111000011100000" cont="0"/>
         <request index="3"  response="0111000110011100000" foes="0111000110111100000" cont="1"/>
         <request index="4"  response="0000000000000000000" foes="0000000110000000000" cont="0"/>
-        <request index="5"  response="0000001000000001000" foes="1100001110000001111" cont="0"/>
+        <request index="5"  response="0000000000000001000" foes="1100001110000001111" cont="0"/>
         <request index="6"  response="0000001000000001000" foes="1100001110000001111" cont="0"/>
         <request index="7"  response="0011001000000001000" foes="0011011110000001110" cont="1"/>
         <request index="8"  response="0011000000000001000" foes="0011000000000001000" cont="1"/>
@@ -201,7 +201,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="12" response="0111000000011100110" foes="1111000000011100110" cont="1"/>
         <request index="13" response="0000000000010000110" foes="0000000000010000110" cont="1"/>
         <request index="14" response="0000000000000000000" foes="0000000000000000110" cont="0"/>
-        <request index="15" response="0000001000000001000" foes="0000001111110001110" cont="0"/>
+        <request index="15" response="0000001000000000000" foes="0000001111110001110" cont="0"/>
         <request index="16" response="0000001000000001000" foes="0000001111110001110" cont="0"/>
         <request index="17" response="0000001000001101000" foes="0000001110001101110" cont="1"/>
         <request index="18" response="0000001000001100000" foes="0000001000001100000" cont="1"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:08 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-09-26T11:32:58.520657+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -176,7 +176,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_20_0 :C_21_0 :C_5_0 :C_6_0 :C_6_1 :C_22_0 :C_23_0 :C_10_0 :C_11_0 :C_11_1 :C_24_0 :C_25_0 :C_15_0 :C_16_0 :C_16_1 :C_26_0 :C_27_0" shape="90.40,113.60 106.40,113.60 107.20,111.38 108.20,110.60 109.60,110.04 111.40,109.71 113.60,109.60 113.60,93.60 111.38,92.80 110.60,91.80 110.04,90.40 109.71,88.60 109.60,86.40 93.60,86.40 92.80,88.62 91.80,89.40 90.40,89.96 88.60,90.29 86.40,90.40 86.40,106.40 88.62,107.20 89.40,108.20 89.96,109.60 90.29,111.40">
         <request index="0"  response="00000000000000000000" foes="00000000000011000000" cont="0"/>
-        <request index="1"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
+        <request index="1"  response="01000000000000000000" foes="01111110000111000000" cont="0"/>
         <request index="2"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
         <request index="3"  response="01000001100100000000" foes="01110001101111000000" cont="1"/>
         <request index="4"  response="01000001100000000000" foes="01000001100000000000" cont="1"/>
@@ -186,7 +186,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="8"  response="00110011100000001110" foes="00110111100000001110" cont="1"/>
         <request index="9"  response="00110000000000001000" foes="00110000000000001000" cont="1"/>
         <request index="10" response="00000000000000000000" foes="00110000000000000000" cont="0"/>
-        <request index="11" response="01000000000100000000" foes="01110000000111111000" cont="0"/>
+        <request index="11" response="00000000000100000000" foes="01110000000111111000" cont="0"/>
         <request index="12" response="01000000000100000000" foes="01110000000111111000" cont="0"/>
         <request index="13" response="01000000000100000110" foes="11110000000111000110" cont="1"/>
         <request index="14" response="00000000000100000110" foes="00000000000100000110" cont="1"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:21:57 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2025-09-26T11:39:06.440138+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -3330,7 +3330,7 @@
         <request index="2"  response="011100010011100000" foes="011100010111100000" cont="1"/>
         <request index="3"  response="010000010000010000" foes="010000010000010000" cont="1"/>
         <request index="4"  response="000000000000000000" foes="010000010000001000" cont="0"/>
-        <request index="5"  response="000000100000000100" foes="110000110000000111" cont="0"/>
+        <request index="5"  response="000000000000000100" foes="110000110000000111" cont="0"/>
         <request index="6"  response="000000100000000100" foes="110000110000000111" cont="0"/>
         <request index="7"  response="001110100000000100" foes="001111110000000110" cont="1"/>
         <request index="8"  response="001100000000000100" foes="001100000000000100" cont="1"/>
@@ -3339,7 +3339,7 @@
         <request index="11" response="011100000011100010" foes="111100000011100010" cont="1"/>
         <request index="12" response="000010000010000010" foes="000010000010000010" cont="1"/>
         <request index="13" response="000000000000000000" foes="000001000010000010" cont="0"/>
-        <request index="14" response="000000100000000100" foes="000000111110000110" cont="0"/>
+        <request index="14" response="000000100000000000" foes="000000111110000110" cont="0"/>
         <request index="15" response="000000100000000100" foes="000000111110000110" cont="0"/>
         <request index="16" response="000000100001110100" foes="000000110001111110" cont="1"/>
         <request index="17" response="000000100001100000" foes="000000100001100000" cont="1"/>
