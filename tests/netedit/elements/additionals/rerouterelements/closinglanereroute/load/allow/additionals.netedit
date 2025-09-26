@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-20 09:58:54 by Eclipse SUMO netedit Version v1_20_0+0675-98ec49b7c8b
+<!-- generated on 2025-09-26T11:57:14.756992+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <rerouter id="rerouter_0" edges="EdgeCenter0 EdgeCenter1" pos="0.00,10.00">
+    <rerouter id="rerouter_0" pos="0.00,10.00" edges="EdgeCenter0 EdgeCenter1">
         <interval begin="0.00" end="3600.00">
             <closingLaneReroute id="EdgeCenter0_0" allow="authority"/>
             <closingLaneReroute id="EdgeCenter0_0" disallow="all"/>

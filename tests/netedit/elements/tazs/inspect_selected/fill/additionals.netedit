@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-14 10:36:47 by Eclipse SUMO netedit Version v1_21_0+1831-1e6ba8b2e29
+<!-- generated on 2025-09-26T11:58:10.815643+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- TAZs -->
-    <taz id="TAZ_0" shape="26.00,8.00 26.00,18.00 2.00,18.00 2.00,8.00 26.00,8.00" center="20.00,30.00" fill="1" name="name1" color="yellow">
+    <taz id="TAZ_0" name="name1" shape="26.00,8.00 26.00,18.00 2.00,18.00 2.00,8.00 26.00,8.00" center="20.00,30.00" fill="1" color="yellow">
         <param key="keyA1" value="valueA1"/>
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </taz>
-    <taz id="TAZ_1" shape="-8.00,10.00 -8.00,18.00 -24.00,18.00 -24.00,10.00 -8.00,10.00" center="40.00,50.00" fill="1" name="name2" color="red">
+    <taz id="TAZ_1" name="name2" shape="-8.00,10.00 -8.00,18.00 -24.00,18.00 -24.00,10.00 -8.00,10.00" center="40.00,50.00" fill="1" color="red">
         <param key="keyB1" value="valueB1"/>
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>

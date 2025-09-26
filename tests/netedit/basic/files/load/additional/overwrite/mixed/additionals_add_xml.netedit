@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-15T14:32:02.190096+01:00 by Eclipse SUMO netedit v1_24_0+0792-78138d46637
+<!-- generated on 2025-09-26T11:48:34.310858+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="e1_0_new" lane="-E0_0" pos="9.80" period="300.00" name="newE1" file="e1_0.xml"/>
-    <inductionLoop id="e1_11_new" lane="-E12_0" pos="2.80" period="300.00" name="newE1" file="e1_11.xml"/>
-    <inductionLoop id="e1_13_new" lane="E9_1" pos="2.80" period="300.00" name="newE1" file="e1_13.xml"/>
-    <inductionLoop id="e1_15_new" lane="-E9_1" pos="9.80" period="300.00" name="newE1" file="e1_15.xml"/>
+    <inductionLoop id="e1_0_new" name="newE1" lane="-E0_0" pos="9.80" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_11_new" name="newE1" lane="-E12_0" pos="2.80" period="300.00" file="e1_11.xml"/>
+    <inductionLoop id="e1_13_new" name="newE1" lane="E9_1" pos="2.80" period="300.00" file="e1_13.xml"/>
+    <inductionLoop id="e1_15_new" name="newE1" lane="-E9_1" pos="9.80" period="300.00" file="e1_15.xml"/>
 </additional>

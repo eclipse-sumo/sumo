@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-25 11:10:48 by Eclipse SUMO netedit Version v1_20_0+1412-2fc308a4af5
+<!-- generated on 2025-09-26T11:56:36.003619+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,12 +19,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <routeProbe id="RouteProbeB" begin="0.00" period="3600.00" edge="EdgeCenter0" file="RouteProbeB.xml"/>
     <routeProbe id="customRouteProbeName" begin="0.00" period="3600.00" edge="EdgeCenter0" file="RouteProbeB.xml"/>
     <!-- Calibrators -->
-    <calibrator id="calibratorA" edge="Edge0" pos="1.00" period="30.00" name="NameA" output="myOwnFilename" routeProbe="RouteProbeA">
+    <calibrator id="calibratorA" name="NameA" edge="Edge0" pos="1.00" period="30.00" output="myOwnFilename" routeProbe="RouteProbeA">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </calibrator>
-    <calibrator id="calibratorB" edge="Edge1" pos="30.00" period="40.00" name="NameB" output="myOwnFilename" routeProbe="RouteProbeB">
+    <calibrator id="calibratorB" name="NameB" edge="Edge1" pos="30.00" period="40.00" output="myOwnFilename" routeProbe="RouteProbeB">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

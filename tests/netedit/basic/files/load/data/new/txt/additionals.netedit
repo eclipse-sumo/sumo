@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T14:00:09.116430+01:00 by Eclipse SUMO netedit v1_24_0+0995-bd6e31d9754
+<!-- generated on 2025-09-26T11:48:35.911226+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -95,10 +95,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <detExit lane="-E6_0" pos="4.80"/>
     </entryExitDetector>
     <!-- Other additionals -->
-    <rerouter id="rr_0" edges="E12" pos="-10.00,18.00"/>
-    <rerouter id="rr_1" edges="-E9" pos="10.00,-18.00"/>
-    <variableSpeedSign id="vs_1" lanes="-E5_0" pos="-22.00,-10.00"/>
-    <variableSpeedSign id="vs_2" lanes="-E2_0" pos="22.00,10.00"/>
+    <rerouter id="rr_0" pos="-10.00,18.00" edges="E12"/>
+    <rerouter id="rr_1" pos="10.00,-18.00" edges="-E9"/>
+    <variableSpeedSign id="vs_1" pos="-22.00,-10.00" lanes="-E5_0"/>
+    <variableSpeedSign id="vs_2" pos="22.00,10.00" lanes="-E2_0"/>
     <vaporizer id="-E10" begin="0.00" end="3600.00"/>
     <vaporizer id="-E11" begin="0.00" end="3600.00"/>
     <vaporizer id="E6" begin="0.00" end="3600.00"/>

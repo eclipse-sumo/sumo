@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-13 14:21:51 by Eclipse SUMO netedit Version v1_21_0+1820-ca0974d033d
+<!-- generated on 2025-09-26T11:57:43.423991+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="poly_0" type="typeB" color="125,60,200" fill="0" lineWidth="2.00" layer="114.00" name="nameB" geo="1" shape="-0.000036,0.000090 -0.000036,0.000180 -0.000126,0.000180 -0.000126,0.000090 -0.000036,0.000090" angle="3.00"/>
-    <poly id="poly_1" type="typeA" color="125,60,200" fill="1" lineWidth="2.00" layer="130.00" name="NameA" shape="-18.000000,20.000000 -28.000000,20.000000 -28.000000,10.000000 -18.000000,10.000000" angle="1.00"/>
+    <poly id="poly_0" name="nameB" geo="1" type="typeB" color="125,60,200" fill="0" lineWidth="2.00" layer="114.00" shape="-0.000036,0.000090 -0.000036,0.000180 -0.000126,0.000180 -0.000126,0.000090 -0.000036,0.000090" angle="3.00"/>
+    <poly id="poly_1" name="NameA" type="typeA" color="125,60,200" fill="1" lineWidth="2.00" layer="130.00" shape="-18.000000,20.000000 -28.000000,20.000000 -28.000000,10.000000 -18.000000,10.000000" angle="1.00"/>
 </additional>
