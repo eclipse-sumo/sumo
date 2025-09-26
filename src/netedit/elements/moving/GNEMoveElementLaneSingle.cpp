@@ -67,13 +67,13 @@ GNEMoveElementLaneSingle::isMoveElementValid() const {
     // obtain lane final length
     const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // adjust position (negative means start counting from backward)
-    const double fixedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : myPosOverLane < 0 ? (myPosOverLane + laneLenght) : myPosOverLane;
+    const double adjustedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : (myPosOverLane < 0) ? (myPosOverLane + laneLenght) : myPosOverLane;
     // check conditions
     if (myFriendlyPos) {
         return true;
-    } else if (fixedPosition < 0) {
+    } else if (adjustedPosition < 0) {
         return false;
-    } else if (fixedPosition > laneLenght) {
+    } else if (adjustedPosition > laneLenght) {
         return false;
     } else {
         return true;
@@ -86,13 +86,13 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
     // obtain lane final length
     const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // adjust position (negative means start counting from backward)
-    const double fixedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : myPosOverLane < 0 ? (myPosOverLane + laneLenght) : myPosOverLane;
+    const double adjustedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : (myPosOverLane < 0) ? (myPosOverLane + laneLenght) : myPosOverLane;
     // check conditions
     if (myFriendlyPos) {
         return "";
-    } else if (fixedPosition < 0) {
+    } else if (adjustedPosition < 0) {
         return TLF("% < 0", toString(SUMO_ATTR_POSITION));
-    } else if (fixedPosition > laneLenght) {
+    } else if (adjustedPosition > laneLenght) {
         return TLF("% > lanes's length", toString(SUMO_ATTR_POSITION));
     } else {
         return "";

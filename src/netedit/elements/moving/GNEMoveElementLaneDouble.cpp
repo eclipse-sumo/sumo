@@ -134,20 +134,23 @@ GNEMoveElementLaneDouble::isMoveElementValid() const {
         // obtain lane final length
         const double fromLength = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         const double toLength = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        // adjust positions
+        const double adjustedStartPosition = (myStartPosOverLane == INVALID_DOUBLE) ? 0 : (myStartPosOverLane < 0) ? (myStartPosOverLane + fromLength) : myStartPosOverLane;
+        const double adjustedEndPosition = (myEndPosPosOverLane == INVALID_DOUBLE) ? toLength : (myEndPosPosOverLane < 0) ? (myEndPosPosOverLane + toLength) : myEndPosPosOverLane;
         // check conditions
         if (myFriendlyPosition) {
             return true;
-        } else if (myStartPosOverLane < 0) {
+        } else if (adjustedStartPosition < 0) {
             return false;
-        } else if (myStartPosOverLane > fromLength) {
+        } else if (adjustedStartPosition > fromLength) {
             return false;
-        } else if (myEndPosPosOverLane < 0) {
+        } else if (adjustedEndPosition < 0) {
             return false;
-        } else if (myEndPosPosOverLane > toLength) {
+        } else if (adjustedEndPosition > toLength) {
             return false;
         } else if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
             // only if we have only one lane
-            if ((myStartPosOverLane + POSITION_EPS) >= myEndPosPosOverLane) {
+            if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
                 return false;
             } else {
                 return true;
@@ -170,23 +173,23 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
         // obtain lane final lengths
         const double fromLaneLength = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         const double toLaneLength = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-        // adjust positions (negative means start counting from backward)
-        const double fixedStartPosition = (myStartPosOverLane == INVALID_DOUBLE) ? 0 : myStartPosOverLane < 0 ? (myStartPosOverLane + fromLaneLength) : myStartPosOverLane;
-        const double fixedEndPosition = (myEndPosPosOverLane == INVALID_DOUBLE) ? 0 : myEndPosPosOverLane < 0 ? (myEndPosPosOverLane + toLaneLength) : myEndPosPosOverLane;
+        // adjust positions
+        const double adjustedStartPosition = (myStartPosOverLane == INVALID_DOUBLE) ? 0 : (myStartPosOverLane < 0) ? (myStartPosOverLane + fromLaneLength) : myStartPosOverLane;
+        const double adjustedEndPosition = (myEndPosPosOverLane == INVALID_DOUBLE) ? toLaneLength : (myEndPosPosOverLane < 0) ? (myEndPosPosOverLane + toLaneLength) : myEndPosPosOverLane;
         // check conditions
         if (myFriendlyPosition) {
             return "";
-        } else if (fixedStartPosition < 0) {
+        } else if (adjustedStartPosition < 0) {
             return TLF("% < 0", toString(SUMO_ATTR_STARTPOS));
-        } else if (fixedStartPosition > fromLaneLength) {
+        } else if (adjustedStartPosition > fromLaneLength) {
             return TLF("% > start lanes's length", toString(SUMO_ATTR_STARTPOS));
-        } else if (fixedEndPosition < 0) {
+        } else if (adjustedEndPosition < 0) {
             return TLF("% < 0", toString(SUMO_ATTR_ENDPOS));
-        } else if (fixedEndPosition > toLaneLength) {
+        } else if (adjustedEndPosition > toLaneLength) {
             return TLF("% > end lanes's length", toString(SUMO_ATTR_ENDPOS));
         } else if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
             // only if we have only one lane
-            if ((fixedStartPosition + POSITION_EPS) >= fixedEndPosition) {
+            if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
                 return TLF("% >= %", toString(SUMO_ATTR_STARTPOS), toString(SUMO_ATTR_ENDPOS));
             } else {
                 return "";
