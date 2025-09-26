@@ -125,12 +125,11 @@ void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ACCESS);
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, getAttribute(SUMO_ATTR_POSITION));
+    // write move attributes
+    writeMoveAttributes(device);
+    // write specific attributes
     if (myLength != -1) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    }
-    if (myFriendlyPos) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     device.closeTag();
 }

@@ -57,6 +57,19 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 
 
 void
+GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
+    // lane
+    device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
+    // position
+    device.writeAttr(SUMO_ATTR_POSITION, myPosOverLane);
+    // friendly position (only if true)
+    if (myFriendlyPos) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
+    }
+}
+
+
+void
 GNEMoveElementLaneSingle::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do here
 }

@@ -137,15 +137,11 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
     }
     // specific of poi lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, getFixedPositionOverLane());
-        // posLat
+        // write move attributes
+        GNEMoveElementLaneSingle::writeMoveAttributes(device);
+        // write specific attributes
         if (myPosLat != 0) {
             device.writeAttr(SUMO_ATTR_POSITION_LAT, myPosLat);
-        }
-        // friendlyPos
-        if (myFriendlyPos) {
-            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
         }
     } else {
         // specific of POI geos

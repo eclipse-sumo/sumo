@@ -69,13 +69,9 @@ void
 GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPosOverLane);
-    // friendly position (only if true)
-    if (myFriendlyPos) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
-    }
-    // write common parameters
+    // write move attributes
+    writeMoveAttributes(device);
+    // write detector attributes
     writeDetectorValues(device);
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
