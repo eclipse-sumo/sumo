@@ -166,13 +166,11 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
 bool
 GNEPOI::isAdditionalValid() const {
     // only for POIS over lanes
-    if (getParentLanes().size() == 0) {
-        return true;
-    } else if (myFriendlyPos) {
-        // with friendly position enabled position is "always fixed"
-        return true;
+    if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+        // only movement problems
+        return isMoveElementValid();
     } else {
-        return fabs(myPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return true;
     }
 }
 
@@ -181,23 +179,8 @@ std::string
 GNEPOI::getAdditionalProblem() const {
     // only for POIS over lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-        // obtain final length
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        // check if detector has a problem
-        if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, myFriendlyPos)) {
-            return "";
-        } else {
-            // declare variable for error position
-            std::string errorPosition;
-            // check positions over lane
-            if (myPosOverLane < 0) {
-                errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-            }
-            if (myPosOverLane > len) {
-                errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
-            }
-            return errorPosition;
-        }
+        // only movement problems
+        return getMovingProblem();
     } else {
         return "";
     }
@@ -208,8 +191,8 @@ void
 GNEPOI::fixAdditionalProblem() {
     // only for POIS over lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-        // set fixed position
-        setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
+        // only movement problems
+        fixMovingProblem();
     }
 }
 

@@ -56,6 +56,15 @@ protected:
     /// @brief friendly position
     bool myFriendlyPos = false;
 
+    /// @brief check if current moving element is valid to be written into XML
+    bool isMoveElementValid() const;
+
+    /// @brief return a string with the current moving problem
+    std::string getMovingProblem() const;
+
+    /// @brief fix moving problem
+    void fixMovingProblem();
+
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 

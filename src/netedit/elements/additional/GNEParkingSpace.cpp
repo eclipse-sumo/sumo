@@ -90,17 +90,20 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
 }
 
 
-bool GNEParkingSpace::isAdditionalValid() const {
+bool
+GNEParkingSpace::isAdditionalValid() const {
     return true;
 }
 
 
-std::string GNEParkingSpace::getAdditionalProblem() const {
+std::string
+GNEParkingSpace::getAdditionalProblem() const {
     return "";
 }
 
 
-void GNEParkingSpace::fixAdditionalProblem() {
+void
+GNEParkingSpace::fixAdditionalProblem() {
     // nothing to fix
 }
 

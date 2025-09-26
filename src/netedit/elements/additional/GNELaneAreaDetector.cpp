@@ -120,130 +120,22 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
 
 bool
 GNELaneAreaDetector::isAdditionalValid() const {
-    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
-        // with friendly position enabled position are "always fixed"
-        if (myFriendlyPosition) {
-            return true;
-        } else {
-            return (myStartPosOverLane >= 0) && (myEndPosPosOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-        }
-    } else {
-        // first check if there is connection between all consecutive lanes
-        if (areLaneConnected(getParentLanes())) {
-            // with friendly position enabled position are "always fixed"
-            if (myFriendlyPosition) {
-                return true;
-            } else {
-                return (myStartPosOverLane >= 0) &&
-                       (myEndPosPosOverLane >= 0) &&
-                       (myStartPosOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
-                       (myEndPosPosOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
-            }
-        } else {
-            return false;
-        }
-    }
+    // only movement problems
+    return isMoveElementValid();
 }
 
 
 std::string
 GNELaneAreaDetector::getAdditionalProblem() const {
-    // declare variable for error position
-    std::string errorFirstLanePosition, separator, errorLastLanePosition;
-    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
-        // check positions over lane
-        if (myStartPosOverLane < 0) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        }
-        if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
-        }
-    } else {
-        // abort if lanes aren't consecutives
-        if (!areLaneConsecutives(getParentLanes())) {
-            return TL("lanes aren't consecutives");
-        }
-        // abort if lanes aren't connected
-        if (!areLaneConnected(getParentLanes())) {
-            return TL("lanes aren't connected");
-        }
-        // check positions over first lane
-        if (myStartPosOverLane < 0) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        }
-        if (myStartPosOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
-        }
-        // check positions over last lane
-        if (myEndPosPosOverLane < 0) {
-            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
-        }
-        if (myEndPosPosOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
-        }
-    }
-    // check separator
-    if ((errorFirstLanePosition.size() > 0) && (errorLastLanePosition.size() > 0)) {
-        separator = TL(" and ");
-    }
-    // return error message
-    return errorFirstLanePosition + separator + errorLastLanePosition;
+    // only movement problems
+    return getMovingProblem();
 }
 
 
 void
 GNELaneAreaDetector::fixAdditionalProblem() {
-    // continue depending of lane area detector type
-    if (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
-        // make a copy of start and end positions over lane
-        double startPos = myStartPosOverLane;
-        double endPos = myEndPosPosOverLane;
-        // fix start and end positions using fixLaneDoublePosition
-        GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-        // set new start and end positions
-        setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
-        setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
-    } else {
-        // first check if lanes are consecutives
-        if (!areLaneConsecutives(getParentLanes())) {
-            // build connections between all consecutive lanes
-            bool foundConnection = true;
-            int i = 0;
-            // iterate over all lanes, and stop if myE2valid is false
-            while (i < ((int)getParentLanes().size() - 1)) {
-                // change foundConnection to false
-                foundConnection = false;
-                // if a connection between "from" lane and "to" lane of connection is found, change myE2valid to true again
-                for (const auto& connection : getParentLanes().at(i)->getParentEdge()->getGNEConnections()) {
-                    if ((connection->getLaneFrom() == getParentLanes().at(i)) && (connection->getLaneTo() == getParentLanes().at(i + 1))) {
-                        foundConnection = true;
-                    }
-                }
-                // if connection wasn't found
-                if (!foundConnection) {
-                    // create new connection manually
-                    NBEdge::Connection newCon(getParentLanes().at(i)->getIndex(), getParentLanes().at(i + 1)->getParentEdge()->getNBEdge(), getParentLanes().at(i + 1)->getIndex());
-                    // allow to undo creation of new lane
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_Connection(getParentLanes().at(i)->getParentEdge(), newCon, false, true), true);
-                }
-                // update lane iterator
-                i++;
-            }
-        } else if (getParentLanes().size() == 1) {
-            // make a copy of start and end positions over lane
-            double startPos = myStartPosOverLane;
-            double endPos = myEndPosPosOverLane;
-            // fix start and end positions using fixLaneDoublePosition
-            GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-            // set new start and end positions
-            setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
-            setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
-        } else {
-            // set fixed positions
-            setAttribute(SUMO_ATTR_STARTPOS, toString(getStartFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
-            setAttribute(SUMO_ATTR_ENDPOS, toString(getEndFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
-        }
-    }
+    // only movement problems
+    return fixMovingProblem();
 }
 
 

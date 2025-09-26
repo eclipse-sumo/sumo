@@ -78,41 +78,22 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
 
 bool
 GNEEntryExitDetector::isAdditionalValid() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPos) {
-        return true;
-    } else {
-        return fabs(myPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
+    // only movement problems
+    return isMoveElementValid();
 }
 
 
 std::string
 GNEEntryExitDetector::getAdditionalProblem() const {
-    // obtain final length
-    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // check if detector has a problem
-    if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, myFriendlyPos)) {
-        return "";
-    } else {
-        // declare variable for error position
-        std::string errorPosition;
-        // check positions over lane
-        if (myPosOverLane < 0) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        }
-        if (myPosOverLane > len) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
-        }
-        return errorPosition;
-    }
+    // only movement problems
+    return getMovingProblem();
 }
 
 
 void
 GNEEntryExitDetector::fixAdditionalProblem() {
-    // set fixed position
-    setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
+    // only movement problems
+    fixMovingProblem();
 }
 
 

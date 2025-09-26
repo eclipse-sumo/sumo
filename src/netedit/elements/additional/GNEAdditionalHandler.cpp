@@ -209,7 +209,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         return writeErrorInvalidPosition(SUMO_TAG_ACCESS, accessParent->getID());
     } else if ((length != -1) && !checkNegative(SUMO_TAG_ACCESS, accessParent->getID(), SUMO_ATTR_LENGTH, length, true)) {
         return false;
-    } else if (!accessCanBeCreated(accessParent, lane->getParentEdge())) {
+    } else if (!accessExists(accessParent, lane->getParentEdge())) {
         return writeError(TLF("Could not build access in netedit; % '%' already owns an access in the edge '%'", accessParent->getTagStr(), accessParent->getID(), lane->getParentEdge()->getID()));
     } else if (!containerStop && !lane->allowPedestrians()) {
         // only for busStops and trainStops
@@ -1801,12 +1801,16 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
 
 
 bool
-GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
-    // check if exist another access for the same busStop in the given edge
-    for (const auto& additional : busStopParent->getChildAdditionals()) {
-        for (const auto& lane : edge->getChildLanes()) {
-            if (additional->getAttribute(SUMO_ATTR_LANE) == lane->getID()) {
-                return false;
+GNEAdditionalHandler::accessExists(const GNEAdditional* stoppingPlaceParent, const GNEEdge* edge) {
+    // check if exist another access for the same parent in the given edge
+    for (const auto& access : stoppingPlaceParent->getChildAdditionals()) {
+        // check tag
+        if (access->getTagProperty()->getTag() == SUMO_TAG_ACCESS) {
+            // check all siblings of the lane
+            for (const auto& lane : edge->getChildLanes()) {
+                if (access->getAttribute(SUMO_ATTR_LANE) == lane->getID()) {
+                    return false;
+                }
             }
         }
     }

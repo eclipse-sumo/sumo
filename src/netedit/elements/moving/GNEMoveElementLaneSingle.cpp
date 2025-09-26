@@ -62,6 +62,51 @@ GNEMoveElementLaneSingle::removeGeometryPoint(const Position /*clickedPosition*/
 }
 
 
+bool
+GNEMoveElementLaneSingle::isMoveElementValid() const {
+    // obtain lane final length
+    const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // adjust position (negative means start counting from backward)
+    const double fixedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : myPosOverLane < 0 ? (myPosOverLane + laneLenght) : myPosOverLane;
+    // check conditions
+    if (myFriendlyPos) {
+        return true;
+    } else if (fixedPosition < 0) {
+        return false;
+    } else if (fixedPosition > laneLenght) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+std::string
+GNEMoveElementLaneSingle::getMovingProblem() const {
+    // obtain lane final length
+    const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // adjust position (negative means start counting from backward)
+    const double fixedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : myPosOverLane < 0 ? (myPosOverLane + laneLenght) : myPosOverLane;
+    // check conditions
+    if (myFriendlyPos) {
+        return "";
+    } else if (fixedPosition < 0) {
+        return TLF("% < 0", toString(SUMO_ATTR_POSITION));
+    } else if (fixedPosition > laneLenght) {
+        return TLF("% > lanes's length", toString(SUMO_ATTR_POSITION));
+    } else {
+        return "";
+    }
+}
+
+
+void
+GNEMoveElementLaneSingle::fixMovingProblem() {
+    // set fixed position
+    myMovedElement->setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myMovedElement->getNet()->getViewNet()->getUndoList());
+}
+
+
 void
 GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
     // lane
@@ -77,28 +122,29 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
 
 double
 GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
-    const auto& lane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
-    if (myPosOverLane != INVALID_DOUBLE) {
-        // get lane final and shape length
+    if (myPosOverLane == INVALID_DOUBLE) {
+        return 0;
+    } else {
+        // get lane and shape length
+        const auto& lane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
         const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
-        // get startPosition
+        // fix position
         double fixedPos = myPosOverLane;
         // adjust fixedPos
         if (fixedPos < 0) {
             fixedPos += laneLength;
         }
+        // set length geometry factor
         fixedPos *= lane->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < 0) {
             return 0;
-        } else if (fixedPos > (lane->getLaneShapeLength() - POSITION_EPS)) {
-            return (lane->getLaneShapeLength() - POSITION_EPS);
+        } else if (fixedPos > lane->getLaneShapeLength()) {
+            return lane->getLaneShapeLength();
         } else {
             return fixedPos;
         }
-    } else {
-        return 0;
     }
 }
 

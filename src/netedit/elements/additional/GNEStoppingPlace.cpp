@@ -70,56 +70,22 @@ GNEStoppingPlace::getMoveElement() {
 
 bool
 GNEStoppingPlace::isAdditionalValid() const {
-    return GNEAdditionalHandler::checkLaneDoublePosition(getAttributeDouble(SUMO_ATTR_STARTPOS), getAttributeDouble(SUMO_ATTR_ENDPOS),
-            getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), myFriendlyPosition);
+    // only movement problems
+    return isMoveElementValid();
 }
 
 
 std::string
 GNEStoppingPlace::getAdditionalProblem() const {
-    // obtain lane length
-    double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
-    // calculate start and end positions
-    double startPos = getAttributeDouble(SUMO_ATTR_STARTPOS);
-    double endPos = getAttributeDouble(SUMO_ATTR_ENDPOS);
-    // check if position has to be fixed
-    if (startPos < 0) {
-        startPos += laneLength;
-    }
-    if (endPos < 0) {
-        endPos += laneLength;
-    }
-    // declare variables
-    std::string errorStart, separator, errorEnd;
-    // check positions over lane
-    if (startPos < 0) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-    } else if (startPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + TL(" > lanes's length"));
-    }
-    if (endPos < 0) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
-    } else if (endPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
-    }
-    // check separator
-    if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
-        separator = TL(" and ");
-    }
-    return errorStart + separator + errorEnd;
+    // only movement problems
+    return getMovingProblem();
 }
 
 
 void
 GNEStoppingPlace::fixAdditionalProblem() {
-    // make a copy of start and end positions over lane
-    double startPos = myStartPosOverLane;
-    double endPos = myEndPosPosOverLane;
-    // fix start and end positions using fixLaneDoublePosition
-    GNEAdditionalHandler::fixLaneDoublePosition(startPos, endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-    // set new start and end positions
-    setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myNet->getViewNet()->getUndoList());
-    setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myNet->getViewNet()->getUndoList());
+    // only movement problems
+    return fixMovingProblem();
 }
 
 

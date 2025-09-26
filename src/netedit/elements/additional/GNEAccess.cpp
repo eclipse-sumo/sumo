@@ -138,41 +138,22 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 
 bool
 GNEAccess::isAdditionalValid() const {
-    // with friendly position enabled position is "always fixed"
-    if (myFriendlyPos) {
-        return true;
-    } else if (myPosOverLane == INVALID_DOUBLE) {
-        return true;
-    } else {
-        return fabs(myPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
+    // only movement problems
+    return isMoveElementValid();
 }
 
 
-std::string GNEAccess::getAdditionalProblem() const {
-    // obtain final length
-    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    // check if detector has a problem
-    if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, myFriendlyPos)) {
-        return "";
-    } else {
-        // declare variable for error position
-        std::string errorPosition;
-        // check positions over lane
-        if (myPosOverLane < 0) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        }
-        if (myPosOverLane > len) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
-        }
-        return errorPosition;
-    }
+std::string
+GNEAccess::getAdditionalProblem() const {
+    // only movement problems
+    return getMovingProblem();
 }
 
 
-void GNEAccess::fixAdditionalProblem() {
-    // set fixed position
-    setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myNet->getViewNet()->getUndoList());
+void
+GNEAccess::fixAdditionalProblem() {
+    // only movement problems
+    fixMovingProblem();
 }
 
 
@@ -326,19 +307,20 @@ bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE: {
-            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(value, false);
-            if (lane != nullptr) {
-                if (getParentLanes().front()->getParentEdge()->getID() != lane->getParentEdge()->getID()) {
-                    return GNEAdditionalHandler::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());
-                } else {
-                    return true;
-                }
-            } else {
+            const GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(value, false);
+            // check lane
+            if (lane == nullptr) {
                 return false;
             }
+            // check if is the same lane
+            if (getParentLanes().front()->getParentEdge()->getID() == lane->getParentEdge()->getID()) {
+                return true;
+            }
+            // check if exist another access for the same parent in the given edge
+            return GNEAdditionalHandler::accessExists(getParentAdditionals().at(0), lane->getParentEdge());
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty() || value == "random" || value == "doors" || value == "carriage") {
+            if (value.empty() || (value == "random") || (value == "doors") || (value == "carriage")) {
                 return true;
             } else {
                 return canParse<double>(value);
