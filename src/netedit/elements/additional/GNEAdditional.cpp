@@ -535,6 +535,19 @@ GNEAdditional::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, cons
 // GNEAdditional - protected methods
 // ---------------------------------------------------------------------------
 
+void
+GNEAdditional::writeAdditionalAttributes(OutputDevice& device) const {
+    // ID (if defined)
+    if (myTagProperty->hasAttribute(SUMO_ATTR_ID)) {
+        device.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
+    }
+    // name
+    if (myAdditionalName.size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
+    }
+}
+
+
 bool
 GNEAdditional::isValidAdditionalID(const std::string& value) const {
     if (!isTemplate() && (value == getID())) {

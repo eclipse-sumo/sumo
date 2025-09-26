@@ -58,9 +58,6 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /// @brief write move attributes
-    void writeMoveAttributes(OutputDevice& device) const;
-
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
@@ -97,6 +94,9 @@ protected:
 
     /// @brief variable used for moving geometry point contour right
     GNEContour myMovingContourRight;
+
+    /// @brief write move attributes
+    void writeMoveAttributes(OutputDevice& device) const;
 
 private:
     /// @brief pos attributes format

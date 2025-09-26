@@ -116,6 +116,12 @@ GNEMoveElementLaneDouble::getMoveOperation() {
 
 
 void
+GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
+}
+
+
+void
 GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device) const {
     // lane/s
     if (myMovedElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
@@ -154,12 +160,6 @@ GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     }
-}
-
-
-void
-GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do here
 }
 
 

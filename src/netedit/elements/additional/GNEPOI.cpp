@@ -129,12 +129,8 @@ GNEPOI::getSumoBaseObject() const {
 void
 GNEPOI::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_POI);
-    // ID
-    device.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-    // name (note: Use additional name instead shape name)
-    if (myAdditionalName.size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
-    }
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // specific of poi lanes
     if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
         // write move attributes

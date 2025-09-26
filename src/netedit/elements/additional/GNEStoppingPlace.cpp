@@ -203,12 +203,8 @@ GNEStoppingPlace::getParentName() const {
 
 void
 GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
-    // id
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    // name (if defined)
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move atributes
     writeMoveAttributes(device);
     // color (if defined)

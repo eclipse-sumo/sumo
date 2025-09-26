@@ -90,7 +90,8 @@ GNELaneAreaDetector::getMoveElement() {
 void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move atributes
     writeMoveAttributes(device);
     // write common detector parameters

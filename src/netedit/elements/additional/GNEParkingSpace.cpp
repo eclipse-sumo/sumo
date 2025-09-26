@@ -67,9 +67,8 @@ GNEMoveElement* GNEParkingSpace::getMoveElement() {
 void
 GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move atributes
     writeMoveAttributes(device);
     // write specific attributes

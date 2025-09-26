@@ -68,7 +68,8 @@ GNEInductionLoopDetector::getMoveElement() {
 void
 GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move attributes
     writeMoveAttributes(device);
     // write detector attributes

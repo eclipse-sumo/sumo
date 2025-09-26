@@ -93,17 +93,19 @@ void
 GNETAZ::writeAdditional(OutputDevice& device) const {
     // first open TAZ tag
     device.openTag(SUMO_TAG_TAZ);
-    // write TAZ attributes
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // temporal name
+    if (getShapeName().size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
+    }
+    // write specific attributes
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
     if (myCenterPosition != myShape.getCentroid()) {
         device.writeAttr(SUMO_ATTR_CENTER, myCenterPosition);
     }
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
-    }
-    if (getShapeName().size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
     }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // sort all Source/Sinks by ID

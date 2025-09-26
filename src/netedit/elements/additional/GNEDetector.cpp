@@ -265,9 +265,6 @@ GNEDetector::writeDetectorValues(OutputDevice& device) const {
     if ((myPeriod > 0) && (myPeriod != SUMOTime_MAX_PERIOD)) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
-    if (myAdditionalName.size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
     if (myOutputFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myOutputFilename);
     }

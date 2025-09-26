@@ -66,8 +66,9 @@ void
 GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_ROUTEPROBE);
-    // write parameters
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // write specific attributes
     device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
     if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
@@ -75,9 +76,6 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
     if (!myOutputFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myOutputFilename);
-    }
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
     }
     if (!myVehicleTypes.empty()) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);

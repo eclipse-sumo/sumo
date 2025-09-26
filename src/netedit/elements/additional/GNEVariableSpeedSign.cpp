@@ -67,14 +67,12 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // avoid write rerouters without edges
     if (getAttribute(SUMO_ATTR_LANES).size() > 0) {
         device.openTag(SUMO_TAG_VSS);
-        device.writeAttr(SUMO_ATTR_ID, getID());
+        // write common additional attributes
+        writeAdditionalAttributes(device);
         // write move atributes
         writeMoveAttributes(device);
         // write specific attributes
         device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
-        if (!myAdditionalName.empty()) {
-            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-        }
         if (!myVehicleTypes.empty()) {
             device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
         }

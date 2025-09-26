@@ -332,6 +332,9 @@ protected:
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
     const RGBColor* mySpecialColor = nullptr;
 
+    /// @brief write common additional attributes
+    void writeAdditionalAttributes(OutputDevice& device) const;
+
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
 

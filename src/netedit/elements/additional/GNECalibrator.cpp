@@ -126,8 +126,9 @@ void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_CALIBRATOR);
-    // write parameters
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // write specific attributes
     if (getParentEdges().size() > 0) {
         device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
     }
@@ -137,9 +138,6 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
     if (time2string(myFrequency) != "1.00") {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFrequency));
-    }
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
     }
     if (!myOutput.empty()) {
         device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);

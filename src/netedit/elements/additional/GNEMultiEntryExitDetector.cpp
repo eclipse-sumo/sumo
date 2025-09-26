@@ -81,10 +81,8 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
     // check entry/exits
     if (entry && exit) {
         device.openTag(getTagProperty()->getTag());
-        device.writeAttr(SUMO_ATTR_ID, getID());
-        if (!myAdditionalName.empty()) {
-            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-        }
+        // write common additional attributes
+        writeAdditionalAttributes(device);
         // write move atributes
         writeMoveAttributes(device);
         // write specific attributes

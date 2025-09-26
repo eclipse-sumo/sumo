@@ -73,9 +73,6 @@ public:
     */
     GNEMoveOperation* getMoveOperation();
 
-    /// @brief write move attributes
-    void writeMoveAttributes(OutputDevice& device) const;
-
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
@@ -97,6 +94,9 @@ protected:
 
     /// @brief reference position
     ReferencePosition myReferencePosition = ReferencePosition::CENTER;
+
+    /// @brief write move attributes
+    void writeMoveAttributes(OutputDevice& device) const;
 
     /// @brief get start offset position over lane
     double getStartFixedPositionOverLane() const;

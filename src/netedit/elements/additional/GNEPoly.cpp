@@ -162,7 +162,42 @@ GNEPoly::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEPoly::writeAdditional(OutputDevice& device) const {
-    writeXML(device, myGEO);
+    device.openTag(SUMO_TAG_POLY);
+    // write common additional attributes
+    writeAdditionalAttributes(device);
+    // temporal name
+    if (getShapeName().size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
+    }
+    // write specific attributes
+    PositionVector shape = getShape();
+    if (myGEO) {
+        device.writeAttr(SUMO_ATTR_GEO, true);
+        for (int i = 0; i < (int) shape.size(); i++) {
+            GeoConvHelper::getFinal().cartesian2geo(shape[i]);
+        }
+    }
+    if (getShapeType().size() > 0) {
+        device.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
+    }
+    device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    device.writeAttr(SUMO_ATTR_FILL,  getFill());
+    if (getLineWidth() != 1) {
+        device.writeAttr(SUMO_ATTR_LINEWIDTH, getLineWidth());
+    }
+    device.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
+
+    device.setPrecision(gPrecisionGeo);
+    device.writeAttr(SUMO_ATTR_SHAPE, shape);
+    device.setPrecision();
+    if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
+        device.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
+    }
+    if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
+        device.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
+    }
+    writeParams(device);
+    device.closeTag();
 }
 
 

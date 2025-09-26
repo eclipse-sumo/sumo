@@ -64,6 +64,8 @@ GNEEntryExitDetector::getMoveElement() {
 void
 GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
+    // write common additional attributes
+    writeAdditionalAttributes(device);
     // write move attributes
     writeMoveAttributes(device);
     // write common detector parameters

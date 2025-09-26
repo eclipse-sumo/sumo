@@ -92,6 +92,12 @@ GNEMoveElementView::getMoveOperation() {
 
 
 void
+GNEMoveElementView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
+}
+
+
+void
 GNEMoveElementView::writeMoveAttributes(OutputDevice& device) const {
     // position format
     if (myAttributesFormat == AttributesFormat::POSITION) {
@@ -114,12 +120,6 @@ GNEMoveElementView::writeMoveAttributes(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_Z, myPosOverView.z());
         }
     }
-}
-
-
-void
-GNEMoveElementView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do here
 }
 
 
