@@ -85,8 +85,7 @@ title: ChangeLog
   - Gui setting 'show stop info' now work for inspected routes and vehicles #17014
 
 - sumo-gui
-  - Various dialogs can now be closed with ESC #15463
-  - busStop now support <param key="waitingDepth" value="FLOAT"/> to customize spacing of waiting transportables #17088
+  - Various dialogs can now be closed with ESC #15463  
   - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
   - Added menu option for opening only the network in netedit when a *.sumocfg* has been loaded in the simulation ( <kbd>Ctrl+Shift+T</kbd>) #17087
   - BusStop and all other stopping places now support `<param key="waitingDepth" value="FLOAT"/>` to customize spacing depth of waiting transportables #17088
