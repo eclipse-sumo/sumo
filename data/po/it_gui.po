@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-21 14:33+0000\n"
+"PO-Revision-Date: 2025-09-27 11:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -239,7 +239,7 @@ msgstr "Apri rete in netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:541
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Apre la rete attuale in netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:545
 msgid "&Settings"
@@ -1673,7 +1673,7 @@ msgstr "tipo [id]"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "routing type [id]"
-msgstr ""
+msgstr "tipo di instradamento [id]"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "tauff"
@@ -1818,7 +1818,7 @@ msgstr "tipo di arco"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "routing type"
-msgstr ""
+msgstr "tipo di instradamento"
 
 #: src/guisim/GUILane.cpp:1076 src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
