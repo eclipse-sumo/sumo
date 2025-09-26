@@ -66,6 +66,8 @@ GNEVaporizer::getMoveOperation() {
 void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
+    // special case for vaporizer IDs
+    device.writeAttr(SUMO_ATTR_ID, getID());
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write specific attributes
