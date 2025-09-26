@@ -52,7 +52,7 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::STARTPOS_ENDPOS, lane, startPos, endPos, friendlyPosition),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS, lane, startPos, endPos, friendlyPosition),
     Parameterised(parameters),
     myColor(color),
     myAngle(angle) {

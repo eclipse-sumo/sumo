@@ -31,8 +31,8 @@
 class GNEMoveElementLaneDouble : public GNEMoveElement {
 
 public:
-    /// @brief type of attributes
-    enum class PosAttributes {
+    /// @brief attributes format
+    enum class AttributesFormat {
         STARTPOS_ENDPOS,    /// @brief starPosition and endPosition
         POS_LENGTH,         /// @brief position and length
         POS_ENDPOS          /// @brief position and endPosition
@@ -43,25 +43,25 @@ public:
 
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] posAttributes position atttributes
+     * @param[in] format position atttributes format
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
                              GNELane* lane, const double startPos, const double endPos,
                              const bool friendlyPosition);
 
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] posAttributes position atttributes
+     * @param[in] format position atttributes format
      * @param[in] lanes Lanes of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, PosAttributes posAttributes,
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
                              const std::vector<GNELane*>& lanes, const double startPos,
                              const double endPos, const bool friendlyPosition);
 
@@ -108,8 +108,8 @@ protected:
     void adjustLaneMovableLength(const double length, GNEUndoList* undoList);
 
 private:
-    /// @brief pos attributes
-    PosAttributes myPosAttributes = PosAttributes::STARTPOS_ENDPOS;
+    /// @brief pos attributes format
+    AttributesFormat myAttributesFormat = AttributesFormat::STARTPOS_ENDPOS;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

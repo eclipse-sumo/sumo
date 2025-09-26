@@ -47,7 +47,7 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::STARTPOS_ENDPOS, lanes, startPos, endPos, friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS, lanes, startPos, endPos, friendlyPos),
     Parameterised(parameters),
     myForbiddenInnerLanes(forbiddenInnerLanes) {
     // set parents

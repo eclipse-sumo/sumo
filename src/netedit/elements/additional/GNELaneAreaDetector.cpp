@@ -53,7 +53,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const bool show, const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::POS_LENGTH, lane, pos, (pos + length), friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lane, pos, (pos + length), friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -68,7 +68,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::PosAttributes::POS_ENDPOS, lanes, pos, endPos, friendlyPos),
+    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_ENDPOS, lanes, pos, endPos, friendlyPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
