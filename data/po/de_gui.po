@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-17 23:42+0000\n"
+"PO-Revision-Date: 2025-09-27 11:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -240,7 +240,7 @@ msgstr "&Netz in netedit öffnen"
 
 #: src/gui/GUIApplicationWindow.cpp:541
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Öffnet das aktuelle Netz in netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:545
 msgid "&Settings"
@@ -2755,15 +2755,15 @@ msgstr "Speichervorgang der PlainXML-Datei fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3411
 msgid "joined junctions file"
-msgstr ""
+msgstr "Datei mit vereinigten Knotenpunkten"
 
 #: src/netedit/GNEApplicationWindow.cpp:3421
 msgid "Joined junctions saved to '%'."
-msgstr ""
+msgstr "Vereinigte Knotenpunkte in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3424
 msgid "Saving joined junctions failed"
-msgstr ""
+msgstr "Speichern der vereinigten Knotenpunkte fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3453
 #: src/netedit/GNEApplicationWindow.cpp:3457
