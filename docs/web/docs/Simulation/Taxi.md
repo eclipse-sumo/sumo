@@ -25,14 +25,14 @@ For instance, a single vehicle can configured as taxi as in the following minima
 
 The following table gives the full list of possible parameters for the taxi device (all parameter names have to be prepended with "device.taxi"):
 
-| Parameter                        | Type             | Range                     | Default          | Description                                                                         |
-| -------------------------------- | ---------------- | ------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| Parameter                        | Type             | Range                                                        | Default          | Description                                                                         |
+| -------------------------------- | ---------------- | ------------------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------- |
 | dispatch-algorithm               | enum             | {greedy; greedyClosest; greedyShared; routeExtension; traci} | greedy | The dispatch algorithm                                     |
-| dispatch-algorithm.output        | string           |                           | -                | Write information from the dispatch algorithm to a file                             |
-| dispatch-algorithm.params        | string           |                           | -                | Provide absLossThreshold and relLossThreshold thresholds for greedyShared dispatch algorithm as KEY1:VALUE1[,KEY2:VALUE] |
-| dispatch-period                  | float (s)        |                           | 60               | The period between successive calls to the dispatcher                               |
-| idle-algorithm                   | enum             | {stop; randomCircling; taxistand} | stop     | The behavior of idle taxis                                                          |
-| idle-algorithm.output            | string           |                           | -                | Write information from the idling algorithm to file                                 |
+| dispatch-algorithm.output        | string           |                                                              | -                | Write information from the dispatch algorithm to a file                             |
+| dispatch-algorithm.params        | string           |                                                              | -                | Provide absLossThreshold and relLossThreshold thresholds for greedyShared dispatch algorithm as KEY1:VALUE1[,KEY2:VALUE] |
+| dispatch-period                  | float (s)        |                                                              | 60               | The period between successive calls to the dispatcher                               |
+| idle-algorithm                   | enum             | {stop; randomCircling; taxistand}                            | stop     | The behavior of idle taxis                                                          |
+| idle-algorithm.output            | string           |                                                              | -                | Write information from the idling algorithm to file                                 |
 
 
 
