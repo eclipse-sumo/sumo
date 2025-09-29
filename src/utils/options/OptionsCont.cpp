@@ -857,8 +857,8 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << TLF("Report bugs at %.", "<https://github.com/eclipse-sumo/sumo/issues>.") << std::endl;
-    os << TLF("Get in contact via %.", "<sumo@dlr.de>.") << std::endl;
+    os << TLF("Report bugs at %.", "<https://github.com/eclipse-sumo/sumo/issues>") << std::endl;
+    os << TLF("Get in contact via %.", "<sumo@dlr.de>") << std::endl;
 }
 
 
