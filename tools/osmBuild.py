@@ -31,9 +31,9 @@ vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = ('--geometry.remove,--roundabouts.guess,--ramps.guess,--junctions.join,'
+DEFAULT_NETCONVERT_OPTS = ('--geometry.remove,--ramps.guess,--junctions.join,'
                            '--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,'
-                           '--junctions.corner-detail,5,--output.street-names')
+                           '--output.street-names')
 
 
 optParser = sumolib.options.ArgumentParser(description="Import a OpenStreetMap file into SUMO")
