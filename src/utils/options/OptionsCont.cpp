@@ -723,9 +723,15 @@ OptionsCont::processMetaOptions(bool missingOptions) {
 void 
 OptionsCont::localizeDescriptions() {
     if (!myAmLocalized && gLocaleInitialized) {
+        // options
         for (auto option : myAddresses) {
             option.second->setDescription(TL(option.second->getDescription().c_str()));
         }
+        // examples
+        for (auto example : myCallExamples) {
+            example.second = TL(example.second.c_str());
+        }
+        // other text
         setApplicationDescription(TL(myAppDescription.c_str()));
         myAmLocalized = true;
     }
@@ -824,7 +830,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
         if (!foundTopic) {
             // print topic list
-            os << "Help Topics:" << std::endl;
+            os << TL("Help Topics:") << std::endl;
             for (const std::string& t : mySubTopics) {
                 os << "    " << t << std::endl;
             }
@@ -832,7 +838,7 @@ OptionsCont::printHelp(std::ostream& os) {
         return;
     }
     // print usage BNF
-    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
+    os << TL("Usage: ") << myAppName << TL(" [OPTION]*") << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length() > 0) {
         os << myAdditionalMessage << std::endl << std::endl;
@@ -844,21 +850,21 @@ OptionsCont::printHelp(std::ostream& os) {
     os << std::endl;
     // print usage examples, calc size first
     if (myCallExamples.size() != 0) {
-        os << "Examples:" << std::endl;
+        os << TL("Examples:") << std::endl;
         for (const auto& callExample : myCallExamples) {
             os << "  " << myAppName << ' ' << callExample.first << std::endl;
             os << "    " << callExample.second << std::endl;
         }
     }
     os << std::endl;
-    os << "Report bugs at <https://github.com/eclipse-sumo/sumo/issues>." << std::endl;
-    os << "Get in contact via <sumo@dlr.de>." << std::endl;
+    os << TLF("Report bugs at %.", "<https://github.com/eclipse-sumo/sumo/issues>.") << std::endl;
+    os << TLF("Get in contact via %.", "<sumo@dlr.de>.") << std::endl;
 }
 
 
 void
 OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
-    os << topic << " Options:" << std::endl;
+    os << TLF("% Options:", topic) << std::endl;
     for (const auto& entry : mySubTopicEntries[topic]) {
         // start length computation
         int csize = (int)entry.length() + 2;

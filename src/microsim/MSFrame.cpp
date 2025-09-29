@@ -61,9 +61,9 @@
 void
 MSFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml", "start a simulation from time 0 to 1000 with given net and routes");
-    oc.addCallExample("-c munich_config.cfg", "start with a configuration file");
-    oc.addCallExample("--help", "print help");
+    oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml", TL("start a simulation from time 0 to 1000 with given net and routes"));
+    oc.addCallExample("-c munich_config.cfg", TL("start with a configuration file"));
+    oc.addCallExample("--help", TL("print help"));
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too

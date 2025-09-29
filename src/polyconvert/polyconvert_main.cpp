@@ -61,7 +61,7 @@
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>", "run with configuration options set in file");
+    oc.addCallExample("-c <CONFIGURATION>", TL("run with configuration options set in file"));
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
