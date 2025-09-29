@@ -60,6 +60,7 @@ public:
     /// @brief get TAZ rel data color
     RGBColor setColor(const GUIVisualizationSettings& s) const;
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
     bool isGenericDataVisible() const;

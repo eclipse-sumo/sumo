@@ -108,6 +108,29 @@ GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme
 }
 
 
+double
+GNETAZRelData::getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0: // uniform
+            return 0;
+        case 1: // selection
+            return isAttributeCarrierSelected();
+        case 2: // by numerical attribute value
+            try {
+                if (hasParameter(s.relDataScaleAttr)) {
+                    return StringUtils::toDouble(getParameter(s.relDataScaleAttr, "-1"));
+                } else {
+                    return GUIVisualizationSettings::MISSING_DATA;
+                }
+            } catch (NumberFormatException&) {
+                return GUIVisualizationSettings::MISSING_DATA;
+            }
+    }
+    return 0;
+}
+
+
+
 bool
 GNETAZRelData::isGenericDataVisible() const {
     // obtain pointer to TAZ data frame (only for code legibly)
@@ -266,7 +289,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             drawInLayer(GLO_TAZ + 1);
             GLHelper::setColor(color);
             // check if update lastWidth
-            const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
+            const double width = (onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration
+                * s.dataScaler.getScheme().getColor(getScaleValue(s, s.dataScaler.getActive())));
             if (width != myLastWidth) {
                 myLastWidth = width;
             }
