@@ -82,7 +82,7 @@ The reverse operation to *Setting a custom geometry endpoint* as explained above
 ## Setting connection attributes
 
 1.  after opening the network press F5 to compute connection objects
-2.  in inspect-mode enable the *Show Connections* checkbox in the menu bar
+2.  in inspect-mode enable the *Show Connections* checkbox in the menu bar. (Alternatively, use the corresponding item in the *Edit menu* or press Alt+6)
 3.  click on a connection to inspect it and edit its attributes
 
 ## Converting an intersection into a roundabout
