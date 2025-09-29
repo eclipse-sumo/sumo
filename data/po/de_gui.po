@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-29 14:02+0000\n"
+"PO-Revision-Date: 2025-09-30 06:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2771,15 +2771,15 @@ msgstr "Speichern der vereinigten Knotenpunkte fehlgeschlagen"
 #: src/netedit/GNEApplicationWindow.cpp:3465
 #: src/netedit/GNEApplicationWindow.cpp:3469
 msgid "Saving of netedit configuration aborted."
-msgstr ""
+msgstr "Speichervorgang der netedit-Konfiguration abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3478
 msgid "Netedit configuration saved in '%'."
-msgstr ""
+msgstr "Netedit-Konfiguration in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3484
 msgid "Could not save netedit configuration in '%'."
-msgstr ""
+msgstr "Die netedit-Konfiguration konnte nicht in '%' gespeichert werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:3560
 #: src/netedit/GNEApplicationWindow.cpp:3564
