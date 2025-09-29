@@ -1000,6 +1000,10 @@ public:
     /// @{
     /// @brief the edgeRelation / tazRelation colorer
     GUIColorer dataColorer;
+
+    /// @brief The size scaling settings for data elements
+    GUIScaler dataScaler;
+
     GUIVisualizationTextSettings dataValue;
 
     /// @brief The tazRelation exaggeration (upscale thickness)
@@ -1010,6 +1014,9 @@ public:
 
     /// @brief key for coloring by edgeRelation / tazRelation attribute
     std::string relDataAttr;
+
+    /// @brief key for scaling by edgeRelation / tazRelation attribute
+    std::string relDataScaleAttr;
 
     /// @brief value below which edgeData and edgeRelation data value should not be rendered
     GUIVisualizationRainbowSettings dataValueRainBow;

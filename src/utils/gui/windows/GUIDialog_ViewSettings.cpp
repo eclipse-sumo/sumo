@@ -318,6 +318,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
 
         myDataValuePanel->update(mySettings->dataValue);
         myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
+        myDataScaleMode->setCurrentItem((FXint) mySettings->dataScaler.getActive());
         myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
         myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
         myDataRainbowPanel->update(mySettings->dataValueRainBow);
@@ -543,6 +544,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     int prevPOIMode = mySettings->poiColorer.getActive();
     int prevPolyMode = mySettings->polyColorer.getActive();
     int prevDataMode = mySettings->dataColorer.getActive();
+    int prevDataScaleMode = mySettings->dataScaler.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -645,6 +647,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         if (tmpSettings.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             tmpSettings.relDataAttr = myDataParamKey->getText().text();
         }
+    } else if (sender == myDataScaleParamKey) {
+        if (tmpSettings.dataScaler.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            tmpSettings.relDataScaleAttr = myDataScaleParamKey->getText().text();
+        }
     } else if (sender == myVehicleTextPanel->myCheck) {
         updateVehicleParams();
     } else if (sender == myVehicleTextParamKey) {
@@ -727,6 +733,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     if (mySettings->netedit) {
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.dataColorer.setActive(myDataColorMode->getCurrentItem());
+        tmpSettings.dataScaler.setActive(myDataScaleMode->getCurrentItem());
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
         tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
@@ -905,6 +912,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
             }
             if (sender == myDataColorInterpolation) {
                 tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
+                doRebuildColorMatrices = true;
+            }
+        } else {
+            doRebuildColorMatrices = true;
+        }
+        // vehicles (scaling)
+        if (tmpSettings.dataScaler.getActive() == prevDataScaleMode) {
+            if (updateScaleRanges(sender, myDataScales.begin(), myDataScales.end(),
+                        myDataScaleThresholds.begin(), myDataScaleThresholds.end(), myDataScaleButtons.begin(),
+                        tmpSettings.dataScaler.getScheme())) {
+                doRebuildColorMatrices = true;
+            }
+            if (sender == myDataScaleInterpolation) {
+                tmpSettings.dataScaler.getScheme().setInterpolated(myDataScaleInterpolation->getCheck() != FALSE);
                 doRebuildColorMatrices = true;
             }
         } else {
@@ -1571,6 +1592,26 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
             myDataParamKey->disable();
         }
         myDataColorSettingFrame->getParent()->recalc();
+
+        // scaling
+        m = rebuildScaleMatrix(myDataScaleSettingFrame, myDataScales, myDataScaleThresholds, myDataScaleButtons, myDataScaleInterpolation, mySettings->dataScaler.getScheme());
+        if (doCreate) {
+            m->create();
+        }
+        activeScaleSchemeName = myDataScaleMode->getText().text();
+        if (activeScaleSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            myDataScaleParamKey->clearItems();
+            myDataScaleParamKey->appendItem(mySettings->relDataScaleAttr.c_str());
+            for (const std::string& attr : myParent->getRelDataAttrs()) {
+                if (attr != mySettings->relDataScaleAttr) {
+                    myDataScaleParamKey->appendItem(attr.c_str());
+                }
+            }
+            myDataScaleParamKey->enable();
+        } else {
+            myDataScaleParamKey->disable();
+        }
+        myDataScaleSettingFrame->getParent()->recalc();
     }
 
     layout();
@@ -2387,6 +2428,21 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     myDataRainbowPanel = new RainbowPanel(verticalFrame2, this, mySettings->dataValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    // data scale settings
+    FXVerticalFrame* verticalFrameDataScale = new FXVerticalFrame(verticalFrame2, GUIDesignViewSettingsVerticalFrame6);
+    FXMatrix* matrixDataScale = new FXMatrix(verticalFrameDataScale, 4, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixDataScale, TL("Scale size"), nullptr, GUIDesignViewSettingsLabel1);
+    myDataScaleMode = new MFXComboBoxIcon(matrixDataScale, nullptr, true, GUIDesignComboBoxVisibleItems,
+            this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataScaleInterpolation = new FXCheckButton(matrixDataScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myDataScaleParamKey = new FXComboBox(matrixDataScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataScaleParamKey->setEditable(true);
+    myDataScaleParamKey->disable();
+    myDataScaleSettingFrame = new FXVerticalFrame(verticalFrameDataScale, GUIDesignViewSettingsVerticalFrame4);
+    mySettings->dataScaler.fill(*myDataScaleMode);
+    new FXHorizontalSeparator(verticalFrame2, GUIDesignHorizontalSeparator);
+
     FXMatrix* m112 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
 
     new FXLabel(m112, TL("Exaggerate edgeRelation width by"), nullptr, GUIDesignViewSettingsLabel1);

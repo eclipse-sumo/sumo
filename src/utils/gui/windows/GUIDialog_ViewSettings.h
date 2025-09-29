@@ -446,7 +446,7 @@ protected:
     FXCheckButton* myPolyUseCustomLayer = nullptr;
     FXRealSpinner* myPolyCustomLayer = nullptr;
 
-    /// @brief Data
+    /// @brief Data color
     MFXComboBoxIcon* myDataColorMode = nullptr;
     FXVerticalFrame* myDataColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myDataColors;
@@ -456,6 +456,15 @@ protected:
     FXComboBox* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
+
+    /// @brief Data scaler
+    MFXComboBoxIcon* myDataScaleMode = nullptr;
+    FXVerticalFrame* myDataScaleSettingFrame = nullptr;
+    std::vector<FXRealSpinner*> myDataScales;
+    std::vector<FXRealSpinner*> myDataScaleThresholds;
+    std::vector<FXButton*> myDataScaleButtons;
+    FXCheckButton* myDataScaleInterpolation = nullptr;
+    FXComboBox* myDataScaleParamKey = nullptr;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane = nullptr;

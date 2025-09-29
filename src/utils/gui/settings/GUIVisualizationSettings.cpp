@@ -652,6 +652,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
+    relDataScaleAttr("count"),
     dataValueRainBow(false, -100, false, 100, false, 0, false, 1),
     ignoreColorSchemeFor3DVehicles(false),
     show3DTLSLinkMarkers(true),
@@ -1822,6 +1823,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         vehScheme.setAllowsNegativeValues(true);
         vehicleScaler.addScheme(vehScheme);
     }
+    // dummy schemes
+    dataScaler.addScheme(GUIScaleScheme(TL("uniform"), 1, "", true));
 }
 
 
@@ -1998,6 +2001,20 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, TL(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     dataColorer.addScheme(scheme);
+
+    /// add data scaling schemes
+    dataScaler.addScheme(GUIScaleScheme(TL("uniform"), 1, "", true));
+    GUIScaleScheme dataScheme = GUIScaleScheme(SCHEME_NAME_SELECTION, TL(SCHEME_NAME_SELECTION.c_str()), 1, TL("unselected"), true, 0, COL_SCHEME_MISC);
+    dataScheme.addColor(5, 1., TL("selected"));
+    dataScaler.addScheme(dataScheme);
+    dataScheme = GUIScaleScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, TL(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL.c_str()), 1);
+    dataScheme.setAllowsNegativeValues(true);
+    dataScheme.addColor(1, 1); 
+    dataScheme.addColor(5, 100); 
+    dataScheme.addColor(10, 1000);
+    dataScheme.addColor(20, 10000);
+    dataScheme.addColor(30, 100000);
+    dataScaler.addScheme(dataScheme);
 
     // dummy schemes
     vehicleColorer.addScheme(GUIColorScheme("uniform", TL("uniform"), RGBColor::YELLOW, "", true));
@@ -2655,6 +2672,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (!(dataColorer == v2.dataColorer)) {
         return false;
     }
+    if (!(dataScaler == v2.dataScaler)) {
+        return false;
+    }
     if (!(dataValue == v2.dataValue)) {
         return false;
     }
@@ -2665,6 +2685,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (!(relDataAttr == v2.relDataAttr)) {
+        return false;
+    }
+    if (!(relDataScaleAttr == v2.relDataScaleAttr)) {
         return false;
     }
     if (!(dataValueRainBow == v2.dataValueRainBow)) {
