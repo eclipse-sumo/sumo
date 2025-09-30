@@ -1164,10 +1164,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by TAZ (streetwise)", TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), "no TAZ", true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, TL(SCHEME_NAME_LANE_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, TL(SCHEME_NAME_LANE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, TL(SCHEME_NAME_EDGEDATA_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
@@ -1403,7 +1403,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "1.5");
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_PARAM_NUMERICAL, TL(SCHEME_NAME_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_PARAM_NUMERICAL, TL(SCHEME_NAME_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     vehicleColorer.addScheme(GUIColorScheme("random", TL("random"), RGBColor::YELLOW, "", true));
@@ -1691,7 +1691,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by TAZ (streetwise)", TL("by TAZ (streetwise)"), RGBColor(204, 204, 204), TL("no TAZ"), true);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, TL(SCHEME_NAME_EDGEDATA_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
@@ -1819,7 +1819,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         vehScheme.addColor(10, 900.);
         vehScheme.setAllowsNegativeValues(true);
         vehicleScaler.addScheme(vehScheme);
-        vehScheme = GUIScaleScheme(SCHEME_NAME_PARAM_NUMERICAL, TL(SCHEME_NAME_PARAM_NUMERICAL.c_str()), 1);
+        vehScheme = GUIScaleScheme(SCHEME_NAME_PARAM_NUMERICAL, TL(SCHEME_NAME_PARAM_NUMERICAL.c_str()), 1, TL("missing data"), false, MISSING_DATA);
         vehScheme.setAllowsNegativeValues(true);
         vehicleScaler.addScheme(vehScheme);
     }
@@ -1917,10 +1917,10 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::BLUE, -0.3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, TL(SCHEME_NAME_EDGE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, TL(SCHEME_NAME_LANE_PARAM_NUMERICAL.c_str()), RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, TL(SCHEME_NAME_LANE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
@@ -2007,7 +2007,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     GUIScaleScheme dataScheme = GUIScaleScheme(SCHEME_NAME_SELECTION, TL(SCHEME_NAME_SELECTION.c_str()), 1, TL("unselected"), true, 0, COL_SCHEME_MISC);
     dataScheme.addColor(5, 1., TL("selected"));
     dataScaler.addScheme(dataScheme);
-    dataScheme = GUIScaleScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, TL(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL.c_str()), 1);
+    dataScheme = GUIScaleScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, TL(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL.c_str()), 1, TL("missing data"), false, MISSING_DATA);
     dataScheme.setAllowsNegativeValues(true);
     dataScheme.addColor(1, 1); 
     dataScheme.addColor(5, 100); 
