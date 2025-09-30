@@ -2131,7 +2131,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleScaleMode", vehicleScaler.getActive());
     dev.writeAttr("vehicleQuality", vehicleQuality);
     vehicleSize.print(dev, "vehicle");
-    vehicleValueRainBow.print(dev, "vehicleValue");
+    vehicleValueRainBow.print(dev, "vehicleValueRainbow");
     dev.writeAttr("showBlinker", showBlinker);
     dev.writeAttr("drawMinGap", drawMinGap);
     dev.writeAttr("drawBrakeGap", drawBrakeGap);
@@ -2287,6 +2287,25 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("polyCustomLayer", polyCustomLayer);
     polyColorer.save(dev);
     dev.closeTag();
+    // data
+    if (netedit) {
+        dev.openTag(SUMO_TAG_VIEWSETTINGS_DATA);
+        dev.writeAttr("dataMode", dataColorer.getActive());
+        dev.lf();
+        dev << "                  ";
+        dev.writeAttr("dataScaler", dataScaler.getActive());
+        dev.lf();
+        dev << "                  ";
+        dataValueRainBow.print(dev, "dataValueRainbow");
+        dataValue.print(dev, "dataValue");
+        dev.writeAttr("tazRelExaggeration", tazRelWidthExaggeration);
+        dev.writeAttr("edgeRelExaggeration", edgeRelWidthExaggeration);
+        dev.writeAttr("relDataAttr", relDataAttr);
+        dev.writeAttr("relDataScaleAttr", relDataScaleAttr);
+        dataColorer.save(dev);
+        dataScaler.save(dev);
+        dev.closeTag();
+    }
     // 3D
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
     dev.writeAttr("ignoreColorSchemeFor3DVehicles", ignoreColorSchemeFor3DVehicles);

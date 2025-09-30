@@ -194,6 +194,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "additionals",                            SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
     { "pois",                                   SUMO_TAG_VIEWSETTINGS_POIS },
     { "polys",                                  SUMO_TAG_VIEWSETTINGS_POLYS },
+    { "dataSettings",                           SUMO_TAG_VIEWSETTINGS_DATA },
     { "legend",                                 SUMO_TAG_VIEWSETTINGS_LEGEND },
     { "event",                                  SUMO_TAG_VIEWSETTINGS_EVENT },
     { "jamTime",                                SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME },
