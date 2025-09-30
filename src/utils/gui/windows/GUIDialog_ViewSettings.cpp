@@ -1327,6 +1327,9 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             } else {
                 buttons.push_back(GUIDesigns::buildFXButton(m, TL("Add"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.push_back(GUIDesigns::buildFXButton(m, TL("Remove"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                if (scheme.getColors().size() == 1) {
+                    buttons.back()->disable();
+                }
             }
         }
         colIt++;
@@ -1392,6 +1395,9 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             } else {
                 buttons.push_back(GUIDesigns::buildFXButton(m, TL("Add"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.push_back(GUIDesigns::buildFXButton(m, TL("Remove"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                if (scheme.getColors().size() == 1) {
+                    buttons.back()->disable();
+                }
             }
         }
         scaleIt++;
