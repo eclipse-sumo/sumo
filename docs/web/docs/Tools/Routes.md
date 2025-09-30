@@ -456,13 +456,22 @@ The output is a standard sumo route file
 </routes>
 ```
 
-The option **--geo** enables the conversion of the input coordinates with
-the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using
-the option **--vehicle-class**, the mapping algorithm will consider only edges where
-this vehicle class is allowed. If the network contains many multi-lane edges, it
-may be beneficial to increase the accepted **--delta** distance between trace points and
-the edge reference line. The mapping algorithm is also available in the
-python library function sumolib.route.mapTrace.
+Options:
+
+  - **--geo**: enables the conversion of the input coordinates with
+the parameters given in the network.
+  - **--vehicle-class**: If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using the option, the mapping algorithm will consider only edges where
+this vehicle class is allowed.
+  - **--delta**: increase the accepted distance between trace points and
+the edge reference line (default is *1*). If the network contains multi-lane edges, this option should be set to the maximum edge with in m.
+  - **--fill-gaps**: repair disconnected routes by filling gaps up to the given distance in m (default 0).
+
+
+!!! note
+     The mapping algorithm is also available in the python library function sumolib.route.mapTrace.
+
+!!! caution
+    For noisy trace data and traces with a low reporting frequency it is highly recommended to set options **--delta** and **--fill-gaps**.
 
 !!! caution
     Geographic coordinates have to be provided in the lon/lat form (first coordinate is the longitude, second the latitude)!
