@@ -20,11 +20,12 @@
 /****************************************************************************/
 
 #include <signal.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/foxtools/MsgHandlerSynchronized.h>
+#include <netedit/dialogs/GNECrashDialog.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/foxtools/MsgHandlerSynchronized.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -38,6 +39,7 @@
 // ===========================================================================
 // main function
 // ===========================================================================
+
 int
 main(int argc, char** argv) {
     // make the output aware of threading
@@ -51,8 +53,9 @@ main(int argc, char** argv) {
     reg.read();
     // set language
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
+    // declare return value (0 means all ok, 1 means error)
     int ret = 0;
-    // run netedit with try-catch if we're in debug-mode
+    // run netedit with try-catch if we're in release mode
 #ifndef _DEBUG
     try {
 #endif
@@ -114,10 +117,8 @@ main(int argc, char** argv) {
                         // delete netedit
                         delete netedit;
                     } catch (const std::exception& e) {
-                        if (std::string(e.what()) != std::string("")) {
-                            WRITE_ERROR(e.what());
-                        }
-                        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+                        // open crash dialog with the exception
+                        GNECrashDialog(netedit, e);
                         ret = 1;
                     }
                 }
@@ -137,6 +138,7 @@ main(int argc, char** argv) {
         ret = 1;
     }
 #endif
+    // close system frame before return result
     SystemFrame::close();
     return ret;
 }
