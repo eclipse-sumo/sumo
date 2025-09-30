@@ -233,6 +233,7 @@
 #include "icons/tracker.xpm"
 #include "icons/hall_of_fame.xpm"
 #include "icons/clear_message_window.xpm"
+#include "icons/github.xpm"
 
 #include "icons/viewdefault.xpm"
 #include "icons/viewjupedsim.xpm"
@@ -625,6 +626,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+    myIcons[GUIIcon::GITHUB] = new FXXPMIcon(a, github_xpm);
 
     myIcons[GUIIcon::VIEWDEFAULT] = new FXXPMIcon(a, viewdefault_xpm);
     myIcons[GUIIcon::VIEWJUPEDSIM] = new FXXPMIcon(a, viewjupedsim_xpm);
