@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-30 13:12+0000\n"
+"PO-Revision-Date: 2025-09-30 13:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10304,23 +10304,23 @@ msgstr "Leerer Parameterschlüssel"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:518
 msgid "Parameters with empty keys aren't allowed"
-msgstr ""
+msgstr "Parameter mit leeren Schlüsseln sind nicht erlaubt"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:522
 msgid "Invalid Parameter key"
-msgstr ""
+msgstr "Ungültiger Parameterschlüssel"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:522
 msgid "There are keys with invalid characters"
-msgstr ""
+msgstr "Einige Schlüssel enthalten ungültige Zeichen"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Duplicated Parameters"
-msgstr ""
+msgstr "Verdoppelte Parameter"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Parameters with the same key aren't allowed"
-msgstr ""
+msgstr "Mehrere Parameter mit dem gleichen Schlüssel sind nicht erlaubt"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10352,7 +10352,7 @@ msgstr "Allen Fahrzeugen die Zufahrt verweigern"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:139
 msgid "Select vClasses"
-msgstr ""
+msgstr "Fahrzeugklassen auswählen"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:144
 msgid "Default vehicle class"
