@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-30 06:37+0000\n"
+"PO-Revision-Date: 2025-09-30 13:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2791,47 +2791,48 @@ msgstr "Speichervorgang der SUMO-Konfiguration abgebrochen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3591
 msgid "SUMO configuration saved in '%'."
-msgstr ""
+msgstr "Sumo-Konfiguration in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3599
 msgid "Could not save SUMO configuration in '%'."
-msgstr ""
+msgstr "Die sumo-Konfiguration konnte nicht in '%' gespeichert werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:3656
 msgid "TLS Programs saved in '%'."
-msgstr ""
+msgstr "LSA-Programme in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3659
 msgid "Saving TLS Programs failed"
-msgstr ""
+msgstr "Speichervorgang der LSA-Programme fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3700
 msgid "EdgeType saved in '%'."
-msgstr ""
+msgstr "Kantentypen in '%' gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3703
 msgid "Saving edgeTypes failed"
-msgstr ""
+msgstr "Speichervorgang der Kantentypen fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3779
 #: src/netedit/GNEApplicationWindow.cpp:3920
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
-msgstr ""
+msgstr "Datei mit weiteren Elementen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3792
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "weitere Elemente aus '%' laden"
 
 #: src/netedit/GNEApplicationWindow.cpp:3796
 #, c-format
 msgid "Loading of additional file '%' failed."
 msgstr ""
+"Der Ladevorgang der Datei '%' mit weiteren Elementen ist fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3799
 #, c-format
 msgid "Loading of additional file '%' successfully."
-msgstr ""
+msgstr "Die Datei '%' mit weiteren Elementen wurde erfolgreich geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3824
 msgid "reloading additionals"
@@ -10155,7 +10156,7 @@ msgstr "Erneut ausführen"
 #: src/netedit/dialogs/GNEDialog.cpp:436
 #: src/netedit/dialogs/run/GNERunDialog.cpp:211
 msgid "Rerun tool"
-msgstr ""
+msgstr "Werkzeug erneut ausführen"
 
 #: src/netedit/dialogs/GNEDialog.cpp:440
 msgid "Back"
@@ -10163,11 +10164,11 @@ msgstr "Zurück"
 
 #: src/netedit/dialogs/GNEDialog.cpp:440
 msgid "Back to tool dialog"
-msgstr ""
+msgstr "Zurück zum Werkzeugdialog"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:43
 msgid "Custom Geometry Point"
-msgstr ""
+msgstr "Individueller Geometriepunkt"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:70
 msgid "close accepting changes"
@@ -10299,7 +10300,7 @@ msgstr "Parameter"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:518
 msgid "Empty Parameter key"
-msgstr ""
+msgstr "Leerer Parameterschlüssel"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:518
 msgid "Parameters with empty keys aren't allowed"
