@@ -34,6 +34,9 @@ remove_tll_connection
 
 # remove connection and keep fewer than before
 remove_tll_connection2
+
+# deleting all connections from an edge should not trigger turn-around guessing
+remove_all_connections
 patch_crossing
 remove_crossing
 rename_node

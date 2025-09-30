@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <delete from="WC" fromLane="0" to="CN" toLane="0"/>
+    <delete from="WC" fromLane="0" to="CE" toLane="0"/>
+</connections>
