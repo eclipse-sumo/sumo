@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-27 11:25+0000\n"
+"PO-Revision-Date: 2025-09-30 13:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2493,7 +2493,7 @@ msgstr "Coordinata di prova"
 
 #: src/netedit/GNEApplicationWindow.cpp:740
 msgid "netconvert config file"
-msgstr ""
+msgstr "configurazione netconvert"
 
 #: src/netedit/GNEApplicationWindow.cpp:756
 #: src/netedit/GNEApplicationWindow.cpp:3344
@@ -2509,23 +2509,23 @@ msgstr "file OpenStreetMap"
 #: src/netedit/GNEApplicationWindow.cpp:788
 #: src/netedit/GNEApplicationWindow.cpp:3496
 msgid "netedit config file"
-msgstr ""
+msgstr "configurazione netedit"
 
 #: src/netedit/GNEApplicationWindow.cpp:817
 #: src/netedit/GNEApplicationWindow.cpp:3611
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
-msgstr ""
+msgstr "configurazione sumo"
 
 #: src/netedit/GNEApplicationWindow.cpp:919
 #: src/netedit/GNEApplicationWindow.cpp:3729
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "file di definizioni di semafori"
 
 #: src/netedit/GNEApplicationWindow.cpp:958
 #: src/netedit/GNEApplicationWindow.cpp:3755
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "file di tipi di archi"
 
 #: src/netedit/GNEApplicationWindow.cpp:1020
 msgid "Reloading netedit config file '"
@@ -2697,11 +2697,11 @@ msgstr "Ricomputa con opzioni volatili"
 
 #: src/netedit/GNEApplicationWindow.cpp:1820
 msgid "Changes produced in the net due a recomputing with"
-msgstr ""
+msgstr "Modifiche dovute a un ricalcolo della rete con"
 
 #: src/netedit/GNEApplicationWindow.cpp:1821
 msgid "volatile options cannot be undone. Continue?"
-msgstr ""
+msgstr "opzioni volatili non possono essere annullate. Desideri continuare?"
 
 #: src/netedit/GNEApplicationWindow.cpp:2127
 #: src/netedit/GNEApplicationWindow.cpp:2187
