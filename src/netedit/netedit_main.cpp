@@ -116,9 +116,9 @@ main(int argc, char** argv) {
                         delete externalRunner;
                         // delete netedit
                         delete netedit;
-                    } catch (const std::exception& e) {
+                    } catch (const ProcessError& processError) {
                         // open crash dialog with the exception
-                        GNECrashDialog(netedit, e);
+                        GNECrashDialog(netedit, processError);
                         ret = 1;
                     }
                 }

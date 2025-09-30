@@ -18,14 +18,12 @@
 // Dialog used for handling crashes produced in Netedit
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
 
 #include "GNECrashDialog.h"
 
@@ -33,41 +31,29 @@
 // method definitions
 // ===========================================================================
 
-GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const std::exception& e) :
-    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"), GUIIcon::NETEDIT_MINI,
-              DialogType::ABOUT, GNEDialog::Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
-    // Netedit icon
-    new FXLabel(myContentFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
-    // "SUMO <VERSION>"
-    FXVerticalFrame* descriptionFrame = new FXVerticalFrame(myContentFrame, GUIDesignLabelAboutInfo);
-    myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
-    FXLabel* neteditLabel = new FXLabel(descriptionFrame, "SUMO netedit " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo);
-    neteditLabel->setFont(myHeadlineFont);
-    new FXLabel(descriptionFrame, TL("Network editor for Eclipse SUMO, the Simulation of Urban MObility"), nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, TL("Graphical editor for road networks and infrastructure."), nullptr, GUIDesignLabelAboutInfo);
-    // show modules
-    new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
-    // write HAVE_ENABLED with the current modules (except Windows) in debug mode
-    std::string modules(HAVE_ENABLED);
-    while ((modules.size() > 0) && (modules.front() != ' ')) {
-        modules.erase(modules.begin());
-    }
-    // SUMO_HOME
-    new FXLabel(descriptionFrame, std::string("SUMO_HOME: " + std::string(getenv("SUMO_HOME"))).c_str(), nullptr, GUIDesignLabelAboutInfo);
-    // copyright notice
-    new FXLabel(myContentFrame, "Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(myContentFrame, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(myContentFrame, TL("These core components are available under the conditions of the Eclipse Public License v2."), nullptr, GUIDesignLabelAboutInfo);
-    (new MFXLinkLabel(myContentFrame, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
-    // link to homepage
-    (new MFXLinkLabel(myContentFrame, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
+GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const ProcessError& processError) :
+    GNEDialog(applicationWindow, TL("Critical error"), GUIIcon::ERROR_SMALL,
+              DialogType::ABOUT, GNEDialog::Buttons::OK, OpenType::MODAL, ResizeMode::RESIZABLE) {
+    // create dialog layout (obtained from FXMessageBox)
+    auto contents = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    // add information label
+    new FXLabel(contents, TL("Netedit found an internal critical error and will be closed:"), NULL, GUIDesignLabel(JUSTIFY_NORMAL));
+    // create text field for exception
+    myExceptionTextField = new MFXTextFieldIcon(contents, applicationWindow->getStaticTooltipMenu(), GUIIcon::EMPTY, nullptr, 0, GUIDesignTextField);
+    myExceptionTextField->setEditable(FALSE);
+    myExceptionTextField->setText(processError.what());
+    // add information label
+    new FXLabel(contents, TL("ErrorTrace:"), NULL, GUIDesignLabel(JUSTIFY_NORMAL));
+    // Área de texto multilínea con scroll
+    FXText* text = new FXText(contents, nullptr, 0, TEXT_WORDWRAP | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    text->setEditable(FALSE);
+    text->setText(processError.getTrace().c_str());
     // open modal dialog
     openDialog();
 }
 
 
 GNECrashDialog::~GNECrashDialog() {
-    delete myHeadlineFont;
 }
 
 

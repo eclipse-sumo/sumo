@@ -20,7 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/UtilExceptions.h>
+
 #include "GNEDialog.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXTextFieldIcon;
 
 // ===========================================================================
 // class definitions
@@ -30,7 +38,7 @@ class GNECrashDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNECrashDialog(GNEApplicationWindow* applicationWindow, const std::exception& e);
+    GNECrashDialog(GNEApplicationWindow* applicationWindow, const ProcessError& processError);
 
     /// @brief Destructor
     ~GNECrashDialog();
@@ -38,10 +46,11 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
+protected:
+    /// @brief exception text field
+    MFXTextFieldIcon* myExceptionTextField = nullptr;
 
+private:
     /// @brief Invalidated copy constructor.
     GNECrashDialog(const GNECrashDialog&) = delete;
 

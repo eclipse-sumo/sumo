@@ -1673,6 +1673,11 @@ enum {
 
     /// @}
 
+    /// @brief copy exception
+    MID_GNE_CRASHDIALOG_COPYEXCEPTION,
+    /// @brief copy trace
+    MID_GNE_CRASHDIALOG_COPYTRACE,
+
     /// @name other
     /// @{
 
