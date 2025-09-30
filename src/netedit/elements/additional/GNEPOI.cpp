@@ -46,8 +46,8 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional("", net, "", tag, ""),
     Shape(""),
+    GNEAdditional("", net, "", tag, ""),
     GNEMoveElementLaneSingle(this),
     GNEMoveElementView(this) {
 }
@@ -56,8 +56,8 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const Position& pos,
                const bool geo, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
     Shape(id, type, color, layer, angle, imgFile, ""),
+    GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
     GNEMoveElementLaneSingle(this),
     GNEMoveElementView(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, height, 0),
     Parameterised(parameters),
@@ -76,8 +76,8 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
     Shape(id, type, color, layer, angle, imgFile, name),
+    GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
     GNEMoveElementLaneSingle(this, lane, posOverLane, friendlyPos),
     GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, Position(0, 0), width, height, 0),
     Parameterised(parameters),

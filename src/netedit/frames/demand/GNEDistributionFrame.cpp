@@ -484,6 +484,7 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),
     myAttributesEditor(attributesEditor) {
+    UNUSED_PARAMETER(distributionValueTag);
     // set relations
     myDistributionEditor->myDistributionSelector = myDistributionSelector;
     myDistributionSelector->myDistributionEditor = myDistributionEditor;
