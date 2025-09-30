@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-30 06:37+0000\n"
+"PO-Revision-Date: 2025-10-01 06:53+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -11602,11 +11602,11 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEPoly.cpp:383
 msgid "Polygon already opened"
-msgstr ""
+msgstr "Polígono já aberto"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:404
 msgid "Polygon already closed"
-msgstr ""
+msgstr "Polígono já fechado"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:415
 msgid "Selected point must be different of the first point"
@@ -11614,11 +11614,11 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEPoly.cpp:476
 msgid "Polygon already simplified"
-msgstr ""
+msgstr "Polígono já simplificado"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:508
 msgid "Using GEO Shape"
-msgstr ""
+msgstr "Usando formato GEO"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:105
 msgid "' needs at least one edge"
@@ -11635,7 +11635,7 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:68
 msgid "add data set"
-msgstr ""
+msgstr "adicionar conjunto de dados"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:92
 msgid "add data set and data interval"
@@ -11643,7 +11643,7 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:108
 msgid "add data interval"
-msgstr ""
+msgstr "adicionar intervalo de dados"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:139
 msgid "There is already a edgeRel defined in edge '%'."
@@ -11652,7 +11652,7 @@ msgstr ""
 #: src/netedit/elements/data/GNEDataHandler.cpp:144
 #: src/netedit/elements/data/GNEDataHandler.cpp:186
 msgid "add edge rel"
-msgstr ""
+msgstr "adicionar relação das arestas"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:182
 msgid "There is already a edgeRel defined between '%' and '%'."
@@ -11669,7 +11669,7 @@ msgstr ""
 #: src/netedit/elements/data/GNEDataHandler.cpp:231
 #: src/netedit/elements/data/GNEDataHandler.cpp:243
 msgid "add TAZ rel"
-msgstr ""
+msgstr "adicionar relação das zonas de tráfego (TAZ)"
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:228
 msgid "GenericData was already inserted"
@@ -11690,7 +11690,7 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEGenericData.cpp:207
 msgid "Open % Dialog"
-msgstr ""
+msgstr "Abrir diálogo %"
 
 #: src/netedit/elements/data/GNEGenericData.cpp:359
 #: src/netedit/elements/network/GNEEdgeType.cpp:148
@@ -11713,7 +11713,7 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:158
 msgid "Edge doesn't exist."
-msgstr ""
+msgstr "A aresta não existe."
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:176
 #, c-format
@@ -11734,11 +11734,11 @@ msgstr "inverter"
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:847
 msgid "reverse current %"
-msgstr ""
+msgstr "inverter % atual"
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:848
 msgid "Add reverse %"
-msgstr ""
+msgstr "Adicionar % inverso"
 
 #: src/netedit/elements/demand/GNEDemandElementPlan.cpp:1256
 #: src/netedit/elements/demand/GNEDemandElementPlan.cpp:1269
@@ -11828,11 +11828,11 @@ msgstr ""
 #: src/netedit/elements/demand/GNERoute.cpp:726
 #: src/netedit/elements/demand/GNEVehicle.cpp:1857
 msgid "copy % '%'"
-msgstr ""
+msgstr "copiar % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:87
 msgid "delete % '%'"
-msgstr ""
+msgstr "deletar % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:124
 msgid "VType '%' with probability % cannot be referenced with distribution '%'"
@@ -11858,7 +11858,7 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteHandler.cpp:978
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1012
 msgid "add % '%'"
-msgstr ""
+msgstr "adicionar % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:228
 msgid "Route '%' with probability % cannot be referenced with distribution '%'"
@@ -11989,7 +11989,7 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNEStop.cpp:359
 msgid "Invalid Stop parent"
-msgstr ""
+msgstr "Elemento pai de parada inválido"
 
 #: src/netedit/elements/demand/GNEStop.cpp:373
 msgid "Invalid parent"
@@ -12003,23 +12003,23 @@ msgstr "transformar em"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:87
 msgid "Trip (over junctions)"
-msgstr ""
+msgstr "Viagem (sobre junções)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:91
 msgid "Flow (over junctions)"
-msgstr ""
+msgstr "Fluxo (sobre junções)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:101
 msgid "Trip (over TAZs)"
-msgstr ""
+msgstr "Viagem (sobre zonas de tráfego (TAZ))"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:105
 msgid "Flow (over TAZs)"
-msgstr ""
+msgstr "Fluxo (sobre zonas de tráfego (TAZ))"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:119
 msgid "Vehicle (embedded route)"
-msgstr ""
+msgstr "Veículo (com rota integrada)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:123
 msgid "RouteFlow"
@@ -12027,7 +12027,7 @@ msgstr "Fluxo da rota"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:127
 msgid "RouteFlow (embedded route)"
-msgstr ""
+msgstr "Fluxo de rotas (com rota integrada)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:131
 msgid "Trip"
@@ -12037,7 +12037,7 @@ msgstr "Viagem"
 #: src/netedit/elements/demand/GNEVehicle.cpp:227
 #: src/netedit/elements/demand/GNEVehicle.cpp:248
 msgid "transform selected to"
-msgstr ""
+msgstr "transformar selecionados em"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:209
 msgid "Trips (over junctions) (only %)"
@@ -12049,11 +12049,11 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:218
 msgid "Trips (over junctions)"
-msgstr ""
+msgstr "Viagens (sobre junções)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:221
 msgid "Flows (over junctions)"
-msgstr ""
+msgstr "Fluxos (sobre junções)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:230
 msgid "Trips (over TAZs) (only %)"
@@ -12065,15 +12065,15 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:239
 msgid "Trips (over TAZs)"
-msgstr ""
+msgstr "Viagens (sobre zonas de tráfego (TAZ))"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:242
 msgid "Flows (over TAZs)"
-msgstr ""
+msgstr "Fluxos (sobre zonas de tráfego (TAZ))"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:251
 msgid "Vehicles (only %)"
-msgstr ""
+msgstr "Veículos (somente %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:254
 msgid "Vehicles (embedded route) (only %)"
@@ -12081,7 +12081,7 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:257
 msgid "RouteFlows (only %)"
-msgstr ""
+msgstr "Fluxos de rotas (somente %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:260
 msgid "RouteFlows (embedded route) (only %)"
@@ -12089,15 +12089,15 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:263
 msgid "Trips (only %)"
-msgstr ""
+msgstr "Viagens (somente %"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:266
 msgid "Flows (only %)"
-msgstr ""
+msgstr "Fluxos (somente %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:275
 msgid "Vehicles (embedded route)"
-msgstr ""
+msgstr "Veículos (com rota integrada)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:278
 msgid "RouteFlows"
@@ -12637,19 +12637,19 @@ msgstr ""
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:62
 msgid "Abort path creation"
-msgstr ""
+msgstr "Abortar criação de caminho"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:65
 msgid "Remove last lane"
-msgstr ""
+msgstr "Remover última faixa"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:68
 msgid "Show candidate lanes"
-msgstr ""
+msgstr "Mostrar faixas candidatas"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:71
 msgid "-BACKSPACE: undo click"
-msgstr ""
+msgstr "-BACKSPACE: desfazer clique"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:71
 msgid "-ESC: Abort path creation"
@@ -12669,7 +12669,7 @@ msgstr "criação de rota"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:403
 msgid "- Selected lanes: "
-msgstr ""
+msgstr "- Faixas selecionadas: "
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:404
 #: src/netedit/frames/GNEPathCreator.cpp:819
@@ -12920,7 +12920,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:478
 msgid "Show all attributes"
-msgstr ""
+msgstr "Mostrar todos os atributos"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:480
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:504
@@ -12954,7 +12954,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:242
 msgid "   position to inspect"
-msgstr ""
+msgstr "   posição para inspecionar"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:243
 msgid "   previous element"
@@ -12962,7 +12962,7 @@ msgstr "   elemento anterior"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:246
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "Ajuda para atributos GEO"
 
 #: src/netedit/frames/GNEPathCreator.cpp:126
 #: src/netedit/frames/GNEPlanCreator.cpp:152
@@ -12973,42 +12973,42 @@ msgstr "Criador de rotas"
 #: src/netedit/frames/GNEPathCreator.cpp:824
 #: src/netedit/frames/network/GNETAZFrame.cpp:1147
 msgid "No edges selected"
-msgstr ""
+msgstr "Não há arestas selecionadas"
 
 #: src/netedit/frames/GNEPathCreator.cpp:135
 #: src/netedit/frames/GNEPlanCreator.cpp:158
 msgid "Use last route"
-msgstr ""
+msgstr "Usar última rota"
 
 #: src/netedit/frames/GNEPathCreator.cpp:138
 #: src/netedit/frames/GNEPlanCreator.cpp:161
 msgid "Finish route creation"
-msgstr ""
+msgstr "Finalizar criação de rota"
 
 #: src/netedit/frames/GNEPathCreator.cpp:141
 #: src/netedit/frames/GNEPlanCreator.cpp:164
 msgid "Abort route creation"
-msgstr ""
+msgstr "Cancelar criação de rota"
 
 #: src/netedit/frames/GNEPathCreator.cpp:144
 msgid "Remove last edge"
-msgstr ""
+msgstr "Remover última aresta"
 
 #: src/netedit/frames/GNEPathCreator.cpp:147
 msgid "Show candidate edges"
-msgstr ""
+msgstr "Mostrar arestas candidatas"
 
 #: src/netedit/frames/GNEPathCreator.cpp:151
 msgid "SHIFT-click: ignore vClass"
-msgstr ""
+msgstr "SHIFT-clique: ignorar classe de veículo"
 
 #: src/netedit/frames/GNEPathCreator.cpp:155
 msgid "CTRL-click: force add"
-msgstr ""
+msgstr "CTRL-clique: forçar a inclusão"
 
 #: src/netedit/frames/GNEPathCreator.cpp:159
 msgid "BACKSPACE: undo click"
-msgstr ""
+msgstr "BACKSPACE: desfazer clique"
 
 #: src/netedit/frames/GNEPathCreator.cpp:277
 #: src/netedit/frames/GNEPlanCreator.cpp:779
@@ -13064,15 +13064,15 @@ msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:817
 msgid "- Selected edges: "
-msgstr ""
+msgstr "- Arestas selecionadas: "
 
 #: src/netedit/frames/GNEPathCreator.cpp:818
 msgid "- Path edges: "
-msgstr ""
+msgstr "- Arestas da rota: "
 
 #: src/netedit/frames/GNEPathCreator.cpp:820
 msgid "- Average speed: "
-msgstr ""
+msgstr "- Velocidade média: "
 
 #: src/netedit/frames/GNEPathLegendModule.cpp:32
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:32
@@ -13094,7 +13094,7 @@ msgstr " aresta candidata"
 #: src/netedit/frames/GNEPathLegendModule.cpp:40
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:51
 msgid " last edge selected"
-msgstr ""
+msgstr " última aresta selecionada"
 
 #: src/netedit/frames/GNEPathLegendModule.cpp:43
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:54
@@ -13103,7 +13103,7 @@ msgstr " aresta selecionada"
 
 #: src/netedit/frames/GNEPathLegendModule.cpp:46
 msgid " edge conflict (vClass)"
-msgstr ""
+msgstr " aresta em conflito (vClass)"
 
 #: src/netedit/frames/GNEPathLegendModule.cpp:49
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:57
@@ -13112,7 +13112,7 @@ msgstr " aresta desconectada"
 
 #: src/netedit/frames/GNEPlanCreator.cpp:167
 msgid "Remove last element"
-msgstr ""
+msgstr "Remover último elemento"
 
 #: src/netedit/frames/GNEPlanCreator.cpp:695
 msgid "Click over:"
@@ -13151,7 +13151,7 @@ msgstr "Selecionar elemento pai"
 
 #: src/netedit/frames/GNESelectorParent.cpp:38
 msgid "No element selected"
-msgstr ""
+msgstr "Não há elemento selecionado"
 
 #: src/netedit/frames/GNESelectorParent.cpp:81
 msgid "Parent type: "
@@ -13193,7 +13193,7 @@ msgstr "Adicionar fase"
 
 #: src/netedit/frames/GNETLSTable.cpp:712
 msgid "Add new phase."
-msgstr ""
+msgstr "Adiciona uma nova fase."
 
 #: src/netedit/frames/GNETLSTable.cpp:717
 msgid "Default phase"
@@ -13201,7 +13201,7 @@ msgstr "Fase padrão"
 
 #: src/netedit/frames/GNETLSTable.cpp:717
 msgid "Add default phase."
-msgstr ""
+msgstr "Adicionar fase padrão."
 
 #: src/netedit/frames/GNETLSTable.cpp:722
 msgid "Duplicate phase"
@@ -13209,7 +13209,7 @@ msgstr "Duplicar fase"
 
 #: src/netedit/frames/GNETLSTable.cpp:722
 msgid "Duplicate this phase."
-msgstr ""
+msgstr "Duplica essa fase."
 
 #: src/netedit/frames/GNETLSTable.cpp:727
 msgid "Red phase"
@@ -13217,7 +13217,7 @@ msgstr "Fase vermelha"
 
 #: src/netedit/frames/GNETLSTable.cpp:727
 msgid "Add red phase."
-msgstr ""
+msgstr "Adiciona uma fase vermelha."
 
 #: src/netedit/frames/GNETLSTable.cpp:732
 msgid "Yellow phase"
@@ -13225,7 +13225,7 @@ msgstr "Fase amarela"
 
 #: src/netedit/frames/GNETLSTable.cpp:732
 msgid "Add yellow phase."
-msgstr ""
+msgstr "Adiciona uma fase amarela."
 
 #: src/netedit/frames/GNETLSTable.cpp:737
 msgid "Green phase"
@@ -13233,11 +13233,11 @@ msgstr "Fase verde"
 
 #: src/netedit/frames/GNETLSTable.cpp:737
 msgid "Add green phase."
-msgstr ""
+msgstr "Adiciona uma fase verde."
 
 #: src/netedit/frames/GNETLSTable.cpp:742
 msgid "Green priority phase"
-msgstr ""
+msgstr "Fase verde com prioridade"
 
 #: src/netedit/frames/GNETLSTable.cpp:742
 msgid "Add green priority phase."
@@ -13257,11 +13257,11 @@ msgstr "Deletar fase"
 
 #: src/netedit/frames/GNETLSTable.cpp:1287
 msgid "Delete this phase."
-msgstr ""
+msgstr "Deleta essa fase."
 
 #: src/netedit/frames/GNETLSTable.cpp:1295
 msgid "Move phase up"
-msgstr ""
+msgstr "Mover fase para cima"
 
 #: src/netedit/frames/GNETLSTable.cpp:1295
 msgid "Move this phase up."
@@ -13269,7 +13269,7 @@ msgstr ""
 
 #: src/netedit/frames/GNETLSTable.cpp:1303
 msgid "Move phase down"
-msgstr ""
+msgstr "Mover fase para baixo"
 
 #: src/netedit/frames/GNETLSTable.cpp:1303
 msgid "Move this phase down."
@@ -13346,7 +13346,7 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:87
 #, c-format
 msgid "Use selected %s"
-msgstr ""
+msgstr "Usar % selecionados"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
@@ -13360,7 +13360,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:63
 msgid "Delete geometry points"
-msgstr ""
+msgstr "Deletar pontos de geometria"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:238
 msgid "Protect Elements"
@@ -13372,7 +13372,7 @@ msgstr "Proteger tudo"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:241
 msgid "Protect all elements"
-msgstr ""
+msgstr "Proteger todos os elementos"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:245
 msgid "Unprotect all"
@@ -13380,27 +13380,27 @@ msgstr "Desproteger tudo"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:245
 msgid "Unprotect all elements"
-msgstr ""
+msgstr "Desproteger todos os elementos"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:247
 msgid "Protect additional elements"
-msgstr ""
+msgstr "Proteger elementos adicionais"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:250
 msgid "Protect TAZ elements"
-msgstr ""
+msgstr "Proteger elementos de zonas de tráfego (TAZ)"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:253
 msgid "Protect demand elements"
-msgstr ""
+msgstr "Proteger elementos de demanda"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:256
 msgid "Protect data elements"
-msgstr ""
+msgstr "Proteger elementos de dados"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:373
 msgid "remove selected items"
-msgstr ""
+msgstr "remover itens selecionados"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:64
 msgid "Templates"
@@ -13408,7 +13408,7 @@ msgstr "Modelos"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:68
 msgid "Set as Template"
-msgstr ""
+msgstr "Usar como modelo"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:72
 msgid "clear Edge Template"
