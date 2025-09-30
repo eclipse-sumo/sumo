@@ -72,12 +72,12 @@ public:
         ABORT,  // dialog was closed aborting changes (used in abort button)
     };
 
-    /// @brief constructor for resizable dialogs
+    /// @brief basic constructor
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
               ResizeMode resizeMode);
 
-    /// @brief constructor for resizable dialogs with layout explicit
+    /// @brief constructor with layout explicit
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
               ResizeMode resizeMode, const int width, const int height);
