@@ -40,6 +40,7 @@ set(utils_common_STAT_SRCS
    SysUtils.h
    SysUtils.cpp
    ToString.h
+   UtilExceptions.cpp
    UtilExceptions.h
    ValueRetriever.h
    ValueSource.h
