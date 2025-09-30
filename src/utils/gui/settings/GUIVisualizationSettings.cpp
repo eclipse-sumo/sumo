@@ -1936,6 +1936,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
+    /// add junction coloring schemes
     scheme = GUIColorScheme("uniform", TL("uniform"), RGBColor(102, 0, 0), "", true);
     scheme.addColor(RGBColor(204, 0, 0), 1, TL("junction bubble"));
     scheme.addColor(RGBColor(230, 100, 115), 2, TL("geometry points"));
