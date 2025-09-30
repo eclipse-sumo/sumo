@@ -458,13 +458,13 @@ The output is a standard sumo route file
 
 Options:
 
-  - **--geo**: enables the conversion of the input coordinates with
+- **--geo**: enables the conversion of the input coordinates with
 the parameters given in the network.
-  - **--vehicle-class**: If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using the option, the mapping algorithm will consider only edges where
+- **--vehicle-class**: If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using the option, the mapping algorithm will consider only edges where
 this vehicle class is allowed.
-  - **--delta**: increase the accepted distance between trace points and
+- **--delta**: increase the accepted distance between trace points and
 the edge reference line (default is *1*). If the network contains multi-lane edges, this option should be set to the maximum edge with in m.
-  - **--fill-gaps**: repair disconnected routes by filling gaps up to the given distance in m (default 0).
+- **--fill-gaps**: repair disconnected routes by filling gaps up to the given distance in m (default 0).
 
 
 !!! note
