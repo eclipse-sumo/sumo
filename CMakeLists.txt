@@ -514,9 +514,7 @@ if (EIGEN3_FOUND)
 endif (EIGEN3_FOUND)
 
 # BOOST (needed for stacktrace, minimum version 1.65.0)
-if(EXISTS "${BOOST_PATH}/boost/version.hpp")
-    find_package(Boost 1.65.0 QUIET)
-endif()
+find_package(Boost 1.65.0 QUIET)
 
 # init boost library
 set(BOOST_LIBRARIES "")
