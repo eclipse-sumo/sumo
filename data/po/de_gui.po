@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-30 13:15+0000\n"
+"PO-Revision-Date: 2025-10-01 06:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2846,11 +2846,11 @@ msgstr "Das erneute Laden der Datei '%' ist fehlgeschlagen."
 #: src/netedit/GNEApplicationWindow.cpp:3837
 #, c-format
 msgid "Reloading of additional file '%' successfully."
-msgstr ""
+msgstr "Die Datei '%' mit weiteren Elementen wurde erfolgreich erneut geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3892
 msgid "Additionals saved."
-msgstr ""
+msgstr "Weitere Elemente gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3895
 msgid "Saving additional aborted."
