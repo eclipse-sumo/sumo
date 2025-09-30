@@ -27,13 +27,27 @@
 
 #include "GNECrashDialog.h"
 
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+// Map
+FXDEFMAP(GNECrashDialog) GNECrashDialogMap[] = {
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,  GNECrashDialog::onClipboardRequest)
+};
+
+// Object implementation
+FXIMPLEMENT(GNECrashDialog, GNEDialog, GNECrashDialogMap, ARRAYNUMBER(GNECrashDialogMap))
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const ProcessError& processError) :
     GNEDialog(applicationWindow, TL("Critical error"), GUIIcon::ERROR_SMALL,
-              DialogType::ABOUT, GNEDialog::Buttons::OK, OpenType::MODAL, ResizeMode::RESIZABLE) {
+              DialogType::ABOUT, GNEDialog::Buttons::OK_COPY_REPORT, OpenType::MODAL, ResizeMode::RESIZABLE, 800, 600),
+    myTraceText(processError.getTrace()) {
     // create dialog layout (obtained from FXMessageBox)
     auto contents = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add information label
@@ -47,7 +61,7 @@ GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const Pr
     // Área de texto multilínea con scroll
     FXText* text = new FXText(contents, nullptr, 0, TEXT_WORDWRAP | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     text->setEditable(FALSE);
-    text->setText(processError.getTrace().c_str());
+    text->setText(myTraceText.c_str());
     // open modal dialog
     openDialog();
 }
@@ -60,6 +74,29 @@ GNECrashDialog::~GNECrashDialog() {
 void
 GNECrashDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
+}
+
+
+long
+GNECrashDialog::onCmdCopy(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
+    setDNDData(FROM_CLIPBOARD, event->target, myTraceText.c_str());
+    return 1;
+}
+
+
+long
+GNECrashDialog::onCmdReport(FXObject*, FXSelector, void*) {
+    // open new issue
+    return MFXLinkLabel::fxexecute("https://github.com/eclipse-sumo/sumo/issues/new");
+}
+
+
+long
+GNECrashDialog::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
+    setDNDData(FROM_CLIPBOARD, event->target, myTraceText.c_str());
+    return 1;
 }
 
 /****************************************************************************/

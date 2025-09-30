@@ -107,22 +107,22 @@ public:
     /// @brief called when abort is called either closing dialog or pressing abort button (can be reimplemented in children)
     virtual long onCmdAbort(FXObject*, FXSelector, void*);
 
-    /// @brief called when reset button is pressed (can be reimplemented in children)
+    /// @brief called when reset button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief called when run button is pressed (can be reimplemented in children)
+    /// @brief called when run button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdRun(FXObject*, FXSelector, void*);
 
-    /// @brief called when back button is pressed (can be reimplemented in children)
+    /// @brief called when back button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdBack(FXObject*, FXSelector, void*);
 
-    /// @brief called when advanced button is pressed (can be reimplemented in children)
+    /// @brief called when advanced button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdAdvanced(FXObject*, FXSelector, void*);
 
-    /// @brief called when copy button is pressed (must be reimplemented in children)
+    /// @brief called when copy button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdCopy(FXObject*, FXSelector, void*);
 
-    /// @brief called when report button is pressed (must be reimplemented in children)
+    /// @brief called when report button is pressed (must be reimplemented in children depending of Buttons)
     virtual long onCmdReport(FXObject*, FXSelector, void*);
 
     /// @brief called when user presses a key on the dialog

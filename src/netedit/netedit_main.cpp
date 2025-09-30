@@ -117,9 +117,14 @@ main(int argc, char** argv) {
                         // delete netedit
                         delete netedit;
                     } catch (const ProcessError& processError) {
+                        // write info
+                        if (std::string(processError.what()).length() > 0) {
+                            WRITE_ERROR(processError.what());
+                        }
+                        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+                        ret = 1;
                         // open crash dialog with the exception
                         GNECrashDialog(netedit, processError);
-                        ret = 1;
                     }
                 }
             }
@@ -128,7 +133,7 @@ main(int argc, char** argv) {
         }
 #ifndef _DEBUG
     } catch (const std::exception& e) {
-        if (std::string(e.what()) != std::string("")) {
+        if (std::string(processError.what()).length() > 0) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

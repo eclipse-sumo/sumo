@@ -35,6 +35,7 @@ class MFXTextFieldIcon;
 // ===========================================================================
 
 class GNECrashDialog : public GNEDialog {
+    FXDECLARE(GNECrashDialog)
 
 public:
     /// @brief Constructor
@@ -46,9 +47,24 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
+    /// @brief called when copy button is pressed
+    long onCmdCopy(FXObject*, FXSelector, void*);
+
+    /// @brief called when report button is pressed
+    long onCmdReport(FXObject*, FXSelector, void*);
+
+    /// @brief called when clipboard is request
+    long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
+
 protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNECrashDialog);
+
     /// @brief exception text field
     MFXTextFieldIcon* myExceptionTextField = nullptr;
+
+    /// @brief trace text
+    std::string myTraceText;
 
 private:
     /// @brief Invalidated copy constructor.
