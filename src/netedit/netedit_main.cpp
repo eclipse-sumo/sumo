@@ -35,9 +35,6 @@
 #include "GNELoadThread.h"
 #include "GNETagPropertiesDatabase.h"
 
-
-// #define SECUREEXCEPTION
-
 // ===========================================================================
 // main function
 // ===========================================================================
@@ -56,7 +53,7 @@ main(int argc, char** argv) {
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
     // run netedit with try-catch if we're in debug-mode
-#ifdef SECUREEXCEPTION
+#ifndef _DEBUG
     try {
 #endif
         // initialise subsystems
@@ -65,7 +62,6 @@ main(int argc, char** argv) {
         GNELoadThread::fillOptions(neteditOptions);
         // set default options
         GNELoadThread::setDefaultOptions(neteditOptions);
-
         // set arguments called through console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
@@ -74,7 +70,7 @@ main(int argc, char** argv) {
         } else {
             // create tagPropertiesdatabase
             const GNETagPropertiesDatabase* tagPropertiesDatabase = new GNETagPropertiesDatabase();
-
+            // check if we're only printing the attributes in console
             if (neteditOptions.isSet("attribute-help-output")) {
                 // write attribute help in console
                 tagPropertiesDatabase->writeAttributeHelp();
@@ -89,39 +85,47 @@ main(int argc, char** argv) {
                 } else {
                     // build the main window
                     GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
-                    // build external runner
-                    GNEExternalRunner* externalRunner = new GNEExternalRunner(netedit);
-                    // set language
-                    gLanguage = neteditOptions.getString("language");
-                    // initialize GUICompleteSchemeStorage
-                    gSchemeStorage.init(&application, true);
-                    // build dependent elements
-                    netedit->dependentBuild();
-                    // add signal handler for CTRL+Q
-                    application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
-                    // Create app
-                    application.create();
-                    // Load configuration given on command line
-                    if (argc > 1) {
-                        // Set default options
-                        OptionsIO::setArgs(argc, argv);
-                        // load options
-                        netedit->loadOptionOnStartup();
+                    try {
+                        // build external runner
+                        GNEExternalRunner* externalRunner = new GNEExternalRunner(netedit);
+                        // set language
+                        gLanguage = neteditOptions.getString("language");
+                        // initialize GUICompleteSchemeStorage
+                        gSchemeStorage.init(&application, true);
+                        // build dependent elements
+                        netedit->dependentBuild();
+                        // add signal handler for CTRL+Q
+                        application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
+                        // Create app
+                        application.create();
+                        // Load configuration given on command line
+                        if (argc > 1) {
+                            // Set default options
+                            OptionsIO::setArgs(argc, argv);
+                            // load options
+                            netedit->loadOptionOnStartup();
+                        }
+                        // focus window at startup
+                        netedit->setFocus();
+                        // Run
+                        ret = application.run();
+                        // delete external runner
+                        delete externalRunner;
+                        // delete netedit
+                        delete netedit;
+                    } catch (const std::exception& e) {
+                        if (std::string(e.what()) != std::string("")) {
+                            WRITE_ERROR(e.what());
+                        }
+                        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+                        ret = 1;
                     }
-                    // focus window at startup
-                    netedit->setFocus();
-                    // Run
-                    ret = application.run();
-                    // delete external runner
-                    delete externalRunner;
-                    // delete netedit
-                    delete netedit;
                 }
             }
             // delete tagPropertiesDatabase
             delete tagPropertiesDatabase;
         }
-#ifdef SECUREEXCEPTION
+#ifndef _DEBUG
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
