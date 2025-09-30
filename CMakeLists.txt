@@ -289,7 +289,7 @@ if (GNU_COMPILER AND WIN32)
 endif ()
 
 if (NOT JUPEDSIM_CUSTOMDIR)
-#     check if set JuPedSim directory from SUMOLibraries
+    # check if set JuPedSim directory from SUMOLibraries
     if (SUMO_LIBRARIES AND WIN32)
         file(GLOB JUPEDSIM_CUSTOMDIR_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
         set(JUPEDSIM_CUSTOMDIR "${JUPEDSIM_CUSTOMDIR_SUMOLIBRARIES}")
@@ -319,8 +319,10 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-?.?.?")      # needed for Arrow
     file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?")    # needed for Arrow
     file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-?.??.?") # needed for Arrow
+    file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-?.??.?")
+
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${BOOST_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -510,6 +512,30 @@ if (EIGEN3_FOUND)
     set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
 endif (EIGEN3_FOUND)
+
+# BOOST (needed for stacktrace, minimum version 1.65.0)
+if(EXISTS "${BOOST_PATH}/boost/version.hpp")
+    find_package(Boost 1.65.0 QUIET)
+endif()
+
+# init boost library
+set(BOOST_LIBRARIES "")
+
+# continue if boost was found
+if(Boost_FOUND)
+    message(STATUS "Boost " ${Boost_VERSION_STRING} " found, enabling stacktrace support")
+    set(HAVE_BOOST 1)
+    # set headers
+    include_directories(${Boost_INCLUDE_DIRS})
+    # add boost
+    list(APPEND BOOST_LIBRARIES Boost::boost)
+    # Extra backed for linux (backtrace with more detail)
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        list(APPEND BOOST_LIBRARIES boost_stacktrace_backtrace dl)
+    endif()
+else()
+    message(STATUS "Boost not found, building without stacktrace support")
+endif()
 
 if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")

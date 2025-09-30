@@ -1,16 +1,24 @@
 set(netconvertlibs
-        netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs} ${TCMALLOC_LIBRARY})
+    netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY}
+    netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs
+    ${commonlibs} ${TCMALLOC_LIBRARY})
 
 set(sumolibs
-        traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GEOS_LIBRARY})
+    traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels
+    microsim_devices microsim_trigger microsim_output microsim_transportables
+    microsim_actions microsim_traffic_lights microsim mesosim ${commonvehiclelibs}
+    ${GEOS_LIBRARY} ${BOOST_LIBRARIES})
+
 if (OPENSCENEGRAPH_FOUND)
     set(osgviewlib osgview)
 endif ()
+
 set(sumoguilibs
-        gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_tests utils_gui_tracker utils_foxtools utils_traction_wire ${osgviewlib} microsim traciserver libsumoguistatic ${sumolibs} mesogui
-        ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
+    gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects
+    utils_gui_div utils_gui_settings utils_gui_images utils_gui_cursors
+    utils_gui_shortcuts utils_tests utils_gui_tracker utils_foxtools utils_traction_wire
+    ${osgviewlib} microsim traciserver libsumoguistatic ${sumolibs} mesogui
+    ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set(sumoguilibs ${sumoguilibs} opengl32 glu32)
 endif ()

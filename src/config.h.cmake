@@ -207,6 +207,9 @@
 /* defined if PARQUET is available */
 #cmakedefine HAVE_PARQUET
 
+/* defined if Boost is available */
+#cmakedefine HAVE_BOOST
+
 /* defined if zlib is available */
 #cmakedefine HAVE_ZLIB
 
