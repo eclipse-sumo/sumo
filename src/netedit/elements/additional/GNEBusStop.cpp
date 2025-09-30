@@ -234,7 +234,8 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             return true;
         case SUMO_ATTR_PERSON_CAPACITY:
-            return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
+            return true;
+        //return canParse<int>(value) && (parse<int>(value) > 0 || parse<int>(value) == -1);
         case SUMO_ATTR_PARKING_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         default:
