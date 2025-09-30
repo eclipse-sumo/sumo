@@ -1574,6 +1574,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
 
     // data
     if (mySettings->netedit) {
+        if (mySettings->dataColorer.getScheme().isFixed()) {
+            myDataRainbowPanel->myColorRainbow->disable();
+        } else {
+            myDataRainbowPanel->myColorRainbow->enable();
+        }
         m = rebuildColorMatrix(myDataColorSettingFrame, myDataColors, myDataThresholds, myDataButtons, myDataColorInterpolation, mySettings->dataColorer.getScheme());
         if (doCreate) {
             m->create();
