@@ -203,6 +203,9 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POLYS) {
                 myCurrentScheme = mySettings.polyColorer.getSchemeByName(name);
             }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_DATA) {
+                myCurrentScheme = mySettings.dataColorer.getSchemeByName(name);
+            }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
@@ -227,6 +230,9 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
                 myCurrentScaleScheme = mySettings.vehicleScaler.getSchemeByName(name);
+            }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_DATA) {
+                myCurrentScaleScheme = mySettings.dataScaler.getSchemeByName(name);
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
@@ -382,6 +388,17 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.polyColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
             mySettings.polyUseCustomLayer = StringUtils::toBool(attrs.getStringSecure("polyUseCustomLayer", toString(mySettings.polyUseCustomLayer)));
             mySettings.polyCustomLayer = StringUtils::toDouble(attrs.getStringSecure("polyCustomLayer", toString(mySettings.polyCustomLayer)));
+            myCurrentColorer = element;
+            break;
+        case SUMO_TAG_VIEWSETTINGS_DATA:
+            mySettings.dataColorer.setActive(StringUtils::toInt(attrs.getStringSecure("dataMode", "0")));
+            mySettings.dataScaler.setActive(StringUtils::toInt(attrs.getStringSecure("dataScaleMode", "0")));
+            mySettings.dataValueRainBow = parseRainbowSettings("dataValueRainbow", attrs, mySettings.dataValueRainBow);
+            mySettings.dataValue = parseTextSettings("dataValue", attrs, mySettings.dataValue);
+            mySettings.tazRelWidthExaggeration = StringUtils::toDouble(attrs.getStringSecure("tazRelExaggeration", toString(mySettings.tazRelWidthExaggeration)));
+            mySettings.edgeRelWidthExaggeration = StringUtils::toDouble(attrs.getStringSecure("edgeRelExaggeration", toString(mySettings.edgeRelWidthExaggeration)));
+            mySettings.relDataAttr = attrs.getStringSecure("relDataAttr", mySettings.relDataAttr);
+            mySettings.relDataScaleAttr = attrs.getStringSecure("relDataScaleAttr", mySettings.relDataScaleAttr);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:

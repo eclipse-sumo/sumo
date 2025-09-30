@@ -2293,7 +2293,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         dev.writeAttr("dataMode", dataColorer.getActive());
         dev.lf();
         dev << "                  ";
-        dev.writeAttr("dataScaler", dataScaler.getActive());
+        dev.writeAttr("dataScaleMode", dataScaler.getActive());
         dev.lf();
         dev << "                  ";
         dataValueRainBow.print(dev, "dataValueRainbow");
