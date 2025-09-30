@@ -44,6 +44,16 @@ public:
 
     /// @brief parameter constructor
     ProcessError(const std::string& msg);
+
+    /// @brief get trace
+    const std::string& getTrace() const;
+
+private:
+    /// @brief exception trace
+    std::string myTrace;
+
+    /// @brief process trace
+    void processTrace();
 };
 
 

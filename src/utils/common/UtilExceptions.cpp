@@ -44,12 +44,35 @@
 
 ProcessError::ProcessError() :
     std::runtime_error(TL("Process Error")) {
-    boost::stacktrace::stacktrace st;
+    // process trace
+    processTrace();
 }
 
 
 ProcessError::ProcessError(const std::string& msg) :
     std::runtime_error(msg) {
+    // process trace
+    processTrace();
+}
+
+
+const std::string&
+ProcessError::getTrace() const {
+    return myTrace;
+}
+
+
+void
+ProcessError::processTrace() {
+// only process if we have boost
+#ifdef HAVE_BOOST
+    // declare stacktrace
+    boost::stacktrace::stacktrace st;
+    // convert trace using ostringstream
+    std::ostringstream oss;
+    oss << st;
+    myTrace = oss.str();
+#endif
 }
 
 // ---------------------------------------------------------------------------
