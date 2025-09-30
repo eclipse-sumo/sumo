@@ -1530,6 +1530,10 @@ enum {
     MID_GNE_BUTTON_REMOVE,
     /// @brief config button (used in GNEFileDialog)
     MID_GNE_BUTTON_CONFIG,
+    /// @brief copy
+    MID_GNE_BUTTON_COPY,
+    /// @brief report
+    MID_GNE_BUTTON_REPORT,
 
     /// @}
 

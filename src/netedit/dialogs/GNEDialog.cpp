@@ -40,6 +40,8 @@ FXDEFMAP(GNEDialog) MFXDialogBoxMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,         GNEDialog::onCmdRun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,        GNEDialog::onCmdBack),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,    GNEDialog::onCmdAdvanced),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_COPY,        GNEDialog::onCmdCopy),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REPORT,      GNEDialog::onCmdReport),
     // abort dialog
     FXMAPFUNC(SEL_CLOSE,    0,              GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ESC, GNEDialog::onCmdAbort),
@@ -142,6 +144,18 @@ GNEDialog::onCmdBack(FXObject*, FXSelector, void*) {
 long
 GNEDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
     throw ProcessError("onCmdAdvanced function must be reimplemented in GNEDialog children");
+}
+
+
+long
+GNEDialog::onCmdCopy(FXObject*, FXSelector, void*) {
+    throw ProcessError("onCmdyCopy function must be reimplemented in GNEDialog children");
+}
+
+
+long
+GNEDialog::onCmdReport(FXObject*, FXSelector, void*) {
+    throw ProcessError("onCmdyReport function must be reimplemented in GNEDialog children");
 }
 
 
@@ -444,6 +458,23 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close"),
                              GUIIconSubSys::getIcon(GUIIcon::YES), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            // set focus button
+            myFocusButton = myAcceptButton;
+            break;
+        }
+        case Buttons::OK_COPY_REPORT: {
+            // run/abort button
+            myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", TL("OK"),
+                             GUIIconSubSys::getIcon(GUIIcon::YES), this,
+                             MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            // copy button
+            myCopyButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Copy"), "", TL("Copy error trace to clipboard"),
+                           GUIIconSubSys::getIcon(GUIIcon::COPY), this,
+                           MID_GNE_BUTTON_COPY, GUIDesignButtonDialog);
+            // cancel button
+            myReportButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Report"), "", TL("Report bug to github"),
+                             GUIIconSubSys::getIcon(GUIIcon::GITHUB), this,
+                             MID_GNE_BUTTON_REPORT, GUIDesignButtonDialog);
             // set focus button
             myFocusButton = myAcceptButton;
             break;
