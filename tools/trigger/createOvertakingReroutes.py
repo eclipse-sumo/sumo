@@ -176,6 +176,7 @@ def findSidings(options, routes, switches, net):
 
     # collect sidings after routing
     sidings = dict() # main -> siding
+    warnings = set()
     for route in sumolib.xml.parse(tmpOut, ['route']):
         edges = tuple(route.edges.split())
         fromTo = (edges[0], edges[-1])
@@ -183,8 +184,11 @@ def findSidings(options, routes, switches, net):
             # filter out paths that touch the route
             intersect = usesRoute(routes, rid, fromIndex, toIndex, edges)
             if intersect:
-                print("Discarding candidate siding from '%s' to '%s' because it intersects route '%s' at edge '%s'" % (
-                    fromTo[0], fromTo[1], rid, intersect))
+                warning = (fromTo[0], fromTo[1], intersect)
+                if warning not in warnings:
+                    print("Discarding candidate siding from '%s' to '%s' because it intersects route '%s' at edge '%s'" % (
+                        fromTo[0], fromTo[1], rid, intersect))
+                    warnings.add(warning)
                 continue
             main = routes[rid][fromIndex:toIndex]
             sidings[main] = (rid, fromIndex, edges)
@@ -221,7 +225,7 @@ def filterSidings(options, net, routes, sidings):
                     edges[0], edges[-1], rid, length))
         else:
             print("Discarding candidate siding from '%s' to '%s' for route '%s' because it has no rail_signal" % (
-                edges[0], edgs[-1], rid))
+                edges[0], edges[-1], rid))
 
     return sidings2
 
