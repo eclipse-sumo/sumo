@@ -132,7 +132,7 @@ main(int argc, char** argv) {
             delete tagPropertiesDatabase;
         }
 #ifndef _DEBUG
-    } catch (const ProcessError& e) {
+    } catch (const std::exception& e) {
         if (std::string(e.what()).length() > 0) {
             WRITE_ERROR(e.what());
         }
