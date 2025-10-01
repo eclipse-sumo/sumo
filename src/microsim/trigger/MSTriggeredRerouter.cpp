@@ -63,6 +63,7 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
+//#define DEBUG_OVERTAKING
 #define DEBUGCOND(veh) (veh.isSelected())
 //#define DEBUGCOND(veh) (true)
 //#define DEBUGCOND(veh) (veh.getID() == "")
@@ -951,9 +952,11 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 const double loss = exitMain2Time; // lower bound because veh2 also has to exit the block
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
                 const double netSaving = prio2 * saving - prio * loss;
-                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
-                //    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
-                //    << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+#ifdef DEBUG_OVERTAKING
+                std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
+                    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                    << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+#endif
                 if (netSaving > def->minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
                     if (s != nullptr) {
