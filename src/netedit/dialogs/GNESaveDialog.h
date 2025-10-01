@@ -30,15 +30,24 @@ class GNESaveDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                   const std::string& info, GUIIcon titleIcon, DialogType type,
-                   GNEDialog::Buttons buttons, GUIIcon largeIcon);
+    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elements,
+                  const bool chainSaving);
 
     /// @brief Destructor
     ~GNESaveDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief called when accept or yes button is pressed (can be reimplemented in children)
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief called when cancel or no button is pressed (can be reimplemented in children)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+protected:
+    /// @brief apply to all button
+    FXCheckButton* myApplyToAllButton = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

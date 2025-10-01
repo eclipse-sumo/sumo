@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNESaveDialog.h"
@@ -27,18 +29,20 @@
 // method definitions
 // ===========================================================================
 
-GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                               const std::string& info, GUIIcon titleIcon, DialogType type,
-                               GNEDialog::Buttons buttons, GUIIcon largeIcon) :
-    GNEDialog(applicationWindow, title.c_str(), titleIcon, type, buttons, OpenType::MODAL, ResizeMode::STATIC) {
+GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elements,
+                             const bool chainSaving) :
+    GNEDialog(applicationWindow, TLF("Save %", elements), GUIIcon::SAVE, DialogType::SAVE,
+              GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
-    // add icon label (only if large icon is defined)
-    if (largeIcon != GUIIcon::EMPTY) {
-        new FXLabel(infoFrame, FXString::null, GUIIconSubSys::getIcon(largeIcon), ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    }
     // add information label
+    const std::string info = TLF("You have unsaved %.", elements) + std::string("\n") + 
+                             TL("Do you wish to close and discard all changes?");
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // create applyToAll button
+    if (chainSaving) {
+        myApplyToAllButton = new FXCheckButton(this, TL("Apply to all elements"), nullptr, 0, GUIDesignCheckButton);
+    }
     // open modal dialog
     openDialog();
 }
@@ -51,6 +55,30 @@ GNESaveDialog::~GNESaveDialog() {
 void
 GNESaveDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
+}
+
+
+long
+GNESaveDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // close dialog accepting
+    closeDialogAccepting();
+    // check if return apply to all
+    if (myApplyToAllButton && (myApplyToAllButton->getCheck() == TRUE)) {
+        myResult = Result::ACEPT_ALL;
+    }
+    return 1;
+}
+
+
+long
+GNESaveDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // close dialog accepting
+    closeDialogCanceling();
+    // check if return apply to all
+    if (myApplyToAllButton && (myApplyToAllButton->getCheck() == TRUE)) {
+        myResult = Result::CANCEL_ALL;
+    }
+    return 0;
 }
 
 /****************************************************************************/

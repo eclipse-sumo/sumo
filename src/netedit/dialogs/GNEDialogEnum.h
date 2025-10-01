@@ -47,6 +47,7 @@ enum class DialogType {
     PARAMETERS,
     PYTHON,
     QUESTION,
+    SAVE,
     REROUTER,
     REROUTERINTERVAL,
     RUN,
