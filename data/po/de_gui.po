@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-01 11:08+0000\n"
+"PO-Revision-Date: 2025-10-01 11:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9606,7 +9606,7 @@ msgstr "Intervall"
 
 #: src/netedit/GNEViewNetHelper.cpp:3488
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 #: src/netedit/GNEViewNetHelper.cpp:3803
 msgid "Inspect mode"
@@ -10485,7 +10485,7 @@ msgstr "Für nutzerdefinierte Bedeutung reserviert"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:36
 msgid "Overwrite % '%'"
-msgstr ""
+msgstr "% '%' überschreiben"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:42
 msgid "There is already a % '%'. Overwrite?"
@@ -10532,7 +10532,7 @@ msgstr "falsch"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:187
 msgid "edit % '%'"
-msgstr ""
+msgstr "% '%' bearbeiten"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:207
 msgid "Error editing % '%'"
