@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-27 11:25+0000\n"
+"PO-Revision-Date: 2025-10-02 14:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3392,6 +3392,8 @@ msgid ""
 "Found invalid logic position of a link for junction '%' (%, max %) -> "
 "(network error)"
 msgstr ""
+"Incontrata posizione logica invalida di un collegamento nell'incrocio '%' ("
+"%, max %) -> (errore di rete)"
 
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:110
 msgid "Taz usage was requested but no taz present in % '%'!"
@@ -5695,6 +5697,8 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:643
 msgid "Could not switch tls '%' to program '%': No such tls exists."
 msgstr ""
+"Non ho potuto impostare il programma del semaforo '%' a '%': Questo semaforo "
+"non esiste."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
@@ -5740,6 +5744,8 @@ msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)%"
 msgstr ""
+"Fase di verde % nella logica di semaforo '%' insicura (programma '%'). La "
+"corsia '%' viene raggiunta da % collegamenti 'G'. (Invece usa 'g')%"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:333
 msgid ""
