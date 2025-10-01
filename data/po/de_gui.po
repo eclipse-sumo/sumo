@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-01 06:53+0000\n"
+"PO-Revision-Date: 2025-10-01 11:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2854,11 +2854,11 @@ msgstr "Weitere Elemente gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3895
 msgid "Saving additional aborted."
-msgstr ""
+msgstr "Speichervorgang der weiteren Elemente abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3900
 msgid "Saving additional elements failed"
-msgstr ""
+msgstr "Speichervorgang der weiteren Elemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3927
 msgid "saving of unified additional elements in '%'"
@@ -8936,15 +8936,15 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:952
 msgid "% requires switch to network mode. Continue?"
-msgstr ""
+msgstr "% bedingt den Wechsel zum Netzmodus. Damit fortfahren?"
 
 #: src/netedit/GNEViewNet.cpp:954
 msgid "% requires switch to demand mode. Continue?"
-msgstr ""
+msgstr "% bedingt den Wechsel zum Nachfragemodus. Damit fortfahren?"
 
 #: src/netedit/GNEViewNet.cpp:956
 msgid "% requires switch to data mode. Continue?"
-msgstr ""
+msgstr "% bedingt den Wechsel zum Datenmodus. Damit fortfahren?"
 
 #: src/netedit/GNEViewNet.cpp:962
 msgid "Confirm switch mode"
