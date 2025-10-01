@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" sigma="0" vClass="bus"/>
+    <flow id="v" type="bus" begin="0" period="300" end="1800" line="LV" departPos="5">
+        <route edges="beg middle end"/>
+    </flow>
+    <vType id="inFlow" scale="5"/>
+    <personFlow id="p1" type="inFlow" begin="triggered" end="1800" period="300" departPos="5">
+        <ride from="beg" to="end" lines="v"/>
+    </personFlow>
+</routes>

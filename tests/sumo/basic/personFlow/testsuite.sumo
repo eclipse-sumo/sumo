@@ -13,6 +13,9 @@ ride_triggeredPersonFlow
 # a flow of triggered persons in a flow of  vehicles (more persons than vehicles)
 ride_triggeredPersonFlow2
 
+# a flow of triggered persons in a flow of  vehicles (more persons than vehicles) and there are times when no vehicle is in the network
+ride_triggeredPersonFlow_bunched
+
 # a flow of triggered persons in a flow of  vehicles (more persons than vehicles). Vehicles should not receive persons beyond their capacity
 ride_triggeredPersonFlow_capacity
 
