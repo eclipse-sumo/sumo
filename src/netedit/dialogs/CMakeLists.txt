@@ -26,6 +26,8 @@ set(netedit_dialogs_SRCS
    GNEHelpAttributesDialog.h
    GNEParametersDialog.cpp
    GNEParametersDialog.h
+   GNESaveDialog.cpp
+   GNESaveDialog.h
    GNEUndoListDialog.cpp
    GNEUndoListDialog.h
 )
