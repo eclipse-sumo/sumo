@@ -3,3 +3,6 @@ csv2vss
 
 # generating variable speed signs from sumo meandata
 meandata2vss
+
+# generating overtakingReroute definitions for a net and route file
+createOvertakingReroutes
