@@ -25,8 +25,17 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNECrashDialog.h"
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4266) // mask warning about hidden member function FX::FXTextCodec::utf2mblen
+#endif
+#include <FX88591Codec.h>
+#include <FXUTF16Codec.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
+#include "GNECrashDialog.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -34,7 +43,7 @@
 
 // Map
 FXDEFMAP(GNECrashDialog) GNECrashDialogMap[] = {
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,  GNECrashDialog::onClipboardRequest)
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,  GNECrashDialog::onClipboardRequest),
 };
 
 // Object implementation
@@ -62,6 +71,10 @@ GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const Pr
     FXText* text = new FXText(contents, nullptr, 0, TEXT_WORDWRAP | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     text->setEditable(FALSE);
     text->setText(myTraceText.c_str());
+    // disable copy button if trace is empty
+    if (myTraceText.size() == 0) {
+        myCopyButton->disable();
+    }
     // open modal dialog
     openDialog();
 }
@@ -79,8 +92,13 @@ GNECrashDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialog
 
 long
 GNECrashDialog::onCmdCopy(FXObject*, FXSelector, void* ptr) {
-    FXEvent* event = (FXEvent*)ptr;
-    setDNDData(FROM_CLIPBOARD, event->target, myTraceText.c_str());
+    FXDragType types[4];
+    types[0] = stringType;
+    types[1] = textType;
+    types[2] = utf8Type;
+    types[3] = utf16Type;
+    // Adquire clipboard in diferent formats
+    acquireClipboard(types, 4);
     return 1;
 }
 
@@ -95,8 +113,31 @@ GNECrashDialog::onCmdReport(FXObject*, FXSelector, void*) {
 long
 GNECrashDialog::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    setDNDData(FROM_CLIPBOARD, event->target, myTraceText.c_str());
-    return 1;
+    // Perhaps the target wants to supply its own data for the clipboard
+    if (GNEDialog::onClipboardRequest(sender, sel, ptr)) {
+        return 1;
+    }
+    // Recognize the request?
+    if (event->target == stringType || event->target == textType || event->target == utf8Type || event->target == utf16Type) {
+        // Return myClippedText text as as UTF-8
+        if (event->target == utf8Type) {
+            setDNDData(FROM_CLIPBOARD, event->target, myTraceText.c_str());
+            return 1;
+        }
+        // Return myClippedText text translated to 8859-1
+        if (event->target == stringType || event->target == textType) {
+            FX88591Codec ascii;
+            setDNDData(FROM_CLIPBOARD, event->target, ascii.utf2mb(myTraceText.c_str()));
+            return 1;
+        }
+        // Return text of the selection translated to UTF-16
+        if (event->target == utf16Type) {
+            FXUTF16LECodec unicode;             // FIXME maybe other endianness for unix
+            setDNDData(FROM_CLIPBOARD, event->target, unicode.utf2mb(myTraceText.c_str()));
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /****************************************************************************/
