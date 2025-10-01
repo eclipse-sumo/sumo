@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-01 06:53+0000\n"
+"PO-Revision-Date: 2025-10-01 14:19+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -14769,36 +14769,36 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:368
 #: src/netedit/frames/network/GNETAZFrame.cpp:1128
 msgid "- Min source: "
-msgstr ""
+msgstr "- Origem mínima: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:369
 #: src/netedit/frames/network/GNETAZFrame.cpp:1129
 msgid "- Max source: "
-msgstr ""
+msgstr "- Origem máxima: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:370
 #: src/netedit/frames/network/GNETAZFrame.cpp:1130
 msgid "- Average source: "
-msgstr ""
+msgstr "- Origem média: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:372
 #: src/netedit/frames/network/GNETAZFrame.cpp:1132
 msgid "- Min sink: "
-msgstr ""
+msgstr "- Destino mínimo: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:373
 #: src/netedit/frames/network/GNETAZFrame.cpp:1133
 msgid "- Max sink: "
-msgstr ""
+msgstr "- Destino máximo: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:374
 #: src/netedit/frames/network/GNETAZFrame.cpp:1134
 msgid "- Average sink: "
-msgstr ""
+msgstr "- Destino médio: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:378
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "Não há zona de tráfego (TAZ) selecionada"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:390
 msgid "Confirm changes"
@@ -14849,7 +14849,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:554
 #: src/netedit/frames/network/GNETAZFrame.cpp:646
 msgid "Remove all edges"
-msgstr ""
+msgstr "Remover todas as arestas"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:573
 msgid "Remove all edges from selection"
