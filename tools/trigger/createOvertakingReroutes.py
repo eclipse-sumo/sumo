@@ -207,25 +207,36 @@ def usesRoute(routes, rid, fromIndex, toIndex, edges):
 def filterSidings(options, net, routes, sidings):
     sidings2 = {} 
     for main, (rid, fromIndex, edges) in sidings.items():
-        length = 0
+        sidingLength = 0  # total length
+        usableLength = 0 
         foundSignal = False
         for eid in reversed(edges):
             if net.hasEdge(eid):
                 e = net.getEdge(eid)
+                sidingLength += e.getLength()
                 if e.getToNode().getType() == 'rail_signal':
                     foundSignal = True
                 if foundSignal:
-                    length += e.getLength()
+                    usableLength += e.getLength()
 
+        warningStart = "Discarding candidate siding from '%s' to '%s' for route '%s' because it" % (
+                edges[0], edges[-1], rid)
         if foundSignal:
-            if length >= options.minLength:
-                sidings2[main] = (rid, fromIndex, edges)
+            if usableLength >= options.minLength:
+                mainLength = 0
+                for eid in main:
+                    if net.hasEdge(eid):
+                        e = net.getEdge(eid)
+                        mainLength += e.getLength()
+                detourFactor = sidingLength / mainLength
+                if detourFactor <= options.maxDetour:
+                    sidings2[main] = (rid, fromIndex, edges)
+                else:
+                    print("%s is longer than the main route by factor %s" % (warningStart, detourFactor))
             else:
-                print("Discarding candidate siding from '%s' to '%s' for route '%s' because it is only %sm long" % (
-                    edges[0], edges[-1], rid, length))
+                print("%s is only %sm long" % (warningStart, usableLength))
         else:
-            print("Discarding candidate siding from '%s' to '%s' for route '%s' because it has no rail_signal" % (
-                edges[0], edges[-1], rid))
+            print("%s has no rail_signal" % warningStart)
 
     return sidings2
 
