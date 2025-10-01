@@ -46,3 +46,6 @@ fast_past
 
 # no detour needed if the fast train has already left the simulation
 fast_past_gone
+
+# use the second siding if it can be reached before the overtaking train arrives
+secondSiding
