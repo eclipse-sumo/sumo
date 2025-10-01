@@ -1,3 +1,4 @@
 Discarding candidate siding from 'E4b' to 'E15b' because it intersects route 'flow:long' at edge 'E12'
 Discarding candidate siding from 'E9b' to 'E15b' because it intersects route 'flow:long' at edge 'E12'
 Discarding candidate siding from 'E13b' to 'E15b' for route 'route:r_main' because it has no rail_signal
+Discarding candidate siding from 'E4b' to 'E6b' for route 'route:r_main' because it is longer than the main route by factor 2.7738201246660728
