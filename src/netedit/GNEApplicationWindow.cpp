@@ -4488,14 +4488,14 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
 bool
 GNEApplicationWindow::askSaveElements() {
     if (myNet) {
-        bool abortSaving = false;
-        const auto saveNetwork = myNet->getSavingStatus()->askSaveNetwork(abortSaving);
-        const auto saveAdditionalElements = myNet->getSavingStatus()->askSaveAdditionalElements(abortSaving);
-        const auto saveDemandElements = myNet->getSavingStatus()->askSaveDemandElements(abortSaving);
-        const auto saveDataElements = myNet->getSavingStatus()->askSaveDataElements(abortSaving);
-        const auto saveMeanDataElements = myNet->getSavingStatus()->askSaveMeanDataElements(abortSaving);
+        GNEDialog::Result commonResult = GNEDialog::Result::ACCEPT;
+        const auto saveNetwork = myNet->getSavingStatus()->askSaveNetwork(commonResult);
+        const auto saveAdditionalElements = myNet->getSavingStatus()->askSaveAdditionalElements(commonResult);
+        const auto saveDemandElements = myNet->getSavingStatus()->askSaveDemandElements(commonResult);
+        const auto saveDataElements = myNet->getSavingStatus()->askSaveDataElements(commonResult);
+        const auto saveMeanDataElements = myNet->getSavingStatus()->askSaveMeanDataElements(commonResult);
         // first check if abort saving
-        if (abortSaving) {
+        if (commonResult == GNEDialog::Result::ABORT) {
             return false;
         }
         // save every type of file

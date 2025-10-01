@@ -30,8 +30,7 @@ class GNESaveDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elements,
-                  const bool chainSaving);
+    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elementTypes);
 
     /// @brief Destructor
     ~GNESaveDialog();

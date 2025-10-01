@@ -29,20 +29,17 @@
 // method definitions
 // ===========================================================================
 
-GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elements,
-                             const bool chainSaving) :
-    GNEDialog(applicationWindow, TLF("Save %", elements), GUIIcon::SAVE, DialogType::SAVE,
+GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elementTypes) :
+    GNEDialog(applicationWindow, TLF("Save %", elementTypes), GUIIcon::SAVE, DialogType::SAVE,
               GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add information label
-    const std::string info = TLF("You have unsaved %.", elements) + std::string("\n") + 
+    const std::string info = TLF("You have unsaved %.", elementTypes) + std::string("\n") + 
                              TL("Do you wish to close and discard all changes?");
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create applyToAll button
-    if (chainSaving) {
-        myApplyToAllButton = new FXCheckButton(this, TL("Apply to all elements"), nullptr, 0, GUIDesignCheckButton);
-    }
+    myApplyToAllButton = new FXCheckButton(infoFrame, TL("Apply to all unsaved elements"), nullptr, 0, GUIDesignCheckButton);
     // open modal dialog
     openDialog();
 }
@@ -64,7 +61,7 @@ GNESaveDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     closeDialogAccepting();
     // check if return apply to all
     if (myApplyToAllButton && (myApplyToAllButton->getCheck() == TRUE)) {
-        myResult = Result::ACEPT_ALL;
+        myResult = Result::ACCEPT_ALL;
     }
     return 1;
 }

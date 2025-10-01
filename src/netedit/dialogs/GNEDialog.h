@@ -71,7 +71,7 @@ public:
         ACCEPT,     // dialog was closed accepting changes (used in ok, accept, yes buttons)
         CANCEL,     // dialog was closed canceling changes (used in cancel, no buttons)
         ABORT,      // dialog was closed aborting changes (used in abort button)
-        ACEPT_ALL,  // dialog was closed acepting all changes (used in ok, accept, yes buttons)
+        ACCEPT_ALL, // dialog was closed acepting all changes (used in ok, accept, yes buttons)
         CANCEL_ALL, // dialog was closed canceling all changes (used in cancel, no buttons)
     };
 
