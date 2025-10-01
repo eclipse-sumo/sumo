@@ -20,12 +20,12 @@
 /****************************************************************************/
 
 #include <signal.h>
-#include <netedit/dialogs/GNECrashDialog.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netedit/dialogs/GNECrashDialog.h>
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -116,15 +116,15 @@ main(int argc, char** argv) {
                         delete externalRunner;
                         // delete netedit
                         delete netedit;
-                    } catch (const ProcessError& processError) {
+                    } catch (const ProcessError& e) {
                         // write info
-                        if (std::string(processError.what()).length() > 0) {
-                            WRITE_ERROR(processError.what());
+                        if (std::string(e.what()).length() > 0) {
+                            WRITE_ERROR(e.what());
                         }
                         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
                         ret = 1;
                         // open crash dialog with the exception
-                        GNECrashDialog(netedit, processError);
+                        GNECrashDialog(netedit, e);
                     }
                 }
             }
@@ -132,8 +132,8 @@ main(int argc, char** argv) {
             delete tagPropertiesDatabase;
         }
 #ifndef _DEBUG
-    } catch (const std::exception& e) {
-        if (std::string(processError.what()).length() > 0) {
+    } catch (const ProcessError& e) {
+        if (std::string(e.what()).length() > 0) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
