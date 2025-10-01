@@ -277,34 +277,36 @@ MSTriggeredRerouter::myStartElement(int element,
     }
     if (element == SUMO_TAG_OVERTAKING_REROUTE) {
         // for letting a slow train use a siding to be overtaken by a fast train
+        OvertakeLocation oloc;
         bool ok = true;
         for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_MAIN, getID().c_str(), ok)) {
             MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge == nullptr) {
                 throw InvalidArgument(TLF("The main edge '%' to use within rerouter '%' is not known.", edgeID, getID()));
             }
-            myParsedRerouteInterval.main.push_back(edge);
-            myParsedRerouteInterval.cMain.push_back(edge);
+            oloc.main.push_back(edge);
+            oloc.cMain.push_back(edge);
         }
         for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_SIDING, getID().c_str(), ok)) {
             MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge == nullptr) {
                 throw InvalidArgument(TLF("The siding edge '%' to use within rerouter '%' is not known.", edgeID, getID()));
             }
-            myParsedRerouteInterval.siding.push_back(edge);
-            myParsedRerouteInterval.cSiding.push_back(edge);
+            oloc.siding.push_back(edge);
+            oloc.cSiding.push_back(edge);
         }
-        myParsedRerouteInterval.sidingExit = findSignal(myParsedRerouteInterval.cSiding.begin(), myParsedRerouteInterval.cSiding.end());
-        if (myParsedRerouteInterval.sidingExit == nullptr) {
+        oloc.sidingExit = findSignal(oloc.cSiding.begin(), oloc.cSiding.end());
+        if (oloc.sidingExit == nullptr) {
             throw InvalidArgument(TLF("The siding within rerouter '%' does not have a rail signal.", getID()));
         }
-        for (auto it = myParsedRerouteInterval.cSiding.begin(); it != myParsedRerouteInterval.cSiding.end(); it++) {
-            myParsedRerouteInterval.sidingLength += (*it)->getLength();
-            if ((*it)->getToJunction()->getID() == myParsedRerouteInterval.sidingExit->getID()) {
+        for (auto it = oloc.cSiding.begin(); it != oloc.cSiding.end(); it++) {
+            oloc.sidingLength += (*it)->getLength();
+            if ((*it)->getToJunction()->getID() == oloc.sidingExit->getID()) {
                 break;
             }
         }
-        myParsedRerouteInterval.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
+        oloc.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
+        myParsedRerouteInterval.overtakeLocations.push_back(oloc);
     }
     if (element == SUMO_TAG_STATION_REROUTE) {
         // for letting a train switch it's stopping place in case of conflict
@@ -428,13 +430,18 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
                 ri.stopAlternatives.size() > 0) {
                 return &ri;
             }
-            if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
+            if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.overtakeLocations.empty()) {
                 const std::set<SUMOTrafficObject::NumericalID>& edgeIndices = obj.getUpcomingEdgeIDs();
                 if (affected(edgeIndices, ri.getClosedEdges())
-                        || affected(edgeIndices, ri.closedLanesAffected)
-                        || affected(edgeIndices, ri.main)) {
+                        || affected(edgeIndices, ri.closedLanesAffected)) {
                     return &ri;
                 }
+                for (const OvertakeLocation& oloc : ri.overtakeLocations) {
+                    if (affected(edgeIndices, oloc.main)) {
+                        return &ri;
+                    }
+                }
+
             }
         }
     }
@@ -447,7 +454,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
     for (const RerouteInterval& ri : myIntervals) {
         if (ri.begin <= time && ri.end > time) {
             if (ri.edgeProbs.getOverallProb() != 0 || ri.routeProbs.getOverallProb() != 0 || ri.parkProbs.getOverallProb() != 0
-                    || !ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
+                    || !ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.overtakeLocations.empty()) {
                 return &ri;
             }
         }
@@ -565,39 +572,55 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         }
         return false;
     }
-    if (rerouteDef->main.size() > 0) {
+    if (rerouteDef->overtakeLocations.size() > 0) {
         if (!tObject.isVehicle()) {
             return false;
         }
         SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
-        if (veh.getLength() > rerouteDef->sidingLength) {
-            return false;
-        }
         const ConstMSEdgeVector& oldEdges = veh.getRoute().getEdges();
-        auto mainStart = std::find(veh.getCurrentRouteEdge(), oldEdges.end(), rerouteDef->main.front());
-        if (mainStart == oldEdges.end()
-                // exit main within
-                || ConstMSEdgeVector(mainStart, mainStart + rerouteDef->main.size()) != rerouteDef->cMain
-                // stop in main
-                || (veh.hasStops() && veh.getNextStop().edge < (mainStart + rerouteDef->main.size()))) {
-            //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
-            return false;
+        double bestSavings = -std::numeric_limits<double>::max();
+        double netSaving;
+        int bestIndex = -1;
+        MSRouteIterator bestMainStart;
+        std::pair<const SUMOVehicle*, MSRailSignal*> best_overtaker_signal(nullptr, nullptr);
+        int index = -1;
+        for (const OvertakeLocation& oloc : rerouteDef->overtakeLocations) {
+            index++;
+            if (veh.getLength() > oloc.sidingLength) {
+                continue;
+            }
+            auto mainStart = std::find(veh.getCurrentRouteEdge(), oldEdges.end(), oloc.main.front());
+            if (mainStart == oldEdges.end()
+                    // exit main within
+                    || ConstMSEdgeVector(mainStart, mainStart + oloc.main.size()) != oloc.cMain
+                    // stop in main
+                    || (veh.hasStops() && veh.getNextStop().edge < (mainStart + oloc.main.size()))) {
+                //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
+                continue;
+            }
+            std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, netSaving);
+            if (overtaker_signal.first != nullptr && netSaving > bestSavings) {
+                bestSavings = netSaving;
+                bestIndex = index;
+                best_overtaker_signal = overtaker_signal;
+                bestMainStart = mainStart;
+            }
         }
-        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef);
-        if (overtaker_signal.first != nullptr) {
+        if (bestIndex >= 0) {
+            const OvertakeLocation& oloc = rerouteDef->overtakeLocations[bestIndex];
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->getClosed())
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->getClosed());
-            ConstMSEdgeVector newEdges(veh.getCurrentRouteEdge(), mainStart);
-            newEdges.insert(newEdges.end(), rerouteDef->siding.begin(), rerouteDef->siding.end());
-            newEdges.insert(newEdges.end(), mainStart + rerouteDef->main.size(), oldEdges.end());
+            ConstMSEdgeVector newEdges(veh.getCurrentRouteEdge(), bestMainStart);
+            newEdges.insert(newEdges.end(), oloc.siding.begin(), oloc.siding.end());
+            newEdges.insert(newEdges.end(), bestMainStart + oloc.main.size(), oldEdges.end());
             const double routeCost = router.recomputeCosts(newEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
-            const double savings = (router.recomputeCosts(rerouteDef->cMain, &veh, MSNet::getInstance()->getCurrentTimeStep())
-                                    - router.recomputeCosts(rerouteDef->cSiding, &veh, MSNet::getInstance()->getCurrentTimeStep()));
-            const std::string info = getID() + ":" + toString(SUMO_TAG_OVERTAKING_REROUTE) + ":" + overtaker_signal.first->getID();
+            const double savings = (router.recomputeCosts(oloc.cMain, &veh, MSNet::getInstance()->getCurrentTimeStep())
+                                    - router.recomputeCosts(oloc.cSiding, &veh, MSNet::getInstance()->getCurrentTimeStep()));
+            const std::string info = getID() + ":" + toString(SUMO_TAG_OVERTAKING_REROUTE) + ":" + best_overtaker_signal.first->getID();
             veh.replaceRouteEdges(newEdges, routeCost, savings, info, false, false, false);
-            rerouteDef->sidingExit->addConstraint(veh.getID(), new MSRailSignalConstraint_Predecessor(
-                    MSRailSignalConstraint::PREDECESSOR, overtaker_signal.second, overtaker_signal.first->getID(), 100, true));
+            oloc.sidingExit->addConstraint(veh.getID(), new MSRailSignalConstraint_Predecessor(
+                    MSRailSignalConstraint::PREDECESSOR, best_overtaker_signal.second, best_overtaker_signal.first->getID(), 100, true));
             resetClosedEdges(hasReroutingDevice, veh);
         }
         return false;
@@ -897,8 +920,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
-MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval* def) {
-    const MSEdgeVector& main = def->main;
+MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const OvertakeLocation& oloc, double& netSaving) {
+    const MSEdgeVector& main = oloc.main;
     const double vMax = veh.getMaxSpeed();
     const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
@@ -951,13 +974,13 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
                 const double loss = exitMain2Time; // lower bound because veh2 also has to exit the block
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
-                const double netSaving = prio2 * saving - prio * loss;
+                netSaving = prio2 * saving - prio * loss;
 #ifdef DEBUG_OVERTAKING
                 std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
                     << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
                     << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
 #endif
-                if (netSaving > def->minSaving) {
+                if (netSaving > oloc.minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
                     if (s != nullptr) {
                         return std::make_pair(veh2, s);

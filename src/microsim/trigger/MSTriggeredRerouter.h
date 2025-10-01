@@ -84,6 +84,25 @@ public:
     typedef std::map<const MSEdge*, double> Prohibitions;
 
     /**
+     * @struct OvertakeLocation
+     * Groups data for an overtakingReroute
+     */
+    struct OvertakeLocation {
+        /// @brief The list of main edges (const and non-const for different usage)
+        MSEdgeVector main;
+        ConstMSEdgeVector cMain;
+        /// @brief The list of siding edges
+        MSEdgeVector siding;
+        ConstMSEdgeVector cSiding;
+        /// @brief The rail signal at the end of the siding
+        MSRailSignal* sidingExit = nullptr;
+        /// @brief The usable length of the siding
+        double sidingLength = 0;
+        /// @brief The threshold in savings for triggering reroute
+        double minSaving;
+    };
+
+    /**
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
      */
@@ -113,18 +132,7 @@ public:
 
         /// @name overtakingReroute
         ///@{
-        /// @brief The list of main edges (const and non-const for different usage)
-        MSEdgeVector main;
-        ConstMSEdgeVector cMain;
-        /// @brief The list of siding edges
-        MSEdgeVector siding;
-        ConstMSEdgeVector cSiding;
-        /// @brief The rail signal at the end of the siding
-        MSRailSignal* sidingExit = nullptr;
-        /// @brief The usable length of the siding
-        double sidingLength = 0;
-        /// @brief The threshold in savings for triggering reroute
-        double minSaving;
+        std::vector<OvertakeLocation> overtakeLocations;
         //}
 
         /// @name stationReroute
@@ -255,7 +263,7 @@ public:
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief determine whether veh should switch from main to siding to be overtaken and return the overtaking vehicle or nullptr
-    std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval*);
+    std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const OvertakeLocation& oloc, double& netSaving);
 
     /// @brief consider switching the location of the upcoming stop
     void checkStopSwitch(MSBaseVehicle& veh, const MSTriggeredRerouter::RerouteInterval* def);
