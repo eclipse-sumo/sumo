@@ -957,6 +957,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 for (auto it = veh2->getCurrentRouteEdge(); it != itOnMain2; it++) {
                     timeToMain2 += (*it)->getMinimumTravelTime(veh2);
                 }
+                double exitMainTime = timeToMain;
                 double exitMain2Time = timeToMain2;
                 double commonTime = 0;
                 double commonTime2 = 0;
@@ -967,6 +968,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                     commonTime += common->getMinimumTravelTime(&veh);
                     commonTime2 += common->getMinimumTravelTime(veh2);
                     if (nCommon < (int)main.size() - mainIndex) {
+                        exitMainTime = timeToMain + commonTime;
                         exitMain2Time = timeToMain2 + commonTime2;
                     }
                     nCommon++;
@@ -975,13 +977,14 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 }
                 exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
-                const double loss = exitMain2Time; // lower bound because veh2 also has to exit the block
+                const double loss = exitMain2Time - exitMainTime; // lower bound because veh2 also has to exit the block
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
                 netSaving = prio2 * saving - prio * loss;
 #ifdef DEBUG_OVERTAKING
                 std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
                     << " sidingStart=" << oloc.siding.front()->getID()
                     << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                    << " em=" << exitMainTime << " em2=" << exitMain2Time
                     << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
 #endif
                 if (netSaving > oloc.minSaving) {
