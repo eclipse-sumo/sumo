@@ -9,3 +9,6 @@ half_by_prob
 
 # half vehicles have the device, by naming all of them (even ones)
 half_by_name
+
+# by setting param in the vType
+by_param
