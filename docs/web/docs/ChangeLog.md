@@ -17,11 +17,11 @@ title: ChangeLog
   - Reduced lateral jump when an emergency vehicle enters a junction from the wrong turning lane #17115
   - Fixed emergency braking when attribute arrivalLane is set #17130
 
-- netedit
-  - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
+- netedit  
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
+  - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
   - Disabled "Assign E1 Detector" mode for invalid tlTypes #16949
   - Loading a new network now resets the additional, routes and data files #17038
@@ -118,7 +118,7 @@ title: ChangeLog
 - Added warnings and errors for different problems with a configuration file #17069
 - Command line output under Windows now usees UTF charset #17093
 - [Automatic rerouting](Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
-- Vehicles with the bluelight device no longer for prefered lateral alignment to `arbitrary` #17124
+- Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
 
 
 ## Version 1.24.0 (22.07.2025)
