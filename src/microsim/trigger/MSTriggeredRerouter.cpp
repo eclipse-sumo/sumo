@@ -70,7 +70,7 @@
 
 /// assume that a faster train has more priority and a slower train doesn't matter
 #define DEFAULT_PRIO_OVERTAKER 1
-#define DEFAULT_PRIO_OVERTAKEN 0
+#define DEFAULT_PRIO_OVERTAKEN 0.001
 
 // ===========================================================================
 // static member definition
@@ -608,7 +608,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             index = item.second;
             const OvertakeLocation& oloc = rerouteDef->overtakeLocations[index];
             auto mainStart = veh.getCurrentRouteEdge() - item.first;  // subtracting negative difference
-            std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, bestMainStart, netSaving);
+            std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, netSaving);
             if (overtaker_signal.first != nullptr && netSaving > bestSavings) {
                 bestSavings = netSaving;
                 bestIndex = index;
@@ -936,8 +936,8 @@ std::pair<const SUMOVehicle*, MSRailSignal*>
 MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
         ConstMSEdgeVector::const_iterator mainStart,
         const OvertakeLocation& oloc,
-        ConstMSEdgeVector::const_iterator prevStart,
         double& netSaving) {
+    const ConstMSEdgeVector& route = veh.getRoute().getEdges();
     const MSEdgeVector& main = oloc.main;
     const double vMax = veh.getMaxSpeed();
     const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
@@ -963,45 +963,83 @@ MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
             if (itOnMain2 != route2.end() && itOnMain2 > veh2->getCurrentRouteEdge()) {
                 auto itOnMain = mainStart + mainIndex;
                 double timeToMain = 0;
-                // veh2 may be anywhere on the current edge so we have to discount
-                double timeToMain2 = -veh2->getEdge()->getMinimumTravelTime(veh2) * veh2->getPositionOnLane() / veh2->getEdge()->getLength();
                 for (auto it = veh.getCurrentRouteEdge(); it != itOnMain; it++) {
                     timeToMain += (*it)->getMinimumTravelTime(&veh);
                 }
+                // veh2 may be anywhere on the current edge so we have to discount
+                double timeToMain2 = -veh2->getEdge()->getMinimumTravelTime(veh2) * veh2->getPositionOnLane() / veh2->getEdge()->getLength();
+                double timeToLastSignal2 = timeToMain2;
                 for (auto it = veh2->getCurrentRouteEdge(); it != itOnMain2; it++) {
                     timeToMain2 += (*it)->getMinimumTravelTime(veh2);
+                    auto signal = getRailSignal(*it);
+                    if (signal) {
+                        timeToLastSignal2 = timeToMain2;
+#ifdef DEBUG_OVERTAKING
+                        std::cout << "   lastBeforeMain2 " << signal->getID() << "\n";
+#endif
+                    }
                 }
                 double exitMainTime = timeToMain;
-                double exitMain2Time = timeToMain2;
+                double exitMainBlockTime2 = timeToMain2;
                 double commonTime = 0;
                 double commonTime2 = 0;
                 int nCommon = 0;
                 auto exitMain2 = itOnMain2;
+                const MSRailSignal* firstAfterMain = nullptr;
+                const MSEdge* common = nullptr;
+                double vMinCommon = (*itOnMain)->getVehicleMaxSpeed(&veh);
+                double vMinCommon2 = (*itOnMain2)->getVehicleMaxSpeed(veh2);
                 while (itOnMain2 != route2.end()
-                        && itOnMain != prevStart
+                        && itOnMain != route.end()
                         && *itOnMain == *itOnMain2) {
-                    const MSEdge* common = *itOnMain;
+                    common = *itOnMain;
                     commonTime += common->getMinimumTravelTime(&veh);
                     commonTime2 += common->getMinimumTravelTime(veh2);
-                    if (nCommon < (int)main.size() - mainIndex) {
+                    vMinCommon = MIN2(vMinCommon, common->getVehicleMaxSpeed(&veh));
+                    vMinCommon2 = MIN2(vMinCommon2, common->getVehicleMaxSpeed(veh2));
+                    const bool onMain = nCommon < (int)main.size() - mainIndex;
+                    if (onMain) {
                         exitMainTime = timeToMain + commonTime;
-                        exitMain2Time = timeToMain2 + commonTime2;
+                    }
+                    if (firstAfterMain == nullptr) {
+                        exitMainBlockTime2 = timeToMain2 + commonTime2;
+                    }
+                    auto signal = getRailSignal(common);
+                    if (signal) {
+                        if (!onMain && firstAfterMain == nullptr) {
+                            firstAfterMain = signal;
+#ifdef DEBUG_OVERTAKING
+                            std::cout << "   firstAfterMain " << signal->getID() << "\n";
+#endif
+                        }
                     }
                     nCommon++;
                     itOnMain++;
                     itOnMain2++;
                 }
+                const double vMaxLast = common->getVehicleMaxSpeed(&veh);
+                const double vMaxLast2 = common->getVehicleMaxSpeed(veh2);
+                commonTime += veh.getLength() / vMaxLast;
+                exitMainBlockTime2 += veh2->getLength() / vMaxLast2;
                 exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
-                const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
-                const double loss = exitMain2Time - exitMainTime; // lower bound because veh2 also has to exit the block
+                double timeLoss2 = MAX2(0.0, timeToMain + veh.getLength() / oloc.siding.front()->getVehicleMaxSpeed(&veh) - timeToLastSignal2);
+                const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2) - timeLoss2;
+                const double loss = exitMainBlockTime2 - exitMainTime;
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
-                netSaving = prio2 * saving - prio * loss;
+                // losses from acceleration after stopping at a signal
+                const double accelTimeLoss = loss > 0 ? 0.5 * vMinCommon / veh.getVehicleType().getCarFollowModel().getMaxAccel() : 0;
+                const double accelTimeLoss2 = timeLoss2 > 0 ? 0.5 * vMinCommon2 / veh2->getVehicleType().getCarFollowModel().getMaxAccel() : 0;
+                netSaving = prio2 * (saving - accelTimeLoss2) - prio * (loss + accelTimeLoss);
 #ifdef DEBUG_OVERTAKING
                 std::cout << SIMTIME << " veh=" << veh.getID() << " veh2=" << veh2->getID()
                     << " sidingStart=" << oloc.siding.front()->getID()
-                    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
-                    << " em=" << exitMainTime << " em2=" << exitMain2Time
-                    << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+                    << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
+                    << " em=" << exitMainTime << " emb2=" << exitMainBlockTime2
+                    << " ttls2=" << timeToLastSignal2
+                    << " saving=" << saving << " loss=" << loss
+                    << " atl=" << accelTimeLoss << " atl2=" << accelTimeLoss2 << " tl2=" << timeLoss2
+                    << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
 #endif
                 if (netSaving > oloc.minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
@@ -1158,15 +1196,24 @@ MSTriggeredRerouter::findSignal(ConstMSEdgeVector::const_iterator begin, ConstMS
     auto it = end;
     do {
         it--;
-        const MSEdge* edge = *it;
-        if (edge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
-            for (const MSLink* link : edge->getLanes().front()->getLinkCont()) {
-                if (link->getTLLogic() != nullptr) {
-                    return dynamic_cast<MSRailSignal*>(const_cast<MSTrafficLightLogic*>(link->getTLLogic()));
-                }
-            }
+        auto signal = getRailSignal(*it);
+        if (signal != nullptr) {
+            return signal;
         }
     } while (it != begin);
+    return nullptr;
+}
+
+
+MSRailSignal*
+MSTriggeredRerouter::getRailSignal(const MSEdge* edge) {
+    if (edge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        for (const MSLink* link : edge->getLanes().front()->getLinkCont()) {
+            if (link->getTLLogic() != nullptr) {
+                return dynamic_cast<MSRailSignal*>(const_cast<MSTrafficLightLogic*>(link->getTLLogic()));
+            }
+        }
+    }
     return nullptr;
 }
 

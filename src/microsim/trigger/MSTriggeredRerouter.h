@@ -267,14 +267,16 @@ public:
             const SUMOVehicle& veh,
             ConstMSEdgeVector::const_iterator mainStart,
             const OvertakeLocation& oloc,
-            ConstMSEdgeVector::const_iterator prevStart,
             double& netSaving);
 
     /// @brief consider switching the location of the upcoming stop
     void checkStopSwitch(MSBaseVehicle& veh, const MSTriggeredRerouter::RerouteInterval* def);
 
     /// @brief find the last downstream signal on the given route
-    MSRailSignal* findSignal(ConstMSEdgeVector::const_iterator begin, ConstMSEdgeVector::const_iterator end);
+    static MSRailSignal* findSignal(ConstMSEdgeVector::const_iterator begin, ConstMSEdgeVector::const_iterator end);
+
+    /// @brief return railsignal at that edge or nullptr
+    static MSRailSignal* getRailSignal(const MSEdge* edge);
 
     /// @brief return all rerouter instances
     static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
