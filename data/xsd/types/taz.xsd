@@ -12,7 +12,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
-        <xsd:attribute name="center" type="xsd:string" use="optional"/>
+        <xsd:attribute name="center" type="positionType" use="optional"/>
         <xsd:attribute name="fill" type="boolType" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
