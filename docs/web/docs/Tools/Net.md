@@ -240,8 +240,7 @@ python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_addition
     If the network is large and not segmented or if the individual station segments are large, the conversion process can take a long time. The option **--skip-large INT** can be used to selective skip large regions (measured by the number of optimization constraints, reported via **--verbose** output).
 
 !!! caution
-    If option **--skip** is used the original network may be split (under a new name) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (under a new name) but any traffic demand (route files) have to be adapted for the split network.
-
+    If option **--spit** is used, the original network may be split (with the new filename *OLDNAME.split.net.xml*) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (with the new filename *OLDNAME.split.add.xml*) but any traffic demand (route files) have to be adapted for the split network. This can be accomplished by calling **duarouter -n net.split.net.xml.gz -a stops.split.add.xml -r old.rou.xml -o new.rou.xml --repair --ignore-errors --skip-new-routes --ptline-routing**
 
 # remap_additionals.py
 
