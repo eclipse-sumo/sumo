@@ -38,7 +38,7 @@ DUAROUTER = sumolib.checkBinary('duarouter')
 
 
 def get_options(args=None):
-    op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
+    op = sumolib.options.ArgumentParser(description="Generate rerouters with overtakeReroute definitions",
                                         allowed_programs=['duarouter', 'marouter'])
     # input
     op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=op.net_file,
