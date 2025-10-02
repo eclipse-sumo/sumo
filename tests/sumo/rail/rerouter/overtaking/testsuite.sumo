@@ -50,3 +50,6 @@ fast_past_gone
 
 # use the second siding if it can be reached before the overtaking train arrives
 secondSiding
+
+# use the third siding if it can be reached before the overtaking train arrives
+thirdSiding
