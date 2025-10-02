@@ -604,6 +604,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 bestIndex = index;
                 best_overtaker_signal = overtaker_signal;
                 bestMainStart = mainStart;
+#ifdef DEBUG_OVERTAKING
+                std::cout << "    newBest index=" << bestIndex << " saving=" << bestSavings << "\n";
+#endif
             }
         }
         if (bestIndex >= 0) {
@@ -977,6 +980,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 netSaving = prio2 * saving - prio * loss;
 #ifdef DEBUG_OVERTAKING
                 std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
+                    << " sidingStart=" << oloc.siding.front()->getID()
                     << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
                     << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
 #endif
