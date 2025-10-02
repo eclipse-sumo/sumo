@@ -924,6 +924,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
 MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const OvertakeLocation& oloc, double& netSaving) {
+    const ConstMSEdgeVector& route = veh.getRoute().getEdges();
     const MSEdgeVector& main = oloc.main;
     const double vMax = veh.getMaxSpeed();
     const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
@@ -963,7 +964,9 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 double commonTime2 = 0;
                 int nCommon = 0;
                 auto exitMain2 = itOnMain2;
-                while (itOnMain2 != route2.end() && *itOnMain == *itOnMain2) {
+                while (itOnMain2 != route2.end()
+                        && itOnMain != route.end()
+                        && *itOnMain == *itOnMain2) {
                     const MSEdge* common = *itOnMain;
                     commonTime += common->getMinimumTravelTime(&veh);
                     commonTime2 += common->getMinimumTravelTime(veh2);
