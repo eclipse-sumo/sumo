@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route id="r0" edges="SC CN NC CS" repeat="4">
+        <stop edge="SC" duration="10" endPos="10"/>
+        <stop edge="CN" duration="10"/>
+    </route>
+    <vehicle id="v0" route="r0" depart="0" departPos="10"/>
+    <personFlow id="p" depart="0" period="10" number="10">
+        <ride from="SC" to="CN" arrivalPos="-1" lines="v0"/>
+    </personFlow>
+	
+</routes>

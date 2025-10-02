@@ -61,3 +61,6 @@ chargeLevelDist
 
 # distribution of charging levels with error in distribution
 chargeLevelDist_error
+
+# test effect of person mass on consumption
+load_unload_persons
