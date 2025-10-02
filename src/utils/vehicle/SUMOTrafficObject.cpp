@@ -56,7 +56,7 @@ SUMOTrafficObject::getStringParam(const std::string& paramName, const bool requi
 
 double
 SUMOTrafficObject::getFloatParam(const std::string& paramName, const bool required, const double deflt, bool checkDist) const {
-    const std::string val = getStringParam(paramName, required, toString(deflt));
+    const std::string val = getStringParam(paramName, required, toString(deflt, 16));
     if (!checkDist) {
         try {
             return StringUtils::toDouble(val);
