@@ -584,6 +584,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         MSRouteIterator bestMainStart;
         std::pair<const SUMOVehicle*, MSRailSignal*> best_overtaker_signal(nullptr, nullptr);
         int index = -1;
+        // sort locations by descending distance to vehicle
+        std::vector<std::pair<int, int> > sortedLocs;
         for (const OvertakeLocation& oloc : rerouteDef->overtakeLocations) {
             index++;
             if (veh.getLength() > oloc.sidingLength) {
@@ -598,6 +600,14 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
                 continue;
             }
+            // negated iterator distance for descending order
+            sortedLocs.push_back(std::make_pair(-(mainStart - veh.getCurrentRouteEdge()), index));
+        }
+        std::sort(sortedLocs.begin(), sortedLocs.end());
+        for (auto item : sortedLocs) {
+            index = item.second;
+            const OvertakeLocation& oloc = rerouteDef->overtakeLocations[index];
+            auto mainStart = veh.getCurrentRouteEdge() - item.first;  // subtracting negative difference
             std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, netSaving);
             if (overtaker_signal.first != nullptr && netSaving > bestSavings) {
                 bestSavings = netSaving;
