@@ -2,3 +2,4 @@
 -a=input_additional.add.xml -r input_routes.rou.xml --battery-output battery.xml
 --battery-output.precision 4 --device.battery.probability 1 --chargingstations-output chargingstations.xml
 --step-length 0.2
+-e 100
