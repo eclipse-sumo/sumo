@@ -175,7 +175,8 @@ def findSidings(options, routes, switches, net):
         stdout=subprocess.DEVNULL)
 
     # collect sidings after routing
-    sidings = dict() # main -> siding
+    sidings = dict()  # main -> siding
+    sidingRoutes = defaultdict(lambda: [])  # main -> [(rid1, fromIndex1), ...]
     warnings = set()
     for route in sumolib.xml.parse(tmpOut, ['route']):
         edges = tuple(route.edges.split())
@@ -192,8 +193,10 @@ def findSidings(options, routes, switches, net):
                 continue
             main = routes[rid][fromIndex:toIndex]
             sidings[main] = (rid, fromIndex, edges)
+            # different routes may have the same main section but diverge downstream
+            sidingRoutes[main].append((rid, fromIndex))
 
-    return sidings
+    return sidings, sidingRoutes
 
 
 def usesRoute(routes, rid, fromIndex, toIndex, edges):
@@ -204,7 +207,7 @@ def usesRoute(routes, rid, fromIndex, toIndex, edges):
     return False
 
 
-def filterSidings(options, net, routes, sidings):
+def filterSidings(options, net, sidings):
     sidings2 = {} 
     for main, (rid, fromIndex, edges) in sidings.items():
         sidingLength = 0  # total length
@@ -241,7 +244,29 @@ def filterSidings(options, net, routes, sidings):
     return sidings2
 
 
-def writeSidings(options, routes, sidings):
+def findFollowerSidings(options, routes, sidings, sidingRoutes):
+    routeSidings = defaultdict(lambda: []) # rid -> [mainEdges, mainEdges2, ...]
+    for main, rlist in sidingRoutes.items():
+        if main not in sidings:
+            continue
+        for rid, fromIndex in rlist:
+            routeSidings[rid].append((fromIndex, main))
+    for rid in routeSidings.keys():
+        routeSidings[rid].sort()
+    #print("\n".join(map(str, sidingRoutes.items())))
+    #print("\n".join(map(str, routeSidings.items())))
+
+    followerSidings = defaultdict(lambda: [])  # mainEdgse -> [mainEdges2, ...]
+    for main, (rid, fromIndex, edges) in sidings.items():
+        for rid2, fromIndex2 in sidingRoutes[main]:
+            for fromIndex3, main2 in routeSidings[rid2]:
+                if fromIndex3 > fromIndex2:
+                    if main2 not in followerSidings[main]:
+                        followerSidings[main].append(main2)
+    return followerSidings
+
+
+def writeSidings(options, routes, sidings, followerSidings):
     with openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         i = 0
@@ -250,6 +275,9 @@ def writeSidings(options, routes, sidings):
             outf.write('  <rerouter id="%s_%s" edges="%s">\n' % (options.prefix, i, rrEdge))
             outf.write('    <interval begin="%s" end="%s">\n' % (options.begin, options.end))
             outf.write('       <overtakingReroute main="%s" siding="%s">\n' % (" ".join(main), " ".join(edges)))
+            for main2 in followerSidings[main]:
+                outf.write('       <overtakingReroute main="%s" siding="%s">\n' % (
+                    " ".join(main2), " ".join(sidings[main2][2])))
             outf.write('    </interval>\n')
             outf.write('  </rerouter>\n')
             i += 1
@@ -278,10 +306,11 @@ def main(options):
     #print("\n".join(map(str, routes.items())))
     switches = findSwitches(options, routes, net)
     #print("\n".join(map(str, switches.items())))
-    sidings = findSidings(options, routes, switches, net)
+    sidings, sidingRoutes = findSidings(options, routes, switches, net)
     #print("\n".join(map(str, sidings.items())))
-    sidings = filterSidings(options, net, routes, sidings)
-    writeSidings(options, routes, sidings)
+    sidings = filterSidings(options, net, sidings)
+    followerSidings = findFollowerSidings(options, routes, sidings, sidingRoutes)
+    writeSidings(options, routes, sidings, followerSidings)
 
 if __name__ == "__main__":
     try:
