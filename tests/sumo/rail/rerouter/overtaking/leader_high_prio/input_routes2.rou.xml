@@ -7,6 +7,6 @@
     <vehicle id="v_0" type="train"      depart="0.00" route="r_main" departPos="15000"/>
 
     <vehicle id="v_2" type="train_slow" depart="0.00" route="r_main" departEdge="1">
-        <param key="overtakingReroute.prio" value="2"/>
+        <param key="overtakingReroute.prio" value="3"/>
     </vehicle>
 </routes>
