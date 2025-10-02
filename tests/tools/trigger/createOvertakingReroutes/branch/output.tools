@@ -1,0 +1,4 @@
+Discarding candidate siding from 'E4b' to 'E11b' because it intersects route 'route:r_main' at edge 'E7'
+Discarding candidate siding from 'E4b' to 'E11d' because it intersects route 'route:r_branch' at edge 'E7'
+Discarding candidate siding from 'E4b' to 'E15b' because it intersects route 'route:r_main' at edge 'E7'
+Discarding candidate siding from 'E9b' to 'E15b' because it intersects route 'route:r_main' at edge 'E12'
