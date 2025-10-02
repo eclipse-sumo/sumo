@@ -37,6 +37,7 @@ follower_delay_low
 
 # no detour needed
 leader_high_prio
+leader_shortRoute
 
 # no detour needed if the fast train has already entered the main section
 fast_entered
