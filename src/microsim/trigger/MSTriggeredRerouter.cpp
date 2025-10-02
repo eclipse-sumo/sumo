@@ -721,7 +721,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                                       << " newEdges=" << toString(edges)
                                                       << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosed()) << "\n";
+                                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosedEdges()) << "\n";
 #endif
                 if (ok && newArrivalPos != -1) {
                     // must be called here because replaceRouteEdges may also set the arrivalPos
@@ -778,7 +778,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                                   << " newEdges=" << toString(edges)
                                                   << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                                  << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosed()) << "\n";
+                                                  << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosedEdges()) << "\n";
 #endif
             if (useNewRoute && newArrivalPos != -1) {
                 // must be called here because replaceRouteEdges may also set the arrivalPos
