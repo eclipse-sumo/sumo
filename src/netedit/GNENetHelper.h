@@ -433,6 +433,8 @@ struct GNENetHelper {
         /// @brief get number of selected Wires
         int getNumberOfSelectedWires() const;
 
+        /// @brief return list of available POI parameters
+        std::vector<std::string> getPOIParamKeys() const;
         /// @}
 
         /// @name function for TAZ sourceSinks

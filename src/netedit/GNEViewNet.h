@@ -102,6 +102,9 @@ public:
     /// @brief return list of loaded edgeRelation and tazRelation attributes
     std::vector<std::string> getRelDataAttrs() const;
 
+    /// @brief return list of available POI parameters
+    std::vector<std::string> getPOIParamKeys() const override;
+
     /// @brief get draw toggle (used to avoid drawing junctions twice)
     int getDrawingToggle() const;
 

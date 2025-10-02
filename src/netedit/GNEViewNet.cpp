@@ -1307,6 +1307,12 @@ GNEViewNet::getRelDataAttrs() const {
 }
 
 
+std::vector<std::string>
+GNEViewNet::getPOIParamKeys() const {
+    return myNet->getAttributeCarriers()->getPOIParamKeys();
+}
+
+
 bool
 GNEViewNet::checkSelectEdges() const {
     if ((myNetworkViewOptions.selectEdges() && !myMouseButtonKeyPressed.shiftKeyPressed()) ||

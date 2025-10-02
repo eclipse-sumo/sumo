@@ -1312,6 +1312,28 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {
 }
 
 
+std::vector<std::string>
+GNENetHelper::AttributeCarriers::getPOIParamKeys() const {
+    std::set<std::string> keys;
+    for (const auto& POI : myAdditionals.at(SUMO_TAG_POI)) {
+        for (const auto& parameter : POI.second->getACParametersMap()) {
+            keys.insert(parameter.first);
+        }
+    }
+    for (const auto& POILane : myAdditionals.at(GNE_TAG_POILANE)) {
+        for (const auto& parameter : POILane.second->getACParametersMap()) {
+            keys.insert(parameter.first);
+        }
+    }
+    for (const auto& POIGEO : myAdditionals.at(GNE_TAG_POIGEO)) {
+        for (const auto& parameter : POIGEO.second->getACParametersMap()) {
+            keys.insert(parameter.first);
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
+
+
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedTAZs() const {
     int counter = 0;
