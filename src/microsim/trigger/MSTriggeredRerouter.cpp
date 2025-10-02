@@ -997,7 +997,7 @@ MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
                 const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
                 netSaving = prio2 * saving - prio * loss;
 #ifdef DEBUG_OVERTAKING
-                std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
+                std::cout << SIMTIME << " veh=" << veh.getID() << " veh2=" << veh2->getID()
                     << " sidingStart=" << oloc.siding.front()->getID()
                     << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
                     << " em=" << exitMainTime << " em2=" << exitMain2Time
