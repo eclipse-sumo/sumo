@@ -2623,6 +2623,14 @@ MSBaseVehicle::removeTransportable(MSTransportable* t) {
 }
 
 
+void
+MSBaseVehicle::removeTransportableMass(MSTransportable* t) {
+    if (myEnergyParams != nullptr) {
+        myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() - t->getVehicleType().getMass());
+    }
+}
+
+
 const std::vector<MSTransportable*>&
 MSBaseVehicle::getPersons() const {
     if (myPersonDevice == nullptr) {

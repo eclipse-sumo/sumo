@@ -207,6 +207,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                     //ensure that vehicle stops long enough for deboarding
                     stop.duration = MAX2(stop.duration, timeForNext - currentTime);
 
+                    veh.removeTransportableMass(transportable);
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     numUnloaded++;
                     if (taxiDevice != nullptr) {

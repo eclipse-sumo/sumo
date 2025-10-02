@@ -506,6 +506,9 @@ public:
     /// @brief removes a person or container
     void removeTransportable(MSTransportable* t);
 
+    /// @brief removes a person or containers mass
+    void removeTransportableMass(MSTransportable* t);
+
     /// @brief retrieve riding persons
     const std::vector<MSTransportable*>& getPersons() const;
 
