@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-12 10:04:14.178749 by osmWebWizard.py v1_17_0+0000-737931d58da
+  options: 
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<!-- Vehicle types -->
+    <vType id="drt_ngt_taxi_large" vClass="taxi" carFollowModel="IDM" emissionClass="Energy" personCapacity="111" length="17.0" maxSpeed="22.22" accel="0.7" decel="2.0" emergencyDecel="2.7" mass="22000"/>
+	<!-- Vehicles -->
+	<trip id="taxi_rail_0" type="drt_ngt_taxi_large" depart="00:00:00" from="E1" line="taxi"/>
+</routes>

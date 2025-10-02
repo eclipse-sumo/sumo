@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-01 17:35:08 by Eclipse SUMO netedit Version 1.24.0
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-193.93,21.96,235.59,22.35" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="-E0" from="J1" to="J0" priority="-1" length="20000.00">
+        <lane id="-E0_0" index="0" allow="taxi tram rail_urban rail rail_electric rail_fast cable_car subway" speed="22.22" length="20000.00" shape="235.59,23.80 -125.68,23.56"/>
+    </edge>
+    <edge id="-E1" from="J0" to="J2" priority="-1" length="100.00">
+        <lane id="-E1_0" index="0" allow="taxi tram rail_urban rail rail_electric rail_fast cable_car subway" speed="22.22" length="100.00" shape="-125.97,23.56 -193.92,23.95"/>
+    </edge>
+    <edge id="E0" from="J0" to="J1" priority="-1" length="20000.00">
+        <lane id="E0_0" index="0" allow="taxi tram rail_urban rail rail_electric rail_fast cable_car subway" speed="22.22" length="20000.00" shape="-125.68,20.36 235.59,20.60"/>
+    </edge>
+    <edge id="E1" from="J2" to="J0" priority="-1" length="100.00">
+        <lane id="E1_0" index="0" allow="taxi tram rail_urban rail rail_electric rail_fast cable_car subway" speed="22.22" length="100.00" shape="-193.94,20.75 -125.99,20.36"/>
+    </edge>
+
+    <junction id="J0" type="priority" x="-125.83" y="21.96" incLanes="-E0_0 E1_0" intLanes="" shape="-125.68,25.16 -125.68,18.76 -126.00,18.76 -125.96,25.16">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J1" type="priority" x="235.59" y="22.20" incLanes="E0_0" intLanes="" shape="235.59,22.20 235.59,19.00 235.59,22.20">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J2" type="priority" x="-193.93" y="22.35" incLanes="-E1_0" intLanes="" shape="-193.93,22.35 -193.91,25.55 -193.93,22.35">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="-E0" to="-E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-E1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E0" to="-E0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E1" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

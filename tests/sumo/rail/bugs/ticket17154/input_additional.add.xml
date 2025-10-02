@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-01 17:35:10 by Eclipse SUMO netedit Version 1.24.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="E0_0" startPos="1000.00" endPos="1020.00"/>
+    <busStop id="bs_1" lane="E0_0" startPos="19000.00" endPos="19020.00"/>
+    <parkingArea id="pa_0" lane="E1_0" startPos="25.00" endPos="75.00" roadsideCapacity="1" length="50.00"/>
+    <chargingStation id="cs_0" lane="E1_0" startPos="25.00" endPos="75.00" power="448000.00"/>
+    <!-- Other additionals -->
+    <rerouter id="rr0" edges="E1" vTypes="drt_ngt_taxi_large drt_ngt_taxi_small">
+        <interval begin="0.00" end="86401.00">
+            <parkingAreaReroute id="pa_0" visible="1"/>
+        </interval>
+    </rerouter>
+</additional>
