@@ -581,7 +581,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         double bestSavings = -std::numeric_limits<double>::max();
         double netSaving;
         int bestIndex = -1;
-        MSRouteIterator bestMainStart;
+        MSRouteIterator bestMainStart = oldEdges.end();
         std::pair<const SUMOVehicle*, MSRailSignal*> best_overtaker_signal(nullptr, nullptr);
         int index = -1;
         // sort locations by descending distance to vehicle
@@ -608,7 +608,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             index = item.second;
             const OvertakeLocation& oloc = rerouteDef->overtakeLocations[index];
             auto mainStart = veh.getCurrentRouteEdge() - item.first;  // subtracting negative difference
-            std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, netSaving);
+            std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, oloc, bestMainStart, netSaving);
             if (overtaker_signal.first != nullptr && netSaving > bestSavings) {
                 bestSavings = netSaving;
                 bestIndex = index;
@@ -933,8 +933,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
-MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const OvertakeLocation& oloc, double& netSaving) {
-    const ConstMSEdgeVector& route = veh.getRoute().getEdges();
+MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
+        ConstMSEdgeVector::const_iterator mainStart,
+        const OvertakeLocation& oloc,
+        ConstMSEdgeVector::const_iterator prevStart,
+        double& netSaving) {
     const MSEdgeVector& main = oloc.main;
     const double vMax = veh.getMaxSpeed();
     const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
@@ -975,7 +978,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 int nCommon = 0;
                 auto exitMain2 = itOnMain2;
                 while (itOnMain2 != route2.end()
-                        && itOnMain != route.end()
+                        && itOnMain != prevStart
                         && *itOnMain == *itOnMain2) {
                     const MSEdge* common = *itOnMain;
                     commonTime += common->getMinimumTravelTime(&veh);

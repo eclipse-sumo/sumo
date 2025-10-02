@@ -263,7 +263,12 @@ public:
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);
 
     /// @brief determine whether veh should switch from main to siding to be overtaken and return the overtaking vehicle or nullptr
-    std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const OvertakeLocation& oloc, double& netSaving);
+    std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(
+            const SUMOVehicle& veh,
+            ConstMSEdgeVector::const_iterator mainStart,
+            const OvertakeLocation& oloc,
+            ConstMSEdgeVector::const_iterator prevStart,
+            double& netSaving);
 
     /// @brief consider switching the location of the upcoming stop
     void checkStopSwitch(MSBaseVehicle& veh, const MSTriggeredRerouter::RerouteInterval* def);
