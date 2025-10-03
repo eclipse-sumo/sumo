@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-09-30 13:12+0000\n"
+"PO-Revision-Date: 2025-10-03 15:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2738,15 +2738,15 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3327
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "Rete salvata in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3333
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "Non ho potuto salvare la rete in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3368
 msgid "plain XML file"
-msgstr ""
+msgstr "file PlainXML"
 
 #: src/netedit/GNEApplicationWindow.cpp:3393
 msgid "Plain XML saved with prefix '%'."
@@ -2802,7 +2802,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3656
 msgid "TLS Programs saved in '%'."
-msgstr ""
+msgstr "Programmi semaforici salvati in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3659
 msgid "Saving TLS Programs failed"
@@ -3094,7 +3094,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:5008
 msgid "reloading edge types from '%'"
-msgstr ""
+msgstr "ricarica degli tipi di archi da '%'"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:135
 msgid "nets"
@@ -7586,7 +7586,7 @@ msgstr "parametri"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7022
 msgid "Angle of %"
-msgstr ""
+msgstr "Angolo di %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7029
 msgid "Length of %"
@@ -9597,7 +9597,7 @@ msgstr "Intervallo"
 
 #: src/netedit/GNEViewNetHelper.cpp:3488
 msgid "Parameter"
-msgstr ""
+msgstr "Parametro"
 
 #: src/netedit/GNEViewNetHelper.cpp:3803
 msgid "Inspect mode"
@@ -10235,24 +10235,27 @@ msgstr "Salva file modello di parametri"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:410
 msgid "- Parameters are defined by a Key and a Value."
-msgstr ""
+msgstr "- Ciascun parametro viene definitio da una chiave e di un valore."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:411
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|key2=parameter2|..."
 msgstr ""
+"- In netedit i parametri possono essere definiti usando il modello "
+"chiave1=valore1|chiave2=valore2|..."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:412
 msgid "- Duplicated and empty Keys aren't valid."
-msgstr ""
+msgstr "- Chiavi raddopiate o vuote non sono valide."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:413
 msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
+"- Non sono autorizzati lo spazio come alcuni altri caratteri (@$%^&/|\\....)"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:416
 msgid "Parameters Help"
-msgstr ""
+msgstr "Aiuto di parametri"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:439
 msgid "Key of Parameter not defined"
@@ -10474,15 +10477,15 @@ msgstr "Classe da definire dall'utilizzatore"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:36
 msgid "Overwrite % '%'"
-msgstr ""
+msgstr "Sovrascrivere % '%'"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:42
 msgid "There is already a % '%'. Overwrite?"
-msgstr ""
+msgstr "Esiste già un/uno/una % '%'. Desideri sovrascriverlo/la?"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:45
 msgid "Apply this solution to all conflicted elements"
-msgstr ""
+msgstr "Applica questa soluzione a tutti elementi in conflitto"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:672
@@ -10521,15 +10524,15 @@ msgstr "falso"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:187
 msgid "edit % '%'"
-msgstr ""
+msgstr "modifica % '%'"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:207
 msgid "Error editing % '%'"
-msgstr ""
+msgstr "Errore nella modifica di % '%'"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:208
 msgid "The % '%' cannot be updated because there are invalid attributes."
-msgstr ""
+msgstr "% '%' non può essere aggiornato a causa di attributi invalidi."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:67
 msgid "Error updating % '%'"
