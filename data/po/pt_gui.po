@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-01 14:19+0000\n"
+"PO-Revision-Date: 2025-10-04 08:58+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -12105,7 +12105,7 @@ msgstr "Fluxos das rotas"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:281
 msgid "RouteFlows (embedded route)"
-msgstr ""
+msgstr "Fluxos de rotas (com rota integrada)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:284
 msgid "Trips"
@@ -12113,15 +12113,15 @@ msgstr "Viagens"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:824
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "Tag de veículo inválida"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:2276
 msgid "departPos of %"
-msgstr ""
+msgstr "posição de partida de %"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:2286
 msgid "arrivalPos of %"
-msgstr ""
+msgstr "posição de chegada de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:207
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:216
@@ -12194,7 +12194,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNEInternalLane.cpp:306
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "estado de conexão inválido='%'"
 
 #: src/netedit/elements/network/GNEJunction.cpp:486
 msgid "TLS operations"
@@ -12206,11 +12206,11 @@ msgstr "Adicionar semáforo"
 
 #: src/netedit/elements/network/GNEJunction.cpp:489
 msgid "Add joined TLS"
-msgstr ""
+msgstr "Adicionar semáforo combinado"
 
 #: src/netedit/elements/network/GNEJunction.cpp:530
 msgid "Reset edge endpoints"
-msgstr ""
+msgstr "Reiniciar pontos finais das arestas"
 
 #: src/netedit/elements/network/GNEJunction.cpp:531
 msgid "Set custom junction shape"
@@ -12218,7 +12218,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNEJunction.cpp:532
 msgid "Reset junction shape"
-msgstr ""
+msgstr "Reiniciar formato da junção"
 
 #: src/netedit/elements/network/GNEJunction.cpp:533
 msgid "Replace junction by geometry point"
@@ -12244,7 +12244,7 @@ msgstr ""
 #: src/netedit/elements/network/GNEJunction.cpp:551
 #, c-format
 msgid " of % junctions"
-msgstr ""
+msgstr " de % junções"
 
 #: src/netedit/elements/network/GNEJunction.cpp:552
 msgid "Clear connections"
@@ -12256,15 +12256,15 @@ msgstr "Reiniciar conexões"
 
 #: src/netedit/elements/network/GNEJunction.cpp:562
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "Reiniciar formatos das junções"
 
 #: src/netedit/elements/network/GNEJunction.cpp:576
 msgid "wrong edit mode"
-msgstr ""
+msgstr "modo de edição incorreto"
 
 #: src/netedit/elements/network/GNEJunction.cpp:1452
 msgid "change junction position"
-msgstr ""
+msgstr "trocar posição da junção"
 
 #: src/netedit/elements/network/GNEJunction.cpp:1475
 msgid "change keepClear for whole junction"
@@ -12332,7 +12332,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:1431
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "Estado da conexão inesperado '%'"
 
 #: src/netedit/elements/network/GNELane.cpp:2030
 #, c-format
@@ -12345,7 +12345,7 @@ msgstr "Operações de aresta"
 
 #: src/netedit/elements/network/GNELane.cpp:2035
 msgid "Split edge here"
-msgstr ""
+msgstr "Dividir aresta aqui"
 
 #: src/netedit/elements/network/GNELane.cpp:2036
 msgid "Split edge in both directions here (no symmetric opposite edge)"
@@ -12426,11 +12426,11 @@ msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:2126
 msgid "Reset custom shape"
-msgstr ""
+msgstr "Reiniciar formato personalizado"
 
 #: src/netedit/elements/network/GNELane.cpp:2130
 msgid "Reset opposite lane"
-msgstr ""
+msgstr "Reiniciar faixa oposta"
 
 #: src/netedit/elements/network/GNELane.cpp:2142
 #: src/netedit/elements/network/GNELane.cpp:2153
@@ -12458,19 +12458,19 @@ msgstr "Canteiro verde"
 
 #: src/netedit/elements/network/GNELane.cpp:2149
 msgid "Green verge (front)"
-msgstr ""
+msgstr "Canteiro verde (frente)"
 
 #: src/netedit/elements/network/GNELane.cpp:2150
 msgid "Green verge (back)"
-msgstr ""
+msgstr "Canteiro verde (atrás)"
 
 #: src/netedit/elements/network/GNELane.cpp:2167
 msgid "Add restricted %"
-msgstr ""
+msgstr "Adicionar % restrito"
 
 #: src/netedit/elements/network/GNELane.cpp:2168
 msgid "Remove restricted %"
-msgstr ""
+msgstr "Remover % restrito"
 
 #: src/netedit/elements/network/GNELane.cpp:2169
 msgid "Transform to restricted %"
@@ -12499,7 +12499,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:319
 msgid "% (Edited shape)"
-msgstr ""
+msgstr "% (formato editado)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:322
 #: src/utils/gui/globjects/GUIGlObject.cpp:316
@@ -12512,11 +12512,11 @@ msgstr "Simplificar forma"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:334
 msgid "Open junction's shape"
-msgstr ""
+msgstr "Abrir formato da junção"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:336
 msgid "Close junction's shape"
-msgstr ""
+msgstr "Fechar formato da junção"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:339
 msgid "Straighten shape"
@@ -12528,7 +12528,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:362
 msgid "Finish editing (Enter)"
-msgstr ""
+msgstr "Finalizar edição (Enter)"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:31
 msgid "Internal attributes"
@@ -12571,7 +12571,7 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:652
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "Inspecionar % elemento pai"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:713
 msgid "Open dialog to select an existent file"
