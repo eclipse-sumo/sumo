@@ -311,6 +311,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError(TLF("Invalid node id '%'.", myID));
     }
+    if (myPosition.isNAN()) {
+        throw ProcessError(TLF("Invalid position '%' for node '%'", myPosition, myID));
+    }
 }
 
 
@@ -333,6 +336,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError(TLF("Invalid node id '%'.", myID));
     }
+    if (myPosition.isNAN()) {
+        throw ProcessError(TLF("Invalid position '%' for node '%'", myPosition, myID));
+    }
 }
 
 
@@ -345,6 +351,9 @@ void
 NBNode::reinit(const Position& position, SumoXMLNodeType type,
                bool updateEdgeGeometries) {
     myPosition = position;
+    if (myPosition.isNAN()) {
+        throw ProcessError(TLF("Invalid position '%' for node '%'", myPosition, myID));
+    }
     // patch type
     myType = type;
     if (!isTrafficLight(myType)) {
