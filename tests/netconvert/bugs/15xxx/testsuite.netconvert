@@ -33,3 +33,6 @@ ticket16653b
 
 # crash on loading inconsistent connections
 ticket17098
+
+# warn when loading nan values
+ticket17161

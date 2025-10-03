@@ -1,0 +1,6 @@
+Warning: Connection 'EC_0->CN_0' is only 0.00m short.
+Warning: Connection 'EC_0->CW_0' is only 0.00m short.
+Warning: Connection 'EC_1->CW_1' is only 0.00m short.
+Warning: Connection 'EC_1->CS_1' is only 0.00m short.
+Warning: Connection 'EC_1->CE_1' is only 0.00m short.
+Warning: 10 total messages of type: Connection '%_%->%_%' is only %m short.
