@@ -33,6 +33,10 @@ CACC
 # EIDM model test
 EIDM
 
+# Plexe model standalone test
+# 
+CC
+
 # drive in circles with overtaking
 circle_two_lanes
 
