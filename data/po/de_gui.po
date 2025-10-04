@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-01 11:54+0000\n"
+"PO-Revision-Date: 2025-10-04 11:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2866,19 +2866,19 @@ msgstr "Speichern der gesammelten weiteren Elemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3947
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "Datei mit JuPedSim-Elementen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3969
 msgid "JuPedSim elements saved."
-msgstr ""
+msgstr "Datei mit JuPedSim-Elementen gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:3972
 msgid "Saving JuPedSim elements aborted."
-msgstr ""
+msgstr "Speichervorgang der JuPedSim-Elemente abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3978
 msgid "Saving JuPedSim elements failed"
-msgstr ""
+msgstr "Speichervorgang der JuPedSim-Elemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3988
 #: src/netedit/GNEApplicationWindow.cpp:4128
@@ -3063,15 +3063,15 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4971
 msgid "Reloading TLS programs"
-msgstr ""
+msgstr "Erneutes Laden der LSA-Programme"
 
 #: src/netedit/GNEApplicationWindow.cpp:4972
 msgid "reloading TLS Programs from '%'"
-msgstr ""
+msgstr "LSA-Programme werden erneut aus '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4974
 msgid "Loading TLS programs from '%'"
-msgstr ""
+msgstr "Laden der LSA-Programme aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4975
 msgid "loading TLS Programs from '%'"
@@ -3079,19 +3079,19 @@ msgstr "Laden der LSA-Programme aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5004
 msgid "Reloading edge types"
-msgstr ""
+msgstr "Erneutes Laden der Kantentypen"
 
 #: src/netedit/GNEApplicationWindow.cpp:5005
 msgid "loading edge types from '%'"
-msgstr ""
+msgstr "Kantentypen werden aus '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:5007
 msgid "Loading edge types from '%'"
-msgstr ""
+msgstr "Kantentypen werden aus '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:5008
 msgid "reloading edge types from '%'"
-msgstr ""
+msgstr "Kantentypen werden erneut aus '%' geladen"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:135
 msgid "nets"
@@ -10246,24 +10246,28 @@ msgstr "Speicher Vorlageparameter-Datei"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:410
 msgid "- Parameters are defined by a Key and a Value."
-msgstr ""
+msgstr "- Parameter werden durch einen Schlüssel und einen Wert definiert."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:411
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|key2=parameter2|..."
 msgstr ""
+"- Sie können in netedit mit der Syntax Schlüssel1=Wert1|Schlüssel2=Wert2|... "
+"definiert werden"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:412
 msgid "- Duplicated and empty Keys aren't valid."
-msgstr ""
+msgstr "- Schlüssel dürfen nicht doppelt vorhanden oder leer sein."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:413
 msgid "- Whitespace and certain characters aren't allowed (@$%^&/|\\....)"
 msgstr ""
+"- Neben dem Leerzeichen dürfen weitere Zeichen nicht verwendet werden "
+"(@$%^&/|\\....)"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:416
 msgid "Parameters Help"
-msgstr ""
+msgstr "Parameterhilfe"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:439
 msgid "Key of Parameter not defined"
