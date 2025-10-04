@@ -133,3 +133,6 @@ Further Options
 
 !!! note
     By default, the statistic is directly used as poi diameter in m. The visual scaling can be adjusted in the sumo-gui settings with *poi exaggeration*.
+
+!!! note
+    By default, POIs are not shown in netedit data-mode (F4). If they should be shown together with the tazRelations, netedit data-mode visualization option *show shapes* (<kbd>Alt+3</kbd>) must be active
