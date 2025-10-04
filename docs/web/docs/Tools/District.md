@@ -114,3 +114,22 @@ Example call:
 ```
 python tools/district/stationDistricts.py -n <net-file> -s <stop-file> -o <output-file>
 ```
+
+## tazRel2POI.py
+
+Load a TAZ (district) file together with a [tazRelation file](../Demand/Importing_O/D_Matrices.md#tazrelation_format) and generate a [POI]()(../Simulation/Shapes.md) for each TAZ.
+The size of the POI is used to indicate aggregated statistics about incoming/outgoing/all tazRelations.
+
+Example call:
+
+```
+python tools/district/tazRel2POI.py --taz-file <taz-file> --taz-relation-file <taz-relation-file> -o <output-file>
+```
+
+Further Options
+
+- **--size-metric**: select the value that shall be visualized by the POI size ('in', 'out', or 'all'). Default is 'all'
+- **--attribute**: select the tazRelation attribute to visualize (default 'count')
+
+!!! note
+    By default, the statistic is directly used as poi diameter in m. The visual scaling can be adjusted in the sumo-gui settings with *poi exaggeration*.
