@@ -4,7 +4,7 @@ title: polyconvert
 
 # From 30.000 feet
 
-**polyconvert** imports geometrical [shapes]((Simulation/Shapes.md)) (polygons or points of
+**polyconvert** imports geometrical [shapes](Simulation/Shapes.md) (polygons or points of
 interest) from different sources, converts them to a representation that
 may be visualized using [sumo-gui](sumo-gui.md) and [netedit](netedit.md).
 
