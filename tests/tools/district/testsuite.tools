@@ -13,3 +13,6 @@ gridDistricts
 
 # segment a network based on public transport stations (stops with the same name)
 stationDistricts
+
+# test generating POIs on TAZ
+tazRel2POI

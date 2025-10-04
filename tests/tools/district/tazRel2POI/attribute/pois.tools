@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-04 10:56:41.180107 by Eclipse SUMO tazRel2POI.py v1_24_0+1141-67b960968ae
+<configuration>
+    <taz-file value="input_districts.xml"/>
+    <taz-relation-file value="input_tazrel.xml"/>
+    <output-file value="pois.add.xml"/>
+    <attribute value="otherAttr"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="0_2" x="7.12" y="842.71" width="22.0">
+        <param key="in" value="6.0"/>
+        <param key="out" value="16.0"/>
+        <param key="all" value="22.0"/>
+    </poi>
+    <poi id="0_3" x="0.0" y="1200.0" width="18.0">
+        <param key="in" value="6.0"/>
+        <param key="out" value="12.0"/>
+        <param key="all" value="18.0"/>
+    </poi>
+    <poi id="1_2" x="400.0" y="800.0" width="32.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="21.0"/>
+        <param key="all" value="32.0"/>
+    </poi>
+    <poi id="1_3" x="400.0" y="1200.0" width="32.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="21.0"/>
+        <param key="all" value="32.0"/>
+    </poi>
+    <poi id="1_4" x="400.0" y="1600.0" width="32.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="21.0"/>
+        <param key="all" value="32.0"/>
+    </poi>
+    <poi id="1_5" x="400.0" y="2000.0" width="21.0">
+        <param key="in" value="5.0"/>
+        <param key="out" value="16.0"/>
+        <param key="all" value="21.0"/>
+    </poi>
+    <poi id="2_2" x="800.0" y="800.0" width="31.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="20.0"/>
+        <param key="all" value="31.0"/>
+    </poi>
+    <poi id="2_3" x="800.0" y="1200.0" width="32.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="21.0"/>
+        <param key="all" value="32.0"/>
+    </poi>
+    <poi id="2_4" x="800.0" y="1600.0" width="31.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="20.0"/>
+        <param key="all" value="31.0"/>
+    </poi>
+    <poi id="2_5" x="800.0" y="2000.0" width="27.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="18.0"/>
+        <param key="all" value="27.0"/>
+    </poi>
+    <poi id="3_1" x="1200.0" y="400.0" width="21.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="10.0"/>
+        <param key="all" value="21.0"/>
+    </poi>
+    <poi id="3_2" x="1200.0" y="800.0" width="11.0">
+        <param key="in" value="11.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="11.0"/>
+    </poi>
+    <poi id="3_3" x="1200.0" y="1200.0" width="10.0">
+        <param key="in" value="10.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="10.0"/>
+    </poi>
+    <poi id="3_4" x="1200.0" y="1600.0" width="9.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="9.0"/>
+    </poi>
+    <poi id="4_0" x="1600.0" y="0.0" width="10.0">
+        <param key="in" value="10.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="10.0"/>
+    </poi>
+    <poi id="4_1" x="1600.0" y="400.0" width="9.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="9.0"/>
+    </poi>
+    <poi id="4_2" x="1600.0" y="800.0" width="9.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="9.0"/>
+    </poi>
+    <poi id="4_3" x="1600.0" y="1200.0" width="9.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="9.0"/>
+    </poi>
+    <poi id="4_4" x="1600.0" y="1600.0" width="7.0">
+        <param key="in" value="7.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="7.0"/>
+    </poi>
+    <poi id="5_1" x="2000.0" y="400.0" width="9.0">
+        <param key="in" value="9.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="9.0"/>
+    </poi>
+    <poi id="5_2" x="2000.0" y="800.0" width="10.0">
+        <param key="in" value="10.0"/>
+        <param key="out" value="0"/>
+        <param key="all" value="10.0"/>
+    </poi>
+</additional>
