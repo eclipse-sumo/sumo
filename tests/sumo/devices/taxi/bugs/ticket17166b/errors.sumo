@@ -1,4 +1,4 @@
-Warning: Aborting reservation for customers 'p_0' from 'A0B0' because no taxi can reach the pickup location after waiting for '3660.00', time=3660.00.
+Warning: Aborting reservation for customers 'p_0' from 'A0B0' after waiting time 3660.00 because no taxi can reach the pickup location, time=3660.00.
 Warning: Person 'p_0' aborted waiting for taxi at edge 'A0B0'.
 Warning: Vehicle 'bike_b.0' aborted waiting for a person that will never come.
 Warning: Vehicle 'bike_b.1' aborted waiting for a person that will never come.

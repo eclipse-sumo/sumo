@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-05T11:07:27.751448+01:00 by Eclipse SUMO sumo v1_24_0+1146-b78e875296f
+<!-- generated on 2025-10-05T18:54:18.796218+01:00 by Eclipse SUMO sumo v1_24_0+1153-1226a461014
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,13 +22,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p_0" depart="0.00" arrival="821.00">
-        <ride from="A0B0" to="B0C0" arrivalPos="84.79" lines="taxi"/>
-        <walk edges="B0C0" trainStop="ts_0"/>
-        <ride from="B0C0" to="D0E0" trainStop="ts_1" lines="taxi"/>
-        <walk edges="E0F0 G0F0 G0H0"/>
-    </person>
-
     <vehicle id="train" type="train_short" depart="0.00" line="trainline" arrival="2917.00">
         <route edges="C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0 C0D0 D0E0 E0D0 D0C0"/>
         <stop busStop="ts_0" duration="10.00" until="90.00"/>
