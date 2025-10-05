@@ -1,0 +1,6 @@
+Warning: No connection between edge 'B0C0' and edge 'E0F0' found.
+Warning: No route for vehicle 'bike_a.0' found.
+Warning: Teleporting vehicle 'bike_a.0'; waited too long (wrong lane), lane='B0C0_0', time=555.00.
+Warning: Vehicle 'bike_a.0' ends teleporting on edge 'E0F0', time=555.00.
+Warning: Vehicle 'bike_a.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'bike_a.1' aborted waiting for a person that will never come.

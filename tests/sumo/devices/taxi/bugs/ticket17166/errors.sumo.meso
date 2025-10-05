@@ -1,0 +1,7 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Idle taxi 'bike_a.0' has no next segment to stop. time=0.00.
+Warning: Idle taxi 'bike_a.1' has no next segment to stop. time=1.00.
+Warning: Idle taxi 'bike_a.1' has no next segment to stop. time=20.00.
+Warning: No connection between edge 'B0C0' and edge 'E0F0' found.
+Warning: No route for vehicle 'bike_a.0' found.
+Warning: Vehicle 'bike_a.0' aborted waiting for a person that will never come.
