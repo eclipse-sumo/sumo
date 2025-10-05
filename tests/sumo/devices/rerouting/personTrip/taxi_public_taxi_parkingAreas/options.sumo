@@ -1,0 +1,5 @@
+--net-file=net.net.xml --additional input_additional.add.xml --route-files=input_routes.rou.xml --vehroute-output vehroutes.xml
+--tripinfo-output tripinfos.xml
+--persontrip.taxi.waiting-time 30
+--persontrip.transfer.taxi-walk parkingAreas
+--persontrip.transfer.walk-taxi parkingAreas

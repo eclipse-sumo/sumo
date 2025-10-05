@@ -142,6 +142,9 @@ car_public_walk5
 car_public_walk_internal
 car_public_walk_parkingAreas
 
+# test transfer at parkingAreas
+taxi_public_taxi_parkingAreas
+
 # output bus route as well
 ptline_routing
 
