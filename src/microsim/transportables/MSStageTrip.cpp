@@ -247,7 +247,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
                     previous->setCosts(it->cost);
                     previous->setTrip(this);
                     stages.push_back(previous);
-                } else if (isTaxi) {
+                } else if (isTaxi && it->line == minVehicle->getID()) {
                     const ConstMSEdgeVector& prevEdges = previous->getEdges();
                     if (prevEdges.size() >= 2 && previous->getDestinationStop() == nullptr) {
                         // determine walking direction and let the previous
