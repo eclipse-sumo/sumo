@@ -1,0 +1,11 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Idle taxi 'bike_a.0' has no next segment to stop. time=0.00.
+Warning: Idle taxi 'bike_b.0' has no next segment to stop. time=0.00.
+Warning: Idle taxi 'bike_a.1' has no next segment to stop. time=1.00.
+Warning: Idle taxi 'bike_b.1' has no next segment to stop. time=1.00.
+Warning: Idle taxi 'bike_b.0' has no next segment to stop. time=19.00.
+Warning: Idle taxi 'bike_a.1' has no next segment to stop. time=20.00.
+Warning: Idle taxi 'bike_b.1' has no next segment to stop. time=20.00.
+Warning: Aborting reservation for customers 'p_0' from 'E0F0' after waiting time 3632.00 because no taxi can reach the pickup location, time=4020.00.
+Warning: Person 'p_0' aborted waiting for taxi at parkingArea 'pa_2'.
+Warning: Vehicle 'bike_a.0' aborted waiting for a person that will never come.

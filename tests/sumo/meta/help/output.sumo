@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_24_0+1151-a891f1316fa
+Eclipse SUMO sumo v1_24_0+1168-e7b890310b7
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -484,9 +484,11 @@ Routing Options:
                                         'parkingAreas', 'ptStops',
                                         'allJunctions' and combinations)
   --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
-                                        ('allJunctions, 'ptStops')
+                                        ('allJunctions, 'ptStops',
+                                        'parkingAreas')
   --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
-                                        ('allJunctions, 'ptStops')
+                                        ('allJunctions, 'ptStops',
+                                        'parkingAreas')
   --persontrip.default.group STR       When set, trips between the same origin
                                         and destination will share a taxi by
                                         default

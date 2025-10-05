@@ -1,3 +1,4 @@
-Warning: No connection between edge 'A0B0' and edge 'G0H0' found.
-Error: No connection found between edge 'A0B0' and edge 'G0H0' for person 'p_0'.
-Quitting (on error).
+Warning: Vehicle 'bike_a.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'bike_a.1' aborted waiting for a person that will never come.
+Warning: Vehicle 'bike_b.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'bike_b.1' aborted waiting for a person that will never come.

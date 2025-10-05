@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-05T18:41:54.809058+01:00 by Eclipse SUMO sumo v1_24_0+1151-a891f1316fa
+<!-- generated on 2025-10-05T23:50:04.799989+01:00 by Eclipse SUMO sumo v1_24_0+1168-e7b890310b7
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -663,10 +663,10 @@
         <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
         <persontrip.transfer.car-walk value="parkingAreas" type="STR[]"/>
 
-        <!-- Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;) -->
+        <!-- Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;) -->
         <persontrip.transfer.taxi-walk value="" type="STR[]"/>
 
-        <!-- Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;) -->
+        <!-- Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;, &apos;parkingAreas&apos;) -->
         <persontrip.transfer.walk-taxi value="" type="STR[]"/>
 
         <!-- When set, trips between the same origin and destination will share a taxi by default -->
