@@ -94,6 +94,9 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", TL("The period between successive calls to the dispatcher"));
 
+    oc.doRegister("device.taxi.dispatch-keep-unreachable", new Option_String("3600", "TIME"));
+    oc.addDescription("device.taxi.dispatch-keep-unreachable", "Taxi Device", TL("The time before aborting unreachable reservations"));
+
     oc.doRegister("device.taxi.idle-algorithm", new Option_String("stop"));
     oc.addDescription("device.taxi.idle-algorithm", "Taxi Device", TL("The behavior of idle taxis [stop|randomCircling|taxistand]"));
 

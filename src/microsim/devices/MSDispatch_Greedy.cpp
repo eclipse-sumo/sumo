@@ -68,6 +68,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         MSDevice_Taxi* closest = nullptr;
         SUMOTime closestTime = SUMOTime_MAX;
         bool tooEarly = false;
+        bool unreachable = false;
         for (auto* taxi : available) {
             if (remainingCapacity(taxi, res) < 0 || !taxi->compatibleLine(res)) {
                 continue;
@@ -88,12 +89,25 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                     res->recheck += MAX2(now + myRecheckTime, res->pickupTime - closestTime - myRecheckSafety);
                     break;
                 }
+            } else if (travelTime == SUMOTime_MAX) {
+                unreachable = true;
             }
         }
         if (tooEarly || closest == nullptr) {
             // too early or all taxis are too small
-            it++;
-            numPostponed++;
+            SUMOTime resWait = now - res->pickupTime;
+            if (unreachable && resWait > myKeepUnreachableResTime) {
+                it = reservations.erase(it);
+                WRITE_WARNINGF("Aborting reservation for customers '%' from '%' because no taxi can reach the pickup location after waiting for '%', time=%.",
+                        toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                std::set<const MSTransportable*> persons = res->persons;
+                for (const MSTransportable* p : persons) {
+                    removeReservation(const_cast<MSTransportable*>(p), res->from, res->fromPos, res->to, res->toPos, res->group);
+                }
+            } else {
+                it++;
+                numPostponed++;
+            }
         } else {
             numDispatched += dispatch(closest, it, router, reservations);
             available.erase(closest);

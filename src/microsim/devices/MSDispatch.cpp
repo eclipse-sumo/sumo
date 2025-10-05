@@ -54,6 +54,7 @@ MSDispatch::MSDispatch(const Parameterised::Map& params) :
         OutputDevice::createDeviceByOption(opt, "DispatchInfo");
         myOutput = &OutputDevice::getDeviceByOption(opt);
     }
+    myKeepUnreachableResTime = string2time(OptionsCont::getOptions().getString("device.taxi.dispatch-keep-unreachable"));
 }
 
 MSDispatch::~MSDispatch() {
@@ -306,7 +307,11 @@ MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reser
     ConstMSEdgeVector edges;
     router.compute(taxi->getHolder().getEdge(), taxi->getHolder().getPositionOnLane() - NUMERICAL_EPS,
                    res.from, res.fromPos, &taxi->getHolder(), t, edges, true);
-    return TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), t));
+    if (edges.empty()) {
+        return SUMOTime_MAX;
+    } else {
+        return TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), t));
+    }
 }
 
 

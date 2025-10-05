@@ -203,6 +203,10 @@ protected:
     OutputDevice* myOutput;
 
     int myReservationCount;
+
+    /// @brief the duration before canceling unreachable reservations
+    SUMOTime myKeepUnreachableResTime;
+
     std::map<std::string, std::vector<Reservation*> > myGroupReservations;
 
 };
