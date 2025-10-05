@@ -69,17 +69,19 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         SUMOTime closestTime = SUMOTime_MAX;
         bool tooEarly = false;
         bool unreachable = false;
+        bool unreachableDest = false;
         for (auto* taxi : available) {
             if (remainingCapacity(taxi, res) < 0 || !taxi->compatibleLine(res)) {
                 continue;
             }
             SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
+            const bool destConnected = isReachable(now, taxi, *res, router);
 #ifdef DEBUG_TRAVELTIME
             if (DEBUG_COND2(person)) {
-                std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << " traveltime=" << time2string(travelTime) << "\n";
+                std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << " traveltime=" << time2string(travelTime) << " reachable=" << reachable << "\n";
             }
 #endif
-            if (travelTime < closestTime) {
+            if (travelTime < closestTime && destConnected) {
                 closestTime = travelTime;
                 closest = taxi;
                 SUMOTime taxiWait = res->pickupTime - (now + closestTime);
@@ -91,15 +93,22 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                 }
             } else if (travelTime == SUMOTime_MAX) {
                 unreachable = true;
+            } else if (!destConnected) {
+                unreachableDest = true;
             }
         }
         if (tooEarly || closest == nullptr) {
             // too early or all taxis are too small
             SUMOTime resWait = now - res->pickupTime;
-            if (unreachable && resWait > myKeepUnreachableResTime) {
+            if ((unreachable || unreachableDest) && resWait > myKeepUnreachableResTime) {
                 it = reservations.erase(it);
-                WRITE_WARNINGF("Aborting reservation for customers '%' from '%' because no taxi can reach the pickup location after waiting for '%', time=%.",
-                        toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                if (unreachable) {
+                    WRITE_WARNINGF("Aborting reservation for customers '%' from '%' after waiting time % because no taxi can reach the pickup location, time=%.",
+                            toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                } else {
+                    WRITE_WARNINGF("Aborting reservation for customers '%' to '%' after waiting time % because no taxi can reach the dropoff location, time=%.",
+                            toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                }
                 std::set<const MSTransportable*> persons = res->persons;
                 for (const MSTransportable* p : persons) {
                     removeReservation(const_cast<MSTransportable*>(p), res->from, res->fromPos, res->to, res->toPos, res->group);

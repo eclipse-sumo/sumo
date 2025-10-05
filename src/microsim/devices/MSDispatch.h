@@ -178,6 +178,9 @@ public:
     ///@brief compute time to pick up the given reservation
     static SUMOTime computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router);
 
+    ///@brief compute whether the reservation is servable
+    bool isReachable(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router);
+
     ///@brief compute directTime and detourTime
     static double computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi* taxi,
                                     const MSEdge* from, double fromPos,

@@ -315,6 +315,14 @@ MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reser
 }
 
 
+bool
+MSDispatch::isReachable(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) {
+    ConstMSEdgeVector edges;
+    router.compute(res.from, res.fromPos, res.to, res.toPos, &taxi->getHolder(), t, edges, true);
+    return !edges.empty();
+}
+
+
 double
 MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi* taxi,
                               const MSEdge* from, double fromPos,
