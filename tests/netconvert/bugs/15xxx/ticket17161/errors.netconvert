@@ -1,4 +1,4 @@
-Error: Invalid position '-nan,nan' for node 'E'
+Error: Invalid position 'nan,-nan' for node 'E'
 Error: Edge's 'CE' to-node 'E' is not known.
 Error: Edge's 'CN' to-node 'N' is not known.
 Error: Edge's 'CS' to-node 'S' is not known.
