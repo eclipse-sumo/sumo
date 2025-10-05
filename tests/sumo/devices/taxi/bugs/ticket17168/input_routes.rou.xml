@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-05T10:51:24.572677+01:00 by Eclipse SUMO netedit v1_24_0+1146-b78e875296f
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="shared_bike" length="2.00" vClass="taxi" guiShape="bicycle" desiredMaxSpeed="5.55" personCapacity="1">
+        <param key="has.taxi.device" value="1"/>
+    </vType>
+    <vType id="train_short" vClass="rail" length="20"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <personTrip from="A0B0" to="G0H0" modes="public taxi"/>
+    </person>
+    <flow id="bike_a" begin="0.00" number="2" period="1.00" type="shared_bike">
+        <route edges="A0B0"/>
+    </flow>
+    <flow id="bike_b" begin="0.00" number="2" period="1.00" type="shared_bike">
+        <route edges="E0F0"/>
+    </flow>
+    <route id="trainroute" edges="C0D0 D0E0 E0D0 D0C0" repeat="10" cycleTime="270">
+        <stop trainStop="ts_0" until="90" duration="10"/>
+        <stop trainStop="ts_1" until="180" duration="10"/>
+    </route>
+    <vehicle id="train" depart="0" route="trainroute" type="train_short" line="trainline"/>
+</routes>
