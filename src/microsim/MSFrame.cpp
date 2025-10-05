@@ -670,10 +670,10 @@ MSFrame::fillOptions() {
                       "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.taxi-walk", "Routing", TL("Where taxis can drop off customers ('allJunctions, 'ptStops')"));
+    oc.addDescription("persontrip.transfer.taxi-walk", "Routing", TL("Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.walk-taxi", "Routing", TL("Where taxis can pick up customers ('allJunctions, 'ptStops')"));
+    oc.addDescription("persontrip.transfer.walk-taxi", "Routing", TL("Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"));
 
     oc.doRegister("persontrip.default.group", new Option_String());
     oc.addDescription("persontrip.default.group", "Routing", TL("When set, trips between the same origin and destination will share a taxi by default"));

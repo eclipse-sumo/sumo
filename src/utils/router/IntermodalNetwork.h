@@ -515,8 +515,10 @@ public:
         assert(stopEdge != nullptr);
         const bool transferCarWalk = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) ||
                                       (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0));
-        const bool transferTaxiWalk = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_DROPOFF_PT) != 0);
-        const bool transferWalkTaxi = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_PICKUP_PT) != 0);
+        const bool transferTaxiWalk = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & TAXI_DROPOFF_PARKING_AREAS) != 0) ||
+                                       (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_DROPOFF_PT) != 0));
+        const bool transferWalkTaxi = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & TAXI_PICKUP_PARKING_AREAS) != 0) ||
+                                       (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_PICKUP_PT) != 0));
         const double pos = (startPos + endPos) / 2.;
 #ifdef IntermodalRouter_DEBUG_ACCESS
         std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " tag=" << toString(category)
