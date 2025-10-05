@@ -1,3 +1,4 @@
-Warning: No connection between edge 'E0F0' and edge 'A0B0' found.
-Error: Vehicle 'bike_b.0' has no valid route from edge 'E0F0' to stop edge 'A0B0'.
-Quitting (on error).
+Warning: Aborting reservation for customers 'p_0' from 'A0B0' because no taxi can reach the pickup location after waiting for '3660.00', time=3660.00.
+Warning: Person 'p_0' aborted waiting for taxi at edge 'A0B0'.
+Warning: Vehicle 'bike_b.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'bike_b.1' aborted waiting for a person that will never come.

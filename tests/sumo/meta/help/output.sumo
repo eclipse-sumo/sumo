@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
+Eclipse SUMO sumo v1_24_0+1151-a891f1316fa
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -893,6 +893,8 @@ Taxi Device Options:
                                         KEY1:VALUE1[,KEY2:VALUE]
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                         the dispatcher
+  --device.taxi.dispatch-keep-unreachable TIME  The time before aborting
+                                        unreachable reservations
   --device.taxi.idle-algorithm STR     The behavior of idle taxis
                                         [stop|randomCircling|taxistand]
   --device.taxi.idle-algorithm.output FILE  Write information from the idling
@@ -1047,6 +1049,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

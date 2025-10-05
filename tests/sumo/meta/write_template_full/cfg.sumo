@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-15T15:03:04.564320+01:00 by Eclipse SUMO sumo v1_24_0+0788-3d60feeb020
+<!-- generated on 2025-10-05T18:41:54.787967+01:00 by Eclipse SUMO sumo v1_24_0+1151-a891f1316fa
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -449,6 +449,7 @@
         <device.taxi.dispatch-algorithm.output value="" type="FILE" help="Write information from the dispatch algorithm to FILE"/>
         <device.taxi.dispatch-algorithm.params value="" type="STR" help="Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"/>
         <device.taxi.dispatch-period value="60" type="TIME" help="The period between successive calls to the dispatcher"/>
+        <device.taxi.dispatch-keep-unreachable value="3600" type="TIME" help="The time before aborting unreachable reservations"/>
         <device.taxi.idle-algorithm value="stop" type="STR" help="The behavior of idle taxis [stop|randomCircling|taxistand]"/>
         <device.taxi.idle-algorithm.output value="" type="FILE" help="Write information from the idling algorithm to FILE"/>
     </taxi_device>
@@ -541,6 +542,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

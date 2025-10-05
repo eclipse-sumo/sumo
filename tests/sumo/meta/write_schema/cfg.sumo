@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-15T15:27:54.808206+01:00 by Eclipse SUMO sumo v1_24_0+0803-4a5b10223ec
+<!-- generated on 2025-10-05T18:41:54.752364+01:00 by Eclipse SUMO sumo v1_24_0+1151-a891f1316fa
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -503,6 +503,7 @@
             <xsd:element name="device.taxi.dispatch-algorithm.output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.dispatch-algorithm.params" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.dispatch-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.dispatch-keep-unreachable" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm.output" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
@@ -613,6 +614,7 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
