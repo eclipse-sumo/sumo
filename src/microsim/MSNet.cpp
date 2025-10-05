@@ -1626,7 +1626,7 @@ MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const Prohibitio
     const OptionsCont& oc = OptionsCont::getOptions();
     const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
     if (myIntermodalRouter.count(key) == 0) {
-        const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::getTaxi() != nullptr);
+        const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::hasFleet() || myInserter->hasTaxiFlow());
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {

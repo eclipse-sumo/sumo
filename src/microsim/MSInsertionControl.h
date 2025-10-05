@@ -185,6 +185,8 @@ public:
     /// @brief updates the flow scale value to keep track of TraCI-induced change
     void updateScale(const std::string vtypeid);
 
+    bool hasTaxiFlow() const;
+
 private:
     /** @brief Tries to emit the vehicle
      *
@@ -216,6 +218,8 @@ private:
 
     /// @brief init scale value of flow
     static double initScale(const std::string vtypeid);
+
+    static bool hasTaxiDeviceType(const std::string& vtypeId, SumoRNG& rng);
 
 private:
     /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)

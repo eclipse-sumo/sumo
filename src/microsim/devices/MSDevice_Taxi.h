@@ -163,8 +163,8 @@ public:
         return myState;
     }
 
-    /// @brief returns a taxi if any exist or nullptr
-    static SUMOVehicle* getTaxi();
+    /// @brief returns whether taxis have been loaded
+    static bool hasFleet();
 
     /// @brief service the given reservation
     void dispatch(const Reservation& res);

@@ -460,4 +460,26 @@ MSInsertionControl::getLastFlowVehicle(const std::string& id) const {
     return nullptr;
 }
 
+
+bool
+MSInsertionControl::hasTaxiFlow() const {
+    SumoRNG tmp("tmp");
+    for (const Flow& flow : myFlows) {
+        if (flow.scale != 0 &&
+                (StringUtils::toBool(flow.pars->getParameter("has.taxi.device", "false"))
+                 || hasTaxiDeviceType(flow.pars->vtypeid, tmp))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+MSInsertionControl::hasTaxiDeviceType(const std::string& vtypeId, SumoRNG& rng) {
+    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+    const MSVehicleType* vtype = vehControl.getVType(vtypeId, &rng);
+    return StringUtils::toBool(vtype->getParameter().getParameter("has.taxi.device", "false"));
+}
+
 /****************************************************************************/
