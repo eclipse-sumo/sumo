@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-05T11:08:06.877994+01:00 by Eclipse SUMO sumo v1_24_0+1146-b78e875296f
+<!-- generated on 2025-10-05T22:18:26.895243+01:00 by Eclipse SUMO sumo v1_24_0+1161-f17fa579c60
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,10 +30,10 @@
         <route edges="A0B0"/>
     </vehicle>
 
-    <person id="p_0" depart="0.00" arrival="384.00">
+    <person id="p_0" depart="0.00" arrival="552.00">
         <ride from="A0B0" to="B0C0" arrivalPos="0.00" lines="taxi"/>
         <walk edges="B0C0" trainStop="ts_0"/>
-        <ride from="B0C0" to="D0E0" trainStop="ts_1" lines="taxi"/>
+        <ride from="C0D0" to="D0E0" trainStop="ts_1" intended="train" depart="90.00"/>
         <walk edges="E0F0 G0F0 G0H0"/>
     </person>
 

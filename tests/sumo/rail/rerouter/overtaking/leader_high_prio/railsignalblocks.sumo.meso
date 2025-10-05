@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-04 07:43:56 by Eclipse SUMO sumo Version v1_22_0+1261-45c241feb42
+<!-- generated on 2025-10-05T22:18:25.669051+01:00 by Eclipse SUMO sumo v1_24_0+1161-f17fa579c60
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -122,21 +122,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J3.0 J3.1.0"/>
+                <foes driveWays="J3.0"/>
             </driveWay>
-            <subDriveWay id="J3.0.0" vehicle="" edges="E3">
-                <forward lanes="E3_0"/>
-            </subDriveWay>
-            <driveWay id="J3.1" vehicle="v_2" edges="E3 E4b E5b">
-                <forward lanes="E3_0 E4b_0 E5b_0"/>
-                <bidi lanes=""/>
-                <flank lanes=""/>
-                <conflictLinks signals=""/>
-                <foes driveWays="J3.0.0 J3.1"/>
-            </driveWay>
-            <subDriveWay id="J3.1.0" vehicle="" edges="E3">
-                <forward lanes="E3_0"/>
-            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J4c">
@@ -148,22 +135,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <forward lanes="E6_0 E7_0 E8_0 E9_0 E10_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
-                <conflictLinks signals="J6b_0"/>
-                <foes driveWays="J6.0 J6b.0"/>
+                <conflictLinks signals=""/>
+                <foes driveWays="J6.0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="E5_0" to="E6c_0"/>
     </railSignal>
     <railSignal id="J6b">
-        <link linkIndex="0" from="E5b_0" to="E6b_0">
-            <driveWay id="J6b.0" vehicle="v_2" edges="E6b E7 E8 E9 E10">
-                <forward lanes="E6b_0 E7_0 E8_0 E9_0 E10_0"/>
-                <bidi lanes=""/>
-                <flank lanes=""/>
-                <conflictLinks signals="J6_0"/>
-                <foes driveWays="J6.0 J6b.0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="E5b_0" to="E6b_0"/>
     </railSignal>
     <departJunction id="J0">
         <driveWay id="J0.d0" vehicle="v_0" edges="E0">
