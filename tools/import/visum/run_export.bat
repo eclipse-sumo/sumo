@@ -14,7 +14,6 @@ REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 REM Batch launcher for Visum XML export
 REM Tries Visum Python, fallback to any Python with pywin32
 
-set PYTHON_EXE=
 
 REM Scan Program Files
 for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\PTV Vision\PTV Visum*") do (
@@ -27,8 +26,7 @@ for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\
 REM Fallback to any python in PATH
 echo Visum Python not found, trying Python from PATH...
 for %%p in (py,python) do (
-    echo %%p -c "import win32com.client"
-    %%p -c "import win32com.client"
+    call %%p -c "import win32com.client" 2> NUL
     if %errorlevel%==0 (
         set PYTHON_EXE=%%p
         goto :found_python
@@ -36,11 +34,10 @@ for %%p in (py,python) do (
 )
 
 REM Fail if no suitable Python found
-if not defined PYTHON_EXE (
-    echo Could not find a Python with pywin32 installed!
-    pause
-    exit /b 1
-)
+echo Could not find a Python with pywin32 installed!
+pause
+exit /b 1
+
 
 :found_python
 "%PYTHON_EXE%" %~dp0\visum_export.py %*

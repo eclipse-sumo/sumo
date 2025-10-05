@@ -21,6 +21,7 @@ import sys
 import zipfile
 
 import win32com.client
+from pywintypes import com_error
 
 
 def main(ver_file, zip_file, xml=True):
@@ -29,8 +30,12 @@ def main(ver_file, zip_file, xml=True):
         os.makedirs(out_dir, exist_ok=True)
     out_dir = os.path.abspath(out_dir)
 
-    visum = win32com.client.Dispatch("Visum.Visum")
-    visum.LoadVersion(ver_file)
+    try:
+        visum = win32com.client.Dispatch("Visum.Visum")
+        visum.LoadVersion(ver_file)
+    except com_error as e:
+        print("Could not load Visum or the ver file %s (%s)." % (ver_file, e), file=sys.stderr)
+        return False
 
     base_name = os.path.splitext(os.path.basename(ver_file))[0]
     if xml:
@@ -57,6 +62,7 @@ def main(ver_file, zip_file, xml=True):
         for f in [network, matrices, routes]:
             if os.path.isfile(f):
                 zipf.write(f, os.path.basename(f))
+    return True
 
 
 if __name__ == "__main__":
@@ -73,6 +79,6 @@ if __name__ == "__main__":
     else:
         # Default: generate two zip files
         zip_file = os.path.splitext(ver_file)[0] + "_anm.zip"
-        main(ver_file, zip_file, True)
-        zip_file = os.path.splitext(ver_file)[0] + ".zip"
-        main(ver_file, zip_file, False)
+        if main(ver_file, zip_file, True):
+            zip_file = os.path.splitext(ver_file)[0] + ".zip"
+            main(ver_file, zip_file, False)
