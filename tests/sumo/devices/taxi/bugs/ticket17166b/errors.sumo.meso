@@ -1,0 +1,5 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Idle taxi 'bike_b.0' has no next segment to stop. time=0.00.
+Warning: No connection between edge 'E0F0' and edge 'A0B0' found.
+Error: Vehicle 'bike_b.0' has no valid route from edge 'E0F0' to stop edge 'A0B0'.
+Quitting (on error).

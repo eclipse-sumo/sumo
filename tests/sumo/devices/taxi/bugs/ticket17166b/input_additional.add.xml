@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-05T10:48:16.419544+01:00 by Eclipse SUMO netedit v1_24_0+1146-b78e875296f
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="ts_0" lane="C0D0_0" startPos="7.45" endPos="17.45">
+        <access lane="B0C0_0" pos="91.24"/>
+    </trainStop>
+    <trainStop id="ts_1" lane="D0E0_0" startPos="77.30" endPos="87.30">
+        <access lane="E0F0_0" pos="7.48"/>
+    </trainStop>
+    <parkingArea id="pa_0" lane="A0B0_0" startPos="4.87" endPos="14.87" roadsideCapacity="4" length="2.00"/>
+    <parkingArea id="pa_1" lane="B0C0_0" startPos="79.79" endPos="89.79" roadsideCapacity="4" length="2.00"/>
+    <parkingArea id="pa_2" lane="E0F0_0" startPos="5.00" endPos="15.00" roadsideCapacity="4" length="2.00"/>
+    <parkingArea id="pa_3" lane="F0G0_0" startPos="85.37" endPos="95.37" roadsideCapacity="4" length="2.00"/>
+</additional>

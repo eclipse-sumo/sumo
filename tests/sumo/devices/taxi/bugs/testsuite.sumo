@@ -24,4 +24,9 @@ ticket15907
 
 # stop fails to end
 ticket16271
+
+# dropoff impossible
 ticket17166
+
+# pickup impossible
+ticket17166b
