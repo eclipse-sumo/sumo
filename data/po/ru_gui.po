@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-10-06 11:40+0200\n"
+"POT-Creation-Date: 2025-10-06 10:04+0000\n"
 "PO-Revision-Date: 2025-09-11 17:52+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,7 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/gui/GUIApplicationWindow.cpp:310 src/gui/GUIApplicationWindow.cpp:313
 #: src/gui/GUIApplicationWindow.cpp:2288 src/gui/GUIApplicationWindow.cpp:2289
@@ -641,8 +642,8 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:714
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:728
@@ -1031,8 +1032,8 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation"
-" SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
 msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
@@ -1041,8 +1042,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAboutDialog.cpp:59
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
@@ -1712,8 +1712,7 @@ msgid "last interval entered vehicles [#]"
 msgstr ""
 
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1075
-#: src/guisim/GUITrafficLightLogicWrapper.cpp:239
-#: src/guisim/GUIVehicle.cpp:234
+#: src/guisim/GUITrafficLightLogicWrapper.cpp:239 src/guisim/GUIVehicle.cpp:234
 msgid "type"
 msgstr ""
 
@@ -3292,8 +3291,7 @@ msgid "Save TLS Programs As..."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:409
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:415
@@ -4786,8 +4784,7 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:1653
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr ""
 
 #: src/netedit/GNENet.cpp:1654
@@ -5198,8 +5195,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:778
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:783
@@ -5254,8 +5251,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:863
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:868
@@ -5367,8 +5364,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1043
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1049
@@ -5389,8 +5386,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1067
 msgid ""
-"sets index of this connection within the controlling traffic light (-1 means"
-" automatic assignment)"
+"sets index of this connection within the controlling traffic light (-1 means "
+"automatic assignment)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1073
@@ -5445,8 +5442,8 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:1168
 #: src/netedit/GNETagPropertiesDatabase.cpp:1199
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1174
@@ -5516,8 +5513,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1299
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1305
@@ -5560,8 +5557,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1365
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1371
@@ -5758,8 +5755,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1919
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1927
@@ -5996,8 +5993,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2435
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2440
@@ -6276,8 +6273,7 @@ msgid "WaypointLane"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3208
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3238
@@ -7425,8 +7421,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7101
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7108
@@ -7470,8 +7466,7 @@ msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7156
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7161
@@ -7570,8 +7565,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7329
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7334
@@ -7658,8 +7653,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7447
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7453
@@ -7729,8 +7724,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7554
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7560
@@ -7748,8 +7743,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7578
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7584
@@ -7829,14 +7824,14 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7733
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7739
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7745
@@ -7941,8 +7936,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7854
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7860
@@ -7963,8 +7958,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7878
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7879
@@ -8059,8 +8053,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8024
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8031
@@ -8344,8 +8337,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8557
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8568
@@ -8369,8 +8362,7 @@ msgid "The name of the lane the % shall be located at"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8627
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
+msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8628
@@ -8439,8 +8431,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8752
 msgid ""
-"List of edge ids that must all be part of the future route of the vehicle to"
-" qualify for detection"
+"List of edge ids that must all be part of the future route of the vehicle to "
+"qualify for detection"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8761
@@ -9114,8 +9106,7 @@ msgid "Edge chain mode"
 msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2797
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2804
@@ -11230,8 +11221,8 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:379
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:381
@@ -11242,8 +11233,8 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:383
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:403
@@ -11783,8 +11774,7 @@ msgid "delete % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:124
-msgid ""
-"VType '%' with probability % cannot be referenced with distribution '%'"
+msgid "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:128
@@ -11810,8 +11800,7 @@ msgid "add % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:228
-msgid ""
-"Route '%' with probability % cannot be referenced with distribution '%'"
+msgid "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:269
@@ -12814,8 +12803,8 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:319
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection"
 msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:320
@@ -12841,8 +12830,8 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:326
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number."
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number."
 msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:327
@@ -14321,8 +14310,8 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:319
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions)"
 msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:333
@@ -14487,8 +14476,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:689
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:699
@@ -15216,8 +15204,7 @@ msgid "Clean unused states from all phase"
 msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1882
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1887
@@ -15622,8 +15609,7 @@ msgid "Invalid vClass"
 msgstr ""
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:415
@@ -17189,8 +17175,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:431
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:434
