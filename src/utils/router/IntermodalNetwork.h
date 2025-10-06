@@ -456,14 +456,14 @@ public:
             addEdge(access);
             departConn->addSuccessor(access);
             access->addSuccessor(carEdge);
-            if ((myCarWalkTransfer & TAXI_PICKUP_PT) == 0) {
+            if ((myCarWalkTransfer & TAXI_PICKUP_ANYWHERE) != 0) {
                 // taxi may depart anywhere but there is a time penalty
                 _AccessEdge* taxiAccess = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
                 addEdge(taxiAccess);
                 departConn->addSuccessor(taxiAccess);
                 taxiAccess->addSuccessor(carEdge);
             }
-            if ((myCarWalkTransfer & TAXI_DROPOFF_PT) == 0) {
+            if ((myCarWalkTransfer & TAXI_DROPOFF_ANYWHERE) != 0) {
                 // taxi (as all other cars) may arrive anywhere
                 carEdge->addSuccessor(getArrivalConnector(edgePair.first));
             } else {
