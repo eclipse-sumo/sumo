@@ -49,7 +49,7 @@ GNEEdgeTemplate::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNEEdgeTemplate::getMoveElement() {
+GNEEdgeTemplate::getMoveElement() const {
     return nullptr;
 }
 

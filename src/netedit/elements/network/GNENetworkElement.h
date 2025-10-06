@@ -23,14 +23,19 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/moving/GNEMoveElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveOperation;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GNEAttributeCarrier, public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
+class GNENetworkElement : public GNEAttributeCarrier, public GUIGlObject, public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor.
@@ -47,7 +52,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    virtual GNEMoveElement* getMoveElement() const = 0;
 
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr

@@ -49,6 +49,12 @@ GNELaneType::~GNELaneType() {
 }
 
 
+GNEMoveElement*
+GNELaneType::getMoveElement() const {
+    return nullptr;
+}
+
+
 GNEEdgeType*
 GNELaneType::getEdgeTypeParent() const {
     return myEdgeTypeParent;
@@ -333,18 +339,6 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getLaneTypeAttributes()->refreshAttributesEditor();
     }
-}
-
-
-void
-GNELaneType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNELaneType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
 }
 
 /****************************************************************************/

@@ -46,7 +46,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @brief get vector with the lane templates of this edge
     const std::vector<GNELaneTemplate*>& getLaneTemplates() const;

@@ -82,6 +82,12 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
 }
 
 
+GNEMoveElement*
+GNEEdgeType::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNEEdgeType::copyTemplate(const GNEEdgeTemplate* edgeTemplate) {
     // copy all edge attributes
@@ -554,18 +560,6 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeAttributes()->refreshAttributesEditor();
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getLaneTypeSelector()->refreshLaneTypeSelector();
     }
-}
-
-
-void
-GNEEdgeType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNEEdgeType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
 }
 
 /****************************************************************************/

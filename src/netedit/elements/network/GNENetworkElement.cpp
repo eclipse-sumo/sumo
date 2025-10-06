@@ -39,7 +39,6 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, SumoXML
     GNEAttributeCarrier(tag, net, "", false),
     GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
                 GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
-    GNEMoveElement(this),
     myShapeEdited(false) {
 }
 
@@ -49,12 +48,6 @@ GNENetworkElement::~GNENetworkElement() {}
 
 GNEHierarchicalElement*
 GNENetworkElement::getHierarchicalElement() {
-    return this;
-}
-
-
-GNEMoveElement*
-GNENetworkElement::getMoveElement() {
     return this;
 }
 

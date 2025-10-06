@@ -43,7 +43,7 @@ GNELaneTemplate::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNELaneTemplate::getMoveElement() {
+GNELaneTemplate::getMoveElement() const {
     return nullptr;
 }
 

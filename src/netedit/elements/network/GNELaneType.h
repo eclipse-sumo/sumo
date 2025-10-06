@@ -46,6 +46,9 @@ public:
     /// @brief Destructor.
     ~GNELaneType();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
+
     /// @brief get edge type parent
     GNEEdgeType* getEdgeTypeParent() const;
 
@@ -177,12 +180,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief invalidated copy constructor
     GNELaneType(const GNELaneType& s) = delete;
