@@ -103,8 +103,8 @@ GNEVType::GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOr
 GNEVType::~GNEVType() {}
 
 
-GNEMoveOperation*
-GNEVType::getMoveOperation() {
+GNEMoveElement*
+GNEVType::getMoveElement() const {
     return nullptr;
 }
 
@@ -1848,18 +1848,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (myTagProperty->hasAttribute(key) && (myTagProperty->getAttributeProperties(key)->requireUpdateGeometry())) {
         updateGeometry();
     }
-}
-
-
-void
-GNEVType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // vehicleTypes cannot be moved
-}
-
-
-void
-GNEVType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // vehicleTypes cannot be moved
 }
 
 

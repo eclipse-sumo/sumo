@@ -47,8 +47,8 @@ GNEVTypeRef::GNEVTypeRef(GNEDemandElement* distributionParent, GNEDemandElement*
 GNEVTypeRef::~GNEVTypeRef() {}
 
 
-GNEMoveOperation*
-GNEVTypeRef::getMoveOperation() {
+GNEMoveElement*
+GNEVTypeRef::getMoveElement() const {
     return nullptr;
 }
 
@@ -290,18 +290,6 @@ GNEVTypeRef::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNEVTypeRef::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // vTypesRefs cannot be moved
-}
-
-
-void
-GNEVTypeRef::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // vTypesRefs cannot be moved
 }
 
 /****************************************************************************/

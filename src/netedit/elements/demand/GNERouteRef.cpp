@@ -47,12 +47,6 @@ GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement*
 GNERouteRef::~GNERouteRef() {}
 
 
-GNEMoveOperation*
-GNERouteRef::getMoveOperation() {
-    return nullptr;
-}
-
-
 GUIGLObjectPopupMenu*
 GNERouteRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
@@ -290,18 +284,6 @@ GNERouteRef::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNERouteRef::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // routesRefs cannot be moved
-}
-
-
-void
-GNERouteRef::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // routesRefs cannot be moved
 }
 
 /****************************************************************************/

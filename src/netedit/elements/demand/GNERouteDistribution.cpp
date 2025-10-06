@@ -42,9 +42,8 @@ GNERouteDistribution::GNERouteDistribution(const std::string& ID, GNENet* net, c
 GNERouteDistribution::~GNERouteDistribution() {}
 
 
-GNEMoveOperation*
-GNERouteDistribution::getMoveOperation() {
-    // distributions cannot be moved
+GNEMoveElement*
+GNERouteDistribution::getMoveElement() const {
     return nullptr;
 }
 
@@ -276,18 +275,6 @@ GNERouteDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNERouteDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // distributions cannot be moved
-}
-
-
-void
-GNERouteDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // distributions cannot be moved
 }
 
 /****************************************************************************/

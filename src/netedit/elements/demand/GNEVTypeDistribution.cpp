@@ -43,9 +43,8 @@ GNEVTypeDistribution::GNEVTypeDistribution(const std::string& ID, GNENet* net, c
 GNEVTypeDistribution::~GNEVTypeDistribution() {}
 
 
-GNEMoveOperation*
-GNEVTypeDistribution::getMoveOperation() {
-    // distributions cannot be moved
+GNEMoveElement*
+GNEVTypeDistribution::getMoveElement() const {
     return nullptr;
 }
 
@@ -319,18 +318,6 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNEVTypeDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // distributions cannot be moved
-}
-
-
-void
-GNEVTypeDistribution::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // distributions cannot be moved
 }
 
 /****************************************************************************/
