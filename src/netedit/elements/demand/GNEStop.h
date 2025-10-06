@@ -24,6 +24,12 @@
 #include "GNEDemandElementPlan.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneDouble;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -42,10 +48,8 @@ public:
     /// @brief destructor
     ~GNEStop();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
@@ -204,6 +208,9 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
+
     /// @brief variable used for draw contours
     GNEContour myStopContour;
 
@@ -244,12 +251,6 @@ private:
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     void toggleAttribute(SumoXMLAttr key, const bool value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor& baseColor) const;

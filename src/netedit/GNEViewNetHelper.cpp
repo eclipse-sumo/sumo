@@ -1658,8 +1658,9 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
     const GNEAttributeCarrier* markAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
-    // check demand element
-    if (myViewNet->myViewObjectsSelector.getDemandElementFront() && (markAC == myViewNet->myViewObjectsSelector.getDemandElementFront())) {
+    // check if demand element can be moved
+    if (myViewNet->myViewObjectsSelector.getDemandElementFront() && (markAC == myViewNet->myViewObjectsSelector.getDemandElementFront() &&
+            myViewNet->myViewObjectsSelector.getDemandElementFront()->getMoveElement())) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getDemandElementFront()->getMoveElement()->getMoveOperation();
         // continue if move operation is valid
@@ -1669,7 +1670,6 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
         } else {
             return false;
         }
-
     } else {
         // there isn't moved items, then return false
         return false;
