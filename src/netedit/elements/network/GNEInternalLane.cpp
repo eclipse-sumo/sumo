@@ -92,6 +92,12 @@ GNEInternalLane::~GNEInternalLane() {
 }
 
 
+GNEMoveElement*
+GNEInternalLane::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNEInternalLane::updateGeometry() {
     // nothing to update
@@ -354,18 +360,6 @@ GNEInternalLane::getACParametersMap() const {
 void
 GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-}
-
-
-void
-GNEInternalLane::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // internal lanes cannot be moved
-}
-
-
-void
-GNEInternalLane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // internal lanes cannot be moved
 }
 
 /****************************************************************************/
