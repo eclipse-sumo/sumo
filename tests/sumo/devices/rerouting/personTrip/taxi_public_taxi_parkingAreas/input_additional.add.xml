@@ -14,5 +14,5 @@
     <parkingArea id="pa_0" lane="A0B0_0" startPos="4.87" endPos="14.87" roadsideCapacity="4" length="2.00"/>
     <parkingArea id="pa_1" lane="B0C0_0" startPos="79.79" endPos="89.79" roadsideCapacity="4" length="2.00"/>
     <parkingArea id="pa_2" lane="E0F0_0" startPos="5.00" endPos="15.00" roadsideCapacity="4" length="2.00"/>
-    <parkingArea id="pa_3" lane="F0G0_0" startPos="85.37" endPos="95.37" roadsideCapacity="4" length="2.00"/>
+    <parkingArea id="pa_3" lane="G0H0_0" startPos="85.37" endPos="95.37" roadsideCapacity="4" length="2.00"/>
 </additional>
