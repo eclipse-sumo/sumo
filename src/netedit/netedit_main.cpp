@@ -88,7 +88,9 @@ main(int argc, char** argv) {
                 } else {
                     // build the main window
                     GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
+#ifndef _DEBUG
                     try {
+#endif
                         // build external runner
                         GNEExternalRunner* externalRunner = new GNEExternalRunner(netedit);
                         // set language
@@ -116,6 +118,7 @@ main(int argc, char** argv) {
                         delete externalRunner;
                         // delete netedit
                         delete netedit;
+#ifndef _DEBUG
                     } catch (const ProcessError& e) {
                         // write info
                         if (std::string(e.what()).length() > 0) {
@@ -126,6 +129,7 @@ main(int argc, char** argv) {
                         // open crash dialog with the exception
                         GNECrashDialog(netedit, e);
                     }
+#endif
                 }
             }
             // delete tagPropertiesDatabase
