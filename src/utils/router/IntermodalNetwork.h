@@ -50,23 +50,23 @@
 */
 enum ModeChangeOptions {
     /// @brief parking areas
-    PARKING_AREAS = 1,
+    PARKING_AREAS = 1 << 0,
     /// @brief public transport stops and access
-    PT_STOPS = 2,
+    PT_STOPS = 1 << 1,
     /// @brief junctions with edges allowing the additional mode
-    ALL_JUNCTIONS = 2 << 2,
+    ALL_JUNCTIONS = 1 << 2,
     /// @brief taxi customer may exit at parking areas
-    TAXI_DROPOFF_PARKING_AREAS = 2 << 3,
+    TAXI_DROPOFF_PARKING_AREAS = 1 << 3,
     /// @brief taxi customer may exit at public transport stops
-    TAXI_DROPOFF_PT = 2 << 4,
+    TAXI_DROPOFF_PT = 1 << 4,
     /// @brief taxi customer may exit anywhere
-    TAXI_DROPOFF_ANYWHERE = 2 << 5,
+    TAXI_DROPOFF_ANYWHERE = 1 << 5,
     /// @brief taxi customer may be picked up at parking areas
-    TAXI_PICKUP_PARKING_AREAS = 2 << 6,
+    TAXI_PICKUP_PARKING_AREAS = 1 << 6,
     /// @brief taxi customer may be picked up at public transport stops
-    TAXI_PICKUP_PT = 2 << 7,
+    TAXI_PICKUP_PT = 1 << 7,
     /// @brief taxi customer may be picked up anywhere
-    TAXI_PICKUP_ANYWHERE = 2 << 8
+    TAXI_PICKUP_ANYWHERE = 1 << 8
 };
 
 
