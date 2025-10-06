@@ -5870,7 +5870,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // remove geometry point
                     if (myViewObjectsSelector.getNetworkElementFront() == myEditNetworkElementShapes.getEditedNetworkElement()) {
-                        myViewObjectsSelector.getNetworkElementFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
+                        myViewObjectsSelector.getNetworkElementFront()->getMoveElement()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     }
                 } else if (!myMoveSingleElement.beginMoveNetworkElementShape()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)

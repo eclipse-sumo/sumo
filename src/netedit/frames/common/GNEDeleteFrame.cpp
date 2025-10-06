@@ -463,13 +463,13 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector&
     // filter elements with geometry points
     for (const auto& AC : viewObjects.getAttributeCarriers()) {
         if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
-            viewObjects.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getEdgeFront()->getMoveElement()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         } else if (AC->getTagProperty()->getTag() == SUMO_TAG_POLY) {
-            viewObjects.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getPolyFront()->getMoveElement()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         } else if (AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
-            viewObjects.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getTAZFront()->getMoveElement()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         }
     }
