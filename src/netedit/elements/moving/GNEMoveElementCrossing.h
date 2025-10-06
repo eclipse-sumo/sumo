@@ -39,19 +39,15 @@ public:
     GNEMoveElementCrossing(GNECrossing* crossing);
 
     //// @brief empty destructor
-    virtual ~GNEMoveElementCrossing();
+    ~GNEMoveElementCrossing();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation() {
-        //
-    };
+    GNEMoveOperation* getMoveOperation();;
 
     /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-        //
-    };
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);;
 
 protected:
     /// @brief pointer to crossing
@@ -59,10 +55,10 @@ protected:
 
 private:
     /// @brief set move shape
-    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
+    void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
-    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief invalidate default constructor
     GNEMoveElementCrossing() = delete;

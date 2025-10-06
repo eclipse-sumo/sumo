@@ -21,6 +21,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
 #include "GNEMoveElementCrossing.h"
@@ -36,5 +38,61 @@ GNEMoveElementCrossing::GNEMoveElementCrossing(GNECrossing* crossing) :
 
 
 GNEMoveElementCrossing::~GNEMoveElementCrossing() {}
+
+
+GNEMoveOperation*
+GNEMoveElementCrossing::getMoveOperation() {
+    // edit depending if shape is being edited
+    if (myCrossing->isShapeEdited()) {
+        // calculate move shape operation
+        return getEditShapeOperation(myCrossing, myCrossing->getCrossingShape(), false);
+    } else {
+        return nullptr;
+    }
+}
+
+
+void
+GNEMoveElementCrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (myCrossing->isShapeEdited()) {
+        // get original shape
+        PositionVector shape = myCrossing->getCrossingShape();
+        // check shape size
+        if (shape.size() > 2) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myCrossing->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->begin(myCrossing, TLF("remove geometry point of %", myCrossing->getTagStr()));
+                GNEChange_Attribute::changeAttribute(myCrossing, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList, true);
+                undoList->end();
+            }
+        }
+    }
+}
+
+
+void
+GNEMoveElementCrossing::setMoveShape(const GNEMoveResult& moveResult) {
+    // set custom shape
+    myCrossing->getNBCrossing()->customShape = moveResult.shapeToUpdate;
+    // update geometry
+    myCrossing->updateGeometry();
+}
+
+
+void
+GNEMoveElementCrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // commit new shape
+    undoList->begin(myCrossing, TLF("moving % of %", toString(SUMO_ATTR_CUSTOMSHAPE), myCrossing->getTagStr()));
+    GNEChange_Attribute::changeAttribute(myCrossing, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList, true);
+    undoList->end();
+}
 
 /****************************************************************************/

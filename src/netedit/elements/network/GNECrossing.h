@@ -22,25 +22,21 @@
 #include "GNENetworkElement.h"
 #include <netbuild/NBNode.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
+class GNEEdge;
+class GNEJunction;
+class GNEMoveElementCrossing;
 class GUIGLObjectPopupMenu;
 class PositionVector;
-class GNEJunction;
-class GNEEdge;
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECrossing
- * @brief This object is responsible for drawing a shape and for supplying a
- * a popup menu. Messages are routeted to an internal dataTarget and to the
- * editor (hence inheritance from FXDelegator)
- */
+
+
 class GNECrossing : public GNENetworkElement {
 
 public:
@@ -55,6 +51,9 @@ public:
 
     /// @brief Destructor
     ~GNECrossing();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /// @brief check if current network element is valid to be written into XML
     bool isNetworkElementValid() const;
@@ -103,15 +102,6 @@ public:
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
 
-    /// @}
-
-    /// @name Functions related with move elements
-    /// @{
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief get crossingEdges
@@ -202,6 +192,9 @@ public:
     bool checkEdgeBelong(const std::vector<GNEEdge*>& edges) const;
 
 protected:
+    /// @brief move element crossing
+    GNEMoveElementCrossing* myMoveElementCrossing = nullptr;
+
     /// @brief Crossing Edges (It works as ID because a junction can only ONE Crossing with the same edges)
     std::vector<NBEdge*> myCrossingEdges;
 
@@ -231,12 +224,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw TLS Link Number
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const;

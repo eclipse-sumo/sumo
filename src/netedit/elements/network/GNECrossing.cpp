@@ -18,17 +18,18 @@
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementCrossing.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNECrossing.h"
 
@@ -38,12 +39,14 @@
 
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", SUMO_TAG_CROSSING),
+    myMoveElementCrossing(new GNEMoveElementCrossing(this)),
     myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
 }
 
 
 GNECrossing::GNECrossing(GNEJunction* junction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(junction->getNet(), junction->getNBNode()->getCrossing(crossingEdges)->id, SUMO_TAG_CROSSING),
+    myMoveElementCrossing(new GNEMoveElementCrossing(this)),
     myCrossingEdges(crossingEdges),
     myTemplateNBCrossing(nullptr) {
     // set parent
@@ -55,6 +58,12 @@ GNECrossing::~GNECrossing() {
     if (myTemplateNBCrossing) {
         delete myTemplateNBCrossing;
     }
+}
+
+
+GNEMoveElement*
+GNECrossing::getMoveElement() const {
+    return myMoveElementCrossing;
 }
 
 
@@ -169,44 +178,6 @@ GNECrossing::checkDrawMoveContour() const {
         }
     } else {
         return false;
-    }
-}
-
-
-GNEMoveOperation*
-GNECrossing::getMoveOperation() {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // calculate move shape operation
-        return getEditShapeOperation(this, getCrossingShape(), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-void
-GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // get original shape
-        PositionVector shape = getCrossingShape();
-        // check shape size
-        if (shape.size() > 2) {
-            // obtain index
-            int index = shape.indexOfClosest(clickedPosition);
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
-            // check if we have to create a new index
-            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-                // remove geometry point
-                shape.erase(shape.begin() + index);
-                // commit new shape
-                undoList->begin(this, TLF("remove geometry point of %", getTagStr()));
-                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList, true);
-                undoList->end();
-            }
-        }
     }
 }
 
@@ -691,24 +662,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
-}
-
-
-void
-GNECrossing::setMoveShape(const GNEMoveResult& moveResult) {
-    // set custom shape
-    getNBCrossing()->customShape = moveResult.shapeToUpdate;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin(this, TLF("moving % of %", toString(SUMO_ATTR_CUSTOMSHAPE), getTagStr()));
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList, true);
-    undoList->end();
 }
 
 /****************************************************************************/
