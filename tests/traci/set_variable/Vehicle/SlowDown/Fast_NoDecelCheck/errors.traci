@@ -1,0 +1,4 @@
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+#Error while connecting: tcpip::Socket::connect() @ socket: Connection refused
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+Warning: Vehicle 'veh0' performs emergency braking on lane 'e_m0_0' with decel=11.40, wished=4.50, severity=1.53, time=25.00.

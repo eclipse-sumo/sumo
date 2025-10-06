@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T15:46:48.524029+01:00 by Eclipse SUMO sumo v1_24_0+1001-1ebcc990531
+<!-- generated on 2025-10-06T15:48:20.619252+01:00 by Eclipse SUMO sumo v1_24_0+1178-de214a718bf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="case_1_engine.0" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="102.00" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="-0.00" arrivalSpeed="19.54" duration="82.00" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="31.42" rerouteNo="0" devices="tripinfo_case_1_engine.0 bluelight_case_1_engine.0" vType="engine" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_engine.0" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="102.00" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.54" duration="82.00" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="31.42" rerouteNo="0" devices="tripinfo_case_1_engine.0 bluelight_case_1_engine.0" vType="engine" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="case_1_engine.1" depart="24.10" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.10" arrival="106.20" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.55" duration="82.10" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="31.54" rerouteNo="0" devices="tripinfo_case_1_engine.1 bluelight_case_1_engine.1" vType="engine" speedFactor="1.40" vaporized="">
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="case_1_engine.8" depart="52.40" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.40" arrival="163.50" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.60" duration="111.10" routeLength="990.46" waitingTime="19.50" waitingCount="1" stopTime="0.00" timeLoss="60.51" rerouteNo="0" devices="tripinfo_case_1_engine.8 bluelight_case_1_engine.8" vType="engine" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="case_1_engine.7" depart="48.40" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.40" arrival="167.20" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.56" duration="118.80" routeLength="990.46" waitingTime="27.20" waitingCount="1" stopTime="0.00" timeLoss="68.25" rerouteNo="0" devices="tripinfo_case_1_engine.7 bluelight_case_1_engine.7" vType="engine" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_engine.7" depart="48.40" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.40" arrival="167.20" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.56" duration="118.80" routeLength="990.46" waitingTime="27.20" waitingCount="1" stopTime="0.00" timeLoss="68.23" rerouteNo="0" devices="tripinfo_case_1_engine.7 bluelight_case_1_engine.7" vType="engine" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="0" depart="0.00" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="374.60" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="0.70" arrivalSpeed="13.96" duration="374.60" routeLength="974.10" waitingTime="300.10" waitingCount="1" stopTime="0.00" timeLoss="305.42" rerouteNo="0" devices="tripinfo_0" vType="car@0" speedFactor="1.00" vaporized=""/>
