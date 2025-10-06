@@ -1,6 +1,16 @@
 set(netedit_elements_moving_SRCS
    GNEMoveElement.cpp
    GNEMoveElement.h
+   GNEMoveElementConnection.cpp
+   GNEMoveElementConnection.h
+   GNEMoveElementCrossing.cpp
+   GNEMoveElementCrossing.h
+   GNEMoveElementEdge.cpp
+   GNEMoveElementEdge.h
+   GNEMoveElementJunction.cpp
+   GNEMoveElementJunction.h
+   GNEMoveElementLane.cpp
+   GNEMoveElementLane.h
    GNEMoveElementLaneDouble.cpp
    GNEMoveElementLaneDouble.h
    GNEMoveElementLaneSingle.cpp
@@ -15,14 +25,6 @@ set(netedit_elements_moving_SRCS
    GNEMoveOperation.h
    GNEMoveResult.cpp
    GNEMoveResult.h
-   GNEMoveElementEdge.h
-   GNEMoveElementEdge.cpp
-   GNEMoveElementLane.h
-   GNEMoveElementLane.cpp
-   GNEMoveElementJunction.h
-   GNEMoveElementJunction.cpp
-   GNEMoveElementCrossing.h
-   GNEMoveElementCrossing.cpp
 )
 
 add_library(netedit_elements_moving STATIC ${netedit_elements_moving_SRCS})
