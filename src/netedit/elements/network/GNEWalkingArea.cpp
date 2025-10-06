@@ -48,6 +48,12 @@ GNEWalkingArea::~GNEWalkingArea() {
 }
 
 
+GNEMoveElement*
+GNEWalkingArea::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNEWalkingArea::updateGeometry() {
     // Nothing to update
@@ -123,24 +129,6 @@ GNEWalkingArea::checkDrawSelectContour() const {
 bool
 GNEWalkingArea::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEWalkingArea::getMoveOperation() {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // calculate move shape operation
-        return getEditShapeOperation(this, getNBWalkingArea().shape, false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-void
-GNEWalkingArea::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
 }
 
 
@@ -425,22 +413,6 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(nullptr, key, value);
             break;
     }
-}
-
-
-void
-GNEWalkingArea::setMoveShape(const GNEMoveResult& moveResult) {
-    // set custom shape
-    getNBWalkingArea().shape = moveResult.shapeToUpdate;
-}
-
-
-void
-GNEWalkingArea::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

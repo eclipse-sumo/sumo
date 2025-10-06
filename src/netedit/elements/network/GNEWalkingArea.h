@@ -26,11 +26,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GUIGLObjectPopupMenu;
 class PositionVector;
 class GNEJunction;
 class GNEEdge;
-
 
 // ===========================================================================
 // class definitions
@@ -52,6 +52,9 @@ public:
 
     /// @brief Destructor
     ~GNEWalkingArea();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -90,16 +93,6 @@ public:
 
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
-
-    /// @}
-
-    /// @name Functions related with move elements
-    /// @{
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @}
 
@@ -203,12 +196,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEWalkingArea(const GNEWalkingArea&) = delete;
