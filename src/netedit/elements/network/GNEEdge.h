@@ -23,38 +23,37 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
-#include <utils/gui/div/GUIGeometry.h>
+#include <netedit/elements/moving/GNEMoveResult.h>
 #include <utils/gui/div/GUIDottedGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 
 #include "GNENetworkElement.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNENet;
+
+class GNEConnection;
+class GNECrossing;
+class GNEEdgeTemplate;
+class GNEEdgeType;
 class GNEJunction;
 class GNELane;
-class GNEConnection;
+class GNEMoveElementEdge;
+class GNEMoveOperation;
+class GNENet;
 class GNERouteProbe;
-class GNECrossing;
-class GNEEdgeType;
-class GNEEdgeTemplate;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEEdge
- * @brief A road/street connecting two junctions (netedit-version)
- *
- * @see MSEdge
- */
+
 class GNEEdge : public GNENetworkElement, public GNECandidateElement {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
+    friend class GNEMoveElementEdge;
 
 public:
     /// @brief Definition of the connection's vector
@@ -69,6 +68,9 @@ public:
 
     /// @brief Destructor.
     ~GNEEdge();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /// @brief get from Junction (only used to increase readability)
     inline GNEJunction* getFromJunction() const {
@@ -124,15 +126,6 @@ public:
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
 
-    /// @}
-
-    /// @name Functions related with move elements
-    /// @{
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @name functions for geometry points
@@ -415,6 +408,9 @@ private:
         const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
 
+    /// @brief move element edge
+    GNEMoveElementEdge* myMoveElementEdge = nullptr;
+
     /// @brief edge boundary
     Boundary myEdgeBoundary;
 
@@ -423,12 +419,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.
@@ -512,18 +502,6 @@ private:
 
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
-
-    /// @brief process moving edge when only from junction is selected
-    GNEMoveOperation* processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
-
-    /// @brief process moving edge when only to junction is selected
-    GNEMoveOperation* processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
-
-    /// @brief process moving edge when both junctions are selected
-    GNEMoveOperation* processMoveBothJunctionSelected();
-
-    /// @brief process moving edge when none junction are selected
-    GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
 
     /// @brief get geometry point radius
     double getGeometryPointRadius() const;

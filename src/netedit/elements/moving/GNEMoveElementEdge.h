@@ -44,14 +44,10 @@ public:
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation() {
-        //
-    };
+    GNEMoveOperation* getMoveOperation();;
 
     /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-        //
-    };
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);;
 
 protected:
     /// @brief pointer to edge
@@ -59,10 +55,22 @@ protected:
 
 private:
     /// @brief set move shape
-    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
+    void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
-    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief process moving edge when only from junction is selected
+    GNEMoveOperation* processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+
+    /// @brief process moving edge when only to junction is selected
+    GNEMoveOperation* processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+
+    /// @brief process moving edge when both junctions are selected
+    GNEMoveOperation* processMoveBothJunctionSelected();
+
+    /// @brief process moving edge when none junction are selected
+    GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
 
     /// @brief invalidate default constructor
     GNEMoveElementEdge() = delete;
