@@ -49,6 +49,12 @@ GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEE
 GNEClosingReroute::~GNEClosingReroute() {}
 
 
+GNEMoveElement*
+GNEClosingReroute::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);

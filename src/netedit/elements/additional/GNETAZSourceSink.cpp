@@ -56,7 +56,7 @@ GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
 GNEMoveElement*
-GNETAZSourceSink::getMoveElement() {
+GNETAZSourceSink::getMoveElement() const {
     return nullptr;
 }
 

@@ -49,6 +49,12 @@ GNEVariableSpeedSignSymbol::~GNEVariableSpeedSignSymbol() {
 }
 
 
+GNEMoveElement*
+GNEVariableSpeedSignSymbol::getMoveElement() const {
+    return nullptr;
+}
+
+
 GNEMoveOperation*
 GNEVariableSpeedSignSymbol::getMoveOperation() {
     // GNEVariableSpeedSignSymbols cannot be moved

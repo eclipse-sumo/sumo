@@ -49,6 +49,12 @@ GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
+GNEMoveElement*
+GNERouteProbReroute::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE_PROB_REROUTE);

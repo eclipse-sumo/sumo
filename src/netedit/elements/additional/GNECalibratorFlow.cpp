@@ -75,6 +75,12 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
+GNEMoveElement*
+GNECalibratorFlow::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_TYPE) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {

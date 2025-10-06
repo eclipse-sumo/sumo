@@ -49,6 +49,12 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime
 GNERerouterInterval::~GNERerouterInterval() {}
 
 
+GNEMoveElement*
+GNERerouterInterval::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNERerouterInterval::writeAdditional(OutputDevice& device) const {
     // avoid write empty intervals

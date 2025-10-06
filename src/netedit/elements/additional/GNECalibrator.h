@@ -110,7 +110,7 @@ public:
     ~GNECalibrator();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() {
+    GNEMoveElement* getMoveElement() const {
         return nullptr;
     }
 

@@ -48,7 +48,7 @@ public:
     ~GNEClosingLaneReroute();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr

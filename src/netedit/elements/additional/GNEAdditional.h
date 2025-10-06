@@ -67,7 +67,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    virtual GNEMoveElement* getMoveElement() = 0;
+    virtual GNEMoveElement* getMoveElement() const = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();

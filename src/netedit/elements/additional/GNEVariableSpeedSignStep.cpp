@@ -49,6 +49,12 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedS
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
+GNEMoveElement*
+GNEVariableSpeedSignStep::getMoveElement() const {
+    return nullptr;
+}
+
+
 void
 GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STEP);

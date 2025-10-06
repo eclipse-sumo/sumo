@@ -47,9 +47,7 @@ public:
     ~GNERouteProbReroute();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() {
-        return nullptr;
-    }
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{

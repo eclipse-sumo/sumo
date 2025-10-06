@@ -20,16 +20,21 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEAdditional.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementShape;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETAZ : public GNEAdditional, public TesselatedPolygon, public GNEMoveElementShape {
+class GNETAZ : public GNEAdditional, public TesselatedPolygon {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional
@@ -56,7 +61,7 @@ public:
     ~GNETAZ();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
@@ -186,6 +191,9 @@ public:
     void updateTAZStatistic();
 
 protected:
+    /// @brief move element shape
+    GNEMoveElementShape* myMoveElementShape = nullptr;
+
     /// @brief TAZ center contour
     GNEContour myTAZCenterContour;
 

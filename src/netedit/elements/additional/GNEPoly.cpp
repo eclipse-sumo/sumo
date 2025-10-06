@@ -20,13 +20,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementShape.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
@@ -43,7 +44,7 @@
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
                   GNEAdditional("", net, "", tag, ""),
-GNEMoveElementShape(this) {
+myMoveElementShape(new GNEMoveElementShape(this)) {
 }
 
 
@@ -52,7 +53,7 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename
                  const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
     GNEAdditional(id, net, filename, SUMO_TAG_POLY, ""),
-    GNEMoveElementShape(this, myShape, false),
+    myMoveElementShape(new GNEMoveElementShape(this, myShape, false)),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -81,7 +82,7 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", name, parameters),
     GNEAdditional(id, net, filename, tag, ""),
-    GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE)),
+    myMoveElementShape(new GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE))),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
     // set GEO shape
@@ -102,12 +103,14 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::
 }
 
 
-GNEPoly::~GNEPoly() {}
+GNEPoly::~GNEPoly() {
+    delete myMoveElementShape;
+}
 
 
 GNEMoveElement*
-GNEPoly::getMoveElement() {
-    return this;
+GNEPoly::getMoveElement() const {
+    return myMoveElementShape;
 }
 
 

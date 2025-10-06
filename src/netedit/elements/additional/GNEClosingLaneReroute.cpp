@@ -52,7 +52,7 @@ GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
 GNEMoveElement*
-GNEClosingLaneReroute::getMoveElement() {
+GNEClosingLaneReroute::getMoveElement() const {
     return nullptr;
 }
 

@@ -50,7 +50,7 @@ GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
 GNEMoveElement*
-GNEParkingAreaReroute::getMoveElement() {
+GNEParkingAreaReroute::getMoveElement() const {
     return nullptr;
 }
 

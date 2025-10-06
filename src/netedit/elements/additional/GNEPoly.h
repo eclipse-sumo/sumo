@@ -21,7 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -32,13 +31,14 @@
 // ===========================================================================
 
 class GeoConvHelper;
+class GNEMoveElementShape;
 class GNENetworkElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEPoly : public TesselatedPolygon, public GNEAdditional, public GNEMoveElementShape  {
+class GNEPoly : public TesselatedPolygon, public GNEAdditional {
 
 public:
     /// @brief needed to avoid diamond problem between SUMOPolygon and GNEAdditional
@@ -83,7 +83,7 @@ public:
     ~GNEPoly();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() override;
+    GNEMoveElement* getMoveElement() const override;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -229,6 +229,9 @@ public:
     CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
 
 protected:
+    /// @brief move element shape
+    GNEMoveElementShape* myMoveElementShape = nullptr;
+
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
