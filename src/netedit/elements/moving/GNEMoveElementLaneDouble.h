@@ -38,9 +38,6 @@ public:
         POS_ENDPOS          /// @brief position and endPosition
     };
 
-    /// @brief Default constructor
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element);
-
     /**@brief Constructor
      * @param[in] element moved element
      * @param[in] format position atttributes format
@@ -50,8 +47,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      */
     GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                             GNELane* lane, const double startPos, const double endPos,
-                             const bool friendlyPosition);
+                             GNELane* lane, double& startPos, double& endPos, bool& friendlyPosition);
 
     /**@brief Constructor
      * @param[in] element moved element
@@ -62,8 +58,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      */
     GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                             const std::vector<GNELane*>& lanes, const double startPos,
-                             const double endPos, const bool friendlyPosition);
+                             const std::vector<GNELane*>& lanes, double& startPos,
+                             double& endPos, bool& friendlyPosition);
 
     /// @brief Destructor
     ~GNEMoveElementLaneDouble();
@@ -76,24 +72,39 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-protected:
-    /// @brief The start position over lane
-    double myStartPosOverLane = 0;
+    /// @name functions related with attributes
+    /// @{
 
-    /// @brief The end position over lane
-    double myEndPosPosOverLane = 0;
+    /* @brief method for getting the moving attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
 
-    /// @brief Flag for friendly position
-    bool myFriendlyPosition = false;
+    /* @brief method for getting the moving attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getMovingAttributeDouble(SumoXMLAttr key) const;
 
-    /// @brief size (only use in AttributeCarrier templates)
-    double mySize = 10;
+    /* @brief method for setting the moving attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /// @brief force size (only used in AttributeCarrier templates
-    bool myForceSize = false;
+    /* @brief method for checking if the key and their correspond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
 
-    /// @brief reference position
-    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
+    /// @brief method for setting the moving attribute and nothing else (used in GNEChange_Attribute)
+    void setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+
+    /// @}
 
     /// @brief check if current moving element is valid to be written into XML
     bool isMoveElementValid() const;
@@ -113,10 +124,28 @@ protected:
     /// @brief get end offset position over lane
     double getEndFixedPositionOverLane() const;
 
-    /// @brief adjust length
-    void adjustLaneMovableLength(const double length, GNEUndoList* undoList);
+    /// @brief default element size
+    static const double defaultSize;
 
 private:
+    /// @brief The start position over lane
+    double& myStartPosOverLane;
+
+    /// @brief The end position over lane
+    double& myEndPosPosOverLane;
+
+    /// @brief Flag for friendly position
+    bool& myFriendlyPosition;
+
+    /// @brief size (only use in AttributeCarrier templates)
+    double myTemplateSize = defaultSize;
+
+    /// @brief force size (only used in AttributeCarrier templates
+    bool myTemplateForceSize = false;
+
+    /// @brief reference position
+    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
+
     /// @brief pos attributes format
     AttributesFormat myAttributesFormat = AttributesFormat::STARTPOS_ENDPOS;
 
@@ -125,6 +154,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief set size
+    void setSize(const std::string& value, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementLaneDouble(const GNEMoveElementLaneDouble&) = delete;
