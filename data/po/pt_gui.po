@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-04 08:58+0000\n"
+"PO-Revision-Date: 2025-10-07 09:30+0000\n"
 "Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
@@ -13516,7 +13516,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:305
 msgid "Apply Z value"
-msgstr ""
+msgstr "Aplicar valor de Z"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:305
 msgid "Apply Z value to all selected junctions"
@@ -13541,7 +13541,7 @@ msgstr ""
 #: src/netedit/frames/common/GNEMoveFrame.cpp:557
 #: src/netedit/frames/common/GNEMoveFrame.cpp:573
 msgid "Shift shape geometry"
-msgstr ""
+msgstr "Mover geometria da forma"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:573
 msgid ""
@@ -13559,11 +13559,11 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:657
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-Move a geometria da forma"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:660
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-Combinar ponto geométrico"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:672
 msgid "Move"
@@ -13690,7 +13690,7 @@ msgstr "Escala visual"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:228
 msgid "Enlarge selected objects"
-msgstr ""
+msgstr "Aumentar objetos selecionados"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:248
 msgid "Selection operations"
@@ -13830,7 +13830,7 @@ msgstr ""
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:74
 msgid "Create new dataSet"
-msgstr ""
+msgstr "Criar novo grupo de dados"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:86
 msgid "Create dataSet"
@@ -13838,7 +13838,7 @@ msgstr "Criar dataSet"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:148
 msgid "Invalid dataSet ID"
-msgstr ""
+msgstr "ID do conjunto de dados inválido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:150
 msgid "Invalid empty dataSet ID"
@@ -13850,7 +13850,7 @@ msgstr ""
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:212
 msgid "Create new interval"
-msgstr ""
+msgstr "Criar novo intervalo"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:230
 msgid "create interval"
@@ -13953,7 +13953,7 @@ msgstr "Novo"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:88
 msgid "Create new %"
-msgstr ""
+msgstr "Criar novo %"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:92
 msgid "Delete current edited %"
@@ -13965,7 +13965,7 @@ msgstr "Seletor de ditribuição"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:316
 msgid "Delete distribution value"
-msgstr ""
+msgstr "Deletar valor de distribuição"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:482
 msgid "Distribution values"
@@ -14106,11 +14106,11 @@ msgstr "Reestabelecer tipo"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:258
 msgid "create vehicle type"
-msgstr ""
+msgstr "criar tipo de veículo"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:290
 msgid "copy vehicle type"
-msgstr ""
+msgstr "copiar tipo de veículo"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:305
 msgid "reset default vehicle type values"
@@ -14207,6 +14207,8 @@ msgid ""
 "-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
+"-Requer elemento pai do tipo\n"
+" detector de entrada/saida (EntryExitDetector)\n"
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:101
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:104
@@ -14246,7 +14248,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:68
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:78
 msgid "No lane selected"
-msgstr ""
+msgstr "No há faixa selecionada"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:80
 msgid "Current Lane: "
@@ -14288,7 +14290,7 @@ msgstr "Trocas aceitas"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:157
 msgid "Select Dead Ends"
-msgstr ""
+msgstr "Selecionar Vias Sem Saída"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:157
 msgid ""
@@ -14298,7 +14300,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:160
 msgid "Select Dead Starts"
-msgstr ""
+msgstr "Selecionar Inícios Mortos"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:160
 msgid ""
@@ -14407,7 +14409,7 @@ msgstr "Seletor de modelos"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
-msgstr ""
+msgstr "Criar aresta padrão"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:79
 msgid "Create default edge short"
@@ -14415,7 +14417,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:82
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "Não permitir pedestres"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Add sidewalk"
@@ -14438,15 +14440,15 @@ msgstr "Adicionar"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:97
 msgid "Add edge type"
-msgstr ""
+msgstr "Adicionar tipo de aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:100
 msgid "Delete edge type"
-msgstr ""
+msgstr "Deletar tipo de aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:103
 msgid "Create from template"
-msgstr ""
+msgstr "Criar a partir de um modelo"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:103
 msgid "Create edgeType from template"
@@ -14459,7 +14461,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:364
 msgid "delete edge type"
-msgstr ""
+msgstr "deletar tipo de aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:431
 msgid "template: "
@@ -14471,11 +14473,11 @@ msgstr "Seletor de tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:463
 msgid "Add lane type"
-msgstr ""
+msgstr "Adicionar tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:466
 msgid "Delete lane type"
-msgstr ""
+msgstr "Deletar tipo de faixa"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:564
 msgid "add laneType"
@@ -14529,7 +14531,7 @@ msgstr ""
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:699
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:802
 msgid "create new edge"
-msgstr ""
+msgstr "criar nova aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:807
 msgid "An edge with the same geometry already exists!"
@@ -14545,7 +14547,7 @@ msgstr "Editado"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
 msgid "selection of edges"
-msgstr ""
+msgstr "seleção de arestas"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:100
 #: src/netedit/frames/network/GNETAZFrame.cpp:497
@@ -14554,7 +14556,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:644
 #: src/netedit/frames/network/GNETAZFrame.cpp:648
 msgid "Use selected edges"
-msgstr ""
+msgstr "Usar arestas selecionadas"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:103
 msgid "Clear edges"
@@ -14613,7 +14615,7 @@ msgstr "Conexão selecionada"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr ""
+msgstr "Sem conexão selecionada\n"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
@@ -14621,11 +14623,11 @@ msgstr "- Junção: "
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- A partir da faixa: "
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- Para a faixa: "
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:94
 msgid "Selected"
@@ -14633,7 +14635,7 @@ msgstr "Selecionado"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr ""
+msgstr "Conexões selecionadas atualmente"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:101
 msgid "No conflict"
@@ -14685,7 +14687,7 @@ msgstr "Desselecionar conexão"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Deselecionar conexão (Esc)"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
@@ -14693,7 +14695,7 @@ msgstr "Proibições"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
-msgstr ""
+msgstr "Criador de pontos de interesse geométricos"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:60
 msgid "Format: Lon-Lat"
@@ -14731,7 +14733,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:120
 msgid "Create GEO POI"
-msgstr ""
+msgstr "Criar POI geométrico"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:172
 msgid "Using clipboard"
@@ -14760,7 +14762,7 @@ msgstr "Zonas de Tráfego Agregadas (TAZs)"
 #: src/netedit/frames/network/GNETAZFrame.cpp:157
 #: src/netedit/frames/network/GNETAZFrame.cpp:201
 msgid "No TAZ selected"
-msgstr ""
+msgstr "Não há zona de tráfego selecionada"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:170
 msgid "Current TAZ: "
@@ -14895,7 +14897,7 @@ msgstr "Adicionar "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:594
 msgid " edges to selection"
-msgstr ""
+msgstr " arestas para seleção"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:630
 msgid "toggle"
@@ -14962,11 +14964,11 @@ msgstr "Destino"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:910
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "Cor da TAZ já selecionada"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:942
 msgid "edge wasn't found"
-msgstr ""
+msgstr "aresta não encontrada"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:944
 msgid "Invalid edge"
@@ -14974,7 +14976,7 @@ msgstr "Aresta inválida"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1121
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- ID da aresta: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1161
 msgid "Non TAZ Edge"
