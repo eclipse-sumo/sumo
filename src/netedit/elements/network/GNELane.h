@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/elements/moving/GNEMoveResult.h>
 #include <netedit/GNELane2laneConnection.h>
 
 #include "GNENetworkElement.h"
@@ -28,21 +29,20 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
+class GNEConnection;
+class GNEEdge;
+class GNEMoveElementLane;
+class GNEMoveOperation;
+class GNENet;
+class GNETLSEditorFrame;
 class GUIGLObjectPopupMenu;
 class PositionVector;
-class GNETLSEditorFrame;
-class GNEEdge;
-class GNENet;
-class GNEConnection;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNELane
- * @brief This lane is powered by an underlying GNEEdge and basically knows how
- * to draw itself
- */
+
 class GNELane : public GNENetworkElement, public GNECandidateElement, public FXDelegator {
     /// @brief FOX-declaration
     FXDECLARE(GNELane)
@@ -125,6 +125,9 @@ public:
     /// @brief Destructor
     ~GNELane();
 
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
+
     /// @brief get parent edge
     GNEEdge* getParentEdge() const;
 
@@ -184,15 +187,6 @@ public:
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
 
-    /// @}
-
-    /// @name Functions related with move elements
-    /// @{
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief returns a vector with the incoming GNEConnections of this lane
@@ -340,6 +334,9 @@ protected:
     GNELane();
 
 private:
+    /// @brief move element lane
+    GNEMoveElementLane* myMoveElementLane = nullptr;
+
     /// @brief The index of this lane
     int myIndex;
 
@@ -373,12 +370,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
     void drawLane(const GUIVisualizationSettings& s, const double layer) const;

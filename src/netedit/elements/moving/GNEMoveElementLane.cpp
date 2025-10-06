@@ -21,6 +21,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
 #include "GNEMoveElementLane.h"
@@ -36,5 +38,61 @@ GNEMoveElementLane::GNEMoveElementLane(GNELane* lane) :
 
 
 GNEMoveElementLane::~GNEMoveElementLane() {}
+
+
+GNEMoveOperation*
+GNEMoveElementLane::getMoveOperation() {
+    // edit depending if shape is being edited
+    if (myLane->isShapeEdited()) {
+        // calculate move shape operation
+        return getEditShapeOperation(myLane, myLane->getLaneShape(), false);
+    } else {
+        return nullptr;
+    }
+}
+
+
+void
+GNEMoveElementLane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (myLane->isShapeEdited()) {
+        // get original shape
+        PositionVector shape = myLane->getLaneShape();
+        // check shape size
+        if (shape.size() > 2) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myLane->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->begin(myLane, TLF("remove geometry point of %", myLane->getTagStr()));
+                GNEChange_Attribute::changeAttribute(myLane, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
+                undoList->end();
+            }
+        }
+    }
+}
+
+
+void
+GNEMoveElementLane::setMoveShape(const GNEMoveResult& moveResult) {
+    // set custom shape
+    myLane->getParentEdges().front()->getNBEdge()->getLaneStruct(myLane->getIndex()).customShape = moveResult.shapeToUpdate;
+    // update geometry
+    myLane->updateGeometry();
+}
+
+
+void
+GNEMoveElementLane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // commit new shape
+    undoList->begin(myLane, TLF("moving custom shape of %", myLane->getTagStr()));
+    GNEChange_Attribute::changeAttribute(myLane, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
+    undoList->end();
+}
 
 /****************************************************************************/
