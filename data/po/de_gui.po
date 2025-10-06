@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-09-25 09:56+0000\n"
-"PO-Revision-Date: 2025-10-05 13:46+0000\n"
+"PO-Revision-Date: 2025-10-06 09:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2888,7 +2888,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4001
 msgid "loading demand elements from '%'"
-msgstr ""
+msgstr "Nachfrageelemente werden aus '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4005
 #, c-format
@@ -10646,15 +10646,16 @@ msgstr ""
 #, c-format
 msgid "The % cannot be updated because attribute % is invalid."
 msgstr ""
+"% kann nicht aktualisiert werden, da der Wert von Attribut % ungültig ist."
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:35
 #, c-format
 msgid "Save % as"
-msgstr ""
+msgstr "% speichern unter"
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:41
 msgid "Open %"
-msgstr ""
+msgstr "% öffnen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:84
 msgid "Visited Directories"
@@ -10662,11 +10663,11 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:97
 msgid "Directory:"
-msgstr ""
+msgstr "Verzeichnis:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 msgid "File Name:"
-msgstr ""
+msgstr "Dateiname:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:232
 msgid "Copy File"
