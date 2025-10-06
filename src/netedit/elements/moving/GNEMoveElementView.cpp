@@ -97,6 +97,36 @@ GNEMoveElementView::removeGeometryPoint(const Position /*clickedPosition*/, GNEU
 }
 
 
+std::string
+GNEMoveElementView::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+    return "";
+}
+
+
+double
+GNEMoveElementView::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return 0;
+}
+
+
+void
+GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+
+}
+
+
+bool
+GNEMoveElementView::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return false;
+}
+
+
+void
+GNEMoveElementView::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+
+}
+
+
 void
 GNEMoveElementView::writeMoveAttributes(OutputDevice& device) const {
     // position format
