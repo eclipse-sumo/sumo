@@ -76,7 +76,7 @@ GNEMeanData::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNEMeanData::getMoveElement() {
+GNEMeanData::getMoveElement() const {
     return nullptr;
 }
 

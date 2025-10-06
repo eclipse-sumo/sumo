@@ -49,7 +49,7 @@ GNEDataInterval::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNEDataInterval::getMoveElement() {
+GNEDataInterval::getMoveElement() const {
     return nullptr;
 }
 

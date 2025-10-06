@@ -64,7 +64,7 @@ GNEGenericData::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNEGenericData::getMoveElement() {
+GNEGenericData::getMoveElement() const {
     return nullptr;
 }
 

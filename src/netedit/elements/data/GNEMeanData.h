@@ -47,7 +47,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element

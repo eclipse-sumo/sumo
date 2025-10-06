@@ -120,7 +120,7 @@ GNEDataSet::getHierarchicalElement() {
 
 
 GNEMoveElement*
-GNEDataSet::getMoveElement() {
+GNEDataSet::getMoveElement() const {
     return nullptr;
 }
 
