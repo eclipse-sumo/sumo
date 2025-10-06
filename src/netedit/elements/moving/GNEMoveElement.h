@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 #include "GNEMoveOffset.h"
 #include "GNEMoveResult.h"
 
@@ -31,6 +33,7 @@ class GNEAttributeCarrier;
 class GNEUndoList;
 class GNEViewNet;
 class GUIGlObject;
+class Parameterised;
 
 // ===========================================================================
 // class definitions
@@ -50,6 +53,40 @@ public:
      */
     virtual GNEMoveOperation* getMoveOperation() = 0;
 
+    /// @name functions related with moving attributes
+    /// @{
+
+    /* @brief method for getting the moving attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    virtual std::string getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+
+    /* @brief method for getting the moving attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    virtual double getMovingAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for setting the moving attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    virtual void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their correspond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    virtual bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+
+    /// @brief method for setting the moving attribute and nothing else (used in GNEChange_Attribute)
+    virtual void setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+
+    /// @}
+
     /// @brief remove geometry point in the clicked position
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
@@ -59,12 +96,12 @@ public:
     /// @brief commit move element for the given offset
     static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const GNEMoveOffset& offset, GNEUndoList* undoList);
 
+    /// @brief move element lateral offset
+    double myMovingLateralOffset = 0;
+
 protected:
     /// @brief pointer to element
     GNEAttributeCarrier* myMovedElement = nullptr;
-
-    /// @brief move element lateral offset
-    double myMovingLateralOffset = 0;
 
     /// @brief calculate move shape operation
     GNEMoveOperation* getEditShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);

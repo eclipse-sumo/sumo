@@ -36,6 +36,36 @@ GNEMoveElement::GNEMoveElement(GNEAttributeCarrier* movedElement) :
 GNEMoveElement::~GNEMoveElement() {}
 
 
+std::string
+GNEMoveElement::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+    throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+}
+
+
+double
+GNEMoveElement::getMovingAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+}
+
+
+void
+GNEMoveElement::setMovingAttribute(SumoXMLAttr key, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
+    throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+}
+
+
+bool
+GNEMoveElement::isMovingAttributeValid(SumoXMLAttr key, const std::string& /*value*/) const {
+    throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+}
+
+
+void
+GNEMoveElement::setMovingAttribute(Parameterised* /*parameterised*/, SumoXMLAttr key, const std::string& /*value*/) {
+    throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+}
+
+
 GNEMoveOperation*
 GNEMoveElement::getEditShapeOperation(const GUIGlObject* obj, const PositionVector originalShape,
                                       const bool maintainShapeClosed) {
