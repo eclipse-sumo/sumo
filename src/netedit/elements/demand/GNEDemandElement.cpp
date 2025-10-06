@@ -18,18 +18,19 @@
 // A abstract class for demand elements
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNESegment.h>
-#include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/elements/moving/GNEMoveElement.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -51,7 +52,6 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std
     GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
                 GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
-    GNEMoveElement(this),
     myStackedLabelNumber(0) {
 }
 
@@ -62,7 +62,6 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXM
     GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
                 GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
-    GNEMoveElement(this),
     myStackedLabelNumber(0) {
 }
 #ifdef _MSC_VER
@@ -74,12 +73,6 @@ GNEDemandElement::~GNEDemandElement() {}
 
 GNEHierarchicalElement*
 GNEDemandElement::getHierarchicalElement() {
-    return this;
-}
-
-
-GNEMoveElement*
-GNEDemandElement::getMoveElement() {
     return this;
 }
 
