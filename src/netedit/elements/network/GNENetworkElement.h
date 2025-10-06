@@ -54,11 +54,6 @@ public:
     /// @brief get GNEMoveElement associated with this AttributeCarrier
     virtual GNEMoveElement* getMoveElement() const = 0;
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    virtual GNEMoveOperation* getMoveOperation() = 0;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
