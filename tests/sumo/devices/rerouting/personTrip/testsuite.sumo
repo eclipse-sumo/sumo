@@ -141,6 +141,7 @@ car_public_walk5
 # check correct routing network when using internal edges
 car_public_walk_internal
 car_public_walk_parkingAreas
+taxi_public_taxi_anywhere
 
 # test transfer at parkingAreas
 taxi_public_taxi_parkingAreas

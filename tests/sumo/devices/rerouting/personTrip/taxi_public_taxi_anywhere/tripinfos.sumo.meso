@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-06T08:08:55.776893+01:00 by Eclipse SUMO sumo v1_24_0+1168-e7b890310b7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <persontrip.transfer.taxi-walk value="allJunctions"/>
+        <persontrip.transfer.walk-taxi value="allJunctions"/>
+        <persontrip.taxi.waiting-time value="30"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="bike_b.0" depart="0.00" departLane="E0F0_0" departPos="0.00" departSpeed="5.55" departDelay="0.00" arrival="19.00" arrivalLane="E0F0_0" arrivalPos="100.00" arrivalSpeed="5.55" duration="19.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_bike_b.0 tripinfo_bike_b.0 taxi_bike_b.0" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+    <tripinfo id="bike_a.1" depart="1.00" departLane="A0B0_0" departPos="0.00" departSpeed="5.41" departDelay="0.00" arrival="20.00" arrivalLane="A0B0_0" arrivalPos="100.00" arrivalSpeed="5.41" duration="19.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.45" rerouteNo="0" devices="vehroute_bike_a.1 tripinfo_bike_a.1 taxi_bike_a.1" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+    <tripinfo id="bike_b.1" depart="1.00" departLane="E0F0_0" departPos="0.00" departSpeed="5.41" departDelay="0.00" arrival="20.00" arrivalLane="E0F0_0" arrivalPos="100.00" arrivalSpeed="5.41" duration="19.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.45" rerouteNo="0" devices="vehroute_bike_b.1 tripinfo_bike_b.1 taxi_bike_b.1" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+    <tripinfo id="train" depart="0.00" departLane="C0D0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="2902.00" arrivalLane="D0C0_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="2902.00" routeLength="4400.00" waitingTime="0.00" waitingCount="0" stopTime="2584.84" timeLoss="2584.84" rerouteNo="0" devices="tripinfo_train person_train" vType="train_short" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="3889.80" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="73.00" vehicle="bike_a.0" depart="73.00" arrival="92.00" arrivalPos="0.00" duration="19.00" routeLength="100.00" timeLoss="0.00"/>
+        <walk depart="92.00" departPos="0.00" arrival="158.00" arrivalPos="91.24" duration="66.00" routeLength="91.24" timeLoss="0.31" maxSpeed="1.39" waitingTime="0.00"/>
+        <access stop="ts_0" depart="158.00" arrival="173.00" duration="15.00" routeLength="21.27"/>
+        <ride waitingTime="187.80" vehicle="train" depart="360.80" arrival="368.00" arrivalPos="0.00" duration="7.20" routeLength="100.00" timeLoss="0.00"/>
+        <access stop="ts_1" depart="368.00" arrival="386.00" duration="18.00" routeLength="25.23"/>
+        <walk depart="386.00" departPos="7.48" arrival="392.00" arrivalPos="0.00" duration="6.00" routeLength="7.48" timeLoss="0.61" maxSpeed="1.39" waitingTime="0.00"/>
+        <ride waitingTime="3629.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>
