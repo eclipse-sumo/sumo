@@ -31,35 +31,33 @@
 class GNEMoveElementLaneDouble : public GNEMoveElement {
 
 public:
-    /// @brief attributes format
-    enum class AttributesFormat {
-        STARTPOS_ENDPOS,    /// @brief starPosition and endPosition
-        POS_LENGTH,         /// @brief position and length
-        POS_ENDPOS          /// @brief position and endPosition
-    };
-
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] format position atttributes format
      * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] startPos Start position of the StoppingPlace
-     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] startPosAttr Start position attribute of the StoppingPlace
+     * @param[in] startPosValue Start position value of the StoppingPlace
+     * @param[in] endPosAttr End position attribute of the StoppingPlace
+     * @param[in] endPosValue End position value of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                             GNELane* lane, double& startPos, double& endPos, bool& friendlyPosition);
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, GNELane* lane,
+                             SumoXMLAttr startPosAttr, double& startPosValue,
+                             SumoXMLAttr endPosAttr, double& endPosValue,
+                             bool& friendlyPosition);
 
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] format position atttributes format
      * @param[in] lanes Lanes of this StoppingPlace belongs
-     * @param[in] startPos Start position of the StoppingPlace
-     * @param[in] endPos End position of the StoppingPlace
+     * @param[in] startPosAttr Start position attribute of the StoppingPlace
+     * @param[in] startPosValue Start position value of the StoppingPlace
+     * @param[in] endPosAttr End position attribute of the StoppingPlace
+     * @param[in] endPosValue End position value of the StoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                             const std::vector<GNELane*>& lanes, double& startPos,
-                             double& endPos, bool& friendlyPosition);
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
+                             SumoXMLAttr startPosAttr, double& startPosValue,
+                             SumoXMLAttr endPosAttr, double& endPosValue,
+                             bool& friendlyPosition);
 
     /// @brief Destructor
     ~GNEMoveElementLaneDouble();
@@ -128,11 +126,17 @@ public:
     static const double defaultSize;
 
 private:
+    /// @brief startPos attribute
+    SumoXMLAttr myStartPosAttr;
+
     /// @brief The start position over lane
-    double& myStartPosOverLane;
+    double& myStartPosValue;
+
+    /// @brief end pos attribute
+    SumoXMLAttr myEndPosAttr;
 
     /// @brief The end position over lane
-    double& myEndPosPosOverLane;
+    double& myEndPosPosValue;
 
     /// @brief Flag for friendly position
     bool& myFriendlyPosition;
@@ -145,9 +149,6 @@ private:
 
     /// @brief reference position
     ReferencePosition myReferencePosition = ReferencePosition::CENTER;
-
-    /// @brief pos attributes format
-    AttributesFormat myAttributesFormat = AttributesFormat::STARTPOS_ENDPOS;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
