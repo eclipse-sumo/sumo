@@ -20,8 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
-
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -29,12 +27,13 @@
 // ===========================================================================
 
 class GNEBusStop;
+class GNEMoveElementLaneSingle;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEAccess : public GNEAdditional, public GNEMoveElementLaneSingle, public Parameterised {
+class GNEAccess : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief Default constructor
@@ -56,7 +55,7 @@ public:
     ~GNEAccess();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;
@@ -163,6 +162,15 @@ public:
     /// @}
 
 protected:
+    /// @brief position over lane
+    double myPosOverLane = 0;
+
+    /// @brief friendly position
+    bool myFriendlyPos = false;
+
+    /// @brief move element lane single
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
+
     /// @brief position over lane
     std::string mySpecialPosition;
 

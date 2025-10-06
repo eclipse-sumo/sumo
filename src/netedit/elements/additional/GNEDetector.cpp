@@ -189,7 +189,7 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getMoveElement()->getMovingAttribute(this, key);
     }
 }
 
@@ -214,7 +214,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNE
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            getMoveElement()->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -255,7 +255,7 @@ GNEDetector::isDetectorValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::PersonModeValues.hasString(value);
             }
         default:
-            return isCommonValid(key, value);
+            return getMoveElement()->isMovingAttributeValid(key, value);
     }
 }
 
@@ -313,7 +313,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            getMoveElement()->setMovingAttribute(this, key, value);
             break;
     }
 }

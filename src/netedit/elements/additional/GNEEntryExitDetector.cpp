@@ -19,16 +19,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEEntryExitDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -39,25 +40,29 @@
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector(net, entryExitTag),
-    GNEMoveElementLaneSingle(this) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
 }
 
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos,
         const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(parent, entryExitTag, 0, "", "", parameters),
-    GNEMoveElementLaneSingle(this, lane, pos, friendlyPos) {
+    myPosOverLane(pos),
+    myFriendlyPos(friendlyPos),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
-GNEEntryExitDetector::~GNEEntryExitDetector() {}
+GNEEntryExitDetector::~GNEEntryExitDetector() {
+    delete myMoveElementLaneSingle;
+}
 
 
 GNEMoveElement*
-GNEEntryExitDetector::getMoveElement() {
-    return this;
+GNEEntryExitDetector::getMoveElement() const {
+    return myMoveElementLaneSingle;
 }
 
 
@@ -67,7 +72,7 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move attributes
-    writeMoveAttributes(device);
+    myMoveElementLaneSingle->writeMoveAttributes(device);
     // write common detector parameters
     writeDetectorValues(device);
     // write parameters
@@ -79,28 +84,28 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
 bool
 GNEEntryExitDetector::isAdditionalValid() const {
     // only movement problems
-    return isMoveElementValid();
+    return myMoveElementLaneSingle->isMoveElementValid();
 }
 
 
 std::string
 GNEEntryExitDetector::getAdditionalProblem() const {
     // only movement problems
-    return getMovingProblem();
+    return myMoveElementLaneSingle->getMovingProblem();
 }
 
 
 void
 GNEEntryExitDetector::fixAdditionalProblem() {
     // only movement problems
-    fixMovingProblem();
+    myMoveElementLaneSingle->fixMovingProblem();
 }
 
 
 void
 GNEEntryExitDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getFixedPositionOverLane(), myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myMoveElementLaneSingle->myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -157,12 +162,6 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEEntryExitDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
@@ -173,21 +172,13 @@ GNEEntryExitDetector::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_POSITION:
-            return myPosOverLane;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+    return getDetectorAttributeDouble(key);
 }
 
 
 void
 GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_PARENT:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -201,16 +192,6 @@ GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GN
 bool
 GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, false) != nullptr);
         default:
@@ -338,13 +319,8 @@ void
 GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE:
+            // set hier because GNEHierarchicalElement is a template
             replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_POSITION:
-            myPosOverLane = parse<double>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             replaceAdditionalParent(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, 0);

@@ -21,18 +21,23 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
-#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <utils/shapes/Shape.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEAdditional.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneSingle;
+class GNEMoveElementView;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEPOI : public Shape, public GNEAdditional, public GNEMoveElementLaneSingle, public GNEMoveElementView, public Parameterised {
+class GNEPOI : public Shape, public GNEAdditional,  public Parameterised {
 
 public:
     // avoid diamond problem
@@ -88,7 +93,7 @@ public:
     ~GNEPOI();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() override;
+    GNEMoveElement* getMoveElement() const override;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -212,6 +217,18 @@ public:
     std::string getHierarchyName() const override;
 
 protected:
+    /// @brief position over lane
+    double myPosOverLane = 0;
+
+    /// @brief friendly position
+    bool myFriendlyPos = false;
+
+    /// @brief move element over single lane
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
+
+    /// @brief move element over view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief lateral position;
     double myPosLat = 0;
 

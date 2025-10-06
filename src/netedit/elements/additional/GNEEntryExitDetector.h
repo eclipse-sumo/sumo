@@ -20,21 +20,20 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
-
 #include "GNEDetector.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class GNEMoveElementLaneSingle;
 class GNEMultiEntryExitDetector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEEntryExitDetector : public GNEDetector, public GNEMoveElementLaneSingle {
+class GNEEntryExitDetector : public GNEDetector {
 
 public:
     /// @brief default Constructor
@@ -55,7 +54,7 @@ public:
     ~GNEEntryExitDetector();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -120,6 +119,16 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /// @}
+
+protected:
+    /// @brief position over lane
+    double myPosOverLane = 0;
+
+    /// @brief friendly position
+    bool myFriendlyPos = false;
+
+    /// @brief move element lane single
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
 
 private:
     /// @brief draw body

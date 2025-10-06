@@ -19,16 +19,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEAccess.h"
@@ -40,15 +41,17 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
-    GNEMoveElementLaneSingle(this) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
 }
 
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, const std::string& specialPos,
                      const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
     GNEAdditional(busStop, SUMO_TAG_ACCESS, ""),
-    GNEMoveElementLaneSingle(this, lane, pos, friendlyPos),
     Parameterised(parameters),
+    myPosOverLane(pos),
+    myFriendlyPos(friendlyPos),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)),
     mySpecialPosition(specialPos),
     myLength(length) {
     // set parents
@@ -59,11 +62,13 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
 
 
 GNEAccess::~GNEAccess() {
+    delete myMoveElementLaneSingle;
 }
 
-/// @brief get GNEMoveElement associated with this AttributeCarrier
-inline GNEMoveElement* GNEAccess::getMoveElement() {
-    return this;
+
+GNEMoveElement*
+GNEAccess::getMoveElement() const {
+    return myMoveElementLaneSingle;
 }
 
 
@@ -79,7 +84,7 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = myPosOverLane;
     }
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor(), myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor(), myMoveElementLaneSingle->myMovingLateralOffset);
 }
 
 
@@ -127,7 +132,7 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move attributes
-    writeMoveAttributes(device);
+    myMoveElementLaneSingle->writeMoveAttributes(device);
     // write specific attributes
     if (myLength != -1) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
@@ -139,21 +144,21 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 bool
 GNEAccess::isAdditionalValid() const {
     // only movement problems
-    return isMoveElementValid();
+    return myMoveElementLaneSingle->isMoveElementValid();
 }
 
 
 std::string
 GNEAccess::getAdditionalProblem() const {
     // only movement problems
-    return getMovingProblem();
+    return myMoveElementLaneSingle->getMovingProblem();
 }
 
 
 void
 GNEAccess::fixAdditionalProblem() {
     // only movement problems
-    fixMovingProblem();
+    myMoveElementLaneSingle->fixMovingProblem();
 }
 
 

@@ -70,7 +70,7 @@ public:
     ~GNEDetector();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    virtual GNEMoveElement* getMoveElement() = 0;
+    virtual GNEMoveElement* getMoveElement() const = 0;
 
     /// @name members and functions relative to write additionals into XML
     /// @{

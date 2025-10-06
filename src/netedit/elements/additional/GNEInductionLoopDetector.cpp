@@ -19,13 +19,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -39,7 +40,7 @@
 
 GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
     GNEDetector(net, SUMO_TAG_INDUCTION_LOOP),
-    GNEMoveElementLaneSingle(this) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
 }
 
 
@@ -49,19 +50,22 @@ GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNENet
         const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, SUMO_TAG_INDUCTION_LOOP, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneSingle(this, lane, pos, friendlyPos) {
+    myPosOverLane(pos),
+    myFriendlyPos(friendlyPos),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNEInductionLoopDetector::~GNEInductionLoopDetector() {
+    delete myMoveElementLaneSingle;
 }
 
 
 GNEMoveElement*
-GNEInductionLoopDetector::getMoveElement() {
-    return this;
+GNEInductionLoopDetector::getMoveElement() const {
+    return myMoveElementLaneSingle;
 }
 
 
@@ -71,7 +75,7 @@ GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move attributes
-    writeMoveAttributes(device);
+    myMoveElementLaneSingle->writeMoveAttributes(device);
     // write detector attributes
     writeDetectorValues(device);
     // write parameters (Always after children to avoid problems with additionals.xsd)
@@ -83,28 +87,28 @@ GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
 bool
 GNEInductionLoopDetector::isAdditionalValid() const {
     // only movement problems
-    return isMoveElementValid();
+    return myMoveElementLaneSingle->isMoveElementValid();
 }
 
 
 std::string
 GNEInductionLoopDetector::getAdditionalProblem() const {
     // only movement problems
-    return getMovingProblem();
+    return myMoveElementLaneSingle->getMovingProblem();
 }
 
 
 void
 GNEInductionLoopDetector::fixAdditionalProblem() {
     // only movement problems
-    fixMovingProblem();
+    myMoveElementLaneSingle->fixMovingProblem();
 }
 
 
 void
 GNEInductionLoopDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getFixedPositionOverLane(), myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myMoveElementLaneSingle->myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
