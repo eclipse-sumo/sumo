@@ -44,8 +44,10 @@ GNEMoveOperation*
 GNEMoveElementConnection::getMoveOperation() {
     // edit depending if shape is being edited
     if (myConnection->isShapeEdited()) {
+        // get connection
+        const auto& connection = myConnection->getNBEdgeConnection();
         // calculate move shape operation
-        return getEditShapeOperation(myConnection, myConnection->getConnectionShape(), false);
+        return getEditShapeOperation(myConnection, connection.customShape.size() > 0 ? connection.customShape : myConnection->myConnectionGeometry.getShape(), false);
     } else {
         return nullptr;
     }
@@ -56,8 +58,10 @@ void
 GNEMoveElementConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited
     if (myConnection->isShapeEdited()) {
+        // get connection
+        const auto& connection = myConnection->getNBEdgeConnection();
         // get original shape
-        PositionVector shape = myConnection->getConnectionShape();
+        PositionVector shape = connection.customShape.size() > 0 ? connection.customShape : connection.shape;
         // check shape size
         if (shape.size() > 2) {
             // obtain index
@@ -70,7 +74,7 @@ GNEMoveElementConnection::removeGeometryPoint(const Position clickedPosition, GN
                 shape.erase(shape.begin() + index);
                 // commit new shape
                 undoList->begin(myConnection, TLF("remove geometry point of %", myConnection->getTagStr()));
-                GNEChange_Attribute::changeAttribute(myConnection, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList, true);
+                GNEChange_Attribute::changeAttribute(myConnection, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
         }
@@ -81,7 +85,9 @@ GNEMoveElementConnection::removeGeometryPoint(const Position clickedPosition, GN
 void
 GNEMoveElementConnection::setMoveShape(const GNEMoveResult& moveResult) {
     // set custom shape
-    myConnection->getNBConnection()->customShape = moveResult.shapeToUpdate;
+    myConnection->getNBEdgeConnection().customShape = moveResult.shapeToUpdate;
+    // mark junction as deprecated
+    myConnection->myShapeDeprecated = true;
     // update geometry
     myConnection->updateGeometry();
 }
@@ -90,8 +96,8 @@ GNEMoveElementConnection::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEMoveElementConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(myConnection, TLF("moving % of %", toString(SUMO_ATTR_CUSTOMSHAPE), myConnection->getTagStr()));
-    GNEChange_Attribute::changeAttribute(myConnection, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList, true);
+    undoList->begin(myConnection, TLF("moving custom shape of %", myConnection->getTagStr()));
+    GNEChange_Attribute::changeAttribute(myConnection, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }
 

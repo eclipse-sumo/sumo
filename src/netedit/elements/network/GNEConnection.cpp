@@ -19,12 +19,13 @@
 /****************************************************************************/
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/elements/moving/GNEMoveElementConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_TLS.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
@@ -42,6 +43,7 @@
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(), SUMO_TAG_CONNECTION),
+    myMoveElementConnection(new GNEMoveElementConnection(this)),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
     mySpecialColor(nullptr),
     myShapeDeprecated(true) {
@@ -52,6 +54,12 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
 
 
 GNEConnection::~GNEConnection() {
+}
+
+
+GNEMoveElement*
+GNEConnection::getMoveElement() const {
+    return myMoveElementConnection;
 }
 
 
@@ -233,48 +241,6 @@ GNEConnection::checkDrawMoveContour() const {
         }
     } else {
         return false;
-    }
-}
-
-
-GNEMoveOperation*
-GNEConnection::getMoveOperation() {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // get connection
-        const auto& connection = getNBEdgeConnection();
-        // calculate move shape operation
-        return getEditShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-void
-GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // get connection
-        const auto& connection = getNBEdgeConnection();
-        // get original shape
-        PositionVector shape = connection.customShape.size() > 0 ? connection.customShape : connection.shape;
-        // check shape size
-        if (shape.size() > 2) {
-            // obtain index
-            int index = shape.indexOfClosest(clickedPosition);
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius;
-            // check if we have to create a new index
-            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-                // remove geometry point
-                shape.erase(shape.begin() + index);
-                // commit new shape
-                undoList->begin(this, "remove geometry point of " + getTagStr());
-                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
-                undoList->end();
-            }
-        }
     }
 }
 
@@ -1035,26 +1001,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
-}
-
-
-void
-GNEConnection::setMoveShape(const GNEMoveResult& moveResult) {
-    // set custom shape
-    getNBEdgeConnection().customShape = moveResult.shapeToUpdate;
-    // mark junction as deprecated
-    myShapeDeprecated = true;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin(this, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

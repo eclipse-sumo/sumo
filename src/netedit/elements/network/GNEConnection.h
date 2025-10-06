@@ -30,12 +30,17 @@
 // ===========================================================================
 
 class GNEEdge;
+class GNEMoveElementConnection;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEConnection : public GNENetworkElement {
+
+    /// @brief friend classses
+    friend class GNEMoveElementConnection;
+
 public:
     /** Constructor
      * @param[in] from The edge the vehicles leave
@@ -46,6 +51,9 @@ public:
 
     /// @brief Destructor
     ~GNEConnection();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -90,17 +98,6 @@ public:
 
     /// @}
 
-    /// @name Functions related with move elements
-    /// @{
-
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
-    /// @}
-
     /// @brief get the name of the edge the vehicles leave
     GNEEdge* getEdgeFrom() const;
 
@@ -118,6 +115,7 @@ public:
 
     /// @briefthe get lane index of the outgoing lane
     int getToLaneIndex() const;
+
     /// @brief get Edge::Connection
     NBEdge::Connection& getNBEdgeConnection() const;
 
@@ -227,6 +225,9 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
+    /// @brief move element connection
+    GNEMoveElementConnection* myMoveElementConnection = nullptr;
+
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
     LinkState myLinkState;
 
@@ -245,12 +246,6 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief manage change of tlLinkindices
     void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);
