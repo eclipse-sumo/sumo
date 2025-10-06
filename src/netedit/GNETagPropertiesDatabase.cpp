@@ -18,6 +18,7 @@
 // Database with all information about netedit elements
 /****************************************************************************/
 
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
 #include <netedit/GNENet.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/options/OptionsCont.h>
@@ -1460,13 +1461,19 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         fillPosOverLaneAttribute(myTagProperties[currentTag]);
 
+        // this is a "virtual attribute", only used for movement
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ENDPOS,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::NO_EDIT,
+                                   TL("The end position on the lane the detector shall be laid on in meters"));
+
         fillFriendlyPosAttribute(myTagProperties[currentTag]);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LENGTH,
                                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The length of the detector in meters"),
-                                   "10");
+                                   toString(GNEMoveElementLaneDouble::defaultSize));
 
         fillNameAttribute(myTagProperties[currentTag]);
 
@@ -7027,7 +7034,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                TLF("Length of %", tagProperties->getTagStr()),
-                               "10");
+                               toString(GNEMoveElementLaneDouble::defaultSize));
 
     auto forceSize = new GNEAttributeProperties(tagProperties, GNE_ATTR_FORCESIZE,
             GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
