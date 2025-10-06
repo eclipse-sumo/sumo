@@ -21,19 +21,23 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNECandidateElement.h>
-#include <utils/gui/globjects/GUIPolygon.h>
 #include <netbuild/NBNode.h>
+#include <netedit/elements/GNECandidateElement.h>
+#include <netedit/elements/moving/GNEMoveResult.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEConnection;
 class GNECrossing;
 class GNEEdge;
 class GNEInternalLane;
+class GNEMoveElementJunction;
+class GNEMoveOperation;
 class GNENet;
 class GNEWalkingArea;
 class NBTrafficLightDefinition;
@@ -41,18 +45,13 @@ class NBTrafficLightDefinition;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEJunction
- *
- * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each
- *  side is added.
- */
+
 class GNEJunction : public GNENetworkElement, public GNECandidateElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;
     friend class GNEChange_Crossing;
+    friend class GNEMoveElementJunction;
 
 public:
     /**@brief Constructor
@@ -64,6 +63,9 @@ public:
 
     /// @brief Destructor
     ~GNEJunction();
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -108,16 +110,6 @@ public:
 
     /// @brief check if draw move contour (red)
     bool checkDrawMoveContour() const;
-
-    /// @}
-
-    /// @name Functions related with move elements
-    /// @{
-    /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation();
-
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @}
 
@@ -312,6 +304,9 @@ public:
     void removeInternalLane(const GNEInternalLane* internalLane);
 
 protected:
+    /// @brief move element junction
+    GNEMoveElementJunction* myMoveElementJunction = nullptr;
+
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
 
@@ -397,12 +392,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /**@brief reposition the node at pos without updating GRID and informs the edges
      * @param[in] pos The new position

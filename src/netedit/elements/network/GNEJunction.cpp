@@ -23,32 +23,33 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/frames/network/GNECrossingFrame.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/elements/demand/GNEPlanParents.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNEContainerFrame.h>
-#include <netedit/frames/demand/GNEContainerPlanFrame.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
+#include <netedit/elements/moving/GNEMoveElementJunction.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <netedit/frames/network/GNECrossingFrame.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEConnection.h"
 #include "GNEJunction.h"
@@ -62,6 +63,7 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), SUMO_TAG_JUNCTION),
+    myMoveElementJunction(new GNEMoveElementJunction(this)),
     myNBNode(nbn),
     myDrawingToggle(new int),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
@@ -100,6 +102,12 @@ GNEJunction::~GNEJunction() {
     if (myAmResponsible) {
         delete myNBNode;
     }
+}
+
+
+GNEMoveElement*
+GNEJunction::getMoveElement() const {
+    return myMoveElementJunction;
 }
 
 
@@ -368,45 +376,6 @@ GNEJunction::checkDrawMoveContour() const {
         }
     } else {
         return false;
-    }
-}
-
-
-GNEMoveOperation*
-GNEJunction::getMoveOperation() {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // calculate move shape operation
-        return getEditShapeOperation(this, myNBNode->getShape(), false);
-    } else {
-        // return move junction position
-        return new GNEMoveOperation(this, myNBNode->getPosition());
-    }
-}
-
-
-void
-GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // edit depending if shape is being edited
-    if (isShapeEdited()) {
-        // get original shape
-        PositionVector shape = myNBNode->getShape();
-        // check shape size
-        if (shape.size() > 2) {
-            // obtain index
-            int index = shape.indexOfClosest(clickedPosition);
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
-            // check if we have to create a new index
-            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-                // remove geometry point
-                shape.erase(shape.begin() + index);
-                // commit new shape
-                undoList->begin(this, "remove geometry point of " + getTagStr());
-                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList, true);
-                undoList->end();
-            }
-        }
     }
 }
 
@@ -2021,56 +1990,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
-}
-
-
-void
-GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
-    // clear contour
-    myNetworkElementContour.clearContour();
-    // set new position in NBNode without updating grid
-    if (isShapeEdited()) {
-        // set new shape
-        myNBNode->setCustomShape(moveResult.shapeToUpdate);
-    } else if (moveResult.shapeToUpdate.size() > 0) {
-        // obtain NBNode position
-        const Position orig = myNBNode->getPosition();
-        // move geometry
-        moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
-        // check if move only center
-        const bool onlyMoveCenter = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
-        // set new position of adjacent edges depending if we're moving a selection
-        for (const auto& NBEdge : getNBNode()->getEdges()) {
-            myNet->getAttributeCarriers()->retrieveEdge(NBEdge->getID())->updateJunctionPosition(this, onlyMoveCenter ? myNBNode->getPosition() : orig);
-        }
-    }
-    updateGeometry();
-}
-
-
-void
-GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // make sure that newShape isn't empty
-    if (moveResult.shapeToUpdate.size() > 0) {
-        // check if we're editing a shape
-        if (isShapeEdited()) {
-            // commit new shape
-            undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            setAttribute(SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
-            undoList->end();
-        } else if (myNBNode->hasCustomShape()) {
-            // commit new shape
-            undoList->begin(this, "moving custom " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-            // calculate offset and apply to custom shape
-            const auto customShapeOffset = moveResult.shapeToUpdate.front() - myNBNode->getCenter();
-            const auto customShapeMoved = myNBNode->getShape().added(customShapeOffset);
-            setAttribute(SUMO_ATTR_SHAPE, toString(customShapeMoved), undoList);
-            undoList->end();
-        } else {
-            setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-        }
-    }
 }
 
 

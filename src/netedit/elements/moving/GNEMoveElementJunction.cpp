@@ -21,6 +21,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 
 #include "GNEMoveElementJunction.h"
@@ -36,5 +38,94 @@ GNEMoveElementJunction::GNEMoveElementJunction(GNEJunction* junction) :
 
 
 GNEMoveElementJunction::~GNEMoveElementJunction() {}
+
+
+GNEMoveOperation*
+GNEMoveElementJunction::getMoveOperation() {
+    // edit depending if shape is being edited
+    if (myJunction->isShapeEdited()) {
+        // calculate move shape operation
+        return getEditShapeOperation(myJunction, myJunction->getNBNode()->getShape(), false);
+    } else {
+        // return move junction position
+        return new GNEMoveOperation(this, myJunction->getNBNode()->getPosition());
+    }
+}
+
+
+void
+GNEMoveElementJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (myJunction->isShapeEdited()) {
+        // get original shape
+        PositionVector shape = myJunction->getNBNode()->getShape();
+        // check shape size
+        if (shape.size() > 2) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myJunction->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->begin(myJunction, TLF("remove geometry point of %", myJunction->getTagStr()));
+                GNEChange_Attribute::changeAttribute(myJunction, SUMO_ATTR_SHAPE, toString(shape), undoList, true);
+                undoList->end();
+            }
+        }
+    }
+}
+
+
+void
+GNEMoveElementJunction::setMoveShape(const GNEMoveResult& moveResult) {
+    // clear contour
+    myJunction->myNetworkElementContour.clearContour();
+    // set new position in NBNode without updating grid
+    if (myJunction->isShapeEdited()) {
+        // set new shape
+        myJunction->getNBNode()->setCustomShape(moveResult.shapeToUpdate);
+    } else if (moveResult.shapeToUpdate.size() > 0) {
+        // obtain NBNode position
+        const Position orig = myJunction->getNBNode()->getPosition();
+        // move geometry
+        myJunction->moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
+        // check if move only center
+        const bool onlyMoveCenter = myJunction->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+        // set new position of adjacent edges depending if we're moving a selection
+        for (const auto& NBEdge : myJunction->getNBNode()->getEdges()) {
+            myJunction->getNet()->getAttributeCarriers()->retrieveEdge(NBEdge->getID())->updateJunctionPosition(myJunction, onlyMoveCenter ? myJunction->getNBNode()->getPosition() : orig);
+        }
+    }
+    myJunction->updateGeometry();
+}
+
+
+void
+GNEMoveElementJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // make sure that newShape isn't empty
+    if (moveResult.shapeToUpdate.size() > 0) {
+        // check if we're editing a shape
+        if (myJunction->isShapeEdited()) {
+            // commit new shape
+            undoList->begin(myJunction, TLF("moving shape of %", myJunction->getTagStr()));
+            myJunction->setAttribute(SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
+            undoList->end();
+        } else if (myJunction->getNBNode()->hasCustomShape()) {
+            // commit new shape
+            undoList->begin(myJunction, TLF("moving custom shape of %", myJunction->getTagStr()));
+            myJunction->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
+            // calculate offset and apply to custom shape
+            const auto customShapeOffset = moveResult.shapeToUpdate.front() - myJunction->getNBNode()->getCenter();
+            const auto customShapeMoved = myJunction->getNBNode()->getShape().added(customShapeOffset);
+            myJunction->setAttribute(SUMO_ATTR_SHAPE, toString(customShapeMoved), undoList);
+            undoList->end();
+        } else {
+            myJunction->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
+        }
+    }
+}
 
 /****************************************************************************/
