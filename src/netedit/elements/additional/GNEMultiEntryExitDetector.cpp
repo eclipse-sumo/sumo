@@ -19,13 +19,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 
 #include "GNEMultiEntryExitDetector.h"
 
@@ -35,7 +36,7 @@
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, ""),
-    GNEMoveElementView(this) {
+    myMoveElementView(new GNEMoveElementView(this)) {
 }
 
 
@@ -43,8 +44,8 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
-    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
     myPeriod(freq),
     myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
@@ -63,7 +64,15 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
 }
 
 
-GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {}
+GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {
+    delete myMoveElementView;
+}
+
+
+GNEMoveElement*
+GNEMultiEntryExitDetector::getMoveElement() const {
+    return myMoveElementView;
+}
 
 
 void
@@ -84,7 +93,7 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         // write common additional attributes
         writeAdditionalAttributes(device);
         // write move atributes
-        writeMoveAttributes(device);
+        myMoveElementView->writeMoveAttributes(device);
         // write specific attributes
         if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
@@ -157,13 +166,13 @@ GNEMultiEntryExitDetector::checkDrawMoveContour() const {
 void
 GNEMultiEntryExitDetector::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
 }
 
 
 Position
 GNEMultiEntryExitDetector::getPositionInView() const {
-    return myPosOverView;
+    return myMoveElementView->myPosOverView;
 }
 
 
@@ -206,7 +215,7 @@ GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3
-        drawSquaredAdditional(s, myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+        drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
     }
 }
 
@@ -217,7 +226,7 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
+            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_PERIOD:
             if (myPeriod == SUMOTime_MAX_PERIOD) {
                 return "";
@@ -381,7 +390,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
+            myMoveElementView->myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

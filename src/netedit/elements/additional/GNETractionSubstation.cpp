@@ -19,11 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNETractionSubstation.h"
 
@@ -33,15 +34,15 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, ""),
-    GNEMoveElementView(this) {
+    myMoveElementView(new GNEMoveElementView(this)) {
 }
 
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
-    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
@@ -50,12 +51,13 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
 
 
 GNETractionSubstation::~GNETractionSubstation() {
+    delete myMoveElementView;
 }
 
 
 GNEMoveElement*
-GNETractionSubstation::getMoveElement() {
-    return this;
+GNETractionSubstation::getMoveElement() const {
+    return myMoveElementView;
 }
 
 
@@ -65,7 +67,7 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    writeMoveAttributes(device);
+    myMoveElementView->writeMoveAttributes(device);
     // write specific attributes
     if (myVoltage != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_VOLTAGE)) {
         device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
@@ -116,13 +118,13 @@ GNETractionSubstation::checkDrawMoveContour() const {
 void
 GNETractionSubstation::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
 }
 
 
 Position
 GNETractionSubstation::getPositionInView() const {
-    return myPosOverView;
+    return myMoveElementView->myPosOverView;
 }
 
 
@@ -162,7 +164,7 @@ GNETractionSubstation::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw TractionSubstation
-    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
+    drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
 }
 
 
@@ -181,7 +183,7 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(edges);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
+            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_VOLTAGE:
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
@@ -272,7 +274,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
+            myMoveElementView->myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

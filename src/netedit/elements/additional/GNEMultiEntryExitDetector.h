@@ -20,15 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementView.h>
-
 #include "GNEAdditional.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementView;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMultiEntryExitDetector : public GNEAdditional, public GNEMoveElementView, public Parameterised {
+class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor
@@ -60,9 +64,7 @@ public:
     ~GNEMultiEntryExitDetector();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() {
-        return this;
-    }
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -164,6 +166,9 @@ public:
     /// @}
 
 protected:
+    /// @brief move element over view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief period of E3 detector
     SUMOTime myPeriod = 0;
 

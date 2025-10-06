@@ -20,21 +20,20 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementView.h>
-
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class GNEMoveElementView;
 class GNEEdge;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERerouter : public GNEAdditional, public GNEMoveElementView, public Parameterised {
+class GNERerouter : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -58,7 +57,7 @@ public:
     ~GNERerouter();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
@@ -163,6 +162,9 @@ public:
     /// @}
 
 protected:
+    /// @brief move element view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief probability of rerouter
     double myProbability = 0;
 

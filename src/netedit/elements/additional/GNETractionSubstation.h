@@ -20,15 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementView.h>
-
 #include "GNEAdditional.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementView;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional, public GNEMoveElementView, public Parameterised {
+class GNETractionSubstation : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -50,7 +54,7 @@ public:
     ~GNETractionSubstation();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -152,6 +156,9 @@ public:
     /// @}
 
 protected:
+    /// @brief move element view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief voltage
     double myVoltage = 0;
 

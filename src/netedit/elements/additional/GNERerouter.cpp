@@ -19,13 +19,14 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/elements/GNERerouterDialog.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/elements/GNERerouterDialog.h>
 
 #include "GNERerouter.h"
 #include "GNERerouterSymbol.h"
@@ -36,7 +37,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
-    GNEMoveElementView(this) {
+    myMoveElementView(new GNEMoveElementView(this)) {
 }
 
 
@@ -44,8 +45,8 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
-    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
     myProbability(probability),
     myOff(off),
     myOptional(optional),
@@ -57,12 +58,13 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
 
 
 GNERerouter::~GNERerouter() {
+    delete myMoveElementView;
 }
 
 
 GNEMoveElement*
-GNERerouter::getMoveElement() {
-    return this;
+GNERerouter::getMoveElement() const {
+    return myMoveElementView;
 }
 
 
@@ -74,7 +76,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         // write common additional attributes
         writeAdditionalAttributes(device);
         // write move atributes
-        writeMoveAttributes(device);
+        myMoveElementView->writeMoveAttributes(device);
         // write specific attributes
         device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
         if (myProbability != 1.0) {
@@ -143,7 +145,7 @@ GNERerouter::checkDrawMoveContour() const {
 void
 GNERerouter::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -156,7 +158,7 @@ GNERerouter::updateGeometry() {
 
 Position
 GNERerouter::getPositionInView() const {
-    return myPosOverView;
+    return myMoveElementView->myPosOverView;
 }
 
 
@@ -217,7 +219,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor, true);
         // draw Rerouter
-        drawSquaredAdditional(s, myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
+        drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
         // iterate over additionals and check if drawn
         for (const auto& interval : getChildAdditionals()) {
             // if rerouter or their intevals are selected, then draw
@@ -255,7 +257,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(edges);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
+            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_PROB:
@@ -375,7 +377,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
+            myMoveElementView->myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

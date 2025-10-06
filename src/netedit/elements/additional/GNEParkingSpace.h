@@ -20,21 +20,20 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementView.h>
-
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class GNEMoveElementView;
 class GNEParkingArea;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEParkingSpace : public GNEAdditional, public GNEMoveElementView, public Parameterised {
+class GNEParkingSpace : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief Constructor
@@ -59,7 +58,7 @@ public:
     ~GNEParkingSpace();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -161,6 +160,9 @@ public:
     /// @}
 
 protected:
+    /// @brief move element view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
     /// @brief Angle of Parking Space
     double myAngle;
 

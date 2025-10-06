@@ -22,6 +22,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/elements/GNEVariableSpeedSignDialog.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -36,7 +37,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
-    GNEMoveElementView(this) {
+    myMoveElementView(new GNEMoveElementView(this)) {
 }
 
 
@@ -44,8 +45,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
-    GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos),
     Parameterised(parameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -53,12 +54,13 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
 
 
 GNEVariableSpeedSign::~GNEVariableSpeedSign() {
+    delete myMoveElementView;
 }
 
 
 GNEMoveElement*
-GNEVariableSpeedSign::getMoveElement() {
-    return this;
+GNEVariableSpeedSign::getMoveElement() const {
+    return myMoveElementView;
 }
 
 
@@ -70,7 +72,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         // write common additional attributes
         writeAdditionalAttributes(device);
         // write move atributes
-        writeMoveAttributes(device);
+        myMoveElementView->writeMoveAttributes(device);
         // write specific attributes
         device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
         if (!myVehicleTypes.empty()) {
@@ -112,7 +114,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
 void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -122,7 +124,7 @@ GNEVariableSpeedSign::updateGeometry() {
 
 Position
 GNEVariableSpeedSign::getPositionInView() const {
-    return myPosOverView;
+    return myMoveElementView->myPosOverView;
 }
 
 
@@ -190,7 +192,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
-    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn
     for (const auto& step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
@@ -219,7 +221,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return toString(lanes);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
+            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_VTYPES:
@@ -314,7 +316,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
+            myMoveElementView->myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);
