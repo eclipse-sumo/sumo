@@ -25,10 +25,16 @@
 #include "GNEDetector.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneDouble;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNELaneAreaDetector : public GNEDetector, public GNEMoveElementLaneDouble {
+class GNELaneAreaDetector : public GNEDetector {
 
 public:
     /// @brief default Constructor
@@ -92,7 +98,7 @@ public:
     ~GNELaneAreaDetector();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -181,6 +187,18 @@ public:
     /// @}
 
 protected:
+    /// @brief The start position over lane
+    double myStartPosOverLane = 0;
+
+    /// @brief The end position over lane
+    double myEndPosPosOverLane = 0;
+
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition = false;
+
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
+
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold = 0;
 

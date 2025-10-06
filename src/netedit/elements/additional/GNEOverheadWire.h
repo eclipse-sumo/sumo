@@ -20,15 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
-
 #include "GNEAdditional.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneDouble;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEOverheadWire : public GNEAdditional, public GNEMoveElementLaneDouble, public Parameterised {
+class GNEOverheadWire : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -56,7 +60,7 @@ public:
     ~GNEOverheadWire();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -171,6 +175,18 @@ public:
     /// @}
 
 protected:
+    /// @brief The start position over lane
+    double myStartPosOverLane = 0;
+
+    /// @brief The end position over lane
+    double myEndPosPosOverLane = 0;
+
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition = false;
+
+    /// @brif move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
+
     /// @brief forbidden inner lanes
     std::vector<std::string> myForbiddenInnerLanes;
 

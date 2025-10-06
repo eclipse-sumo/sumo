@@ -18,9 +18,10 @@
 // A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>

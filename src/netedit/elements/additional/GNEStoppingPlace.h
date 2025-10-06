@@ -20,15 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
-
 #include "GNEAdditional.h"
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneDouble;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEStoppingPlace : public GNEAdditional, public GNEMoveElementLaneDouble, public Parameterised {
+class GNEStoppingPlace : public GNEAdditional, public Parameterised {
 
 public:
     /**@brief Default constructor
@@ -59,7 +63,7 @@ public:
     ~GNEStoppingPlace();
 
     /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement();
+    GNEMoveElement* getMoveElement() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -162,20 +166,23 @@ public:
     /// @}
 
 protected:
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
+
+    /// @brief The start position over lane
+    double myStartPosOverLane = 0;
+
+    /// @brief The end position over lane
+    double myEndPosPosOverLane = 0;
+
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition = false;
+
     /// @brief RGB color
     RGBColor myColor = RGBColor::INVISIBLE;
 
     /// @brief angle
     double myAngle = 0;
-
-    /// @brief size (only use in templates)
-    double mySize = 10;
-
-    /// @brief force size (only used in templates
-    bool myForceSize = false;
-
-    /// @brief reference position
-    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
     /// @brief The position of the sign
     Position mySymbolPosition;

@@ -43,17 +43,21 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, tag),
-    GNEMoveElementLaneDouble(this)
-{ }
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this,
+                            (tag == SUMO_TAG_LANE_AREA_DETECTOR) ? GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH :  GNEMoveElementLaneDouble::AttributesFormat::POS_ENDPOS,
+                            nullptr, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)) {
+}
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const double length, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
-                detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lane, pos, (pos + length), friendlyPos),
+    GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges, detectPersons, name, parameters),
+    myStartPosOverLane(pos),
+    myEndPosPosOverLane(pos + length),
+    myFriendlyPosition(friendlyPos),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lane, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -68,7 +72,10 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
         const Parameterised::Map& parameters) :
     GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_ENDPOS, lanes, pos, endPos, friendlyPos),
+    myStartPosOverLane(pos),
+    myEndPosPosOverLane(endPos),
+    myFriendlyPosition(friendlyPos),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lanes, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -78,12 +85,13 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
 
 
 GNELaneAreaDetector::~GNELaneAreaDetector() {
+    delete myMoveElementLaneDouble;
 }
 
 
 GNEMoveElement*
-GNELaneAreaDetector::getMoveElement() {
-    return this;
+GNELaneAreaDetector::getMoveElement() const {
+    return myMoveElementLaneDouble;
 }
 
 
@@ -93,7 +101,7 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device);
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes
@@ -121,21 +129,21 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
 bool
 GNELaneAreaDetector::isAdditionalValid() const {
     // only movement problems
-    return isMoveElementValid();
+    return myMoveElementLaneDouble->isMoveElementValid();
 }
 
 
 std::string
 GNELaneAreaDetector::getAdditionalProblem() const {
     // only movement problems
-    return getMovingProblem();
+    return myMoveElementLaneDouble->getMovingProblem();
 }
 
 
 void
 GNELaneAreaDetector::fixAdditionalProblem() {
     // only movement problems
-    return fixMovingProblem();
+    return myMoveElementLaneDouble->fixMovingProblem();
 }
 
 
@@ -147,7 +155,7 @@ GNELaneAreaDetector::updateGeometry() {
         computePathElement();
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartFixedPositionOverLane(), getEndFixedPositionOverLane(), myMovingLateralOffset);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
     }
 }
 

@@ -19,16 +19,17 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
+#include <netedit/elements/network/GNEConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
-#include <netedit/elements/network/GNEConnection.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEOverheadWire.h"
 #include "GNEAdditionalHandler.h"
@@ -39,7 +40,8 @@
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    GNEMoveElementLaneDouble(this) {
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
+                            nullptr, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
 
@@ -47,8 +49,12 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
                                  const double startPos, const double endPos, const bool friendlyPos, const std::vector<std::string>& forbiddenInnerLanes,
                                  const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS, lanes, startPos, endPos, friendlyPos),
     Parameterised(parameters),
+    myStartPosOverLane(startPos),
+    myEndPosPosOverLane(endPos),
+    myFriendlyPosition(friendlyPos),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
+                            lanes, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
     myForbiddenInnerLanes(forbiddenInnerLanes) {
     // set parents
     setParent<GNEAdditional*>(substation);
@@ -58,12 +64,13 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
 
 
 GNEOverheadWire::~GNEOverheadWire() {
+    delete myMoveElementLaneDouble;
 }
 
 
 GNEMoveElement*
-GNEOverheadWire::getMoveElement() {
-    return this;
+GNEOverheadWire::getMoveElement() const {
+    return myMoveElementLaneDouble;
 }
 
 
@@ -73,7 +80,7 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device);
     // write specific attributes
     device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
     if (!myForbiddenInnerLanes.empty()) {
@@ -88,21 +95,21 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
 bool
 GNEOverheadWire::isAdditionalValid() const {
     // only movement problems
-    return isMoveElementValid();
+    return myMoveElementLaneDouble->isMoveElementValid();
 }
 
 
 std::string
 GNEOverheadWire::getAdditionalProblem() const {
     // only movement problems
-    return getMovingProblem();
+    return myMoveElementLaneDouble->getMovingProblem();
 }
 
 
 void
 GNEOverheadWire::fixAdditionalProblem() {
     // only movement problems
-    return fixMovingProblem();
+    return myMoveElementLaneDouble->fixMovingProblem();
 }
 
 

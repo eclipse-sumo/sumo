@@ -18,9 +18,10 @@
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 
@@ -295,6 +296,5 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
 }
-
 
 /****************************************************************************/
