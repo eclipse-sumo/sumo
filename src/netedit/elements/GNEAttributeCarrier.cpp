@@ -844,15 +844,6 @@ GNEAttributeCarrier::getTagProperty() const {
     return myTagProperty;
 }
 
-// ===========================================================================
-// private
-// ===========================================================================
-
-void
-GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw ProcessError(TL("Nothing to toggle, implement in Children"));
-}
-
 
 std::string
 GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
@@ -996,6 +987,15 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void
+GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw ProcessError(TL("Nothing to toggle, implement in Children"));
 }
 
 /****************************************************************************/
