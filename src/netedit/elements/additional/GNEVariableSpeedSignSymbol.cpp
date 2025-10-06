@@ -255,15 +255,4 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& val
     setCommonAttribute(this, key, value);
 }
 
-
-void
-GNEVariableSpeedSignSymbol::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-void
-GNEVariableSpeedSignSymbol::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
 /****************************************************************************/

@@ -733,17 +733,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNECalibratorFlow::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-void
-GNECalibratorFlow::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
-
-void
 GNECalibratorFlow::toggleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_TYPE:

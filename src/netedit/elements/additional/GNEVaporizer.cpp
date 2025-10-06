@@ -343,16 +343,4 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNEVaporizer::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNEVaporizer::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
 /****************************************************************************/

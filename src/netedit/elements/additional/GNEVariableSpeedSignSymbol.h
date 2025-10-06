@@ -163,12 +163,6 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
     /// @brief Invalidated copy constructor.
     GNEVariableSpeedSignSymbol(const GNEVariableSpeedSignSymbol&) = delete;
 

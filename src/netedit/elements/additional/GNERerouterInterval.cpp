@@ -278,16 +278,4 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
 /****************************************************************************/

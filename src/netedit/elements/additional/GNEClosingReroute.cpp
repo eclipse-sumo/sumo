@@ -254,17 +254,4 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNEClosingReroute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNEClosingReroute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
-
 /****************************************************************************/

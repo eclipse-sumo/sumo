@@ -294,16 +294,4 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
     setCommonAttribute(this, key, value);
 }
 
-
-void
-GNERerouterSymbol::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNERerouterSymbol::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/)  {
-    // nothing to do
-}
-
 /****************************************************************************/

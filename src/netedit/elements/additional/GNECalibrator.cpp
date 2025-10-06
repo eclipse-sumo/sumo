@@ -582,17 +582,4 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNECalibrator::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
-}
-
-
-void
-GNECalibrator::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
-
 /****************************************************************************/
