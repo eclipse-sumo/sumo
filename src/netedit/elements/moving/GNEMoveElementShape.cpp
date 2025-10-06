@@ -113,6 +113,34 @@ GNEMoveElementShape::removeGeometryPoint(const Position clickedPosition, GNEUndo
 }
 
 
+std::string
+GNEMoveElementShape::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+    return "";
+}
+
+
+double
+GNEMoveElementShape::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return 0;
+}
+
+
+void
+GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+}
+
+
+bool
+GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return false;
+}
+
+
+void
+GNEMoveElementShape::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+}
+
+
 void
 GNEMoveElementShape::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
