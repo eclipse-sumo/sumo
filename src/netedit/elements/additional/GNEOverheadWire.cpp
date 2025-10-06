@@ -40,8 +40,8 @@
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
-                            nullptr, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)) {
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
 
@@ -53,8 +53,8 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
-                            lanes, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lanes, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myForbiddenInnerLanes(forbiddenInnerLanes) {
     // set parents
     setParent<GNEAdditional*>(substation);

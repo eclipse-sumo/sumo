@@ -44,8 +44,8 @@
 
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
     GNEAdditional("", net, "", tag, ""),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
-                            nullptr, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)) {
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
 
@@ -58,8 +58,8 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPosition),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::STARTPOS_ENDPOS,
-                            lane, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myColor(color),
     myAngle(angle) {
 }

@@ -43,9 +43,8 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, tag),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this,
-                            (tag == SUMO_TAG_LANE_AREA_DETECTOR) ? GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH :  GNEMoveElementLaneDouble::AttributesFormat::POS_ENDPOS,
-                            nullptr, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)) {
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_POSITION, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
 
@@ -57,7 +56,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(pos + length),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lane, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -75,7 +74,7 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, GNEMoveElementLaneDouble::AttributesFormat::POS_LENGTH, lanes, myStartPosOverLane, myEndPosPosOverLane, myFriendlyPosition)),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lanes, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -317,7 +316,6 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
             return parseIDs(getParentLanes());
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
             return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
@@ -345,7 +343,6 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
 double
 GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
             return myStartPosOverLane;
         case SUMO_ATTR_ENDPOS:
@@ -363,7 +360,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
     switch (key) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_TLID:
@@ -392,7 +388,6 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<std::vector<GNELane*> >(myNet, value, true);
             }
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
@@ -553,7 +548,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             replaceAdditionalParentLanes(value);
             break;
-        case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_POSITION:
             myStartPosOverLane = parse<double>(value);
             // update geometry (except for template)
