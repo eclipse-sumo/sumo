@@ -61,12 +61,6 @@ public:
 
     /// @}
 
-    /// @brief get start offset position over edge
-    double getStartFixedPositionOverEdge() const;
-
-    /// @brief get end offset position over edge
-    double getEndFixedPositionOverEdge() const;
-
     /// @brief vehicle arrival position radius
     static const double arrivalPositionDiameter;
 

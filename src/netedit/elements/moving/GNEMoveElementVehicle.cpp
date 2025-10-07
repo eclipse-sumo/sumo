@@ -100,69 +100,6 @@ GNEMoveElementVehicle::removeGeometryPoint(const Position /*clickedPosition*/, G
 }
 
 
-double
-GNEMoveElementVehicle::getStartFixedPositionOverEdge() const {
-    const auto& firstLane = myVehicle->getFirstPathLane();
-    // continue depending if we defined a end position
-    if (firstLane == nullptr) {
-        return 0;
-    } else if (myDepartPos == INVALID_DOUBLE) {
-        return 0;
-    } else {
-        // get edge length and fixed end pos
-        const double edgeLength = firstLane->getParentEdge()->getNBEdge()->getFinalLength();
-        const double fixedEndPos = getEndFixedPositionOverEdge();
-        // fix position
-        double fixedPos = myDepartPos;
-        // adjust fixedPos
-        if (fixedPos < 0) {
-            fixedPos += edgeLength;
-        }
-        // set length geometry factor
-        fixedPos *= firstLane->getLengthGeometryFactor();
-        // return depending of fixedPos
-        if (fixedPos < 0) {
-            return 0;
-        } else if (fixedPos > (fixedEndPos - POSITION_EPS)) {
-            return (fixedEndPos - POSITION_EPS);
-        } else {
-            return fixedPos;
-        }
-    }
-}
-
-
-double
-GNEMoveElementVehicle::getEndFixedPositionOverEdge() const {
-    const auto lastLane = myVehicle->getLastPathLane();
-    // continue depending if we defined a end position
-    if (lastLane == nullptr) {
-        return 0;
-    } else if (myArrivalPos == INVALID_DOUBLE) {
-        return lastLane->getLaneShapeLength();
-    } else {
-        // get edge final and shape length
-        const double edgeLength = lastLane->getParentEdge()->getNBEdge()->getFinalLength();
-        // fix position
-        double fixedPos = myArrivalPos;
-        // adjust fixedPos
-        if (fixedPos < 0) {
-            fixedPos += edgeLength;
-        }
-        // set length geometry factor
-        fixedPos *= lastLane->getLengthGeometryFactor();
-        // return depending of fixedPos
-        if (fixedPos < POSITION_EPS) {
-            return POSITION_EPS;
-        } else if (fixedPos > lastLane->getLaneShapeLength()) {
-            return lastLane->getLaneShapeLength();
-        } else {
-            return fixedPos;
-        }
-    }
-}
-
-
 void
 GNEMoveElementVehicle::setMoveShape(const GNEMoveResult& moveResult) {
     if ((moveResult.newFirstPos != INVALID_DOUBLE) &&
