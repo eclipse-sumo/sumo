@@ -17,14 +17,11 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNETractionSubstation.h"
 

@@ -15,33 +15,23 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2017
 ///
-// A class for visualizing and editing POIS in netedit (adapted from
-// GUIPointOfInterest and NLHandler)
+// A class for visualizing and editing POIS in netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPOI.h"
-#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // method definitions

@@ -21,8 +21,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERouteRef.h"
 #include "GNEVehicle.h"

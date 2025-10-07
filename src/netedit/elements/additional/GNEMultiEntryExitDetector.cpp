@@ -17,16 +17,11 @@
 ///
 // multi entry-exit (E3) detector
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEMultiEntryExitDetector.h"
 

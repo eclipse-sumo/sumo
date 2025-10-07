@@ -17,17 +17,12 @@
 ///
 // A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEParkingSpace.h"
 

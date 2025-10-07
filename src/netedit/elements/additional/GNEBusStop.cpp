@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/gui/div/GLHelper.h>

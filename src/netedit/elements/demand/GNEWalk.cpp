@@ -18,16 +18,10 @@
 // A class for visualizing walks in Netedit
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
 
 #include "GNEWalk.h"
-#include "GNERoute.h"
 
 // ===========================================================================
 // method definitions

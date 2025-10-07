@@ -17,7 +17,6 @@
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
@@ -25,7 +24,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
@@ -56,7 +54,6 @@
 #include "GNERouteProbReroute.h"
 #include "GNERouteProbe.h"
 #include "GNETAZ.h"
-#include "GNETAZSourceSink.h"
 #include "GNETractionSubstation.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"

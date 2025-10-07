@@ -21,13 +21,10 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEPathCreator.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 

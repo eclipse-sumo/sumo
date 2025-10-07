@@ -17,7 +17,6 @@
 ///
 // Class used for elements that can be moved over a edge with two positions
 /****************************************************************************/
-#include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/changes/GNEChange_Attribute.h>

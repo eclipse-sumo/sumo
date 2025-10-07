@@ -17,17 +17,12 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibratorFlow.h"

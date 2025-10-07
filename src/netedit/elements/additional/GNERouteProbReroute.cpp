@@ -17,10 +17,8 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <utils/xml/NamespaceIDs.h>
 

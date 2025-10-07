@@ -18,14 +18,12 @@
 // A abstract class for demand elements
 /****************************************************************************/
 
-#include <netedit/elements/moving/GNEMoveElement.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanSelector.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>

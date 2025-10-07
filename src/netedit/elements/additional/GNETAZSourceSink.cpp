@@ -17,16 +17,9 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNETAZSourceSink.h"
 

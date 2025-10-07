@@ -17,11 +17,9 @@
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNESegment.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/GNEAttributesEditor.h>

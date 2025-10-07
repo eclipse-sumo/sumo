@@ -17,22 +17,14 @@
 ///
 //
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
-#include <netedit/elements/network/GNEConnection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEOverheadWire.h"
-#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // member method definitions
