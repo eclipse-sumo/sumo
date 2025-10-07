@@ -154,8 +154,7 @@ GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>&
 GNERoute::~GNERoute() {}
 
 
-GNEMoveOperation*
-GNERoute::getMoveOperation() {
+GNEMoveElement* GNERoute::getMoveElement() const {
     return nullptr;
 }
 
@@ -844,18 +843,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setCommonAttribute(this, key, value);
             break;
     }
-}
-
-
-void
-GNERoute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // routes cannot be moved
-}
-
-
-void
-GNERoute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // routes cannot be moved
 }
 
 /****************************************************************************/
