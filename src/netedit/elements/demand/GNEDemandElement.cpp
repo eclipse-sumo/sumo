@@ -139,7 +139,7 @@ GNEDemandElement::getNextChildDemandElement(const GNEDemandElement* demandElemen
 
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
-    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMovingLateralOffset);
+    myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, /*myMovingLateralOffset*/ 0);
 }
 
 
@@ -151,7 +151,7 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
-    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMovingLateralOffset);
+    mySpreadGeometry.updateGeometry(lane->getLaneShape(), posOverLane, /*myMovingLateralOffset*/ 0);
 }
 
 
