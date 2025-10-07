@@ -690,6 +690,15 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         // ensure minimum length by extending it away from the junction
         geomsCCW[edge].extrapolate(EXT2, false, true);
         geomsCW[edge].extrapolate(EXT2, false, true);
+        if (geomsCCW[edge].isNAN() || geomsCW[edge].isNAN()) {
+            WRITE_WARNING("While computing intersection geometry at junction '" + myNode.getID() + "': found invalid boundary line for edge '" + edge->getID() + "'.")
+        }
+        if (geomsCCW[edge].isNAN()) {
+            geomsCCW[edge] = edge->getGeometry();
+        }
+        if (geomsCW[edge].isNAN()) {
+            geomsCW[edge] = edge->getGeometry();
+        }
     }
 }
 
