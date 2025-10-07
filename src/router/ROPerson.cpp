@@ -355,6 +355,8 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                                            speed, veh, *getType(), trip->getModes(), time, result);
     bool carUsed = false;
     SUMOTime start = time;
+    int index = 0;
+    const int lastIndex = result.size() - 1;
     for (const ROIntermodalRouter::TripItem& item : result) {
         if (!item.edges.empty()) {
             if (item.line == "") {
@@ -395,7 +397,8 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
                     cost += taxiWait;
                 }
-                resultItems.push_back(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), cost, item.arrivalPos, item.length, item.destStop));
+                double arrPos = index == lastIndex ? trip->getArrivalPos(false) : item.arrivalPos;
+                resultItems.push_back(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), cost, arrPos, item.length, item.destStop));
             } else {
                 // write origin for first element of the plan
                 const ROEdge* origin = trip == myPlan.front() && resultItems.empty() ? trip->getOrigin() : nullptr;
@@ -404,6 +407,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
             }
         }
         start += TIME2STEPS(item.cost);
+        index++;
     }
     if (result.empty()) {
         errorHandler->inform("No route for trip in person '" + getID() + "'.");

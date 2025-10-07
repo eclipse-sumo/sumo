@@ -341,7 +341,7 @@ public:
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;
         }
         double getArrivalPos(bool replaceDefault = true) const {
-            return arr == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : arr;
+            return arr == std::numeric_limits<double>::infinity() && replaceDefault ? to->getLength() / 2 : arr;
         }
         SVCPermissions getModes() const {
             return modes;
