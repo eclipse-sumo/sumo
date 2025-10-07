@@ -1,0 +1,1 @@
+Warning: Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin
