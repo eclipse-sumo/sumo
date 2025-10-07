@@ -29,7 +29,6 @@
 // class declaration
 // ===========================================================================
 
-class GNEEdge;
 class GNEDemandElement;
 
 // ===========================================================================
@@ -40,11 +39,10 @@ class GNEMoveElementPlan : public GNEMoveElement {
 
 public:
     /**@brief Constructor
-     * @param[in] planParent moved planParent
+     * @param[in] planElement moved planElement
      * @param[in] departPos Start position value
-     * @param[in] departPosProcedure depart pos definition
      */
-    GNEMoveElementPlan(GNEDemandElement* planParent, double& departPos, DepartPosDefinition& departPosProcedure);
+    GNEMoveElementPlan(GNEDemandElement* planElement, double& departPos);
 
     /// @brief Destructor
     ~GNEMoveElementPlan();
@@ -60,14 +58,11 @@ public:
     /// @}
 
 private:
-    /// @brief planParent
-    GNEDemandElement* myPlanParent = nullptr;
+    /// @brief planElement
+    GNEDemandElement* myPlanElement = nullptr;
 
     /// @brief departPos
-    double& myDepartPos;
-
-    /// @brief arrivalPos
-    DepartPosDefinition& myDepartPosProcedure;
+    double& myArrivalPosition;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

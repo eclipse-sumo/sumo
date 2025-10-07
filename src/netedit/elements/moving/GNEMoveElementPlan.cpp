@@ -23,8 +23,10 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/demand/GNEDemandElementPlan.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/moving/GNEMoveElement.h>
+#include <netedit/elements/moving/GNEMoveElementVehicle.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/GNENet.h>
@@ -45,12 +47,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEMoveElementPlan::GNEMoveElementPlan(GNEDemandElement* planParent,
-                                       double& departPos, DepartPosDefinition& departPosProcedure) :
-    GNEMoveElement(planParent),
-    myPlanParent(planParent),
-    myDepartPos(departPos),
-    myDepartPosProcedure(departPosProcedure) {
+GNEMoveElementPlan::GNEMoveElementPlan(GNEDemandElement* planElement, double& departPos) :
+    GNEMoveElement(planElement),
+    myPlanElement(planElement),
+    myArrivalPosition(departPos) {
 }
 
 
@@ -59,23 +59,25 @@ GNEMoveElementPlan::~GNEMoveElementPlan() {}
 
 GNEMoveOperation*
 GNEMoveElementPlan::getMoveOperation() {
-    const auto firstContainerPlan = myPlanParent->getChildDemandElements().front();
-    // check first person plan
-    if (firstContainerPlan->getTagProperty()->isPlanStopPerson()) {
-        return nullptr;
-    } else if (firstContainerPlan->getParentEdges().size() > 0) {
-        // get lane
-        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(myPlanParent->getVClass());
-        // declare departPos
-        double posOverLane = 0;
-        if (GNEAttributeCarrier::canParse<double>(myPlanParent->getAttribute(SUMO_ATTR_DEPARTPOS))) {
-            posOverLane = GNEAttributeCarrier::parse<double>(myPlanParent->getAttribute(SUMO_ATTR_DEPARTPOS));
+    // get tag property
+    const auto tagProperty = myPlanElement->getTagProperty();
+    // only move personTrips defined over edges
+    if (tagProperty->planToEdge() || tagProperty->planConsecutiveEdges() || tagProperty->planEdge()) {
+        // get geometry end pos
+        const Position geometryEndPos = myPlanElement->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        // calculate circle width squared
+        const double circleWidthSquared = GNEMoveElementVehicle::arrivalPositionDiameter * GNEMoveElementVehicle::arrivalPositionDiameter;
+        // check if we clicked over a geometry end pos
+        if (myPlanElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
+            // continue depending of parent edges
+            if (myPlanElement->getParentEdges().size() > 0) {
+                return new GNEMoveOperation(this, myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
+            } else {
+                return new GNEMoveOperation(this, myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
+            }
         }
-        // return move operation
-        return new GNEMoveOperation(this, lane, posOverLane, false);
-    } else {
-        return nullptr;
     }
+    return nullptr;
 }
 
 
@@ -87,19 +89,18 @@ GNEMoveElementPlan::removeGeometryPoint(const Position /*clickedPosition*/, GNEU
 
 void
 GNEMoveElementPlan::setMoveShape(const GNEMoveResult& moveResult) {
-    // change departPos
-    myDepartPosProcedure = DepartPosDefinition::GIVEN;
-    myDepartPos = moveResult.newFirstPos;
+    // change both position
+    myArrivalPosition = moveResult.newLastPos;
     // update geometry
-    myPlanParent->updateGeometry();
+    myPlanElement->updateGeometry();
 }
 
 
 void
 GNEMoveElementPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myPlanParent, TLF("departPos of %", myPlanParent->getTagStr()));
-    // now set departPos
-    myPlanParent->setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
+    undoList->begin(myPlanElement, TLF("arrivalPos of %", myPlanElement->getTagStr()));
+    // now adjust start position
+    myPlanElement->setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
 }
 

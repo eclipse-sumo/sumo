@@ -41,33 +41,10 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // ===========================================================================
 
 GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition) :
+    myMoveElementPlan(new GNEMoveElementPlan(planElement, myDepartPosition)),
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
-}
-
-
-GNEMoveOperation*
-GNEDemandElementPlan::getPlanMoveOperation() {
-    // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
-    // only move personTrips defined over edges
-    if (tagProperty->planToEdge() || tagProperty->planConsecutiveEdges() || tagProperty->planEdge()) {
-        // get geometry end pos
-        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-        // calculate circle width squared
-        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
-        // check if we clicked over a geometry end pos
-        if (myPlanElement->myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
-            // continue depending of parent edges
-            if (myPlanElement->getParentEdges().size() > 0) {
-                return new GNEMoveOperation(myPlanElement, myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
-            } else {
-                return new GNEMoveOperation(myPlanElement, myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
-            }
-        }
-    }
-    return nullptr;
 }
 
 
