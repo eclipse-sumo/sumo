@@ -27,7 +27,7 @@
 -->
 
 <routes>
-  <vType id="bicycle" vClass="bicycle" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
-  <vType id="bicycle_IDM" vClass="bicycle" carFollowModel="IDM" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
-  <vType id="bicycle_Krauss" vClass="bicycle" carFollowModel="Krauss" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+  <vType id="bicycle" vClass="bicycle" desiredMaxSpeed="5.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+  <vType id="bicycle_IDM" vClass="bicycle" carFollowModel="IDM" desiredMaxSpeed="5.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+  <vType id="bicycle_Krauss" vClass="bicycle" carFollowModel="Krauss" desiredMaxSpeed="5.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
 </routes>
