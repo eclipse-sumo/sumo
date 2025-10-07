@@ -7,6 +7,8 @@ set(netedit_elements_moving_SRCS
    GNEMoveElementCrossing.h
    GNEMoveElementEdge.cpp
    GNEMoveElementEdge.h
+   GNEMoveElementEdgeDouble.cpp
+   GNEMoveElementEdgeDouble.h
    GNEMoveElementJunction.cpp
    GNEMoveElementJunction.h
    GNEMoveElementLane.cpp
