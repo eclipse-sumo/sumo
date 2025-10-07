@@ -111,8 +111,8 @@ public:
     /// @brief get end offset position over edge
     double getEndFixedPositionOverEdge() const;
 
-    /// @brief default element size
-    static const double defaultSize;
+    /// @brief vehicle arrival position radius
+    static const double arrivalPositionDiameter;
 
 private:
     /// @brief demand element
@@ -130,23 +130,11 @@ private:
     /// @brief The end position over edge
     double& myEndPosPosValue;
 
-    /// @brief size (only use in AttributeCarrier templates)
-    double myTemplateSize = defaultSize;
-
-    /// @brief force size (only used in AttributeCarrier templates
-    bool myTemplateForceSize = false;
-
-    /// @brief reference position
-    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
-
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief set size
-    void setSize(const std::string& value, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementDemand(const GNEMoveElementDemand&) = delete;

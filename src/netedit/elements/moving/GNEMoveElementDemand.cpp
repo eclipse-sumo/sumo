@@ -42,10 +42,10 @@
 #include "GNEMoveElementDemand.h"
 
 // ===========================================================================
-// static members
+// static definitions
 // ===========================================================================
 
-const double GNEMoveElementDemand::defaultSize = 10;
+const double GNEMoveElementDemand::arrivalPositionDiameter = SUMO_const_halfLaneWidth * 0.5;
 
 // ===========================================================================
 // member method definitions
@@ -70,9 +70,29 @@ GNEMoveElementDemand::~GNEMoveElementDemand() {}
 
 GNEMoveOperation*
 GNEMoveElementDemand::getMoveOperation() {
-
-
-
+    // get first and last lanes
+    const GNELane* firstLane = myDemandElement->getFirstPathLane();
+    const GNELane* lastLane = myDemandElement->getLastPathLane();
+    // check both lanes
+    if (firstLane && lastLane) {
+        // get depart and arrival positions (doubles)
+        const double startPosDouble = myDemandElement->getAttributeDouble(myStartPosAttr);
+        const double endPosDouble = (myDemandElement->getAttributeDouble(myEndPosAttr) < 0) ? lastLane->getLaneShape().length2D() : myDemandElement->getAttributeDouble(myEndPosAttr);
+        // obtain diameter
+        const double diameter = myDemandElement->getAttributeDouble(SUMO_ATTR_WIDTH) > myDemandElement->getAttributeDouble(SUMO_ATTR_LENGTH) ? myDemandElement->getAttributeDouble(SUMO_ATTR_WIDTH) : myDemandElement->getAttributeDouble(SUMO_ATTR_LENGTH);
+        // return move operation depending if we're editing departPos or arrivalPos
+        if (myDemandElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(myDemandElement->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS)) < (diameter * diameter)) {
+            return new GNEMoveOperation(this, firstLane, startPosDouble, lastLane, INVALID_DOUBLE,
+                                        myDemandElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane(),
+                                        GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST);
+        } else if (myDemandElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(myDemandElement->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS)) < (arrivalPositionDiameter * arrivalPositionDiameter)) {
+            return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, endPosDouble,
+                                        myDemandElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane(),
+                                        GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST);
+        }
+    }
+    // nothing to move
+    return nullptr;
 }
 
 
@@ -104,152 +124,61 @@ GNEMoveElementDemand::getMovingAttribute(const Parameterised* parameterised, Sum
 
 
 double
-GNEMoveElementDemand::getMovingAttributeDouble(SumoXMLAttr key) const {
-    // position attributes
-    if (key == myStartPosAttr) {
-        return myStartPosValue;
-    } else if (key == myEndPosAttr) {
-        return myEndPosPosValue;
-    } else {
-        throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
-    }
+GNEMoveElementDemand::getMovingAttributeDouble(SumoXMLAttr /*key*/) const {
+    // nothing to do
+    return 0;
 }
 
 
 void
-GNEMoveElementDemand::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    // position attributes
-    if ((key == myStartPosAttr) || (key == myEndPosAttr)) {
-        GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
-    } else {
-        myMovedElement->setCommonAttribute(key, value, undoList);
-    }
+GNEMoveElementDemand::setMovingAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 
 bool
-GNEMoveElementDemand::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    // position attributes
-    if (key == myStartPosAttr) {
-        if (value.empty() || (value == GNEAttributeCarrier::LANE_START)) {
-            return true;
-        } else if (GNEAttributeCarrier::canParse<double>(value)) {
-            return SUMORouteHandler::isStopPosValid(GNEAttributeCarrier::parse<double>(value), getMovingAttributeDouble(key), myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
-        } else {
-            return false;
-        }
-    } else if (key == myEndPosAttr) {
-        if (value.empty() || (value == GNEAttributeCarrier::LANE_END)) {
-            return true;
-        } else if (GNEAttributeCarrier::canParse<double>(value)) {
-            return SUMORouteHandler::isStopPosValid(getMovingAttributeDouble(SUMO_ATTR_STARTPOS), GNEAttributeCarrier::parse<double>(value), myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
-        } else {
-            return false;
-        }
-    } else {
-        return myMovedElement->isCommonValid(key, value);
-    }
+GNEMoveElementDemand::isMovingAttributeValid(SumoXMLAttr /*key*/, const std::string& /*value*/) const {
+    // nothing to do
+    return false;
 }
 
 
 void
-GNEMoveElementDemand::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
-    // position attributes
-    if (key == myStartPosAttr) {
-        if (value.empty() || (value == GNEAttributeCarrier::LANE_START)) {
-            myStartPosValue = INVALID_DOUBLE;
-        } else {
-            myStartPosValue = GNEAttributeCarrier::parse<double>(value);
-        }
-    } else if (key == myEndPosAttr) {
-        if (value.empty() || (value == GNEAttributeCarrier::LANE_END)) {
-            myEndPosPosValue = INVALID_DOUBLE;
-        } else {
-            myEndPosPosValue = GNEAttributeCarrier::parse<double>(value);
-        }
-    } else {
-        return myMovedElement->setCommonAttribute(parameterised, key, value);
-    }
+GNEMoveElementDemand::setMovingAttribute(Parameterised* /*parameterised*/, SumoXMLAttr /*key*/, const std::string& /*value*/) {
+    // nothing to do
 }
 
 bool
 GNEMoveElementDemand::isMoveElementValid() const {
-    // obtain edge final length
-    const double fromLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength();
-    const double toLength = myMovedElement->getHierarchicalElement()->getParentEdges().back()->getNBEdge()->getFinalLength();
-    // adjust positions
-    const double adjustedStartPosition = (myStartPosValue == INVALID_DOUBLE) ? 0 : (myStartPosValue < 0) ? (myStartPosValue + fromLength) : myStartPosValue;
-    const double adjustedEndPosition = (myEndPosPosValue == INVALID_DOUBLE) ? toLength : (myEndPosPosValue < 0) ? (myEndPosPosValue + toLength) : myEndPosPosValue;
-    // check conditions
-    if (adjustedStartPosition < 0) {
-        return false;
-    } else if (adjustedStartPosition > fromLength) {
-        return false;
-    } else if (adjustedEndPosition < 0) {
-        return false;
-    } else if (adjustedEndPosition > toLength) {
-        return false;
-    } else if (myMovedElement->getHierarchicalElement()->getParentEdges().size() == 1) {
-        // only if we have only one edge
-        if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        return true;
-    }
+    // nothing to do
+    return true;
 }
 
 
 std::string
 GNEMoveElementDemand::getMovingProblem() const {
-    // obtain edge final lengths
-    const double fromEdgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength();
-    const double toEdgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().back()->getNBEdge()->getFinalLength();
-    // adjust positions
-    const double adjustedStartPosition = (myStartPosValue == INVALID_DOUBLE) ? 0 : (myStartPosValue < 0) ? (myStartPosValue + fromEdgeLength) : myStartPosValue;
-    const double adjustedEndPosition = (myEndPosPosValue == INVALID_DOUBLE) ? toEdgeLength : (myEndPosPosValue < 0) ? (myEndPosPosValue + toEdgeLength) : myEndPosPosValue;
-    // check conditions
-    if (adjustedStartPosition < 0) {
-        return TLF("% < 0", toString(myStartPosAttr));
-    } else if (adjustedStartPosition > fromEdgeLength) {
-        return TLF("% > start edges's length", toString(myStartPosAttr));
-    } else if (adjustedEndPosition < 0) {
-        return TLF("% < 0", toString(myEndPosAttr));
-    } else if (adjustedEndPosition > toEdgeLength) {
-        return TLF("% > end edges's length", toString(myEndPosAttr));
-    } else if (myMovedElement->getHierarchicalElement()->getParentEdges().size() == 1) {
-        // only if we have only one edge
-        if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
-            return TLF("% >= %", toString(myStartPosAttr), toString(myEndPosAttr));
-        } else {
-            return "";
-        }
-    } else {
-        return "";
-    }
+    // nothing to do
+    return "";
 }
 
 
 void
 GNEMoveElementDemand::fixMovingProblem() {
-    const auto undolist = myMovedElement->getNet()->getViewNet()->getUndoList();
-    // set fixed positions
-    myMovedElement->setAttribute(myStartPosAttr, toString(getStartFixedPositionOverEdge()), undolist);
-    myMovedElement->setAttribute(myEndPosAttr, toString(getEndFixedPositionOverEdge()), undolist);
+    // nothing to do
 }
 
 
 double
 GNEMoveElementDemand::getStartFixedPositionOverEdge() const {
-    const auto& firstEdge = myMovedElement->getHierarchicalElement()->getParentEdges().front();
+    const auto& firstLane = myDemandElement->getFirstPathLane();
     // continue depending if we defined a end position
-    if (myStartPosValue == INVALID_DOUBLE) {
+    if (firstLane == nullptr) {
+        return 0;
+    } else if (myStartPosValue == INVALID_DOUBLE) {
         return 0;
     } else {
         // get edge length and fixed end pos
-        const double edgeLength = firstEdge->getNBEdge()->getFinalLength();
+        const double edgeLength = firstLane->getParentEdge()->getNBEdge()->getFinalLength();
         const double fixedEndPos = getEndFixedPositionOverEdge();
         // fix position
         double fixedPos = myStartPosValue;
@@ -258,7 +187,7 @@ GNEMoveElementDemand::getStartFixedPositionOverEdge() const {
             fixedPos += edgeLength;
         }
         // set length geometry factor
-        fixedPos *= firstEdge->getLengthGeometryFactor();
+        fixedPos *= firstLane->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < 0) {
             return 0;
@@ -273,13 +202,15 @@ GNEMoveElementDemand::getStartFixedPositionOverEdge() const {
 
 double
 GNEMoveElementDemand::getEndFixedPositionOverEdge() const {
-    const auto& lastEdge = myMovedElement->getHierarchicalElement()->getParentEdges().back();
+    const auto lastLane = myDemandElement->getLastPathLane();
     // continue depending if we defined a end position
-    if (myEndPosPosValue == INVALID_DOUBLE) {
-        return lastEdge->getEdgeShapeLength();
+    if (lastLane == nullptr) {
+        return 0;
+    } else if (myEndPosPosValue == INVALID_DOUBLE) {
+        return lastLane->getLaneShapeLength();
     } else {
         // get edge final and shape length
-        const double edgeLength = lastEdge->getNBEdge()->getFinalLength();
+        const double edgeLength = lastLane->getParentEdge()->getNBEdge()->getFinalLength();
         // fix position
         double fixedPos = myEndPosPosValue;
         // adjust fixedPos
@@ -287,12 +218,12 @@ GNEMoveElementDemand::getEndFixedPositionOverEdge() const {
             fixedPos += edgeLength;
         }
         // set length geometry factor
-        fixedPos *= lastEdge->getLengthGeometryFactor();
+        fixedPos *= lastLane->getLengthGeometryFactor();
         // return depending of fixedPos
         if (fixedPos < POSITION_EPS) {
             return POSITION_EPS;
-        } else if (fixedPos > lastEdge->getEdgeShapeLength()) {
-            return lastEdge->getEdgeShapeLength();
+        } else if (fixedPos > lastLane->getLaneShapeLength()) {
+            return lastLane->getLaneShapeLength();
         } else {
             return fixedPos;
         }
@@ -302,95 +233,53 @@ GNEMoveElementDemand::getEndFixedPositionOverEdge() const {
 
 void
 GNEMoveElementDemand::setMoveShape(const GNEMoveResult& moveResult) {
-    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
-        // change only start position
-        myStartPosValue = moveResult.newFirstPos;
-        // adjust startPos
-        if (myStartPosValue > (myMovedElement->getAttributeDouble(myEndPosAttr) - POSITION_EPS)) {
-            myStartPosValue = (myMovedElement->getAttributeDouble(myEndPosAttr) - POSITION_EPS);
-        }
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
-        // change only end position
-        myEndPosPosValue = moveResult.newFirstPos;
-        // adjust endPos
-        if (myEndPosPosValue < (myMovedElement->getAttributeDouble(myStartPosAttr) + POSITION_EPS)) {
-            myEndPosPosValue = (myMovedElement->getAttributeDouble(myStartPosAttr) + POSITION_EPS);
-        }
-    } else {
-        // change both position
-        myStartPosValue = moveResult.newFirstPos;
-        myEndPosPosValue = moveResult.newLastPos;
-        // set lateral offset
-        myMovingLateralOffset = moveResult.firstLaneOffset;
+    if ((moveResult.newFirstPos != INVALID_DOUBLE) &&
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST)) {
+        // change depart
+        myDemandElement->setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos));
     }
+    if ((moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) ||
+            (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_LAST)) {
+        myDemandElement->setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos));
+    }
+    // set lateral offset
+    myMovingLateralOffset = moveResult.firstLaneOffset;
     // update geometry
-    myMovedElement->updateGeometry();
+    myDemandElement->updateGeometry();
 }
 
 
 void
 GNEMoveElementDemand::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // begin change attribute
-    undoList->begin(myMovedElement, "position of " + myMovedElement->getTagStr());
-    // set attributes depending of operation type
-    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
-        // set only start position
-        myMovedElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
-        // set only end position
-        myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newFirstPos), undoList);
-    } else {
-        // set both
-        myMovedElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
-        myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newLastPos), undoList);
+    // reset lateral offset
+    myMovingLateralOffset = 0;
+    // check value
+    if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        // continue depending if we're moving first or last position
+        if (moveResult.operationType == GNEMoveOperation::OperationType::MULTIPLE_LANES_MOVE_FIRST) {
+            // begin change attribute
+            undoList->begin(myDemandElement, TLF("departPos of %", myDemandElement->getTagStr()));
+            // now set departPos
+            myDemandElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
+            // check if depart lane has to be changed
+            if (moveResult.newFirstLane) {
+                // set new depart lane
+                myDemandElement->setAttribute(SUMO_ATTR_DEPARTLANE, toString(moveResult.newFirstLane->getIndex()), undoList);
+            }
+        } else {
+            // begin change attribute
+            undoList->begin(myDemandElement, TLF("arrivalPos of %", myDemandElement->getTagStr()));
+            // now set arrivalPos
+            myDemandElement->setAttribute(myEndPosAttr, toString(moveResult.newFirstPos), undoList);
+            // check if arrival lane has to be changed
+            if (moveResult.newFirstLane) {
+                // set new arrival lane
+                myDemandElement->setAttribute(SUMO_ATTR_ARRIVALLANE, toString(moveResult.newFirstLane->getIndex()), undoList);
+            }
+        }
     }
     // end change attribute
     undoList->end();
-}
-
-
-void
-GNEMoveElementDemand::setSize(const std::string& value, GNEUndoList* undoList) {
-    const auto edgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getEdgeShapeLength();
-    const double newSize = GNEAttributeCarrier::parse<double>(value);
-    // continue depending of values of start und end position
-    if ((myStartPosValue != INVALID_DOUBLE) && (myEndPosPosValue != INVALID_DOUBLE)) {
-        // get middle lengths
-        const double center = (getStartFixedPositionOverEdge() + getEndFixedPositionOverEdge()) * 0.5;
-        // calculate new lenghts
-        double newStartPos = center - (newSize * 0.5);
-        double newEndPos = center + (newSize * 0.5);
-        // adjust positions
-        if (newStartPos < 0) {
-            newStartPos = 0;
-        }
-        if (newEndPos > edgeLength) {
-            newEndPos = edgeLength;
-        }
-        // set new start und end positions
-        undoList->begin(myMovedElement, TLF(" %'s size", myMovedElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myMovedElement, myStartPosAttr, toString(newStartPos), undoList);
-        GNEChange_Attribute::changeAttribute(myMovedElement, myEndPosAttr, toString(newEndPos), undoList);
-        undoList->end();
-    } else if (myStartPosValue != INVALID_DOUBLE) {
-        double newStartPos = edgeLength - newSize;
-        // adjust new StartPos
-        if (newStartPos < 0) {
-            newStartPos = 0;
-        }
-        undoList->begin(myMovedElement, TLF(" %'s size", myMovedElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myMovedElement, myStartPosAttr, toString(newStartPos), undoList);
-        undoList->end();
-    } else if (myEndPosPosValue != INVALID_DOUBLE) {
-        double newEndPos = newSize;
-        // adjust endPos
-        if (newEndPos > edgeLength) {
-            newEndPos = edgeLength;
-        }
-        undoList->begin(myMovedElement, TLF(" %'s size", myMovedElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myMovedElement, myEndPosAttr, toString(newEndPos), undoList);
-        undoList->end();
-    }
 }
 
 /****************************************************************************/
