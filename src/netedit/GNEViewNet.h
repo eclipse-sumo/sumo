@@ -30,7 +30,7 @@
 
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
-    FXDECLARE(GNEViewNet)
+    FXDECLARE_OVERRIDE(GNEViewNet)
 
     /// @brief declare GNEViewNetHelper as friend struct
     friend struct GNEViewNetHelper;

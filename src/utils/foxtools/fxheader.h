@@ -32,3 +32,16 @@
 #endif
 
 // More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/
+
+
+/// Macro to set up class declaration including an override. We should update this whenever the original definition in FXObject.h changes.
+#define FXDECLARE_OVERRIDE(classname) \
+  public: \
+   struct FXMapEntry { FX::FXSelector keylo; FX::FXSelector keyhi; long (classname::* func)(FX::FXObject*,FX::FXSelector,void*); }; \
+   static const FX::FXMetaClass metaClass; \
+   static FX::FXObject* manufacture(); \
+   virtual long handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) override; \
+   virtual const FX::FXMetaClass* getMetaClass() const override { return &metaClass; } \
+   friend FX::FXStream& operator<<(FX::FXStream& store,const classname* obj){return store.saveObject((FX::FXObjectPtr)(obj));} \
+   friend FX::FXStream& operator>>(FX::FXStream& store,classname*& obj){return store.loadObject((FX::FXObjectPtr&)(obj));} \
+  private:
