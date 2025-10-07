@@ -43,7 +43,6 @@ jobs:
         brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen apache-arrow
 
     - name: Cloning jupedsim
-      if: matrix.os != 'macos-13'
       uses: actions/checkout@v5
       with:
         repository: PedestrianDynamics/jupedsim
@@ -57,7 +56,6 @@ jobs:
         key: ${{ matrix.os }}
 
     - name: Building libjupedsim
-      if: matrix.os != 'macos-13'
       run: |
         cmake -B jupedsim-build -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
         cmake --build jupedsim-build -j4 --config Release
@@ -99,7 +97,6 @@ jobs:
         path: sumo/bin
 
     - name: Creating macOS installer pkg
-      if: matrix.os != 'macos-13'
       run: |
         python3 -m venv dmgenv
         dmgenv/bin/python3 -m pip install dmgbuild delocate
@@ -107,7 +104,6 @@ jobs:
         dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg
 
     - name: Uploading macOS installer pkg
-      if: matrix.os != 'macos-13'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-installer-unsigned

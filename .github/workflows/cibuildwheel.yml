@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14]
+        os: [macos-14]
 
     steps:
       - name: Cloning SUMO
@@ -51,7 +51,7 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: brew update && (brew upgrade || brew link --overwrite python@3.12) && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp39-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+          MACOSX_DEPLOYMENT_TARGET: '14.0'
           SKBUILD_WHEEL_PY_API: "py2.py3"
 
       - name: Preparing wheel libsumo
@@ -70,7 +70,7 @@ jobs:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
-          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os == 'macos-13' && '13.0' || matrix.os == 'macos-14' && '14.0' }}
+          MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - uses: actions/upload-artifact@v4
         with:
@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14, macos-15]
+        os: [macos-14, macos-15]
         python_version: [3.9, '3.10', 3.11, 3.12]
     runs-on: ${{ matrix.os }}
 
