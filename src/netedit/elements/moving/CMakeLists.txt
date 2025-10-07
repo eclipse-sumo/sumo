@@ -5,8 +5,6 @@ set(netedit_elements_moving_SRCS
    GNEMoveElementConnection.h
    GNEMoveElementCrossing.cpp
    GNEMoveElementCrossing.h
-   GNEMoveElementDemand.cpp
-   GNEMoveElementDemand.h
    GNEMoveElementEdge.cpp
    GNEMoveElementEdge.h
    GNEMoveElementJunction.cpp
@@ -19,6 +17,8 @@ set(netedit_elements_moving_SRCS
    GNEMoveElementLaneSingle.h
    GNEMoveElementShape.cpp
    GNEMoveElementShape.h
+   GNEMoveElementVehicle.cpp
+   GNEMoveElementVehicle.h
    GNEMoveElementView.cpp
    GNEMoveElementView.h
    GNEMoveOffset.cpp

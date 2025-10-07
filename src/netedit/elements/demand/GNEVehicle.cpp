@@ -21,7 +21,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/moving/GNEMoveElementDemand.h>
+#include <netedit/elements/moving/GNEMoveElementVehicle.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNENet.h>
@@ -471,7 +471,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
                        GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this),
-    myMoveElementDemand(new GNEMoveElementDemand(this, fromEdge, SUMO_ATTR_DEPARTPOS, departPos, toEdge, SUMO_ATTR_ARRIVALPOS, arrivalPos)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, departPos, toEdge, arrivalPos)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);
@@ -482,7 +482,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters),
-    myMoveElementDemand(new GNEMoveElementDemand(this, fromEdge, SUMO_ATTR_DEPARTPOS, departPos, toEdge, SUMO_ATTR_ARRIVALPOS, arrivalPos)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, departPos, toEdge, arrivalPos)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);
@@ -529,7 +529,7 @@ GNEVehicle::~GNEVehicle() {}
 
 GNEMoveElement*
 GNEVehicle::getMoveElement() const {
-    return myMoveElementDemand;
+    return myMoveElementVehicle;
 }
 
 
@@ -1092,7 +1092,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                 // get geometryEndPos
                 const Position geometryEndPosition = getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 // check if endPos can be drawn
-                if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((GNEMoveElementDemand::arrivalPositionDiameter * GNEMoveElementDemand::arrivalPositionDiameter) + 2)) {
+                if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((GNEMoveElementVehicle::arrivalPositionDiameter * GNEMoveElementVehicle::arrivalPositionDiameter) + 2)) {
                     // push draw matrix
                     GLHelper::pushMatrix();
                     // Start with the drawing of the area translating matrix to origin
@@ -1102,7 +1102,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                     // Set person plan color
                     GLHelper::setColor(pathColor);
                     // resolution of drawn circle depending of the zoom (To improve smoothness)
-                    GLHelper::drawFilledCircleDetailled(d, GNEMoveElementDemand::arrivalPositionDiameter);
+                    GLHelper::drawFilledCircleDetailled(d, GNEMoveElementVehicle::arrivalPositionDiameter);
                     // pop draw matrix
                     GLHelper::popMatrix();
                 }

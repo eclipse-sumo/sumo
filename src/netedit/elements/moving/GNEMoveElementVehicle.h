@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveElementDemand.h
+/// @file    GNEMoveElementVehicle.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2025
 ///
@@ -28,31 +28,28 @@
 // class declaration
 // ===========================================================================
 
-class GNEDemandElement;
 class GNEEdge;
+class GNEVehicle;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMoveElementDemand : public GNEMoveElement {
+class GNEMoveElementVehicle : public GNEMoveElement {
 
 public:
     /**@brief Constructor
-     * @param[in] demandElement moved demand element
+     * @param[in] vehicle moved vehicle
      * @param[in] fromEdge Edge of this element belongs
-     * @param[in] startPosAttr Start position attribute
-     * @param[in] startPosValue Start position value
+     * @param[in] departPos Start position value
      * @param[in] toEdge Edge of this element belongs
-     * @param[in] endPosAttr End position attribute
-     * @param[in] endPosValue End position value
+     * @param[in] arrivalPos End position value
      */
-    GNEMoveElementDemand(GNEDemandElement* demandElement,
-                         GNEEdge* fromEdge, SumoXMLAttr startPosAttr, double& startPosValue,
-                         GNEEdge* toEdge, SumoXMLAttr endPosAttr, double& endPosValue);
+    GNEMoveElementVehicle(GNEVehicle* vehicle, GNEEdge* fromEdge, double& departPos,
+                          GNEEdge* toEdge, double& arrivalPos);
 
     /// @brief Destructor
-    ~GNEMoveElementDemand();
+    ~GNEMoveElementVehicle();
 
     /**@brief get edge movable move operation for elements with
     * @note returned GNEMoveOperation can be nullptr
@@ -115,20 +112,14 @@ public:
     static const double arrivalPositionDiameter;
 
 private:
-    /// @brief demand element
-    GNEDemandElement* myDemandElement = nullptr;
+    /// @brief vehicle
+    GNEVehicle* myVehicle = nullptr;
 
-    /// @brief startPos attribute
-    SumoXMLAttr myStartPosAttr;
+    /// @brief departPos
+    double& myDepartPos;
 
-    /// @brief The start position over edge
-    double& myStartPosValue;
-
-    /// @brief end pos attribute
-    SumoXMLAttr myEndPosAttr;
-
-    /// @brief The end position over edge
-    double& myEndPosPosValue;
+    /// @brief arrivalPos
+    double& myArrivalPos;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
@@ -137,8 +128,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEMoveElementDemand(const GNEMoveElementDemand&) = delete;
+    GNEMoveElementVehicle(const GNEMoveElementVehicle&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEMoveElementDemand& operator=(const GNEMoveElementDemand& src) = delete;
+    GNEMoveElementVehicle& operator=(const GNEMoveElementVehicle& src) = delete;
 };

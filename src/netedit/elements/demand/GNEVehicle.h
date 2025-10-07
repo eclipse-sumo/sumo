@@ -28,7 +28,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEMoveElementDemand;
+class GNEMoveElementVehicle;
 
 // ===========================================================================
 // class definitions
@@ -303,7 +303,7 @@ public:
 
 protected:
     /// @brief move element demand
-    GNEMoveElementDemand* myMoveElementDemand = nullptr;
+    GNEMoveElementVehicle* myMoveElementVehicle = nullptr;
 
     /// @brief variable used for draw vehicle contours
     GNEContour myVehicleContour;
