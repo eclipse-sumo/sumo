@@ -194,7 +194,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         router = new DijkstraRouter<ROEdge, ROVehicle>(
             ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttFunction, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
     }
-    const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc);
+    const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, true);
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
 
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;

@@ -184,7 +184,7 @@ public:
      */
     static bool validProfile(SUMOVTypeParameter* vtype, const std::string data, const SumoXMLAttr attr);
 
-    static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi = false);
+    static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi);
 
 private:
     /**@brief parse ID
