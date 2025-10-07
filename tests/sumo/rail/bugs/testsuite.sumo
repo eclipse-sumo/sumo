@@ -95,3 +95,6 @@ ticket16819
 
 # crash in railway simulation
 ticket17154
+
+# crash when non-rail edges enter a rail signal
+ticket17183
