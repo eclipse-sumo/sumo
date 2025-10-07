@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 13:14:20 by Eclipse SUMO duarouter Version v1_17_0+0951-c913fd6
+<!-- generated on 2025-10-07T16:36:20.796750+01:00 by Eclipse SUMO duarouter v1_24_0+1191-91eb2045483
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <intermodal>
@@ -77,8 +77,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E1_car-1.00" line="!car" length="100.00" successors="E1_car100.00 E1_car-1.00:ts_1"/>
     <edge id="E2_car-1.00" line="!car" length="5000.00" successors="E3_car-1.00 E2_car-1.00:E2_arrival_connector"/>
     <edge id="E3_car-1.00" line="!car" length="100.00" successors="E3_car100.00 E3_car-1.00:ts_0"/>
-    <edge id="E8_car-1.00" line="!car" length="25.00" successors="E8_car25.00 E8_car-1.00:ts_1 E8_car-1.00:ts_1"/>
-    <edge id="E9_car-1.00" line="!car" length="50.00" successors="E9_car50.00 E9_car-1.00:ts_0 E9_car-1.00:ts_0"/>
+    <edge id="E8_car-1.00" line="!car" length="25.00" successors="E8_car25.00 E8_car-1.00:ts_1 E8_car-1.00:ts_1 E8_car-1.00:E8_arrival_connector"/>
+    <edge id="E9_car-1.00" line="!car" length="50.00" successors="E9_car50.00 E9_car-1.00:ts_0 E9_car-1.00:ts_0 E9_car-1.00:E9_arrival_connector"/>
     <edge id="E0_depart_connector:E0_car-1.00" line="!access" length="0.00" successors="E0_car-1.00"/>
     <edge id="E0_car-1.00:E0_arrival_connector" line="!access" length="0.00" successors="E0_arrival_connector"/>
     <edge id="E1_depart_connector:E1_car-1.00" line="!access" length="0.00" successors="E1_car-1.00"/>
@@ -88,9 +88,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E3_depart_connector:E3_car-1.00" line="!access" length="0.00" successors="E3_car-1.00"/>
     <edge id="E3_car-1.00:E3_arrival_connector" line="!access" length="0.00" successors="E3_arrival_connector"/>
     <edge id="E8_depart_connector:E8_car-1.00" line="!access" length="0.00" successors="E8_car-1.00"/>
-    <edge id="E8_car-1.00:E8_arrival_connector" line="!access" length="0.00" successors="E8_arrival_connector"/>
+    <edge id="E8_car-1.00:E8_arrival_connector" line="!access" length="0.00" successors="E8_arrival_connector25.00"/>
     <edge id="E9_depart_connector:E9_car-1.00" line="!access" length="0.00" successors="E9_car-1.00"/>
-    <edge id="E9_car-1.00:E9_arrival_connector" line="!access" length="0.00" successors="E9_arrival_connector"/>
+    <edge id="E9_car-1.00:E9_arrival_connector" line="!access" length="0.00" successors="E9_arrival_connector50.00"/>
     <edge id="ts_0" line="!stop" length="0.00" successors="ts_0:E3_car100.00:taxi ts_0:E9_fwd50.00 ts_0:E9_bwd-1.00"/>
     <edge id="E3_car100.00" line="!car" length="98.21" successors="E3_car-1.00:E3_arrival_connector"/>
     <edge id="E3_car-1.00:ts_0" line="!access" length="0.00" successors="ts_0"/>
@@ -106,6 +106,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E9_car-1.00:ts_0" line="!access" length="0.00" successors="ts_0"/>
     <edge id="E9_depart_connector50.00" line="!connector" length="48.90" successors="E9_fwd50.00 E9_bwd50.00 E9_car50.00"/>
     <edge id="E9_arrival_connector50.00" line="!connector" length="48.90" successors=""/>
+    <edge id="E9_car-1.00:E9_arrival_connector" line="!access" length="0.00" successors="E9_arrival_connector"/>
     <edge id="ts_1" line="!stop" length="0.00" successors="ts_1:E1_car100.00:taxi ts_1:E8_fwd25.00 ts_1:E8_bwd-1.00"/>
     <edge id="E1_car100.00" line="!car" length="90.98" successors="E2_car-1.00 E1_car-1.00:E1_arrival_connector"/>
     <edge id="E1_car-1.00:ts_1" line="!access" length="0.00" successors="ts_1"/>
@@ -121,4 +122,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E8_car-1.00:ts_1" line="!access" length="0.00" successors="ts_1"/>
     <edge id="E8_depart_connector25.00" line="!connector" length="30.70" successors="E8_fwd25.00 E8_bwd25.00 E8_car25.00"/>
     <edge id="E8_arrival_connector25.00" line="!connector" length="30.70" successors=""/>
+    <edge id="E8_car-1.00:E8_arrival_connector" line="!access" length="0.00" successors="E8_arrival_connector"/>
 </intermodal>

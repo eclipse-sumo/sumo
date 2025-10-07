@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-06T13:43:40.183778+01:00 by Eclipse SUMO sumo v1_24_0+1176-cad39ca5bc0
+<!-- generated on 2025-10-07T16:37:14.263177+01:00 by Eclipse SUMO sumo v1_24_0+1191-91eb2045483
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,15 +45,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="580.00" waitingTime="247.00" timeLoss="50.47" traveltime="333.00">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="540.00" waitingTime="247.00" timeLoss="46.81" traveltime="293.00">
         <ride waitingTime="91.00" vehicle="bike_a.0" depart="91.00" arrival="191.00" arrivalPos="84.79" duration="100.00" routeLength="182.92" timeLoss="8.04"/>
         <walk depart="191.00" departPos="84.79" arrival="197.00" arrivalPos="91.24" duration="6.00" routeLength="6.45" timeLoss="1.36" maxSpeed="1.39" waitingTime="0.00"/>
         <access stop="ts_0" depart="197.00" arrival="212.00" duration="15.00" routeLength="21.27"/>
         <ride waitingTime="148.00" vehicle="train" depart="360.00" arrival="399.00" arrivalPos="87.30" duration="39.00" routeLength="167.30" timeLoss="26.96"/>
         <access stop="ts_1" depart="399.00" arrival="417.00" duration="18.00" routeLength="25.23"/>
         <walk depart="417.00" departPos="7.48" arrival="419.00" arrivalPos="10.00" duration="2.00" routeLength="2.52" timeLoss="0.19" maxSpeed="1.39" waitingTime="0.00"/>
-        <ride waitingTime="8.00" vehicle="bike_b.0" depart="427.00" arrival="548.00" arrivalPos="90.37" duration="121.00" routeLength="283.07" timeLoss="11.00"/>
-        <walk depart="548.00" departPos="90.37" arrival="580.00" arrivalPos="50.00" duration="32.00" routeLength="40.37" timeLoss="2.93" maxSpeed="1.39" waitingTime="0.00"/>
+        <ride waitingTime="8.00" vehicle="bike_b.0" depart="427.00" arrival="540.00" arrivalPos="50.00" duration="113.00" routeLength="242.70" timeLoss="10.27"/>
     </personinfo>
     <tripinfo id="train" depart="0.00" departLane="C0D0_0" departPos="17.45" departSpeed="0.00" departDelay="0.00" arrival="2917.00" arrivalLane="D0C0_0" arrivalPos="100.00" arrivalSpeed="9.25" duration="2917.00" routeLength="4386.85" waitingTime="20.00" waitingCount="10" stopTime="2029.00" timeLoss="621.84" rerouteNo="0" devices="tripinfo_train person_train" vType="train_short" speedFactor="1.00" vaporized=""/>
 </tripinfos>
