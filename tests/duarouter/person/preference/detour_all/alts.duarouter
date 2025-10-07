@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-18T14:17:58.152766+01:00 by Eclipse SUMO duarouter v1_24_0+0879-223f6a76857
+<!-- generated on 2025-10-07T14:45:02.439588+01:00 by Eclipse SUMO duarouter v1_24_0+1188-3d0de588744
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,13 +35,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="t_0" vClass="pedestrian"/>
     <person id="p_0" type="t_0" depart="0.00">
-        <personTrip from="E0" to="E2" walkFactor="0.75" costs="168.00"/>
+        <personTrip from="E0" to="E2" walkFactor="0.75" costs="216.00"/>
     </person>
     <vType id="t_1" vClass="wheelchair"/>
     <person id="p_1" type="t_1" depart="0.00">
-        <personTrip from="E0" to="E2" walkFactor="0.75" costs="168.00"/>
+        <personTrip from="E0" to="E2" walkFactor="0.75" costs="216.00"/>
     </person>
     <person id="p_2" depart="0.00">
-        <personTrip from="E0" to="E2" walkFactor="0.75" costs="168.00"/>
+        <personTrip from="E0" to="E2" walkFactor="0.75" costs="216.00"/>
     </person>
 </routes>

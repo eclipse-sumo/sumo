@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-18 13:21:40 by Eclipse SUMO duarouter Version v1_12_0+0671-fa0d9f5
+<!-- generated on 2025-10-07T14:45:02.484309+01:00 by Eclipse SUMO duarouter v1_24_0+1188-3d0de588744
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -21,7 +21,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <output-file value="routes.rou.xml"/>
         <write-license value="true"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <processing>
@@ -30,27 +29,26 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p.4" depart="1.80">
-        <personTrip from="beg" to="end" walkFactor="0.75" costs="1440.00"/>
+        <personTrip from="beg" to="end" walkFactor="0.75" costs="1680.00"/>
     </person>
     <person id="p.3" depart="2.58">
-        <personTrip from="beg" to="end" walkFactor="0.75" costs="1440.00"/>
+        <personTrip from="beg" to="end" walkFactor="0.75" costs="1680.00"/>
     </person>
     <person id="p.2" depart="6.73">
-        <personTrip from="beg" to="end" walkFactor="0.75" costs="1440.00"/>
+        <personTrip from="beg" to="end" walkFactor="0.75" costs="1680.00"/>
     </person>
     <person id="p.1" depart="9.51">
-        <personTrip from="beg" to="end" walkFactor="0.75" costs="1440.00"/>
+        <personTrip from="beg" to="end" walkFactor="0.75" costs="1680.00"/>
     </person>
     <person id="p.0" depart="9.65">
-        <personTrip from="beg" to="end" walkFactor="0.75" costs="1440.00"/>
+        <personTrip from="beg" to="end" walkFactor="0.75" costs="1680.00"/>
     </person>
 </routes>

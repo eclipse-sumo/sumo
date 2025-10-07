@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 23:10:41 by Eclipse SUMO duarouter Version v1_22_0+1676-989a5715aeb
+<!-- generated on 2025-10-07T14:45:02.336586+01:00 by Eclipse SUMO duarouter v1_24_0+1188-3d0de588744
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,6 +45,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <person id="p0" depart="0.00">
         <ride from="beg" to="beg2left" trainStop="beg2left" lines="p0_0" started="0.00" ended="50.30" routeLength="777.71"/>
         <ride trainStop="left2end" intended="train.1" depart="310.00" started="50.30" ended="383.55" routeLength="1403.72"/>
-        <walk edges="left2end end" started="383.55" ended="625.12" exitTimes="617.60 625.12" routeLength="992.35"/>
+        <walk edges="left2end end" started="383.55" ended="864.42" exitTimes="617.60 864.42" routeLength="992.35"/>
     </person>
 </routes>

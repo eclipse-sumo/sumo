@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-30 17:26:45 by Eclipse SUMO duarouter Version v1_11_0+0199-2ec6693914c
+<!-- generated on 2025-10-07T14:45:02.269432+01:00 by Eclipse SUMO duarouter v1_24_0+1188-3d0de588744
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -16,18 +21,16 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <output-file value="routes.rou.xml"/>
         <write-license value="true"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
         <exit-times value="true"/>
         <route-length value="true"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -35,9 +38,9 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end" exitTimes="17.99 89.93 107.91" routeLength="2000.00"/>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride from="beg" to="end" lines="p0_0" started="0.00" ended="89.93" routeLength="2000.00"/>
+        <ride from="beg" to="end" lines="p0_0" started="0.00" ended="98.92" routeLength="2250.00"/>
     </person>
     <person id="p1" depart="0.00">
-        <walk edges="end middle beg" started="0.00" ended="1440.00" exitTimes="0.00 960.00 1440.00" routeLength="2000.00"/>
+        <walk edges="end middle beg" started="0.00" ended="1200.00" exitTimes="0.00 960.00 1200.00" routeLength="2000.00"/>
     </person>
 </routes>
