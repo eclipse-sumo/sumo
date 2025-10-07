@@ -1,0 +1,5 @@
+--net-file=input_net.net.xml 
+-r input_routes.rou.xml 
+-o routes.rou.xml
+--junction-taz
+--persontrip.transfer.walk-taxi allJunctions
