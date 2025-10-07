@@ -70,9 +70,9 @@ GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNEDemandElement* personParent, const G
 GNEStopPlan::~GNEStopPlan() {}
 
 
-GNEMoveOperation*
-GNEStopPlan::getMoveOperation() {
-    return getPlanMoveOperation();
+GNEMoveElement*
+GNEStopPlan::getMoveElement() const {
+    return myMoveElementPlan;
 }
 
 
@@ -490,24 +490,6 @@ GNEStopPlan::toggleAttribute(SumoXMLAttr key, const bool value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-void
-GNEStopPlan::setMoveShape(const GNEMoveResult& moveResult) {
-    // change endPos
-    myArrivalPosition = moveResult.newFirstPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "endPos of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

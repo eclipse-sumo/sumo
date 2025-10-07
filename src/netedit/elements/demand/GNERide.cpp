@@ -62,9 +62,9 @@ GNERide::GNERide(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanPa
 GNERide::~GNERide() {}
 
 
-GNEMoveOperation*
-GNERide::getMoveOperation() {
-    return getPlanMoveOperation();
+GNEMoveElement*
+GNERide::getMoveElement() const {
+    return myMoveElementPlan;
 }
 
 
@@ -280,24 +280,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             setPlanAttribute(key, value);
             break;
     }
-}
-
-
-void
-GNERide::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myArrivalPosition = moveResult.newLastPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "arrivalPos of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

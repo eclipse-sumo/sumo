@@ -63,9 +63,9 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanPa
 GNEWalk::~GNEWalk() {}
 
 
-GNEMoveOperation*
-GNEWalk::getMoveOperation() {
-    return getPlanMoveOperation();
+GNEMoveElement*
+GNEWalk::getMoveElement() const {
+    return myMoveElementPlan;
 }
 
 
@@ -311,24 +311,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             setPlanAttribute(key, value);
             break;
     }
-}
-
-
-void
-GNEWalk::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myArrivalPosition = moveResult.newFirstPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "arrivalPos of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

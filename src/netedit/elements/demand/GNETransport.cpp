@@ -63,9 +63,9 @@ GNETransport::GNETransport(SumoXMLTag tag, GNEDemandElement* containerParent, co
 GNETransport::~GNETransport() {}
 
 
-GNEMoveOperation*
-GNETransport::getMoveOperation() {
-    return getPlanMoveOperation();
+GNEMoveElement*
+GNETransport::getMoveElement() const {
+    return myMoveElementPlan;
 }
 
 
@@ -283,24 +283,6 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
             setPlanAttribute(key, value);
             break;
     }
-}
-
-
-void
-GNETransport::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myArrivalPosition = moveResult.newFirstPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "arrivalPos of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

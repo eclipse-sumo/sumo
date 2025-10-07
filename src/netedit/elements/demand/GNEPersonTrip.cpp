@@ -66,9 +66,9 @@ GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNEDemandElement* personParent, con
 GNEPersonTrip::~GNEPersonTrip() {}
 
 
-GNEMoveOperation*
-GNEPersonTrip::getMoveOperation() {
-    return getPlanMoveOperation();
+GNEMoveElement*
+GNEPersonTrip::getMoveElement() const {
+    return myMoveElementPlan;
 }
 
 
@@ -326,24 +326,6 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             setPlanAttribute(key, value);
             break;
     }
-}
-
-
-void
-GNEPersonTrip::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myArrivalPosition = moveResult.newFirstPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "arrivalPos of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/
