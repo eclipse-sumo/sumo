@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  File:      bicycles_DLR.xml
+  Author:    Abhay Joshi (Abhay.Joshi@dlr.de)
+             Christian Gentner (Christian.Gentner@dlr.de)
+             Robert Hilbrich (Robert.Hilbrich@dlr.de)
+             Deutsches Zentrum fuer Luft- und Raumfahrt e.V. (DLR)
+  Copyright: Eclipse Public License v2.0
+             (https://www.eclipse.org/legal/epl-2.0/)
+
+  Description:
+    This file defines calibrated bicycle vehicle types for SUMO,
+    derived from the DLR study
+    "Edge-Based Urban Cyclist Detection and Trajectory Extraction
+    for SUMO Bicycle-Following Model Calibration".
+
+	https://www.dlr.de/de/ki/forschung-transfer/projekte/vuv4ngc
+
+    The study used an instrumented e-bicycle equipped with a
+    stereo depth camera, IMU, and RTK-GNSS for high-precision
+    trajectory capture. Empirical rider data were used to
+    calibrate key car-following parameters for IDM and Krauss models.
+
+    The resulting parameter set represents realistic cyclist
+    behavior in free-flow and leader–follower conditions and is
+    suitable for microscopic simulation of bicycle traffic in SUMO.
+-->
+
+<routes>
+  <vType id="bicyle" vClass="bicycle" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+  <vType id="bicyle_IDM" vClass="bicycle" carFollowModel="IDM" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+  <vType id="bicyle_Krauss" vClass="bicycle" carFollowModel="Krauss" vMax="18.0" accel="1.2" decel="3.0" emergencyDecel="7.0" tau="0.51" sigma="0.20" length="1.6" minGap="0.5"/>
+</routes>
