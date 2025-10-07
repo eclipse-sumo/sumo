@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-07T18:26:42.969525+01:00 by Eclipse SUMO netconvert v1_24_0+1182-d22a45e5809
+<!-- generated on 2025-10-07T18:30:13.268282+01:00 by Eclipse SUMO netconvert v1_24_0+1247-047a11a969f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,13 +60,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="1435382596#0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="2.00" shape="603769.16,5793091.46 603769.16,5793091.46"/>
     </edge>
     <edge id="1435382596#1" from="13193610109" to="13193610108" priority="1" type="highway.footway" spreadType="center">
-        <lane id="1435382596#1_0" index="0" allow="pedestrian" speed="2.78" length="2.06" width="2.00" shape="603768.70,5793091.35 603768.15,5793091.22"/>
+        <lane id="1435382596#1_0" index="0" allow="pedestrian" speed="2.78" length="2.06" width="2.00" shape="603767.52,5793091.08 603767.32,5793091.03"/>
     </edge>
     <edge id="1435382597" from="13193609905" to="13193610204" priority="1" type="highway.footway" spreadType="center">
         <lane id="1435382597_0" index="0" allow="pedestrian" speed="2.78" length="2.03" width="2.00" shape="603767.19,5793095.09 603767.29,5793095.10"/>
     </edge>
     <edge id="1435382598" from="13193610204" to="13193610109" priority="1" type="highway.steps" spreadType="center">
-        <lane id="1435382598_0" index="0" allow="pedestrian" speed="1.39" length="3.93" width="2.00" shape="603768.40,5793094.37 603769.04,5793091.92"/>
+        <lane id="1435382598_0" index="0" allow="pedestrian" speed="1.39" length="3.93" width="2.00" shape="603768.40,5793094.37 603768.52,5793093.90"/>
     </edge>
     <edge id="1435382599" from="13193610108" to="13193610004" priority="1" type="highway.steps" spreadType="center">
         <lane id="1435382599_0" index="0" allow="pedestrian" speed="1.39" length="3.78" width="2.00" shape="603766.94,5793091.99 603766.58,5793093.69"/>
@@ -134,7 +134,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="13193610104" type="dead_end" x="603782.51" y="5793090.11" incLanes="1435382603#4_0" intLanes="" shape="603783.52,5793090.15 603781.55,5793089.78 603781.50,5793090.05 603783.46,5793090.45"/>
     <junction id="13193610107" type="dead_end" x="603767.05" y="5793090.98" incLanes="1435382593_0" intLanes="" shape="603768.06,5793091.05 603766.10,5793090.62 603766.04,5793090.90 603767.99,5793091.35"/>
     <junction id="13193610108" type="dead_end" x="603767.15" y="5793090.99" incLanes="1435382596#1_0" intLanes="" shape="603767.92,5793092.20 603768.37,5793090.25 603767.22,5793090.21 603766.77,5793090.40 603766.42,5793090.72 603766.14,5793091.19 603765.96,5793091.78"/>
-    <junction id="13193610109" type="dead_end" x="603769.16" y="5793091.46" incLanes="1435382596#0_0 1435382598_0" intLanes="" shape="603768.93,5793090.38 603768.47,5793092.33 -nan,-nan -nan,-nan 603768.07,5793091.66 603770.01,5793092.17 603770.06,5793091.33 603769.93,5793091.00 603769.70,5793090.73 603769.36,5793090.52"/>
+    <junction id="13193610109" type="dead_end" x="603769.16" y="5793091.46" incLanes="1435382596#0_0 1435382598_0" intLanes="" shape="603766.93,5793089.91 603766.47,5793091.86 603767.55,5793093.65 603769.48,5793094.16 603769.16,5793091.46"/>
     <junction id="13193610110" type="dead_end" x="603768.43" y="5793095.08" incLanes="1435382600_0" intLanes="" shape="603769.61,5793094.32 603767.65,5793093.91 603767.28,5793095.88 603768.40,5793095.87 603768.83,5793095.67 603769.17,5793095.35 603769.43,5793094.90"/>
     <junction id="13193610144" type="dead_end" x="603780.15" y="5793092.83" incLanes="1435382603#2_0" intLanes="" shape="603782.40,5793094.28 603781.48,5793090.16 603777.85,5793091.39 603777.48,5793093.35 603778.27,5793093.67 603778.51,5793093.94 603778.65,5793094.27 603778.69,5793094.68 603778.64,5793095.09 603780.60,5793095.51"/>
     <junction id="13193610145" type="dead_end" x="603776.31" y="5793094.37" incLanes="1435382615_0" intLanes="" shape="603777.29,5793094.57 603775.33,5793094.17"/>
