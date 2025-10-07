@@ -40,6 +40,9 @@ car_walk_arrivalpos
 # car and walk possible with departPos > 0
 car_walk_departPos
 
+# see #17178
+car_with_busStop
+
 # public transport and walk possible
 public_walk
 
