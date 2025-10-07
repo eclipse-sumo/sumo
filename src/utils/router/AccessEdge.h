@@ -63,6 +63,10 @@ public:
                     ((trip->vehicle == nullptr ? SVC_PEDESTRIAN : trip->vehicle->getVClass()) & myVehicleRestriction) == 0));
     }
 
+    SVCPermissions getVehicleRetriction() const {
+        return myVehicleRestriction;
+    }
+
 private:
     /// @brief travel time (alternative to length)
     const double myTraveltime;

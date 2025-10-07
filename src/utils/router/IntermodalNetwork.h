@@ -599,6 +599,19 @@ public:
                     if (carSplit->removeSuccessor(prevArr)) {
                         carSplit->addSuccessor(arrConn);
                         myAccessSplits[myCarLookup[stopEdge]][splitIndex]->addSuccessor(prevArr);
+                    } else {
+                        // check for restricted access
+                        for (_IntermodalEdge* out : carSplit->getSuccessors()) {
+                            _AccessEdge* aOut = dynamic_cast<_AccessEdge*>(out);
+                            if (aOut != nullptr && aOut->removeSuccessor(prevArr)) {
+                                aOut->addSuccessor(arrConn);
+                                addRestrictedCarExit(
+                                        myAccessSplits[myCarLookup[stopEdge]][splitIndex],
+                                        prevArr,
+                                        aOut->getVehicleRetriction());
+                                break;
+                            }
+                        }
                     }
                 }
                 addConnectors(depConn, arrConn, splitIndex + 1);
