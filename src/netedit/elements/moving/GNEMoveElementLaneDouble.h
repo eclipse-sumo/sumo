@@ -33,11 +33,11 @@ class GNEMoveElementLaneDouble : public GNEMoveElement {
 public:
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] startPosAttr Start position attribute of the StoppingPlace
-     * @param[in] startPosValue Start position value of the StoppingPlace
-     * @param[in] endPosAttr End position attribute of the StoppingPlace
-     * @param[in] endPosValue End position value of the StoppingPlace
+     * @param[in] lane Lane of this element belongs
+     * @param[in] startPosAttr Start position attribute
+     * @param[in] startPosValue Start position value
+     * @param[in] endPosAttr End position attribute
+     * @param[in] endPosValue End position value
      * @param[in] friendlyPos enable or disable friendly position
      */
     GNEMoveElementLaneDouble(GNEAttributeCarrier* element, GNELane* lane,
@@ -47,11 +47,11 @@ public:
 
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] lanes Lanes of this StoppingPlace belongs
-     * @param[in] startPosAttr Start position attribute of the StoppingPlace
-     * @param[in] startPosValue Start position value of the StoppingPlace
-     * @param[in] endPosAttr End position attribute of the StoppingPlace
-     * @param[in] endPosValue End position value of the StoppingPlace
+     * @param[in] lanes Lanes of this element belongs
+     * @param[in] startPosAttr Start position attribute
+     * @param[in] startPosValue Start position value
+     * @param[in] endPosAttr End position attribute
+     * @param[in] endPosValue End position value
      * @param[in] friendlyPos enable or disable friendly position
      */
     GNEMoveElementLaneDouble(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
