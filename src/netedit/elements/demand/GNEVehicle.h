@@ -25,6 +25,12 @@
 #include "GNEDemandElementFlow.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementDemand;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -122,10 +128,8 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
@@ -298,6 +302,9 @@ public:
     static GNEDemandElement* copyVehicle(const GNEVehicle* originalVehicle);
 
 protected:
+    /// @brief move element demand
+    GNEMoveElementDemand* myMoveElementDemand = nullptr;
+
     /// @brief variable used for draw vehicle contours
     GNEContour myVehicleContour;
 
@@ -308,20 +315,11 @@ protected:
     const SUMOVehicleParameter& getSUMOVehicleParameter() const;
 
 private:
-    /// @brief vehicle arrival position radius
-    static const double myArrivalPositionDiameter;
-
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     void toggleAttribute(SumoXMLAttr key, const bool value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;
