@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveElementEdgeDouble.h
+/// @file    GNEMoveElementDemand.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2025
 ///
@@ -25,14 +25,21 @@
 #include "GNEMoveElement.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEDemandElement;
+class GNEEdge;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMoveElementEdgeDouble : public GNEMoveElement {
+class GNEMoveElementDemand : public GNEMoveElement {
 
 public:
     /**@brief Constructor
-     * @param[in] element moved element
+     * @param[in] demandElement moved demand element
      * @param[in] fromEdge Edge of this element belongs
      * @param[in] startPosAttr Start position attribute
      * @param[in] startPosValue Start position value
@@ -40,12 +47,12 @@ public:
      * @param[in] endPosAttr End position attribute
      * @param[in] endPosValue End position value
      */
-    GNEMoveElementEdgeDouble(GNEAttributeCarrier* element,
-                             GNEEdge* fromEdge, SumoXMLAttr startPosAttr, double& startPosValue,
-                             GNEEdge* toEdge, SumoXMLAttr endPosAttr, double& endPosValue);
+    GNEMoveElementDemand(GNEDemandElement* demandElement,
+                         GNEEdge* fromEdge, SumoXMLAttr startPosAttr, double& startPosValue,
+                         GNEEdge* toEdge, SumoXMLAttr endPosAttr, double& endPosValue);
 
     /// @brief Destructor
-    ~GNEMoveElementEdgeDouble();
+    ~GNEMoveElementDemand();
 
     /**@brief get edge movable move operation for elements with
     * @note returned GNEMoveOperation can be nullptr
@@ -108,6 +115,9 @@ public:
     static const double defaultSize;
 
 private:
+    /// @brief demand element
+    GNEDemandElement* myDemandElement = nullptr;
+
     /// @brief startPos attribute
     SumoXMLAttr myStartPosAttr;
 
@@ -139,8 +149,8 @@ private:
     void setSize(const std::string& value, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEMoveElementEdgeDouble(const GNEMoveElementEdgeDouble&) = delete;
+    GNEMoveElementDemand(const GNEMoveElementDemand&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEMoveElementEdgeDouble& operator=(const GNEMoveElementEdgeDouble& src) = delete;
+    GNEMoveElementDemand& operator=(const GNEMoveElementDemand& src) = delete;
 };

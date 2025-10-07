@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveElementEdgeDouble.cpp
+/// @file    GNEMoveElementDemand.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2025
 ///
@@ -39,82 +39,51 @@
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/NamespaceIDs.h>
 
-#include "GNEMoveElementEdgeDouble.h"
+#include "GNEMoveElementDemand.h"
 
 // ===========================================================================
 // static members
 // ===========================================================================
 
-const double GNEMoveElementEdgeDouble::defaultSize = 10;
+const double GNEMoveElementDemand::defaultSize = 10;
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEMoveElementEdgeDouble::GNEMoveElementEdgeDouble(GNEAttributeCarrier* element,
+GNEMoveElementDemand::GNEMoveElementDemand(GNEDemandElement* demandElement,
         GNEEdge* fromEdge, SumoXMLAttr startPosAttr, double& startPosValue,
         GNEEdge* toEdge, SumoXMLAttr endPosAttr, double& endPosValue) :
-    GNEMoveElement(element),
+    GNEMoveElement(demandElement),
+    myDemandElement(demandElement),
     myStartPosAttr(startPosAttr),
     myStartPosValue(startPosValue),
     myEndPosAttr(endPosAttr),
     myEndPosPosValue(endPosValue) {
     // set parents
-    element->getHierarchicalElement()->setParents<GNEEdge*>({fromEdge, toEdge});
+    demandElement->getHierarchicalElement()->setParents<GNEEdge*>({fromEdge, toEdge});
 }
 
 
-GNEMoveElementEdgeDouble::~GNEMoveElementEdgeDouble() {}
+GNEMoveElementDemand::~GNEMoveElementDemand() {}
 
 
 GNEMoveOperation*
-GNEMoveElementEdgeDouble::getMoveOperation() {
-    const auto& parentEdges = myMovedElement->getHierarchicalElement()->getParentEdges();
-    // get allow change edge
-    const bool allowChangeEdge = myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeEdge();
-    // fist check if we're moving only extremes
-    if (myMovedElement->drawMovingGeometryPoints()) {
-        // get geometry points under cursor
-        const auto geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(myMovedElement->getGUIGlObject());
-        // continue depending of moved element
-        if (geometryPoints.empty()) {
-            return nullptr;
-        } else if (geometryPoints.front() == 0) {
-            // move start position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentEdges.front(), myStartPosValue, parentEdges.front()->getEdgeShape().length2D() - POSITION_EPS,
-                                        allowChangeEdge, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
-        } else {
-            // move end position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentEdges.front(), 0, myEndPosPosValue,
-                                        allowChangeEdge, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
-        }
-    } else if ((myStartPosValue != INVALID_DOUBLE) && (myEndPosPosValue != INVALID_DOUBLE)) {
-        // move both start and end positions
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentEdges.front(), myStartPosValue, myEndPosPosValue,
-                                    allowChangeEdge, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
-    } else if (myStartPosValue != INVALID_DOUBLE) {
-        // move only start position
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentEdges.front(), myStartPosValue, parentEdges.front()->getEdgeShape().length2D() - POSITION_EPS,
-                                    allowChangeEdge, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
-    } else if (myEndPosPosValue != INVALID_DOUBLE) {
-        // move only end position
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentEdges.front(), 0, myEndPosPosValue,
-                                    allowChangeEdge, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
-    } else {
-        // start and end positions undefined, then nothing to move
-        return nullptr;
-    }
+GNEMoveElementDemand::getMoveOperation() {
+
+
+
 }
 
 
 void
-GNEMoveElementEdgeDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+GNEMoveElementDemand::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do here
 }
 
 
 std::string
-GNEMoveElementEdgeDouble::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEMoveElementDemand::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
     // position attributes
     if (key == myStartPosAttr) {
         if (myStartPosValue == INVALID_DOUBLE) {
@@ -135,7 +104,7 @@ GNEMoveElementEdgeDouble::getMovingAttribute(const Parameterised* parameterised,
 
 
 double
-GNEMoveElementEdgeDouble::getMovingAttributeDouble(SumoXMLAttr key) const {
+GNEMoveElementDemand::getMovingAttributeDouble(SumoXMLAttr key) const {
     // position attributes
     if (key == myStartPosAttr) {
         return myStartPosValue;
@@ -148,7 +117,7 @@ GNEMoveElementEdgeDouble::getMovingAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEMoveElementEdgeDouble::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEMoveElementDemand::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // position attributes
     if ((key == myStartPosAttr) || (key == myEndPosAttr)) {
         GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
@@ -159,7 +128,7 @@ GNEMoveElementEdgeDouble::setMovingAttribute(SumoXMLAttr key, const std::string&
 
 
 bool
-GNEMoveElementEdgeDouble::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+GNEMoveElementDemand::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
     // position attributes
     if (key == myStartPosAttr) {
         if (value.empty() || (value == GNEAttributeCarrier::LANE_START)) {
@@ -184,7 +153,7 @@ GNEMoveElementEdgeDouble::isMovingAttributeValid(SumoXMLAttr key, const std::str
 
 
 void
-GNEMoveElementEdgeDouble::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEMoveElementDemand::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
     // position attributes
     if (key == myStartPosAttr) {
         if (value.empty() || (value == GNEAttributeCarrier::LANE_START)) {
@@ -204,7 +173,7 @@ GNEMoveElementEdgeDouble::setMovingAttribute(Parameterised* parameterised, SumoX
 }
 
 bool
-GNEMoveElementEdgeDouble::isMoveElementValid() const {
+GNEMoveElementDemand::isMoveElementValid() const {
     // obtain edge final length
     const double fromLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength();
     const double toLength = myMovedElement->getHierarchicalElement()->getParentEdges().back()->getNBEdge()->getFinalLength();
@@ -234,7 +203,7 @@ GNEMoveElementEdgeDouble::isMoveElementValid() const {
 
 
 std::string
-GNEMoveElementEdgeDouble::getMovingProblem() const {
+GNEMoveElementDemand::getMovingProblem() const {
     // obtain edge final lengths
     const double fromEdgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getNBEdge()->getFinalLength();
     const double toEdgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().back()->getNBEdge()->getFinalLength();
@@ -264,7 +233,7 @@ GNEMoveElementEdgeDouble::getMovingProblem() const {
 
 
 void
-GNEMoveElementEdgeDouble::fixMovingProblem() {
+GNEMoveElementDemand::fixMovingProblem() {
     const auto undolist = myMovedElement->getNet()->getViewNet()->getUndoList();
     // set fixed positions
     myMovedElement->setAttribute(myStartPosAttr, toString(getStartFixedPositionOverEdge()), undolist);
@@ -273,7 +242,7 @@ GNEMoveElementEdgeDouble::fixMovingProblem() {
 
 
 double
-GNEMoveElementEdgeDouble::getStartFixedPositionOverEdge() const {
+GNEMoveElementDemand::getStartFixedPositionOverEdge() const {
     const auto& firstEdge = myMovedElement->getHierarchicalElement()->getParentEdges().front();
     // continue depending if we defined a end position
     if (myStartPosValue == INVALID_DOUBLE) {
@@ -303,7 +272,7 @@ GNEMoveElementEdgeDouble::getStartFixedPositionOverEdge() const {
 
 
 double
-GNEMoveElementEdgeDouble::getEndFixedPositionOverEdge() const {
+GNEMoveElementDemand::getEndFixedPositionOverEdge() const {
     const auto& lastEdge = myMovedElement->getHierarchicalElement()->getParentEdges().back();
     // continue depending if we defined a end position
     if (myEndPosPosValue == INVALID_DOUBLE) {
@@ -332,7 +301,7 @@ GNEMoveElementEdgeDouble::getEndFixedPositionOverEdge() const {
 
 
 void
-GNEMoveElementEdgeDouble::setMoveShape(const GNEMoveResult& moveResult) {
+GNEMoveElementDemand::setMoveShape(const GNEMoveResult& moveResult) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
         // change only start position
         myStartPosValue = moveResult.newFirstPos;
@@ -360,7 +329,7 @@ GNEMoveElementEdgeDouble::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEMoveElementEdgeDouble::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEMoveElementDemand::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
     undoList->begin(myMovedElement, "position of " + myMovedElement->getTagStr());
     // set attributes depending of operation type
@@ -381,7 +350,7 @@ GNEMoveElementEdgeDouble::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
 
 
 void
-GNEMoveElementEdgeDouble::setSize(const std::string& value, GNEUndoList* undoList) {
+GNEMoveElementDemand::setSize(const std::string& value, GNEUndoList* undoList) {
     const auto edgeLength = myMovedElement->getHierarchicalElement()->getParentEdges().front()->getEdgeShapeLength();
     const double newSize = GNEAttributeCarrier::parse<double>(value);
     // continue depending of values of start und end position
