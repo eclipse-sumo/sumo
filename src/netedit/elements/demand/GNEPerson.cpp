@@ -19,15 +19,16 @@
 /****************************************************************************/
 
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/moving/GNEMoveElementPlanParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPerson.h"
@@ -145,7 +146,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 #endif
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this) {
+    GNEDemandElementFlow(this),
+    myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // enable set and persons per hour as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
     toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, true);
@@ -154,7 +156,8 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this, personparameters) {
+    GNEDemandElementFlow(this, personparameters),
+    myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // set parents
     setParent<GNEDemandElement*>(pType);
     // set manually vtypeID (needed for saving)
@@ -167,25 +170,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, const std::string& filename, G
 GNEPerson::~GNEPerson() {}
 
 
-GNEMoveOperation*
-GNEPerson::getMoveOperation() {
-    const auto firstContainerPlan = getChildDemandElements().front();
-    // check first person plan
-    if (firstContainerPlan->getTagProperty()->isPlanStopPerson()) {
-        return nullptr;
-    } else if (firstContainerPlan->getParentEdges().size() > 0) {
-        // get lane
-        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        // declare departPos
-        double posOverLane = 0;
-        if (canParse<double>(getDepartPos())) {
-            posOverLane = parse<double>(getDepartPos());
-        }
-        // return move operation
-        return new GNEMoveOperation(this, lane, posOverLane, false);
-    } else {
-        return nullptr;
-    }
+GNEMoveElement*
+GNEPerson::getMoveElement() const {
+    return myMoveElementPlanParent;
 }
 
 
@@ -684,25 +671,6 @@ void
 GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
     // toggle flow attributes
     toggleFlowAttribute(key, value);
-}
-
-
-void
-GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
-    // change departPos
-    departPosProcedure = DepartPosDefinition::GIVEN;
-    departPos = moveResult.newFirstPos;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(this, "departPos of " + getTagStr());
-    // now set departPos
-    setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
-    undoList->end();
 }
 
 /****************************************************************************/

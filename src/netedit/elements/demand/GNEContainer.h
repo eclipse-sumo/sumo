@@ -27,6 +27,12 @@
 #include "GNEDemandElementFlow.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementPlanParent;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -110,10 +116,8 @@ public:
     /// @brief destructor
     ~GNEContainer();
 
-    /**@brief get move operation
-     * @note returned GNEMoveOperation can be nullptr
-     */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    GNEMoveElement* getMoveElement() const;
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
@@ -275,6 +279,9 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
+    /// @brief move element plan parent
+    GNEMoveElementPlanParent* myMoveElementPlanParent = nullptr;
+
     /// @brief variable used for contours
     GNEContour myContainerContour;
 
@@ -318,12 +325,6 @@ private:
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     void toggleAttribute(SumoXMLAttr key, const bool value);
-
-    /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
-
-    /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEContainer(const GNEContainer&) = delete;
