@@ -26,7 +26,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEMoveElementView;
+class GNEMoveElementViewResizable;
 class GNEParkingArea;
 
 // ===========================================================================
@@ -163,8 +163,14 @@ protected:
     /// @brief position over view
     Position myPosOverView;
 
-    /// @brief move element view
-    GNEMoveElementView* myMoveElementView = nullptr;
+    /// @brief width
+    double myWidth = 0;
+
+    /// @brief length
+    double myLength = 0;
+
+    /// @brief move element view resizable
+    GNEMoveElementViewResizable* myMoveElementViewResizable = nullptr;
 
     /// @brief Angle of Parking Space
     double myAngle = 0;

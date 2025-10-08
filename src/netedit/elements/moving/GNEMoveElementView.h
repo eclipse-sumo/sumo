@@ -40,12 +40,7 @@ public:
 
     /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position);
-
-    /// @brief constructor with dynamic position
-    GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position, const double width, const double height,
-                       const double length);
+                       Position& position);
 
     //// @brief empty destructor
     ~GNEMoveElementView();
@@ -58,52 +53,22 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-//protected:
-    /// @brief width
-    double myWidth = 0;
-
-    /// @brief height
-    double myHeight = 0;
-
-    /// @brief length
-    double myLength = 0;
-
-    /// @brief shape width
-    PositionVector myShapeWidth;
-
-    /// @brief shape height
-    PositionVector myShapeHeight;
-
-    /// @brief shape length
-    PositionVector myShapeLength;
-
-    /// @brief variable used for moving geometry point contour up
-    GNEContour myMovingContourUp;
-
-    /// @brief variable used for moving geometry point contour down
-    GNEContour myMovingContourDown;
-
-    /// @brief variable used for moving geometry point contour left
-    GNEContour myMovingContourLeft;
-
-    /// @brief variable used for moving geometry point contour right
-    GNEContour myMovingContourRight;
-
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 
-private:
+protected:
     /// @brief position over view
-    Position myPosOverView;
-
-    /// @brief pos attributes format
-    AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
+    Position &myPosOverView;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+private:
+    /// @brief pos attributes format
+    AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementView(const GNEMoveElementView&) = delete;

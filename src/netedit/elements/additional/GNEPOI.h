@@ -31,7 +31,7 @@
 // ===========================================================================
 
 class GNEMoveElementLaneSingle;
-class GNEMoveElementView;
+class GNEMoveElementViewResizable;
 
 // ===========================================================================
 // class definitions
@@ -220,6 +220,12 @@ protected:
     /// @brief position over view
     Position myPosOverView;
 
+    /// @brief width
+    double myWidth = 0;
+
+    /// @brief height
+    double myHeight = 0;
+
     /// @brief position over lane
     double myPosOverLane = 0;
 
@@ -229,8 +235,8 @@ protected:
     /// @brief move element over single lane
     GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
 
-    /// @brief move element over view
-    GNEMoveElementView* myMoveElementView = nullptr;
+    /// @brief move element view resizable
+    GNEMoveElementViewResizable* myMoveElementViewResizable = nullptr;
 
     /// @brief lateral position;
     double myPosLat = 0;
