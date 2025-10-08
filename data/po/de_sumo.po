@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-07 09:30+0000\n"
+"PO-Revision-Date: 2025-10-08 11:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2788,11 +2788,13 @@ msgstr ""
 msgid ""
 "Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Wo Taxis Kunden aussteigen lassen ('allJunctions, 'ptStops', 'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:676
 msgid ""
 "Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Wo Taxis Kunden einsteigen lassen ('allJunctions, 'ptStops', 'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:679
 msgid ""
@@ -3142,6 +3144,9 @@ msgid ""
 "speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). "
 "Using it is not recommended!"
 msgstr ""
+"Die Option --threads führt zu Problemen und beschleunigt die Simulation "
+"derzeit nicht maßgeblich (https://github.com/eclipse-sumo/sumo/issues/4767). "
+"Von der Benutzung wird abgeraten!"
 
 #: src/microsim/MSFrame.cpp:1113
 msgid ""
@@ -5096,7 +5101,7 @@ msgstr "Der Zeitraum zwischen aufeinanderfolgenden Aufrufen der Disposition"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:98
 msgid "The time before aborting unreachable reservations"
-msgstr ""
+msgstr "Dauer, bis nicht erreichbare Reservierungen vernachlässigt werden"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:101
 msgid "The behavior of idle taxis [stop|randomCircling|taxistand]"
@@ -8462,6 +8467,8 @@ msgstr ""
 msgid ""
 "generate net with given nodes, edges, and edge types doing verbose output"
 msgstr ""
+"Netz aus den gegebenen Knoten, Kanten und Kantentypen erstellen sowie "
+"umfangreich über Fortschritt berichten"
 
 #: src/netconvert_main.cpp:98
 msgid ""
@@ -8689,11 +8696,11 @@ msgstr "Die Option 'rand.connectivity' benötigt einen Wert kleiner 0.999"
 
 #: src/netgen/netgen_main.cpp:61
 msgid "create net from given configuration"
-msgstr ""
+msgstr "Netz anhand der gegebenen Konfiguration erstellen"
 
 #: src/netgen/netgen_main.cpp:62
 msgid "create grid net"
-msgstr ""
+msgstr "Rasternetz erstellen"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
