@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/district/tazRel2POI.py", line 99, in <module>
+    main(get_options())
+  File "/scr1/sumo/tests/../tools/district/tazRel2POI.py", line 76, in main
+    for xy in taz.shape.split():
+AttributeError: 'NoneType' object has no attribute 'split'
