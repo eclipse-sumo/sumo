@@ -56,9 +56,6 @@ public:
     /// @brief shape height
     PositionVector myShapeHeight;
 
-    /// @brief shape length
-    PositionVector myShapeLength;
-
     /// @brief variable used for moving geometry point contour up
     GNEContour myMovingContourUp;
 
@@ -78,8 +75,14 @@ private:
     /// @brief height
     double &myHeight;
 
-    /// @brief pos attributes format
-    ResizingFormat myResizingFormat = ResizingFormat::WIDTH_HEIGHT;
+    /// @brief check if width can be edited
+    const double myEditWidth = false;
+
+    /// @brief check if height can be edited
+    const double myEditHeight = false;
+
+    /// @brief check if length can be edited
+    const double myEditLength = false;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
