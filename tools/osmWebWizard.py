@@ -626,6 +626,7 @@ def main(options):
                     os.makedirs(new_path, exist_ok=True)
                     shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
                 path = new_path
+                os.chdir(path)
             webbrowser.open("file://" + os.path.join(path, "webWizard", "index.html"))
 
         server = SimpleWebSocketServer(options.address, options.port, OSMImporterWebSocket)
