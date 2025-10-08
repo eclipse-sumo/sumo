@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-08 11:24+0000\n"
+"PO-Revision-Date: 2025-10-08 12:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -8704,11 +8704,11 @@ msgstr "Rasternetz erstellen"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
-msgstr ""
+msgstr "Spinnennetz erstellen"
 
 #: src/netgen/netgen_main.cpp:64
 msgid "create random net"
-msgstr ""
+msgstr "Zufälliges Netz erstellen"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
