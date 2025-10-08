@@ -1,6 +1,10 @@
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/district/tazRel2POI.py", line 99, in <module>
-    main(get_options())
-  File "/scr1/sumo/tests/../tools/district/tazRel2POI.py", line 76, in main
-    for xy in taz.shape.split():
-AttributeError: 'NoneType' object has no attribute 'split'
+TAZ '0_2' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '0_3' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '1_2' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '1_3' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '1_4' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '1_5' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '2_2' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '2_3' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '2_4' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
+TAZ '2_5' because it doesn't define 'center' or 'shape'. Option --net-file must be set to handle this input
