@@ -40,11 +40,11 @@ public:
 
     /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       Position& position);
+                       const Position& position);
 
     /// @brief constructor with dynamic position
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       Position& position, const double width, const double height,
+                       const Position& position, const double width, const double height,
                        const double length);
 
     //// @brief empty destructor
@@ -94,7 +94,7 @@ public:
 
 private:
     /// @brief position over view
-    Position &myPosOverView;
+    Position myPosOverView;
 
     /// @brief pos attributes format
     AttributesFormat myAttributesFormat = AttributesFormat::POSITION;

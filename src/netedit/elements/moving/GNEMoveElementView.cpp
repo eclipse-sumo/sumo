@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       Position& position) :
+                                       const Position& position) :
     GNEMoveElement(element),
     myPosOverView(position),
     myAttributesFormat(attributesFormat) {
@@ -37,7 +37,7 @@ GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesF
 
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       Position& position, const double width, const double height, const double length) :
+                                       const Position& position, const double width, const double height, const double length) :
     GNEMoveElement(element),
     myPosOverView(position),
     myWidth(width),
