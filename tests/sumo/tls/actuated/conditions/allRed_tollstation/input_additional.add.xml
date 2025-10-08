@@ -1,0 +1,8 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="J1" type="actuated" programID="1" offset="0">
+        <phase duration="5"  state="r" minDur="5" next="1 0"/>
+        <phase duration="7"  state="u" earlyTarget="a:D0.0"/>
+        <phase duration="1"  state="G"/>
+        <phase duration="3"  state="y"/>
+    </tlLogic>
+</additional>
