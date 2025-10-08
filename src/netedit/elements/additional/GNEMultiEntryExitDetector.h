@@ -166,6 +166,9 @@ public:
     /// @}
 
 protected:
+    /// @brief position over view
+    Position myPosOverView;
+
     /// @brief move element over view
     GNEMoveElementView* myMoveElementView = nullptr;
 

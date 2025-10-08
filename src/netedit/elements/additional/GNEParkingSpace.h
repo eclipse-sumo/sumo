@@ -160,11 +160,14 @@ public:
     /// @}
 
 protected:
+    /// @brief position over view
+    Position myPosOverView;
+
     /// @brief move element view
     GNEMoveElementView* myMoveElementView = nullptr;
 
     /// @brief Angle of Parking Space
-    double myAngle;
+    double myAngle = 0;
 
     /// @brief Slope of Parking Space
     double mySlope = 0;

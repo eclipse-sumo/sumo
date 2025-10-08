@@ -41,7 +41,7 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
     GNEAdditional("", net, "", tag, ""),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, (tag == GNE_TAG_POIGEO)? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView)) {
 }
 
 
@@ -51,14 +51,15 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     Shape(id, type, color, layer, angle, imgFile, ""),
     GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
     Parameterised(parameters),
+    myPosOverView(pos),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
-    myMoveElementView(new GNEMoveElementView(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, height, 0)),
+    myMoveElementView(new GNEMoveElementView(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView, width, height, 0)),
     myPOIIcon(icon) {
     // update position depending of GEO
     if (geo) {
-        Position cartesian = myMoveElementView->myPosOverView;
+        Position cartesian = myPosOverView;
         GeoConvHelper::getFinal().x2cartesian_const(cartesian);
-        myMoveElementView->myPosOverView = cartesian;
+        myPosOverView = cartesian;
     }
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -201,7 +202,7 @@ GNEPOI::updateGeometry() {
         myMoveElementView->myShapeHeight.push_back(Position(0, myMoveElementView->myHeight * -0.5));
         myMoveElementView->myShapeHeight.push_back(Position(0, myMoveElementView->myHeight * 0.5));
         // move
-        myMoveElementView->myShapeHeight.add(myMoveElementView->myPosOverView);
+        myMoveElementView->myShapeHeight.add(myPosOverView);
         // calculate shape width
         PositionVector leftShape = myMoveElementView->myShapeHeight;
         leftShape.move2side(myMoveElementView->myWidth * -0.5);
@@ -213,7 +214,7 @@ GNEPOI::updateGeometry() {
     if (getParentLanes().size() > 0) {
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myPosLat);
     } else {
-        myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
+        myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     }
 }
 
@@ -241,7 +242,7 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // reset boundary
     myAdditionalBoundary.reset();
     // add center
-    myAdditionalBoundary.add(myMoveElementView->myPosOverView);
+    myAdditionalBoundary.add(myPosOverView);
     // add width
     for (const auto& pos : myMoveElementView->myShapeWidth) {
         myAdditionalBoundary.add(pos);
@@ -378,7 +379,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
                 return toString(myPosOverLane);
             } else {
-                return toString(myMoveElementView->myPosOverView);
+                return toString(myPosOverView);
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPos);
@@ -434,7 +435,7 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_LON:
             if (GeoConvHelper::getFinal().getProjString() != "!") {
                 // calculate geo position
-                Position GEOPosition = myMoveElementView->myPosOverView;
+                Position GEOPosition = myPosOverView;
                 GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
                 // return lon
                 return GEOPosition.x();
@@ -444,7 +445,7 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_LAT:
             if (GeoConvHelper::getFinal().getProjString() != "!") {
                 // calculate geo position
-                Position GEOPosition = myMoveElementView->myPosOverView;
+                Position GEOPosition = myPosOverView;
                 GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
                 // return lat
                 return GEOPosition.y();
@@ -723,7 +724,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myTagProperty->getTag() == GNE_TAG_POILANE) {
                 myPosOverLane = parse<double>(value);
             } else {
-                myMoveElementView->myPosOverView = parse<Position>(value);
+                myPosOverView = parse<Position>(value);
             }
             // update boundary (except for template)
             if (getID().size() > 0) {
@@ -747,7 +748,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // transform to cartesian
             GeoConvHelper::getFinal().x2cartesian_const(pos);
             // update view position
-            myMoveElementView->myPosOverView = pos;
+            myPosOverView = pos;
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
@@ -760,7 +761,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // transform to cartesian
             GeoConvHelper::getFinal().x2cartesian_const(pos);
             // update view position
-            myMoveElementView->myPosOverView = pos;
+            myPosOverView = pos;
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);

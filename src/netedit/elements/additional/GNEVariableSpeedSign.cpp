@@ -33,7 +33,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)) {
 }
 
 
@@ -42,7 +42,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
+    myPosOverView(pos),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -110,7 +111,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
 void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -120,7 +121,7 @@ GNEVariableSpeedSign::updateGeometry() {
 
 Position
 GNEVariableSpeedSign::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -188,7 +189,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
-    drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn
     for (const auto& step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
@@ -217,7 +218,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return toString(lanes);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
+            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_VTYPES:
@@ -312,7 +313,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

@@ -38,16 +38,13 @@ public:
         GEO         /// @brief geo format (lon, lat, z)
     };
 
-    /// @brief constructor
-    GNEMoveElementView(GNEAttributeCarrier* element);
-
     /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position);
+                       Position& position);
 
     /// @brief constructor with dynamic position
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position, const double width, const double height,
+                       Position& position, const double width, const double height,
                        const double length);
 
     //// @brief empty destructor
@@ -96,9 +93,6 @@ public:
     /// @}
 
 //protected:
-    /// @brief position over view
-    Position myPosOverView;
-
     /// @brief width
     double myWidth = 0;
 
@@ -133,6 +127,9 @@ public:
     void writeMoveAttributes(OutputDevice& device) const;
 
 private:
+    /// @brief position over view
+    Position &myPosOverView;
+
     /// @brief pos attributes format
     AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
 

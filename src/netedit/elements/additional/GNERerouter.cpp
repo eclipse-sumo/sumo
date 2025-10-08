@@ -33,7 +33,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView)) {
 }
 
 
@@ -42,7 +42,8 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
+    myPosOverView(pos),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
     myProbability(probability),
     myOff(off),
     myOptional(optional),
@@ -141,7 +142,7 @@ GNERerouter::checkDrawMoveContour() const {
 void
 GNERerouter::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -154,7 +155,7 @@ GNERerouter::updateGeometry() {
 
 Position
 GNERerouter::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -215,7 +216,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor, true);
         // draw Rerouter
-        drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
+        drawSquaredAdditional(s, myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
         // iterate over additionals and check if drawn
         for (const auto& interval : getChildAdditionals()) {
             // if rerouter or their intevals are selected, then draw
@@ -253,7 +254,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(edges);
         }
         case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
+            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_PROB:
@@ -373,7 +374,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

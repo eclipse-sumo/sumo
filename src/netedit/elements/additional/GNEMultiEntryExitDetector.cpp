@@ -31,7 +31,7 @@
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)) {
 }
 
 
@@ -40,7 +40,8 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
+    myPosOverView(pos),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
     myPeriod(freq),
     myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
@@ -161,13 +162,13 @@ GNEMultiEntryExitDetector::checkDrawMoveContour() const {
 void
 GNEMultiEntryExitDetector::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
 }
 
 
 Position
 GNEMultiEntryExitDetector::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -210,7 +211,7 @@ GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3
-        drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+        drawSquaredAdditional(s, myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
     }
 }
 
@@ -221,7 +222,7 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
+            return toString(myPosOverView);
         case SUMO_ATTR_PERIOD:
             if (myPeriod == SUMOTime_MAX_PERIOD) {
                 return "";
@@ -385,7 +386,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             setAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
                 updateCenteringBoundary(true);

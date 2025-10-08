@@ -28,13 +28,8 @@
 // Method definitions
 // ===========================================================================
 
-GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
-    GNEMoveElement(element) {
-}
-
-
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       const Position& position) :
+                                       Position& position) :
     GNEMoveElement(element),
     myPosOverView(position),
     myAttributesFormat(attributesFormat) {
@@ -42,7 +37,7 @@ GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesF
 
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       const Position& position, const double width, const double height, const double length) :
+                                       Position& position, const double width, const double height, const double length) :
     GNEMoveElement(element),
     myPosOverView(position),
     myWidth(width),

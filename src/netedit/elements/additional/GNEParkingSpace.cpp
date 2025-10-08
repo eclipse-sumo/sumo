@@ -32,7 +32,7 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_PARKING_SPACE, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView)) {
 }
 
 
@@ -42,7 +42,8 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
                                  const Parameterised::Map& parameters) :
     GNEAdditional(parkingAreaParent, SUMO_TAG_PARKING_SPACE, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, 0, length)),
+    myPosOverView(pos),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView, width, 0, length)),
     myAngle(angle),
     mySlope(slope) {
     // set parents
@@ -135,7 +136,7 @@ GNEParkingSpace::updateGeometry() {
     // rotate
     myMoveElementView->myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
     // move
-    myMoveElementView->myShapeLength.add(myMoveElementView->myPosOverView);
+    myMoveElementView->myShapeLength.add(myPosOverView);
     // calculate shape width
     PositionVector leftShape = myMoveElementView->myShapeLength;
     leftShape.move2side(width * -0.5);
@@ -149,7 +150,7 @@ GNEParkingSpace::updateGeometry() {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -162,9 +163,9 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     // first reset boundary
     myAdditionalBoundary.reset();
     // add position
-    myAdditionalBoundary.add(myMoveElementView->myPosOverView);
+    myAdditionalBoundary.add(myPosOverView);
     // add center
-    myAdditionalBoundary.add(myMoveElementView->myPosOverView);
+    myAdditionalBoundary.add(myPosOverView);
     // add width
     for (const auto& pos : myMoveElementView->myShapeWidth) {
         myAdditionalBoundary.add(pos);
@@ -253,7 +254,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
+            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
@@ -425,7 +426,7 @@ void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
+            myPosOverView = parse<Position>(value);
             // update geometry
             updateGeometry();
             break;

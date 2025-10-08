@@ -217,6 +217,9 @@ public:
     std::string getHierarchyName() const override;
 
 protected:
+    /// @brief position over view
+    Position myPosOverView;
+
     /// @brief position over lane
     double myPosOverLane = 0;
 
