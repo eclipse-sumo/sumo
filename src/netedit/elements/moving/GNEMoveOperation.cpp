@@ -86,7 +86,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
     firstGeometryPoint(false),
-    operationType(OperationType::SINGLE_LANE) {
+    operationType(OperationType::LANE) {
 }
 
 
@@ -94,15 +94,14 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const GNELane* _lane,
                                    const double _firstPosition,
                                    const double _lastPosition,
-                                   const bool _allowChangeLane,
-                                   const OperationType _operationType) :
+                                   const bool _allowChangeLane) :
     moveElement(_moveElement),
     firstLane(_lane),
-    firstPosition(_firstPosition * _lane->getLengthGeometryFactor()),
-    lastPosition(_lastPosition * _lane->getLengthGeometryFactor()),
+    firstPosition((_firstPosition == INVALID_DOUBLE) ? INVALID_DOUBLE : _firstPosition * _lane->getLengthGeometryFactor()),
+    lastPosition((_lastPosition == INVALID_DOUBLE) ? INVALID_DOUBLE : _lastPosition * _lane->getLengthGeometryFactor()),
     allowChangeLane(_allowChangeLane),
     firstGeometryPoint(false),
-    operationType(_operationType) {
+    operationType(OperationType::LANE) {
 }
 
 
@@ -111,8 +110,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const double _firstStartPos,
                                    const GNELane* _lastLane,
                                    const double _lastStartPos,
-                                   const bool _allowChangeLane,
-                                   const OperationType _operationType) :
+                                   const bool _allowChangeLane) :
     moveElement(_moveElement),
     firstLane(_firstLane),
     firstPosition((_firstStartPos != INVALID_DOUBLE) ? _firstStartPos * _firstLane->getLengthGeometryFactor() : INVALID_DOUBLE),
@@ -120,7 +118,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     lastPosition((_lastStartPos != INVALID_DOUBLE) ? _lastStartPos * _lastLane->getLengthGeometryFactor() : INVALID_DOUBLE),
     allowChangeLane(_allowChangeLane),
     firstGeometryPoint(false),
-    operationType(_operationType) {
+    operationType(OperationType::LANE) {
 }
 
 

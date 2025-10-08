@@ -32,7 +32,7 @@ public:
     /// @brief attributes format
     enum class ResizingFormat {
         WIDTH_HEIGHT,   /// @brief width and height
-        WIDTH_LENGTH,  /// @brief width and length
+        WIDTH_LENGTH,   /// @brief width and length
     };
 
     /// @brief constructor

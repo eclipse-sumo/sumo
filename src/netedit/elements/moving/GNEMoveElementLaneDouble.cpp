@@ -87,25 +87,20 @@ GNEMoveElementLaneDouble::getMoveOperation() {
             return nullptr;
         } else if (geometryPoints.front() == 0) {
             // move start position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, parentLanes.front()->getLaneShape().length2D() - POSITION_EPS,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
+            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, INVALID_DOUBLE, false);
         } else {
             // move end position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), 0, myEndPosPosValue,
-                                        allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
+            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), INVALID_DOUBLE, myEndPosPosValue, false);
         }
     } else if ((myStartPosValue != INVALID_DOUBLE) && (myEndPosPosValue != INVALID_DOUBLE)) {
         // move both start and end positions
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, myEndPosPosValue,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_BOTH);
+        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, myEndPosPosValue, allowChangeLane);
     } else if (myStartPosValue != INVALID_DOUBLE) {
         // move only start position
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, parentLanes.front()->getLaneShape().length2D() - POSITION_EPS,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST);
+        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, INVALID_DOUBLE, allowChangeLane);
     } else if (myEndPosPosValue != INVALID_DOUBLE) {
         // move only end position
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), 0, myEndPosPosValue,
-                                    allowChangeLane, GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST);
+        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), INVALID_DOUBLE, myEndPosPosValue, allowChangeLane);
     } else {
         // start and end positions undefined, then nothing to move
         return nullptr;
@@ -510,21 +505,42 @@ GNEMoveElementLaneDouble::getEndFixedPositionOverLane() const {
 
 void
 GNEMoveElementLaneDouble::setMoveShape(const GNEMoveResult& moveResult) {
-    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
+    const double starPos = myMovedElement->getAttributeDouble(myStartPosAttr);
+    const double endPos = myMovedElement->getAttributeDouble(myEndPosAttr);
+    // check if we're moving both points
+    if ((moveResult.newFirstPos != INVALID_DOUBLE) && (moveResult.newLastPos != INVALID_DOUBLE)) {
+        // change both position
+        myStartPosValue = moveResult.newFirstPos;
+        myEndPosPosValue = moveResult.newLastPos;
+        // set lateral offset
+        myMovingLateralOffset = moveResult.firstLaneOffset;
+        /*
+        // calculate minimum starPos movement
+        const double minStarPosMovement = std::min(starPos, endPos);
+        const double minEndPosMovement = std::min(starPos, endPos);
+
+        // calculate minimum endPos movement
+        // change both position
+        myStartPosValue = moveResult.newFirstPos;
+        myEndPosPosValue = moveResult.newLastPos;
+        // set lateral offset
+        myMovingLateralOffset = moveResult.firstLaneOffset;
+        */
+    } else if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // change only start position
         myStartPosValue = moveResult.newFirstPos;
         // adjust startPos
-        if (myStartPosValue > (myMovedElement->getAttributeDouble(myEndPosAttr) - POSITION_EPS)) {
-            myStartPosValue = (myMovedElement->getAttributeDouble(myEndPosAttr) - POSITION_EPS);
+        if (myStartPosValue > (endPos - POSITION_EPS)) {
+            myStartPosValue = (endPos - POSITION_EPS);
         }
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
+    } else if (moveResult.newLastPos != INVALID_DOUBLE) {
         // change only end position
-        myEndPosPosValue = moveResult.newFirstPos;
+        myEndPosPosValue = moveResult.newLastPos;
         // adjust endPos
-        if (myEndPosPosValue < (myMovedElement->getAttributeDouble(myStartPosAttr) + POSITION_EPS)) {
-            myEndPosPosValue = (myMovedElement->getAttributeDouble(myStartPosAttr) + POSITION_EPS);
+        if (myEndPosPosValue < (starPos + POSITION_EPS)) {
+            myEndPosPosValue = (starPos + POSITION_EPS);
         }
-    } else {
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::LANE) {
         // change both position
         myStartPosValue = moveResult.newFirstPos;
         myEndPosPosValue = moveResult.newLastPos;
@@ -539,23 +555,23 @@ GNEMoveElementLaneDouble::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNEMoveElementLaneDouble::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
-    undoList->begin(myMovedElement, "position of " + myMovedElement->getTagStr());
-    // set attributes depending of operation type
-    if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_FIRST) {
-        // set only start position
-        myMovedElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::SINGLE_LANE_MOVE_LAST) {
-        // set only end position
-        myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newFirstPos), undoList);
-    } else {
+    undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
+    // check if we're moving both points
+    if ((moveResult.newFirstPos != INVALID_DOUBLE) && (moveResult.newLastPos != INVALID_DOUBLE)) {
         // set both
         myMovedElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
         myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newLastPos), undoList);
-        // check if lane has to be changed
-        if (moveResult.newFirstLane) {
-            // set new lane
-            myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-        }
+    } else if (moveResult.newFirstPos != INVALID_DOUBLE) {
+        // set only start position
+        myMovedElement->setAttribute(myStartPosAttr, toString(moveResult.newFirstPos), undoList);
+    } else if (moveResult.newLastPos != INVALID_DOUBLE) {
+        // set only end position
+        myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newLastPos), undoList);
+    }
+    // check if lane has to be changed
+    if (moveResult.newFirstLane) {
+        // set new lane
+        myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }
     // end change attribute
     undoList->end();

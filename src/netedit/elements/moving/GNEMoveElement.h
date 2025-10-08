@@ -118,16 +118,12 @@ private:
                                       const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate single movement over one lane
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
+    static void calculateMoveResult(double &lanePosition, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
                                     const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
-    /// @brief calculate double movement over one lane
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double firstPos,
-                                    const double lastPos, const GNEMoveOffset& offset);
-
     /// @brief calculate double movement over two lanes
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos,
-                                    const GNELane* lastLane, const double lastPos, const GNEMoveOffset& offset);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane,
+                                    const double firstPos, const double lastPos, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane change
     static void calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
