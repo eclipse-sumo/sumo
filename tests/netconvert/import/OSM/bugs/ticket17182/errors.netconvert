@@ -1,2 +1,1 @@
-Warning: While computing intersection geometry at junction '13193610109': found invalid boundary line for edge '1435382596#0'.
 Warning: Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin
