@@ -24,7 +24,7 @@ title: ChangeLog
   - Fixed crash when loading roads with a rail_signal #17183
   - Fixed infinite loop when loading tls program with an actuated red phase that has multiple targets #17186
 
-- netedit  
+- netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
@@ -39,7 +39,6 @@ title: ChangeLog
   - Fixed freen when saving empty mean data elements #16812
   - POIs no longer write layer and color attributes with the default value #17128
   - Visual scaling of selected edges is now smooth #16977
-
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -77,7 +76,7 @@ title: ChangeLog
   - Fixed crash when loading taz and setting option **--persontrip.transfer.walk-taxi allJunctions** #17180
   - Fixed inconsistent default personTrip arrivalPos #17177
   - Fixed bug where intermodal routing failed when restricting taxi arrivals and the destination edge has a stopping place #17178 (also applies to sumo)
- 
+
 - TraCI
   - Fixed exaggerated slowDown after the end of the desired slowDown duration #17172 (regression in 1.23.0)
 
@@ -97,6 +96,8 @@ title: ChangeLog
   - The junction model parameter `jmDriveRedSpeed` now takes effect when emergency vehicles with the bluelight device pass an intersection on red #17120
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131
+  - FCD output for persons and containers can now be written to a separate file #16814
+  - The attribute order in the FCD output is now similar for vehicles and persons (affects only the type attribute).
 
 - netedit
   - Now translating additional tooltips #12652
@@ -111,14 +112,14 @@ title: ChangeLog
   - Settings dialog now shows available POI parameters for the 'show poi text param' feature #17158
 
 - sumo-gui
-  - Various dialogs can now be closed with ESC #15463  
+  - Various dialogs can now be closed with ESC #15463
   - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
   - Added menu option for opening only the network in netedit when a *.sumocfg* has been loaded in the simulation ( <kbd>Ctrl+Shift+T</kbd>) #17087
   - BusStop and all other stopping places now support `<param key="waitingDepth" value="FLOAT"/>` to customize spacing depth of waiting transportables #17088
 
 - duarouter
   - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
- 
+
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
   - Added option **--junctions.attach-removed** which can be used to merge networks that were processed with option **--output.removed-nodes** and correctly re-attach at removed junctions #16968
