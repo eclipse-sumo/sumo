@@ -52,10 +52,10 @@ public:
      *
      * @param[in] of The output device to use
      * @param[in] timestep The current time step
-     * @param[in] elevation Whether elevation data shall be written
+     * @param[in] tag Which tags to write
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void write(OutputDevice& of, const SUMOTime timestep);
+    static void write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag tag = SUMO_TAG_NOTHING);
 
 private:
     /// @brief write transportable
