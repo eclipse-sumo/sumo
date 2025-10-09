@@ -343,15 +343,44 @@ void
 GNEMoveElement::calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* firstLane,
                                        const double firstPosOverLane, const GNELane* lastLane, const double lastPosOverLane,
                                        const bool firstLaneClicked, const GNEMoveOffset& offset) {
-    // first give a value for start and end positions
-    starPos = firstPosOverLane;
-    endPos = lastPosOverLane;
+
+    const double firstLaneLength = firstLane->getLaneShape().length2D();
+    const double lastLaneLength = lastLane->getLaneShape().length2D();
+    // declare offset
+    double laneOffset = 0;
     // calculate offset depending if we clicked over the first or over the second lane
     if (firstLaneClicked) {
+        // calculate lane start position for first lane
         calculateLanePosition(starPos, viewNet, firstLane, firstPosOverLane, offset);
+        // calculate offset
+        laneOffset = (starPos - firstPosOverLane);
+        // set end position
+        endPos = lastPosOverLane + laneOffset;
+        // check sizes
+        if (endPos > lastLaneLength) {
+            laneOffset = (lastLaneLength - lastPosOverLane);
+        }
+        if (endPos < 0) {
+            laneOffset = (0 - lastPosOverLane);
+        }
     } else {
+        // calculate lane start position for first lane
         calculateLanePosition(endPos, viewNet, lastLane, lastPosOverLane, offset);
+        // calculate offset
+        laneOffset = (endPos - lastPosOverLane);
+        // set start position
+        starPos = firstPosOverLane + laneOffset;
+        // check sizes
+        if (starPos > firstLaneLength) {
+            laneOffset = (firstLaneLength - firstPosOverLane);
+        }
+        if (starPos < 0) {
+            laneOffset = (0 - firstPosOverLane);
+        }
     }
+    // update positions
+    starPos = firstPosOverLane + laneOffset;
+    endPos = lastPosOverLane + laneOffset;
 }
 
 
