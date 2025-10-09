@@ -1,13 +1,13 @@
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+['/home/micha/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
 Loading net-file from '000/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
-Loading route-files incrementally from '000/input_routes_000.rou.xml'
+Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '000/input_routes_000.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 5922.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -18,15 +18,15 @@ Statistics (avg of 1000):
  TimeLoss: 261.37
  DepartDelay: 885.85
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
-Loading net-file from '001/../input_net.net.xml' ... done (0ms).
-Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
-Loading route-files incrementally from '001/input_routes_001.rou.xml'
+['/home/micha/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '001/input_routes_001.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 5246.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -37,15 +37,15 @@ Statistics (avg of 1000):
  TimeLoss: 443.33
  DepartDelay: 347.07
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
-Loading net-file from '002/../input_net.net.xml' ... done (0ms).
+['/home/micha/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
-Loading route-files incrementally from '002/input_routes_002.rou.xml'
+Loading route-files incrementally from '002/input_routes_002.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 4084.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -56,15 +56,15 @@ Statistics (avg of 1000):
  TimeLoss: 148.69
  DepartDelay: 15.80
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+['/home/micha/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
-Loading route-files incrementally from '003/input_routes_003.rou.xml'
+Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '003/input_routes_003.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 3896.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -75,15 +75,15 @@ Statistics (avg of 1000):
  TimeLoss: 121.98
  DepartDelay: 0.40
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+['/home/micha/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
 Loading net-file from '004/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
-Loading route-files incrementally from '004/input_routes_004.rou.xml'
+Loading route-files incrementally from '004/input_routes_004.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 3794.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -94,15 +94,15 @@ Statistics (avg of 1000):
  TimeLoss: 76.23
  DepartDelay: 0.40
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '005/iteration_005_input_routes_004.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '005/iteration_005_input_routes_004.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '005/iteration_005.sumocfg']
-Loading net-file from '005/../input_net.net.xml' ... done (0ms).
-Loading additional-files from '005/../edgedata.add.xml' ... done (1ms).
-Loading route-files incrementally from '005/input_routes_005.rou.xml'
+['/home/micha/sumo/bin/sumo', '-c', '005/iteration_005.sumocfg']
+Loading net-file from '005/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '005/../edgedata.add.xml' ... done (0ms).
+Loading route-files incrementally from '005/input_routes_005.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 3848.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -113,15 +113,15 @@ Statistics (avg of 1000):
  TimeLoss: 114.24
  DepartDelay: 0.40
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '006/iteration_006_input_routes_005.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '006/iteration_006_input_routes_005.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
-Loading net-file from '006/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '006/../edgedata.add.xml' ... done (0ms).
-Loading route-files incrementally from '006/input_routes_006.rou.xml'
+['/home/micha/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
+Loading net-file from '006/../input_net.net.xml' ... done (0ms).
+Loading additional-files from '006/../edgedata.add.xml' ... done (1ms).
+Loading route-files incrementally from '006/input_routes_006.rou.xml.gz'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
 Simulation ended at time: 3833.00.
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
