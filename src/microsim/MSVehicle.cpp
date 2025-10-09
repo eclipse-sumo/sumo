@@ -89,8 +89,8 @@
 #include "MSVehicle.h"
 
 
-//#define DEBUG_PLAN_MOVE
-//#define DEBUG_PLAN_MOVE_LEADERINFO
+#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
@@ -7583,9 +7583,9 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh, const double gap) 
                             response2 = true;
                         }
                     } else {
-                        // brake for stuck foe
-                        response = foeEntry->haveRed();
-                        response2 = entry->haveRed();
+                        // let conflict entry time decide
+                        response = true;
+                        response2 = true;
                     }
                 } else if (entry->havePriority() != foeEntry->havePriority()) {
                     response = !entry->havePriority();
