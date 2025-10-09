@@ -1,16 +1,2 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle '20_0_0'; waited too long, from edge 'B3B4':0, time=14841.70.
-Warning: Teleporting vehicle '248_0_0'; waited too long, from edge 'A4B4':0, time=14851.70.
-Warning: Teleporting vehicle '100_0_0'; waited too long, from edge 'C4B4':0, time=14853.70.
-Warning: Vehicle '20_0_0' ends teleporting on edge 'B2B1':0, time=14854.03.
-Warning: Teleporting vehicle '113_0_0'; waited too long, from edge 'B1B2':0, time=14859.70.
-Warning: Teleporting vehicle '28_0_1'; waited too long, from edge 'C2C3':0, time=14862.70.
-Warning: Vehicle '248_0_0' ends teleporting on edge 'B2B1':0, time=14864.32.
-Warning: Vehicle '113_0_0' ends teleporting on edge 'C2D2':0, time=14865.86.
-Warning: Vehicle '100_0_0' ends teleporting on edge 'B2B1':0, time=14866.03.
-Warning: Teleporting vehicle '96_0_0'; waited too long, from edge 'D3C3':0, time=14870.04.
-Warning: Teleporting vehicle '6_0_0'; waited too long, from edge 'C3B3':0, time=14870.70.
-Warning: Vehicle '28_0_1' ends teleporting on edge 'D2D3':0, time=14887.35.
-Warning: Vehicle '6_0_0' ends teleporting on edge 'B0C0':0, time=14889.19.
-Warning: Vehicle '96_0_0' ends teleporting on edge 'A1A0':0, time=14894.69.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-17 08:54:22 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<!-- generated on 2025-10-10T00:38:11.750190+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,6 @@
             <driveWay id="A.0">
                 <entry id="train" time="20.00" reason="reroute"/>
                 <exit id="train" time="28.00" reason="arrived"/>
-                <exit id="train" time="28.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="A.0.0">
                 <entry id="train" time="20.00" reason="reroute"/>
@@ -49,7 +48,6 @@
         <link linkIndex="0" from="-d2_0" to="-c_0">
             <driveWay id="B.0">
                 <entry id="train2" time="20.00" reason="reroute"/>
-                <exit id="train2" time="35.00" reason="arrived"/>
                 <exit id="train2" time="35.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="B.0.0"/>
