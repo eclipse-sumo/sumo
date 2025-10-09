@@ -1,0 +1,2 @@
+Warning: Vehicle 'v_1' performs emergency braking on lane ':C_14_0' with decel=9.00, wished=4.50, severity=1.00, time=13.50.
+Warning: Vehicle 'ego' performs emergency braking on lane ':C_19_0' with decel=9.00, wished=4.50, severity=1.00, time=15.00.
