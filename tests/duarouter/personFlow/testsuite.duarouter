@@ -2,6 +2,9 @@ personTrip
 basic_randomize
 basic
 
+# write flows
+basic_keep
+
 # using a distribution of types
 typeDist
 walk_poisson
