@@ -1480,18 +1480,18 @@ PositionVector::isNAN() const {
     return false;
 }
 
+void
+PositionVector::ensureMinLength(int precision) {
+    const double limit = 2 * pow(10, -precision);
+    if (length2D() < limit) {
+        extrapolate2D(limit);
+    }
+}
 
 void
 PositionVector::round(int precision, bool avoidDegeneration) {
     if (avoidDegeneration && size() > 1) {
-        const double limit = 2 * pow(10, -precision);
-        if (length2D() < limit) {
-            PositionVector tmp = *this;
-            tmp.extrapolate2D(limit);
-            tmp.round(precision, false);
-            *this = tmp;
-            return;
-        }
+        ensureMinLength(precision);
     }
     for (int i = 0; i < (int)size(); i++) {
         (*this)[i].round(precision);
