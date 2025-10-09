@@ -8,6 +8,7 @@ pandas_read_xml>=0.3.1
 pillow>=10.3.0; python_version >= '3.8'
 polib>=1.1.1
 pulp>=2.4
+pyarrow
 pyproj>=2.5.0
 rtree>=0.9.4
 scipy>=1.3.3
