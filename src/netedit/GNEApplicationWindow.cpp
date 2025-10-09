@@ -991,10 +991,10 @@ GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current file
-    if (onCmdClose(0, 0, 0) == 1) {
+    if (onCmdClose(0, sel, 0) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
@@ -1067,10 +1067,10 @@ GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current file
-    if (onCmdClose(0, 0, 0) == 1) {
+    if (onCmdClose(0, sel, 0) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
@@ -1141,7 +1141,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
 
 
 long
-GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdClose(FXObject*, FXSelector sel, void*) {
     if (myViewNet == nullptr) {
         return 1;
     } else if (askSaveElements()) {
@@ -1156,25 +1156,27 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
-        // reset files
-        auto& neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", "");
-        neteditOptions.set("sumocfg-file", "");
-        neteditOptions.set("net-file", "");
-        neteditOptions.set("tls-file", "");
-        neteditOptions.set("edgetypes-file", "");
-        neteditOptions.set("additional-files", "");
-        neteditOptions.set("route-files", "");
-        neteditOptions.set("meandata-files", "");
-        neteditOptions.set("data-files", "");
-        // also in sumoConfig
-        mySumoOptions.resetWritable();
-        mySumoOptions.set("configuration-file", "");
-        mySumoOptions.set("net-file", "");
-        mySumoOptions.set("additional-files", "");
-        mySumoOptions.set("route-files", "");
-        mySumoOptions.set("data-files", "");
+        // reset files (except if we're reloading)
+        if ((FXSELID(sel) != MID_GNE_TOOLBARFILE_RELOADNETWORK) && (FXSELID(sel) != MID_HOTKEY_CTRL_R_RELOAD)) {
+            auto& neteditOptions = OptionsCont::getOptions();
+            neteditOptions.resetWritable();
+            neteditOptions.set("configuration-file", "");
+            neteditOptions.set("sumocfg-file", "");
+            neteditOptions.set("net-file", "");
+            neteditOptions.set("tls-file", "");
+            neteditOptions.set("edgetypes-file", "");
+            neteditOptions.set("additional-files", "");
+            neteditOptions.set("route-files", "");
+            neteditOptions.set("meandata-files", "");
+            neteditOptions.set("data-files", "");
+            // also in sumoConfig
+            mySumoOptions.resetWritable();
+            mySumoOptions.set("configuration-file", "");
+            mySumoOptions.set("net-file", "");
+            mySumoOptions.set("additional-files", "");
+            mySumoOptions.set("route-files", "");
+            mySumoOptions.set("data-files", "");
+        }
         return 1;
     } else {
         return 0;
