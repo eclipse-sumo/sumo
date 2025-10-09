@@ -87,6 +87,7 @@ public:
                      const double firstStartPos,
                      const GNELane* lastLane,
                      const double lastStartPos,
+                     const double clickedFirstLane,
                      const bool allowChangeLane);
 
     /// @brief destructor
@@ -113,6 +114,9 @@ public:
     /// @brief original last Position
     const double lastPosition = INVALID_DOUBLE;
 
+    /// @check if clicked the first lane or the last lane (used only in multilane elements like E2)
+    const bool clickedFirstLane = false;
+
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
      */
@@ -122,10 +126,10 @@ public:
     const std::vector<int> geometryPointsToMove;
 
     /// @brief allow change lane
-    const bool allowChangeLane;
+    const bool allowChangeLane = false;
 
     /// @brief first position (used for edit with/height
-    const bool firstGeometryPoint;
+    const bool firstGeometryPoint = false;
 
     /// @brief operation type
     const OperationType operationType;

@@ -85,16 +85,39 @@ GNEMoveElementLaneDouble::getMoveOperation() {
         // continue depending of moved element
         if (geometryPoints.empty()) {
             return nullptr;
-        } else if (geometryPoints.front() == 0) {
-            // move start position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, INVALID_DOUBLE, false);
         } else {
-            // move end position
-            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), INVALID_DOUBLE, myEndPosPosValue, false);
+            // check if we're moving elements over the same lane, or over different lanes
+            if (parentLanes.size() > 1) {
+                // return move operation depending if we're editing departPos or arrivalPos
+                if (geometryPoints.front() == 0) {
+                    return new GNEMoveOperation(this, parentLanes.front(), myStartPosValue, parentLanes.back(), INVALID_DOUBLE, true, false);
+                } else {
+                    return new GNEMoveOperation(this, parentLanes.front(), INVALID_DOUBLE, parentLanes.back(), myEndPosPosValue, false, false);
+                }
+            } else {
+                if (geometryPoints.front() == 0) {
+                    // move start position
+                    return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, INVALID_DOUBLE, false);
+                } else {
+                    // move end position
+                    return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), INVALID_DOUBLE, myEndPosPosValue, false);
+                }
+            }
         }
     } else if ((myStartPosValue != INVALID_DOUBLE) && (myEndPosPosValue != INVALID_DOUBLE)) {
-        // move both start and end positions
-        return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, myEndPosPosValue, allowChangeLane);
+        // move both start and end positions depending of number of lanes
+        if (parentLanes.size() > 1) {
+            if (gViewObjectsHandler.isObjectSelected(parentLanes.front())) {
+                return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, parentLanes.back(), myEndPosPosValue, true, false);
+            } else if (gViewObjectsHandler.isObjectSelected(parentLanes.back())) {
+                return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, parentLanes.back(), myEndPosPosValue, false, false);
+            } else {
+                // temporal, in the future will be allow, clicking in the intermediate lanes
+                return nullptr;
+            }
+        } else {
+            return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, myEndPosPosValue, allowChangeLane);
+        }
     } else if (myStartPosValue != INVALID_DOUBLE) {
         // move only start position
         return new GNEMoveOperation(myMovedElement->getMoveElement(), parentLanes.front(), myStartPosValue, INVALID_DOUBLE, allowChangeLane);

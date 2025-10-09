@@ -82,9 +82,9 @@ GNEMoveElementVehicle::getMoveOperation() {
         const double diameter = myVehicle->getAttributeDouble(SUMO_ATTR_WIDTH) > myVehicle->getAttributeDouble(SUMO_ATTR_LENGTH) ? myVehicle->getAttributeDouble(SUMO_ATTR_WIDTH) : myVehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
         // return move operation depending if we're editing departPos or arrivalPos
         if (myVehicle->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(myVehicle->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS)) < (diameter * diameter)) {
-            return new GNEMoveOperation(this, firstLane, startPosDouble, lastLane, INVALID_DOUBLE, allowChangeLane);
+            return new GNEMoveOperation(this, firstLane, startPosDouble, lastLane, INVALID_DOUBLE, true, allowChangeLane);
         } else if (myVehicle->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(myVehicle->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS)) < (arrivalPositionDiameter * arrivalPositionDiameter)) {
-            return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, endPosDouble, allowChangeLane);
+            return new GNEMoveOperation(this, firstLane, INVALID_DOUBLE, lastLane, endPosDouble, false, allowChangeLane);
         }
     }
     // nothing to move
