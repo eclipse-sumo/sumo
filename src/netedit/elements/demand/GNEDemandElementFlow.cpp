@@ -129,13 +129,13 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset), 2);
+            return StringUtils::adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset), 2);
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case GNE_ATTR_POISSON:
-            return adjustDecimalValue(poissonRate, 10);
+            return StringUtils::adjustDecimalValue(poissonRate, 10);
         case SUMO_ATTR_PROB:
-            return adjustDecimalValue(repetitionProbability, 20);
+            return StringUtils::adjustDecimalValue(repetitionProbability, 20);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         case GNE_ATTR_FLOW_TERMINATE:
@@ -504,24 +504,6 @@ GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
             setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
     }
-}
-
-std::string
-GNEDemandElementFlow::adjustDecimalValue(const double value, const int precission) const {
-    // obtain value in string format with 20 decimals precision
-    auto valueStr = toString(value, precission);
-    // now clear all zeros
-    while (valueStr.size() > 1) {
-        if (valueStr.back() == '0') {
-            valueStr.pop_back();
-        } else if (valueStr.back() == '.') {
-            valueStr.pop_back();
-            return valueStr;
-        } else {
-            return valueStr;
-        }
-    }
-    return valueStr;
 }
 
 /****************************************************************************/
