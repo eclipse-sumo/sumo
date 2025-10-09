@@ -15,7 +15,7 @@ REM Batch launcher for Visum XML export
 REM Tries Visum Python, fallback to any Python with pywin32
 
 
-REM Scan Program Files
+REM Scan Program Files for VISUM Python
 for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\PTV Vision\PTV Visum*") do (
     if exist %%d\Exe\Python\python.exe (
         set PYTHON_EXE=%%d\Exe\Python\python.exe
@@ -27,12 +27,21 @@ for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\
     )
 )
 
-REM Fallback to any python in PATH
+REM Fallback to any Python in PATH
 echo Visum Python not found, trying Python from PATH...
 for %%p in (py,python) do (
     call %%p -c "import win32com.client" 2> NUL
     if %errorlevel%==0 (
         set PYTHON_EXE=%%p
+        goto :found_python
+    )
+)
+
+REM Scan Program Files for any Python
+for /d %%d in ("C:\Program Files\Python*" "C:\Program Files (x86)\Python*") do (
+    call %%d\python.exe -c "import win32com.client" 2> NUL
+    if %errorlevel%==0 (
+        set PYTHON_EXE=%%d\python.exe
         goto :found_python
     )
 )
