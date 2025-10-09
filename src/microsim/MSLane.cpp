@@ -1033,7 +1033,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
-            break;
+            if (seen >= aVehicle->getVehicleType().getMinGap()) {
+                break;
+            }
         } else if (nextLane->isInternal()) {
             double tmp = 0;
             bool dummyReq = true;
