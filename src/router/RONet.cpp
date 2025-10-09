@@ -78,8 +78,8 @@ RONet::RONet() :
                     && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myDoPTRouting(!OptionsCont::getOptions().exists("ptline-routing")
                   || OptionsCont::getOptions().getBool("ptline-routing")),
-    myKeepFlows(!OptionsCont::getOptions().exists("keep-flows")
-                  || OptionsCont::getOptions().getBool("keep-flows")),
+    myKeepFlows(OptionsCont::getOptions().exists("keep-flows")
+                  && OptionsCont::getOptions().getBool("keep-flows")),
     myHasBidiEdges(false) {
     if (myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
