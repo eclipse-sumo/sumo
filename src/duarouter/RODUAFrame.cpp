@@ -145,6 +145,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("ptline-routing", new Option_Bool(false));
     oc.addDescription("ptline-routing", "Processing", TL("Route all public transport input"));
 
+    oc.doRegister("keep-flows", new Option_Bool(false));
+    oc.addDescription("keep-flows", "Processing", TL("Write flows instead of expanding them into vehicles"));
+
     oc.doRegister("route-choice-method", new Option_String("gawron"));
     oc.addDescription("route-choice-method", "Processing", TL("Choose a route choice method: gawron, logit, or lohse"));
 

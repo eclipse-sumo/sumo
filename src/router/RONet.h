@@ -598,6 +598,9 @@ private:
     /// @brief whether to calculate routes for public transport
     const bool myDoPTRouting;
 
+    /// @brief whether to preserve flows
+    const bool myKeepFlows;
+
     /// @brief whether the network contains bidirectional railway edges
     bool myHasBidiEdges;
 
