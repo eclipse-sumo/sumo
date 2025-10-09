@@ -113,17 +113,17 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
-    /// @brief calculate lane offset
-    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition, const double lastPosition,
-                                      const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+    /// @brief calculate lane offset (used in calculateLanePosition)
+    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition,
+                                      const double lastPosition, const GNEMoveOffset& offset);
 
-    /// @brief calculate single movement over one lane
-    static void calculateMoveResult(double &lanePosition, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
-                                    const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+    /// @brief calculate lane position over one lane with only one position (accesss, E1, star/end positions, etc.)
+    static void calculateLanePosition(double& starPos, const GNEViewNet* viewNet, const GNELane* lane,
+                                      const double posOverLane, const GNEMoveOffset& offset);
 
-    /// @brief calculate double movement over two lanes
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane,
-                                    const double firstPos, const double lastPos, const GNEMoveOffset& offset);
+    /// @brief calculate lane position over one lane with two positions (stoppingPlaces, E2 single lanes)
+    static void calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* lane,
+                                       const double firstPosOverLane, const double lastPostOverLane, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane change
     static void calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
