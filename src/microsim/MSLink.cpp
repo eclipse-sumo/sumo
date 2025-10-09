@@ -921,7 +921,20 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             }
         }
     }
-    if ((havePriority() || lastWasContState(LINKSTATE_TL_GREEN_MAJOR)) && myState != LINKSTATE_ZIPPER) {
+#ifdef MSLink_DEBUG_OPENED
+    /*
+    if (gDebugFlag1) {
+        std::cout << SIMTIME << " isExitLinkAfterInternalJunction=" << isExitLinkAfterInternalJunction()
+            << " entryLink=" << getCorrespondingEntryLink()->getDescription()
+            << " entryState=" << getCorrespondingEntryLink()->getState()
+            << "\n";
+    }
+    */
+#endif
+    if ((havePriority()
+                || lastWasContState(LINKSTATE_TL_GREEN_MAJOR)
+                || (isExitLinkAfterInternalJunction() && getCorrespondingEntryLink()->getState() == LINKSTATE_TL_GREEN_MAJOR))
+            && myState != LINKSTATE_ZIPPER) {
         // priority usually means the link is open but there are exceptions:
         // zipper still needs to collect foes
         // sublane model could have detected a conflict
@@ -1296,6 +1309,9 @@ MSLink::isCont() const {
 
 bool
 MSLink::lastWasContMajor() const {
+    if (isExitLinkAfterInternalJunction()) {
+        return myInternalLaneBefore->getIncomingLanes()[0].viaLink->lastWasContMajor();
+    }
     if (myInternalLane == nullptr || myAmCont) {
         return false;
     } else {
