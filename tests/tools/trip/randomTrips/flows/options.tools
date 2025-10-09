@@ -1,1 +1,1 @@
--n net.net.xml -s 42 --flows 36
+-n net.net.xml -s 42 --flows 36 -r out.rou.xml
