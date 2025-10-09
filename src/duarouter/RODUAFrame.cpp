@@ -251,7 +251,9 @@ RODUAFrame::checkOptions() {
         const int len = (int)filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
             oc.setDefault("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
-        } else if (len > 4 && filename.substr(len - 3) == ".gz") {
+        } else if (len > 7 && filename.substr(len - 7) == ".xml.gz") {
+            oc.setDefault("alternatives-output", filename.substr(0, len - 7) + ".alt.xml.gz");
+        } else if (len > 3 && filename.substr(len - 3) == ".gz") {
             oc.setDefault("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
             WRITE_WARNING(TL("Cannot derive file name for alternatives output, skipping it."));
