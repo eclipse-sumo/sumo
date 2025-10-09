@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-09 08:35+0000\n"
+"PO-Revision-Date: 2025-10-09 08:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4454,6 +4454,8 @@ msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "TIME"
 msgstr ""
+"Nur eine neue Route nutzen, wenn diese um die gegebene Dauer schneller ist "
+"als die aktuelle"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid "Use zones (districts) as routing start- and endpoints"
@@ -7969,7 +7971,7 @@ msgstr "Ungültige Knoten-ID '%'."
 #: src/netbuild/NBNode.cpp:315 src/netbuild/NBNode.cpp:340
 #: src/netbuild/NBNode.cpp:355
 msgid "Invalid position '%' for node '%'"
-msgstr ""
+msgstr "Ungültige Position '%' von Knoten '%'"
 
 #: src/netbuild/NBNode.cpp:512
 msgid " Removing self-looping edge '%'"
@@ -8463,7 +8465,7 @@ msgstr ""
 
 #: src/netconvert_main.cpp:53
 msgid "generate net with options read from file"
-msgstr ""
+msgstr "Netz mit aus Datei gelesenen Optionen generieren"
 
 #: src/netconvert_main.cpp:55
 msgid ""
@@ -11363,6 +11365,8 @@ msgstr "Schreibt Originalnamen, falls angegeben, als Parameter"
 #: src/netwrite/NWFrame.cpp:109
 msgid "Writes IDs of nodes remove with --geometry.remove into edge param"
 msgstr ""
+"ID der über --geometry.remove entfernten Knoten als Parameter der jeweiligen "
+"Kante hinterlegen"
 
 #: src/netwrite/NWFrame.cpp:112
 msgid "Writes street signs as POIs to FILE"
@@ -11626,7 +11630,7 @@ msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
 
 #: src/od2trips_main.cpp:63
 msgid "run with configuration file"
-msgstr ""
+msgstr "mit Konfigurationsdatei ausführen"
 
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
@@ -11833,7 +11837,7 @@ msgstr ""
 
 #: src/polyconvert/PCLoaderOSM.cpp:204
 msgid ", (front-to-back dist: %)"
-msgstr ""
+msgstr ", (Entfernung zwischen Beginn und Ende: %)"
 
 #: src/polyconvert/PCLoaderOSM.cpp:206
 msgid "Assembled polygon from relation '%' (name:%)%"
@@ -11879,7 +11883,7 @@ msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:64
 msgid "run with configuration options set in file"
-msgstr ""
+msgstr "mit Konfigurationsoptionen aus Datei ausführen"
 
 #: src/polyconvert/polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
@@ -12968,7 +12972,7 @@ msgstr "Lizenzinformationen jeder Ausgabedatei beifügen"
 
 #: src/utils/common/SystemFrame.cpp:125
 msgid "Write parsable metadata (configuration etc.) instead of comments"
-msgstr ""
+msgstr "Anstatt von Kommentaren Metadaten schreiben (u.a. Konfiguration)"
 
 #: src/utils/common/SystemFrame.cpp:128
 msgid ""
@@ -13729,31 +13733,31 @@ msgstr "Schema nach '%' geschrieben"
 
 #: src/utils/options/OptionsCont.cpp:833
 msgid "Help Topics:"
-msgstr ""
+msgstr "Hilfethemen:"
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid "Usage: "
-msgstr ""
+msgstr "Benutzung: "
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid " [OPTION]*"
-msgstr ""
+msgstr " [OPTION]*"
 
 #: src/utils/options/OptionsCont.cpp:853
 msgid "Examples:"
-msgstr ""
+msgstr "Beispiele:"
 
 #: src/utils/options/OptionsCont.cpp:860
 msgid "Report bugs at %."
-msgstr ""
+msgstr "Melde Fehler an %."
 
 #: src/utils/options/OptionsCont.cpp:861
 msgid "Get in contact via %."
-msgstr ""
+msgstr "Kontaktiere uns über %."
 
 #: src/utils/options/OptionsCont.cpp:867
 msgid "% Options:"
-msgstr ""
+msgstr "%-Optionen:"
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
@@ -13784,6 +13788,8 @@ msgstr ""
 #: src/utils/options/OptionsLoader.cpp:117
 msgid "Could not set option '%' because attribute 'value' is missing."
 msgstr ""
+"Aufgrund des fehlenden Attributs 'value' kann die Option '%' nicht gesetzt "
+"werden."
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
@@ -14558,17 +14564,17 @@ msgstr "Postscript"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Encapsulated Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
 msgid "Portable Document Format"
-msgstr ""
+msgstr "Portable Document Format"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1797
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1798
