@@ -35,9 +35,6 @@ public:
     /// @brief destructor
     ~GNEMoveResult();
 
-    /// @brief clear lanes
-    void clearLanes();
-
     /// @brief shape to update (edited in moveElement)
     PositionVector shapeToUpdate;
 
@@ -48,22 +45,22 @@ public:
     const GNEMoveOperation::OperationType operationType;
 
     /// @brief lane offset
-    double firstLaneOffset;
+    double firstLaneOffset = 0;
 
     /// @brief new first Lane
-    const GNELane* newFirstLane;
+    const GNELane* newFirstLane = nullptr;
 
     /// @brief new first position
-    double newFirstPos;
+    double newFirstPos = INVALID_DOUBLE;
 
     /// @brief lane offset
-    double lastLaneOffset;
+    double lastLaneOffset = 0;
 
     /// @brief new last Lane
-    const GNELane* newLastLane;
+    const GNELane* newLastLane = nullptr;
 
     /// @brief new last position
-    double newLastPos;
+    double newLastPos = INVALID_DOUBLE;
 
 private:
     /// @brief Invalidated copy constructor.
