@@ -70,6 +70,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myBegin(string2time(OptionsCont::getOptions().getString("begin"))),
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myUnsortedInput(OptionsCont::getOptions().exists("unsorted-input") && OptionsCont::getOptions().getBool("unsorted-input")),
+    myWriteFlows(OptionsCont::getOptions().exists("keep-flows") && OptionsCont::getOptions().getBool("keep-flows")),
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
     myUseTaz(OptionsCont::getOptions().getBool("with-taz")),
@@ -726,7 +727,9 @@ RORouteHandler::closePersonFlow() {
         // instantiate all persons of this flow
         int i = 0;
         std::string baseID = myVehicleParameter->id;
-        if (myVehicleParameter->repetitionProbability > 0) {
+        if (myWriteFlows) {
+            addFlowPerson(typeID, myVehicleParameter->depart, baseID, i);
+        } else if (myVehicleParameter->repetitionProbability > 0) {
             if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
                 throw ProcessError(TLF("probabilistic personFlow '%' must specify end time", myVehicleParameter->id));
             } else {
