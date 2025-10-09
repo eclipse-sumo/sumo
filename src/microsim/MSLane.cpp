@@ -92,9 +92,7 @@
 
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (true)
-//#define DEBUG_COND (getID() == "undefined")
 #define DEBUG_COND (isSelected())
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 #define DEBUG_COND2(obj) ((obj != nullptr && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
@@ -941,6 +939,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     while ((seen < dist || (isRail && firstRailSignal == nullptr)) && ri != bestLaneConts.end()) {
         // get the next link used...
         std::vector<MSLink*>::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
+        // get the next used lane (including internal)
         if (currentLane->isLinkEnd(link)) {
             if (&currentLane->getEdge() == r.getLastEdge()) {
                 // reached the end of the route
@@ -983,6 +982,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             firstRailSignal = *link;
             firstRailSignalDist = seen;
         }
+        nextLane = (*link)->getViaLaneOrLane();
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
@@ -1045,13 +1045,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 gDebugFlag1 = true;
             }
 #endif
-            aVehicle->checkLinkLeader(*link, nextLane, seen, nullptr, speed, tmp, tmp, dummyReq);
+            double nSpeed = speed;
+            aVehicle->checkLinkLeader(nextLane->getLinkCont()[0], nextLane, seen + nextLane->getLength(), nullptr, nSpeed, tmp, tmp, dummyReq);
 #ifdef DEBUG_INSERTION
             gDebugFlag1 = false;
 #endif
+            if (checkFailure(aVehicle, speed, dist, nSpeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
+                // we may not drive with the given velocity - there is a junction leader
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << " linkLeader nSpeed=" << nSpeed << " failed (@1058)!\n";
+                }
+#endif
+                return false;
+            }
         }
-        // get the next used lane (including internal)
-        nextLane = (*link)->getViaLaneOrLane();
         // check how next lane affects the journey
         if (nextLane != nullptr) {
 
