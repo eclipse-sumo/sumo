@@ -3,3 +3,6 @@ ticket17057
 
 # unsafe insertion speed
 ticket17192
+
+# unsafe insertion speed ahead of green major link
+ticket17193

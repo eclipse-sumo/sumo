@@ -1,0 +1,4 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Missing green phase in tlLogic 'C', program '1' for tl-index 0.
+Error: The lane ':C_14_0' for a stop is not known in vehicle 'v_0'.
+Quitting (on error).
