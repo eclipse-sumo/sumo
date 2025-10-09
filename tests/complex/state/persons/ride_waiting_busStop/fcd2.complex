@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 07:20:13 by Eclipse SUMO sumo Version v1_20_0+1258-9d1aeffff86
+<!-- generated on 2025-10-09T21:49:37.785349+01:00 by Eclipse SUMO sumo v1_24_0+1329-e45c39789b9
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,30 +30,30 @@
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="3.00">
         <vehicle id="v0" x="1187.54" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="2.40" pos="7.90" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
         <vehicle id="v0" x="1184.41" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="3.20" pos="11.10" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
         <vehicle id="v0" x="1180.51" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="4.00" pos="15.10" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
         <vehicle id="v0" x="1175.92" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="4.70" pos="19.80" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="v0" x="1175.72" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.20" pos="20.00" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1176.12" y="403.25" angle="180.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.60" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="v0" x="1175.72" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="20.00" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1175.72" y="401.65" angle="270.00" speed="0.00" pos="20.00" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1175.72" y="401.65" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="20.00" edge="3/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="v0" x="1175.72" y="401.65" angle="270.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="20.00" lane="3/1to2/1_0" slope="0.00"/>
-        <person id="persontrip_car" x="1175.72" y="401.65" angle="270.00" speed="0.00" pos="20.00" edge="3/1to2/1" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="persontrip_car" x="1175.72" y="401.65" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="20.00" edge="3/1to2/1" slope="0.00"/>
     </timestep>
 </fcd-export>
