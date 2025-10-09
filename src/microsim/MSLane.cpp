@@ -1179,7 +1179,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-        std::cout << SIMTIME << " speed = " << speed << " nspeed = " << nspeed << std::endl;
+        std::cout << SIMTIME << " speed = " << speed << " nspeed = " << nspeed << " leaders=" << leaders.toString() << "\n";
     }
 #endif
 
