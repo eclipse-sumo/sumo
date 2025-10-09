@@ -1,2 +1,5 @@
 # warn against --threads
 ticket17057
+
+# unsafe insertion speed
+ticket17192
