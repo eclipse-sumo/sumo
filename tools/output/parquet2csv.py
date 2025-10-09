@@ -22,4 +22,4 @@ import sys
 
 import pandas as pd
 
-pd.read_parquet(sys.argv[1]).to_csv(sys.stdout, index=False)
+pd.read_parquet(sys.argv[1]).to_csv(sys.stdout, index=False, lineterminator='\n')
