@@ -21,6 +21,10 @@ for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\
         set PYTHON_EXE=%%d\Exe\Python\python.exe
         goto :found_python
     )
+    if exist %%d\Exe\PythonModules\Scripts\python.exe (
+        set PYTHON_EXE=%%d\Exe\PythonModules\Scripts\python.exe
+        goto :found_python
+    )
 )
 
 REM Fallback to any python in PATH
@@ -40,4 +44,4 @@ exit /b 1
 
 
 :found_python
-"%PYTHON_EXE%" %~dp0\visum_export.py %*
+"%PYTHON_EXE%" "%~dp0\visum_export.py" %*
