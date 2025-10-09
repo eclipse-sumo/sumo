@@ -566,8 +566,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
     }
-    // write flow attributes
-    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write route elements associated to this vehicle (except for calibrator FLows)

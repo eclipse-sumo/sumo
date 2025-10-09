@@ -188,8 +188,6 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         // write person attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty->getXMLTag(), getTypeParent()->getID());
     }
-    // write flow attributes
-    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write child demand elements associated to this person (Rides, Walks...)
