@@ -67,7 +67,6 @@ GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const Pr
     myExceptionTextField->setText(processError.what());
     // add information label
     new FXLabel(contents, TL("ErrorTrace:"), NULL, GUIDesignLabel(JUSTIFY_NORMAL));
-    // Área de texto multilínea con scroll
     FXText* text = new FXText(contents, nullptr, 0, TEXT_WORDWRAP | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     text->setEditable(FALSE);
     text->setText(myTraceText.c_str());
@@ -91,13 +90,13 @@ GNECrashDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialog
 
 
 long
-GNECrashDialog::onCmdCopy(FXObject*, FXSelector, void* ptr) {
+GNECrashDialog::onCmdCopy(FXObject*, FXSelector, void*) {
     FXDragType types[4];
     types[0] = stringType;
     types[1] = textType;
     types[2] = utf8Type;
     types[3] = utf16Type;
-    // Adquire clipboard in diferent formats
+    // Acquire clipboard in different formats
     acquireClipboard(types, 4);
     return 1;
 }
@@ -139,5 +138,6 @@ GNECrashDialog::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr) 
     }
     return 0;
 }
+
 
 /****************************************************************************/
