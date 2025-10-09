@@ -41,8 +41,8 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
     GNEAdditional("", net, "", tag, ""),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
-    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO)? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
-                                                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)) {
+    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO) ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)) {
 }
 
 
@@ -56,8 +56,8 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myWidth(width),
     myHeight(height),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
-    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, geo? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
-                                                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)),
+    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)),
     myPOIIcon(icon) {
     // update position depending of GEO
     if (geo) {
@@ -76,11 +76,12 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
     Parameterised(parameters),
+    myPosOverLane(posOverLane),
     myWidth(width),
     myHeight(height),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::POSITION, GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT,
-                                                               myPosOverView, myWidth, myHeight)),
+                               myPosOverView, myWidth, myHeight)),
     myPosLat(posLat),
     myPOIIcon(icon) {
     // update centering boundary without updating grid

@@ -420,7 +420,7 @@ GNEMoveElementLaneDouble::fixMovingProblem() {
 
 
 void
-GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device) const {
+GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device, const bool writeLength) const {
     // lane/s
     if (myMovedElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
         device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
@@ -432,7 +432,7 @@ GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device) const {
         device.writeAttr(myStartPosAttr, myStartPosValue);
     }
     // write end position depending of lenght
-    if (myMovedElement->hasAttribute(SUMO_ATTR_LENGTH)) {
+    if (writeLength) {
         device.writeAttr(SUMO_ATTR_LENGTH, (myEndPosPosValue - myStartPosValue));
     } else if (myEndPosPosValue != myMovedElement->getTagProperty()->getDefaultDoubleValue(myEndPosAttr)) {
         device.writeAttr(myEndPosAttr, myEndPosPosValue);

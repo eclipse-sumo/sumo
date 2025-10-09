@@ -114,7 +114,7 @@ public:
     void fixMovingProblem();
 
     /// @brief write move attributes
-    void writeMoveAttributes(OutputDevice& device) const;
+    void writeMoveAttributes(OutputDevice& device, const bool writeLength) const;
 
     /// @brief get start offset position over lane
     double getStartFixedPositionOverLane() const;

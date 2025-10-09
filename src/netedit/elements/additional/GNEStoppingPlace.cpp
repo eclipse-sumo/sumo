@@ -171,7 +171,7 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device, false);
     // color (if defined)
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);

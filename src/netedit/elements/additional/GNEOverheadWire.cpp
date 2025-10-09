@@ -72,7 +72,7 @@ GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device, false);
     // write specific attributes
     device.writeAttr(SUMO_ATTR_SUBSTATIONID, getParentAdditionals().front()->getID());
     if (!myForbiddenInnerLanes.empty()) {

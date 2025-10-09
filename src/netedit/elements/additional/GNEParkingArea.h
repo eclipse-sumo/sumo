@@ -141,19 +141,19 @@ protected:
     std::string myDepartPos;
 
     /// @brief roadside capacity of Parking Area
-    int myRoadSideCapacity;
+    int myRoadSideCapacity = 0;
 
     /// @brief Whether vehicles stay on the road
-    bool myOnRoad;
+    bool myOnRoad = false;
 
     /// @brief width of Parking Area
-    double myWidth;
+    double myWidth = 0;
 
     /// @brief Length of Parking Area (by default (endPos - startPos) / roadsideCapacity
-    double myLength;
+    double myLength = 0;
 
     /// @brief lefthand
-    bool myLefthand;
+    bool myLefthand = false;
 
     /// @brief The list of badges that allow accessing the parkingArea
     std::vector<std::string> myAcceptedBadges;

@@ -89,7 +89,7 @@ GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device, (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR));
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes
