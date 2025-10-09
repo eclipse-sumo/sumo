@@ -537,18 +537,6 @@ GNEMoveElementLaneDouble::setMoveShape(const GNEMoveResult& moveResult) {
         myEndPosPosValue = moveResult.newLastPos;
         // set lateral offset
         myMovingLateralOffset = moveResult.firstLaneOffset;
-        /*
-        // calculate minimum starPos movement
-        const double minStarPosMovement = std::min(starPos, endPos);
-        const double minEndPosMovement = std::min(starPos, endPos);
-
-        // calculate minimum endPos movement
-        // change both position
-        myStartPosValue = moveResult.newFirstPos;
-        myEndPosPosValue = moveResult.newLastPos;
-        // set lateral offset
-        myMovingLateralOffset = moveResult.firstLaneOffset;
-        */
     } else if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // change only start position
         myStartPosValue = moveResult.newFirstPos;
@@ -563,12 +551,6 @@ GNEMoveElementLaneDouble::setMoveShape(const GNEMoveResult& moveResult) {
         if (myEndPosPosValue < (starPos + POSITION_EPS)) {
             myEndPosPosValue = (starPos + POSITION_EPS);
         }
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::LANE) {
-        // change both position
-        myStartPosValue = moveResult.newFirstPos;
-        myEndPosPosValue = moveResult.newLastPos;
-        // set lateral offset
-        myMovingLateralOffset = moveResult.firstLaneOffset;
     }
     // update geometry
     myMovedElement->updateGeometry();
@@ -592,7 +574,7 @@ GNEMoveElementLaneDouble::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
         myMovedElement->setAttribute(myEndPosAttr, toString(moveResult.newLastPos), undoList);
     }
     // check if lane has to be changed
-    if (moveResult.newFirstLane) {
+    if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) && moveResult.newFirstLane) {
         // set new lane
         myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
     }

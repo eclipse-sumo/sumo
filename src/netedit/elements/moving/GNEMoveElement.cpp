@@ -107,8 +107,9 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         if (moveOperation->lastLane) {
             if ((moveOperation->firstPosition != INVALID_DOUBLE) && (moveOperation->lastPosition != INVALID_DOUBLE)) {
                 // move both first and last positions
-                calculateLanePosition(moveResult.newFirstPos, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
-                calculateLanePosition(moveResult.newLastPos, viewNet, moveOperation->lastLane, moveOperation->lastPosition, offset);
+                calculateLanePositions(moveResult.newFirstPos, moveResult.newLastPos, viewNet, moveOperation->firstLane,
+                                       moveOperation->firstPosition, moveOperation->lastLane, moveOperation->lastPosition,
+                                       moveOperation->clickedFirstLane, offset);
             } else if (moveOperation->firstPosition != INVALID_DOUBLE) {
                 // move first position
                 calculateLanePosition(moveResult.newFirstPos, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
@@ -119,7 +120,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         } else {
             // continue depending if we're moving both positions
             if ((moveOperation->firstPosition != INVALID_DOUBLE) && (moveOperation->lastPosition != INVALID_DOUBLE)) {
-                // move both first and last positions
+                // move both first and last positions in the same lane
                 calculateLanePositions(moveResult.newFirstPos, moveResult.newLastPos, viewNet, moveOperation->firstLane,
                                        moveOperation->firstPosition, moveOperation->lastPosition, offset);
             } else if (moveOperation->firstPosition != INVALID_DOUBLE) {
@@ -194,8 +195,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         if (moveOperation->lastLane) {
             if ((moveOperation->firstPosition != INVALID_DOUBLE) && (moveOperation->lastPosition != INVALID_DOUBLE)) {
                 // move both first and last positions
-                calculateLanePosition(moveResult.newFirstPos, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
-                calculateLanePosition(moveResult.newLastPos, viewNet, moveOperation->lastLane, moveOperation->lastPosition, offset);
+                calculateLanePositions(moveResult.newFirstPos, moveResult.newLastPos, viewNet, moveOperation->firstLane,
+                                       moveOperation->firstPosition, moveOperation->lastLane, moveOperation->lastPosition,
+                                       moveOperation->clickedFirstLane, offset);
             } else if (moveOperation->firstPosition != INVALID_DOUBLE) {
                 // move first position
                 calculateLanePosition(moveResult.newFirstPos, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset);
@@ -206,7 +208,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         } else {
             // continue depending if we're moving both positions
             if ((moveOperation->firstPosition != INVALID_DOUBLE) && (moveOperation->lastPosition != INVALID_DOUBLE)) {
-                // move both first and last positions
+                // move both first and last positions in the same lane
                 calculateLanePositions(moveResult.newFirstPos, moveResult.newLastPos, viewNet, moveOperation->firstLane,
                                        moveOperation->firstPosition, moveOperation->lastPosition, offset);
             } else if (moveOperation->firstPosition != INVALID_DOUBLE) {
@@ -332,13 +334,29 @@ GNEMoveElement::calculateLanePosition(double& posOverLane, const GNEViewNet* vie
 
 void
 GNEMoveElement::calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* lane,
-                                       const double firstPosOverLane, const double lastPostOverLane, const GNEMoveOffset& offset) {
+                                       const double firstPosOverLane, const double lastPosOverLane, const GNEMoveOffset& offset) {
     // get lane offset
-    const double laneOffset = calculateLaneOffset(viewNet, lane, firstPosOverLane, lastPostOverLane, offset);
+    const double laneOffset = calculateLaneOffset(viewNet, lane, firstPosOverLane, lastPosOverLane, offset);
     // update moveResult
     starPos = (firstPosOverLane - laneOffset) / lane->getLengthGeometryFactor();
-    endPos = (lastPostOverLane - laneOffset) / lane->getLengthGeometryFactor();
+    endPos = (lastPosOverLane - laneOffset) / lane->getLengthGeometryFactor();
 }
+
+
+void
+GNEMoveElement::calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* firstLane,
+                                       const double firstPosOverLane, const GNELane* lastLane, const double lastPosOverLane,
+                                       const bool firstLaneClicked, const GNEMoveOffset& offset) {
+    // calculate offset depending if we clicked over the first or over the second lane
+    if (firstLaneClicked) {
+        calculateLanePosition(starPos, viewNet, firstLane, firstPosOverLane, offset);
+        endPos = lastPosOverLane;
+    } else {
+        starPos = firstPosOverLane;
+        calculateLanePosition(endPos, viewNet, lastLane, lastPosOverLane, offset);
+    }
+}
+
 
 void
 GNEMoveElement::calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset) {

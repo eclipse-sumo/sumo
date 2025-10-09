@@ -123,7 +123,12 @@ private:
 
     /// @brief calculate lane position over one lane with two positions (stoppingPlaces, E2 single lanes)
     static void calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* lane,
-                                       const double firstPosOverLane, const double lastPostOverLane, const GNEMoveOffset& offset);
+                                       const double firstPosOverLane, const double lastPosOverLane, const GNEMoveOffset& offset);
+
+    /// @brief calculate lane position over two lane with two positions (E2 Multilanes)
+    static void calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* firstLane,
+                                       const double firstPosOverLane, const GNELane* lastLane, const double lastPosOverLane,
+                                       const bool firstLaneClicked, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane change
     static void calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
