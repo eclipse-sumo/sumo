@@ -272,16 +272,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (e->geom.size() > 0) {
             Boundary geomBoundary = e->geom.getBoxBoundary();
             // Only add if the boundary doesn't contain NaN values
-            if (geomBoundary.isInitialised() && 
+            if (geomBoundary.isInitialised() &&
                 !std::isnan(geomBoundary.xmin()) && !std::isnan(geomBoundary.xmax()) &&
                 !std::isnan(geomBoundary.ymin()) && !std::isnan(geomBoundary.ymax())) {
                 posMap[e->junction].add(geomBoundary);
             } else {
-                WRITE_WARNINGF(TL("Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."), 
+                WRITE_WARNINGF(TL("Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."),
                                e->id, e->id, e->junction);
             }
         } else {
-            WRITE_WARNINGF(TL("Inner edge '%' (xodr road '%') in junction '%' has no geometry."), 
+            WRITE_WARNINGF(TL("Inner edge '%' (xodr road '%') in junction '%' has no geometry."),
                            e->id, e->id, e->junction);
         }
     }
