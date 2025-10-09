@@ -50,6 +50,10 @@ simstep -> MSInsertionControl : execute
 ... -> MSVehicle : enterLaneAtInsertion
 end
 
+group Events2
+simstep -> ... : myEndOfTimestepEvents->execute
+end
+
 group TraCI2 (only commands after traci.simulation.executeMove)
 simstep -> TraCIServer : processCommandsUntilSimStep
 ... -> MSVehicle : getSpeed, setSpeed, ...
