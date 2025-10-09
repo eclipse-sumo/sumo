@@ -15,3 +15,12 @@ riding_noPersons
 
 # disable person fcd-output
 riding_noPersons_radius
+
+# output not from every person
+parquet
+
+# separated person fcd
+separate
+
+# separated person fcd
+separate_parquet

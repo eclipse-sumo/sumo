@@ -61,6 +61,7 @@ physstates:physstates.xml
 cfg:config.cfg
 cfg:data/config.cfg
 fcd:fcd.xml
+person_fcd:person_fcd.xml
 full:full.xml
 vtk:vtk.txt
 queue:queue.xml
@@ -110,9 +111,11 @@ png2:out2.png
 wkt:wkt.txt
 fcd_csv:fcd.csv
 fcd_parquet:fcd.parquet
+person_fcd_parquet:person_fcd.parquet
 
 [collate_script]
 fcd_parquet:$SUMO_HOME/tools/output/parquet2csv.py
+person_fcd_parquet:$SUMO_HOME/tools/output/parquet2csv.py
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
@@ -149,6 +152,7 @@ vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->
 personroutes:^<!--{[->]}-->
 fcd:<!--{[->]}-->
+person_fcd:<!--{[->]}-->
 full:<!--{[->]}-->
 queue:<!--{[->]}-->
 emissions:<!--{[->]}-->
