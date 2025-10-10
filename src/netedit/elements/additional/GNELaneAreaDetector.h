@@ -217,7 +217,7 @@ protected:
 private:
     /// @brief draw E2 detector
     void drawE2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                const double exaggeration) const;
+                const double exaggeration, const bool drawGeometryPoints) const;
 
     /// @brief draw E2 partial lane
     void drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

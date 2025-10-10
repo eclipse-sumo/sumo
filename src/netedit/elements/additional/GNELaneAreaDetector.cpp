@@ -158,22 +158,41 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
         const double E2Exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
+        // check if draw geometry points
+        const bool movingGeometryPoints = drawMovingGeometryPoints();
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw E2
-            drawE2(s, d, E2Exaggeration);
+            drawE2(s, d, E2Exaggeration, movingGeometryPoints);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // check if draw geometry points
+            if (movingGeometryPoints) {
+                myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                        1, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
-        // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width,
-                E2Exaggeration, true, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+        // check if we're calculating the contour or the moving geometry points
+        if (movingGeometryPoints) {
+            if (myStartPosOverLane != INVALID_DOUBLE) {
+                myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
+                        getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+            }
+            if (movingGeometryPoints && (myEndPosPosOverLane != INVALID_DOUBLE)) {
+                myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
+                        getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+            }
+        } else {
+            // don't exaggerate contour
+            myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width,
+                    E2Exaggeration, true, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+        }
     }
 }
 
@@ -406,7 +425,7 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const double exaggeration) const {
+                            const double exaggeration, const bool movingGeometryPoints) const {
     // declare color
     RGBColor E2Color, textColor;
     // set color
@@ -434,9 +453,11 @@ GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualiz
     }
     // draw E2 Logo
     drawE2DetectorLogo(s, d, exaggeration, "E2", textColor);
-    // draw geometry points
-    drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-    drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+    // check if draw geometry points
+    if (movingGeometryPoints) {
+        drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+        drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+    }
     // pop layer matrix
     GLHelper::popMatrix();
 }
