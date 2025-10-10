@@ -30,7 +30,7 @@
 #include <windows.h>
 #endif
 
-#ifdef HAVE_BOOST
+#if defined(HAVE_BOOST) && !defined(___APPLE__)
 #include <boost/stacktrace.hpp>
 #endif
 
@@ -65,7 +65,7 @@ ProcessError::getTrace() const {
 void
 ProcessError::processTrace() {
 // only process if we have boost
-#ifdef HAVE_BOOST
+#if defined(HAVE_BOOST) && !defined(___APPLE__)
     // declare stacktrace
     boost::stacktrace::stacktrace st;
     // convert trace using ostringstream
