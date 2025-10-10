@@ -67,6 +67,9 @@ validate
 validate_vclass
 validate_intermediate
 
+# generate validated trips
+validate_flows
+
 # setting non-positive period should fail
 period_positive
 

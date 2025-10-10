@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-10 09:45:35.000556 by Eclipse SUMO randomTrips.py v1_24_0+1351-0c075c89b59
+<configuration>
+    <net-file value="net2.net.xml"/>
+    <route-file value="out.rou.xml"/>
+    <error-log value="errorlog.txt"/>
+    <verbose value="True"/>
+    <end value="100.0"/>
+    <flows value="20"/>
+</configuration>
+-->
+
+<!-- generated on 2025-10-10T09:45:34.997430+01:00 by Eclipse SUMO duarouter v1_24_0+1345-694e346ec7e
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+        <alternatives-output value="NUL"/>
+    </output>
+
+    <processing>
+        <keep-flows value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="100.0"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <no-warnings value="true"/>
+        <error-log value="errorlog.txt"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="1" begin="0.00" end="100.00" period="20">
+        <route edges="beg2left left left2end end"/>
+    </flow>
+    <flow id="13" begin="0.00" end="100.00" period="20">
+        <route edges="beg beg2left"/>
+    </flow>
+    <flow id="16" begin="0.00" end="100.00" period="20">
+        <route edges="left left2end end rend"/>
+    </flow>
+    <flow id="18" begin="0.00" end="100.00" period="20">
+        <route edges="left2end"/>
+    </flow>
+    <flow id="5" begin="0.00" end="100.00" period="20">
+        <route edges="beg2left left left2end"/>
+    </flow>
+    <flow id="6" begin="0.00" end="100.00" period="20">
+        <route edges="beg middle end"/>
+    </flow>
+    <flow id="7" begin="0.00" end="100.00" period="20">
+        <route edges="left left2end"/>
+    </flow>
+    <flow id="8" begin="0.00" end="100.00" period="20">
+        <route edges="beg2left left left2end"/>
+    </flow>
+</routes>
