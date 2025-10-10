@@ -30,7 +30,7 @@
 #include <windows.h>
 #endif
 
-#if defined(HAVE_BOOST) && !defined(___APPLE__)
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
 #include <boost/stacktrace.hpp>
 #endif
 
