@@ -943,6 +943,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                                         print(exc, file=sys.stderr)
                             time += 1.0
             else:
+                # generate flows
                 try:
                     origins_destinations = [generate_origin_destination(
                         trip_generator, options) for _ in range(options.flows)]
@@ -957,6 +958,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                                 continue
                             origin, destination, intermediate = origins_destinations[j]
                             generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
+                            idx += 1
                 except Exception as exc:
                     print(exc, file=sys.stderr)
 
