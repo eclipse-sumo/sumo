@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-20 15:08:59.174420 by randomTrips.py v1_21_0+1562-c53f49b287e
+<!-- generated on 2025-10-10 08:55:19.733616 by Eclipse SUMO randomTrips.py v1_24_0+1349-81524a6d848
 <configuration>
     <net-file value="net.net.xml"/>
     <route-file value="out.rou.xml"/>
@@ -13,7 +13,7 @@
 </configuration>
 -->
 
-<!-- generated on 2024-12-20 15:08:59 by Eclipse SUMO duarouter Version v1_21_0+1557-fb9ec070d59
+<!-- generated on 2025-10-10T08:55:19.726509+01:00 by Eclipse SUMO duarouter v1_24_0+1345-694e346ec7e
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -26,6 +26,10 @@
         <output-file value="out.rou.xml"/>
         <alternatives-output value="NUL"/>
     </output>
+
+    <processing>
+        <keep-flows value="true"/>
+    </processing>
 
     <time>
         <begin value="0"/>
@@ -42,304 +46,34 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="0.0" depart="0.00">
+    <personFlow id="0.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.0" depart="0.00">
+    </personFlow>
+    <personFlow id="1.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.0" depart="0.00">
+    </personFlow>
+    <personFlow id="2.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.0" depart="0.00">
+    </personFlow>
+    <personFlow id="3.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.0" depart="0.00">
+    </personFlow>
+    <personFlow id="4.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.0" depart="0.00">
+    </personFlow>
+    <personFlow id="5.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.0" depart="0.00">
+    </personFlow>
+    <personFlow id="6.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.0" depart="0.00">
+    </personFlow>
+    <personFlow id="7.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.0" depart="0.00">
+    </personFlow>
+    <personFlow id="8.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.0" depart="0.00">
+    </personFlow>
+    <personFlow id="9.0" begin="0.00" end="100.00" period="10">
         <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.1" depart="10.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.2" depart="20.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.3" depart="30.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.4" depart="40.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.5" depart="50.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.6" depart="60.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.7" depart="70.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.8" depart="80.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="0.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="1.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="2.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="3.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="4.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="5.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="6.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="7.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="8.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
-    <person id="9.9" depart="90.00">
-        <walk edges="NC CS" arrivalPos="41.95"/>
-    </person>
+    </personFlow>
 </routes>
