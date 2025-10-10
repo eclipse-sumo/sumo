@@ -89,12 +89,12 @@ public:
     /// @brief calculate contour for first geometry point
     void calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                             const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                            const double radius, const double scale) const;
+                                            const double radius, const double scale, const bool forceCalculation = false) const;
 
     /// @brief calculate contour for last geometry point
     void calculateContourLastGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const GUIGlObject* glObject, const PositionVector& shape, const double layer,
-                                           const double radius, const double scale) const;
+                                           const double radius, const double scale, const bool forceCalculation = false) const;
 
     /// @brief calculate contour for middle geometry point
     void calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

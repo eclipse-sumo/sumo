@@ -479,12 +479,16 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
     GUIGeometry::drawGeometry(d, geometry, s.detectorSettings.E2Width * exaggeration);
     // check if draw moving geometry points
     if (movingGeometryPoints) {
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(s, d, geometry.getShape().front(),  geometry.getShapeRotations().front(), E2Color, true);
-            drawRightGeometryPoint(s, d, geometry.getShape().back(), geometry.getShapeRotations().back(), E2Color, true);
-        } else if (segment->isFirstSegment()) {
+        if (segment->isFirstSegment()) {
+            // calculate and draw left geometry point
+            myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, geometry.getShape(),
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1, true);
             drawLeftGeometryPoint(s, d, geometry.getShape().front(), geometry.getShapeRotations().front(), E2Color, true);
-        } else if (segment->isLastSegment()) {
+        }
+        if (segment->isLastSegment()) {
+            // calculate and draw right  geometry point
+            myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, geometry.getShape(),
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1, true);
             drawRightGeometryPoint(s, d, geometry.getShape().back(), geometry.getShapeRotations().back(), E2Color, true);
             // draw arrow
             if (geometry.getShape().size() > 1) {
