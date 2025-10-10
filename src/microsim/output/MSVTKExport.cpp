@@ -31,12 +31,43 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
 #include "MSVTKExport.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// Helper function to get interpolated position for mesoscopic vehicles
+static Position
+getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
+    const MESegment* segment = mesoVeh->getSegment();
+    if (segment == nullptr || mesoVeh->getQueIndex() == MESegment::PARKING_QUEUE) {
+        return mesoVeh->getPosition();
+    }
+
+    const double now = SIMTIME;
+    const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+    const double entry = mesoVeh->getLastEntryTimeSeconds();
+
+    // Calculate segment offset (position of segment start)
+    double segmentOffset = 0;
+    for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+            seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+        segmentOffset += seg->getLength();
+    }
+
+    // Calculate interpolated position within segment
+    const double length = segment->getLength();
+    const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+
+    // Convert to cartesian coordinates
+    const MSLane* const lane = mesoVeh->getEdge()->getLanes()[0];
+    return lane->geometryPositionAtOffset(relPos);
+}
 void
 MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
 
@@ -111,13 +142,21 @@ MSVTKExport::getPositions() {
 
 
     for (; it != end; ++it) {
-        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
+        const SUMOVehicle* veh = (*it).second;
 
         if (veh->isOnRoad()) {
+            Position pos;
+            // Use interpolated position for meso vehicles
+            if (MSGlobals::gUseMesoSim) {
+                const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
+                pos = getInterpolatedMesoPosition(mesoVeh);
+            } else {
+                pos = veh->getPosition();
+            }
 
-            output.push_back(veh->getPosition().x());
-            output.push_back(veh->getPosition().y());
-            output.push_back(veh->getPosition().z());
+            output.push_back(pos.x());
+            output.push_back(pos.y());
+            output.push_back(pos.z());
 
         }
 
