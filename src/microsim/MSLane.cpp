@@ -835,7 +835,8 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             }
 
             if (errorMsg != "") {
-                WRITE_ERRORF(TL("Vehicle '%' will not be able to depart using the given velocity (%)!"), aVehicle->getID(), errorMsg);
+                WRITE_ERRORF(TL("Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."),
+                        aVehicle->getID(), getID(), speed, errorMsg, time2string(SIMSTEP));
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
             }
             return true;
