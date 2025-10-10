@@ -1680,10 +1680,10 @@ GNEApplicationWindow::loadOptionOnStartup() {
         myLoadThread->loadNetworkOrConfig();
         // add it into recent networks and configs
         if (neteditOptions.getString("net-file").size() > 0) {
-            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+            myMenuBarFile.myRecentNetworks.appendFile(FXPath::absolute(neteditOptions.getString("net-file").c_str()));
         }
         if (neteditOptions.getString("configuration-file").size() > 0) {
-            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
+            myMenuBarFile.myRecentConfigs.appendFile(FXPath::absolute(neteditOptions.getString("configuration-file").c_str()));
         }
     }
 }
