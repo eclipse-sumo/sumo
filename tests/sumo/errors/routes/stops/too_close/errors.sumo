@@ -1,1 +1,1 @@
-Error: Vehicle 'veh0' will not be able to depart using the given velocity (scheduled stop on lane 'SC_0' too close)!
+Error: Vehicle 'veh0' will not be able to depart on lane 'SC_0' with speed 20.00 (scheduled stop on lane 'SC_0' too close), time=0.00.

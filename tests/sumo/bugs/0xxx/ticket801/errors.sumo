@@ -1,2 +1,2 @@
-Error: Vehicle 'swap_to_right' will not be able to depart using the given velocity (junction 'gneJ2' too close)!
-Error: Vehicle 'swap_to_left' will not be able to depart using the given velocity (junction 'gneJ3' too close)!
+Error: Vehicle 'swap_to_right' will not be able to depart on lane 'beg_2' with speed 40.00 (junction 'gneJ2' too close), time=0.00.
+Error: Vehicle 'swap_to_left' will not be able to depart on lane 'beg_1' with speed 40.00 (junction 'gneJ3' too close), time=0.00.

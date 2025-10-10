@@ -1,1 +1,1 @@
-Error: Vehicle 'ego' will not be able to depart using the given velocity (tlLogic 'gneJ1' link 0 never switches to 'G')!
+Error: Vehicle 'ego' will not be able to depart on lane 'beg_0' with speed 13.89 (tlLogic 'gneJ1' link 0 never switches to 'G'), time=0.00.

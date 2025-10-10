@@ -1,1 +1,1 @@
-Error: Vehicle 'v0' will not be able to depart using the given velocity (too many lane changes required on lane 'E0_16')!
+Error: Vehicle 'v0' will not be able to depart on lane 'E0_16' with speed 13.89 (too many lane changes required on lane 'E0_16'), time=0.00.
