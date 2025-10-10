@@ -1,4 +1,3 @@
-Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Warning: Custom shape has distance 73.22 to incoming lane for connection -E2_0->E1_0.
 Warning: Custom shape has distance 68.42 to outgoing lane for connection -E2_0->E1_0.
 Warning: Custom shape has distance 73.22 to incoming lane for connection -E2_0->E1_0.
