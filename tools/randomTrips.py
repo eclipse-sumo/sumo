@@ -991,6 +991,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         duargs += ['--persontrip.walk-opposite-factor', str(options.walkoppositefactor)]
     if options.randomRoutingFactor != 1:
         duargs += ['--weights.random-factor', str(options.randomRoutingFactor)]
+    if options.flows > 0:
+        duargs += ['--keep-flows']
 
     options_to_forward = sumolib.options.get_prefixed_options(options)
     for router, routerargs in [('duarouter', duargs), ('marouter', maargs)]:
