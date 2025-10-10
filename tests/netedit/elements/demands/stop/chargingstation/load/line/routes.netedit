@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-25 16:10:27 by Eclipse SUMO netedit Version v1_22_0+1819-d3f1974c2b4
+<!-- generated on 2025-10-10T10:59:35.617308+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_0" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" triggered="person"/>
     </flow>
-    <flow id="flow_1" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_1" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" triggered="person" line=";;;;"/>
     </flow>
-    <flow id="flow_2" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_2" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" triggered="person" line="customLine"/>
     </flow>
 </routes>

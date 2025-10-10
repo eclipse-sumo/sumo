@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-10 11:04:38 by Eclipse SUMO netedit Version v1_19_0+0034-128786327d5
+<!-- generated on 2025-10-10T10:59:34.682847+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_0" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="perA perB" permitted="A B" tripId="tripA" line="lineA" split="splitA" jump="3.50" actType="walking"/>
     </flow>
-    <flow id="flow_1" begin="0.00" from="EdgeCenter0" to="EdgeCenter1" end="36.00" number="18">
+    <flow id="flow_1" begin="0.00" end="36.00" number="18" from="EdgeCenter0" to="EdgeCenter1">
         <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" triggered="container" parking="1" expected="conA conB" permitted="C D" tripId="tripB" line="lineB" split="splitB" onDemand="1" jump="3.50" actType="singing"/>
     </flow>
 </routes>

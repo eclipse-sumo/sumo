@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-30 13:01:36 by Eclipse SUMO netedit Version v1_23_1+0773-519ae6a3225
+<!-- generated on 2025-10-10T10:53:13.229190+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" from="Edge0" to="Edge2" end="3600.00" vehsPerHour="1800"/>
-    <flow id="f_1" begin="0.00" from="Edge0" to="Edge2" end="3600.00" vehsPerHour="20.5"/>
-    <flow id="f_2" begin="0.00" from="Edge0" to="Edge2" end="3600.00" vehsPerHour="22"/>
+    <flow id="f_0" begin="0.00" end="3600.00" perHour="1800.00" from="Edge0" to="Edge2"/>
+    <flow id="f_1" begin="0.00" end="3600.00" perHour="20.50" from="Edge0" to="Edge2"/>
+    <flow id="f_2" begin="0.00" end="3600.00" perHour="22.00" from="Edge0" to="Edge2"/>
 </routes>

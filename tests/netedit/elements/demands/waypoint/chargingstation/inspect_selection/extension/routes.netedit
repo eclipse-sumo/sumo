@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 08:15:45 by Eclipse SUMO netedit Version v1_21_0+1676-bd89e8c6689
+<!-- generated on 2025-10-10T11:00:05.166308+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,10 +17,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- VTypes -->
     <vType id="bike" vClass="bicycle"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flowA" type="bike" begin="0.00" from="Edge0" to="EdgeCenter0" end="36.00" number="18">
+    <flow id="flowA" type="bike" begin="0.00" end="36.00" number="18" from="Edge0" to="EdgeCenter0">
         <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="3.50" parking="1" permitted="A B" tripId="tripA" line="lineA" split="splitA" speed="10.00" jump="12.00" actType="walking"/>
     </flow>
-    <flow id="flowB" type="bike" begin="0.00" from="EdgeCenter1" to="Edge5" end="36.00" number="18">
+    <flow id="flowB" type="bike" begin="0.00" end="36.00" number="18" from="EdgeCenter1" to="Edge5">
         <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="3.50" parking="1" permitted="C D" tripId="tripB" line="lineB" split="splitB" speed="22.50" jump="16.00" actType="singing"/>
     </flow>
 </routes>

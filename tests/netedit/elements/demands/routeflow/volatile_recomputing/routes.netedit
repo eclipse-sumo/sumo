@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-09 15:34:28 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
+<!-- generated on 2025-10-10T10:53:57.817057+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,10 +22,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <route id="route_4" edges="EdgeExternBot EdgeExternTop" color="yellow"/>
     <route id="route_5" edges="EdgeExternBot EdgeExternTop" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="0.00" route="route_0" end="3600.00" number="100"/>
-    <flow id="flow_1" begin="1.00" route="route_1" end="3600.00" number="100"/>
-    <flow id="flow_2" begin="2.00" route="route_2" end="3600.00" number="100"/>
-    <flow id="flow_3" begin="3.00" route="route_3" end="3600.00" number="100"/>
-    <flow id="flow_4" begin="3.00" route="route_4" end="3600.00" number="100"/>
-    <flow id="flow_5" begin="3.00" route="route_5" end="3600.00" number="100"/>
+    <flow id="flow_0" begin="0.00" end="3600.00" number="100" route="route_0"/>
+    <flow id="flow_1" begin="1.00" end="3600.00" number="100" route="route_1"/>
+    <flow id="flow_2" begin="2.00" end="3600.00" number="100" route="route_2"/>
+    <flow id="flow_3" begin="3.00" end="3600.00" number="100" route="route_3"/>
+    <flow id="flow_4" begin="3.00" end="3600.00" number="100" route="route_4"/>
+    <flow id="flow_5" begin="3.00" end="3600.00" number="100" route="route_5"/>
 </routes>

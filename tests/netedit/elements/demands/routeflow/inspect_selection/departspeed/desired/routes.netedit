@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-13 15:38:17 by Eclipse SUMO netedit Version v1_21_0+1860-c02e12adcaa
+<!-- generated on 2025-10-10T10:53:49.735487+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,12 +18,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
     <route id="routeB" edges="Edge3 Edge4 Edge5" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flowA" begin="0.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="desired" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" route="routeA" end="2600.00" number="13">
+    <flow id="flowA" begin="0.00" end="2600.00" number="13" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="desired" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" route="routeA">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </flow>
-    <flow id="flowB" begin="10.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="desired" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" route="routeB" end="3600.00" number="18">
+    <flow id="flowB" begin="10.00" end="3600.00" number="18" departLane="free" departPos="random" departPosLat="random_free" departSpeed="desired" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" route="routeB">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
