@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-09 08:57+0000\n"
+"PO-Revision-Date: 2025-10-10 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5758,17 +5758,17 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
-msgstr ""
+msgstr "WAUT '%' wurde schon zuvor definiert."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:672
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:694
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:729
 msgid "Waut '%' was not yet defined."
-msgstr ""
+msgstr "WAUT '%' wurde noch nicht definiert."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
-msgstr ""
+msgstr "Die zu ändernde LSA '%' aus WAUT '%' wurde noch nicht definiert."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:168
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -14008,7 +14008,7 @@ msgstr "Laden von Formen von % fehlgeschlagen."
 
 #: src/utils/tests/InternalTest.cpp:318
 msgid "Could not open attributes enum file '%'."
-msgstr ""
+msgstr "Die Datei '%' mit Attributwerten konnte nicht geöffnet werden."
 
 #: src/utils/tests/InternalTest.cpp:332
 #, c-format
@@ -14579,7 +14579,7 @@ msgstr "Scalable Vector Graphics"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1798
 msgid "LATEX text strings"
-msgstr ""
+msgstr "LATEX-Zeichenketten"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 msgid "Portable LaTeX Graphics"
@@ -14588,27 +14588,27 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1800
 msgid "All Files"
-msgstr ""
+msgstr "Alle Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
 msgid "All Image and Video Files"
-msgstr ""
+msgstr "Alle Bild- und Videodateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
 msgid "All Video Files"
-msgstr ""
+msgstr "Alle Videodateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
 msgid "G264 Video"
-msgstr ""
+msgstr "G264-Video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
 msgid "HEVC Video"
-msgstr ""
+msgstr "HEVC-Video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
 msgid "MP4 Video"
-msgstr ""
+msgstr "MP4-Video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1799
 msgid "Portable"
@@ -14648,19 +14648,19 @@ msgstr "Sumo-Netzdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1851
 msgid "TLS files"
-msgstr ""
+msgstr "LSA-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1857
 msgid "Junction files"
-msgstr ""
+msgstr "Knotendateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1863
 msgid "Edge type files"
-msgstr ""
+msgstr "Kantentypendateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1869
 msgid "Additional files"
-msgstr ""
+msgstr "Dateien mit weiteren Elementen"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1880
 msgid "Route files"
