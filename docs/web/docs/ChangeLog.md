@@ -23,6 +23,11 @@ title: ChangeLog
   - Fixed initialization of intermodal taxi routing graph when taxis are defined as a flow #17168
   - Fixed crash when loading roads with a rail_signal #17183
   - Fixed infinite loop when loading tls program with an actuated red phase that has multiple targets #17186
+  - Fixed unsafe vehicle insertion ahead of a junction #17192, #17194
+  - Fixed crash on missing attribute in parquet output #17195
+  - Fixed unsafe driving on green major link with internal junction #17196
+  - Left-turning vehicles no longer slow down for outgoing crossing when in a protected (green major) phase #17194
+  - Fixed emergency braking in subsecond simulation involving stranded car #17203
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
@@ -39,6 +44,8 @@ title: ChangeLog
   - Fixed freen when saving empty mean data elements #16812
   - POIs no longer write layer and color attributes with the default value #17128
   - Visual scaling of selected edges is now smooth #16977
+  - Fixed invalid position of elements of detectors and stopping places in networks with elevation #17189
+  - Recently used list no longer contains relative paths when loading files on the command line #17205
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -53,6 +60,7 @@ title: ChangeLog
   - Fixed invalid stranded-on-red conflict in response matrix #17076
   - Fixed crash when loading network with NaN values #17161 (also applies to netedit)
   - Fixed invalid junction shape (with NaN) #17182
+  - OpenDRIVE import: now handling problematic geometries that were causing NaN values #17163
 
 - sumo-gui
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
@@ -98,6 +106,8 @@ title: ChangeLog
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131
   - FCD output for persons and containers can now be written to a separate file #16814
   - The attribute order in the FCD output is now similar for vehicles and persons (affects only the type attribute).
+  - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
+
 
 - netedit
   - Now translating additional tooltips #12652
@@ -118,6 +128,7 @@ title: ChangeLog
   - BusStop and all other stopping places now support `<param key="waitingDepth" value="FLOAT"/>` to customize spacing depth of waiting transportables #17088
 
 - duarouter
+  - Added option **--keep-flows** to avoid expanding flows into individual vehicles #2407
   - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
 
 - netconvert
@@ -138,6 +149,8 @@ title: ChangeLog
   - instantOutToEdgeData.py: new tool to convert induction loop output to edgeData #17048
   - createOvertakingReroutes.py: new tool for building railway rerouters #16448
   - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157
+  - duaIterate.py: option **--gzip** is enabled by default. Option **--no-gzip** may be used for the old behavior. #16777
+  - randomTrips.py: options **--flows** and **--route-file** now writes flows and runs much faster #17200, #17204
 
 
 ### Miscellaneous
@@ -148,6 +161,7 @@ title: ChangeLog
 - Command line output under Windows now usees UTF charset #17093
 - [Automatic rerouting](Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
 - Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
+- duaIterate.py: option **--binary** was removed #16777
 
 
 ## Version 1.24.0 (22.07.2025)
