@@ -103,9 +103,7 @@ title: ChangeLog
   - Added options **--device.rerouting.threshold.factor** and **--device.rerouting.threshold.constant** to avoid routing if the [improvement in travel time is too low](Demand/Automatic_Routing.md#improvement_thresholds) #4635
   - The junction model parameter `jmDriveRedSpeed` now takes effect when emergency vehicles with the bluelight device pass an intersection on red #17120
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
-  - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131
-  - FCD output for persons and containers can now be written to a separate file #16814
-  - The attribute order in the FCD output is now similar for vehicles and persons (affects only the type attribute).
+  - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131  
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
 
 
@@ -162,6 +160,7 @@ title: ChangeLog
 - [Automatic rerouting](Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
 - Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
 - duaIterate.py: option **--binary** was removed #16777
+- The attribute order in the FCD output of persons was changed and is now similar to the vehicles (affects only the type attribute).
 
 
 ## Version 1.24.0 (22.07.2025)
