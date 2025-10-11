@@ -30,14 +30,6 @@
 #include <windows.h>
 #endif
 
-// robust way to detect macos on github cio
-#if __has_include(<TargetConditionals.h>)
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#define __APPLE__
-#endif
-#endif
-
 // disable boost on macos to avoid build issues
 #if defined(HAVE_BOOST) && !defined(__APPLE__)
 #include <boost/stacktrace.hpp>
@@ -74,7 +66,7 @@ ProcessError::getTrace() const {
 void
 ProcessError::processTrace() {
 // only process if we have boost
-#if defined(HAVE_BOOST) && !defined(___APPLE__)
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
     // declare stacktrace
     boost::stacktrace::stacktrace st;
     // convert trace using ostringstream
