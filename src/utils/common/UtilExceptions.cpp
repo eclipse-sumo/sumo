@@ -30,6 +30,15 @@
 #include <windows.h>
 #endif
 
+// robust way to detect macos on github cio
+#if __has_include(<TargetConditionals.h>)
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#define __APPLE__
+#endif
+#endif
+
+// disable boost on macos to avoid build issues
 #if defined(HAVE_BOOST) && !defined(__APPLE__)
 #include <boost/stacktrace.hpp>
 #endif
