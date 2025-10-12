@@ -1,3 +1,6 @@
+# use custom switching rules to replicate the default behavior but permit skipping the exclusive left-turn-phase
+skip_left
+
 # test for approximating a dual-ring controller by using the actuated branching logic
 dualring_simple
 

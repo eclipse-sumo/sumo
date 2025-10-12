@@ -7,6 +7,9 @@ default
 # use custom switching rules to replicate the default behavior
 replicate_default
 
+# use custom switching rules to replicate the default behavior but permit skipping the exclusive left-turn-phase
+replicate_default_skip_left
+
 # use custom switching rules to replicate the default behavior
 replicate_default_simplified
 
