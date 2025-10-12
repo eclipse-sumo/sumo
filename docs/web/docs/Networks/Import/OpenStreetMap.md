@@ -315,11 +315,15 @@ achieve the former, see [\#Junctions](#junctions). To achieve
 the latter some extra options are recommended. OSM often uses nodes
 ahead of an intersection to represent the position of traffic light
 signals. The actual intersection itself is then not marked as
-controlled. To interpret these structures the option **--tls.guess-signals** and **--tls.guess-signals.dist** {{DT_FLOAT}} may be used.
-To cover the cases where this heuristic fails, the options below may be
-used to computed a joint tls plan for multiple nodes.
+controlled.
+To interpret these structures the option **--tls.guess-signals** and **--tls.guess-signals.dist** {{DT_FLOAT}} may be used.
+By default, only junctions where all incoming arms have an upstream signal (within range of **--tls.guess-signals.dist** {{DT_FLOAT}}, default 25) are interpreted as tls-controlled.
+It may be helpful to set option **--tls.guess-signals.slack {{DT_INT}}** to permit {{DT_INT}} number of incoming arms to be without signal (i.e. from service roads)
 To identify the guessed signals in a network they all start with the prefix *GS_*
 before the node id.
+
+To cover the cases where this heuristic fails, the options below may be
+used to computed a joint tls plan for multiple nodes.
 
 ### Joining traffic lights
 
