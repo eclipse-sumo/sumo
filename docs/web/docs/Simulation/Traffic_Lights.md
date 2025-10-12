@@ -455,6 +455,23 @@ Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/su
 
 The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can be used to generate such logics from simplified definitions.
 
+#### Exampe: left-turn phases can be skipped
+
+```xml
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="8 1"/>
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="9 5"/>
+        <phase duration="3"  state="rrygrryg"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" next="0"/>
+        <phase duration="3"  state="yyrryyrr" next="4"/>
+        <phase duration="3"  state="rryyrryy"/>
+    </tlLogic>
+```
+
 ## Type 'actuated' with custom switching rules
 
 By default, all traffic light programs are governed by the same pre-defined rules
