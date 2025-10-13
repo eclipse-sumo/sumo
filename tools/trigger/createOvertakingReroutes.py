@@ -25,7 +25,6 @@ import os
 import sys
 import subprocess
 from collections import defaultdict
-import math
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -91,7 +90,7 @@ def parseRoutes(options):
 
 def findSwitches(options, routes, net):
     # boolean flag isOff indicates that the switch exits the main route rather than enters it
-    switches = defaultdict(lambda: []) # rid -> [(edge, isOff), ...]
+    switches = defaultdict(lambda: [])  # rid -> [(edge, isOff), ...]
     numIgnoredEdges = 0
     numRoutesIgnoredEdges = 0
     for rid, edges in routes.items():
@@ -99,7 +98,7 @@ def findSwitches(options, routes, net):
         lastI = len(edges) - 1
         for i, eid in enumerate(edges):
             if not net.hasEdge(eid):
-                print("Unknown edge '%' in route '%'" % (eid, rid), file=sys.stderr)
+                print("Unknown edge '%s' in route '%s'" % (eid, rid), file=sys.stderr)
                 continue
             e = net.getEdge(eid)
             if not e.allows(options.vclass):
@@ -125,10 +124,10 @@ def findSwitches(options, routes, net):
 
 def findSidings(options, routes, switches, net):
     """use duarouter to compute paths that exit and re-enter each route"""
-    fromTo = defaultdict(lambda: set()) # from -> set(to)
-    fromToRoutes = defaultdict(lambda: []) # (from, to) -> [(rid, fromIndex), ]
+    fromTo = defaultdict(lambda: set())  # from -> set(to)
+    fromToRoutes = defaultdict(lambda: [])  # (from, to) -> [(rid, fromIndex), ]
     for rid, swlist in switches.items():
-        on = {} # eid, toIndex
+        on = {} #  eid, toIndex
         for i, eid, isOff in reversed(swlist):
             if isOff:
                 fromTo[eid].update(on.keys())
@@ -166,13 +165,13 @@ def findSidings(options, routes, switches, net):
 
     tmpOut = options.outfile + ".tmp.out.rou.xml"
     subprocess.call([DUAROUTER,
-        '-n', options.netfile,
-        '-r', tmpTrips,
-        '-w', tmpWeights,
-        '-o', tmpOut,
-        '--ignore-errors',
-        '--no-warnings'],
-        stdout=subprocess.DEVNULL)
+                     '-n', options.netfile,
+                     '-r', tmpTrips,
+                     '-w', tmpWeights,
+                     '-o', tmpOut,
+                     '--ignore-errors',
+                     '--no-warnings'],
+                    stdout=subprocess.DEVNULL)
 
     # collect sidings after routing
     sidings = dict()  # main -> siding
@@ -187,7 +186,7 @@ def findSidings(options, routes, switches, net):
             if intersect:
                 warning = (fromTo[0], fromTo[1], intersect)
                 if warning not in warnings:
-                    print("Discarding candidate siding from '%s' to '%s' because it intersects route '%s' at edge '%s'" % (
+                    print("Discarding candidate siding from '%s' to '%s' because it intersects route '%s' at edge '%s'" % (  # noqa
                         fromTo[0], fromTo[1], rid, intersect))
                     warnings.add(warning)
                 continue
@@ -208,10 +207,10 @@ def usesRoute(routes, rid, fromIndex, toIndex, edges):
 
 
 def filterSidings(options, net, sidings):
-    sidings2 = {} 
+    sidings2 = {}
     for main, (rid, fromIndex, edges) in sidings.items():
         sidingLength = 0  # total length
-        usableLength = 0 
+        usableLength = 0
         foundSignal = False
         for eid in reversed(edges):
             if net.hasEdge(eid):
@@ -245,7 +244,7 @@ def filterSidings(options, net, sidings):
 
 
 def findFollowerSidings(options, routes, sidings, sidingRoutes):
-    routeSidings = defaultdict(lambda: []) # rid -> [mainEdges, mainEdges2, ...]
+    routeSidings = defaultdict(lambda: []) #  rid -> [mainEdges, mainEdges2, ...]
     for main, rlist in sidingRoutes.items():
         if main not in sidings:
             continue
@@ -253,8 +252,8 @@ def findFollowerSidings(options, routes, sidings, sidingRoutes):
             routeSidings[rid].append((fromIndex, main))
     for rid in routeSidings.keys():
         routeSidings[rid].sort()
-    #print("\n".join(map(str, sidingRoutes.items())))
-    #print("\n".join(map(str, routeSidings.items())))
+    # print("\n".join(map(str, sidingRoutes.items())))
+    # print("\n".join(map(str, routeSidings.items())))
 
     followerSidings = defaultdict(lambda: [])  # mainEdgse -> [mainEdges2, ...]
     for main, (rid, fromIndex, edges) in sidings.items():
@@ -287,9 +286,10 @@ def writeSidings(options, routes, sidings, followerSidings):
 def main(options):
     """
     - parse routes (edges, an associated id)
-    - find switches (entering and leaving the route) for each route, ordered along the route (route index, enter-exit-type)
-    - for each exiting switch find the shortest to all entering switches that come after it (from the first edge outside the route 
-      to the last edge outside the route)
+    - find switches (entering and leaving the route) for each route,
+      ordered along the route (route index, enter-exit-type)
+    - for each exiting switch find the shortest to all entering switches that come after it
+      (from the first edge outside the route to the last edge outside the route)
       - may use duarouter bulk routing since there mulitple targets for each exiting switch
     - filter found paths (sidings) according to
       - maximum permitted space detour (user defined threshold)
@@ -297,17 +297,17 @@ def main(options):
       - presence of a signal on the siding
       - minimum length of siding
       - user defined vClass
-    - write unique main/siding pairs as overtakingReroute (all other attributes of the overtakingReroute should be configurable
-      with options)
+    - write unique main/siding pairs as overtakingReroute
+      (all other attributes of the overtakingReroute should be configurable with options)
       """
 
     net = sumolib.net.readNet(options.netfile)
     routes = parseRoutes(options)
-    #print("\n".join(map(str, routes.items())))
+    # print("\n".join(map(str, routes.items())))
     switches = findSwitches(options, routes, net)
-    #print("\n".join(map(str, switches.items())))
+    # print("\n".join(map(str, switches.items())))
     sidings, sidingRoutes = findSidings(options, routes, switches, net)
-    #print("\n".join(map(str, sidings.items())))
+    # print("\n".join(map(str, sidings.items())))
     sidings = filterSidings(options, net, sidings)
     followerSidings = findFollowerSidings(options, routes, sidings, sidingRoutes)
     writeSidings(options, routes, sidings, followerSidings)

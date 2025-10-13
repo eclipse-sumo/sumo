@@ -69,7 +69,6 @@ def addEdgeShape(net, edge, shape, tazID):
         print("Edge '%s' in TAZ '%s' not found." % (edge, tazID), file=sys.stderr)
 
 
-
 def main(options):
     relsFrom = defaultdict(lambda: 0)
     relsTo = defaultdict(lambda: 0)
@@ -98,8 +97,8 @@ def main(options):
                 if options.net is None:
                     if options.netfile is None:
                         print(("TAZ '%s' because it doesn't define 'center' or 'shape'." % taz.id)
-                               + " Option --net-file must be set to handle this input",
-                               file=sys.stderr)
+                              + " Option --net-file must be set to handle this input",
+                              file=sys.stderr)
                         continue
                     options.net = sumolib.net.readNet(options.netfile)
                 shape = []
@@ -120,7 +119,6 @@ def main(options):
                 x = (bbox[0] + bbox[2]) / 2
                 y = (bbox[1] + bbox[3]) / 2
 
-
             if options.sizeMetric == 'in':
                 val = relsTo[taz.id]
             elif options.sizeMetric == 'out':
@@ -134,6 +132,7 @@ def main(options):
             outf.write('        <param key="all" value="%s"/>\n' % (relsFrom[taz.id] + relsTo[taz.id]))
             outf.write('    </poi>\n')
         outf.write('</additional>\n')
+
 
 if __name__ == "__main__":
     try:
