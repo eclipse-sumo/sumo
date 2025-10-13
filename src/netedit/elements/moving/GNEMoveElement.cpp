@@ -37,7 +37,7 @@ GNEMoveElement::~GNEMoveElement() {}
 
 
 std::string
-GNEMoveElement::getMovingAttribute(const Parameterised* /* parameterised */, SumoXMLAttr key) const {
+GNEMoveElement::getMovingAttribute(SumoXMLAttr key) const {
     throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
 }
 
@@ -61,7 +61,7 @@ GNEMoveElement::isMovingAttributeValid(SumoXMLAttr key, const std::string& /*val
 
 
 void
-GNEMoveElement::setMovingAttribute(Parameterised* /*parameterised*/, SumoXMLAttr key, const std::string& /*value*/) {
+GNEMoveElement::setMovingAttribute(SumoXMLAttr key, const std::string& /*value*/) {
     throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
 }
 

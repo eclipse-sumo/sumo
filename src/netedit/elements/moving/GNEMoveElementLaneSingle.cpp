@@ -54,7 +54,7 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 
 
 std::string
-GNEMoveElementLaneSingle::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEMoveElementLaneSingle::getMovingAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LANE:
             return myMovedElement->getHierarchicalElement()->getParentLanes().front()->getID();
@@ -114,7 +114,7 @@ GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::str
 
 
 void
-GNEMoveElementLaneSingle::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
             myPosOverLane = GNEAttributeCarrier::parse<double>(value);

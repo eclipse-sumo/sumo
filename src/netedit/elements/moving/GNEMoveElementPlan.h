@@ -52,10 +52,28 @@ public:
     */
     GNEMoveOperation* getMoveOperation();
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+    /// @name functions related with moving attributes
+    /// @{
+
+    /// @brief get moving attribute
+    std::string getMovingAttribute(SumoXMLAttr key) const;
+
+    /// @brief get moving attribute (double)
+    double getMovingAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief set moving attribute (using undo-list)
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /// @brief check if the given moving attribute is valid
+    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+
+    /// @brief set moving attribute
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @}
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
 private:
     /// @brief planElement

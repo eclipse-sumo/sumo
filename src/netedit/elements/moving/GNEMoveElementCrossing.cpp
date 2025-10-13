@@ -38,6 +38,36 @@ GNEMoveElementCrossing::GNEMoveElementCrossing(GNECrossing* crossing) :
 GNEMoveElementCrossing::~GNEMoveElementCrossing() {}
 
 
+std::string
+GNEMoveElementCrossing::getMovingAttribute(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttribute(key);
+}
+
+
+double
+GNEMoveElementCrossing::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+void
+GNEMoveElementCrossing::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    myMovedElement->setCommonAttribute(key, value, undoList);
+}
+
+
+bool
+GNEMoveElementCrossing::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return myMovedElement->isCommonValid(key, value);
+}
+
+
+void
+GNEMoveElementCrossing::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    myMovedElement->setCommonAttribute(key, value);
+}
+
+
 GNEMoveOperation*
 GNEMoveElementCrossing::getMoveOperation() {
     // edit depending if shape is being edited

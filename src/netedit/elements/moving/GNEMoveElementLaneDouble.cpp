@@ -131,14 +131,8 @@ GNEMoveElementLaneDouble::getMoveOperation() {
 }
 
 
-void
-GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do here
-}
-
-
 std::string
-GNEMoveElementLaneDouble::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEMoveElementLaneDouble::getMovingAttribute(SumoXMLAttr key) const {
     // position attributes
     if (key == myStartPosAttr) {
         if (myStartPosValue == INVALID_DOUBLE) {
@@ -294,7 +288,7 @@ GNEMoveElementLaneDouble::isMovingAttributeValid(SumoXMLAttr key, const std::str
 
 
 void
-GNEMoveElementLaneDouble::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEMoveElementLaneDouble::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
     // position attributes
     if (key == myStartPosAttr) {
         if (value.empty() || (value == GNEAttributeCarrier::LANE_START)) {
@@ -333,6 +327,13 @@ GNEMoveElementLaneDouble::setMovingAttribute(Parameterised* parameterised, SumoX
         }
     }
 }
+
+
+void
+GNEMoveElementLaneDouble::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do here
+}
+
 
 bool
 GNEMoveElementLaneDouble::isMoveElementValid() const {
