@@ -36,7 +36,7 @@ class GNEVehicle;
 // class definitions
 // ====================================================================
 
-class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+class GNEPersonTrip : public GNEDemandElement, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -66,6 +66,9 @@ public:
 
     /// @brief get parameters associated with this personTrip
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this personTrip
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -208,9 +211,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief valid line or vehicle types

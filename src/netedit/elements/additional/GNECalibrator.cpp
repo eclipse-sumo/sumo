@@ -129,6 +129,12 @@ GNECalibrator::getParameters() {
 }
 
 
+const Parameterised*
+GNECalibrator::getParameters() const {
+    return this;
+}
+
+
 void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // open tag
@@ -350,7 +356,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -358,12 +364,6 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
 double
 GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNECalibrator::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -577,7 +577,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

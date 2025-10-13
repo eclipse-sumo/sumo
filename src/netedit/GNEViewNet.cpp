@@ -1282,7 +1282,7 @@ std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(GNE_TAG_EDGEREL_SINGLE)) {
-        for (const auto& parameter : genericData.second->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }
@@ -1294,12 +1294,12 @@ std::vector<std::string>
 GNEViewNet::getRelDataAttrs() const {
     std::set<std::string> keys;
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
-        for (const auto& parameter : genericData.second->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_EDGEREL)) {
-        for (const auto& parameter : genericData.second->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }

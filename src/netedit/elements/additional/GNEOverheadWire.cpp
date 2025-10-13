@@ -72,6 +72,12 @@ GNEOverheadWire::getParameters() {
 }
 
 
+const Parameterised*
+GNEOverheadWire::getParameters() const {
+    return this;
+}
+
+
 void
 GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);
@@ -314,7 +320,7 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -341,12 +347,6 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNEOverheadWire::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -462,7 +462,7 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

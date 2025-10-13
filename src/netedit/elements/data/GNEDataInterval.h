@@ -32,7 +32,7 @@ class GNEGenericData;
 // class definitions
 // ===========================================================================
 
-class GNEDataInterval : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
+class GNEDataInterval : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor
@@ -45,7 +45,7 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
-    /// @brief methods to retrieve the elements linked to this dataSet
+    /// @brief methods to retrieve the elements linked to this dataInterval
     /// @{
 
     /// @brief get GNEHierarchicalElement associated with this dataInterval
@@ -56,6 +56,9 @@ public:
 
     /// @brief get parameters associated with this dataInterval
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this dataInterval (const)
+    const Parameterised* getParameters() const override;
 
     /// @brief get GUIGlObject associated with this dataInterval
     GUIGlObject* getGUIGlObject() override;
@@ -195,9 +198,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief all attribute colors

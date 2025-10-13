@@ -52,7 +52,13 @@ GNEWalkingArea::getMoveElement() const {
 
 Parameterised*
 GNEWalkingArea::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEWalkingArea::getParameters() const {
+    return nullptr;
 }
 
 
@@ -241,7 +247,7 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(walkingArea.shape);
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -311,12 +317,6 @@ GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             return isCommonValid(key, value);
     }
-}
-
-
-const Parameterised::Map&
-GNEWalkingArea::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -412,7 +412,7 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             walkingArea.hasCustomShape = true;
             break;
         default:
-            setCommonAttribute(nullptr, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

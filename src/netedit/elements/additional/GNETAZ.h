@@ -60,14 +60,17 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @brief methods to retrieve the elements linked to this TAZ
     /// @{
 
-    /// @brief get GNEMoveElement associated with this GNEAdditional
+    /// @brief get GNEMoveElement associated with this TAZ
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this GNEAdditional
+    /// @brief get parameters associated with this TAZ
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this TAZ (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -169,9 +172,6 @@ public:
      * @return double with the value associated to key
      */
     Position getAttributePosition(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

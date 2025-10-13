@@ -57,7 +57,13 @@ GNEClosingLaneReroute::getMoveElement() const {
 
 Parameterised*
 GNEClosingLaneReroute::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEClosingLaneReroute::getParameters() const {
+    return nullptr;
 }
 
 
@@ -165,7 +171,7 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -173,12 +179,6 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEClosingLaneReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEClosingLaneReroute::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -250,7 +250,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

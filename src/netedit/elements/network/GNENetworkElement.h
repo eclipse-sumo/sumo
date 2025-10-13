@@ -229,9 +229,6 @@ public:
     /// @brief set network element id
     void setNetworkElementID(const std::string& newID);
 
-    /// @brief get parameters map
-    virtual const Parameterised::Map& getACParametersMap() const = 0;
-
 protected:
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;

@@ -61,6 +61,9 @@ public:
     /// @brief get parameters associated with this crossing
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this crossing (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @brief check if current network element is valid to be written into XML
@@ -189,9 +192,6 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief return true if a edge belongs to crossing's edges
     bool checkEdgeBelong(GNEEdge* edges) const;

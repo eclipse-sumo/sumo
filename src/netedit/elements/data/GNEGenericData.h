@@ -57,19 +57,22 @@ public:
     /// @brief methods to retrieve the elements linked to this dataSet
     /// @{
 
-    /// @brief get GNEHierarchicalElement associated with this dataInterval
+    /// @brief get GNEHierarchicalElement associated with this genericData
     GNEHierarchicalElement* getHierarchicalElement() override;
 
-    /// @brief get GNEMoveElement associated with this dataInterval
+    /// @brief get GNEMoveElement associated with this genericData
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this dataInterval
+    /// @brief get parameters associated with this genericData
     Parameterised* getParameters() override;
 
-    /// @brief get GUIGlObject associated with this dataInterval
+    /// @brief get parameters associated with this genericData (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @brief get GUIGlObject associated with this genericData
     GUIGlObject* getGUIGlObject() override;
 
-    /// @brief get GUIGlObject associated with this dataInterval (constant)
+    /// @brief get GUIGlObject associated with this genericData (constant)
     const GUIGlObject* getGUIGlObject() const override;
 
     /// @}
@@ -239,10 +242,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
 protected:
     /// @brief dataInterval Parent

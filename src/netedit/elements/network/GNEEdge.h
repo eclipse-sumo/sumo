@@ -78,6 +78,9 @@ public:
     /// @brief get parameters associated with this edge
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this edge (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @brief get from Junction (only used to increase readability)
@@ -252,9 +255,6 @@ public:
     bool isAttributeComputed(SumoXMLAttr key) const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);

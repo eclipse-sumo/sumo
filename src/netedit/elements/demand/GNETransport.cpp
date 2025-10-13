@@ -67,7 +67,13 @@ GNETransport::getMoveElement() const {
 
 Parameterised*
 GNETransport::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNETransport::getParameters() const {
+    return nullptr;
 }
 
 
@@ -259,12 +265,6 @@ GNETransport::getPopUpID() const {
 std::string
 GNETransport::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNETransport::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

@@ -51,14 +51,17 @@ public:
     /// @brief Destructor
     ~GNERouteProbe();
 
-    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @brief methods to retrieve the elements linked to this routeProbe
     /// @{
 
-    /// @brief get GNEMoveElement associated with this GNEAdditional
+    /// @brief get GNEMoveElement associated with this routeProbe
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this GNEAdditional
+    /// @brief get parameters associated with this routeProbe
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this routeProbe (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -140,9 +143,6 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

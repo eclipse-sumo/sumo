@@ -89,6 +89,9 @@ public:
     /// @brief get parameters associated with this GNEDemandElement
     virtual Parameterised* getParameters() = 0;
 
+    /// @brief get parameters associated with this AttributeCarrier (constant)
+    virtual const Parameterised* getParameters() const = 0;
+
     /// @brief get GUIGlObject associated with this GNEDemandElement
     GUIGlObject* getGUIGlObject() override;
 
@@ -302,9 +305,6 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief get parameters map
-    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

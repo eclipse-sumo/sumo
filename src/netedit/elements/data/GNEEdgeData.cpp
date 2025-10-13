@@ -277,7 +277,7 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -327,7 +327,7 @@ GNEEdgeData::getHierarchyName() const {
 
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
     if (!isTemplate()) {
         myDataIntervalParent->getDataSetParent()->updateAttributeColors();
     }

@@ -1,3 +1,4 @@
+#include "GNEParkingSpace.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -72,6 +73,12 @@ GNEParkingSpace::getMoveElement() const {
 
 Parameterised*
 GNEParkingSpace::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEParkingSpace::getParameters() const {
     return this;
 }
 
@@ -284,7 +291,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
                 return getParentAdditionals().at(0)->getID();
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -301,12 +308,6 @@ GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNEParkingSpace::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -485,7 +486,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

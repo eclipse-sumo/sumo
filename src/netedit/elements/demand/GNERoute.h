@@ -111,6 +111,9 @@ public:
     /// @brief get parameters associated with this route
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this route (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /**@brief write demand element element into a xml file
@@ -254,10 +257,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges

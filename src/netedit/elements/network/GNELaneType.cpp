@@ -60,6 +60,12 @@ GNELaneType::getParameters() {
 }
 
 
+const Parameterised*
+GNELaneType::getParameters() const {
+    return this;
+}
+
+
 GNEEdgeType*
 GNELaneType::getEdgeTypeParent() const {
     return myEdgeTypeParent;
@@ -227,7 +233,7 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
                 return toString(width);
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -273,12 +279,6 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             return isCommonValid(key, value);
     }
-}
-
-
-const Parameterised::Map&
-GNELaneType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -337,7 +337,7 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update edge selector

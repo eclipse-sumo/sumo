@@ -133,7 +133,7 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
                 return "invalid flow spacing";
             }
         default:
-            return flowElement->getCommonAttribute(this, key);
+            return flowElement->getCommonAttribute(key);
     }
 }
 
@@ -376,7 +376,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
             }
             break;
         default:
-            flowElement->setCommonAttribute(this, key, value);
+            flowElement->setCommonAttribute(key, value);
             break;
     }
 }

@@ -411,7 +411,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // create parameters dialog
-    const auto singleParametersDialog = GNEParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getACParametersMap());
+    const auto singleParametersDialog = GNEParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getParameters()->getParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         if (isEditorTypeCreator()) {

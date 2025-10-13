@@ -54,7 +54,13 @@ GNERerouterSymbol::getMoveElement() const {
 
 Parameterised*
 GNERerouterSymbol::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERerouterSymbol::getParameters() const {
+    return nullptr;
 }
 
 
@@ -180,7 +186,7 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -188,12 +194,6 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     return 0;
-}
-
-
-const Parameterised::Map&
-GNERerouterSymbol::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -287,7 +287,7 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
 
 void
 GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
 }
 
 /****************************************************************************/

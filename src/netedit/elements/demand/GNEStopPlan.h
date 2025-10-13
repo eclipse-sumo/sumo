@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEStopPlan : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+class GNEStopPlan : public GNEDemandElement, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -59,6 +59,9 @@ public:
 
     /// @brief get parameters associated with this stopPlan
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this stopPlan
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -208,9 +211,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief variable used for draw contours

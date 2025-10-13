@@ -55,7 +55,13 @@ GNEVariableSpeedSignStep::getMoveElement() const {
 
 Parameterised*
 GNEVariableSpeedSignStep::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVariableSpeedSignStep::getParameters() const {
+    return nullptr;
 }
 
 
@@ -158,7 +164,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -171,12 +177,6 @@ GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNEVariableSpeedSignStep::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -256,7 +256,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
             mySpeed = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

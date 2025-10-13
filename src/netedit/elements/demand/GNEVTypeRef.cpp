@@ -53,7 +53,13 @@ GNEVTypeRef::getMoveElement() const {
 
 Parameterised*
 GNEVTypeRef::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVTypeRef::getParameters() const {
+    return nullptr;
 }
 
 
@@ -72,8 +78,6 @@ GNEVTypeRef::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_VTYPE);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }
@@ -194,7 +198,7 @@ GNEVTypeRef::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -270,12 +274,6 @@ GNEVTypeRef::getHierarchyName() const {
     return TLF("%: % -> %", myTagProperty->getTagStr(), getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
 }
 
-
-const Parameterised::Map&
-GNEVTypeRef::getACParametersMap() const {
-    return getParametersMap();
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -291,7 +289,7 @@ GNEVTypeRef::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

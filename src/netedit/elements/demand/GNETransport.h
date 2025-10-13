@@ -36,7 +36,7 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNETransport : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+class GNETransport : public GNEDemandElement, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -64,6 +64,9 @@ public:
 
     /// @brief get parameters associated with this transport
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this transport (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -206,9 +209,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief The list of lines that are assigned to this stop

@@ -66,6 +66,13 @@ GNEConnection::getParameters() {
 }
 
 
+const Parameterised*
+GNEConnection::getParameters() const {
+    return &getNBEdgeConnection();
+
+}
+
+
 const PositionVector&
 GNEConnection::getConnectionShape() const {
     if (myConnectionGeometry.getShape().size() > 0) {
@@ -456,7 +463,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().back()->getID();
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_FRONTELEMENT:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getToJunction()->getID();
         default:
@@ -525,7 +532,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         default:
-            return getCommonAttribute(&nbCon, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -920,12 +927,6 @@ GNEConnection::isAttributeComputed(SumoXMLAttr key) const {
     }
 }
 
-
-const Parameterised::Map&
-GNEConnection::getACParametersMap() const {
-    return getNBEdgeConnection().getParametersMap();
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -994,7 +995,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.edgeType = value;
             break;
         default:
-            setCommonAttribute(&nbCon, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)

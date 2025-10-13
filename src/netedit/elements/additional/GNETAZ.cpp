@@ -79,6 +79,12 @@ GNETAZ::getParameters() {
 }
 
 
+const
+Parameterised* GNETAZ::getParameters() const {
+    return this;
+}
+
+
 int
 GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid
@@ -433,7 +439,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
                 return toString(myAverageWeightSink);
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -469,12 +475,6 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNETAZ::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -665,7 +665,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEdgesWithin = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

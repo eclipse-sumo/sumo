@@ -75,6 +75,12 @@ GNEGenericData::getParameters() {
 }
 
 
+const Parameterised*
+GNEGenericData::getParameters() const {
+    return this;
+}
+
+
 GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;
@@ -265,12 +271,6 @@ GNEGenericData::updateGLObject() {
 bool
 GNEGenericData::isPathElementSelected() const {
     return mySelected;
-}
-
-
-const Parameterised::Map&
-GNEGenericData::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ---------------------------------------------------------------------------

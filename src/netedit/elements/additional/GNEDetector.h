@@ -69,14 +69,17 @@ public:
     /// @brief Destructor
     ~GNEDetector();
 
-    /// @brief methods to retrieve the elements linked to this GNEDetector
+    /// @brief methods to retrieve the elements linked to this detector
     /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    /// @brief get GNEMoveElement associated with this detector
     virtual GNEMoveElement* getMoveElement() const = 0;
 
-    /// @brief get parameters associated with this AttributeCarrier
+    /// @brief get parameters associated with this detector
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this detector (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -154,9 +157,6 @@ public:
      * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

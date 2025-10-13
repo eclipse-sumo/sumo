@@ -66,7 +66,13 @@ GNERide::getMoveElement() const {
 
 Parameterised*
 GNERide::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERide::getParameters() const {
+    return nullptr;
 }
 
 
@@ -257,12 +263,6 @@ GNERide::getPopUpID() const {
 std::string
 GNERide::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNERide::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

@@ -75,6 +75,9 @@ public:
     /// @brief get parameters associated with this GNEAdditional
     virtual Parameterised* getParameters() = 0;
 
+    /// @brief get parameters associated with this AttributeCarrier (constant)
+    virtual const Parameterised* getParameters() const = 0;
+
     /// @brief get GUIGlObject associated with this GNEAdditional
     GUIGlObject* getGUIGlObject() override;
 
@@ -270,9 +273,6 @@ public:
      * @return double with the value associated to key
      */
     virtual Position getAttributePosition(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

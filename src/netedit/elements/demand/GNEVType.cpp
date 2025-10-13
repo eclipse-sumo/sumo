@@ -115,6 +115,12 @@ GNEVType::getParameters() {
 }
 
 
+const Parameterised*
+GNEVType::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -515,7 +521,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return FALSE_STR;
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -964,12 +970,6 @@ GNEVType::getPopUpID() const {
 std::string
 GNEVType::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
-}
-
-
-const Parameterised::Map&
-GNEVType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -1847,7 +1847,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myDefaultVehicleTypeModified = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // check if geometry must be marked as deprecated

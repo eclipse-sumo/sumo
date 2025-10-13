@@ -35,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEDataSet : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
+class GNEDataSet : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief attribute colors
@@ -92,6 +92,9 @@ public:
 
     /// @brief get parameters associated with this dataSet
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this dataSet (constant)
+    const Parameterised* getParameters() const override;
 
     /// @brief get GUIGlObject associated with this dataSet
     GUIGlObject* getGUIGlObject() override;
@@ -211,9 +214,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief dataSet ID

@@ -54,6 +54,12 @@ GNELaneTemplate::getParameters() {
 }
 
 
+const Parameterised*
+GNELaneTemplate::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;
@@ -166,12 +172,6 @@ GNELaneTemplate::getPopUpID() const {
 std::string
 GNELaneTemplate::getHierarchyName() const {
     return myLane->getHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNELaneTemplate::getACParametersMap() const {
-    return myLane->getACParametersMap();
 }
 
 // ===========================================================================

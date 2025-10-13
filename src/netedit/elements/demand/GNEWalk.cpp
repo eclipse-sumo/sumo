@@ -65,7 +65,13 @@ GNEWalk::getMoveElement() const {
 
 Parameterised*
 GNEWalk::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEWalk::getParameters() const {
+    return nullptr;
 }
 
 
@@ -278,12 +284,6 @@ GNEWalk::getPopUpID() const {
 std::string
 GNEWalk::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEWalk::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

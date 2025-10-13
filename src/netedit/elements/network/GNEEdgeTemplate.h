@@ -54,6 +54,9 @@ public:
     /// @brief get parameters associated with this edgeTemplate
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this edgeTemplate (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @brief get vector with the lane templates of this edge
@@ -150,9 +153,6 @@ public:
     std::string getHierarchyName() const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief pointer to original edge

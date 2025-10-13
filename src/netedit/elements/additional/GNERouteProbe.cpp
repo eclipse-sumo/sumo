@@ -69,6 +69,12 @@ GNERouteProbe::getParameters() {
 }
 
 
+const Parameterised*
+GNERouteProbe::getParameters() const {
+    return this;
+}
+
+
 void
 GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // open tag
@@ -253,7 +259,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -266,12 +272,6 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNERouteProbe::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -380,7 +380,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

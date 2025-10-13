@@ -1316,17 +1316,17 @@ std::vector<std::string>
 GNENetHelper::AttributeCarriers::getPOIParamKeys() const {
     std::set<std::string> keys;
     for (const auto& POI : myAdditionals.at(SUMO_TAG_POI)) {
-        for (const auto& parameter : POI.second->getACParametersMap()) {
+        for (const auto& parameter : POI.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }
     for (const auto& POILane : myAdditionals.at(GNE_TAG_POILANE)) {
-        for (const auto& parameter : POILane.second->getACParametersMap()) {
+        for (const auto& parameter : POILane.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }
     for (const auto& POIGEO : myAdditionals.at(GNE_TAG_POIGEO)) {
-        for (const auto& parameter : POIGEO.second->getACParametersMap()) {
+        for (const auto& parameter : POIGEO.second->getParameters()->getParametersMap()) {
             keys.insert(parameter.first);
         }
     }
@@ -3620,7 +3620,7 @@ GNENetHelper::SavingStatus::isMeanDatasSaved() const {
 
 
 GNEDialog::Result
-GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result &commonResult) const {
+GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result& commonResult) const {
     // Check if there are non saved network elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3652,7 +3652,7 @@ GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result &commonResult) cons
 
 
 GNEDialog::Result
-GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result &commonResult) const {
+GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result& commonResult) const {
     // Check if there are non saved additional elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3684,7 +3684,7 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result &commonR
 
 
 GNEDialog::Result
-GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result &commonResult) const {
+GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result& commonResult) const {
     // Check if there are non saved demand elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3716,7 +3716,7 @@ GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result &commonResul
 
 
 GNEDialog::Result
-GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result &commonResult) const {
+GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result& commonResult) const {
     // Check if there are non saved data elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3748,7 +3748,7 @@ GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result &commonResult)
 
 
 GNEDialog::Result
-GNENetHelper::SavingStatus::askSaveMeanDataElements(GNEDialog::Result &commonResult) const {
+GNENetHelper::SavingStatus::askSaveMeanDataElements(GNEDialog::Result& commonResult) const {
     // Check if there are non saved mean data elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3760,7 +3760,7 @@ GNENetHelper::SavingStatus::askSaveMeanDataElements(GNEDialog::Result &commonRes
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(), 
+        const auto saveDialog = GNESaveDialog(myNet->getViewNet()->getViewParent()->getGNEAppWindows(),
                                               TL("meanData elements"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {

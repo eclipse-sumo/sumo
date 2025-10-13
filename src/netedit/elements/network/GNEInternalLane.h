@@ -60,6 +60,9 @@ public:
     /// @brief get parameters associated with this internalLane
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this internalLane (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @name Functions related with geometry of element
@@ -209,9 +212,6 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief FOX needs this

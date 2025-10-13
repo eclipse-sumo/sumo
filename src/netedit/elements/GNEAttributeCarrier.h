@@ -77,6 +77,9 @@ public:
     /// @brief get parameters associated with this AttributeCarrier
     virtual Parameterised* getParameters() = 0;
 
+    /// @brief get parameters associated with this AttributeCarrier (constant)
+    virtual const Parameterised* getParameters() const = 0;
+
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
 
@@ -84,6 +87,7 @@ public:
     virtual const GUIGlObject* getGUIGlObject() const = 0;
 
     /// @}
+
 
     /// @brief get ID (all Attribute Carriers have one)
     const std::string getID() const;
@@ -254,9 +258,6 @@ public:
     /// @name Function related with parameters
     /// @{
 
-    /// @brief get parameters map
-    virtual const Parameterised::Map& getACParametersMap() const = 0;
-
     /// @brief set parameters (string vector)
     void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
 
@@ -321,7 +322,7 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getCommonAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    std::string getCommonAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the common attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -337,7 +338,7 @@ public:
     bool isCommonValid(SumoXMLAttr key, const std::string& value) const;
 
     /// @brief method for setting the common attribute and nothing else (used in GNEChange_Attribute)
-    void setCommonAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    void setCommonAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @}
 

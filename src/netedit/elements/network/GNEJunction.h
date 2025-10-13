@@ -73,6 +73,9 @@ public:
     /// @brief get parameters associated with this junction
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this junction (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @name Functions related with geometry of element
@@ -239,10 +242,8 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeComputed(SumoXMLAttr key) const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
     /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);

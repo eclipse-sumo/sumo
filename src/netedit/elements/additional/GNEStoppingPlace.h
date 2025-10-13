@@ -71,6 +71,9 @@ public:
     /// @brief get parameters associated with this stoppingPlace
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this stoppingPlace (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @name members and functions relative to write additionals into XML
@@ -142,9 +145,6 @@ public:
      * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

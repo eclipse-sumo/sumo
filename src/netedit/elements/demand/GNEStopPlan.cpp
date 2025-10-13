@@ -74,7 +74,13 @@ GNEStopPlan::getMoveElement() const {
 
 Parameterised*
 GNEStopPlan::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEStopPlan::getParameters() const {
+    return nullptr;
 }
 
 
@@ -428,12 +434,6 @@ GNEStopPlan::getPopUpID() const {
 std::string
 GNEStopPlan::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEStopPlan::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

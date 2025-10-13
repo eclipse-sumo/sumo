@@ -180,6 +180,12 @@ GNEContainer::getParameters() {
 }
 
 
+const Parameterised*
+GNEContainer::getParameters() const {
+    return this;
+}
+
+
 void
 GNEContainer::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
@@ -601,12 +607,6 @@ GNEContainer::getHierarchyName() const {
         }
     }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEContainer::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

@@ -124,6 +124,9 @@ public:
     /// @brief get parameters associated with this person
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this person (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /**@brief write demand element element into a xml file
@@ -281,9 +284,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief move element plan parent

@@ -63,7 +63,7 @@ GNEMoveElementLaneSingle::getMovingAttribute(const Parameterised* parameterised,
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPos);
         default:
-            return myMovedElement->getCommonAttribute(parameterised, key);
+            return myMovedElement->getCommonAttribute(key);
     }
 }
 
@@ -123,7 +123,7 @@ GNEMoveElementLaneSingle::setMovingAttribute(Parameterised* parameterised, SumoX
             myFriendlyPos = GNEAttributeCarrier::parse<bool>(value);
             break;
         default:
-            myMovedElement->setCommonAttribute(parameterised, key, value);
+            myMovedElement->setCommonAttribute(key, value);
             break;
     }
 }

@@ -1,3 +1,4 @@
+#include "GNEEdgeType.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -85,6 +86,18 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
 GNEMoveElement*
 GNEEdgeType::getMoveElement() const {
     return nullptr;
+}
+
+
+Parameterised*
+GNEEdgeType::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEEdgeType::getParameters() const {
+    return this;
 }
 
 
@@ -339,7 +352,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
                 return "default";
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -419,12 +432,6 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
         default:
             return true;
     }
-}
-
-
-const Parameterised::Map&
-GNEEdgeType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -552,7 +559,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update edge selector

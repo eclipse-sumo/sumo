@@ -117,6 +117,12 @@ GNEPoly::getParameters() {
 }
 
 
+const Parameterised*
+GNEPoly::getParameters() const {
+    return this;
+}
+
+
 std::string
 GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
@@ -577,7 +583,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myClosedShape);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -585,12 +591,6 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
 double
 GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
-}
-
-
-const Parameterised::Map&
-GNEPoly::getACParametersMap() const {
-    return SUMOPolygon::getParametersMap();
 }
 
 
@@ -812,7 +812,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

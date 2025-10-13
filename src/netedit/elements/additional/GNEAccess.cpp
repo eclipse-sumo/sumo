@@ -71,6 +71,12 @@ GNEAccess::getParameters() {
 }
 
 
+const Parameterised*
+GNEAccess::getParameters() const {
+    return this;
+}
+
+
 void
 GNEAccess::updateGeometry() {
     // set start position
@@ -272,7 +278,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -280,12 +286,6 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
 double
 GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEAccess::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -400,7 +400,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

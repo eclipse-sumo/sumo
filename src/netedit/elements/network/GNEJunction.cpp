@@ -115,6 +115,12 @@ GNEJunction::getParameters() {
 }
 
 
+const Parameterised*
+GNEJunction::getParameters() const {
+    return myNBNode;
+}
+
+
 const PositionVector&
 GNEJunction::getJunctionShape() const {
     return myNBNode->getShape();
@@ -1347,7 +1353,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myNBNode->getName();
         default:
-            return getCommonAttribute(myNBNode, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -1650,12 +1656,6 @@ GNEJunction::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNEJunction::getACParametersMap() const {
-    return myNBNode->getParametersMap();
 }
 
 
@@ -1989,7 +1989,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode->setName(value);
             break;
         default:
-            setCommonAttribute(myNBNode, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // invalidate demand path calculator

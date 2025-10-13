@@ -203,6 +203,12 @@ GNELane::getParameters() {
 }
 
 
+const Parameterised*
+GNELane::getParameters() const {
+    return &(getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex));
+}
+
+
 GNEEdge*
 GNELane::getParentEdge() const {
     return getParentEdges().front();
@@ -713,7 +719,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getID();
         default:
-            return getCommonAttribute(&edge->getLaneStruct(myIndex), key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -869,12 +875,6 @@ GNELane::isAttributeComputed(SumoXMLAttr key) const {
 }
 
 
-const Parameterised::Map&
-GNELane::getACParametersMap() const {
-    return getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
-}
-
-
 void
 GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColor = color;
@@ -966,7 +966,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
             break;
         default:
-            setCommonAttribute(&edge->getLaneStruct(myIndex), key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update template

@@ -67,6 +67,12 @@ GNEVariableSpeedSign::getParameters() {
 }
 
 
+const Parameterised*
+GNEVariableSpeedSign::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // avoid write rerouters without edges
@@ -230,7 +236,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -238,12 +244,6 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
 double
 GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEVariableSpeedSign::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -332,7 +332,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

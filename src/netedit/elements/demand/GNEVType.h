@@ -61,6 +61,9 @@ public:
     /// @brief get parameters associated with this vType
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this vType (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /**@brief write demand element element into a xml file
@@ -191,10 +194,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
     /// @brief overwrite all values of GNEVType with a SUMOVTypeParameter
     static bool overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);

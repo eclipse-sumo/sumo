@@ -846,7 +846,7 @@ GNEAttributeCarrier::getTagProperty() const {
 
 
 std::string
-GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_ADDITIONAL_FILE:
         case GNE_ATTR_DEMAND_FILE:
@@ -868,7 +868,11 @@ GNEAttributeCarrier::getCommonAttribute(const Parameterised* parameterised, Sumo
                 return FALSE_STR;
             }
         case GNE_ATTR_PARAMETERS:
-            return parameterised->getParametersStr();
+            if (getParameters()) {
+                return getParameters()->getParametersStr();
+            } else {
+                throw InvalidArgument(getTagStr() + " doesn't support parameters");
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -925,7 +929,7 @@ GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) co
 
 
 void
-GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_ADDITIONAL_FILE:
             myFilename = value;
@@ -982,7 +986,11 @@ GNEAttributeCarrier::setCommonAttribute(Parameterised* parameterised, SumoXMLAtt
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            parameterised->setParametersStr(value);
+            if (getParameters()) {
+                getParameters()->setParametersStr(value);
+            } else {
+                throw InvalidArgument(getTagStr() + " doesn't support parameters");
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

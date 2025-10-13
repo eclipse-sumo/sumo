@@ -71,6 +71,12 @@ GNERerouter::getParameters() {
 }
 
 
+const Parameterised*
+GNERerouter::getParameters() const {
+    return this;
+}
+
+
 void
 GNERerouter::writeAdditional(OutputDevice& device) const {
     // avoid write rerouters without edges
@@ -274,7 +280,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OPTIONAL:
             return toString(myOptional);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -287,12 +293,6 @@ GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNERerouter::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -405,7 +405,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOptional = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

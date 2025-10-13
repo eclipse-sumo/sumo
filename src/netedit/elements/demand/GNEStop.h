@@ -57,6 +57,9 @@ public:
     /// @brief get parameters associated with this stop
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this stop (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /**@brief write demand element element into a xml file
@@ -204,10 +207,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;

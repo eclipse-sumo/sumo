@@ -71,9 +71,10 @@ public:
     GNEMoveElement* getMoveElement() const override;
 
     /// @brief get parameters associated with this edgeType
-    Parameterised* getParameters() override {
-        return this;
-    }
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this edgeType (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -211,9 +212,6 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief vector with laneTypes

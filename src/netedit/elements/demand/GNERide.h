@@ -36,7 +36,7 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+class GNERide : public GNEDemandElement, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -63,6 +63,9 @@ public:
 
     /// @brief get parameters associated with this ride
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this ride (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -205,9 +208,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief valid line or vehicle ids or ANY

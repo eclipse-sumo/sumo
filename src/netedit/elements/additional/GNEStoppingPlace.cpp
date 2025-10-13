@@ -73,6 +73,12 @@ GNEStoppingPlace::getParameters() {
 }
 
 
+const Parameterised*
+GNEStoppingPlace::getParameters() const {
+    return this;
+}
+
+
 bool
 GNEStoppingPlace::isAdditionalValid() const {
     // only movement problems
@@ -324,12 +330,6 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
     // Cut shape using as delimitators fixed start position and fixed end position
     myAdditionalGeometry.updateGeometry(laneShape, myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
-}
-
-
-const Parameterised::Map&
-GNEStoppingPlace::getACParametersMap() const {
-    return getParametersMap();
 }
 
 

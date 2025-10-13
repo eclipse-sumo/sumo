@@ -51,7 +51,13 @@ GNEVTypeDistribution::getMoveElement() const {
 
 Parameterised*
 GNEVTypeDistribution::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVTypeDistribution::getParameters() const {
+    return nullptr;
 }
 
 
@@ -297,12 +303,6 @@ GNEVTypeDistribution::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
-
-const Parameterised::Map&
-GNEVTypeDistribution::getACParametersMap() const {
-    throw InvalidArgument(getTagStr() + " doesn't have parameters");
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -321,7 +321,7 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

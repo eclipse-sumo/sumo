@@ -61,6 +61,9 @@ public:
     /// @brief get parameters associated with this connection
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this connection (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @name Functions related with geometry of element
@@ -227,10 +230,8 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeComputed(SumoXMLAttr key) const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
 protected:
     /// @brief move element connection

@@ -173,7 +173,7 @@ GNEMoveElementLaneDouble::getMovingAttribute(const Parameterised* parameterised,
             case GNE_ATTR_REFERENCE:
                 return SUMOXMLDefinitions::ReferencePositions.getString(myReferencePosition);
             default:
-                return myMovedElement->getCommonAttribute(parameterised, key);
+                return myMovedElement->getCommonAttribute(key);
         }
     }
 }
@@ -329,7 +329,7 @@ GNEMoveElementLaneDouble::setMovingAttribute(Parameterised* parameterised, SumoX
                 myReferencePosition = SUMOXMLDefinitions::ReferencePositions.get(value);
                 break;
             default:
-                return myMovedElement->setCommonAttribute(parameterised, key, value);
+                return myMovedElement->setCommonAttribute(key, value);
         }
     }
 }

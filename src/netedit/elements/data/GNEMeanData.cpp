@@ -83,7 +83,13 @@ GNEMeanData::getMoveElement() const {
 
 Parameterised*
 GNEMeanData::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEMeanData::getParameters() const {
+    return nullptr;
 }
 
 
@@ -270,7 +276,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_AGGREGATE:
             return toString(myAggregate);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -382,12 +388,6 @@ GNEMeanData::getHierarchyName() const {
 }
 
 
-const Parameterised::Map&
-GNEMeanData::getACParametersMap() const {
-    return getParametersMap();
-}
-
-
 void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -483,7 +483,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAggregate = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

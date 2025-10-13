@@ -56,7 +56,13 @@ GNETAZSourceSink::getMoveElement() const {
 
 Parameterised*
 GNETAZSourceSink::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNETAZSourceSink::getParameters() const {
+    return nullptr;
 }
 
 
@@ -182,7 +188,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             }
         }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -194,12 +200,6 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNETAZSourceSink::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -280,7 +280,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             myWeight = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

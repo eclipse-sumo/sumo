@@ -74,6 +74,12 @@ GNEDetector::getParameters() {
 }
 
 
+const Parameterised*
+GNEDetector::getParameters() const {
+    return this;
+}
+
+
 bool
 GNEDetector::checkDrawMoveContour() const {
     // get edit modes
@@ -144,12 +150,6 @@ GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkEleme
 std::string
 GNEDetector::getParentName() const {
     return getParentLanes().front()->getID();
-}
-
-
-const Parameterised::Map&
-GNEDetector::getACParametersMap() const {
-    return getParametersMap();
 }
 
 

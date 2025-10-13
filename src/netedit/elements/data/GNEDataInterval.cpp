@@ -56,7 +56,13 @@ GNEDataInterval::getMoveElement() const {
 
 Parameterised*
 GNEDataInterval::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEDataInterval::getParameters() const {
+    return nullptr;
 }
 
 
@@ -340,7 +346,7 @@ GNEDataInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -408,12 +414,6 @@ GNEDataInterval::getHierarchyName() const {
 }
 
 
-const Parameterised::Map&
-GNEDataInterval::getACParametersMap() const {
-    return getParametersMap();
-}
-
-
 void
 GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -428,7 +428,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGenericDataIDs();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // mark interval toolbar for update

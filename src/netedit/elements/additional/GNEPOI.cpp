@@ -111,6 +111,12 @@ GNEPOI::getParameters() {
 }
 
 
+const Parameterised*
+GNEPOI::getParameters() const {
+    return this;
+}
+
+
 std::string
 GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
@@ -430,7 +436,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -477,12 +483,6 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
-}
-
-
-const Parameterised::Map&
-GNEPOI::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -838,7 +838,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            return setCommonAttribute(this, key, value);
+            return setCommonAttribute(key, value);
     }
 }
 

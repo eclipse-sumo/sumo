@@ -180,6 +180,12 @@ GNEPerson::getParameters() {
 }
 
 
+const Parameterised*
+GNEPerson::getParameters() const {
+    return this;
+}
+
+
 void
 GNEPerson::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
@@ -579,12 +585,6 @@ GNEPerson::getPopUpID() const {
 std::string
 GNEPerson::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEPerson::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

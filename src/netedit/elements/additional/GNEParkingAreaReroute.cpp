@@ -55,7 +55,13 @@ GNEParkingAreaReroute::getMoveElement() const {
 
 Parameterised*
 GNEParkingAreaReroute::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEParkingAreaReroute::getParameters() const {
+    return nullptr;
 }
 
 
@@ -160,7 +166,7 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return toString(getParentAdditionals().at(0)->getID());
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -168,12 +174,6 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEParkingAreaReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEParkingAreaReroute::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -245,7 +245,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVisible = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

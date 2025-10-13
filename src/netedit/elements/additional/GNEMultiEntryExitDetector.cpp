@@ -77,6 +77,12 @@ GNEMultiEntryExitDetector::getParameters() {
 }
 
 
+const Parameterised*
+GNEMultiEntryExitDetector::getParameters() const {
+    return this;
+}
+
+
 void
 GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
     bool entry = false;
@@ -254,7 +260,7 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return toString(myExpectedArrival);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -262,12 +268,6 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
 double
 GNEMultiEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEMultiEntryExitDetector::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -433,7 +433,7 @@ GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& valu
             myExpectedArrival = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

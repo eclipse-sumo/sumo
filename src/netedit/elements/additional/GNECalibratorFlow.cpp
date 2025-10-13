@@ -82,6 +82,12 @@ GNECalibratorFlow::getParameters() {
 }
 
 
+const Parameterised*
+GNECalibratorFlow::getParameters() const {
+    return this;
+}
+
+
 void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_TYPE) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {
@@ -292,7 +298,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -325,12 +331,6 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNECalibratorFlow::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -720,7 +720,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             insertionChecks = parseInsertionChecks(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

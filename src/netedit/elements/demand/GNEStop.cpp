@@ -157,6 +157,12 @@ GNEStop::getParameters() {
 }
 
 
+const Parameterised*
+GNEStop::getParameters() const {
+    return this;
+}
+
+
 void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
@@ -653,7 +659,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PATHSTOPINDEX:
             return toString(getPathStopIndex());
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -1014,11 +1020,6 @@ GNEStop::getHierarchyName() const {
 }
 
 
-const Parameterised::Map&
-GNEStop::getACParametersMap() const {
-    return getParametersMap();
-}
-
 double
 GNEStop::getStartGeometryPositionOverLane() const {
     double fixedPos = startPos;
@@ -1365,7 +1366,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

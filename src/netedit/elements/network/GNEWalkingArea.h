@@ -35,13 +35,8 @@ class GNEEdge;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEWalkingArea
- * @brief This object is responsible for drawing a shape and for supplying a
- * a popup menu. Messages are routeted to an internal dataTarget and to the
- * editor (hence inheritance from FXDelegator)
- */
-class GNEWalkingArea : public GNENetworkElement, public Parameterised {
+
+class GNEWalkingArea : public GNENetworkElement {
 
 public:
     /**@brief Constructor
@@ -61,6 +56,9 @@ public:
 
     /// @brief get parameters associated with this walkingArea
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this walkingArea (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -177,9 +175,6 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief An object that stores the shape and its tesselation

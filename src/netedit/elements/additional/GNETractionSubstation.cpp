@@ -65,6 +65,12 @@ GNETractionSubstation::getParameters() {
 }
 
 
+const Parameterised*
+GNETractionSubstation::getParameters() const {
+    return this;
+}
+
+
 void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
@@ -193,7 +199,7 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -201,12 +207,6 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
 double
 GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const
-Parameterised::Map& GNETractionSubstation::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -291,7 +291,7 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myCurrentLimit = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

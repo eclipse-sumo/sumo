@@ -57,7 +57,13 @@ GNEDestProbReroute::getMoveElement() const {
 
 Parameterised*
 GNEDestProbReroute::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEDestProbReroute::getParameters() const {
+    return nullptr;
 }
 
 
@@ -155,7 +161,7 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -163,12 +169,6 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEDestProbReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEDestProbReroute::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -234,7 +234,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

@@ -537,6 +537,12 @@ GNEVehicle::getParameters() {
 }
 
 
+const Parameterised*
+GNEVehicle::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // attribute VType must not be written if is DEFAULT_VTYPE_ID
@@ -1777,12 +1783,6 @@ GNEVehicle::getHierarchyName() const {
         }
     }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEVehicle::getACParametersMap() const {
-    return getParametersMap();
 }
 
 

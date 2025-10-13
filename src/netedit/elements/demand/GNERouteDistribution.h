@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNERouteDistribution : public GNEDemandElement, public Parameterised {
+class GNERouteDistribution : public GNEDemandElement {
 
 public:
     /// @brief default constructor
@@ -46,6 +46,9 @@ public:
 
     /// @brief get parameters associated with this routeDistribution
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this routeDistribution (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -173,9 +176,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 private:
     /// @brief method for setting the attribute and nothing else

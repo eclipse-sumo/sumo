@@ -54,7 +54,13 @@ GNEVariableSpeedSignSymbol::getMoveElement() const {
 
 Parameterised*
 GNEVariableSpeedSignSymbol::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVariableSpeedSignSymbol::getParameters() const {
+    return nullptr;
 }
 
 
@@ -152,7 +158,7 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -160,12 +166,6 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     return 0;
-}
-
-
-const Parameterised::Map&
-GNEVariableSpeedSignSymbol::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -248,7 +248,7 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
 
 void
 GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
 }
 
 /****************************************************************************/

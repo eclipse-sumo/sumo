@@ -55,6 +55,9 @@ public:
     /// @brief get parameters associated with this laneType
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this laneType (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @brief get edge type parent
@@ -177,9 +180,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief pointer to EdgeTypeParent

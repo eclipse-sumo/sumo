@@ -101,6 +101,12 @@ GNEInternalLane::getParameters() {
 }
 
 
+const Parameterised*
+GNEInternalLane::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEInternalLane::updateGeometry() {
     // nothing to update
@@ -351,12 +357,6 @@ GNEInternalLane::isValid(SumoXMLAttr key, const std::string& /*value*/) {
 bool
 GNEInternalLane::isAttributeEnabled(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEInternalLane::getACParametersMap() const {
-    throw InvalidArgument(getTagStr() + " doesn't have parameters");
 }
 
 

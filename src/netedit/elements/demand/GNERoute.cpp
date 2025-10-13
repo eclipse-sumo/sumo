@@ -94,7 +94,7 @@ GNERoute::GNERoute(GNEAdditional* calibrator) :
 GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
     GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getTagProperty()->getTag(),
                      originalRoute->getPathElementOptions()),
-    Parameterised(originalRoute->getACParametersMap()),
+    Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myVClass(originalRoute->getVClass()) {
@@ -106,7 +106,7 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
 
 GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
     GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag(), originalRoute->getPathElementOptions()),
-    Parameterised(originalRoute->getACParametersMap()),
+    Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myVClass(originalRoute->getVClass()) {
@@ -157,6 +157,12 @@ GNEMoveElement* GNERoute::getMoveElement() const {
 
 Parameterised*
 GNERoute::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNERoute::getParameters() const {
     return this;
 }
 
@@ -548,7 +554,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -674,12 +680,6 @@ GNERoute::getPopUpID() const {
 std::string
 GNERoute::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
-}
-
-
-const Parameterised::Map&
-GNERoute::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -842,7 +842,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

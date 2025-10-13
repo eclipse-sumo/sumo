@@ -36,7 +36,7 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNETranship : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+class GNETranship : public GNEDemandElement, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -65,6 +65,9 @@ public:
 
     /// @brief get parameters associated with this tranship
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this tranship (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -207,9 +210,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief speed

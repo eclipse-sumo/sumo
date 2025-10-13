@@ -26,7 +26,7 @@
 // class definitions
 // ===========================================================================
 
-class GNERerouterInterval : public GNEAdditional, public Parameterised {
+class GNERerouterInterval : public GNEAdditional {
 
 public:
     /// @brief default constructor
@@ -38,14 +38,17 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
-    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @brief methods to retrieve the elements linked to this rerouterInterval
     /// @{
 
-    /// @brief get GNEMoveElement associated with this GNEAdditional
+    /// @brief get GNEMoveElement associated with this rerouterInterval
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this GNEAdditional
+    /// @brief get parameters associated with this rerouterInterval
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this rerouterInterval (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -128,9 +131,6 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

@@ -70,7 +70,13 @@ GNEPersonTrip::getMoveElement() const {
 
 Parameterised*
 GNEPersonTrip::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEPersonTrip::getParameters() const {
+    return nullptr;
 }
 
 
@@ -293,12 +299,6 @@ GNEPersonTrip::getPopUpID() const {
 std::string
 GNEPersonTrip::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEPersonTrip::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

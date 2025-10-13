@@ -314,7 +314,7 @@ GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -393,7 +393,7 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             if (!isTemplate()) {
                 myDataIntervalParent->getDataSetParent()->updateAttributeColors();
             }

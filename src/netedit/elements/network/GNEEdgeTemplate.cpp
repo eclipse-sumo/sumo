@@ -62,6 +62,12 @@ GNEEdgeTemplate::getParameters() {
 }
 
 
+const Parameterised*
+GNEEdgeTemplate::getParameters() const {
+    return nullptr;
+}
+
+
 const std::vector<GNELaneTemplate*>&
 GNEEdgeTemplate::getLaneTemplates() const {
     return myLaneTemplates;
@@ -194,12 +200,6 @@ GNEEdgeTemplate::getPopUpID() const {
 std::string
 GNEEdgeTemplate::getHierarchyName() const {
     return myEdge->getHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEEdgeTemplate::getACParametersMap() const {
-    return myEdge->getACParametersMap();
 }
 
 // ===========================================================================

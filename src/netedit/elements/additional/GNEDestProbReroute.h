@@ -34,7 +34,7 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-class GNEDestProbReroute : public GNEAdditional, public Parameterised {
+class GNEDestProbReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
@@ -46,14 +46,17 @@ public:
     /// @brief destructor
     ~GNEDestProbReroute();
 
-    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @brief methods to retrieve the elements linked to this destProbReroute
     /// @{
 
-    /// @brief get GNEMoveElement associated with this GNEAdditional
+    /// @brief get GNEMoveElement associated with this destProbReroute
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this GNEAdditional
+    /// @brief get parameters associated with this destProbReroute
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this destProbReroute (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -131,9 +134,6 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

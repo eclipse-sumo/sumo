@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
+class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief Default constructor
@@ -54,6 +54,9 @@ public:
 
     /// @brief get parameters associated with this meanData
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this meanData (constant)
+    const Parameterised* getParameters() const override;
 
     /// @brief get GUIGlObject associated with this meanData
     GUIGlObject* getGUIGlObject() override;
@@ -137,9 +140,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief id

@@ -142,6 +142,12 @@ GNEEdge::getParameters() {
 }
 
 
+const Parameterised*
+GNEEdge::getParameters() const {
+    return myNBEdge;
+}
+
+
 bool
 GNEEdge::isNetworkElementValid() const {
     if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {
@@ -1178,7 +1184,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_IS_ROUNDABOUT:
             return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? TRUE_STR : FALSE_STR;
         default:
-            return getCommonAttribute(myNBEdge, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -1477,12 +1483,6 @@ GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNEEdge::getACParametersMap() const {
-    return myNBEdge->getParametersMap();
 }
 
 
@@ -1955,7 +1955,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge->myEdgeStopOffset.setExceptions(value);
             break;
         default:
-            setCommonAttribute(myNBEdge, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // get template editor

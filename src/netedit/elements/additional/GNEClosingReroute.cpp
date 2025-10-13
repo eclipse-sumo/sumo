@@ -55,7 +55,13 @@ GNEClosingReroute::getMoveElement() const {
 
 Parameterised*
 GNEClosingReroute::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEClosingReroute::getParameters() const {
+    return nullptr;
 }
 
 
@@ -161,7 +167,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -169,12 +175,6 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
-}
-
-
-const Parameterised::Map&
-GNEClosingReroute::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -246,7 +246,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

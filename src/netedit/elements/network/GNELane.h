@@ -125,14 +125,17 @@ public:
     /// @brief Destructor
     ~GNELane();
 
-    /// @brief methods to retrieve the elements linked to this junction
+    /// @brief methods to retrieve the elements linked to this lane
     /// @{
 
-    /// @brief get GNEMoveElement associated with this junction
+    /// @brief get GNEMoveElement associated with this lane
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this junction
+    /// @brief get parameters associated with this lane
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this lane
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -318,10 +321,8 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeComputed(SumoXMLAttr key) const;
-    /// @}
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /// @}
 
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color

@@ -50,7 +50,13 @@ GNERouteDistribution::getMoveElement() const {
 
 Parameterised*
 GNERouteDistribution::getParameters() {
-    return this;
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERouteDistribution::getParameters() const {
+    return nullptr;
 }
 
 
@@ -206,7 +212,7 @@ GNERouteDistribution::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -261,12 +267,6 @@ GNERouteDistribution::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
-
-const Parameterised::Map&
-GNERouteDistribution::getACParametersMap() const {
-    throw InvalidArgument(getTagStr() + " doesn't have parameters");
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -278,7 +278,7 @@ GNERouteDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
             setDemandElementID(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

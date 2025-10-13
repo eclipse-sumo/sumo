@@ -29,7 +29,7 @@
 // class definitions
 // ===========================================================================
 
-class GNETAZSourceSink : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
+class GNETAZSourceSink : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief default Constructor
@@ -46,14 +46,17 @@ public:
     /// @brief destructor
     ~GNETAZSourceSink();
 
-    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @brief methods to retrieve the elements linked to this TAZSourceSink
     /// @{
 
-    /// @brief get GNEMoveElement associated with this GNEAdditional
+    /// @brief get GNEMoveElement associated with this TAZSourceSink
     GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get parameters associated with this GNEAdditional
+    /// @brief get parameters associated with this TAZSourceSink
     Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this TAZSourceSink (constant)
+    const Parameterised* getParameters() const override;
 
     /// @}
 
@@ -122,9 +125,6 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
      * @param[in] key The attribute key

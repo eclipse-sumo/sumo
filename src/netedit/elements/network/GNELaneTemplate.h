@@ -46,6 +46,9 @@ public:
     /// @brief get parameters associated with this laneType
     Parameterised* getParameters() override;
 
+    /// @brief get parameters associated with this laneType (constant)
+    const Parameterised* getParameters() const override;
+
     /// @}
 
     /// @name Function related with graphics
@@ -136,9 +139,6 @@ public:
     std::string getHierarchyName() const;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief pointer to original lane

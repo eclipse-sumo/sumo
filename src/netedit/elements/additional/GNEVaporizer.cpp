@@ -63,6 +63,12 @@ GNEVaporizer::getParameters() {
 }
 
 
+const Parameterised*
+GNEVaporizer::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
@@ -222,7 +228,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -237,12 +243,6 @@ GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
-}
-
-
-const Parameterised::Map&
-GNEVaporizer::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -332,7 +332,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }
