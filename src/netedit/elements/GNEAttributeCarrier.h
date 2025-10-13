@@ -324,6 +324,12 @@ public:
      */
     std::string getCommonAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the common attribute of an XML key in double format
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getCommonAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the common attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value

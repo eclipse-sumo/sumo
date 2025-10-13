@@ -879,6 +879,12 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
 }
 
 
+double
+GNEAttributeCarrier::getCommonAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an double attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
