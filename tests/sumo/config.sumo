@@ -252,11 +252,8 @@ aggregated1:0.00001
 aggregated:0.00001
 
 [batch_extra_version]
-gcc4_64:perf
-msvc12x64:perf
-
-[batch_filter_file]
-msvc12x64D:debug_filter
+gcc:perf
+msvc16x64:perf
 
 [unordered_text]
 vehroutes_ignore_arrival:arrival

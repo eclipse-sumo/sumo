@@ -227,5 +227,5 @@ fcd:0.0101
 log:0.0101
 
 [batch_extra_version]
-gcc4_64:perf
+gcc:perf
 msvc16x64:perf
