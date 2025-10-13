@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-02 14:29+0000\n"
+"PO-Revision-Date: 2025-10-13 09:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -74,12 +74,16 @@ msgid ""
 "generate a trips file from a stats file on a given net using arbitrary "
 "random seed"
 msgstr ""
+"genera un file di corse da un file di statistiche insieme a una rete usando "
+"un numero casuale arbitrario"
 
 #: src/activitygen/AGFrame.cpp:49
 msgid ""
 "generate a trips file from a stats file on a given net for numerous days "
 "(with fixed random seed)"
 msgstr ""
+"genera un file di corse per vari giorni da un file di statistiche insieme a "
+"una rete (con un numero casuale fisso)"
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
@@ -179,7 +183,7 @@ msgstr ""
 #: src/dfrouter/RODFFrame.cpp:47 src/duarouter/RODUAFrame.cpp:45
 #: src/marouter/ROMAFrame.cpp:46
 msgid "run routing with options from file"
-msgstr ""
+msgstr "esegui instradamento con le opzioni prese dal file"
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
@@ -838,7 +842,7 @@ msgstr "Gli archi '%' e '%' non sono connessi."
 
 #: src/jtrrouter/ROJTRFrame.cpp:45
 msgid "run with routing options defined in file"
-msgstr ""
+msgstr "esegui con le opzioni di instradamento definite nel file"
 
 #: src/jtrrouter/ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
@@ -1717,14 +1721,16 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:64
 msgid "start a simulation from time 0 to 1000 with given net and routes"
 msgstr ""
+"inizia una simulazione dall'ora 0 fino a 1000 con la rete e gli itinerari "
+"dati"
 
 #: src/microsim/MSFrame.cpp:65
 msgid "start with a configuration file"
-msgstr ""
+msgstr "inizia con un file di configurazione"
 
 #: src/microsim/MSFrame.cpp:66
 msgid "print help"
-msgstr ""
+msgstr "mostra le istruzioni per l'uso"
 
 #: src/microsim/MSFrame.cpp:80
 msgid "Load road network description from FILE"
@@ -2779,11 +2785,15 @@ msgstr ""
 msgid ""
 "Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Dove i taxi possono far scendere i passeggeri "
+"('allJunctions, 'ptStops', 'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:676
 msgid ""
 "Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Dove i taxi possono prendere i passeggeri "
+"('allJunctions, 'ptStops', 'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:679
 msgid ""
