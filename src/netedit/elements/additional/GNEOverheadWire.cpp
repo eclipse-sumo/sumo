@@ -66,6 +66,12 @@ GNEOverheadWire::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEOverheadWire::getParameters() {
+    return this;
+}
+
+
 void
 GNEOverheadWire::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_OVERHEAD_WIRE_SECTION);

@@ -54,6 +54,12 @@ GNETAZSourceSink::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETAZSourceSink::getParameters() {
+    return this;
+}
+
+
 GNEHierarchicalElement*
 GNETAZSourceSink::getHierarchicalElement() {
     return this;

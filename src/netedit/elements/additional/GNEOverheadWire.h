@@ -59,8 +59,16 @@ public:
     /// @brief Destructor
     ~GNEOverheadWire();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this GNEAdditional
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this GNEAdditional
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{

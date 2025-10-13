@@ -59,6 +59,12 @@ GNETractionSubstation::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETractionSubstation::getParameters() {
+    return this;
+}
+
+
 void
 GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);

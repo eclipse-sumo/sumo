@@ -60,8 +60,16 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this GNEAdditional
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this GNEAdditional
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex

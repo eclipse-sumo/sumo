@@ -48,6 +48,12 @@ GNELaneTemplate::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneTemplate::getParameters() {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;

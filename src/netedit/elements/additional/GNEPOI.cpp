@@ -105,6 +105,12 @@ GNEPOI::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPOI::getParameters() {
+    return this;
+}
+
+
 std::string
 GNEPOI::generateChildID(SumoXMLTag /*childTag*/) {
     return "";

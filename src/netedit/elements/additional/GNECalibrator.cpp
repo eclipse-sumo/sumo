@@ -117,6 +117,18 @@ GNECalibrator::~GNECalibrator() {
 }
 
 
+GNEMoveElement*
+GNECalibrator::getMoveElement() const {
+    return nullptr;
+}
+
+
+Parameterised*
+GNECalibrator::getParameters() {
+    return this;
+}
+
+
 void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // open tag
@@ -173,13 +185,6 @@ GNECalibrator::getAdditionalProblem() const {
 void
 GNECalibrator::fixAdditionalProblem() {
     // nothing to fix
-}
-
-
-GNEMoveOperation*
-GNECalibrator::getMoveOperation() {
-    // calibrators cannot be moved
-    return nullptr;
 }
 
 

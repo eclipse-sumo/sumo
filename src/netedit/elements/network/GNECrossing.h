@@ -52,8 +52,16 @@ public:
     /// @brief Destructor
     ~GNECrossing();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this crossing
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this crossing
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this crossing
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @brief check if current network element is valid to be written into XML
     bool isNetworkElementValid() const;

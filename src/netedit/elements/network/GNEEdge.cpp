@@ -136,6 +136,12 @@ GNEEdge::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEEdge::getParameters() {
+    return myNBEdge;
+}
+
+
 bool
 GNEEdge::isNetworkElementValid() const {
     if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {

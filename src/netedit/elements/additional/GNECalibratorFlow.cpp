@@ -76,6 +76,12 @@ GNECalibratorFlow::getMoveElement() const {
 }
 
 
+Parameterised*
+GNECalibratorFlow::getParameters() {
+    return this;
+}
+
+
 void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_TYPE) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {
@@ -122,13 +128,6 @@ GNECalibratorFlow::fixAdditionalProblem() {
 bool
 GNECalibratorFlow::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNECalibratorFlow::getMoveOperation() {
-    // calibrators flow cannot be moved
-    return nullptr;
 }
 
 

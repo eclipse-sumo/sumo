@@ -111,6 +111,12 @@ GNEPoly::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPoly::getParameters() {
+    return this;
+}
+
+
 std::string
 GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
     return "";

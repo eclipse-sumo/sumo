@@ -65,6 +65,12 @@ GNERerouter::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERerouter::getParameters() {
+    return this;
+}
+
+
 void
 GNERerouter::writeAdditional(OutputDevice& device) const {
     // avoid write rerouters without edges

@@ -60,6 +60,12 @@ GNEConnection::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEConnection::getParameters() {
+    return &getNBEdgeConnection();
+}
+
+
 const PositionVector&
 GNEConnection::getConnectionShape() const {
     if (myConnectionGeometry.getShape().size() > 0) {

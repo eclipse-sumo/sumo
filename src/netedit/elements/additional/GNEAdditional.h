@@ -63,17 +63,25 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    /// @brief get GNEHierarchicalElement associated with this GNEAdditional
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this GNEAdditional
     virtual GNEMoveElement* getMoveElement() const = 0;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
+    /// @brief get parameters associated with this GNEAdditional
+    virtual Parameterised* getParameters() = 0;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
+    /// @brief get GUIGlObject associated with this GNEAdditional
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this GNEAdditional (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const;

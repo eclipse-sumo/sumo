@@ -52,10 +52,9 @@ GNERerouterSymbol::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNERerouterSymbol::getMoveOperation() {
-    // GNERerouterSymbols cannot be moved
-    return nullptr;
+Parameterised*
+GNERerouterSymbol::getParameters() {
+    return this;
 }
 
 

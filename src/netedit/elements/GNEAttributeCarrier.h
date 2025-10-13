@@ -34,6 +34,7 @@ class GNENet;
 class GNETagProperties;
 class GNEUndoList;
 class GUIGlObject;
+class Parameterised;
 
 // ===========================================================================
 // class definitions
@@ -64,6 +65,26 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
+    /// @brief methods to retrieve the elements linked to this AttributeCarrier
+    /// @{
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
+
+    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    virtual GNEMoveElement* getMoveElement() const = 0;
+
+    /// @brief get parameters associated with this AttributeCarrier
+    virtual Parameterised* getParameters() = 0;
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    virtual GUIGlObject* getGUIGlObject() = 0;
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    virtual const GUIGlObject* getGUIGlObject() const = 0;
+
+    /// @}
+
     /// @brief get ID (all Attribute Carriers have one)
     const std::string getID() const;
 
@@ -85,11 +106,8 @@ public:
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
-
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    virtual GNEMoveElement* getMoveElement() const = 0;
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
 
     /// @name Function related with drawing
     /// @{
@@ -127,20 +145,6 @@ public:
 
     /// @brief check if this AC was inserted in grid
     bool inGrid() const;
-
-    /// @}
-
-    /// @name Function related with graphics (must be implemented in all children)
-    /// @{
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    virtual GUIGlObject* getGUIGlObject() = 0;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    virtual const GUIGlObject* getGUIGlObject() const = 0;
-
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
 
     /// @}
 

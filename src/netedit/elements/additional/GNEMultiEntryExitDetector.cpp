@@ -71,6 +71,12 @@ GNEMultiEntryExitDetector::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEMultiEntryExitDetector::getParameters() {
+    return this;
+}
+
+
 void
 GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
     bool entry = false;

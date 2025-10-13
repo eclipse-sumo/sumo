@@ -53,8 +53,13 @@ public:
     /// @brief destructor
     ~GNEEntryExitDetector();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this GNEAdditional
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{

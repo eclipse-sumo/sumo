@@ -54,6 +54,12 @@ GNELaneType::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneType::getParameters() {
+    return this;
+}
+
+
 GNEEdgeType*
 GNELaneType::getEdgeTypeParent() const {
     return myEdgeTypeParent;

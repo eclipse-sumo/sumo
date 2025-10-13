@@ -52,8 +52,16 @@ public:
     /// @brief Destructor
     ~GNEConnection();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this connection
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this connection
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this connection
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{

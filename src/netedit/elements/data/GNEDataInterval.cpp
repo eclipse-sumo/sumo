@@ -54,6 +54,24 @@ GNEDataInterval::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEDataInterval::getParameters() {
+    return this;
+}
+
+
+GUIGlObject*
+GNEDataInterval::getGUIGlObject() {
+    return nullptr;
+}
+
+
+const GUIGlObject*
+GNEDataInterval::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
@@ -105,18 +123,6 @@ GNEDataInterval::getAllAttributeColors() const {
 const std::map<SumoXMLTag, GNEDataSet::AttributeColors>&
 GNEDataInterval::getSpecificAttributeColors() const {
     return mySpecificAttributeColors;
-}
-
-
-GUIGlObject*
-GNEDataInterval::getGUIGlObject() {
-    return nullptr;
-}
-
-
-const GUIGlObject*
-GNEDataInterval::getGUIGlObject() const {
-    return nullptr;
 }
 
 

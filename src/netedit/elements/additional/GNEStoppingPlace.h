@@ -62,8 +62,16 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this stoppingPlace
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this stoppingPlace
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this stoppingPlace
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{

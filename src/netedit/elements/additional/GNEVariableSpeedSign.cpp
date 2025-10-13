@@ -61,6 +61,12 @@ GNEVariableSpeedSign::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVariableSpeedSign::getParameters() {
+    return this;
+}
+
+
 void
 GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // avoid write rerouters without edges

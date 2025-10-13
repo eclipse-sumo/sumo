@@ -43,22 +43,30 @@ public:
     /// @brief Destructor
     ~GNEMeanData();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this meanData
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief get GNEHierarchicalElement associated with this meanData
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this meanData
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this meanData
+    Parameterised* getParameters() override;
+
+    /// @brief get GUIGlObject associated with this meanData
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this meanData (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element
      */
     void writeMeanData(OutputDevice& device) const;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

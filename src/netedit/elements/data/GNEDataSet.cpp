@@ -125,6 +125,12 @@ GNEDataSet::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEDataSet::getParameters() {
+    return this;
+}
+
+
 GUIGlObject*
 GNEDataSet::getGUIGlObject() {
     return nullptr;

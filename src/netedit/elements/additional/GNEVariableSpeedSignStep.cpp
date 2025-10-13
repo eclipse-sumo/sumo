@@ -53,6 +53,12 @@ GNEVariableSpeedSignStep::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVariableSpeedSignStep::getParameters() {
+    return this;
+}
+
+
 void
 GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STEP);
@@ -80,13 +86,6 @@ GNEVariableSpeedSignStep::getAdditionalProblem() const {
 void
 GNEVariableSpeedSignStep::fixAdditionalProblem() {
     // nothing to fix
-}
-
-
-GNEMoveOperation*
-GNEVariableSpeedSignStep::getMoveOperation() {
-    // VSS Steps cannot be moved
-    return nullptr;
 }
 
 

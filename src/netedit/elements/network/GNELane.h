@@ -125,8 +125,16 @@ public:
     /// @brief Destructor
     ~GNELane();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this junction
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this junction
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this junction
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @brief get parent edge
     GNEEdge* getParentEdge() const;

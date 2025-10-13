@@ -50,6 +50,12 @@ GNEWalkingArea::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEWalkingArea::getParameters() {
+    return this;
+}
+
+
 void
 GNEWalkingArea::updateGeometry() {
     // Nothing to update

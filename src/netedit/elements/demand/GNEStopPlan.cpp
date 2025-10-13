@@ -72,6 +72,12 @@ GNEStopPlan::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEStopPlan::getParameters() {
+    return this;
+}
+
+
 void
 GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);

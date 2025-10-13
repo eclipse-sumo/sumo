@@ -63,7 +63,7 @@ public:
     double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
-    bool isGenericDataVisible() const;
+    bool isGenericDataVisible() const override;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

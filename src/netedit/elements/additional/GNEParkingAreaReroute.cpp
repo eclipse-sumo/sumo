@@ -53,6 +53,12 @@ GNEParkingAreaReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEParkingAreaReroute::getParameters() {
+    return this;
+}
+
+
 void
 GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
@@ -91,13 +97,6 @@ GNEParkingAreaReroute::fixAdditionalProblem() {
 bool
 GNEParkingAreaReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEParkingAreaReroute::getMoveOperation() {
-    // GNEParkingAreaReroutes cannot be moved
-    return nullptr;
 }
 
 

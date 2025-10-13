@@ -63,6 +63,12 @@ GNECrossing::getMoveElement() const {
 }
 
 
+Parameterised*
+GNECrossing::getParameters() {
+    return myTemplateNBCrossing;
+}
+
+
 bool
 GNECrossing::isNetworkElementValid() const {
     return getNBCrossing()->valid;

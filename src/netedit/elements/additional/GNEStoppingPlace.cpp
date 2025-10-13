@@ -67,6 +67,12 @@ GNEStoppingPlace::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEStoppingPlace::getParameters() {
+    return this;
+}
+
+
 bool
 GNEStoppingPlace::isAdditionalValid() const {
     // only movement problems

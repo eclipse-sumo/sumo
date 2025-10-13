@@ -64,6 +64,12 @@ GNEInductionLoopDetector::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEInductionLoopDetector::getParameters() {
+    return this;
+}
+
+
 void
 GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());

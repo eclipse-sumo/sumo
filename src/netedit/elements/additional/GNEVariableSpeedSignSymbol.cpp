@@ -52,10 +52,9 @@ GNEVariableSpeedSignSymbol::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNEVariableSpeedSignSymbol::getMoveOperation() {
-    // GNEVariableSpeedSignSymbols cannot be moved
-    return nullptr;
+Parameterised*
+GNEVariableSpeedSignSymbol::getParameters() {
+    return this;
 }
 
 

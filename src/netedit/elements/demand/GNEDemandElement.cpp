@@ -75,12 +75,6 @@ GNEDemandElement::getHierarchicalElement() {
 }
 
 
-void
-GNEDemandElement::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // currently there isn't demand elements with removable geometry points
-}
-
-
 GUIGlObject*
 GNEDemandElement::getGUIGlObject() {
     return this;

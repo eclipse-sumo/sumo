@@ -49,6 +49,12 @@ GNEVTypeDistribution::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVTypeDistribution::getParameters() {
+    return this;
+}
+
+
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     // now write attributes

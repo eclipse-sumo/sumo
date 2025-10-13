@@ -73,6 +73,12 @@ GNETAZ::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETAZ::getParameters() {
+    return this;
+}
+
+
 int
 GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid

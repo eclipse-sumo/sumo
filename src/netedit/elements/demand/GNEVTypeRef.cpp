@@ -51,6 +51,12 @@ GNEVTypeRef::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVTypeRef::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEVTypeRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup

@@ -64,8 +64,16 @@ public:
     /// @brief Destructor
     ~GNEJunction();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this junction
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this junction
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this junction
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{

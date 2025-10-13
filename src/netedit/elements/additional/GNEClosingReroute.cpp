@@ -53,6 +53,12 @@ GNEClosingReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEClosingReroute::getParameters() {
+    return this;
+}
+
+
 void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);
@@ -92,13 +98,6 @@ GNEClosingReroute::fixAdditionalProblem() {
 bool
 GNEClosingReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEClosingReroute::getMoveOperation() {
-    // GNEClosingReroutes cannot be moved
-    return nullptr;
 }
 
 

@@ -82,8 +82,16 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    /// @brief methods to retrieve the elements linked to this GNEAdditional
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this GNEAdditional
     GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this GNEAdditional
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);

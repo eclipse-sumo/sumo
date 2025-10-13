@@ -45,6 +45,18 @@ GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement*
 GNERouteRef::~GNERouteRef() {}
 
 
+GNEMoveElement*
+GNERouteRef::getMoveElement() const {
+    return nullptr;
+}
+
+
+Parameterised*
+GNERouteRef::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERouteRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup

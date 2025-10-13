@@ -531,6 +531,12 @@ GNEVehicle::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVehicle::getParameters() {
+    return this;
+}
+
+
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // attribute VType must not be written if is DEFAULT_VTYPE_ID

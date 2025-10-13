@@ -63,6 +63,12 @@ GNERouteProbe::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERouteProbe::getParameters() {
+    return this;
+}
+
+
 void
 GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // open tag

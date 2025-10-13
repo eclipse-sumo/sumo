@@ -174,6 +174,12 @@ GNEPerson::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPerson::getParameters() {
+    return this;
+}
+
+
 void
 GNEPerson::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID

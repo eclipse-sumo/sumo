@@ -65,6 +65,12 @@ GNETransport::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETransport::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);

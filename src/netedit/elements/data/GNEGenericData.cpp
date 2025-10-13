@@ -69,6 +69,12 @@ GNEGenericData::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEGenericData::getParameters() {
+    return this;
+}
+
+
 GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;

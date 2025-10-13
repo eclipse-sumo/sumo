@@ -68,6 +68,12 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, const 
 GNEDetector::~GNEDetector() {}
 
 
+Parameterised*
+GNEDetector::getParameters() {
+    return this;
+}
+
+
 bool
 GNEDetector::checkDrawMoveContour() const {
     // get edit modes

@@ -64,6 +64,12 @@ GNERide::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERide::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);

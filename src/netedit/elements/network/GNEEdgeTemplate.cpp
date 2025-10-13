@@ -1,3 +1,5 @@
+#include "GNEEdgeTemplate.h"
+#include "GNEEdgeTemplate.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -50,6 +52,12 @@ GNEEdgeTemplate::getHierarchicalElement() {
 
 GNEMoveElement*
 GNEEdgeTemplate::getMoveElement() const {
+    return nullptr;
+}
+
+
+Parameterised*
+GNEEdgeTemplate::getParameters() {
     return nullptr;
 }
 

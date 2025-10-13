@@ -69,8 +69,16 @@ public:
     /// @brief Destructor
     ~GNEDetector();
 
+    /// @brief methods to retrieve the elements linked to this GNEDetector
+    /// @{
+
     /// @brief get GNEMoveElement associated with this AttributeCarrier
     virtual GNEMoveElement* getMoveElement() const = 0;
+
+    /// @brief get parameters associated with this AttributeCarrier
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{

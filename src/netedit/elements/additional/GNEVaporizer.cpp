@@ -57,10 +57,9 @@ GNEVaporizer::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNEVaporizer::getMoveOperation() {
-    // vaporizers cannot be moved
-    return nullptr;
+Parameterised*
+GNEVaporizer::getParameters() {
+    return this;
 }
 
 

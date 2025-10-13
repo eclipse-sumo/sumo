@@ -102,8 +102,16 @@ public:
     /// @brief destructor
     ~GNERoute();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this route
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this route
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this route
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

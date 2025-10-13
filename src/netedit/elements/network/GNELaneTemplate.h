@@ -37,8 +37,16 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this laneType
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this laneType
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this laneType
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name Function related with graphics
     /// @{

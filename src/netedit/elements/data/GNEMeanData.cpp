@@ -81,6 +81,24 @@ GNEMeanData::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEMeanData::getParameters() {
+    return this;
+}
+
+
+GUIGlObject*
+GNEMeanData::getGUIGlObject() {
+    return nullptr;
+}
+
+
+const GUIGlObject*
+GNEMeanData::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEMeanData::writeMeanData(OutputDevice& device) const {
     device.openTag(getTagProperty()->getTag());
@@ -139,18 +157,6 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_AGGREGATE, true);
     }
     device.closeTag();
-}
-
-
-GUIGlObject*
-GNEMeanData::getGUIGlObject() {
-    return nullptr;
-}
-
-
-const GUIGlObject*
-GNEMeanData::getGUIGlObject() const {
-    return nullptr;
 }
 
 

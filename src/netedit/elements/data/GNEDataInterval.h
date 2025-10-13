@@ -45,11 +45,25 @@ public:
     /// @brief Destructor
     ~GNEDataInterval();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this dataSet
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief get GNEHierarchicalElement associated with this dataInterval
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this dataInterval
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this dataInterval
+    Parameterised* getParameters() override;
+
+    /// @brief get GUIGlObject associated with this dataInterval
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this dataInterval (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /// @brief update generic data child IDs
     void updateGenericDataIDs();
@@ -62,12 +76,6 @@ public:
 
     /// @brief specific attribute colors
     const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

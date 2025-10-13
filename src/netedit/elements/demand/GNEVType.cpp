@@ -109,6 +109,12 @@ GNEVType::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVType::getParameters() {
+    return this;
+}
+
+
 void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified

@@ -77,20 +77,25 @@ public:
     /// @brief Destructor
     virtual ~GNEDemandElement();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this GNEDemandElement
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    /// @brief get GNEHierarchicalElement associated with this GNEDemandElement
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this GNEDemandElement
     virtual GNEMoveElement* getMoveElement() const = 0;
 
-    /// @brief remove geometry point in the clicked position (Currently unused in shapes)
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+    /// @brief get parameters associated with this GNEDemandElement
+    virtual Parameterised* getParameters() = 0;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
+    /// @brief get GUIGlObject associated with this GNEDemandElement
+    GUIGlObject* getGUIGlObject() override;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
+    /// @brief get GUIGlObject associated with this GNEDemandElement (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /// @brief get demand element geometry (stacked)
     const GUIGeometry& getDemandElementGeometry();

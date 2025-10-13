@@ -57,8 +57,16 @@ public:
     /// @brief destructor
     ~GNETranship();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this tranship
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this tranship
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this tranship
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

@@ -52,6 +52,12 @@ GNERerouterInterval::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERerouterInterval::getParameters() {
+    return this;
+}
+
+
 void
 GNERerouterInterval::writeAdditional(OutputDevice& device) const {
     // avoid write empty intervals

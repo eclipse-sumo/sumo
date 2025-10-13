@@ -155,6 +155,12 @@ GNEMoveElement* GNERoute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERoute::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup

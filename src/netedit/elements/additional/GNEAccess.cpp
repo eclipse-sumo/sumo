@@ -65,6 +65,12 @@ GNEAccess::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEAccess::getParameters() {
+    return this;
+}
+
+
 void
 GNEAccess::updateGeometry() {
     // set start position

@@ -61,11 +61,21 @@ public:
      */
     GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType);
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
-
     /// @brief Destructor.
     ~GNEEdgeType();
+
+    /// @brief methods to retrieve the elements linked to this edgeType
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this edgeType
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this edgeType
+    Parameterised* getParameters() override {
+        return this;
+    }
+
+    /// @}
 
     /// @brief copy edge template
     void copyTemplate(const GNEEdgeTemplate* edgeTemplate);

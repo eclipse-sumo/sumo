@@ -81,17 +81,25 @@ public:
     /// @brief Destructor
     ~GNEDataSet();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this dataSet
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief get GNEHierarchicalElement associated with this dataSet
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
+    /// @brief get GNEMoveElement associated with this dataSet
+    GNEMoveElement* getMoveElement() const override;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
+    /// @brief get parameters associated with this dataSet
+    Parameterised* getParameters() override;
+
+    /// @brief get GUIGlObject associated with this dataSet
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this dataSet (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /// @brief update attribute colors deprecated
     void updateAttributeColors();

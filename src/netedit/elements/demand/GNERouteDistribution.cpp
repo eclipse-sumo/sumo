@@ -48,6 +48,12 @@ GNERouteDistribution::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERouteDistribution::getParameters() {
+    return this;
+}
+
+
 void
 GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     // write attributes

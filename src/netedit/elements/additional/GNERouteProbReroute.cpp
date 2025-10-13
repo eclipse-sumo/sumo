@@ -53,6 +53,12 @@ GNERouteProbReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERouteProbReroute::getParameters() {
+    return this;
+}
+
+
 void
 GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE_PROB_REROUTE);

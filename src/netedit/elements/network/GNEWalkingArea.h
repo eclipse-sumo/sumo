@@ -53,8 +53,16 @@ public:
     /// @brief Destructor
     ~GNEWalkingArea();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this walkingArea
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this walkingArea
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this walkingArea
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{

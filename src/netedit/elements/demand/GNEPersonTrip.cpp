@@ -68,6 +68,12 @@ GNEPersonTrip::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPersonTrip::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);

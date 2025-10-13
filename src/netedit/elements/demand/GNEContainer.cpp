@@ -174,6 +174,12 @@ GNEContainer::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEContainer::getParameters() {
+    return this;
+}
+
+
 void
 GNEContainer::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID

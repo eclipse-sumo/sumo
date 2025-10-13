@@ -54,20 +54,28 @@ public:
     /// @brief Destructor
     virtual ~GNEGenericData();
 
+    /// @brief methods to retrieve the elements linked to this dataSet
+    /// @{
+
+    /// @brief get GNEHierarchicalElement associated with this dataInterval
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this dataInterval
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this dataInterval
+    Parameterised* getParameters() override;
+
+    /// @brief get GUIGlObject associated with this dataInterval
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this dataInterval (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
+
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
-
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
-
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;

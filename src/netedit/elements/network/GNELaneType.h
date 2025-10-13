@@ -46,8 +46,16 @@ public:
     /// @brief Destructor.
     ~GNELaneType();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this laneType
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this laneType
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this laneType
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /// @brief get edge type parent
     GNEEdgeType* getEdgeTypeParent() const;

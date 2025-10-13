@@ -1,3 +1,5 @@
+#include "GNEJunction.h"
+#include "GNEJunction.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -104,6 +106,12 @@ GNEJunction::~GNEJunction() {
 GNEMoveElement*
 GNEJunction::getMoveElement() const {
     return myMoveElementJunction;
+}
+
+
+Parameterised*
+GNEJunction::getParameters() {
+    return myNBNode;
 }
 
 

@@ -56,8 +56,16 @@ public:
     /// @brief destructor
     ~GNEWalk();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this walk
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this walk
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this walk
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

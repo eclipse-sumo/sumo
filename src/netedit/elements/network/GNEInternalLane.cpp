@@ -95,6 +95,12 @@ GNEInternalLane::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEInternalLane::getParameters() {
+    return nullptr;
+}
+
+
 void
 GNEInternalLane::updateGeometry() {
     // nothing to update

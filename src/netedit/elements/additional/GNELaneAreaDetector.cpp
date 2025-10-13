@@ -83,6 +83,12 @@ GNELaneAreaDetector::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneAreaDetector::getParameters() {
+    return this;
+}
+
+
 void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);

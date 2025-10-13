@@ -197,6 +197,12 @@ GNELane::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELane::getParameters() {
+    return &(getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex));
+}
+
+
 GNEEdge*
 GNELane::getParentEdge() const {
     return getParentEdges().front();

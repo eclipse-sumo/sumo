@@ -38,8 +38,16 @@ public:
     /// @brief destructor
     ~GNEVTypeDistribution();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this vTypeDistribution
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this vTypeDistribution
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this vTypeDistribution
+    Parameterised* getParameters() override;
+
+    /// @}
 
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

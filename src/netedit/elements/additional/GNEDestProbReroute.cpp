@@ -55,6 +55,12 @@ GNEDestProbReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEDestProbReroute::getParameters() {
+    return this;
+}
+
+
 void
 GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_DEST_PROB_REROUTE);
@@ -88,13 +94,6 @@ GNEDestProbReroute::fixAdditionalProblem() {
 bool
 GNEDestProbReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEDestProbReroute::getMoveOperation() {
-    // GNEDestProbReroutes cannot be moved
-    return nullptr;
 }
 
 

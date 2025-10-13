@@ -63,6 +63,12 @@ GNEWalk::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEWalk::getParameters() {
+    return this;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);

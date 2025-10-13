@@ -151,6 +151,12 @@ GNEStop::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEStop::getParameters() {
+    return this;
+}
+
+
 void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
