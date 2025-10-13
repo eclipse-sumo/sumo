@@ -930,6 +930,34 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
         }
     }
+    // check leader vehicle first because it could have influenced the departSpeed (for departSpeed=avg)
+    // get the pointer to the vehicle next in front of the given position
+    MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
+    //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
+    const double nspeed = safeInsertionSpeed(aVehicle, -pos, leaders, speed);
+    if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
+        // we may not drive with the given velocity - we crash into the leader
+#ifdef DEBUG_INSERTION
+        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+            std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
+                      << " veh=" << aVehicle->getID()
+                      << " pos=" << pos
+                      << " posLat=" << posLat
+                      << " patchSpeed=" << patchSpeed
+                      << " speed=" << speed
+                      << " nspeed=" << nspeed
+                      << " nextLane=" << nextLane->getID()
+                      << " leaders=" << leaders.toString()
+                      << " failed (@700)!\n";
+        }
+#endif
+        return false;
+    }
+#ifdef DEBUG_INSERTION
+    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+        std::cout << SIMTIME << " speed = " << speed << " nspeed = " << nspeed << " leaders=" << leaders.toString() << "\n";
+    }
+#endif
 
     const MSRoute& r = aVehicle->getRoute();
     MSRouteIterator ce = r.begin();
@@ -1163,34 +1191,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
         }
     }
-
-    // get the pointer to the vehicle next in front of the given position
-    MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
-    //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
-    const double nspeed = safeInsertionSpeed(aVehicle, -pos, leaders, speed);
-    if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
-        // we may not drive with the given velocity - we crash into the leader
-#ifdef DEBUG_INSERTION
-        if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-            std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
-                      << " veh=" << aVehicle->getID()
-                      << " pos=" << pos
-                      << " posLat=" << posLat
-                      << " patchSpeed=" << patchSpeed
-                      << " speed=" << speed
-                      << " nspeed=" << nspeed
-                      << " nextLane=" << nextLane->getID()
-                      << " leaders=" << leaders.toString()
-                      << " failed (@700)!\n";
-        }
-#endif
-        return false;
-    }
-#ifdef DEBUG_INSERTION
-    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-        std::cout << SIMTIME << " speed = " << speed << " nspeed = " << nspeed << " leaders=" << leaders.toString() << "\n";
-    }
-#endif
 
     const MSLeaderDistanceInfo& followers = getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
     for (int i = 0; i < followers.numSublanes(); ++i) {
