@@ -568,18 +568,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_AREA:
             return getParentAdditionals().front()->getID();
         // specific of stops over lanes
-        case SUMO_ATTR_STARTPOS:
-            if (startPos != INVALID_DOUBLE) {
-                return toString(startPos);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (endPos != INVALID_DOUBLE) {
-                return toString(endPos);
-            } else {
-                return "";
-            }
         case SUMO_ATTR_POSITION_LAT:
             if (posLat == INVALID_DOUBLE) {
                 return "";
@@ -618,24 +606,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
 double
 GNEStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_STARTPOS:
-        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
-            if (getParentAdditionals().size() > 0) {
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-            } else if (startPos != INVALID_DOUBLE) {
-                return startPos;
-            } else {
-                return 0;
-            }
-        case SUMO_ATTR_ENDPOS:
-        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
-            if (getParentAdditionals().size() > 0) {
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else if (endPos != INVALID_DOUBLE) {
-                return endPos;
-            } else {
-                return getParentLanes().front()->getLaneShapeLength();
-            }
         case SUMO_ATTR_INDEX: // for writting sorted
             return (double)myCreationIndex;
         case GNE_ATTR_STOPINDEX: {
@@ -722,8 +692,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
         // specific of stops over lanes
-        case SUMO_ATTR_STARTPOS:
-        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_SPLIT:
         // other
@@ -731,7 +699,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            myMoveElementLaneDouble->setMovingAttribute(key, value);
+            myMoveElementLaneDouble->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -835,22 +803,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PARKING_AREA:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         // specific of stops over lanes
-        case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_POSITION_LAT:
             if (value.empty()) {
                 return true;
@@ -1264,22 +1216,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
             replaceFirstParentLane(value);
-            updateGeometry();
-            break;
-        case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                startPos = INVALID_DOUBLE;
-            } else {
-                startPos = parse<double>(value);
-            }
-            updateGeometry();
-            break;
-        case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                endPos = INVALID_DOUBLE;
-            } else {
-                endPos = parse<double>(value);
-            }
             updateGeometry();
             break;
         case SUMO_ATTR_POSITION_LAT:
