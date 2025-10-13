@@ -170,8 +170,6 @@ GNEInstantInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
         default:
             return getDetectorAttribute(key);
     }
@@ -194,7 +192,6 @@ GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string
     switch (key) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -215,8 +212,6 @@ GNEInstantInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& val
             }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         default:
             return isDetectorValid(key, value);
     }
@@ -234,9 +229,6 @@ GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string
             break;
         case SUMO_ATTR_POSITION:
             myPosOverLane = parse<double>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = parse<bool>(value);
             break;
         default:
             setDetectorAttribute(key, value);

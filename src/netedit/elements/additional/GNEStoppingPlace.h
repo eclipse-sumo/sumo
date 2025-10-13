@@ -208,7 +208,7 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    std::string getStoppingPlaceAttribute(SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key
@@ -230,7 +230,7 @@ protected:
     bool isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const;
 
     /// @brief method for setting the stoppingPlace attribute and nothing else (used in GNEChange_Attribute)
-    void setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    void setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @}
 

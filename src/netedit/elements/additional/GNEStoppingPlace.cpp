@@ -196,7 +196,7 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
 
 
 std::string
-GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEStoppingPlace::getStoppingPlaceAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -211,7 +211,7 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
         default:
-            return myMoveElementLaneDouble->getMovingAttribute(parameterised, key);
+            return myMoveElementLaneDouble->getMovingAttribute(key);
     }
 }
 
@@ -273,7 +273,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
 
 
 void
-GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -306,7 +306,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             shiftLaneIndex();
             break;
         default:
-            myMoveElementLaneDouble->setMovingAttribute(parameterised, key, value);
+            myMoveElementLaneDouble->setMovingAttribute(key, value);
             break;
     }
 }

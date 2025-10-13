@@ -189,7 +189,7 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getMoveElement()->getMovingAttribute(this, key);
+            return getMoveElement()->getMovingAttribute(key);
     }
 }
 
@@ -313,7 +313,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            getMoveElement()->setMovingAttribute(this, key, value);
+            getMoveElement()->setMovingAttribute(key, value);
             break;
     }
 }

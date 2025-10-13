@@ -346,8 +346,6 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
             return toString(myJamThreshold);
         case SUMO_ATTR_SHOW_DETECTOR:
             return toString(myShow);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
         default:
             return getDetectorAttribute(key);
     }
@@ -382,7 +380,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
         case SUMO_ATTR_SHOW_DETECTOR:
-        case SUMO_ATTR_FRIENDLY_POS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -417,8 +414,6 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_SHOW_DETECTOR:
-            return canParse<bool>(value);
-        case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         default:
             return isDetectorValid(key, value);
@@ -603,9 +598,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHOW_DETECTOR:
             myShow = parse<bool>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
             break;
         default:
             setDetectorAttribute(key, value);

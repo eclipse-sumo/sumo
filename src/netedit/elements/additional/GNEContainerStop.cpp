@@ -178,7 +178,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         default:
-            return getStoppingPlaceAttribute(this, key);
+            return getStoppingPlaceAttribute(key);
     }
 }
 
@@ -239,7 +239,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setStoppingPlaceAttribute(this, key, value);
+            setStoppingPlaceAttribute(key, value);
             break;
     }
 }

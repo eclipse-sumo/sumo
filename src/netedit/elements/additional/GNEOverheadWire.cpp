@@ -313,14 +313,12 @@ GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
             return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPosPosOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return toString(myForbiddenInnerLanes);
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return myMoveElementLaneDouble->getMovingAttribute(key);
     }
 }
 
@@ -345,7 +343,7 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
                 return myEndPosPosOverLane;
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return myMoveElementLaneDouble->getMovingAttributeDouble(key);
     }
 }
 
@@ -358,12 +356,11 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementLaneDouble->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -392,12 +389,10 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return true;
         default:
-            return isCommonValid(key, value);
+            return myMoveElementLaneDouble->isMovingAttributeValid(key, value);
     }
 }
 
@@ -452,9 +447,6 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateGeometry();
             }
             break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             myForbiddenInnerLanes = parse<std::vector<std::string> >(value);
             break;
@@ -462,7 +454,7 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementLaneDouble->setMovingAttribute(key, value);
             break;
     }
 }

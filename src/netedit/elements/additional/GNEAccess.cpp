@@ -267,8 +267,6 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myLength);
             }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
         case GNE_ATTR_PARENT:
             if (isTemplate()) {
                 return "";
@@ -278,14 +276,14 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            return myMoveElementLaneSingle->getMovingAttribute(key);
     }
 }
 
 
 double
 GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return myMoveElementLaneSingle->getMovingAttributeDouble(key);
 }
 
 
@@ -295,13 +293,12 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SHIFTLANEINDEX:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementLaneSingle->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -336,12 +333,10 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditionals(NamespaceIDs::busStops, value, false) != nullptr);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementLaneSingle->isMovingAttributeValid(key, value);
     }
 }
 
@@ -384,9 +379,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myLength = parse<double>(value);
             }
             break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = parse<bool>(value);
-            break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) {
                 replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
@@ -400,7 +392,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementLaneSingle->setMovingAttribute(key, value);
             break;
     }
 }

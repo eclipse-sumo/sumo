@@ -401,8 +401,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myPosOverView);
             }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
         case SUMO_ATTR_LON:
@@ -436,7 +434,11 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(key);
+            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+                return myMoveElementLaneSingle->getMovingAttribute(key);
+            } else {
+                return myMoveElementViewResizable->getMovingAttribute(key);
+            }
     }
 }
 
@@ -481,7 +483,11 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return getShapeNaviDegree();
         default:
-            throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
+            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+                return myMoveElementLaneSingle->getMovingAttributeDouble(key);
+            } else {
+                return myMoveElementViewResizable->getMovingAttributeDouble(key);
+            }
     }
 }
 
@@ -493,7 +499,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_LON:
         case SUMO_ATTR_LAT:
@@ -509,7 +514,11 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+                return myMoveElementLaneSingle->setMovingAttribute(key, value, undoList);
+            } else {
+                return myMoveElementViewResizable->setMovingAttribute(key, value, undoList);
+            }
             break;
     }
 }
@@ -530,8 +539,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<Position>(value);
             }
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_LON:
@@ -564,7 +571,12 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         default:
-            return isCommonValid(key, value);
+            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+                return myMoveElementLaneSingle->isMovingAttributeValid(key, value);
+            } else {
+                return myMoveElementViewResizable->isMovingAttributeValid(key, value);
+            }
+            break;
     }
 }
 
@@ -746,9 +758,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         }
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = parse<bool>(value);
-            break;
         case SUMO_ATTR_POSITION_LAT:
             myPosLat = parse<double>(value);
             // update boundary (except for template)
@@ -838,7 +847,12 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            return setCommonAttribute(key, value);
+            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+                return myMoveElementLaneSingle->setMovingAttribute(key, value);
+            } else {
+                return myMoveElementViewResizable->setMovingAttribute(key, value);
+            }
+            break;
     }
 }
 

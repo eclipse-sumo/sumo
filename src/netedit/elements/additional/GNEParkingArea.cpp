@@ -220,7 +220,7 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LEFTHAND:
             return toString(myLefthand);
         default:
-            return getStoppingPlaceAttribute(this, key);
+            return getStoppingPlaceAttribute(key);
     }
 }
 
@@ -369,7 +369,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setStoppingPlaceAttribute(this, key, value);
+            setStoppingPlaceAttribute(key, value);
             break;
     }
 }
