@@ -16,11 +16,3 @@ output:vm3dgl: Failed to initialize svga driver.
 output:vm3dgl: Falling back to LLVMPipe.
 errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
 errors:MESA: error: ZINK: {LINES 2}
-
-[batch_extra_version]
-default:{CLEAR perf}
-meso:{CLEAR perf}
-msvc10mesox64:{CLEAR perf}
-msvc10mesoWin32:{CLEAR perf}
-msvc12mesox64:{CLEAR perf}
-msvc12mesoWin32:{CLEAR perf}
