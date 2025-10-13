@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-13 09:11+0000\n"
+"PO-Revision-Date: 2025-10-13 12:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4446,12 +4446,16 @@ msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "factor"
 msgstr ""
+"Cambia itinerario solamente se quello nuovo è più veloce di quello attuale "
+"per il multiplo dato"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:75
 msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "TIME"
 msgstr ""
+"Cambia itinerario solamente se quello nuovo è più veloce di quello attuale "
+"per la durata data (TIME)"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid "Use zones (districts) as routing start- and endpoints"
@@ -5108,7 +5112,7 @@ msgstr "Il periodo tra due chiamate succesive dell'invio"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:98
 msgid "The time before aborting unreachable reservations"
-msgstr ""
+msgstr "Durata dopodiché delle prenotazioni irraggiungibili verranno scartate"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:101
 msgid "The behavior of idle taxis [stop|randomCircling|taxistand]"
@@ -7788,7 +7792,7 @@ msgstr " % archi sono stati rimossi dovuti alla larghezza di corsia."
 #: src/netbuild/NBNetBuilder.cpp:137
 #, c-format
 msgid " Split % edges to attach removed nodes"
-msgstr ""
+msgstr " % archi tagliati per attaccarci i nodi rimossi"
 
 #: src/netbuild/NBNetBuilder.cpp:142
 msgid "Processing public transport stops"
@@ -7819,7 +7823,7 @@ msgstr " % quantità di incroci sono stati combinati."
 
 #: src/netbuild/NBNetBuilder.cpp:259
 msgid "Joining junctions with similar coordinates"
-msgstr ""
+msgstr "Combinazione degli incroci con coordinate simili"
 
 #: src/netbuild/NBNetBuilder.cpp:263
 #, c-format
@@ -8029,7 +8033,7 @@ msgstr "Codice identificativo '%' invalido."
 #: src/netbuild/NBNode.cpp:315 src/netbuild/NBNode.cpp:340
 #: src/netbuild/NBNode.cpp:355
 msgid "Invalid position '%' for node '%'"
-msgstr ""
+msgstr "Posizione invalida '%' del nodo '%'"
 
 #: src/netbuild/NBNode.cpp:512
 msgid " Removing self-looping edge '%'"
@@ -8534,12 +8538,13 @@ msgstr ""
 
 #: src/netconvert_main.cpp:53
 msgid "generate net with options read from file"
-msgstr ""
+msgstr "genera rete con opzioni caricate dal file"
 
 #: src/netconvert_main.cpp:55
 msgid ""
 "generate net with given nodes, edges, and edge types doing verbose output"
 msgstr ""
+"genera rete con i nodi, archi e tipi di archi dati e informa sul progresso"
 
 #: src/netconvert_main.cpp:98
 msgid ""
@@ -8762,19 +8767,19 @@ msgstr "L'opzione 'rand.connectivity' richiede un valore sotto 0.999"
 
 #: src/netgen/netgen_main.cpp:61
 msgid "create net from given configuration"
-msgstr ""
+msgstr "crea rete dalla configurazione data"
 
 #: src/netgen/netgen_main.cpp:62
 msgid "create grid net"
-msgstr ""
+msgstr "crea rete griglia"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
-msgstr ""
+msgstr "crea rete di ragnatela"
 
 #: src/netgen/netgen_main.cpp:64
 msgid "create random net"
-msgstr ""
+msgstr "crea rete casuale"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
