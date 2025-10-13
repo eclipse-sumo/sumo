@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-06 17:02+0000\n"
+"PO-Revision-Date: 2025-10-13 13:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2916,16 +2916,16 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4100
 msgid "Demand elements saved."
-msgstr ""
+msgstr "Nachfrageelemente gespeichert."
 
 #: src/netedit/GNEApplicationWindow.cpp:4103
 #: src/netedit/GNEApplicationWindow.cpp:4275
 msgid "Saving demand elements aborted."
-msgstr ""
+msgstr "Speichervorgang der Nachfrageelemente abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4108
 msgid "Saving demand elements failed"
-msgstr ""
+msgstr "Speichern der Nachfrageelemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4135
 msgid "saving of unified demand elements in '%'."
@@ -4954,15 +4954,15 @@ msgstr "Netz"
 
 #: src/netedit/GNENetHelper.cpp:3668
 msgid "additional elements"
-msgstr ""
+msgstr "weitere Elemente"
 
 #: src/netedit/GNENetHelper.cpp:3700
 msgid "demand elements"
-msgstr ""
+msgstr "Nachfrageelemente"
 
 #: src/netedit/GNENetHelper.cpp:3732
 msgid "data elements"
-msgstr ""
+msgstr "Datenelemente"
 
 #: src/netedit/GNENetHelper.cpp:3764
 msgid "meanData elements"
@@ -8946,6 +8946,8 @@ msgstr "Fahrzeugklasse % für die ausgewählten Fahrstreifen setzen"
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for %"
 msgstr ""
+"Für alle Fahrstreifen gibt es bereits einen auf % beschränkten Fahrstreifen "
+"der gleichen Kante"
 
 #: src/netedit/GNEViewNet.cpp:1041
 msgid "% lanes will be restricted to %. Continue?"
@@ -10082,15 +10084,17 @@ msgstr "Farbe ändern"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:57
 msgid "Critical error"
-msgstr ""
+msgstr "Kritischer Fehler"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:63
 msgid "Netedit found an internal critical error and will be closed:"
 msgstr ""
+"Netedit hat einen kritischen iternen Fehler festgestellt und wird "
+"geschlossen:"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:69
 msgid "ErrorTrace:"
-msgstr ""
+msgstr "Fehlerstapel:"
 
 #: src/netedit/dialogs/GNEDialog.cpp:330 src/netedit/dialogs/GNEDialog.cpp:343
 msgid "Yes"
@@ -10155,19 +10159,19 @@ msgstr "Zurück zum Werkzeugdialog"
 
 #: src/netedit/dialogs/GNEDialog.cpp:471
 msgid "Copy"
-msgstr ""
+msgstr "Kopieren"
 
 #: src/netedit/dialogs/GNEDialog.cpp:471
 msgid "Copy error trace to clipboard"
-msgstr ""
+msgstr "Fehlerstapel in Zwischenablage kopieren"
 
 #: src/netedit/dialogs/GNEDialog.cpp:475
 msgid "Report"
-msgstr ""
+msgstr "Melden"
 
 #: src/netedit/dialogs/GNEDialog.cpp:475
 msgid "Report bug to github"
-msgstr ""
+msgstr "Fehler auf Github melden"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:43
 msgid "Custom Geometry Point"
@@ -10331,7 +10335,7 @@ msgstr "Mehrere Parameter mit dem gleichen Schlüssel sind nicht erlaubt"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:33
 msgid "Save %"
-msgstr ""
+msgstr "% speichern"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:38
 msgid "You have unsaved %."
