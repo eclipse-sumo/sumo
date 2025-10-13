@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-10 09:13+0000\n"
+"PO-Revision-Date: 2025-10-13 13:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -14014,37 +14014,49 @@ msgstr "Die Datei '%' mit Attributwerten konnte nicht geöffnet werden."
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
+"Der Wert '%' aus der internen Testdatei kann nicht als Ganzzahl eingelesen "
+"werden."
 
 #: src/utils/tests/InternalTest.cpp:349 src/utils/tests/InternalTest.cpp:399
 #: src/utils/tests/InternalTest.cpp:434
 msgid "Could not open view positions file '%'."
-msgstr ""
+msgstr "Die Ansichtsdatei '%' konnte nicht geöffnet werden."
 
 #: src/utils/tests/InternalTest.cpp:377
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
 msgstr ""
+"Der Hauptmenüwert '%' aus der internen Testdatei konnte nicht als Ganzzahl "
+"eingelesen werden."
 
 #: src/utils/tests/InternalTest.cpp:379
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
 msgstr ""
+"Der A-Untermenüwert '%' aus der internen Testdatei konnte nicht als Ganzzahl "
+"eingelesen werden."
 
 #: src/utils/tests/InternalTest.cpp:381
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
 msgstr ""
+"Der B-Untermenüwert '%' aus der internen Testdatei konnte nicht als Ganzzahl "
+"eingelesen werden."
 
 #: src/utils/tests/InternalTest.cpp:415 src/utils/tests/InternalTest.cpp:454
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
 msgstr ""
+"Die X-Koordinate '%' aus der internen Testdatei konnte nicht als Ganzzahl "
+"eingelesen werden."
 
 #: src/utils/tests/InternalTest.cpp:417 src/utils/tests/InternalTest.cpp:456
 #: src/utils/tests/InternalTest.cpp:458 src/utils/tests/InternalTest.cpp:460
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
+"Die Y-Koordinate '%' aus der internen Testdatei konnte nicht als Ganzzahl "
+"eingelesen werden."
 
 #: src/utils/traction_wire/Circuit.cpp:44
 #, c-format
@@ -14620,7 +14632,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1810
 msgid "View settings files"
-msgstr ""
+msgstr "Ansichtsdateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1815
 msgid "State GZipped XML files"
