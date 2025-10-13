@@ -150,7 +150,8 @@ GNEMoveElementLaneDouble::getMovingAttribute(SumoXMLAttr key) const {
         // other attributes
         switch (key) {
             case SUMO_ATTR_LANE:
-                return myMovedElement->getHierarchicalElement()->getParentLanes().front()->getID();
+            case SUMO_ATTR_LANES:
+                return GNEAttributeCarrier::parseIDs(myMovedElement->getHierarchicalElement()->getParentLanes());
             case SUMO_ATTR_FRIENDLY_POS:
                 return toString(myFriendlyPosition);
             case GNE_ATTR_SHIFTLANEINDEX:
@@ -208,6 +209,7 @@ GNEMoveElementLaneDouble::setMovingAttribute(SumoXMLAttr key, const std::string&
         // other attributes
         switch (key) {
             case SUMO_ATTR_LANE:
+            case SUMO_ATTR_LANES:
             case SUMO_ATTR_FRIENDLY_POS:
             case GNE_ATTR_SHIFTLANEINDEX:
             case GNE_ATTR_REFERENCE:
@@ -260,10 +262,11 @@ GNEMoveElementLaneDouble::isMovingAttributeValid(SumoXMLAttr key, const std::str
         // other attributes
         switch (key) {
             case SUMO_ATTR_LANE:
-                if (myMovedElement->getNet()->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                    return true;
-                } else {
+            case SUMO_ATTR_LANES:
+                if (value.empty()) {
                     return false;
+                } else {
+                    return GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myMovedElement->getNet(), value, true);
                 }
             case SUMO_ATTR_FRIENDLY_POS:
                 return GNEAttributeCarrier::canParse<bool>(value);
