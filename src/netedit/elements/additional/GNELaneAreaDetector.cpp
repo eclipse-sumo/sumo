@@ -327,9 +327,6 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
 std::string
 GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
-            return parseIDs(getParentLanes());
         case SUMO_ATTR_POSITION:
             return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
@@ -370,8 +367,6 @@ GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
 void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_TLID:
@@ -392,13 +387,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
-            if (value.empty()) {
-                return false;
-            } else {
-                return canParse<std::vector<GNELane*> >(myNet, value, true);
-            }
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);

@@ -568,8 +568,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_AREA:
             return getParentAdditionals().front()->getID();
         // specific of stops over lanes
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
             if (startPos != INVALID_DOUBLE) {
                 return toString(startPos);
@@ -724,7 +722,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
         // specific of stops over lanes
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_POSITION_LAT:
@@ -838,12 +835,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PARKING_AREA:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         // specific of stops over lanes
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
                 return true;

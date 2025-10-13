@@ -253,8 +253,6 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentAdditionals().front()->getID();
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             if (myPosOverLane == INVALID_DOUBLE) {
                 return mySpecialPosition;
@@ -290,7 +288,6 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case GNE_ATTR_PARENT:
@@ -308,17 +305,14 @@ bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE: {
-            const GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(value, false);
             // check lane
-            if (lane == nullptr) {
+            if (!myMoveElementLaneSingle->isMovingAttributeValid(key, value)) {
                 return false;
+            } else {
+                // check if exist another access for the same parent in the given edge
+                const auto lane = myNet->getAttributeCarriers()->retrieveLane(value);
+                return GNEAdditionalHandler::accessExists(getParentAdditionals().at(0), lane->getParentEdge());
             }
-            // check if is the same lane
-            if (getParentLanes().front()->getParentEdge()->getID() == lane->getParentEdge()->getID()) {
-                return true;
-            }
-            // check if exist another access for the same parent in the given edge
-            return GNEAdditionalHandler::accessExists(getParentAdditionals().at(0), lane->getParentEdge());
         }
         case SUMO_ATTR_POSITION:
             if (value.empty() || (value == "random") || (value == "doors") || (value == "carriage")) {

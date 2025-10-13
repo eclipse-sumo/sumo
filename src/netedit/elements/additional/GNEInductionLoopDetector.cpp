@@ -186,8 +186,6 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPosOverLane);
         default:
@@ -210,7 +208,6 @@ GNEInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
 void
 GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -224,12 +221,6 @@ GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value
 bool
 GNEInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         default:

@@ -393,8 +393,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return myID;
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
                 return toString(myPosOverLane);
@@ -497,7 +495,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_COLOR:
-        case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_LON:
@@ -531,8 +528,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(NamespaceIDs::POIs, value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case SUMO_ATTR_LANE:
-            return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
                 return canParse<double>(value);
