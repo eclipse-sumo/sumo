@@ -135,7 +135,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* veh, bool parking);
+    virtual void enter(SUMOVehicle* veh, bool parking);
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -147,7 +147,7 @@ public:
      * @param[in] what The vehicle that leaves the bus stop
      * @see computeLastFreePos
      */
-    void leaveFrom(SUMOVehicle* what);
+    virtual void leaveFrom(SUMOVehicle* what);
 
 
     /** @brief Returns the last free position on this stop

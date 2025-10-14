@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNEChargingStation.h
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    Nov 2015
 ///
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
@@ -52,7 +53,7 @@ public:
      */
     GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                       const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
+                       const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
                        const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,
                        const bool friendlyPosition, const Parameterised::Map& parameters);
 
@@ -115,8 +116,11 @@ public:
     /// @}
 
 protected:
-    /// @brief Charging power pro timestep
+    /// @brief Charging power pro timestep and vehicle
     double myChargingPower = 0;
+
+    /// @brief Charging power pro timestep across all charging vehicles
+    double myTotalPower = 0;
 
     /// @brief efficiency of the charge
     double myEfficiency = 0;

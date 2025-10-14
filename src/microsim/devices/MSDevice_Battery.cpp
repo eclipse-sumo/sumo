@@ -295,7 +295,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         myActChargingStation = nullptr;
 
         // Set energy charged to 0
-        myEnergyCharged = 0.00;
+        myEnergyCharged = 0;
 
         // Reset timer
         resetChargingStartTime();
@@ -424,6 +424,12 @@ MSDevice_Battery::resetVehicleStoppedTimer() {
 void
 MSDevice_Battery::increaseVehicleStoppedTimer() {
     myVehicleStopped++;
+}
+
+
+void
+MSDevice_Battery::setEnergyCharged(const double energyCharged) {
+    myEnergyCharged = energyCharged;
 }
 
 

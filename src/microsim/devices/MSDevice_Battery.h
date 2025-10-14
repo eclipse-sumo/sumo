@@ -209,6 +209,9 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
+    /// @brief Set Energy Charged in Wh
+    void setEnergyCharged(const double energyCharged);
+
 protected:
     /// @brief Read device parameters from input
     static double readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal);
