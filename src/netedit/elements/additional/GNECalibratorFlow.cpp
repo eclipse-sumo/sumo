@@ -99,10 +99,6 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
-        // VPH
-        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getAttribute(SUMO_ATTR_VEHSPERHOUR));
-        }
         // write parameters
         SUMOVehicleParameter::writeParams(device);
         // close vehicle tag
