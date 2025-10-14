@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-01T16:07:44.319341+01:00 by Eclipse SUMO netedit v1_24_0+1076-cda6167ae69
+<!-- generated on 2025-10-14T17:06:50.599466+01:00 by Eclipse SUMO netedit v1_24_0+1420-a713840e6fe
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -158,13 +158,13 @@
     <edge id="E10" from="J10" to="J11" priority="-1" spreadType="center">
         <lane id="E10_0" index="0" allow="rail" speed="44.44" length="100.00" shape="900.00,0.00 1000.00,0.00"/>
     </edge>
-    <edge id="E10b" from="J10b" to="J11b" priority="-1" spreadType="center">
+    <edge id="E10b" from="J10b" to="J11b" priority="1" spreadType="center">
         <lane id="E10b_0" index="0" allow="rail" speed="44.44" length="97.74" shape="901.88,-50.00 999.62,-50.00"/>
     </edge>
     <edge id="E11" from="J11" to="J12" priority="-1" spreadType="center">
         <lane id="E11_0" index="0" allow="rail" speed="44.44" length="91.72" shape="1000.00,0.00 1091.72,0.00"/>
     </edge>
-    <edge id="E11b" from="J11b" to="J12" priority="-1" spreadType="center">
+    <edge id="E11b" from="J11b" to="J12" priority="1" spreadType="center">
         <lane id="E11b_0" index="0" allow="rail" speed="44.44" length="103.15" shape="1000.34,-49.83 1092.60,-3.70"/>
     </edge>
     <edge id="E12" from="J12" to="J13" priority="-1" spreadType="center">
@@ -227,7 +227,7 @@
     <edge id="E7" from="J7" to="J8" priority="-1" spreadType="center">
         <lane id="E7_0" index="0" allow="rail" speed="44.44" length="96.24" shape="601.88,0.00 698.12,0.00"/>
     </edge>
-    <edge id="E7b" from="J6b" to="J10b" priority="-1" spreadType="center">
+    <edge id="E7b" from="J6b" to="J10b" priority="1" spreadType="center">
         <lane id="E7b_0" index="0" allow="rail" speed="44.44" length="383.44" shape="508.28,-50.00 891.72,-50.00"/>
     </edge>
     <edge id="E7c" from="J7c" to="J8c" priority="-1" spreadType="center">
@@ -242,7 +242,7 @@
     <edge id="E9" from="J9" to="J10" priority="-1" spreadType="center">
         <lane id="E9_0" index="0" allow="rail" speed="44.44" length="91.72" shape="808.28,0.00 900.00,0.00"/>
     </edge>
-    <edge id="E9b" from="J9" to="J10b" priority="-1" spreadType="center">
+    <edge id="E9b" from="J9" to="J10b" priority="1" spreadType="center">
         <lane id="E9b_0" index="0" allow="rail" speed="44.44" length="95.25" shape="807.40,-3.70 892.60,-46.30"/>
     </edge>
 
