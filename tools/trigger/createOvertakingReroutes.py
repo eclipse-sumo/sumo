@@ -272,7 +272,7 @@ def writeSidings(options, routes, sidings, followerSidings):
         i = 0
         for main, (rid, fromIndex, edges) in sidings.items():
             rrEdge = routes[rid][fromIndex - 1]
-            outf.write('  <rerouter id="%s_%s" edges="%s">\n' % (options.prefix, i, rrEdge))
+            outf.write('  <rerouter id="%s_%s" edges="%s"> <!-- route: %s --> \n' % (options.prefix, i, rrEdge, rid))
             outf.write('    <interval begin="%s" end="%s">\n' % (options.begin, options.end))
             outf.write('       <overtakingReroute main="%s" siding="%s">\n' % (" ".join(main), " ".join(edges)))
             for main2 in followerSidings[main]:
