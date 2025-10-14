@@ -201,9 +201,21 @@ public:
 
     /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
-     * @return string with the value associated to key
+     * @return double with the value associated to key
      */
     virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return positionVector with the value associated to key
+     */
+    virtual PositionVector getAttributePositionVector(SumoXMLAttr key) const = 0;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -329,6 +341,18 @@ public:
      * @return double with the value associated to key
      */
     double getCommonAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for getting the common attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getCommonAttributePosition(SumoXMLAttr key) const;
+
+    /* @brief method for getting the common attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    PositionVector getCommonAttributePositionVector(SumoXMLAttr key) const;
 
     /* @brief method for setting the common attribute and letting the object perform additional changes
      * @param[in] key The attribute key

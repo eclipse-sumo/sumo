@@ -874,14 +874,26 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
                 throw InvalidArgument(getTagStr() + " doesn't support parameters");
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have a common attribute of type '" + toString(key) + "'");
     }
 }
 
 
 double
 GNEAttributeCarrier::getCommonAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an double attribute of type '" + toString(key) + "'");
+    throw InvalidArgument(getTagStr() + " doesn't have a common double attribute of type '" + toString(key) + "'");
+}
+
+
+Position
+GNEAttributeCarrier::getCommonAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a common position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEAttributeCarrier::getCommonAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a common positionVector attribute of type '" + toString(key) + "'");
 }
 
 
