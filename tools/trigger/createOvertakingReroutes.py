@@ -209,7 +209,7 @@ def findSidings(options, routes, switches, net):
                         fromTo[0], fromTo[1], rid, intersect))
                     warnings.add(warning)
                 continue
-            main = routes[rid][fromIndex:toIndex]
+            main = routes[rid][fromIndex:toIndex + 1]
             sidings[main] = (rid, fromIndex, edges)
             # different routes may have the same main section but diverge downstream
             sidingRoutes[main].append((rid, fromIndex))
