@@ -34,7 +34,7 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)) {
 }
 
 
@@ -44,7 +44,7 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
     Parameterised(parameters),
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     mySpecialPosition(specialPos),
     myLength(length) {
     // set parents
@@ -257,7 +257,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             if (myPosOverLane == INVALID_DOUBLE) {
                 return mySpecialPosition;
             } else {
-                return toString(myPosOverLane);
+                return myMoveElementLaneSingle->getMovingAttribute(key);
             }
         case SUMO_ATTR_LENGTH:
             if (myLength == -1) {
@@ -300,7 +300,6 @@ GNEAccess::getAttributePositionVector(SumoXMLAttr key) const {
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SHIFTLANEINDEX:
@@ -330,7 +329,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty() || (value == "random") || (value == "doors") || (value == "carriage")) {
                 return true;
             } else {
-                return canParse<double>(value);
+                return myMoveElementLaneSingle->isMovingAttributeValid(key, value);
             }
         case SUMO_ATTR_LENGTH:
             if (canParse<double>(value)) {
@@ -375,7 +374,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myPosOverLane = INVALID_DOUBLE;
                 mySpecialPosition = value;
             } else {
-                myPosOverLane = parse<double>(value);
+                myMoveElementLaneSingle->setMovingAttribute(key, value);
             }
             break;
         case SUMO_ATTR_LENGTH:

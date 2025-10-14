@@ -33,9 +33,9 @@ class GNEMoveElementLaneSingle : public GNEMoveElement {
 public:
     /// @brief constructor
     GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-                             double& position, bool& friendlyPos);
+                             SumoXMLAttr posAttr, double& position, bool& friendlyPos);
 
-    //// @brief empty destructor
+    //// @brief destructor
     ~GNEMoveElementLaneSingle();
 
     /**@brief get move operation
@@ -87,14 +87,16 @@ public:
     /// @brief get offset position over lane
     double getFixedPositionOverLane() const;
 
-protected:
+private:
+    /// @brief pos attribute
+    SumoXMLAttr myPosAttr;
+
     /// @brief position over lane
     double& myPosOverLane;
 
     /// @brief friendly position
     bool& myFriendlyPos;
 
-private:
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;
 

@@ -40,7 +40,7 @@
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
     GNEAdditional("", net, "", tag, ""),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO) ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)) {
 }
@@ -55,7 +55,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myPosOverView(pos),
     myWidth(width),
     myHeight(height),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)),
     myPOIIcon(icon) {
@@ -79,7 +79,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myPosOverLane(posOverLane),
     myWidth(width),
     myHeight(height),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::POSITION, GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT,
                                myPosOverView, myWidth, myHeight)),
     myPosLat(posLat),
@@ -393,12 +393,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return myID;
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
-        case SUMO_ATTR_POSITION:
-            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-                return toString(myPosOverLane);
-            } else {
-                return toString(myPosOverView);
-            }
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
         case SUMO_ATTR_LON:
@@ -444,12 +438,6 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
 double
 GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-                return myPosOverLane;
-            } else {
-                throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
-            }
         case SUMO_ATTR_POSITION_LAT:
             return myPosLat;
         case SUMO_ATTR_LON:
@@ -511,7 +499,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_COLOR:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_POSITION_LAT:
         case SUMO_ATTR_LON:
         case SUMO_ATTR_LAT:
@@ -544,12 +531,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(NamespaceIDs::POIs, value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case SUMO_ATTR_POSITION:
-            if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
-                return canParse<double>(value);
-            } else {
-                return canParse<Position>(value);
-            }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_LON:
@@ -752,10 +733,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         case SUMO_ATTR_POSITION: {
             if (myTagProperty->getTag() == GNE_TAG_POILANE) {
@@ -763,18 +740,10 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myPosOverView = parse<Position>(value);
             }
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         }
         case SUMO_ATTR_POSITION_LAT:
             myPosLat = parse<double>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         case SUMO_ATTR_LON: {
             // parse geo attributes
@@ -783,10 +752,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             GeoConvHelper::getFinal().x2cartesian_const(pos);
             // update view position
             myPosOverView = pos;
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         }
         case SUMO_ATTR_LAT: {
@@ -796,10 +761,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             GeoConvHelper::getFinal().x2cartesian_const(pos);
             // update view position
             myPosOverView = pos;
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         }
         case SUMO_ATTR_TYPE:
@@ -831,25 +792,13 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             // set new width
             myWidth = parse<double>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         case SUMO_ATTR_HEIGHT:
             // set new height
             myHeight = parse<double>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
-            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -864,6 +813,10 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 return myMoveElementViewResizable->setMovingAttribute(key, value);
             }
             break;
+    }
+    // update boundary (except for template)
+    if (getID().size() > 0) {
+        updateCenteringBoundary(myTagProperty->getTag() != GNE_TAG_POILANE);
     }
 }
 

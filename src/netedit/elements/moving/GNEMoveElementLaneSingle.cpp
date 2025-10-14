@@ -30,9 +30,10 @@
 // Method definitions
 // ===========================================================================
 
-GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-        double& position, bool& friendlyPos) :
+GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element,
+        GNELane* lane, SumoXMLAttr posAttr, double& position, bool& friendlyPos) :
     GNEMoveElement(element),
+    myPosAttr(posAttr),
     myPosOverLane(position),
     myFriendlyPos(friendlyPos) {
     // set parents
@@ -55,26 +56,27 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 
 std::string
 GNEMoveElementLaneSingle::getMovingAttribute(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-            return myMovedElement->getHierarchicalElement()->getParentLanes().front()->getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
-        default:
-            return myMovedElement->getCommonAttribute(key);
+    if (key == myPosAttr) {
+        return toString(myPosOverLane);
+    } else {
+        switch (key) {
+            case SUMO_ATTR_LANE:
+                return myMovedElement->getHierarchicalElement()->getParentLanes().front()->getID();
+            case SUMO_ATTR_FRIENDLY_POS:
+                return toString(myFriendlyPos);
+            default:
+                return myMovedElement->getCommonAttribute(key);
+        }
     }
 }
 
 
 double
 GNEMoveElementLaneSingle::getMovingAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_POSITION:
-            return myPosOverLane;
-        default:
-            throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
+    if (key == myPosAttr) {
+        return myPosOverLane;
+    } else {
+        return myMovedElement->getCommonAttributeDouble(key);
     }
 }
 
@@ -93,50 +95,56 @@ GNEMoveElementLaneSingle::getMovingAttributePositionVector(SumoXMLAttr key) cons
 
 void
 GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
-            GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
-            break;
-        default:
-            myMovedElement->setCommonAttribute(key, value, undoList);
-            break;
+    if (key == myPosAttr) {
+        GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
+    } else {
+        switch (key) {
+            case SUMO_ATTR_LANE:
+            case SUMO_ATTR_FRIENDLY_POS:
+                GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
+                break;
+            default:
+                myMovedElement->setCommonAttribute(key, value, undoList);
+                break;
+        }
     }
 }
 
 
 bool
 GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-            if (myMovedElement->getNet()->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_POSITION:
-            return GNEAttributeCarrier::canParse<double>(value);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return GNEAttributeCarrier::canParse<bool>(value);
-        default:
-            return myMovedElement->isCommonValid(key, value);
+    if (key == myPosAttr) {
+        return GNEAttributeCarrier::canParse<double>(value);
+    } else {
+        switch (key) {
+            case SUMO_ATTR_LANE:
+                if (myMovedElement->getNet()->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case SUMO_ATTR_FRIENDLY_POS:
+                return GNEAttributeCarrier::canParse<bool>(value);
+            default:
+                return myMovedElement->isCommonValid(key, value);
+        }
     }
 }
 
 
 void
 GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_POSITION:
-            myPosOverLane = GNEAttributeCarrier::parse<double>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = GNEAttributeCarrier::parse<bool>(value);
-            break;
-        default:
-            myMovedElement->setCommonAttribute(key, value);
-            break;
+    if (key == myPosAttr) {
+        myPosOverLane = GNEAttributeCarrier::parse<double>(value);
+    } else {
+        switch (key) {
+            case SUMO_ATTR_FRIENDLY_POS:
+                myFriendlyPos = GNEAttributeCarrier::parse<bool>(value);
+                break;
+            default:
+                myMovedElement->setCommonAttribute(key, value);
+                break;
+        }
     }
 }
 
@@ -176,9 +184,9 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
     if (myFriendlyPos) {
         return "";
     } else if (adjustedPosition < 0) {
-        return TLF("% < 0", toString(SUMO_ATTR_POSITION));
+        return TLF("% < 0", toString(myPosAttr));
     } else if (adjustedPosition > laneLenght) {
-        return TLF("% > lanes's length", toString(SUMO_ATTR_POSITION));
+        return TLF("% > lanes's length", toString(myPosAttr));
     } else {
         return "";
     }
@@ -188,7 +196,7 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
 void
 GNEMoveElementLaneSingle::fixMovingProblem() {
     // set fixed position
-    myMovedElement->setAttribute(SUMO_ATTR_POSITION, toString(getFixedPositionOverLane()), myMovedElement->getNet()->getViewNet()->getUndoList());
+    myMovedElement->setAttribute(myPosAttr, toString(getFixedPositionOverLane()), myMovedElement->getNet()->getViewNet()->getUndoList());
 }
 
 
@@ -197,7 +205,7 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
     // lane
     device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
     // position
-    device.writeAttr(SUMO_ATTR_POSITION, myPosOverLane);
+    device.writeAttr(myPosAttr, myPosOverLane);
     // friendly position (only if true)
     if (myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
@@ -252,7 +260,7 @@ GNEMoveElementLaneSingle::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
     // begin change attribute
     undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
     // set position
-    myMovedElement->setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
+    myMovedElement->setAttribute(myPosAttr, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed
     if (moveResult.newFirstLane) {
         // set new lane
