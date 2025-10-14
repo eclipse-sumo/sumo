@@ -371,18 +371,18 @@ GNEDataSet::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEDataSet::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEDataSet::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector GNEDataSet::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position vector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

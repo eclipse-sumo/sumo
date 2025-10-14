@@ -567,7 +567,7 @@ GNERoute::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_ARRIVALPOS:
             return getParentEdges().back()->getChildLanes().front()->getLaneShape().length2D();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
@@ -580,14 +580,8 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
         case SUMO_ATTR_ARRIVALPOS:
             return getParentEdges().back()->getChildLanes().front()->getLaneShape().back();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePosition(key);
     }
-}
-
-
-bool
-GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
 }
 
 

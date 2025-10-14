@@ -284,7 +284,7 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEEdgeData::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 

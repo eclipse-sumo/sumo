@@ -329,20 +329,20 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_MINGAP:
             return getParentDemandElements().at(0)->getAttributeDouble(key);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNECalibratorFlow::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNECalibratorFlow::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

@@ -349,13 +349,13 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
 
 double
 GNECrossing::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNECrossing::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -366,7 +366,7 @@ GNECrossing::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getNBCrossing()->customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

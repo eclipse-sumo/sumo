@@ -168,19 +168,19 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEDestProbReroute::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEDestProbReroute::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNEDestProbReroute::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

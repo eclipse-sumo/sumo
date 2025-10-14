@@ -232,11 +232,6 @@ public:
      */
     Position getAttributePosition(SumoXMLAttr key) const override;
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value

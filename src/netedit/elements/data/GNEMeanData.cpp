@@ -283,19 +283,19 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEMeanData::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNEMeanData::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

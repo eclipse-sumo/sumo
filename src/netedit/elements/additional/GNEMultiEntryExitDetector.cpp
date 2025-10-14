@@ -279,7 +279,7 @@ GNEMultiEntryExitDetector::getAttributePosition(SumoXMLAttr key) const {
 
 PositionVector
 GNEMultiEntryExitDetector::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

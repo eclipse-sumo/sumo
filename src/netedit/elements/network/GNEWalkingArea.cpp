@@ -254,13 +254,13 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEWalkingArea::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEWalkingArea::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -270,7 +270,7 @@ GNEWalkingArea::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return getNBWalkingArea().shape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

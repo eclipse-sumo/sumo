@@ -240,19 +240,19 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
 
 double
 GNELaneType::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNELaneType::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNELaneType::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

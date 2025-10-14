@@ -513,7 +513,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             }
         }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+            return getCommonAttributePosition(key);
     }
 }
 

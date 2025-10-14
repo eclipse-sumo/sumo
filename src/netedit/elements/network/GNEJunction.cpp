@@ -1358,13 +1358,13 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEJunction::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEJunction::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -1374,7 +1374,7 @@ GNEJunction::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myNBNode->getShape();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

@@ -175,20 +175,20 @@ GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_TIME:
             return (double)myTime;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNEVariableSpeedSignStep::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNEVariableSpeedSignStep::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

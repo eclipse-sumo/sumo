@@ -1191,13 +1191,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEEdge::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEEdge::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -1207,7 +1207,7 @@ GNEEdge::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myNBEdge->getInnerGeometry();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

@@ -726,13 +726,13 @@ GNELane::getAttribute(SumoXMLAttr key) const {
 
 double
 GNELane::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNELane::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -743,7 +743,7 @@ GNELane::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

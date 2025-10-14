@@ -484,7 +484,7 @@ GNETAZ::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

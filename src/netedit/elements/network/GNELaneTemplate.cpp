@@ -140,7 +140,7 @@ GNELaneTemplate::getAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNELaneTemplate::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 

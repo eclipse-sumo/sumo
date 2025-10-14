@@ -372,7 +372,7 @@ GNELaneAreaDetector::getAttributePosition(SumoXMLAttr key) const {
 
 PositionVector
 GNELaneAreaDetector::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 

@@ -539,13 +539,13 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEConnection::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
 Position
 GNEConnection::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -556,7 +556,7 @@ GNEConnection::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getNBEdgeConnection().customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 

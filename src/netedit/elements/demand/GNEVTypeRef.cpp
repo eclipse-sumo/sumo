@@ -209,14 +209,14 @@ GNEVTypeRef::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return myProbability;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNEVTypeRef::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 

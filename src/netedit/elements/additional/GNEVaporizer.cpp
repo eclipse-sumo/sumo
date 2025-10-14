@@ -241,20 +241,20 @@ GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return STEPS2TIME(myEnd);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNEVaporizer::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNEVaporizer::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 
