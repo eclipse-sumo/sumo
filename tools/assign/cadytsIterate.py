@@ -119,14 +119,16 @@ def main():
     # begin the calibration
     if options.fmaprefix:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                           "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
+                           "-measfile", options.detvals, "-binsize", int(
+                               options.aggregation), "-PREPITS", options.PREPITS,
                            "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                            "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix,
                            "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
-                           "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
+                           "-measfile", options.detvals, "-binsize", int(
+                               options.aggregation), "-PREPITS", options.PREPITS,
                            "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                            "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink,
