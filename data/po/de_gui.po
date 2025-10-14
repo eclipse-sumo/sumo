@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-14 08:39+0000\n"
+"PO-Revision-Date: 2025-10-14 14:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2884,7 +2884,7 @@ msgstr "Speichervorgang der JuPedSim-Elemente fehlgeschlagen"
 #: src/netedit/GNEApplicationWindow.cpp:4128
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
-msgstr ""
+msgstr "Routendatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4001
 msgid "loading demand elements from '%'"
@@ -2893,12 +2893,12 @@ msgstr "Nachfrageelemente werden aus '%' geladen"
 #: src/netedit/GNEApplicationWindow.cpp:4005
 #, c-format
 msgid "Loading of route file '%' failed."
-msgstr ""
+msgstr "Die Routendatei '%' konnte nicht geladen werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:4008
 #, c-format
 msgid "Loading of route file '%' successfully."
-msgstr ""
+msgstr "Die Routendatei '%' wurde erfolgreich geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4033
 msgid "reloading demand elements"
@@ -2907,12 +2907,12 @@ msgstr "Erneutes Laden der Nachfrageelemente"
 #: src/netedit/GNEApplicationWindow.cpp:4044
 #, c-format
 msgid "Reloading of route file '%' failed."
-msgstr ""
+msgstr "Das erneute Laden der Routendatei '%' ist fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 #, c-format
 msgid "Reloading of route file '%' successfully."
-msgstr ""
+msgstr "Die Routendatei '%' wurde erfolgreich erneut geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4100
 msgid "Demand elements saved."
@@ -10605,16 +10605,16 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:75
 msgid "Error updating % of % '%'"
-msgstr ""
+msgstr "Fehler bei der Aktualisierung von % in % '%'"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:76
 msgid "% of % '%' cannot be updated because"
-msgstr ""
+msgstr "% in % '%' kann nicht aktualisiert werden,"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:82
 #, c-format
 msgid "at least one % must be defined."
-msgstr ""
+msgstr "weil mindestens ein % definiert werden muss."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:129
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:191
@@ -10682,7 +10682,7 @@ msgstr "% öffnen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:84
 msgid "Visited Directories"
-msgstr ""
+msgstr "Besuchte Verzeichnisse"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:97
 msgid "Directory:"
@@ -10742,7 +10742,7 @@ msgstr "existiert bereits. Soll sie überschrieben werden?"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:305
 msgid "Check destination file permissions"
-msgstr ""
+msgstr "Zugriffsrechte der Zieldatei prüfen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Move File"
@@ -10751,7 +10751,7 @@ msgstr "Datei verschieben"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:285
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:303
 msgid "Error moving file"
-msgstr ""
+msgstr "Fehler beim Verschieben einer Datei"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:286
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:304
@@ -10759,36 +10759,40 @@ msgid ""
 "Unable to move file:\n"
 "%\n"
 msgstr ""
+"Verschieben der Datei nicht möglich:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:323
 msgid "Deleting file"
-msgstr ""
+msgstr "Datei wird gelöscht"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:323
 msgid "Are you sure you want to delete the file:"
-msgstr ""
+msgstr "Möchtest du diese Datei wirklich löschen:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:330
 msgid "Error deleting file"
-msgstr ""
+msgstr "Fehler beim Löschen einer Datei"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:331
 msgid ""
 "Unable to delete file:\n"
 "%\n"
 msgstr ""
+"Löschen der Datei nicht möglich:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:332
 msgid "Check file permissions"
-msgstr ""
+msgstr "Dateizugriffsrechte prüfen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:409
 msgid "Up one level"
-msgstr ""
+msgstr "Eine Ebene hoch"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:410
 msgid "Home directory"
-msgstr ""
+msgstr "Heimverzeichnis"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:411
 msgid "Work directory"
@@ -10796,15 +10800,15 @@ msgstr "Arbeitsverzeichnis"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:412
 msgid "Config directory"
-msgstr ""
+msgstr "Konfigurationsverzeichnis"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:423
 msgid "Select all"
-msgstr ""
+msgstr "Alle auswählen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:427
 msgid "Sort by"
-msgstr ""
+msgstr "Sortieren nach"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:428
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
@@ -10818,63 +10822,63 @@ msgstr "Größe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:432
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:433
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:435
 msgid "Reverse"
-msgstr ""
+msgstr "Umdrehen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:436
 msgid "Ignore case"
-msgstr ""
+msgstr "Groß-/Kleinschreibung ignorieren"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:439
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:440
 msgid "Small icons"
-msgstr ""
+msgstr "Kleine Icons"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:441
 msgid "Big icons"
-msgstr ""
+msgstr "Große Icons"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:442
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:444
 msgid "Rows"
-msgstr ""
+msgstr "Zeilen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:445
 msgid "Columns"
-msgstr ""
+msgstr "Spalten"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:447
 msgid "Hidden files"
-msgstr ""
+msgstr "Versteckte Dateien"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:448
 msgid "Preview images"
-msgstr ""
+msgstr "Vorschaubilder"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:450
 msgid "Normal images"
-msgstr ""
+msgstr "Normale Bilder"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:451
 msgid "Medium images"
-msgstr ""
+msgstr "Mittlere Bilder"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:452
 msgid "Giant images"
-msgstr ""
+msgstr "Riesige Bilder"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:455
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:910
@@ -10884,7 +10888,7 @@ msgstr "Lesezeichen"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:458
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:855
 msgid "Set bookmark"
-msgstr ""
+msgstr "Lesezeichen erstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:459
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:857
@@ -10893,19 +10897,19 @@ msgstr "Lesezeichen löschen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:475
 msgid "New directory..."
-msgstr ""
+msgstr "Neues Verzeichnis..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:476
 msgid "Copy..."
-msgstr ""
+msgstr "Kopieren..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:477
 msgid "Move..."
-msgstr ""
+msgstr "Verschieben..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:479
 msgid "Delete..."
-msgstr ""
+msgstr "Löschen..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:824
 msgid "Create New Directory"
@@ -10913,11 +10917,11 @@ msgstr "Neues Verzeichnis erstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:824
 msgid "Create new directory with name:"
-msgstr ""
+msgstr "Neues Verzeichnis mit dem folgenden Namen erstellen:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:831
 msgid "Directory already Exists"
-msgstr ""
+msgstr "Das Verzeichnis existiert bereits"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:832
 msgid ""
