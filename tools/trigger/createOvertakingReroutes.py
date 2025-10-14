@@ -56,6 +56,8 @@ def get_options(args=None):
                     type=float, help="Maximum factor by which the siding may be longer than the main path")
     op.add_argument("--min-priority", dest="minPrio", metavar="INT",
                     type=int, help="Minimum edge priority value to be eligible as siding")
+    op.add_argument("-x", "--exclude-all-routes", dest="excludeRoutes", action="store_true", default=False,
+                    help="Exclude all edges that are part of input routes from sidings")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="rr",
                     help="prefix for the rerouter ids")
@@ -124,13 +126,6 @@ def findSwitches(options, routes, net):
     return switches
 
 
-def hasForbidden(permitted, edges):
-    for e in edges:
-        if e not in permitted:
-            return True
-    return False
-
-
 def findSidings(options, routes, switches, net):
     """use duarouter to compute paths that exit and re-enter each route"""
     fromTo = defaultdict(lambda: set())  # from -> set(to)
@@ -195,8 +190,11 @@ def findSidings(options, routes, switches, net):
     warnings = set()
     for route in sumolib.xml.parse(tmpOut, ['route']):
         edges = tuple(route.edges.split())
-        if options.minPrio and hasForbidden(permitted, edges):
+        if options.minPrio and any(e not in permitted for e in edges):
             # avoid abusing the opposite direciton track as siding
+            continue
+        if options.excludeRoutes and not any(e in mainEdges for e in edges):
+            # do not obstruct any main routes
             continue
         fromTo = (edges[0], edges[-1])
         for rid, fromIndex, toIndex in fromToRoutes[fromTo]:
@@ -249,6 +247,13 @@ def filterSidings(options, net, sidings):
                     if net.hasEdge(eid):
                         e = net.getEdge(eid)
                         mainLength += e.getLength()
+                    else:
+                        print("Missing edge '%s' in route '%s'" % (eid, rid), file=sys.stderr)
+
+                if mainLength == 0:
+                    print("Empty main edges in route '%s'" % rid, file=sys.stderr)
+                    continue
+
                 detourFactor = sidingLength / mainLength
                 if detourFactor <= options.maxDetour:
                     sidings2[main] = (rid, fromIndex, edges)
