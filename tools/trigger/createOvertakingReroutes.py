@@ -54,6 +54,8 @@ def get_options(args=None):
                     type=float, help="minimum siding distance")
     op.add_argument("--max-detour-factor", dest="maxDetour", metavar="FLOAT", default=2,
                     type=float, help="Maximum factor by which the siding may be longer than the main path")
+    op.add_argument("--min-priority", dest="minPrio", metavar="INT",
+                    type=int, help="Minimum edge priority value to be eligible as siding")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="rr",
                     help="prefix for the rerouter ids")
@@ -122,6 +124,13 @@ def findSwitches(options, routes, net):
     return switches
 
 
+def hasForbidden(permitted, edges):
+    for e in edges:
+        if e not in permitted:
+            return True
+    return False
+
+
 def findSidings(options, routes, switches, net):
     """use duarouter to compute paths that exit and re-enter each route"""
     fromTo = defaultdict(lambda: set())  # from -> set(to)
@@ -174,12 +183,21 @@ def findSidings(options, routes, switches, net):
                      '--no-warnings'],
                     stdout=subprocess.DEVNULL)
 
+    # permitted siding edges
+    permitted = set()
+    if options.minPrio is not None:
+        for e in net.getEdges():
+            if e.getPriority() >= options.minPrio:
+                permitted.add(e.getID())
     # collect sidings after routing
     sidings = dict()  # main -> siding
     sidingRoutes = defaultdict(lambda: [])  # main -> [(rid1, fromIndex1), ...]
     warnings = set()
     for route in sumolib.xml.parse(tmpOut, ['route']):
         edges = tuple(route.edges.split())
+        if options.minPrio and hasForbidden(permitted, edges):
+            # avoid abusing the opposite direciton track as siding
+            continue
         fromTo = (edges[0], edges[-1])
         for rid, fromIndex, toIndex in fromToRoutes[fromTo]:
             # filter out paths that touch the route
