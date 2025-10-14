@@ -51,60 +51,17 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    virtual GNEMoveElement* getMoveElement() const = 0;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
+    GUIGlObject* getGUIGlObject() override;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
+    const GUIGlObject* getGUIGlObject() const override;
 
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isNetworkElementValid() const;
 
     /// @brief return a string with the current network element problem (by default empty, can be reimplemented in children)
     virtual std::string getNetworkElementProblem() const;
-
-    /// @name Functions related with geometry of element
-    /// @{
-
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
-
-    /// @brief Returns position of hierarchical element in view
-    virtual Position getPositionInView() const = 0;
-
-    /// @}
-
-    /// @name Function related with contourdrawing (can be implemented in children)
-    /// @{
-
-    /// @brief check if draw from contour (green)
-    virtual bool checkDrawFromContour() const = 0;
-
-    /// @brief check if draw from contour (magenta)
-    virtual bool checkDrawToContour() const = 0;
-
-    /// @brief check if draw related contour (cyan)
-    virtual bool checkDrawRelatedContour() const = 0;
-
-    /// @brief check if draw over contour (orange)
-    virtual bool checkDrawOverContour() const = 0;
-
-    /// @brief check if draw delete contour (pink/white)
-    virtual bool checkDrawDeleteContour() const = 0;
-
-    /// @brief check if draw delete contour small (pink/white)
-    virtual bool checkDrawDeleteContourSmall() const = 0;
-
-    /// @brief check if draw select contour (blue)
-    virtual bool checkDrawSelectContour() const = 0;
-
-    /// @brief check if draw move contour (red)
-    virtual bool checkDrawMoveContour() const = 0;
-
-    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -118,35 +75,11 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
-
-    /// @brief update centering boundary (implies change in RTREE)
-    virtual void updateCenteringBoundary(const bool updateGrid) = 0;
-
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
     /// @brief check if element is locked
     bool isGLObjectLocked() const;
 
     /// @brief mark element as front element
     void markAsFrontElement();
-
-    /// @brief delete element
-    virtual void deleteGLObject() = 0;
 
     /// @brief select element
     void selectGLObject();
@@ -158,37 +91,13 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
-
-    /* @brief method for getting the Attribute of an XML key in Position format
-     * @param[in] key The attribute key
-     * @return position with the value associated to key
-     */
-    virtual PositionVector getAttributePositionVector(SumoXMLAttr key) const = 0;
-
-    /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
-
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
+
     /// @}
 
     /// @name functions related with shape editing
@@ -249,9 +158,6 @@ protected:
     int getVertexIndex(const PositionVector& shape, const Position& pos);
 
 private:
-    /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
     /// @brief Invalidated copy constructor.
     GNENetworkElement(const GNENetworkElement&) = delete;
 

@@ -59,8 +59,14 @@ public:
     /// @brief get moving attribute
     virtual std::string getMovingAttribute(SumoXMLAttr key) const = 0;
 
-    /// @brief get moving attribute (double)
+    /// @brief get moving attribute double
     virtual double getMovingAttributeDouble(SumoXMLAttr key) const = 0;
+
+    /// @brief get moving attribute position
+    virtual Position getMovingAttributePosition(SumoXMLAttr key) const = 0;
+
+    /// @brief get moving attribute positionVector
+    virtual PositionVector getMovingAttributePositionVector(SumoXMLAttr key) const = 0;
 
     /// @brief set moving attribute (using undo-list)
     virtual void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;

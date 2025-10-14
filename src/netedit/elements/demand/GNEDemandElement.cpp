@@ -391,6 +391,18 @@ GNEDemandElement::updateGLObject() {
 }
 
 
+Position
+GNEDemandElement::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEDemandElement::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 bool
 GNEDemandElement::isPathElementSelected() const {
     return mySelected;

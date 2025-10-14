@@ -590,7 +590,19 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
+    return myMoveElementShape->getMovingAttributeDouble(key);
+}
+
+
+Position
+GNEPoly::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementShape->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEPoly::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

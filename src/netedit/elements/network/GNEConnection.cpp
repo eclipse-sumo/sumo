@@ -543,6 +543,12 @@ GNEConnection::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEConnection::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNEConnection::getAttributePositionVector(SumoXMLAttr key) const {
     switch (key) {

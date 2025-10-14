@@ -305,8 +305,14 @@ GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return (myAngle != INVALID_DOUBLE) ? myAngle : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return myMoveElementViewResizable->getMovingAttributeDouble(key);
     }
+}
+
+
+Position
+GNEParkingSpace::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementViewResizable->getMovingAttributePosition(key);
 }
 
 
@@ -329,6 +335,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
             setCommonAttribute(key, value, undoList);
             break;
     }
+}
+
+
+PositionVector
+GNEParkingSpace::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

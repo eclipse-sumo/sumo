@@ -185,6 +185,12 @@ GNEInstantInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEInstantInductionLoopDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
+}
+
+
 void
 GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

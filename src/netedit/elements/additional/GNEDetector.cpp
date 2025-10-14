@@ -153,6 +153,11 @@ GNEDetector::getParentName() const {
 }
 
 
+PositionVector GNEDetector::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 std::string
 GNEDetector::getPopUpID() const {
     return getTagStr() + ": " + getID();
@@ -196,7 +201,13 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
 
 double
 GNEDetector::getDetectorAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getMoveElement()->getMovingAttributeDouble(key);
+}
+
+
+Position
+GNEDetector::getDetectorAttributePosition(SumoXMLAttr key) const {
+    return getMoveElement()->getMovingAttributePosition(key);
 }
 
 

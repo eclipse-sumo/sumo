@@ -38,7 +38,7 @@ public:
     /// @brief constructor
     GNEMoveElementViewResizable(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
                                 ResizingFormat resizingFormat, Position& position,
-                                double &width, double &height);
+                                double& width, double& height);
 
     //// @brief empty destructor
     ~GNEMoveElementViewResizable();
@@ -48,7 +48,7 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-// tempora
+// temporal
 //protected:
     /// @brief shape width
     PositionVector myShapeWidth;
@@ -70,10 +70,10 @@ public:
 
 private:
     /// @brief width
-    double &myWidth;
+    double& myWidth;
 
     /// @brief height
-    double &myHeight;
+    double& myHeight;
 
     /// @brief check if width can be edited
     const double myEditWidth = false;
@@ -85,10 +85,10 @@ private:
     const double myEditLength = false;
 
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    void setMoveShape(const GNEMoveResult& moveResult) override;
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementViewResizable(const GNEMoveElementViewResizable&) = delete;

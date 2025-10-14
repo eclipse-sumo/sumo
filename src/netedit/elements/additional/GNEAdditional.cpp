@@ -991,12 +991,6 @@ GNEAdditional::getLastPathLane() const {
 }
 
 
-Position
-GNEAdditional::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-}
-
-
 void
 GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols) const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();

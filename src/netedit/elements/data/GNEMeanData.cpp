@@ -287,6 +287,18 @@ GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEMeanData::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEMeanData::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

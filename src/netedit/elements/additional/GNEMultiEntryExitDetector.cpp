@@ -260,14 +260,26 @@ GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECT_ARRIVAL:
             return toString(myExpectedArrival);
         default:
-            return getCommonAttribute(key);
+            return myMoveElementView->getMovingAttribute(key);
     }
 }
 
 
 double
 GNEMultiEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return myMoveElementView->getMovingAttributeDouble(key);
+}
+
+
+Position
+GNEMultiEntryExitDetector::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementView->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEMultiEntryExitDetector::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

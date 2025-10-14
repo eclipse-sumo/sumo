@@ -199,14 +199,26 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
         default:
-            return getCommonAttribute(key);
+            return myMoveElementView->getMovingAttribute(key);
     }
 }
 
 
 double
 GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return myMoveElementView->getMovingAttributeDouble(key);
+}
+
+
+Position
+GNETractionSubstation::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementView->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNETractionSubstation::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

@@ -285,6 +285,18 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEAccess::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementLaneSingle->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEAccess::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

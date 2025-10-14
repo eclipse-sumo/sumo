@@ -362,6 +362,12 @@ GNEEdgeType::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEEdgeType::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNEEdgeType::getAttributePositionVector(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

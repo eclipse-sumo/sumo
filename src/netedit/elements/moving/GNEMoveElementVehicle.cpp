@@ -104,6 +104,18 @@ GNEMoveElementVehicle::getMovingAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEMoveElementVehicle::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementVehicle::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
 void
 GNEMoveElementVehicle::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     myMovedElement->setCommonAttribute(key, value, undoList);

@@ -375,6 +375,17 @@ GNEDataSet::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEDataSet::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector GNEDataSet::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position vector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

@@ -72,9 +72,6 @@ public:
     /// @brief methods to retrieve the elements linked to this detector
     /// @{
 
-    /// @brief get GNEMoveElement associated with this detector
-    virtual GNEMoveElement* getMoveElement() const = 0;
-
     /// @brief get parameters associated with this detector
     Parameterised* getParameters() override;
 
@@ -83,38 +80,16 @@ public:
 
     /// @}
 
-    /// @name members and functions relative to write additionals into XML
-    /// @{
-
-    /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
-
-    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
-    virtual bool isAdditionalValid() const = 0;
-
-    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
-    virtual std::string getAdditionalProblem() const = 0;
-
-    /// @brief fix additional problem (must be reimplemented in all detector children)
-    virtual void fixAdditionalProblem() = 0;
-
-    /// @}
-
     /// @name Function related with contour drawing
     /// @{
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
     /// @name Functions related with geometry of element
     /// @{
-
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -135,48 +110,22 @@ public:
      */
     std::string getParentName() const;
 
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
 
-    /* @brief method for getting the Attribute of an XML key
+    /* @brief method for getting the Attribute of an XML key in positionVector format
      * @param[in] key The attribute key
-     * @return string with the value associated to key
+     * @return positionVector with the value associated to key
      */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
-
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
-
-    /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
-
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
 
     /// @}
 
@@ -202,11 +151,17 @@ protected:
      */
     std::string getDetectorAttribute(SumoXMLAttr key) const;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+    /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
     double getDetectorAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getDetectorAttributePosition(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -243,9 +198,6 @@ protected:
                             const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
-    /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
     /// @brief Invalidate return position of additional
     const Position& getPosition() const = delete;
 

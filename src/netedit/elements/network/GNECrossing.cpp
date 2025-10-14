@@ -353,6 +353,12 @@ GNECrossing::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNECrossing::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNECrossing::getAttributePositionVector(SumoXMLAttr key) const {
     switch (key) {

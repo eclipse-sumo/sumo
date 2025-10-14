@@ -39,12 +39,7 @@ class Parameterised;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEAttributeCarrier
- *
- * Abstract Base class for gui objects which carry attributes
- * inherits from GNEReferenceCounter for convenience
- */
+
 class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
@@ -53,7 +48,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEAttributesEditorType;
 
 public:
-
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
@@ -87,7 +81,6 @@ public:
     virtual const GUIGlObject* getGUIGlObject() const = 0;
 
     /// @}
-
 
     /// @brief get ID (all Attribute Carriers have one)
     const std::string getID() const;
@@ -152,7 +145,7 @@ public:
 
     /// @}
 
-    /// @name Function related with contour drawing (can be implemented in children)
+    /// @name Function related with contour drawing
     /// @{
 
     /// @brief check if draw inspect contour (black/white)
@@ -428,7 +421,6 @@ protected:
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
-
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

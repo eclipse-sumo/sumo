@@ -334,6 +334,18 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNECalibratorFlow::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNECalibratorFlow::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

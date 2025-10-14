@@ -258,6 +258,12 @@ GNEWalkingArea::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEWalkingArea::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an position attribute of type '" + toString(key) + "'");
+}
+
+
 PositionVector
 GNEWalkingArea::getAttributePositionVector(SumoXMLAttr key) const {
     switch (key) {

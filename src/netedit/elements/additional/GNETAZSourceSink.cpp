@@ -205,7 +205,13 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNETAZSourceSink::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNETAZSourceSink::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

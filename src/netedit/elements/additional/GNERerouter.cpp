@@ -291,8 +291,20 @@ GNERerouter::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return myProbability;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return myMoveElementView->getMovingAttributeDouble(key);
     }
+}
+
+
+Position
+GNERerouter::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementView->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNERerouter::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

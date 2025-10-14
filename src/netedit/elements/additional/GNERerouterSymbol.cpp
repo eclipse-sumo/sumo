@@ -192,8 +192,20 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNERerouterSymbol::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+Position
+GNERerouterSymbol::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNERerouterSymbol::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

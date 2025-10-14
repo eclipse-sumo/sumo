@@ -439,7 +439,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
                 return toString(myAverageWeightSink);
             }
         default:
-            return getCommonAttribute(key);
+            return myMoveElementShape->getMovingAttribute(key);
     }
 }
 
@@ -460,7 +460,7 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
         case GNE_ATTR_AVERAGE_SINK:
             return myAverageWeightSink;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return myMoveElementShape->getMovingAttributeDouble(key);
     }
 }
 
@@ -473,7 +473,18 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
         case GNE_ATTR_TAZ_CENTROID:
             return myShape.getCentroid();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return myMoveElementShape->getMovingAttributePosition(key);
+    }
+}
+
+
+PositionVector
+GNETAZ::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            return myShape;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
     }
 }
 

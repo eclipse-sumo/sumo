@@ -227,6 +227,12 @@ GNEStoppingPlace::getStoppingPlaceAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEStoppingPlace::getStoppingPlaceAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementLaneDouble->getMovingAttributePosition(key);
+}
+
+
 void
 GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
@@ -330,6 +336,18 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
     // Cut shape using as delimitators fixed start position and fixed end position
     myAdditionalGeometry.updateGeometry(laneShape, myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
+}
+
+
+Position
+GNEStoppingPlace::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEStoppingPlace::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

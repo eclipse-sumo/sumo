@@ -83,15 +83,6 @@ public:
     /// @brief get GNEHierarchicalElement associated with this GNEDemandElement
     GNEHierarchicalElement* getHierarchicalElement() override;
 
-    /// @brief get GNEMoveElement associated with this GNEDemandElement
-    virtual GNEMoveElement* getMoveElement() const = 0;
-
-    /// @brief get parameters associated with this GNEDemandElement
-    virtual Parameterised* getParameters() = 0;
-
-    /// @brief get parameters associated with this AttributeCarrier (constant)
-    virtual const Parameterised* getParameters() const = 0;
-
     /// @brief get GUIGlObject associated with this GNEDemandElement
     GUIGlObject* getGUIGlObject() override;
 
@@ -131,6 +122,7 @@ public:
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
+
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -144,6 +136,7 @@ public:
 
     /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     virtual void fixDemandElementProblem() = 0;
+
     /// @}
 
     /**@brief open DemandElement Dialog
@@ -154,9 +147,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of demand element in view
     virtual Position getPositionInView() const = 0;
@@ -173,28 +163,28 @@ public:
     /// @{
 
     /// @brief check if draw from contour (green)
-    bool checkDrawFromContour() const;
+    bool checkDrawFromContour() const override;
 
     /// @brief check if draw from contour (magenta)
-    bool checkDrawToContour() const;
+    bool checkDrawToContour() const override;
 
     /// @brief check if draw related contour (cyan)
-    bool checkDrawRelatedContour() const;
+    bool checkDrawRelatedContour() const override;
 
     /// @brief check if draw over contour (orange)
-    bool checkDrawOverContour() const;
+    bool checkDrawOverContour() const override;
 
     /// @brief check if draw delete contour (pink/white)
-    bool checkDrawDeleteContour() const;
+    bool checkDrawDeleteContour() const override;
 
     /// @brief check if draw delete contour small (pink/white)
-    bool checkDrawDeleteContourSmall() const;
+    bool checkDrawDeleteContourSmall() const override;
 
     /// @brief check if draw select contour (blue)
-    bool checkDrawSelectContour() const;
+    bool checkDrawSelectContour() const override;
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
@@ -219,12 +209,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
     /// @brief check if element is locked
     bool isGLObjectLocked() const;
 
@@ -242,75 +226,28 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathElement
+    /// @name inherited from GNEAttributeCarrier
     /// @{
-    /// @brief compute pathElement
-    virtual void computePathElement() = 0;
 
-    /// @brief check if path element is selected
-    bool isPathElementSelected() const;
-
-    /**@brief Draws partial object over lane
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] segment lane segment
-     * @param[in] offsetFront front offset
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
      */
-    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const = 0;
+    Position getAttributePosition(SumoXMLAttr key) const override;
 
-    /**@brief Draws partial object over junction
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] segment junction segment
-     * @param[in] offsetFront front offset
+    /* @brief method for getting the Attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return positionVector with the value associated to key
      */
-    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const = 0;
-
-    /// @brief get first path lane
-    virtual GNELane* getFirstPathLane() const = 0;
-
-    /// @brief get last path lane
-    virtual GNELane* getLastPathLane() const = 0;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /// @}
 
-    /// @name inherited from GNEAttributeCarrier
+    /// @name inherited from GNEPathElement
     /// @{
-    /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
-
-    /* @brief method for getting the Attribute of an XML key in Position format (used in person plans)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    virtual Position getAttributePosition(SumoXMLAttr key) const = 0;
-
-    /**@brief method for setting the attribute and letting the object perform demand element changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
-
-    /**@brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief get PopPup ID (Used in AC Hierarchy)
-    virtual std::string getPopUpID() const = 0;
-
-    /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    virtual std::string getHierarchyName() const = 0;
+    /// @brief check if path element is selected
+    bool isPathElementSelected() const;
 
     /// @}
 
@@ -420,9 +357,6 @@ private:
      * @throw ProcessError if itis called without be reimplemented in child class
      */
     virtual bool checkChildDemandElementRestriction() const;
-
-    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElement(const GNEDemandElement&) = delete;

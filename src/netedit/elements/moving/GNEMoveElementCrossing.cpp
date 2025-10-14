@@ -50,6 +50,18 @@ GNEMoveElementCrossing::getMovingAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEMoveElementCrossing::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementCrossing::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
 void
 GNEMoveElementCrossing::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     myMovedElement->setCommonAttribute(key, value, undoList);

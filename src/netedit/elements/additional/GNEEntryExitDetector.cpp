@@ -168,6 +168,12 @@ GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEEntryExitDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
+}
+
+
 void
 GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

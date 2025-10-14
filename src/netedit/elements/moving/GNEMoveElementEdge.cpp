@@ -87,6 +87,18 @@ GNEMoveElementEdge::getMovingAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEMoveElementEdge::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementEdge::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
 void
 GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     myMovedElement->setCommonAttribute(key, value, undoList);

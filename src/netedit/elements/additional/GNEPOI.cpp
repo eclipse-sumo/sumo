@@ -490,6 +490,22 @@ GNEPOI::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEPOI::getAttributePosition(SumoXMLAttr key) const {
+    if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
+        return myMoveElementLaneSingle->getMovingAttributePosition(key);
+    } else {
+        return myMoveElementViewResizable->getMovingAttributePosition(key);
+    }
+}
+
+
+PositionVector
+GNEPOI::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

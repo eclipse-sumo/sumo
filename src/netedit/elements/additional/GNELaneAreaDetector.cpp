@@ -364,6 +364,18 @@ GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNELaneAreaDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
+}
+
+
+PositionVector
+GNELaneAreaDetector::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {

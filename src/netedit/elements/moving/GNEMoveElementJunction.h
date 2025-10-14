@@ -50,24 +50,30 @@ public:
     /// @{
 
     /// @brief get moving attribute
-    std::string getMovingAttribute(SumoXMLAttr key) const;
+    std::string getMovingAttribute(SumoXMLAttr key) const override;
 
-    /// @brief get moving attribute (double)
-    double getMovingAttributeDouble(SumoXMLAttr key) const;
+    /// @brief get moving attribute double
+    double getMovingAttributeDouble(SumoXMLAttr key) const override;
+
+    /// @brief get moving attribute position
+    Position getMovingAttributePosition(SumoXMLAttr key) const override;
+
+    /// @brief get moving attribute positionVector
+    PositionVector getMovingAttributePositionVector(SumoXMLAttr key) const override;
 
     /// @brief set moving attribute (using undo-list)
-    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
     /// @brief check if the given moving attribute is valid
-    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const override;
 
     /// @brief set moving attribute
-    void setMovingAttribute(SumoXMLAttr key, const std::string& value);
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @}
 
     /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
 
 protected:
     /// @brief pointer to junction
@@ -75,10 +81,10 @@ protected:
 
 private:
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    void setMoveShape(const GNEMoveResult& moveResult) override;
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
     /// @brief invalidate default constructor
     GNEMoveElementJunction() = delete;

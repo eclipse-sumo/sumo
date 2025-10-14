@@ -164,8 +164,20 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+Position
+GNEVariableSpeedSignSymbol::getAttributePosition(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEVariableSpeedSignSymbol::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
 }
 
 

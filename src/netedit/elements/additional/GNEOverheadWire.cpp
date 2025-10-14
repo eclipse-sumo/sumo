@@ -348,6 +348,18 @@ GNEOverheadWire::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNEOverheadWire::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementLaneDouble->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEOverheadWire::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a positionVector attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
