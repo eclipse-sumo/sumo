@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-13 13:55+0000\n"
+"PO-Revision-Date: 2025-10-14 08:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10339,7 +10339,7 @@ msgstr "% speichern"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:38
 msgid "You have unsaved %."
-msgstr ""
+msgstr "Es gibt noch nicht gespeicherte %."
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:39
 msgid "Do you wish to close and discard all changes?"
@@ -10347,7 +10347,7 @@ msgstr "Schließen und alle Änderungen verwerfen?"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:42
 msgid "Apply to all unsaved elements"
-msgstr ""
+msgstr "Auf alle nicht gespeicherten Elemente anwenden"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10593,7 +10593,7 @@ msgstr "es ungültige % enthält."
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:183
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:226
 msgid "No routes in net"
-msgstr ""
+msgstr "Keine Routen im Netz enthalten"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:58
 msgid "Rerouter intervals of % '%' cannot be saved"
@@ -10663,7 +10663,7 @@ msgstr "OSG-Datei öffnen"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1802
 msgid "Error editing %"
-msgstr ""
+msgstr "Fehler bei der Bearbeitung von %"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
 #, c-format
@@ -10694,17 +10694,17 @@ msgstr "Dateiname:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:232
 msgid "Copy File"
-msgstr ""
+msgstr "Datei kopieren"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:232
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Select destination file"
-msgstr ""
+msgstr "Zieldatei auswählen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:240
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:258
 msgid "Error copying file"
-msgstr ""
+msgstr "Fehler bei der Kopie einer Datei"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:241
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:259
@@ -10712,16 +10712,18 @@ msgid ""
 "Unable to copy file:\n"
 "%\n"
 msgstr ""
+"Dateikopie nicht möglich:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:242
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:287
 msgid "The source and destination files are the same"
-msgstr ""
+msgstr "Quell- und Zieldatei sind identisch"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:248
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:293
 msgid "Overwrite file"
-msgstr ""
+msgstr "Datei überschreiben"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:248
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:293
@@ -10729,11 +10731,13 @@ msgid ""
 "The destination file:\n"
 "%\n"
 msgstr ""
+"Die Zieldatei:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:249
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:294
 msgid "already exist. Overwrite?"
-msgstr ""
+msgstr "existiert bereits. Soll sie überschrieben werden?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:305
@@ -10742,7 +10746,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Move File"
-msgstr ""
+msgstr "Datei verschieben"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:285
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:303
