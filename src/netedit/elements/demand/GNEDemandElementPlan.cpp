@@ -700,7 +700,7 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDPOS:
             return GNEAttributeCarrier::canParse<double>(value);
         default:
-            return myPlanElement->isCommonValid(key, value);
+            return myPlanElement->isCommonAttributeValid(key, value);
     }
 }
 

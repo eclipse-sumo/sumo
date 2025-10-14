@@ -93,7 +93,7 @@ GNEMoveElementView::isMovingAttributeValid(SumoXMLAttr key, const std::string& v
     if (key == myPosAttr) {
         return GNEAttributeCarrier::canParse<Position>(value);
     } else {
-        return myMovedElement->isCommonValid(key, value);
+        return myMovedElement->isCommonAttributeValid(key, value);
     }
 }
 

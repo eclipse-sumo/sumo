@@ -217,7 +217,7 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
 
 bool
 GNERerouterSymbol::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 

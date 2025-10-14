@@ -189,7 +189,7 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& val
 
 bool
 GNEVariableSpeedSignSymbol::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 

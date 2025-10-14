@@ -70,7 +70,7 @@ GNEMoveElementCrossing::setMovingAttribute(SumoXMLAttr key, const std::string& v
 
 bool
 GNEMoveElementCrossing::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    return myMovedElement->isCommonValid(key, value);
+    return myMovedElement->isCommonAttributeValid(key, value);
 }
 
 

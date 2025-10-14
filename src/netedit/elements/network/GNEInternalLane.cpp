@@ -356,7 +356,7 @@ GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 
 bool
 GNEInternalLane::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 

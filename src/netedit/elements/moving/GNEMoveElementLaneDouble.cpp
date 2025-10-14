@@ -296,7 +296,7 @@ GNEMoveElementLaneDouble::isMovingAttributeValid(SumoXMLAttr key, const std::str
             case GNE_ATTR_REFERENCE:
                 return SUMOXMLDefinitions::ReferencePositions.hasString(value);
             default:
-                return myMovedElement->isCommonValid(key, value);
+                return myMovedElement->isCommonAttributeValid(key, value);
         }
     }
 }

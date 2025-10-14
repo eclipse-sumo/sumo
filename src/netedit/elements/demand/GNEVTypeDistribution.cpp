@@ -287,7 +287,7 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<int>(value) && (parse<int>(value) >= 0);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 

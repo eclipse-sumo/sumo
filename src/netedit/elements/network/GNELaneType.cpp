@@ -283,7 +283,7 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 

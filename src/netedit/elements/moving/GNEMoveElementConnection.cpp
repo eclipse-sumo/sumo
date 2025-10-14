@@ -84,7 +84,7 @@ GNEMoveElementConnection::setMovingAttribute(SumoXMLAttr key, const std::string&
 
 bool
 GNEMoveElementConnection::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    return myMovedElement->isCommonValid(key, value);
+    return myMovedElement->isCommonAttributeValid(key, value);
 }
 
 

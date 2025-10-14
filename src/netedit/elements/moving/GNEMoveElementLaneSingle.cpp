@@ -126,7 +126,7 @@ GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::str
             case SUMO_ATTR_FRIENDLY_POS:
                 return GNEAttributeCarrier::canParse<bool>(value);
             default:
-                return myMovedElement->isCommonValid(key, value);
+                return myMovedElement->isCommonAttributeValid(key, value);
         }
     }
 }

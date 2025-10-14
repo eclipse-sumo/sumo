@@ -226,7 +226,7 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
             }
         }
         default:
-            return flowElement->isCommonValid(key, value);
+            return flowElement->isCommonAttributeValid(key, value);
     }
 }
 

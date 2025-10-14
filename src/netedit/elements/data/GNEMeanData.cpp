@@ -383,7 +383,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_AGGREGATE:
             return (canParse<bool>(value));
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 

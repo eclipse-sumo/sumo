@@ -928,7 +928,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
 
 
 bool
-GNEAttributeCarrier::isCommonValid(SumoXMLAttr key, const std::string& value) const {
+GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& value) const {
     switch (key) {
         case GNE_ATTR_ADDITIONAL_FILE:
         case GNE_ATTR_DEMAND_FILE:

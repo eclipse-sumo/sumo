@@ -107,7 +107,7 @@ GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value
 
 bool
 GNEMoveElementEdge::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    return myMovedElement->isCommonValid(key, value);
+    return myMovedElement->isCommonAttributeValid(key, value);
 }
 
 
