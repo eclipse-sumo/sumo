@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+  <type id="a" numLanes="1" speed="15.99"/>
+  <type id="b" numLanes="1" speed="15.99"/>
+  <type id="c" numLanes="1" speed="15.99"/>
+</types>

@@ -1,0 +1,17 @@
+# only the route choices are calibrated.
+fixed_demand
+
+# Both route choices and demand are calibrated.
+demand_adjustment
+
+# calibration with point2point data
+p2p_simple
+
+# calibrate with point2point data and demand adjustment
+p2p_demand_adjustment
+
+# route choice calibration with the SUMO format
+2ndTestNetwork_sumoFormat
+
+# More route files can be inputted in Cadyts.
+multi_route_files
