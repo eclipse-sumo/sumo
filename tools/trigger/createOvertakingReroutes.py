@@ -127,7 +127,7 @@ def findSidings(options, routes, switches, net):
     fromTo = defaultdict(lambda: set())  # from -> set(to)
     fromToRoutes = defaultdict(lambda: [])  # (from, to) -> [(rid, fromIndex), ]
     for rid, swlist in switches.items():
-        on = {} #  eid, toIndex
+        on = {}  # eid, toIndex
         for i, eid, isOff in reversed(swlist):
             if isOff:
                 fromTo[eid].update(on.keys())
@@ -244,7 +244,7 @@ def filterSidings(options, net, sidings):
 
 
 def findFollowerSidings(options, routes, sidings, sidingRoutes):
-    routeSidings = defaultdict(lambda: []) #  rid -> [mainEdges, mainEdges2, ...]
+    routeSidings = defaultdict(lambda: [])  # rid -> [mainEdges, mainEdges2, ...]
     for main, rlist in sidingRoutes.items():
         if main not in sidings:
             continue
@@ -311,6 +311,7 @@ def main(options):
     sidings = filterSidings(options, net, sidings)
     followerSidings = findFollowerSidings(options, routes, sidings, sidingRoutes)
     writeSidings(options, routes, sidings, followerSidings)
+
 
 if __name__ == "__main__":
     try:
