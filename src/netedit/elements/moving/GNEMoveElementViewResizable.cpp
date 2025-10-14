@@ -29,14 +29,14 @@
 // ===========================================================================
 
 GNEMoveElementViewResizable::GNEMoveElementViewResizable(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                                         ResizingFormat resizingFormat, Position& position,
-                                                         double &width, double &height) :
-    GNEMoveElementView(element, attributesFormat, position),
+        ResizingFormat resizingFormat, SumoXMLAttr posAttr,
+        Position& position, double& width, double& height) :
+    GNEMoveElementView(element, attributesFormat, posAttr, position),
     myWidth(width),
     myHeight(height),
     myEditWidth((resizingFormat == ResizingFormat::WIDTH_HEIGHT) || (resizingFormat == ResizingFormat::WIDTH_LENGTH)),
     myEditHeight(resizingFormat == ResizingFormat::WIDTH_HEIGHT),
-    myEditLength(resizingFormat == ResizingFormat::WIDTH_LENGTH){
+    myEditLength(resizingFormat == ResizingFormat::WIDTH_LENGTH) {
 }
 
 
@@ -61,10 +61,10 @@ GNEMoveElementViewResizable::getMoveOperation() {
         } else if (myEditWidth && (myShapeWidth.size() > 0) && (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit width
             return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
-        } else if (myEditHeight &&(myShapeHeight.size() > 0) && (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+        } else if (myEditHeight && (myShapeHeight.size() > 0) && (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit height
             return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
-        } else if (myEditHeight &&(myShapeHeight.size() > 0) && (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+        } else if (myEditHeight && (myShapeHeight.size() > 0) && (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
             // edit height
             return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
         } else {

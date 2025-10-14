@@ -37,8 +37,8 @@ public:
 
     /// @brief constructor
     GNEMoveElementViewResizable(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                ResizingFormat resizingFormat, Position& position,
-                                double& width, double& height);
+                                ResizingFormat resizingFormat, SumoXMLAttr posAttr,
+                                Position& position, double& width, double& height);
 
     //// @brief empty destructor
     ~GNEMoveElementViewResizable();

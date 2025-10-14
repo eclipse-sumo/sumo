@@ -42,7 +42,7 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     GNEAdditional("", net, "", tag, ""),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO) ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
-                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)) {
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)) {
 }
 
 
@@ -57,7 +57,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myHeight(height),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
-                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, myPosOverView, myWidth, myHeight)),
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)),
     myPOIIcon(icon) {
     // update position depending of GEO
     if (geo) {
@@ -81,7 +81,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myHeight(height),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::POSITION, GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT,
-                               myPosOverView, myWidth, myHeight)),
+                               SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)),
     myPosLat(posLat),
     myPOIIcon(icon) {
     // update centering boundary without updating grid

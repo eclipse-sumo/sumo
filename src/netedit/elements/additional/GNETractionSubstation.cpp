@@ -31,7 +31,8 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
 }
 
 
@@ -40,7 +41,8 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
     GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
     Parameterised(parameters),
     myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
@@ -192,8 +194,6 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edges);
         }
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
         case SUMO_ATTR_VOLTAGE:
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
@@ -218,7 +218,7 @@ GNETractionSubstation::getAttributePosition(SumoXMLAttr key) const {
 
 PositionVector
 GNETractionSubstation::getAttributePositionVector(SumoXMLAttr key) const {
-    return getCommonAttributePositionVector(key);
+    return myMoveElementView->getMovingAttributePositionVector(key);
 }
 
 
@@ -231,13 +231,12 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         // special case  for lanes due tractionSubstation Symbols
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_VOLTAGE:
         case SUMO_ATTR_CURRENTLIMIT:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementView->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -250,8 +249,6 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
             return canParse<std::vector<GNEEdge*> >(myNet, value, false);
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_VOLTAGE:
         case SUMO_ATTR_CURRENTLIMIT:
             if (canParse<double>(value)) {
@@ -260,7 +257,7 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         default:
-            return isCommonValid(key, value);
+            return myMoveElementView->isMovingAttributeValid(key, value);
     }
 }
 
@@ -289,13 +286,6 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update microsimID
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(true);
-            }
-            break;
         case SUMO_ATTR_VOLTAGE:
             myVoltage = parse<double>(value);
             break;
@@ -303,8 +293,12 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myCurrentLimit = parse<double>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementView->setMovingAttribute(key, value);
             break;
+    }
+    // update boundary (except for template)
+    if (getID().size() > 0) {
+        updateCenteringBoundary(true);
     }
 }
 

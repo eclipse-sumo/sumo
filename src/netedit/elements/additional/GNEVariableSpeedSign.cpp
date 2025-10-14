@@ -33,7 +33,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)) {
 }
 
 
@@ -43,7 +43,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
     Parameterised(parameters),
     myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -229,8 +229,6 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             }
             return toString(lanes);
         }
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_VTYPES:
@@ -255,7 +253,7 @@ GNEVariableSpeedSign::getAttributePosition(SumoXMLAttr key) const {
 
 PositionVector
 GNEVariableSpeedSign::getAttributePositionVector(SumoXMLAttr key) const {
-    return getCommonAttributePositionVector(key);
+    return myMoveElementView->getMovingAttributePositionVector(key);
 }
 
 
@@ -271,13 +269,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             rebuildVSSSymbols(value, undoList);
             break;
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_VTYPES:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementView->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -288,8 +285,6 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_LANES:
             return canParse<std::vector<GNELane*> >(myNet, value, false);
         case SUMO_ATTR_NAME:
@@ -301,7 +296,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         default:
-            return isCommonValid(key, value);
+            return myMoveElementView->isMovingAttributeValid(key, value);
     }
 }
 
@@ -330,13 +325,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update microsimID
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(true);
-            }
-            break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
@@ -344,8 +332,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementView->setMovingAttribute(key, value);
             break;
+    }
+    // update boundary (except for template)
+    if (getID().size() > 0) {
+        updateCenteringBoundary(true);
     }
 }
 

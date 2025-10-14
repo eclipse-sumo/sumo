@@ -31,6 +31,9 @@
 class GNEMoveElementView : public GNEMoveElement {
 
 public:
+    /// @brief resizable needs access
+    friend class GNEMoveElementViewResizable;
+
     /// @brief attributes format
     enum class AttributesFormat {
         POSITION,   /// @brief position format
@@ -40,7 +43,7 @@ public:
 
     /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       Position& position);
+                       SumoXMLAttr posAttr, Position& position);
 
     //// @brief empty destructor
     ~GNEMoveElementView();
@@ -82,7 +85,10 @@ public:
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 
-protected:
+private:
+    /// @brief pos attribute
+    SumoXMLAttr myPosAttr;
+
     /// @brief position over view
     Position& myPosOverView;
 
@@ -92,7 +98,6 @@ protected:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
-private:
     /// @brief pos attributes format
     AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
 

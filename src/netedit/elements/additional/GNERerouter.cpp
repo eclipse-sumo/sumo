@@ -33,7 +33,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, myPosOverView)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, SUMO_ATTR_POSITION, myPosOverView)) {
 }
 
 
@@ -43,7 +43,7 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
     Parameterised(parameters),
     myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, myPosOverView)),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myProbability(probability),
     myOff(off),
     myOptional(optional),
@@ -265,8 +265,6 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             }
             return toString(edges);
         }
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_PROB:
@@ -280,7 +278,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OPTIONAL:
             return toString(myOptional);
         default:
-            return getCommonAttribute(key);
+            return myMoveElementView->getMovingAttribute(key);
     }
 }
 
@@ -304,7 +302,7 @@ GNERerouter::getAttributePosition(SumoXMLAttr key) const {
 
 PositionVector
 GNERerouter::getAttributePositionVector(SumoXMLAttr key) const {
-    return getCommonAttributePositionVector(key);
+    return myMoveElementView->getMovingAttributePositionVector(key);
 }
 
 
@@ -320,7 +318,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             rebuildRerouterSymbols(value, undoList);
             break;
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
@@ -330,7 +327,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementView->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -343,8 +340,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
             return canParse<std::vector<GNEEdge*> >(myNet, value, false);
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_PROB:
@@ -362,7 +357,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OPTIONAL:
             return canParse<bool>(value);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementView->isMovingAttributeValid(key, value);
     }
 }
 
@@ -391,13 +386,6 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update microsimID
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(true);
-            }
-            break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
@@ -417,8 +405,12 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOptional = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementView->setMovingAttribute(key, value);
             break;
+    }
+    // update boundary (except for template)
+    if (getID().size() > 0) {
+        updateCenteringBoundary(true);
     }
 }
 

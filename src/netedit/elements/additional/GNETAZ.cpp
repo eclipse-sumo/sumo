@@ -484,7 +484,7 @@ GNETAZ::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myShape;
         default:
-            return getCommonAttributePositionVector(key);
+            return myMoveElementShape->getMovingAttributePositionVector(key);
     }
 }
 
@@ -506,7 +506,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementShape->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -544,7 +544,7 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_EDGES_WITHIN:
             return canParse<bool>(value);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementShape->isMovingAttributeValid(key, value);
     }
 }
 
@@ -676,7 +676,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEdgesWithin = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementShape->setMovingAttribute(key, value);
             break;
     }
 }

@@ -33,7 +33,7 @@
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_PARKING_SPACE, ""),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
-                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
                                myPosOverView, myWidth, myLength)) {
 }
 
@@ -48,7 +48,7 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
     myWidth(width),
     myLength(length),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
-                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
                                myPosOverView, myWidth, myLength)),
     myAngle(angle),
     mySlope(slope) {
@@ -271,8 +271,6 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
@@ -290,7 +288,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
                 return getParentAdditionals().at(0)->getID();
             }
         default:
-            return getCommonAttribute(key);
+            return myMoveElementViewResizable->getMovingAttribute(key);
     }
 }
 
@@ -316,13 +314,18 @@ GNEParkingSpace::getAttributePosition(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEParkingSpace::getAttributePositionVector(SumoXMLAttr key) const {
+    return myMoveElementViewResizable->getMovingAttributePositionVector(key);
+}
+
+
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -332,23 +335,15 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementViewResizable->setMovingAttribute(key, value, undoList);
             break;
     }
-}
-
-
-PositionVector
-GNEParkingSpace::getAttributePositionVector(SumoXMLAttr key) const {
-    return getCommonAttributePositionVector(key);
 }
 
 
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
@@ -362,7 +357,7 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementViewResizable->isMovingAttributeValid(key, value);
     }
 }
 
@@ -449,11 +444,6 @@ GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const 
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            myPosOverView = parse<Position>(value);
-            // update geometry
-            updateGeometry();
-            break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
@@ -463,10 +453,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myWidth = parse<double>(value);
             }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
-            }
             break;
         case SUMO_ATTR_LENGTH:
             if (value.empty()) {
@@ -474,20 +460,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myLength = parse<double>(value);
             }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
-            }
             break;
         case SUMO_ATTR_ANGLE:
             if (value.empty()) {
                 myAngle = INVALID_DOUBLE;
             } else {
                 myAngle = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
             }
             break;
         case SUMO_ATTR_SLOPE:
@@ -497,8 +475,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);
             break;
         default:
-            setCommonAttribute(key, value);
+            myMoveElementViewResizable->setMovingAttribute(key, value);
             break;
+    }
+    // update geometry (except for template)
+    if (getParentAdditionals().size() > 0) {
+        updateGeometry();
     }
 }
 

@@ -29,8 +29,9 @@
 // ===========================================================================
 
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       Position& position) :
+                                       SumoXMLAttr posAttr, Position& position) :
     GNEMoveElement(element),
+    myPosAttr(posAttr),
     myPosOverView(position),
     myAttributesFormat(attributesFormat) {
 }
@@ -47,7 +48,11 @@ GNEMoveElementView::getMoveOperation() {
 
 std::string
 GNEMoveElementView::getMovingAttribute(SumoXMLAttr key) const {
-    return myMovedElement->getCommonAttribute(key);
+    if (key == myPosAttr) {
+        return toString(myPosOverView);
+    } else {
+        return myMovedElement->getCommonAttribute(key);
+    }
 }
 
 
@@ -59,7 +64,11 @@ GNEMoveElementView::getMovingAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNEMoveElementView::getMovingAttributePosition(SumoXMLAttr key) const {
-    return myMovedElement->getCommonAttributePosition(key);
+    if (key == myPosAttr) {
+        return myPosOverView;
+    } else {
+        return myMovedElement->getCommonAttributePosition(key);
+    }
 }
 
 
@@ -71,19 +80,31 @@ GNEMoveElementView::getMovingAttributePositionVector(SumoXMLAttr key) const {
 
 void
 GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    myMovedElement->setCommonAttribute(key, value, undoList);
+    if (key == myPosAttr) {
+        GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
+    } else {
+        myMovedElement->setCommonAttribute(key, value, undoList);
+    }
 }
 
 
 bool
 GNEMoveElementView::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    return myMovedElement->isCommonValid(key, value);
+    if (key == myPosAttr) {
+        return GNEAttributeCarrier::canParse<Position>(value);
+    } else {
+        return myMovedElement->isCommonValid(key, value);
+    }
 }
 
 
 void
 GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
-    myMovedElement->setCommonAttribute(key, value);
+    if (key == myPosAttr) {
+        myPosOverView =  GNEAttributeCarrier::parse<Position>(value);
+    } else {
+        myMovedElement->setCommonAttribute(key, value);
+    }
 }
 
 
