@@ -2000,8 +2000,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
     }
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
-        // delete leftmost lane
-        undoList->add(new GNEChange_Lane(this, getChildLanes()[i], myNBEdge->getLaneStruct(i), false), true);
+        myNet->deleteLane(getChildLanes().at(i), undoList, false);
     }
     if (oppositeID != "") {
         GNEChange_Attribute::changeAttribute(getChildLanes().back(), GNE_ATTR_OPPOSITE, oppositeID, undoList);
