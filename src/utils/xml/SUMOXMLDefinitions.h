@@ -2340,6 +2340,17 @@ enum class ReferencePosition {
     CENTER,
 };
 
+/// @enum mean data type
+enum class MeanDataType {
+    PERFORMANCE,
+    TRAFFIC,
+    EMISSIONS,
+    HBEFA,
+    HARMONOISE,
+    AMITRAN,
+    DEFAULT,
+};
+
 /// @brief XML extension
 enum class XMLFileExtension {
     XML,
@@ -2607,6 +2618,9 @@ public:
     /// @brief reference positions (used creating certain elements in netedit)
     static StringBijection<ReferencePosition> ReferencePositions;
 
+    /// @brief reference positions (used creating certain elements in netedit)
+    static StringBijection<MeanDataType> MeanDataTypes;
+
     /// @brief XML file Extensions
     static StringBijection<XMLFileExtension> XMLFileExtensions;
 
@@ -2793,6 +2807,9 @@ private:
 
     /// @brief Reference position values
     static StringBijection<ReferencePosition>::Entry referencePositionValues[];
+
+    /// @brief Mean data type values
+    static StringBijection<MeanDataType>::Entry meanDataTypeValues[];
 
     /// @brief XML file extension values
     static StringBijection<XMLFileExtension>::Entry XMLFileExtensionValues[];
