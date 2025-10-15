@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:03+0000\n"
-"PO-Revision-Date: 2025-10-13 12:33+0000\n"
+"PO-Revision-Date: 2025-10-15 09:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5621,11 +5621,11 @@ msgstr "Espressione vuota invalida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1438
 msgid "Invalid link index '%' in expression '%'"
-msgstr ""
+msgstr "indice di collegamento invalido '%' nell'espressione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1443
 msgid "Unsupported function '%' in expression '%'"
-msgstr ""
+msgstr "Funzione non supportata '%' nell'espressione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1487
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -5635,12 +5635,12 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1502
 msgid "Unknown condition '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Condizione sconosciuta '%' per il semaforo attuato '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1533
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1550
 msgid "Invalid lane '%' in key '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Corsia invalida '%' nella chiave '%' per il semaforo attuato '%'"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -6355,17 +6355,17 @@ msgstr ""
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:285
 #, c-format
 msgid "The main edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "L'arco principale '%' da usare nel rerouter '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:293
 #, c-format
 msgid "The siding edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "L'arco secondario '%' da usare nel rerouter '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:300
 #, c-format
 msgid "The siding within rerouter '%' does not have a rail signal."
-msgstr ""
+msgstr "L'arco secondario nel rerouter '%' non possiede un segnale ferroviario."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:315
 msgid "rerouter '%': stationReroute requires a stopping place id."
@@ -7055,6 +7055,8 @@ msgid ""
 "Ensures that objects with typed IDs from FILE (sumo-gui selection file "
 "format) are not renamed"
 msgstr ""
+"Garantisce che degli oggetti con codici identificativi inclusi in FILE "
+"(formato di selezione sumo-gui) non verranno ribattezzati"
 
 #: src/netbuild/NBFrame.cpp:140
 msgid "Removes vehicle class restrictions from imported edges"
