@@ -148,9 +148,7 @@ Warning: Vehicle 'flowA.67' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.68' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.68' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.69' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.69' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.69' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.69' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge2_0'!
@@ -158,7 +156,9 @@ Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.73' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.73' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.73' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.73' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.74' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.74' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.75' will not be able to arrive at the given lane 'Edge2_0'!
@@ -168,15 +168,15 @@ Warning: Vehicle 'flowA.76' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.77' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.77' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.78' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.78' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.78' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.78' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.79' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.79' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.80' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.80' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.81' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.81' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.81' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.81' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.82' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.82' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.83' will not be able to arrive at the given lane 'Edge2_0'!
@@ -201,6 +201,12 @@ Warning: Vehicle 'flowA.92' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.92' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.93' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.93' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.94' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.94' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.95' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.95' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.31' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.32' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.33' will not be able to arrive at the given lane 'Edge2_0'!
@@ -264,3 +270,6 @@ Warning: Vehicle 'flowA.90' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.91' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.92' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.93' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.94' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.95' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge2_0'!

@@ -39,7 +39,6 @@ Warning: Vehicle 'flowA.16' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.16' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.17' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.17' will not be able to arrive at the given lane 'Edge5_0'!
-Error: Vehicle 'flowA.4' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.18' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.18' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.19' will not be able to arrive at the given lane 'Edge5_0'!
@@ -84,28 +83,27 @@ Warning: Vehicle 'flowA.36' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.36' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.37' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.37' will not be able to arrive at the given lane 'Edge5_0'!
-Error: Vehicle 'flowA.6' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.38' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.38' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.39' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.39' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.40' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.40' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.41' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.41' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.42' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.42' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.43' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.43' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.44' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.44' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.45' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.45' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.46' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.46' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.47' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.47' will not be able to arrive at the given lane 'Edge5_0'!
 Error: Vehicle 'flowA.7' will not be able to depart using the given velocity (slow lane ahead)!
-Warning: Vehicle 'flowA.41' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.41' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.42' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.42' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.43' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.43' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.44' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.44' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.45' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.45' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.46' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.46' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.47' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.47' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.48' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.48' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.49' will not be able to arrive at the given lane 'Edge5_0'!
@@ -156,7 +154,6 @@ Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.26 for vehicle 'flowA.70' to match departure speed 12.00 (max 11.43).
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge5_0'!
@@ -219,9 +216,8 @@ Warning: Vehicle 'flowA.98' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.98' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge5_0'!
-Error: Vehicle 'flowA.16' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.17' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.22' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.15' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.23' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.26' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.27' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.28' will not be able to arrive at the given lane 'Edge5_0'!
@@ -259,6 +255,7 @@ Warning: Vehicle 'flowA.59' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.60' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.61' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.62' will not be able to arrive at the given lane 'Edge5_0'!
+Error: Vehicle 'flowA.29' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.63' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.64' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.65' will not be able to arrive at the given lane 'Edge5_0'!
@@ -276,7 +273,6 @@ Warning: Vehicle 'flowA.76' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.77' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.78' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.79' will not be able to arrive at the given lane 'Edge5_0'!
-Error: Vehicle 'flowA.33' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.80' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.81' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.82' will not be able to arrive at the given lane 'Edge5_0'!
@@ -297,17 +293,12 @@ Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.97' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.98' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge5_0'!
-Error: Vehicle 'flowA.36' will not be able to depart using the given velocity (slow lane ahead)!
 Error: Vehicle 'flowA.39' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.47' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.51' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.52' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.64' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.68' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.42' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.43' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.56' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.61' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.77' will not be able to depart using the given velocity (slow lane ahead)!
 Error: Vehicle 'flowA.81' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.85' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.88' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.90' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.94' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.86' will not be able to depart using the given velocity (slow lane ahead)!
 Error: Vehicle 'flowA.95' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowA.99' will not be able to depart using the given velocity (slow lane ahead)!

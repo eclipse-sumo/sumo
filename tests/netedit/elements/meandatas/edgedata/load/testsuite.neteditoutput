@@ -2,6 +2,8 @@ id
 
 file
 
+type
+
 period
 
 begin
@@ -15,3 +17,17 @@ with_internal
 max_travel_time
 
 min_samples
+
+speed_threshold
+
+vtypes
+
+track_vehicles
+
+write_attributes
+
+edges
+
+edges_file
+
+aggregate
