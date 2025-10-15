@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-15 08:20+0000\n"
+"PO-Revision-Date: 2025-10-15 15:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11051,19 +11051,20 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:107
 #, c-format
 msgid "change % of invalid additionals"
-msgstr ""
+msgstr "% ungültige weitere Elemente ändern"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:115
 msgid "fix positions of invalid additionals"
-msgstr ""
+msgstr "Positionen der ungültigen weiteren Elemente korrigieren"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:123
 msgid "select invalid additionals"
-msgstr ""
+msgstr "ungültige weitere Elemente auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:169
 msgid "Select a solution for Multilane E2 detectors"
 msgstr ""
+"Wähle eine Lösung für mehrere Fahrstreifen überspannende E2-Detektoren aus"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:172
 msgid "Build connections between lanes"
@@ -11086,6 +11087,8 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:213
 msgid "fix multilane additionals problems"
 msgstr ""
+"Probleme von mehrere Fahrstreifen überspannenden weiteren Elementen "
+"korrigieren"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:282
 msgid "Fix additional problems"
@@ -11103,7 +11106,7 @@ msgstr "Ungültige Routen entfernen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:67
 msgid "Remove invalid routes and save"
-msgstr ""
+msgstr "Ungültige Routen entfernen und speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:71
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:72
@@ -11112,7 +11115,7 @@ msgstr "Ungültige Routen speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:76
 msgid "Select invalid routes"
-msgstr ""
+msgstr "Ungültige Routen auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:77
 msgid "Select invalid routes and stop saving"
@@ -11126,7 +11129,7 @@ msgstr "Haltepunkte außerhalb von Routen entfernen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:117
 msgid "delete invalid routes"
-msgstr ""
+msgstr "ungültige Routen löschen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:131
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:245
@@ -11144,7 +11147,7 @@ msgstr "Ungültige Fahrzeuge entfernen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:191
 msgid "Remove invalid vehicles and save"
-msgstr ""
+msgstr "Ungültige Fahrzeuge entfernen und speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:195
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:196
@@ -11198,7 +11201,7 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:345
 #, c-format
 msgid "change % of invalid stops"
-msgstr ""
+msgstr "% der ungültigen Halte ändern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:352
 msgid "fix positions of invalid stops"
@@ -11275,7 +11278,7 @@ msgstr "Ungültige Kanten speichern"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:66
 msgid "Select invalid edges"
-msgstr ""
+msgstr "Ungültige Kanten auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:67
 msgid "Select invalid edges and abort saving"
@@ -11301,7 +11304,7 @@ msgstr "Ungültige Fußgängerfurten speichern"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:152
 msgid "Select invalid crossing"
-msgstr ""
+msgstr "Ungültige Fußgängerüberwege auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:153
 msgid "Select invalid crossing and abort saving"
@@ -11321,11 +11324,11 @@ msgstr "Probleme von Netzelementen reparieren"
 
 #: src/netedit/dialogs/options/GNENeteditOptionsDialog.cpp:46
 msgid "Edit netedit options"
-msgstr ""
+msgstr "Netedit-Optionen anpassen"
 
 #: src/netedit/dialogs/options/GNENetgenerateOptionsDialog.cpp:46
 msgid "Run netgenerate with advanced options"
-msgstr ""
+msgstr "Netgenerate mit fortgeschrittenen Optionen ausführen"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:77
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
@@ -11437,7 +11440,7 @@ msgstr "Abbrechen"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:203
 msgid "Abort running"
-msgstr ""
+msgstr "Ausführung abbrechen"
 
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:31
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
@@ -11447,7 +11450,7 @@ msgstr ""
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:57
 msgid "Python Tool"
-msgstr ""
+msgstr "Python-Werkzeug"
 
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:61
 msgid "Grid"
@@ -11467,7 +11470,7 @@ msgstr "Zufällig"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:62
 msgid "Tool"
-msgstr ""
+msgstr "Werkzeug"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:70
 msgid "Save toolcfg"
@@ -12517,11 +12520,11 @@ msgstr "Ankunftsposition von %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:169
 msgid "Lanes aren't consecutives"
-msgstr ""
+msgstr "Fahrstreifen folgen nicht aufeinander"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:171
 msgid "Lanes aren't connected"
-msgstr ""
+msgstr "Fahrstreifen sind nicht verbunden"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:183
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:187
