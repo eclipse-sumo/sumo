@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-14 14:12+0000\n"
+"PO-Revision-Date: 2025-10-15 08:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2929,7 +2929,7 @@ msgstr "Speichern der Nachfrageelemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4135
 msgid "saving of unified demand elements in '%'."
-msgstr ""
+msgstr "Speichern der vereinigten Nachfrageelemente in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4155
 #: src/netedit/GNEApplicationWindow.cpp:4300
@@ -10597,7 +10597,7 @@ msgstr "Keine Routen im Netz enthalten"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:58
 msgid "Rerouter intervals of % '%' cannot be saved"
-msgstr ""
+msgstr "Rerouter-Intervalle von % '%' können nicht gespeichert werden"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:59
 msgid ". There are intervals overlapped."
@@ -10928,28 +10928,32 @@ msgid ""
 "The new directory:\n"
 "%"
 msgstr ""
+"Das neue Verzeichnis:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:833
 msgid "already exists"
-msgstr ""
+msgstr "existiert bereits"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:839
 msgid "Cannot create directory"
-msgstr ""
+msgstr "Das Verzeichnis kann nicht erstellt werden"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:840
 msgid ""
 "Cannot create directory:\n"
 "%"
 msgstr ""
+"Das Verzeichnis kann nicht erstellt werden:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:841
 msgid "Check folder permissions"
-msgstr ""
+msgstr "Verzeichniszugriffsrechte prüfen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:855
 msgid "Bookmark current directory."
-msgstr ""
+msgstr "Lesezeichen für das aktuelle Verzeichnis ablegen."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:857
 msgid "Clear bookmarks."
@@ -10961,7 +10965,7 @@ msgstr "Ein Verzeichnis höher gehen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:887
 msgid "Go to home directory"
-msgstr ""
+msgstr "Zum Heimverzeichnis"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:891
 msgid "Go to work directory"
@@ -10969,11 +10973,11 @@ msgstr "Zum Arbeitsverzeichnis gehen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:902
 msgid "Go to netedit config directory"
-msgstr ""
+msgstr "Zum Verzeichnis der netedit-Konfiguration"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:905
 msgid "Go to sumo config directory"
-msgstr ""
+msgstr "Zum Verzeichnis der sumo-Konfiguration"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:915
 msgid "Create new directory"
@@ -10981,19 +10985,19 @@ msgstr "Neues Verzeichnis erstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:919
 msgid "Display directory with small icons"
-msgstr ""
+msgstr "Verzeichnis mit kleinen Icons darstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:923
 msgid "Display directory with big icons"
-msgstr ""
+msgstr "Verzeichnis mit großen Icons darstellen"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:927
 msgid "Display detailed directory listing"
-msgstr ""
+msgstr "Detaillierte Listenansicht des Verzeichnisses"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:933
 msgid "Toggle show hidden files and directories"
-msgstr ""
+msgstr "Versteckte Dateien und Verzeichnisse ein-/ausblenden"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
 msgid "Select a solution for StoppingPlaces and E2 detectors"
