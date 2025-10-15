@@ -1895,7 +1895,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myJunctionBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, getType(), false, true, nullptr);
+        gViewObjectsHandler.selectObject(this, getType(), false, nullptr);
     } else {
         // always calculate for shape
         myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration, this);
