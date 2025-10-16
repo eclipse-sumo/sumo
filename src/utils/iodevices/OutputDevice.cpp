@@ -305,7 +305,12 @@ OutputDevice::parseWrittenAttributes(const std::vector<std::string>& attrList, c
             result |= special.find(attrName)->second;
         } else {
             if (SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-                result.set(SUMOXMLDefinitions::Attrs.get(attrName));
+                int attrNr = SUMOXMLDefinitions::Attrs.get(attrName);
+                if (attrNr < (int)result.size()) {
+                    result.set(attrNr);
+                } else {
+                    WRITE_ERRORF(TL("Attribute '%' is not support for filtering written attributes in %."), attrName, desc);
+                }
             } else {
                 WRITE_ERRORF(TL("Unknown attribute '%' to write in %."), attrName, desc);
             }
