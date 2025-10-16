@@ -85,9 +85,10 @@ if test -e $SUMO_BINDIR/sumo && test $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Mak
   TESTLABEL=`LANG=C date +%d%b%y`r$GITREV
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
+    if test -e ../cadyts.jar; then
+      cp ../cadyts.jar $SUMO_BINDIR
+    fi
     tests/runExtraTests.py --gui "b $FILEPREFIX" &> $TESTLOG
-  elif test "$FILEPREFIX" == "extraNetedit"; then
-    tests/runTests.sh -a neteditoutput -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
