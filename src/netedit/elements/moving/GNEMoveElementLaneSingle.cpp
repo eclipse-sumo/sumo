@@ -278,15 +278,25 @@ GNEMoveElementLaneSingle::getFixedPositionOverLane(const bool adjustGeometryFact
         }
         // set length geometry factor
         if (adjustGeometryFactor) {
+            // adjust geometry factor
             fixedPos *= lane->getLengthGeometryFactor();
-        }
-        // return depending of fixedPos
-        if (fixedPos < 0) {
-            return 0;
-        } else if (fixedPos > lane->getLaneShapeLength()) {
-            return lane->getLaneShapeLength();
+            // return depending of fixedPos
+            if (fixedPos < 0) {
+                return 0;
+            } else if (fixedPos > lane->getLaneShapeLength()) {
+                return lane->getLaneShapeLength();
+            } else {
+                return fixedPos;
+            }
         } else {
-            return fixedPos;
+            // return depending of fixedPos
+            if (fixedPos < 0) {
+                return 0;
+            } else if (fixedPos > laneLength) {
+                return laneLength;
+            } else {
+                return fixedPos;
+            }
         }
     }
 }

@@ -152,13 +152,13 @@ GNEMoveElementLaneDouble::getMovingAttributeDouble(SumoXMLAttr key) const {
         // other attributes
         switch (key) {
             case SUMO_ATTR_CENTER:
-                return (getStartFixedPositionOverLane(true) + getEndFixedPositionOverLane(true)) * 0.5;
+                return (getStartFixedPositionOverLane(false) + getEndFixedPositionOverLane(false)) * 0.5;
             case SUMO_ATTR_LENGTH:
             case GNE_ATTR_SIZE:
                 if (myMovedElement->isTemplate()) {
                     return myTemplateSize;
                 } else {
-                    return (getEndFixedPositionOverLane(true) - getStartFixedPositionOverLane(true));
+                    return (getEndFixedPositionOverLane(false) - getStartFixedPositionOverLane(false));
                 }
             default:
                 throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
@@ -311,6 +311,8 @@ GNEMoveElementLaneDouble::isMoveElementValid() const {
         return false;
     } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
                (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
+        std::cout << myStartPos->getFixedPositionOverLane(false) << std::endl;
+        std::cout << myEndPos->getFixedPositionOverLane(false) << std::endl;
         return false;
     } else {
         return true;
@@ -366,8 +368,14 @@ GNEMoveElementLaneDouble::fixMovingProblem() {
     myStartPos->fixMovingProblem();
     myEndPos->fixMovingProblem();
     // extra if starPos > endPos (endPos is dominant)
-    if (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS)) {
-        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(myEndPos->getFixedPositionOverLane(false) - POSITION_EPS), undolist);
+    const double minStartPos = (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS);
+    if (minStartPos < POSITION_EPS) {
+        myMovedElement->setAttribute(myStartPos->myPosAttr, "0", undolist);
+        myMovedElement->setAttribute(myEndPos->myPosAttr, toString(POSITION_EPS), undolist);
+    } else if (myStartPos->getFixedPositionOverLane(false) > minStartPos) {
+        // use truncate to avoid problem precission under certain conditions
+        const double newStartPos = (std::trunc(minStartPos * 1000) / 1000);
+        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(newStartPos), undolist);
     }
 }
 
@@ -471,7 +479,7 @@ GNEMoveElementLaneDouble::setSize(const std::string& value, GNEUndoList* undoLis
     // continue depending of values of start und end position
     if ((myStartPos->myPosOverLane != INVALID_DOUBLE) && (myEndPos->myPosOverLane != INVALID_DOUBLE)) {
         // get middle lengths
-        const double center = (getStartFixedPositionOverLane(true) + getEndFixedPositionOverLane(true)) * 0.5;
+        const double center = (getStartFixedPositionOverLane(false) + getEndFixedPositionOverLane(false)) * 0.5;
         // calculate new lenghts
         double newStartPos = center - (newSize * 0.5);
         double newEndPos = center + (newSize * 0.5);
