@@ -46,8 +46,6 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
                                    const double angle, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, tag, name),
     Parameterised(parameters),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_STARTPOS, myStartPosOverLane,
-                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, friendlyPosition)),
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPosition),
