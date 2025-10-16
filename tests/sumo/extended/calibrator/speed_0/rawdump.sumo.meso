@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:27 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2025-10-16T15:15:41.967047+01:00 by Eclipse SUMO sumo v1_24_0+1462-92869d8c101
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -26,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
@@ -639,75 +637,75 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="100.00">
         <edge id="beg">
             <vehicle id="veh0" pos="0.00" speed="0.98"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
-            <vehicle id="calibtest.0.1" pos="100.00" speed="3.61"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
+            <vehicle id="calibtest.0.1" pos="100.00" speed="3.58"/>
             <vehicle id="calibtest.0.0" pos="100.00" speed="3.07"/>
         </edge>
     </timestep>
     <timestep time="101.00">
         <edge id="beg">
             <vehicle id="veh0" pos="0.00" speed="0.98"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
-            <vehicle id="calibtest.0.1" pos="100.00" speed="3.61"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
+            <vehicle id="calibtest.0.1" pos="100.00" speed="3.58"/>
             <vehicle id="calibtest.0.0" pos="100.00" speed="3.07"/>
         </edge>
     </timestep>
     <timestep time="102.00">
         <edge id="beg">
             <vehicle id="veh0" pos="0.00" speed="0.98"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
-            <vehicle id="calibtest.0.1" pos="100.00" speed="3.61"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
+            <vehicle id="calibtest.0.1" pos="100.00" speed="3.58"/>
             <vehicle id="calibtest.0.0" pos="100.00" speed="3.07"/>
         </edge>
     </timestep>
     <timestep time="103.00">
         <edge id="beg">
             <vehicle id="veh0" pos="0.00" speed="0.98"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
-            <vehicle id="calibtest.0.1" pos="100.00" speed="3.61"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
+            <vehicle id="calibtest.0.1" pos="100.00" speed="3.58"/>
             <vehicle id="calibtest.0.0" pos="100.00" speed="3.07"/>
         </edge>
     </timestep>
     <timestep time="104.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
             <vehicle id="calibtest.0.1" pos="100.00" speed="3.50"/>
             <vehicle id="calibtest.0.0" pos="200.00" speed="27.80"/>
         </edge>
     </timestep>
     <timestep time="105.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
-            <vehicle id="calibtest.0.2" pos="100.00" speed="3.88"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
+            <vehicle id="calibtest.0.2" pos="100.00" speed="3.80"/>
             <vehicle id="calibtest.0.1" pos="100.00" speed="3.50"/>
             <vehicle id="calibtest.0.0" pos="200.00" speed="27.80"/>
         </edge>
     </timestep>
     <timestep time="106.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
             <vehicle id="calibtest.0.2" pos="100.00" speed="3.63"/>
             <vehicle id="calibtest.0.1" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.0" pos="200.00" speed="27.80"/>
@@ -715,10 +713,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="107.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
-            <vehicle id="calibtest.0.3" pos="100.00" speed="4.78"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
+            <vehicle id="calibtest.0.3" pos="100.00" speed="4.60"/>
             <vehicle id="calibtest.0.2" pos="100.00" speed="3.63"/>
             <vehicle id="calibtest.0.1" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.0" pos="200.00" speed="27.80"/>
@@ -726,9 +724,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="108.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
             <vehicle id="calibtest.0.3" pos="100.00" speed="4.25"/>
             <vehicle id="calibtest.0.2" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.1" pos="200.00" speed="27.80"/>
@@ -737,9 +735,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="109.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
-            <vehicle id="calibtest.0.4" pos="100.00" speed="6.22"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
+            <vehicle id="calibtest.0.4" pos="100.00" speed="5.83"/>
             <vehicle id="calibtest.0.3" pos="100.00" speed="4.25"/>
             <vehicle id="calibtest.0.2" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.1" pos="200.00" speed="27.80"/>
@@ -748,8 +746,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="110.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
-            <vehicle id="calibtest.0.5" pos="100.00" speed="8.93"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
+            <vehicle id="calibtest.0.5" pos="100.00" speed="7.97"/>
             <vehicle id="calibtest.0.4" pos="100.00" speed="5.28"/>
             <vehicle id="calibtest.0.3" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.2" pos="200.00" speed="27.80"/>
@@ -759,7 +757,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="111.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
             <vehicle id="calibtest.0.5" pos="100.00" speed="6.97"/>
             <vehicle id="calibtest.0.4" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.3" pos="200.00" speed="27.80"/>
@@ -770,7 +768,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="112.00">
         <edge id="beg">
-            <vehicle id="veh0" pos="100.00" speed="13.94"/>
+            <vehicle id="veh0" pos="100.00" speed="11.74"/>
             <vehicle id="calibtest.0.5" pos="100.00" speed="6.97"/>
             <vehicle id="calibtest.0.4" pos="200.00" speed="27.80"/>
             <vehicle id="calibtest.0.3" pos="200.00" speed="27.80"/>

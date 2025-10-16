@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:29 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2025-10-16T15:15:43.333309+01:00 by Eclipse SUMO sumo v1_24_0+1462-92869d8c101
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
@@ -58,11 +56,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </interval>
     <interval begin="50.00" end="75.00" id="dump_25">
         <edge id="beg" sampledSeconds="44.87" traveltime="17.93" overlapTraveltime="18.04" density="3.60" laneDensity="3.60" occupancy="1.08" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="3" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="98.13" traveltime="423.33" overlapTraveltime="424.62" density="3.96" laneDensity="3.96" occupancy="1.19" waitingTime="0.00" timeLoss="31.99" speed="2.34" speedRelative="0.84" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="122.13" traveltime="549.73" overlapTraveltime="551.40" density="4.93" laneDensity="4.93" occupancy="1.48" waitingTime="24.00" timeLoss="55.99" speed="1.80" speedRelative="0.64" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="75.00" end="100.00" id="dump_25">
         <edge id="beg" sampledSeconds="44.81" traveltime="17.94" overlapTraveltime="18.04" density="3.59" laneDensity="3.59" occupancy="1.08" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="2" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="179.63" traveltime="374.37" overlapTraveltime="375.51" density="7.25" laneDensity="7.25" occupancy="2.18" waitingTime="0.00" timeLoss="9.90" speed="2.65" speedRelative="0.94" departed="0" arrived="0" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="183.19" traveltime="381.80" overlapTraveltime="382.95" density="7.40" laneDensity="7.40" occupancy="2.22" waitingTime="3.56" timeLoss="13.46" speed="2.59" speedRelative="0.93" departed="0" arrived="0" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="100.00" end="125.00" id="dump_25">
         <edge id="beg" sampledSeconds="44.87" traveltime="17.93" overlapTraveltime="18.04" density="3.60" laneDensity="3.60" occupancy="1.08" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="3" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
