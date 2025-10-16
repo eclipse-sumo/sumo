@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 10:04+0000\n"
-"PO-Revision-Date: 2025-10-15 15:19+0000\n"
+"PO-Revision-Date: 2025-10-16 09:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3033,7 +3033,7 @@ msgstr "lädt weitere Elemente aus '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4788
 msgid "loading additionals from '%'."
-msgstr ""
+msgstr "Weitere Elemente werden aus '%' geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4793
 #: src/netedit/GNEApplicationWindow.cpp:4849
@@ -3047,7 +3047,7 @@ msgstr "Lädt Nachfrageelemente aus '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4844
 msgid "loading demand elements from '%'."
-msgstr ""
+msgstr "Nachfrageelemente werden aus '%' geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4883
 msgid "loading data elements from '"
@@ -10644,10 +10644,12 @@ msgstr "% Werte ändern"
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:58
 msgid "VariableSpeedSign steps of % '%' cannot be saved"
 msgstr ""
+"Die Stufen der dynamischen Geschwindigkeitsbegrenzung % '%' können nicht "
+"gespeichert werden"
 
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:59
 msgid "Steps has to be sorted."
-msgstr ""
+msgstr "Die Stufen müssen sortiert werden."
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:492
 msgid "Invalid row type"
@@ -11001,7 +11003,7 @@ msgstr "Versteckte Dateien und Verzeichnisse ein-/ausblenden"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
 msgid "Select a solution for StoppingPlaces and E2 detectors"
-msgstr ""
+msgstr "Wähle eine Lösung für Haltepunkte und E2-Detektoren"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:57
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:182
@@ -11184,11 +11186,11 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:310
 msgid "Save elements with invalid positions"
-msgstr ""
+msgstr "Elemente mit ungültigen Positionen speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:314
 msgid "Select conflicted stops"
-msgstr ""
+msgstr "In Konflikt stehende Halte auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:315
 msgid "Select conflicted stops and abort saving"
@@ -11205,11 +11207,11 @@ msgstr "% der ungültigen Halte ändern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:352
 msgid "fix positions of invalid stops"
-msgstr ""
+msgstr "Positionen von ungültigen Halten korrigieren"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:359
 msgid "select invalid stops"
-msgstr ""
+msgstr "ungültige Halte auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:405
 msgid "Person/container plans"
@@ -11416,7 +11418,7 @@ msgstr ""
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:46
 msgid "Edit SUMO options"
-msgstr ""
+msgstr "Sumo-Optionen anpassen"
 
 #: src/netedit/dialogs/run/GNERunDialog.cpp:56
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:69
@@ -11832,7 +11834,7 @@ msgstr "Polygon hinzufügen '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
 msgid "add POI '%'"
-msgstr ""
+msgstr "POI '%' hinzufügen"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1693
 msgid "add POI lane '%'"
@@ -12534,11 +12536,11 @@ msgstr ""
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:185
 msgid "% > start lanes's length"
-msgstr ""
+msgstr "% > Länge des Anfangsfahrstreifens"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:189
 msgid "% > end lanes's length"
-msgstr ""
+msgstr "% > Länge des Zielfahrstreifens"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:193
 msgid "% >= %"
@@ -12553,12 +12555,12 @@ msgstr " Länge von %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:96
 msgid "% > lanes's length"
-msgstr ""
+msgstr "% > Fahrstreifenlänge"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:168
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:159
 msgid "position of %"
-msgstr ""
+msgstr "Position von %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:108
 #: src/netedit/elements/network/GNECrossing.cpp:205
@@ -12567,27 +12569,27 @@ msgstr "Geometriepunkt von % entfernen"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:147
 msgid "moving center of %"
-msgstr ""
+msgstr "Schwerpunkt von % wird verschoben"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:155
 msgid "moving entire shape of %"
-msgstr ""
+msgstr "der Shape von % wird verschoben"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:173
 msgid "editing shape of %"
-msgstr ""
+msgstr "der Shape von % wird bearbeitet"
 
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:147
 msgid "length of %"
-msgstr ""
+msgstr "Länge von %"
 
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:151
 msgid "width of %"
-msgstr ""
+msgstr "Breite von %"
 
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:155
 msgid "height of %"
-msgstr ""
+msgstr "Höhe von %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:684
 msgid "Could not set attribute '%' (tls is broken)"
