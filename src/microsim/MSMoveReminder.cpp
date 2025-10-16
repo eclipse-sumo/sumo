@@ -82,9 +82,9 @@ MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double l
         // the vehicle already has reported its values before; use these
         // however, if this was called from prepareDetectorForWriting the time
         // only has a resolution of DELTA_T and might be invalid
-        const SUMOTime previousEntryTime = j->second.first;
-        if (previousEntryTime <= currentTime) {
-            entryTime = previousEntryTime;
+        const SUMOTime previousUpdateTime = j->second.first;
+        if (previousUpdateTime <= currentTime) {
+            entryTime = previousUpdateTime;
             entryPos = j->second.second;
         }
     }

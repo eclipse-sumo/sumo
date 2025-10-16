@@ -326,7 +326,7 @@ public:
 
     /** @brief Updates all vehicle detectors
      */
-    void updateDetectors(SUMOTime currentTime, const bool isLeave,
+    void updateDetectors(const SUMOTime currentTime, const SUMOTime exitTime, const bool isLeave,
                          const MSMoveReminder::Notification reason = MSMoveReminder::NOTIFICATION_JUNCTION);
 
     /** @brief Returns the velocity/lane influencer

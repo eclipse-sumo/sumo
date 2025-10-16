@@ -461,14 +461,14 @@ MEVehicle::updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, S
 
 
 void
-MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMoveReminder::Notification reason) {
+MEVehicle::updateDetectors(const SUMOTime currentTime, const SUMOTime exitTime, const bool isLeave, const MSMoveReminder::Notification reason) {
     // segments of the same edge have the same reminder so no cleaning up must take place
     const bool cleanUp = isLeave && (reason != MSMoveReminder::NOTIFICATION_SEGMENT);
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (currentTime != getLastEntryTime() && reason < MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR) {
             rem->first->updateDetector(*this, mySegment->getIndex() * mySegment->getLength(),
                                        (mySegment->getIndex() + 1) * mySegment->getLength(),
-                                       getLastEntryTime(), currentTime, getEventTime(), cleanUp);
+                                       getLastEntryTime(), currentTime, exitTime, cleanUp);
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
                 traceMoveReminder("notifyMove", rem->first, rem->second, true);

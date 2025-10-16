@@ -119,7 +119,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
             veh->setSegment(myEdges2FirstSegments[veh->getEdge()->getNumericalID()]);
             // clean up detectors (do not add traffic data)
             // note: updateDatector is not called if leaveTime == getLastEntryTime()
-            veh->updateDetectors(veh->getLastEntryTime(), true, MSMoveReminder::NOTIFICATION_TELEPORT);
+            veh->updateDetectors(veh->getLastEntryTime(), veh->getEventTime(), true, MSMoveReminder::NOTIFICATION_TELEPORT);
             toSegment->receive(veh, qIdx, leaveTime, false, true, true);
         }
         return entry;
