@@ -68,3 +68,6 @@ alternate_oneWay
 
 # no checking for internal state (as a performance reference)
 alternate_oneWay_default
+
+# a single road being crossed
+ped_crossing

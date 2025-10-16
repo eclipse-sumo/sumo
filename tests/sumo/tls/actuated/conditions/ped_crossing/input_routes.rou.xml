@@ -1,0 +1,11 @@
+<routes>
+    <flow id="EW" begin="0" end="500" probability="0.1" from="EC" to="CW"/>
+    <flow id="WE" begin="0" end="500" probability="0.1" from="WC" to="CE"/>
+
+    <personFlow id="NS" begin="0" end="250" period="exp(0.02)">
+        <walk edges="NC CS"/>
+    </personFlow>
+    <personFlow id="SN" begin="250" end="500" period="exp(0.02)">
+        <walk edges="CS NC"/>
+    </personFlow>
+</routes>
