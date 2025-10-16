@@ -33,7 +33,7 @@
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector(net, entryExitTag),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)) {
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
 
 
@@ -43,7 +43,7 @@ GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditiona
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)) {
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
     // set parents
     setParent<GNELane*>(lane);
     // update centering boundary without updating grid

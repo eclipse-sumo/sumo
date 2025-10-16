@@ -35,7 +35,7 @@
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)) {
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
 
 
@@ -46,7 +46,7 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)),
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)),
     mySpecialPosition(specialPos),
     myLength(length) {
     // set parents

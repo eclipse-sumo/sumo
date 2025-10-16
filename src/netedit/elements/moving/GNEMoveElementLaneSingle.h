@@ -31,13 +31,14 @@
 class GNEMoveElementLaneSingle : public GNEMoveElement {
 
 public:
+    /// @brief move element lane double need access to set and commit shape
     friend class GNEMoveElementLaneDouble;
 
     // declare type of moving
-    struct Type {
-        static const std::string SINGLE;
-        static const std::string STARPOS;
-        static const std::string ENDPOS;
+    struct PositionType {
+        static const std::string SINGLE;    // Element has only one position
+        static const std::string STARPOS;   // Element's start position
+        static const std::string ENDPOS;    // Element's end position
     };
 
     /// @brief constructor
@@ -108,7 +109,7 @@ private:
     bool& myFriendlyPos;
 
     /// @brief default behavior
-    const std::string myDefaultBehavior;
+    const std::string myPositionType;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;

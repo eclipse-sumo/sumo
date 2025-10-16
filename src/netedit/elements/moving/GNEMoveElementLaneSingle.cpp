@@ -30,9 +30,9 @@
 // static members
 // ===========================================================================
 
-const std::string GNEMoveElementLaneSingle::Type::SINGLE = "single";
-const std::string GNEMoveElementLaneSingle::Type::STARPOS = TL("lane start");
-const std::string GNEMoveElementLaneSingle::Type::ENDPOS = TL("lane end");
+const std::string GNEMoveElementLaneSingle::PositionType::SINGLE = "single";
+const std::string GNEMoveElementLaneSingle::PositionType::STARPOS = TL("lane start");
+const std::string GNEMoveElementLaneSingle::PositionType::ENDPOS = TL("lane end");
 
 // ===========================================================================
 // Method definitions
@@ -44,7 +44,7 @@ GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element,
     myPosAttr(posAttr),
     myPosOverLane(position),
     myFriendlyPos(friendlyPos),
-    myDefaultBehavior(defaultBehavior) {
+    myPositionType(defaultBehavior) {
 }
 
 
@@ -53,9 +53,10 @@ GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
 
 GNEMoveOperation*
 GNEMoveElementLaneSingle::getMoveOperation() {
+    // check if allow change lane is enabled
     const bool allowChangeLane = myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // continue depending if we're moving the start or the end position
-    if (myDefaultBehavior == Type::ENDPOS) {
+    if (myPositionType == PositionType::ENDPOS) {
         return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), INVALID_DOUBLE,
                                     myMovedElement->getHierarchicalElement()->getParentLanes().back(), myPosOverLane, false, allowChangeLane);
     } else {
@@ -68,8 +69,8 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 std::string
 GNEMoveElementLaneSingle::getMovingAttribute(SumoXMLAttr key) const {
     if (key == myPosAttr) {
-        if ((myPosOverLane == INVALID_DOUBLE) && (myDefaultBehavior != Type::SINGLE)) {
-            return myDefaultBehavior;
+        if ((myPosOverLane == INVALID_DOUBLE) && (myPositionType != PositionType::SINGLE)) {
+            return myPositionType;
         } else {
             return toString(myPosOverLane);
         }
@@ -129,7 +130,7 @@ GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string&
 bool
 GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
     if (key == myPosAttr) {
-        if ((myDefaultBehavior != Type::SINGLE) && (value.empty() || (value == myDefaultBehavior))) {
+        if ((myPositionType != PositionType::SINGLE) && (value.empty() || (value == myPositionType))) {
             return true;
         } else {
             return GNEAttributeCarrier::canParse<double>(value);
@@ -156,9 +157,9 @@ GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string&
     if (key == myPosAttr) {
         if (value.empty()) {
             myPosOverLane = INVALID_DOUBLE;
-        } else if ((value == Type::STARPOS) && (myDefaultBehavior == Type::STARPOS)) {
+        } else if ((value == PositionType::STARPOS) && (myPositionType == PositionType::STARPOS)) {
             myPosOverLane = INVALID_DOUBLE;
-        } else if ((value == Type::ENDPOS) && (myDefaultBehavior == Type::ENDPOS)) {
+        } else if ((value == PositionType::ENDPOS) && (myPositionType == PositionType::ENDPOS)) {
             myPosOverLane = INVALID_DOUBLE;
         } else {
             myPosOverLane = GNEAttributeCarrier::parse<double>(value);
@@ -232,7 +233,7 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
     // lane
     device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
     // position (don't write if is an invalid double, except in no default)
-    if ((myDefaultBehavior == Type::SINGLE) || (myPosOverLane != INVALID_DOUBLE)) {
+    if ((myPositionType == PositionType::SINGLE) || (myPosOverLane != INVALID_DOUBLE)) {
         device.writeAttr(myPosAttr, myPosOverLane);
     }
     // friendly position (only if true)
@@ -245,10 +246,10 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
 double
 GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
     // get lane depending of type
-    const auto& lane = (myDefaultBehavior == Type::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back() : myMovedElement->getHierarchicalElement()->getParentLanes().front();
+    const auto& lane = (myPositionType == PositionType::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back() : myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
     if (myPosOverLane == INVALID_DOUBLE) {
-        if (myDefaultBehavior == Type::ENDPOS) {
+        if (myPositionType == PositionType::ENDPOS) {
             return lane->getLaneShapeLength();
         } else {
             return 0;
@@ -277,7 +278,7 @@ GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
 
 void
 GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
-    if (myDefaultBehavior == Type::ENDPOS) {
+    if (myPositionType == PositionType::ENDPOS) {
         // change position
         myPosOverLane = moveResult.newLastPos;
         // set lateral offset
@@ -300,15 +301,20 @@ GNEMoveElementLaneSingle::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
     // begin change attribute
     undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
     // set position
-    if (myDefaultBehavior == Type::ENDPOS) {
+    if (myPositionType == PositionType::ENDPOS) {
         myMovedElement->setAttribute(myPosAttr, toString(moveResult.newLastPos), undoList);
+        // check if lane has to be changed
+        if (moveResult.newLastLane && (moveResult.newLastLane != myMovedElement->getHierarchicalElement()->getParentLanes().back())) {
+            // set new lane
+            myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newLastLane->getID(), undoList);
+        }
     } else {
         myMovedElement->setAttribute(myPosAttr, toString(moveResult.newFirstPos), undoList);
-    }
-    // check if lane has to be changed
-    if (moveResult.newFirstLane) {
-        // set new lane
-        myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        // check if lane has to be changed
+        if (moveResult.newFirstLane && (moveResult.newFirstLane != myMovedElement->getHierarchicalElement()->getParentLanes().front())) {
+            // set new lane
+            myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        }
     }
     // end change attribute
     undoList->end();

@@ -46,9 +46,9 @@ GNEMoveElementLaneDouble::GNEMoveElementLaneDouble(GNEAttributeCarrier* element,
         double& endPosValue, bool& friendlyPosition) :
     GNEMoveElement(element),
     myStartPos(new GNEMoveElementLaneSingle(element, startPosAttr, startPosValue, friendlyPosition,
-                                            GNEMoveElementLaneSingle::Type::STARPOS)),
+                                            GNEMoveElementLaneSingle::PositionType::STARPOS)),
     myEndPos(new GNEMoveElementLaneSingle(element, endPosAttr, endPosValue, friendlyPosition,
-                                          GNEMoveElementLaneSingle::Type::ENDPOS)) {
+                                          GNEMoveElementLaneSingle::PositionType::ENDPOS)) {
 }
 
 
@@ -66,29 +66,17 @@ GNEMoveElementLaneDouble::getMoveOperation() {
     // fist check if we're moving only extremes
     if (myMovedElement->drawMovingGeometryPoints()) {
         // get geometry points under cursor
-        const auto geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(myMovedElement->getGUIGlObject());
-        // continue depending of moved element
+        const auto& geometryPoints = gViewObjectsHandler.getSelectedGeometryPoints(myMovedElement->getGUIGlObject());
+        // continue depending of clicked geometry point
         if (geometryPoints.empty()) {
             return nullptr;
         } else {
-            // check if we're moving elements over the same lane, or over different lanes
-            if (parentLanes.size() > 1) {
-                // return move operation depending if we're editing departPos or arrivalPos
-                if (geometryPoints.front() == 0) {
-                    return new GNEMoveOperation(this, parentLanes.front(), myStartPos->myPosOverLane,
-                                                parentLanes.back(), INVALID_DOUBLE, true, false);
-                } else {
-                    return new GNEMoveOperation(this, parentLanes.front(), INVALID_DOUBLE,
-                                                parentLanes.back(), myEndPos->myPosOverLane, false, false);
-                }
+            if (geometryPoints.front() == 0) {
+                // move start position
+                return myStartPos->getMoveOperation();
             } else {
-                if (geometryPoints.front() == 0) {
-                    // move start position
-                    return myStartPos->getMoveOperation();
-                } else {
-                    // move end position
-                    return myEndPos->getMoveOperation();
-                }
+                // move end position
+                return myEndPos->getMoveOperation();
             }
         }
     } else if ((myStartPos->myPosOverLane != INVALID_DOUBLE) && (myEndPos->myPosOverLane != INVALID_DOUBLE)) {
@@ -492,20 +480,15 @@ GNEMoveElementLaneDouble::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
     undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
     // check if we're moving both points
     if ((moveResult.newFirstPos != INVALID_DOUBLE) && (moveResult.newLastPos != INVALID_DOUBLE)) {
-        // set both
-        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(moveResult.newFirstPos), undoList);
-        myMovedElement->setAttribute(myEndPos->myPosAttr, toString(moveResult.newLastPos), undoList);
+        // set both positions
+        myStartPos->commitMoveShape(moveResult, undoList);
+        myEndPos->commitMoveShape(moveResult, undoList);
     } else if (moveResult.newFirstPos != INVALID_DOUBLE) {
         // set only start position
-        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(moveResult.newFirstPos), undoList);
+        myStartPos->commitMoveShape(moveResult, undoList);
     } else if (moveResult.newLastPos != INVALID_DOUBLE) {
         // set only end position
-        myMovedElement->setAttribute(myEndPos->myPosAttr, toString(moveResult.newLastPos), undoList);
-    }
-    // check if lane has to be changed
-    if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) && moveResult.newFirstLane) {
-        // set new lane
-        myMovedElement->setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+        myEndPos->commitMoveShape(moveResult, undoList);
     }
     // end change attribute
     undoList->end();

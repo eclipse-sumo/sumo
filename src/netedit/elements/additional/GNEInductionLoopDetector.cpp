@@ -36,7 +36,7 @@
 GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
     GNEDetector(net, SUMO_TAG_INDUCTION_LOOP),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)) {
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
 
 
@@ -49,7 +49,7 @@ GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNENet
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
-                            GNEMoveElementLaneSingle::Type::SINGLE)) {
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
     // set parents
     setParent<GNELane*>(lane);
     // update centering boundary without updating grid
