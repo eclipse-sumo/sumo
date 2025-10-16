@@ -444,6 +444,7 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 - compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
   - with detection gap below threshold
   - with a detection since the last time where the signal after this detector was green
+- for each crossing that will be green in the target phase and which has an approaching pedestrian, a large amount of bonus priority is assigned to that phase
 - the current phase is implicitly available for continuation as long as its maxDur is not reached. Detectors of the current phase get a bonus priority
 - the phase with the highest priority is used with phases coming earlier in the next list given precedence over those coming later
 - if there is no traffic, the phases will run through a default cycle defined by the first value in the 'next' attribute
