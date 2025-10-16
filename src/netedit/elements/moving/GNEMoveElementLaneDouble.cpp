@@ -409,11 +409,11 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
         } else if (adjustedStartPosition < 0) {
             return TLF("% < 0", toString(myStartPosAttr));
         } else if (adjustedStartPosition > fromLaneLength) {
-            return TLF("% > start lanes's length", toString(myStartPosAttr));
+            return TLF("% > length of start lane", toString(myStartPosAttr));
         } else if (adjustedEndPosition < 0) {
             return TLF("% < 0", toString(myEndPosAttr));
         } else if (adjustedEndPosition > toLaneLength) {
-            return TLF("% > end lanes's length", toString(myEndPosAttr));
+            return TLF("% > length of end lane", toString(myEndPosAttr));
         } else if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
             // only if we have only one lane
             if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {

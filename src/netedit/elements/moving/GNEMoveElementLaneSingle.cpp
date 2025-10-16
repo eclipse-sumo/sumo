@@ -186,7 +186,7 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
     } else if (adjustedPosition < 0) {
         return TLF("% < 0", toString(myPosAttr));
     } else if (adjustedPosition > laneLenght) {
-        return TLF("% > lanes's length", toString(myPosAttr));
+        return TLF("% > length of lane", toString(myPosAttr));
     } else {
         return "";
     }
