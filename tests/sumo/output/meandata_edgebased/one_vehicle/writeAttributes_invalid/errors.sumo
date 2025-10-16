@@ -1,2 +1,2 @@
-Error: Error occurred: bitset::set: __position (which is 408) >= _Nb (which is 96) while parsing 'input_additional.add.xml'
+Error: Attribute 'shape' is not support for filtering written attributes in meandata 'dump_60'.
 Quitting (on error).
