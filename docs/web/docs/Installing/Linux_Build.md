@@ -336,11 +336,11 @@ In this section, you will learn how to build the latest version of the pedestria
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim
 ```
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the master branch), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release and do a regular cmake build. For example, for JuPedSim release v1.2.1, you would need to type:
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the master branch), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release and do a regular cmake build. For example, for JuPedSim release v1.3.1, you would need to type:
 
 ``` bash
 cd jupedsim
-git checkout v1.2.1
+git checkout v1.3.1
 cmake -B build .
 cmake --build build
 sudo cmake --install build
