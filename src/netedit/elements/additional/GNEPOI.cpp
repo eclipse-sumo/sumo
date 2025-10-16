@@ -40,7 +40,7 @@
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
     GNEAdditional("", net, "", tag, ""),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO) ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)) {
 }
@@ -55,10 +55,10 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myPosOverView(pos),
     myWidth(width),
     myHeight(height),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
+    myPOIIcon(icon),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, geo ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
-                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)),
-    myPOIIcon(icon) {
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)) {
     // update position depending of GEO
     if (geo) {
         Position cartesian = myPosOverView;
@@ -79,11 +79,13 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
     myPosOverLane(posOverLane),
     myWidth(width),
     myHeight(height),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
-    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::POSITION, GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT,
-                               SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)),
     myPosLat(posLat),
-    myPOIIcon(icon) {
+    myPOIIcon(icon),
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::Type::SINGLE)),
+    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::POSITION, GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT,
+                               SUMO_ATTR_POSITION, myPosOverView, myWidth, myHeight)) {
+    // set parents
+    setParent<GNELane*>(lane);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

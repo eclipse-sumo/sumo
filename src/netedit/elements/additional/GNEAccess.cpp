@@ -34,7 +34,7 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
                             GNEMoveElementLaneSingle::Type::SINGLE)) {
 }
 
@@ -45,11 +45,12 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
     Parameterised(parameters),
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
                             GNEMoveElementLaneSingle::Type::SINGLE)),
     mySpecialPosition(specialPos),
     myLength(length) {
     // set parents
+    setParent<GNELane*>(lane);
     setParent<GNEAdditional*>(busStop);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

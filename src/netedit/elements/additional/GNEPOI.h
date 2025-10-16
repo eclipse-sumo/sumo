@@ -252,17 +252,17 @@ protected:
     /// @brief friendly position
     bool myFriendlyPos = false;
 
-    /// @brief move element over single lane
-    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
-
-    /// @brief move element view resizable
-    GNEMoveElementViewResizable* myMoveElementViewResizable = nullptr;
-
     /// @brief lateral position;
     double myPosLat = 0;
 
     /// @brief POI icon
     POIIcon myPOIIcon = POIIcon::NONE;
+
+    /// @brief move element over single lane
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
+
+    /// @brief move element view resizable
+    GNEMoveElementViewResizable* myMoveElementViewResizable = nullptr;
 
 private:
     /// @brief draw POI

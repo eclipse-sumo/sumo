@@ -41,8 +41,8 @@ public:
     };
 
     /// @brief constructor
-    GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-                             SumoXMLAttr posAttr, double& position, bool& friendlyPos,
+    GNEMoveElementLaneSingle(GNEAttributeCarrier* element, SumoXMLAttr posAttr,
+                             double& position, bool& friendlyPos,
                              const std::string& defaultBehavior);
 
     //// @brief destructor

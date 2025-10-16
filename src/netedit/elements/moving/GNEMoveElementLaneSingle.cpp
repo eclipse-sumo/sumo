@@ -39,17 +39,12 @@ const std::string GNEMoveElementLaneSingle::Type::ENDPOS = TL("lane end");
 // ===========================================================================
 
 GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element,
-        GNELane* lane, SumoXMLAttr posAttr, double& position, bool& friendlyPos,
-        const std::string& defaultBehavior) :
+        SumoXMLAttr posAttr, double& position, bool& friendlyPos, const std::string& defaultBehavior) :
     GNEMoveElement(element),
     myPosAttr(posAttr),
     myPosOverLane(position),
     myFriendlyPos(friendlyPos),
     myDefaultBehavior(defaultBehavior) {
-    // set parents
-    if (lane) {
-        element->getHierarchicalElement()->setParent<GNELane*>(lane);
-    }
 }
 
 
@@ -58,9 +53,15 @@ GNEMoveElementLaneSingle::~GNEMoveElementLaneSingle() {}
 
 GNEMoveOperation*
 GNEMoveElementLaneSingle::getMoveOperation() {
-    // return move operation over a single position
-    return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), myPosOverLane,
-                                myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane());
+    const bool allowChangeLane = myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
+    // continue depending if we're moving the start or the end position
+    if (myDefaultBehavior == Type::ENDPOS) {
+        return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), INVALID_DOUBLE,
+                                    myMovedElement->getHierarchicalElement()->getParentLanes().back(), myPosOverLane, false, allowChangeLane);
+    } else {
+        return new GNEMoveOperation(this, myMovedElement->getHierarchicalElement()->getParentLanes().front(), myPosOverLane,
+                                    myMovedElement->getHierarchicalElement()->getParentLanes().back(), INVALID_DOUBLE, true, allowChangeLane);
+    }
 }
 
 
@@ -299,7 +300,11 @@ GNEMoveElementLaneSingle::commitMoveShape(const GNEMoveResult& moveResult, GNEUn
     // begin change attribute
     undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
     // set position
-    myMovedElement->setAttribute(myPosAttr, toString(moveResult.newFirstPos), undoList);
+    if (myDefaultBehavior == Type::ENDPOS) {
+        myMovedElement->setAttribute(myPosAttr, toString(moveResult.newLastPos), undoList);
+    } else {
+        myMovedElement->setAttribute(myPosAttr, toString(moveResult.newFirstPos), undoList);
+    }
     // check if lane has to be changed
     if (moveResult.newFirstLane) {
         // set new lane
