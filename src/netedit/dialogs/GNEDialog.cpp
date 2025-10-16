@@ -66,8 +66,10 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     myApplicationWindow(applicationWindow),
     myType(type),
     myOpenType(openType) {
-    // build dialog
-    buildDialog(titleIcon, buttons);
+    // build dialog only if applicationWindow was created
+    if (applicationWindow->id()) {
+        buildDialog(titleIcon, buttons);
+    }
 }
 
 
@@ -80,10 +82,13 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     myApplicationWindow(applicationWindow),
     myType(type),
     myOpenType(openType) {
-    // build dialog
-    buildDialog(titleIcon, buttons);
-    // set explicit size
-    resize(width, height);
+    // build dialog only if applicationWindow was created
+    if (applicationWindow->id()) {
+        // build dialog
+        buildDialog(titleIcon, buttons);
+        // set explicit size
+        resize(width, height);
+    }
 }
 
 
