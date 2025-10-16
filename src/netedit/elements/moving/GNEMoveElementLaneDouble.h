@@ -25,6 +25,12 @@
 #include "GNEMoveElement.h"
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElementLaneSingle;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -33,31 +39,15 @@ class GNEMoveElementLaneDouble : public GNEMoveElement {
 public:
     /**@brief Constructor
      * @param[in] element moved element
-     * @param[in] lane Lane of this element belongs
      * @param[in] startPosAttr Start position attribute
      * @param[in] startPosValue Start position value
      * @param[in] endPosAttr End position attribute
      * @param[in] endPosValue End position value
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, GNELane* lane,
-                             SumoXMLAttr startPosAttr, double& startPosValue,
-                             SumoXMLAttr endPosAttr, double& endPosValue,
-                             bool& friendlyPosition);
-
-    /**@brief Constructor
-     * @param[in] element moved element
-     * @param[in] lanes Lanes of this element belongs
-     * @param[in] startPosAttr Start position attribute
-     * @param[in] startPosValue Start position value
-     * @param[in] endPosAttr End position attribute
-     * @param[in] endPosValue End position value
-     * @param[in] friendlyPos enable or disable friendly position
-     */
-    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, const std::vector<GNELane*>& lanes,
-                             SumoXMLAttr startPosAttr, double& startPosValue,
-                             SumoXMLAttr endPosAttr, double& endPosValue,
-                             bool& friendlyPosition);
+    GNEMoveElementLaneDouble(GNEAttributeCarrier* element, SumoXMLAttr startPosAttr,
+                             double& startPosValue, SumoXMLAttr endPosAttr,
+                             double& endPosValue, bool& friendlyPosition);
 
     /// @brief Destructor
     ~GNEMoveElementLaneDouble();
@@ -118,20 +108,11 @@ public:
     static const double defaultSize;
 
 private:
-    /// @brief startPos attribute
-    SumoXMLAttr myStartPosAttr;
+    /// @brief start position
+    GNEMoveElementLaneSingle* myStartPos;
 
-    /// @brief The start position over lane
-    double& myStartPosValue;
-
-    /// @brief end pos attribute
-    SumoXMLAttr myEndPosAttr;
-
-    /// @brief The end position over lane
-    double& myEndPosPosValue;
-
-    /// @brief Flag for friendly position
-    bool& myFriendlyPosition;
+    /// @brief end position
+    GNEMoveElementLaneSingle* myEndPos;
 
     /// @brief size (only use in AttributeCarrier templates)
     double myTemplateSize = defaultSize;

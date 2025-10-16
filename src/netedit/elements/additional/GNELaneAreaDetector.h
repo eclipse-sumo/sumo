@@ -216,9 +216,6 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition = false;
 
-    /// @brief move element lane double
-    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
-
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold = 0;
 
@@ -233,6 +230,9 @@ protected:
 
     /// @brief show or hidde detector in sumo-gui
     bool myShow = true;
+
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
 
 private:
     /// @brief draw E2 detector

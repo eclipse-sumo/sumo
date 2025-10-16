@@ -204,11 +204,11 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition = false;
 
-    /// @brif move element lane double
-    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
-
     /// @brief forbidden inner lanes
     std::vector<std::string> myForbiddenInnerLanes;
+
+    /// @brif move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
 
 private:
     /// @brief set attribute after validation

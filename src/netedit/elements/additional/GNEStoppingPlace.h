@@ -149,9 +149,6 @@ public:
     /// @}
 
 protected:
-    /// @brief move element lane double
-    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
-
     /// @brief The start position over lane
     double myStartPosOverLane = 0;
 
@@ -166,6 +163,9 @@ protected:
 
     /// @brief angle
     double myAngle = 0;
+
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
 
     /// @brief The position of the sign
     Position mySymbolPosition;

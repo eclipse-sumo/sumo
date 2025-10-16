@@ -32,7 +32,7 @@
 
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_OVERHEAD_WIRE_SECTION, ""),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
                             SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
@@ -45,10 +45,11 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, const std::
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lanes, SUMO_ATTR_STARTPOS, myStartPosOverLane,
-                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
-    myForbiddenInnerLanes(forbiddenInnerLanes) {
+    myForbiddenInnerLanes(forbiddenInnerLanes),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
     // set parents
+    setParents<GNELane*>(lanes);
     setParent<GNEAdditional*>(substation);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

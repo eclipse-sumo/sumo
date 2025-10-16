@@ -32,7 +32,7 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, tag),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_POSITION, myStartPosOverLane,
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane,
                             SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
@@ -45,12 +45,14 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(pos + length),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
-    myShow(show) {
+    myShow(show),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // set parents
+    setParent<GNELane*>(lane);
 }
 
 
@@ -63,12 +65,14 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lanes, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
-    myShow(show) {
+    myShow(show),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // set parents
+    setParents<GNELane*>(lanes);
 }
 
 
