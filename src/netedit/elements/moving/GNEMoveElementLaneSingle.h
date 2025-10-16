@@ -31,6 +31,8 @@
 class GNEMoveElementLaneSingle : public GNEMoveElement {
 
 public:
+    friend class GNEMoveElementLaneDouble;
+
     // declare type of moving
     struct Type {
         static const std::string SINGLE;
@@ -92,20 +94,8 @@ public:
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 
-    /// @brief get position attribute
-    SumoXMLAttr getPositionAttribute() const;
-
-    /// @brief get offset position over lane
-    double getPositionOverLane() const;
-
     /// @brief get fixed offset position over lane
     double getFixedPositionOverLane() const;
-
-    /// @brief get friendly position
-    bool getFriendlyPosition() const;
-
-    /// @brief set position over lane (use only in setMoveShape)
-    void setPositionOverLane(const double posOverLane);
 
 private:
     /// @brief pos attribute

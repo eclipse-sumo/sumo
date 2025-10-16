@@ -128,12 +128,10 @@ GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string&
 bool
 GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
     if (key == myPosAttr) {
-        if ((myDefaultBehavior != Type::SINGLE) && (value == myDefaultBehavior)) {
+        if ((myDefaultBehavior != Type::SINGLE) && (value.empty() || (value == myDefaultBehavior))) {
             return true;
-        } else if (GNEAttributeCarrier::canParse<double>(value)) {
-            return myFriendlyPos;
         } else {
-            return false;
+            return GNEAttributeCarrier::canParse<double>(value);
         }
     } else {
         switch (key) {
@@ -155,10 +153,14 @@ GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::str
 void
 GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
     if (key == myPosAttr) {
-        if (myDefaultBehavior == Type::SINGLE) {
-            myPosOverLane = GNEAttributeCarrier::parse<double>(value);
-        } else {
+        if (value.empty()) {
             myPosOverLane = INVALID_DOUBLE;
+        } else if ((value == Type::STARPOS) && (myDefaultBehavior == Type::STARPOS)) {
+            myPosOverLane = INVALID_DOUBLE;
+        } else if ((value == Type::ENDPOS) && (myDefaultBehavior == Type::ENDPOS)) {
+            myPosOverLane = INVALID_DOUBLE;
+        } else {
+            myPosOverLane = GNEAttributeCarrier::parse<double>(value);
         }
     } else {
         switch (key) {
@@ -239,18 +241,6 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
 }
 
 
-SumoXMLAttr
-GNEMoveElementLaneSingle::getPositionAttribute() const {
-    return myPosAttr;
-}
-
-
-double
-GNEMoveElementLaneSingle::getPositionOverLane() const {
-    return myPosOverLane;
-}
-
-
 double
 GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
     // get lane depending of type
@@ -284,24 +274,19 @@ GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
 }
 
 
-bool
-GNEMoveElementLaneSingle::getFriendlyPosition() const {
-    return myFriendlyPos;
-}
-
-
-void
-GNEMoveElementLaneSingle::setPositionOverLane(const double posOverLane) {
-    myPosOverLane = posOverLane;
-}
-
-
 void
 GNEMoveElementLaneSingle::setMoveShape(const GNEMoveResult& moveResult) {
-    // change position
-    myPosOverLane = moveResult.newFirstPos;
-    // set lateral offset
-    myMovingLateralOffset = moveResult.firstLaneOffset;
+    if (myDefaultBehavior == Type::ENDPOS) {
+        // change position
+        myPosOverLane = moveResult.newLastPos;
+        // set lateral offset
+        myMovingLateralOffset = moveResult.lastLaneOffset;
+    } else {
+        // change position
+        myPosOverLane = moveResult.newFirstPos;
+        // set lateral offset
+        myMovingLateralOffset = moveResult.firstLaneOffset;
+    }
     // update geometry
     myMovedElement->updateGeometry();
 }
