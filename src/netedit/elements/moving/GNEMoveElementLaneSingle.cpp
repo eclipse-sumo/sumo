@@ -27,15 +27,25 @@
 #include "GNEMoveElementLaneSingle.h"
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+const std::string GNEMoveElementLaneSingle::Type::SINGLE = "single";
+const std::string GNEMoveElementLaneSingle::Type::STARPOS = TL("lane start");
+const std::string GNEMoveElementLaneSingle::Type::ENDPOS = TL("lane end");
+
+// ===========================================================================
 // Method definitions
 // ===========================================================================
 
 GNEMoveElementLaneSingle::GNEMoveElementLaneSingle(GNEAttributeCarrier* element,
-        GNELane* lane, SumoXMLAttr posAttr, double& position, bool& friendlyPos) :
+        GNELane* lane, SumoXMLAttr posAttr, double& position, bool& friendlyPos,
+        const std::string& defaultBehavior) :
     GNEMoveElement(element),
     myPosAttr(posAttr),
     myPosOverLane(position),
-    myFriendlyPos(friendlyPos) {
+    myFriendlyPos(friendlyPos),
+    myDefaultBehavior(defaultBehavior) {
     // set parents
     if (lane) {
         element->getHierarchicalElement()->setParent<GNELane*>(lane);
@@ -57,7 +67,11 @@ GNEMoveElementLaneSingle::getMoveOperation() {
 std::string
 GNEMoveElementLaneSingle::getMovingAttribute(SumoXMLAttr key) const {
     if (key == myPosAttr) {
-        return toString(myPosOverLane);
+        if ((myPosOverLane == INVALID_DOUBLE) && (myDefaultBehavior != Type::SINGLE)) {
+            return myDefaultBehavior;
+        } else {
+            return toString(myPosOverLane);
+        }
     } else {
         switch (key) {
             case SUMO_ATTR_LANE:
@@ -114,7 +128,13 @@ GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string&
 bool
 GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
     if (key == myPosAttr) {
-        return GNEAttributeCarrier::canParse<double>(value);
+        if ((myDefaultBehavior != Type::SINGLE) && (value == myDefaultBehavior)) {
+            return true;
+        } else if (GNEAttributeCarrier::canParse<double>(value)) {
+            return myFriendlyPos;
+        } else {
+            return false;
+        }
     } else {
         switch (key) {
             case SUMO_ATTR_LANE:
@@ -135,7 +155,11 @@ GNEMoveElementLaneSingle::isMovingAttributeValid(SumoXMLAttr key, const std::str
 void
 GNEMoveElementLaneSingle::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
     if (key == myPosAttr) {
-        myPosOverLane = GNEAttributeCarrier::parse<double>(value);
+        if (myDefaultBehavior == Type::SINGLE) {
+            myPosOverLane = GNEAttributeCarrier::parse<double>(value);
+        } else {
+            myPosOverLane = INVALID_DOUBLE;
+        }
     } else {
         switch (key) {
             case SUMO_ATTR_FRIENDLY_POS:
@@ -204,8 +228,10 @@ void
 GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
     // lane
     device.writeAttr(SUMO_ATTR_LANE, myMovedElement->getAttribute(SUMO_ATTR_LANE));
-    // position
-    device.writeAttr(myPosAttr, myPosOverLane);
+    // position (don't write if is an invalid double, except in no default)
+    if ((myDefaultBehavior == Type::SINGLE) || (myPosOverLane != INVALID_DOUBLE)) {
+        device.writeAttr(myPosAttr, myPosOverLane);
+    }
     // friendly position (only if true)
     if (myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
@@ -213,14 +239,30 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
 }
 
 
+SumoXMLAttr
+GNEMoveElementLaneSingle::getPositionAttribute() const {
+    return myPosAttr;
+}
+
+
+double
+GNEMoveElementLaneSingle::getPositionOverLane() const {
+    return myPosOverLane;
+}
+
+
 double
 GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
+    // get lane depending of type
+    const auto& lane = (myDefaultBehavior == Type::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back() : myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
     if (myPosOverLane == INVALID_DOUBLE) {
-        return 0;
+        if (myDefaultBehavior == Type::ENDPOS) {
+            return lane->getLaneShapeLength();
+        } else {
+            return 0;
+        }
     } else {
-        // get lane and shape length
-        const auto& lane = myMovedElement->getHierarchicalElement()->getParentLanes().front();
         const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
         // fix position
         double fixedPos = myPosOverLane;
@@ -239,6 +281,18 @@ GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
             return fixedPos;
         }
     }
+}
+
+
+bool
+GNEMoveElementLaneSingle::getFriendlyPosition() const {
+    return myFriendlyPos;
+}
+
+
+void
+GNEMoveElementLaneSingle::setPositionOverLane(const double posOverLane) {
+    myPosOverLane = posOverLane;
 }
 
 

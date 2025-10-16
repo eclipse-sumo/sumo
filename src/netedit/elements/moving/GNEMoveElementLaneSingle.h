@@ -31,9 +31,17 @@
 class GNEMoveElementLaneSingle : public GNEMoveElement {
 
 public:
+    // declare type of moving
+    struct Type {
+        static const std::string SINGLE;
+        static const std::string STARPOS;
+        static const std::string ENDPOS;
+    };
+
     /// @brief constructor
     GNEMoveElementLaneSingle(GNEAttributeCarrier* element, GNELane* lane,
-                             SumoXMLAttr posAttr, double& position, bool& friendlyPos);
+                             SumoXMLAttr posAttr, double& position, bool& friendlyPos,
+                             const std::string& defaultBehavior);
 
     //// @brief destructor
     ~GNEMoveElementLaneSingle();
@@ -84,8 +92,20 @@ public:
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 
+    /// @brief get position attribute
+    SumoXMLAttr getPositionAttribute() const;
+
     /// @brief get offset position over lane
+    double getPositionOverLane() const;
+
+    /// @brief get fixed offset position over lane
     double getFixedPositionOverLane() const;
+
+    /// @brief get friendly position
+    bool getFriendlyPosition() const;
+
+    /// @brief set position over lane (use only in setMoveShape)
+    void setPositionOverLane(const double posOverLane);
 
 private:
     /// @brief pos attribute
@@ -96,6 +116,9 @@ private:
 
     /// @brief friendly position
     bool& myFriendlyPos;
+
+    /// @brief default behavior
+    const std::string myDefaultBehavior;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;

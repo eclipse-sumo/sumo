@@ -389,18 +389,6 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRACTION_SUBSTATION, value, false) != nullptr);
             }
-        case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == LANE_START)) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == LANE_END)) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             return true;
         default:
@@ -437,28 +425,6 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             replaceAdditionalParentLanes(value);
             break;
-        case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == LANE_START)) {
-                myStartPosOverLane = INVALID_DOUBLE;
-            } else {
-                myStartPosOverLane = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentLanes().size() > 0) {
-                updateGeometry();
-            }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == LANE_END)) {
-                myEndPosPosOverLane = INVALID_DOUBLE;
-            } else {
-                myEndPosPosOverLane = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentLanes().size() > 0) {
-                updateGeometry();
-            }
-            break;
         case SUMO_ATTR_OVERHEAD_WIRE_FORBIDDEN:
             myForbiddenInnerLanes = parse<std::vector<std::string> >(value);
             break;
@@ -468,6 +434,10 @@ GNEOverheadWire::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             myMoveElementLaneDouble->setMovingAttribute(key, value);
             break;
+    }
+    // update geometry (except for template)
+    if (getParentLanes().size() > 0) {
+        updateGeometry();
     }
 }
 
