@@ -71,7 +71,7 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
 
 
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
-               const bool friendlyPos, const double posLat, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
+               const bool /* friendlyPos */, const double posLat, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name),
     GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),

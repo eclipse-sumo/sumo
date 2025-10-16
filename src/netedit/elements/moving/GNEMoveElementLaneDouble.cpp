@@ -236,6 +236,7 @@ GNEMoveElementLaneDouble::setMovingAttribute(SumoXMLAttr key, const std::string&
                     // change end position
                     GNEChange_Attribute::changeAttribute(myMovedElement, myEndPosAttr, toString(getStartFixedPositionOverLane() + GNEAttributeCarrier::parse<double>(value)), undoList);
                 }
+                break;
             case GNE_ATTR_SIZE:
                 if (myMovedElement->isTemplate()) {
                     GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
