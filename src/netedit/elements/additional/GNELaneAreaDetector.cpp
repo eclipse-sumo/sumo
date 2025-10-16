@@ -153,7 +153,10 @@ GNELaneAreaDetector::updateGeometry() {
         computePathElement();
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
+                                            myMoveElementLaneDouble->getStartFixedPositionOverLane(true),
+                                            myMoveElementLaneDouble->getEndFixedPositionOverLane(true),
+                                            myMoveElementLaneDouble->myMovingLateralOffset);
     }
 }
 

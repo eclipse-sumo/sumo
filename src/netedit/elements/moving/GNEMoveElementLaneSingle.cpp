@@ -196,6 +196,8 @@ GNEMoveElementLaneSingle::isMoveElementValid() const {
         return false;
     } else if (adjustedPosition > laneLenght) {
         return false;
+    } else if ((myPositionType == PositionType::STARPOS) && (adjustedPosition > (laneLenght - POSITION_EPS))) {
+        return false;
     } else {
         return true;
     }
@@ -215,6 +217,8 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
         return TLF("% < 0", toString(myPosAttr));
     } else if (adjustedPosition > laneLenght) {
         return TLF("% > length of lane", toString(myPosAttr));
+    } else if ((myPositionType == PositionType::STARPOS) && (adjustedPosition > (laneLenght - POSITION_EPS))) {
+        return TLF("% > (length of lane - EPS)", toString(myPosAttr));
     } else {
         return "";
     }
@@ -223,8 +227,18 @@ GNEMoveElementLaneSingle::getMovingProblem() const {
 
 void
 GNEMoveElementLaneSingle::fixMovingProblem() {
-    // set fixed position
-    myMovedElement->setAttribute(myPosAttr, toString(getFixedPositionOverLane()), myMovedElement->getNet()->getViewNet()->getUndoList());
+    // obtain lane final length
+    const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // adjust position (negative means start counting from backward)
+    const double adjustedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : (myPosOverLane < 0) ? (myPosOverLane + laneLenght) : myPosOverLane;
+    // check conditions
+    if (adjustedPosition < 0) {
+        myMovedElement->setAttribute(myPosAttr, "0", myMovedElement->getNet()->getViewNet()->getUndoList());
+    } else if (adjustedPosition > laneLenght) {
+        myMovedElement->setAttribute(myPosAttr, toString(laneLenght), myMovedElement->getNet()->getViewNet()->getUndoList());
+    } else if ((myPositionType == PositionType::STARPOS) && (adjustedPosition > (laneLenght - POSITION_EPS))) {
+        myMovedElement->setAttribute(myPosAttr, toString(laneLenght - POSITION_EPS), myMovedElement->getNet()->getViewNet()->getUndoList());
+    }
 }
 
 
@@ -244,7 +258,7 @@ GNEMoveElementLaneSingle::writeMoveAttributes(OutputDevice& device) const {
 
 
 double
-GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
+GNEMoveElementLaneSingle::getFixedPositionOverLane(const bool adjustGeometryFactor) const {
     // get lane depending of type
     const auto& lane = (myPositionType == PositionType::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back() : myMovedElement->getHierarchicalElement()->getParentLanes().front();
     // continue depending if we defined a end position
@@ -263,7 +277,9 @@ GNEMoveElementLaneSingle::getFixedPositionOverLane() const {
             fixedPos += laneLength;
         }
         // set length geometry factor
-        fixedPos *= lane->getLengthGeometryFactor();
+        if (adjustGeometryFactor) {
+            fixedPos *= lane->getLengthGeometryFactor();
+        }
         // return depending of fixedPos
         if (fixedPos < 0) {
             return 0;

@@ -152,13 +152,13 @@ GNEMoveElementLaneDouble::getMovingAttributeDouble(SumoXMLAttr key) const {
         // other attributes
         switch (key) {
             case SUMO_ATTR_CENTER:
-                return (getStartFixedPositionOverLane() + getEndFixedPositionOverLane()) * 0.5;
+                return (getStartFixedPositionOverLane(true) + getEndFixedPositionOverLane(true)) * 0.5;
             case SUMO_ATTR_LENGTH:
             case GNE_ATTR_SIZE:
                 if (myMovedElement->isTemplate()) {
                     return myTemplateSize;
                 } else {
-                    return (getEndFixedPositionOverLane() - getStartFixedPositionOverLane());
+                    return (getEndFixedPositionOverLane(true) - getStartFixedPositionOverLane(true));
                 }
             default:
                 throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a moving attribute of type '" + toString(key) + "'");
@@ -203,8 +203,9 @@ GNEMoveElementLaneDouble::setMovingAttribute(SumoXMLAttr key, const std::string&
                     GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
                 } else {
                     // change end position
-                    GNEChange_Attribute::changeAttribute(myMovedElement, myEndPos->myPosAttr, toString(getStartFixedPositionOverLane() + GNEAttributeCarrier::parse<double>(value)), undoList);
+                    GNEChange_Attribute::changeAttribute(myMovedElement, myEndPos->myPosAttr, toString(getStartFixedPositionOverLane(true) + GNEAttributeCarrier::parse<double>(value)), undoList);
                 }
+                break;
             case GNE_ATTR_SIZE:
                 if (myMovedElement->isTemplate()) {
                     GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
@@ -306,34 +307,13 @@ GNEMoveElementLaneDouble::isMoveElementValid() const {
         return false;
     } else if (!GNEAdditional::areLaneConnected(myMovedElement->getHierarchicalElement()->getParentLanes())) {
         return false;
+    } else if (!myStartPos->isMoveElementValid() || !myEndPos->isMoveElementValid()) {
+        return false;
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
+               (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
+        return false;
     } else {
-        // obtain lane final length
-        const double fromLength = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        const double toLength = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-        // adjust positions
-        const double adjustedStartPosition = (myStartPos->myPosOverLane == INVALID_DOUBLE) ? 0 : (myStartPos->myPosOverLane < 0) ? (myStartPos->myPosOverLane + fromLength) : myStartPos->myPosOverLane;
-        const double adjustedEndPosition = (myEndPos->myPosOverLane == INVALID_DOUBLE) ? toLength : (myEndPos->myPosOverLane < 0) ? (myEndPos->myPosOverLane + toLength) : myEndPos->myPosOverLane;
-        // check conditions
-        if (myStartPos->myFriendlyPos) {
-            return true;
-        } else if (adjustedStartPosition < 0) {
-            return false;
-        } else if (adjustedStartPosition > fromLength) {
-            return false;
-        } else if (adjustedEndPosition < 0) {
-            return false;
-        } else if (adjustedEndPosition > toLength) {
-            return false;
-        } else if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
-            // only if we have only one lane
-            if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
+        return true;
     }
 }
 
@@ -345,34 +325,15 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
         return TL("Lanes aren't consecutives");
     } else if (!GNEAdditional::areLaneConnected(myMovedElement->getHierarchicalElement()->getParentLanes())) {
         return TL("Lanes aren't connected");
+    } else if (!myStartPos->isMoveElementValid()) {
+        return myStartPos->getMovingProblem();
+    } else if (!myEndPos->isMoveElementValid()) {
+        return myEndPos->getMovingProblem();
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
+               (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
+        return TL("starPos > (endPos - EPS)");
     } else {
-        // obtain lane final lengths
-        const double fromLaneLength = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        const double toLaneLength = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-        // adjust positions
-        const double adjustedStartPosition = (myStartPos->myPosOverLane == INVALID_DOUBLE) ? 0 : (myStartPos->myPosOverLane < 0) ? (myStartPos->myPosOverLane + fromLaneLength) : myStartPos->myPosOverLane;
-        const double adjustedEndPosition = (myEndPos->myPosOverLane == INVALID_DOUBLE) ? toLaneLength : (myEndPos->myPosOverLane < 0) ? (myEndPos->myPosOverLane + toLaneLength) : myEndPos->myPosOverLane;
-        // check conditions
-        if (myStartPos->myFriendlyPos) {
-            return "";
-        } else if (adjustedStartPosition < 0) {
-            return TLF("% < 0", toString(myStartPos->myPosAttr));
-        } else if (adjustedStartPosition > fromLaneLength) {
-            return TLF("% > start lanes's length", toString(myStartPos->myPosAttr));
-        } else if (adjustedEndPosition < 0) {
-            return TLF("% < 0", toString(myEndPos->myPosAttr));
-        } else if (adjustedEndPosition > toLaneLength) {
-            return TLF("% > end lanes's length", toString(myEndPos->myPosAttr));
-        } else if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
-            // only if we have only one lane
-            if ((adjustedStartPosition + POSITION_EPS) >= adjustedEndPosition) {
-                return TLF("% >= %", toString(myStartPos->myPosAttr), toString(myEndPos->myPosAttr));
-            } else {
-                return "";
-            }
-        } else {
-            return "";
-        }
+        return "";
     }
 }
 
@@ -401,9 +362,13 @@ GNEMoveElementLaneDouble::fixMovingProblem() {
             undolist->add(new GNEChange_Connection(firstLane->getParentEdge(), newCon, false, true), true);
         }
     }
-    // set end position
-    myMovedElement->setAttribute(myStartPos->myPosAttr, toString(getStartFixedPositionOverLane()), undolist);
-    myMovedElement->setAttribute(myEndPos->myPosAttr, toString(getEndFixedPositionOverLane()), undolist);
+    // Fix both position
+    myStartPos->fixMovingProblem();
+    myEndPos->fixMovingProblem();
+    // extra if starPos > endPos (endPos is dominant)
+    if (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS)) {
+        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(myEndPos->getFixedPositionOverLane(false) - POSITION_EPS), undolist);
+    }
 }
 
 
@@ -433,21 +398,25 @@ GNEMoveElementLaneDouble::writeMoveAttributes(OutputDevice& device, const bool w
 
 
 double
-GNEMoveElementLaneDouble::getStartFixedPositionOverLane() const {
-    if (myStartPos->getFixedPositionOverLane() > (myEndPos->getFixedPositionOverLane() - POSITION_EPS)) {
-        return myEndPos->getFixedPositionOverLane();
+GNEMoveElementLaneDouble::getStartFixedPositionOverLane(const bool adjustGeometryFactor) const {
+    if (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) < 0) {
+        return 0;
+    } else if (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) > (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS)) {
+        return (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS);
     } else {
-        return myStartPos->getFixedPositionOverLane();
+        return myStartPos->getFixedPositionOverLane(adjustGeometryFactor);
     }
 }
 
 
 double
-GNEMoveElementLaneDouble::getEndFixedPositionOverLane() const {
-    if (myEndPos->getFixedPositionOverLane() < POSITION_EPS) {
+GNEMoveElementLaneDouble::getEndFixedPositionOverLane(const bool adjustGeometryFactor) const {
+    if (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) < POSITION_EPS) {
         return POSITION_EPS;
+    } else if (myStartPos->getFixedPositionOverLane(adjustGeometryFactor) > (myEndPos->getFixedPositionOverLane(adjustGeometryFactor) - POSITION_EPS)) {
+        return myEndPos->getFixedPositionOverLane(adjustGeometryFactor);
     } else {
-        return myEndPos->getFixedPositionOverLane();
+        return myEndPos->getFixedPositionOverLane(adjustGeometryFactor);
     }
 }
 
@@ -502,7 +471,7 @@ GNEMoveElementLaneDouble::setSize(const std::string& value, GNEUndoList* undoLis
     // continue depending of values of start und end position
     if ((myStartPos->myPosOverLane != INVALID_DOUBLE) && (myEndPos->myPosOverLane != INVALID_DOUBLE)) {
         // get middle lengths
-        const double center = (getStartFixedPositionOverLane() + getEndFixedPositionOverLane()) * 0.5;
+        const double center = (getStartFixedPositionOverLane(true) + getEndFixedPositionOverLane(true)) * 0.5;
         // calculate new lenghts
         double newStartPos = center - (newSize * 0.5);
         double newEndPos = center + (newSize * 0.5);

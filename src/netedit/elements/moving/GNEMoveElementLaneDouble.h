@@ -99,10 +99,10 @@ public:
     void writeMoveAttributes(OutputDevice& device, const bool writeLength) const;
 
     /// @brief get start offset position over lane
-    double getStartFixedPositionOverLane() const;
+    double getStartFixedPositionOverLane(const bool adjustGeometryFactor) const;
 
     /// @brief get end offset position over lane
-    double getEndFixedPositionOverLane() const;
+    double getEndFixedPositionOverLane(const bool adjustGeometryFactor) const;
 
     /// @brief default element size
     static const double defaultSize;

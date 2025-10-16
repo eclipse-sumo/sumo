@@ -234,7 +234,8 @@ GNEPOI::updateGeometry() {
     }
     // set additional geometry
     if (getParentLanes().size() > 0) {
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myPosLat);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
+                                            myMoveElementLaneSingle->getFixedPositionOverLane(true), myPosLat);
     } else {
         myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     }

@@ -96,7 +96,7 @@ public:
     void writeMoveAttributes(OutputDevice& device) const;
 
     /// @brief get fixed offset position over lane
-    double getFixedPositionOverLane() const;
+    double getFixedPositionOverLane(const bool adjustGeometryFactor) const;
 
 private:
     /// @brief pos attribute
