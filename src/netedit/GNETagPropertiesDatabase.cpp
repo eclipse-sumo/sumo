@@ -932,7 +932,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_NET),
                 GNETagProperties::Type::NETWORKELEMENT,
-                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::JUNCTION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CROSSING, GUIGlObjectType::GLO_CROSSING, currentTag, TL("Crossing"));
