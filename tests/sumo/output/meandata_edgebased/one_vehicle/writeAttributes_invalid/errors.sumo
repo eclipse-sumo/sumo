@@ -1,0 +1,2 @@
+Error: Error occurred: bitset::set: __position (which is 408) >= _Nb (which is 96) while parsing 'input_additional.add.xml'
+Quitting (on error).

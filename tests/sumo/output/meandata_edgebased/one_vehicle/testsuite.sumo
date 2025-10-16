@@ -16,5 +16,8 @@ interval15s60s
 # filter written attributes
 writeAttributes
 
+# filter written attributes
+writeAttributes_invalid
+
 # set option to define edgeData without additional file
 via_option
