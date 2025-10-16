@@ -1441,6 +1441,21 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                     }
                 } catch (NumberFormatException&) { }
                 throw ProcessError(TLF("Invalid link index '%' in expression '%'", arg, expr));
+            } else if (fun == "p") {
+                try {
+                    int linkIndex = StringUtils::toInt(arg);
+                    if (linkIndex >= 0 && linkIndex < myNumLinks) {
+                        double approachingPersons = 0;
+                        for (const MSLink* link : getLinksAt(linkIndex)) {
+                            auto* aPersons = link->getApproachingPersons();
+                            if (aPersons != nullptr) {
+                                approachingPersons += aPersons->size();
+                            }
+                        }
+                        return approachingPersons;
+                    }
+                } catch (NumberFormatException&) { }
+                throw ProcessError(TLF("Invalid link index '%' in expression '%'", arg, expr));
             } else if (fun == "c") {
                 return STEPS2TIME(getTimeInCycle());
             } else {
