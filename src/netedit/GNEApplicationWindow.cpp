@@ -2103,7 +2103,7 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* /*ptr*/) {
     // get extra arguments
     std::string extraArg;
     if (sel == MID_GNE_POSTPROCESSINGNETGENERATE) {
-        extraArg = " -s " + myNetgenerateOptions.getValueString("output-file");
+        extraArg = " -s \"" + StringUtils::escapeShell(myNetgenerateOptions.getValueString("output-file")) + "\" ";
     }
     FXRegistry reg("SUMO netedit", "netedit");
     std::string netedit = "netedit";

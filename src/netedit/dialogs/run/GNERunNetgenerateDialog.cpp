@@ -82,7 +82,7 @@ GNERunNetgenerateDialog::getRunCommand() const {
             const std::vector<std::string> entries = myNetgenerateOptions->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
                 if (!myNetgenerateOptions->isDefault(entry)) {
-                    runCommand += " --" + entry + " " + myNetgenerateOptions->getValueString(entry);
+                    runCommand += " --" + entry + " \"" + StringUtils::escapeShell(myNetgenerateOptions->getValueString(entry)) + "\" ";
                 }
             }
         }
