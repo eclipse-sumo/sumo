@@ -28,10 +28,14 @@ title: ChangeLog
   - Fixed unsafe driving on green major link with internal junction #17196
   - Left-turning vehicles no longer slow down for outgoing crossing when in a protected (green major) phase #17194
   - Fixed emergency braking in subsecond simulation involving stranded car #17203
+  - Fixed error when setting departSpeed="avg" #17208
+  - Setting invalid attributes for edgeData `writeAttributes` now always gives a meaningful error message #17230
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
+  - Rectangle selection of edges no longer selects additional objects #17213 (regression in 1.20.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
+  - E2 detectors can be moved again #15551 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
   - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
@@ -46,6 +50,10 @@ title: ChangeLog
   - Visual scaling of selected edges is now smooth #16977
   - Fixed invalid position of elements of detectors and stopping places in networks with elevation #17189
   - Recently used list no longer contains relative paths when loading files on the command line #17205
+  - Fixed crash when saving additional objects after changing lane count #17218
+  - netgenerate dialog no longer fails when the output file path contains spaces #17221
+  - Fixed problem when adjusting invalid entity positions on edges with custom length value #17222
+
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -74,6 +82,7 @@ title: ChangeLog
   - containerStop: custom container angle now applys to plan item `<stop>` #17089
   - Vehicles on edges that are shorter than their geometrical length are no longer exaggerated lengthwise #17074
   - Fixed crash when deleting last item of coloring/scaling scheme levels #17138 (also applies to netedit)
+  - Rerouter ids are now shown #16715
 
 - meso
   - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
@@ -94,6 +103,7 @@ title: ChangeLog
   - abstractRail.py: now gracefully handles stop input with invalid startPos or endPos #17027
   - abstractRail.py: corrected naming of temporary net when using .net.xml.gz input with option **--split** #17029
   - routeSampler.py: mismatch-output for tazRelations is now also written as tazRelations #17049
+  - osmWebWizard.py: no longer fails to start a second instance #16663
 
 ### Enhancements
 
@@ -105,6 +115,7 @@ title: ChangeLog
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131  
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
+  - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retreive the number of pedestrions on approach to a crossing #17229
 
 
 - netedit
@@ -118,6 +129,8 @@ title: ChangeLog
   - Implemented Dialog for a subset of crashes to simplify reporting from end user to developer. #12006
   - Saving files now supports 'apply to all' #17143
   - Settings dialog now shows available POI parameters for the 'show poi text param' feature #17158
+  - meanData mode now permits setting edgeData type (i.e. to create edge-emission-output) #15696
+
 
 - sumo-gui
   - Various dialogs can now be closed with ESC #15463
