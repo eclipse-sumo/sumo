@@ -1,3 +1,1 @@
-Warning: Collision of person 'pf_0.946' and person 'pf_0.944', lane=':Junction2_0_0', time=1902.00.
-Warning: Collision of person 'pf_0.1052' and person 'pf_0.1050', lane=':Junction1_1_0', time=2110.00.
-Warning: Collision of person 'pf_0.1602' and person 'pf_0.1603', lane=':Junction1_1_0', time=3212.00.
+Warning: Person 'p_0' receives type 'custom_vType' which implicitly uses unsuitable vClass 'passenger'.

@@ -1,9 +1,1 @@
 Warning: Unsafe green phase 0 in tlLogic 'JunctionRight', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead) Overall 3 lanes in 1 phases are unsafe.
-Warning: Teleporting vehicle 't_2'; waited too long (yield), lane='-E6_1', time=304.00.
-Warning: Vehicle 't_2' ends teleporting on edge 'E4', time=304.00.
-Warning: Teleporting vehicle 't_1'; waited too long (yield), lane='-E7_1', time=305.00.
-Warning: Teleporting vehicle 't_3'; waited too long (yield), lane='-E4_1', time=305.00.
-Warning: Vehicle 't_1' ends teleporting on edge 'E5', time=305.00.
-Warning: Vehicle 't_3' ends teleporting on edge 'E6', time=305.00.
-Warning: Teleporting vehicle 't_0'; waited too long (yield), lane='-E5_1', time=306.00.
-Warning: Vehicle 't_0' ends teleporting on edge 'E7', time=306.00.
