@@ -1751,7 +1751,7 @@ StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionVal
 };
 
 StringBijection<CSVFileExtension>::Entry SUMOXMLDefinitions::CSVFileExtensionValues[] = {
-    {TL("CSV files") + std::string(" (*.txt)"), CSVFileExtension::CSV},
+    {TL("CSV files") + std::string(" (*.csv)"), CSVFileExtension::CSV},
     {TL("All files") + std::string(" (*)"),     CSVFileExtension::ALL} //< must be the last one
 };
 
