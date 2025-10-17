@@ -243,14 +243,14 @@ protected:
     /// @brief position over lane
     double myPosOverLane = 0;
 
+    /// @brief friendly position
+    bool myFriendlyPos = false;
+
     /// @brief width
     double myWidth = 0;
 
     /// @brief height
     double myHeight = 0;
-
-    /// @brief friendly position
-    bool myFriendlyPos = false;
 
     /// @brief lateral position;
     double myPosLat = 0;
