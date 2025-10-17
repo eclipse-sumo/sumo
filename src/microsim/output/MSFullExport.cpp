@@ -48,7 +48,7 @@
 // ===========================================================================
 
 // Helper function to get interpolated position for mesoscopic vehicles
-Position
+static Position
 getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
     const MESegment* segment = mesoVeh->getSegment();
     if (segment == nullptr) {
@@ -76,7 +76,7 @@ getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
 }
 
 // Helper function to get interpolated position on lane for mesoscopic vehicles
-double
+static double
 getInterpolatedMesoPositionOnLane(const MEVehicle* mesoVeh) {
     const MESegment* segment = mesoVeh->getSegment();
     if (segment == nullptr) {

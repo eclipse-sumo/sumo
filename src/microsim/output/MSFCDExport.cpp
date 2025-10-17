@@ -52,7 +52,7 @@
 // ===========================================================================
 
 // Helper function to get interpolated position for mesoscopic vehicles
-Position
+static Position
 getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
     const MESegment* segment = mesoVeh->getSegment();
     if (segment == nullptr) {
@@ -142,6 +142,10 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                 }, mask);
                 of.writeFuncAttr(SUMO_ATTR_SPEED, [ = ]() {
                     return veh->getSpeed();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_SPEEDREL, [ = ]() {
+                    const double speedLimit = veh->getEdge()->getSpeedLimit();
+                    return speedLimit > 0 ? veh->getSpeed() / speedLimit : 0.;
                 }, mask);
                 of.writeFuncAttr(SUMO_ATTR_POSITION, [ = ]() {
                     if (MSGlobals::gUseMesoSim) {
@@ -378,6 +382,9 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const M
     of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
     of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
+    // Calculate relative speed for transportables based on edge speed limit
+    const double speedLimit = e->getSpeedLimit();
+    of.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit > 0 ? p->getSpeed() / speedLimit : 0., mask);
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
     of.writeOptionalAttr(SUMO_ATTR_LANE, "", mask, true);
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
