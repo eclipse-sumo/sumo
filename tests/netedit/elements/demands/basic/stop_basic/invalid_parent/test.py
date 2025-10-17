@@ -31,14 +31,14 @@ netedit.changeSupermode("demand")
 # go to stop mode
 netedit.changeMode("stop")
 
-# change stop parent with an invalid value
-netedit.changeParentElement("stopFrame", "dummyParent")
+# set invalid parent
+netedit.modifyAttribute(netedit.attrs.frames.changeParentElement.stop, "dummyParent")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# change stop parent with a valid value
-netedit.changeParentElement("stopFrame", "route_0")
+# set valid parent
+netedit.modifyAttribute(netedit.attrs.frames.changeParentElement.stop, "route_0")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

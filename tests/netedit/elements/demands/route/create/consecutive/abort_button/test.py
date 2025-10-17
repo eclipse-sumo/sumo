@@ -36,11 +36,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press abort button
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.abort):
-    netedit.typeKey("tab")
-netedit.typeKey("space")
+# press abort buton
+netedit.modifyBoolAttribute(netedit.attrs.frames.route.abort)
 
 # save Netedit config
 netedit.saveExistentFile("neteditConfig")

@@ -1433,9 +1433,9 @@ netedit.attrs.frames.changePlan.containerFlow 29
 netedit.attrs.frames.changePlan.person 22
 netedit.attrs.frames.changePlan.personFlow 29
 netedit.attrs.frames.delete.protectElements 4
-netedit.attrs.frames.route.abort 16
-netedit.attrs.frames.route.create 15
-netedit.attrs.frames.route.removeLastInsertedEdge 17
+netedit.attrs.frames.route.abort 22
+netedit.attrs.frames.route.create 21
+netedit.attrs.frames.route.removeLastInsertedEdge 23
 netedit.attrs.frames.selection.basic.add 3
 netedit.attrs.frames.selection.basic.clear 21
 netedit.attrs.frames.selection.basic.default 15

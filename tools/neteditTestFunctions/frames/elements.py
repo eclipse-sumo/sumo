@@ -64,25 +64,6 @@ def changeElement(frame, element):
     typeKey('enter')
 
 
-def changeParentElement(frame, element):
-    """
-    @brief change parent element in the given frame (stop...)
-    """
-    # focus current frame
-    focusOnFrame()
-    # go to first editable element of frame
-    if (frame == "routeFrame"):
-        for _ in range(attrs.frames.changeParentElement.route):
-            typeKey('tab')
-    elif (frame == "stopFrame"):
-        for _ in range(attrs.frames.changeParentElement.stop):
-            typeKey('tab')
-    # paste the new value
-    updateText(element)
-    # type enter to save change
-    typeKey('enter')
-
-
 def changePlan(type, plan, flow):
     """
     @brief change plan (in person or container frame)

@@ -36,13 +36,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# remove last inserted edge using button
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.removeLastInsertedEdge):
-    netedit.typeKey("tab")
-netedit.typeKey("space")
+# press abort buton
+netedit.modifyBoolAttribute(netedit.attrs.frames.route.removeLastInsertedEdge)
 
-# press enter to create route
+# press enter to (non) create route
 netedit.typeKey("enter")
 
 # Check undo redo

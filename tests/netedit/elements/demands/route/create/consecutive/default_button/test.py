@@ -36,11 +36,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press button to create route
-netedit.focusOnFrame()
-for _ in range(netedit.attrs.frames.route.create):
-    netedit.typeKey("tab")
-netedit.typeKey("space")
+# press abort buton
+netedit.modifyBoolAttribute(netedit.attrs.frames.route.create)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

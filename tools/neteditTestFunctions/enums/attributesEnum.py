@@ -211,9 +211,9 @@ class attrs:
             containerFlow = 29
 
         class route:
-            create = 15
-            abort = 16
-            removeLastInsertedEdge = 17
+            create = 21
+            abort = 22
+            removeLastInsertedEdge = 23
 
     # --------------------------------
     # NETWORK

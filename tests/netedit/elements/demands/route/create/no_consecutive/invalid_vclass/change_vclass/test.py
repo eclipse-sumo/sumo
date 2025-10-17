@@ -34,8 +34,8 @@ netedit.changeMode("route")
 # change to non consecutive mode
 netedit.changeElement("routeFrame", "non consecutive edges")
 
-# change to bus
-netedit.changeParentElement("routeFrame", "bus")
+# set valid class
+netedit.modifyAttribute(netedit.attrs.frames.changeParentElement.route, "bus")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

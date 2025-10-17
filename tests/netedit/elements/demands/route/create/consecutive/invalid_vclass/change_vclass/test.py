@@ -31,8 +31,8 @@ netedit.changeSupermode("demand")
 # go to route mode
 netedit.changeMode("route")
 
-# change to bus
-netedit.changeParentElement("routeFrame", "bus")
+# set valid class
+netedit.modifyAttribute(netedit.attrs.frames.changeParentElement.route, "bus")
 
 # create route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
