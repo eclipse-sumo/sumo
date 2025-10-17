@@ -2,15 +2,15 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 608 - 301
-TestFunctions: Clicked over position 608 - 201.0
-TestFunctions: Clicked over position 508.0 - 201.0
-TestFunctions: Clicked over position 508.0 - 301
+TestFunctions: Clicked over position 608 - 201
+TestFunctions: Clicked over position 508 - 201
+TestFunctions: Clicked over position 508 - 301
 TestFunctions: Clicked over position 608 - 301
 TestFunctions: Clicked over position 608 - 301
 dummyTAZ
 
 12.00,8.00
-12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00
+12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
