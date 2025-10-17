@@ -1,5 +1,6 @@
 Error: Attribute 'edges' is missing in definition of route 'route_0'.
 Error: Attribute 'edges' in definition of route 'route_1' is empty.
 Error: Could not build route with ID 'route_2' in netedit; edge with ID 'dummy1' doesn't exist.
-Error: Could not build route with ID 'route_2' in netedit; List of edges cannot be empty.
+Error: Could not build route with ID 'route_2' in netedit; list of route edges cannot be empty.
+Error: Could not build route with ID 'route_3' in netedit; Edges 'Edge0' and 'Edge2' aren't consecutives.
 Error: Loading of 'routes.rou.xml' failed.
