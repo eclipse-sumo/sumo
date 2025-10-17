@@ -2,5 +2,3 @@ Warning: Teleporting vehicle 'v0.1'; waited too long (jam), lane=':C_17_0', time
 Warning: Teleporting vehicle 'v1.9'; waited too long (jam), lane=':C_20_0', time=455.00.
 Warning: Vehicle 'v0.1' ends teleporting on edge 'CE', time=455.00.
 Warning: Vehicle 'v1.9' ends teleporting on edge 'CE', time=455.00.
-Warning: Teleporting vehicle 'v0.9'; waited too long (yield), lane='SC_1', time=462.00.
-Warning: Vehicle 'v0.9' ends teleporting on edge 'CE', time=462.00.

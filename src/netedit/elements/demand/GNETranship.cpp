@@ -64,6 +64,18 @@ GNETranship::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETranship::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNETranship::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNETranship::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);
@@ -273,12 +285,6 @@ GNETranship::getPopUpID() const {
 std::string
 GNETranship::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNETranship::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

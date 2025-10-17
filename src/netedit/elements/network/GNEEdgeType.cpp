@@ -88,6 +88,18 @@ GNEEdgeType::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEEdgeType::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEEdgeType::getParameters() const {
+    return this;
+}
+
+
 void
 GNEEdgeType::copyTemplate(const GNEEdgeTemplate* edgeTemplate) {
     // copy all edge attributes
@@ -339,20 +351,26 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
                 return "default";
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEEdgeType::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEEdgeType::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNEEdgeType::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -395,7 +413,7 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -419,12 +437,6 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
         default:
             return true;
     }
-}
-
-
-const Parameterised::Map&
-GNEEdgeType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -552,7 +564,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update edge selector

@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-18 15:54:15 by Eclipse SUMO netedit Version v1_18_0+0375-b4934692cfe
+<!-- generated on 2025-10-10T11:00:06.346886+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18"/>
-    <flow id="flow_1" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18"/>
-    <flow id="flow_2" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_0" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2"/>
+    <flow id="flow_1" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2"/>
+    <flow id="flow_2" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" speed="10.00"/>
     </flow>
-    <flow id="flow_3" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_3" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" until="0.00" speed="10.00"/>
     </flow>
-    <flow id="flow_4" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
+    <flow id="flow_4" begin="0.00" end="36.00" number="18" from="Edge0" to="Edge2">
         <stop chargingStation="chargingStationA" until="2.30" speed="10.00"/>
     </flow>
 </routes>

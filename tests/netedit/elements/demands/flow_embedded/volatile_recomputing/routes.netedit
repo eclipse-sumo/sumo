@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-15 13:43:07 by Eclipse SUMO netedit Version v1_20_0+1589-3f8920e39d3
+<!-- generated on 2025-10-10T10:54:26.674463+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,16 +15,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800">
+    <flow id="f_0" begin="0.00" end="3600.00" perHour="1800.00" color="12,13,14">
         <route edges="Edge0 Edge1 Edge2"/>
     </flow>
-    <flow id="f_1" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800">
+    <flow id="f_1" begin="0.00" end="3600.00" perHour="1800.00" color="12,13,14">
         <route edges="Edge3 Edge4 Edge5"/>
     </flow>
-    <flow id="f_2" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800">
+    <flow id="f_2" begin="0.00" end="3600.00" perHour="1800.00" color="12,13,14">
         <route edges="EdgeExternBot EdgeExternTop"/>
     </flow>
-    <flow id="f_3" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800">
+    <flow id="f_3" begin="0.00" end="3600.00" perHour="1800.00" color="12,13,14">
         <route edges="EdgeExternTop EdgeExternBot"/>
     </flow>
 </routes>

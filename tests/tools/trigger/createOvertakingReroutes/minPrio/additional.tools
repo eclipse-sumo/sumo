@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-14 17:10:31.864279 by Eclipse SUMO createOvertakingReroutes.py v1_24_0+1432-480c5cb3a72
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <min-priority value="1"/>
+    <end value="86400.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+  <rerouter id="rr_0" edges="E8"> <!-- route: route:r_main --> 
+    <interval begin="0" end="86400.0">
+       <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b"/>
+    </interval>
+  </rerouter>
+</additional>

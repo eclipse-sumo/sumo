@@ -197,7 +197,7 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_AREA:
             return myParkingAreaID;
         default:
-            return getStoppingPlaceAttribute(this, key);
+            return getStoppingPlaceAttribute(key);
     }
 }
 
@@ -291,7 +291,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myParkingAreaID = value;
             break;
         default:
-            setStoppingPlaceAttribute(this, key, value);
+            setStoppingPlaceAttribute(key, value);
             break;
     }
 }

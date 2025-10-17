@@ -4,6 +4,12 @@ distribution_tests
 # Test with 10 vehicles having one departure time
 1s_interval
 
+# Test with 10 vehicles and keeping the flow
+1s_interval_keep
+
+# Test with 10 vehicles and keeping the flow and --write-trips
+1s_interval_keep_trips
+
 # Test with 10 vehicles being divided on 100s
 100s_interval
 

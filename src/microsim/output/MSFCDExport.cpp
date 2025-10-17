@@ -80,7 +80,7 @@ getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
 }
 
 void
-MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
+MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag tag) {
     MSDevice_FCD::initOnce();
     const SUMOTime period = MSDevice_FCD::getPeriod();
     const SUMOTime begin = MSDevice_FCD::getBegin();
@@ -114,7 +114,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* const veh = it->second;
         if (isVisible(veh)) {
-            const bool hasOutput = hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
+            const bool hasOutput = (tag == SUMO_TAG_NOTHING || tag == SUMO_TAG_VEHICLE) && hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
             if (hasOutput) {
                 const MSVehicle* const microVeh = MSGlobals::gUseMesoSim ? nullptr : static_cast<const MSVehicle*>(veh);
                 Position pos;
@@ -296,34 +296,38 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
                 of.closeTag();
             }
             // write persons and containers in the vehicle
-            const MSEdge* edge = MSGlobals::gUseMesoSim ? veh->getEdge() : &veh->getLane()->getEdge();
-            for (const MSTransportable* const person : veh->getPersons()) {
-                writeTransportable(of, edge, person, veh, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
-            }
-            for (const MSTransportable* const container : veh->getContainers()) {
-                writeTransportable(of, edge, container, veh, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
-            }
-        }
-    }
-    if (net->hasPersons() && net->getPersonControl().hasTransportables()) {
-        // write persons who are not in a vehicle
-        for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
-            if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
-                continue;
-            }
-            for (const MSTransportable* const person : e->getSortedPersons(timestep)) {
-                writeTransportable(of, e, person, nullptr, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
+            if (tag == SUMO_TAG_NOTHING || tag == SUMO_TAG_PERSON) {
+                const MSEdge* edge = MSGlobals::gUseMesoSim ? veh->getEdge() : &veh->getLane()->getEdge();
+                for (const MSTransportable* const person : veh->getPersons()) {
+                    writeTransportable(of, edge, person, veh, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
+                }
+                for (const MSTransportable* const container : veh->getContainers()) {
+                    writeTransportable(of, edge, container, veh, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
+                }
             }
         }
     }
-    if (net->hasContainers() && net->getContainerControl().hasTransportables()) {
-        // write containers which are not in a vehicle
-        for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
-            if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
-                continue;
+    if (tag == SUMO_TAG_NOTHING || tag == SUMO_TAG_PERSON) {
+        if (net->hasPersons() && net->getPersonControl().hasTransportables()) {
+            // write persons who are not in a vehicle
+            for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
+                if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
+                    continue;
+                }
+                for (const MSTransportable* const person : e->getSortedPersons(timestep)) {
+                    writeTransportable(of, e, person, nullptr, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
+                }
             }
-            for (MSTransportable* container : e->getSortedContainers(timestep)) {
-                writeTransportable(of, e, container, nullptr, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
+        }
+        if (net->hasContainers() && net->getContainerControl().hasTransportables()) {
+            // write containers which are not in a vehicle
+            for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
+                if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
+                    continue;
+                }
+                for (MSTransportable* container : e->getSortedContainers(timestep)) {
+                    writeTransportable(of, e, container, nullptr, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
+                }
             }
         }
     }
@@ -372,14 +376,13 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const M
     of.setPrecision(gPrecision);
     of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
     of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
-    of.writeOptionalAttr(SUMO_ATTR_TYPE, "", mask, true);
+    of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
     of.writeOptionalAttr(SUMO_ATTR_LANE, "", mask, true);
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
-    of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_TAG, toString(tag), mask);
     of.closeTag();
 }

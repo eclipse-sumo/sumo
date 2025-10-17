@@ -1732,6 +1732,14 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
     {"center",  ReferencePosition::CENTER} //< must be the last one
 };
 
+StringBijection<MeanDataType>::Entry SUMOXMLDefinitions::meanDataTypeValues[] = {
+    {"traffic",     MeanDataType::TRAFFIC},
+    {"emissions",   MeanDataType::EMISSIONS},
+    {"harmonoise",  MeanDataType::HARMONOISE},
+    {"amitran",     MeanDataType::AMITRAN},
+    {"",            MeanDataType::DEFAULT} //< must be the last one
+};
+
 StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
     {TL("XML files") + std::string(" (*.xml,*.xml.gz)"),    XMLFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                 XMLFileExtension::ALL} //< must be the last one
@@ -1958,6 +1966,9 @@ StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
 
 StringBijection<ReferencePosition> SUMOXMLDefinitions::ReferencePositions(
     SUMOXMLDefinitions::referencePositionValues, ReferencePosition::CENTER, false);
+
+StringBijection<MeanDataType> SUMOXMLDefinitions::MeanDataTypes(
+    SUMOXMLDefinitions::meanDataTypeValues, MeanDataType::DEFAULT, false);
 
 StringBijection<XMLFileExtension> SUMOXMLDefinitions::XMLFileExtensions(
     SUMOXMLDefinitions::XMLFileExtensionValues, XMLFileExtension::ALL, false);

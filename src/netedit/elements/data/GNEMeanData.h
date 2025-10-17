@@ -27,41 +27,53 @@
 // class definitions
 // ===========================================================================
 
-class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
+class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief Default constructor
     GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename);
 
     /// @brief Parameter constructor
-    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
-                const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
-                const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
-                const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file,
+                const std::string& type, const SUMOTime period, const SUMOTime begin, const SUMOTime end,
+                const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const bool aggregate,
+                const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
+                const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples,
+                const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    /// @brief methods to retrieve the elements linked to this meanData
+    /// @{
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief get GNEHierarchicalElement associated with this meanData
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
+    /// @brief get GNEMoveElement associated with this meanData
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this meanData
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this meanData (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @brief get GUIGlObject associated with this meanData
+    GUIGlObject* getGUIGlObject() override;
+
+    /// @brief get GUIGlObject associated with this meanData (constant)
+    const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element
      */
     void writeMeanData(OutputDevice& device) const;
 
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
-    const GUIGlObject* getGUIGlObject() const;
-
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry() override;
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
@@ -70,28 +82,28 @@ public:
     /// @{
 
     /// @brief check if draw from contour (green)
-    bool checkDrawFromContour() const;
+    bool checkDrawFromContour() const override;
 
     /// @brief check if draw from contour (magenta)
-    bool checkDrawToContour() const;
+    bool checkDrawToContour() const override;
 
     /// @brief check if draw related contour (cyan)
-    bool checkDrawRelatedContour() const;
+    bool checkDrawRelatedContour() const override;
 
     /// @brief check if draw over contour (orange)
-    bool checkDrawOverContour() const;
+    bool checkDrawOverContour() const override;
 
     /// @brief check if draw delete contour (pink/white)
-    bool checkDrawDeleteContour() const;
+    bool checkDrawDeleteContour() const override;
 
     /// @brief check if draw delete contour small (pink/white)
-    bool checkDrawDeleteContourSmall() const;
+    bool checkDrawDeleteContourSmall() const override;
 
     /// @brief check if draw select contour (blue)
-    bool checkDrawSelectContour() const;
+    bool checkDrawSelectContour() const override;
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
@@ -101,37 +113,46 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getAttribute(SumoXMLAttr key) const;
+    std::string getAttribute(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    double getAttributeDouble(SumoXMLAttr key) const;
+    double getAttributeDouble(SumoXMLAttr key) const override;
+
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const override;
+
+    /* @brief method for getting the Attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return positionVector with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value);
+    bool isValid(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief id
@@ -139,6 +160,9 @@ protected:
 
     /// @brief filename
     std::string myFile;
+
+    /// @brief type
+    std::string myType;
 
     /// @brief period
     SUMOTime myPeriod = 0;
@@ -187,7 +211,7 @@ protected:
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    void setAttribute(SumoXMLAttr key, const std::string& value);
+    void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief Invalidated copy constructor.
     GNEMeanData(const GNEMeanData&) = delete;

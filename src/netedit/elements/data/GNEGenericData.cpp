@@ -69,6 +69,18 @@ GNEGenericData::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEGenericData::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEGenericData::getParameters() const {
+    return this;
+}
+
+
 GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;
@@ -256,15 +268,21 @@ GNEGenericData::updateGLObject() {
 }
 
 
-bool
-GNEGenericData::isPathElementSelected() const {
-    return mySelected;
+Position
+GNEGenericData::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
-const Parameterised::Map&
-GNEGenericData::getACParametersMap() const {
-    return getParametersMap();
+PositionVector
+GNEGenericData::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
+}
+
+
+bool
+GNEGenericData::isPathElementSelected() const {
+    return mySelected;
 }
 
 // ---------------------------------------------------------------------------

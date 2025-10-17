@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-24 17:06:49 by Eclipse SUMO netedit Version v1_18_0+0458-be70fa69b0d
+<!-- generated on 2025-10-10T10:54:21.908851+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flowA" begin="0.00" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="3" containerNumber="5" insertionChecks="speedLimit pedestrian all" end="2600.00" number="14">
+    <flow id="flowA" begin="0.00" end="2600.00" number="14" departLane="random" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="3" containerNumber="5" insertionChecks="speedLimit pedestrian all">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
         <route edges="Edge0 Edge1 Edge2" color="orange"/>
     </flow>
-    <flow id="flowB" begin="5.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="3" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all" end="3600.00" number="18">
+    <flow id="flowB" begin="5.00" end="3600.00" number="18" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="3" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

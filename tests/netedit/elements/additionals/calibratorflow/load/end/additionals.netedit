@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 14:28:32 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+<!-- generated on 2025-10-14T16:21:54.563673+01:00 by Eclipse SUMO netedit v1_24_0+1426-46ba67f0bf4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -8,8 +18,8 @@
     <route id="CRoute" edges="EdgeCenter0 EdgeCenter1"/>
     <!-- Calibrators -->
     <calibrator id="calibratorFlows" edge="EdgeCenter0" pos="20.00" period="100.00" output="calibratorFlows.txt">
-        <flow type="DEFAULT_VEHTYPE" begin="0.00" speed="10.00" end="100.00" route="CRoute" vehsPerHour="250.00"/>
-        <flow type="DEFAULT_VEHTYPE" begin="100.00" speed="10.00" end="200.00" route="CRoute" vehsPerHour="250.00"/>
-        <flow type="DEFAULT_VEHTYPE" begin="200.00" speed="10.00" end="300.00" route="CRoute" vehsPerHour="250.00"/>
+        <flow type="DEFAULT_VEHTYPE" begin="0.00" perHour="250.00" speed="10.00" end="100.00" route="CRoute"/>
+        <flow type="DEFAULT_VEHTYPE" begin="100.00" perHour="250.00" speed="10.00" end="200.00" route="CRoute"/>
+        <flow type="DEFAULT_VEHTYPE" begin="200.00" perHour="250.00" speed="10.00" end="300.00" route="CRoute"/>
     </calibrator>
 </additional>

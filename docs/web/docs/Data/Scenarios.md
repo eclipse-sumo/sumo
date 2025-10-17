@@ -167,6 +167,12 @@ This scenario can be followed as a tutorial - it showcases how routes can be gen
 
 - [Wildau Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/Wildau)
 
+# German Motorways
+This scenario is meant to showcase the power of [mesosim](../Simulation/Meso.md) by running 500k cars (random traffic) on the german motorway system. On a high end machine this runs in 10x realtime.
+
+[German Motorways Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/germany-motorways)
+
+
 # Test cases
 
 SUMO comes with a large set of tests which are run at least once per day (and most are run on each repository commit).

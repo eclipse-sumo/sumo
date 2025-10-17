@@ -461,6 +461,7 @@ void
 ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex) const {
     // write the person's vehicles
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
+    const bool writeFlow = options.exists("keep-flows") && options.getBool("keep-flows") && isPartOfFlow();
     if (!writeTrip) {
         for (const PlanItem* const it : myPlan) {
             it->saveVehicles(os, typeos, asAlternatives, options);
@@ -475,15 +476,15 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
         getType()->write(os);
         getType()->saved = asAlternatives;
     }
-
+    const SumoXMLTag tag = writeFlow ? SUMO_TAG_PERSONFLOW : SUMO_TAG_PERSON;
     // write the person
     if (cloneIndex == 0) {
-        getParameter().write(os, options, SUMO_TAG_PERSON);
+        getParameter().write(os, options, tag);
     } else {
         SUMOVehicleParameter p = getParameter();
         // @note id collisions may occur if scale-suffic occurs in other vehicle ids
         p.id += options.getString("scale-suffix") + toString(cloneIndex);
-        p.write(os, options, SUMO_TAG_PERSON);
+        p.write(os, options, tag);
     }
 
     for (const PlanItem* const it : myPlan) {

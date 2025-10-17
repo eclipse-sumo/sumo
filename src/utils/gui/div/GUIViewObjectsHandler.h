@@ -126,9 +126,10 @@ public:
 
     /// @name functions used for mark (select) elements
     /// @{
+    ///
     /// @brief add element into list of elements under cursor
     bool selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
-                      const bool fullBoundary, const GNESegment* segment);
+                      const GNESegment* segment);
 
     /// @brief add geometryPoint into list of elements under cursor
     bool selectGeometryPoint(const GUIGlObject* GLObject, const int newIndex, const double layer);
@@ -218,7 +219,7 @@ protected:
     GLObjectsSortedContainer mySortedSelectedObjects;
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
-    std::unordered_map<const GUIGlObject*, std::pair<bool, const GNESegment*> > mySelectedObjects;
+    std::unordered_map<const GUIGlObject*, const GNESegment*> mySelectedObjects;
 
     /// @brief number of selected objects
     int myNumberOfSelectedObjects = 0;

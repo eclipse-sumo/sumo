@@ -199,6 +199,9 @@ public:
     /// @brief remove leading and trailing whitespace
     static std::string wrapText(const std::string s, int width);
 
+    /// @brief write with maximum precision if needed but remove trailing zeros
+    static std::string adjustDecimalValue(double value, int precision); 
+
     /// @brief must be called when shutting down the xml subsystem
     static void resetTranscoder();
 

@@ -469,7 +469,7 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TO_TAZ:
             return myPlanElement->getParentTAZs().back()->getID();
         default:
-            return myPlanElement->getCommonAttribute(dynamic_cast<Parameterised*>(myPlanElement), key);
+            return myPlanElement->getCommonAttribute(key);
     }
 }
 
@@ -700,7 +700,7 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDPOS:
             return GNEAttributeCarrier::canParse<double>(value);
         default:
-            return myPlanElement->isCommonValid(key, value);
+            return myPlanElement->isCommonAttributeValid(key, value);
     }
 }
 
@@ -776,7 +776,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             recompute = true;
             break;
         default:
-            myPlanElement->setCommonAttribute(dynamic_cast<Parameterised*>(myPlanElement), key, value);
+            myPlanElement->setCommonAttribute(key, value);
             break;
     }
     // check if compute geometry and path

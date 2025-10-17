@@ -33,7 +33,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)) {
 }
 
 
@@ -42,7 +42,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, pos)),
+    myPosOverView(pos),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -57,6 +58,18 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 GNEMoveElement*
 GNEVariableSpeedSign::getMoveElement() const {
     return myMoveElementView;
+}
+
+
+Parameterised*
+GNEVariableSpeedSign::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEVariableSpeedSign::getParameters() const {
+    return this;
 }
 
 
@@ -110,7 +123,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
 void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myMoveElementView->myPosOverView, 0);
+    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
     // update geometries (boundaries of all children)
     for (const auto& additionalChildren : getChildAdditionals()) {
         additionalChildren->updateGeometry();
@@ -120,7 +133,7 @@ GNEVariableSpeedSign::updateGeometry() {
 
 Position
 GNEVariableSpeedSign::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -188,7 +201,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
-    drawSquaredAdditional(s, myMoveElementView->myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn
     for (const auto& step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
@@ -216,27 +229,31 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             }
             return toString(lanes);
         }
-        case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         default:
-            return getCommonAttribute(this, key);
+            return myMoveElementView->getMovingAttribute(key);
     }
 }
 
 
 double
 GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return myMoveElementView->getMovingAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEVariableSpeedSign::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEVariableSpeedSign::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementView->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEVariableSpeedSign::getAttributePositionVector(SumoXMLAttr key) const {
+    return myMoveElementView->getMovingAttributePositionVector(key);
 }
 
 
@@ -252,13 +269,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             rebuildVSSSymbols(value, undoList);
             break;
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_VTYPES:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementView->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -269,8 +285,6 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_LANES:
             return canParse<std::vector<GNELane*> >(myNet, value, false);
         case SUMO_ATTR_NAME:
@@ -282,7 +296,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         default:
-            return isCommonValid(key, value);
+            return myMoveElementView->isMovingAttributeValid(key, value);
     }
 }
 
@@ -311,13 +325,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update microsimID
             setAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(true);
-            }
-            break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
@@ -325,8 +332,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            myMoveElementView->setMovingAttribute(key, value);
             break;
+    }
+    // update boundary (except for template)
+    if (getID().size() > 0) {
+        updateCenteringBoundary(true);
     }
 }
 

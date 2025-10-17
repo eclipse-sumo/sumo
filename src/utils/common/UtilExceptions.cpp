@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    UtilExceptions.h
+/// @file    UtilExceptions.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
@@ -30,7 +30,8 @@
 #include <windows.h>
 #endif
 
-#ifdef HAVE_BOOST
+// disable boost on macos to avoid build issues
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
 #include <boost/stacktrace.hpp>
 #endif
 
@@ -65,7 +66,7 @@ ProcessError::getTrace() const {
 void
 ProcessError::processTrace() {
 // only process if we have boost
-#ifdef HAVE_BOOST
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
     // declare stacktrace
     boost::stacktrace::stacktrace st;
     // convert trace using ostringstream

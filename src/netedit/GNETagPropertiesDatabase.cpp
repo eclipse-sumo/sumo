@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/elements/moving/GNEMoveElementLaneDouble.h>
+#include <netedit/elements/moving/GNEMoveElementLaneSingle.h>
 #include <netedit/GNENet.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/options/OptionsCont.h>
@@ -932,7 +933,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_NET),
                 GNETagProperties::Type::NETWORKELEMENT,
-                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::JUNCTION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CROSSING, GUIGlObjectType::GLO_CROSSING, currentTag, TL("Crossing"));
@@ -2554,7 +2555,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::XMLCHILD,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEREF, GUIGlObjectType::GLO_ROUTE_REF, currentTag, TL("Route (Ref)"),
@@ -2627,7 +2628,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::XMLCHILD,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPEREF, GUIGlObjectType::GLO_VTYPE_REF, currentTag, TL("VType (Ref)"),
@@ -3277,7 +3278,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONTAINERSTOP,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointContainerStop"),
@@ -3315,7 +3316,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(GNE_TAG_STOPS),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::PARKINGAREA,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointParkingArea"),
@@ -7007,13 +7008,13 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::EDITMODE,
                                TL("The begin position on the lane (the lower position on the lane) in meters"),
-                               GNEAttributeCarrier::LANE_START, "INVALID_DOUBLE");
+                               GNEMoveElementLaneSingle::PositionType::STARPOS, "INVALID_DOUBLE");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ENDPOS,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::EDITMODE,
                                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"),
-                               GNEAttributeCarrier::LANE_END, "INVALID_DOUBLE");
+                               GNEMoveElementLaneSingle::PositionType::ENDPOS, "INVALID_DOUBLE");
 
     fillFriendlyPosAttribute(tagProperties);
 
@@ -8479,6 +8480,13 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
     fillIDAttribute(tagProperties, true);
 
     fillFileAttribute(tagProperties);
+
+    auto meanDataType = new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+            TL("Type of data generated by this mean data"),
+            SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::DEFAULT));
+    meanDataType->setDiscreteValues(SUMOXMLDefinitions::MeanDataTypes.getStrings());
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_PERIOD,
                                GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,

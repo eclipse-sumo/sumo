@@ -85,7 +85,7 @@ def getDriveWays(fname):
 
 
 def main(options):
-    colorgen = sumolib.miscutils. Colorgen((options.hue, options.saturation, options.brightness))
+    colorgen = sumolib.miscutils.Colorgen((options.hue, options.saturation, options.brightness))
     net = sumolib.net.readNet(options.netfile, withInternal=options.internal)
 
     permittedFoes = None

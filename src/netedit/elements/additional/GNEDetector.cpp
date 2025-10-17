@@ -68,6 +68,18 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, const 
 GNEDetector::~GNEDetector() {}
 
 
+Parameterised*
+GNEDetector::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEDetector::getParameters() const {
+    return this;
+}
+
+
 bool
 GNEDetector::checkDrawMoveContour() const {
     // get edit modes
@@ -141,9 +153,8 @@ GNEDetector::getParentName() const {
 }
 
 
-const Parameterised::Map&
-GNEDetector::getACParametersMap() const {
-    return getParametersMap();
+PositionVector GNEDetector::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -183,14 +194,20 @@ GNEDetector::getDetectorAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getMoveElement()->getMovingAttribute(this, key);
+            return getMoveElement()->getMovingAttribute(key);
     }
 }
 
 
 double
 GNEDetector::getDetectorAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getMoveElement()->getMovingAttributeDouble(key);
+}
+
+
+Position
+GNEDetector::getDetectorAttributePosition(SumoXMLAttr key) const {
+    return getMoveElement()->getMovingAttributePosition(key);
 }
 
 
@@ -307,7 +324,7 @@ GNEDetector::setDetectorAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            getMoveElement()->setMovingAttribute(this, key, value);
+            getMoveElement()->setMovingAttribute(key, value);
             break;
     }
 }

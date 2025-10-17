@@ -199,7 +199,7 @@ fuel because the engine gets switch off automatically in this case. All PHEMligh
 a threshold depending on the current speed, acceleration and slope to determine whether the vehicle is
 in this regime and set all emission values to zero. The value depends of course also on the
 characteristics of the vehicle such as mass and front area. For details see the code of
-PollutantsInterface::Helper::getCoastingDecel.
+[PollutantsInterface::Helper::getCoastingDecel](https://github.com/eclipse-sumo/sumo/blob/2dd3823d3a23d8a55c99a7df25d903e1d6c563b4/src/utils/emissions/PollutantsInterface.cpp#L197).
 
 # Further Interfaces
 

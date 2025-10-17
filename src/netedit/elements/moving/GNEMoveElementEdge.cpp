@@ -75,6 +75,48 @@ GNEMoveElementEdge::getMoveOperation() {
 }
 
 
+std::string
+GNEMoveElementEdge::getMovingAttribute(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttribute(key);
+}
+
+
+double
+GNEMoveElementEdge::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEMoveElementEdge::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementEdge::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
+void
+GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    myMovedElement->setCommonAttribute(key, value, undoList);
+}
+
+
+bool
+GNEMoveElementEdge::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return myMovedElement->isCommonAttributeValid(key, value);
+}
+
+
+void
+GNEMoveElementEdge::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    myMovedElement->setCommonAttribute(key, value);
+}
+
+
 void
 GNEMoveElementEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // get geometry point radius

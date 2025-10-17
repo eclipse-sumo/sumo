@@ -1,0 +1,4 @@
+Error: Attribute 'type' defined in edgeData with id 'ed_0' doesn't have a valid value (given '%%%%%').
+Error: Attribute 'type' in definition of edgeData 'ed_1' is empty.
+Warning: The netstate type 'hbefa' is deprecated. Using 'emissions' instead.
+Error: Loading of meandatas.dat.add.xml failed.

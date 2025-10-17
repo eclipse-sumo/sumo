@@ -48,6 +48,18 @@ GNELaneTemplate::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneTemplate::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNELaneTemplate::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;
@@ -126,6 +138,12 @@ GNELaneTemplate::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNELaneTemplate::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
 PositionVector
 GNELaneTemplate::getAttributePositionVector(SumoXMLAttr key) const {
     return myLane->getAttributePositionVector(key);
@@ -160,12 +178,6 @@ GNELaneTemplate::getPopUpID() const {
 std::string
 GNELaneTemplate::getHierarchyName() const {
     return myLane->getHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNELaneTemplate::getACParametersMap() const {
-    return myLane->getACParametersMap();
 }
 
 // ===========================================================================

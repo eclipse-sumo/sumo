@@ -54,10 +54,10 @@ public:
     ~GNEViewNet();
 
     /// @brief recalculate boundaries
-    void recalculateBoundaries();
+    void recalculateBoundaries() override;
 
     /// @brief builds the view toolbars
-    void buildViewToolBars(GUIGlChildWindow* v);
+    void buildViewToolBars(GUIGlChildWindow* v) override;
 
     /// @brief Mark the entire GNEViewNet to be repainted later
     void updateViewNet(const bool ignoreViewUpdater = true) const;
@@ -87,20 +87,20 @@ public:
     void redrawPathElementContours();
 
     /// @brief set color scheme
-    bool setColorScheme(const std::string& name);
+    bool setColorScheme(const std::string& name) override;
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                           const GUIVisualizationRainbowSettings& rs);
+                           const GUIVisualizationRainbowSettings& rs) override;
 
     /// @brief return list of available edge parameters
-    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
+    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const override;
 
     /// @brief return list of loaded edgeData attributes
-    std::vector<std::string> getEdgeDataAttrs() const;
+    std::vector<std::string> getEdgeDataAttrs() const override;
 
     /// @brief return list of loaded edgeRelation and tazRelation attributes
-    std::vector<std::string> getRelDataAttrs() const;
+    std::vector<std::string> getRelDataAttrs() const override;
 
     /// @brief return list of available POI parameters
     std::vector<std::string> getPOIParamKeys() const override;
@@ -112,7 +112,7 @@ public:
     bool checkSelectEdges() const;
 
     /// @brief open object dialog
-    void openObjectDialogAtCursor(const FXEvent* ev);
+    void openObjectDialogAtCursor(const FXEvent* ev) override;
 
     /// @brief open delete dialog at cursor
     void openDeleteDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects);
@@ -147,31 +147,31 @@ public:
     /// @name overloaded handlers
     /// @{
     /// @brief called when user press mouse's left button
-    long onLeftBtnPress(FXObject*, FXSelector, void*);
+    long onLeftBtnPress(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user releases mouse's left button
-    long onLeftBtnRelease(FXObject*, FXSelector, void*);
+    long onLeftBtnRelease(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user press mouse's left button
-    long onMiddleBtnPress(FXObject*, FXSelector, void*);
+    long onMiddleBtnPress(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user releases mouse's left button
-    long onMiddleBtnRelease(FXObject*, FXSelector, void*);
+    long onMiddleBtnRelease(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user press mouse's right button
-    long onRightBtnPress(FXObject*, FXSelector, void*);
+    long onRightBtnPress(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user releases mouse's right button
-    long onRightBtnRelease(FXObject*, FXSelector, void*);
+    long onRightBtnRelease(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user moves mouse
-    long onMouseMove(FXObject*, FXSelector, void*);
+    long onMouseMove(FXObject*, FXSelector, void*) override;
 
     /// @brief called when user press a key
-    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyPress(FXObject* o, FXSelector sel, void* data) override;
 
     /// @brief called when user release a key
-    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data) override;
     /// @}
 
     /// @name set modes call backs
@@ -604,13 +604,13 @@ protected:
     GNEViewNet();
 
     /// @brief do paintGL
-    int doPaintGL(int mode, const Boundary& drawingBoundary);
+    int doPaintGL(int mode, const Boundary& drawingBoundary) override;
 
     /// @brief called after some features are already initialized
-    void doInit();
+    void doInit() override;
 
     /// @brief returns the id of object under cursor to show their tooltip
-    GUIGlID getToolTipID();
+    GUIGlID getToolTipID() override;
 
 private:
     /// @brief variable use to select objects in view

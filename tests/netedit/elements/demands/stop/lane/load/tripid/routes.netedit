@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-25 15:26:44 by Eclipse SUMO netedit Version v1_22_0+1819-d3f1974c2b4
+<!-- generated on 2025-10-10T10:59:08.748728+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,13 +17,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Routes -->
     <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_0" begin="0.00" end="3600.00" number="18" route="route_0">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="person"/>
     </flow>
-    <flow id="routeFlow_1" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_1" begin="0.00" end="3600.00" number="18" route="route_0">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="person" tripId=";;;;"/>
     </flow>
-    <flow id="routeFlow_2" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_2" begin="0.00" end="3600.00" number="18" route="route_0">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="person" tripId="customTripID"/>
     </flow>
 </routes>

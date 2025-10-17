@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-05T23:50:04.801803+01:00 by Eclipse SUMO sumo v1_24_0+1168-e7b890310b7
+<!-- generated on 2025-10-09T13:47:59.907343+01:00 by Eclipse SUMO sumo v1_24_0+1295-8333438020a
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -66,6 +66,7 @@
         <fcd-output.filter-edges.input-file value="" type="FILE" help="Restrict fcd output to the edge selection from the given input file"/>
         <fcd-output.attributes value="" type="STR[]" help="List attributes that should be included in the FCD output"/>
         <fcd-output.filter-shapes value="" type="STR[]" help="List shape names that should be used to filter the FCD output"/>
+        <person-fcd-output value="" synonymes="person-fcd" type="FILE" help="Save fcd for persons and container to separate FILE"/>
         <device.ssm.filter-edges.input-file value="" type="FILE" help="Restrict SSM device output to the edge selection from the given input file"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>

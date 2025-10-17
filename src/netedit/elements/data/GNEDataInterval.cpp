@@ -54,6 +54,30 @@ GNEDataInterval::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEDataInterval::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEDataInterval::getParameters() const {
+    return nullptr;
+}
+
+
+GUIGlObject*
+GNEDataInterval::getGUIGlObject() {
+    return nullptr;
+}
+
+
+const GUIGlObject*
+GNEDataInterval::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
@@ -105,18 +129,6 @@ GNEDataInterval::getAllAttributeColors() const {
 const std::map<SumoXMLTag, GNEDataSet::AttributeColors>&
 GNEDataInterval::getSpecificAttributeColors() const {
     return mySpecificAttributeColors;
-}
-
-
-GUIGlObject*
-GNEDataInterval::getGUIGlObject() {
-    return nullptr;
-}
-
-
-const GUIGlObject*
-GNEDataInterval::getGUIGlObject() const {
-    return nullptr;
 }
 
 
@@ -334,7 +346,7 @@ GNEDataInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -347,8 +359,20 @@ GNEDataInterval::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myEnd;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
+}
+
+
+Position
+GNEDataInterval::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEDataInterval::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -374,7 +398,7 @@ GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             return canParse<double>(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -402,12 +426,6 @@ GNEDataInterval::getHierarchyName() const {
 }
 
 
-const Parameterised::Map&
-GNEDataInterval::getACParametersMap() const {
-    return getParametersMap();
-}
-
-
 void
 GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
@@ -422,7 +440,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGenericDataIDs();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // mark interval toolbar for update

@@ -1,6 +1,6 @@
 
 [Reported by kobo at 12Aug08:13:22]
-search_string:input_trips_000.rou.alt.xml' is not accessible
+search_string:input_trips_000.rou.alt.xml.gz' is not accessible
 search_file:dualog
 ignore_other_errors:1
 full_description:duaIterate only works with fixed departEdge

@@ -50,6 +50,18 @@ GNEWalkingArea::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEWalkingArea::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEWalkingArea::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEWalkingArea::updateGeometry() {
     // Nothing to update
@@ -235,14 +247,20 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(walkingArea.shape);
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEWalkingArea::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEWalkingArea::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -252,7 +270,7 @@ GNEWalkingArea::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return getNBWalkingArea().shape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -303,14 +321,8 @@ GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
-}
-
-
-const Parameterised::Map&
-GNEWalkingArea::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -406,7 +418,7 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             walkingArea.hasCustomShape = true;
             break;
         default:
-            setCommonAttribute(nullptr, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

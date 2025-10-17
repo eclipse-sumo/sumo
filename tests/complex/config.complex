@@ -125,6 +125,9 @@ output:Cannot read local schema .*,{REPLACE Cannot read local schema <schema>,}
 output:version .* started via libsumo {REPLACE started }
 output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 output:Building scenario in .*{REPLACE Building scenario in <DIR>}
+output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
+output:vm3dgl: Failed to initialize svga driver.
+output:vm3dgl: Falling back to LLVMPipe.
 log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
@@ -227,5 +230,5 @@ fcd:0.0101
 log:0.0101
 
 [batch_extra_version]
-gcc4_64:perf
+gcc:perf
 msvc16x64:perf

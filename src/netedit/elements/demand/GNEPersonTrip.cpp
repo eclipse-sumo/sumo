@@ -68,6 +68,18 @@ GNEPersonTrip::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPersonTrip::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEPersonTrip::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);
@@ -287,12 +299,6 @@ GNEPersonTrip::getPopUpID() const {
 std::string
 GNEPersonTrip::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEPersonTrip::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

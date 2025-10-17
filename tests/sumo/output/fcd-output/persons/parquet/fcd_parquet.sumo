@@ -1,0 +1,5 @@
+timestep_time,vehicle_id,vehicle_speed,vehicle_acceleration
+0.00,p0_0,0.00,0.00
+0.00,p0,0.00,
+1.00,p0_0,1.99,1.99
+1.00,p0,1.99,

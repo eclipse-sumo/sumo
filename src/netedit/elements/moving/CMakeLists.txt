@@ -25,6 +25,8 @@ set(netedit_elements_moving_SRCS
    GNEMoveElementVehicle.h
    GNEMoveElementView.cpp
    GNEMoveElementView.h
+   GNEMoveElementViewResizable.cpp
+   GNEMoveElementViewResizable.h
    GNEMoveOffset.cpp
    GNEMoveOffset.h
    GNEMoveOperation.cpp

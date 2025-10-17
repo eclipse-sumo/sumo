@@ -75,11 +75,11 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), SUMO_TAG_EDGE),
-    myMoveElementEdge(new GNEMoveElementEdge(this)),
     myNBEdge(nbe),
     myAmResponsible(false),
     myWasSplit(wasSplit),
     myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myMoveElementEdge(new GNEMoveElementEdge(this)),
     myUpdateGeometry(true) {
     // set parents
     setParents<GNEJunction*>({
@@ -133,6 +133,18 @@ GNEEdge::~GNEEdge() {
 GNEMoveElement*
 GNEEdge::getMoveElement() const {
     return myMoveElementEdge;
+}
+
+
+Parameterised*
+GNEEdge::getParameters() {
+    return myNBEdge;
+}
+
+
+const Parameterised*
+GNEEdge::getParameters() const {
+    return myNBEdge;
 }
 
 
@@ -1172,14 +1184,20 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_IS_ROUNDABOUT:
             return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? TRUE_STR : FALSE_STR;
         default:
-            return getCommonAttribute(myNBEdge, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEEdge::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEEdge::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -1189,7 +1207,7 @@ GNEEdge::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myNBEdge->getInnerGeometry();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -1437,7 +1455,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -1471,12 +1489,6 @@ GNEEdge::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNEEdge::getACParametersMap() const {
-    return myNBEdge->getParametersMap();
 }
 
 
@@ -1949,7 +1961,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge->myEdgeStopOffset.setExceptions(value);
             break;
         default:
-            setCommonAttribute(myNBEdge, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // get template editor
@@ -1988,8 +2000,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Lane(this, myNBEdge->getLaneStruct(oldNumLanes - 1)), true);
     }
     for (int i = (oldNumLanes - 1); i > (numLanes - 1); i--) {
-        // delete leftmost lane
-        undoList->add(new GNEChange_Lane(this, getChildLanes()[i], myNBEdge->getLaneStruct(i), false), true);
+        myNet->deleteLane(getChildLanes().at(i), undoList, false);
     }
     if (oppositeID != "") {
         GNEChange_Attribute::changeAttribute(getChildLanes().back(), GNE_ATTR_OPPOSITE, oppositeID, undoList);
@@ -2790,7 +2801,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, layer, false, true, nullptr);
+        gViewObjectsHandler.selectObject(this, layer, false, nullptr);
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();

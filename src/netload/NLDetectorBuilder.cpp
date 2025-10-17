@@ -521,19 +521,21 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     }
     checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
     MSMeanData* det = nullptr;
-    if (type == "" || type == "performance" || type == "traffic") {
+    if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::DEFAULT)) ||
+            (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC)) ||
+            (type == "performance")) {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
                                  printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
-    } else if (type == "emissions" || type == "hbefa") {
+    } else if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::EMISSIONS)) || (type == "hbefa")) {
         if (type == "hbefa") {
             WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead."));
         }
         det = new MSMeanData_Emissions(id, begin, end, useLanes, withEmpty,
                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
-    } else if (type == "harmonoise") {
+    } else if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::HARMONOISE)) {
         det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
                                         printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
-    } else if (type == "amitran") {
+    } else if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::AMITRAN)) {
         det = new MSMeanData_Amitran(id, begin, end, useLanes, withEmpty,
                                      printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
     } else {

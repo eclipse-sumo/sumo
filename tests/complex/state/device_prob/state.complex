@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-08 09:38:51 by Eclipse SUMO sumo Version v1_23_1+0919-355ec72f872
+<!-- generated on 2025-10-10T00:30:46.579931+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+0919-355ec72f872" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_24_0+1341-5cfec16a0fc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="66" insertionControl="0" device="25" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -186,7 +186,7 @@
     <vehicle id="0.24" depart="48.00" departSpeed="max" route="r1" distance="0 0" speedFactor="0.8257" state="2224 48000 0 3.10 0 0.00 49000 0 0" pos="11.36 8.36 8.26" speed="8.26 8.26" angle="270.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_0.24" state="0 0.00 8.26 3.10 0"/>
     </vehicle>
-    <flowState id="0" begin="0.00" departSpeed="max" period="2.00" next="50.00" end="100.00" route="r1" done="25" index="25"/>
+    <flowState id="0" begin="0.00" end="100.00" period="2" departSpeed="max" next="50.00" route="r1" done="25" index="25"/>
     <lane id="3/1to2/1_0">
         <vehicles value="0.2 0.1 0.0"/>
     </lane>

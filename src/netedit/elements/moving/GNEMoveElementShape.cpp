@@ -114,30 +114,42 @@ GNEMoveElementShape::removeGeometryPoint(const Position clickedPosition, GNEUndo
 
 
 std::string
-GNEMoveElementShape::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
-    return "";
+GNEMoveElementShape::getMovingAttribute(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttribute(key);
 }
 
 
 double
 GNEMoveElementShape::getMovingAttributeDouble(SumoXMLAttr key) const {
-    return 0;
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEMoveElementShape::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementShape::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
 }
 
 
 void
-GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEMoveElementShape::setMovingAttribute(SumoXMLAttr /* key */, const std::string& /* value */, GNEUndoList* /* undoList */) {
 }
 
 
 bool
-GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr /* key */, const std::string& /* value */) const {
     return false;
 }
 
 
 void
-GNEMoveElementShape::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEMoveElementShape::setMovingAttribute(SumoXMLAttr /* key */, const std::string& /* value */) {
 }
 
 

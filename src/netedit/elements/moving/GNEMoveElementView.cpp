@@ -28,63 +28,82 @@
 // Method definitions
 // ===========================================================================
 
-GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element) :
-    GNEMoveElement(element) {
-}
-
-
 GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       const Position& position) :
+                                       SumoXMLAttr posAttr, Position& position) :
     GNEMoveElement(element),
+    myPosAttr(posAttr),
     myPosOverView(position),
     myAttributesFormat(attributesFormat) {
 }
-
-
-GNEMoveElementView::GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                                       const Position& position, const double width, const double height, const double length) :
-    GNEMoveElement(element),
-    myPosOverView(position),
-    myWidth(width),
-    myHeight(height),
-    myLength(length),
-    myAttributesFormat(attributesFormat)  {
-}
-
 
 GNEMoveElementView::~GNEMoveElementView() {}
 
 
 GNEMoveOperation*
 GNEMoveElementView::getMoveOperation() {
-    if (myMovedElement->drawMovingGeometryPoints()) {
-        // get snap radius
-        const auto snap_radius = myMovedElement->getNet()->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        const auto snapRadiusSquared = (snap_radius * snap_radius);
-        // get mouse position
-        const Position mousePosition = myMovedElement->getNet()->getViewNet()->getPositionInformation();
-        // check what we're editing
-        if ((myShapeLength.size() > 0) && (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-            // edit length
-            return new GNEMoveOperation(this, myShapeLength, false, GNEMoveOperation::OperationType::LENGTH);
-        } else if ((myShapeWidth.size() > 0) && (myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, true, GNEMoveOperation::OperationType::WIDTH);
-        } else if ((myShapeWidth.size() > 0) && (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-            // edit width
-            return new GNEMoveOperation(this, myShapeWidth, false, GNEMoveOperation::OperationType::WIDTH);
-        } else if ((myShapeHeight.size() > 0) && (myShapeHeight.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeHeight, true, GNEMoveOperation::OperationType::HEIGHT);
-        } else if ((myShapeHeight.size() > 0) && (myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-            // edit height
-            return new GNEMoveOperation(this, myShapeHeight, false, GNEMoveOperation::OperationType::HEIGHT);
-        } else {
-            return nullptr;
-        }
+    // move entire space
+    return new GNEMoveOperation(this, myPosOverView);
+}
+
+
+std::string
+GNEMoveElementView::getMovingAttribute(SumoXMLAttr key) const {
+    if (key == myPosAttr) {
+        return toString(myPosOverView);
     } else {
-        // move entire space
-        return new GNEMoveOperation(this, myPosOverView);
+        return myMovedElement->getCommonAttribute(key);
+    }
+}
+
+
+double
+GNEMoveElementView::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEMoveElementView::getMovingAttributePosition(SumoXMLAttr key) const {
+    if (key == myPosAttr) {
+        return myPosOverView;
+    } else {
+        return myMovedElement->getCommonAttributePosition(key);
+    }
+}
+
+
+PositionVector
+GNEMoveElementView::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
+void
+GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (key == myPosAttr) {
+        GNEChange_Attribute::changeAttribute(myMovedElement, key, value, undoList);
+    } else {
+        myMovedElement->setCommonAttribute(key, value, undoList);
+    }
+}
+
+
+bool
+GNEMoveElementView::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    if (key == myPosAttr) {
+        return GNEAttributeCarrier::canParse<Position>(value);
+    } else {
+        return myMovedElement->isCommonAttributeValid(key, value);
+    }
+}
+
+
+void
+GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    if (key == myPosAttr) {
+        myPosOverView =  GNEAttributeCarrier::parse<Position>(value);
+    } else {
+        myMovedElement->setCommonAttribute(key, value);
     }
 }
 
@@ -92,36 +111,6 @@ GNEMoveElementView::getMoveOperation() {
 void
 GNEMoveElementView::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do here
-}
-
-
-std::string
-GNEMoveElementView::getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
-    return "";
-}
-
-
-double
-GNEMoveElementView::getMovingAttributeDouble(SumoXMLAttr key) const {
-    return 0;
-}
-
-
-void
-GNEMoveElementView::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-
-}
-
-
-bool
-GNEMoveElementView::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
-    return false;
-}
-
-
-void
-GNEMoveElementView::setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
-
 }
 
 
@@ -153,41 +142,17 @@ GNEMoveElementView::writeMoveAttributes(OutputDevice& device) const {
 
 void
 GNEMoveElementView::setMoveShape(const GNEMoveResult& moveResult) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
-        myShapeLength[1] = moveResult.shapeToUpdate[1];
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        myShapeWidth = moveResult.shapeToUpdate;
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        myShapeHeight = moveResult.shapeToUpdate;
-    } else {
-        myPosOverView = moveResult.shapeToUpdate.front();
-        // only update geometry in this case (because in the others the shapes are reset)
-        myMovedElement->updateGeometry();
-    }
+    myPosOverView = moveResult.shapeToUpdate.front();
+    // update geometry
+    myMovedElement->updateGeometry();
 }
 
 
 void
 GNEMoveElementView::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // check what are being updated
-    if (moveResult.operationType == GNEMoveOperation::OperationType::LENGTH) {
-        undoList->begin(myMovedElement, TLF("length of %", myMovedElement->getTagStr()));
-        myMovedElement->setAttribute(SUMO_ATTR_LENGTH, toString(myShapeLength[0].distanceTo2D(moveResult.shapeToUpdate[1])), undoList);
-        undoList->end();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(myMovedElement, TLF("width of %", myMovedElement->getTagStr()));
-        myMovedElement->setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
-        undoList->end();
-    } else if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        undoList->begin(myMovedElement, TLF("height of %", myMovedElement->getTagStr()));
-        myMovedElement->setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
-        undoList->end();
-    } else {
-        undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
-        GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
-        undoList->end();
-    }
+    undoList->begin(myMovedElement, TLF("position of %", myMovedElement->getTagStr()));
+    GNEChange_Attribute::changeAttribute(myMovedElement, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
+    undoList->end();
 }
 
 /****************************************************************************/

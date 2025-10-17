@@ -1,2 +1,14 @@
 # warn against --threads
 ticket17057
+
+# unsafe insertion speed
+ticket17192
+
+# unsafe insertion speed ahead of green major link
+ticket17193
+
+# emergency braking
+ticket17203
+
+# unsafe insertion speed ahead of lane end
+ticket17208

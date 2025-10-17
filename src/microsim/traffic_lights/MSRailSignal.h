@@ -342,6 +342,9 @@ protected:
 
         SUMOTime myLastRerouteTime;
         SUMOVehicle* myLastRerouteVehicle;
+
+        /// @brief whether this link is used for railway operations
+        bool myControlled;
     };
 
     /// @brief data storage for every link at this node (more than one when directly guarding a switch)

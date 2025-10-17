@@ -184,6 +184,10 @@ MSFrame::fillOptions() {
     oc.doRegister("fcd-output.filter-shapes", new Option_StringVector());
     oc.addDescription("fcd-output.filter-shapes", "Output", TL("List shape names that should be used to filter the FCD output"));
 
+    oc.doRegister("person-fcd-output", new Option_FileName());
+    oc.addSynonyme("person-fcd-output", "person-fcd");
+    oc.addDescription("person-fcd-output", "Output", TL("Save fcd for persons and container to separate FILE"));
+
     oc.doRegister("device.ssm.filter-edges.input-file", new Option_FileName());
     oc.addDescription("device.ssm.filter-edges.input-file", "Output", TL("Restrict SSM device output to the edge selection from the given input file"));
 
@@ -858,6 +862,7 @@ MSFrame::buildStreams() {
 
     //extended
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
+    OutputDevice::createDeviceByOption("person-fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export", "battery_file.xsd");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {

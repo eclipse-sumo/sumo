@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 08:51:59 by Eclipse SUMO sumo Version v1_23_1+1098-b5f7c6a5135
+<!-- generated on 2025-10-10T00:38:12.687561+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,7 +33,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+1098-b5f7c6a5135" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_24_0+1341-5cfec16a0fc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -162,8 +162,8 @@
     <vehicle id="flowPeriod.8" type="t0" depart="45.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807">
         <device id="tripinfo_flowPeriod.8"/>
     </vehicle>
-    <flowState id="flowPeriod" type="t0" begin="5.00" period="5.00" next="45.00" end="55.00" route="r0" done="9" index="9"/>
-    <flowState id="flowProb" type="t0" begin="20.00" probability="0.10" end="100.00" route="r0" done="5" index="5"/>
+    <flowState id="flowPeriod" type="t0" begin="5.00" end="55.00" number="10" next="45.00" route="r0" done="9" index="9"/>
+    <flowState id="flowProb" type="t0" begin="20.00" end="100.00" probability="0.10000000000000000555" route="r0" done="5" index="5"/>
     <segment id="beg:0">
         <vehicles time="50150" blockTime="-9223372036854775808" value="flowPeriod.1"/>
     </segment>

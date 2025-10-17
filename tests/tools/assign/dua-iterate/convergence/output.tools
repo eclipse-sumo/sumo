@@ -1,166 +1,166 @@
 > Executing step 0
 >> Running router on input_trips.trips.xml
->>> Begin time: 2020-08-20 11:13:02.451596
->>> End time: 2020-08-20 11:13:02.579330
->>> Duration: 0:00:00.127734
+>>> Begin time: 2025-10-08 21:12:54.187420
+>>> End time: 2025-10-08 21:12:54.395932
+>>> Duration: 0:00:00.208512
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:02.579434
->>> End time: 2020-08-20 11:13:02.744152
->>> Duration: 0:00:00.164718
+>>> Begin time: 2025-10-08 21:12:54.395977
+>>> End time: 2025-10-08 21:12:54.581039
+>>> Duration: 0:00:00.185062
 <<
 < relative travel time deviation in the last 1 steps: 0.00000
-< Step 0 ended (duration: 0:00:00.294739)
+< Step 0 ended (duration: 0:00:00.399022)
 ------------------
 
 > Executing step 1
->> Running router on 0/input_trips_000.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:02.756909
->>> End time: 2020-08-20 11:13:02.911727
->>> Duration: 0:00:00.154818
+>> Running router on 000/input_trips_000.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:54.598326
+>>> End time: 2025-10-08 21:12:54.798845
+>>> Duration: 0:00:00.200519
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:02.911837
->>> End time: 2020-08-20 11:13:03.056674
->>> Duration: 0:00:00.144837
+>>> Begin time: 2025-10-08 21:12:54.798884
+>>> End time: 2025-10-08 21:12:55.001438
+>>> Duration: 0:00:00.202554
 <<
 < relative travel time deviation in the last 2 steps: 0.00795
-< Step 1 ended (duration: 0:00:00.301194)
+< Step 1 ended (duration: 0:00:00.403721)
 ------------------
 
 > Executing step 2
->> Running router on 1/input_trips_001.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:03.062255
->>> End time: 2020-08-20 11:13:03.175378
->>> Duration: 0:00:00.113123
+>> Running router on 001/input_trips_001.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:55.015293
+>>> End time: 2025-10-08 21:12:55.206905
+>>> Duration: 0:00:00.191612
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:03.175471
->>> End time: 2020-08-20 11:13:03.299292
->>> Duration: 0:00:00.123821
+>>> Begin time: 2025-10-08 21:12:55.206944
+>>> End time: 2025-10-08 21:12:55.422373
+>>> Duration: 0:00:00.215429
 <<
 < relative travel time deviation in the last 3 steps: 0.00752
-< Step 2 ended (duration: 0:00:00.238470)
+< Step 2 ended (duration: 0:00:00.407989)
 ------------------
 
 > Executing step 3
->> Running router on 2/input_trips_002.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:03.304110
->>> End time: 2020-08-20 11:13:03.414318
->>> Duration: 0:00:00.110208
+>> Running router on 002/input_trips_002.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:55.441830
+>>> End time: 2025-10-08 21:12:55.624836
+>>> Duration: 0:00:00.183006
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:03.414422
->>> End time: 2020-08-20 11:13:03.540736
->>> Duration: 0:00:00.126314
+>>> Begin time: 2025-10-08 21:12:55.624867
+>>> End time: 2025-10-08 21:12:55.810544
+>>> Duration: 0:00:00.185677
 <<
 < relative travel time deviation in the last 4 steps: 0.00692
-< Step 3 ended (duration: 0:00:00.238742)
+< Step 3 ended (duration: 0:00:00.369359)
 ------------------
 
 > Executing step 4
->> Running router on 3/input_trips_003.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:03.546220
->>> End time: 2020-08-20 11:13:03.652353
->>> Duration: 0:00:00.106133
+>> Running router on 003/input_trips_003.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:55.830135
+>>> End time: 2025-10-08 21:12:56.001107
+>>> Duration: 0:00:00.170972
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:03.652462
->>> End time: 2020-08-20 11:13:03.783072
->>> Duration: 0:00:00.130610
+>>> Begin time: 2025-10-08 21:12:56.001143
+>>> End time: 2025-10-08 21:12:56.208581
+>>> Duration: 0:00:00.207438
 <<
 < relative travel time deviation in the last 5 steps: 0.00639
-< Step 4 ended (duration: 0:00:00.238849)
+< Step 4 ended (duration: 0:00:00.379098)
 ------------------
 
 > Executing step 5
->> Running router on 4/input_trips_004.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:03.788315
->>> End time: 2020-08-20 11:13:03.898462
->>> Duration: 0:00:00.110147
+>> Running router on 004/input_trips_004.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:56.229189
+>>> End time: 2025-10-08 21:12:56.420823
+>>> Duration: 0:00:00.191634
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:03.898564
->>> End time: 2020-08-20 11:13:04.023803
->>> Duration: 0:00:00.125239
+>>> Begin time: 2025-10-08 21:12:56.420861
+>>> End time: 2025-10-08 21:12:56.625532
+>>> Duration: 0:00:00.204671
 <<
 < relative travel time deviation in the last 6 steps: 0.00596
-< Step 5 ended (duration: 0:00:00.238025)
+< Step 5 ended (duration: 0:00:00.396938)
 ------------------
 
 > Executing step 6
->> Running router on 5/input_trips_005.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:04.030077
->>> End time: 2020-08-20 11:13:04.141909
->>> Duration: 0:00:00.111832
+>> Running router on 005/input_trips_005.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:56.638742
+>>> End time: 2025-10-08 21:12:56.830661
+>>> Duration: 0:00:00.191919
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:04.142093
->>> End time: 2020-08-20 11:13:04.266386
->>> Duration: 0:00:00.124293
+>>> Begin time: 2025-10-08 21:12:56.830720
+>>> End time: 2025-10-08 21:12:57.024507
+>>> Duration: 0:00:00.193787
 <<
 < relative travel time deviation in the last 7 steps: 0.00560
-< Step 6 ended (duration: 0:00:00.238880)
+< Step 6 ended (duration: 0:00:00.386310)
 ------------------
 
 > Executing step 7
->> Running router on 6/input_trips_006.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:04.272402
->>> End time: 2020-08-20 11:13:04.379576
->>> Duration: 0:00:00.107174
+>> Running router on 006/input_trips_006.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:57.043900
+>>> End time: 2025-10-08 21:12:57.251610
+>>> Duration: 0:00:00.207710
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:04.379752
->>> End time: 2020-08-20 11:13:04.501404
->>> Duration: 0:00:00.121652
+>>> Begin time: 2025-10-08 21:12:57.251657
+>>> End time: 2025-10-08 21:12:57.531222
+>>> Duration: 0:00:00.279565
 <<
 < relative travel time deviation in the last 8 steps: 0.00529
-< Step 7 ended (duration: 0:00:00.231573)
+< Step 7 ended (duration: 0:00:00.487878)
 ------------------
 
 > Executing step 8
->> Running router on 7/input_trips_007.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:04.507154
->>> End time: 2020-08-20 11:13:04.614610
->>> Duration: 0:00:00.107456
+>> Running router on 007/input_trips_007.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:57.546938
+>>> End time: 2025-10-08 21:12:57.725039
+>>> Duration: 0:00:00.178101
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:04.614788
->>> End time: 2020-08-20 11:13:04.737352
->>> Duration: 0:00:00.122564
+>>> Begin time: 2025-10-08 21:12:57.725076
+>>> End time: 2025-10-08 21:12:57.924953
+>>> Duration: 0:00:00.199877
 <<
 < relative travel time deviation in the last 9 steps: 0.00503
-< Step 8 ended (duration: 0:00:00.232782)
+< Step 8 ended (duration: 0:00:00.378581)
 ------------------
 
 > Executing step 9
->> Running router on 8/input_trips_008.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:04.743407
->>> End time: 2020-08-20 11:13:04.870966
->>> Duration: 0:00:00.127559
+>> Running router on 008/input_trips_008.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:57.937725
+>>> End time: 2025-10-08 21:12:58.160927
+>>> Duration: 0:00:00.223202
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:04.871057
->>> End time: 2020-08-20 11:13:04.989255
->>> Duration: 0:00:00.118198
+>>> Begin time: 2025-10-08 21:12:58.160970
+>>> End time: 2025-10-08 21:12:58.397453
+>>> Duration: 0:00:00.236483
 <<
 < relative travel time deviation in the last 10 steps: 0.00483
-< Step 9 ended (duration: 0:00:00.247100)
+< Step 9 ended (duration: 0:00:00.460411)
 ------------------
 
 > Executing step 10
->> Running router on 9/input_trips_009.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:04.993740
->>> End time: 2020-08-20 11:13:05.104322
->>> Duration: 0:00:00.110582
+>> Running router on 009/input_trips_009.rou.alt.xml.gz
+>>> Begin time: 2025-10-08 21:12:58.415210
+>>> End time: 2025-10-08 21:12:58.583585
+>>> Duration: 0:00:00.168375
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:05.104496
->>> End time: 2020-08-20 11:13:05.228850
->>> Duration: 0:00:00.124354
+>>> Begin time: 2025-10-08 21:12:58.583623
+>>> End time: 2025-10-08 21:12:58.738147
+>>> Duration: 0:00:00.154524
 <<
 < relative travel time deviation in the last 10 steps: 0.00029
-< Step 10 ended (duration: 0:00:00.236629)
+< Step 10 ended (duration: 0:00:00.323675)
 ------------------
 
-dua-iterate ended (duration: 0:00:02.781727)
+dua-iterate ended (duration: 0:00:04.562901)

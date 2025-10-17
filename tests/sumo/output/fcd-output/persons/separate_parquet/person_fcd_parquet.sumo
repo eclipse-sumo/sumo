@@ -1,0 +1,3 @@
+timestep_time,person_id,person_x,person_y,person_angle,person_type,person_speed,person_pos,person_lane,person_edge,person_slope
+0.00,p0,390.15,401.65,270.00,DEFAULT_PEDTYPE,0.00,5.10,,1/1to0/1,0.00
+1.00,p0,388.16,401.65,270.00,DEFAULT_PEDTYPE,1.99,7.09,,1/1to0/1,0.00

@@ -117,6 +117,24 @@ GNECalibrator::~GNECalibrator() {
 }
 
 
+GNEMoveElement*
+GNECalibrator::getMoveElement() const {
+    return nullptr;
+}
+
+
+Parameterised*
+GNECalibrator::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNECalibrator::getParameters() const {
+    return this;
+}
+
+
 void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // open tag
@@ -173,13 +191,6 @@ GNECalibrator::getAdditionalProblem() const {
 void
 GNECalibrator::fixAdditionalProblem() {
     // nothing to fix
-}
-
-
-GNEMoveOperation*
-GNECalibrator::getMoveOperation() {
-    // calibrators cannot be moved
-    return nullptr;
 }
 
 
@@ -345,20 +356,26 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHIFTLANEINDEX:
             return "";
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNECalibrator::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNECalibrator::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNECalibrator::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -443,7 +460,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -572,7 +589,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             shiftLaneIndex();
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

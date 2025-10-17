@@ -197,6 +197,18 @@ GNELane::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELane::getParameters() {
+    return &(getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex));
+}
+
+
+const Parameterised*
+GNELane::getParameters() const {
+    return &(getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex));
+}
+
+
 GNEEdge*
 GNELane::getParentEdge() const {
     return getParentEdges().front();
@@ -707,14 +719,20 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getID();
         default:
-            return getCommonAttribute(&edge->getLaneStruct(myIndex), key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNELane::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNELane::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -725,7 +743,7 @@ GNELane::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -832,7 +850,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -860,12 +878,6 @@ GNELane::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNELane::getACParametersMap() const {
-    return getParentEdges().front()->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
 }
 
 
@@ -960,7 +972,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
             break;
         default:
-            setCommonAttribute(&edge->getLaneStruct(myIndex), key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update template

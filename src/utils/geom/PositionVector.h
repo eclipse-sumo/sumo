@@ -403,7 +403,10 @@ public:
     bool isNAN() const;
 
     /// @brief round all coordinates to the given precision
-    void round(int precision);
+    void round(int precision, bool avoidDegeneration = true);
+
+    /// @brief ensure minimum length so that the geometry will not degenerate to 0-length on writing with the given precision
+    void ensureMinLength(int precision);
 
     /** @brief Removes positions if too near
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS

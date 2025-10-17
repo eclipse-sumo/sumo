@@ -396,7 +396,7 @@ Time 61.0: Current lane of veh 'ToC_veh': WE_0
 time 61.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.35
-  currentSpeed = 11.89
+  currentSpeed = 12.39
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
 Time 62.0: Current lane of veh 'ToC_veh': WE_0

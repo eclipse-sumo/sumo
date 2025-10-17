@@ -64,6 +64,18 @@ GNERide::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERide::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERide::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);
@@ -251,12 +263,6 @@ GNERide::getPopUpID() const {
 std::string
 GNERide::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNERide::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

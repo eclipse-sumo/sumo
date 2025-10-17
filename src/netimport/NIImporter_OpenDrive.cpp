@@ -268,12 +268,38 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (posMap.find(e->junction) == posMap.end()) {
             posMap[e->junction] = Boundary();
         }
-        posMap[e->junction].add(e->geom.getBoxBoundary());
+        // Check if geometry is valid before adding to boundary
+        if (e->geom.size() > 0) {
+            Boundary geomBoundary = e->geom.getBoxBoundary();
+            // Only add if the boundary doesn't contain NaN values
+            if (geomBoundary.isInitialised() &&
+                !std::isnan(geomBoundary.xmin()) && !std::isnan(geomBoundary.xmax()) &&
+                !std::isnan(geomBoundary.ymin()) && !std::isnan(geomBoundary.ymax())) {
+                posMap[e->junction].add(geomBoundary);
+            } else {
+                WRITE_WARNINGF(TL("Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."),
+                               e->id, e->id, e->junction);
+            }
+        } else {
+            WRITE_WARNINGF(TL("Inner edge '%' (xodr road '%') in junction '%' has no geometry."),
+                           e->id, e->id, e->junction);
+        }
     }
     //   build nodes
     for (std::map<std::string, Boundary>::iterator i = posMap.begin(); i != posMap.end(); ++i) {
         //std::cout << " import node=" << (*i).first << " z=" << (*i).second.getCenter() << " boundary=" << (*i).second << "\n";
-        if (!nb.getNodeCont().insert((*i).first, (*i).second.getCenter())) {
+        // Check if the boundary was properly initialized
+        if (!(*i).second.isInitialised()) {
+            WRITE_ERRORF(TL("Junction '%' has no valid inner edges to determine its position."), (*i).first);
+            throw ProcessError(TLF("Could not determine position for junction '%'.", (*i).first));
+        }
+        Position center = (*i).second.getCenter();
+        // Double-check that the center position is valid
+        if (center.isNAN()) {
+            WRITE_ERRORF(TL("Junction '%' resulted in invalid (NaN) position."), (*i).first);
+            throw ProcessError(TLF("Could not compute valid position for junction '%'.", (*i).first));
+        }
+        if (!nb.getNodeCont().insert((*i).first, center)) {
             throw ProcessError(TLF("Could not add node '%'.", (*i).first));
         }
     }

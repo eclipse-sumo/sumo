@@ -93,6 +93,27 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             || altTag == GNE_TAG_FLOW_WITHROUTE
             || altTag == SUMO_TAG_FLOWSTATE) {
         dev.writeAttr(SUMO_ATTR_BEGIN, getDepart());
+
+        if (wasSet(VEHPARS_END_SET)) {
+            dev.writeAttr(SUMO_ATTR_END, time2string(repetitionEnd));
+        }
+        if (wasSet(VEHPARS_NUMBER_SET)) {
+            dev.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
+        }
+        if (wasSet(VEHPARS_VPH_SET)) {
+            dev.writeAttr(SUMO_ATTR_PERHOUR, 3600 / STEPS2TIME(repetitionOffset));
+        }
+        // netedit uses VEHPARS_POISSON_SET
+        if (wasSet(VEHPARS_PERIOD_SET) || wasSet(VEHPARS_POISSON_SET)) {
+            if (repetitionOffset >= 0 && !wasSet(VEHPARS_POISSON_SET)) {
+                dev.writeAttr(SUMO_ATTR_PERIOD, StringUtils::adjustDecimalValue(STEPS2TIME(repetitionOffset), 20));
+            } else {
+                dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(poissonRate, 20) + ")");
+            }
+        }
+        if (wasSet(VEHPARS_PROB_SET) && repetitionProbability > 0) {
+            dev.writeAttr(SUMO_ATTR_PROB, StringUtils::adjustDecimalValue(repetitionProbability, 20));
+        }
     } else {
         dev.writeAttr(SUMO_ATTR_DEPART, getDepart());
     }

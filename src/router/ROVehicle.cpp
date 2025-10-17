@@ -253,6 +253,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     const bool writeCosts = options.exists("write-costs") && options.getBool("write-costs");
     const bool writeExit = options.exists("exit-times") && options.getBool("exit-times");
     const bool writeLength = options.exists("route-length") && options.getBool("route-length");
+    const bool writeFlow = options.exists("keep-flows") && options.getBool("keep-flows") && isPartOfFlow();
 
     std::string routeID;
     if (writeNamedRoute) {
@@ -267,14 +268,15 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             routeID = it->second;
         }
     }
+    const SumoXMLTag tag = writeFlow ? SUMO_TAG_FLOW : (writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
     // write the vehicle (new style, with included routes)
     if (cloneIndex == 0) {
-        getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
+        getParameter().write(os, options, tag);
     } else {
         SUMOVehicleParameter p = getParameter();
         // @note id collisions may occur if scale-suffic occurs in other vehicle ids
         p.id += options.getString("scale-suffix") + toString(cloneIndex);
-        p.write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
+        p.write(os, options, tag);
     }
     // save the route
     if (writeTrip) {

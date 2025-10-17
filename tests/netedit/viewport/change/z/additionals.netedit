@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-12 15:11:21 by Eclipse SUMO netedit Version v1_21_0+1352-b02fb56f898
+<!-- generated on 2025-10-10T11:58:52.504528+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -95,10 +95,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <detExit lane="-E6_0" pos="4.80"/>
     </entryExitDetector>
     <!-- Other additionals -->
-    <rerouter id="rr_0" edges="E12" pos="-10.00,18.00"/>
-    <rerouter id="rr_1" edges="-E9" pos="10.00,-18.00"/>
-    <variableSpeedSign id="vs_1" lanes="-E5_0" pos="-22.00,-10.00"/>
-    <variableSpeedSign id="vs_2" lanes="-E2_0" pos="22.00,10.00"/>
+    <rerouter id="rr_0" pos="-10.00,18.00" edges="E12"/>
+    <rerouter id="rr_1" pos="10.00,-18.00" edges="-E9"/>
+    <variableSpeedSign id="vs_1" pos="-22.00,-10.00" lanes="-E5_0"/>
+    <variableSpeedSign id="vs_2" pos="22.00,10.00" lanes="-E2_0"/>
     <vaporizer id="-E10" begin="0.00" end="3600.00"/>
     <vaporizer id="-E11" begin="0.00" end="3600.00"/>
     <vaporizer id="E6" begin="0.00" end="3600.00"/>
@@ -108,18 +108,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <poly id="po_1" color="red" fill="1" layer="0.00" shape="8.000000,12.000000 8.000000,8.000000 12.000000,8.000000 12.000000,12.000000 8.000000,12.000000"/>
     <poly id="po_2" color="red" fill="1" layer="0.00" shape="8.000000,-8.000000 8.000000,-12.000000 12.000000,-12.000000 12.000000,-8.000000 8.000000,-8.000000"/>
     <poly id="po_3" color="red" fill="1" layer="0.00" shape="-8.000000,-8.000000 -12.000000,-8.000000 -12.000000,-12.000000 -8.000000,-12.000000 -8.000000,-8.000000"/>
-    <poi id="poi_0" color="red" layer="202.00" x="-26.00" y="8.00"/>
-    <poi id="poi_1" color="red" layer="202.00" x="-26.00" y="-8.00"/>
-    <poi id="poi_10" color="red" layer="202.00" lon="0.000234" lat="-0.000180"/>
-    <poi id="poi_11" color="red" layer="202.00" lon="-0.000234" lat="-0.000180"/>
-    <poi id="poi_2" color="red" layer="202.00" x="26.00" y="-8.00"/>
-    <poi id="poi_3" color="red" layer="202.00" x="26.00" y="8.00"/>
-    <poi id="poi_4" color="red" layer="202.00" lane="E0_1" pos="20.80"/>
-    <poi id="poi_5" color="red" layer="202.00" lane="-E0_1" pos="1.80"/>
-    <poi id="poi_6" color="red" layer="202.00" lane="-E1_1" pos="1.80"/>
-    <poi id="poi_7" color="red" layer="202.00" lane="E1_1" pos="20.80"/>
-    <poi id="poi_8" color="red" layer="202.00" lon="-0.000234" lat="0.000180"/>
-    <poi id="poi_9" color="red" layer="202.00" lon="0.000234" lat="0.000180"/>
+    <poi id="poi_0" x="-26.00" y="8.00"/>
+    <poi id="poi_1" x="-26.00" y="-8.00"/>
+    <poi id="poi_10" lon="0.000234" lat="-0.000180"/>
+    <poi id="poi_11" lon="-0.000234" lat="-0.000180"/>
+    <poi id="poi_2" x="26.00" y="-8.00"/>
+    <poi id="poi_3" x="26.00" y="8.00"/>
+    <poi id="poi_4" lane="E0_1" pos="20.80"/>
+    <poi id="poi_5" lane="-E0_1" pos="1.80"/>
+    <poi id="poi_6" lane="-E1_1" pos="1.80"/>
+    <poi id="poi_7" lane="E1_1" pos="20.80"/>
+    <poi id="poi_8" lon="-0.000234" lat="0.000180"/>
+    <poi id="poi_9" lon="0.000234" lat="0.000180"/>
     <!-- TAZs -->
     <taz id="taz_0" shape="-18.00,-14.00 -18.00,-16.00 -8.00,-16.00 -8.00,-14.00 -18.00,-14.00" fill="1" color="green">
         <tazSource id="-E0" weight="1.00"/>

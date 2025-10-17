@@ -1,0 +1,25 @@
+calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 100.0 --no-warnings --no-step-log -v --error-log errorlog.txt --keep-flows -o out.rou.xml
+Loading net ... done.
+Skipped until: 0.00
+DijkstraRouter answered 18 queries and explored 3.06 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.
+calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 100.0 --no-warnings --no-step-log -v --error-log errorlog.txt --keep-flows -o trips.trips.xml.tmp --write-trips
+Loading net ... done.
+Skipped until: 0.00
+DijkstraRouter answered 18 queries and explored 3.06 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.
+Only 8 out of 20 requested flows passed validation. Sampling again to find more.
+calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 100.0 --no-warnings --no-step-log -v --error-log errorlog.txt --keep-flows -o trips.trips.xml.tmp --write-trips
+Loading net ... done.
+Skipped until: 0.00
+DijkstraRouter answered 18 queries and explored 3.39 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.
+calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 100.0 --no-warnings --no-step-log -v --error-log errorlog.txt --keep-flows -o out.rou.xml
+Loading net ... done.
+Skipped until: 0.00
+DijkstraRouter answered 17 queries and explored 3.47 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.

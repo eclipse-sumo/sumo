@@ -32,7 +32,7 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, tag),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_POSITION, myStartPosOverLane,
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane,
                             SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
@@ -45,12 +45,14 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(pos + length),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
-    myShow(show) {
+    myShow(show),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // set parents
+    setParent<GNELane*>(lane);
 }
 
 
@@ -63,12 +65,14 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
     myStartPosOverLane(pos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPos),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lanes, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
     myTrafficLight(trafficLight),
-    myShow(show) {
+    myShow(show),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane, SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // set parents
+    setParents<GNELane*>(lanes);
 }
 
 
@@ -83,13 +87,19 @@ GNELaneAreaDetector::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneAreaDetector::getParameters() {
+    return this;
+}
+
+
 void
 GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device, (myTagProperty->getTag() == SUMO_TAG_LANE_AREA_DETECTOR));
     // write common detector parameters
     writeDetectorValues(device);
     // write specific attributes
@@ -143,7 +153,10 @@ GNELaneAreaDetector::updateGeometry() {
         computePathElement();
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
+        myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(),
+                                            myMoveElementLaneDouble->getStartFixedPositionOverLane(true),
+                                            myMoveElementLaneDouble->getEndFixedPositionOverLane(true),
+                                            myMoveElementLaneDouble->myMovingLateralOffset);
     }
 }
 
@@ -158,22 +171,41 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
         const double E2Exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
+        // check if draw geometry points
+        const bool movingGeometryPoints = drawMovingGeometryPoints();
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw E2
-            drawE2(s, d, E2Exaggeration);
+            drawE2(s, d, E2Exaggeration, movingGeometryPoints);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // check if draw geometry points
+            if (movingGeometryPoints) {
+                myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                        1, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
-        // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width,
-                E2Exaggeration, true, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+        // check if we're calculating the contour or the moving geometry points
+        if (movingGeometryPoints) {
+            if (myStartPosOverLane != INVALID_DOUBLE) {
+                myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
+                        getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+            }
+            if (movingGeometryPoints && (myEndPosPosOverLane != INVALID_DOUBLE)) {
+                myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
+                        getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+            }
+        } else {
+            // don't exaggerate contour
+            myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), getType(), s.detectorSettings.E2Width,
+                    E2Exaggeration, true, true, 0, nullptr, getParentLanes().front()->getParentEdge());
+        }
     }
 }
 
@@ -302,9 +334,6 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
 std::string
 GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
-            return parseIDs(getParentLanes());
         case SUMO_ATTR_POSITION:
             return toString(myStartPosOverLane);
         case SUMO_ATTR_ENDPOS:
@@ -321,8 +350,6 @@ GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
             return toString(myJamThreshold);
         case SUMO_ATTR_SHOW_DETECTOR:
             return toString(myShow);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
         default:
             return getDetectorAttribute(key);
     }
@@ -344,11 +371,21 @@ GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNELaneAreaDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
+}
+
+
+PositionVector
+GNELaneAreaDetector::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
+}
+
+
 void
 GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_TLID:
@@ -357,7 +394,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
         case SUMO_ATTR_SHOW_DETECTOR:
-        case SUMO_ATTR_FRIENDLY_POS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -370,13 +406,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
-            if (value.empty()) {
-                return false;
-            } else {
-                return canParse<std::vector<GNELane*> >(myNet, value, true);
-            }
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
@@ -393,8 +422,6 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_SHOW_DETECTOR:
             return canParse<bool>(value);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         default:
             return isDetectorValid(key, value);
     }
@@ -406,7 +433,7 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const double exaggeration) const {
+                            const double exaggeration, const bool movingGeometryPoints) const {
     // declare color
     RGBColor E2Color, textColor;
     // set color
@@ -434,9 +461,11 @@ GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualiz
     }
     // draw E2 Logo
     drawE2DetectorLogo(s, d, exaggeration, "E2", textColor);
-    // draw geometry points
-    drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-    drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+    // check if draw geometry points
+    if (movingGeometryPoints) {
+        drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+        drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+    }
     // pop layer matrix
     GLHelper::popMatrix();
 }
@@ -458,12 +487,16 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
     GUIGeometry::drawGeometry(d, geometry, s.detectorSettings.E2Width * exaggeration);
     // check if draw moving geometry points
     if (movingGeometryPoints) {
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(s, d, geometry.getShape().front(),  geometry.getShapeRotations().front(), E2Color, true);
-            drawRightGeometryPoint(s, d, geometry.getShape().back(), geometry.getShapeRotations().back(), E2Color, true);
-        } else if (segment->isFirstSegment()) {
+        if (segment->isFirstSegment()) {
+            // calculate and draw left geometry point
+            myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, geometry.getShape(),
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1, true);
             drawLeftGeometryPoint(s, d, geometry.getShape().front(), geometry.getShapeRotations().front(), E2Color, true);
-        } else if (segment->isLastSegment()) {
+        }
+        if (segment->isLastSegment()) {
+            // calculate and draw right  geometry point
+            myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, geometry.getShape(),
+                    getType(), s.neteditSizeSettings.additionalGeometryPointRadius, 1, true);
             drawRightGeometryPoint(s, d, geometry.getShape().back(), geometry.getShapeRotations().back(), E2Color, true);
             // draw arrow
             if (geometry.getShape().size() > 1) {
@@ -572,9 +605,6 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHOW_DETECTOR:
             myShow = parse<bool>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
             break;
         default:
             setDetectorAttribute(key, value);

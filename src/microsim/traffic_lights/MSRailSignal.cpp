@@ -140,7 +140,7 @@ MSRailSignal::updateCurrentPhase() {
     // green by default so vehicles can be inserted at the borders of the network
     std::string state(myLinks.size(), 'G');
     for (LinkInfo& li : myLinkInfos) {
-        if (li.myLink->getApproaching().size() > 0) {
+        if (li.myLink->getApproaching().size() > 0 && li.myControlled) {
             keepActive = true;
             Approaching closest = li.myLink->getClosest();
             MSDriveWay& driveway = li.getDriveWay(closest.first);
@@ -166,7 +166,7 @@ MSRailSignal::updateCurrentPhase() {
                 }
 #endif
             }
-        } else {
+        } else if (li.myControlled) {
             if (li.myDriveways.empty()) {
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
@@ -193,6 +193,8 @@ MSRailSignal::updateCurrentPhase() {
 #endif
                 }
             }
+        } else {
+            state[li.myLink->getTLIndex()] = 'O';
         }
     }
     if (myCurrentPhase.getState() != state) {
@@ -476,6 +478,8 @@ MSRailSignal::LinkInfo::reset() {
     myLastRerouteTime = -1;
     myLastRerouteVehicle = nullptr;
     myDriveways.clear();
+    myControlled = isRailwayOrShared(myLink->getViaLaneOrLane()->getPermissions())
+        && isRailwayOrShared(myLink->getLane()->getPermissions());
 }
 
 

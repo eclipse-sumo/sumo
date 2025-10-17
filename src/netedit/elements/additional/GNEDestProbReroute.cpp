@@ -55,6 +55,18 @@ GNEDestProbReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEDestProbReroute::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEDestProbReroute::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_DEST_PROB_REROUTE);
@@ -88,13 +100,6 @@ GNEDestProbReroute::fixAdditionalProblem() {
 bool
 GNEDestProbReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEDestProbReroute::getMoveOperation() {
-    // GNEDestProbReroutes cannot be moved
-    return nullptr;
 }
 
 
@@ -156,20 +161,26 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEDestProbReroute::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEDestProbReroute::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEDestProbReroute::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEDestProbReroute::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -201,7 +212,7 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -235,7 +246,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

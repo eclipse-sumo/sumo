@@ -101,3 +101,15 @@ the error message.
   command requires an additional key argument. To subscribe to
   VAR_PARAMETER_WITH_KEY, the function *subscribeParameterWithKey* is provided by the
   [python client](../TraCI/Interfacing_TraCI_from_Python.md).
+
+## Subscriptions with Parameters
+
+In addition to the two special cases above there is a general mechanism
+to subscribe to values which need extra parameters. In general you need to provide
+an additional map as parameter to the function where the key is the variable
+you want to subscribe to and the value is the value of the parameter (wrapped
+in the corresponding TraCIResult object in the C++ / Java case).
+
+If you need to subscribe to a value with multiple parameters this is currently only possible in python.
+You need to give a tuple of values where the first item describes the types of the parameters (always starting with a "t" for tuple and then "d", "i", "s" for floats, integers and strings respectively). The second item is the number of parameters and then the actual parameter values.
+One example would be: `param = {traci.constants.VAR_STOP_SPEED: ("tdd", 2, 0., 0.)}`.

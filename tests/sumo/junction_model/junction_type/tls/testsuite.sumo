@@ -18,3 +18,9 @@ low_decel
 
 # test yellow phase behavior with low decel value 
 low_decel_idm
+
+# test left-turning vehicles slowing down for crossing on the way out
+crossing_default_program
+
+# test left-turning vehicles not slowing down for red crossing on the way out
+crossing_incoming_program

@@ -45,6 +45,24 @@ GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement*
 GNERouteRef::~GNERouteRef() {}
 
 
+GNEMoveElement*
+GNERouteRef::getMoveElement() const {
+    return nullptr;
+}
+
+
+Parameterised*
+GNERouteRef::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERouteRef::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERouteRef::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create popup
@@ -60,8 +78,6 @@ GNERouteRef::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }
@@ -182,7 +198,7 @@ GNERouteRef::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -193,14 +209,14 @@ GNERouteRef::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return myProbability;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNERouteRef::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -242,7 +258,7 @@ GNERouteRef::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value) && (parse<double>(value) >= 0);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -256,12 +272,6 @@ GNERouteRef::getPopUpID() const {
 std::string
 GNERouteRef::getHierarchyName() const {
     return TLF("%: % -> %", myTagProperty->getTagStr(), getAttribute(GNE_ATTR_ROUTE_DISTRIBUTION), getAttribute(SUMO_ATTR_REFID));
-}
-
-
-const Parameterised::Map&
-GNERouteRef::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -279,7 +289,7 @@ GNERouteRef::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

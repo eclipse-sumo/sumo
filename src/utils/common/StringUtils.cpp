@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <string>
+#include <iomanip>
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -781,6 +782,25 @@ StringUtils::wrapText(const std::string s, int width) {
 void
 StringUtils::resetTranscoder() {
     myLCPTranscoder = nullptr;
+}
+
+
+std::string
+StringUtils::adjustDecimalValue(double value, int precision) {
+    // obtain value in string format with 20 decimals precision
+    auto valueStr = toString(value, precision);
+    // now clear all zeros
+    while (valueStr.size() > 1) {
+        if (valueStr.back() == '0') {
+            valueStr.pop_back();
+        } else if (valueStr.back() == '.') {
+            valueStr.pop_back();
+            return valueStr;
+        } else {
+            return valueStr;
+        }
+    }
+    return valueStr;
 }
 
 /****************************************************************************/

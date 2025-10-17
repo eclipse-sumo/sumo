@@ -62,15 +62,22 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this stoppingPlace
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this stoppingPlace
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this stoppingPlace
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this stoppingPlace (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /**@brief write additional element into a xml file
-    * @param[in] device device in which write parameters of additional element
-    */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
@@ -87,14 +94,12 @@ public:
     /// @{
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -113,44 +118,22 @@ public:
     /// @return This object's parent id
     std::string getParentName() const;
 
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+    /* @brief method for getting the Attribute of an XML key in position format
      * @param[in] key The attribute key
-     * @return double with the value associated to key
+     * @return position with the value associated to key
      */
-    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+    Position getAttributePosition(SumoXMLAttr key) const override;
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
-
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /* @brief method for getting the Attribute of an XML key in positionVector format
      * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
+     * @return positionVector with the value associated to key
      */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
-
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
@@ -158,17 +141,14 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
 
     /// @}
 
 protected:
-    /// @brief move element lane double
-    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
-
     /// @brief The start position over lane
     double myStartPosOverLane = 0;
 
@@ -183,6 +163,9 @@ protected:
 
     /// @brief angle
     double myAngle = 0;
+
+    /// @brief move element lane double
+    GNEMoveElementLaneDouble* myMoveElementLaneDouble = nullptr;
 
     /// @brief The position of the sign
     Position mySymbolPosition;
@@ -200,13 +183,19 @@ protected:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    std::string getStoppingPlaceAttribute(SumoXMLAttr key) const;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+    /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
     double getStoppingPlaceAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getStoppingPlaceAttributePosition(SumoXMLAttr key) const;
 
     /* @brief method for setting the stoppingPlace attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -222,7 +211,7 @@ protected:
     bool isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const;
 
     /// @brief method for setting the stoppingPlace attribute and nothing else (used in GNEChange_Attribute)
-    void setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    void setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @}
 
@@ -242,9 +231,6 @@ protected:
                                        const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
 private:
-    /// @brief set attribute after validation
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;
 

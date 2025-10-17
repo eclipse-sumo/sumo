@@ -35,7 +35,8 @@
 
 GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
     GNEDetector(net, SUMO_TAG_INDUCTION_LOOP),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
 
 
@@ -47,7 +48,10 @@ GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNENet
                 detectPersons, name, parameters),
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
+    // set parents
+    setParent<GNELane*>(lane);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -61,6 +65,12 @@ GNEInductionLoopDetector::~GNEInductionLoopDetector() {
 GNEMoveElement*
 GNEInductionLoopDetector::getMoveElement() const {
     return myMoveElementLaneSingle;
+}
+
+
+Parameterised*
+GNEInductionLoopDetector::getParameters() {
+    return this;
 }
 
 
@@ -103,7 +113,7 @@ GNEInductionLoopDetector::fixAdditionalProblem() {
 void
 GNEInductionLoopDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myMoveElementLaneSingle->myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(true), myMoveElementLaneSingle->myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -179,61 +189,31 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
 
 std::string
 GNEInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosOverLane);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPos);
-        default:
-            return getDetectorAttribute(key);
-    }
+    return getDetectorAttribute(key);
 }
 
 
 double
 GNEInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_POSITION:
-            return myPosOverLane;
-        default:
-            return getDetectorAttributeDouble(key);
-    }
+    return getDetectorAttributeDouble(key);
+}
+
+
+Position
+GNEInductionLoopDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
 }
 
 
 void
 GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_FRIENDLY_POS:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        default:
-            setDetectorAttribute(key, value, undoList);
-            break;
-    }
+    setDetectorAttribute(key, value, undoList);
 }
 
 
 bool
 GNEInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        default:
-            return isDetectorValid(key, value);
-    }
+    return isDetectorValid(key, value);
 }
 
 // ===========================================================================
@@ -245,12 +225,6 @@ GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value
     switch (key) {
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_POSITION:
-            myPosOverLane = parse<double>(value);
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPos = parse<bool>(value);
             break;
         default:
             setDetectorAttribute(key, value);

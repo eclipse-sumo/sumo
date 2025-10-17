@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-09T20:22:32.618320+01:00 by Eclipse SUMO netedit v1_24_0+1323-464d93253f6
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="short_mingap" minGap="1"/>
+    <vehicle id="v_0" depart="0.00">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="ego" depart="0.00" type="short_mingap">
+        <route edges="WC CN"/>
+    </vehicle>
+    <vehicle id="v_1" depart="10.00" departSpeed="avg" speedFactor="0.5" departPos="-3">
+        <route edges="EC CN"/>
+    </vehicle>
+</routes>

@@ -277,14 +277,14 @@ GNEEdgeData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEEdgeData::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
@@ -299,7 +299,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 bool
 GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 
@@ -327,7 +327,7 @@ GNEEdgeData::getHierarchyName() const {
 
 void
 GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
     if (!isTemplate()) {
         myDataIntervalParent->getDataSetParent()->updateAttributeColors();
     }

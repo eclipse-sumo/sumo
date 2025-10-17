@@ -75,12 +75,6 @@ GNEDemandElement::getHierarchicalElement() {
 }
 
 
-void
-GNEDemandElement::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // currently there isn't demand elements with removable geometry points
-}
-
-
 GUIGlObject*
 GNEDemandElement::getGUIGlObject() {
     return this;
@@ -394,6 +388,18 @@ GNEDemandElement::selectGLObject() {
 void
 GNEDemandElement::updateGLObject() {
     updateGeometry();
+}
+
+
+Position
+GNEDemandElement::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEDemandElement::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 

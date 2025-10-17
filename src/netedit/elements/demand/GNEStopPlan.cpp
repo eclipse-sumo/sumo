@@ -72,6 +72,18 @@ GNEStopPlan::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEStopPlan::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEStopPlan::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
@@ -422,12 +434,6 @@ GNEStopPlan::getPopUpID() const {
 std::string
 GNEStopPlan::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEStopPlan::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

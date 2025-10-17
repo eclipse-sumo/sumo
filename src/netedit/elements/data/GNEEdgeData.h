@@ -51,10 +51,10 @@ public:
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current edge data is visible
-    bool isGenericDataVisible() const;
+    bool isGenericDataVisible() const override;
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry() override;
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
@@ -64,7 +64,7 @@ public:
     /**@brief write data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
-    void writeGenericData(OutputDevice& device) const;
+    void writeGenericData(OutputDevice& device) const override;
 
     /// @brief check if current data set is valid to be written into XML (by default true, can be reimplemented in children)
     bool isGenericDataValid() const;
@@ -123,27 +123,27 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getAttribute(SumoXMLAttr key) const;
+    std::string getAttribute(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    double getAttributeDouble(SumoXMLAttr key) const;
+    double getAttributeDouble(SumoXMLAttr key) const override;
 
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value);
+    bool isValid(SumoXMLAttr key, const std::string& value) override;
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
@@ -151,15 +151,15 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
     /// @}
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    void setAttribute(SumoXMLAttr key, const std::string& value);
+    void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;

@@ -109,6 +109,18 @@ GNEVType::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVType::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEVType::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
@@ -509,7 +521,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return FALSE_STR;
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -556,14 +568,14 @@ GNEVType::getAttributeDouble(SumoXMLAttr key) const {
                 return parse<double>(myTagProperty->getDefaultStringValue(SUMO_ATTR_PROB));
             }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
 Position
 GNEVType::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
 }
 
 
@@ -903,7 +915,7 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -958,12 +970,6 @@ GNEVType::getPopUpID() const {
 std::string
 GNEVType::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
-}
-
-
-const Parameterised::Map&
-GNEVType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
@@ -1841,7 +1847,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myDefaultVehicleTypeModified = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // check if geometry must be marked as deprecated

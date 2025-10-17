@@ -35,7 +35,7 @@ class GNEParkingArea;
 // class definitions
 // ===========================================================================
 
-class GNEParkingAreaReroute : public GNEAdditional, public Parameterised {
+class GNEParkingAreaReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
@@ -48,13 +48,19 @@ public:
     /// @brief destructor
     ~GNEParkingAreaReroute();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this parkingAreaReroute
+    /// @{
 
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
+    /// @brief get GNEMoveElement associated with this parkingAreaReroute
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this parkingAreaReroute
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this parkingAreaReroute (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @}
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -79,7 +85,7 @@ public:
     /// @{
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
@@ -87,7 +93,7 @@ public:
     /// @{
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry() override;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -123,36 +129,45 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getAttribute(SumoXMLAttr key) const;
+    std::string getAttribute(SumoXMLAttr key) const override;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+    /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    double getAttributeDouble(SumoXMLAttr key) const;
+    double getAttributeDouble(SumoXMLAttr key) const override;
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const override;
+
+    /* @brief method for getting the Attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return positionVector with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value);
+    bool isValid(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    std::string getPopUpID() const;
+    std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    std::string getHierarchyName() const;
+    std::string getHierarchyName() const override;
 
     /// @}
 
@@ -165,7 +180,7 @@ protected:
 
 private:
     /// @brief set attribute after validation
-    void setAttribute(SumoXMLAttr key, const std::string& value);
+    void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief Invalidated copy constructor.
     GNEParkingAreaReroute(const GNEParkingAreaReroute&) = delete;

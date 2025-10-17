@@ -1,22 +1,22 @@
-Loading net-file from 'net3.net.xml' ... done (2ms).
+Loading net-file from 'net3.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
-Simulation ended at time: 503.00.
+Simulation version v1_24_0+1287-0b05e412587 started with time: 0.00.
+Simulation ended at time: 538.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.01s
- Real time factor: 41916.7
- UPS: 327416.666667
+ Real time factor: 38428.6
+ UPS: 263357.142857
 Vehicles:
  Inserted: 20
  Running: 0
  Waiting: 0
- Teleports: 3 (Jam: 2, Yield: 1)
+ Teleports: 2 (Jam: 2)
 Statistics (avg of 20):
- RouteLength: 130.66
- Speed: 1.63
- Duration: 196.45
- WaitingTime: 153.00
- TimeLoss: 153.48
- DepartDelay: 14.45
+ RouteLength: 133.69
+ Speed: 1.71
+ Duration: 184.35
+ WaitingTime: 139.10
+ TimeLoss: 139.58
+ DepartDelay: 29.95

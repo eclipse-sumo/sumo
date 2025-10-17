@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-29 12:26:17 by Eclipse SUMO netedit Version v1_20_0+1786-8c96f116c4d
+<!-- generated on 2025-10-10T10:58:43.388909+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <containerFlow id="cf_0" begin="10.00" departPos="0.00" color="red" end="3600.00" period="26.00">
+    <containerFlow id="cf_0" begin="10.00" end="3600.00" period="26" departPos="0.00" color="red">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
         <tranship from="Edge0" to="Edge1"/>
     </containerFlow>
-    <containerFlow id="cf_1" begin="12.00" departPos="11.00" color="blue" end="3800.00" period="26.00">
+    <containerFlow id="cf_1" begin="12.00" end="3800.00" period="26" departPos="11.00" color="blue">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

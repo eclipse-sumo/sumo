@@ -1,0 +1,4 @@
+Warning: Encountered mismatch in XML tags (expected vehicle but got person). Column names may be incorrect.
+Error: Incomplete attribute set, 'acceleration' is missing. This file format does not support Parquet output yet.
+Warning: Encountered mismatch in XML tags (expected vehicle but got person). Column names may be incorrect.
+Error: Incomplete attribute set, 'acceleration' is missing. This file format does not support Parquet output yet.

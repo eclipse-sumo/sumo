@@ -101,9 +101,9 @@ following form:
   <timestep time="<TIME_STEP>">
       <vehicle .../>
       ...
-      <person id="..." x="..." y="..." angle="..." type="..." speed="..." edge="..." slope="..."/>
+      <person id="..." x="..." y="..." angle="..." type="..." speed="..." pos="..." edge="..." slope="..."/>
       ...
-      <container id="..." x="..." y="..." angle="..." type="..." speed="..." edge="..." slope="..."/>
+      <container id="..." x="..." y="..." angle="..." type="..." speed="..." pos="..." edge="..." slope="..."/>
       ...
   </timestep>
 
@@ -115,6 +115,10 @@ following form:
 If persons or containers are transported within a vehicle, their
 respective `<person>` and `<container>` elements will be written as child elements of that
 vehicle.
+
+Person and container output can be written to a separate file using the option **--person-fcd-output**.
+If this option is given, the specified file will only contain containers and persons while the fcd-output
+will contain only vehicles.
 
 ## Filtering / Restricting Output
 

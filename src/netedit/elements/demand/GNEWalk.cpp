@@ -63,6 +63,18 @@ GNEWalk::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEWalk::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEWalk::getParameters() const {
+    return nullptr;
+}
+
+
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return getPlanPopUpMenu(app, parent);
@@ -272,12 +284,6 @@ GNEWalk::getPopUpID() const {
 std::string
 GNEWalk::getHierarchyName() const {
     return getPlanHierarchyName();
-}
-
-
-const Parameterised::Map&
-GNEWalk::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

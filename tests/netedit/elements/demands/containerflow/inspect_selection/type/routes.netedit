@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-13 12:21:20 by Eclipse SUMO netedit Version v1_21_0+1812-d38238bef51
+<!-- generated on 2025-10-10T10:58:42.197699+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,10 +19,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <containerFlow id="cf_0" type="typeC" begin="10.00" departPos="0.00" color="red" end="3600.00" containersPerHour="1200">
+    <containerFlow id="cf_0" type="typeC" begin="10.00" end="3600.00" perHour="1200.00" departPos="0.00" color="red">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="cf_1" type="typeC" begin="12.00" departPos="11.00" color="blue" end="3800.00" containersPerHour="11612.9">
+    <containerFlow id="cf_1" type="typeC" begin="12.00" end="3800.00" perHour="11612.90" departPos="11.00" color="blue">
         <tranship from="Edge1" to="Edge2"/>
     </containerFlow>
 </routes>

@@ -290,7 +290,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(color);
             // check if update lastWidth
             const double width = (onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration
-                * s.dataScaler.getScheme().getColor(getScaleValue(s, s.dataScaler.getActive())));
+                                  * s.dataScaler.getScheme().getColor(getScaleValue(s, s.dataScaler.getActive())));
             if (width != myLastWidth) {
                 myLastWidth = width;
             }
@@ -409,14 +409,14 @@ GNETAZRelData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNETAZRelData::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
@@ -445,7 +445,7 @@ GNETAZRelData::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) &&
                    (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -538,7 +538,7 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             if (!isTemplate()) {
                 myDataIntervalParent->getDataSetParent()->updateAttributeColors();
             }

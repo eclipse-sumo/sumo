@@ -35,7 +35,7 @@
 
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
     GNEAdditional("", net, "", tag, ""),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, nullptr, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
                             SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
@@ -49,10 +49,12 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),
     myFriendlyPosition(friendlyPosition),
-    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, lane, SUMO_ATTR_STARTPOS, myStartPosOverLane,
-                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)),
     myColor(color),
-    myAngle(angle) {
+    myAngle(angle),
+    myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
+                            SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
+    // set parents
+    setParent<GNELane*>(lane);
 }
 
 
@@ -64,6 +66,18 @@ GNEStoppingPlace::~GNEStoppingPlace() {
 GNEMoveElement*
 GNEStoppingPlace::getMoveElement() const {
     return myMoveElementLaneDouble;
+}
+
+
+Parameterised*
+GNEStoppingPlace::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEStoppingPlace::getParameters() const {
+    return this;
 }
 
 
@@ -171,7 +185,7 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementLaneDouble->writeMoveAttributes(device);
+    myMoveElementLaneDouble->writeMoveAttributes(device, false);
     // color (if defined)
     if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
@@ -184,7 +198,7 @@ GNEStoppingPlace::writeStoppingPlaceAttributes(OutputDevice& device) const {
 
 
 std::string
-GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const {
+GNEStoppingPlace::getStoppingPlaceAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -199,7 +213,7 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
         default:
-            return myMoveElementLaneDouble->getMovingAttribute(parameterised, key);
+            return myMoveElementLaneDouble->getMovingAttribute(key);
     }
 }
 
@@ -212,6 +226,12 @@ GNEStoppingPlace::getStoppingPlaceAttributeDouble(SumoXMLAttr key) const {
         default:
             return myMoveElementLaneDouble->getMovingAttributeDouble(key);
     }
+}
+
+
+Position
+GNEStoppingPlace::getStoppingPlaceAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementLaneDouble->getMovingAttributePosition(key);
 }
 
 
@@ -261,7 +281,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
 
 
 void
-GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value) {
+GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -294,7 +314,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             shiftLaneIndex();
             break;
         default:
-            myMoveElementLaneDouble->setMovingAttribute(parameterised, key, value);
+            myMoveElementLaneDouble->setMovingAttribute(key, value);
             break;
     }
 }
@@ -317,13 +337,19 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     laneShape.move2side(movingToSide * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myAdditionalGeometry.updateGeometry(laneShape, myMoveElementLaneDouble->getStartFixedPositionOverLane(), myMoveElementLaneDouble->getEndFixedPositionOverLane(), myMoveElementLaneDouble->myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(laneShape, myMoveElementLaneDouble->getStartFixedPositionOverLane(true), myMoveElementLaneDouble->getEndFixedPositionOverLane(true), myMoveElementLaneDouble->myMovingLateralOffset);
 }
 
 
-const Parameterised::Map&
-GNEStoppingPlace::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEStoppingPlace::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEStoppingPlace::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 

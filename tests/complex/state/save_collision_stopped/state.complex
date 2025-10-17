@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 08:58:13 by Eclipse SUMO sumo Version v1_23_1+1098-b5f7c6a5135
+<!-- generated on 2025-10-10T00:30:45.917007+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+1098-b5f7c6a5135" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_24_0+1341-5cfec16a0fc" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <delay number="26" begin="100" end="0" depart="468.000" time="0.000"/>
@@ -155,8 +155,8 @@
     <vehicle id="horizontal.48" type="SUMO_DEFAULT_TYPE" depart="48.000" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854774807 0 -1.000 0 0.000 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.49" type="SUMO_DEFAULT_TYPE" depart="49.000" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854774807 0 -1.000 0 0.000 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.49" type="SUMO_DEFAULT_TYPE" depart="49.000" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854774807 0 -1.000 0 0.000 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
-    <flowState id="always_right" type="SUMO_DEFAULT_TYPE" begin="0.000" period="1.000" next="50.000" end="10000.000" route="always_right" done="50" index="50"/>
-    <flowState id="horizontal" type="SUMO_DEFAULT_TYPE" begin="0.000" period="1.000" next="50.000" end="10000.000" route="horizontal" done="50" index="50"/>
+    <flowState id="always_right" type="SUMO_DEFAULT_TYPE" begin="0.000" end="10000.000" period="1" next="50.000" route="always_right" done="50" index="50"/>
+    <flowState id="horizontal" type="SUMO_DEFAULT_TYPE" begin="0.000" end="10000.000" period="1" next="50.000" route="horizontal" done="50" index="50"/>
     <lane id="1si_0">
         <vehicles value="horizontal.12 horizontal.11"/>
     </lane>

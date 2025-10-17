@@ -52,6 +52,48 @@ GNEMoveElementJunction::getMoveOperation() {
 }
 
 
+std::string
+GNEMoveElementJunction::getMovingAttribute(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttribute(key);
+}
+
+
+double
+GNEMoveElementJunction::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEMoveElementJunction::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementJunction::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
+void
+GNEMoveElementJunction::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    myMovedElement->setCommonAttribute(key, value, undoList);
+}
+
+
+bool
+GNEMoveElementJunction::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return myMovedElement->isCommonAttributeValid(key, value);
+}
+
+
+void
+GNEMoveElementJunction::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    myMovedElement->setCommonAttribute(key, value);
+}
+
+
 void
 GNEMoveElementJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited

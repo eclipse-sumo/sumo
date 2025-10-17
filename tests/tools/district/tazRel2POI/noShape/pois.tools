@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-08 09:53:44.185023 by Eclipse SUMO tazRel2POI.py v1_24_0+1261-916d2821e52
+<configuration>
+    <taz-file value="input_districts.xml"/>
+    <taz-relation-file value="input_tazrel.xml"/>
+    <output-file value="pois.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>

@@ -53,6 +53,18 @@ GNEParkingAreaReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEParkingAreaReroute::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEParkingAreaReroute::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
@@ -91,13 +103,6 @@ GNEParkingAreaReroute::fixAdditionalProblem() {
 bool
 GNEParkingAreaReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEParkingAreaReroute::getMoveOperation() {
-    // GNEParkingAreaReroutes cannot be moved
-    return nullptr;
 }
 
 
@@ -161,20 +166,26 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return toString(getParentAdditionals().at(0)->getID());
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEParkingAreaReroute::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEParkingAreaReroute::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEParkingAreaReroute::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEParkingAreaReroute::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -209,7 +220,7 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBLE:
             return canParse<bool>(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -246,7 +257,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVisible = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

@@ -155,9 +155,10 @@ GNEContour::calculateContourEdges(const GUIVisualizationSettings& s, const GUIVi
 
 void
 GNEContour::calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale,
+        const bool forceCalculation) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
+    if ((s.drawForViewObjectsHandler || forceCalculation) && (shape.size() > 0)) {
         // check position within geometry of first geometry point
         gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, 0, layer, (radius * scale));
     }
@@ -166,9 +167,10 @@ GNEContour::calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s
 
 void
 GNEContour::calculateContourLastGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double layer, double radius, const double scale,
+        const bool forceCalculation) const {
     // check if we're in drawForObjectUnderCursor
-    if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
+    if ((s.drawForViewObjectsHandler || forceCalculation) && (shape.size() > 0)) {
         // check position within geometry of last geometry point
         gViewObjectsHandler.checkGeometryPoint(d, glObject, shape, (int)shape.size() - 1, layer, (radius * scale));
     }

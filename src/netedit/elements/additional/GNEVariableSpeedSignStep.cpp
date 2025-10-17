@@ -53,6 +53,18 @@ GNEVariableSpeedSignStep::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVariableSpeedSignStep::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVariableSpeedSignStep::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STEP);
@@ -80,13 +92,6 @@ GNEVariableSpeedSignStep::getAdditionalProblem() const {
 void
 GNEVariableSpeedSignStep::fixAdditionalProblem() {
     // nothing to fix
-}
-
-
-GNEMoveOperation*
-GNEVariableSpeedSignStep::getMoveOperation() {
-    // VSS Steps cannot be moved
-    return nullptr;
 }
 
 
@@ -159,7 +164,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -170,14 +175,20 @@ GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_TIME:
             return (double)myTime;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNEVariableSpeedSignStep::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEVariableSpeedSignStep::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEVariableSpeedSignStep::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -227,7 +238,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -257,7 +268,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
             mySpeed = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

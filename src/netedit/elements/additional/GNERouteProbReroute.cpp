@@ -53,6 +53,18 @@ GNERouteProbReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERouteProbReroute::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERouteProbReroute::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE_PROB_REROUTE);
@@ -154,20 +166,26 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNERouteProbReroute::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNERouteProbReroute::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNERouteProbReroute::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNERouteProbReroute::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -199,7 +217,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -233,7 +251,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-08T08:42:33.268360+01:00 by Eclipse SUMO sumo v1_24_0+1253-fef8d3c1920
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="J1">
+        <link linkIndex="0" from="E0_0" to=":J1_0_0"/>
+        <link linkIndex="1" from="E0_0" to=":J1_1_0"/>
+        <link linkIndex="2" from="E3_0" to=":J1_2_0">
+            <driveWay id="J1.0" vehicle="v_0" edges="E4">
+                <forward lanes=":J1_2_0 E4_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="J1_0"/>
+                <foes driveWays="J1.0"/>
+            </driveWay>
+        </link>
+        <link linkIndex="3" from="E3_0" to=":J1_3_0"/>
+    </railSignal>
+    <departJunction id="J4">
+        <driveWay id="J4.d0" vehicle="v_0" edges="E3">
+            <forward lanes="E3_0"/>
+            <bidi lanes=""/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J4.d0"/>
+        </driveWay>
+    </departJunction>
+</railsignal-block-output>

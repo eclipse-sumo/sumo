@@ -132,18 +132,20 @@ definitions.
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
-The person enters the vehicle if it stops on the 'from' edge and any of
+The person enters the vehicle if it stops on the 'from' edge and all of
 the following conditions are met
 
 - the 'line' attribute of the vehicle or the 'id' of the vehicle is
   given in the list defined by the `lines` attribute of the ride OR
-  the lines attribute contains 'ANY' and the vehicle stops at the
-  destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined).
-- the `lines` attribute can be used to apply taxis, see [taxi](../Simulation/Taxi.md) for more information
-- the vehicle has a triggered stop and the person position is within
-  the range of `startpos,endPos` of the stop.
-- the vehicle has a timed stop and the person is waiting within 10m of
-  the vehicle position
+  the lines attribute contains 'ANY'
+- the vehicle stops at the destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined)
+- the vehicle is stopped in range of the person
+  - if the vehicle is stopped at a busStop or other stoppling place, all locations along the stop are in range
+  - if the vehicle stop defines attributes `startPos` and `endPos` any location within these values is in range
+  - if the vehicle is within range of option **--ride.stop-tolerance** (default *10*) 
+
+!!! note
+    The `lines` attribute can be used to hail taxis, see [taxi](../Simulation/Taxi.md) for more information
 
 The position of the person is either its `departPos` or the arrival position of
 the preceding plan element

@@ -52,6 +52,18 @@ GNERerouterInterval::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERerouterInterval::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERerouterInterval::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNERerouterInterval::writeAdditional(OutputDevice& device) const {
     // avoid write empty intervals
@@ -173,7 +185,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -186,14 +198,20 @@ GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return STEPS2TIME(myEnd);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNERerouterInterval::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNERerouterInterval::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNERerouterInterval::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -240,7 +258,7 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -270,7 +288,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEnd = parse<SUMOTime>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

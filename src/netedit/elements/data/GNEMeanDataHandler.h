@@ -33,7 +33,6 @@ class GNEEdge;
 // class definitions
 // ===========================================================================
 
-/// @class GNEMeanDataHandler
 class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
@@ -48,21 +47,24 @@ public:
 
     /// @name build functions
     /// @{
+
     /// @brief Builds edgeMeanData
     bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                           const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
-                           const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
-                           const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
-                           const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
-                           const std::vector<std::string>& vTypes, const double speedThreshold);
+                           const std::string& file, const std::string& type, const SUMOTime period, const SUMOTime begin,
+                           const SUMOTime end, const bool trackVehicles, const std::vector<std::string>& writtenAttributes,
+                           const bool aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
+                           const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                           const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
+                           const double speedThreshold);
 
     /// @brief Builds laneMeanData
     bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                           const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
-                           const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
-                           const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
-                           const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
-                           const std::vector<std::string>& vTypes, const double speedThreshold);
+                           const std::string& file, const std::string& type, const SUMOTime period, const SUMOTime begin,
+                           const SUMOTime end, const bool trackVehicles, const std::vector<std::string>& writtenAttributes,
+                           const bool aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
+                           const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                           const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
+                           const double speedThreshold);
 
     /// @}
 

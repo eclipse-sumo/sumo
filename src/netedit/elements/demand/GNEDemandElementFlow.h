@@ -51,9 +51,6 @@ protected:
     void drawFlowLabel(const Position& position, const double rotation, const double width,
                        const double length, const double exaggeration) const;
 
-    /// @brief write flow attributes
-    void writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const;
-
     /// @brief inherited from GNEAttributeCarrier and adapted to GNEDemandElementFlow
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -111,9 +108,6 @@ protected:
 private:
     /// @brief set flow default attributes
     void setDefaultFlowAttributes(GNEDemandElement* flowElement);
-
-    /// @brief adjust decimal value
-    std::string adjustDecimalValue(const double value, const int precission) const;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementFlow(const GNEDemandElementFlow&) = delete;

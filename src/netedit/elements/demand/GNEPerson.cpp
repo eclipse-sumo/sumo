@@ -174,6 +174,18 @@ GNEPerson::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPerson::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEPerson::getParameters() const {
+    return this;
+}
+
+
 void
 GNEPerson::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
@@ -188,8 +200,6 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         // write person attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty->getXMLTag(), getTypeParent()->getID());
     }
-    // write flow attributes
-    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write child demand elements associated to this person (Rides, Walks...)
@@ -503,7 +513,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             }
         }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+            return getCommonAttributePosition(key);
     }
 }
 
@@ -575,12 +585,6 @@ GNEPerson::getPopUpID() const {
 std::string
 GNEPerson::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEPerson::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

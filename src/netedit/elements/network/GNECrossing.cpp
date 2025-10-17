@@ -63,6 +63,18 @@ GNECrossing::getMoveElement() const {
 }
 
 
+Parameterised*
+GNECrossing::getParameters() {
+    return myTemplateNBCrossing;
+}
+
+
+const Parameterised*
+GNECrossing::getParameters() const {
+    return myTemplateNBCrossing;
+}
+
+
 bool
 GNECrossing::isNetworkElementValid() const {
     return getNBCrossing()->valid;
@@ -330,14 +342,20 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         default:
-            return getCommonAttribute(crossing, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNECrossing::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNECrossing::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -348,7 +366,7 @@ GNECrossing::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getNBCrossing()->customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -438,12 +456,6 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             return isValid(key, value);
     }
-}
-
-
-const Parameterised::Map&
-GNECrossing::getACParametersMap() const {
-    return getNBCrossing()->getParametersMap();
 }
 
 
@@ -649,7 +661,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             crossing->customShape = parse<PositionVector>(value);
             break;
         default:
-            setCommonAttribute(crossing, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing

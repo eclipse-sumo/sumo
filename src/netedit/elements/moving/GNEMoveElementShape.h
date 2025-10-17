@@ -46,42 +46,35 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
-    /// @name functions related with attributes
+    /// @name functions related with moving attributes
     /// @{
 
-    /* @brief method for getting the moving attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    std::string getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    /// @brief get moving attribute
+    std::string getMovingAttribute(SumoXMLAttr key) const override;
 
-    /* @brief method for getting the moving attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    double getMovingAttributeDouble(SumoXMLAttr key) const;
+    /// @brief get moving attribute double
+    double getMovingAttributeDouble(SumoXMLAttr key) const override;
 
-    /* @brief method for setting the moving attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    /// @brief get moving attribute position
+    Position getMovingAttributePosition(SumoXMLAttr key) const override;
 
-    /* @brief method for checking if the key and their correspond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+    /// @brief get moving attribute position vector
+    PositionVector getMovingAttributePositionVector(SumoXMLAttr key) const override;
 
-    /// @brief method for setting the moving attribute and nothing else (used in GNEChange_Attribute)
-    void setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    /// @brief set moving attribute (using undo-list)
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
+
+    /// @brief check if the given moving attribute is valid
+    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const override;
+
+    /// @brief set moving attribute
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @}
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
+
 
 //protected:
     /// @brief center position
@@ -98,10 +91,10 @@ private:
     const bool myAlwaysClosed = false;
 
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    void setMoveShape(const GNEMoveResult& moveResult) override;
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementShape(const GNEMoveElementShape&) = delete;

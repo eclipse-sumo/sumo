@@ -78,6 +78,8 @@ RONet::RONet() :
                     && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myDoPTRouting(!OptionsCont::getOptions().exists("ptline-routing")
                   || OptionsCont::getOptions().getBool("ptline-routing")),
+    myKeepFlows(OptionsCont::getOptions().exists("keep-flows")
+                  && OptionsCont::getOptions().getBool("keep-flows")),
     myHasBidiEdges(false) {
     if (myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
@@ -586,7 +588,24 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
         if (pars->line != "" && !myDoPTRouting) {
             continue;
         }
-        if (pars->repetitionProbability > 0) {
+        if (myKeepFlows) {
+            if (pars->repetitionsDone < pars->repetitionNumber) {
+                // each each flow only once
+                pars->repetitionsDone = pars->repetitionNumber;
+                const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+                if (type == nullptr) {
+                    type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
+                } else {
+                    auto dist = getVTypeDistribution(pars->vtypeid);
+                    if (dist != nullptr) {
+                        WRITE_WARNINGF("Keeping flow '%' with a vTypeDistribution can lead to invalid routes if the distribution contains different vClasses", pars->id);
+                    }
+                }
+                RORouteDef* route = getRouteDef(pars->routeid)->copy(pars->routeid, pars->depart);
+                ROVehicle* veh = new ROVehicle(*pars, route, type, this, errorHandler);
+                addVehicle(pars->id, veh);
+            }
+        } else if (pars->repetitionProbability > 0) {
             if (pars->repetitionEnd > pars->depart && pars->repetitionsDone < pars->repetitionNumber) {
                 myHaveActiveFlows = true;
             }

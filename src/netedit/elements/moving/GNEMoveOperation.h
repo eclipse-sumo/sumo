@@ -44,14 +44,7 @@ public:
         WIDTH,
         HEIGHT,
         LENGTH,
-        SINGLE_LANE,
-        SINGLE_LANE_MOVE_FIRST,
-        SINGLE_LANE_MOVE_LAST,
-        SINGLE_LANE_MOVE_BOTH,
-        MULTIPLE_LANES_MOVE_FIRST,
-        MULTIPLE_LANES_MOVE_LAST,
-        MULTIPLE_LANES_MOVE_BOTH_FIRST,
-        MULTIPLE_LANES_MOVE_BOTH_LAST
+        LANE
     };
 
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
@@ -86,8 +79,7 @@ public:
                      const GNELane* lane,
                      const double firstPosition,
                      const double lastPosition,
-                     const bool allowChangeLane,
-                     const OperationType operationType);
+                     const bool allowChangeLane);
 
     /// @brief constructor for elements placed over two lanes with two positions (E2 Multilane, vehicles..)
     GNEMoveOperation(GNEMoveElement* moveElement,
@@ -95,8 +87,8 @@ public:
                      const double firstStartPos,
                      const GNELane* lastLane,
                      const double lastStartPos,
-                     const bool allowChangeLane,
-                     const OperationType operationType);
+                     const double clickedFirstLane,
+                     const bool allowChangeLane);
 
     /// @brief destructor
     ~GNEMoveOperation();
@@ -122,6 +114,9 @@ public:
     /// @brief original last Position
     const double lastPosition = INVALID_DOUBLE;
 
+    /// @check if clicked the first lane or the last lane (used only in multilane elements like E2)
+    const bool clickedFirstLane = false;
+
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
      */
@@ -131,10 +126,10 @@ public:
     const std::vector<int> geometryPointsToMove;
 
     /// @brief allow change lane
-    const bool allowChangeLane;
+    const bool allowChangeLane = false;
 
     /// @brief first position (used for edit with/height
-    const bool firstGeometryPoint;
+    const bool firstGeometryPoint = false;
 
     /// @brief operation type
     const OperationType operationType;

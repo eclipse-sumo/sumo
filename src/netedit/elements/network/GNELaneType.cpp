@@ -54,6 +54,18 @@ GNELaneType::getMoveElement() const {
 }
 
 
+Parameterised*
+GNELaneType::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNELaneType::getParameters() const {
+    return this;
+}
+
+
 GNEEdgeType*
 GNELaneType::getEdgeTypeParent() const {
     return myEdgeTypeParent;
@@ -221,20 +233,26 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
                 return toString(width);
             }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNELaneType::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNELaneType::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
 PositionVector
 GNELaneType::getAttributePositionVector(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -265,14 +283,8 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
-}
-
-
-const Parameterised::Map&
-GNELaneType::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================
@@ -331,7 +343,7 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // update edge selector

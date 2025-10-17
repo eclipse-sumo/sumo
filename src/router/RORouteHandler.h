@@ -226,6 +226,9 @@ protected:
     /// @brief whether input is read all at once (no sorting check is necessary)
     const bool myUnsortedInput;
 
+    /// @brief whether flows shall not be expanded
+    const bool myWriteFlows;
+
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
 

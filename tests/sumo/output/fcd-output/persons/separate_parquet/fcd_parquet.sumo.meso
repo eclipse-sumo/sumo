@@ -1,0 +1,3 @@
+timestep_time,vehicle_id,vehicle_x,vehicle_y,vehicle_angle,vehicle_type,vehicle_speed,vehicle_pos,vehicle_lane,vehicle_edge,vehicle_slope
+0.00,p0_0,395.25,401.65,270.00,DEFAULT_VEHTYPE,10.00,0.00,,1/1to0/1,0.00
+1.00,p0_0,395.25,401.65,270.00,DEFAULT_VEHTYPE,10.00,0.00,,1/1to0/1,0.00

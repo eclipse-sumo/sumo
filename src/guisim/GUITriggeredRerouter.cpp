@@ -578,6 +578,9 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
         }
         GLHelper::popName();
     }
+    if (myEdgeType == REROUTER_TRIGGER_EDGE && s.addName.show(myParent)) {
+        GLHelper::drawTextSettings(s.addName, myParent->getMicrosimID(), myFGPositions.back(), s.scale, s.angle);
+    }
 }
 
 

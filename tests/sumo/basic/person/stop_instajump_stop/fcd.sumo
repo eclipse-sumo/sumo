@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-06 09:25:58 by Eclipse SUMO sumo Version 1.23.0
+<!-- generated on 2025-10-09T21:49:20.634344+01:00 by Eclipse SUMO sumo v1_24_0+1329-e45c39789b9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,10 +40,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <person id="person0" x="113.85" y="80.00" angle="270.00" speed="0.00" pos="80.00" edge="SC" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="person0" x="113.85" y="80.00" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="80.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <person id="person0" x="113.85" y="199.90" angle="270.00" speed="0.00" pos="86.80" edge="SC" slope="0.00" type="DEFAULT_PEDTYPE"/>
+        <person id="person0" x="113.85" y="199.90" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="86.80" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="2.00"/>
 </fcd-export>

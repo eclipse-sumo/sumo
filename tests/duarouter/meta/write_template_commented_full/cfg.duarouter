@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:47.416894+01:00 by Eclipse SUMO duarouter v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-10-09T23:53:36.633185+01:00 by Eclipse SUMO duarouter v1_24_0+1332-56495c6bf50
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -245,6 +245,9 @@
 
         <!-- Route all public transport input -->
         <ptline-routing value="false" type="BOOL"/>
+
+        <!-- Write flows instead of expanding them into vehicles -->
+        <keep-flows value="false" type="BOOL"/>
 
         <!-- Choose a route choice method: gawron, logit, or lohse -->
         <route-choice-method value="gawron" type="STR"/>

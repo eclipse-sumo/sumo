@@ -52,9 +52,14 @@ GNERerouterSymbol::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNERerouterSymbol::getMoveOperation() {
-    // GNERerouterSymbols cannot be moved
+Parameterised*
+GNERerouterSymbol::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNERerouterSymbol::getParameters() const {
     return nullptr;
 }
 
@@ -181,20 +186,26 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
-GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNERerouterSymbol::getAttributeDouble(SumoXMLAttr key) const {
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNERerouterSymbol::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNERerouterSymbol::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNERerouterSymbol::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -206,7 +217,7 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
 
 bool
 GNERerouterSymbol::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 
@@ -288,7 +299,7 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
 
 void
 GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
 }
 
 /****************************************************************************/

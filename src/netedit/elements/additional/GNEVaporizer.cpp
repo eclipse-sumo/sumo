@@ -57,10 +57,15 @@ GNEVaporizer::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNEVaporizer::getMoveOperation() {
-    // vaporizers cannot be moved
-    return nullptr;
+Parameterised*
+GNEVaporizer::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEVaporizer::getParameters() const {
+    return this;
 }
 
 
@@ -223,7 +228,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -236,14 +241,20 @@ GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return STEPS2TIME(myEnd);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNEVaporizer::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEVaporizer::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEVaporizer::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -294,7 +305,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -333,7 +344,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

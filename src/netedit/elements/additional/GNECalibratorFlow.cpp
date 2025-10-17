@@ -76,6 +76,18 @@ GNECalibratorFlow::getMoveElement() const {
 }
 
 
+Parameterised*
+GNECalibratorFlow::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNECalibratorFlow::getParameters() const {
+    return this;
+}
+
+
 void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     if (isAttributeEnabled(SUMO_ATTR_TYPE) || isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR) || isAttributeEnabled(SUMO_ATTR_SPEED)) {
@@ -87,10 +99,6 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
-        // VPH
-        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, getAttribute(SUMO_ATTR_VEHSPERHOUR));
-        }
         // write parameters
         SUMOVehicleParameter::writeParams(device);
         // close vehicle tag
@@ -122,13 +130,6 @@ GNECalibratorFlow::fixAdditionalProblem() {
 bool
 GNECalibratorFlow::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNECalibratorFlow::getMoveOperation() {
-    // calibrators flow cannot be moved
-    return nullptr;
 }
 
 
@@ -293,7 +294,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -324,14 +325,20 @@ GNECalibratorFlow::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_MINGAP:
             return getParentDemandElements().at(0)->getAttributeDouble(key);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNECalibratorFlow::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNECalibratorFlow::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNECalibratorFlow::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -473,7 +480,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_INSERTIONCHECKS:
             return areInsertionChecksValid(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -721,7 +728,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             insertionChecks = parseInsertionChecks(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

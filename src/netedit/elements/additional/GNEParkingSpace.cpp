@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/moving/GNEMoveElementView.h>
+#include <netedit/elements/moving/GNEMoveElementViewResizable.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/gui/div/GLHelper.h>
@@ -32,7 +32,9 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_PARKING_SPACE, ""),
-    myMoveElementView(new GNEMoveElementView(this)) {
+    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
+                               myPosOverView, myWidth, myLength)) {
 }
 
 
@@ -42,7 +44,12 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
                                  const Parameterised::Map& parameters) :
     GNEAdditional(parkingAreaParent, SUMO_TAG_PARKING_SPACE, name),
     Parameterised(parameters),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, pos, width, 0, length)),
+    myPosOverView(pos),
+    myWidth(width),
+    myLength(length),
+    myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
+                               GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
+                               myPosOverView, myWidth, myLength)),
     myAngle(angle),
     mySlope(slope) {
     // set parents
@@ -53,13 +60,25 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
 
 
 GNEParkingSpace::~GNEParkingSpace() {
-    delete myMoveElementView;
+    delete myMoveElementViewResizable;
 }
 
 
 GNEMoveElement*
 GNEParkingSpace::getMoveElement() const {
-    return myMoveElementView;
+    return myMoveElementViewResizable;
+}
+
+
+Parameterised*
+GNEParkingSpace::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEParkingSpace::getParameters() const {
+    return this;
 }
 
 
@@ -69,13 +88,13 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     // write common additional attributes
     writeAdditionalAttributes(device);
     // write move atributes
-    myMoveElementView->writeMoveAttributes(device);
+    myMoveElementViewResizable->writeMoveAttributes(device);
     // write specific attributes
-    if (myMoveElementView->myWidth != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_WIDTH, myMoveElementView->myWidth);
+    if (myWidth != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
-    if (myMoveElementView->myLength != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_LENGTH, myMoveElementView->myLength);
+    if (myLength != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
     if (myAngle != INVALID_DOUBLE) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
@@ -129,19 +148,19 @@ GNEParkingSpace::updateGeometry() {
     const double width = getAttributeDouble(SUMO_ATTR_WIDTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_WIDTH);
     const double length = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
     // calculate shape length
-    myMoveElementView->myShapeLength.clear();
-    myMoveElementView->myShapeLength.push_back(Position(0, 0));
-    myMoveElementView->myShapeLength.push_back(Position(0, length));
+    myMoveElementViewResizable->myShapeHeight.clear();
+    myMoveElementViewResizable->myShapeHeight.push_back(Position(0, 0));
+    myMoveElementViewResizable->myShapeHeight.push_back(Position(0, length));
     // rotate
-    myMoveElementView->myShapeLength.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
+    myMoveElementViewResizable->myShapeHeight.rotate2D(DEG2RAD(getAttributeDouble(SUMO_ATTR_ANGLE)));
     // move
-    myMoveElementView->myShapeLength.add(myMoveElementView->myPosOverView);
+    myMoveElementViewResizable->myShapeHeight.add(myPosOverView);
     // calculate shape width
-    PositionVector leftShape = myMoveElementView->myShapeLength;
+    PositionVector leftShape = myMoveElementViewResizable->myShapeHeight;
     leftShape.move2side(width * -0.5);
-    PositionVector rightShape = myMoveElementView->myShapeLength;
+    PositionVector rightShape = myMoveElementViewResizable->myShapeHeight;
     rightShape.move2side(width * 0.5);
-    myMoveElementView->myShapeWidth = {leftShape.getCentroid(), rightShape.getCentroid()};
+    myMoveElementViewResizable->myShapeWidth = {leftShape.getCentroid(), rightShape.getCentroid()};
     // update centering boundary
     updateCenteringBoundary(true);
 }
@@ -149,7 +168,7 @@ GNEParkingSpace::updateGeometry() {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return myMoveElementView->myPosOverView;
+    return myPosOverView;
 }
 
 
@@ -162,15 +181,15 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     // first reset boundary
     myAdditionalBoundary.reset();
     // add position
-    myAdditionalBoundary.add(myMoveElementView->myPosOverView);
+    myAdditionalBoundary.add(myPosOverView);
     // add center
-    myAdditionalBoundary.add(myMoveElementView->myPosOverView);
+    myAdditionalBoundary.add(myPosOverView);
     // add width
-    for (const auto& pos : myMoveElementView->myShapeWidth) {
+    for (const auto& pos : myMoveElementViewResizable->myShapeWidth) {
         myAdditionalBoundary.add(pos);
     }
     // add length
-    for (const auto& pos : myMoveElementView->myShapeLength) {
+    for (const auto& pos : myMoveElementViewResizable->myShapeHeight) {
         myAdditionalBoundary.add(pos);
     }
     // grow
@@ -203,7 +222,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get exaggeration
         const double spaceExaggeration = getExaggeration(s);
         // get witdh
-        const double parkingSpaceWidth = myMoveElementView->myShapeWidth.length2D() * 0.5 + (spaceExaggeration * 0.1);
+        const double parkingSpaceWidth = myMoveElementViewResizable->myShapeWidth.length2D() * 0.5 + (spaceExaggeration * 0.1);
         // get detail level
         const auto d = s.getDetailLevel(spaceExaggeration);
         // check if draw moving geometry points
@@ -215,7 +234,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myMoveElementView->myShapeLength.getPolygonCenter(), spaceExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myMoveElementViewResizable->myShapeHeight.getPolygonCenter(), spaceExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
@@ -228,13 +247,13 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 // get mouse position
                 const Position mousePosition = myNet->getViewNet()->getPositionInformation();
                 // check if we're editing width or height
-                if (myMoveElementView->myShapeLength.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
-                    myMoveElementView->myMovingContourUp.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-                    myMoveElementView->myMovingContourDown.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-                } else if ((myMoveElementView->myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
-                           (myMoveElementView->myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
-                    myMoveElementView->myMovingContourLeft.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-                    myMoveElementView->myMovingContourRight.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                if (myMoveElementViewResizable->myShapeHeight.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
+                    myMoveElementViewResizable->myMovingContourUp.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMoveElementViewResizable->myMovingContourDown.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                } else if ((myMoveElementViewResizable->myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                           (myMoveElementViewResizable->myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                    myMoveElementViewResizable->myMovingContourLeft.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMoveElementViewResizable->myMovingContourRight.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
                 }
             } else {
                 myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
@@ -252,14 +271,12 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-        case SUMO_ATTR_POSITION:
-            return toString(myMoveElementView->myPosOverView);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_WIDTH:
-            return (myMoveElementView->myWidth != INVALID_DOUBLE) ? toString(myMoveElementView->myWidth) : "";
+            return (myWidth != INVALID_DOUBLE) ? toString(myWidth) : "";
         case SUMO_ATTR_LENGTH:
-            return (myMoveElementView->myLength != INVALID_DOUBLE) ? toString(myMoveElementView->myLength) : "";
+            return (myLength != INVALID_DOUBLE) ? toString(myLength) : "";
         case SUMO_ATTR_ANGLE:
             return (myAngle != INVALID_DOUBLE) ? toString(myAngle) : "";;
         case SUMO_ATTR_SLOPE:
@@ -271,7 +288,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
                 return getParentAdditionals().at(0)->getID();
             }
         default:
-            return getCommonAttribute(this, key);
+            return myMoveElementViewResizable->getMovingAttribute(key);
     }
 }
 
@@ -280,20 +297,26 @@ double
 GNEParkingSpace::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_WIDTH:
-            return (myMoveElementView->myWidth != INVALID_DOUBLE) ? myMoveElementView->myWidth : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH);
+            return (myWidth != INVALID_DOUBLE) ? myWidth : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_WIDTH);
         case SUMO_ATTR_LENGTH:
-            return (myMoveElementView->myLength != INVALID_DOUBLE) ? myMoveElementView->myLength : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH);
+            return (myLength != INVALID_DOUBLE) ? myLength : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_LENGTH);
         case SUMO_ATTR_ANGLE:
             return (myAngle != INVALID_DOUBLE) ? myAngle : getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ANGLE);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return myMoveElementViewResizable->getMovingAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNEParkingSpace::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEParkingSpace::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementViewResizable->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEParkingSpace::getAttributePositionVector(SumoXMLAttr key) const {
+    return myMoveElementViewResizable->getMovingAttributePositionVector(key);
 }
 
 
@@ -303,7 +326,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -313,7 +335,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementViewResizable->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -322,8 +344,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_WIDTH:
@@ -337,7 +357,7 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARENT:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementViewResizable->isMovingAttributeValid(key, value);
     }
 }
 
@@ -376,9 +396,9 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
     // set contour color
     GLHelper::setColor(contourColor);
     // draw extern
-    GLHelper::drawBoxLines(myMoveElementView->myShapeLength, width);
+    GLHelper::drawBoxLines(myMoveElementViewResizable->myShapeHeight, width);
     // make a copy of myShapeLength and scale
-    PositionVector shapeLengthInner = myMoveElementView->myShapeLength;
+    PositionVector shapeLengthInner = myMoveElementViewResizable->myShapeHeight;
     shapeLengthInner.scaleAbsolute(-0.1);
     // draw intern
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
@@ -391,12 +411,12 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
     }
     // draw geometry points
     if (movingGeometryPoints) {
-        if (myMoveElementView->myShapeLength.size() > 0) {
-            drawUpGeometryPoint(s, d, myMoveElementView->myShapeLength.back(), angle, RGBColor::ORANGE);
+        if (myMoveElementViewResizable->myShapeHeight.size() > 0) {
+            drawUpGeometryPoint(s, d, myMoveElementViewResizable->myShapeHeight.back(), angle, RGBColor::ORANGE);
         }
-        if (myMoveElementView->myShapeWidth.size() > 0) {
-            drawLeftGeometryPoint(s, d, myMoveElementView->myShapeWidth.back(), angle - 90, RGBColor::ORANGE);
-            drawRightGeometryPoint(s, d, myMoveElementView->myShapeWidth.front(), angle - 90, RGBColor::ORANGE);
+        if (myMoveElementViewResizable->myShapeWidth.size() > 0) {
+            drawLeftGeometryPoint(s, d, myMoveElementViewResizable->myShapeWidth.back(), angle - 90, RGBColor::ORANGE);
+            drawRightGeometryPoint(s, d, myMoveElementViewResizable->myShapeWidth.front(), angle - 90, RGBColor::ORANGE);
         }
     }
     // pop layer matrix
@@ -409,14 +429,14 @@ GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const 
                                        const double width, const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
-        myMoveElementView->myMovingContourUp.calculateContourCircleShape(s, d, this, myMoveElementView->myShapeLength.back(), s.neteditSizeSettings.additionalGeometryPointRadius,
+        myMoveElementViewResizable->myMovingContourUp.calculateContourCircleShape(s, d, this, myMoveElementViewResizable->myShapeHeight.back(), s.neteditSizeSettings.additionalGeometryPointRadius,
                 getType(), exaggeration, nullptr);
-        myMoveElementView->myMovingContourLeft.calculateContourCircleShape(s, d, this, myMoveElementView->myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(),
+        myMoveElementViewResizable->myMovingContourLeft.calculateContourCircleShape(s, d, this, myMoveElementViewResizable->myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(),
                 exaggeration, nullptr);
-        myMoveElementView->myMovingContourRight.calculateContourCircleShape(s, d, this, myMoveElementView->myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(),
+        myMoveElementViewResizable->myMovingContourRight.calculateContourCircleShape(s, d, this, myMoveElementViewResizable->myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, getType(),
                 exaggeration, nullptr);
     } else {
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myMoveElementView->myShapeLength, getType(), width, exaggeration, true, true, 0, nullptr, nullptr);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myMoveElementViewResizable->myShapeHeight, getType(), width, exaggeration, true, true, 0, nullptr, nullptr);
     }
 }
 
@@ -424,34 +444,21 @@ GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const 
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_POSITION:
-            myMoveElementView->myPosOverView = parse<Position>(value);
-            // update geometry
-            updateGeometry();
-            break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
             break;
         case SUMO_ATTR_WIDTH:
             if (value.empty()) {
-                myMoveElementView->myWidth = INVALID_DOUBLE;
+                myWidth = INVALID_DOUBLE;
             } else {
-                myMoveElementView->myWidth = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
+                myWidth = parse<double>(value);
             }
             break;
         case SUMO_ATTR_LENGTH:
             if (value.empty()) {
-                myMoveElementView->myLength = INVALID_DOUBLE;
+                myLength = INVALID_DOUBLE;
             } else {
-                myMoveElementView->myLength = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
+                myLength = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ANGLE:
@@ -459,10 +466,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myAngle = INVALID_DOUBLE;
             } else {
                 myAngle = parse<double>(value);
-            }
-            // update geometry (except for template)
-            if (getParentAdditionals().size() > 0) {
-                updateGeometry();
             }
             break;
         case SUMO_ATTR_SLOPE:
@@ -472,8 +475,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 0);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            myMoveElementViewResizable->setMovingAttribute(key, value);
             break;
+    }
+    // update geometry (except for template)
+    if (getParentAdditionals().size() > 0) {
+        updateGeometry();
     }
 }
 

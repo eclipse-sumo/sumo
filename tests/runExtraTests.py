@@ -55,7 +55,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,"
             "sumo.agg.ballistic,sumo.agg.idm,sumo.agg.sublanes,"
             "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"
-            "complex.meso,complex.libsumo,complex.libtraci")
+            "complex.meso,complex.libsumo,complex.libtraci,tools.extra")
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
     if guiTests:

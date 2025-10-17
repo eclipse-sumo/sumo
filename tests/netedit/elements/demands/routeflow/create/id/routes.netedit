@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-04 11:58:48 by Eclipse SUMO netedit Version v1_23_1+0854-33fe8167922
+<!-- generated on 2025-10-10T10:53:35.817122+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,8 +18,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <route id="r_0" edges="Edge0 Edge1 Edge2"/>
     <route id="r_1" edges="Edge3 Edge4 Edge5"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="customID" begin="0.00" route="r_0" end="3600.00" vehsPerHour="1800"/>
-    <flow id="f_0" begin="0.00" route="r_0" end="3600.00" vehsPerHour="1800"/>
-    <flow id="f_1" begin="0.00" route="r_1" end="3600.00" vehsPerHour="1800"/>
-    <flow id="f_2" begin="0.00" route="r_0" end="3600.00" vehsPerHour="1800"/>
+    <flow id="customID" begin="0.00" end="3600.00" perHour="1800.00" route="r_0"/>
+    <flow id="f_0" begin="0.00" end="3600.00" perHour="1800.00" route="r_0"/>
+    <flow id="f_1" begin="0.00" end="3600.00" perHour="1800.00" route="r_1"/>
+    <flow id="f_2" begin="0.00" end="3600.00" perHour="1800.00" route="r_0"/>
 </routes>

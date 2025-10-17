@@ -42,6 +42,9 @@ def get_options(args=None):
     op.add_argument("-d", "--taz-relation-file", category="input", dest="tazrel",
                     required=True, type=op.additional_file,
                     help="define taz file to be loaded")
+    op.add_argument("-n", "--net-file", category="input", dest="netfile",
+                    type=op.net_file,
+                    help="define net file for determining taz centers")
     # output
     op.add_argument("-o", "--output-file", category="output", dest="outfile",
                     required=True, type=op.additional_file,
@@ -53,7 +56,17 @@ def get_options(args=None):
                     help="define the metric to visualize ('in', 'out', 'all')")
 
     options = op.parse_args(args=args)
+    options.net = None
     return options
+
+
+def addEdgeShape(net, edge, shape, tazID):
+    if net.hasEdge(edge):
+        e = net.getEdge(edge)
+        shape.append(e.getFromNode().getCoord())
+        shape.append(e.getToNode().getCoord())
+    else:
+        print("Edge '%s' in TAZ '%s' not found." % (edge, tazID), file=sys.stderr)
 
 
 def main(options):
@@ -71,11 +84,37 @@ def main(options):
         for taz in sumolib.xml.parse(options.taz, ['taz']):
             if taz.center:
                 x, y = taz.center.split(',')
-            else:
+            elif taz.shape:
                 shape = []
                 for xy in taz.shape.split():
                     x, y = xy.split(',')
                     shape.append((float(x), float(y)))
+                bbox = sumolib.geomhelper.addToBoundingBox(shape)
+                x = (bbox[0] + bbox[2]) / 2
+                y = (bbox[1] + bbox[3]) / 2
+            else:
+                # compute shape from edges
+                if options.net is None:
+                    if options.netfile is None:
+                        print(("TAZ '%s' because it doesn't define 'center' or 'shape'." % taz.id)
+                              + " Option --net-file must be set to handle this input",
+                              file=sys.stderr)
+                        continue
+                    options.net = sumolib.net.readNet(options.netfile)
+                shape = []
+                if taz.edges:
+                    for edge in taz.edges.split():
+                        addEdgeShape(options.net, edge, shape, taz.id)
+                if taz.tazSource:
+                    for ts in taz.tazSource:
+                        addEdgeShape(options.net, ts.id, shape, taz.id)
+                if taz.tazSink:
+                    for ts in taz.tazSink:
+                        addEdgeShape(options.net, ts.id, shape, taz.id)
+                if not shape:
+                    print(("Skipping TAZ '%s' because no edges were found." % taz.id), file=sys.stderr)
+                    continue
+
                 bbox = sumolib.geomhelper.addToBoundingBox(shape)
                 x = (bbox[0] + bbox[2]) / 2
                 y = (bbox[1] + bbox[3]) / 2
@@ -93,6 +132,7 @@ def main(options):
             outf.write('        <param key="all" value="%s"/>\n' % (relsFrom[taz.id] + relsTo[taz.id]))
             outf.write('    </poi>\n')
         outf.write('</additional>\n')
+
 
 if __name__ == "__main__":
     try:

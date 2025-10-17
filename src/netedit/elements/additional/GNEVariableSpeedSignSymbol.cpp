@@ -52,9 +52,14 @@ GNEVariableSpeedSignSymbol::getMoveElement() const {
 }
 
 
-GNEMoveOperation*
-GNEVariableSpeedSignSymbol::getMoveOperation() {
-    // GNEVariableSpeedSignSymbols cannot be moved
+Parameterised*
+GNEVariableSpeedSignSymbol::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEVariableSpeedSignSymbol::getParameters() const {
     return nullptr;
 }
 
@@ -153,20 +158,26 @@ GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         default:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
-GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    return 0;
+GNEVariableSpeedSignSymbol::getAttributeDouble(SumoXMLAttr key) const {
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEVariableSpeedSignSymbol::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEVariableSpeedSignSymbol::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEVariableSpeedSignSymbol::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -178,7 +189,7 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& val
 
 bool
 GNEVariableSpeedSignSymbol::isValid(SumoXMLAttr key, const std::string& value) {
-    return isCommonValid(key, value);
+    return isCommonAttributeValid(key, value);
 }
 
 
@@ -249,7 +260,7 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
 
 void
 GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setCommonAttribute(this, key, value);
+    setCommonAttribute(key, value);
 }
 
 /****************************************************************************/

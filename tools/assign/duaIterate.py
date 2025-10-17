@@ -28,7 +28,6 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import glob
 import argparse
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -91,7 +90,7 @@ def addGenericOptions(argParser):
     argParser.add_argument("--measure-vtypes", dest="measureVTypes", type=str,
                            help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
-                           default=False, help="zip old iterations using 7zip")
+                           default=False, help="zip old iterations (non-functional, kept for backwards compatibility)")
     argParser.add_argument("-s", "--method-of-successive-average", action="store_true", dest="MSA",
                            default=False, help="apply the method of successive average as the swapping algorithm")
 
@@ -173,10 +172,10 @@ def initOptions():
                            help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
-    argParser.add_argument("--binary", dest="gzip", action="store_true", default=False,
-                           help="alias for --gzip")
-    argParser.add_argument("--gzip", action="store_true", default=False,
-                           help="writing intermediate and resulting route files in gzipped format")
+    argParser.add_argument("--gzip", "--binary", action="store_true", default=True,
+                           help="writing intermediate and resulting route files in gzipped format (the default)")
+    argParser.add_argument("--no-gzip", dest="gzip", action="store_false")
+    argParser.set_defaults(gzip=True)
     argParser.add_argument("--dualog", default="dua.log", category="output", help="log file path (default 'dua.log')")
     argParser.add_argument("--log", default="stdout.log", category="output",
                            help="stdout log file path (default 'stdout.log')")
@@ -277,9 +276,10 @@ def get_scale(options, step):
 
 def get_dumpfilename(options, step, prefix, full_path=True):
     # the file to which edge costs (traveltimes) are written
+    suffix = ".xml.gz" if getattr(options, "gzip", False) else ".xml"
     if full_path:
-        return "%03i/%s_%s.xml" % (step, prefix, options.aggregation)
-    return "%s_%s.xml" % (prefix, options.aggregation)
+        return "%03i/%s_%s%s" % (step, prefix, options.aggregation, suffix)
+    return "%s_%s%s" % (prefix, options.aggregation, suffix)
 
 
 def get_weightfilename(options, step, prefix):
@@ -448,8 +448,10 @@ def calcMarginalCost(step, options):
     if step > 1:
         if DEBUGLOG:
             log = open("marginal_cost2.log", "w" if step == 2 else "a")
-        tree_sumo_cur = ET.parse(get_weightfilename(options, step - 1, "dump"))
-        tree_sumo_prv = ET.parse(get_weightfilename(options, step - 2, "dump"))
+        with sumolib.openz(get_weightfilename(options, step - 1, "dump")) as f:
+            tree_sumo_cur = ET.parse(f)
+        with sumolib.openz(get_weightfilename(options, step - 2, "dump")) as f:
+            tree_sumo_prv = ET.parse(f)
         oldValues = defaultdict(dict)
         for interval_prv in tree_sumo_prv.getroot():
             begin_prv = interval_prv.attrib.get("begin")
@@ -552,14 +554,7 @@ def main(args=None):
     sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
     log = open(options.dualog, "w+")
     if options.zip:
-        if options.clean_alt:
-            sys.exit("Error: Please use either --zip or --clean-alt but not both.")
-        try:
-            subprocess.call("7z", stdout=open(os.devnull, 'wb'))
-        except Exception:
-            sys.exit("Error: Could not locate 7z, please make sure its on the search path.")
-        zipProcesses = {}
-        zipLog = open("7zip.log", "w+")
+        print("Warning: Option -7/--zip is deprecated and has no effect.", file=sys.stderr)
     starttime = datetime.now()
     if options.trips:
         input_demands = options.trips.split(",")
@@ -572,7 +567,7 @@ def main(args=None):
                                 )
     routesSuffix = ".xml"
     if options.gzip:
-        routesSuffix = ".gz"
+        routesSuffix += ".gz"
 
     if options.weightmemory and options.firstStep != 0:
         # load previous dump files when continuing a run
@@ -658,23 +653,6 @@ def main(args=None):
             print(">>> Absolute Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_abs_error(), costmemory.mean_abs_error()))
 
-        if options.zip and step - options.firstStep > 1:
-            # this is a little hackish since we zip and remove all files by glob, which may have undesired side effects
-            # also note that the 7z file does not have an "_" before the
-            # iteration number in order to be not picked up by the remove
-            for s in list(zipProcesses.keys()):
-                if zipProcesses[s].poll() is not None:
-                    for f in glob.glob("*_%03i*" % s):
-                        try:
-                            os.remove(f)
-                        except Exception:
-                            print("Could not remove %s" % f, file=zipLog)
-                    del zipProcesses[s]
-            zipStep = step - 2
-            zipProcesses[zipStep] = subprocess.Popen(
-                ["7z", "a", "iteration%03i.7z" % zipStep, "%03i" % zipStep], stdout=zipLog,
-                stderr=zipLog)
-
         converged = False
         if options.convDev:
             sum = 0.
@@ -700,15 +678,6 @@ def main(args=None):
         sys.stdout.flush()
         if converged:
             break
-    if options.zip:
-        for s in zipProcesses.keys():
-            zipProcesses[s].wait()
-            for f in glob.glob("*_%03i*" % s):
-                try:
-                    os.remove(f)
-                except Exception:
-                    print("Could not remove %s" % f, file=zipLog)
-        zipLog.close()
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
     log.close()

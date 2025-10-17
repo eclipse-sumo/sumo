@@ -502,6 +502,8 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
         int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
         myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
     }
+    // avoid degeneration of near-0-length geometrie when shifting later
+    myGeom.ensureMinLength(gPrecision);
     //
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);

@@ -1,0 +1,5 @@
+-n net2.net.xml -s 42 -e 100 --validate
+--flows 20
+--error-log errorlog.txt
+--verbose
+-r out.rou.xml

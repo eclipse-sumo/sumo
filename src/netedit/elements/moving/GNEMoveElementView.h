@@ -31,6 +31,9 @@
 class GNEMoveElementView : public GNEMoveElement {
 
 public:
+    /// @brief resizable needs access
+    friend class GNEMoveElementViewResizable;
+
     /// @brief attributes format
     enum class AttributesFormat {
         POSITION,   /// @brief position format
@@ -38,17 +41,9 @@ public:
         GEO         /// @brief geo format (lon, lat, z)
     };
 
-    /// @brief constructor
-    GNEMoveElementView(GNEAttributeCarrier* element);
-
     /// @brief constructor for element with fixed size
     GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position);
-
-    /// @brief constructor with dynamic position
-    GNEMoveElementView(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
-                       const Position& position, const double width, const double height,
-                       const double length);
+                       SumoXMLAttr posAttr, Position& position);
 
     //// @brief empty destructor
     ~GNEMoveElementView();
@@ -58,89 +53,53 @@ public:
      */
     GNEMoveOperation* getMoveOperation();
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
-    /// @name functions related with attributes
+    /// @name functions related with moving attributes
     /// @{
 
-    /* @brief method for getting the moving attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    std::string getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    /// @brief get moving attribute
+    std::string getMovingAttribute(SumoXMLAttr key) const override;
 
-    /* @brief method for getting the moving attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    double getMovingAttributeDouble(SumoXMLAttr key) const;
+    /// @brief get moving attribute double
+    double getMovingAttributeDouble(SumoXMLAttr key) const override;
 
-    /* @brief method for setting the moving attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    /// @brief get moving attribute position
+    Position getMovingAttributePosition(SumoXMLAttr key) const override;
 
-    /* @brief method for checking if the key and their correspond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+    /// @brief get moving attribute positionVector
+    PositionVector getMovingAttributePositionVector(SumoXMLAttr key) const override;
 
-    /// @brief method for setting the moving attribute and nothing else (used in GNEChange_Attribute)
-    void setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    /// @brief set moving attribute (using undo-list)
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
+
+    /// @brief check if the given moving attribute is valid
+    bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const override;
+
+    /// @brief set moving attribute
+    void setMovingAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @}
 
-//protected:
-    /// @brief position over view
-    Position myPosOverView;
-
-    /// @brief width
-    double myWidth = 0;
-
-    /// @brief height
-    double myHeight = 0;
-
-    /// @brief length
-    double myLength = 0;
-
-    /// @brief shape width
-    PositionVector myShapeWidth;
-
-    /// @brief shape height
-    PositionVector myShapeHeight;
-
-    /// @brief shape length
-    PositionVector myShapeLength;
-
-    /// @brief variable used for moving geometry point contour up
-    GNEContour myMovingContourUp;
-
-    /// @brief variable used for moving geometry point contour down
-    GNEContour myMovingContourDown;
-
-    /// @brief variable used for moving geometry point contour left
-    GNEContour myMovingContourLeft;
-
-    /// @brief variable used for moving geometry point contour right
-    GNEContour myMovingContourRight;
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
 
     /// @brief write move attributes
     void writeMoveAttributes(OutputDevice& device) const;
 
 private:
-    /// @brief pos attributes format
-    AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
+    /// @brief pos attribute
+    SumoXMLAttr myPosAttr;
+
+    /// @brief position over view
+    Position& myPosOverView;
 
     /// @brief set move shape
-    void setMoveShape(const GNEMoveResult& moveResult);
+    void setMoveShape(const GNEMoveResult& moveResult) override;
 
     /// @brief commit move shape
-    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
+
+    /// @brief pos attributes format
+    AttributesFormat myAttributesFormat = AttributesFormat::POSITION;
 
     /// @brief Invalidated copy constructor.
     GNEMoveElementView(const GNEMoveElementView&) = delete;

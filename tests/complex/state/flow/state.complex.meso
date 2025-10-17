@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 08:51:58 by Eclipse SUMO sumo Version v1_23_1+1098-b5f7c6a5135
+<!-- generated on 2025-10-10T00:38:12.508306+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +26,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+1098-b5f7c6a5135" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_24_0+1341-5cfec16a0fc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="0/1to1/1 3/1to4/1"/>
     <route id="!0.0!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <route id="!0.1!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
@@ -59,7 +59,7 @@
         <device id="vehroute_0.4" state="10.30 0.00 1 !NULL 40000 !0 device.rerouting -1 0"/>
         <device id="routing_0.4" state="0 40000"/>
     </vehicle>
-    <flowState id="0" begin="0.00" period="10.00" next="50.00" end="100.00" route="!0" done="5" index="5" reroute="1"/>
+    <flowState id="0" begin="0.00" end="100.00" period="10" next="50.00" route="!0" done="5" index="5" reroute="1"/>
     <segment id="0/1to1/1:0">
         <vehicles time="41116" blockTime="-9223372036854775808" value="0.4"/>
     </segment>

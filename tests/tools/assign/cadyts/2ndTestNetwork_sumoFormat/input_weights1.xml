@@ -1,0 +1,6 @@
+<measurements>
+    <singlelink link="L4" start="25200" end="32400" value="245" stddev="8" type="COUNT_VEH"/>
+    <singlelink link="L6" start="25200" end="32400" value="505" stddev="8" type="COUNT_VEH"/>
+    <singlelink link="L9" start="25200" end="32400" value="250" stddev="8" type="COUNT_VEH"/>
+    <singlelink link="L11" start="25200" end="32400" value="276" stddev="8" type="COUNT_VEH"/>
+</measurements>

@@ -24,6 +24,7 @@ from collections import defaultdict
 from xml.sax import make_parser, handler
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from sumolib import openz  # noqa
 from sumolib.net import readNet  # noqa
 
 
@@ -121,7 +122,7 @@ class CostMemory(handler.ContentHandler):
         self.num_loaded = 0
         parser = make_parser()
         parser.setContentHandler(self)
-        parser.parse(dumpfile)
+        parser.parse(openz(dumpfile))
         # decay costs of unseen edges
         self.num_decayed = 0
         for edges in self.intervals.values():

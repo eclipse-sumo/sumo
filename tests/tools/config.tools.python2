@@ -1,5 +1,0 @@
-[run_dependent_text]
-output:=u'{REPLACE ='}
-output:[u'{REPLACE ['}
-output:, u'{REPLACE , '}
-errors:rtree

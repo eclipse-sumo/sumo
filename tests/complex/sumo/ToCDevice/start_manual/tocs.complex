@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-14 12:47:00 by Eclipse SUMO sumo Version v1_22_0+0248-3624436f7dc
+<!-- generated on 2025-10-09T07:56:44.525583+01:00 by Eclipse SUMO sumo v1_24_0+1279-b5f6fb44a7c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,7 +18,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="40959"/>
+        <remote-port value="48371"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -29,14 +29,14 @@
     <TOR id="ToC_veh" t="127.00" lane="4/1to5/1_0" lanePos="567.20" x="636.20" y="2693.08"/>
     <MRM id="ToC_veh" t="139.00" lane="4/1to5/1_0" lanePos="816.51" x="434.50" y="2546.54"/>
     <ToCdown id="ToC_veh" t="150.00" lane="4/1to5/1_0" lanePos="979.05" x="303.01" y="2451.01"/>
-    <ToCup id="ToC_veh" t="202.00" lane="5/1to6/1_0" lanePos="810.50" x="48.31" y="1675.94"/>
-    <TOR id="ToC_veh" t="227.00" lane="6/1to7/1_0" lanePos="344.09" x="101.62" y="1182.47"/>
-    <ToCup id="ToC_veh" t="242.00" lane="6/1to7/1_0" lanePos="655.73" x="197.92" y="886.08"/>
-    <TOR id="ToC_veh" t="252.00" lane="6/1to7/1_0" lanePos="863.49" x="262.12" y="688.48"/>
-    <ToCup id="ToC_veh" t="262.00" lane="7/1to8/1_0" lanePos="87.09" x="371.01" y="522.05"/>
-    <TOR id="ToC_veh" t="277.00" lane="7/1to8/1_0" lanePos="398.73" x="623.13" y="338.87"/>
-    <ToCdown id="ToC_veh" t="300.00" lane="7/1to8/1_0" lanePos="876.58" x="1009.71" y="58.01"/>
-    <ToCup id="ToC_veh" t="302.00" lane="7/1to8/1_0" lanePos="909.70" x="1036.51" y="38.54"/>
-    <TOR id="ToC_veh" t="377.00" lane="9/1to10/1_0" lanePos="497.87" x="2485.71" y="288.63"/>
-    <ToCdown id="ToC_veh" t="400.00" lane="9/1to10/1_0" lanePos="975.72" x="2872.29" y="569.49"/>
+    <ToCup id="ToC_veh" t="202.00" lane="5/1to6/1_0" lanePos="816.50" x="46.46" y="1670.23"/>
+    <TOR id="ToC_veh" t="227.00" lane="6/1to7/1_0" lanePos="350.09" x="103.47" y="1176.76"/>
+    <ToCup id="ToC_veh" t="242.00" lane="6/1to7/1_0" lanePos="661.73" x="199.77" y="880.37"/>
+    <TOR id="ToC_veh" t="252.00" lane="6/1to7/1_0" lanePos="869.49" x="263.98" y="682.78"/>
+    <ToCup id="ToC_veh" t="262.00" lane="7/1to8/1_0" lanePos="93.09" x="375.86" y="518.52"/>
+    <TOR id="ToC_veh" t="277.00" lane="7/1to8/1_0" lanePos="404.73" x="627.98" y="335.35"/>
+    <ToCdown id="ToC_veh" t="300.00" lane="7/1to8/1_0" lanePos="882.58" x="1014.56" y="54.48"/>
+    <ToCup id="ToC_veh" t="302.00" lane="7/1to8/1_0" lanePos="915.70" x="1041.36" y="35.01"/>
+    <TOR id="ToC_veh" t="377.00" lane="9/1to10/1_0" lanePos="503.87" x="2490.57" y="292.15"/>
+    <ToCdown id="ToC_veh" t="400.00" lane="9/1to10/1_0" lanePos="981.72" x="2877.15" y="573.02"/>
 </ToCDeviceLog>

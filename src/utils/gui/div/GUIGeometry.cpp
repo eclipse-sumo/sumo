@@ -72,16 +72,16 @@ GUIGeometry::updateGeometry(const PositionVector& shape, const double posOverSha
     // first clear geometry
     clearGeometry();
     // get shape length
-    const double shapeLength = shape.length();
+    const double shapeLength = shape.length2D();
     // calculate position and rotation
     if (posOverShape < 0) {
-        myShape.push_back(shape.positionAtOffset(0, lateralOffset));
+        myShape.push_back(shape.positionAtOffset2D(0, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(0));
     } else if (posOverShape > shapeLength) {
-        myShape.push_back(shape.positionAtOffset(shapeLength, lateralOffset));
+        myShape.push_back(shape.positionAtOffset2D(shapeLength, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(shapeLength));
     } else {
-        myShape.push_back(shape.positionAtOffset(posOverShape, lateralOffset));
+        myShape.push_back(shape.positionAtOffset2D(posOverShape, lateralOffset));
         myShapeRotations.push_back(shape.rotationDegreeAtOffset(posOverShape));
     }
 }

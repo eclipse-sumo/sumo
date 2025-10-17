@@ -75,7 +75,9 @@ GNEElementList::enableList() {
     myLabel->enable();
     myLabel->setText(TLF("%s", myTagProperty->getTagStr()).c_str());
     myAddButton->enable();
-    mySortButton->enable();
+    if (mySortButton) {
+        mySortButton->enable();
+    }
     myElementTable->enable();
 }
 
@@ -85,7 +87,9 @@ GNEElementList::disableList(const std::string& reason) {
     myLabel->disable();
     myLabel->setText(reason.c_str());
     myAddButton->disable();
-    mySortButton->disable();
+    if (mySortButton) {
+        mySortButton->disable();
+    }
     myElementTable->disable();
 }
 

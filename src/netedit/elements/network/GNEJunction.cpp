@@ -107,6 +107,18 @@ GNEJunction::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEJunction::getParameters() {
+    return myNBNode;
+}
+
+
+const Parameterised*
+GNEJunction::getParameters() const {
+    return myNBNode;
+}
+
+
 const PositionVector&
 GNEJunction::getJunctionShape() const {
     return myNBNode->getShape();
@@ -1339,14 +1351,20 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myNBNode->getName();
         default:
-            return getCommonAttribute(myNBNode, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEJunction::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEJunction::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -1356,7 +1374,7 @@ GNEJunction::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return myNBNode->getShape();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -1605,7 +1623,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             return true;
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -1642,12 +1660,6 @@ GNEJunction::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNEJunction::getACParametersMap() const {
-    return myNBNode->getParametersMap();
 }
 
 
@@ -1883,7 +1895,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myJunctionBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, getType(), false, true, nullptr);
+        gViewObjectsHandler.selectObject(this, getType(), false, nullptr);
     } else {
         // always calculate for shape
         myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration, this);
@@ -1981,7 +1993,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode->setName(value);
             break;
         default:
-            setCommonAttribute(myNBNode, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // invalidate demand path calculator

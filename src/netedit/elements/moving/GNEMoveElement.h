@@ -56,34 +56,26 @@ public:
     /// @name functions related with moving attributes
     /// @{
 
-    /* @brief method for getting the moving attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
-    virtual std::string getMovingAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+    /// @brief get moving attribute
+    virtual std::string getMovingAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for getting the moving attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
-     * @param[in] key The attribute key
-     * @return double with the value associated to key
-     */
-    virtual double getMovingAttributeDouble(SumoXMLAttr key) const;
+    /// @brief get moving attribute double
+    virtual double getMovingAttributeDouble(SumoXMLAttr key) const = 0;
 
-    /* @brief method for setting the moving attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    virtual void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    /// @brief get moving attribute position
+    virtual Position getMovingAttributePosition(SumoXMLAttr key) const = 0;
 
-    /* @brief method for checking if the key and their correspond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value associated to key key
-     * @return true if the value is valid, false in other case
-     */
-    virtual bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const;
+    /// @brief get moving attribute positionVector
+    virtual PositionVector getMovingAttributePositionVector(SumoXMLAttr key) const = 0;
 
-    /// @brief method for setting the moving attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setMovingAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+    /// @brief set moving attribute (using undo-list)
+    virtual void setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
+
+    /// @brief check if the given moving attribute is valid
+    virtual bool isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const = 0;
+
+    /// @brief set moving attribute
+    virtual void setMovingAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @}
 
@@ -113,21 +105,22 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
-    /// @brief calculate lane offset
-    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition, const double lastPosition,
-                                      const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+    /// @brief calculate lane offset (used in calculateLanePosition)
+    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition,
+                                      const double lastPosition, const GNEMoveOffset& offset);
 
-    /// @brief calculate single movement over one lane
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
-                                    const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+    /// @brief calculate lane position over one lane with only one position (accesss, E1, star/end positions, etc.)
+    static void calculateLanePosition(double& starPos, const GNEViewNet* viewNet, const GNELane* lane,
+                                      const double posOverLane, const GNEMoveOffset& offset);
 
-    /// @brief calculate double movement over one lane
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double firstPos,
-                                    const double lastPos, const GNEMoveOffset& offset);
+    /// @brief calculate lane position over one lane with two positions (stoppingPlaces, E2 single lanes)
+    static void calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* lane,
+                                       const double firstPosOverLane, const double lastPosOverLane, const GNEMoveOffset& offset);
 
-    /// @brief calculate double movement over two lanes
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos,
-                                    const GNELane* lastLane, const double lastPos, const GNEMoveOffset& offset);
+    /// @brief calculate lane position over two lane with two positions (E2 Multilanes)
+    static void calculateLanePositions(double& starPos, double& endPos, const GNEViewNet* viewNet, const GNELane* firstLane,
+                                       const double firstPosOverLane, const GNELane* lastLane, const double lastPosOverLane,
+                                       const bool firstLaneClicked, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane change
     static void calculateNewLaneChange(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);

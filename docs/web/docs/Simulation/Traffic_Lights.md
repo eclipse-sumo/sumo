@@ -444,16 +444,34 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 - compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
   - with detection gap below threshold
   - with a detection since the last time where the signal after this detector was green
+- for each crossing that will be green in the target phase and which has an approaching pedestrian, a large amount of bonus priority is assigned to that phase
 - the current phase is implicitly available for continuation as long as its maxDur is not reached. Detectors of the current phase get a bonus priority
 - the phase with the highest priority is used with phases coming earlier in the next list given precedence over those coming later
 - if there is no traffic, the phases will run through a default cycle defined by the first value in the 'next' attribute
   - if the traffic light uses [custom switching rules](#type_actuated_with_custom_switching_rules) then the default phase is the **last** value of the 'next' attribute
 - if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
-- if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic
+- if an active detector was not served for a given time threshold (param **inactive-threshold**), this detector receives bonus priority according to the time it was not served. This can be used to prevent starvation if other phases are consistently preferred due to serving more traffic
 
 Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/tls/actuated/multiNext/dualring_simple]({{Source}}tests/sumo/tls/actuated/multiNext/dualring_simple).
 
 The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can be used to generate such logics from simplified definitions.
+
+#### Exampe: left-turn phases can be skipped
+
+```xml
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="8 1"/>
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="9 5"/>
+        <phase duration="3"  state="rrygrryg"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" next="0"/>
+        <phase duration="3"  state="yyrryyrr" next="4"/>
+        <phase duration="3"  state="rryyrryy"/>
+    </tlLogic>
+```
 
 ## Type 'actuated' with custom switching rules
 
@@ -488,6 +506,7 @@ The following elements are permitted in an expression for attributes
   - 'w:DETID': returns longest individual waiting time in seconds for vehicles on detector with id 'DETID'. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
+  - 'p:TLSINDEX': returns the number of persons that are on a waiting area and intending to cross the pedestrian crossing with the given tls link index
   - 'c:': returns the time within the current cycle
 - [use-defined functions](#custom_function_definitions) FNAME:arg1,args2,...,argN  where arg may be any expression that does not contain spaces (except within parentheses)
 - Symbolic names for [pre-defined expressions](#named_expressions)
@@ -563,6 +582,28 @@ The default gap control logic, replicated with custom conditions. A complete sce
 
 !!! note
     The expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
+
+#### Default Gap Control Logic, may skip left-turn phases
+
+```xml
+<tlLogic id="C" type="actuated" programID="P1" offset="0">
+  <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="1 8"/>
+  <phase duration="3"  state="ygrrygrr" earlyTarget="NS"/>
+  <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+  <phase duration="3"  state="ryrrryrr" earlyTarget="NSL"/>
+  <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="5 9"/>
+  <phase duration="3"  state="rrygrryg" earlyTarget="EW"/>
+  <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+  <phase duration="3"  state="rrryrrry" earlyTarget="EWL" next="0"/>
+  <phase duration="3"  state="yyrryyrr" earlyTarget="NS and NSL" next="4"/>
+  <phase duration="3"  state="rryyrryy" earlyTarget="EW and EWL"/>
+
+  <condition id="NS"  value="z:D0.0 > 3 and z:D2.0 > 3"/>
+  <condition id="NSL" value="z:D0.1 > 3 and z:D2.1 > 3"/>
+  <condition id="EW"  value="z:D1.0 > 3 and z:D3.0 > 3"/>
+  <condition id="EWL" value="z:D1.1 > 3 and z:D3.1 > 3"/>
+</tlLogic>
+```
 
 #### Bus prioritization
 

@@ -98,6 +98,7 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 if (buildEdgeMeanData(obj,
                                       obj->getStringAttribute(SUMO_ATTR_ID),
                                       obj->getStringAttribute(SUMO_ATTR_FILE),
+                                      obj->getStringAttribute(SUMO_ATTR_TYPE),
                                       obj->getTimeAttribute(SUMO_ATTR_PERIOD),
                                       obj->getTimeAttribute(SUMO_ATTR_BEGIN),
                                       obj->getTimeAttribute(SUMO_ATTR_END),
@@ -120,6 +121,7 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 if (buildLaneMeanData(obj,
                                       obj->getStringAttribute(SUMO_ATTR_ID),
                                       obj->getStringAttribute(SUMO_ATTR_FILE),
+                                      obj->getStringAttribute(SUMO_ATTR_TYPE),
                                       obj->getTimeAttribute(SUMO_ATTR_PERIOD),
                                       obj->getTimeAttribute(SUMO_ATTR_BEGIN),
                                       obj->getTimeAttribute(SUMO_ATTR_END),
@@ -158,6 +160,7 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
+    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), parsedOk, "");
     const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, TIME2STEPS(-1));
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, TIME2STEPS(-1));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, TIME2STEPS(-1));
@@ -173,13 +176,21 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     const double maxTravel = attrs.getOpt<double>(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), parsedOk, 100000);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, {});
     const double speedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 0.1);
+    // adjust type
+    if (type == "performance") {
+        type = "";
+    } else if (type == "hbefa") {
+        WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Using 'emissions' instead."));
+        type = "emissions";
+    }
     // continue if flag is ok
-    if (parsedOk) {
+    if (parsedOk && checkType(SUMO_TAG_MEANDATA_EDGE, id, type)) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_EDGE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_PERIOD, period);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
@@ -209,6 +220,7 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), parsedOk, "");
     const SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), parsedOk, TIME2STEPS(-1));
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, TIME2STEPS(-1));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, TIME2STEPS(-1));
@@ -225,12 +237,13 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, {});
     const double speedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 0.1);
     // continue if flag is ok
-    if (parsedOk) {
+    if (parsedOk && checkType(SUMO_TAG_MEANDATA_LANE, id, type)) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_LANE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_PERIOD, period);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_BEGIN, begin);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
@@ -248,6 +261,17 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold);
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
+    }
+}
+
+
+bool
+MeanDataHandler::checkType(const SumoXMLTag currentTag, const std::string& id, const std::string& type) {
+    if (SUMOXMLDefinitions::MeanDataTypes.hasString(type)) {
+        return true;
+    } else {
+        writeError(TLF("Attribute '%' defined in % with id '%' doesn't have a valid value (given '%').", toString(SUMO_ATTR_TYPE), toString(currentTag), id, type));
+        return false;
     }
 }
 

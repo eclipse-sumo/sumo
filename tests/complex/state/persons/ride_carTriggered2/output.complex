@@ -1,17 +1,17 @@
-Loading net-file from 'input_net.net.xml' ... done (2ms).
+Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation version v1_24_0+1249-03e0c9893f4 started with time: 0.00.
 Simulation ended at time: 330.00.
 Reason: All vehicles have left the simulation.
-DijkstraRouter answered 4 queries and explored 36.00 edges on average.
+DijkstraRouter answered 4 queries and explored 45.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'input_net.net.xml' ... done (3ms).
-Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading state from 'state.xml' ... done (32ms).
 Loading done.
-Simulation version v1_21_0+1570-8eaf427e473 started with time: 10.00.
+Simulation version v1_24_0+1249-03e0c9893f4 started with time: 10.00.
 Simulation ended at time: 1200.00.
 Reason: The final simulation step has been reached.
-DijkstraRouter answered 1 queries and explored 36.00 edges on average.
+DijkstraRouter answered 1 queries and explored 45.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

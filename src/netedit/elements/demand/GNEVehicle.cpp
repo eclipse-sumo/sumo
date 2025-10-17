@@ -531,6 +531,18 @@ GNEVehicle::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEVehicle::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEVehicle::getParameters() const {
+    return this;
+}
+
+
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // attribute VType must not be written if is DEFAULT_VTYPE_ID
@@ -566,8 +578,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
     }
-    // write flow attributes
-    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write route elements associated to this vehicle (except for calibrator FLows)
@@ -1511,7 +1521,7 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
             }
         }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributePosition(key);
     }
 }
 
@@ -1773,12 +1783,6 @@ GNEVehicle::getHierarchyName() const {
         }
     }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEVehicle::getACParametersMap() const {
-    return getParametersMap();
 }
 
 

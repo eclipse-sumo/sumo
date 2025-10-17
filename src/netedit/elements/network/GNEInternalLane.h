@@ -51,14 +51,25 @@ public:
     /// @brief Destructor
     ~GNEInternalLane();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
-    GNEMoveElement* getMoveElement() const;
+    /// @brief methods to retrieve the elements linked to this internalLane
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this internalLane
+    GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this internalLane
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this internalLane (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry() override;
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
@@ -69,28 +80,28 @@ public:
     /// @{
 
     /// @brief check if draw from contour (green)
-    bool checkDrawFromContour() const;
+    bool checkDrawFromContour() const override;
 
     /// @brief check if draw from contour (magenta)
-    bool checkDrawToContour() const;
+    bool checkDrawToContour() const override;
 
     /// @brief check if draw related contour (cyan)
-    bool checkDrawRelatedContour() const;
+    bool checkDrawRelatedContour() const override;
 
     /// @brief check if draw over contour (orange)
-    bool checkDrawOverContour() const;
+    bool checkDrawOverContour() const override;
 
     /// @brief check if draw delete contour (pink/white)
-    bool checkDrawDeleteContour() const;
+    bool checkDrawDeleteContour() const override;
 
     /// @brief check if draw delete contour small (pink/white)
-    bool checkDrawDeleteContourSmall() const;
+    bool checkDrawDeleteContourSmall() const override;
 
     /// @brief check if draw select contour (blue)
-    bool checkDrawSelectContour() const;
+    bool checkDrawSelectContour() const override;
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    bool checkDrawMoveContour() const override;
 
     /// @}
 
@@ -167,13 +178,19 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    std::string getAttribute(SumoXMLAttr key) const;
+    std::string getAttribute(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
-     * @return string with the value associated to key
+     * @return double with the value associated to key
      */
-    double getAttributeDouble(SumoXMLAttr key) const;
+    double getAttributeDouble(SumoXMLAttr key) const override;
+
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in Position format
      * @param[in] key The attribute key
@@ -186,24 +203,16 @@ public:
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) override;
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isValid(SumoXMLAttr key, const std::string& value) override;
 
     /// @}
-
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief FOX needs this
@@ -240,7 +249,7 @@ private:
 
 private:
     /// @brief set attribute after validation
-    void setAttribute(SumoXMLAttr key, const std::string& value);
+    void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
     /// @brief Invalidated copy constructor.
     GNEInternalLane(const GNEInternalLane&) = delete;

@@ -174,6 +174,18 @@ GNEContainer::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEContainer::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEContainer::getParameters() const {
+    return this;
+}
+
+
 void
 GNEContainer::writeDemandElement(OutputDevice& device) const {
     // attribute VType musn't be written if is DEFAULT_PEDTYPE_ID
@@ -188,8 +200,6 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
         // write container attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty->getXMLTag(), getTypeParent()->getID());
     }
-    // write flow attributes
-    writeFlowAttributes(this, device);
     // write parameters
     writeParams(device);
     // write child demand elements associated to this container (Rides, Walks...)
@@ -505,7 +515,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             }
         }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+            return getCommonAttributePosition(key);
     }
 }
 
@@ -597,12 +607,6 @@ GNEContainer::getHierarchyName() const {
         }
     }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
-}
-
-
-const Parameterised::Map&
-GNEContainer::getACParametersMap() const {
-    return getParametersMap();
 }
 
 // ===========================================================================

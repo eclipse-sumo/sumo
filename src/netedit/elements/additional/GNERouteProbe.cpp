@@ -63,6 +63,18 @@ GNERouteProbe::getMoveElement() const {
 }
 
 
+Parameterised*
+GNERouteProbe::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNERouteProbe::getParameters() const {
+    return this;
+}
+
+
 void
 GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // open tag
@@ -247,7 +259,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return toString(myVehicleTypes);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -258,14 +270,20 @@ GNERouteProbe::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(myBegin);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
 }
 
 
-const Parameterised::Map&
-GNERouteProbe::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNERouteProbe::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNERouteProbe::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -338,7 +356,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -374,7 +392,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = parse<std::vector<std::string> >(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

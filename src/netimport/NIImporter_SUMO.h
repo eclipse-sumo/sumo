@@ -340,8 +340,6 @@ private:
      */
     struct JunctionAttrs {
         NBNode* node;
-        // @the list of internal lanes corresponding to each link
-        std::vector<std::string> intLanes;
         // @brief the complete response definition for all links
         std::vector<std::string> response;
     };

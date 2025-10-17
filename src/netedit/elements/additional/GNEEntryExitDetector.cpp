@@ -32,7 +32,8 @@
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector(net, entryExitTag),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, nullptr, myPosOverLane, myFriendlyPos)) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
 
 
@@ -41,7 +42,10 @@ GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditiona
     GNEDetector(parent, entryExitTag, 0, "", "", parameters),
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),
-    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, lane, myPosOverLane, myFriendlyPos)) {
+    myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
+                            GNEMoveElementLaneSingle::PositionType::SINGLE)) {
+    // set parents
+    setParent<GNELane*>(lane);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -97,7 +101,7 @@ GNEEntryExitDetector::fixAdditionalProblem() {
 void
 GNEEntryExitDetector::updateGeometry() {
     // update geometry
-    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(), myMoveElementLaneSingle->myMovingLateralOffset);
+    myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), myMoveElementLaneSingle->getFixedPositionOverLane(true), myMoveElementLaneSingle->myMovingLateralOffset);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -165,6 +169,12 @@ GNEEntryExitDetector::getAttribute(SumoXMLAttr key) const {
 double
 GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
     return getDetectorAttributeDouble(key);
+}
+
+
+Position
+GNEEntryExitDetector::getAttributePosition(SumoXMLAttr key) const {
+    return getDetectorAttributePosition(key);
 }
 
 

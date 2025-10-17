@@ -65,7 +65,9 @@ jobs:
 
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
+      # py seems to refer to a different python, which is used by texttest's collate script (parquet2csv)
       run: |
+        py -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt texttest pipdeptree
         pipdeptree
 

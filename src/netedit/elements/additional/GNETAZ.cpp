@@ -73,6 +73,18 @@ GNETAZ::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETAZ::getParameters() {
+    return this;
+}
+
+
+const
+Parameterised* GNETAZ::getParameters() const {
+    return this;
+}
+
+
 int
 GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid
@@ -427,7 +439,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
                 return toString(myAverageWeightSink);
             }
         default:
-            return getCommonAttribute(this, key);
+            return myMoveElementShape->getMovingAttribute(key);
     }
 }
 
@@ -448,7 +460,7 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
         case GNE_ATTR_AVERAGE_SINK:
             return myAverageWeightSink;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return myMoveElementShape->getMovingAttributeDouble(key);
     }
 }
 
@@ -461,14 +473,19 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
         case GNE_ATTR_TAZ_CENTROID:
             return myShape.getCentroid();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return myMoveElementShape->getMovingAttributePosition(key);
     }
 }
 
 
-const Parameterised::Map&
-GNETAZ::getACParametersMap() const {
-    return getParametersMap();
+PositionVector
+GNETAZ::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            return myShape;
+        default:
+            return myMoveElementShape->getMovingAttributePositionVector(key);
+    }
 }
 
 
@@ -489,7 +506,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            setCommonAttribute(key, value, undoList);
+            myMoveElementShape->setMovingAttribute(key, value, undoList);
             break;
     }
 }
@@ -527,7 +544,7 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_EDGES_WITHIN:
             return canParse<bool>(value);
         default:
-            return isCommonValid(key, value);
+            return myMoveElementShape->isMovingAttributeValid(key, value);
     }
 }
 
@@ -659,7 +676,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEdgesWithin = parse<bool>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            myMoveElementShape->setMovingAttribute(key, value);
             break;
     }
 }

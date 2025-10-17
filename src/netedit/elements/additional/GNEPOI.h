@@ -31,7 +31,7 @@
 // ===========================================================================
 
 class GNEMoveElementLaneSingle;
-class GNEMoveElementView;
+class GNEMoveElementViewResizable;
 
 // ===========================================================================
 // class definitions
@@ -92,8 +92,19 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
-    /// @brief get GNEMoveElement associated with this AttributeCarrier
+    /// @brief methods to retrieve the elements linked to this POI
+    /// @{
+
+    /// @brief get GNEMoveElement associated with this POI
     GNEMoveElement* getMoveElement() const override;
+
+    /// @brief get parameters associated with this POI
+    Parameterised* getParameters() override;
+
+    /// @brief get parameters associated with this POI (constant)
+    const Parameterised* getParameters() const override;
+
+    /// @}
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
@@ -180,14 +191,23 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const override;
 
-    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+    /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const override;
 
-    /// @brief get parameters map
-    const Parameterised::Map& getACParametersMap() const override;
+    /* @brief method for getting the Attribute of an XML key in position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const override;
+
+    /* @brief method for getting the Attribute of an XML key in positionVector format
+     * @param[in] key The attribute key
+     * @return positionVector with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -217,23 +237,32 @@ public:
     std::string getHierarchyName() const override;
 
 protected:
+    /// @brief position over view
+    Position myPosOverView;
+
     /// @brief position over lane
     double myPosOverLane = 0;
 
+    /// @brief width
+    double myWidth = 0;
+
+    /// @brief height
+    double myHeight = 0;
+
     /// @brief friendly position
     bool myFriendlyPos = false;
-
-    /// @brief move element over single lane
-    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
-
-    /// @brief move element over view
-    GNEMoveElementView* myMoveElementView = nullptr;
 
     /// @brief lateral position;
     double myPosLat = 0;
 
     /// @brief POI icon
     POIIcon myPOIIcon = POIIcon::NONE;
+
+    /// @brief move element over single lane
+    GNEMoveElementLaneSingle* myMoveElementLaneSingle = nullptr;
+
+    /// @brief move element view resizable
+    GNEMoveElementViewResizable* myMoveElementViewResizable = nullptr;
 
 private:
     /// @brief draw POI

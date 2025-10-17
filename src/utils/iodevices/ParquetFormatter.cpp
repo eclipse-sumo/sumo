@@ -148,6 +148,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
                 if (myExpectedAttrs.test(i) && !mySeenAttrs.test(i)) {
                     WRITE_ERRORF("Incomplete attribute set, '%' is missing. This file format does not support Parquet output yet.",
                                  toString((SumoXMLAttr)i));
+                    myValues.push_back(nullptr);
                 }
             }
         }

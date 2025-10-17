@@ -54,6 +54,18 @@ GNETAZSourceSink::getMoveElement() const {
 }
 
 
+Parameterised*
+GNETAZSourceSink::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNETAZSourceSink::getParameters() const {
+    return nullptr;
+}
+
+
 GNEHierarchicalElement*
 GNETAZSourceSink::getHierarchicalElement() {
     return this;
@@ -176,7 +188,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
             }
         }
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
@@ -186,20 +198,20 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_WEIGHT:
             return myWeight;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+            return getCommonAttributeDouble(key);
     }
-}
-
-
-const Parameterised::Map&
-GNETAZSourceSink::getACParametersMap() const {
-    return getParametersMap();
 }
 
 
 Position
 GNETAZSourceSink::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNETAZSourceSink::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -233,7 +245,7 @@ GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -274,7 +286,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             myWeight = parse<double>(value);
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

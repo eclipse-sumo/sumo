@@ -64,6 +64,48 @@ GNEMoveElementPlan::getMoveOperation() {
 }
 
 
+std::string
+GNEMoveElementPlan::getMovingAttribute(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttribute(key);
+}
+
+
+double
+GNEMoveElementPlan::getMovingAttributeDouble(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEMoveElementPlan::getMovingAttributePosition(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEMoveElementPlan::getMovingAttributePositionVector(SumoXMLAttr key) const {
+    return myMovedElement->getCommonAttributePositionVector(key);
+}
+
+
+void
+GNEMoveElementPlan::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    myMovedElement->setCommonAttribute(key, value, undoList);
+}
+
+
+bool
+GNEMoveElementPlan::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return myMovedElement->isCommonAttributeValid(key, value);
+}
+
+
+void
+GNEMoveElementPlan::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    myMovedElement->setCommonAttribute(key, value);
+}
+
+
 void
 GNEMoveElementPlan::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do here

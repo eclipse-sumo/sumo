@@ -2,7 +2,7 @@
 title: Traffic Lights
 ---
 
-SUMO offers some possibilities to save states of traffic lights during
+SUMO offers some possibilities to save states of [traffic lights](../Traffic_Lights.md) during
 the simulation, a feature mainly used to evaluate adaptive traffic light
 algorithms. We will now describe these outputs.
 

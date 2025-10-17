@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 13:09:20 by Eclipse SUMO netedit Version v1_21_0+1701-5bbacf4f4a3
+<!-- generated on 2025-10-10T10:58:44.376633+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,16 +15,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <containerFlow id="c_0" begin="0.00" end="23.00" containersPerHour="10">
+    <containerFlow id="c_0" begin="0.00" end="23.00" perHour="10.00">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="c_5" begin="0.00" end="23.00" containersPerHour="20.3">
+    <containerFlow id="c_5" begin="0.00" end="23.00" perHour="20.30">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="c_6" begin="0.00" end="23.00" containersPerHour="2.3">
+    <containerFlow id="c_6" begin="0.00" end="23.00" perHour="2.30">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="c_7" begin="0.00" end="23.00" containersPerHour="1.7">
+    <containerFlow id="c_7" begin="0.00" end="23.00" perHour="1.70">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 </routes>

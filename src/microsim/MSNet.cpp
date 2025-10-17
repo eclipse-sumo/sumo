@@ -1111,7 +1111,12 @@ MSNet::writeOutput() {
 
     // check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-output")) {
-        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
+        if (OptionsCont::getOptions().isSet("person-fcd-output")) {
+            MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep, SUMO_TAG_VEHICLE);
+            MSFCDExport::write(OutputDevice::getDeviceByOption("person-fcd-output"), myStep, SUMO_TAG_PERSON);
+        } else {
+            MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
+        }
     }
 
     // check emission dumps

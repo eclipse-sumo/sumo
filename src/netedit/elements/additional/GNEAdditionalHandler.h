@@ -623,7 +623,6 @@ public:
 
     /// @}
 
-
     /// @brief check if a GNEAccess can be created in the given edge
     static bool accessExists(const GNEAdditional* stoppingPlaceParent, const GNEEdge* edge);
 

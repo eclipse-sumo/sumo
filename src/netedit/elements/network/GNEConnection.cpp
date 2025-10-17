@@ -60,6 +60,19 @@ GNEConnection::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEConnection::getParameters() {
+    return &getNBEdgeConnection();
+}
+
+
+const Parameterised*
+GNEConnection::getParameters() const {
+    return &getNBEdgeConnection();
+
+}
+
+
 const PositionVector&
 GNEConnection::getConnectionShape() const {
     if (myConnectionGeometry.getShape().size() > 0) {
@@ -450,7 +463,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().back()->getID();
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_FRONTELEMENT:
-            return getCommonAttribute(nullptr, key);
+            return getCommonAttribute(key);
         case GNE_ATTR_PARENT:
             return getParentEdges().front()->getToJunction()->getID();
         default:
@@ -519,14 +532,20 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         default:
-            return getCommonAttribute(&nbCon, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEConnection::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
+}
+
+
+Position
+GNEConnection::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
 }
 
 
@@ -537,7 +556,7 @@ GNEConnection::getAttributePositionVector(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return getNBEdgeConnection().customShape;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttributePositionVector(key);
     }
 }
 
@@ -868,7 +887,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DIR:
             return false;
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -912,12 +931,6 @@ GNEConnection::isAttributeComputed(SumoXMLAttr key) const {
         default:
             return false;
     }
-}
-
-
-const Parameterised::Map&
-GNEConnection::getACParametersMap() const {
-    return getNBEdgeConnection().getParametersMap();
 }
 
 // ===========================================================================
@@ -988,7 +1001,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.edgeType = value;
             break;
         default:
-            setCommonAttribute(&nbCon, key, value);
+            setCommonAttribute(key, value);
             break;
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)

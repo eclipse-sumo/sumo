@@ -1029,20 +1029,25 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
 
 std::pair<int, SUMOTime>
 MSActuatedTrafficLightLogic::getTarget(int step) const {
+    int seen = 0;
     int origStep = step;
     SUMOTime dur = 0;
+    
     // if step is a transition, find the upcoming green phase
     while (!myPhases[step]->isGreenPhase()) {
+        seen += 1;
         dur += myPhases[step]->duration;
         if (myPhases[step]->nextPhases.size() > 0 && myPhases[step]->nextPhases.front() >= 0) {
-            if (myPhases[step]->nextPhases.size() > 1 && !mySwitchingRules[step].enabled) {
-                WRITE_WARNINGF(TL("At actuated tlLogic '%', transition phase % should not have multiple next phases"), getID(), toString(step));
+            for (int next : myPhases[step]->nextPhases) {
+                if (next != step) {
+                    step = next;
+                    break;
+                }
             }
-            step = myPhases[step]->nextPhases.front();
         } else {
             step = (step + 1) % (int)myPhases.size();
         }
-        if (step == origStep) {
+        if (step == origStep || seen > (int)myPhases.size()) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', infinite transition loop from phase " + toString(origStep));
             return std::make_pair(0, 0);
         }
@@ -1433,6 +1438,21 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                         } else {
                             return STEPS2TIME(times[linkIndex]);
                         }
+                    }
+                } catch (NumberFormatException&) { }
+                throw ProcessError(TLF("Invalid link index '%' in expression '%'", arg, expr));
+            } else if (fun == "p") {
+                try {
+                    int linkIndex = StringUtils::toInt(arg);
+                    if (linkIndex >= 0 && linkIndex < myNumLinks) {
+                        double approachingPersons = 0;
+                        for (const MSLink* link : getLinksAt(linkIndex)) {
+                            auto* aPersons = link->getApproachingPersons();
+                            if (aPersons != nullptr) {
+                                approachingPersons += aPersons->size();
+                            }
+                        }
+                        return approachingPersons;
                     }
                 } catch (NumberFormatException&) { }
                 throw ProcessError(TLF("Invalid link index '%' in expression '%'", arg, expr));

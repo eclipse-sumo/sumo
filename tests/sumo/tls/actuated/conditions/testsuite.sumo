@@ -59,9 +59,15 @@ bus_prio
 # (otherwise behave like the default actuated controller)
 allRed_default
 
+# a traffic light that is meant to delay traffic and nothing else
+allRed_tollstation
+
 # similar to tlLayout=alternateOneWay, only one direction is permitted at a time.
 # However, the is aware of the traffic presence inside and switches immediately to either direction when it is safe to do so.
 alternate_oneWay
 
 # no checking for internal state (as a performance reference)
 alternate_oneWay_default
+
+# a single road being crossed
+ped_crossing

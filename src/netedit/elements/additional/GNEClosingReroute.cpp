@@ -53,6 +53,18 @@ GNEClosingReroute::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEClosingReroute::getParameters() {
+    return nullptr;
+}
+
+
+const Parameterised*
+GNEClosingReroute::getParameters() const {
+    return nullptr;
+}
+
+
 void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);
@@ -92,13 +104,6 @@ GNEClosingReroute::fixAdditionalProblem() {
 bool
 GNEClosingReroute::checkDrawMoveContour() const {
     return false;
-}
-
-
-GNEMoveOperation*
-GNEClosingReroute::getMoveOperation() {
-    // GNEClosingReroutes cannot be moved
-    return nullptr;
 }
 
 
@@ -162,20 +167,26 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    return getCommonAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEClosingReroute::getACParametersMap() const {
-    return getParametersMap();
+Position
+GNEClosingReroute::getAttributePosition(SumoXMLAttr key) const {
+    return getCommonAttributePosition(key);
+}
+
+
+PositionVector
+GNEClosingReroute::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -210,7 +221,7 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -247,7 +258,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

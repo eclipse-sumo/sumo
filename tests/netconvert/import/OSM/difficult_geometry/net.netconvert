@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:21 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2025-10-08T13:08:23.069991+01:00 by Eclipse SUMO netconvert v1_24_0+1265-2d2e5ce43c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -160,8 +160,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="25029060_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="86.78" shape="327.20,273.17 404.13,246.16"/>
         <lane id="25029060_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="86.78" shape="328.26,276.18 405.19,249.18"/>
     </edge>
-    <edge id="307318879#0" from="3124193130" to="3125752473" priority="1" type="highway.footway" spreadType="center">
-        <lane id="307318879#0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="2.00" shape="195.42,203.42 195.42,203.22"/>
+    <edge id="307318879#0" from="3124193130" to="3125752473" priority="1" type="highway.footway" spreadType="center" shape="195.42,201.80 195.42,201.75">
+        <lane id="307318879#0_0" index="0" allow="pedestrian" speed="2.78" length="3.32" width="2.00" shape="195.42,203.43 195.42,203.23"/>
     </edge>
     <edge id="307318879#1" from="3125752473" to="3124193229" priority="1" type="highway.footway" spreadType="center" shape="195.42,201.77 196.76,199.30 183.22,192.69">
         <lane id="307318879#1_0" index="0" allow="pedestrian" speed="2.78" length="17.88" width="2.00" shape="196.49,199.79 196.76,199.30 185.46,193.78"/>

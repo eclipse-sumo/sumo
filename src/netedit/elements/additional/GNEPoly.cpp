@@ -111,6 +111,18 @@ GNEPoly::getMoveElement() const {
 }
 
 
+Parameterised*
+GNEPoly::getParameters() {
+    return this;
+}
+
+
+const Parameterised*
+GNEPoly::getParameters() const {
+    return this;
+}
+
+
 std::string
 GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
@@ -571,20 +583,26 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myClosedShape);
         default:
-            return getCommonAttribute(this, key);
+            return getCommonAttribute(key);
     }
 }
 
 
 double
 GNEPoly::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
+    return myMoveElementShape->getMovingAttributeDouble(key);
 }
 
 
-const Parameterised::Map&
-GNEPoly::getACParametersMap() const {
-    return SUMOPolygon::getParametersMap();
+Position
+GNEPoly::getAttributePosition(SumoXMLAttr key) const {
+    return myMoveElementShape->getMovingAttributePosition(key);
+}
+
+
+PositionVector
+GNEPoly::getAttributePositionVector(SumoXMLAttr key) const {
+    return getCommonAttributePositionVector(key);
 }
 
 
@@ -659,7 +677,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_CLOSE_SHAPE:
             return canParse<bool>(value);
         default:
-            return isCommonValid(key, value);
+            return isCommonAttributeValid(key, value);
     }
 }
 
@@ -806,7 +824,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         default:
-            setCommonAttribute(this, key, value);
+            setCommonAttribute(key, value);
             break;
     }
 }

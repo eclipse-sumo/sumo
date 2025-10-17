@@ -72,40 +72,6 @@ GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotat
 }
 
 
-void
-GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const {
-    // get xph attribute
-    SumoXMLAttr xph = SUMO_ATTR_VEHSPERHOUR;
-    if (flowElement->getTagProperty()->isPerson()) {
-        xph = SUMO_ATTR_PERSONSPERHOUR;
-    } else if (flowElement->getTagProperty()->isContainer()) {
-        xph = SUMO_ATTR_CONTAINERSPERHOUR;
-    }
-    // first check that we're writting a flow
-    if (flowElement->getTagProperty()->isFlow()) {
-        // write routeFlow values depending if it was set
-        if (isFlowAttributeEnabled(SUMO_ATTR_END)) {
-            device.writeAttr(SUMO_ATTR_END, getFlowAttribute(flowElement, SUMO_ATTR_END));
-        }
-        if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
-            device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(flowElement, SUMO_ATTR_NUMBER));
-        }
-        if (isFlowAttributeEnabled(xph)) {
-            device.writeAttr(xph, getFlowAttribute(flowElement, xph));
-        }
-        if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(flowElement, SUMO_ATTR_PERIOD));
-        }
-        if (isFlowAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + getFlowAttribute(flowElement, GNE_ATTR_POISSON) + ")");
-        }
-        if (isFlowAttributeEnabled(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, getFlowAttribute(flowElement, SUMO_ATTR_PROB));
-        }
-    }
-}
-
-
 std::string
 GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
     switch (key) {
@@ -129,13 +95,13 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset), 2);
+            return StringUtils::adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset), 2);
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case GNE_ATTR_POISSON:
-            return adjustDecimalValue(poissonRate, 10);
+            return StringUtils::adjustDecimalValue(poissonRate, 10);
         case SUMO_ATTR_PROB:
-            return adjustDecimalValue(repetitionProbability, 20);
+            return StringUtils::adjustDecimalValue(repetitionProbability, 20);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         case GNE_ATTR_FLOW_TERMINATE:
@@ -167,7 +133,7 @@ GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, Sumo
                 return "invalid flow spacing";
             }
         default:
-            return flowElement->getCommonAttribute(this, key);
+            return flowElement->getCommonAttribute(key);
     }
 }
 
@@ -260,7 +226,7 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
             }
         }
         default:
-            return flowElement->isCommonValid(key, value);
+            return flowElement->isCommonAttributeValid(key, value);
     }
 }
 
@@ -410,7 +376,7 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
             }
             break;
         default:
-            flowElement->setCommonAttribute(this, key, value);
+            flowElement->setCommonAttribute(key, value);
             break;
     }
 }
@@ -504,24 +470,6 @@ GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
             setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
     }
-}
-
-std::string
-GNEDemandElementFlow::adjustDecimalValue(const double value, const int precission) const {
-    // obtain value in string format with 20 decimals precision
-    auto valueStr = toString(value, precission);
-    // now clear all zeros
-    while (valueStr.size() > 1) {
-        if (valueStr.back() == '0') {
-            valueStr.pop_back();
-        } else if (valueStr.back() == '.') {
-            valueStr.pop_back();
-            return valueStr;
-        } else {
-            return valueStr;
-        }
-    }
-    return valueStr;
 }
 
 /****************************************************************************/
