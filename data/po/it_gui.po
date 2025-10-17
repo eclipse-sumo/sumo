@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-16 12:28+0200\n"
-"PO-Revision-Date: 2025-10-03 15:10+0000\n"
+"PO-Revision-Date: 2025-10-17 08:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2822,21 +2823,21 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3922
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
-msgstr ""
+msgstr "File di elementi addizionali"
 
 #: src/netedit/GNEApplicationWindow.cpp:3794
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "carica elementi addizionali da '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3798
 #, c-format
 msgid "Loading of additional file '%' failed."
-msgstr ""
+msgstr "Il caricamento del file di elementi addizionali '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:3801
 #, c-format
 msgid "Loading of additional file '%' successfully."
-msgstr ""
+msgstr "Il file di elementi addizionali '%' è stato caricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:3826
 msgid "reloading additionals"
@@ -2855,7 +2856,7 @@ msgstr "ll file di elementi addizionali '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "Additionals saved."
-msgstr ""
+msgstr "Salvati gli elementi addizionali."
 
 #: src/netedit/GNEApplicationWindow.cpp:3897
 msgid "Saving additional aborted."
@@ -2871,7 +2872,7 @@ msgstr "salvataggio unificato degli elementi addizionali in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3949
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "File di elementi JuPedSim"
 
 #: src/netedit/GNEApplicationWindow.cpp:3971
 msgid "JuPedSim elements saved."
@@ -3044,7 +3045,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4851
 #, c-format
 msgid "Loading of '%' failed."
-msgstr ""
+msgstr "Il caricamento di '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4839
 msgid "loading demand elements from '"
@@ -4962,15 +4963,15 @@ msgstr "rete"
 
 #: src/netedit/GNENetHelper.cpp:3668
 msgid "additional elements"
-msgstr ""
+msgstr "elementi addizionali"
 
 #: src/netedit/GNENetHelper.cpp:3700
 msgid "demand elements"
-msgstr ""
+msgstr "elementi di domanda"
 
 #: src/netedit/GNENetHelper.cpp:3732
 msgid "data elements"
-msgstr ""
+msgstr "elementi di dati"
 
 #: src/netedit/GNENetHelper.cpp:3764
 msgid "meanData elements"
@@ -8929,15 +8930,15 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:952
 msgid "% requires switch to network mode. Continue?"
-msgstr ""
+msgstr "% richiede di usare il modo di rete. Desideri continuare?"
 
 #: src/netedit/GNEViewNet.cpp:954
 msgid "% requires switch to demand mode. Continue?"
-msgstr ""
+msgstr "% richiede di usare il modo di domanda. Desideri continuare?"
 
 #: src/netedit/GNEViewNet.cpp:956
 msgid "% requires switch to data mode. Continue?"
-msgstr ""
+msgstr "% richiede di usare il modo di dati. Desideri continuare?"
 
 #: src/netedit/GNEViewNet.cpp:962
 msgid "Confirm switch mode"
@@ -8964,6 +8965,7 @@ msgstr "Autorizza la classe di veicoli % su tutte le corsie selezionate"
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for %"
 msgstr ""
+"Per ogni corsia esiste già un'altra corsia dello stesso arco ristretta a %"
 
 #: src/netedit/GNEViewNet.cpp:1041
 msgid "% lanes will be restricted to %. Continue?"
@@ -10101,15 +10103,15 @@ msgstr "Modifica colore"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:57
 msgid "Critical error"
-msgstr ""
+msgstr "Errore critico"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:63
 msgid "Netedit found an internal critical error and will be closed:"
-msgstr ""
+msgstr "Netedit ha incontrato un errore critico per il quale va essere chiuso:"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:69
 msgid "ErrorTrace:"
-msgstr ""
+msgstr "Pila di errori:"
 
 #: src/netedit/dialogs/GNEDialog.cpp:335 src/netedit/dialogs/GNEDialog.cpp:348
 msgid "Yes"
@@ -10174,19 +10176,19 @@ msgstr "Torna indietro al dialogo di utensile"
 
 #: src/netedit/dialogs/GNEDialog.cpp:476
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 #: src/netedit/dialogs/GNEDialog.cpp:476
 msgid "Copy error trace to clipboard"
-msgstr ""
+msgstr "Copia pila di errori negli appunti"
 
 #: src/netedit/dialogs/GNEDialog.cpp:480
 msgid "Report"
-msgstr ""
+msgstr "Segnala"
 
 #: src/netedit/dialogs/GNEDialog.cpp:480
 msgid "Report bug to github"
-msgstr ""
+msgstr "Segnala problema in Github"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:43
 msgid "Custom Geometry Point"
@@ -10325,19 +10327,19 @@ msgstr "Parametri"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:518
 msgid "Empty Parameter key"
-msgstr ""
+msgstr "Chiave di parametro vuota"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:518
 msgid "Parameters with empty keys aren't allowed"
-msgstr ""
+msgstr "Non sono permessi parametri chon chiavi vuote"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:522
 msgid "Invalid Parameter key"
-msgstr ""
+msgstr "Chiave di parametro invalida"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:522
 msgid "There are keys with invalid characters"
-msgstr ""
+msgstr "Ci sono delle chiavi con caratteri invalidi"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Duplicated Parameters"
