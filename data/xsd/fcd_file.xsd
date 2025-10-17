@@ -31,6 +31,7 @@
             <xsd:attribute name="type" type="xsd:string" use="optional"/>
 
             <xsd:attribute name="speed" type="nonNegativeFloatType" use="optional"/>
+            <xsd:attribute name="speedRelative" type="nonNegativeFloatType" use="optional"/>
             <xsd:attribute name="pos" type="nonNegativeFloatType" use="optional"/>
             <xsd:attribute name="lane" type="xsd:string" use="optional"/>
             <xsd:attribute name="edge" type="xsd:string" use="optional"/>
@@ -63,6 +64,7 @@
         <xsd:attribute name="type" use="optional" type="xsd:string"/>
 
         <xsd:attribute name="speed" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="speedRelative" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="slope" type="floatType" use="optional"/>
