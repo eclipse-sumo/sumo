@@ -44,6 +44,9 @@ netedit.modifyAttribute(netedit.attrs.laneMeanData.inspect.type, "%%%%%")
 netedit.modifyAttribute(netedit.attrs.laneMeanData.inspect.type, "")
 
 # modify meanData
+netedit.modifyAttribute(netedit.attrs.laneMeanData.inspect.type, "hbefa")
+
+# modify meanData
 netedit.modifyAttribute(netedit.attrs.laneMeanData.inspect.type, "emissions")
 
 # Check undo redo

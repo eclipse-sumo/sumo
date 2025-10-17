@@ -38,6 +38,9 @@ netedit.createMeanData()
 netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.type, "%%%%%")
 
 # modify meanData
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.type, "hbefa")
+
+# modify meanData
 netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.type, "")
 
 # modify meanData
