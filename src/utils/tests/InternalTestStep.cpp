@@ -160,6 +160,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         moveElementVertical();
     } else if (function == "moveElement") {
         moveElement();
+    } else if (function == "focusOnFrame") {
+        focusOnFrame();
     } else if (function == "contextualMenuOperation") {
         contextualMenuOperation();
     } else if (function == "protectElements") {
@@ -671,6 +673,17 @@ InternalTestStep::moveElement() const {
         // drag and drop
         buildMouseDragDrop(position, radius.getRight(), radius.getDown(), position, radius.getLeft(), radius.getDown(), "");
         buildMouseDragDrop(position, radius.getLeft(), radius.getDown(), position, radius.getLeft(), radius.getUp(), "");
+    }
+}
+
+
+void
+InternalTestStep::focusOnFrame() const {
+    if (myArguments.size() != 0) {
+        writeError("focusOnFrame", 0, "<>");
+    } else {
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus current frame");
     }
 }
 

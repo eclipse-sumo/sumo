@@ -250,6 +250,9 @@ private:
     /// @brief process moveElement function
     void moveElement() const;
 
+    /// @brief process focusOnFrame function
+    void focusOnFrame() const;
+
     /// @brief process typeKey function
     void typeKey() const;
 
