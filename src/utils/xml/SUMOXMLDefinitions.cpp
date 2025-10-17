@@ -1733,10 +1733,8 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
 };
 
 StringBijection<MeanDataType>::Entry SUMOXMLDefinitions::meanDataTypeValues[] = {
-    {"performance", MeanDataType::PERFORMANCE},
     {"traffic",     MeanDataType::TRAFFIC},
     {"emissions",   MeanDataType::EMISSIONS},
-    {"hbefa",       MeanDataType::HBEFA},
     {"harmonoise",  MeanDataType::HARMONOISE},
     {"amitran",     MeanDataType::AMITRAN},
     {"",            MeanDataType::DEFAULT} //< must be the last one

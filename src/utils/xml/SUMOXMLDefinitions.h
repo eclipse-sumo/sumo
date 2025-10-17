@@ -2342,10 +2342,8 @@ enum class ReferencePosition {
 
 /// @enum mean data type
 enum class MeanDataType {
-    PERFORMANCE,
     TRAFFIC,
     EMISSIONS,
-    HBEFA,
     HARMONOISE,
     AMITRAN,
     DEFAULT,

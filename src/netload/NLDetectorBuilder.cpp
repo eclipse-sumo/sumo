@@ -522,13 +522,12 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
     MSMeanData* det = nullptr;
     if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::DEFAULT)) ||
-            (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::PERFORMANCE)) ||
-            (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC))) {
+            (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC)) ||
+            (type == "performance")) {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
                                  printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
-    } else if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::EMISSIONS)) ||
-               (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::HBEFA))) {
-        if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::HBEFA)) {
+    } else if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::EMISSIONS)) || (type == "hbefa")) {
+        if (type == "hbefa") {
             WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead."));
         }
         det = new MSMeanData_Emissions(id, begin, end, useLanes, withEmpty,
