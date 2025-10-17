@@ -406,6 +406,7 @@ dualog:0.0101
 xmlstats:0.0101
 aggregatebattery:0.0101
 additional:0.0001
+tripinfos:0.0101
 
 [unordered_text]
 errors:ERROR:SCHEMA
