@@ -1,5 +1,6 @@
 on("ready", function(){
-    var PORT = "8010";
+    const params = new URLSearchParams(window.location.search);
+    const PORT = params.has("port") ? params.get("port") : "8010";
 
     /**
      * @class

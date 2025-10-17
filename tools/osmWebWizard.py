@@ -571,8 +571,8 @@ def get_options(args=None):
     parser.add_argument("-o", "--output", dest="outputDir",
                         help="Write output to the given folder rather than creating a name based on the timestamp")
     parser.add_argument("--address", default="", help="Address for the Websocket.")
-    parser.add_argument("--port", type=int, default=8010,
-                        help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
+    parser.add_argument("--port", type=int, default=0,
+                        help="Port for the Websocket. By default a random port is chosen.")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     parser.add_argument("-b", "--begin", default=0, type=sumolib.miscutils.parseTime,
                         help="Defines the begin time for the scenario.")
@@ -616,6 +616,8 @@ def main(options):
         if not options.remote:
             subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
+        port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
+        server = SimpleWebSocketServer(options.address, port, OSMImporterWebSocket)
         if not options.remote:
             path = os.path.dirname(os.path.realpath(__file__))
             # on Linux Firefox refuses to open files in /usr/ #16086
@@ -627,9 +629,8 @@ def main(options):
                     shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
                 path = new_path
                 os.chdir(path)
-            webbrowser.open("file://" + os.path.join(path, "webWizard", "index.html"))
+            webbrowser.open("file://" + os.path.join(path, "webWizard", "index.html?port=%s" % port))
 
-        server = SimpleWebSocketServer(options.address, options.port, OSMImporterWebSocket)
         server.serveforever()
 
 
