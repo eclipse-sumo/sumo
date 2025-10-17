@@ -309,10 +309,8 @@ GNEMoveElementLaneDouble::isMoveElementValid() const {
         return false;
     } else if (!myStartPos->isMoveElementValid() || !myEndPos->isMoveElementValid()) {
         return false;
-    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) &&
                (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
-        std::cout << myStartPos->getFixedPositionOverLane(false) << std::endl;
-        std::cout << myEndPos->getFixedPositionOverLane(false) << std::endl;
         return false;
     } else {
         return true;
@@ -331,7 +329,7 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
         return myStartPos->getMovingProblem();
     } else if (!myEndPos->isMoveElementValid()) {
         return myEndPos->getMovingProblem();
-    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) &&
                (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
         return TL("starPos > (endPos - EPS)");
     } else {
@@ -367,15 +365,18 @@ GNEMoveElementLaneDouble::fixMovingProblem() {
     // Fix both position
     myStartPos->fixMovingProblem();
     myEndPos->fixMovingProblem();
-    // extra if starPos > endPos (endPos is dominant)
-    const double minStartPos = (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS);
-    if (minStartPos < POSITION_EPS) {
-        myMovedElement->setAttribute(myStartPos->myPosAttr, "0", undolist);
-        myMovedElement->setAttribute(myEndPos->myPosAttr, toString(POSITION_EPS), undolist);
-    } else if (myStartPos->getFixedPositionOverLane(false) > minStartPos) {
-        // use truncate to avoid problem precission under certain conditions
-        const double newStartPos = (std::trunc(minStartPos * 1000) / 1000);
-        myMovedElement->setAttribute(myStartPos->myPosAttr, toString(newStartPos), undolist);
+    if (myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) {
+        // extra if starPos > endPos (endPos is dominant)
+        const double finalLenght = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+        const double maxStartPos = (myEndPos->myPosOverLane == INVALID_DOUBLE) ? finalLenght : (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS);
+        if (maxStartPos < POSITION_EPS) {
+            myMovedElement->setAttribute(myStartPos->myPosAttr, "0", undolist);
+            myMovedElement->setAttribute(myEndPos->myPosAttr, toString(POSITION_EPS), undolist);
+        } else if (myStartPos->getFixedPositionOverLane(false) > maxStartPos) {
+            // use truncate to avoid problem precission under certain conditions
+            const double newStartPos = (std::trunc(maxStartPos * 1000) / 1000);
+            myMovedElement->setAttribute(myStartPos->myPosAttr, toString(newStartPos), undolist);
+        }
     }
 }
 
