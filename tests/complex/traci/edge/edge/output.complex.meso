@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -17,10 +16,10 @@ NOx 0.0
 Fuel 0.0
 Noise 0.0
 Elec 0.0
-meanSpeed 11.109620887
-occupancy 0.0201207243461
+meanSpeed 11.1096208869814
+occupancy 0.02012072434607646
 lastLength 5.0
-traveltime 22.368
+traveltime 22.368000000000006
 numVeh 1
 haltVeh 0
 vehIds ('horiz',)
@@ -28,8 +27,10 @@ personIds ('p0',)
 waiting time 0.0
 angle (with default relative position) 270.0
 angle (with some relative position) 270.0
-checking occupancy with unicode id 0.0201207243461
-traveltime after adaption 22.368
+fromJunction 2
+toJunction m2
+checking occupancy with unicode id 0.02012072434607646
+traveltime after adaption 22.368000000000006
 adaptedTraveltime after adaption 42.0
 adaptedTraveltime after adaption in interval (check time 0) 42.0
 adaptedTraveltime after adaption in interval (check time 15) 24.0
@@ -47,25 +48,25 @@ step 4
 step 5
 {16: 1}
 {'2fi': {16: 1}}
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
-3si count=2 meanSpeed=2.97922904192 travelTime=79.6011305822
+3si count=2 meanSpeed=2.9792290419161676 travelTime=79.60113058224987
 pending ()
 allow_0 ()
 allow_1 ('bicycle',)
