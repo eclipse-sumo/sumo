@@ -309,7 +309,7 @@ GNEMoveElementLaneDouble::isMoveElementValid() const {
         return false;
     } else if (!myStartPos->isMoveElementValid() || !myEndPos->isMoveElementValid()) {
         return false;
-    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) &&
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
                (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
         return false;
     } else {
@@ -329,7 +329,7 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
         return myStartPos->getMovingProblem();
     } else if (!myEndPos->isMoveElementValid()) {
         return myEndPos->getMovingProblem();
-    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) &&
+    } else if ((myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) &&
                (myStartPos->getFixedPositionOverLane(false) > (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS))) {
         return TL("starPos > (endPos - EPS)");
     } else {
@@ -365,7 +365,7 @@ GNEMoveElementLaneDouble::fixMovingProblem() {
     // Fix both position
     myStartPos->fixMovingProblem();
     myEndPos->fixMovingProblem();
-    if (myMovedElement->getHierarchicalElement()->getParentLanes().size() > 1) {
+    if (myMovedElement->getHierarchicalElement()->getParentLanes().size() == 1) {
         // extra if starPos > endPos (endPos is dominant)
         const double finalLenght = myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
         const double maxStartPos = (myEndPos->myPosOverLane == INVALID_DOUBLE) ? finalLenght : (myEndPos->getFixedPositionOverLane(false) - POSITION_EPS);

@@ -261,15 +261,15 @@ double
 GNEMoveElementLaneSingle::getFixedPositionOverLane(const bool adjustGeometryFactor) const {
     // get lane depending of type
     const auto& lane = (myPositionType == PositionType::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back() : myMovedElement->getHierarchicalElement()->getParentLanes().front();
+    const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
     // continue depending if we defined a end position
     if (myPosOverLane == INVALID_DOUBLE) {
         if (myPositionType == PositionType::ENDPOS) {
-            return lane->getLaneShapeLength();
+            return adjustGeometryFactor ? (laneLength * lane->getLengthGeometryFactor()) : laneLength;
         } else {
             return 0;
         }
     } else {
-        const double laneLength = lane->getParentEdge()->getNBEdge()->getFinalLength();
         // fix position
         double fixedPos = myPosOverLane;
         // adjust fixedPos

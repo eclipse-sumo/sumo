@@ -138,18 +138,20 @@ GNEMoveElementShape::getMovingAttributePositionVector(SumoXMLAttr key) const {
 
 
 void
-GNEMoveElementShape::setMovingAttribute(SumoXMLAttr /* key */, const std::string& /* value */, GNEUndoList* /* undoList */) {
+GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    return myMovedElement->setCommonAttribute(key, value, undoList);
 }
 
 
 bool
-GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr /* key */, const std::string& /* value */) const {
-    return false;
+GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr key, const std::string& value) const {
+    return myMovedElement->isCommonAttributeValid(key, value);
 }
 
 
 void
-GNEMoveElementShape::setMovingAttribute(SumoXMLAttr /* key */, const std::string& /* value */) {
+GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
+    return myMovedElement->setCommonAttribute(key, value);
 }
 
 
