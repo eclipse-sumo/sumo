@@ -150,9 +150,6 @@ protected:
     /// @brief write error "invalid position"
     bool writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief write error "empty edges"
-    bool writeErrorEmptyEdges(const SumoXMLTag tag, const std::string& id);
-
     /// @brief write error "invalid list of lanes"
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 

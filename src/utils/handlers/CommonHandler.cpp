@@ -386,12 +386,6 @@ CommonHandler::writeErrorInvalidPosition(const SumoXMLTag tag, const std::string
 
 
 bool
-CommonHandler::writeErrorEmptyEdges(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; List of edges cannot be empty.", toString(tag), id));
-}
-
-
-bool
 CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) {
     return writeError(TLF("Could not build % with ID '%' in netedit; List of lanes isn't valid.", toString(tag), id));
 }

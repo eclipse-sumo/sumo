@@ -198,8 +198,11 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     } else {
         // parse edges
         const auto edges = parseEdges(SUMO_TAG_ROUTE, id, edgeIDs);
-        if (edges.empty()) {
-            return writeErrorEmptyEdges(SUMO_TAG_ROUTE, id);
+        // check edges
+        const auto validEdges = GNERoute::isRouteValid(edges);
+        // continue depending if route is valid
+        if (validEdges.size() > 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; %.", toString(SUMO_TAG_ROUTE), id, validEdges));
         } else {
             // create GNERoute
             GNEDemandElement* route = new GNERoute(id, myNet, myFilename, vClass, edges, color, repeat, cycleTime, routeParameters);
@@ -344,8 +347,11 @@ GNERouteHandler::buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObj
     } else {
         // parse route edges
         const auto edges = parseEdges(GNE_TAG_ROUTE_EMBEDDED, vehicleParameters.id, edgeIDs);
-        if (edges.empty()) {
-            return writeErrorEmptyEdges(GNE_TAG_ROUTE_EMBEDDED, vehicleParameters.id);
+        // check edges
+        const auto validEdges = GNERoute::isRouteValid(edges);
+        // continue depending if route is valid
+        if (validEdges.size() > 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; %.", toString(GNE_TAG_VEHICLE_WITHROUTE), vehicleParameters.id, validEdges));
         } else {
             // obtain  type
             GNEDemandElement* type = getType(vehicleParameters.vtypeid);
@@ -436,8 +442,11 @@ GNERouteHandler::buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject
     } else {
         // parse route edges
         const auto edges = parseEdges(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id, edgeIDs);
-        if (edges.empty()) {
-            return writeErrorEmptyEdges(GNE_TAG_FLOW_WITHROUTE, vehicleParameters.id);
+        // check edges
+        const auto validEdges = GNERoute::isRouteValid(edges);
+        // continue depending if route is valid
+        if (validEdges.size() > 0) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; %.", toString(GNE_TAG_FLOW_WITHROUTE), vehicleParameters.id, validEdges));
         } else {
             // obtain  type
             GNEDemandElement* type = getType(vehicleParameters.vtypeid);
