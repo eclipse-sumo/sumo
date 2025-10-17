@@ -27,6 +27,12 @@ import shutil
 import pydoc
 import types
 from optparse import OptionParser
+try:
+    # this can be removed once https://github.com/python/cpython/issues/127276 has been resolved
+    import importlib.resources
+    css_data = importlib.resources.files('pydoc_data').joinpath('_pydoc.css').read_text()
+except:
+    css_data = ""
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import traci  # noqa
 import sumolib  # noqa
@@ -35,6 +41,11 @@ from sumolib.miscutils import working_dir  # noqa
 
 def pydoc_recursive(module):
     pydoc.writedoc(module)
+    if css_data:
+        with open(module.__name__ + ".html") as inp:
+            html = inp.read()
+        with open(module.__name__ + ".html", "w") as out:
+            out.write(html.replace("</head>", "<style>%s</style></head>" % css_data))
     for submod in module.__dict__.values():
         if isinstance(submod, types.ModuleType) and submod.__name__.startswith(module.__name__):
             pydoc_recursive(submod)
