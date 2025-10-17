@@ -1,3 +1,4 @@
 Error: Could not build flow with ID 'vehicle_0' in netedit; Requires either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'vehicle_1'.
+Error: Could not build flowWithRoute with ID 'vehicle_2' in netedit; Edges 'Edge0' and 'Edge2' aren't consecutives.
 Error: Loading of 'routes.rou.xml' failed.

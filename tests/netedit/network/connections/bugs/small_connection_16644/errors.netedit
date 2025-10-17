@@ -2,9 +2,9 @@ Error: Could not build inductionLoop with ID 'e1_2' in netedit; lane parent with
 Error: Could not build inductionLoop with ID 'e1_3' in netedit; lane parent with ID 'E0_0' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_6' in netedit; lane parent with ID '-E3_0' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_7' in netedit; lane parent with ID 'E3_0' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.07May152456.18572\netedit.gui\network\connections\bugs\small_connection_16644\additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.
 Error: Could not build trip with ID 't_0' in netedit; edge parent with ID '-E0' doesn't exist.
 Error: Could not build trip with ID 't_0' in netedit; edge parent with ID 'E3' doesn't exist.
 Error: Could not build trip with ID 't_1' in netedit; edge parent with ID '-E3' doesn't exist.
 Error: Could not build trip with ID 't_1' in netedit; edge parent with ID 'E0' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.07May152456.18572\netedit.gui\network\connections\bugs\small_connection_16644\routes.rou.xml failed.
+Error: Loading of 'routes.rou.xml' failed.

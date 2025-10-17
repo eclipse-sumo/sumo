@@ -1,4 +1,10 @@
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
+Warning: Custom crossing linkIndex 13 conflicts with vehicular connections at tlLogic 'JunctionCenter'
+Warning: Custom crossing linkIndex 14 conflicts with vehicular connections at tlLogic 'JunctionCenter'
+Warning: Custom crossing linkIndex 15 conflicts with vehicular connections at tlLogic 'JunctionCenter'
+Warning: Custom crossing linkIndex 13 conflicts with vehicular connections at tlLogic 'JunctionCenter'
+Warning: Custom crossing linkIndex 14 conflicts with vehicular connections at tlLogic 'JunctionCenter'
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'JunctionRight' from lane 'E6_1' and lane '-E3_0' (increase junction radius to avoid this).
+Warning: 102 total messages of type: Custom crossing linkIndex % conflicts with vehicular connections at tlLogic '%'

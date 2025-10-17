@@ -2,7 +2,7 @@ Error: Could not build inductionLoop with ID 'e1_3' in netedit; lane parent with
 Error: Could not build inductionLoop with ID 'e1_4' in netedit; lane parent with ID '-E2_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_5' in netedit; lane parent with ID 'E2_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_6' in netedit; lane parent with ID '-E3_2' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan093210.7472\netedit.gui\network\crossings\bugs\split_crossing_3288\additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c2' across [-E2] has no target.
@@ -15,5 +15,5 @@ Warning: Invalid pedestrian topology: crossing ':Junction5_c3' across [E2] has n
 Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [-E2] (no walkingarea found).
 Warning: Unused state in tlLogic 'Junction5', program '0' at tl-index 16
 Warning: Unused state in tlLogic 'Junction5', program '0' at tl-index 16
-Warning: 105 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
-Warning: 22 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 103 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 19 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

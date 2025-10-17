@@ -1,4 +1,5 @@
 Error: Could not build vehicle with ID 'vehicle_0' in netedit; Requires either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
 Error: Attribute 'edges' in definition of route 'vehicle_1' is empty.
 Error: Could not build vehicle with ID 'vehicle_1' in netedit; Requires either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
+Error: Could not build vehicleWithRoute with ID 'vehicle_2' in netedit; Edges 'Edge0' and 'Edge2' aren't consecutives.
 Error: Loading of 'routes.rou.xml' failed.

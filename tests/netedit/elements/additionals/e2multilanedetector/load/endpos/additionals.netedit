@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-24 13:44:48 by Eclipse SUMO netedit Version v1_20_0+1389-768a687f255
+<!-- generated on 2025-10-17T15:30:20.655026+01:00 by Eclipse SUMO netedit v1_24_0+1497-45dbd953a06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,9 +15,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="0.00" period="900.00" file="multiLaneAreaDetector_0.xml"/>
-    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="900.00" period="900.00" file="multiLaneAreaDetector_4.xml" friendlyPos="1"/>
+    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" period="900.00" file="multiLaneAreaDetector_0.xml"/>
+    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="900.00" friendlyPos="1" period="900.00" file="multiLaneAreaDetector_4.xml"/>
     <laneAreaDetector id="multiLaneAreaDetector_5" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="-15.00" period="900.00" file="multiLaneAreaDetector_5.xml"/>
-    <laneAreaDetector id="multiLaneAreaDetector_6" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="-15.00" period="900.00" file="multiLaneAreaDetector_6.xml" friendlyPos="1"/>
+    <laneAreaDetector id="multiLaneAreaDetector_6" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="-15.00" friendlyPos="1" period="900.00" file="multiLaneAreaDetector_6.xml"/>
     <laneAreaDetector id="multiLaneAreaDetector_7" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15.00" endPos="10.50" period="900.00" file="multiLaneAreaDetector_7.xml"/>
 </additional>

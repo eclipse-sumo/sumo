@@ -6,7 +6,7 @@ Error: Could not build inductionLoop with ID 'e1_4' in netedit; lane parent with
 Error: Could not build inductionLoop with ID 'e1_5' in netedit; lane parent with ID 'E2_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_6' in netedit; lane parent with ID '-E3_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_7' in netedit; lane parent with ID 'E3_2' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan093210.7472\netedit.gui\network\crossings\bugs\undo_redo_discarded_3201\additionals.add.xml failed.
+Error: Loading of 'additionals.add.xml' failed.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [E1 -E1] (no walkingarea found).
@@ -16,5 +16,5 @@ Warning: Discarding invalid crossing ':Junction5_c1' at junction 'Junction5' wit
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Discarding invalid crossing ':Junction5_c0' at junction 'Junction5' with edges [E1 -E1] (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E2 -E2] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: 6 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).

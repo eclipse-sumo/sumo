@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-25 10:00:17 by Eclipse SUMO netedit Version v1_18_0+0508-22637e2f52c
+<!-- generated on 2025-10-17T14:57:00.987148+01:00 by Eclipse SUMO netedit v1_24_0+1497-45dbd953a06
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -8,5 +18,4 @@
     <route id="route_0" edges="Edge0 Edge1" color="yellow"/>
     <route id="route_1" edges="Edge1 Edge2" color="orange"/>
     <route id="route_2" edges="Edge0 Edge1 Edge2" color="magenta"/>
-    <route id="route_3" edges="Edge2 EdgeCenter0" color="white"/>
 </routes>

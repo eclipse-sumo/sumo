@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 09:39:04 by Eclipse SUMO netedit Version v1_20_0+1821-fef78581e33
+<!-- generated on 2025-10-17T15:15:55.590428+01:00 by Eclipse SUMO netedit v1_24_0+1497-45dbd953a06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,20 +15,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="E3_0" pos="6.80" period="300.00" file="e1_0.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_1" lane="-E3_0" pos="6.80" period="300.00" file="e1_1.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_10" lane="-E0_0" pos="10.00" period="300.00" file="e1_10.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_11" lane="E0_0" pos="2.80" period="300.00" file="e1_11.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_12" lane="-E2_0" pos="10.00" period="300.00" file="e1_12.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_13" lane="E2_0" pos="2.80" period="300.00" file="e1_13.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_14" lane="-E1_0" pos="10.00" period="300.00" file="e1_14.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_15" lane="E1_0" pos="2.80" period="300.00" file="e1_15.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_2" lane="E4_0" pos="6.80" period="300.00" file="e1_2.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_3" lane="-E4_0" pos="6.80" period="300.00" file="e1_3.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_4" lane="-E5_0" pos="6.80" period="300.00" file="e1_4.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_5" lane="E5_0" pos="6.80" period="300.00" file="e1_5.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_6" lane="-E6_0" pos="6.80" period="300.00" file="e1_6.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_7" lane="E6_0" pos="6.80" period="300.00" file="e1_7.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_8" lane="-E7_0" pos="10.00" period="300.00" file="e1_8.xml" friendlyPos="1"/>
-    <inductionLoop id="e1_9" lane="E7_0" pos="10.00" period="300.00" file="e1_9.xml" friendlyPos="1"/>
+    <inductionLoop id="e1_0" lane="E3_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="-E3_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_10" lane="-E0_0" pos="10.00" friendlyPos="1" period="300.00" file="e1_10.xml"/>
+    <inductionLoop id="e1_11" lane="E0_0" pos="2.80" friendlyPos="1" period="300.00" file="e1_11.xml"/>
+    <inductionLoop id="e1_12" lane="-E2_0" pos="10.00" friendlyPos="1" period="300.00" file="e1_12.xml"/>
+    <inductionLoop id="e1_13" lane="E2_0" pos="2.80" friendlyPos="1" period="300.00" file="e1_13.xml"/>
+    <inductionLoop id="e1_14" lane="-E1_0" pos="10.00" friendlyPos="1" period="300.00" file="e1_14.xml"/>
+    <inductionLoop id="e1_15" lane="E1_0" pos="2.80" friendlyPos="1" period="300.00" file="e1_15.xml"/>
+    <inductionLoop id="e1_2" lane="E4_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3" lane="-E4_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4" lane="-E5_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="E5_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_6" lane="-E6_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_6.xml"/>
+    <inductionLoop id="e1_7" lane="E6_0" pos="6.80" friendlyPos="1" period="300.00" file="e1_7.xml"/>
+    <inductionLoop id="e1_8" lane="-E7_0" pos="10.00" friendlyPos="1" period="300.00" file="e1_8.xml"/>
+    <inductionLoop id="e1_9" lane="E7_0" pos="10.00" friendlyPos="1" period="300.00" file="e1_9.xml"/>
 </additional>
