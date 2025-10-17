@@ -431,8 +431,6 @@ GNEMoveElementLaneDouble::getEndFixedPositionOverLane(const bool adjustGeometryF
 
 void
 GNEMoveElementLaneDouble::setMoveShape(const GNEMoveResult& moveResult) {
-    const double starPos = myMovedElement->getAttributeDouble(myStartPos->myPosAttr);
-    const double endPos = myMovedElement->getAttributeDouble(myEndPos->myPosAttr);
     // check if we're moving both points
     if ((moveResult.newFirstPos != INVALID_DOUBLE) && (moveResult.newLastPos != INVALID_DOUBLE)) {
         // change both position
