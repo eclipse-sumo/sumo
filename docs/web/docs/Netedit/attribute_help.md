@@ -103,6 +103,7 @@
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for busStop|
 |color|color|The RGBA color with which the busStop shall be displayed *default:* **invisible**|
+|angle|angle[0, 360]|Angle of busStop *default:* **0.00**|
 |lines|list of strings|Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes|
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
@@ -117,12 +118,13 @@
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for trainStop|
 |color|color|The RGBA color with which the trainStop shall be displayed *default:* **invisible**|
+|angle|angle[0, 360]|Angle of trainStop *default:* **0.00**|
 |lines|list of strings|Meant to be the names of the train lines that stop at this train stop. This is only used for visualization purposes|
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
 
 ### access
-child element of [busStop](#busstop), [trainStop](#trainstop)
+child element of [busStop](#busstop), [trainStop](#trainstop), [containerStop](#containerstop)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -141,6 +143,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for containerStop|
 |color|color|The RGBA color with which the containerStop shall be displayed *default:* **invisible**|
+|angle|angle[0, 360]|Angle of containerStop *default:* **0.00**|
 |lines|list of strings|meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes|
 |containerCapacity|non-negative integer|Larger numbers of container trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop|
@@ -154,6 +157,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |endPos|unique float|The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m *default:* **lane end**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for chargingStation|
+|angle|angle[0, 360]|Angle of chargingStation *default:* **0.00**|
 |power|non-negative float|Charging power in W *default:* **22000.00**|
 |efficiency|float|Charging efficiency [0,1] *default:* **0.95**|
 |chargeInTransit|boolean|Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging *default:* **0**|
@@ -171,13 +175,13 @@ child element of [busStop](#busstop), [trainStop](#trainstop)
 |endPos|unique float|The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m *default:* **lane end**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for parkingArea|
+|angle|angle[0, 360]|Angle of parkingArea *default:* **0.00**|
 |departPos|string|Lane position in that vehicle must depart when leaves parkingArea|
 |acceptedBadges|list of strings|Accepted badges to access this parkingArea|
 |roadsideCapacity|non-negative integer| The number of parking spaces for road-side parking *default:* **0**|
 |onRoad|boolean|If set, vehicles will park on the road lane and thereby reducing capacity *default:* **0**|
 |width|non-negative float|The width of the road-side parking spaces *default:* **3.20**|
 |length|non-negative float|The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity|
-|angle|angle[0, 360]|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise *default:* **0.00**|
 |lefthand|boolean|Enable or disable lefthand position *default:* **0**|
 
 ### space
@@ -212,6 +216,7 @@ child element of [parkingArea](#parkingarea)
 |id|unique string|ID of laneAreaDetector|
 |lane|unique string|The name of the lane the laneAreaDetector shall be located at|
 |pos|unique float|The position on the lane the laneAreaDetector shall be laid on in meters *default:* **0.00**|
+|endPos|unique float|The end position on the lane the detector shall be laid on in meters|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |length|non-negative float|The length of the detector in meters *default:* **10.00**|
 |name|string|Optional name for laneAreaDetector|
@@ -285,6 +290,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |-----------|------|-------------|
 |id|unique string|ID of edgeData|
 |file|filename|The path to the output file|
+|type|discrete string|Type of data generated by this mean data|
 |period|SUMOTime|The aggregation period the values the detector collects shall be summed up *default:* **-1.00**|
 |begin|SUMOTime|The time to start writing. If not given, the simulation's begin is used. *default:* **-1.00**|
 |end|SUMOTime|The time to end writing. If not given the simulation's end is used. *default:* **-1.00**|
@@ -306,6 +312,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |-----------|------|-------------|
 |id|unique string|ID of laneData|
 |file|filename|The path to the output file|
+|type|discrete string|Type of data generated by this mean data|
 |period|SUMOTime|The aggregation period the values the detector collects shall be summed up *default:* **-1.00**|
 |begin|SUMOTime|The time to start writing. If not given, the simulation's begin is used. *default:* **-1.00**|
 |end|SUMOTime|The time to end writing. If not given the simulation's end is used. *default:* **-1.00**|
@@ -375,9 +382,12 @@ child element of [entryExitDetector](#entryexitdetector)
 ## flow (calibratorFlow)
 | Attribute | Type | Description |
 |-----------|------|-------------|
-|route|unique string|The id of the route the vehicle shall drive along|
 |begin|SUMOTime|First calibrator flow departure time *default:* **0.00**|
 |end|SUMOTime|End of departure interval *default:* **3600.00**|
+|type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
+|route|unique string|The id of the route the vehicle shall drive along|
+|vehsPerHour|integer|Number of vehicles per hour, equally spaced *default:* **1800**|
+|speed|float|Vehicle's speed *default:* **15.00**|
 |color|color|The RGBA color with which the calibratorFlow shall be displayed *default:* **yellow**|
 |departLane|string|The lane on which the vehicle shall be inserted *default:* **first**|
 |departPos|string|The position at which the vehicle shall enter the net *default:* **base**|
@@ -391,9 +401,6 @@ child element of [entryExitDetector](#entryexitdetector)
 |departPosLat|string|The lateral position on the departure lane at which the vehicle shall enter the net *default:* **center**|
 |arrivalPosLat|string|The lateral position on the arrival lane at which the vehicle shall arrive *default:* **center**|
 |insertionChecks|string|Insertion checks *default:* **all**|
-|type|string|The id of the vehicle type to use for this calibrator flow *default:* **DEFAULT_VEHTYPE**|
-|vehsPerHour|integer|Number of vehicles per hour, equally spaced *default:* **1800**|
-|speed|float|Vehicle's speed *default:* **15.00**|
 
 ## rerouter
 | Attribute | Type | Description |

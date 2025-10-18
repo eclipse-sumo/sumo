@@ -73,6 +73,7 @@ configuration:
 | Option | Description |
 |--------|-------------|
 | **--write-license** {{DT_BOOL}} | Include license info into every output file; *default:* **false** |
+| **--write-metadata** {{DT_BOOL}} | Write parsable metadata (configuration etc.) instead of comments; *default:* **false** |
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
@@ -110,6 +111,7 @@ configuration:
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
 | **--fcd-output.attributes** {{DT_STR_LIST}} | List attributes that should be included in the FCD output |
 | **--fcd-output.filter-shapes** {{DT_STR_LIST}} | List shape names that should be used to filter the FCD output |
+| **--person-fcd-output** {{DT_FILE}} | Save fcd for persons and container to separate FILE |
 | **--device.ssm.filter-edges.input-file** {{DT_FILE}} | Restrict SSM device output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
@@ -285,8 +287,8 @@ configuration:
 | **--astar.landmark-distances** {{DT_FILE}} | Initialize lookup table for astar ALT-variant from the given file |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
 | **--persontrip.transfer.car-walk** {{DT_STR_LIST}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
-| **--persontrip.transfer.taxi-walk** {{DT_STR_LIST}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
-| **--persontrip.transfer.walk-taxi** {{DT_STR_LIST}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
+| **--persontrip.transfer.taxi-walk** {{DT_STR_LIST}} | Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas') |
+| **--persontrip.transfer.walk-taxi** {{DT_STR_LIST}} | Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas') |
 | **--persontrip.default.group** {{DT_STR}} | When set, trips between the same origin and destination will share a taxi by default |
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
 | **--persontrip.ride-public-line** {{DT_BOOL}} | Only use the intended public transport line rather than any alternative line that stops at the destination; *default:* **false** |
@@ -300,6 +302,8 @@ configuration:
 | **--device.rerouting.adaptation-weight** {{DT_FLOAT}} | The weight of prior edge weights for exponential moving average; *default:* **0** |
 | **--device.rerouting.adaptation-steps** {{DT_INT}} | The number of steps for moving average weight of prior edge weights; *default:* **180** |
 | **--device.rerouting.adaptation-interval** {{DT_TIME}} | The interval for updating the edge weights; *default:* **1** |
+| **--device.rerouting.threshold.factor** {{DT_FLOAT}} | Only reroute if the new route is faster than the current route by the given factor; *default:* **1** |
+| **--device.rerouting.threshold.constant** {{DT_TIME}} | Only reroute if the new route is faster than the current route by the given TIME; *default:* **0** |
 | **--device.rerouting.with-taz** {{DT_BOOL}} | Use zones (districts) as routing start- and endpoints; *default:* **false** |
 | **--device.rerouting.mode** {{DT_STR}} | Set routing flags (8 ignores temporary blockages); *default:* **0** |
 | **--device.rerouting.init-with-loaded-weights** {{DT_BOOL}} | Use weight files given with option --weight-files for initializing edge weights; *default:* **false** |
@@ -519,6 +523,7 @@ configuration:
 | **--device.taxi.dispatch-algorithm.output** {{DT_FILE}} | Write information from the dispatch algorithm to FILE |
 | **--device.taxi.dispatch-algorithm.params** {{DT_STR}} | Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] |
 | **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
+| **--device.taxi.dispatch-keep-unreachable** {{DT_TIME}} | The time before aborting unreachable reservations; *default:* **3600** |
 | **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop,randomCircling,taxistand]; *default:* **stop** |
 | **--device.taxi.idle-algorithm.output** {{DT_FILE}} | Write information from the idling algorithm to FILE |
 
