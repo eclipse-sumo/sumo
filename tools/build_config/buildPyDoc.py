@@ -31,7 +31,7 @@ try:
     # this can be removed once https://github.com/python/cpython/issues/127276 has been resolved
     import importlib.resources
     css_data = importlib.resources.files('pydoc_data').joinpath('_pydoc.css').read_text()
-except:
+except Exception:
     css_data = ""
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import traci  # noqa
