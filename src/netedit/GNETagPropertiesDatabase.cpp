@@ -7027,7 +7027,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ANGLE,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                               TLF("Angle of %", tagProperties->getTagStr()),
+                               TLF("Angle of waiting %s relative to lane angle", tagProperties->getTag() == SUMO_TAG_CONTAINER_STOP ? toString(SUMO_TAG_CONTAINER) : toString(SUMO_TAG_PERSON)),
                                "0");
 
     // netedit attributes
