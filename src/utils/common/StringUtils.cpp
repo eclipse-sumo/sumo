@@ -23,7 +23,6 @@
 #include <config.h>
 
 #include <string>
-#include <iomanip>
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -226,7 +225,9 @@ StringUtils::isoTimeString(const std::chrono::time_point<std::chrono::system_clo
 
     // Format the time
     std::ostringstream oss;
-    oss << std::put_time(&local_tm, "%Y-%m-%dT%H:%M:%S") << "."
+    char buf[32];
+    std::strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%S", &local_tm);
+    oss << buf << "."
         << std::setw(6) << std::setfill('0') << std::abs(microseconds)
         << (hours_offset >= 0 ? "+" : "-")
         << std::setw(2) << std::setfill('0') << std::abs(hours_offset) << ":"
