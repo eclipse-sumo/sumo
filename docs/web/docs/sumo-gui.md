@@ -833,7 +833,7 @@ configuration:
 
 # GUI-settings Files
 
-All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, screenshots, simulation delay and background images.
+All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, tls trackers, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
 ![icon_colorwheel.png](images/icon_colorwheel.png
 "Open viewsettings editor"). Simply modify the settings and
@@ -893,6 +893,17 @@ breakpoints in the gui and using the menu-option for saving (Edit-\>Edit
 Breakpoints-\>save).
 
 A further way to set breakpoints is by using the sumo option **--breakpoints** to load a comma-separated list of time values (shortcut **-B**). This circumvents the need for a gui-settings file.
+
+## TLS Tracking
+
+The [TLS phase tracker](Simulation/Traffic_Lights.md#track_phases) for one or more traffic lights can be opened at simulation start by loading items of the following form
+
+```xml
+<viewsettings>
+    ...
+    <tracker tl="TLSID"/>
+</viewsettings>
+```
 
 ## Screenshots
 
