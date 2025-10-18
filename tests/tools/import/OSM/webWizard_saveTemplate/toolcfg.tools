@@ -5,7 +5,7 @@
     <bbox value="None" type="string" help="bounding box to retrieve in geo coordinates west,south,east,north." category="processing"/>
     <output value="None" type="string" help="Write output to the given folder rather than creating a name based on the timestamp" category="processing"/>
     <address value="" type="string" help="Address for the Websocket." category="processing"/>
-    <port value="8010" type="int" help="Port for the Websocket. Please edit script.js when using an other port than 8010." category="processing"/>
+    <port value="0" type="int" help="Port for the Websocket. By default a random port is chosen." category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <begin value="0" type="time" help="Defines the begin time for the scenario." category="processing"/>
     <end value="900" type="time" help="Defines the end time for the scenario." category="processing"/>
