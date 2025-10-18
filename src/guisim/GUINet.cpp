@@ -222,6 +222,15 @@ GUINet::getLinkTLIndex(const MSLink* const link) const {
 }
 
 
+GUITrafficLightLogicWrapper*
+GUINet::getTLLWrapper(MSTrafficLightLogic* tll) {
+    if (myLogics2Wrapper.find(tll) == myLogics2Wrapper.end()) {
+        return nullptr;
+    }
+    return myLogics2Wrapper.find(tll)->second;
+}
+
+
 void
 GUINet::guiSimulationStep() {
     GLObjectValuePassConnector<double>::updateAll();

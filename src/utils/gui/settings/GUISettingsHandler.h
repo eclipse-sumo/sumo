@@ -135,6 +135,10 @@ public:
         return myJamSoundTime;
     }
 
+    std::vector<std::string> getTrackers() {
+        return myTrackers;
+    }
+
     const std::string& getSettingName() const {
         return mySettings.name;
     }
@@ -188,6 +192,9 @@ private:
     /// @brief The parsed event distributions
     std::map<std::string, RandomDistributor<std::string> > myEventDistributions;
     double myJamSoundTime;
+
+    /// @brief list of tlsIDs to open trackers for
+    std::vector<std::string> myTrackers;
 
 private:
     /// @brief parse color attribute

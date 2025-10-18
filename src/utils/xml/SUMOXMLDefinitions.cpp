@@ -182,6 +182,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "viewsettings",                           SUMO_TAG_VIEWSETTINGS },
     { "view3D",                                 SUMO_TAG_VIEWSETTINGS_3D },
     { "decal",                                  SUMO_TAG_VIEWSETTINGS_DECAL },
+    { "tracker",                                SUMO_TAG_VIEWSETTINGS_TRACKER },
     { "light",                                  SUMO_TAG_VIEWSETTINGS_LIGHT },
     { "scheme",                                 SUMO_TAG_VIEWSETTINGS_SCHEME },
     { "opengl",                                 SUMO_TAG_VIEWSETTINGS_OPENGL },

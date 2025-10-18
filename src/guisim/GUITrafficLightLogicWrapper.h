@@ -94,7 +94,7 @@ public:
 
 
     /// Builds a GUITLLogicPhasesTrackerWindow which will receive new phases
-    void begin2TrackPhases();
+    void begin2TrackPhases(GUIMainWindow* app = nullptr);
 
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void showPhases();

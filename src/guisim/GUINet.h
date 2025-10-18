@@ -261,6 +261,8 @@ public:
      * Returns -1 if the link is not controlled by a tls */
     int getLinkTLIndex(const MSLink* const link) const;
 
+    /** Returns the logic wrapper for the given tls if it exists */
+    GUITrafficLightLogicWrapper* getTLLWrapper(MSTrafficLightLogic* tll); 
 
     /// @name locator-methods
     //@{

@@ -432,6 +432,10 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             myDecals.push_back(d);
         }
         break;
+        case SUMO_TAG_VIEWSETTINGS_TRACKER: {
+            myTrackers.push_back(attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok));
+        }
+        break;
         case SUMO_TAG_VIEWSETTINGS_LIGHT: {
             GUISUMOAbstractView::Decal d;
             d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "0");

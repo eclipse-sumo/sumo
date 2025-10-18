@@ -210,7 +210,11 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVie
 
 
 void
-GUITrafficLightLogicWrapper::begin2TrackPhases() {
+GUITrafficLightLogicWrapper::begin2TrackPhases(GUIMainWindow* app) {
+    if (app != nullptr) {
+        myApp = app;
+    }
+    assert(myApp != nullptr);
     GUITLLogicPhasesTrackerWindow* window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
                                           new FuncBinding_StringParam<MSTLLogicControl, std::pair<SUMOTime, MSPhaseDefinition> >
