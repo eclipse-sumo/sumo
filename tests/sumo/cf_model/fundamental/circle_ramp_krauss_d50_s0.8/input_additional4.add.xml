@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <edgeData id="ed" freq="60" file="edgedata.xml" edges="b"/>
+    <route id="circle" edges="a b a"/>
+    <route id="enter" edges="c b a"/>
+    <rerouter id="rerouter" edges="a">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="circle"/>
+        </interval>
+    </rerouter>
+</additional>

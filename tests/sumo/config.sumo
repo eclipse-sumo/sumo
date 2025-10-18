@@ -5,6 +5,7 @@ copy_test_path:net.net.xml.gz
 copy_test_path:net2.net.xml
 copy_test_path:net3.net.xml
 copy_test_path:net4.net.xml
+copy_test_path:net5.net.xml
 copy_test_path:three_split.net.xml
 copy_test_path:motorway.net.xml
 copy_test_path:lefthand.net.xml
