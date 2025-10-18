@@ -46,6 +46,8 @@
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <mesosim/MEVehicle.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
@@ -65,7 +67,61 @@
 //#define DEBUG_MOVEXY
 #define DEBUG_COND (veh->isSelected())
 
+// ===========================================================================
+// Helper functions for meso interpolation
+// ===========================================================================
 
+// Helper function to get interpolated position for mesoscopic vehicles
+static Position
+getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
+    const MESegment* segment = mesoVeh->getSegment();
+    if (segment == nullptr || mesoVeh->getQueIndex() == MESegment::PARKING_QUEUE) {
+        return mesoVeh->getPosition();
+    }
+
+    const double now = SIMTIME;
+    const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+    const double entry = mesoVeh->getLastEntryTimeSeconds();
+
+    // Calculate segment offset (position of segment start)
+    double segmentOffset = 0;
+    for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+            seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+        segmentOffset += seg->getLength();
+    }
+
+    // Calculate interpolated position within segment
+    const double length = segment->getLength();
+    const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+
+    // Convert to cartesian coordinates
+    const MSLane* const lane = mesoVeh->getEdge()->getLanes()[0];
+    return lane->geometryPositionAtOffset(relPos);
+}
+
+// Helper function to get interpolated position on lane for mesoscopic vehicles
+static double
+getInterpolatedMesoPositionOnLane(const MEVehicle* mesoVeh) {
+    const MESegment* segment = mesoVeh->getSegment();
+    if (segment == nullptr || mesoVeh->getQueIndex() == MESegment::PARKING_QUEUE) {
+        return mesoVeh->getPositionOnLane();
+    }
+
+    const double now = SIMTIME;
+    const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+    const double entry = mesoVeh->getLastEntryTimeSeconds();
+
+    // Calculate segment offset (position of segment start)
+    double segmentOffset = 0;
+    for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+            seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+        segmentOffset += seg->getLength();
+    }
+
+    // Calculate interpolated position within segment
+    const double length = segment->getLength();
+    return segmentOffset + length * (now - entry) / (intendedLeave - entry);
+}
 
 namespace libsumo {
 // ===========================================================================
@@ -140,7 +196,15 @@ TraCIPosition
 Vehicle::getPosition(const std::string& vehID, const bool includeZ) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     if (isVisible(veh)) {
-        return Helper::makeTraCIPosition(veh->getPosition(), includeZ);
+        Position pos;
+        // Use interpolated position for meso vehicles
+        MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(veh);
+        if (mesoVeh != nullptr) {
+            pos = getInterpolatedMesoPosition(mesoVeh);
+        } else {
+            pos = veh->getPosition();
+        }
+        return Helper::makeTraCIPosition(pos, includeZ);
     }
     return TraCIPosition();
 }
@@ -248,7 +312,16 @@ Vehicle::getColor(const std::string& vehID) {
 double
 Vehicle::getLanePosition(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return (veh->isOnRoad() || veh->isParking()) ? veh->getPositionOnLane() : INVALID_DOUBLE_VALUE;
+    if (veh->isOnRoad() || veh->isParking()) {
+        // Use interpolated position for meso vehicles
+        MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(veh);
+        if (mesoVeh != nullptr) {
+            return getInterpolatedMesoPositionOnLane(mesoVeh);
+        } else {
+            return veh->getPositionOnLane();
+        }
+    }
+    return INVALID_DOUBLE_VALUE;
 }
 
 double
@@ -704,9 +777,12 @@ double
 Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos, int laneIndex) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+    MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(veh);
     if (veh->isOnRoad()) {
         const MSLane* lane = microVeh != nullptr ? veh->getLane() : veh->getEdge()->getLanes()[0];
-        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), pos,
+        // Use interpolated position for meso vehicles
+        double lanePos = mesoVeh != nullptr ? getInterpolatedMesoPositionOnLane(mesoVeh) : veh->getPositionOnLane();
+        double distance = veh->getRoute().getDistanceBetween(lanePos, pos,
                           lane, Helper::getLaneChecking(edgeID, laneIndex, pos), veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
@@ -726,9 +802,12 @@ Vehicle::getDrivingDistance2D(const std::string& vehID, double x, double y) {
     }
     if (veh->isOnRoad()) {
         MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+        MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(veh);
         const MSLane* lane = microVeh != nullptr ? veh->getLane() : veh->getEdge()->getLanes()[0];
         std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y), veh->getVehicleType().getVehicleClass());
-        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
+        // Use interpolated position for meso vehicles
+        double lanePos = mesoVeh != nullptr ? getInterpolatedMesoPositionOnLane(mesoVeh) : veh->getPositionOnLane();
+        double distance = veh->getRoute().getDistanceBetween(lanePos, roadPos.second,
                           lane, roadPos.first, veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
