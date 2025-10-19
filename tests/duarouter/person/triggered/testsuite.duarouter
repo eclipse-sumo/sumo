@@ -1,6 +1,9 @@
 # person starts in vehicle
 basic
 
+# person starts in vehicle but gets skipped due to start time
+skip
+
 # person starts in a vehicle but is parsed ahead of that vehicle
 unordered
 

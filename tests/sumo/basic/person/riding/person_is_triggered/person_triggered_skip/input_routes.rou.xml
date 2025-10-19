@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="v0" depart="15.00" from="gneE0" to="gneE2">
+        <stop lane="gneE1_1" startPos="98.50" endPos="108.50" duration="60.00"/>
+    </trip>
+    <person id="p0" depart="triggered">
+        <ride to="gneE1" lines="v0"/>
+        <walk to="gneE3"/>
+    </person>
+    <person id="p1" depart="triggered">
+        <param key="key" value="value"/>
+        <ride to="gneE1" lines="v0"/>
+        <walk to="gneE3"/>
+    </person>
+
+    <trip id="v1" depart="25.00" from="gneE0" to="gneE2">
+        <stop lane="gneE1_1" startPos="98.50" endPos="108.50" duration="60.00"/>
+    </trip>
+    <person id="p2" depart="triggered">
+        <ride to="gneE1" lines="v1"/>
+        <walk to="gneE3"/>
+    </person>
+    <person id="p3" depart="triggered">
+        <param key="key" value="value"/>
+        <ride to="gneE1" lines="v1"/>
+        <walk to="gneE3"/>
+    </person>
+</routes>
