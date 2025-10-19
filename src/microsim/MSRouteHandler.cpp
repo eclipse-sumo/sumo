@@ -618,6 +618,7 @@ MSRouteHandler::closeVehicle() {
     if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+            mySkippedVehicles.insert(myVehicleParameter->id);
             return;
         }
     }
@@ -1148,9 +1149,12 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                 myVehicleParameter->depart = startVeh->depart;
             }
             if (startVeh == nullptr) {
-                throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
-            }
-            if (startVeh->departProcedure == DepartDefinition::TRIGGERED) {
+                if (mySkippedVehicles.count(vehID) == 0) {
+                    throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
+                }
+                // we cannot simply throw here because we need to parse the rest of the person (just to discard it)
+                from = MSEdge::getAllEdges().front();  // a dummy edge to keep parsing active
+            } else if (startVeh->departProcedure == DepartDefinition::TRIGGERED) {
                 throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
             }
         }

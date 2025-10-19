@@ -630,6 +630,7 @@ RORouteHandler::closeVehicle() {
     checkLastDepart();
     // get the vehicle id
     if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN && myVehicleParameter->depart < myBegin) {
+        mySkippedVehicles.insert(myVehicleParameter->id);
         return;
     }
     // get vehicle type
@@ -695,7 +696,7 @@ RORouteHandler::closePerson() {
     }
     if (myActivePlan == nullptr || myActivePlan->empty()) {
         WRITE_WARNINGF(TL("Discarding person '%' because her plan is empty"), myVehicleParameter->id);
-    } else {
+    } else if (myVehicleParameter->departProcedure != DepartDefinition::GIVEN || myVehicleParameter->depart >= myBegin) {
         ROPerson* person = new ROPerson(*myVehicleParameter, type);
         for (ROPerson::PlanItem* item : *myActivePlan) {
             person->getPlan().push_back(item);
@@ -1102,16 +1103,20 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
             return;
         }
         const std::string vehID = st.front();
-        if (!myNet.knowsVehicle(vehID)) {
-            myErrorOutput->inform("Unknown vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
-            return;
+        if (myNet.knowsVehicle(vehID)) {
+            const SUMOTime vehDepart = myNet.getDeparture(vehID);
+            if (vehDepart == -1) {
+                myErrorOutput->inform("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+                return;
+            }
+            myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
+        } else {
+            if (mySkippedVehicles.count(vehID) == 0) {
+                myErrorOutput->inform("Unknown vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
+                return;
+            }
+            myVehicleParameter->departProcedure = DepartDefinition::GIVEN; // make sure the person gets skipped due to depart time
         }
-        SUMOTime vehDepart = myNet.getDeparture(vehID);
-        if (vehDepart == -1) {
-            myErrorOutput->inform("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
-            return;
-        }
-        myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
     }
     ROPerson::addRide(plan, from, to, lines, arrivalPos, stoppingPlaceID, group);
 }
@@ -1129,7 +1134,10 @@ RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
         }
         const std::string vehID = st.front();
         if (!myNet.knowsVehicle(vehID)) {
-            throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+            if (mySkippedVehicles.count(vehID) == 0) {
+                throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for container '" + pid + "'.");
+            }
+            return;
         }
         SUMOTime vehDepart = myNet.getDeparture(vehID);
         if (vehDepart == -1) {

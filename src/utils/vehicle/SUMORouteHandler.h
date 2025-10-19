@@ -254,6 +254,9 @@ protected:
     /// @brief whether references to internal routes are allowed in this context
     bool myAllowInternalRoutes;
 
+    /// @brief IDs of skipped vehicles to suppress errors for the triggered transportables within
+    std::set<std::string> mySkippedVehicles;
+
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s) = delete;
