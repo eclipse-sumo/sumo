@@ -718,9 +718,9 @@ void
 MESegment::setSpeedForQueue(double newSpeed, SUMOTime currentTime, SUMOTime blockTime, const std::vector<MEVehicle*>& vehs) {
     MEVehicle* v = vehs.back();
     SUMOTime oldEarliestExitTime = currentTime;
-    const SUMOTime oldExitTime = MAX2(oldEarliestExitTime, v->getEventTime());
-    v->updateDetectors(currentTime, oldExitTime, false);
-    oldEarliestExitTime = oldExitTime + tauWithVehLength(myTau_ff, v->getVehicleType().getLengthWithGap(), v->getVehicleType().getCarFollowModel().getHeadwayTime());
+    const SUMOTime oldExit = MAX2(oldEarliestExitTime, v->getEventTime());
+    v->updateDetectors(currentTime, oldExit, false);
+    oldEarliestExitTime = oldExit + tauWithVehLength(myTau_ff, v->getVehicleType().getLengthWithGap(), v->getVehicleType().getCarFollowModel().getHeadwayTime());
     SUMOTime newEvent = MAX2(newArrival(v, newSpeed, currentTime), blockTime);
     if (v->getEventTime() != newEvent) {
         MSGlobals::gMesoNet->removeLeaderCar(v);

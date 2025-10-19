@@ -1032,7 +1032,7 @@ MSActuatedTrafficLightLogic::getTarget(int step) const {
     int seen = 0;
     int origStep = step;
     SUMOTime dur = 0;
-    
+
     // if step is a transition, find the upcoming green phase
     while (!myPhases[step]->isGreenPhase()) {
         seen += 1;
@@ -1449,7 +1449,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                         for (const MSLink* link : getLinksAt(linkIndex)) {
                             auto* aPersons = link->getApproachingPersons();
                             if (aPersons != nullptr) {
-                                approachingPersons += aPersons->size();
+                                approachingPersons += (double)aPersons->size();
                             }
                         }
                         return approachingPersons;
