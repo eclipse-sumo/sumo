@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-16 12:28+0200\n"
-"PO-Revision-Date: 2025-10-16 09:08+0000\n"
+"PO-Revision-Date: 2025-10-20 07:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2937,22 +2938,22 @@ msgstr "Speichern der vereinigten Nachfrageelemente in '%'."
 #: src/netedit/GNEApplicationWindow.cpp:4302
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
 msgid "Data elements file"
-msgstr ""
+msgstr "Datenelementedatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4172
 #: src/netedit/GNEApplicationWindow.cpp:4892
 msgid "loading data elements from '%'."
-msgstr ""
+msgstr "Datenelemente werden aus '%' geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4176
 #, c-format
 msgid "Loading of data file '%' failed."
-msgstr ""
+msgstr "Die Datenelementedatei '%' konnte nicht geladen werden."
 
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #, c-format
 msgid "Loading of data file '%' successfully."
-msgstr ""
+msgstr "Die Datenelementedatei '%' wurde erfolgreich geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4208
 msgid "reloading data elements"
@@ -2961,12 +2962,12 @@ msgstr "Erneutes Laden der Datenelemente"
 #: src/netedit/GNEApplicationWindow.cpp:4219
 #, c-format
 msgid "Reloading of data file '%' failed."
-msgstr ""
+msgstr "Das erneute Laden der Datenelementedatei '%' ist fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4221
 #, c-format
 msgid "Reloading of data file '%' successfully."
-msgstr ""
+msgstr "Die Datenelementedatei '%' wurde erfolgreich erneut geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Data elements saved."
@@ -11148,7 +11149,7 @@ msgstr "Ungültige Routen auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:77
 msgid "Select invalid routes and stop saving"
-msgstr ""
+msgstr "Ungültige Routen auswählen und nicht speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:81
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:82
@@ -11189,7 +11190,7 @@ msgstr "Ungültige Fahrzeuge auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:201
 msgid "Select invalid vehicles and stop saving"
-msgstr ""
+msgstr "Ungültige Fahrzeuge auswählen und nicht speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:206
 msgid "Remove stops out of vehicle's route"
@@ -11201,15 +11202,15 @@ msgstr "ungültige Fahrzeuge löschen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:301
 msgid "Stop positions"
-msgstr ""
+msgstr "Haltepositionen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:304
 msgid "Activate friendlyPos"
-msgstr ""
+msgstr "FriendlyPos aktivieren"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:309
 msgid "Save invalid stops"
-msgstr ""
+msgstr "Ungültige Halte speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:310
 msgid "Save elements with invalid positions"
@@ -11225,7 +11226,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:320
 msgid "Fix stop positions and save"
-msgstr ""
+msgstr "Haltepositionen korrigieren und speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:345
 #, c-format
@@ -11441,7 +11442,7 @@ msgstr "Dateiname auswählen"
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:575
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:218
 msgid "XML file"
-msgstr ""
+msgstr "XML-Datei"
 
 #: src/netedit/dialogs/options/GNESumoOptionsDialog.cpp:46
 msgid "Edit SUMO options"
@@ -11619,6 +11620,8 @@ msgid ""
 "Could not build access in netedit; % '%' already owns an access in the edge "
 "'%'"
 msgstr ""
+"Konnte den Zuweg in netedit nicht erstellen; % '%' verfügt bereits über "
+"einen Zugang von der Kante '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:213
 #, c-format
