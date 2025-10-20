@@ -20,14 +20,20 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/elements/GNEPathElement.h>
-#include <netedit/elements/moving/GNEMoveElement.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/images/GUITextureSubSys.h>
+
+//#include <netedit/elements/GNEHierarchicalElement.h>
+//#include <netedit/elements/GNEPathElement.h>
+//#include <netedit/elements/moving/GNEMoveElement.h>
+//#include <utils/gui/div/GUIGeometry.h>
+//#include <utils/gui/globjects/GUIGlObject.h>
+//#include <utils/gui/images/GUITextureSubSys.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAdditional;
 
 // ===========================================================================
 // class definitions
@@ -37,12 +43,72 @@ class GNEAdditionalListed {
 
 public:
     /// @brief default constructor
-    GNEAdditionalListed();
+    GNEAdditionalListed(GNEAdditional* additional);
 
 protected:
+    /// @brief update geometry of listed additional
+    void updateGeometryListedAdditional(const Position& parentPosition, const int level);
 
+    /// @brief draw listed additional
+    void drawListedAdditional(const GUIVisualizationSettings& s, const RGBColor baseCol, const RGBColor textCol,
+                              GUITexture texture, const std::string text, const GNEContour& additionalContour) const;
+
+    /// @brief get listed position in view
+    Position getListedPositionInView() const;
+
+    /// @brief get draw position index
+    int getDrawPositionIndex() const;
 
 private:
+    /// @brief pointer to additional
+    GNEAdditional* myAdditional;
+
+    /// @name common offsets
+    /// @{
+
+    /// @brief line offset (must be divisible by 2)
+    const double lineLenght = 1;
+
+    /// @brief shape width
+    const double shapeWidth = 6;
+
+    /// @brief shapeHeight
+    const double shapeHeight = 0.5;
+
+    /// @brief Y separation
+    const double ySeparation = 0.1;
+
+    /// @brief padding between internal and external rectangle
+    const double padding = 0.02;
+
+    /// @brief icon padding
+    const double iconPadding = 0.05;
+
+    /// @}
+
+    /// @brief draw position index
+    int myDrawPositionIndex = 0;
+
+    /// @brief external rectangle
+    GUIGeometry myExternalRectangle;
+
+    /// @brief internal rectangle
+    GUIGeometry myInternalRectangle;
+
+    /// @brief vector with line poisitions
+    GUIGeometry myLine;
+
+    /// @brief sign position
+    Position myIconPosition;
+
+    /// @brief icon size
+    double myIconSize = 0;
+
+    /// @brief text position
+    Position myTextPosition;
+
+    /// @brief adjust listed additional text
+    std::string adjustListedAdditionalText(const std::string& text) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditionalListed(const GNEAdditionalListed&) = delete;

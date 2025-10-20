@@ -45,7 +45,145 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalListed::GNEAdditionalListed() {
+GNEAdditionalListed::GNEAdditionalListed(GNEAdditional* additional) :
+    myAdditional(additional) {
+}
+
+
+
+void
+GNEAdditionalListed::updateGeometryListedAdditional(const Position& parentPosition, const int level) {
+    // we assume that the radius of parent element is 1
+    const int radiusParent = 1;
+    // get draw position index
+    myDrawPositionIndex = getDrawPositionIndex();
+    // calculate x and y position
+    const double xPosition = radiusParent + lineLenght + (lineLenght + shapeWidth) * level;
+    const double yPosition = ((2 * shapeHeight) + ySeparation) * myDrawPositionIndex * -1;
+    // calculate y position
+    const auto startPos = parentPosition + Position(xPosition, yPosition);
+    const auto endPos = parentPosition + Position(xPosition + shapeWidth, yPosition);
+    // set geometries
+    myExternalRectangle.updateGeometry({startPos, endPos});
+    myInternalRectangle.updateGeometry({startPos + Position(padding, 0), endPos - Position(padding, 0)});
+    // calculate icon size
+    myIconSize = shapeHeight - (2 * iconPadding);
+    // calculate signPosition
+    myIconPosition = startPos + Position((2 * iconPadding) + myIconSize, 0);
+    // calculate text position
+    myTextPosition = myIconPosition + Position(shapeHeight, 0);
+    // update centering boundary (needed for centering)
+    myAdditional->updateCenteringBoundary(false);
+}
+
+
+void
+GNEAdditionalListed::drawListedAdditional(const GUIVisualizationSettings& s, const RGBColor baseCol, const RGBColor textCol,
+        GUITexture texture, const std::string text, const GNEContour& additionalContour) const {
+    // check if additional has to be drawn
+    if (myAdditional->getNet()->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
+        // draw boundaries
+        GLHelper::drawBoundary(s, myAdditional->getCenteringBoundary());
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (s.checkDrawAdditional(d, myAdditional->isAttributeCarrierSelected())) {
+            // calculate colors
+            const RGBColor baseColor = myAdditional->isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
+            const RGBColor secondColor = baseColor.changedBrightness(-30);
+            const RGBColor textColor = myAdditional->isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
+            // Add layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myAdditional->drawInLayer(myAdditional->getType());
+            // set line color
+            GLHelper::setColor(s.additionalSettings.connectionColor);
+            // draw both lines
+            //GLHelper::drawBoxLines(myPositionLineA, 0, 0.1, myLineLength);
+            // draw extern rectangle
+            GLHelper::setColor(secondColor);
+            GUIGeometry::drawGeometry(d, myExternalRectangle, shapeHeight);
+            // move to front
+            glTranslated(0, 0, 0.1);
+            // draw intern rectangle
+            GLHelper::setColor(baseColor);
+            GUIGeometry::drawGeometry(d, myInternalRectangle, shapeHeight - padding);
+            // draw interval
+            GLHelper::drawText(adjustListedAdditionalText(text), myTextPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+            // check if draw lock icon or rerouter interval icon
+            if (GNEViewNetHelper::LockIcon::checkDrawing(d, myAdditional, myAdditional->getType(), 1)) {
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, myAdditional, myAdditional->getType(), myIconPosition, 1, myIconSize * 0.75);
+            } else {
+                // translate to front
+                glTranslated(myIconPosition.x(), myIconPosition.y(), 0.1);
+                // set White color
+                glColor3d(1, 1, 1);
+                // rotate
+                glRotated(180, 0, 0, 1);
+                // draw texture
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), myIconSize);
+                // pop layer matrix
+                GLHelper::popMatrix();
+            }
+            // draw dotted contour
+            additionalContour.drawDottedContours(s, d, myAdditional, s.dottedContourSettings.segmentWidthSmall, true);
+        }
+        // calculate contour
+        additionalContour.calculateContourExtrudedShape(s, d, myAdditional, myExternalRectangle.getShape(), myAdditional->getType(), shapeHeight, 1, true, true, 0,
+                nullptr, nullptr);
+    }
+}
+
+
+Position
+GNEAdditionalListed::getListedPositionInView() const {
+    return myIconPosition;
+}
+
+
+int
+GNEAdditionalListed::getDrawPositionIndex() const {
+    // filter symbols
+    std::vector<GNEAdditional*> children;
+    for (const auto& child : myAdditional->getParentAdditionals().front()->getChildAdditionals()) {
+        if (!child->getTagProperty()->isSymbol()) {
+            children.push_back(child);
+        }
+    }
+    // now get index
+    for (int i = 0; i < (int)children.size(); i++) {
+        if (children.at(i) == myAdditional) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+
+std::string
+GNEAdditionalListed::adjustListedAdditionalText(const std::string& text) const {
+    // 10 + 3 + 10
+    if (text.size() <= 23) {
+        return text;
+    } else {
+        // get text size
+        const int textPosition = (int)text.size() - 10;
+        // declare strings
+        std::string partA, partB;
+        // resize
+        partA.reserve(10);
+        partB.reserve(10);
+        // fill both
+        for (int i = 0; i < 10; i++) {
+            partA.push_back(text.at(i));
+            partB.push_back(text.at(textPosition + i));
+        }
+        // return composition
+        return (partA + "..." + partB);
+    }
 }
 
 /****************************************************************************/
