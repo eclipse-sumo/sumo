@@ -118,7 +118,7 @@ GNERerouterInterval::getMoveOperation() {
 
 void
 GNERerouterInterval::updateGeometry() {
-    updateGeometryListedAdditional(getParentAdditionals().front()->getPositionInView(), 0);
+    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getPositionInView(), 0);
     // update geometries (boundaries of all children)
     for (const auto& rerouterElement : getChildAdditionals()) {
         rerouterElement->updateGeometry();

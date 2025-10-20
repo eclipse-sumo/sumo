@@ -113,7 +113,7 @@ GNEClosingLaneReroute::checkDrawMoveContour() const {
 
 void
 GNEClosingLaneReroute::updateGeometry() {
-    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
+    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 

@@ -138,7 +138,7 @@ GNECalibratorFlow::checkDrawMoveContour() const {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    updateGeometryListedAdditional(getParentAdditionals().front()->getPositionInView(), 0);
+    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getPositionInView(), 0);
 }
 
 

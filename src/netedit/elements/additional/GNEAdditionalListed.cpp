@@ -52,7 +52,7 @@ GNEAdditionalListed::GNEAdditionalListed(GNEAdditional* additional) :
 
 
 void
-GNEAdditionalListed::updateGeometryListedAdditional(const Position& parentPosition, const int level) {
+GNEAdditionalListed::updateGeometryListedAdditional(GUIGeometry& additionalGeometry, const Position& parentPosition, const int level) {
     // we assume that the radius of parent element is 1
     const int radiusParent = 1;
     // get draw position index
@@ -64,7 +64,7 @@ GNEAdditionalListed::updateGeometryListedAdditional(const Position& parentPositi
     const auto startPos = parentPosition + Position(xPosition, yPosition);
     const auto endPos = parentPosition + Position(xPosition + shapeWidth, yPosition);
     // set geometries
-    myExternalRectangle.updateGeometry({startPos, endPos});
+    additionalGeometry.updateGeometry({startPos, endPos});
     myInternalRectangle.updateGeometry({startPos + Position(padding, 0), endPos - Position(padding, 0)});
     // calculate icon size
     myIconSize = shapeHeight - (2 * iconPadding);
@@ -72,6 +72,13 @@ GNEAdditionalListed::updateGeometryListedAdditional(const Position& parentPositi
     myIconPosition = startPos + Position((2 * iconPadding) + myIconSize, 0);
     // calculate text position
     myTextPosition = myIconPosition + Position(shapeHeight, 0);
+    // now calculate lines
+    PositionVector linePositions;
+    linePositions.push_back(parentPosition + Position(xPosition - lineLenght, 0));
+    linePositions.push_back(parentPosition + Position(xPosition - (lineLenght * 0.5), 0));
+    linePositions.push_back(startPos - Position((lineLenght * 0.5), 0));
+    linePositions.push_back(startPos);
+    myLineGeometry.updateGeometry(linePositions);
     // update centering boundary (needed for centering)
     myAdditional->updateCenteringBoundary(false);
 }
@@ -96,13 +103,12 @@ GNEAdditionalListed::drawListedAdditional(const GUIVisualizationSettings& s, con
             GLHelper::pushMatrix();
             // translate to front
             myAdditional->drawInLayer(myAdditional->getType());
-            // set line color
+            // draw lines
             GLHelper::setColor(s.additionalSettings.connectionColor);
-            // draw both lines
-            //GLHelper::drawBoxLines(myPositionLineA, 0, 0.1, myLineLength);
+            GUIGeometry::drawGeometry(d, myLineGeometry, lineWidth);
             // draw extern rectangle
             GLHelper::setColor(secondColor);
-            GUIGeometry::drawGeometry(d, myExternalRectangle, shapeHeight);
+            GUIGeometry::drawGeometry(d, myAdditional->getAdditionalGeometry(), shapeHeight);
             // move to front
             glTranslated(0, 0, 0.1);
             // draw intern rectangle
@@ -132,7 +138,7 @@ GNEAdditionalListed::drawListedAdditional(const GUIVisualizationSettings& s, con
             additionalContour.drawDottedContours(s, d, myAdditional, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        additionalContour.calculateContourExtrudedShape(s, d, myAdditional, myExternalRectangle.getShape(), myAdditional->getType(), shapeHeight, 1, true, true, 0,
+        additionalContour.calculateContourExtrudedShape(s, d, myAdditional, myAdditional->getAdditionalGeometry().getShape(), myAdditional->getType(), shapeHeight, 1, true, true, 0,
                 nullptr, nullptr);
     }
 }

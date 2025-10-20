@@ -47,7 +47,7 @@ public:
 
 protected:
     /// @brief update geometry of listed additional
-    void updateGeometryListedAdditional(const Position& parentPosition, const int level);
+    void updateGeometryListedAdditional(GUIGeometry& additionalGeometry, const Position& parentPosition, const int level);
 
     /// @brief draw listed additional
     void drawListedAdditional(const GUIVisualizationSettings& s, const RGBColor baseCol, const RGBColor textCol,
@@ -69,6 +69,9 @@ private:
     /// @brief line offset (must be divisible by 2)
     const double lineLenght = 1;
 
+    /// @brief line width
+    const double lineWidth = 0.05;
+
     /// @brief shape width
     const double shapeWidth = 6;
 
@@ -89,14 +92,11 @@ private:
     /// @brief draw position index
     int myDrawPositionIndex = 0;
 
-    /// @brief external rectangle
-    GUIGeometry myExternalRectangle;
-
     /// @brief internal rectangle
     GUIGeometry myInternalRectangle;
 
-    /// @brief vector with line poisitions
-    GUIGeometry myLine;
+    /// @brief vector with line geometry
+    GUIGeometry myLineGeometry;
 
     /// @brief sign position
     Position myIconPosition;
