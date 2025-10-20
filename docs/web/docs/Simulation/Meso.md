@@ -205,7 +205,7 @@ It is also possible to load an additional file where only this option is set:
 
 ### Penalty at uncontrolled intersections
 
-**--meso-minor-penalty** {{DT_TIME}} can be used to apply a fixed time penalty when passing an unprioritzed
+**--meso-minor-penalty** {{DT_TIME}} can be used to apply a fixed time penalty when passing an unprioritized
 link (this is disabled when --meso-junction-control.limited is set and
 junction control is active for that link)
 
