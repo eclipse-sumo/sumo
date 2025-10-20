@@ -158,9 +158,16 @@ GNEJunction::checkDrawFromContour() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
+        const auto inspectedAC = inspectedElements.getFirstAC();
         // check if starts in this junction
-        if (inspectedElements.getFirstAC()->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
-                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) &&
+                (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty()->getTag() == SUMO_TAG_EDGE) &&
+                   (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty()->getTag() == SUMO_TAG_LANE) &&
+                   (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
@@ -216,9 +223,16 @@ GNEJunction::checkDrawToContour() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
+        const auto inspectedAC = inspectedElements.getFirstAC();
         // check if ends in this junction
-        if (inspectedElements.getFirstAC()->getTagProperty()->vehicleJunctions() &&
-                (inspectedElements.getFirstAC()->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+        if (inspectedAC->getTagProperty()->vehicleJunctions() &&
+                (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty()->getTag() == SUMO_TAG_EDGE) &&
+                   (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+            return true;
+        } else if ((inspectedAC->getTagProperty()->getTag() == SUMO_TAG_LANE) &&
+                   (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
