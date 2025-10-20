@@ -1156,7 +1156,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::BUSSTOP, GUIGlObjectType::GLO_BUS_STOP, currentTag, TL("BusStop"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
-        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true, false);
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
@@ -1187,7 +1187,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::TRAINSTOP, GUIGlObjectType::GLO_TRAIN_STOP, currentTag, TL("TrainStop"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
-        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true, false);
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
@@ -1242,7 +1242,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::CONTAINERSTOP, GUIGlObjectType::GLO_CONTAINER_STOP, currentTag, TL("ContainerStop"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
-        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true);
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], true, false);
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LINES,
@@ -1273,7 +1273,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::CHARGINGSTATION, GUIGlObjectType::GLO_CHARGING_STATION, currentTag, TL("ChargingStation"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
-        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false, false);
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_CHARGINGPOWER,
@@ -1330,7 +1330,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GUIIcon::PARKINGAREA, GUIGlObjectType::GLO_PARKING_AREA, currentTag, TL("ParkingArea"),
                 {}, FXRGBA(240, 255, 205, 255));
         // set common attributes
-        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false);
+        fillCommonStoppingPlaceAttributes(myTagProperties[currentTag], false, true);
 
         // set specific attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTPOS,
@@ -6998,7 +6998,7 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
 
 
 void
-GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor) {
+GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor, const bool parkingAreaAngle) {
     // set values of attributes
     fillIDAttribute(tagProperties, true);
 
@@ -7027,6 +7027,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ANGLE,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::ANGLE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               parkingAreaAngle ? TL("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise") :
                                TLF("Angle of waiting %s relative to lane angle", tagProperties->getTag() == SUMO_TAG_CONTAINER_STOP ? toString(SUMO_TAG_CONTAINER) : toString(SUMO_TAG_PERSON)),
                                "0");
 

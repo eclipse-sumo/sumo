@@ -127,7 +127,7 @@ protected:
     void fillCommonAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common stoppingPlace attributes
-    void fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor);
+    void fillCommonStoppingPlaceAttributes(GNETagProperties* tagProperties, const bool includeColor, const bool parkingAreaAngle);
 
     /// @brief fill common POI attributes
     void fillCommonPOIAttributes(GNETagProperties* tagProperties);
