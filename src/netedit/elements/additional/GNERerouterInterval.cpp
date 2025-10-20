@@ -28,12 +28,14 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_INTERVAL, "") {
+    GNEAdditional("", net, "", SUMO_TAG_INTERVAL, ""),
+    GNEAdditionalListed(this) {
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, ""),
+    GNEAdditionalListed(this),
     myBegin(begin),
     myEnd(end) {
     // set parents
@@ -116,8 +118,7 @@ GNERerouterInterval::getMoveOperation() {
 
 void
 GNERerouterInterval::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getPositionInView(), 0);
     // update geometries (boundaries of all children)
     for (const auto& rerouterElement : getChildAdditionals()) {
         rerouterElement->updateGeometry();
@@ -127,12 +128,7 @@ GNERerouterInterval::updateGeometry() {
 
 Position
 GNERerouterInterval::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -156,11 +152,10 @@ GNERerouterInterval::getParentName() const {
 
 void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
-    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // draw rerouter interval as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getPositionInView(),
-                         0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
-                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
+                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), myAdditionalContour);
+    const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // iterate over additionals and check if drawn
     for (const auto& rerouterElement : getChildAdditionals()) {
         // if rerouter or their child is selected, then draw

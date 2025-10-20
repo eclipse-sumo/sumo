@@ -745,7 +745,8 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 
 void
-GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
+GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
+                                     GUITexture texture, GUITexture selectedTexture) const {
     // draw boundaries
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // Obtain drawing exaggeration
@@ -785,107 +786,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
     }
     // calculate contour
     myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, getType(), 0, 0, 0, exaggeration, nullptr);
-}
-
-
-void
-GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX,
-                                    const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
-                                    const std::string text) const {
-    // check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // draw boundaries
-        GLHelper::drawBoundary(s, getCenteringBoundary());
-        // get detail level
-        const auto d = s.getDetailLevel(1);
-        // declare offsets
-        const double lineOffset = 0.1875;
-        const double baseOffsetX = 6.25;
-        const double baseOffsetY = 0.6;
-        // get draw position index
-        const int drawPositionIndex = getDrawPositionIndex();
-        // calculate lineA position (from parent to middle)
-        Position positionLineA = parentPosition;
-        const double positionLineA_Y = (0 - extraOffsetY + baseOffsetY);
-        // set position depending of indexes
-        positionLineA.add(1 + lineOffset + (baseOffsetX * offsetX), positionLineA_Y, 0);
-        // calculate lineC position (From middle until current listenAdditional
-        Position positionLineB = parentPosition;
-        const double positionLineB_Y = ((drawPositionIndex * -1) - extraOffsetY + baseOffsetY);
-        // set position depending of indexes
-        positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
-        // calculate signPosition position
-        Position signPosition = parentPosition;
-        // set position depending of indexes
-        signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-            // calculate colors
-            const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
-            const RGBColor secondColor = baseColor.changedBrightness(-30);
-            const RGBColor textColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
-            // Add layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            drawInLayer(getType());
-            // set line color
-            GLHelper::setColor(s.additionalSettings.connectionColor);
-            // draw both lines
-            GLHelper::drawBoxLine(positionLineA, 0, 0.1, lineOffset);
-            GLHelper::drawBoxLine(positionLineB, 0, 0.1, lineOffset);
-            // check if draw middle lane
-            if (drawPositionIndex != 0) {
-                // calculate length
-                const double length = std::abs(positionLineA_Y - positionLineB_Y);
-                // push middle lane matrix
-                GLHelper::pushMatrix();
-                //move and rotate
-                glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
-                glRotated(90, 0, 0, 1);
-                glTranslated((length * -0.5), 0, 0);
-                // draw line
-                GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, length * 0.5);
-                // pop middle lane matrix
-                GLHelper::popMatrix();
-            }
-            // draw extern rectangle
-            GLHelper::setColor(secondColor);
-            GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);
-            // move to front
-            glTranslated(0, -0.06, 0.1);
-            // draw intern rectangle
-            GLHelper::setColor(baseColor);
-            GLHelper::drawBoxLine(signPosition, 0, 0.84, 2.69);
-            // move position down
-            signPosition.add(-2, -0.43, 0);
-            // draw interval
-            GLHelper::drawText(adjustListedAdditionalText(text), signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
-            // move to icon position
-            signPosition.add(-0.3, 0);
-            // check if draw lock icon or rerouter interval icon
-            if (GNEViewNetHelper::LockIcon::checkDrawing(d, this, getType(), 1)) {
-                // pop layer matrix
-                GLHelper::popMatrix();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
-            } else {
-                // translate to front
-                glTranslated(signPosition.x(), signPosition.y(), 0.1);
-                // set White color
-                glColor3d(1, 1, 1);
-                // rotate
-                glRotated(180, 0, 0, 1);
-                // draw texture
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), 0.25);
-                // pop layer matrix
-                GLHelper::popMatrix();
-            }
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-        }
-        // calculate contour
-        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.48, 2.75, getType(), -0.48, 0, 0, 1, nullptr);
-    }
 }
 
 
@@ -1075,25 +975,6 @@ GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const G
 }
 
 
-int
-GNEAdditional::getDrawPositionIndex() const {
-    // filter symbols
-    std::vector<GNEAdditional*> children;
-    for (const auto& child : getParentAdditionals().front()->getChildAdditionals()) {
-        if (!child->getTagProperty()->isSymbol()) {
-            children.push_back(child);
-        }
-    }
-    // now get index
-    for (int i = 0; i < (int)children.size(); i++) {
-        if (children.at(i) == this) {
-            return i;
-        }
-    }
-    return 0;
-}
-
-
 bool
 GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
     // declare lane iterator
@@ -1186,30 +1067,6 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, co
         GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
         // pop geometry point matrix
         GLHelper::popMatrix();
-    }
-}
-
-
-std::string
-GNEAdditional::adjustListedAdditionalText(const std::string& text) const {
-    // 10 + 3 + 10
-    if (text.size() <= 23) {
-        return text;
-    } else {
-        // get text size
-        const int textPosition = (int)text.size() - 10;
-        // declare strings
-        std::string partA, partB;
-        // resize
-        partA.reserve(10);
-        partB.reserve(10);
-        // fill both
-        for (int i = 0; i < 10; i++) {
-            partA.push_back(text.at(i));
-            partB.push_back(text.at(textPosition + i));
-        }
-        // return composition
-        return (partA + "..." + partB);
     }
 }
 

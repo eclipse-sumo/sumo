@@ -28,13 +28,15 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_STEP, "") {
+    GNEAdditional("", net, "", SUMO_TAG_STEP, ""),
+    GNEAdditionalListed(this) {
 }
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSign,
         const SUMOTime time, const double speed) :
     GNEAdditional(variableSpeedSign, SUMO_TAG_STEP, ""),
+    GNEAdditionalListed(this),
     myTime(time),
     mySpeed(speed) {
     // set parents
@@ -109,19 +111,13 @@ GNEVariableSpeedSignStep::getTime() const {
 
 void
 GNEVariableSpeedSignStep::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getPositionInView(), 0);
 }
 
 
 Position
 GNEVariableSpeedSignStep::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -145,10 +141,9 @@ GNEVariableSpeedSignStep::getParentName() const {
 
 void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
-    // draw rerouter interval as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getPositionInView(),
-                         0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
-                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h");
+    // draw VSS step as listed attribute
+    drawListedAdditional(s, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
+                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h", myAdditionalContour);
 }
 
 

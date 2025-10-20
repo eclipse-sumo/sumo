@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class declarations
@@ -35,7 +36,7 @@ class GNEParkingArea;
 // class definitions
 // ===========================================================================
 
-class GNEParkingAreaReroute : public GNEAdditional {
+class GNEParkingAreaReroute : public GNEAdditional, public GNEAdditionalListed {
 
 public:
     /// @brief constructor

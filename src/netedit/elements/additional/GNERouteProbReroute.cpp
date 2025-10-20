@@ -29,12 +29,14 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ROUTE_PROB_REROUTE, "") {
+    GNEAdditional("", net, "", SUMO_TAG_ROUTE_PROB_REROUTE, ""),
+    GNEAdditionalListed(this) {
 }
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_ROUTE_PROB_REROUTE, ""),
+    GNEAdditionalListed(this),
     myProbability(probability) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
@@ -101,34 +103,21 @@ GNERouteProbReroute::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNERouteProbReroute::getMoveOperation() {
-    // GNERouteProbReroutes cannot be moved
-    return nullptr;
+void
+GNERouteProbReroute::updateGeometry() {
+    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 
-void
-GNERouteProbReroute::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+Position
+GNERouteProbReroute::getPositionInView() const {
+    return getListedPositionInView();
 }
 
 
 void
 GNERouteProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do
-}
-
-
-Position
-GNERouteProbReroute::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
-    // return signPosition
-    return signPosition;
 }
 
 
@@ -146,11 +135,9 @@ GNERouteProbReroute::getParentName() const {
 
 void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
-    // draw route prob reroute as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE,
-                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
+    // draw dest prob reroute as listed attribute
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE,
+                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB), myAdditionalContour);
 }
 
 

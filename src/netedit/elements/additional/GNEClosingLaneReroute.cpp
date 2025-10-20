@@ -29,6 +29,7 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_CLOSING_LANE_REROUTE, ""),
+    GNEAdditionalListed(this),
     myClosedLane(nullptr),
     myPermissions(0) {
 }
@@ -36,6 +37,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_CLOSING_LANE_REROUTE, ""),
+    GNEAdditionalListed(this),
     myClosedLane(closedLane),
     myPermissions(permissions) {
     // set parents
@@ -111,19 +113,13 @@ GNEClosingLaneReroute::checkDrawMoveContour() const {
 
 void
 GNEClosingLaneReroute::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 
 Position
 GNEClosingLaneReroute::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -147,11 +143,9 @@ GNEClosingLaneReroute::getParentName() const {
 
 void
 GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
-    // draw closing lane reroute as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
-                         getAttribute(SUMO_ATTR_LANE));
+    // draw closing reroute as listed attribute
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
+                         getAttribute(SUMO_ATTR_LANE), myAdditionalContour);
 }
 
 

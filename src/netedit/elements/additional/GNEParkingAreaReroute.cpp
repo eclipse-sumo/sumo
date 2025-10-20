@@ -28,13 +28,15 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, "", SUMO_TAG_PARKING_AREA_REROUTE, "") {
+    GNEAdditional("", net, "", SUMO_TAG_PARKING_AREA_REROUTE, ""),
+    GNEAdditionalListed(this) {
 }
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea,
         const double probability, const bool visible):
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_PARKING_AREA_REROUTE, ""),
+    GNEAdditionalListed(this),
     myProbability(probability),
     myVisible(visible) {
     // set parents
@@ -108,19 +110,13 @@ GNEParkingAreaReroute::checkDrawMoveContour() const {
 
 void
 GNEParkingAreaReroute::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 
 Position
 GNEParkingAreaReroute::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -144,11 +140,9 @@ GNEParkingAreaReroute::getParentName() const {
 
 void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
-    // draw route prob reroute as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
-                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
+    // draw dest prob reroute as listed attribute
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
+                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB), myAdditionalContour);
 }
 
 

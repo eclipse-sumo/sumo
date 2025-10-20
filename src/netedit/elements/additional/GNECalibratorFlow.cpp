@@ -32,7 +32,8 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, "", GNE_TAG_CALIBRATOR_FLOW, "") {
+    GNEAdditional("", net, "", GNE_TAG_CALIBRATOR_FLOW, ""),
+    GNEAdditionalListed(this) {
     // set VPH and speed enabled
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
     toggleAttribute(SUMO_ATTR_SPEED, true);
@@ -42,7 +43,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent, GNE_TAG_CALIBRATOR_FLOW, "") {
+    GNEAdditional(calibratorParent, GNE_TAG_CALIBRATOR_FLOW, ""),
+    GNEAdditionalListed(this) {
     // set parents
     setParent<GNEAdditional*>(calibratorParent);
     setParents<GNEDemandElement*>({vehicleType, route});
@@ -56,7 +58,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
                                      const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent, GNE_TAG_CALIBRATOR_FLOW, ""),
-    SUMOVehicleParameter(vehicleParameters) {
+    SUMOVehicleParameter(vehicleParameters),
+    GNEAdditionalListed(this) {
     // set parents
     setParent<GNEAdditional*>(calibratorParent);
     setParents<GNEDemandElement*>({vehicleType, route});
@@ -135,19 +138,13 @@ GNECalibratorFlow::checkDrawMoveContour() const {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getPositionInView(), 0);
 }
 
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -178,8 +175,9 @@ GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
         // rotate
         glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
-        // draw rerouter interval as listed attribute
-        drawListedAdditional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+        // draw closing reroute as listed attribute
+        drawListedAdditional(s, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
+                             "Flow: " + getID(), myAdditionalContour);
         // pop rotation matrix
         GLHelper::popMatrix();
     }

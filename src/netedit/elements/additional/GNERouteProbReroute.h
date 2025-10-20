@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class declarations
@@ -34,7 +35,7 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-class GNERouteProbReroute : public GNEAdditional {
+class GNERouteProbReroute : public GNEAdditional, public GNEAdditionalListed {
 
 public:
     /// @brief default constructor
@@ -86,11 +87,6 @@ public:
     bool checkDrawMoveContour() const override;
 
     /// @}
-
-    /**@brief get move operation
-    * @note returned GNEMoveOperation can be nullptr
-    */
-    GNEMoveOperation* getMoveOperation();
 
     /// @name Functions related with geometry of element
     /// @{

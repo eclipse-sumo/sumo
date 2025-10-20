@@ -22,6 +22,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class declaration
@@ -34,7 +35,7 @@ class GNECalibratorDialog;
 // class definitions
 // ===========================================================================
 
-class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter {
+class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter, public GNEAdditionalListed {
 
 public:
     /// @brief default constructor

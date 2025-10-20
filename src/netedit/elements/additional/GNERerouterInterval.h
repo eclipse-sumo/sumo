@@ -21,12 +21,13 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERerouterInterval : public GNEAdditional {
+class GNERerouterInterval : public GNEAdditional, public GNEAdditionalListed {
 
 public:
     /// @brief default constructor

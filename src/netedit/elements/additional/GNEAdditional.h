@@ -251,9 +251,6 @@ public:
     void drawRightGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                 const double rot, const RGBColor& baseColor, const bool ignoreShift = false) const;
 
-    /// @brief get draw position index (used in rerouters and VSS)
-    int getDrawPositionIndex() const;
-
     /// @brief check if the given lanes are consecutive
     static bool areLaneConsecutives(const std::vector<GNELane*>& lanes);
 
@@ -333,11 +330,6 @@ protected:
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
                                GUITexture texture, GUITexture selectedTexture) const;
 
-    /// @brief draw listed additional
-    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX,
-                              const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
-                              const std::string text) const;
-
     /// @brief draw demand element children
     void drawDemandElementChildren(const GUIVisualizationSettings& s) const;
 
@@ -377,9 +369,6 @@ private:
     void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const Position& pos, const double rot, const RGBColor& baseColor,
                                      const double fromAngle, const double toAngle, const bool ignoreShift) const;
-
-    /// @brief adjust listed additional text
-    std::string adjustListedAdditionalText(const std::string& text) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

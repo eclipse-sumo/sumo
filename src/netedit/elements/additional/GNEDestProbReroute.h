@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class declarations
@@ -34,7 +35,7 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-class GNEDestProbReroute : public GNEAdditional {
+class GNEDestProbReroute : public GNEAdditional, public GNEAdditionalListed {
 
 public:
     /// @brief constructor

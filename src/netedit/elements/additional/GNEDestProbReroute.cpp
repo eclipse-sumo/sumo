@@ -29,6 +29,7 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
     GNEAdditional("", net, "", SUMO_TAG_DEST_PROB_REROUTE, ""),
+    GNEAdditionalListed(this),
     myNewEdgeDestination(nullptr),
     myProbability(0) {
 }
@@ -36,6 +37,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_DEST_PROB_REROUTE, ""),
+    GNEAdditionalListed(this),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(probability) {
     // set parents
@@ -105,19 +107,13 @@ GNEDestProbReroute::checkDrawMoveContour() const {
 
 void
 GNEDestProbReroute::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 
 Position
 GNEDestProbReroute::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -142,10 +138,8 @@ GNEDestProbReroute::getParentName() const {
 void
 GNEDestProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw dest prob reroute as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE,
-                         getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB));
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE,
+                         getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB), myAdditionalContour);
 }
 
 

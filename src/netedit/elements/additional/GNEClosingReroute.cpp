@@ -28,12 +28,14 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_CLOSING_REROUTE, "") {
+    GNEAdditional("", net, "", SUMO_TAG_CLOSING_REROUTE, ""),
+    GNEAdditionalListed(this) {
 }
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_CLOSING_REROUTE, ""),
+    GNEAdditionalListed(this),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
     // set parents
@@ -109,19 +111,13 @@ GNEClosingReroute::checkDrawMoveContour() const {
 
 void
 GNEClosingReroute::updateGeometry() {
-    // update centering boundary (needed for centering)
-    updateCenteringBoundary(false);
+    updateGeometryListedAdditional(getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
 }
 
 
 Position
 GNEClosingReroute::getPositionInView() const {
-    // get rerouter parent position
-    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
-    // set position depending of indexes
-    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
-    // return signPosition
-    return signPosition;
+    return getListedPositionInView();
 }
 
 
@@ -146,10 +142,8 @@ GNEClosingReroute::getParentName() const {
 void
 GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing reroute as listed attribute
-    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
-                         getAttribute(SUMO_ATTR_EDGE));
+    drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
+                         getAttribute(SUMO_ATTR_EDGE), myAdditionalContour);
 }
 
 

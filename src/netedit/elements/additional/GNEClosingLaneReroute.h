@@ -21,20 +21,19 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalListed.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNELane;
-class GNERerouterInterval;
-class GNERerouterIntervalDialog;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEClosingLaneReroute : public GNEAdditional {
+class GNEClosingLaneReroute : public GNEAdditional, public GNEAdditionalListed {
 
 public:
     /// @brief parameter constructor
