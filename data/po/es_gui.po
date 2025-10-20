@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-20 10:27+0000\n"
+"PO-Revision-Date: 2025-10-20 13:01+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -240,7 +240,7 @@ msgstr "Abrir red en netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:543
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Abre la red actual en netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
@@ -2849,7 +2849,7 @@ msgstr "La recarga del archivo adicional '%' falló."
 #: src/netedit/GNEApplicationWindow.cpp:3839
 #, c-format
 msgid "Reloading of additional file '%' successfully."
-msgstr ""
+msgstr "Recarga exitosa del archivo adicional '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "Additionals saved."
@@ -2891,40 +2891,40 @@ msgstr "archivo de elementos de ruta"
 
 #: src/netedit/GNEApplicationWindow.cpp:4003
 msgid "loading demand elements from '%'"
-msgstr ""
+msgstr "cargando elementos de demanda desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4007
 #, c-format
 msgid "Loading of route file '%' failed."
-msgstr ""
+msgstr "La carga del archivo de ruta '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4010
 #, c-format
 msgid "Loading of route file '%' successfully."
-msgstr ""
+msgstr "Carga exitosa del archivo de ruta '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4035
 msgid "reloading demand elements"
-msgstr ""
+msgstr "recargando elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 #, c-format
 msgid "Reloading of route file '%' failed."
-msgstr ""
+msgstr "La recarga del archivo de ruta '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4048
 #, c-format
 msgid "Reloading of route file '%' successfully."
-msgstr ""
+msgstr "Recarga exitosa del archivo de ruta '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4102
 msgid "Demand elements saved."
-msgstr ""
+msgstr "Se guardaron los elementos de demanda."
 
 #: src/netedit/GNEApplicationWindow.cpp:4105
 #: src/netedit/GNEApplicationWindow.cpp:4277
 msgid "Saving demand elements aborted."
-msgstr ""
+msgstr "El guardado de elementos de demanda fue abortado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4110
 msgid "Saving demand elements failed"
@@ -2932,7 +2932,7 @@ msgstr "El guardado de los elementos de demanda ha fallado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4137
 msgid "saving of unified demand elements in '%'."
-msgstr ""
+msgstr "guardando elementos de demanda unificados en '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4157
 #: src/netedit/GNEApplicationWindow.cpp:4302
@@ -2943,43 +2943,43 @@ msgstr "archivo de elementos de datos"
 #: src/netedit/GNEApplicationWindow.cpp:4172
 #: src/netedit/GNEApplicationWindow.cpp:4892
 msgid "loading data elements from '%'."
-msgstr ""
+msgstr "cargando elementos de datos desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4176
 #, c-format
 msgid "Loading of data file '%' failed."
-msgstr ""
+msgstr "La carga del archivo de datos '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #, c-format
 msgid "Loading of data file '%' successfully."
-msgstr ""
+msgstr "Carga exitosa del archivo de datos '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4208
 msgid "reloading data elements"
-msgstr ""
+msgstr "recargando elementos de datos"
 
 #: src/netedit/GNEApplicationWindow.cpp:4219
 #, c-format
 msgid "Reloading of data file '%' failed."
-msgstr ""
+msgstr "La recarga del archivo de datos '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4221
 #, c-format
 msgid "Reloading of data file '%' successfully."
-msgstr ""
+msgstr "Recarga exitosa del archivo de datos '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Data elements saved."
-msgstr ""
+msgstr "Se guardaron los elementos de datos."
 
 #: src/netedit/GNEApplicationWindow.cpp:4282
 msgid "Saving data elements failed"
-msgstr ""
+msgstr "El guardado de los elementos de datos ha fallado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4309
 msgid "saving of unified data elements in '%'"
-msgstr ""
+msgstr "guardando elementos de datos unificados en '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4327
 #: src/netedit/GNEApplicationWindow.cpp:4466
@@ -2988,7 +2988,7 @@ msgstr "archivo de elementos MeanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4340
 msgid "load meanDatas from '%'"
-msgstr ""
+msgstr "cargar meanDatas desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4344
 #, c-format
@@ -3002,25 +3002,25 @@ msgstr "El archivo meandata '%' se cargó correctamente."
 
 #: src/netedit/GNEApplicationWindow.cpp:4372
 msgid "reloading meanDatas"
-msgstr ""
+msgstr "recargando meanDatas"
 
 #: src/netedit/GNEApplicationWindow.cpp:4383
 #, c-format
 msgid "Reloading of meanData file '%' failed."
-msgstr ""
+msgstr "La recarga del archivo meanData '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4385
 #, c-format
 msgid "Reloading of meanData file '%' successfully."
-msgstr ""
+msgstr "Recarga exitosa del archivo meanData '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4438
 msgid "MeanDatas elements saved"
-msgstr ""
+msgstr "Se guardaron los elementos meanDatas"
 
 #: src/netedit/GNEApplicationWindow.cpp:4441
 msgid "Saving MeanData elements aborted"
-msgstr ""
+msgstr "El guardado de los elementos meanData fue abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4446
 msgid "Saving demand elements failed!"
@@ -3028,7 +3028,7 @@ msgstr "¡El guardado de los elementos de demanda ha fallado!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4473
 msgid "saving of unified mean data elements in '%'"
-msgstr ""
+msgstr "guardando elementos meanData unificados en '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4783
 msgid "loading additional elements from '"
@@ -3036,13 +3036,13 @@ msgstr "abriendo elementos adicionales de '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4790
 msgid "loading additionals from '%'."
-msgstr ""
+msgstr "cargando elementos adicionales desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4795
 #: src/netedit/GNEApplicationWindow.cpp:4851
 #, c-format
 msgid "Loading of '%' failed."
-msgstr ""
+msgstr "La carga de '%' ha fallado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4839
 msgid "loading demand elements from '"
@@ -3050,31 +3050,31 @@ msgstr "Cargando elementos de demanda desde '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4846
 msgid "loading demand elements from '%'."
-msgstr ""
+msgstr "cargando elementos de demanda desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4885
 msgid "loading data elements from '"
-msgstr "carga de elementos de datos de '"
+msgstr "cargando elementos de datos desde '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4931
 msgid "loading meanData elements from '"
-msgstr ""
+msgstr "cargando elementos meanData desde '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4938
 msgid "loading meanData elements from '%'."
-msgstr ""
+msgstr "cargando elementos meanData desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "Reloading TLS programs"
-msgstr ""
+msgstr "Recargando programas de semáforo"
 
 #: src/netedit/GNEApplicationWindow.cpp:4974
 msgid "reloading TLS Programs from '%'"
-msgstr ""
+msgstr "recargando programas de semáforo desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4976
 msgid "Loading TLS programs from '%'"
-msgstr ""
+msgstr "Cargando programas de semáforo desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4977
 msgid "loading TLS Programs from '%'"
@@ -3082,19 +3082,19 @@ msgstr "cargando programas de semáforo desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5006
 msgid "Reloading edge types"
-msgstr ""
+msgstr "Recargando tipos de arista"
 
 #: src/netedit/GNEApplicationWindow.cpp:5007
 msgid "loading edge types from '%'"
-msgstr ""
+msgstr "cargando tipos de arista desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5009
 msgid "Loading edge types from '%'"
-msgstr ""
+msgstr "Cargando tipos de arista desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5010
 msgid "reloading edge types from '%'"
-msgstr ""
+msgstr "recargando tipos de arista desde '%'"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:135
 msgid "nets"
@@ -12211,7 +12211,7 @@ msgstr "añadir % '%'"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:354
 #: src/netedit/elements/demand/GNERouteHandler.cpp:449
 msgid "Could not build % with ID '%' in netedit; %."
-msgstr ""
+msgstr "No se pudo generar % con ID '%' en netedit; %."
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:218
 msgid "Route '%' with probability % cannot be referenced with distribution '%'"
@@ -17437,19 +17437,19 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2298
 msgid "stop"
-msgstr ""
+msgstr "parada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "waypoint"
-msgstr ""
+msgstr "punto de referencia"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2302
 msgid "stop (persons)"
-msgstr ""
+msgstr "parada (personas)"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2304
 msgid "stop (containers)"
-msgstr ""
+msgstr "parada (contenedores)"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2327
 msgid "POI detail"
@@ -17490,11 +17490,11 @@ msgstr "Misceláneos"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2397
 msgid "Lane Edge"
-msgstr ""
+msgstr "Carril"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2401
 msgid "Prohibition"
-msgstr ""
+msgstr "Prohibición"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2413
 msgid "PersonPlan"
@@ -17530,7 +17530,7 @@ msgstr "Mostrar leyenda de color de vehículo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2500
 msgid "Draw all objects at their true Z-level"
-msgstr ""
+msgstr "Dibujar todos los objetos en su nivel Z real"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2503
 msgid "Combobox max rows"
