@@ -732,6 +732,7 @@ GNEAttributesEditorRow::showAttributeFile(const GNEAttributeProperties* attrProp
 void
 GNEAttributesEditorRow::showAttributeLabel(const GNEAttributeProperties* attrProperty) {
     myAttributeLabel->setText(attrProperty->getAttrStr().c_str());
+    myAttributeLabel->setTipText(attrProperty->getDefinition().c_str());
     myAttributeLabel->show();
     // hide other elements
     myAttributeToggleEnableCheckButton->hide();
