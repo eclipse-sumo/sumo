@@ -652,13 +652,9 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
     MFXGroupBoxModule(moveFrameParent, TL("Information")) {
     // create info label
-    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over edge to create or edit geometry point.") + std::string("\n- ") + TL("Shift+click over edge to edit start or end geometry point.")).c_str(), 0, GUIDesignLabelFrameInformation);
-    // create source label
-    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
-    sourceLabel->setBackColor(MFXUtils::getFXColor(RGBColor::ORANGE));
-    // create target label
-    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("-Merge geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
-    targetLabel->setBackColor(MFXUtils::getFXColor(RGBColor::CYAN));
+    std::string info = std::string("- ") + TL("Click over edge to create or edit geometry point.") + std::string("\n") +
+                       std::string("- ") + TL("Shift+click over edge to edit start or end geometry point.");
+    new MFXDynamicLabel(getCollapsableFrame(), info.c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
