@@ -1862,7 +1862,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::GREEN, (double)SVCAll, "all");
     laneColorer.addScheme(scheme);
 
-    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
+    scheme = GUIColorScheme("by allowed speed (lanewise)", TL("by allowed speed (lanewise)"), RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, 30. / 3.6);
     scheme.addColor(RGBColor::GREEN, 55. / 3.6);
     scheme.addColor(RGBColor::CYAN, 80. / 3.6);
@@ -1870,11 +1870,11 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 150. / 3.6);
     laneColorer.addScheme(scheme);
 
-    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor::RED);
+    scheme = GUIColorScheme("by lane number (streetwise)", TL("by lane number (streetwise)"), RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, 5.);
     laneColorer.addScheme(scheme);
 
-    scheme = GUIColorScheme("by given length/geometrical length", RGBColor::RED);
+    scheme = GUIColorScheme("by given length/geometrical length", TL("by given length/geometrical length"), RGBColor::RED);
     scheme.addColor(RGBColor::ORANGE, 0.25);
     scheme.addColor(RGBColor::YELLOW, 0.5);
     scheme.addColor(RGBColor(179, 179, 179, 255), 1.);
@@ -1923,12 +1923,12 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, TL(SCHEME_NAME_LANE_PARAM_NUMERICAL.c_str()), COL_MISSING_DATA, TL("missing data"), false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by distance (kilometrage)", TL("by distance (kilometrage)"), RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, 1.);
     scheme.addColor(RGBColor::RED, -1.);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by abs distance (kilometrage)", TL("by abs distance (kilometrage)"), RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
