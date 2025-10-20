@@ -48,9 +48,14 @@ def main(visum, ver_file, zip_file, xml=True):
         for f in (network, routes, matrices):
             if os.path.exists(f):
                 os.remove(f)
-        visum.ExportAnmNet(network, "")
-        visum.ExportAnmRoutes(routes, "", True, False)
-        visum.ExportAnmRoutes(matrices, "", False, True)
+        if hasattr(visum, "IO"):
+            visum.IO.ExportANMNet(network, "")
+            visum.IO.ExportANMRoutes(routes, "", True, False)
+            visum.IO.ExportANMRoutes(matrices, "", False, True)
+        else:
+            visum.ExportAnmNet(network, "")
+            visum.ExportAnmRoutes(routes, "", True, False)
+            visum.ExportAnmRoutes(matrices, "", False, True)
         os.rename(network + ".anm", network)
         os.rename(routes + ".anmRoutes", routes)
         os.rename(matrices + ".anmRoutes", matrices)
@@ -59,7 +64,10 @@ def main(visum, ver_file, zip_file, xml=True):
         matrices = os.path.join(out_dir, base_name + ".dmd")
         routes = ""
         visum.SaveNet(network)
-        visum.SaveDemandFile(matrices, True)
+        if hasattr(visum, "IO"):
+            visum.IO.SaveDemandFile(matrices, True)
+        else:
+            visum.SaveDemandFile(matrices, True)
 
     with zipfile.ZipFile(zip_file, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
         for f in [network, matrices, routes]:
