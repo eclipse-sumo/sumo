@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-16 12:28+0200\n"
-"PO-Revision-Date: 2025-10-17 08:02+0000\n"
+"PO-Revision-Date: 2025-10-20 08:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10343,19 +10343,19 @@ msgstr "Ci sono delle chiavi con caratteri invalidi"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Duplicated Parameters"
-msgstr ""
+msgstr "Parametri raddoppiati"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:532
 msgid "Parameters with the same key aren't allowed"
-msgstr ""
+msgstr "Non sono autorizzati due parametri con chiavi identiche"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:33
 msgid "Save %"
-msgstr ""
+msgstr "Salva %"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:38
 msgid "You have unsaved %."
-msgstr ""
+msgstr "Ci sono % non salvati/e."
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:39
 msgid "Do you wish to close and discard all changes?"
@@ -10363,7 +10363,7 @@ msgstr "Vuoi chiudere e perdere tutte modificazioni fatte?"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:42
 msgid "Apply to all unsaved elements"
-msgstr ""
+msgstr "Applica a tutti gli elementi non salvati"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10395,7 +10395,7 @@ msgstr "Escludi tutti i veicoli"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:139
 msgid "Select vClasses"
-msgstr ""
+msgstr "Seleziona classi di veicoli"
 
 #: src/netedit/dialogs/GNEVClassesDialog.cpp:144
 msgid "Default vehicle class"
@@ -10587,11 +10587,11 @@ msgstr "% '%' non può essere aggiornato a causa di attributi invalidi."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:67
 msgid "Error updating % '%'"
-msgstr ""
+msgstr "Errore nel aggiornamento di % '%'"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:68
 msgid "% '%' cannot be updated because"
-msgstr ""
+msgstr "% '%' non può essere aggiornato perché"
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:72
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:74
@@ -10603,12 +10603,12 @@ msgstr ""
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:92
 #, c-format
 msgid "there are invalid %s."
-msgstr ""
+msgstr "ci sono % invalidi."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:183
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:226
 msgid "No routes in net"
-msgstr ""
+msgstr "Nessun itinerario nella rete"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:58
 msgid "Rerouter intervals of % '%' cannot be saved"
@@ -10634,11 +10634,11 @@ msgstr ""
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:129
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:191
 msgid "No edges in net"
-msgstr ""
+msgstr "Nessun arco nella rete"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:160
 msgid "No lanes in net"
-msgstr ""
+msgstr "Nessuna corsia nella rete"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:222
 msgid "Rerouter has more than one edge"
@@ -10646,15 +10646,15 @@ msgstr "Il rerouter contiene più di un arco"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:257
 msgid "No parkingAreas in net"
-msgstr ""
+msgstr "Nessun parcheggio nella rete"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:37
 msgid "Edit % '%'"
-msgstr ""
+msgstr "Modifica % '%'"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:41
 msgid "change % values"
-msgstr ""
+msgstr "cambia % valori"
 
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:58
 msgid "VariableSpeedSign steps of % '%' cannot be saved"
@@ -10678,7 +10678,7 @@ msgstr "Apri file OSG"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1802
 msgid "Error editing %"
-msgstr ""
+msgstr "Errore nella modifica di %"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
 #, c-format
@@ -10692,33 +10692,33 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:41
 msgid "Open %"
-msgstr ""
+msgstr "Apri %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:84
 msgid "Visited Directories"
-msgstr ""
+msgstr "Cartelle visitate"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:97
 msgid "Directory:"
-msgstr ""
+msgstr "Cartella:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:108
 msgid "File Name:"
-msgstr ""
+msgstr "Nome di file:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:232
 msgid "Copy File"
-msgstr ""
+msgstr "Copia file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:232
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Select destination file"
-msgstr ""
+msgstr "Seleziona file di destinazione"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:240
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:258
 msgid "Error copying file"
-msgstr ""
+msgstr "Errore durante la copia di un file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:241
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:259
@@ -10726,16 +10726,18 @@ msgid ""
 "Unable to copy file:\n"
 "%\n"
 msgstr ""
+"Incapace di copiare un file:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:242
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:287
 msgid "The source and destination files are the same"
-msgstr ""
+msgstr "I file di origine e di destinazione sono identici"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:248
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:293
 msgid "Overwrite file"
-msgstr ""
+msgstr "Sovrascrivi file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:248
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:293
@@ -10743,11 +10745,13 @@ msgid ""
 "The destination file:\n"
 "%\n"
 msgstr ""
+"Il file di destinazione:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:249
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:294
 msgid "already exist. Overwrite?"
-msgstr ""
+msgstr "esiste già. Desideri sovrasciverlo?"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:305
