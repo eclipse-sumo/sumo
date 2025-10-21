@@ -18,12 +18,15 @@
 // A class for visualizing routes in Netedit
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNETagSelector.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -413,7 +416,8 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment*
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag(), false)) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag(), false) &&
+            checkCreatingVehicleOverRoute()) {
         // get exaggeration
         const double exaggeration = getExaggeration(s);
         // get detail level
@@ -486,7 +490,8 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegm
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag(), false)) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag(), false) &&
+            checkCreatingVehicleOverRoute()) {
         // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level
@@ -840,5 +845,30 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
 }
+
+
+bool
+GNERoute::checkCreatingVehicleOverRoute() const {
+    if (myTagProperty->getTag() != GNE_TAG_ROUTE_EMBEDDED) {
+        // this affect only to embedded routes
+        return true;
+    } else if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // only in demand mode
+        return true;
+    } else if (myNet->getViewNet()->getEditModes().demandEditMode != DemandEditMode::DEMAND_VEHICLE) {
+        // only creating vehicles
+        return true;
+    } else {
+        // get current template AC
+        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        if (templateAC && templateAC->getTagProperty()->vehicleRoute()) {
+            // we're creating a vehicle over a route, then hidde all embedded routes
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
 
 /****************************************************************************/

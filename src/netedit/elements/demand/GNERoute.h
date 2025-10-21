@@ -290,6 +290,9 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 
+    /// @brief check if we're creating a vehicle or flow over route
+    bool checkCreatingVehicleOverRoute() const;
+
     /// @brief Invalidated copy constructor.
     GNERoute(GNERoute*) = delete;
 
