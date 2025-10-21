@@ -251,11 +251,11 @@ protected:
     /// @brief vTypes
     std::vector<std::string> myVTypes;
 
-    /// @brief extra calibrator geometries
+    /// @brief edge calibrator geometries
     std::vector<GUIGeometry> myEdgeCalibratorGeometries;
 
-    /// @brief calibrator contours
-    std::vector<GNEContour*>* myCalibratorContours;
+    /// @brief edge calibrator contours
+    std::vector<GNEContour*>* myEdgeCalibratorContours;
 
 private:
     /// @brief draw calibrator symbol

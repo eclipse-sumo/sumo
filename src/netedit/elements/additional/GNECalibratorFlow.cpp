@@ -169,19 +169,9 @@ GNECalibratorFlow::getParentName() const {
 
 void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // push rotation matrix
-        GLHelper::pushMatrix();
-        // move to parent additional position
-        glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
-        // rotate
-        glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
-        // draw closing reroute as listed attribute
-        drawListedAdditional(s, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
-                             "Flow: " + getID());
-        // pop rotation matrix
-        GLHelper::popMatrix();
-    }
+    // draw closing reroute as listed attribute
+    drawListedAdditional(s, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
+                         "Flow: " + getID());
 }
 
 
