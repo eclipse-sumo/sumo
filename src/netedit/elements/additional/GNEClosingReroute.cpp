@@ -111,7 +111,7 @@ GNEClosingReroute::checkDrawMoveContour() const {
 
 void
 GNEClosingReroute::updateGeometry() {
-    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
+    updateGeometryListedAdditional();
 }
 
 
@@ -143,7 +143,7 @@ void
 GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing reroute as listed attribute
     drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
-                         getAttribute(SUMO_ATTR_EDGE), myAdditionalContour);
+                         getAttribute(SUMO_ATTR_EDGE));
 }
 
 

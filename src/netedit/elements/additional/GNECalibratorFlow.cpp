@@ -139,7 +139,7 @@ GNECalibratorFlow::checkDrawMoveContour() const {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getPositionInView(), 0);
+    updateGeometryListedAdditional();
 }
 
 
@@ -178,7 +178,7 @@ GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
         glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
         // draw closing reroute as listed attribute
         drawListedAdditional(s, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
-                             "Flow: " + getID(), myAdditionalContour);
+                             "Flow: " + getID());
         // pop rotation matrix
         GLHelper::popMatrix();
     }

@@ -105,7 +105,7 @@ GNERouteProbReroute::checkDrawMoveContour() const {
 
 void
 GNERouteProbReroute::updateGeometry() {
-    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 1);
+    updateGeometryListedAdditional();
 }
 
 
@@ -137,7 +137,7 @@ void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw dest prob reroute as listed attribute
     drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE,
-                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB), myAdditionalContour);
+                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
 

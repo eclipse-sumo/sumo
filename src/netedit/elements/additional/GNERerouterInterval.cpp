@@ -118,11 +118,7 @@ GNERerouterInterval::getMoveOperation() {
 
 void
 GNERerouterInterval::updateGeometry() {
-    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getPositionInView(), 0);
-    // update geometries (boundaries of all children)
-    for (const auto& rerouterElement : getChildAdditionals()) {
-        rerouterElement->updateGeometry();
-    }
+    updateGeometryListedAdditional();
 }
 
 
@@ -154,7 +150,7 @@ void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
     drawListedAdditional(s, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
-                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END), myAdditionalContour);
+                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // iterate over additionals and check if drawn
     for (const auto& rerouterElement : getChildAdditionals()) {

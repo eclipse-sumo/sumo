@@ -19,26 +19,9 @@
 /****************************************************************************/
 
 #include <foreign/fontstash/fontstash.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/data/GNETAZRelDataFrame.h>
-#include <netedit/frames/demand/GNEContainerFrame.h>
-#include <netedit/frames/demand/GNEContainerPlanFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/GNEAttributesEditor.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 
 #include "GNEAdditionalListed.h"
 
@@ -51,21 +34,19 @@ GNEAdditionalListed::GNEAdditionalListed(GNEAdditional* additional) :
 }
 
 
-
 void
-GNEAdditionalListed::updateGeometryListedAdditional(GUIGeometry& additionalGeometry, const Position& parentPosition, const int level) {
-    // we assume that the radius of parent element is 1
-    const int radiusParent = 1;
+GNEAdditionalListed::updateGeometryListedAdditional() {
+    // get end position of parent
+    const Position& parentPosition = myAdditional->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
     // get draw position index
     myDrawPositionIndex = getDrawPositionIndex();
     // calculate x and y position
-    const double xPosition = radiusParent + lineLenght + (lineLenght + shapeWidth) * level;
     const double yPosition = ((2 * shapeHeight) + ySeparation) * myDrawPositionIndex * -1;
     // calculate y position
-    const auto startPos = parentPosition + Position(xPosition, yPosition);
-    const auto endPos = parentPosition + Position(xPosition + shapeWidth, yPosition);
+    const auto startPos = parentPosition + Position(lineLenght, yPosition);
+    const auto endPos = parentPosition + Position(lineLenght + shapeWidth, yPosition);
     // set geometries
-    additionalGeometry.updateGeometry({startPos, endPos});
+    myAdditional->myAdditionalGeometry.updateGeometry({startPos, endPos});
     myInternalRectangle.updateGeometry({startPos + Position(padding, 0), endPos - Position(padding, 0)});
     // calculate icon size
     myIconSize = shapeHeight - (2 * iconPadding);
@@ -75,19 +56,23 @@ GNEAdditionalListed::updateGeometryListedAdditional(GUIGeometry& additionalGeome
     myTextPosition = myIconPosition + Position(shapeHeight, 0);
     // now calculate lines
     PositionVector linePositions;
-    linePositions.push_back(parentPosition + Position(xPosition - lineLenght, 0));
-    linePositions.push_back(parentPosition + Position(xPosition - (lineLenght * 0.5), 0));
+    linePositions.push_back(parentPosition);
+    linePositions.push_back(parentPosition + Position(lineLenght * 0.5, 0));
     linePositions.push_back(startPos - Position((lineLenght * 0.5), 0));
     linePositions.push_back(startPos);
     myLineGeometry.updateGeometry(linePositions);
     // update centering boundary (needed for centering)
     myAdditional->updateCenteringBoundary(false);
+    // update geometries of all children
+    for (const auto& rerouterElement : myAdditional->getChildAdditionals()) {
+        rerouterElement->updateGeometry();
+    }
 }
 
 
 void
 GNEAdditionalListed::drawListedAdditional(const GUIVisualizationSettings& s, const RGBColor baseCol, const RGBColor textCol,
-        GUITexture texture, const std::string text, const GNEContour& additionalContour) const {
+        GUITexture texture, const std::string text) const {
     // check if additional has to be drawn
     if (myAdditional->getNet()->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get detail level
@@ -136,10 +121,10 @@ GNEAdditionalListed::drawListedAdditional(const GUIVisualizationSettings& s, con
                 GLHelper::popMatrix();
             }
             // draw dotted contour
-            additionalContour.drawDottedContours(s, d, myAdditional, s.dottedContourSettings.segmentWidthSmall, true);
+            myAdditional->myAdditionalContour.drawDottedContours(s, d, myAdditional, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contour
-        additionalContour.calculateContourExtrudedShape(s, d, myAdditional, myAdditional->getAdditionalGeometry().getShape(), myAdditional->getType(), shapeHeight, 1, true, true, 0,
+        myAdditional->myAdditionalContour.calculateContourExtrudedShape(s, d, myAdditional, myAdditional->getAdditionalGeometry().getShape(), myAdditional->getType(), shapeHeight, 1, true, true, 0,
                 nullptr, nullptr);
     }
 }

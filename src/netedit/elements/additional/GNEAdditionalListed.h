@@ -41,11 +41,11 @@ public:
 
 protected:
     /// @brief update geometry of listed additional
-    void updateGeometryListedAdditional(GUIGeometry& additionalGeometry, const Position& parentPosition, const int level);
+    void updateGeometryListedAdditional();
 
     /// @brief draw listed additional
     void drawListedAdditional(const GUIVisualizationSettings& s, const RGBColor baseCol, const RGBColor textCol,
-                              GUITexture texture, const std::string text, const GNEContour& additionalContour) const;
+                              GUITexture texture, const std::string text) const;
 
     /// @brief get listed position in view
     Position getListedPositionInView() const;

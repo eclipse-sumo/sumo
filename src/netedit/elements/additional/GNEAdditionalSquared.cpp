@@ -18,27 +18,10 @@
 // A abstract class for representation of additional squared elements
 /****************************************************************************/
 
-#include <foreign/fontstash/fontstash.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/common/GNEMoveFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/data/GNETAZRelDataFrame.h>
-#include <netedit/frames/demand/GNEContainerFrame.h>
-#include <netedit/frames/demand/GNEContainerPlanFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/GNEAttributesEditor.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEAdditionalSquared.h"
 
@@ -69,7 +52,11 @@ GNEAdditionalSquared::~GNEAdditionalSquared() {
 void
 GNEAdditionalSquared::updatedSquaredGeometry() {
     // update additional geometry
-    myAdditional->myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    myAdditional->myAdditionalGeometry.updateGeometry({myPosOverView - Position(1, 0), myPosOverView + Position(1, 0)});
+    // update geometries of all children
+    for (const auto& rerouterElement : myAdditional->getChildAdditionals()) {
+        rerouterElement->updateGeometry();
+    }
 }
 
 
@@ -83,6 +70,8 @@ GNEAdditionalSquared::updatedSquaredCenteringBoundary(const bool updateGrid) {
     myAdditional->updateGeometry();
     // add shape boundary
     myAdditional->myAdditionalBoundary = myAdditional->myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myAdditional->myAdditionalBoundary.grow(5);
     // add positions of all childrens (intervals and symbols)
     for (const auto& additionalChild : myAdditional->getChildAdditionals()) {
         myAdditional->myAdditionalBoundary.add(additionalChild->getCenteringBoundary());
@@ -94,8 +83,6 @@ GNEAdditionalSquared::updatedSquaredCenteringBoundary(const bool updateGrid) {
             }
         }
     }
-    // grow
-    myAdditional->myAdditionalBoundary.grow(5);
     // add additional into RTREE again
     if (updateGrid) {
         myAdditional->getNet()->addGLObjectIntoGrid(myAdditional);

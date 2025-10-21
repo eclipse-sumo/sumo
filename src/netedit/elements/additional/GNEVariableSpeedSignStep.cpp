@@ -111,7 +111,7 @@ GNEVariableSpeedSignStep::getTime() const {
 
 void
 GNEVariableSpeedSignStep::updateGeometry() {
-    updateGeometryListedAdditional(myAdditionalGeometry, getParentAdditionals().front()->getPositionInView(), 0);
+    updateGeometryListedAdditional();
 }
 
 
@@ -143,7 +143,7 @@ void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
     // draw VSS step as listed attribute
     drawListedAdditional(s, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
-                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h", myAdditionalContour);
+                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + " km/h");
 }
 
 
