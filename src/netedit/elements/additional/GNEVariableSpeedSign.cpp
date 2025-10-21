@@ -33,7 +33,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)) {
+    GNEAdditionalSquared(this) {
 }
 
 
@@ -41,9 +41,8 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
         const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
+    GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
-    myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -51,7 +50,6 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, c
 
 
 GNEVariableSpeedSign::~GNEVariableSpeedSign() {
-    delete myMoveElementView;
 }
 
 
@@ -122,12 +120,7 @@ GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
 
 void
 GNEVariableSpeedSign::updateGeometry() {
-    // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
-    // update geometries (boundaries of all children)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        additionalChildren->updateGeometry();
-    }
+    updatedSquaredGeometry();
 }
 
 
@@ -139,24 +132,7 @@ GNEVariableSpeedSign::getPositionInView() const {
 
 void
 GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-    // update geometry
-    updateGeometry();
-    // add shape boundary
-    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens (symbols and steps)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        myAdditionalBoundary.add(additionalChildren->getPositionInView());
-    }
-    // grow
-    myAdditionalBoundary.grow(5);
-    // add additional into RTREE again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
-    }
+    updatedSquaredCenteringBoundary(updateGrid);
 }
 
 
@@ -201,7 +177,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
-    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    drawSquaredAdditional(s, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn
     for (const auto& step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw

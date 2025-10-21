@@ -18,11 +18,12 @@
 //
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibratorFlow.h"

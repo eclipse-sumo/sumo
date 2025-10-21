@@ -18,14 +18,14 @@
 // Representation of Stops in netedit
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_ToggleAttribute.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 
 #include "GNEStopPlan.h"
-
 
 // ===========================================================================
 // member method definitions

@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalSquared.h"
 
 // ===========================================================================
 // class declaration
@@ -32,7 +33,7 @@ class GNEMoveElementView;
 // class definitions
 // ===========================================================================
 
-class GNETractionSubstation : public GNEAdditional, public Parameterised {
+class GNETractionSubstation : public GNEAdditional, public GNEAdditionalSquared, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -176,12 +177,6 @@ public:
     /// @}
 
 protected:
-    /// @brief position over view
-    Position myPosOverView;
-
-    /// @brief move element view
-    GNEMoveElementView* myMoveElementView = nullptr;
-
     /// @brief voltage
     double myVoltage = 0;
 

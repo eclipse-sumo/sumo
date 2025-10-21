@@ -745,51 +745,6 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 
 void
-GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
-                                     GUITexture texture, GUITexture selectedTexture) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
-    // Obtain drawing exaggeration
-    const double exaggeration = getExaggeration(s);
-    // get detail level
-    const auto d = s.getDetailLevel(exaggeration);
-    // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
-        // Add layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        drawInLayer(getType());
-        // translate to position
-        glTranslated(pos.x(), pos.y(), 0);
-        // scale
-        glScaled(exaggeration, exaggeration, 1);
-        // set White color
-        glColor3d(1, 1, 1);
-        // rotate
-        glRotated(180, 0, 0, 1);
-        // draw texture
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
-        } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
-        }
-        // Pop layer matrix
-        GLHelper::popMatrix();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
-        // draw dotted contour
-        myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-    }
-    // calculate contour
-    myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, getType(), 0, 0, 0, exaggeration, nullptr);
-}
-
-
-void
 GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) const {
     // draw child demand elements
     for (const auto& demandElement : getChildDemandElements()) {

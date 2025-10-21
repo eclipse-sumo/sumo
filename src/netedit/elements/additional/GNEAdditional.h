@@ -27,7 +27,6 @@
 #include <netedit/elements/moving/GNEMoveElement.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 
 // ===========================================================================
 // class declarations
@@ -43,6 +42,10 @@ class GUIGLObjectPopupMenu;
 class GNEAdditional : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement {
 
 public:
+    /// @brief declare friend class
+    friend class GNEAdditionalListed;
+    friend class GNEAdditionalSquared;
+
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -325,10 +328,6 @@ protected:
 
     /// @brief calculate perpendicular line between lane parents
     void calculatePerpendicularLine(const double endLaneposition);
-
-    /// @brief draw squared additional
-    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
-                               GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw demand element children
     void drawDemandElementChildren(const GUIVisualizationSettings& s) const;

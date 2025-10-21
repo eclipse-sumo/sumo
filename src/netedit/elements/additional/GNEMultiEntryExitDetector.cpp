@@ -31,7 +31,7 @@
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)) {
+    GNEAdditionalSquared(this) {
 }
 
 
@@ -39,9 +39,8 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
+    GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
-    myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myPeriod(freq),
     myOutputFilename(outputFilename),
     myVehicleTypes(vehicleTypes),
@@ -61,7 +60,6 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
 
 
 GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {
-    delete myMoveElementView;
 }
 
 
@@ -173,8 +171,7 @@ GNEMultiEntryExitDetector::checkDrawMoveContour() const {
 
 void
 GNEMultiEntryExitDetector::updateGeometry() {
-    // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    updatedSquaredGeometry();
 }
 
 
@@ -186,20 +183,7 @@ GNEMultiEntryExitDetector::getPositionInView() const {
 
 void
 GNEMultiEntryExitDetector::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myAdditionalBoundary.grow(5);
-    // add additional into RTREE again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
-    }
+    updatedSquaredCenteringBoundary(updateGrid);
 }
 
 
@@ -223,7 +207,7 @@ GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3
-        drawSquaredAdditional(s, myPosOverView, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+        drawSquaredAdditional(s, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
     }
 }
 

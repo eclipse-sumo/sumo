@@ -33,7 +33,7 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::CARTESIAN, SUMO_ATTR_POSITION, myPosOverView)) {
+    GNEAdditionalSquared(this) {
 }
 
 
@@ -41,9 +41,8 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
+    GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
-    myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION, SUMO_ATTR_POSITION, myPosOverView)),
     myProbability(probability),
     myOff(off),
     myOptional(optional),
@@ -55,7 +54,6 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& 
 
 
 GNERerouter::~GNERerouter() {
-    delete myMoveElementView;
 }
 
 
@@ -153,15 +151,7 @@ GNERerouter::checkDrawMoveContour() const {
 
 void
 GNERerouter::updateGeometry() {
-    // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
-    // update geometries (boundaries of all children)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        additionalChildren->updateGeometry();
-        for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
-            rerouterElement->updateGeometry();
-        }
-    }
+    updatedSquaredGeometry();
 }
 
 
@@ -173,31 +163,7 @@ GNERerouter::getPositionInView() const {
 
 void
 GNERerouter::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens (intervals and symbols)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        myAdditionalBoundary.add(additionalChildren->getCenteringBoundary());
-        for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
-            myAdditionalBoundary.add(rerouterElement->getCenteringBoundary());
-            // special case for parking area rerouter
-            if (rerouterElement->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
-                myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getCenteringBoundary());
-            }
-        }
-    }
-    // grow
-    myAdditionalBoundary.grow(5);
-    // add additional into RTREE again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
-    }
+    updatedSquaredCenteringBoundary(updateGrid);
 }
 
 
@@ -228,7 +194,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor, true);
         // draw Rerouter
-        drawSquaredAdditional(s, myPosOverView, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
+        drawSquaredAdditional(s, s.additionalSettings.rerouterSize, GUITexture::REROUTER, GUITexture::REROUTER_SELECTED);
         // iterate over additionals and check if drawn
         for (const auto& interval : getChildAdditionals()) {
             // if rerouter or their intevals are selected, then draw

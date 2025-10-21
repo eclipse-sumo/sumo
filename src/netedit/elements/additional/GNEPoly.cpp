@@ -30,6 +30,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPoly.h"

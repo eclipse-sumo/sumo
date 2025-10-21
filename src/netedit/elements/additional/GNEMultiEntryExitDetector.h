@@ -21,18 +21,13 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNEMoveElementView;
+#include "GNEAdditionalSquared.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
+class GNEMultiEntryExitDetector : public GNEAdditional, public GNEAdditionalSquared, public Parameterised {
 
 public:
     /// @brief default constructor
@@ -186,12 +181,6 @@ public:
     /// @}
 
 protected:
-    /// @brief position over view
-    Position myPosOverView;
-
-    /// @brief move element over view
-    GNEMoveElementView* myMoveElementView = nullptr;
-
     /// @brief period of E3 detector
     SUMOTime myPeriod = 0;
 

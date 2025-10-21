@@ -21,19 +21,19 @@
 #include <config.h>
 
 #include "GNEAdditional.h"
+#include "GNEAdditionalSquared.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEMoveElementView;
 class GNEVariableSpeedSignStep;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEVariableSpeedSign : public GNEAdditional, public Parameterised {
+class GNEVariableSpeedSign : public GNEAdditional, public GNEAdditionalSquared, public Parameterised {
 
 public:
     /// @brief default Constructor
@@ -182,12 +182,6 @@ public:
     /// @}
 
 protected:
-    /// @brief position over view
-    Position myPosOverView;
-
-    /// @brief move element view
-    GNEMoveElementView* myMoveElementView = nullptr;
-
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
 

@@ -7,6 +7,8 @@ set(netedit_elements_additional_SRCS
    GNEAdditionalHandler.h
    GNEAdditionalListed.cpp
    GNEAdditionalListed.h
+   GNEAdditionalSquared.cpp
+   GNEAdditionalSquared.h
    GNEBusStop.cpp
    GNEBusStop.h
    GNECalibrator.cpp

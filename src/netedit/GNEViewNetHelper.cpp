@@ -19,7 +19,6 @@
 // A file used to reduce the size of GNEViewNet.h grouping structs and classes
 /****************************************************************************/
 
-#include <netedit/GNETagProperties.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
@@ -33,18 +32,20 @@
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEViewNetHelper.h"
-#include "GNEViewNet.h"
+#include "GNEApplicationWindow.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEViewNet.h"
+#include "GNEViewNetHelper.h"
 #include "GNEViewParent.h"
-#include "GNEApplicationWindow.h"
 
 // ===========================================================================
 // static members

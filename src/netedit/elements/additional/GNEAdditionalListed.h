@@ -21,13 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEContour.h>
-
-//#include <netedit/elements/GNEHierarchicalElement.h>
-//#include <netedit/elements/GNEPathElement.h>
-//#include <netedit/elements/moving/GNEMoveElement.h>
-//#include <utils/gui/div/GUIGeometry.h>
-//#include <utils/gui/globjects/GUIGlObject.h>
-//#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 
 // ===========================================================================
 // class declaration

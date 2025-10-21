@@ -18,10 +18,11 @@
 //
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 
 #include "GNEVaporizer.h"
 
