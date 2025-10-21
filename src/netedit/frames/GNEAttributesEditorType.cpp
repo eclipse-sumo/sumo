@@ -363,9 +363,21 @@ GNEAttributesEditorType::abortReparenting() {
 
 long
 GNEAttributesEditorType::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
-    // front all edited ACs
+    // check if all element are selectd
+    bool allSelected = true;
     for (auto& AC : myEditedACs) {
-        AC->markForDrawingFront();
+        if (!AC->isMarkedForDrawingFront()) {
+            allSelected = false;
+            break;
+        }
+    }
+    // only unfronto if all element are front
+    for (auto& AC : myEditedACs) {
+        if (allSelected) {
+            AC->unmarkForDrawingFront();
+        } else {
+            AC->markForDrawingFront();
+        }
     }
     return 1;
 }
