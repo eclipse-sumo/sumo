@@ -173,6 +173,9 @@ protected:
     /// @brief symbols geometries
     std::vector<GUIGeometry> mySymbolGeometries;
 
+    /// @brief symbol contours
+    std::vector<GNEContour*>* mySymbolContours;
+
 private:
     /// @brief draw rerouter symbol
     void drawRerouterSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

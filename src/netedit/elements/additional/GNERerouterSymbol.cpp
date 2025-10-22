@@ -28,12 +28,14 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
-    GNEAdditional("", net, "", GNE_TAG_REROUTER_SYMBOL, "") {
+    GNEAdditional("", net, "", GNE_TAG_REROUTER_SYMBOL, ""),
+    mySymbolContours(new std::vector<GNEContour*>()) {
 }
 
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent, GNE_TAG_REROUTER_SYMBOL, "") {
+    GNEAdditional(rerouterParent, GNE_TAG_REROUTER_SYMBOL, ""),
+    mySymbolContours(new std::vector<GNEContour*>()) {
     // set parents
     setParent<GNEEdge*>(edge);
     setParent<GNEAdditional*>(rerouterParent);
@@ -43,6 +45,10 @@ GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edg
 
 
 GNERerouterSymbol::~GNERerouterSymbol() {
+    for (auto it = mySymbolContours->begin(); it != mySymbolContours->end(); it++) {
+        delete *it;
+    }
+    delete mySymbolContours;
 }
 
 
@@ -110,6 +116,13 @@ GNERerouterSymbol::updateGeometry() {
     mySymbolGeometries.clear();
     // iterate over all lanes
     NBEdge* nbe = getParentEdges().front()->getNBEdge();
+    // clear all contours
+    for (auto it = mySymbolContours->begin(); it != mySymbolContours->end(); it++) {
+        delete *it;
+    }
+    // clear all edge geometries
+    mySymbolGeometries.clear();
+    mySymbolContours->clear();
     for (const auto& lane : getParentEdges().front()->getChildLanes()) {
         if ((nbe->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN) == 0) {
             continue;
@@ -120,17 +133,17 @@ GNERerouterSymbol::updateGeometry() {
         symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
+        // also add a new contour
+        mySymbolContours->push_back(new GNEContour());
+        // use last symbol geometry as additional geometry
+        myAdditionalGeometry = mySymbolGeometries.back();
     }
 }
 
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    if (mySymbolGeometries.size() > 0) {
-        return mySymbolGeometries.front().getShape().getPolygonCenter();
-    } else {
-        return myAdditionalGeometry.getShape().getPolygonCenter();
-    }
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
@@ -168,12 +181,14 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            for (const auto symbolContour : *mySymbolContours) {
+                symbolContour->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
         // calculate contour rectangle shape
-        for (const auto& symbolGeometry : mySymbolGeometries) {
-            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, getType(), 0, 3,
-                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration, getParentEdges().front());
+        for (int i = 0; i < (int)mySymbolContours->size(); i++) {
+            mySymbolContours->at(i)->calculateContourRectangleShape(s, d, this, mySymbolGeometries.at(i).getShape().front(), 1, 3, getType(), 0, 3,
+                    mySymbolGeometries.at(i).getShapeRotations().front() + 90, rerouteExaggeration, getParentEdges().front());
         }
     }
 }
