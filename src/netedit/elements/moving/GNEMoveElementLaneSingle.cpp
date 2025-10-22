@@ -186,7 +186,8 @@ GNEMoveElementLaneSingle::removeGeometryPoint(const Position /*clickedPosition*/
 bool
 GNEMoveElementLaneSingle::isMoveElementValid() const {
     // obtain lane final length
-    const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    const double laneLenght = (myPositionType == PositionType::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() :
+                              myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // adjust position (negative means start counting from backward)
     const double adjustedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : (myPosOverLane < 0) ? (myPosOverLane + laneLenght) : myPosOverLane;
     // check conditions
@@ -207,7 +208,8 @@ GNEMoveElementLaneSingle::isMoveElementValid() const {
 std::string
 GNEMoveElementLaneSingle::getMovingProblem() const {
     // obtain lane final length
-    const double laneLenght = myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    const double laneLenght = (myPositionType == PositionType::ENDPOS) ? myMovedElement->getHierarchicalElement()->getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() :
+                              myMovedElement->getHierarchicalElement()->getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // adjust position (negative means start counting from backward)
     const double adjustedPosition = (myPosOverLane == INVALID_DOUBLE) ? 0 : (myPosOverLane < 0) ? (myPosOverLane + laneLenght) : myPosOverLane;
     // check conditions
