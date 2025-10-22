@@ -22,6 +22,7 @@
 #include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 
 #include "GNETractionSubstation.h"
 
@@ -31,18 +32,15 @@
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, ""),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
-                      SUMO_ATTR_POSITION, myPosOverView)) {
+    GNEAdditionalSquared(this) {
 }
 
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
         const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
+    GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
-    myPosOverView(pos),
-    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
-                      SUMO_ATTR_POSITION, myPosOverView)),
     myVoltage(voltage),
     myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
@@ -51,7 +49,6 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
 
 
 GNETractionSubstation::~GNETractionSubstation() {
-    delete myMoveElementView;
 }
 
 
@@ -129,8 +126,7 @@ GNETractionSubstation::checkDrawMoveContour() const {
 
 void
 GNETractionSubstation::updateGeometry() {
-    // update additional geometry
-    myAdditionalGeometry.updateSinglePosGeometry(myPosOverView, 0);
+    updatedSquaredGeometry();
 }
 
 
@@ -142,20 +138,7 @@ GNETractionSubstation::getPositionInView() const {
 
 void
 GNETractionSubstation::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myAdditionalBoundary.grow(5);
-    // add additional into RTREE again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
-    }
+    updatedSquaredCenteringBoundary(updateGrid);
 }
 
 
@@ -173,10 +156,13 @@ GNETractionSubstation::getParentName() const {
 
 void
 GNETractionSubstation::drawGL(const GUIVisualizationSettings& s) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor, true);
-    // draw TractionSubstation
-    drawSquaredAdditional(s, myPosOverView, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
+    // first check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor, true);
+        // draw TractionSubstation
+        drawSquaredAdditional(s, s.additionalSettings.tractionSubstationSize, GUITexture::TRACTIONSUBSTATION, GUITexture::TRACTIONSUBSTATION_SELECTED);
+    }
 }
 
 

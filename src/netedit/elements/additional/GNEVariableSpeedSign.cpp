@@ -174,18 +174,21 @@ GNEVariableSpeedSign::getParentName() const {
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor, true);
-    // draw VSS
-    drawSquaredAdditional(s, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
-    // iterate over additionals and check if drawn
-    for (const auto& step : getChildAdditionals()) {
-        // if rerouter or their intevals are selected, then draw
-        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
-                step->isAttributeCarrierSelected() || inspectedElements.isACInspected(step) ||
-                step->isMarkedForDrawingFront()) {
-            step->drawGL(s);
+    // first check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor, true);
+        // draw VSS
+        drawSquaredAdditional(s, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+        // iterate over additionals and check if drawn
+        for (const auto& step : getChildAdditionals()) {
+            // if rerouter or their intevals are selected, then draw
+            if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                    isAttributeCarrierSelected() || inspectedElements.isACInspected(this) ||
+                    step->isAttributeCarrierSelected() || inspectedElements.isACInspected(step) ||
+                    step->isMarkedForDrawingFront()) {
+                step->drawGL(s);
+            }
         }
     }
 }
