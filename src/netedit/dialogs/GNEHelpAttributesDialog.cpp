@@ -31,52 +31,33 @@
 
 GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow,
         const GNEAttributeCarrier* AC) :
-    GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(),
+    GNEDialog(applicationWindow, TLF("Attributes of %", AC->getTagStr()).c_str(),
               GUIIcon::MODEINSPECT, DialogType::BASIC_HELP, GNEDialog::Buttons::OK,
               OpenType::MODAL, ResizeMode::RESIZABLE) {
     // Create FXTable
-    FXTable* myTable = new FXTable(myContentFrame, this, MID_TABLE, GUIDesignTableNotEditable);
+    FXTable* table = new FXTable(myContentFrame, this, MID_TABLE, GUIDesignTableNotEditable);
     // configure table
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
-    myTable->setVisibleColumns(4);
-    myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
-    myTable->setBackColor(GUIDesignBackgroundColorWhite);
-    myTable->setColumnText(0, TL("Attribute"));
-    myTable->setColumnText(1, TL("Category"));
-    myTable->setColumnText(2, TL("Description"));
-    myTable->setColumnText(3, TL("Definition"));
-    myTable->getRowHeader()->setWidth(0);
-    myTable->setColumnHeaderHeight(GUIDesignHeight);
+    table->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
+    table->setVisibleColumns(4);
+    table->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
+    table->setBackColor(GUIDesignBackgroundColorWhite);
+    table->setColumnText(0, TL("Attribute"));
+    table->setColumnText(1, TL("Category"));
+    table->setColumnText(2, TL("Description"));
+    table->setColumnText(3, TL("Definition"));
+    table->getRowHeader()->setWidth(0);
+    table->setColumnHeaderHeight(GUIDesignHeight);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
-        // Set attribute
-        FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
-        attributeItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 0, attributeItem);
-        // Set description of element
-        FXTableItem* categoryItem = new FXTableItem("");
-        categoryItem->setText(attrProperty->getCategory().c_str());
-        categoryItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 1, categoryItem);
-        // Set description of element
-        FXTableItem* descriptionItem = new FXTableItem("");
-        descriptionItem->setText(attrProperty->getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
-        descriptionItem->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 2, descriptionItem);
-        // Set definition
-        FXTableItem* definitionItem = new FXTableItem(attrProperty->getDefinition().c_str());
-        definitionItem->setJustify(FXTableItem::LEFT);
-        myTable->setItem(itemIndex, 3, definitionItem);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
-        itemIndex++;
-    }
-    myTable->fitRowsToContents(0, itemIndex);
+    // add internal attributes
+    addAttributes(AC, table, itemIndex, sizeColumnDescription, sizeColumnDefinitions, false);
+    // add netedit attributes
+    addAttributes(AC, table, itemIndex, sizeColumnDescription, sizeColumnDefinitions, true);
+    table->fitRowsToContents(0, itemIndex);
     // set header
-    FXHeader* header = myTable->getColumnHeader();
+    FXHeader* header = table->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     header->setItemSize(0, 120);
     header->setItemJustify(0, JUSTIFY_CENTER_X);
@@ -97,6 +78,37 @@ GNEHelpAttributesDialog::~GNEHelpAttributesDialog() {
 void
 GNEHelpAttributesDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // nothing to do
+}
+
+
+void
+GNEHelpAttributesDialog::addAttributes(const GNEAttributeCarrier* AC, FXTable* table, int& itemIndex,
+                                       int& sizeColumnDescription, int& sizeColumnDefinitions, const bool neteditAttributes) {
+    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
+        if (attrProperty->isNeteditEditor() == neteditAttributes) {
+            // Set attribute
+            FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
+            attributeItem->setJustify(FXTableItem::CENTER_X);
+            table->setItem(itemIndex, 0, attributeItem);
+            // Set description of element
+            FXTableItem* categoryItem = new FXTableItem("");
+            categoryItem->setText(attrProperty->getCategory().c_str());
+            categoryItem->setJustify(FXTableItem::CENTER_X);
+            table->setItem(itemIndex, 1, categoryItem);
+            // Set description of element
+            FXTableItem* descriptionItem = new FXTableItem("");
+            descriptionItem->setText(attrProperty->getDescription().c_str());
+            sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
+            descriptionItem->setJustify(FXTableItem::CENTER_X);
+            table->setItem(itemIndex, 2, descriptionItem);
+            // Set definition
+            FXTableItem* definitionItem = new FXTableItem(attrProperty->getDefinition().c_str());
+            definitionItem->setJustify(FXTableItem::LEFT);
+            table->setItem(itemIndex, 3, definitionItem);
+            sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
+            itemIndex++;
+        }
+    }
 }
 
 /****************************************************************************/

@@ -45,6 +45,10 @@ public:
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 private:
+    /// @brief add attributes
+    void addAttributes(const GNEAttributeCarrier* AC, FXTable* table, int& itemIndex, int& sizeColumnDescription,
+                       int& sizeColumnDefinitions, const bool neteditAttributes);
+
     /// @brief Invalidated copy constructor.
     GNEHelpAttributesDialog(const GNEHelpAttributesDialog&) = delete;
 
