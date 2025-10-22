@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-20 13:01+0000\n"
+"PO-Revision-Date: 2025-10-22 10:49+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1671,7 +1671,7 @@ msgstr "tipo [ID]"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "routing type [id]"
-msgstr ""
+msgstr "tipo de enrutamiento [ID]"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "tauff"
@@ -1816,7 +1816,7 @@ msgstr "tipo de arista"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "routing type"
-msgstr ""
+msgstr "tipo de enrutamiento"
 
 #: src/guisim/GUILane.cpp:1076 src/guisim/GUITrafficLightLogicWrapper.cpp:261
 msgid "priority"
@@ -4255,51 +4255,51 @@ msgstr "Flujo"
 
 #: src/netedit/GNEAttributeProperties.cpp:301
 msgid "Netedit"
-msgstr ""
+msgstr "netedit"
 
 #: src/netedit/GNEAttributeProperties.cpp:303
 msgid "Internal"
-msgstr ""
+msgstr "Interno"
 
 #: src/netedit/GNEAttributeProperties.cpp:316
 msgid "list of "
-msgstr ""
+msgstr "lista de "
 
 #: src/netedit/GNEAttributeProperties.cpp:324
 msgid "non-negative "
-msgstr ""
+msgstr "no negativo "
 
 #: src/netedit/GNEAttributeProperties.cpp:327
 msgid "discrete "
-msgstr ""
+msgstr "discreto "
 
 #: src/netedit/GNEAttributeProperties.cpp:330
 msgid "unique "
-msgstr ""
+msgstr "único "
 
 #: src/netedit/GNEAttributeProperties.cpp:334
 msgid "integer"
-msgstr ""
+msgstr "número entero"
 
 #: src/netedit/GNEAttributeProperties.cpp:337
 msgid "float"
-msgstr ""
+msgstr "coma flotante"
 
 #: src/netedit/GNEAttributeProperties.cpp:340
 msgid "SUMOTime"
-msgstr ""
+msgstr "Tiempo de SUMO"
 
 #: src/netedit/GNEAttributeProperties.cpp:343
 msgid "boolean"
-msgstr ""
+msgstr "booleano"
 
 #: src/netedit/GNEAttributeProperties.cpp:346
 msgid "string"
-msgstr ""
+msgstr "cadena de caracteres"
 
 #: src/netedit/GNEAttributeProperties.cpp:349
 msgid "position"
-msgstr ""
+msgstr "posición"
 
 #: src/netedit/GNEAttributeProperties.cpp:352
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
@@ -4308,32 +4308,32 @@ msgstr "color"
 
 #: src/netedit/GNEAttributeProperties.cpp:355
 msgid "vClass"
-msgstr ""
+msgstr "clase de vehículo"
 
 #: src/netedit/GNEAttributeProperties.cpp:358
 #: src/netedit/GNEAttributeProperties.cpp:362
 msgid "filename"
-msgstr ""
+msgstr "nombre de archivo"
 
 #: src/netedit/GNEAttributeProperties.cpp:359
 msgid "(Existent)"
-msgstr ""
+msgstr "(Existente)"
 
 #: src/netedit/GNEAttributeProperties.cpp:365
 msgid "probability"
-msgstr ""
+msgstr "probabilidad"
 
 #: src/netedit/GNEAttributeProperties.cpp:366
 msgid "[0, 1]"
-msgstr ""
+msgstr "[0, 1]"
 
 #: src/netedit/GNEAttributeProperties.cpp:369
 msgid "angle"
-msgstr ""
+msgstr "ángulo"
 
 #: src/netedit/GNEAttributeProperties.cpp:370
 msgid "[0, 360]"
-msgstr ""
+msgstr "[0, 360]"
 
 #: src/netedit/GNEAttributeProperties.cpp:652
 #, c-format
@@ -4622,7 +4622,7 @@ msgstr "Prefijo para el nombre de los flujos de contenedores"
 
 #: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "Prefijo para el nombre de set de datos"
 
 #: src/netedit/GNELoadThread.cpp:457
 msgid "Prefix for meanDataEdge naming"
@@ -4964,19 +4964,19 @@ msgstr "red"
 
 #: src/netedit/GNENetHelper.cpp:3668
 msgid "additional elements"
-msgstr ""
+msgstr "elementos adicionales"
 
 #: src/netedit/GNENetHelper.cpp:3700
 msgid "demand elements"
-msgstr ""
+msgstr "elementos de demanda"
 
 #: src/netedit/GNENetHelper.cpp:3732
 msgid "data elements"
-msgstr ""
+msgstr "elementos de datos"
 
 #: src/netedit/GNENetHelper.cpp:3764
 msgid "meanData elements"
-msgstr ""
+msgstr "elementos meanData"
 
 #: src/netedit/GNENetHelper.cpp:3812
 msgid "Redo replace in TLS"
@@ -5001,12 +5001,12 @@ msgstr "El atributo '%' no existe"
 #: src/netedit/GNETagProperties.cpp:358
 #, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
-msgstr ""
+msgstr "Indice '%' no válido utilizado en getAttributeProperties(int)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:91
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "Propiedad para la etiqueta '%' no definida"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:104
 #, c-format
@@ -5015,27 +5015,27 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:382
 msgid "Root"
-msgstr ""
+msgstr "Raíz"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
 #: src/netedit/GNETagPropertiesDatabase.cpp:389
 msgid "Supermode network"
-msgstr ""
+msgstr "Supermodo red"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:393
 #: src/netedit/GNETagPropertiesDatabase.cpp:395
 msgid "Supermode demand"
-msgstr ""
+msgstr "Supermodo demanda"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:399
 #: src/netedit/GNETagPropertiesDatabase.cpp:401
 msgid "Supermode data"
-msgstr ""
+msgstr "Supermodo datos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:406
 #: src/netedit/GNETagPropertiesDatabase.cpp:408
 msgid "Network elements"
-msgstr ""
+msgstr "Elementos de red"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:413
 #: src/netedit/GNETagPropertiesDatabase.cpp:415
@@ -5046,7 +5046,7 @@ msgstr "Elementos adicionales"
 #: src/netedit/GNETagPropertiesDatabase.cpp:420
 #: src/netedit/GNETagPropertiesDatabase.cpp:422
 msgid "Stopping places"
-msgstr ""
+msgstr "Lugares de parada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:434
 #: src/netedit/GNETagPropertiesDatabase.cpp:436
@@ -5090,12 +5090,12 @@ msgstr "Flujos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:470
 msgid "Vehicle flows"
-msgstr ""
+msgstr "Flujos de vehículos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:475
 #: src/netedit/GNETagPropertiesDatabase.cpp:477
 msgid "Vehicle stops"
-msgstr ""
+msgstr "Paradas de vehículo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:482
 #: src/netedit/GNETagPropertiesDatabase.cpp:484
@@ -5113,17 +5113,17 @@ msgstr "Viajes de personas"
 #: src/netedit/GNETagPropertiesDatabase.cpp:496
 #: src/netedit/GNETagPropertiesDatabase.cpp:498
 msgid "Person rides"
-msgstr ""
+msgstr "Trayectos de personas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 #: src/netedit/GNETagPropertiesDatabase.cpp:505
 msgid "Person walks"
-msgstr ""
+msgstr "Caminatas de personas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 #: src/netedit/GNETagPropertiesDatabase.cpp:512
 msgid "Person stop"
-msgstr ""
+msgstr "Parada de persona"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
 #: src/netedit/GNETagPropertiesDatabase.cpp:519
@@ -5139,17 +5139,17 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:531
 #: src/netedit/GNETagPropertiesDatabase.cpp:533
 msgid "Container tranships"
-msgstr ""
+msgstr "Transbordos de contenedor"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:538
 #: src/netedit/GNETagPropertiesDatabase.cpp:540
 msgid "Container stops"
-msgstr ""
+msgstr "Paradas de contenedor"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 #: src/netedit/GNETagPropertiesDatabase.cpp:547
 msgid "Datas"
-msgstr ""
+msgstr "Datos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:574
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
@@ -5756,7 +5756,7 @@ msgstr "El semáforo que activa la agregación al cambiar"
 #: src/netedit/GNETagPropertiesDatabase.cpp:1501
 #: src/netedit/GNETagPropertiesDatabase.cpp:1553
 msgid "Show detector in sumo-gui"
-msgstr ""
+msgstr "Mostrar detector en sumo-gui"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1512
 msgid "E2 MultiLaneAreaDetector"
@@ -5781,6 +5781,8 @@ msgid ""
 "If set to true, no error will be reported if vehicles leave the detector "
 "without first entering it"
 msgstr ""
+"Si se establece en verdadero, no se reportará ningún error si los vehículos "
+"salen del detector sin haber entrado primero"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1598
 msgid ""
@@ -6026,15 +6028,15 @@ msgstr "Ángulo de renderizado de la imagen en grados"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2479
 #: src/netedit/GNETagPropertiesDatabase.cpp:2510
 msgid "Enable or disable GEO attributes"
-msgstr ""
+msgstr "Habilitar o deshabilitar atributos geográficos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2175
 msgid "A custom geo shape for this polygon"
-msgstr ""
+msgstr "Una forma geográfica personalizada para este polígono"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2180
 msgid "Toggle close or open shape"
-msgstr ""
+msgstr "Alternar entre forma cerrada o abierta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2190
 msgid "PointOfInterest"
@@ -6088,7 +6090,7 @@ msgstr "Usar las aristas dentro de la forma"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2301
 msgid "edges within"
-msgstr ""
+msgstr "aristas internas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2311
 msgid "TAZ Source"
@@ -6206,7 +6208,7 @@ msgstr "Ruta (referencia)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2568
 msgid "Route distribution in which this routeRef is defined"
-msgstr ""
+msgstr "Distribución de ruta en la que se define esta routeRef"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2573
 msgid "Reference ID of route"
@@ -6214,7 +6216,7 @@ msgstr "ID de referencia de la ruta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2585
 msgid "Route (embedded)"
-msgstr ""
+msgstr "Ruta (embebida)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2604
 msgid "Deterministic distribution"
@@ -6732,7 +6734,7 @@ msgstr "arista"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6690
 #: src/netedit/GNETagPropertiesDatabase.cpp:6771
 msgid "taz"
-msgstr ""
+msgstr "zona de análisis de tráfico"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3449
 #: src/netedit/GNETagPropertiesDatabase.cpp:3530
@@ -7284,7 +7286,7 @@ msgstr "zona de estacionamiento"
 #: src/netedit/GNETagPropertiesDatabase.cpp:4731
 #: src/netedit/GNETagPropertiesDatabase.cpp:4741
 msgid "Tranship"
-msgstr ""
+msgstr "Transbordo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4093
 #: src/netedit/GNETagPropertiesDatabase.cpp:5510
@@ -7425,7 +7427,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6158
 #: src/netedit/GNETagPropertiesDatabase.cpp:6168
 msgid "Walk"
-msgstr ""
+msgstr "Caminata"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5520
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:459
@@ -7540,27 +7542,27 @@ msgstr "La ruta al archivo de datos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6952
 msgid "data file"
-msgstr ""
+msgstr "archivo de dato"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6959
 msgid "mean file"
-msgstr ""
+msgstr "archivo promedio"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6974
 msgid "Toggle front element"
-msgstr ""
+msgstr "Alternar elemento frontal"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6979
 msgid "Toggle select element"
-msgstr ""
+msgstr "Alternar elemento seleccionado"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6987
 msgid "Change element parent"
-msgstr ""
+msgstr "Cambiar elemento padre"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6994
 msgid "Generic parameters (Format: key1=value1|key2=value2|..."
-msgstr ""
+msgstr "Parámetros genéricos (Formato: clave1=valor1|clave2=valor2|..."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6995
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:567
@@ -7810,11 +7812,11 @@ msgstr "Tiempo de salida del primer flujo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7384
 msgid "Criterion for flow termination"
-msgstr ""
+msgstr "Criterio para la terminación del flujo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7391
 msgid "Criterion for flow spacing"
-msgstr ""
+msgstr "Criterio para el espaciado del flujo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7404
 #: src/netedit/GNETagPropertiesDatabase.cpp:7425
@@ -8267,7 +8269,7 @@ msgstr "El ID del tipo de contenedor (type) que se usará en este contenedor"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7950
 msgid "The position at which the container shall enter the net"
-msgstr ""
+msgstr "La posición en la cual el contenedor deberá ingresar a la red"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7961
 #: src/netedit/GNETagPropertiesDatabase.cpp:8329
@@ -8388,11 +8390,11 @@ msgstr "ID de la parada de contenedor"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8109
 msgid "Charging station ID"
-msgstr ""
+msgstr "ID de la estación de carga"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8115
 msgid "Parking area ID"
-msgstr ""
+msgstr "ID de la zona de estacionamiento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8122
 msgid "Edge start ID"

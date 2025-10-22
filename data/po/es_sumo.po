@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-08-21 11:17+0000\n"
+"PO-Revision-Date: 2025-10-22 10:49+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.1-rc\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -74,12 +74,16 @@ msgid ""
 "generate a trips file from a stats file on a given net using arbitrary "
 "random seed"
 msgstr ""
+"generar un archivo de viajes a partir de un archivo de estadísticas en una "
+"red dada usando una semilla aleatoria arbitraria"
 
 #: src/activitygen/AGFrame.cpp:49
 msgid ""
 "generate a trips file from a stats file on a given net for numerous days "
 "(with fixed random seed)"
 msgstr ""
+"generar un archivo de viajes a partir de un archivo de estadísticas en una "
+"red dada para varios días (con semilla aleatoria fija)"
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
@@ -114,7 +118,7 @@ msgstr "Establece la duración de la simulación en días"
 
 #: src/activitygen/activitygen_main.cpp:63 src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr "No hay una red para cargar!"
+msgstr "¡No hay una red para cargar!"
 
 #: src/activitygen/activitygen_main.cpp:66
 #, c-format
@@ -180,7 +184,7 @@ msgstr ""
 #: src/dfrouter/RODFFrame.cpp:47 src/duarouter/RODUAFrame.cpp:45
 #: src/marouter/ROMAFrame.cpp:46
 msgid "run routing with options from file"
-msgstr ""
+msgstr "ejecutar enrutamiento con opciones desde un archivo"
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
@@ -702,7 +706,7 @@ msgstr "Definir rutas para todas las entradas de transporte público"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "Guardar flujos en lugar de expandirlos en vehículos"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -838,7 +842,7 @@ msgstr "Las aristas '%' y '%' no están conectadas."
 
 #: src/jtrrouter/ROJTRFrame.cpp:45
 msgid "run with routing options defined in file"
-msgstr ""
+msgstr "ejecutar con las opciones de enrutamiento definidas en un archivo"
 
 #: src/jtrrouter/ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
@@ -3789,7 +3793,7 @@ msgstr ""
 
 #: src/microsim/MSVehicleType.cpp:440
 msgid "singular "
-msgstr ""
+msgstr "singular "
 
 #: src/microsim/MSVehicleType.cpp:441
 msgid "could not add %type %"
@@ -13174,7 +13178,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid "Usage: "
-msgstr ""
+msgstr "Uso: "
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid " [OPTION]*"
@@ -13182,7 +13186,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:853
 msgid "Examples:"
-msgstr ""
+msgstr "Ejemplos:"
 
 #: src/utils/options/OptionsCont.cpp:860
 msgid "Report bugs at %."
@@ -13850,7 +13854,7 @@ msgstr "No se pudo compilar el analizador XML."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1890
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1901
 msgid "XML files"
-msgstr ""
+msgstr "Archivos XML"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1746
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1751
@@ -13881,7 +13885,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 msgid "CSV files"
-msgstr ""
+msgstr "Archivos CSV"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 msgid "Open scene graph files"
@@ -13894,77 +13898,77 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
 msgid "GIF Image"
-msgstr ""
+msgstr "Imagen GIF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
 msgid "BMP Image"
-msgstr ""
+msgstr "Imagen BMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
 msgid "XPM Image"
-msgstr ""
+msgstr "Imagen XPM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "PCX Image"
-msgstr ""
+msgstr "Imagen PCX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
 msgid "ICO Image"
-msgstr ""
+msgstr "Imagen ICO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1797
 msgid "RGB Image"
-msgstr ""
+msgstr "Imagen RGB"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1798
 msgid "XBM Image"
-msgstr ""
+msgstr "Imagen XBM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1799
 msgid "TARGA Image"
-msgstr ""
+msgstr "Imagen TARGA"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1800
 msgid "PNG Image"
-msgstr ""
+msgstr "Imagen PNG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "JPEG Image"
-msgstr ""
+msgstr "Imagen JPEG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1802
 msgid "TIFF Image"
-msgstr ""
+msgstr "Imagen TIFF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1803
 msgid "Postscript"
-msgstr ""
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1804
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Postscript encapsulado"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1805
 msgid "Portable Document Format"
-msgstr ""
+msgstr "Formato de documento portátil"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Gráficos vectoriales escalables"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1807
@@ -13978,7 +13982,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1809
 msgid "All Files"
-msgstr ""
+msgstr "Todos los archivos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
 msgid "All Image and Video Files"
@@ -14002,7 +14006,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1808
 msgid "Portable"
-msgstr ""
+msgstr "Portable"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1814
 msgid "Plain text"
@@ -14030,11 +14034,11 @@ msgstr "Archivos de configuración de netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
 msgid "OSM network files"
-msgstr ""
+msgstr "Archivos de red de OSM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1854
 msgid "SUMO network files"
-msgstr ""
+msgstr "Archivos de red de SUMO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1860
 msgid "TLS files"
