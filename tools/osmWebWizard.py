@@ -46,6 +46,7 @@ import sumolib
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+DEFAULT_PORT = 8010
 
 try:
     basestring
@@ -616,7 +617,9 @@ def main(options):
         if not options.remote:
             subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
-        port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
+        port = DEFAULT_PORT
+        if os.name != "nt":
+            port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
         server = SimpleWebSocketServer(options.address, port, OSMImporterWebSocket)
         if not options.remote:
             path = os.path.dirname(os.path.realpath(__file__))
@@ -629,8 +632,11 @@ def main(options):
                     shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
                 path = new_path
                 os.chdir(path)
-            webbrowser.open("file://" + os.path.join(path, "webWizard", "index.html?port=%s" % port))
-
+            url = "file://" + os.path.join(path, "webWizard", "index.html")
+            if os.name != "nt":
+                # on Windows the webbrowser module uses os.startfile which cannot handle parameters
+                url += "?port=%s" % port
+            webbrowser.open(url)
         server.serveforever()
 
 
