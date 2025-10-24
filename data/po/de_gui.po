@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-20 07:57+0000\n"
+"PO-Revision-Date: 2025-10-25 19:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -13122,7 +13122,7 @@ msgstr "Zeige Fahrstreifenkandidaten"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:71
 msgid "-BACKSPACE: undo click"
-msgstr "-BACKSPACE: klicken rückgängig machen"
+msgstr "-RÜCKTASTE: klicken rückgängig machen"
 
 #: src/netedit/frames/GNEConsecutiveSelector.cpp:71
 msgid "-ESC: Abort path creation"
@@ -13483,7 +13483,7 @@ msgstr "CTRL-Klick: Hinzufügen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:159
 msgid "BACKSPACE: undo click"
-msgstr "RÜCKTASTE: Klick rückgängig machen"
+msgstr "-RÜCKTASTE: Klick rückgängig machen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:277
 #: src/netedit/frames/GNEPlanCreator.cpp:779
