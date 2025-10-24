@@ -20,20 +20,27 @@
 ///
 // Exceptions for used by some utility classes
 /****************************************************************************/
+#include <config.h>
 
-#include "UtilExceptions.h"
-
-// needed for BOOST
+#ifdef HAVE_BOOST
 #ifdef _MSC_VER
+// needed to avoid problem in boost win winsocket
+#pragma warning(push, 0)
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>
+#include <boost/stacktrace.hpp>
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wall"
+#pragma GCC diagnostic ignored "-Wextra"
+#include <boost/stacktrace.hpp>
+#pragma GCC diagnostic pop
+#endif
 #endif
 
-// disable boost on macos to avoid build issues
-#if defined(HAVE_BOOST) && !defined(__APPLE__)
-#include <boost/stacktrace.hpp>
-#endif
+#include "UtilExceptions.h"
 
 // ===========================================================================
 // class definitions
@@ -66,7 +73,7 @@ ProcessError::getTrace() const {
 void
 ProcessError::processTrace() {
 // only process if we have boost
-#if defined(HAVE_BOOST) && !defined(__APPLE__)
+#ifdef HAVE_BOOST
     // declare stacktrace
     boost::stacktrace::stacktrace st;
     // convert trace using ostringstream
