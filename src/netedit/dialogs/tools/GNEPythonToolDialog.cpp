@@ -179,7 +179,7 @@ GNEPythonToolDialog::onCmdSetVisualization(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide dialog
-    hide();
+    closeDialogAccepting();
     // run tool
     return myApplicationWindow->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
 }
