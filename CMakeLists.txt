@@ -315,7 +315,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-??.?.?")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-?.??.?")	      # needed for Arrow
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-?.??.?")       # needed for Arrow
     file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-?.?.?")      # needed for Arrow
     file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?")    # needed for Arrow
     file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-?.??.?") # needed for Arrow
@@ -385,7 +385,6 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
-    file(GLOB Boost_DIR "${SUMO_LIBRARIES}/boost-?.??.?/stage/lib/cmake/Boost-?.??.?")
 else ()
     # for Linux and Mac only
     find_package(GTest)
@@ -513,31 +512,14 @@ if (EIGEN3_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
 endif (EIGEN3_FOUND)
 
-# BOOST (needed for stacktrace, minimum version 1.65.0)
-find_package(Boost 1.65 QUIET COMPONENTS system CONFIG)
-
-# init boost library
-set(BOOST_LIBRARIES "")
-
-# continue if boost was found
-if(Boost_FOUND)
-    message(STATUS "Boost " ${Boost_VERSION_STRING} " found, enabling stacktrace support")
-    set(HAVE_BOOST 1)
-    # set headers
-    include_directories(${Boost_INCLUDE_DIRS})
-    # add boost
-    list(APPEND BOOST_LIBRARIES Boost::boost)
-else()
-    message(STATUS "Boost not found, building without stacktrace support")
-endif()
-
 if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-?.??.?")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
+    file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-?.??.?")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
 
     # GDAL (for geopositioning)
@@ -593,6 +575,28 @@ if (CHECK_OPTIONAL_LIBS)
 
     # add optional libraries
     list(APPEND SUMO_LIBRARIES_DLL ${SUMO_OPTIONAL_LIBRARIES_DLL})
+
+    # BOOST (needed for stacktrace, minimum version 1.80.0)
+    find_package(boost_filesystem CONFIG QUIET)
+    find_package(boost_process CONFIG QUIET)
+    find_package(boost_headers CONFIG QUIET)
+
+    # init boost library
+    set(BOOST_LIBRARIES "")
+
+    # continue if boost was found
+    if(boost_filesystem_FOUND AND boost_process_FOUND AND boost_headers_FOUND)
+        message(STATUS "Boost headers, filesystem and process " ${boost_headers_VERSION} " found, enabling stacktrace support")
+        set(HAVE_BOOST 1)
+        # set includes
+        get_target_property(Boost_include Boost::headers INTERFACE_INCLUDE_DIRECTORIES)
+        include_directories(${Boost_include})
+        # add boost libraries
+        list(APPEND BOOST_LIBRARIES Boost::filesystem Boost::process Boost::headers)
+    else()
+        message(STATUS "Boost not found, building without stacktrace support")
+    endif()
+
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
