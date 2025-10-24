@@ -97,9 +97,8 @@ GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
         myApplicationWindow->getExternalRunner()->abort();
     } else {
         // add line and info
-        std::string line("-------------------------------------------\n");
-        myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
-        myText->appendStyledText("rerun tool\n", 1, TRUE);
+        std::string line = "--------------------Rerun--------------------\n";
+        myText->appendStyledText(line.c_str(), (int)line.length(), 1, TRUE);
         myText->layout();
         myText->update();
         myError = false;
