@@ -17,6 +17,28 @@
 ///
 // External runner for python and external tools
 /****************************************************************************/
+#include <config.h>
+
+#ifdef HAVE_BOOST
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+#include <boost/process.hpp>
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#pragma warning(pop)
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wall"
+#pragma GCC diagnostic ignored "-Wextra"
+#include <boost/process.hpp>
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#pragma GCC diagnostic pop
+#endif
+#endif
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/run/GNERunDialog.h>
@@ -80,6 +102,22 @@ GNEExternalRunner::errorOccurred() const {
 
 FXint
 GNEExternalRunner::run() {
+// check if use boost version, or the "classic" version
+#ifdef HAVE_BOOST
+    try {
+        boost::process::v1::ipstream out;
+        std::cout << myRunDialog->getRunCommand() << std::endl;
+        auto c = boost::process::v1::child(myRunDialog->getRunCommand(), boost::process::v1::std_out > out);
+        std::string line;
+        while (c.running() && std::getline(out, line)) {
+            std::cout << line << std::endl;
+        }
+        c.wait();
+        return c.exit_code();
+    } catch (...) {
+        return EXIT_FAILURE;
+    }
+#else
     // get run command
     const std::string runCommand = myRunDialog->getRunCommand();
     // declare buffer
@@ -138,6 +176,7 @@ GNEExternalRunner::run() {
     myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))), false);
     myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""), true);
     return 1;
+#endif
 }
 
 /****************************************************************************/
