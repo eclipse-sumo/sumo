@@ -22,7 +22,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#ifdef HAVE_BOOST
+// stacktrace is not supported in MAC
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
 #ifdef _MSC_VER
 // needed to avoid problem in boost win winsocket
 #pragma warning(push, 0)
@@ -72,8 +73,8 @@ ProcessError::getTrace() const {
 
 void
 ProcessError::processTrace() {
-// only process if we have boost
-#ifdef HAVE_BOOST
+// only process if we have boost and we're not in apple
+#if defined(HAVE_BOOST) && !defined(__APPLE__)
     // declare stacktrace
     boost::stacktrace::stacktrace st;
     // convert trace using ostringstream
