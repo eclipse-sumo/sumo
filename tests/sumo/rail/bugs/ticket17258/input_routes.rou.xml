@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-26T22:49:26.006897+01:00 by Eclipse SUMO netedit v1_24_0+1559-61e8e739dad
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="DEFAULT_RAILTYPE" depart="0.00">
+        <route edges="E0 E1"/>
+    </vehicle>
+</routes>
