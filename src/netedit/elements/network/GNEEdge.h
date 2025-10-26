@@ -94,10 +94,10 @@ public:
     }
 
     /// @brief check if current network element is valid to be written into XML
-    bool isNetworkElementValid() const;
+    bool isNetworkElementValid() const override;
 
     /// @brief return a string with the current network element problem
-    std::string getNetworkElementProblem() const;
+    std::string getNetworkElementProblem() const override;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -166,31 +166,31 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief Returns the street name
-    const std::string getOptionalName() const;
+    const std::string getOptionalName() const override;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @brief delete element
-    void deleteGLObject();
+    void deleteGLObject() override;
 
     /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
+    void updateGLObject() override;
 
     /// @}
 
@@ -216,7 +216,7 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const override;
-    std::string getAttributeForSelection(SumoXMLAttr key) const;
+    std::string getAttributeForSelection(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
@@ -234,7 +234,7 @@ public:
      * @param[in] key The attribute key
      * @return position with the value associated to key
      */
-    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -253,12 +253,12 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    bool isAttributeComputed(SumoXMLAttr key) const;
+    bool isAttributeComputed(SumoXMLAttr key) const override;
 
     /// @}
 

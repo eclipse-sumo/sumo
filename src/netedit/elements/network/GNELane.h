@@ -216,7 +216,7 @@ public:
     /// @{
     // @brief Returns the name of the parent object (if any)
     // @return This object's parent id
-    std::string getParentName() const;
+    std::string getParentName() const override;
 
     /**@brief Returns an own popup-menu
      *
@@ -225,16 +225,16 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief multiplexes message to two targets
-    long onDefault(FXObject*, FXSelector, void*);
+    long onDefault(FXObject*, FXSelector, void*) override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
@@ -243,13 +243,13 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @brief delete element
-    void deleteGLObject();
+    void deleteGLObject() override;
 
     /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
+    void updateGLObject() override;
     /// @}
 
     /// @brief returns the index of the lane
@@ -284,7 +284,7 @@ public:
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const override;
-    std::string getAttributeForSelection(SumoXMLAttr key) const;
+    std::string getAttributeForSelection(SumoXMLAttr key) const override;
 
     /* @brief method for getting the Attribute of an XML key in double format
      * @param[in] key The attribute key
@@ -302,7 +302,7 @@ public:
      * @param[in] key The attribute key
      * @return position with the value associated to key
      */
-    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -321,12 +321,12 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    bool isAttributeComputed(SumoXMLAttr key) const;
+    bool isAttributeComputed(SumoXMLAttr key) const override;
 
     /// @}
 
@@ -336,7 +336,7 @@ public:
     void setSpecialColor(const RGBColor* Color2, double colorValue = std::numeric_limits<double>::max());
 
     /// @brief return value for lane coloring according to the given scheme
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief draw overlapped routes
     void drawOverlappedRoutes(const int numRoutes) const;

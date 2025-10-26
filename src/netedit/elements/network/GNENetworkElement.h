@@ -49,7 +49,7 @@ public:
     virtual ~GNENetworkElement();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject() override;
@@ -73,19 +73,19 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief check if element is locked
-    bool isGLObjectLocked() const;
+    bool isGLObjectLocked() const override;
 
     /// @brief mark element as front element
-    void markAsFrontElement();
+    void markAsFrontElement() override;
 
     /// @brief select element
-    void selectGLObject();
+    void selectGLObject() override;
 
     /// @brief Returns the name of the object (default "")
-    virtual const std::string getOptionalName() const;
+    virtual const std::string getOptionalName() const override;
 
     /// @}
 

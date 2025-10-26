@@ -45,6 +45,10 @@ public:
     /// @brief destructor
     ~GNEAdditionalSquared();
 
+private:
+    /// @brief pointer to additional
+    GNEAdditional* myAdditional;
+
 protected:
     /// @brief position over view
     Position myPosOverView;
@@ -63,9 +67,6 @@ protected:
                                GUITexture texture, GUITexture selectedTexture) const;
 
 private:
-    /// @brief pointer to additional
-    GNEAdditional* myAdditional;
-
     /// @brief Invalidated copy constructor.
     GNEAdditionalSquared(const GNEAdditionalSquared&) = delete;
 
