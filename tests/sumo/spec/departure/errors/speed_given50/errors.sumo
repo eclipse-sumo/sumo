@@ -1,2 +1,2 @@
-Error: Departure speed for vehicle '1' is too high for the departure edge 'beg'.
+Error: Departure speed for vehicle '1' is too high for the departure edge 'beg', time=0.00.
 Quitting (on error).

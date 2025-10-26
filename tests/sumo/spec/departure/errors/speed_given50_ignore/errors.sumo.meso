@@ -1,1 +1,2 @@
-Warning: Departure speed for vehicle '1' is too high for the departure edge 'beg'.
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Departure speed for vehicle '1' is too high for the departure edge 'beg', time=0.00.
