@@ -828,8 +828,8 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
                 double emergencyBrakeGap = 0.5 * speed * speed / aVehicle->getCarFollowModel().getEmergencyDecel();
                 if (emergencyBrakeGap <= dist) {
                     // Vehicle may stop in time with emergency deceleration
-                    // stil, emit a warning
-                    WRITE_WARNINGF(TL("Vehicle '%' is inserted in emergency situation."), aVehicle->getID());
+                    // still, emit a warning
+                    WRITE_WARNINGF(TL("Vehicle '%' is inserted in an emergency situation, time=%."), aVehicle->getID(), time2string(SIMSTEP));
                     return false;
                 }
             }
@@ -853,8 +853,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     int insertionChecks = aVehicle->getInsertionChecks();
     if (pos < 0 || pos > myLength) {
         // we may not start there
-        WRITE_WARNINGF(TL("Invalid departPos % given for vehicle '%'. Inserting at lane end instead."),
-                       pos, aVehicle->getID());
+        WRITE_WARNINGF(TL("Invalid departPos % given for vehicle '%', time=%. Inserting at lane end instead."),
+                       pos, aVehicle->getID(), time2string(SIMSTEP));
         pos = myLength;
     }
 
@@ -1160,11 +1160,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 } else {
                     if ((insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
                         if (!MSGlobals::gCheckRoutes) {
-                            WRITE_WARNINGF(TL("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%'."),
-                                           aVehicle->getID(), nextLane->getID());
+                            WRITE_WARNINGF(TL("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%', time=%."),
+                                           aVehicle->getID(), nextLane->getID(), time2string(SIMSTEP));
                         } else {
                             // we may not drive with the given velocity - we would be too fast on the next lane
-                            WRITE_ERRORF(TL("Vehicle '%' will not be able to depart using the given velocity (slow lane ahead)!"), aVehicle->getID());
+                            WRITE_ERRORF(TL("Vehicle '%' will not be able to depart using the given velocity (slow lane ahead), time=%."), aVehicle->getID(), time2string(SIMSTEP));
                             MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                             return false;
                         }
