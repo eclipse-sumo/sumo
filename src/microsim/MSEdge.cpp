@@ -788,11 +788,12 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
     }
     const SUMOVehicleParameter& pars = v.getParameter();
     if (!validateDepartSpeed(v)) {
-        const std::string errorMsg = "Departure speed for vehicle '" + pars.id + "' is too high for the departure edge '" + getID() + "'.";
         if (MSGlobals::gCheckRoutes) {
-            throw ProcessError(errorMsg);
+            throw ProcessError(TLF("Departure speed for vehicle '%' is too high for the departure edge '%', time=%.",
+                                   pars.id, getID(), time2string(time)));
         } else {
-            WRITE_WARNING(errorMsg);
+            WRITE_WARNINGF(TL("Departure speed for vehicle '%' is too high for the departure edge '%', time=%."),
+                           pars.id, getID(), time2string(time));
         }
     }
     if (MSGlobals::gUseMesoSim) {
@@ -808,8 +809,8 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                     pos = pars.departPos + getLength();
                 }
                 if (pos < 0 || pos > getLength()) {
-                    WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
-                                  v.getID() + "'. Inserting at lane end instead.");
+                    WRITE_WARNINGF(TL("Invalid departPos % given for vehicle '%', time=%. Inserting at lane end instead."),
+                                   pos, v.getID(), time2string(time));
                     pos = getLength();
                 }
                 break;
@@ -849,7 +850,8 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
             case DepartLaneDefinition::FIRST_ALLOWED: {
                 MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
                 if (insertionLane == nullptr) {
-                    WRITE_WARNING("could not insert vehicle '" + v.getID() + "' on any lane of edge '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                    WRITE_WARNINGF(TL("Could not insert vehicle '%' on any lane of edge '%', time=%."),
+                                   v.getID(), getID(), time2string(time));
                     return false;
                 }
                 const double occupancy = insertionLane->getBruttoOccupancy();
