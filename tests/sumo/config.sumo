@@ -115,8 +115,8 @@ fcd_parquet:fcd.parquet
 person_fcd_parquet:person_fcd.parquet
 
 [collate_script]
-fcd_parquet:$SUMO_HOME/tools/output/parquet2csv.py
-person_fcd_parquet:$SUMO_HOME/tools/output/parquet2csv.py
+fcd_parquet:python -u $SUMO_HOME/tools/output/parquet2csv.py
+person_fcd_parquet:python -u $SUMO_HOME/tools/output/parquet2csv.py
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
