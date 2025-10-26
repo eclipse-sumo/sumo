@@ -1,1 +1,4 @@
-Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+#Error while connecting: tcpip::Socket::connect() @ socket: Connection refused
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1', time=10.00. Inserting at lane end instead.
