@@ -21,7 +21,7 @@ title: ChangeLog
   - Fixed bug where taxi dispatcher creates invalid route #17166
   - Fixed bug where intermodal routing computes disconnected taxi trip #17167
   - Fixed initialization of intermodal taxi routing graph when taxis are defined as a flow #17168
-  - Fixed crash when loading roads with a rail_signal #17183
+  - Fixed crash when loading roads with a rail_signal #17183, #17251
   - Fixed infinite loop when loading tls program with an actuated red phase that has multiple targets #17186
   - Fixed unsafe vehicle insertion ahead of a junction #17192, #17194
   - Fixed crash on missing attribute in parquet output #17195
@@ -30,12 +30,17 @@ title: ChangeLog
   - Fixed emergency braking in subsecond simulation involving stranded car #17203
   - Fixed error when setting departSpeed="avg" #17208
   - Setting invalid attributes for edgeData `writeAttributes` now always gives a meaningful error message #17230
+  - A vehicle that has persons starting inside of it, no longer causes an error when skipped with option **--begin** #9026
+
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
   - Rectangle selection of edges no longer selects additional objects #17213 (regression in 1.20.0)
+  - Hints when moving/creating geometry points are working again #17032 (regression in 1.20.0)
+  - Fix invalid contour of rerouter intervals when inspecting #17001 (regression in 1.20.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - E2 detectors can be moved again #15551 (regression in 1.22.0)
+  - Tool tip in inspect mode and create-object mode for mouse-over-attribute are working again #17239 (regression in 1.22.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
   - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
@@ -53,6 +58,7 @@ title: ChangeLog
   - Fixed crash when saving additional objects after changing lane count #17218
   - netgenerate dialog no longer fails when the output file path contains spaces #17221
   - Fixed problem when adjusting invalid entity positions on edges with custom length value #17222
+  - Added contour to all rerouter edges #17244
 
 
 - netconvert
@@ -83,6 +89,7 @@ title: ChangeLog
   - Vehicles on edges that are shorter than their geometrical length are no longer exaggerated lengthwise #17074
   - Fixed crash when deleting last item of coloring/scaling scheme levels #17138 (also applies to netedit)
   - Rerouter ids are now shown #16715
+  - JuPedSim obstacles are now shown at their configured z-coordinae in 3D-view #17246
 
 - meso
   - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
@@ -116,6 +123,7 @@ title: ChangeLog
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131  
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
   - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retreive the number of pedestrions on approach to a crossing #17229
+  - All insertion warnings/errors now report the failure time #17259
 
 
 - netedit
@@ -130,6 +138,7 @@ title: ChangeLog
   - Saving files now supports 'apply to all' #17143
   - Settings dialog now shows available POI parameters for the 'show poi text param' feature #17158
   - meanData mode now permits setting edgeData type (i.e. to create edge-emission-output) #15696
+  - Embedded routes are now hidden when creating vehicle or flow that references a route #17220
 
 
 - sumo-gui
@@ -137,6 +146,8 @@ title: ChangeLog
   - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
   - Added menu option for opening only the network in netedit when a *.sumocfg* has been loaded in the simulation ( <kbd>Ctrl+Shift+T</kbd>) #17087
   - BusStop and all other stopping places now support `<param key="waitingDepth" value="FLOAT"/>` to customize spacing depth of waiting transportables #17088
+  - Gui-settings files now permit [opening a tls tracker on startup](sumo-gui.md#tls_tracking) #17236
+
 
 - duarouter
   - Added option **--keep-flows** to avoid expanding flows into individual vehicles #2407
