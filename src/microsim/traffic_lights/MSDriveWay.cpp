@@ -1985,6 +1985,7 @@ MSDriveWay::addDWDeadlock(const std::vector<const MSDriveWay*>& deadlockFoes) {
 const MSDriveWay*
 MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh, bool init) {
     const MSEdge* edge = init ? veh->getRoute().getEdges()[veh->getDepartEdge()] : veh->getEdge();
+    assert(isRailwayOrShared(edge->getPermissions()));
     if (edge->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         for (const MSLane* lane : edge->getLanes()) {
             for (auto ili : lane->getIncomingLanes()) {

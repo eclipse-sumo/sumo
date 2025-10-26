@@ -881,7 +881,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     const bool isRail = aVehicle->isRail();
     if (isRail && insertionChecks != (int)InsertionCheck::NONE
             && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT
-            && MSRailSignalControl::isSignalized(aVehicle->getVClass())) {
+            && MSRailSignalControl::isSignalized(aVehicle->getVClass())
+            && isRailwayOrShared(myPermissions)) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
