@@ -411,18 +411,18 @@ GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
         }
     }
     myDistributionRows.clear();
-    /*
     // continue if we have a distribution to edit
     if (myDistributionSelector->getCurrentDistribution()) {
         // Iterate over distribution key-values
-        for (const auto& keyValue : myDistributionSelector->getCurrentDistribution()->getDistributionKeyValues()) {
+        for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
             // create distribution row
-            auto distributionRow = new DistributionRow(this, keyValue.first, keyValue.second);
+            auto distributionRow = new DistributionRow(this, distributionRef);
             // add into distribution rows
             myDistributionRows.push_back(distributionRow);
         }
     }
-    */
+    // update sum label
+    updateSumLabel();
     // reparent bot frame button (to place it at bottom)
     myBotFrame->reparent(getCollapsableFrame());
 }
@@ -452,8 +452,8 @@ GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelecto
     }
     // ADD
 
-    // update sum label
-    updateSumLabel();
+    // refresh
+    refreshRows();
     return 1;
 }
 
