@@ -106,6 +106,7 @@ GNEExternalRunner::run() {
 #ifdef HAVE_BOOST
     try {
         // declare both streams for read out and err
+        boost::process::v1::opstream in;
         boost::process::v1::ipstream out;
         boost::process::v1::ipstream err;
         // declare run command
@@ -113,7 +114,10 @@ GNEExternalRunner::run() {
         // Show command
         myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, runCommand + "\n"), false);
         // run command derivating the std_out to out and std_err to err
-        boost::process::v1::child c(runCommand, boost::process::v1::std_out > out, boost::process::v1::std_err > err);
+        boost::process::v1::child c(runCommand,
+                boost::process::v1::std_in < in,
+                boost::process::v1::std_out > out,
+                boost::process::v1::std_err > err);
         // declare a stdout reader thread
         std::thread outReaderThread([&out, this]() {
             std::string buffer;
