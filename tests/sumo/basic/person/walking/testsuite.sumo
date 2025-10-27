@@ -25,3 +25,6 @@ walk_routeDist
 
 # define walks that end at a busStop, parkingArea, etc.
 walk_stoppingPlace
+
+# define walks that end at a busStop, parkingArea, etc.
+walk_stoppingPlace_access
