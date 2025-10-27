@@ -5,6 +5,8 @@ set(netedit_dialogs_elements_SRCS
    GNEAttributeCarrierDialog.h
    GNECalibratorDialog.cpp
    GNECalibratorDialog.h
+   GNEDistributionRefDialog.cpp
+   GNEDistributionRefDialog.h
    GNERerouterDialog.cpp
    GNERerouterDialog.h
    GNERerouterIntervalDialog.cpp
