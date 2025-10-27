@@ -469,9 +469,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="chargingStationType">
-        <xsd:sequence>
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+            <xsd:element name="access" type="accessType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
@@ -565,6 +566,7 @@
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="space" type="parkingSpaceType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="access" type="accessType" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
