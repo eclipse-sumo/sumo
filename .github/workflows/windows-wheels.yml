@@ -95,7 +95,7 @@ jobs:
 
     - name: Uploading artifacts
       if: matrix.build_type == 'libsumo'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: libsumo-python-${{ matrix.python_version }}-wheels
         path: dist
@@ -111,7 +111,7 @@ jobs:
 
     - name: Uploading artifacts
       if: matrix.build_type == 'sumo'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: sumo-python-wheels
         path: dist
@@ -129,7 +129,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: texttesttmp-${{ matrix.build_type }}-${{ matrix.python_version }}
         path: D:/texttest_plain.zip
@@ -202,7 +202,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: texttesttmp-installed-${{ matrix.python_version }}
         path: D:/texttest_installed.zip

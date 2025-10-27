@@ -156,14 +156,14 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: texttesttmp.zip
         if-no-files-found: warn
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
         path: sumo/bin
