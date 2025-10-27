@@ -1707,6 +1707,16 @@ enum {
 
     /// @}
 
+    /// @name Distribution reference dialog
+    /// @{
+
+    /// @brief change reference
+    MID_GNE_DISTRIBUTIOND_REFERENCE,
+    /// @brief change probability
+    MID_GNE_DISTRIBUTIOND_PROBABILITY,
+
+    /// @}
+
     /// @brief callback for MFXMenuButtonTooltip
     /// @{
 

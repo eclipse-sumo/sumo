@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNETemplateElementDialog.h"
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declaration
@@ -33,13 +33,13 @@ class MFXTextFieldIcon;
 // class definitions
 // ===========================================================================
 
-class GNEDistributionRefDialog : public GNETemplateElementDialog<GNEAttributeCarrier> {
+class GNEDistributionRefDialog : public GNEDialog {
     // FOX-declarations
     FXDECLARE(GNEDistributionRefDialog)
 
 public:
     /// @brief constructor
-    GNEDistributionRefDialog(GNEAttributeCarrier* AC);
+    GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent);
 
     /// @brief destructor
     ~GNEDistributionRefDialog();
@@ -53,14 +53,20 @@ public:
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
+    /// @brief event after choose a reference in the comboBox
+    long onCmdSetReference(FXObject*, FXSelector, void*);
+
+    /// @brief event after choose a reference in the probability
+    long onCmdSetProbability(FXObject*, FXSelector, void*);
 
     /// @}
 
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEDistributionRefDialog)
+
+    /// @brief pointer to distribution parent
+    GNEAttributeCarrier* myDistributionParent = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

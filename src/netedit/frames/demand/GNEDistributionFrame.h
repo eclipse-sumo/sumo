@@ -256,8 +256,7 @@ public:
         /// @brief constructor
         DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
                                  DistributionSelector* distributionSelector,
-                                 GNEAttributesEditor* attributesEditor,
-                                 SumoXMLTag distributionValueTag);
+                                 GNEAttributesEditor* attributesEditor);
 
         /// @brief show attributes of multiple ACs
         void showDistributionValuesEditor();

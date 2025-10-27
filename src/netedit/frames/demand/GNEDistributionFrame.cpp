@@ -18,15 +18,16 @@
 // The Widget for edit distribution elements
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/elements/GNEDistributionRefDialog.h>
+#include <netedit/elements/demand/GNERouteDistribution.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNERouteDistribution.h>
-#include <netedit/elements/demand/GNEVTypeDistribution.h>
-#include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/foxtools/MFXTextFieldIcon.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -358,13 +359,12 @@ GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, voi
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
-        DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
+        DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor) :
     MFXGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),
     myAttributesEditor(attributesEditor) {
-    UNUSED_PARAMETER(distributionValueTag);
     // set relations
     myDistributionEditor->myDistributionSelector = myDistributionSelector;
     myDistributionSelector->myDistributionEditor = myDistributionEditor;
@@ -421,6 +421,12 @@ GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
             myDistributionRows.push_back(distributionRow);
         }
     }
+    // check if enable or disable add button
+    if (myDistributionRows.size() > 0) {
+        myAddButton->enable();
+    } else {
+        myAddButton->disable();
+    }
     // update sum label
     updateSumLabel();
     // reparent bot frame button (to place it at bottom)
@@ -447,13 +453,12 @@ GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
 
 long
 GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
-    if (myDistributionSelector->getCurrentDistribution() == nullptr) {
-        return 1;
+    // open distribution dialog
+    GNEDistributionRefDialog distributionDialog(myDistributionSelector->getCurrentDistribution());
+    // only refresh if we added a new row
+    if (distributionDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        refreshRows();
     }
-    // ADD
-
-    // refresh
-    refreshRows();
     return 1;
 }
 
