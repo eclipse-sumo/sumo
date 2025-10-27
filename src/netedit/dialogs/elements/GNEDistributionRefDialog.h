@@ -68,6 +68,12 @@ protected:
     /// @brief pointer to distribution parent
     GNEAttributeCarrier* myDistributionParent = nullptr;
 
+    /// @brief comboBox for references
+    MFXComboBoxIcon* myReferencesComboBox = nullptr;
+
+    /// @brief textField probability
+    MFXTextFieldIcon* myProbabilityTextField = nullptr;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEDistributionRefDialog(const GNEDistributionRefDialog&) = delete;

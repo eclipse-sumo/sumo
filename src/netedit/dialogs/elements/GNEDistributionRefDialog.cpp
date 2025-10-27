@@ -18,10 +18,12 @@
 // Dialog for edit attribute carriers
 /****************************************************************************/
 
-#include <netedit/GNETagProperties.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/foxtools/MFXTextFieldIcon.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionRefDialog.h"
 
@@ -43,8 +45,16 @@ FXIMPLEMENT(GNEDistributionRefDialog, GNEDialog, GNEDistributionRefDialogMap, AR
 
 GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent) :
     GNEDialog(distributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TLF("add % reference", distributionParent->getTagStr()), distributionParent->getTagProperty()->getGUIIcon(),
+              TLF("Add % reference", distributionParent->getTagStr()), distributionParent->getTagProperty()->getGUIIcon(),
               DialogType::DISTRIBUTION_REF, GNEDialog::Buttons::ACCEPT_CANCEL, OpenType::MODAL, ResizeMode::STATIC) {
+    auto tooltipMenu = distributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // create elements
+    FXHorizontalFrame* referenceFrames = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    myReferencesComboBox = new MFXComboBoxIcon(referenceFrames, tooltipMenu, true, GUIDesignComboBoxVisibleItems,
+            this, MID_GNE_DISTRIBUTIOND_REFERENCE, GUIDesignComboBox);
+
+    FXHorizontalFrame* probabilityFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    myProbabilityTextField = new MFXTextFieldIcon(probabilityFrame, tooltipMenu, GUIIcon::EMPTY, this, MID_GNE_ATTRIBUTESEDITORROW_SETATTRIBUTE, GUIDesignTextField);
     // open dialog
     openDialog();
 }
