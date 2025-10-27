@@ -72,7 +72,7 @@ jobs:
           # CIBW_BUILD_VERBOSITY: 2
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
@@ -156,7 +156,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: texttesttmp-${{ matrix.python_version }}-${{ matrix.os }}
         path: texttesttmp.zip

@@ -22,7 +22,7 @@ jobs:
           paper-path: docs/JOSS/paper.md
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: paper
           # This is the output path where Pandoc will write the compiled
