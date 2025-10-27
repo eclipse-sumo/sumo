@@ -8,3 +8,4 @@ branch
 
 # test filtering by min-priority
 minPrio
+excludeRoutes
