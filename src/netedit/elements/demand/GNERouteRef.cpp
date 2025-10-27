@@ -139,7 +139,11 @@ GNERouteRef::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
 
 Boundary
 GNERouteRef::getCenteringBoundary() const {
-    return getParentDemandElements().front()->getCenteringBoundary();
+    if (getParentDemandElements().size() > 1) {
+        return getParentDemandElements().at(1)->getCenteringBoundary();
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
 }
 
 

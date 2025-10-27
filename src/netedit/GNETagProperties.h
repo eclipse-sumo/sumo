@@ -90,10 +90,11 @@ public:
         REQUIRE_PROJ =          1 << 9,     // Element require a geo-projection defined in network
         VCLASS_ICON =           1 << 10,    // Element returns icon depending of their vClass
         SYMBOL =                1 << 11,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
-        EXTENDED =              1 << 12,    // Element contains extended attributes (Usually vTypes)
-        HIERARCHICAL =          1 << 13,    // Element is a hierarchical
-        LISTED =                1 << 14,    // Element is a listed elements (for example, rerouter children)
-        NO_PROPERTY =           1 << 15,    // Element doesn't have properties
+        DISTRIBUTIONREF =       1 << 12,    // Element is a distribution reference of routeDistribution or vTypeDistribution
+        EXTENDED =              1 << 13,    // Element contains extended attributes (Usually vTypes)
+        HIERARCHICAL =          1 << 14,    // Element is a hierarchical
+        LISTED =                1 << 15,    // Element is a listed elements (for example, rerouter children)
+        NO_PROPERTY =           1 << 16,    // Element doesn't have properties
     };
 
     /// @brief element in which this element is placed
@@ -501,6 +502,9 @@ public:
 
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
+
+    /// @brief return true if tag correspond to a dstribution reference element
+    bool isDistributionReference() const;
 
     /// @brief return true if tag correspond to an internal lane
     bool isInternalLane() const;

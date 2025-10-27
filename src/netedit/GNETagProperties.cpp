@@ -920,19 +920,25 @@ GNETagProperties::planToStoppingPlace() const {
 
 bool
 GNETagProperties::isChild() const {
-    return (myTagProperty & Property::XMLCHILD) ;
+    return (myTagProperty & Property::XMLCHILD);
 }
 
 
 bool
 GNETagProperties::isSymbol() const {
-    return (myTagProperty & Property::SYMBOL) ;
+    return (myTagProperty & Property::SYMBOL);
+}
+
+
+bool
+GNETagProperties::isDistributionReference() const {
+    return (myTagProperty & Property::DISTRIBUTIONREF);
 }
 
 
 bool
 GNETagProperties::isInternalLane() const {
-    return (myTagType & Type::INTERNALLANE) ;
+    return (myTagType & Type::INTERNALLANE);
 }
 
 
@@ -951,19 +957,19 @@ GNETagProperties::isSelectable() const {
 
 bool
 GNETagProperties::hasGEOShape() const {
-    return (myTagProperty & Property::GEOSHAPE) ;
+    return (myTagProperty & Property::GEOSHAPE);
 }
 
 
 bool
 GNETagProperties::hasDialog() const {
-    return (myTagProperty & Property::DIALOG) ;
+    return (myTagProperty & Property::DIALOG);
 }
 
 
 bool
 GNETagProperties::hasExtendedAttributes() const {
-    return (myTagProperty & Property::EXTENDED) ;
+    return (myTagProperty & Property::EXTENDED);
 }
 
 
@@ -976,37 +982,37 @@ GNETagProperties::hasParameters() const {
 
 bool
 GNETagProperties::isPlacedInRTree() const {
-    return (myTagProperty & Property::RTREE) ;
+    return (myTagProperty & Property::RTREE);
 }
 
 
 bool
 GNETagProperties::isListedElement() const {
-    return (myTagProperty & Property::LISTED) ;
+    return (myTagProperty & Property::LISTED);
 }
 
 
 bool
 GNETagProperties::canBeReparent() const {
-    return (myTagProperty & Property::REPARENT) ;
+    return (myTagProperty & Property::REPARENT);
 }
 
 
 bool
 GNETagProperties::canCenterCameraAfterCreation() const {
-    return (myTagProperty & Property::CENTERAFTERCREATION) ;
+    return (myTagProperty & Property::CENTERAFTERCREATION);
 }
 
 
 bool
 GNETagProperties::requireProj() const {
-    return (myTagProperty & Property::REQUIRE_PROJ) ;
+    return (myTagProperty & Property::REQUIRE_PROJ);
 }
 
 
 bool
 GNETagProperties::vClassIcon() const {
-    return (myTagProperty & Property::VCLASS_ICON) ;
+    return (myTagProperty & Property::VCLASS_ICON);
 }
 
 

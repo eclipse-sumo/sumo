@@ -154,11 +154,7 @@ GNEVTypeDistribution::getParentName() const {
 
 Boundary
 GNEVTypeDistribution::getCenteringBoundary() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getCenteringBoundary();
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
+    return Boundary(-0.1, -0.1, 0.1, 0.1);
 }
 
 
