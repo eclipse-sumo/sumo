@@ -24,7 +24,6 @@
 #include <unordered_map>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXComboBoxIcon.h>
 
 // ===========================================================================
 // class declaration
@@ -34,6 +33,7 @@ class GNEAttributeProperties;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
 class GNETagProperties;
+class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions
