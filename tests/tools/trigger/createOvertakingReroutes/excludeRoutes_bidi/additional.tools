@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-27 15:10:14.991574 by Eclipse SUMO createOvertakingReroutes.py v1_24_0+1582-b04825a6970
+<configuration>
+    <net-file value="net3.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <exclude-all-routes value="True"/>
+    <end value="86400.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>

@@ -9,3 +9,6 @@ branch
 # test filtering by min-priority
 minPrio
 excludeRoutes
+
+# Copy of excludeRoutes
+excludeRoutes_bidi
