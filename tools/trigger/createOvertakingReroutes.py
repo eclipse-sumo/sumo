@@ -193,7 +193,7 @@ def findSidings(options, routes, switches, net):
         if options.minPrio and any(e not in permitted for e in edges):
             # avoid abusing the opposite direciton track as siding
             continue
-        if options.excludeRoutes and not any(e in mainEdges for e in edges):
+        if options.excludeRoutes and any(e in mainEdges for e in edges):
             # do not obstruct any main routes
             continue
         fromTo = (edges[0], edges[-1])
