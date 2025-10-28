@@ -114,6 +114,9 @@ with_vehtype_keepdist
 # Test with bulk routing 10 vehicles having same origin and destination
 bulkSame
 
+# Test with bulk routing 10 vehicles having same origin and destination
+bulkSame_rail
+
 # Test with multi-threaded bulk routing
 bulk_parallel
 
