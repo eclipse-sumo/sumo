@@ -129,6 +129,7 @@ EnergyParams::setMass(const double mass) {
 void
 EnergyParams::setTransportableMass(const double mass) {
     myTransportableMass = mass;
+    assert(myTransportableMass >= 0);
 }
 
 
