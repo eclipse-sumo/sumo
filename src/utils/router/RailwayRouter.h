@@ -82,7 +82,9 @@ public:
                   const bool havePermissions = false, const bool haveRestrictions = false, double maxTrainLength = 5000) :
         SUMOAbstractRouter<E, V>("RailwayRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
         myInternalRouter(nullptr), myOriginal(nullptr), mySilent(silent),
-        myMaxTrainLength(maxTrainLength) {
+        myMaxTrainLength(maxTrainLength),
+        myLastFrom(nullptr)
+    {
         myStaticOperation = effortOperation;
         for (const E* const edge : edges) {
             myInitialEdges.push_back(edge->getRailwayRoutingEdge());
@@ -205,7 +207,11 @@ private:
         }
 
         std::vector<const _RailEdge*> intoTmp;
+        if (myLastFrom != start) {
+            myInternalRouter->setBulkMode(false);
+        }
         bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
+        myLastFrom = start;
 #ifdef RailwayRouter_DEBUG_ROUTES
         std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime)
                   << " safe=" << avoidUnsafeBackTracking << " success=" << success << " into=" << toString(into) << "\n";
@@ -224,19 +230,19 @@ private:
 #ifdef RailwayRouter_DEBUG_ROUTES
             std::cout << "RailRouter: internal result=" << toString(intoTmp) << "\n";
             std::cout << "RailRouter: expanded result=" << toString(into) << "\n";
+            std::cout << "RailRouter: backLengths=" << toString(backLengths) << " bls=" << backLengths.size() << " intoSize=" << intoSize << " final result=" << toString(into) << "\n";
 #endif
             if (backLengths.size() > 0) {
                 // skip the virtual back-edges
                 into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
-#ifdef RailwayRouter_DEBUG_ROUTES
-                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " intoSize=" << intoSize << " final result=" << toString(into) << "\n";
-#endif
                 if (*(into.begin() + intoSize) != from) {
                     if (!avoidUnsafeBackTracking) {
                         // try again, this time with more safety (but unable to
                         // make use of turn-arounds on short edge)
                         into.erase(into.begin() + intoSize, into.end());
-                        return _compute(from, to, vehicle, msTime, into, silent, true);
+                        // we are starting from a different edge and are thus violating the assumptions of bulk mode
+                        success = _compute(from, to, vehicle, msTime, into, silent, true);
+                        return success;
                     } else {
                         WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
                                       + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
@@ -340,6 +346,9 @@ private:
     const bool mySilent;
 
     const double myMaxTrainLength;
+
+    /// @brief track previous edge for correct bulk routing
+    const E* myLastFrom;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myRailEdges
