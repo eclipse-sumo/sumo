@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-09-08 06:41+0000\n"
-"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
+"PO-Revision-Date: 2025-10-29 03:03+0000\n"
+"Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -234,7 +234,7 @@ msgstr "在netedit內打开路网"
 
 #: src/gui/GUIApplicationWindow.cpp:543
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "在NETEDIT中打开当前路网。"
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
@@ -1588,7 +1588,7 @@ msgstr "总占用率 [%]"
 
 #: src/guisim/GUIEdge.cpp:196
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "路段流率[veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:200
 msgid "segment index"
@@ -1620,7 +1620,7 @@ msgstr "路段平均车速 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "路段流率[veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment vehicles [#]"
@@ -1648,7 +1648,7 @@ msgstr "类型 [id]"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "routing type [id]"
-msgstr ""
+msgstr "路径类型[id]"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "tauff"
@@ -1793,7 +1793,7 @@ msgstr "道路类型"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "routing type"
-msgstr ""
+msgstr "路径类型"
 
 #: src/guisim/GUILane.cpp:1076 src/guisim/GUITrafficLightLogicWrapper.cpp:261
 msgid "priority"
@@ -2399,7 +2399,7 @@ msgstr "速度因子"
 
 #: src/guisim/GUIVehicle.cpp:254
 msgid "startupDelay [s]"
-msgstr ""
+msgstr "启动延迟[s]"
 
 #: src/guisim/GUIVehicle.cpp:256
 msgid "action step length [s]"
@@ -2463,39 +2463,39 @@ msgstr "测试坐标"
 
 #: src/netedit/GNEApplicationWindow.cpp:740
 msgid "netconvert config file"
-msgstr ""
+msgstr "netconvert配置文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:756
 #: src/netedit/GNEApplicationWindow.cpp:3346
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:122
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "路网文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:772
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "OpenStreetMap文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:788
 #: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "netedit config file"
-msgstr ""
+msgstr "netedit配置文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:817
 #: src/netedit/GNEApplicationWindow.cpp:3613
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
-msgstr ""
+msgstr "sumo配置文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:919
 #: src/netedit/GNEApplicationWindow.cpp:3731
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "交通信号灯定义文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:958
 #: src/netedit/GNEApplicationWindow.cpp:3757
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "车道类型文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:1020
 msgid "Reloading netedit config file '"
@@ -2525,12 +2525,12 @@ msgstr "&重新载入路网"
 #: src/netedit/GNEApplicationWindow.cpp:1310
 #, c-format
 msgid "Loading of network '%' failed"
-msgstr ""
+msgstr "加载路网'%'失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:1318
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "路网'%'已加载"
 
 #: src/netedit/GNEApplicationWindow.cpp:1416
 msgid "&Modes"
@@ -2550,7 +2550,7 @@ msgstr "&工具"
 
 #: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Assign"
-msgstr ""
+msgstr "分配"
 
 #: src/netedit/GNEApplicationWindow.cpp:1489
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
@@ -2608,7 +2608,7 @@ msgstr "交通信号"
 
 #: src/netedit/GNEApplicationWindow.cpp:1503
 msgid "Trigger"
-msgstr ""
+msgstr "触发器"
 
 #: src/netedit/GNEApplicationWindow.cpp:1504
 msgid "Turn-defs"
@@ -2636,7 +2636,7 @@ msgstr "路网需要重新计算"
 
 #: src/netedit/GNEApplicationWindow.cpp:1678
 msgid "Loading console arguments."
-msgstr ""
+msgstr "加载命令行参数。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1706
 msgid "Creating new network."
@@ -2644,23 +2644,23 @@ msgstr "建立新路网。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1717
 msgid "Trying to load an empty network."
-msgstr ""
+msgstr "尝试加载一张空路网。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1737
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "加载路网文件'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1749
 msgid "Trying to load an empty configuration."
-msgstr ""
+msgstr "尝试加载空配置。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1765
 msgid "Loading configuration file '%'."
-msgstr ""
+msgstr "加载配置文件'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1804
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "加载OSM文件'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1821
 msgid "Recompute with volatile options"
@@ -2668,33 +2668,33 @@ msgstr "用易变的选项进行重新计算"
 
 #: src/netedit/GNEApplicationWindow.cpp:1822
 msgid "Changes produced in the net due a recomputing with"
-msgstr ""
+msgstr "由于重新计算，路网发生了变化"
 
 #: src/netedit/GNEApplicationWindow.cpp:1823
 msgid "volatile options cannot be undone. Continue?"
-msgstr ""
+msgstr "易失性选项无法撤销。是否继续？"
 
 #: src/netedit/GNEApplicationWindow.cpp:2129
 #: src/netedit/GNEApplicationWindow.cpp:2189
 msgid "Running '%'."
-msgstr ""
+msgstr "'%'执行中。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2152
 #, c-format
 msgid "Loading network '%' in SUMO-GUI."
-msgstr ""
+msgstr "在SUMO-GUI中加载路网'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2161
 #, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
-msgstr ""
+msgstr "在SUMO-GUI中加载sumo配置'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2575
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
-msgstr "还原"
+msgstr "撤销"
 
 #: src/netedit/GNEApplicationWindow.cpp:2606
 #: src/netedit/GNEApplicationWindowHelper.cpp:1285
@@ -2705,39 +2705,39 @@ msgstr "重做"
 
 #: src/netedit/GNEApplicationWindow.cpp:3325
 msgid "Saving network failed"
-msgstr ""
+msgstr "保存路网失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3329
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "路网已保存在'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3335
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "无法保存路网到‘%’。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3370
 msgid "plain XML file"
-msgstr ""
+msgstr "纯XML文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:3395
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "纯XML以前缀‘%’保存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3398
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "保存xml失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "joined junctions file"
-msgstr ""
+msgstr "合并交叉路口文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:3423
 msgid "Joined junctions saved to '%'."
-msgstr ""
+msgstr "以合并交叉路口并保存到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Saving joined junctions failed"
-msgstr ""
+msgstr "保存合并交叉路口失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3455
 #: src/netedit/GNEApplicationWindow.cpp:3459
@@ -2745,15 +2745,15 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3467
 #: src/netedit/GNEApplicationWindow.cpp:3471
 msgid "Saving of netedit configuration aborted."
-msgstr ""
+msgstr "netedit配置保存操作已中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Netedit configuration saved in '%'."
-msgstr ""
+msgstr "Netedit配置已保存到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3486
 msgid "Could not save netedit configuration in '%'."
-msgstr ""
+msgstr "无法保存netedit配置到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 #: src/netedit/GNEApplicationWindow.cpp:3566
@@ -2765,240 +2765,240 @@ msgstr "SUMO 配置保存已中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:3593
 msgid "SUMO configuration saved in '%'."
-msgstr ""
+msgstr "SUMO配置已保存到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3601
 msgid "Could not save SUMO configuration in '%'."
-msgstr ""
+msgstr "无法保存SUMO配置到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3658
 msgid "TLS Programs saved in '%'."
-msgstr ""
+msgstr "TLS程序已保存到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3661
 msgid "Saving TLS Programs failed"
-msgstr ""
+msgstr "保存TLS程序失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3702
 msgid "EdgeType saved in '%'."
-msgstr ""
+msgstr "车道类型已保存到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3705
 msgid "Saving edgeTypes failed"
-msgstr ""
+msgstr "保存车道类型失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3781
 #: src/netedit/GNEApplicationWindow.cpp:3922
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
-msgstr ""
+msgstr "附加元素文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:3794
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "从'%'加载附加元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:3798
 #, c-format
 msgid "Loading of additional file '%' failed."
-msgstr ""
+msgstr "加载附加元素文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3801
 #, c-format
 msgid "Loading of additional file '%' successfully."
-msgstr ""
+msgstr "加载附加元素文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3826
 msgid "reloading additionals"
-msgstr ""
+msgstr "附加元素重新加载中"
 
 #: src/netedit/GNEApplicationWindow.cpp:3837
 #, c-format
 msgid "Reloading of additional file '%' failed."
-msgstr ""
+msgstr "重新加载附加元素文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3839
 #, c-format
 msgid "Reloading of additional file '%' successfully."
-msgstr ""
+msgstr "重新加载附加元素文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "Additionals saved."
-msgstr ""
+msgstr "附加元素已保存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3897
 msgid "Saving additional aborted."
-msgstr ""
+msgstr "保存附加元素已终止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3902
 msgid "Saving additional elements failed"
-msgstr ""
+msgstr "保存附加元素失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3929
 msgid "saving of unified additional elements in '%'"
-msgstr ""
+msgstr "保存统一附加元素到'%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3949
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "JuPedSim元素文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:3971
 msgid "JuPedSim elements saved."
-msgstr ""
+msgstr "JuPedSim元素已保存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3974
 msgid "Saving JuPedSim elements aborted."
-msgstr ""
+msgstr "保存JuPedSim元素已中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3980
 msgid "Saving JuPedSim elements failed"
-msgstr ""
+msgstr "保存JuPedSim元素失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:3990
 #: src/netedit/GNEApplicationWindow.cpp:4130
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
-msgstr ""
+msgstr "路径元素文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:4003
 msgid "loading demand elements from '%'"
-msgstr ""
+msgstr "从'%'加载命令元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4007
 #, c-format
 msgid "Loading of route file '%' failed."
-msgstr ""
+msgstr "加载路径文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4010
 #, c-format
 msgid "Loading of route file '%' successfully."
-msgstr ""
+msgstr "加载路径文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4035
 msgid "reloading demand elements"
-msgstr ""
+msgstr "重新加载命令元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 #, c-format
 msgid "Reloading of route file '%' failed."
-msgstr ""
+msgstr "重新加载路径文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4048
 #, c-format
 msgid "Reloading of route file '%' successfully."
-msgstr ""
+msgstr "重新加载路径文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4102
 msgid "Demand elements saved."
-msgstr ""
+msgstr "命令元素已保存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4105
 #: src/netedit/GNEApplicationWindow.cpp:4277
 msgid "Saving demand elements aborted."
-msgstr ""
+msgstr "保存命令元素已中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4110
 msgid "Saving demand elements failed"
-msgstr ""
+msgstr "保存命令元素失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:4137
 msgid "saving of unified demand elements in '%'."
-msgstr ""
+msgstr "保存统一命令元素到'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4157
 #: src/netedit/GNEApplicationWindow.cpp:4302
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
 msgid "Data elements file"
-msgstr ""
+msgstr "数据元素文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:4172
 #: src/netedit/GNEApplicationWindow.cpp:4892
 msgid "loading data elements from '%'."
-msgstr ""
+msgstr "从‘%’加载数据元素。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4176
 #, c-format
 msgid "Loading of data file '%' failed."
-msgstr ""
+msgstr "加载数据文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #, c-format
 msgid "Loading of data file '%' successfully."
-msgstr ""
+msgstr "加载数据文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4208
 msgid "reloading data elements"
-msgstr ""
+msgstr "重新加载数据元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4219
 #, c-format
 msgid "Reloading of data file '%' failed."
-msgstr ""
+msgstr "重新加载数据文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4221
 #, c-format
 msgid "Reloading of data file '%' successfully."
-msgstr ""
+msgstr "重新加载数据文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Data elements saved."
-msgstr ""
+msgstr "数据元素已保存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4282
 msgid "Saving data elements failed"
-msgstr ""
+msgstr "保存数据元素失败"
 
 #: src/netedit/GNEApplicationWindow.cpp:4309
 msgid "saving of unified data elements in '%'"
-msgstr ""
+msgstr "保存统一数据文件到'%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4327
 #: src/netedit/GNEApplicationWindow.cpp:4466
 msgid "MeanData elements file"
-msgstr ""
+msgstr "均值数据元素文件"
 
 #: src/netedit/GNEApplicationWindow.cpp:4340
 msgid "load meanDatas from '%'"
-msgstr ""
+msgstr "从'%'加载均值数据"
 
 #: src/netedit/GNEApplicationWindow.cpp:4344
 #, c-format
 msgid "Loading of meandata file '%' failed."
-msgstr ""
+msgstr "加载均值数据文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4347
 #, c-format
 msgid "Loading of meandata file '%' successfully."
-msgstr ""
+msgstr "加载均值数据文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4372
 msgid "reloading meanDatas"
-msgstr ""
+msgstr "重新加载均值数据"
 
 #: src/netedit/GNEApplicationWindow.cpp:4383
 #, c-format
 msgid "Reloading of meanData file '%' failed."
-msgstr ""
+msgstr "重新加载均值数据文件'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4385
 #, c-format
 msgid "Reloading of meanData file '%' successfully."
-msgstr ""
+msgstr "重新加载均值数据文件'%'成功。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4438
 msgid "MeanDatas elements saved"
-msgstr ""
+msgstr "均值数据元素已保存"
 
 #: src/netedit/GNEApplicationWindow.cpp:4441
 msgid "Saving MeanData elements aborted"
-msgstr ""
+msgstr "保存均值数据元素已中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:4446
 msgid "Saving demand elements failed!"
-msgstr "存储需求元素失败!"
+msgstr "保存失败!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4473
 msgid "saving of unified mean data elements in '%'"
-msgstr ""
+msgstr "保存统一均值数据元素到'%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4783
 msgid "loading additional elements from '"
@@ -3006,13 +3006,13 @@ msgstr "从 ' 载入附加要素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4790
 msgid "loading additionals from '%'."
-msgstr ""
+msgstr "从'%'加载附加元素。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4795
 #: src/netedit/GNEApplicationWindow.cpp:4851
 #, c-format
 msgid "Loading of '%' failed."
-msgstr ""
+msgstr "加载'%'失败。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4839
 msgid "loading demand elements from '"
@@ -3020,7 +3020,7 @@ msgstr "从 ' 载入交通需求要素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4846
 msgid "loading demand elements from '%'."
-msgstr ""
+msgstr "从'%'加载命令元素中。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4885
 msgid "loading data elements from '"
@@ -3028,43 +3028,43 @@ msgstr "从 '载入数据要素"
 
 #: src/netedit/GNEApplicationWindow.cpp:4931
 msgid "loading meanData elements from '"
-msgstr ""
+msgstr "加载均值数据中，从'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4938
 msgid "loading meanData elements from '%'."
-msgstr ""
+msgstr "从'%'加载均值数据元素中。"
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "Reloading TLS programs"
-msgstr ""
+msgstr "重新加载TLS程序"
 
 #: src/netedit/GNEApplicationWindow.cpp:4974
 msgid "reloading TLS Programs from '%'"
-msgstr ""
+msgstr "从'%'重新加载TLS程序中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4976
 msgid "Loading TLS programs from '%'"
-msgstr ""
+msgstr "从'%'加载TLS程序中"
 
 #: src/netedit/GNEApplicationWindow.cpp:4977
 msgid "loading TLS Programs from '%'"
-msgstr ""
+msgstr "从'%'加载TLS程序中"
 
 #: src/netedit/GNEApplicationWindow.cpp:5006
 msgid "Reloading edge types"
-msgstr ""
+msgstr "重新加载路段类型"
 
 #: src/netedit/GNEApplicationWindow.cpp:5007
 msgid "loading edge types from '%'"
-msgstr ""
+msgstr "从'%'加载路段类型中"
 
 #: src/netedit/GNEApplicationWindow.cpp:5009
 msgid "Loading edge types from '%'"
-msgstr ""
+msgstr "从'%'加载路段类型"
 
 #: src/netedit/GNEApplicationWindow.cpp:5010
 msgid "reloading edge types from '%'"
-msgstr ""
+msgstr "从'%'重新加载路段类型"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:135
 msgid "nets"
@@ -3218,7 +3218,7 @@ msgstr "允许撤销元素加载"
 #: src/netedit/GNEApplicationWindowHelper.cpp:305
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
-msgstr ""
+msgstr "允许撤销加载元素（如果加载元素很多，会很慢）"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
 msgid "Close the network."
@@ -3364,7 +3364,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:461
 msgid "Save JuPedSim Elements as..."
-msgstr ""
+msgstr "另存为JuPedSim元素..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:461
 msgid "Save JuPedSim elements in a separated file."
@@ -3396,11 +3396,11 @@ msgstr "存储需求要素 。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:485
 msgid "Save Demand Elements unified as..."
-msgstr ""
+msgstr "另存为统一命令元素..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:485
 msgid "Save all demand elements to the chosen file"
-msgstr ""
+msgstr "保存全部命令元素到指定文件"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:491
 msgid "Reload Demand Elements"
@@ -3432,7 +3432,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:509
 msgid "Save all data elements to the chosen file."
-msgstr ""
+msgstr "保存全部数据元素到指定文件。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:515
 msgid "Reload Data Elements"
@@ -3460,11 +3460,11 @@ msgstr "存储MeanDatas及图形物件档案。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:533
 msgid "Save MeanDatas unified as..."
-msgstr ""
+msgstr "另存为统一均值数据..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:533
 msgid "Save all meanData elements to the chosen file."
-msgstr ""
+msgstr "保存全部均值数据元素到指定文件。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:539
 msgid "Reload MeanDatas"
@@ -3753,7 +3753,7 @@ msgstr "点选后交通信号方案內所有相位(phase)将使用改变的状�
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:914
 msgid "Don't ask for confirmation before merging junction"
-msgstr ""
+msgstr "合并路口前无需确认"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:919
 msgid "Create consecutive edges"
@@ -3855,7 +3855,7 @@ msgstr "开启复原/重做的历史对话框。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1292
 msgid "Allow undo-redo"
-msgstr ""
+msgstr "允许 撤销-重做"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1314
 msgid "Clear front element"
@@ -4200,11 +4200,11 @@ msgstr "无法载入netedit的設定档案"
 
 #: src/netedit/GNEAttributeProperties.cpp:295
 msgid "Extended"
-msgstr ""
+msgstr "扩展"
 
 #: src/netedit/GNEAttributeProperties.cpp:297
 msgid "GEO"
-msgstr ""
+msgstr "GEO"
 
 #: src/netedit/GNEAttributeProperties.cpp:299
 #: src/netedit/elements/demand/GNEVehicle.cpp:128
@@ -4213,51 +4213,51 @@ msgstr "流 (Flow)"
 
 #: src/netedit/GNEAttributeProperties.cpp:301
 msgid "Netedit"
-msgstr ""
+msgstr "Netedit"
 
 #: src/netedit/GNEAttributeProperties.cpp:303
 msgid "Internal"
-msgstr ""
+msgstr "内部"
 
 #: src/netedit/GNEAttributeProperties.cpp:316
 msgid "list of "
-msgstr ""
+msgstr "列表 "
 
 #: src/netedit/GNEAttributeProperties.cpp:324
 msgid "non-negative "
-msgstr ""
+msgstr "非负 "
 
 #: src/netedit/GNEAttributeProperties.cpp:327
 msgid "discrete "
-msgstr ""
+msgstr "离散的 "
 
 #: src/netedit/GNEAttributeProperties.cpp:330
 msgid "unique "
-msgstr ""
+msgstr "唯一的 "
 
 #: src/netedit/GNEAttributeProperties.cpp:334
 msgid "integer"
-msgstr ""
+msgstr "整数"
 
 #: src/netedit/GNEAttributeProperties.cpp:337
 msgid "float"
-msgstr ""
+msgstr "浮点数"
 
 #: src/netedit/GNEAttributeProperties.cpp:340
 msgid "SUMOTime"
-msgstr ""
+msgstr "SUMO时间"
 
 #: src/netedit/GNEAttributeProperties.cpp:343
 msgid "boolean"
-msgstr ""
+msgstr "布尔"
 
 #: src/netedit/GNEAttributeProperties.cpp:346
 msgid "string"
-msgstr ""
+msgstr "字符串"
 
 #: src/netedit/GNEAttributeProperties.cpp:349
 msgid "position"
-msgstr ""
+msgstr "位置"
 
 #: src/netedit/GNEAttributeProperties.cpp:352
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
@@ -4266,32 +4266,32 @@ msgstr "颜色"
 
 #: src/netedit/GNEAttributeProperties.cpp:355
 msgid "vClass"
-msgstr ""
+msgstr "vClass"
 
 #: src/netedit/GNEAttributeProperties.cpp:358
 #: src/netedit/GNEAttributeProperties.cpp:362
 msgid "filename"
-msgstr ""
+msgstr "文件名"
 
 #: src/netedit/GNEAttributeProperties.cpp:359
 msgid "(Existent)"
-msgstr ""
+msgstr "(存在的)"
 
 #: src/netedit/GNEAttributeProperties.cpp:365
 msgid "probability"
-msgstr ""
+msgstr "可能性"
 
 #: src/netedit/GNEAttributeProperties.cpp:366
 msgid "[0, 1]"
-msgstr ""
+msgstr "[0, 1]"
 
 #: src/netedit/GNEAttributeProperties.cpp:369
 msgid "angle"
-msgstr ""
+msgstr "角度"
 
 #: src/netedit/GNEAttributeProperties.cpp:370
 msgid "[0, 360]"
-msgstr ""
+msgstr "[0, 360]"
 
 #: src/netedit/GNEAttributeProperties.cpp:652
 #, c-format
@@ -4300,7 +4300,7 @@ msgstr "属性'%'已插入"
 
 #: src/netedit/GNEExternalRunner.cpp:64
 msgid "cancelled by user\n"
-msgstr "由使用者取消\n"
+msgstr "用户已取消\n"
 
 #: src/netedit/GNEExternalRunner.cpp:108
 msgid "starting process...\n"
@@ -4394,7 +4394,7 @@ msgstr "加载元素选择"
 
 #: src/netedit/GNELoadThread.cpp:310
 msgid "Test file"
-msgstr ""
+msgstr "测试文件"
 
 #: src/netedit/GNELoadThread.cpp:315
 msgid "File in which TLS Programs must be saved"
@@ -4569,7 +4569,7 @@ msgstr "容器流的命名前缀"
 
 #: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "数据集名称前置"
 
 #: src/netedit/GNELoadThread.cpp:457
 msgid "Prefix for meanDataEdge naming"
@@ -4897,19 +4897,19 @@ msgstr "路网"
 
 #: src/netedit/GNENetHelper.cpp:3668
 msgid "additional elements"
-msgstr ""
+msgstr "附加元素"
 
 #: src/netedit/GNENetHelper.cpp:3700
 msgid "demand elements"
-msgstr ""
+msgstr "命令元素"
 
 #: src/netedit/GNENetHelper.cpp:3732
 msgid "data elements"
-msgstr ""
+msgstr "数据元素"
 
 #: src/netedit/GNENetHelper.cpp:3764
 msgid "meanData elements"
-msgstr ""
+msgstr "均值元素"
 
 #: src/netedit/GNENetHelper.cpp:3812
 msgid "Redo replace in TLS"
@@ -4939,16 +4939,16 @@ msgstr "在 getAttributeProperties(int) 中使用了无效的索引 '%'"
 #: src/netedit/GNETagPropertiesDatabase.cpp:91
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "标签'%' 的属性（Property）未定义"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:104
 #, c-format
 msgid "TagPropertySet for tag '%' not defined"
-msgstr ""
+msgstr "标签'%' 的属性（TagPropertySet）未定义"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:382
 msgid "Root"
-msgstr ""
+msgstr "根"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
 #: src/netedit/GNETagPropertiesDatabase.cpp:389
@@ -4979,7 +4979,7 @@ msgstr "附加的元素"
 #: src/netedit/GNETagPropertiesDatabase.cpp:420
 #: src/netedit/GNETagPropertiesDatabase.cpp:422
 msgid "Stopping places"
-msgstr ""
+msgstr "公交站点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:434
 #: src/netedit/GNETagPropertiesDatabase.cpp:436
@@ -5023,12 +5023,12 @@ msgstr "流 (Flows)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:470
 msgid "Vehicle flows"
-msgstr ""
+msgstr "车流"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:475
 #: src/netedit/GNETagPropertiesDatabase.cpp:477
 msgid "Vehicle stops"
-msgstr ""
+msgstr "车辆停车点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:482
 #: src/netedit/GNETagPropertiesDatabase.cpp:484
@@ -5051,7 +5051,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 #: src/netedit/GNETagPropertiesDatabase.cpp:505
 msgid "Person walks"
-msgstr ""
+msgstr "行人"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 #: src/netedit/GNETagPropertiesDatabase.cpp:512
@@ -5082,7 +5082,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 #: src/netedit/GNETagPropertiesDatabase.cpp:547
 msgid "Datas"
-msgstr ""
+msgstr "数据"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:574
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
@@ -5407,7 +5407,7 @@ msgstr "车辆之间的视距"
 msgid ""
 "sets index of this connection within the controlling traffic light (-1 means "
 "automatic assignment)"
-msgstr ""
+msgstr "在控制交通灯中设置此交叉路口的索引（-1代表自动指派）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1075
 msgid ""
@@ -5446,7 +5446,7 @@ msgstr "此连接线(connection)的连接状态(link state) (计算过的)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1139
 msgid "InternalLanes"
-msgstr ""
+msgstr "内部车道"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1156
 msgid "BusStop"
@@ -16958,19 +16958,19 @@ msgstr "标志"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2247
 msgid "busStops"
-msgstr ""
+msgstr "公交站"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2250
 msgid "trainStops"
-msgstr ""
+msgstr "火车站"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2253
 msgid "containerStops"
-msgstr ""
+msgstr "集装箱停靠站"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2256
 msgid "chargingStations"
-msgstr ""
+msgstr "充电站"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2269
 msgid "element"
@@ -16978,35 +16978,35 @@ msgstr "要素"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2272
 msgid "trips"
-msgstr ""
+msgstr "行程"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2276
 msgid "personTrips"
-msgstr ""
+msgstr "行人行程"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2280
 msgid "walks"
-msgstr ""
+msgstr "走"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
 msgid "rides"
-msgstr ""
+msgstr "骑行"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2298
 msgid "stop"
-msgstr ""
+msgstr "停靠点"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "waypoint"
-msgstr ""
+msgstr "路径点"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2302
 msgid "stop (persons)"
-msgstr ""
+msgstr "停靠点（行人）"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2304
 msgid "stop (containers)"
-msgstr ""
+msgstr "停靠点（集装箱）"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2327
 msgid "POI detail"
@@ -17015,7 +17015,7 @@ msgstr "兴趣点详情"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2332
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2369
 msgid "Custom Layer"
-msgstr ""
+msgstr "自定义层"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2338
 msgid "Show poi id"
@@ -17047,19 +17047,19 @@ msgstr "其他事项"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2397
 msgid "Lane Edge"
-msgstr ""
+msgstr "车道路段"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2401
 msgid "Prohibition"
-msgstr ""
+msgstr "禁止"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2413
 msgid "PersonPlan"
-msgstr ""
+msgstr "行人规划"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2415
 msgid "edgeData"
-msgstr ""
+msgstr "路段数据"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2459
 msgid "Exaggerate edgeRelation width by"
@@ -17243,7 +17243,7 @@ msgstr "将语言改为西班牙文。(es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
 msgid "Change language to portuguese. (pt)"
-msgstr ""
+msgstr "将语言给为葡萄牙语。(pt)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 msgid "Change language to french. (fr)"
@@ -17271,7 +17271,7 @@ msgstr "将语言改为匈牙利语。(hu)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:363
 msgid "Change language to japanese. (ja)"
-msgstr ""
+msgstr "将语言改为日语。（ja）"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:377
 msgid "german"
@@ -17283,7 +17283,7 @@ msgstr "西班牙文"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:385
 msgid "portuguese"
-msgstr ""
+msgstr "葡萄牙语"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:389
 msgid "french"
@@ -17311,7 +17311,7 @@ msgstr "匈牙利语"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:413
 msgid "japanese"
-msgstr ""
+msgstr "日语"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:417
 msgid "english"
