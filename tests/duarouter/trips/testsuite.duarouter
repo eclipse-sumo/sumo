@@ -126,6 +126,9 @@ bulk_parallel_warn
 # Test with bulk routing 3 vehicles having same origin and different destinations
 bulk
 
+# Test with bulk routing 2 vehicles having same origin and different destinations
+bulk_rail_fromEqualTo
+
 # test whether CHRouter detects vClass specific connectivity issues
 CHWrapper_lane_connectivity
 
