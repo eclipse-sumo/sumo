@@ -1711,9 +1711,9 @@ enum {
     /// @{
 
     /// @brief change reference
-    MID_GNE_DISTRIBUTIOND_REFERENCE,
+    MID_GNE_DISTRIBUTIONDIALOG_REFERENCE,
     /// @brief change probability
-    MID_GNE_DISTRIBUTIOND_PROBABILITY,
+    MID_GNE_DISTRIBUTIONDIALOG_PROBABILITY,
 
     /// @}
 

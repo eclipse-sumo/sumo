@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <set>
+
 #include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
@@ -28,6 +30,7 @@
 
 class GNEAttributeCarrier;
 class MFXTextFieldIcon;
+class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions
@@ -73,6 +76,12 @@ protected:
 
     /// @brief textField probability
     MFXTextFieldIcon* myProbabilityTextField = nullptr;
+
+    /// @brief set with candidate IDs;
+    std::set<std::string> myCandidateIDs;
+
+    /// @brief default probability
+    std::string myDefaultprobability;
 
 private:
     /// @brief Invalidated copy constructor.
