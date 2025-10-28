@@ -151,10 +151,18 @@ def findSidings(options, routes, switches, net):
                 i += 1
         tf.write('</routes>')
 
-    # write weights that discourage using the (main) route edges
+    # write weights that discourage using the (main) route edges and their bidi-edge
     mainEdges = set()
     for rid, edges in routes.items():
         mainEdges.update(edges)
+    mainBidi = set()
+    for eid in mainEdges:
+        if net.hasEdge(eid):
+            e = net.getEdge(eid)
+            b = e.getBidi()
+            if b is not None:
+                mainBidi.add(b.getID())
+    mainEdges.update(mainBidi)
 
     tmpWeights = options.outfile + ".tmp.weights.xml"
     with openz(tmpWeights, 'w') as tf:
