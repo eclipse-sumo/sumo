@@ -118,7 +118,7 @@ public:
         myInternalRouter->prohibit(railEdges);
         this->myProhibited = toProhibit;
 #ifdef RailwayRouter_DEBUG_ROUTES
-        std::cout << "RailRouter prohibit=" << toString(toProhibit) << "\n";
+        std::cout << "RailRouter numProhibitions=" << toProhibit.size() << "\n";
 #endif
     }
 
