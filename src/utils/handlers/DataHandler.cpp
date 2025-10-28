@@ -165,8 +165,8 @@ DataHandler::parseInterval(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double begin = attrs.get<double>(SUMO_ATTR_BEGIN, "", parsedOk);
-    const double end = attrs.get<double>(SUMO_ATTR_END, "", parsedOk);
+    const double begin = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk));
+    const double end = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk));
     // continue if flag is ok
     if (parsedOk) {
         // set tag
