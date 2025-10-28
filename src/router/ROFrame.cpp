@@ -205,6 +205,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.doRegister("weights.turnaround-penalty", new Option_Float(5.0));
     oc.addDescription("weights.turnaround-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for turnaround internal lanes"));
 
+    oc.doRegister("weights.reversal-penalty", new Option_Float(60));
+    oc.addDescription("weights.reversal-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal"));
+
     if (!isMA) {
         // register defaults options
         oc.doRegister("departlane", new Option_String());

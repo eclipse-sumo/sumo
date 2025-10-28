@@ -201,7 +201,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     if (net.hasBidiEdges()) {
         railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, op, ttFunction, false, net.hasPermissions(),
                 oc.isSet("restriction-params"),
-                oc.getFloat("railway.max-train-length"));
+                oc.getFloat("railway.max-train-length"),
+                oc.getFloat("weights.reversal-penalty"));
     }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm),

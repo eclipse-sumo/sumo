@@ -79,12 +79,14 @@ public:
     /// Constructor
     RailwayRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation effortOperation,
                   typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false,
-                  const bool havePermissions = false, const bool haveRestrictions = false, double maxTrainLength = 5000) :
+                  bool havePermissions = false, const bool haveRestrictions = false, double maxTrainLength = 5000,
+                  double reversalPenalty = 60) :
         SUMOAbstractRouter<E, V>("RailwayRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
         myInternalRouter(nullptr), myOriginal(nullptr), mySilent(silent),
         myMaxTrainLength(maxTrainLength),
         myLastFrom(nullptr)
     {
+        myReversalPenalty = reversalPenalty;
         myStaticOperation = effortOperation;
         for (const E* const edge : edges) {
             myInitialEdges.push_back(edge->getRailwayRoutingEdge());
@@ -145,6 +147,7 @@ public:
                         *lengthp -= savingsFactor * lengthCorrection;
                     }
                 }
+                effort += myReversalPenalty;
             }
             prev = e;
         }
