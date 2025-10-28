@@ -1128,6 +1128,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*, FXSelector, void* /*data*/
     std::string name = mySchemeName->getItemText(index);
     gSchemeStorage.remove(name);
     mySchemeName->removeItem(index);
+    myParent->getColoringSchemesCombo()->removeItem(index);
     onCmdNameChange(nullptr, 0, (void*) mySchemeName->getItemText(0).c_str());
     gSchemeStorage.writeSettings(getApp());
     return 1;
