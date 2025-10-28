@@ -45,7 +45,7 @@ class PositionVector;
 
 class GNELane : public GNENetworkElement, public GNECandidateElement, public FXDelegator {
     /// @brief FOX-declaration
-    FXDECLARE(GNELane)
+    FXDECLARE_OVERRIDE(GNELane)
 
 public:
     /// @brief class for lane drawing constants

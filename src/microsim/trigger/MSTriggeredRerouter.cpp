@@ -601,10 +601,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 continue;
             }
             // negated iterator distance for descending order
-            sortedLocs.push_back(std::make_pair(-(mainStart - veh.getCurrentRouteEdge()), index));
+            sortedLocs.push_back(std::make_pair(-(int)(mainStart - veh.getCurrentRouteEdge()), index));
         }
         std::sort(sortedLocs.begin(), sortedLocs.end());
-        for (auto item : sortedLocs) {
+        for (const auto& item : sortedLocs) {
             index = item.second;
             const OvertakeLocation& oloc = rerouteDef->overtakeLocations[index];
             auto mainStart = veh.getCurrentRouteEdge() - item.first;  // subtracting negative difference
@@ -633,7 +633,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             const std::string info = getID() + ":" + toString(SUMO_TAG_OVERTAKING_REROUTE) + ":" + best_overtaker_signal.first->getID();
             veh.replaceRouteEdges(newEdges, routeCost, savings, info, false, false, false);
             oloc.sidingExit->addConstraint(veh.getID(), new MSRailSignalConstraint_Predecessor(
-                    MSRailSignalConstraint::PREDECESSOR, best_overtaker_signal.second, best_overtaker_signal.first->getID(), 100, true));
+                                               MSRailSignalConstraint::PREDECESSOR, best_overtaker_signal.second, best_overtaker_signal.first->getID(), 100, true));
             resetClosedEdges(hasReroutingDevice, veh);
         }
         return false;
@@ -933,10 +933,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
-MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
-        ConstMSEdgeVector::const_iterator mainStart,
-        const OvertakeLocation& oloc,
-        double& netSaving) {
+MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh,
+                                     ConstMSEdgeVector::const_iterator mainStart,
+                                     const OvertakeLocation& oloc,
+                                     double& netSaving) {
     const ConstMSEdgeVector& route = veh.getRoute().getEdges();
     const MSEdgeVector& main = oloc.main;
     const double vMax = veh.getMaxSpeed();
@@ -1032,14 +1032,14 @@ MSTriggeredRerouter::overtakingTrain( const SUMOVehicle& veh,
                 netSaving = prio2 * (saving - accelTimeLoss2) - prio * (loss + accelTimeLoss);
 #ifdef DEBUG_OVERTAKING
                 std::cout << SIMTIME << " veh=" << veh.getID() << " veh2=" << veh2->getID()
-                    << " sidingStart=" << oloc.siding.front()->getID()
-                    << " ttm=" << timeToMain << " ttm2=" << timeToMain2
-                    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
-                    << " em=" << exitMainTime << " emb2=" << exitMainBlockTime2
-                    << " ttls2=" << timeToLastSignal2
-                    << " saving=" << saving << " loss=" << loss
-                    << " atl=" << accelTimeLoss << " atl2=" << accelTimeLoss2 << " tl2=" << timeLoss2
-                    << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+                          << " sidingStart=" << oloc.siding.front()->getID()
+                          << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                          << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
+                          << " em=" << exitMainTime << " emb2=" << exitMainBlockTime2
+                          << " ttls2=" << timeToLastSignal2
+                          << " saving=" << saving << " loss=" << loss
+                          << " atl=" << accelTimeLoss << " atl2=" << accelTimeLoss2 << " tl2=" << timeLoss2
+                          << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
 #endif
                 if (netSaving > oloc.minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);

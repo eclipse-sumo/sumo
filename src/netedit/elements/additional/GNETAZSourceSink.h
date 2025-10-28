@@ -61,7 +61,7 @@ public:
     /// @}
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
     /// @brief write TAZ sourceSink
     void writeTAZSourceSink(OutputDevice& device) const;

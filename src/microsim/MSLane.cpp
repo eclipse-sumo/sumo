@@ -1124,13 +1124,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check leader on next lane
             const MSLeaderInfo nextLeaders = nextLane->getLastVehicleInformation(aVehicle, 0, 0);
             if (nextLeaders.hasVehicles()) {
-                const double nspeed = nextLane->safeInsertionSpeed(aVehicle, seen, nextLeaders, speed);
+                const double nextLaneSpeed = nextLane->safeInsertionSpeed(aVehicle, seen, nextLeaders, speed);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-                    std::cout << SIMTIME << " leader on lane '" << nextLane->getID() << "': " << nextLeaders.toString() << " nspeed=" << nspeed << "\n";
+                    std::cout << SIMTIME << " leader on lane '" << nextLane->getID() << "': " << nextLeaders.toString() << " nspeed=" << nextLaneSpeed << "\n";
                 }
 #endif
-                if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
+                if (nextLaneSpeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nextLaneSpeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
@@ -1140,7 +1140,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                   << " posLat=" << posLat
                                   << " patchSpeed=" << patchSpeed
                                   << " speed=" << speed
-                                  << " nspeed=" << nspeed
+                                  << " nspeed=" << nextLaneSpeed
                                   << " nextLane=" << nextLane->getID()
                                   << " lead=" << nextLeaders.toString()
                                   << " failed (@641)!\n";
@@ -1153,10 +1153,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
             // check next lane's maximum velocity
-            const double nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true, MSCFModel::CalcReason::FUTURE);
-            if (nspeed < speed) {
+            const double freeSpeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true, MSCFModel::CalcReason::FUTURE);
+            if (freeSpeed < speed) {
                 if (patchSpeed || aVehicle->getParameter().departSpeedProcedure != DepartSpeedDefinition::GIVEN) {
-                    speed = nspeed;
+                    speed = freeSpeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
                     if ((insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
