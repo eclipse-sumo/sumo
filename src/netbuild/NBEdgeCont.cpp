@@ -1268,6 +1268,16 @@ NBEdgeCont::guessRoundabouts() {
 #endif
                 break;
             }
+            if (e->getToNode()->getRoundaboutType() == RoundaboutType::NO) {
+                doLoop = false;
+#ifdef DEBUG_GUESS_ROUNDABOUT
+                if (gDebugFlag1) {
+                    std::cout << " disabled\n";
+                }
+                gDebugFlag1 = false;
+#endif
+                break;
+            }
             if (edges.size() < 2) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
