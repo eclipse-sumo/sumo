@@ -707,6 +707,9 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
 #ifdef HAVE_FOX
     int workerIndex = 0;
 #endif
+    if ((int)bulkVehs.size() < numBulked) {
+        WRITE_MESSAGE(TLF("Using bulk-mode for % entities from % origins", numBulked, bulkVehs.size()));
+    }
     for (std::map<const int, std::vector<RORoutable*> >::const_iterator i = bulkVehs.begin(); i != bulkVehs.end(); ++i) {
 #ifdef HAVE_FOX
         if (myThreadPool.size() > 0) {
