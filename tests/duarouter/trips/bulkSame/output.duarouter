@@ -1,5 +1,6 @@
 Loading net ... done.
 Skipped until: 0.00
+Using bulk-mode for 10 entities from 1 origins
 DijkstraRouter answered 10 queries and explored 1.60 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.

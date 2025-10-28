@@ -1,7 +1,8 @@
 Loading net ... done.
 Skipped until: 0.00
+Using bulk-mode for 30 entities from 3 origins
 AStarRouter answered 20 queries and explored 1.40 edges on average.
-AStarRouter spent 0ms answering queries (0.00ms on average).
+AStarRouter spent 0.00s answering queries (0.00ms on average).
 AStarRouter answered 10 queries and explored 1.30 edges on average.
-AStarRouter spent 0ms answering queries (0.00ms on average).
+AStarRouter spent 0.00s answering queries (0.00ms on average).
 Success.
