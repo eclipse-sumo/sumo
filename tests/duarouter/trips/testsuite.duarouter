@@ -111,8 +111,8 @@ with_vehtype_dist
 # same as noid_increasing_time, but a vehicle type distribution is used and written
 with_vehtype_keepdist
 
-# Test with bulk routing 100 vehicles having one departure time
-bulk
+# Test with bulk routing 10 vehicles having same origin and destination
+bulkSame
 
 # Test with multi-threaded bulk routing
 bulk_parallel
