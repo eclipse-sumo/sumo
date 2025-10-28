@@ -1476,6 +1476,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RIGHT_OF_WAY,
     /// @brief Fringe type of node
     SUMO_ATTR_FRINGE,
+    /// @brief Roundabout type of node
+    SUMO_ATTR_ROUNDABOUT,
     /// @brief whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,
     /// @brief A color information
@@ -2076,6 +2078,16 @@ enum class FringeType {
     DEFAULT
 };
 
+/// @brief classifying roundabout type for nodes
+enum class RoundaboutType {
+    // forced to be roundabout
+    YES,
+    // forced to not be roundabout
+    NO,
+    // computed
+    DEFAULT
+};
+
 /// @brief travel modes for persons
 enum class PersonMode {
     NONE = 0,
@@ -2578,6 +2590,9 @@ public:
     /// @brief fringe types
     static StringBijection<FringeType> FringeTypeValues;
 
+    /// @brief fringe types
+    static StringBijection<RoundaboutType> RoundaboutTypeValues;
+
     /// @brief person modes
     static StringBijection<PersonMode> PersonModeValues;
 
@@ -2767,6 +2782,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<FringeType>::Entry fringeTypeValuesInitializer[];
+
+    /// @brief lane spread function values
+    static StringBijection<RoundaboutType>::Entry roundaboutTypeValuesInitializer[];
 
     /// @brief person mode values
     static StringBijection<PersonMode>::Entry personModeValuesInitializer[];

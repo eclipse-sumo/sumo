@@ -192,6 +192,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
         if (n->getFringeType() != FringeType::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
+        if (n->getRoundaboutType() != RoundaboutType::DEFAULT) {
+            device.writeAttr<std::string>(SUMO_ATTR_ROUNDABOUT, toString(n->getRoundaboutType()));
+        }
         if (n->getName() != "") {
             device.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n->getName()));
         }

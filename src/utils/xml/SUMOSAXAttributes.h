@@ -444,6 +444,7 @@ INVALID_RETURN(SumoXMLEdgeFunc);
 INVALID_RETURN(SumoXMLNodeType);
 INVALID_RETURN(RightOfWay);
 INVALID_RETURN(FringeType);
+INVALID_RETURN(RoundaboutType);
 INVALID_RETURN(ParkingType);
 INVALID_RETURN(std::vector<std::string>);
 INVALID_RETURN(std::vector<int>);

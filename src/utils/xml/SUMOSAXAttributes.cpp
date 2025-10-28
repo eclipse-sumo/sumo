@@ -386,6 +386,16 @@ FringeType SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+const RoundaboutType invalid_return<RoundaboutType>::value = RoundaboutType::DEFAULT;
+template<>
+RoundaboutType SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (SUMOXMLDefinitions::RoundaboutTypeValues.hasString(value)) {
+        return SUMOXMLDefinitions::RoundaboutTypeValues.get(value);
+    }
+    throw FormatException("is not a valid roundabout type");
+}
+
+
 const ParkingType invalid_return<ParkingType>::value = ParkingType::ONROAD;
 template<>
 ParkingType SUMOSAXAttributes::fromString(const std::string& value) const {

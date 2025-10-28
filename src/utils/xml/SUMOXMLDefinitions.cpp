@@ -1126,6 +1126,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "indirect",               SUMO_ATTR_INDIRECT },
     { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
     { "fringe",                 SUMO_ATTR_FRINGE },
+    { "roundabout",             SUMO_ATTR_ROUNDABOUT },
     { "color",                  SUMO_ATTR_COLOR },
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
@@ -1552,6 +1553,12 @@ StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializ
     {"default", FringeType::DEFAULT } // default (must be the last one)
 };
 
+StringBijection<RoundaboutType>::Entry SUMOXMLDefinitions::roundaboutTypeValuesInitializer[] = {
+    {"1",       RoundaboutType::YES },
+    {"0",       RoundaboutType::NO },
+    {"default", RoundaboutType::DEFAULT } // default (must be the last one)
+};
+
 StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
     {"none",         PersonMode::NONE},
     {"walkForward",  PersonMode::WALK_FORWARD},
@@ -1928,6 +1935,9 @@ StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
 
 StringBijection<FringeType> SUMOXMLDefinitions::FringeTypeValues(
     SUMOXMLDefinitions::fringeTypeValuesInitializer, FringeType::DEFAULT);
+
+StringBijection<RoundaboutType> SUMOXMLDefinitions::RoundaboutTypeValues(
+    SUMOXMLDefinitions::roundaboutTypeValuesInitializer, RoundaboutType::DEFAULT);
 
 StringBijection<PersonMode> SUMOXMLDefinitions::PersonModeValues(
     SUMOXMLDefinitions::personModeValuesInitializer, PersonMode::PUBLIC);

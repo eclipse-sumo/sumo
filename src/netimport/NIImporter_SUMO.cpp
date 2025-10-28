@@ -775,6 +775,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     node->setRightOfWay(attrs.getOpt<RightOfWay>(SUMO_ATTR_RIGHT_OF_WAY, id.c_str(), ok, node->getRightOfWay()));
     node->setFringeType(attrs.getOpt<FringeType>(SUMO_ATTR_FRINGE, id.c_str(), ok, node->getFringeType()));
+    node->setRoundaboutType(attrs.getOpt<RoundaboutType>(SUMO_ATTR_ROUNDABOUT, id.c_str(), ok, node->getRoundaboutType()));
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
         node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), ok));
     }

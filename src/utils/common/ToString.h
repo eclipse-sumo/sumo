@@ -127,6 +127,12 @@ inline std::string toString<FringeType>(const FringeType& fringeType, std::strea
 }
 
 template <>
+inline std::string toString<RoundaboutType>(const RoundaboutType& roundaboutType, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::RoundaboutTypeValues.getString(roundaboutType);
+}
+
+template <>
 inline std::string toString<PersonMode>(const PersonMode& personMode, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::PersonModeValues.getString(personMode);

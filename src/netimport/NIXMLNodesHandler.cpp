@@ -229,6 +229,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     }
     node->setRightOfWay(attrs.getOpt<RightOfWay>(SUMO_ATTR_RIGHT_OF_WAY, nodeID.c_str(), ok, node->getRightOfWay()));
     node->setFringeType(attrs.getOpt<FringeType>(SUMO_ATTR_FRINGE, nodeID.c_str(), ok, node->getFringeType()));
+    node->setRoundaboutType(attrs.getOpt<RoundaboutType>(SUMO_ATTR_ROUNDABOUT, nodeID.c_str(), ok, node->getRoundaboutType()));
     // set optional name
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
         node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, nodeID.c_str(), ok));

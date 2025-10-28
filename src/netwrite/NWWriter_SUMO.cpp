@@ -684,6 +684,9 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     if (n.getFringeType() != FringeType::DEFAULT) {
         into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
     }
+    if (n.getRoundaboutType() != RoundaboutType::DEFAULT) {
+        into.writeAttr<std::string>(SUMO_ATTR_ROUNDABOUT, toString(n.getRoundaboutType()));
+    }
     if (n.getName() != "") {
         into.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n.getName()));
     }

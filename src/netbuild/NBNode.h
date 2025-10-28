@@ -306,6 +306,11 @@ public:
         return myFringeType;
     }
 
+    /// @brief Returns roundabout type
+    inline RoundaboutType getRoundaboutType() const {
+        return myRoundaboutType;
+    }
+
     /// @brief Returns intersection name
     inline const std::string& getName() const {
         return myName;
@@ -577,9 +582,14 @@ public:
         myRightOfWay = rightOfWay;
     }
 
-    /// @brief set method for computing right-of-way
+    /// @brief set fringe type
     void setFringeType(FringeType fringeType) {
         myFringeType = fringeType;
+    }
+
+    /// @brief set roundabout type
+    void setRoundaboutType(RoundaboutType roundaboutType) {
+        myRoundaboutType = roundaboutType;
     }
 
     /// @brief set intersection name
@@ -981,6 +991,9 @@ private:
 
     /// @brief fringe type of this node
     FringeType myFringeType;
+
+    /// @brief roundabout type of this node
+    RoundaboutType myRoundaboutType;
 
     /// @brief The intersection name (or whatever arbitrary string you wish to attach)
     std::string myName;
