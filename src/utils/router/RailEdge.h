@@ -126,10 +126,13 @@ public:
         }
     }
 
-    void init(std::vector<_RailEdge*>& railEdges, int& numericalID, double maxTrainLength) {
+    void init(std::vector<_RailEdge*>& railEdges, int& numericalID, double maxTrainLength, bool permitReversal) {
         // replace turnaround-via with an explicit RailEdge that checks length
         for (const auto& viaPair : myOriginal->getViaSuccessors()) {
             if (viaPair.first == myOriginal->getBidiEdge()) {
+                if (!permitReversal) {
+                    continue;
+                }
                 // direction reversal
                 if (myTurnaround == nullptr) {
                     myTurnaround = new _RailEdge(myOriginal, viaPair.first, numericalID++);

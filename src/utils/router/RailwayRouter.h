@@ -178,8 +178,9 @@ private:
 
     bool _compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent, bool avoidUnsafeBackTracking) {
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
+        // if reversals are forbidden (negative penalty), we don't need to check this
         std::vector<double> backLengths;
-        double backDist = vehicle->getLength() - from->getLength();
+        double backDist = myReversalPenalty >= 0 ? vehicle->getLength() - from->getLength() : 0;
         const E* start = from;
         while (backDist > 0) {
             const E* prev = getStraightPredecessor(start, into, (int)backLengths.size());
@@ -278,7 +279,7 @@ private:
             myRailEdges = myInitialEdges;
             int numericalID = myInitialEdges.back()->getNumericalID() + 1;
             for (_RailEdge* railEdge : myInitialEdges) {
-                railEdge->init(myRailEdges, numericalID, myMaxTrainLength);
+                railEdge->init(myRailEdges, numericalID, myMaxTrainLength, myReversalPenalty >= 0);
             }
         }
         return myRailEdges;
