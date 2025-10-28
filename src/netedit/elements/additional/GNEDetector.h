@@ -98,7 +98,7 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /// @}
 

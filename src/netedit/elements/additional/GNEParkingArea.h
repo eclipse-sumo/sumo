@@ -61,7 +61,7 @@ public:
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device) const override;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -78,7 +78,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @}
 

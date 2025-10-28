@@ -119,7 +119,7 @@ public:
     void updateGeometry() override;
 
     /// @brief Returns position of shape in view
-    Position getPositionInView() const override;
+    Position getPositionInView() const;
 
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const override;

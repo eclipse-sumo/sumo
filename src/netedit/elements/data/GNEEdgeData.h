@@ -83,7 +83,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

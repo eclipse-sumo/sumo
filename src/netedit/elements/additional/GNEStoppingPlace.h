@@ -80,13 +80,13 @@ public:
     /// @{
 
     /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
-    bool isAdditionalValid() const;
+    bool isAdditionalValid() const override;
 
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
-    std::string getAdditionalProblem() const;
+    std::string getAdditionalProblem() const override;
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
-    void fixAdditionalProblem();
+    void fixAdditionalProblem() override;
 
     /// @}
 
@@ -108,7 +108,7 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /// @}
 

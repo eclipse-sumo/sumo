@@ -78,12 +78,12 @@ public:
     std::string getDemandElementProblem() const;
 
     /// @brief fix demand element problem
-    void fixDemandElementProblem();
+    void fixDemandElementProblem() override;
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
     /// @brief obtain VClass related with this demand element
-    SUMOVehicleClass getVClass() const;
+    SUMOVehicleClass getVClass() const override;
 
     /// @brief get color
     const RGBColor& getColor() const;
@@ -112,13 +112,13 @@ public:
     Boundary getCenteringBoundary() const;
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @}
 

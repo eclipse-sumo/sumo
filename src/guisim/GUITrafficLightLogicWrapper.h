@@ -89,7 +89,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
 

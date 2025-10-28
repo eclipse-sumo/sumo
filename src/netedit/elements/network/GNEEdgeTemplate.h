@@ -43,7 +43,7 @@ public:
     ~GNEEdgeTemplate();
 
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement();
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
     /// @brief methods to retrieve the elements linked to this edgeTemplate
     /// @{

@@ -91,7 +91,7 @@ public:
          * @param[in] s Current visualization settings
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const;
+        void drawGL(const GUIVisualizationSettings& s) const override;
 
         /// @brief return exaggeration associated with this GLObject
         double getExaggeration(const GUIVisualizationSettings& s) const;

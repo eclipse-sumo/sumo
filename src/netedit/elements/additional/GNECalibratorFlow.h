@@ -70,16 +70,16 @@ public:
     /**@brief write additional element into a xml file
     * @param[in] device device in which write parameters of additional element
     */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device) const override;
 
     /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
-    bool isAdditionalValid() const;
+    bool isAdditionalValid() const override;
 
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
-    std::string getAdditionalProblem() const;
+    std::string getAdditionalProblem() const override;
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
-    void fixAdditionalProblem();
+    void fixAdditionalProblem() override;
 
     /// @}
 
@@ -104,7 +104,7 @@ public:
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /// @}
 
@@ -120,7 +120,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @}
 

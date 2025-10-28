@@ -20,15 +20,21 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
+class GNEDemandElement;
+class GNEEdge;
 class GNEFrame;
-class GNETagProperties;
+class GNEJunction;
 class GNEPathManager;
+class GNETagProperties;
+class GNETAZ;
 
 // ===========================================================================
 // class definitions

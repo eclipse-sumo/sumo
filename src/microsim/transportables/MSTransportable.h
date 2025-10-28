@@ -82,7 +82,7 @@ public:
 
     double getSlope() const;
 
-    SUMOVehicleClass getVClass() const;
+    SUMOVehicleClass getVClass() const override;
 
     /// @brief whether the transportable (persons) is jammed as defined by the current pedestrian model
     virtual bool isJammed() const {
