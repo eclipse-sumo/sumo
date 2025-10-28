@@ -34,46 +34,44 @@ def load(ver_file):
     return visum
 
 
-def main(visum, ver_file, zip_file, xml=True):
+def write(zipf, f, name):
+    if os.path.isfile(f):
+        zipf.write(f, os.path.basename(name))
+        os.remove(f)
+
+
+def main(visum, ver_file, zip_file):
     out_dir = os.path.dirname(zip_file)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
     out_dir = os.path.abspath(out_dir)
 
     base_name = os.path.splitext(os.path.basename(ver_file))[0]
-    if xml:
+    with zipfile.ZipFile(zip_file, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
         network = os.path.join(out_dir, base_name + "_anm_network.xml")
         routes = os.path.join(out_dir, base_name + "_anm_routes.xml")
         matrices = os.path.join(out_dir, base_name + "_anm_matrices.xml")
-        for f in (network, routes, matrices):
+        net = os.path.join(out_dir, base_name + ".net")
+        dmd = os.path.join(out_dir, base_name + ".dmd")
+        for f in (network, routes, matrices, net, dmd):
             if os.path.exists(f):
                 os.remove(f)
+        visum.SaveNet(net)
         if hasattr(visum, "IO"):
             visum.IO.ExportANMNet(network, "")
             visum.IO.ExportANMRoutes(routes, "", True, False)
             visum.IO.ExportANMRoutes(matrices, "", False, True)
+            visum.IO.SaveDemandFile(dmd, True)
         else:
             visum.ExportAnmNet(network, "")
             visum.ExportAnmRoutes(routes, "", True, False)
             visum.ExportAnmRoutes(matrices, "", False, True)
-        os.rename(network + ".anm", network)
-        os.rename(routes + ".anmRoutes", routes)
-        os.rename(matrices + ".anmRoutes", matrices)
-    else:
-        network = os.path.join(out_dir, base_name + ".net")
-        matrices = os.path.join(out_dir, base_name + ".dmd")
-        routes = ""
-        visum.SaveNet(network)
-        if hasattr(visum, "IO"):
-            visum.IO.SaveDemandFile(matrices, True)
-        else:
-            visum.SaveDemandFile(matrices, True)
-
-    with zipfile.ZipFile(zip_file, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
-        for f in [network, matrices, routes]:
-            if os.path.isfile(f):
-                zipf.write(f, os.path.basename(f))
-                os.remove(f)
+            visum.SaveDemandFile(dmd, True)
+        write(zipf, network + ".anm", network)
+        write(zipf, routes + ".anmRoutes", routes)
+        write(zipf, matrices + ".anmRoutes", matrices)
+        write(zipf, net, net)
+        write(zipf, dmd, dmd)
 
 
 if __name__ == "__main__":
@@ -88,10 +86,6 @@ if __name__ == "__main__":
     if visum:
         if len(sys.argv) > 2:
             zip_file = sys.argv[2]
-            main(visum, ver_file, zip_file)
         else:
-            # Default: generate two zip files
-            zip_file = os.path.splitext(ver_file)[0] + "_anm.zip"
-            main(visum, ver_file, zip_file, True)
             zip_file = os.path.splitext(ver_file)[0] + ".zip"
-            main(visum, ver_file, zip_file, False)
+        main(visum, ver_file, zip_file)
