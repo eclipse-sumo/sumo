@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:47.096250+01:00 by Eclipse SUMO marouter v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-10-28T19:15:03.634310+01:00 by Eclipse SUMO marouter v1_24_0+1618-05eb47eca84
 -->
 
 <marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -67,6 +67,7 @@
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
         <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
+        <weights.reversal-penalty value="60" type="FLOAT" help="Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal"/>
         <aggregation-interval value="3600" type="TIME" help="Defines the time interval when aggregating single vehicle input; Defaults to one hour"/>
         <capacities.default value="false" type="BOOL" help="Ignore edge priorities when calculating capacities and restraints"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>

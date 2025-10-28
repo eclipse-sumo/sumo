@@ -1,218 +1,229 @@
-Eclipse SUMO marouter v1_24_0+0753-7ddc191931e
+Eclipse SUMO marouter v1_24_0+1618-05eb47eca84
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes.
 
 Usage: marouter [OPTION]*
 Configuration Options:
-  -c, --configuration-file FILE      Loads the named config on startup
-  -C, --save-configuration FILE      Saves current configuration into FILE
-  --save-configuration.relative      Enforce relative paths when saving the
-                                      configuration
-  --save-template FILE               Saves a configuration template (empty)
-                                      into FILE
-  --save-schema FILE                 Saves the configuration schema into FILE
-  --save-commented                   Adds comments to saved template,
-                                      configuration, or schema
+  -c, --configuration-file FILE       Loads the named config on startup
+  -C, --save-configuration FILE       Saves current configuration into FILE
+  --save-configuration.relative       Enforce relative paths when saving the
+                                       configuration
+  --save-template FILE                Saves a configuration template (empty)
+                                       into FILE
+  --save-schema FILE                  Saves the configuration schema into FILE
+  --save-commented                    Adds comments to saved template,
+                                       configuration, or schema
 
 Input Options:
-  -n, --net-file FILE                Use FILE as SUMO-network to route on
-  -a, --additional-files FILE        Read additional network data (districts,
-                                      bus stops) from FILE(s)
-  -r, --route-files FILE             Read sumo routes, alternatives, flows, and
-                                      trips from FILE(s)
-  --phemlight-path FILE              Determines where to load PHEMlight
-                                      definitions from
-  --phemlight-year INT               Enable fleet age modelling with the given
-                                      reference year in PHEMlight5
-  --phemlight-temperature FLOAT      Set ambient temperature to correct NOx
-                                      emissions in PHEMlight5
-  -w, --weight-files FILE            Read network weights from FILE(s)
-  --lane-weight-files FILE           Read lane-based network weights from
-                                      FILE(s)
-  -x, --weight-attribute STR         Name of the xml attribute which gives the
-                                      edge weight
-  --junction-taz                     Initialize a TAZ for every junction to use
-                                      attributes toJunction and fromJunction
-  -m, --od-matrix-files FILE         Loads O/D-files from FILE(s)
-  --od-amitran-files FILE            Loads O/D-matrix in Amitran format from
-                                      FILE(s)
-  -z, --tazrelation-files FILE       Loads O/D-matrix in tazRelation format
-                                      from FILE(s)
-  --tazrelation-attribute STR        Define data attribute for loading counts
-                                      (default 'count')
-  --weight-adaption FLOAT            The travel time influence of prior
-                                      intervals
-  --taz-param STR[]                  Parameter key(s) defining source (and
-                                      sink) taz
-  --ignore-taz                       Ignore attributes 'fromTaz' and 'toTaz'
+  -n, --net-file FILE                 Use FILE as SUMO-network to route on
+  -a, --additional-files FILE         Read additional network data (districts,
+                                       bus stops) from FILE(s)
+  -r, --route-files FILE              Read sumo routes, alternatives, flows,
+                                       and trips from FILE(s)
+  --phemlight-path FILE               Determines where to load PHEMlight
+                                       definitions from
+  --phemlight-year INT                Enable fleet age modelling with the given
+                                       reference year in PHEMlight5
+  --phemlight-temperature FLOAT       Set ambient temperature to correct NOx
+                                       emissions in PHEMlight5
+  -w, --weight-files FILE             Read network weights from FILE(s)
+  --lane-weight-files FILE            Read lane-based network weights from
+                                       FILE(s)
+  -x, --weight-attribute STR          Name of the xml attribute which gives the
+                                       edge weight
+  --junction-taz                      Initialize a TAZ for every junction to
+                                       use attributes toJunction and
+                                       fromJunction
+  -m, --od-matrix-files FILE          Loads O/D-files from FILE(s)
+  --od-amitran-files FILE             Loads O/D-matrix in Amitran format from
+                                       FILE(s)
+  -z, --tazrelation-files FILE        Loads O/D-matrix in tazRelation format
+                                       from FILE(s)
+  --tazrelation-attribute STR         Define data attribute for loading counts
+                                       (default 'count')
+  --weight-adaption FLOAT             The travel time influence of prior
+                                       intervals
+  --taz-param STR[]                   Parameter key(s) defining source (and
+                                       sink) taz
+  --ignore-taz                        Ignore attributes 'fromTaz' and 'toTaz'
 
 Output Options:
-  -o, --output-file FILE             Write generated routes to FILE
-  --vtype-output FILE                Write used vehicle types into separate
-                                      FILE
-  --keep-vtype-distributions         Keep vTypeDistribution ids when writing
-                                      vehicles and their types
-  --emissions.volumetric-fuel        Return fuel consumption values in (legacy)
-                                      unit l instead of mg
-  --named-routes                     Write vehicles that reference routes by
-                                      their id
-  --write-license                    Include license info into every output
-                                      file
-  --write-metadata                   Write parsable metadata (configuration
-                                      etc.) instead of comments
-  --output-prefix STR                Prefix which is applied to all output
-                                      files. The special string 'TIME' is
-                                      replaced by the current time.
-  --precision INT                    Defines the number of digits after the
-                                      comma for floating point output
-  --precision.geo INT                Defines the number of digits after the
-                                      comma for lon,lat output
-  --output.compression STR           Defines the standard compression algorithm
-                                      (currently only for parquet output)
-  --output.format STR                Defines the standard output format if not
-                                      derivable from the file name ('xml',
-                                      'csv', 'parquet')
-  --output.column-header STR         How to derive column headers from
-                                      attribute names ('none', 'tag', 'auto',
-                                      'plain')
-  --output.column-separator STR      Separator in CSV output
-  -H, --human-readable-time          Write time values as hour:minute:second or
-                                      day:hour:minute:second rather than seconds
-  --ignore-vehicle-type              Does not save vtype information
-  --netload-output FILE              Writes edge loads and final costs into
-                                      FILE
-  --all-pairs-output FILE            Writes complete distance matrix into FILE
-  --exit-times                       Write exit times (weights) for each edge
+  -o, --output-file FILE              Write generated routes to FILE
+  --vtype-output FILE                 Write used vehicle types into separate
+                                       FILE
+  --keep-vtype-distributions          Keep vTypeDistribution ids when writing
+                                       vehicles and their types
+  --emissions.volumetric-fuel         Return fuel consumption values in
+                                       (legacy) unit l instead of mg
+  --named-routes                      Write vehicles that reference routes by
+                                       their id
+  --write-license                     Include license info into every output
+                                       file
+  --write-metadata                    Write parsable metadata (configuration
+                                       etc.) instead of comments
+  --output-prefix STR                 Prefix which is applied to all output
+                                       files. The special string 'TIME' is
+                                       replaced by the current time.
+  --precision INT                     Defines the number of digits after the
+                                       comma for floating point output
+  --precision.geo INT                 Defines the number of digits after the
+                                       comma for lon,lat output
+  --output.compression STR            Defines the standard compression
+                                       algorithm (currently only for parquet
+                                       output)
+  --output.format STR                 Defines the standard output format if not
+                                       derivable from the file name ('xml',
+                                       'csv', 'parquet')
+  --output.column-header STR          How to derive column headers from
+                                       attribute names ('none', 'tag', 'auto',
+                                       'plain')
+  --output.column-separator STR       Separator in CSV output
+  -H, --human-readable-time           Write time values as hour:minute:second
+                                       or day:hour:minute:second rather than
+                                       seconds
+  --ignore-vehicle-type               Does not save vtype information
+  --netload-output FILE               Writes edge loads and final costs into
+                                       FILE
+  --all-pairs-output FILE             Writes complete distance matrix into FILE
+  --exit-times                        Write exit times (weights) for each edge
 
 Processing Options:
-  --max-alternatives INT             Prune the number of alternatives to INT
-  --with-taz                         Use origin and destination zones
-                                      (districts) for in- and output
-  --routing-threads INT              The number of parallel execution threads
-                                      used for routing
-  --routing-algorithm STR            Select among routing algorithms
-                                      ['dijkstra', 'astar', 'CH', 'CHWrapper']
-  --restriction-params STR[]         Comma separated list of param keys to
-                                      compare for additional restrictions
-  --weights.interpolate              Interpolate edge weights at interval
-                                      boundaries
-  --weights.expand                   Expand the end of the last loaded weight
-                                      interval to infinity
-  --weights.minor-penalty FLOAT      Apply the given time penalty when
-                                      computing routing costs for minor-link
-                                      internal lanes
-  --weights.tls-penalty FLOAT        Apply the given time penalty when
-                                      computing routing costs across a traffic
-                                      light
+  --max-alternatives INT              Prune the number of alternatives to INT
+  --with-taz                          Use origin and destination zones
+                                       (districts) for in- and output
+  --routing-threads INT               The number of parallel execution threads
+                                       used for routing
+  --routing-algorithm STR             Select among routing algorithms
+                                       ['dijkstra', 'astar', 'CH', 'CHWrapper']
+  --restriction-params STR[]          Comma separated list of param keys to
+                                       compare for additional restrictions
+  --weights.interpolate               Interpolate edge weights at interval
+                                       boundaries
+  --weights.expand                    Expand the end of the last loaded weight
+                                       interval to infinity
+  --weights.minor-penalty FLOAT       Apply the given time penalty when
+                                       computing routing costs for minor-link
+                                       internal lanes
+  --weights.tls-penalty FLOAT         Apply the given time penalty when
+                                       computing routing costs across a traffic
+                                       light
   --weights.turnaround-penalty FLOAT  Apply the given time penalty when
-                                      computing routing costs for turnaround
-                                      internal lanes
-  --aggregation-interval TIME        Defines the time interval when aggregating
-                                      single vehicle input; Defaults to one hour
-  --capacities.default               Ignore edge priorities when calculating
-                                      capacities and restraints
-  --weights.priority-factor FLOAT    Consider edge priorities in addition to
-                                      travel times, weighted by factor
-  --bulk-routing.vtypes              Aggregate routing queries with the same
-                                      origin for different vehicle types
-  --weight-period TIME               Aggregation period for the given weight
-                                      files;
-                                      triggers rebuilding of Contraction
-                                      Hierarchy
-  -s, --scale FLOAT                  Scales the loaded flows by FLOAT
-  --vtype STR                        Defines the name of the vehicle type to
-                                      use
-  --prefix STR                       Defines the prefix for vehicle flow names
-  --timeline STR[]                   Uses STR[] as a timeline definition
-  --timeline.day-in-hours            Uses STR as a 24h-timeline definition
-  --additive-traffic                 Keep traffic flows of all time slots in
-                                      the net
-  --assignment-method STR            Choose a assignment method: incremental,
-                                      UE or SUE
-  --tolerance FLOAT                  Use FLOAT as tolerance when checking for
-                                      SUE stability
-  --left-turn-penalty FLOAT          Use left-turn penalty FLOAT to calculate
-                                      link travel time when searching routes
-  --paths INT                        Use INTEGER as the number of paths needed
-                                      to be searched for each OD pair at each
-                                      iteration
-  --paths.penalty FLOAT              Penalize existing routes with FLOAT to
-                                      find secondary routes
-  --upperbound FLOAT                 Use FLOAT as the upper bound to determine
-                                      auxiliary link cost
-  --lowerbound FLOAT                 Use FLOAT as the lower bound to determine
-                                      auxiliary link cost
-  -i, --max-iterations INT           maximal number of iterations for new route
-                                      searching in incremental and stochastic
-                                      user assignment
-  --max-inner-iterations INT         maximal number of inner iterations for
-                                      user equilibrium calculation in the
-                                      stochastic user assignment
-  --route-choice-method STR          Choose a route choice method: gawron,
-                                      logit, or lohse
-  --gawron.beta FLOAT                Use FLOAT as Gawron's beta
-  --gawron.a FLOAT                   Use FLOAT as Gawron's a
-  --keep-all-routes                  Save routes with near zero probability
-  --skip-new-routes                  Only reuse routes from input, do not
-                                      calculate new ones
-  --logit.beta FLOAT                 Use FLOAT as (c-)logit's beta for the
-                                      commonality factor
-  --logit.gamma FLOAT                Use FLOAT as (c-)logit's gamma for the
-                                      commonality factor
-  --logit.theta FLOAT                Use FLOAT as (c-)logit's theta
+                                       computing routing costs for turnaround
+                                       internal lanes
+  --weights.reversal-penalty FLOAT    Apply the given time penalty when
+                                       computing routing costs for train
+                                       reversal. Negative values disable
+                                       reversal
+  --aggregation-interval TIME         Defines the time interval when
+                                       aggregating single vehicle input;
+                                       Defaults to one hour
+  --capacities.default                Ignore edge priorities when calculating
+                                       capacities and restraints
+  --weights.priority-factor FLOAT     Consider edge priorities in addition to
+                                       travel times, weighted by factor
+  --bulk-routing.vtypes               Aggregate routing queries with the same
+                                       origin for different vehicle types
+  --weight-period TIME                Aggregation period for the given weight
+                                       files;
+                                       triggers rebuilding of Contraction
+                                       Hierarchy
+  -s, --scale FLOAT                   Scales the loaded flows by FLOAT
+  --vtype STR                         Defines the name of the vehicle type to
+                                       use
+  --prefix STR                        Defines the prefix for vehicle flow names
+  --timeline STR[]                    Uses STR[] as a timeline definition
+  --timeline.day-in-hours             Uses STR as a 24h-timeline definition
+  --additive-traffic                  Keep traffic flows of all time slots in
+                                       the net
+  --assignment-method STR             Choose a assignment method: incremental,
+                                       UE or SUE
+  --tolerance FLOAT                   Use FLOAT as tolerance when checking for
+                                       SUE stability
+  --left-turn-penalty FLOAT           Use left-turn penalty FLOAT to calculate
+                                       link travel time when searching routes
+  --paths INT                         Use INTEGER as the number of paths needed
+                                       to be searched for each OD pair at each
+                                       iteration
+  --paths.penalty FLOAT               Penalize existing routes with FLOAT to
+                                       find secondary routes
+  --upperbound FLOAT                  Use FLOAT as the upper bound to determine
+                                       auxiliary link cost
+  --lowerbound FLOAT                  Use FLOAT as the lower bound to determine
+                                       auxiliary link cost
+  -i, --max-iterations INT            maximal number of iterations for new
+                                       route searching in incremental and
+                                       stochastic user assignment
+  --max-inner-iterations INT          maximal number of inner iterations for
+                                       user equilibrium calculation in the
+                                       stochastic user assignment
+  --route-choice-method STR           Choose a route choice method: gawron,
+                                       logit, or lohse
+  --gawron.beta FLOAT                 Use FLOAT as Gawron's beta
+  --gawron.a FLOAT                    Use FLOAT as Gawron's a
+  --keep-all-routes                   Save routes with near zero probability
+  --skip-new-routes                   Only reuse routes from input, do not
+                                       calculate new ones
+  --logit.beta FLOAT                  Use FLOAT as (c-)logit's beta for the
+                                       commonality factor
+  --logit.gamma FLOAT                 Use FLOAT as (c-)logit's gamma for the
+                                       commonality factor
+  --logit.theta FLOAT                 Use FLOAT as (c-)logit's theta
 
 Defaults Options:
-  --defaults-override                Defaults will override given values
-  --flow-output.departlane STR       Assigns a default depart lane
-  --flow-output.departpos STR        Assigns a default depart position
-  --flow-output.departspeed STR      Assigns a default depart speed
-  --flow-output.arrivallane STR      Assigns a default arrival lane
-  --flow-output.arrivalpos STR       Assigns a default arrival position
-  --flow-output.arrivalspeed STR     Assigns a default arrival speed
+  --defaults-override                 Defaults will override given values
+  --flow-output.departlane STR        Assigns a default depart lane
+  --flow-output.departpos STR         Assigns a default depart position
+  --flow-output.departspeed STR       Assigns a default depart speed
+  --flow-output.arrivallane STR       Assigns a default arrival lane
+  --flow-output.arrivalpos STR        Assigns a default arrival position
+  --flow-output.arrivalspeed STR      Assigns a default arrival speed
 
 Time Options:
-  -b, --begin TIME                   Defines the begin time;
-                                      Previous trips will be discarded
-  -e, --end TIME                     Defines the end time;
-                                      Later trips will be discarded;
-                                      Defaults to the maximum time that SUMO can
-                                      represent
+  -b, --begin TIME                    Defines the begin time;
+                                       Previous trips will be discarded
+  -e, --end TIME                      Defines the end time;
+                                       Later trips will be discarded;
+                                       Defaults to the maximum time that SUMO
+                                       can represent
 
 Report Options:
-  -v, --verbose                      Switches to verbose output
-  --print-options                    Prints option values before processing
-  -?, --help                         Prints this screen or selected topics
-  -V, --version                      Prints the current version
-  -X, --xml-validation STR           Set schema validation scheme of XML inputs
-                                      ("never", "local", "auto" or "always")
-  --xml-validation.net STR           Set schema validation scheme of SUMO
-                                      network inputs ("never", "local", "auto"
-                                      or "always")
-  --xml-validation.routes STR        Set schema validation scheme of SUMO route
-                                      inputs ("never", "local", "auto" or
-                                      "always")
-  -W, --no-warnings                  Disables output of warnings
-  --aggregate-warnings INT           Aggregate warnings of the same type
-                                      whenever more than INT occur
-  -l, --log FILE                     Writes all messages to FILE (implies
-                                      verbose)
-  --message-log FILE                 Writes all non-error messages to FILE
-                                      (implies verbose)
-  --error-log FILE                   Writes all warnings and errors to FILE
-  --log.timestamps                   Writes timestamps in front of all messages
-  --log.processid                    Writes process ID in front of all messages
-  --language STR                     Language to use in messages
-  --ignore-errors                    Continue if a route could not be build
-  --stats-period INT                 Defines how often statistics shall be
-                                      printed
-  --no-step-log                      Disable console output of route parsing
-                                      step
+  -v, --verbose                       Switches to verbose output
+  --print-options                     Prints option values before processing
+  -?, --help                          Prints this screen or selected topics
+  -V, --version                       Prints the current version
+  -X, --xml-validation STR            Set schema validation scheme of XML
+                                       inputs ("never", "local", "auto" or
+                                       "always")
+  --xml-validation.net STR            Set schema validation scheme of SUMO
+                                       network inputs ("never", "local", "auto"
+                                       or "always")
+  --xml-validation.routes STR         Set schema validation scheme of SUMO
+                                       route inputs ("never", "local", "auto" or
+                                       "always")
+  -W, --no-warnings                   Disables output of warnings
+  --aggregate-warnings INT            Aggregate warnings of the same type
+                                       whenever more than INT occur
+  -l, --log FILE                      Writes all messages to FILE (implies
+                                       verbose)
+  --message-log FILE                  Writes all non-error messages to FILE
+                                       (implies verbose)
+  --error-log FILE                    Writes all warnings and errors to FILE
+  --log.timestamps                    Writes timestamps in front of all
+                                       messages
+  --log.processid                     Writes process ID in front of all
+                                       messages
+  --language STR                      Language to use in messages
+  --ignore-errors                     Continue if a route could not be build
+  --stats-period INT                  Defines how often statistics shall be
+                                       printed
+  --no-step-log                       Disable console output of route parsing
+                                       step
 
 Random Number Options:
-  --random                           Initialises the random number generator
-                                      with the current system time
-  --seed INT                         Initialises the random number generator
-                                      with the given value
+  --random                            Initialises the random number generator
+                                       with the current system time
+  --seed INT                          Initialises the random number generator
+                                       with the given value
 
 
 Examples:

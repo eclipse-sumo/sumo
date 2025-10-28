@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:46.736152+01:00 by Eclipse SUMO jtrrouter v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-10-28T19:15:03.566875+01:00 by Eclipse SUMO jtrrouter v1_24_0+1618-05eb47eca84
 -->
 
 <jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -65,6 +65,7 @@
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
         <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
+        <weights.reversal-penalty value="60" type="FLOAT" help="Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR[]" help="Use STR[] as default turn definition"/>
         <sink-edges value="" synonymes="sinks" type="STR[]" help="Use STR[] as list of sink edges"/>

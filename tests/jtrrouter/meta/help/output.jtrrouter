@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter v1_24_0+0753-7ddc191931e
+Eclipse SUMO jtrrouter v1_24_0+1618-05eb47eca84
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -110,6 +110,10 @@ Processing Options:
   --weights.turnaround-penalty FLOAT  Apply the given time penalty when
                                        computing routing costs for turnaround
                                        internal lanes
+  --weights.reversal-penalty FLOAT    Apply the given time penalty when
+                                       computing routing costs for train
+                                       reversal. Negative values disable
+                                       reversal
   --max-edges-factor FLOAT            Routes are cut off when the route edges
                                        to net edges ratio is larger than FLOAT
   -T, --turn-defaults STR[]           Use STR[] as default turn definition

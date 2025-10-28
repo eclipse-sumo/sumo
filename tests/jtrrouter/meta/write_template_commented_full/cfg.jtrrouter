@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:47.395468+01:00 by Eclipse SUMO jtrrouter v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-10-28T19:15:03.595832+01:00 by Eclipse SUMO jtrrouter v1_24_0+1618-05eb47eca84
 -->
 
 <jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -164,6 +164,9 @@
 
         <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
         <weights.turnaround-penalty value="5" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal -->
+        <weights.reversal-penalty value="60" type="FLOAT"/>
 
         <!-- Routes are cut off when the route edges to net edges ratio is larger than FLOAT -->
         <max-edges-factor value="2" type="FLOAT"/>
