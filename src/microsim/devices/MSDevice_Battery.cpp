@@ -78,6 +78,8 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         if (sf != nullptr) {
             sf->setBattery(device);
         }
+        // ensure that parameters are initialized
+        v.getEmissionParameters();
     }
 }
 
