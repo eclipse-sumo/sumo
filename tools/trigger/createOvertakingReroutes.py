@@ -58,6 +58,8 @@ def get_options(args=None):
                     type=int, help="Minimum edge priority value to be eligible as siding")
     op.add_argument("-x", "--exclude-all-routes", dest="excludeRoutes", action="store_true", default=False,
                     help="Exclude all edges that are part of input routes from sidings")
+    op.add_argument("--reversal-penalty", dest="reversalPenalty", metavar="FLOAT", default=-1,
+                    type=float, help="Set penalty for reversals, by default sidings with reversals are forbidden")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="rr",
                     help="prefix for the rerouter ids")
@@ -182,6 +184,7 @@ def findSidings(options, routes, switches, net):
                      '-w', tmpWeights,
                      '-o', tmpOut,
                      '--alternatives-output', 'NUL',
+                     '--weights.reversal-penalty', str(options.reversalPenalty),
                      '--bulk-routing',
                      '--ignore-errors',
                      '--no-warnings'],
