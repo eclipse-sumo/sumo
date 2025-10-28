@@ -1,0 +1,7 @@
+Error: No connection between edge 'beg' and edge 'end' found.
+Error: Mandatory edge 'end' not reachable by vehicle '1'.
+Error: The vehicle '1' has no valid route.
+Error: No connection between edge 'beg' and edge 'rend' found.
+Error: Mandatory edge 'rend' not reachable by vehicle '2'.
+Error: The vehicle '2' has no valid route.
+Quitting (on error).
