@@ -686,6 +686,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
 void
 RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime time, const bool removeLoops) {
     std::map<const int, std::vector<RORoutable*> > bulkVehs;
+    int numBulked = 0;
     for (RoutablesMap::const_iterator i = myRoutables.begin(); i != myRoutables.end(); ++i) {
         if (i->first >= time) {
             break;
@@ -694,6 +695,7 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             const ROEdge* const depEdge = routable->getDepartEdge();
             bulkVehs[depEdge->getNumericalID()].push_back(routable);
             RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
+            numBulked++;
             if (first->getMaxSpeed() != routable->getMaxSpeed()) {
                 WRITE_WARNINGF(TL("Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."), first->getID(), routable->getID());
             }

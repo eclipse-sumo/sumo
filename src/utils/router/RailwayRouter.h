@@ -149,6 +149,11 @@ public:
         return effort;
     }
 
+    inline void setBulkMode(const bool mode) {
+        if (myInternalRouter != nullptr) {
+            myInternalRouter->setBulkMode(mode);
+        }
+    }
 
 private:
     RailwayRouter(RailwayRouter* other) :

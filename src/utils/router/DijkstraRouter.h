@@ -139,12 +139,17 @@ public:
                           << std::get<1>(query)->getID() << ","
                           << time2string(std::get<2>(query))
                           << "\n";
+            } else {
+                std::cout << " using bulk mode\n";
             }
 #endif
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 this->buildPathFrom(&toInfo, into);
                 this->endQuery(1);
+#ifdef DijkstraRouter_DEBUG_QUERY_PERF
+                std::cout << " instant bulk success for vehicle " << vehicle->getID() << "\n";
+#endif
                 return true;
             }
         } else {
@@ -180,6 +185,7 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY_VISITED
             DijkstraRouter_DEBUG_QUERY_VISITED_OUT << "  <edge id=\"" << minEdge->getID() << "\" index=\"" << num_visited << "\" cost=\"" << minimumInfo->effort << "\" time=\"" << minimumInfo->leaveTime << "\"/>\n";
 #endif
+            minimumInfo->visited = true;
             // check whether the destination node was already reached
             if (minEdge == to) {
                 //propagate last external effort state to destination edge
@@ -200,7 +206,6 @@ public:
             std::pop_heap(this->myFrontierList.begin(), this->myFrontierList.end(), myComparator);
             this->myFrontierList.pop_back();
             this->myFound.push_back(minimumInfo);
-            minimumInfo->visited = true;
             const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
             const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             if (myExternalEffort != nullptr) {
