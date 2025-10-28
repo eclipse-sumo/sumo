@@ -182,6 +182,7 @@ def findSidings(options, routes, switches, net):
                      '-w', tmpWeights,
                      '-o', tmpOut,
                      '--alternatives-output', 'NUL',
+                     '--bulk-routing',
                      '--ignore-errors',
                      '--no-warnings'],
                     stdout=subprocess.DEVNULL)
