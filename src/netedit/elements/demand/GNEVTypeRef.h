@@ -39,6 +39,9 @@ public:
     GNEVTypeRef(GNENet* net);
 
     /// @brief parameter constructor
+    GNEVTypeRef(GNEDemandElement* distributionParent, GNEDemandElement* vTypeParent);
+
+    /// @brief parameter constructor
     GNEVTypeRef(GNEDemandElement* distributionParent, GNEDemandElement* vTypeParent, const double probability);
 
     /// @brief destructor
@@ -203,7 +206,7 @@ public:
 
 protected:
     /// @brief probability
-    double myProbability = 1;
+    double myProbability = INVALID_DOUBLE;
 
 private:
     /// @brief method for setting the attribute and nothing else

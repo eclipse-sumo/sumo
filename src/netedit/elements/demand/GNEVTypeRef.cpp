@@ -34,6 +34,13 @@ GNEVTypeRef::GNEVTypeRef(GNENet* net) :
 }
 
 
+GNEVTypeRef::GNEVTypeRef(GNEDemandElement* distributionParent, GNEDemandElement* vTypeParent) :
+    GNEDemandElement(distributionParent, GNE_TAG_VTYPEREF, GNEPathElement::Options::DEMAND_ELEMENT) {
+    // set parents
+    setParents<GNEDemandElement*>({distributionParent, vTypeParent});
+}
+
+
 GNEVTypeRef::GNEVTypeRef(GNEDemandElement* distributionParent, GNEDemandElement* vTypeParent, const double probability) :
     GNEDemandElement(distributionParent, GNE_TAG_VTYPEREF, GNEPathElement::Options::DEMAND_ELEMENT),
     myProbability(probability) {

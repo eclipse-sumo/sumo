@@ -39,6 +39,9 @@ public:
     GNERouteRef(GNENet* net);
 
     /// @brief parameter constructor
+    GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent);
+
+    /// @brief parameter constructor
     GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent, const double probability);
 
     /// @brief destructor
@@ -203,7 +206,7 @@ public:
 
 protected:
     /// @brief probability
-    double myProbability = 1;
+    double myProbability = INVALID_DOUBLE;
 
 private:
     /// @brief method for setting the attribute and nothing else

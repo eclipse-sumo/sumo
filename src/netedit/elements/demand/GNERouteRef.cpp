@@ -34,6 +34,13 @@ GNERouteRef::GNERouteRef(GNENet* net) :
 }
 
 
+GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent) :
+    GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF, GNEPathElement::Options::DEMAND_ELEMENT) {
+    // set parents
+    setParents<GNEDemandElement*>({distributionParent, routeParent});
+}
+
+
 GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent, const double probability) :
     GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF, GNEPathElement::Options::DEMAND_ELEMENT),
     myProbability(probability) {
