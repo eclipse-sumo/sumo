@@ -17,6 +17,10 @@ sequence_noDefer
 # test filtering by min-priority
 minPrio
 excludeUsage
+excludeUsage5
+
+# Copy of excludeUsage5
+excludeUsage5_flow
 excludeReverseUsage
 
 # exclude longer overlapping sidings with the same signal
