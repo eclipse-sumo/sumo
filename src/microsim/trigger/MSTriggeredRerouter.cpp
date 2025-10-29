@@ -306,7 +306,8 @@ MSTriggeredRerouter::myStartElement(int element,
             }
         }
         oloc.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
-        oloc.defer = attrs.getOpt<bool>(SUMO_ATTR_DEFER, getID().c_str(), ok, oloc.defer);
+        const bool hasAlternatives = myParsedRerouteInterval.overtakeLocations.size() > 0;
+        oloc.defer = attrs.getOpt<bool>(SUMO_ATTR_DEFER, getID().c_str(), ok, hasAlternatives);
         myParsedRerouteInterval.overtakeLocations.push_back(oloc);
     }
     if (element == SUMO_TAG_STATION_REROUTE) {
