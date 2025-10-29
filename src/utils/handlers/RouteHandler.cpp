@@ -180,46 +180,12 @@ RouteHandler::endParseAttributes() {
                 }
                 break;
             case SUMO_TAG_ROUTE_DISTRIBUTION:
-                // overwrite probabilities in children
-                for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_ROUTES).size(); i++) {
-                    const auto& routeID = obj->getStringListAttribute(SUMO_ATTR_ROUTES).at(i);
-                    if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
-                        const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
-                        // find child
-                        for (auto objChild : obj->getSumoBaseObjectChildren()) {
-                            if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == routeID)) {
-                                // routes
-                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                            } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == routeID)) {
-                                // routeReferences
-                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                            }
-                        }
-                    }
-                }
                 // parse object and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
                 delete obj;
                 break;
             case SUMO_TAG_VTYPE_DISTRIBUTION:
-                // overwrite probabilities in children
-                for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_VTYPES).size(); i++) {
-                    const auto& vTypeID = obj->getStringListAttribute(SUMO_ATTR_VTYPES).at(i);
-                    if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
-                        const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
-                        // find child
-                        for (auto objChild : obj->getSumoBaseObjectChildren()) {
-                            if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == vTypeID)) {
-                                // vTypes
-                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                            } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == vTypeID)) {
-                                // vTypeReferences
-                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                            }
-                        }
-                    }
-                }
                 // parse object and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
@@ -549,7 +515,7 @@ RouteHandler::parseVTypeRef(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // special case for ID
     const std::string refId = attrs.get<std::string>(SUMO_ATTR_REFID, "", parsedOk);
-    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, 1.0);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, INVALID_DOUBLE);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);
@@ -572,14 +538,28 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    if (parsedOk) {
+    // check size of vTypes and probabilities
+    if (vTypes.size() != probabilities.size()) {
+        writeError(TLF("the number of vTypes and probabilities of % '%' are different", toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
+    } else if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_DETERMINISTIC, deterministic);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
+        // add references
+        for (int i = 0; i < (int)vTypes.size(); i++) {
+            // open SUMOBaseOBject
+            myCommonXMLStructure.openSUMOBaseOBject();
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_REFID, vTypes.at(i));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probabilities.at(i));
+            // close SUMOBaseOBject
+            myCommonXMLStructure.closeSUMOBaseOBject();
+        }
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
@@ -629,7 +609,7 @@ RouteHandler::parseRouteRef(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // special case for ID
     const std::string refId = attrs.get<std::string>(SUMO_ATTR_REFID, "", parsedOk);
-    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, 1.0);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, refId.c_str(), parsedOk, INVALID_DOUBLE);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
@@ -691,13 +671,27 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
     const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    if (parsedOk) {
+    // check size of vTypes and probabilities
+    if (routes.size() != probabilities.size()) {
+        writeError(TLF("the number of routes and probabilities of % '%' are different", toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
+    } else if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ROUTES, routes);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleListAttribute(SUMO_ATTR_PROBS, probabilities);
+        // add references
+        for (int i = 0; i < (int)routes.size(); i++) {
+            // open SUMOBaseOBject
+            myCommonXMLStructure.openSUMOBaseOBject();
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_REFID, routes.at(i));
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PROB, probabilities.at(i));
+            // close SUMOBaseOBject
+            myCommonXMLStructure.closeSUMOBaseOBject();
+        }
     } else {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
     }
