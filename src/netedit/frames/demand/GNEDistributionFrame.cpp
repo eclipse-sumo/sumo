@@ -483,6 +483,26 @@ GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
         for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
             sumProbability += distributionRef->getAttributeDouble(SUMO_ATTR_PROB);
         }
+        // vType distributions
+        if (myDistributionSelector->getCurrentDistribution()->getTagProperty()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
+            const auto& vTypes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE);
+            if (vTypes.size() == myDistributionRows.size()) {
+                myAddButton->disable();
+            } else {
+                myAddButton->enable();
+            }
+        }
+        // route distribution
+        if (myDistributionSelector->getCurrentDistribution()->getTagProperty()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
+            const auto& routes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+            if (routes.size() == myDistributionRows.size()) {
+                myAddButton->disable();
+            } else {
+                myAddButton->enable();
+            }
+        }
+    } else {
+        myAddButton->disable();
     }
     mySumLabel->setText(toString(sumProbability).c_str());
 }
