@@ -109,7 +109,7 @@ GNERouteRef::getVClass() const {
 
 const RGBColor&
 GNERouteRef::getColor() const {
-    return getParentDemandElements().back()->getColor();
+    return RGBColor::INVISIBLE;
 }
 
 

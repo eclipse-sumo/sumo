@@ -109,7 +109,7 @@ GNEVTypeRef::getVClass() const {
 
 const RGBColor&
 GNEVTypeRef::getColor() const {
-    return getParentDemandElements().back()->getColor();
+    return RGBColor::INVISIBLE;
 }
 
 
