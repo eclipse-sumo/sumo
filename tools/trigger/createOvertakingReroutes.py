@@ -60,8 +60,8 @@ def get_options(args=None):
                     help="Exclude all edges that are part of input routes from sidings")
     op.add_argument("--reversal-penalty", dest="reversalPenalty", metavar="FLOAT", default=-1,
                     type=float, help="Set penalty for reversals, by default sidings with reversals are forbidden")
-    op.add_argument("--defer", action="store_true", default=False,
-                    help="Write fewer overtakingReroute definitions and defer decision")
+    op.add_argument("--no-defer", action="store_true", dest="noDefer", default=False,
+                    help="Write more overtakingReroute alternatives and do not defer decision")
     # attributes
     op.add_argument("--prefix", category="attributes", dest="prefix", default="rr",
                     help="prefix for the rerouter ids")
@@ -296,7 +296,12 @@ def findFollowerSidings(options, routes, sidings, sidingRoutes):
     followerSidings = defaultdict(lambda: [])  # mainEdgse -> [mainEdges2, ...]
     for main, (rid, fromIndex, edges) in sidings.items():
         for rid2, fromIndex2 in sidingRoutes[main]:
-            if options.defer:
+            if options.noDefer:
+                for fromIndex3, main2 in routeSidings[rid2]:
+                    if fromIndex3 > fromIndex2:
+                        if main2 not in followerSidings[main]:
+                            followerSidings[main].append(main2)
+            else:
                 minNext = (1e100, None)
                 for fromIndex3, main2 in routeSidings[rid2]:
                     if fromIndex3 > fromIndex2 and fromIndex3 < minNext[0]:
@@ -304,16 +309,11 @@ def findFollowerSidings(options, routes, sidings, sidingRoutes):
                 main2 = minNext[1]
                 if main2 is not None and main2 not in followerSidings[main]:
                     followerSidings[main].append(main2)
-            else:
-                for fromIndex3, main2 in routeSidings[rid2]:
-                    if fromIndex3 > fromIndex2:
-                        if main2 not in followerSidings[main]:
-                            followerSidings[main].append(main2)
     return followerSidings
 
 
 def writeSidings(options, routes, sidings, followerSidings):
-    defer = ' defer="1"' if options.defer else ''
+    defer = ' defer="0"' if options.noDefer else ''
     with openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         i = 0
