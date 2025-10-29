@@ -62,6 +62,12 @@ GNERouteDistributionFrame::getDistributionSelector() const {
 }
 
 
+GNEDistributionFrame::DistributionValuesEditor*
+GNERouteDistributionFrame::getDistributionValuesEditor() const {
+    return myDistributionValuesEditor;
+}
+
+
 void
 GNERouteDistributionFrame::attributeUpdated(SumoXMLAttr attribute) {
     if (attribute == SUMO_ATTR_ID) {

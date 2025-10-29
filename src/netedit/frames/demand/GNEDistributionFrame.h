@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <utils/gui/images/GUIIcons.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
@@ -192,22 +193,22 @@ public:
 
     public:
         /// @brief constructor for key-probability attributes
-        DistributionRow(DistributionValuesEditor* attributeEditorParent, GNEAttributeCarrier* AC);
+        DistributionRow(DistributionValuesEditor* attributeEditorParent, GNEDemandElement* distributionReference);
 
         /// @brief destroy DistributionRow (but don't delete)
         void destroy();
 
-        /// @brief refresh comboBox
-        void refreshRow();
+        /// @brief get pointer to distributionReference
+        GNEDemandElement* getDistributionReference() const;
+
+        /// @brief get delete row button
+        MFXButtonTooltip* getDeleteRowButton() const;
 
         /// @name FOX-callbacks
         /// @{
 
         /// @brief try to set new probability
         long onCmdSetProbability(FXObject*, FXSelector, void*);
-
-        /// @brief remove row
-        long onCmdRemoveRow(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -219,8 +220,8 @@ public:
         /// @brief pointer to DistributionValuesEditor parent
         DistributionValuesEditor* myDistributionValuesEditorParent;
 
-        /// @brief pointer to AC
-        GNEAttributeCarrier* myAC = nullptr;
+        /// @brief pointer to distributionReference
+        GNEDemandElement* myDistributionReference = nullptr;
 
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
@@ -270,20 +271,23 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
 
-        /// @brief update sum label
-        void updateSumLabel();
-
         /// @name FOX-callbacks
         /// @{
 
         /// @brief Called when user press the add button
         long onCmdAddRow(FXObject*, FXSelector, void*);
 
+        /// @brief Called when user press the add button
+        long onCmdRemoveRow(FXObject* obj, FXSelector, void*);
+
         /// @}
 
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionValuesEditor)
+
+        /// @brief update sum label
+        void updateSumLabel();
 
     private:
         /// @brief pointer to frame parent

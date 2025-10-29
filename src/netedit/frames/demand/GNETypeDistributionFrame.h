@@ -44,6 +44,9 @@ public:
     /// @brief get type distribution selector
     GNEDistributionFrame::DistributionSelector* getDistributionSelector() const;
 
+    /// @brief get distribution values editor
+    GNEDistributionFrame::DistributionValuesEditor* getDistributionValuesEditor() const;
+
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated(SumoXMLAttr attribute);

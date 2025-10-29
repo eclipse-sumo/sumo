@@ -52,12 +52,12 @@ FXDEFMAP(GNEDistributionFrame::DistributionSelector) DistributionSelectorMap[] =
 
 
 FXDEFMAP(GNEDistributionFrame::DistributionRow) DistributionRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::DistributionRow::onCmdSetProbability),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionFrame::DistributionRow::onCmdRemoveRow)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEDistributionFrame::DistributionRow::onCmdSetProbability)
 };
 
 FXDEFMAP(GNEDistributionFrame::DistributionValuesEditor) DistributionValuesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADD,   GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADD,     GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_REMOVE,  GNEDistributionFrame::DistributionValuesEditor::onCmdRemoveRow)
 };
 
 // Object implementation
@@ -295,14 +295,14 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
 // GNEDistributionFrame::DistributionRow - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor* attributeEditorParent, GNEAttributeCarrier* AC) :
+GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor* attributeEditorParent, GNEDemandElement* distributionReference) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myDistributionValuesEditorParent(attributeEditorParent),
-    myAC(AC) {
+    myDistributionReference(distributionReference) {
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create label
-    myIconLabel = new FXLabel(this, "", AC->getACIcon(), GUIDesignLabelIconThick);
+    myIconLabel = new FXLabel(this, "", myDistributionReference->getACIcon(), GUIDesignLabelIconThick);
     // Create and disable MFXTextFieldIcon for string attributes
     myIDTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myIDTextField->disable();
@@ -310,15 +310,16 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     myProbabilityTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE,
             GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
     // create delete buton
-    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
-            "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
+    myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE),
+            myDistributionValuesEditorParent, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
     myDeleteRowButton->setTipText(TL("Delete distribution value"));
     // only create if parent was created
     if (getParent()->id() && attributeEditorParent->myDistributionSelector->getCurrentDistribution()) {
         // create DistributionRow
         FXHorizontalFrame::create();
-        // refresh row
-        refreshRow();
+        // set values
+        myIDTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_REFID).c_str());
+        myProbabilityTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_PROB).c_str());
         // Show DistributionRow
         show();
     }
@@ -334,23 +335,33 @@ GNEDistributionFrame::DistributionRow::destroy() {
 }
 
 
-void
-GNEDistributionFrame::DistributionRow::refreshRow() {
-    myIDTextField->setText(myAC->getAttribute(SUMO_ATTR_REFID).c_str());
-    myProbabilityTextField->setText(myAC->getAttribute(SUMO_ATTR_PROB).c_str());
+GNEDemandElement*
+GNEDistributionFrame::DistributionRow::getDistributionReference() const {
+    return myDistributionReference;
+}
+
+
+MFXButtonTooltip*
+GNEDistributionFrame::DistributionRow::getDeleteRowButton() const {
+    return myDeleteRowButton;
 }
 
 
 long
 GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector, void*) {
-    // finish
-    return 1;
-}
-
-
-long
-GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    // finish
+    // set default value if value is empty
+    if (myProbabilityTextField->getText().empty()) {
+        myProbabilityTextField->setText(myDistributionReference->getTagProperty()->getAttributeProperties(SUMO_ATTR_PROB)->getDefaultStringValue().c_str());
+    }
+    // if is valid, update value in AC
+    if (GNEAttributeCarrier::canParse<double>(myProbabilityTextField->getText().text())) {
+        myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        myProbabilityTextField->killFocus();
+        myDistributionReference->setAttribute(SUMO_ATTR_PROB, myProbabilityTextField->getText().text(), myDistributionReference->getNet()->getViewNet()->getUndoList());
+        myDistributionValuesEditorParent->updateSumLabel();
+    } else {
+        myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
+    }
     return 1;
 }
 
@@ -440,17 +451,6 @@ GNEDistributionFrame::DistributionValuesEditor::getFrameParent() const {
 }
 
 
-void
-GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
-    // update probability
-    double sumProbability = 0;
-    for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
-        sumProbability += distributionRef->getAttributeDouble(SUMO_ATTR_PROB);
-    }
-    mySumLabel->setText(toString(sumProbability).c_str());
-}
-
-
 long
 GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
     // open distribution dialog
@@ -460,6 +460,31 @@ GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelecto
         refreshRows();
     }
     return 1;
+}
+
+
+long
+GNEDistributionFrame::DistributionValuesEditor::onCmdRemoveRow(FXObject* obj, FXSelector, void*) {
+    for (const auto& row : myDistributionRows) {
+        if (row->getDeleteRowButton() == obj) {
+            myFrameParent->getViewNet()->getNet()->deleteDemandElement(row->getDistributionReference(), myFrameParent->getViewNet()->getUndoList());
+            return 1;
+        }
+    }
+    return 1;
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
+    // update probability
+    double sumProbability = 0;
+    if (myDistributionSelector->getCurrentDistribution()) {
+        for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
+            sumProbability += distributionRef->getAttributeDouble(SUMO_ATTR_PROB);
+        }
+    }
+    mySumLabel->setText(toString(sumProbability).c_str());
 }
 
 /****************************************************************************/

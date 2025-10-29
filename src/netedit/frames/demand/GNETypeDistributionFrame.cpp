@@ -62,6 +62,12 @@ GNETypeDistributionFrame::getDistributionSelector() const {
 }
 
 
+GNEDistributionFrame::DistributionValuesEditor*
+GNETypeDistributionFrame::getDistributionValuesEditor() const {
+    return myDistributionValuesEditor;
+}
+
+
 void
 GNETypeDistributionFrame::attributeUpdated(SumoXMLAttr attribute) {
     if (attribute == SUMO_ATTR_ID) {
