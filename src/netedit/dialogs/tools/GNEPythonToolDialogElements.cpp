@@ -207,12 +207,8 @@ long
 GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get file
     const auto xmlFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("XML file"),
@@ -356,12 +352,8 @@ long
 GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get network file
     const auto networkFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("network file"),
@@ -410,12 +402,8 @@ long
 GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get additional file
     const auto additionalFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Additional elements file"),
@@ -464,12 +452,8 @@ long
 GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get route file
     const auto routeFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Route elements file"),
@@ -518,12 +502,8 @@ long
 GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get data file
     const auto dataFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Data elements file"),
@@ -572,12 +552,8 @@ long
 GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get open mode
     GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::SAVE;
-    if (myOption->getSubTopic() == "output") {
-        if (myOption->getListSeparator() != "") {
-            openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
-        } else {
-            openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
-        }
+    if (myOption->getListSeparator() != "") {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get sumoConfig file
     const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("sumo config file"),
