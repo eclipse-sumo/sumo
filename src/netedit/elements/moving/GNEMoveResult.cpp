@@ -17,6 +17,7 @@
 ///
 // Class used for define move results
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEMoveResult.h"
 

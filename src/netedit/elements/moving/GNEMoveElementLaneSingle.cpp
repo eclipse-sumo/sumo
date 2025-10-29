@@ -17,6 +17,7 @@
 ///
 // Class used for elements that can be moved over a lane with only one position
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>

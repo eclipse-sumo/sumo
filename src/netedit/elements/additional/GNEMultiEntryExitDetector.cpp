@@ -17,6 +17,7 @@
 ///
 // multi entry-exit (E3) detector
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/moving/GNEMoveElementView.h>

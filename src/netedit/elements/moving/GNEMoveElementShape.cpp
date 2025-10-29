@@ -17,6 +17,7 @@
 ///
 // Class used for shape elements that can be moved over view
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>

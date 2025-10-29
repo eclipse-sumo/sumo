@@ -17,6 +17,7 @@
 ///
 // Class used for moving junctions
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>

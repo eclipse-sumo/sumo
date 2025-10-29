@@ -17,6 +17,7 @@
 ///
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>

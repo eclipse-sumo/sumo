@@ -17,6 +17,7 @@
 ///
 // Builds trigger objects for netedit
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>

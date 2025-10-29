@@ -17,6 +17,7 @@
 ///
 // Class used for define move operation
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 

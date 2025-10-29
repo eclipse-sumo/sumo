@@ -17,6 +17,7 @@
 ///
 // A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>

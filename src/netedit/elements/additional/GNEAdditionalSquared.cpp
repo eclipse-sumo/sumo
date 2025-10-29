@@ -17,6 +17,7 @@
 ///
 // A abstract class for representation of additional squared elements
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/GNENet.h>

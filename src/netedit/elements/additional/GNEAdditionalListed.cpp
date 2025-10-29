@@ -17,6 +17,7 @@
 ///
 // A abstract class for representation of additional listed elements
 /****************************************************************************/
+#include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>

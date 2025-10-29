@@ -356,7 +356,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
     bool carUsed = false;
     SUMOTime start = time;
     int index = 0;
-    const int lastIndex = result.size() - 1;
+    const int lastIndex = (int)result.size() - 1;
     for (const ROIntermodalRouter::TripItem& item : result) {
         if (!item.edges.empty()) {
             if (item.line == "") {

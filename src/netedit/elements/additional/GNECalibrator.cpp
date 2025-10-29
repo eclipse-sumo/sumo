@@ -17,6 +17,7 @@
 ///
 // Calibrator over edge or lane
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/elements/GNECalibratorDialog.h>

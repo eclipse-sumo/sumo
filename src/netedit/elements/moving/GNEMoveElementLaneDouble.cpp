@@ -17,6 +17,7 @@
 ///
 // Class used for elements that can be moved over a lane with two positions
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>

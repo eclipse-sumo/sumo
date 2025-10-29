@@ -17,6 +17,7 @@
 ///
 // Class used for elements that can be moved over view
 /****************************************************************************/
+#include <config.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>

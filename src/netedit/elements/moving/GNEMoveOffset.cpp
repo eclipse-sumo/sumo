@@ -17,6 +17,7 @@
 ///
 // Class used for define move offset
 /****************************************************************************/
+#include <config.h>
 
 #include "GNEMoveOffset.h"
 
