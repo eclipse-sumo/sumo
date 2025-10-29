@@ -243,6 +243,7 @@ def usesRoute(routes, rid, fromIndex, toIndex, edges):
 
 def filterSidings(options, net, sidings):
     sidings2 = {}
+    usableLengths = defaultdict(dict)  # mainFirst -> main -> usableLength
     for main, (rid, fromIndex, edges) in sidings.items():
         sidingLength = 0  # total length
         usableLength = 0
@@ -276,9 +277,31 @@ def filterSidings(options, net, sidings):
                     print("%s it is too long (%sm)" % (warningStart, sidingLength))
                     continue
 
+                isOverlappingLonger = False
+                isOverlappingShorter = []  # list of main sections to which this siding is overlapping and shorter
+                for main2, uLength2 in usableLengths[main[0]].items():
+                    if uLength2 == usableLength:
+                        if main[:len(main2)] == main2:
+                            isOverlappingLonger = True
+                            break
+                        if main2[:len(main)] == main:
+                            isOverlappingShorter.append(main2)
+
+                if isOverlappingLonger:
+                    print("%s it is overlapping a shorter siding with the same signal" % warningStart)
+                    continue
+
                 detourFactor = sidingLength / mainLength
                 if detourFactor <= options.maxDetour:
                     sidings2[main] = (rid, fromIndex, edges)
+                    usableLengths[main[0]][main] = usableLength
+                    for main2 in isOverlappingShorter:
+                        rid2, fromIndex2, edges2 = sidings[main2]
+                        warningStart2 = "Discarding candidate siding from '%s' to '%s' for route '%s' because it" % (
+                                edges2[0], edges2[-1], rid2)
+                        print("%s it is overlapping a shorter siding with the same signal" % warningStart2)
+                        del sidings2[main2]
+                        del usableLengths[main2[0]][main2]
                 else:
                     print("%s is longer than the main route by factor %s" % (warningStart, detourFactor))
             else:
