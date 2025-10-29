@@ -83,10 +83,11 @@ public:
      * @param[in] color route color
      * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
+     * @param[in] probability default probability for vType distributions
      * @param[in] parameters generic parameters
      */
     GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
-             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] vehicleParent vehicle parent of this embedded route
@@ -273,6 +274,9 @@ protected:
 
     /// @brief cycleTime
     SUMOTime myCycleTime = 0;
+
+    /// @brief probability
+    SUMOTime myProbability = DEFAULT_VEH_PROB;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass = SVC_PASSENGER;

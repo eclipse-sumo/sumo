@@ -2549,6 +2549,9 @@ GNETagPropertiesDatabase::fillDemandElements() {
 
         // add common route attributes
         fillCommonRouteAttributes(myTagProperties[currentTag]);
+
+        // add distribution probability
+        fillDistributionProbability(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_ROUTEREF;
     {
@@ -2572,7 +2575,8 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Reference ID of route"));
 
-        fillDistributionProbability(myTagProperties[currentTag], true);
+        // add distribution probability
+        fillDistributionProbability(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
@@ -2645,7 +2649,8 @@ GNETagPropertiesDatabase::fillDemandElements() {
                                    GNEAttributeProperties::Edit::EDITMODE,
                                    TL("Reference ID of vType"));
 
-        fillDistributionProbability(myTagProperties[currentTag], true);
+        // add distribution probability
+        fillDistributionProbability(myTagProperties[currentTag]);
     }
 }
 
@@ -7256,7 +7261,8 @@ GNETagPropertiesDatabase::fillCommonVTypeAttributes(GNETagProperties* tagPropert
                                TL("The interval length for which vehicle performs its decision logic (acceleration and lane-changing)"),
                                toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
 
-    fillDistributionProbability(tagProperties, false);
+    // add distribution probability
+    fillDistributionProbability(tagProperties);
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_OSGFILE,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
@@ -8793,20 +8799,12 @@ GNETagPropertiesDatabase::fillDetectorThresholdAttributes(GNETagProperties* tagP
 
 
 void
-GNETagPropertiesDatabase::fillDistributionProbability(GNETagProperties* tagProperties, const bool visible) {
-    if (visible) {
-        new GNEAttributeProperties(tagProperties, SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The probability when being added to a distribution without an explicit probability"),
-                                   "1");
-    } else {
-        new GNEAttributeProperties(tagProperties, SUMO_ATTR_PROB,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::NO_EDIT,
-                                   TL("The probability when being added to a distribution without an explicit probability"),
-                                   "1");
-    }
+GNETagPropertiesDatabase::fillDistributionProbability(GNETagProperties* tagProperties) {
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_PROB,
+                               GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The probability when being added to a distribution"),
+                               toString(DEFAULT_VEH_PROB));
 }
 
 

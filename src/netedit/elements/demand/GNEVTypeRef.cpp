@@ -77,7 +77,9 @@ void
 GNEVTypeRef::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_VTYPE);
     device.writeAttr(SUMO_ATTR_REFID, getAttribute(SUMO_ATTR_REFID));
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    if (myProbability != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
     // close tag
     device.closeTag();
 }

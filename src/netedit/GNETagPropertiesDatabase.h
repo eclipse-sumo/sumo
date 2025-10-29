@@ -244,7 +244,7 @@ protected:
     void fillDetectorThresholdAttributes(GNETagProperties* tagProperties, const bool includingJam);
 
     /// @brief fill distribution probability attribute
-    void fillDistributionProbability(GNETagProperties* tagProperties, const bool visible);
+    void fillDistributionProbability(GNETagProperties* tagProperties);
 
     /// @}
 
