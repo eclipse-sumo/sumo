@@ -304,11 +304,11 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", myDistributionReference->getACIcon(), GUIDesignLabelIconThick);
     // Create and disable MFXTextFieldIcon for string attributes
-    myIDTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myIDTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(100 - GUIDesignHeight));
     myIDTextField->disable();
     // Create MFXTextFieldIcon for string attributes
     myProbabilityTextField = new MFXTextFieldIcon(this, staticTooltipMenu, GUIIcon::EMPTY, this, MID_GNE_SET_ATTRIBUTE,
-            GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
+            GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     // create delete buton
     myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE),
             myDistributionValuesEditorParent, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
