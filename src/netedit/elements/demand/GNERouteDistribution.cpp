@@ -65,21 +65,9 @@ GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     // write attributes
     device.openTag(getTagProperty()->getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    // check if write route or refs)
+    // write references
     for (const auto& refChild : getChildDemandElements()) {
-        if (refChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
-            int numReferences = 0;
-            for (const auto& routeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
-                if (routeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
-                    numReferences++;
-                }
-            }
-            if (numReferences == 1) {
-                refChild->getParentDemandElements().at(1)->writeDemandElement(device);
-            } else {
-                refChild->writeDemandElement(device);
-            }
-        }
+        refChild->writeDemandElement(device);
     }
     device.closeTag();
 }
