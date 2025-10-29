@@ -127,8 +127,8 @@
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>
-                    <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
-                    <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
+                    <xsd:attribute name="begin" type="timeType" use="required"/>
+                    <xsd:attribute name="end" type="timeType" use="required"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>
@@ -390,6 +390,7 @@
                                 <xsd:attribute name="main" type="xsd:string" use="required"/>
                                 <xsd:attribute name="siding" type="xsd:string" use="required"/>
                                 <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
+                                <xsd:attribute name="defer" type="boolType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="stationReroute">
