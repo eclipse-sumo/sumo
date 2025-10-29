@@ -51,7 +51,9 @@ def get_options(args=None):
     op.add_argument("--vclass", default="rail",
                     help="only consider edges which permit the given vehicle class")
     op.add_argument("--min-length", dest="minLength", metavar="FLOAT", default=100.0,
-                    type=float, help="minimum siding distance")
+                    type=float, help="minimum siding length")
+    op.add_argument("--max-length", dest="maxLength", metavar="FLOAT", 
+                    type=float, help="maximum siding length")
     op.add_argument("--max-detour-factor", dest="maxDetour", metavar="FLOAT", default=2,
                     type=float, help="Maximum factor by which the siding may be longer than the main path")
     op.add_argument("--min-priority", dest="minPrio", metavar="INT",
@@ -266,6 +268,10 @@ def filterSidings(options, net, sidings):
 
                 if mainLength == 0:
                     print("Empty main edges in route '%s'" % rid, file=sys.stderr)
+                    continue
+
+                if options.maxLength and sidingLength > options.maxLength:
+                    print("%s it is too long (%sm)" % (warningStart, sidingLength))
                     continue
 
                 detourFactor = sidingLength / mainLength
