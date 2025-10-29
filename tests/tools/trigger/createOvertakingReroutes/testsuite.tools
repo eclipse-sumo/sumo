@@ -8,7 +8,7 @@ branch
 sequence
 
 # Copy of sequence
-sequence_defer
+sequence_noDefer
 
 # test filtering by min-priority
 minPrio

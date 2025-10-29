@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-29 10:45:14.745311 by Eclipse SUMO createOvertakingReroutes.py v1_24_0+1634-3eaa1fed1dc
+<!-- generated on 2025-10-29 13:28:26.711689 by Eclipse SUMO createOvertakingReroutes.py v1_24_0+1643-707764b759a
 <configuration>
     <net-file value="net2.net.xml"/>
     <route-files value="input_routes2.rou.xml"/>
     <output-file value="out.add.xml"/>
-    <defer value="True"/>
+    <no-defer value="True"/>
     <end value="86400.0"/>
 </configuration>
 -->
@@ -19,13 +19,14 @@
   <rerouter id="rr_1" edges="E3"> <!-- route: route:r_main --> 
     <interval begin="0" end="86400.0">
        <overtakingReroute main="E4 E5 E6" siding="E4b E5b E6b"/>
-       <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b" defer="1"/>
+       <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b" defer="0"/>
+       <overtakingReroute main="E13 E14 E15" siding="E13b E14b E15b" defer="0"/>
     </interval>
   </rerouter>
   <rerouter id="rr_2" edges="E8"> <!-- route: route:r_main --> 
     <interval begin="0" end="86400.0">
        <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b"/>
-       <overtakingReroute main="E13 E14 E15" siding="E13b E14b E15b" defer="1"/>
+       <overtakingReroute main="E13 E14 E15" siding="E13b E14b E15b" defer="0"/>
     </interval>
   </rerouter>
 </additional>
