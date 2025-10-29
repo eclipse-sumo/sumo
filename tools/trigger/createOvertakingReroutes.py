@@ -72,6 +72,7 @@ def get_options(args=None):
     op.add_argument("-e", "--end", category="attributes", default="1:0:0:0", type=op.time,
                     help="interval end time (default 1 day)")
     options = op.parse_args(args=args)
+    options.routes = options.routes.split(',')
     return options
 
 
@@ -79,21 +80,22 @@ def parseRoutes(options):
     routes = dict()
     # assign unique ids (vehicles, flows and routes have separate namespace)
     ids = set()
-    for veh in sumolib.xml.parse(options.routes, ['vehicle', 'flow']):
-        if veh.hasChild('route'):
-            edges = tuple(veh.getChild('route')[0].edges.split())
-            rid = "%s:%s" % (veh.name, veh.id)
-            while rid in ids:
-                rid += "#"
-            ids.add(rid)
-            routes[edges] = rid
-    for route in sumolib.xml.parse(options.routes, ['route']):
-        if route.id:
-            edges = tuple(route.edges.split())
-            rid = "route:%s" % route.id
-            while rid in ids:
-                rid += "#"
-            routes[edges] = rid
+    for rfile in options.routes:
+        for veh in sumolib.xml.parse(rfile, ['vehicle', 'flow']):
+            if veh.hasChild('route'):
+                edges = tuple(veh.getChild('route')[0].edges.split())
+                rid = "%s:%s" % (veh.name, veh.id)
+                while rid in ids:
+                    rid += "#"
+                ids.add(rid)
+                routes[edges] = rid
+        for route in sumolib.xml.parse(rfile, ['route']):
+            if route.id:
+                edges = tuple(route.edges.split())
+                rid = "route:%s" % route.id
+                while rid in ids:
+                    rid += "#"
+                routes[edges] = rid
     # reverse dict because (ids are are uniqe)
     return dict((rid, edges) for (edges, rid) in routes.items())
 
