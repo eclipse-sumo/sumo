@@ -1860,6 +1860,8 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE,
     /// @brief Flag to check if a default VType was modified
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
+    /// @brief Flag to check if we're using a default probability
+    GNE_ATTR_DEFAULT_PROBABILITY,
     /// @brief flag to center camera after element creation
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)

@@ -1404,6 +1404,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "parameters",                         GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
+    { "defaultProbability",                 GNE_ATTR_DEFAULT_PROBABILITY },
     { "centerView",                         GNE_ATTR_CENTER_AFTER_CREATION },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },

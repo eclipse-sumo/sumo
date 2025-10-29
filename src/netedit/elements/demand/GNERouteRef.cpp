@@ -209,7 +209,13 @@ GNERouteRef::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_REFID:
             return getParentDemandElements().back()->getID();
         case SUMO_ATTR_PROB:
-            return toString(myProbability);
+            if (myProbability == INVALID_DOUBLE) {
+                return getParentDemandElements().at(1)->getAttribute(key);
+            } else {
+                return toString(myProbability);
+            }
+        case GNE_ATTR_DEFAULT_PROBABILITY:
+            return (myProbability == INVALID_DOUBLE) ? TRUE_STR : FALSE_STR;
         default:
             return getCommonAttribute(key);
     }
@@ -220,7 +226,11 @@ double
 GNERouteRef::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_PROB:
-            return myProbability;
+            if (myProbability == INVALID_DOUBLE) {
+                return getParentDemandElements().at(1)->getAttributeDouble(key);
+            } else {
+                return myProbability;
+            }
         default:
             return getCommonAttributeDouble(key);
     }
