@@ -8,7 +8,7 @@
     <rerouter id="rr_0" edges="E2">
         <interval begin="0.00" end="3600.00">
             <overtakingReroute main="E4 E5 E6" siding="E4b E5b E6b"/>
-            <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b"/>
+            <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b" defer="false"/>
         </interval>
     </rerouter>
 </additional>
