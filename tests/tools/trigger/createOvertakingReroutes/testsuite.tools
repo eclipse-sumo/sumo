@@ -16,10 +16,8 @@ sequence_noDefer
 
 # test filtering by min-priority
 minPrio
-excludeRoutes
-
-# Copy of excludeRoutes
-excludeRoutes_bidi
+excludeUsage
+excludeReverseUsage
 
 # exclude longer overlapping sidings with the same signal
 overlap
