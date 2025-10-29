@@ -893,8 +893,11 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 
 find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
+    if (OPENSCENEGRAPH_FOUND)
+        set(PYINSTALLER_ARGS -- osg)
+    endif()
     add_custom_target(game
-        COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
+        COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec ${PYINSTALLER_ARGS}
     )
 endif()
 
