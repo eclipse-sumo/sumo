@@ -77,7 +77,7 @@ GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distribu
             referenceIDs.insert(reference->getParentDemandElements().at(1)->getID());
         }
     }
-    // continue depending of distributionParentç
+    // continue depending on distributionParent
     if (distributionParent->getTagProperty()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
         referenceLabel->setText(toString(SUMO_TAG_VTYPE).c_str());
         const auto& vTypes = distributionParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE);
