@@ -306,6 +306,7 @@ MSTriggeredRerouter::myStartElement(int element,
             }
         }
         oloc.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
+        oloc.defer = attrs.getOpt<bool>(SUMO_ATTR_DEFER, getID().c_str(), ok, oloc.defer);
         myParsedRerouteInterval.overtakeLocations.push_back(oloc);
     }
     if (element == SUMO_TAG_STATION_REROUTE) {
@@ -621,6 +622,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         }
         if (bestIndex >= 0) {
             const OvertakeLocation& oloc = rerouteDef->overtakeLocations[bestIndex];
+            if (oloc.defer) {
+                return false;
+            }
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->getClosed())
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->getClosed());

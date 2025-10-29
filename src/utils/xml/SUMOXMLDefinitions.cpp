@@ -1338,6 +1338,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "main",                   SUMO_ATTR_MAIN },
     { "siding",                 SUMO_ATTR_SIDING },
     { "minSaving",              SUMO_ATTR_MINSAVING },
+    { "defer",                  SUMO_ATTR_DEFER },
     { "limit",                  SUMO_ATTR_LIMIT },
     { "active",                 SUMO_ATTR_ACTIVE },
     { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },

@@ -100,6 +100,8 @@ public:
         double sidingLength = 0;
         /// @brief The threshold in savings for triggering reroute
         double minSaving;
+        /// @brief whether the decision to use this siding should be deferred
+        bool defer = false;
     };
 
     /**
