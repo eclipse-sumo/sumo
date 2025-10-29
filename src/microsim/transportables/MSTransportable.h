@@ -60,11 +60,11 @@ class MSTransportable : public SUMOTrafficObject {
 public:
     /// @name inherited from SUMOTrafficObject
     /// @{
-    inline bool isPerson() const {
+    inline bool isPerson() const override {
         return myAmPerson;
     }
 
-    inline bool isContainer() const {
+    inline bool isContainer() const override {
         return !myAmPerson;
     }
 
@@ -72,15 +72,15 @@ public:
         return myAmPerson ? "Person" : "Container";
     }
 
-    inline NumericalID getNumericalID() const {
+    inline NumericalID getNumericalID() const override {
         return myNumericalID;
     }
 
-    inline bool isStopped() const {
+    inline bool isStopped() const override {
         return getCurrentStageType() == MSStageType::WAITING;
     }
 
-    double getSlope() const;
+    double getSlope() const override;
 
     SUMOVehicleClass getVClass() const override;
 
@@ -92,25 +92,25 @@ public:
     /** @brief Returns the maximum speed (the minimum of desired and physical maximum speed)
      * @return The objects's maximum speed
      */
-    double getMaxSpeed() const;
+    double getMaxSpeed() const override;
 
-    SUMOTime getWaitingTime(const bool accumulated = false) const;
+    SUMOTime getWaitingTime(const bool accumulated = false) const override;
 
-    double getPreviousSpeed() const {
+    double getPreviousSpeed() const override {
         return getSpeed();
     }
 
-    double getAcceleration() const {
+    double getAcceleration() const override {
         return 0.0;
     }
 
-    double getPositionOnLane() const {
+    double getPositionOnLane() const override {
         return getEdgePos();
     }
 
-    double getBackPositionOnLane(const MSLane* lane) const;
+    double getBackPositionOnLane(const MSLane* lane) const override;
 
-    Position getPosition(const double /*offset*/) const {
+    Position getPosition(const double /*offset*/) const override {
         return getPosition();
     }
     /// @}
@@ -135,28 +135,28 @@ public:
     }
 
     /// @brief set the id (inherited from Named but forbidden for transportables)
-    void setID(const std::string& newID);
+    void setID(const std::string& newID) override;
 
-    inline const SUMOVehicleParameter& getParameter() const {
+    inline const SUMOVehicleParameter& getParameter() const override {
         return *myParameter;
     }
 
-    inline const MSVehicleType& getVehicleType() const {
+    inline const MSVehicleType& getVehicleType() const override {
         return *myVType;
     }
 
     /** @brief Returns the object's "vehicle" type parameter
      * @return The object's type parameter
      */
-    inline const SUMOVTypeParameter& getVTypeParameter() const {
+    inline const SUMOVTypeParameter& getVTypeParameter() const override {
         return myVType->getParameter();
     }
 
     /// @brief returns the associated RNG
-    SumoRNG* getRNG() const;
+    SumoRNG* getRNG() const override;
 
     /// @brief returns the index of the associated RNG
-    int getRNGIndex() const;
+    int getRNGIndex() const override;
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;
@@ -178,16 +178,16 @@ public:
     }
 
     /// @brief Returns the current edge
-    const MSEdge* getEdge() const {
+    const MSEdge* getEdge() const override {
         return (*myStep)->getEdge();
     }
 
     /// @brief Returns the current lane (may be nullptr)
-    const MSLane* getLane() const {
+    const MSLane* getLane() const override {
         return (*myStep)->getLane();
     }
 
-    const MSLane* getBackLane() const {
+    const MSLane* getBackLane() const override {
         return getLane();
     }
 
@@ -206,16 +206,16 @@ public:
     virtual Position getPosition() const;
 
     /// @brief return the current angle of the transportable
-    virtual double getAngle() const;
+    virtual double getAngle() const override;
 
     /// @brief the time this transportable spent waiting in seconds
     virtual double getWaitingSeconds() const;
 
     /// @brief the current speed of the transportable
-    virtual double getSpeed() const;
+    virtual double getSpeed() const override;
 
     /// @brief the current speed factor of the transportable (where applicable)
-    virtual double getChosenSpeedFactor() const {
+    virtual double getChosenSpeedFactor() const override {
         return 1;
     }
 
@@ -252,7 +252,7 @@ public:
     }
 
     /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
-    const std::set<NumericalID> getUpcomingEdgeIDs() const;
+    const std::set<NumericalID> getUpcomingEdgeIDs() const override;
 
     /// @brief Return the total number stages in this person's plan
     inline int getNumStages() const {
@@ -270,12 +270,12 @@ public:
     }
 
     /// @brief return the index of the edge within the route
-    inline int getRoutePosition() const {
+    inline int getRoutePosition() const override {
         return (*myStep)->getRoutePosition();
     }
 
     /// @brief returns the next edge ptr (used by walking persons)
-    virtual const MSEdge* getNextEdgePtr() const {
+    virtual const MSEdge* getNextEdgePtr() const override {
         return nullptr;
     }
 
@@ -336,14 +336,14 @@ public:
      *
      * @return The rerouting end point
      */
-    const MSEdge* getRerouteDestination() const  {
+    const MSEdge* getRerouteDestination() const override {
         return getArrivalEdge();
     }
 
     bool reroute(SUMOTime t, const std::string& info, MSTransportableRouter& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
 
     /// Replaces the current route by the given one
-    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) override;
 
     /** @brief Replaces the current vehicle type by the one given
     *
@@ -353,7 +353,7 @@ public:
     * @param[in] type The new vehicle type
     * @see MSTransportable::myVType
     */
-    void replaceVehicleType(const MSVehicleType* type);
+    void replaceVehicleType(const MSVehicleType* type) override;
 
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
     *
@@ -368,7 +368,7 @@ public:
     PositionVector getBoundingBox() const;
 
     /// @brief return whether the person has reached the end of its plan
-    bool hasArrived() const;
+    bool hasArrived() const override;
 
     /// @brief return whether the transportable has started its plan
     bool hasDeparted() const;
@@ -377,7 +377,7 @@ public:
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
     /// @brief Returns a device of the given type if it exists or nullptr if not
-    MSDevice* getDevice(const std::type_info& type) const;
+    MSDevice* getDevice(const std::type_info& type) const override;
 
     /// @brief set individual junction model paramete (not type related)
     void setJunctionModelParameter(const std::string& key, const std::string& value);
@@ -389,17 +389,17 @@ public:
         return myDevices;
     }
 
-    virtual bool hasInfluencer() const {
+    virtual bool hasInfluencer() const override {
         return false;
     }
 
     /// @brief whether this transportable is selected in the GUI
-    virtual bool isSelected() const {
+    virtual bool isSelected() const override {
         return false;
     }
 
     /// @brief return routing mode (configures router choice but also handling of transient permission changes)
-    virtual int getRoutingMode() const;
+    virtual int getRoutingMode() const override;
 
     /** @brief Saves the current state into the given stream
      */
