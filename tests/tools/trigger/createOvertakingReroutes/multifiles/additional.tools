@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-29 13:28:26.728278 by Eclipse SUMO createOvertakingReroutes.py v1_24_0+1643-707764b759a
+<configuration>
+    <net-file value="net2.net.xml"/>
+    <route-files value="input_routes2.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <end value="86400.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+  <rerouter id="rr_0" edges="E12"> <!-- route: route:r_main --> 
+    <interval begin="0" end="86400.0">
+       <overtakingReroute main="E13 E14 E15" siding="E13b E14b E15b"/>
+    </interval>
+  </rerouter>
+  <rerouter id="rr_1" edges="E3"> <!-- route: route:r_branch --> 
+    <interval begin="0" end="86400.0">
+       <overtakingReroute main="E4 E5 E6" siding="E4b E5b E6b"/>
+       <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b"/>
+       <overtakingReroute main="E9c E10c E11c" siding="E9d E10d E11d"/>
+    </interval>
+  </rerouter>
+  <rerouter id="rr_2" edges="E8"> <!-- route: route:r_main --> 
+    <interval begin="0" end="86400.0">
+       <overtakingReroute main="E9 E10 E11" siding="E9b E10b E11b"/>
+       <overtakingReroute main="E13 E14 E15" siding="E13b E14b E15b"/>
+    </interval>
+  </rerouter>
+  <rerouter id="rr_3" edges="E8c"> <!-- route: route:r_branch --> 
+    <interval begin="0" end="86400.0">
+       <overtakingReroute main="E9c E10c E11c" siding="E9d E10d E11d"/>
+    </interval>
+  </rerouter>
+</additional>

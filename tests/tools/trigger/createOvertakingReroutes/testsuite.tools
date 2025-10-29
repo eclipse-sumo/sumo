@@ -6,6 +6,9 @@ detourFactor
 
 # Copy of plain
 branch
+
+# load multiple route files
+multifiles
 sequence
 
 # Copy of sequence
