@@ -5,6 +5,7 @@ detourFactor
 
 # Copy of plain
 branch
+sequence
 
 # test filtering by min-priority
 minPrio
