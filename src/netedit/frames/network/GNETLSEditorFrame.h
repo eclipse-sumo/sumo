@@ -23,6 +23,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <netbuild/NBTrafficLightLogic.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -34,7 +35,6 @@ class MFXComboBoxIcon;
 class MFXTextFieldIcon;
 class MFXToggleButtonTooltip;
 class NBLoadedSUMOTLDef;
-class NBOwnTLDef;
 class NBTrafficLightDefinition;
 
 // ===========================================================================

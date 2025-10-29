@@ -21,19 +21,13 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-
-
-// ===========================================================================
-// class definitions
-// ===========================================================================
+#include <netedit/GNEViewNetHelper.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECrossingFrame
- * The Widget for setting internal attributes of Crossing elements
- */
+
 class GNECrossingFrame : public GNEFrame {
 
 public:

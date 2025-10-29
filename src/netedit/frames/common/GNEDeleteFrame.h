@@ -22,6 +22,7 @@
 
 #include <netedit/GNEViewNetHelper.h>
 #include <netedit/frames/GNEFrame.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration

@@ -22,26 +22,22 @@
 #include <config.h>
 
 #include <unordered_map>
+
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEAttributeProperties;
 class GNEMatchAttribute;
-class GNEMatchGenericDataAttribute;
-class GNETagProperties;
 class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNESelectorFrame
- * The Widget for modifying selections of network-elements
- */
+
 class GNESelectorFrame : public GNEFrame {
 
 public:

@@ -22,14 +22,12 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/frames/GNEFrame.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEConnectorFrame
- * The Widget for modifying selections of network-elements
- */
+
 class GNEConnectorFrame : public GNEFrame {
 
 public:

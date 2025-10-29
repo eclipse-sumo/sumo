@@ -20,23 +20,24 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEAttributesEditorType.h>
+#include <string>
+#include <vector>
+
+#include <utils/foxtools/fxheader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEViewParent;
+class GNEAttributeCarrier;
 class GNEViewNet;
+class GNEViewParent;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEFrame
- * Abstract class for lateral frames in NetEdit
- */
 class GNEFrame : public FXVerticalFrame {
 
 public:

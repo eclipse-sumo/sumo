@@ -19,21 +19,21 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <netedit/frames/GNEFrame.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEConnection;
 class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEProhibitionFrame
- * The Widget for editing connection foes
- */
+
 class GNEProhibitionFrame : public GNEFrame {
 
 public:
