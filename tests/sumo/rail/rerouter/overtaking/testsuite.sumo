@@ -53,3 +53,9 @@ secondSiding
 
 # use the third siding if it can be reached before the overtaking train arrives
 thirdSiding
+
+# use the second siding if it can be reached before the overtaking train arrives
+secondSiding_defer
+
+# use the third siding if it can be reached before the overtaking train arrives
+thirdSiding_defer
