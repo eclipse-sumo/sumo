@@ -245,11 +245,11 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
         if (eClass == "zero") {
             return myZeroHelper.getClassByName("default", vc);
         }
-        WRITE_WARNINGF("Emission classes should always use the model as a prefix, please recheck '%'. Starting with SUMO 1.24 this will be an error.", eClass)
+        WRITE_WARNINGF("Emission classes should always use the model as a prefix, please recheck '%'. In later SUMO versions this might become an error.", eClass)
         // default HBEFA2
         return myHBEFA2Helper.getClassByName(eClass, vc);
     }
-    throw InvalidArgument("Unknown emission class '" + eClass + "'.");
+    throw InvalidArgument(TLF("Unknown emission class '%'.", eClass));
 }
 
 
