@@ -29,7 +29,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible, openz  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible, openz, getFlowNumber  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 from sumolib.net.lane import is_vehicle_class  # noqa
 
@@ -58,8 +58,10 @@ def get_options(args=None):
                     type=float, help="Maximum factor by which the siding may be longer than the main path")
     op.add_argument("--min-priority", dest="minPrio", metavar="INT",
                     type=int, help="Minimum edge priority value to be eligible as siding")
-    op.add_argument("-x", "--exclude-all-routes", dest="excludeRoutes", action="store_true", default=False,
-                    help="Exclude all edges that are part of input routes from sidings")
+    op.add_argument("-x", "--exclude-usage", dest="excludeUsage", type=int,
+                    help="Exclude all edges that are used at least INT times by loaded routes")
+    op.add_argument("-X", "--exclude-reverse-usage", dest="excludeRevUsage", type=int, default="1",
+                    help="Exclude all edges that are used at least INT times in reverse by loaded routes")
     op.add_argument("--reversal-penalty", dest="reversalPenalty", metavar="FLOAT", default=-1,
                     type=float, help="Set penalty for reversals, by default sidings with reversals are forbidden")
     op.add_argument("--no-defer", action="store_true", dest="noDefer", default=False,
@@ -78,10 +80,13 @@ def get_options(args=None):
 
 def parseRoutes(options):
     routes = dict()
+    edgeUsage = defaultdict(lambda: 0)
+    namedRouteUsage = defaultdict(lambda: 0)
     # assign unique ids (vehicles, flows and routes have separate namespace)
     ids = set()
     for rfile in options.routes:
         for veh in sumolib.xml.parse(rfile, ['vehicle', 'flow']):
+            count = 1 if veh.name == 'vehicle' else getFlowNumber(veh)
             if veh.hasChild('route'):
                 edges = tuple(veh.getChild('route')[0].edges.split())
                 rid = "%s:%s" % (veh.name, veh.id)
@@ -89,6 +94,10 @@ def parseRoutes(options):
                     rid += "#"
                 ids.add(rid)
                 routes[edges] = rid
+                for e in edges:
+                    edgeUsage[e] += count
+            else:
+                namedRouteUsage[veh.route] += count
         for route in sumolib.xml.parse(rfile, ['route']):
             if route.id:
                 edges = tuple(route.edges.split())
@@ -96,8 +105,12 @@ def parseRoutes(options):
                 while rid in ids:
                     rid += "#"
                 routes[edges] = rid
+                for e in edges:
+                    # assumed minimum usage 1 for each named route
+                    edgeUsage[e] += max(1, namedRouteUsage[route.id])
     # reverse dict because (ids are are uniqe)
-    return dict((rid, edges) for (edges, rid) in routes.items())
+    revDict = dict((rid, edges) for (edges, rid) in routes.items())
+    return revDict, edgeUsage
 
 
 def findSwitches(options, routes, net):
@@ -134,7 +147,7 @@ def findSwitches(options, routes, net):
     return switches
 
 
-def findSidings(options, routes, switches, net):
+def findSidings(options, routes, switches, net, edgeUsage):
     """use duarouter to compute paths that exit and re-enter each route"""
     fromTo = defaultdict(lambda: set())  # from -> set(to)
     fromToRoutes = defaultdict(lambda: [])  # (from, to) -> [(rid, fromIndex), ]
@@ -161,6 +174,7 @@ def findSidings(options, routes, switches, net):
 
     # write weights that discourage using the (main) route edges and their bidi-edge
     mainEdges = set()
+    edgeRevUsage = defaultdict(lambda: 0)
     for rid, edges in routes.items():
         mainEdges.update(edges)
     mainBidi = set()
@@ -170,6 +184,7 @@ def findSidings(options, routes, switches, net):
             b = e.getBidi()
             if b is not None:
                 mainBidi.add(b.getID())
+                edgeRevUsage[b.getID()] = edgeUsage[eid]
     mainEdges.update(mainBidi)
 
     tmpWeights = options.outfile + ".tmp.weights.xml"
@@ -211,8 +226,11 @@ def findSidings(options, routes, switches, net):
         if options.minPrio and any(e not in permitted for e in edges):
             # avoid abusing the opposite direciton track as siding
             continue
-        if options.excludeRoutes and any(e in mainEdges for e in edges):
-            # do not obstruct any main routes
+        if options.excludeUsage is not None and any(edgeUsage[e] >= options.excludeUsage for e in edges):
+            # do not obstruct frequently used routes
+            continue
+        if any(edgeRevUsage[e] >= options.excludeRevUsage for e in edges):
+            # do not obstruct any reverse routes
             continue
         fromTo = (edges[0], edges[-1])
         for rid, fromIndex, toIndex in fromToRoutes[fromTo]:
@@ -381,11 +399,11 @@ def main(options):
       """
 
     net = sumolib.net.readNet(options.netfile)
-    routes = parseRoutes(options)
+    routes, edgeUsage = parseRoutes(options)
     # print("\n".join(map(str, routes.items())))
     switches = findSwitches(options, routes, net)
     # print("\n".join(map(str, switches.items())))
-    sidings, sidingRoutes = findSidings(options, routes, switches, net)
+    sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
     # print("\n".join(map(str, sidings.items())))
     sidings = filterSidings(options, net, sidings)
     followerSidings = findFollowerSidings(options, routes, sidings, sidingRoutes)
@@ -393,8 +411,9 @@ def main(options):
 
 
 if __name__ == "__main__":
-    try:
-        main(get_options())
-    except ValueError as e:
-        print("Error:", e, file=sys.stderr)
-        sys.exit(1)
+    main(get_options())
+    #try:
+    #    main(get_options())
+    #except ValueError as e:
+    #    print("Error:", e, file=sys.stderr)
+    #    sys.exit(1)
