@@ -72,16 +72,21 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     // check if write vType or refs)
     for (const auto& refChild : getChildDemandElements()) {
         if (refChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
-            int numReferences = 0;
-            for (const auto& vTypeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
-                if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
-                    numReferences++;
-                }
-            }
-            if (numReferences == 1) {
-                refChild->getParentDemandElements().at(1)->writeDemandElement(device);
-            } else {
+            if (refChild->getParentDemandElements().at(1)->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::TRUE_STR) {
+                // if the referenced element is a default vType, always save it as reference
                 refChild->writeDemandElement(device);
+            } else {
+                int numReferences = 0;
+                for (const auto& vTypeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
+                    if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+                        numReferences++;
+                    }
+                }
+                if (numReferences == 1) {
+                    refChild->getParentDemandElements().at(1)->writeDemandElement(device);
+                } else {
+                    refChild->writeDemandElement(device);
+                }
             }
         }
     }

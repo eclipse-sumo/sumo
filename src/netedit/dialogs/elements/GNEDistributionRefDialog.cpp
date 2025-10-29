@@ -69,7 +69,7 @@ GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distribu
     FXHorizontalFrame* probabilityFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(probabilityFrame, toString(SUMO_ATTR_PROB).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myProbabilityTextField = new MFXTextFieldIcon(probabilityFrame, tooltipMenu, GUIIcon::EMPTY, this,
-            MID_GNE_DISTRIBUTIONDIALOG_PROBABILITY, GUIDesignTextField);
+            MID_GNE_DISTRIBUTIONDIALOG_PROBABILITY, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     // extract all references
     std::set<std::string> referenceIDs;
     for (const auto& reference : distributionParent->getHierarchicalElement()->getChildDemandElements()) {

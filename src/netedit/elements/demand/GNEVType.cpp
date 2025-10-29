@@ -513,10 +513,10 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             }
         // other
         case GNE_ATTR_DEFAULT_VTYPE:
-            return toString(myDefaultVehicleType);
+            return myDefaultVehicleType ? TRUE_STR : FALSE_STR;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
-                return toString(myDefaultVehicleTypeModified);
+                return myDefaultVehicleTypeModified ? TRUE_STR : FALSE_STR;
             } else {
                 return FALSE_STR;
             }

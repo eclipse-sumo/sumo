@@ -66,10 +66,10 @@ GNEChange_DemandElement::undo() {
         if (mySelectedElement) {
             myDemandElement->unselectAttributeCarrier();
         }
-        // delete demand element from net
-        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
         // remove element from parent and children
         removeElementFromParentsAndChildren(myDemandElement);
+        // delete demand element from net
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
     } else {
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
@@ -112,10 +112,10 @@ GNEChange_DemandElement::redo() {
         if (mySelectedElement) {
             myDemandElement->unselectAttributeCarrier();
         }
-        // delete demand element from net
-        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
         // remove element from parent and children
         removeElementFromParentsAndChildren(myDemandElement);
+        // delete demand element from net
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
