@@ -20,3 +20,6 @@ excludeRoutes
 
 # Copy of excludeRoutes
 excludeRoutes_bidi
+
+# exclude longer overlapping sidings with the same signal
+overlap
