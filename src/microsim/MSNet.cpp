@@ -700,6 +700,7 @@ MSNet::writeSummaryOutput() {
         std::pair<double, double> meanSpeed = myVehicleControl->getVehicleMeanSpeeds();
         od.writeAttr("meanSpeed", meanSpeed.first);
         od.writeAttr("meanSpeedRelative", meanSpeed.second);
+        od.writeAttr("discarded", myVehicleControl->getDiscardedVehicleNo());
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }
@@ -720,6 +721,7 @@ MSNet::writeSummaryOutput() {
         od.writeAttr("ended", pc.getEndedNumber());
         od.writeAttr("arrived", pc.getArrivedNumber());
         od.writeAttr("teleports", pc.getTeleportCount());
+        od.writeAttr("discarded", pc.getDiscardedNumber());
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }

@@ -244,6 +244,12 @@ public:
         return myArrivedNumber;
     }
 
+    /** @brief Returns the number of discarded transportables
+     */
+    int getDiscardedNumber() const {
+        return myDiscardedNumber;
+    }
+
     /// @brief return the number of teleports due to excessive waiting for a ride
     int getTeleportsAbortWait() const {
         return myTeleportsAbortWait;
