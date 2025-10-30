@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-30T14:06:16.722842+01:00 by Eclipse SUMO netgenerate v1_24_0+1674-24398a21d25
+-->
+
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <spider_network>
+        <spider value="true"/>
+        <spider.arm-number value="20"/>
+        <spider.circle-number value="1"/>
+        <spider.space-radius value="40"/>
+        <spider.omit-center value="true"/>
+    </spider_network>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+</netgenerateConfiguration>

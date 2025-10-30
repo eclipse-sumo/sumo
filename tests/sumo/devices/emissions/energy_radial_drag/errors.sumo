@@ -1,0 +1,2 @@
+Warning: Vehicle type 'electric_bus' uses the emission class 'Energy/default' which does not have proper defaults for its vehicle class. Please use a different emission model or complete the vType definition with further parameters.
+Warning: Vehicle type 'electric_bus_no_radial_drag' uses the emission class 'Energy/default' which does not have proper defaults for its vehicle class. Please use a different emission model or complete the vType definition with further parameters.

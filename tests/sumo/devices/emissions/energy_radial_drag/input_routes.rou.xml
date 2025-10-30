@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="electric" emissionClass="Energy/default" vClass="passenger" speedDev="0" sigma="0"/>
+    <vType id="electric_no_radial_drag" emissionClass="Energy/default" vClass="passenger" speedDev="0" sigma="0">
+        <param key="radialDragCoefficient" value="0"/>
+    </vType>
+    <vType id="electric_bus" emissionClass="Energy/default" vClass="bus" speedDev="0" sigma="0" mass="20000"/>
+    <vType id="electric_bus_no_radial_drag" emissionClass="Energy/default" vClass="bus" speedDev="0" sigma="0" mass="20000">
+        <param key="radialDragCoefficient" value="0"/>
+    </vType>
+    <route id="route0" edges="B1B2 B2B3 B3B4 B4B5 B5B6 B6B7 B7B8 B8B9 B9B10 B10B11 B11B12 B12B13 B13B14 B14B15 B15B16 B16B17 B17B18 B18B19 B19B20 B20B1" repeat="2"/>
+    <vehicle id="0" type="electric" route="route0" depart="0.0" color="red" departSpeed="max"/>
+    <vehicle id="1" type="electric_no_radial_drag" route="route0" depart="200.0" color="green" departSpeed="max"/>
+    <vehicle id="b0" type="electric_bus" route="route0" depart="400.0" color="red" departSpeed="max"/>
+    <vehicle id="b1" type="electric_bus_no_radial_drag" route="route0" depart="800.0" color="green" departSpeed="max"/>
+</routes>
