@@ -585,7 +585,13 @@ MSStateHandler::closeVehicle() {
             myReminderAttrs.pop_back();
         }
     } else {
+        const std::string embeddedRouteID = "!" + myVehicleParameter->id;
+        if (MSRoute::hasRoute(embeddedRouteID)) {
+            ConstMSRoutePtr embedded = MSRoute::dictionary(embeddedRouteID);
+            embedded->checkRemoval();
+        }
         delete myVehicleParameter;
+
         myVehicleParameter = nullptr;
         myRemoved++;
     }
