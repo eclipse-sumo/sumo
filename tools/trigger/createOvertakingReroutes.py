@@ -52,7 +52,7 @@ def get_options(args=None):
                     help="only consider edges which permit the given vehicle class")
     op.add_argument("--min-length", dest="minLength", metavar="FLOAT", default=100.0,
                     type=float, help="minimum siding length")
-    op.add_argument("--max-length", dest="maxLength", metavar="FLOAT", 
+    op.add_argument("--max-length", dest="maxLength", metavar="FLOAT",
                     type=float, help="maximum siding length")
     op.add_argument("--max-detour-factor", dest="maxDetour", metavar="FLOAT", default=2,
                     type=float, help="Maximum factor by which the siding may be longer than the main path")
@@ -411,9 +411,8 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(get_options())
-    #try:
-    #    main(get_options())
-    #except ValueError as e:
-    #    print("Error:", e, file=sys.stderr)
-    #    sys.exit(1)
+    try:
+        main(get_options())
+    except ValueError as e:
+        print("Error:", e, file=sys.stderr)
+        sys.exit(1)
