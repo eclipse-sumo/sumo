@@ -67,8 +67,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUIMEInductLoop& detector,
-                  double pos);
+        MyWrapper(GUIMEInductLoop& detector, double pos);
 
         /// Destructor
         ~MyWrapper();

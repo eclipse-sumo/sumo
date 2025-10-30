@@ -137,10 +137,6 @@ public:
     virtual void drawBestLanes() const {};
     virtual void drawAction_drawVehicleBlueLight() const {}
 
-
-
-
-
     /// @name inherited from GUIGlObject
     //@{
 
@@ -191,8 +187,6 @@ public:
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const override;
     //@}
 
-
-
     /// @name Additional visualisations
     /// @{
 
@@ -203,14 +197,12 @@ public:
      */
     bool hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const;
 
-
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled
      * @param[in] which The visualisation feature to enable
      * @see GUISUMOAbstractView::addAdditionalGLVisualisation
      */
     void addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
-
 
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled

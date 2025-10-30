@@ -80,10 +80,11 @@ public:
     /// @brief Destructor
     ~GUIBusStop();
 
-    void finishedLoading();
+    void finishedLoading() override;
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
+    bool addAccess(MSLane* const lane, const double startPos, const double endPos,
+                   double length, const MSStoppingPlace::AccessExit exit) override;
 
     /// @name inherited from GUIGlObject
     //@{
@@ -95,8 +96,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -107,21 +107,20 @@ public:
      * @return The built parameter window (always 0 in this case)
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief Returns the street name
-    const std::string getOptionalName() const;
+    const std::string getOptionalName() const override;
 
     /// @brief Formats the last free pos value
     double getCroppedLastFreePos() const;

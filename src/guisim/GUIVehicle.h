@@ -68,17 +68,17 @@ public:
      *
      * @note implementation of abstract method does not work otherwise
      */
-    Position getPosition(const double offset = 0) const {
+    Position getPosition(const double offset = 0) const override {
         return MSVehicle::getPosition(offset);
     }
 
-    Position getVisualPosition(bool s2, const double offset = 0) const;
+    Position getVisualPosition(bool s2, const double offset = 0) const override;
 
     /** @brief Return current angle
      *
      * @note implementation of abstract method does not work otherwise
      */
-    double getAngle() const {
+    double getAngle() const override {
         return MSVehicle::getAngle();
     }
 
@@ -86,35 +86,34 @@ public:
      * secondary shape
      * @return The vehicle's current angle
      */
-    double getVisualAngle(bool s2) const;
+    double getVisualAngle(bool s2) const override;
 
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future,
+                         bool noLoop, const RGBColor& col) const override;
 
-    void drawAction_drawVehicleBlinker(double length) const;
-    void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const;
-    void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
-    void drawAction_drawVehicleBlueLight() const;
+    void drawAction_drawVehicleBlinker(double length) const override;
+    void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const override;
+    void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const override;
+    void drawAction_drawVehicleBlueLight() const override;
 
     /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    double getLastLaneChangeOffset() const;
+    double getLastLaneChangeOffset() const override;
 
-
-    /** @brief Draws the vehicle's best lanes
-     */
-    void drawBestLanes() const;
+    /// @brief Draws the vehicle's best lanes
+    void drawBestLanes() const override;
     /// @}
 
     /// @brief adds the blocking foes to the current selection
-    void selectBlockingFoes() const;
+    void selectBlockingFoes() const override;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /** @brief Returns an own parameter window
      *
@@ -123,7 +122,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -131,15 +130,16 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief whether this vehicle is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /// @brief return right vehicle side on current edge (without argument)
     double getRightSideOnEdge2() const {
         return getRightSideOnEdge();
     }
+
     /// @brief return left vehicle side on current edge
     double getLeftSideOnEdge() const {
         return getRightSideOnEdge() + getVehicleType().getWidth();
@@ -177,16 +177,14 @@ public:
 
 protected:
     /// @brief register vehicle for drawing while outside the network
-    void drawOutsideNetwork(bool add);
+    void drawOutsideNetwork(bool add) override;
 
 private:
-
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const;
+    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const override;
 
     /// @brief retrieve information about the current stop state
-    std::string getStopInfo() const;
-
+    std::string getStopInfo() const override;
 };

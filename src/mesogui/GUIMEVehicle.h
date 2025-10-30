@@ -50,6 +50,7 @@ class GUIVisualizationSettings;
  * easier recognition of done actions such as lane changing.
  */
 class GUIMEVehicle : public MEVehicle, public GUIBaseVehicle {
+
 public:
     /** @brief Constructor
      * @param[in] pars The vehicle description
@@ -61,67 +62,66 @@ public:
     GUIMEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                  MSVehicleType* type, const double speedFactor);
 
-
     /// @brief destructor
     ~GUIMEVehicle();
-
 
     /** @brief Return current position (x/y, cartesian)
     *
     * @note implementation of abstract method does not work otherwise
     */
-    Position getPosition(const double offset = 0) const {
+    Position getPosition(const double offset = 0) const override {
         return MEVehicle::getPosition(offset);
     }
 
-    Position getVisualPosition(bool s2, const double offset = 0) const;
+    Position getVisualPosition(bool s2, const double offset = 0) const override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    virtual Boundary getCenteringBoundary() const;
+    virtual Boundary getCenteringBoundary() const override;
 
     /** @brief Return current angle
     *
     * @note implementation of abstract method does not work otherwise
     */
-    double getAngle() const {
+    double getAngle() const override {
         return MEVehicle::getAngle();
     }
 
-    double getVisualAngle(bool /*s2*/) const {
+    double getVisualAngle(bool /*s2*/) const override {
         return MEVehicle::getAngle();
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief draws the given guiShape with distinct carriages/modules
-    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const;
+    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const override;
 
     /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    double getLastLaneChangeOffset() const;
+    double getLastLaneChangeOffset() const override;
 
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r,
+                         bool future, bool noLoop, const RGBColor& col) const override;
 
     /// @brief retrieve information about the current stop state
-    std::string getStopInfo() const;
+    std::string getStopInfo() const override;
 
     std::string getEdgeID() const;
 
     /// @brief adds the blocking foes to the current selection
-    void selectBlockingFoes() const;
+    void selectBlockingFoes() const override;
 
     /** @brief Returns an own parameter window
      *
@@ -130,7 +130,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -138,8 +138,8 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief whether this vehicle is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 };
