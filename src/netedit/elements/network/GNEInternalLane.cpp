@@ -171,19 +171,6 @@ GNEInternalLane::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNEInternalLane::getMoveOperation() {
-    // internal lanes cannot be moved
-    return nullptr;
-}
-
-
-void
-GNEInternalLane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undolist*/) {
-    // geometry points of internal lanes cannot be removed
-}
-
-
 long
 GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     if (myEditor != nullptr) {

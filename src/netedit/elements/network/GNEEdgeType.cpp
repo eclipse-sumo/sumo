@@ -228,18 +228,6 @@ GNEEdgeType::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNEEdgeType::getMoveOperation() {
-    return nullptr;
-}
-
-
-void
-GNEEdgeType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
-
 GUIGLObjectPopupMenu*
 GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
     return nullptr;

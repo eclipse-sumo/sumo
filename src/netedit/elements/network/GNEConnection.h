@@ -157,13 +157,13 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
@@ -175,10 +175,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @brief delete element
-    void deleteGLObject();
+    void deleteGLObject() override;
 
     /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
+    void updateGLObject() override;
 
     /// @}
 
@@ -230,12 +230,12 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    bool isAttributeComputed(SumoXMLAttr key) const;
+    bool isAttributeComputed(SumoXMLAttr key) const override;
 
     /// @}
 

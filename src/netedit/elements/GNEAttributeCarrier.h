@@ -83,7 +83,7 @@ public:
     /// @}
 
     /// @brief get ID (all Attribute Carriers have one)
-    const std::string getID() const;
+    const std::string getID() const override;
 
     /// @brief get pointer to net
     GNENet* getNet() const;

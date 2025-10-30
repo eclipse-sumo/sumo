@@ -48,7 +48,7 @@ public:
     /// @brief get edge data color
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief check if current edge data is visible
     bool isGenericDataVisible() const override;
@@ -57,7 +57,7 @@ public:
     void updateGeometry() override;
 
     /// @brief Returns element position in view
-    Position getPositionInView() const;
+    Position getPositionInView() const override;
 
     /// @name members and functions relative to write data sets into XML
     /// @{
@@ -67,13 +67,13 @@ public:
     void writeGenericData(OutputDevice& device) const override;
 
     /// @brief check if current data set is valid to be written into XML (by default true, can be reimplemented in children)
-    bool isGenericDataValid() const;
+    bool isGenericDataValid() const override;
 
     /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)
-    std::string getGenericDataProblem() const;
+    std::string getGenericDataProblem() const override;
 
     /// @brief fix data set problem (by default throw an exception, has to be reimplemented in children)
-    void fixGenericDataProblem();
+    void fixGenericDataProblem() override;
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -86,7 +86,7 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const override;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @}
 
@@ -94,27 +94,27 @@ public:
     /// @{
 
     /// @brief compute pathElement
-    void computePathElement();
+    void computePathElement() override;
 
     /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /// @brief get first path lane
-    GNELane* getFirstPathLane() const;
+    GNELane* getFirstPathLane() const override;
 
     /// @brief get last path lane
-    GNELane* getLastPathLane() const;
+    GNELane* getLastPathLane() const override;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -148,7 +148,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const override;

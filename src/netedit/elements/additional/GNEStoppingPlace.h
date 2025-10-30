@@ -102,10 +102,10 @@ public:
     /// @{
 
     /// @brief Returns position of additional in view
-    Position getPositionInView() const;
+    Position getPositionInView() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
-    void updateCenteringBoundary(const bool updateGrid);
+    void updateCenteringBoundary(const bool updateGrid) override;
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
@@ -116,7 +116,7 @@ public:
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-    std::string getParentName() const;
+    std::string getParentName() const override;
 
     /// @}
 
@@ -138,7 +138,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const override;

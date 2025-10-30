@@ -149,13 +149,6 @@ GNERouteProbe::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNERouteProbe::getMoveOperation() {
-    // routeprobes cannot be moved
-    return nullptr;
-}
-
-
 std::string
 GNERouteProbe::getParentName() const {
     return getParentEdges().front()->getID();

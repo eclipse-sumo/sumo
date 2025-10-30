@@ -109,13 +109,6 @@ GNERerouterInterval::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNERerouterInterval::getMoveOperation() {
-    // rerouter intervals cannot be moved
-    return nullptr;
-}
-
-
 void
 GNERerouterInterval::updateGeometry() {
     updateGeometryListedAdditional();

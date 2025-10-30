@@ -64,13 +64,13 @@ public:
     /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
-    void writeDemandElement(OutputDevice& device) const;
+    void writeDemandElement(OutputDevice& device) const override;
 
     /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
-    Problem isDemandElementValid() const;
+    Problem isDemandElementValid() const override;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
-    std::string getDemandElementProblem() const;
+    std::string getDemandElementProblem() const override;
 
     /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
     void fixDemandElementProblem() override;
@@ -81,7 +81,7 @@ public:
     SUMOVehicleClass getVClass() const override;
 
     /// @brief get color
-    const RGBColor& getColor() const;
+    const RGBColor& getColor() const override;
 
     /// @}
 
@@ -91,7 +91,7 @@ public:
     void updateGeometry() override;
 
     /// @brief Returns position of additional in view
-    Position getPositionInView() const;
+    Position getPositionInView() const override;
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -104,20 +104,20 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
-    std::string getParentName() const;
+    std::string getParentName() const override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
@@ -134,27 +134,27 @@ public:
     /// @{
 
     /// @brief compute pathElement
-    void computePathElement();
+    void computePathElement() override;
 
     /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /// @brief get first path lane
-    GNELane* getFirstPathLane() const;
+    GNELane* getFirstPathLane() const override;
 
     /// @brief get last path lane
-    GNELane* getLastPathLane() const;
+    GNELane* getLastPathLane() const override;
     /// @}
 
     /// @brief inherited from GNEAttributeCarrier
@@ -180,7 +180,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key

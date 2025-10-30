@@ -50,7 +50,7 @@ public:
     /**@brief get edge movable move operation for elements with
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation();
+    GNEMoveOperation* getMoveOperation() override;
 
     /// @name functions related with moving attributes
     /// @{

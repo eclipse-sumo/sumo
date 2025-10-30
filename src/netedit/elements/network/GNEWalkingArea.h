@@ -114,10 +114,10 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
@@ -129,10 +129,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const override;
 
     /// @brief delete element
-    void deleteGLObject();
+    void deleteGLObject() override;
 
     /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
+    void updateGLObject() override;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -159,7 +159,7 @@ public:
      * @param[in] key The attribute key
      * @return position with the value associated to key
      */
-    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -178,7 +178,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /// @}
 

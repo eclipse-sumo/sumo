@@ -132,7 +132,7 @@ public:
      * @param[in] key The attribute key
      * @return position with the value associated to key
      */
-    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const override;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -150,7 +150,7 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
+    bool isAttributeEnabled(SumoXMLAttr key) const override;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const override;

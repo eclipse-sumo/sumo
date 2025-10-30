@@ -145,21 +145,21 @@ public:
     /// @{
 
     /// @brief compute pathElement
-    void computePathElement();
+    void computePathElement() override;
 
     /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const override;
 
     /// @}
 

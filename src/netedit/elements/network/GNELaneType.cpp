@@ -145,18 +145,6 @@ GNELaneType::checkDrawMoveContour() const {
 }
 
 
-GNEMoveOperation*
-GNELaneType::getMoveOperation() {
-    return nullptr;
-}
-
-
-void
-GNELaneType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // nothing to do
-}
-
-
 GUIGLObjectPopupMenu*
 GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
     return nullptr;

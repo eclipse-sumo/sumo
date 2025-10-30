@@ -96,10 +96,10 @@ public:
     void updateGeometry() override;
 
     /// @brief Returns position of additional in view
-    Position getPositionInView() const;
+    Position getPositionInView() const override;
 
     /// @brief update centering boundary (implies change in RTREE)
-    void updateCenteringBoundary(const bool updateGrid);
+    void updateCenteringBoundary(const bool updateGrid) override;
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) override;
@@ -110,7 +110,7 @@ public:
     /// @{
 
     /// @brief Returns the name (ID) of the parent object
-    std::string getParentName() const;
+    std::string getParentName() const override;
 
     /// @{
     /**@brief Draws the object

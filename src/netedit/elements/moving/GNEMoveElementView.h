@@ -51,7 +51,7 @@ public:
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation();
+    GNEMoveOperation* getMoveOperation() override;
 
     /// @name functions related with moving attributes
     /// @{
