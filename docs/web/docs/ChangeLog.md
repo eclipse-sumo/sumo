@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - Fixed invalid consumption/emissions when loading and unloading persons/containers #17152 (regression in 1.22.0)
+  - Fixed invalid consumption/emissions when loading and unloading persons/containers #17152, #17264 (regression in 1.22.0)
   - Fixed crash in rail simulation after rerouting #16958
   - Rerouters with parkingAreaReroute now take into account `parkingBadges` and `acceptedBadges` #16966
   - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967
@@ -59,6 +59,7 @@ title: ChangeLog
   - netgenerate dialog no longer fails when the output file path contains spaces #17221
   - Fixed problem when adjusting invalid entity positions on edges with custom length value #17222
   - Added contour to all rerouter edges #17244
+  - Data intervals with human-readable times can now be loaded #17268
 
 
 - netconvert
@@ -90,16 +91,21 @@ title: ChangeLog
   - Fixed crash when deleting last item of coloring/scaling scheme levels #17138 (also applies to netedit)
   - Rerouter ids are now shown #16715
   - JuPedSim obstacles are now shown at their configured z-coordinae in 3D-view #17246
+  - Fixed crash after saving gui settings to registry under a new name #17265
 
 - meso
   - edgeData with `withInternal="true"` no longer contains internal edges #17046 (regression in 1.6.0)
   - Fixed error when loading state with high event times #16936
   - Fixed invalid edgeData output with `aggregated="true"` #16982
+  - Fixed invalid speed in edgeData when using a [speed calibrator](Simulation/Calibrator.md#calibrating_only_speed) #17228
 
 - duarouter
   - Fixed crash when loading taz and setting option **--persontrip.transfer.walk-taxi allJunctions** #17180
   - Fixed inconsistent default personTrip arrivalPos #17177
   - Fixed bug where intermodal routing failed when restricting taxi arrivals and the destination edge has a stopping place #17178 (also applies to sumo)
+  - Fixed invalid error when using option **--bulk-routing** #17267
+  - Option **--bulk-routing** now works for railways #17266
+
 
 - TraCI
   - Fixed exaggerated slowDown after the end of the desired slowDown duration #17172 (regression in 1.23.0)
@@ -160,6 +166,8 @@ title: ChangeLog
   - Added new edge attribute `routingType` which can be used to influence routing together with the new `<preference>` element #17094
   - Options **--railway.topology.extend-priority** and **--railway.topology.direction-priority** now set attribute `routingType` #17102
   - Element `<split>` now supports attribute `offset` to customize the lateral offset of newly created lanes #17103
+  - Node attribute `roundabout="0"` can now be used to declare that a junction shall not be classified as a roundabout #10677
+  - Invalid lane neighbor information with respect to connected junctions is now fixed automatically (with a warning) #17280
 
 - TraCI
   - `vehicle.setSpeedMode` now takes effect for vehicles with the bluelight device #17122
