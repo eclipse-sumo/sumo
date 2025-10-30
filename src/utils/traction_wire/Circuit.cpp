@@ -743,10 +743,8 @@ bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::
                 // equations with voltage source can be ignored, because some value of current throw the voltage source can be always find
                 removable_ids->push_back((*it)->getId());
                 return false;
-                break;
             case Element::ElementType::ERROR_traction_wire:
                 return false;
-                break;
         }
     }
     return true;

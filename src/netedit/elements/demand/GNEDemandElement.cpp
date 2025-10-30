@@ -758,7 +758,6 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             } else {
                 return c.getScheme().getColor(0);
             }
-            break;
         }
         case 4: {
             if (getRouteParent()->getColor() != RGBColor::DEFAULT_COLOR) {

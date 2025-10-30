@@ -169,7 +169,6 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
             break;
         default:
             return flowElement->setCommonAttribute(key, value, undoList);
-            break;
     }
 }
 

@@ -524,7 +524,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             } else {
                 return myMoveElementViewResizable->setMovingAttribute(key, value, undoList);
             }
-            break;
     }
 }
 
@@ -573,7 +572,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return myMoveElementViewResizable->isMovingAttributeValid(key, value);
             }
-            break;
     }
 }
 
@@ -817,7 +815,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 return myMoveElementViewResizable->setMovingAttribute(key, value);
             }
-            break;
     }
     // update boundary (except for template)
     if (getID().size() > 0) {
