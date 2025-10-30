@@ -18,8 +18,8 @@
 /.vs
 /.vim
 # build dir
-/clang*
 /build
+/build_clang
 /out
 # bin dir
 /bin/TraCITestClient*
