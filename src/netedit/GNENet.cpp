@@ -2582,7 +2582,7 @@ GNENet::writeRouteDistributions(OutputDevice& device, const std::unordered_set<c
 
 
 void
-GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool /* additionalFile */) const {
     std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (ACs.count(route.second) > 0) {
@@ -2611,7 +2611,7 @@ GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<c
 
 
 void
-GNENet::writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool /* additionalFile */) const {
     std::map<std::string, GNEDemandElement*> sortedVTypes;
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (ACs.count(vType.second) > 0) {
