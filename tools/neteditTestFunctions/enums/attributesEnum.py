@@ -211,9 +211,9 @@ class attrs:
             containerFlow = 29
 
         class route:
-            create = 21
-            abort = 22
-            removeLastInsertedEdge = 23
+            create = 22
+            abort = 23
+            removeLastInsertedEdge = 24
 
     # --------------------------------
     # NETWORK
@@ -2157,12 +2157,13 @@ class attrs:
             color = 9
             repeat = 10
             cycletime = 11
-            parameters = 13
-            parametersButton = 14
-            routeFileButton = 16
-            routeFile = 17
-            helpDialog = 18
-            reset = 19
+            probability = 12
+            parameters = 14
+            parametersButton = 15
+            routeFileButton = 17
+            routeFile = 18
+            helpDialog = 19
+            reset = 20
 
         class inspect:
             id = 2
@@ -2171,24 +2172,26 @@ class attrs:
             color = 5
             repeat = 6
             cycletime = 7
-            parameters = 9
-            parametersButton = 10
-            routeFileButton = 12
-            routeFile = 13
-            helpDialog = 14
-            reset = 15
+            probability = 8
+            parameters = 10
+            parametersButton = 11
+            routeFileButton = 13
+            routeFile = 14
+            helpDialog = 15
+            reset = 16
 
         class inspectSelection:
             colorButton = 2
             color = 3
             repeat = 4
             cycletime = 5
-            parameters = 7
-            parametersButton = 8
-            routeFileButton = 10
-            routeFile = 11
-            helpDialog = 12
-            reset = 13
+            cycletime = 6
+            parameters = 8
+            parametersButton = 9
+            routeFileButton = 11
+            routeFile = 13
+            helpDialog = 14
+            reset = 15
 
     # trip (from-to edges)
 
