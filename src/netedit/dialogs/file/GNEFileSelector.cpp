@@ -362,6 +362,9 @@ GNEFileSelector::onCmdImageSize(FXObject*, FXSelector sel, void*) {
         case FXFileSelector::ID_GIANT_SIZE:
             setImageSize(64);
             break;
+        default:
+            setImageSize(32);
+            break;
     }
     return 1;
 }
@@ -379,6 +382,9 @@ GNEFileSelector::onUpdImageSize(FXObject* sender, FXSelector sel, void*) {
             break;
         case FXFileSelector::ID_GIANT_SIZE:
             check = (getImageSize() == 64);
+            break;
+        default:
+            check = (getImageSize() == 32);
             break;
     }
     sender->handle(this, check ? FXSEL(SEL_COMMAND, ID_CHECK) : FXSEL(SEL_COMMAND, ID_UNCHECK), NULL);

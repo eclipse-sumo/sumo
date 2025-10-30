@@ -87,7 +87,7 @@ public:
                      const double firstStartPos,
                      const GNELane* lastLane,
                      const double lastStartPos,
-                     const double clickedFirstLane,
+                     const bool clickedFirstLane,
                      const bool allowChangeLane);
 
     /// @brief destructor

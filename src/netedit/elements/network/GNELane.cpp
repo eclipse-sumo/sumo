@@ -1339,6 +1339,8 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
                         GLHelper::drawOutlineCircle(0.9, 0.8, 32);
                         glTranslated(0, -5, 0);
                         break;
+                    default:
+                        break;
                 }
             }
         }

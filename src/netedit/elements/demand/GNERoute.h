@@ -276,7 +276,7 @@ protected:
     SUMOTime myCycleTime = 0;
 
     /// @brief probability
-    SUMOTime myProbability = DEFAULT_VEH_PROB;
+    double myProbability = DEFAULT_VEH_PROB;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass = SVC_PASSENGER;

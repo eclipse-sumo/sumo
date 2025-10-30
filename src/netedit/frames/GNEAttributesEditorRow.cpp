@@ -760,7 +760,7 @@ GNEAttributesEditorRow::showValueCheckButton(const std::string& value,
         booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
     }
     // iterate over booleans comparing all element with the first
-    for (const auto& booleanValue : booleanVector) {
+    for (const auto booleanValue : booleanVector) {
         if (booleanValue != booleanVector.front()) {
             allValuesEqual = false;
         }

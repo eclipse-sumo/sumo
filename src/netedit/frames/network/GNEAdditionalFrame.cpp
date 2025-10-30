@@ -77,10 +77,6 @@ GNEAdditionalFrame::E2MultilaneLegendModule::hideE2MultilaneLegend() {
 // GNEAdditionalFrame::HelpCreationModule - methods
 // ---------------------------------------------------------------------------
 
-#define TLSX(string) std::string(gettext((string)))
-
-
-
 GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Help")) {
     // edge candidate

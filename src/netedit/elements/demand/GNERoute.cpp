@@ -268,7 +268,6 @@ GNERoute::isDemandElementValid() const {
     } else {
         return Problem::OK;
     }
-    return Problem::INVALID_ELEMENT;
 }
 
 

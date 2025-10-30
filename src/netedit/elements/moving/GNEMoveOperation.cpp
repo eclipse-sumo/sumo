@@ -102,7 +102,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const double _firstStartPos,
                                    const GNELane* _lastLane,
                                    const double _lastStartPos,
-                                   const double _clickedFirstLane,
+                                   const bool _clickedFirstLane,
                                    const bool _allowChangeLane) :
     moveElement(_moveElement),
     firstLane(_firstLane),

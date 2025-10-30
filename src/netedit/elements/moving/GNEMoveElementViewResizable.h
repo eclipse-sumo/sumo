@@ -76,13 +76,13 @@ private:
     double& myHeight;
 
     /// @brief check if width can be edited
-    const double myEditWidth = false;
+    const bool myEditWidth = false;
 
     /// @brief check if height can be edited
-    const double myEditHeight = false;
+    const bool myEditHeight = false;
 
     /// @brief check if length can be edited
-    const double myEditLength = false;
+    const bool myEditLength = false;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;

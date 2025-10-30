@@ -102,8 +102,9 @@ GNEEdgeRelData::getColorValue(const GUIVisualizationSettings& s, int activeSchem
             } catch (NumberFormatException&) {
                 return GUIVisualizationSettings::MISSING_DATA;
             }
+        default:
+            return 0;
     }
-    return 0;
 }
 
 

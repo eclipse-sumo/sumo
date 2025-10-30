@@ -201,17 +201,8 @@ GNEAttributeCarrierDialog::runInternalTest(const InternalTestStep::DialogArgumen
 
 long
 GNEAttributeCarrierDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (false) {
-        // open warning Box
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-                              TLF("Error editing % '%'", myElement->getTagStr(), myElement->getID()),
-                              TLF("The % '%' cannot be updated because there are invalid attributes.",
-                                  myElement->getTagStr(), myElement->getID()));
-        return 1;
-    } else {
-        // close dialog accepting changes
-        return acceptElementDialog();
-    }
+    // close dialog accepting changes
+    return acceptElementDialog();
 }
 
 

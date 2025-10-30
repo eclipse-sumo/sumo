@@ -374,6 +374,8 @@ GNEMatchAttribute::getMatches(const char compOp, const double val, const std::st
                             result.push_back(AC);
                         }
                         break;
+                    default:
+                        break;
                 }
             } else {
                 // string match
@@ -398,6 +400,8 @@ GNEMatchAttribute::getMatches(const char compOp, const double val, const std::st
                         if (acVal != expr) {
                             result.push_back(AC);
                         }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -434,6 +438,8 @@ GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& generic
                         result.push_back(genericData);
                     }
                     break;
+                default:
+                    break;
             }
         } else {
             // string match
@@ -458,6 +464,8 @@ GNEMatchAttribute::getGenericMatches(const std::vector<GNEGenericData*>& generic
                     if (acVal != expr) {
                         result.push_back(genericData);
                     }
+                    break;
+                default:
                     break;
             }
         }

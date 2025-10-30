@@ -472,7 +472,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
                 changed = true;
                 break;
             }
-            case LaneStatus::CONFLICTED:
+            case LaneStatus::CONFLICTED: {
                 SVCPermissions fromPermissions = srcEdge->getNBEdge()->getPermissions(fromIndex);
                 SVCPermissions toPermissions = destEdge->getNBEdge()->getPermissions(lane->getIndex());
                 if ((fromPermissions & toPermissions) == SVC_PEDESTRIAN) {
@@ -482,6 +482,9 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
                 } else {
                     myViewNet->setStatusBarText(TL("Another lane from the same edge already connects to that lane"));
                 }
+                break;
+            }
+            default:
                 break;
         }
         if (changed) {

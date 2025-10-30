@@ -101,10 +101,9 @@ GNETAZRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme
             } catch (NumberFormatException&) {
                 return GUIVisualizationSettings::MISSING_DATA;
             }
-
+        default:
+            return 0;
     }
-    return 0;
-
 }
 
 
@@ -125,8 +124,9 @@ GNETAZRelData::getScaleValue(const GUIVisualizationSettings& s, int activeScheme
             } catch (NumberFormatException&) {
                 return GUIVisualizationSettings::MISSING_DATA;
             }
+        default:
+            return 0;
     }
-    return 0;
 }
 
 
