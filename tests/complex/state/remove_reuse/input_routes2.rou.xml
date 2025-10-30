@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="50" departSpeed="8" departPos="25">
+        <route edges="2/1to1/1 1/1to0/1"/>
+    </vehicle>
+</routes>

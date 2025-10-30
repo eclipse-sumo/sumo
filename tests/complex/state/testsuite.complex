@@ -144,3 +144,6 @@ device_prob
 # flow saved and loaded with meandata output
 meandata
 sortedVehroutes
+
+# remove vehicle on state loading and re-use it's id
+remove_reuse
