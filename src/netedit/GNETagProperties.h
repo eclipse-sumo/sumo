@@ -34,111 +34,111 @@ class GNETagProperties {
 public:
 
     /// @brief tag types
-    enum class Type : int {
+    enum class Type : std::uint64_t {
         // basic types
-        NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
-        ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
-        DEMANDELEMENT =     1 << 2,  // Demand elements (Routes, Vehicles, Trips...)
-        DATAELEMENT =       1 << 3,  // Data elements (DataSets, Data Intervals, EdgeData...)
+        NETWORKELEMENT =    1ULL << 0,  // Network elements (Edges, Junctions, Lanes...)
+        ADDITIONALELEMENT = 1ULL << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
+        DEMANDELEMENT =     1ULL << 2,  // Demand elements (Routes, Vehicles, Trips...)
+        DATAELEMENT =       1ULL << 3,  // Data elements (DataSets, Data Intervals, EdgeData...)
         // sub additional elements
-        STOPPINGPLACE =     1 << 4,  // StoppingPlaces (BusStops, ChargingStations...)
-        DETECTOR =          1 << 5,  // Detectors (E1, E2...)
-        CALIBRATOR =        1 << 6,  // Calibrators
-        SHAPE =             1 << 7,  // Shapes (Polygons and POIs)
-        TAZELEMENT =        1 << 8,  // Traffic Assignment Zones
-        WIRE =              1 << 9,  // Wire elements
-        JUPEDSIM =          1 << 10, // JuPedSim elements
+        STOPPINGPLACE =     1ULL << 4,  // StoppingPlaces (BusStops, ChargingStations...)
+        DETECTOR =          1ULL << 5,  // Detectors (E1, E2...)
+        CALIBRATOR =        1ULL << 6,  // Calibrators
+        SHAPE =             1ULL << 7,  // Shapes (Polygons and POIs)
+        TAZELEMENT =        1ULL << 8,  // Traffic Assignment Zones
+        WIRE =              1ULL << 9,  // Wire elements
+        JUPEDSIM =          1ULL << 10, // JuPedSim elements
         // sub demand elements
-        VTYPE =             1 << 11, // Vehicle types (vType and vTypeDistribution)
-        VEHICLE =           1 << 12, // Vehicles (Vehicles, trips, flows...)
-        ROUTE =             1 << 13, // Routes and embedded routes
-        STOP_VEHICLE =      1 << 14, // Vehicle stops
-        WAYPOINT_VEHICLE =  1 << 15, // Vehicle waypoints (note: All waypoints are also Stops)
-        FLOW =              1 << 16, // Flows
+        VTYPE =             1ULL << 11, // Vehicle types (vType and vTypeDistribution)
+        VEHICLE =           1ULL << 12, // Vehicles (Vehicles, trips, flows...)
+        ROUTE =             1ULL << 13, // Routes and embedded routes
+        STOP_VEHICLE =      1ULL << 14, // Vehicle stops
+        WAYPOINT_VEHICLE =  1ULL << 15, // Vehicle waypoints (note: All waypoints are also Stops)
+        FLOW =              1ULL << 16, // Flows
         // persons
-        PERSON =            1 << 17, // Persons (Persons and personFlows)
-        PERSONPLAN =        1 << 18, // Person plans (Walks, rides, personTrips and stopPersons)
-        PERSONTRIP =        1 << 19, // Person Trips
-        WALK =              1 << 20, // Walks
-        RIDE =              1 << 21, // Rides
-        STOP_PERSON =       1 << 22, // Person stops
+        PERSON =            1ULL << 17, // Persons (Persons and personFlows)
+        PERSONPLAN =        1ULL << 18, // Person plans (Walks, rides, personTrips and stopPersons)
+        PERSONTRIP =        1ULL << 19, // Person Trips
+        WALK =              1ULL << 20, // Walks
+        RIDE =              1ULL << 21, // Rides
+        STOP_PERSON =       1ULL << 22, // Person stops
         // containers
-        CONTAINER =         1 << 23, // Containers (Containers and personFlows)
-        CONTAINERPLAN =     1 << 24, // Container plans (transport, tranships and containerStops)
-        TRANSPORT =         1 << 25, // Transport
-        TRANSHIP =          1 << 26, // Tranship
-        STOP_CONTAINER =    1 << 27, // Container stops
+        CONTAINER =         1ULL << 23, // Containers (Containers and personFlows)
+        CONTAINERPLAN =     1ULL << 24, // Container plans (transport, tranships and containerStops)
+        TRANSPORT =         1ULL << 25, // Transport
+        TRANSHIP =          1ULL << 26, // Tranship
+        STOP_CONTAINER =    1ULL << 27, // Container stops
         // sub data elements
-        GENERICDATA =       1 << 28, // Generic data (GNEEdgeData, GNELaneData...)
-        MEANDATA =          1 << 29, // Mean datas
+        GENERICDATA =       1ULL << 28, // Generic data (GNEEdgeData, GNELaneData...)
+        MEANDATA =          1ULL << 29, // Mean datas
         // other
-        INTERNALLANE =      1 << 30, // Internal Lane
-        OTHER =             1 << 31, // Other type (used for TAZSourceSinks, VTypes, etc.)
+        INTERNALLANE =      1ULL << 30, // Internal Lane
+        OTHER =             1ULL << 31, // Other type (used for TAZSourceSinks, VTypes, etc.)
     };
 
     /// @brief tag property
-    enum class Property : int {
-        NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
-        GEOSHAPE =              1 << 1,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                1 << 2,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        XMLCHILD =              1 << 3,     // Element is child of another element and will be written in XML (Example: E3Entry -> E3Detector...)
-        REPARENT =              1 << 4,     // Element can be reparent
-        NOTSELECTABLE =         1 << 5,     // Element cannot be selected
-        NOPARAMETERS =          1 << 6,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                 1 << 7,     // Element is placed in RTREE
-        CENTERAFTERCREATION =   1 << 8,     // Camera is moved after element creation
-        REQUIRE_PROJ =          1 << 9,     // Element require a geo-projection defined in network
-        VCLASS_ICON =           1 << 10,    // Element returns icon depending of their vClass
-        SYMBOL =                1 << 11,    // Element is a symbol (VSSSymbols, RerouterSymbols...)
-        DISTRIBUTIONREF =       1 << 12,    // Element is a distribution reference of routeDistribution or vTypeDistribution
-        EXTENDED =              1 << 13,    // Element contains extended attributes (Usually vTypes)
-        HIERARCHICAL =          1 << 14,    // Element is a hierarchical
-        LISTED =                1 << 15,    // Element is a listed elements (for example, rerouter children)
-        NO_PROPERTY =           1 << 16,    // Element doesn't have properties
+    enum class Property : std::uint64_t {
+        NOTDRAWABLE =           1ULL << 0,  // Element cannot be drawn in view
+        GEOSHAPE =              1ULL << 1,  // Element's shape acn be defined using a GEO Shape
+        DIALOG =                1ULL << 2,  // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        XMLCHILD =              1ULL << 3,  // Element is child of another element and will be written in XML (Example: E3Entry -> E3Detector...)
+        REPARENT =              1ULL << 4,  // Element can be reparent
+        NOTSELECTABLE =         1ULL << 5,  // Element cannot be selected
+        NOPARAMETERS =          1ULL << 6,  // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                 1ULL << 7,  // Element is placed in RTREE
+        CENTERAFTERCREATION =   1ULL << 8,  // Camera is moved after element creation
+        REQUIRE_PROJ =          1ULL << 9,  // Element require a geo-projection defined in network
+        VCLASS_ICON =           1ULL << 10, // Element returns icon depending of their vClass
+        SYMBOL =                1ULL << 11, // Element is a symbol (VSSSymbols, RerouterSymbols...)
+        DISTRIBUTIONREF =       1ULL << 12, // Element is a distribution reference of routeDistribution or vTypeDistribution
+        EXTENDED =              1ULL << 13, // Element contains extended attributes (Usually vTypes)
+        HIERARCHICAL =          1ULL << 14, // Element is a hierarchical
+        LISTED =                1ULL << 15, // Element is a listed elements (for example, rerouter children)
+        NO_PROPERTY =           1ULL << 16, // Element doesn't have properties
     };
 
     /// @brief element in which this element is placed
-    enum class Over : int {
-        VIEW =                  1 << 0,     // No parents
-        JUNCTION =              1 << 1,     // Placed over junction
-        EDGE =                  1 << 2,     // Placed over edge
-        EDGES =                 1 << 3,     // Placed over edges
-        CONSECUTIVE_EDGES =     1 << 4,     // Placed over consecutive
-        LANE =                  1 << 5,     // Placed over lane
-        LANES =                 1 << 6,     // Placed over lanes
-        CONSECUTIVE_LANES =     1 << 4,     // Placed over consecutive lanes
-        ROUTE =                 1 << 7,     // Placed over route
-        ROUTE_EMBEDDED =        1 << 8,     // Placed over route embedded
-        BUSSTOP =               1 << 9,     // Placed over busStop
-        TRAINSTOP =             1 << 10,    // Placed over trainStop
-        CONTAINERSTOP =         1 << 11,    // Placed over containerStop
-        CHARGINGSTATION =       1 << 12,    // Placed over charging station
-        PARKINGAREA =           1 << 13,    // Placed over parking area
-        FROM_EDGE =             1 << 14,    // Starts in edge
-        FROM_TAZ =              1 << 15,    // Starts in TAZ
-        FROM_JUNCTION =         1 << 16,    // Starts in junction
-        FROM_BUSSTOP =          1 << 17,    // Starts in busStop
-        FROM_TRAINSTOP =        1 << 18,    // Starts in trainStop
-        FROM_CONTAINERSTOP =    1 << 19,    // Starts in containerStop
-        FROM_CHARGINGSTATION =  1 << 20,    // Starts in chargingStation
-        FROM_PARKINGAREA =      1 << 21,    // Starts in parkingArea
-        TO_EDGE =               1 << 22,    // Ends in edge
-        TO_TAZ =                1 << 23,    // Ends in TAZ
-        TO_JUNCTION =           1 << 24,    // Ends in junction
-        TO_BUSSTOP =            1 << 25,    // Ends in busStop
-        TO_TRAINSTOP =          1 << 26,    // Ends in trainStop
-        TO_CONTAINERSTOP =      1 << 27,    // Ends in containerStop
-        TO_CHARGINGSTATION =    1 << 28,    // Ends in chargingStation
-        TO_PARKINGAREA =        1 << 29,    // Ends in parkingArea
+    enum class Over : std::uint64_t {
+        VIEW =                  1ULL << 0,  // No parents
+        JUNCTION =              1ULL << 1,  // Placed over junction
+        EDGE =                  1ULL << 2,  // Placed over edge
+        EDGES =                 1ULL << 3,  // Placed over edges
+        CONSECUTIVE_EDGES =     1ULL << 4,  // Placed over consecutive
+        LANE =                  1ULL << 5,  // Placed over lane
+        LANES =                 1ULL << 6,  // Placed over lanes
+        CONSECUTIVE_LANES =     1ULL << 4,  // Placed over consecutive lanes
+        ROUTE =                 1ULL << 7,  // Placed over route
+        ROUTE_EMBEDDED =        1ULL << 8,  // Placed over route embedded
+        BUSSTOP =               1ULL << 9,  // Placed over busStop
+        TRAINSTOP =             1ULL << 10, // Placed over trainStop
+        CONTAINERSTOP =         1ULL << 11, // Placed over containerStop
+        CHARGINGSTATION =       1ULL << 12, // Placed over charging station
+        PARKINGAREA =           1ULL << 13, // Placed over parking area
+        FROM_EDGE =             1ULL << 14, // Starts in edge
+        FROM_TAZ =              1ULL << 15, // Starts in TAZ
+        FROM_JUNCTION =         1ULL << 16, // Starts in junction
+        FROM_BUSSTOP =          1ULL << 17, // Starts in busStop
+        FROM_TRAINSTOP =        1ULL << 18, // Starts in trainStop
+        FROM_CONTAINERSTOP =    1ULL << 19, // Starts in containerStop
+        FROM_CHARGINGSTATION =  1ULL << 20, // Starts in chargingStation
+        FROM_PARKINGAREA =      1ULL << 21, // Starts in parkingArea
+        TO_EDGE =               1ULL << 22, // Ends in edge
+        TO_TAZ =                1ULL << 23, // Ends in TAZ
+        TO_JUNCTION =           1ULL << 24, // Ends in junction
+        TO_BUSSTOP =            1ULL << 25, // Ends in busStop
+        TO_TRAINSTOP =          1ULL << 26, // Ends in trainStop
+        TO_CONTAINERSTOP =      1ULL << 27, // Ends in containerStop
+        TO_CHARGINGSTATION =    1ULL << 28, // Ends in chargingStation
+        TO_PARKINGAREA =        1ULL << 29, // Ends in parkingArea
     };
 
     // @brief conflicts
-    enum class Conflicts : int {
-        POS_LANE =                  1 << 0,     // Position over lane isn't valid
-        POS_LANE_START =            1 << 1,     // Start position over lane isn't valid
-        POS_LANE_END =              1 << 2,     // End position over lane isn't valid
-        NO_ADDITIONAL_CHILDREN =    1 << 3,     // Element doesn't have additional children
-        NO_CONFLICTS =              1 << 4,     // Element doesn't have conflicts
+    enum class Conflicts : std::uint64_t {
+        POS_LANE =                  1ULL << 0,  // Position over lane isn't valid
+        POS_LANE_START =            1ULL << 1,  // Start position over lane isn't valid
+        POS_LANE_END =              1ULL << 2,  // End position over lane isn't valid
+        NO_ADDITIONAL_CHILDREN =    1ULL << 3,  // Element doesn't have additional children
+        NO_CONFLICTS =              1ULL << 4,  // Element doesn't have conflicts
     };
 
     /// @brief declare friend class
@@ -613,42 +613,42 @@ private:
 
 /// @brief override tag parent bit operator
 constexpr GNETagProperties::Type operator|(GNETagProperties::Type a, GNETagProperties::Type b) {
-    return static_cast<GNETagProperties::Type>(static_cast<int>(a) | static_cast<int>(b));
+    return static_cast<GNETagProperties::Type>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
 }
 
 /// @brief override tag parent bit operator
 constexpr bool operator&(GNETagProperties::Type a, GNETagProperties::Type b) {
-    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }
 
 /// @brief override tag parent bit operator
 constexpr GNETagProperties::Property operator|(GNETagProperties::Property a, GNETagProperties::Property b) {
-    return static_cast<GNETagProperties::Property>(static_cast<int>(a) | static_cast<int>(b));
+    return static_cast<GNETagProperties::Property>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
 }
 
 /// @brief override tag parent bit operator
 constexpr bool operator&(GNETagProperties::Property a, GNETagProperties::Property b) {
-    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }
 
 /// @brief override tag parent bit operator
 constexpr GNETagProperties::Over operator|(GNETagProperties::Over a, GNETagProperties::Over b) {
-    return static_cast<GNETagProperties::Over>(static_cast<int>(a) | static_cast<int>(b));
+    return static_cast<GNETagProperties::Over>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
 }
 
 /// @brief override tag parent bit operator
 constexpr bool operator&(GNETagProperties::Over a, GNETagProperties::Over b) {
-    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }
 
 /// @brief override tag parent bit operator
 constexpr GNETagProperties::Conflicts operator|(GNETagProperties::Conflicts a, GNETagProperties::Conflicts b) {
-    return static_cast<GNETagProperties::Conflicts>(static_cast<int>(a) | static_cast<int>(b));
+    return static_cast<GNETagProperties::Conflicts>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
 }
 
 /// @brief override tag parent bit operator
 constexpr bool operator&(GNETagProperties::Conflicts a, GNETagProperties::Conflicts b) {
-    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }
 
 /****************************************************************************/
