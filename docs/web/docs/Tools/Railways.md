@@ -176,7 +176,7 @@ Example:
 
 # plotStops.py
 
-Plot a public transport schedule (either planned or actual timins). This script is a wrapper around [plotXMLAttributes.py](Visualization.md#public_transport_schedule) with the main advantage of defining the ordering of stops along a specified line and aggregating data by the human-readable stop name rather than track-specific stop positions.
+Plot a public transport schedule (either planned or actual timings). This script is a wrapper around [plotXMLAttributes.py](Visualization.md#public_transport_schedule) with the main advantage of defining the ordering of stops along a specified line and aggregating data by the human-readable stop name rather than track-specific stop positions.
 Several options are passed directly to [plotXMLAttributes.py](Visualization.md#plotxmlattributespy)
 
 The following examples show how to work with files created by [osmWebWizard.py](../Tutorials/OSMWebWizard.md) (using [ptlines2fows.py](Misc.md#ptlines2flowspy) in the background). The input files can be bound in the [SUMO 2025 User Conference Tutorial](https://sumo.dlr.de/daily/sumo2025_tutorial.zip).
