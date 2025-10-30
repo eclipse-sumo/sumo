@@ -109,7 +109,11 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     # set flags for clang in windows
     if (CLANG_COMPILER AND WIN32)
         # flags for clang in windows
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unsafe-buffer-usage")
+        # disable unsafe-buffer-usage warning
+        add_compile_options("/clang:-Wno-unsafe-buffer-usage")
+        # disable reserved-identifier warning
+        add_compile_options("/clang:-Wno-reserved-identifier")
         # disable debug build (due a problem with Runtime Libraries)
         set(CMAKE_CONFIGURATION_TYPES "Release")
         set(CMAKE_BUILD_TYPE "Release")
