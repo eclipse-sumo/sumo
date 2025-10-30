@@ -469,6 +469,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         preSimStepOutput();
         postSimStepOutput();
     }
+    // maybe write a final line of output
+    writeSummaryOutput(true);
     // exit simulation loop
     if (myLogStepNumber) {
         // start new line for final verbose output
@@ -665,7 +667,7 @@ MSNet::writeStatistics(const SUMOTime start, const long now) const {
 
 
 void
-MSNet::writeSummaryOutput() {
+MSNet::writeSummaryOutput(bool finalStep) {
     // summary output
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool hasOutput = oc.isSet("summary-output");
@@ -673,7 +675,9 @@ MSNet::writeSummaryOutput() {
     if (hasOutput || hasPersonOutput) {
         const SUMOTime period = string2time(oc.getString("summary-output.period"));
         const SUMOTime begin = string2time(oc.getString("begin"));
-        if (period > 0 && (myStep - begin) % period != 0) {
+        if ((period > 0 && (myStep - begin) % period != 0 && !finalStep) 
+                // it's the final step but we already wrote output
+                || (finalStep && (period <= 0 || (myStep - begin) % period == 0))) {
             return;
         }
     }

@@ -295,7 +295,7 @@ public:
     void writeStatistics(const SUMOTime start, const long now) const;
 
     /// @brief write summary-output to (xml) file
-    void writeSummaryOutput();
+    void writeSummaryOutput(bool finalStep = false);
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
