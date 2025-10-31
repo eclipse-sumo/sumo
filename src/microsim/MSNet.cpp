@@ -469,8 +469,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         preSimStepOutput();
         postSimStepOutput();
     }
-    // maybe write a final line of output
-    writeSummaryOutput(true);
     // exit simulation loop
     if (myLogStepNumber) {
         // start new line for final verbose output
@@ -770,6 +768,8 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("statistic-output")) {
         writeStatistics(start, now);
     }
+    // maybe write a final line of output if reporting is periodic
+    writeSummaryOutput(true);
 }
 
 
