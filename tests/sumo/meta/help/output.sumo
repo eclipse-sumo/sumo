@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_24_0+1295-8333438020a
+Eclipse SUMO sumo v1_24_0+1699-ee9bf5b971d
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -452,6 +452,10 @@ Processing Options:
   --weights.turnaround-penalty FLOAT   Apply the given time penalty when
                                         computing routing costs for turnaround
                                         internal lanes
+  --weights.reversal-penalty FLOAT     Apply the given time penalty when
+                                        computing routing costs for train
+                                        reversal. Negative values disable
+                                        reversal
   --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
                                         speed against vehicle traffic direction
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-09T13:47:59.916914+01:00 by Eclipse SUMO sumo v1_24_0+1295-8333438020a
+<!-- generated on 2025-10-31T11:35:42.714663+01:00 by Eclipse SUMO sumo v1_24_0+1699-ee9bf5b971d
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -629,6 +629,9 @@
 
         <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
         <weights.turnaround-penalty value="5" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal -->
+        <weights.reversal-penalty value="60" type="FLOAT"/>
 
         <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
         <persontrip.walk-opposite-factor value="1" type="FLOAT"/>
