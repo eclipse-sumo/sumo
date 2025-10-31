@@ -214,11 +214,6 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
                                       s.connectionSettings.connectionWidth);
             // pop layer matrix
             GLHelper::popMatrix();
-            // draw edge name
-            if (s.internalEdgeName.show(this)) {
-                GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),
-                                           s.scale, s.angle);
-            }
             // draw dotted contour
             myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
