@@ -3339,7 +3339,7 @@ NBNode::patchOffset_pathAcrossStreet(double& offset) {
                         maxPathDist = MAX2(maxPathDist, mid.distanceTo2D(roadPos));
                     }
                     // if the junction is stretched, the crossing should stay close to the paths
-                    if (maxPathDist < myCrossings.front()->width) {
+                    if (maxPathDist < MAX2(myCrossings.front()->width, 4.0)) {
                         offset = p0.distanceTo2D(p1) / 2;
                     } else {
                         //std::cout << getID() << " maxPathDist=" << maxPathDist << "\n";
