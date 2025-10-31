@@ -61,6 +61,9 @@ path_across_street
 # several variants of paths and streets to test centering (#15975)
 path_across_street2
 
+# several variants of paths and streets to test centering (#17286)
+path_across_street2_width
+
 # add crossings to two nodes which share a traffic light
 joined_tls
 patch_joined_tls_from_sumonet

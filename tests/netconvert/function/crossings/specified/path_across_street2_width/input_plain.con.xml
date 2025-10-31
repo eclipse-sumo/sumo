@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-10-31T15:17:03.836532+01:00 by Eclipse SUMO netedit v1_24_0+1707-36638b169c0
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-E0" to="-E5" fromLane="0" toLane="1"/>
+
+    <connection from="-E1" to="-E0" fromLane="0" toLane="0"/>
+
+    <connection from="-E5" to="-E9" fromLane="1" toLane="1"/>
+    <connection from="-E5" to="E5" fromLane="1" toLane="1"/>
+
+    <connection from="-E9"/>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="0"/>
+
+    <connection from="E1"/>
+
+    <connection from="E5" to="E0" fromLane="1" toLane="0"/>
+
+    <connection from="E90" to="E5" fromLane="1" toLane="1"/>
+
+    <crossing node="J0" edges="E0 -E0" priority="0" width="1.00" outlineShape="310.00,97.90 310.00,103.30 309.00,103.20 309.00,98.00"/>
+    <crossing node="J1" edges="E1 -E1" priority="0" width="2.00" outlineShape="401.50,96.70 401.50,103.30 399.50,103.20 399.50,97.04 400.16,96.89"/>
+    <crossing node="J6" edges="E5 -E5" priority="0" width="1.00" outlineShape="208.80,96.99 208.74,103.39 207.74,103.38 207.80,96.98 208.80,96.89 208.80,94.98 201.60,89.80 198.40,89.80 193.40,94.80 193.40,96.80 207.80,96.98"/>
+</connections>
