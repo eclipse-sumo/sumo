@@ -3318,8 +3318,8 @@ NBNode::patchOffset_pathAcrossStreet(double& offset) {
                     maxAngle = MAX2(maxAngle, minAngle);
                 }
             }
-            // changing the offset only handles the simple case where the road stays straight and keeps its width
-            if (maxAngle < 15 && inWidth == outWidth) {
+            // changing the offset only handles the simple case where the road stays straight
+            if (maxAngle < 15) {
                 int inLane = in->getFirstNonPedestrianLaneIndex(FORWARD);
                 int outLane = out->getFirstNonPedestrianLaneIndex(FORWARD);
                 if (inLane >= 0 && outLane >= 0) {
