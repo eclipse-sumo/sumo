@@ -27,3 +27,6 @@ parse_fast_optional
 
 # parsing XML and  writing xml
 toXML
+
+# demo for adding new data values to an edgeData file
+extend_edgeData
