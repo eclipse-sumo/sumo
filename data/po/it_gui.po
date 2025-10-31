@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-20 08:16+0000\n"
+"PO-Revision-Date: 2025-10-31 14:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -10602,16 +10602,16 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:75
 msgid "Error updating % of % '%'"
-msgstr ""
+msgstr "Errore aggiornando % di % '%'"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:76
 msgid "% of % '%' cannot be updated because"
-msgstr ""
+msgstr "% di % '%' non può essere aggiornato perché"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:82
 #, c-format
 msgid "at least one % must be defined."
-msgstr ""
+msgstr "almeno un % deve essere definito."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:129
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:191
@@ -10665,7 +10665,7 @@ msgstr "Errore nella modifica di %"
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1803
 #, c-format
 msgid "The % cannot be updated because attribute % is invalid."
-msgstr ""
+msgstr "% non può essere aggiornato perché l'attributo % è invalido."
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:35
 #, c-format
@@ -10742,12 +10742,12 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Move File"
-msgstr ""
+msgstr "Sposta file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:285
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:303
 msgid "Error moving file"
-msgstr ""
+msgstr "Errore spostando un file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:286
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:304
@@ -10755,24 +10755,28 @@ msgid ""
 "Unable to move file:\n"
 "%\n"
 msgstr ""
+"Incapace di spostare un file:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:323
 msgid "Deleting file"
-msgstr ""
+msgstr "Cancellando il file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:323
 msgid "Are you sure you want to delete the file:"
-msgstr ""
+msgstr "Sei sicuro/a di voler cancellare il file:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:330
 msgid "Error deleting file"
-msgstr ""
+msgstr "Errore nel cancellare un file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:331
 msgid ""
 "Unable to delete file:\n"
 "%\n"
 msgstr ""
+"Incapace di cancellare un file:\n"
+"%\n"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:332
 msgid "Check file permissions"
@@ -10784,23 +10788,23 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:410
 msgid "Home directory"
-msgstr ""
+msgstr "Cartella principale"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:411
 msgid "Work directory"
-msgstr ""
+msgstr "Cartella corrente"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:412
 msgid "Config directory"
-msgstr ""
+msgstr "Cartella di configurazioni"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:423
 msgid "Select all"
-msgstr ""
+msgstr "Seleziona tutto"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:427
 msgid "Sort by"
-msgstr ""
+msgstr "Ordina per"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:428
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
@@ -10814,63 +10818,63 @@ msgstr "Grandezza"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:432
 msgid "User"
-msgstr ""
+msgstr "Utilizzatore"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:433
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:435
 msgid "Reverse"
-msgstr ""
+msgstr "Rivolta"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:436
 msgid "Ignore case"
-msgstr ""
+msgstr "Senza distinzione tra maiuscolo / minuscolo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:439
 msgid "View"
-msgstr ""
+msgstr "Veduta"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:440
 msgid "Small icons"
-msgstr ""
+msgstr "Icon piccoli"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:441
 msgid "Big icons"
-msgstr ""
+msgstr "Icon grandi"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:442
 msgid "Details"
-msgstr ""
+msgstr "Dettagli"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:444
 msgid "Rows"
-msgstr ""
+msgstr "Righe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:445
 msgid "Columns"
-msgstr ""
+msgstr "Colonne"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:447
 msgid "Hidden files"
-msgstr ""
+msgstr "File nascosti"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:448
 msgid "Preview images"
-msgstr ""
+msgstr "Immagini anteprima"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:450
 msgid "Normal images"
-msgstr ""
+msgstr "Immagini normali"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:451
 msgid "Medium images"
-msgstr ""
+msgstr "Immagini medie"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:452
 msgid "Giant images"
-msgstr ""
+msgstr "Immagini giganti"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:455
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:910
@@ -10889,19 +10893,19 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:475
 msgid "New directory..."
-msgstr ""
+msgstr "Nuova cartella..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:476
 msgid "Copy..."
-msgstr ""
+msgstr "Copia..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:477
 msgid "Move..."
-msgstr ""
+msgstr "Sposta..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:479
 msgid "Delete..."
-msgstr ""
+msgstr "Cancella..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:824
 msgid "Create New Directory"
