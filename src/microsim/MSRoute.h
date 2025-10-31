@@ -88,6 +88,9 @@ public:
     /// returns the destination edge
     const MSEdge* getLastEdge() const;
 
+    /// returns the origin edge
+    const MSEdge* getFirstEdge() const;
+
     /** @brief removes the route from the internal dict if it is not marked as permanent */
     void checkRemoval(bool force = false) const;
 

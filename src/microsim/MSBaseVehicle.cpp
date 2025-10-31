@@ -1117,7 +1117,7 @@ MSBaseVehicle::getRouteValidity(bool update, bool silent, std::string* msgReturn
             *msgReturn = msg;
         }
     }
-    if (MSGlobals::gCheckRoutes
+    if ((MSGlobals::gCheckRoutes || myRoute->getFirstEdge()->isInternal())
             && (myRouteValidity & ROUTE_UNCHECKED) != 0
             // we could check after the first rerouting
             && (!myParameter->wasSet(VEHPARS_FORCE_REROUTE))) {

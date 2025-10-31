@@ -94,6 +94,13 @@ MSRoute::getLastEdge() const {
 }
 
 
+const MSEdge*
+MSRoute::getFirstEdge() const {
+    assert(myEdges.size() > 0);
+    return myEdges.front();
+}
+
+
 void
 MSRoute::checkRemoval(bool force) const {
 #ifdef HAVE_FOX
