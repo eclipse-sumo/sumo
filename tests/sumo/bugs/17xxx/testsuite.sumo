@@ -12,3 +12,6 @@ ticket17203
 
 # unsafe insertion speed ahead of lane end
 ticket17208
+
+# crash with invalid route from internal lane
+ticket17248
