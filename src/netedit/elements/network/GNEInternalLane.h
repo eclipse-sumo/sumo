@@ -35,7 +35,7 @@ class PositionVector;
 
 class GNEInternalLane : public GNENetworkElement, public FXDelegator {
     /// @brief FOX-declaration
-    FXDECLARE(GNEInternalLane)
+    FXDECLARE_OVERRIDE(GNEInternalLane)
 
 public:
     /**@brief Constructor
