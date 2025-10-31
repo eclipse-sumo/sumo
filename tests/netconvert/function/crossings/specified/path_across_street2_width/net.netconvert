@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-31T15:37:16.714816+01:00 by Eclipse SUMO netconvert v1_24_0+1707-0fbf097b554
+<!-- generated on 2025-10-31T15:43:27.507570+01:00 by Eclipse SUMO netconvert v1_24_0+1709-40a869cd536
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,13 +81,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":J6_2_0" index="0" disallow="pedestrian" speed="13.89" length="15.41" shape="93.40,98.40 108.81,98.58"/>
     </edge>
     <edge id=":J6_c0" function="crossing" crossingEdges="E5 -E5">
-        <lane id=":J6_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="1.00" shape="108.30,96.98 108.24,103.38" outlineShape="108.80,96.99 108.74,103.39 107.74,103.38 107.80,96.98 108.80,96.89 108.80,94.98 101.60,89.80 98.40,89.80 93.40,94.80 93.40,96.80 107.80,96.98"/>
+        <lane id=":J6_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="1.00" shape="101.10,97.00 101.03,103.40" outlineShape="101.60,97.00 101.53,103.40 100.53,103.39 100.60,96.99 101.60,97.00 108.80,96.98 108.80,94.98 101.60,89.80 98.40,89.80 93.40,94.80 93.40,96.80 100.60,96.99"/>
     </edge>
     <edge id=":J6_w0" function="walkingarea">
-        <lane id=":J6_w0_0" index="0" allow="pedestrian" speed="2.78" length="10.30" width="3.20" shape="93.40,103.20 93.40,105.20 98.40,110.39 101.60,110.39 108.74,105.38 108.74,103.38 107.74,103.38"/>
+        <lane id=":J6_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="3.20" shape="93.40,103.20 93.40,105.20 98.40,110.39 101.60,110.39 108.74,105.38 108.74,103.38 101.53,103.40 100.53,103.39"/>
     </edge>
     <edge id=":J6_w1" function="walkingarea">
-        <lane id=":J6_w1_0" index="0" allow="pedestrian" speed="2.78" length="10.35" width="3.20" shape="107.80,96.98 108.80,96.98 108.80,94.98 101.60,89.80 98.40,89.80 93.40,94.80 93.40,96.80"/>
+        <lane id=":J6_w1_0" index="0" allow="pedestrian" speed="2.78" length="9.65" width="3.20" shape="100.60,96.99 101.60,97.00 108.80,96.98 108.80,94.98 101.60,89.80 98.40,89.80 93.40,94.80 93.40,96.80"/>
     </edge>
 
     <edge id="-E0" from="J1" to="J0" priority="-1">
