@@ -380,6 +380,17 @@ The generated setting file can be loaded in sumo-gui with:
 sumo-gui -n test.net.xml -g settings.xml
 ```
 
+## Projection Mismatch
+
+!!! caution
+    Many tile providers use the common [web-mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). In contrast, netconvert uses the [UTM projection](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system) which is a lot more accurate for typical network sizes. This creates an incompatibility between the network and the tiles. See below for details.
+
+There are several ways to deal with the incompatibility:
+
+- use [gdalwarp](https://gdal.org/en/stable/programs/gdalwarp.html) to convert the web-mercator tiles to UTM-tiles (recommended)
+- build your network in web-mercator projection (not recommended because this is a lousy projection and roads will have the wrong lengths!)
+- accept some gaps in your tiles
+
 # stateReplay.py
 
 Synchronizes saved state files from a (remote) simulation and replays them in a
