@@ -1029,7 +1029,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
 
 bool
 NBNode::tlsStrandedConflict(const NBEdge* from, const NBEdge::Connection& c,
-                        const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
+                            const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
     return (foe.haveVia && isTLControlled() && c.tlLinkIndex >= 0 && foe.tlLinkIndex >= 0
             && !foeFrom->isTurningDirectionAt(foe.toEdge)
             && foes(from, c.toEdge, foeFrom, foe.toEdge)
@@ -3293,26 +3293,19 @@ NBNode::patchOffset_pathAcrossStreet(double& offset) {
         }
         if (geometryLike(nonPedIncoming, nonPedOutgoing) && (pedIncoming.size() > 0 || pedOutgoing.size() > 0)) {
             double maxAngle = 0;
-            double inWidth = 0;
-            double outWidth = 0;
-            NBEdge* in = nonPedIncoming.front();
-            NBEdge* out = nonPedOutgoing.front();
+            const NBEdge* in = nonPedIncoming.front();
+            const NBEdge* out = nonPedOutgoing.front();
             if (nonPedIncoming.size() == 1) {
                 maxAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(this), out->getAngleAtNode(this)));
-                inWidth = in->getTotalWidth();
-                outWidth = out->getTotalWidth();
-
             } else {
-                for (NBEdge* in2 : nonPedIncoming) {
+                for (const NBEdge* const in2 : nonPedIncoming) {
                     double minAngle = 180;
-                    for (NBEdge* out2 : nonPedOutgoing) {
+                    for (const NBEdge* const out2 : nonPedOutgoing) {
                         double angle = fabs(NBHelpers::relAngle(in2->getAngleAtNode(this), out2->getAngleAtNode(this)));
                         if (angle < minAngle) {
                             minAngle = angle;
                             in = in2;
                             out = out2;
-                            inWidth += in->getTotalWidth();
-                            outWidth += out->getTotalWidth();
                         }
                     }
                     maxAngle = MAX2(maxAngle, minAngle);
@@ -3320,33 +3313,29 @@ NBNode::patchOffset_pathAcrossStreet(double& offset) {
             }
             // changing the offset only handles the simple case where the road stays straight
             if (maxAngle < 15) {
-                int inLane = in->getFirstNonPedestrianLaneIndex(FORWARD);
-                int outLane = out->getFirstNonPedestrianLaneIndex(FORWARD);
+                const int inLane = in->getFirstNonPedestrianLaneIndex(FORWARD);
+                const int outLane = out->getFirstNonPedestrianLaneIndex(FORWARD);
                 if (inLane >= 0 && outLane >= 0) {
-                    Position p0 = in->getLaneShape(inLane).back();
-                    Position p1 = out->getLaneShape(outLane).front();
+                    const Position& p0 = in->getLaneShape(inLane).back();
+                    const Position& p1 = out->getLaneShape(outLane).front();
                     PositionVector road;
                     road.push_back(p0);
                     road.push_back(p1);
                     Position mid = (p0 + p1) / 2;
                     double maxPathDist = 0;
                     for (NBEdge* e : pedIncoming) {
-                        Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).back()));
+                        const Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).back()));
                         maxPathDist = MAX2(maxPathDist, mid.distanceTo2D(roadPos));
                     }
                     for (NBEdge* e : pedOutgoing) {
-                        Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).front()));
+                        const Position roadPos = road.positionAtOffset2D(road.nearest_offset_to_point2D(e->getLaneShape(0).front()));
                         maxPathDist = MAX2(maxPathDist, mid.distanceTo2D(roadPos));
                     }
                     // if the junction is stretched, the crossing should stay close to the paths
                     if (maxPathDist < MAX2(myCrossings.front()->width, 4.0)) {
                         offset = p0.distanceTo2D(p1) / 2;
-                    } else {
-                        //std::cout << getID() << " maxPathDist=" << maxPathDist << "\n";
                     }
                 }
-            } else {
-                //std::cout << getID() << " maxAngle=" << maxAngle << " inWidth=" << inWidth << " outWidth=" << outWidth << "\n";
             }
         }
     }
