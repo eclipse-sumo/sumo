@@ -31,7 +31,9 @@ title: ChangeLog
   - Fixed error when setting departSpeed="avg" #17208
   - Setting invalid attributes for edgeData `writeAttributes` now always gives a meaningful error message #17230
   - A vehicle that has persons starting inside of it, no longer causes an error when skipped with option **--begin** #9026
-
+  - Option **--load-state.remove-vehicles** now permits to re-use the removed vehicle-id with a new route #17270
+  - Fixed crash when vehicle is inserted on an internal lane with invalid route and option **--ignore-route-errors** #17248
+  - Fixed inflated density in lane/edgeData output #16241
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
@@ -60,7 +62,7 @@ title: ChangeLog
   - Fixed problem when adjusting invalid entity positions on edges with custom length value #17222
   - Added contour to all rerouter edges #17244
   - Data intervals with human-readable times can now be loaded #17268
-
+  - Invalid internal edge ids are no longer shown in tls mode #17249
 
 - netconvert
   - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
@@ -76,6 +78,7 @@ title: ChangeLog
   - Fixed crash when loading network with NaN values #17161 (also applies to netedit)
   - Fixed invalid junction shape (with NaN) #17182
   - OpenDRIVE import: now handling problematic geometries that were causing NaN values #17163
+  - Fixed misaligned crossing with custom width #17286
 
 - sumo-gui
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
@@ -130,7 +133,10 @@ title: ChangeLog
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
   - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retreive the number of pedestrions on approach to a crossing #17229
   - All insertion warnings/errors now report the failure time #17259
-
+  - summary-output now includes the number of discarded vehicles #17282
+  - When option **--summary-output.period** is set, summary-output will always include the final simulation step #17283
+  - Option **--weights.reversal-penalty** can now be used to configure a penalty for train reversal when routing. A negative value disables reversals #17269
+  - edgeData output now includes attribute 'flow' #17284
 
 - netedit
   - Now translating additional tooltips #12652
@@ -158,6 +164,7 @@ title: ChangeLog
 - duarouter
   - Added option **--keep-flows** to avoid expanding flows into individual vehicles #2407
   - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
+  - Option **--weights.reversal-penalty** can now be used to configure a penalty for train reversal when routing. A negative value disables reversals #17269
 
 - netconvert
   - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
@@ -168,7 +175,7 @@ title: ChangeLog
   - Element `<split>` now supports attribute `offset` to customize the lateral offset of newly created lanes #17103
   - Node attribute `roundabout="0"` can now be used to declare that a junction shall not be classified as a roundabout #10677
   - Invalid lane neighbor information with respect to connected junctions is now fixed automatically (with a warning) #17280
-
+  
 - TraCI
   - `vehicle.setSpeedMode` now takes effect for vehicles with the bluelight device #17122
 
@@ -193,6 +200,7 @@ title: ChangeLog
 - Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
 - duaIterate.py: option **--binary** was removed #16777
 - The attribute order in the FCD output of persons was changed and is now similar to the vehicles (affects only the type attribute).
+- The nightly sumogame now loads all 3D objects #3032
 
 
 ## Version 1.24.0 (22.07.2025)
