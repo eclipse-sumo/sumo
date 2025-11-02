@@ -159,7 +159,8 @@ The meanings of the written values are given in the following table.
 | traveltime        | s                    | Time needed to pass the edge/lane, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time needed for the front of the vehicle to pass the edge. |
 | overlapTraveltime | s                    | Time needed to pass the edge/lane completely, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time any part of the vehicle was the edge.      |
 | density           | \#veh/km             | Vehicle density on the edge    |
-| laneDensity           | \#veh/km/lane             | Vehicle density on the edge per lane    |
+| overlapDensity    | \#veh/km             | Vehicle density on the edge. This value counts vehicles if any part along it's length touches the edge. This should not be used for flow computation  |
+| laneDensity       | \#veh/km/lane        | Vehicle density on the edge per lane    |
 | occupancy         | %                    | Occupancy of the edge/lane in %. A value of 100 would indicate vehicles standing bumper to bumper on the whole edge (minGap=0).                                                                                               |
 | waitingTime       | s                    | The total number of seconds vehicles were considered halting (speed < speedThreshold). Summed up over all vehicles  |
 | timeLoss         | s                     | The total number of seconds vehicles lost due to driving slower than desired (summed up over all vehicles)    |
@@ -173,6 +174,7 @@ The meanings of the written values are given in the following table.
 | laneChangedTo     | \#veh                | The number of vehicles that changed to this lane   |
 | vaporized         | \#veh                | The number of vehicles vaporized on this edge **(only present if \#veh \> 0)**        |
 | teleported        | \#veh                | The number of vehicles teleported from this edge **(only present if \#veh \> 0)**      |
+| flow               | \#veh/hour          | The number of vehicles passing this edge per hour. Vehicles that depart on this edge beyond position 0 or arrive before the end of the edge are fractionally disocunted |
 
 Please note that in the case of *edge* meandata both laneChanged entries
 are equal to the total number of lane changes on the edge. Furthermore
