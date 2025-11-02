@@ -312,7 +312,6 @@ errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimest
 errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
 errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
-errors:FutureWarning:{LINES 2}
 errors:\^\^\^
 errors:something strange happend{REPLACE something strange happened}
 errors:LinAlgWarning: Ill-conditioned matrix
