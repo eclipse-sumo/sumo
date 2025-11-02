@@ -254,10 +254,12 @@ void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttrMask& attributeMask, const SUMOTime period,
         const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
-    double density = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
+    double density = frontSampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
+    double overlapDensity = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
     if (MSGlobals::gLateralResolution < 0) {
         // avoid exceeding upper bound
         density = MIN2(density, 1000 * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+        overlapDensity = MIN2(overlapDensity, 1000 * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
     }
     const double laneDensity = density / (double)numLanes;
     const double occupancy = getOccupancy(period, numLanes);
@@ -320,6 +322,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
     }
     dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask, !haveSamples || numVehicles > 0);
     dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_OVERLAPDENSITY, overlapDensity, attributeMask, sampleSeconds == 0);
     dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask, !haveSamples || numVehicles > 0);
     dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask, !haveSamples || numVehicles > 0);
     dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask, !haveSamples);
@@ -350,12 +353,17 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
     /// @todo: remove redundancy in derived values (density, laneDensity)
     switch (a) {
         case SUMO_ATTR_DENSITY:
-            return MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+            return MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
         case SUMO_ATTR_LANEDENSITY: {
-            const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+            const double density = MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
             return density / numLanes;
+        }
+        case SUMO_ATTR_OVERLAPDENSITY: {
+            const double overlapDensity = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+                                        1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+            return overlapDensity / numLanes;
         }
         case SUMO_ATTR_OCCUPANCY:
             return occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 1000;

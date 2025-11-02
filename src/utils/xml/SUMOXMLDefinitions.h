@@ -950,6 +950,7 @@ enum SumoXMLAttr {
 
     // write the tag name
     SUMO_ATTR_TAG                = 80,
+    SUMO_ATTR_OVERLAPDENSITY     = 81,
 
     /// @}
 

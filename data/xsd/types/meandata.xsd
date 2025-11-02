@@ -30,6 +30,7 @@
         <xsd:attribute name="overlapTraveltime" use="optional" type="nonNegativeFloatType"/>
 
         <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="overlapDensity" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="laneDensity" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="occupancy" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
