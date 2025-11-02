@@ -56,6 +56,10 @@ is given in the table below.
 | discarded         | \#                   | Number of vehicles that were discarded up to this time step (i.e. due to option **--scale** or invalid departSpeed).                                              |
 | duration          | ms                   | The computation time for that simulation step (in milliseconds).                                                                                                         |
 
+### Reducing output
+
+Option **--summary-output.period {{DT_TIME}}** can be used to reduce the number of steps in which output is generated. When this option is set to FLOAT, only simulation steps were time is divisible by FLOAT will generate output. The final simulation step will always generate output even if it doesn't match the period.
+
 ## Visualization examples
 
 ### Number of running and halting vehicles over time
