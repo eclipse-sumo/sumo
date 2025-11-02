@@ -250,6 +250,10 @@ endif()
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
+if (MSVC)
+    # disable the installation of python wheels during "cmake --install" on Windows because they go into a strange location, see #17288
+    set(PYTHON_SETUPTOOLS_MISSING True)
+endif()
 
 # exclusive from Apple
 if (APPLE)
