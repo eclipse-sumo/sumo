@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:57:25 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2025-11-02T21:45:47.769277+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,12 +29,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
@@ -93,16 +96,16 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="48.00" end="49.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="49.00" end="50.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="50.00" end="51.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="1" left="0"/>
-    <interval begin="51.00" end="52.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="52.00" end="53.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="53.00" end="54.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="54.00" end="55.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="55.00" end="56.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="56.00" end="57.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="57.00" end="58.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="58.00" end="59.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="59.00" end="60.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="60.00" end="61.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="1"/>
+    <interval begin="51.00" end="52.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="52.00" end="53.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="53.00" end="54.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="54.00" end="55.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="55.00" end="56.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="56.00" end="57.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="57.00" end="58.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="58.00" end="59.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="59.00" end="60.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" flow="360.00"/>
+    <interval begin="60.00" end="61.00" id="3/1to2/1" sampledSeconds="1.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="1" flow="360.00"/>
     <interval begin="61.00" end="62.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="62.00" end="63.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="63.00" end="64.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>

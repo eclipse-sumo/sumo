@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:57:20 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2025-11-02T21:45:44.214874+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -25,13 +30,10 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <max-depart-delay value="1"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,12 +43,12 @@ SPDX-License-Identifier: EPL-2.0
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3067.97" density="35.32" laneDensity="17.66" occupancy="8.83" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1146" left="1142"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3067.97" density="35.32" laneDensity="17.66" occupancy="8.83" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1146" left="1142"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="3378.06" density="38.89" laneDensity="19.44" occupancy="9.72" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1260" left="1260"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="3378.06" density="38.89" laneDensity="19.44" occupancy="9.72" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1260" left="1260"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3067.97" density="35.32" laneDensity="17.66" occupancy="8.83" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1146" left="1142" flow="4577.35"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3067.97" density="35.32" laneDensity="17.66" occupancy="8.83" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1146" left="1142" flow="4577.35"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="3378.06" density="38.89" laneDensity="19.44" occupancy="9.72" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1260" left="1260" flow="5040.00"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="3378.06" density="38.89" laneDensity="19.44" occupancy="9.72" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="0" entered="1260" left="1260" flow="5040.00"/>
 </detector>

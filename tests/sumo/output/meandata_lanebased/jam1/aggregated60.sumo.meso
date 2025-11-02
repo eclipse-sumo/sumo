@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-02T19:24:54.274955+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
+<!-- generated on 2025-11-02T21:45:52.962894+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="600.00" end="660.00" id="dump_60">
-        <edge id="2/1to1/1" sampledSeconds="780.00" traveltime="8000.00" overlapTraveltime="8100.00" density="32.50" overlapDensity="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="0.00" speed="0.05" speedRelative="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="420.00" traveltime="7742.48" overlapTraveltime="7839.26" density="17.50" overlapDensity="17.50" laneDensity="17.50" occupancy="8.75" waitingTime="420.00" timeLoss="417.83" speed="0.05" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="780.00" traveltime="8000.00" overlapTraveltime="8100.00" density="32.50" overlapDensity="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="0.00" speed="0.05" speedRelative="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="5.85"/>
+        <edge id="3/1to2/1" sampledSeconds="420.00" traveltime="7742.48" overlapTraveltime="7839.26" density="17.50" overlapDensity="17.50" laneDensity="17.50" occupancy="8.75" waitingTime="420.00" timeLoss="417.83" speed="0.05" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="3.25"/>
     </interval>
 </meandata>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-02T19:25:04.470311+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
+<!-- generated on 2025-11-02T19:54:07.738982+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="252.00" id="ed">
-        <edge id="beg" sampledSeconds="3117.22" traveltime="46.70" overlapTraveltime="47.12" density="30.76" overlapDensity="31.04" laneDensity="15.38" occupancy="7.73" waitingTime="0.00" timeLoss="1195.49" speed="8.56" speedRelative="0.62" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="5606.38" traveltime="83.37" overlapTraveltime="83.75" density="20.18" overlapDensity="20.25" laneDensity="20.18" occupancy="10.08" waitingTime="0.00" timeLoss="288.14" speed="13.18" speedRelative="0.95" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="3117.22" traveltime="46.70" overlapTraveltime="47.12" density="30.76" overlapDensity="31.04" laneDensity="15.38" occupancy="7.73" waitingTime="0.00" timeLoss="1195.49" speed="8.56" speedRelative="0.62" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0" flow="948.11"/>
+        <edge id="end" sampledSeconds="5606.38" traveltime="83.37" overlapTraveltime="83.75" density="20.18" overlapDensity="20.25" laneDensity="20.18" occupancy="10.08" waitingTime="0.00" timeLoss="288.14" speed="13.18" speedRelative="0.95" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0" flow="957.16"/>
     </interval>
 </meandata>
