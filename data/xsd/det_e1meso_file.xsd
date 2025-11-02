@@ -30,6 +30,7 @@
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="speedRelative" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
+      <xsd:attribute name="flow" use="optional" type="floatType"/>
     </xsd:complexType>
   </xsd:element>
 

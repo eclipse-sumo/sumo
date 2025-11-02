@@ -754,6 +754,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "blockTime",              SUMO_ATTR_BLOCKTIME },
     { "tag",                    SUMO_ATTR_TAG },
     { "overlapDensity",         SUMO_ATTR_OVERLAPDENSITY },
+    { "flow",                   SUMO_ATTR_FLOW },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },

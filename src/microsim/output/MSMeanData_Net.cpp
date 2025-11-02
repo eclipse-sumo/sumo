@@ -276,12 +276,13 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
 #endif
 
     if (myParent == nullptr) {
+        const double speed = sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds;
         dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask, sampleSeconds == 0);
-        dev.writeOptionalAttr(SUMO_ATTR_SPEED, sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_SPEED, speed, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. || sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds / speedLimit,
                               attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
@@ -290,6 +291,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
         dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
         dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * speed * 3.6, attributeMask, sampleSeconds == 0);
         dev.closeTag();
         return;
     }
@@ -343,6 +345,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
     dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
     dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
+    dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * speed * 3.6, attributeMask, !haveSamples || numVehicles > 0);
     dev.closeTag();
 }
 
@@ -387,6 +390,12 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
             return nVehVaporized;
         case SUMO_ATTR_TELEPORTED:
             return nVehTeleported;
+        case SUMO_ATTR_FLOW: {
+            const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+                                        1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+            const double speed = travelledDistance / sampleSeconds;
+            return density * speed * 3.6;
+        }
         default:
             return 0;
     }
@@ -440,6 +449,7 @@ MSMeanData_Net::getAttributeNames() const {
     result.push_back(toString(SUMO_ATTR_LEFT));
     result.push_back(toString(SUMO_ATTR_VAPORIZED));
     result.push_back(toString(SUMO_ATTR_TELEPORTED));
+    result.push_back(toString(SUMO_ATTR_FLOW));
     return result;
 }
 
