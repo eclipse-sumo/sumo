@@ -69,6 +69,9 @@ for f in glob.glob(os.path.join(SPECPATH, "*.sumocfg")):
     shutil.copy(f, os.path.join(DISTPATH, 'runner'))
     if os.path.exists(f[:-8]):
         shutil.copytree(f[:-8], os.path.join(DISTPATH, 'runner', os.path.basename(f[:-8])))
+bs3d = os.path.join(DISTPATH, 'runner', 'bs3d')
+if os.path.exists(bs3d) and os.path.exists(r"c:\Program Files\7-Zip\7z.exe") and os.path.exists(r"s:\3D_Modell_Forschungskreuzung_BS.7z"):
+    subprocess.call(r'"c:\Program Files\7-Zip\7z.exe" x s:\3D_Modell_Forschungskreuzung_BS.7z', cwd=bs3d)
 os.mkdir(os.path.join(DISTPATH, 'runner', 'bin'))
 for o, d in datas:
     for f in glob.glob(os.path.join(SPECPATH, o)):
