@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-06 17:04:29 by Eclipse SUMO sumo Version v1_21_0+1684-07c849faa0a
+<!-- generated on 2025-11-02T19:25:27.636503+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <time-to-teleport value="400"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -43,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1291.00" id="DEFAULT_EDGEDATA">
-        <edge id="E0" sampledSeconds="1108.65" traveltime="14.40" overlapTraveltime="14.91" density="4.29" laneDensity="2.15" occupancy="1.52" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="0" arrived="77" entered="77" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="E1" sampledSeconds="554.32" traveltime="7.20" overlapTraveltime="7.71" density="4.29" laneDensity="2.15" occupancy="1.52" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="E0" sampledSeconds="1108.65" traveltime="14.40" overlapTraveltime="14.91" density="4.29" overlapDensity="4.29" laneDensity="2.15" occupancy="1.52" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="0" arrived="77" entered="77" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="E1" sampledSeconds="554.32" traveltime="7.20" overlapTraveltime="7.71" density="4.29" overlapDensity="4.29" laneDensity="2.15" occupancy="1.52" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

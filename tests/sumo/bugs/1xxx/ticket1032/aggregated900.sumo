@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:50:12 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2025-11-02T19:25:14.102878+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,20 +29,19 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="859.00" id="dump">
         <edge id="a">
-            <lane id="a_0" sampledSeconds="858.12" traveltime="214.39" overlapTraveltime="214.53" density="0.13" laneDensity="0.13" occupancy="0.07" waitingTime="0.00" timeLoss="24.24" speed="34.98" speedRelative="0.97" departed="1" arrived="1" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="a_0" sampledSeconds="858.12" traveltime="214.39" overlapTraveltime="214.53" density="0.13" overlapDensity="0.13" laneDensity="0.13" occupancy="0.07" waitingTime="0.00" timeLoss="24.24" speed="34.98" speedRelative="0.97" departed="1" arrived="1" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="b">
-            <lane id="b_0" sampledSeconds="0.43" traveltime="0.00" overlapTraveltime="0.14" density="5.00" laneDensity="5.00" occupancy="0.05" waitingTime="0.00" timeLoss="0.00" speed="35.64" speedRelative="0.99" departed="0" arrived="0" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="b_0" sampledSeconds="0.43" traveltime="0.00" overlapTraveltime="0.14" density="0.10" overlapDensity="5.00" laneDensity="0.10" occupancy="0.05" waitingTime="0.00" timeLoss="0.00" speed="35.64" speedRelative="0.99" departed="0" arrived="0" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
 </meandata>

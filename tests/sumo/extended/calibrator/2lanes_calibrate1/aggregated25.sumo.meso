@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-18 14:24:17 by Eclipse SUMO sumo Version v1_23_1+0640-0bd9569aab2
+<!-- generated on 2025-11-02T19:25:02.793394+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,8 +43,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="100.00" id="expect10vehs">
-        <edge id="beg" sampledSeconds="16.11" traveltime="83.23" overlapTraveltime="83.37" density="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.00" speed="35.99" speedRelative="1.00" departed="3" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="304.37" traveltime="83.48" overlapTraveltime="83.62" density="1.02" laneDensity="0.51" occupancy="0.25" waitingTime="0.00" timeLoss="1.34" speed="35.84" speedRelative="1.00" departed="7" arrived="1" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="16.11" traveltime="83.23" overlapTraveltime="83.37" density="0.05" overlapDensity="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.00" speed="35.99" speedRelative="1.00" departed="3" arrived="0" entered="0" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="304.37" traveltime="83.48" overlapTraveltime="83.62" density="1.02" overlapDensity="1.02" laneDensity="0.51" occupancy="0.25" waitingTime="0.00" timeLoss="1.34" speed="35.84" speedRelative="1.00" departed="7" arrived="1" entered="3" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -53,8 +53,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="200.00" end="400.00" id="expect31vehs">
-        <edge id="beg" sampledSeconds="29.85" traveltime="83.23" overlapTraveltime="83.37" density="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.00" speed="35.99" speedRelative="1.00" departed="6" arrived="0" entered="0" left="5" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="1856.41" traveltime="83.18" overlapTraveltime="83.32" density="3.10" laneDensity="1.55" occupancy="0.78" waitingTime="0.00" timeLoss="1.64" speed="35.97" speedRelative="1.00" departed="26" arrived="13" entered="5" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="29.85" traveltime="83.23" overlapTraveltime="83.37" density="0.05" overlapDensity="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.00" speed="35.99" speedRelative="1.00" departed="6" arrived="0" entered="0" left="5" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="1856.41" traveltime="83.18" overlapTraveltime="83.32" density="3.10" overlapDensity="3.10" laneDensity="1.55" occupancy="0.78" waitingTime="0.00" timeLoss="1.64" speed="35.97" speedRelative="1.00" departed="26" arrived="13" entered="5" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -63,8 +63,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="400.00" end="700.00" id="expect100vehs">
-        <edge id="beg" sampledSeconds="45.33" traveltime="83.23" overlapTraveltime="83.37" density="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.01" speed="35.99" speedRelative="1.00" departed="8" arrived="0" entered="0" left="9" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="7980.30" traveltime="83.14" overlapTraveltime="83.28" density="8.89" laneDensity="4.45" occupancy="2.22" waitingTime="0.00" timeLoss="2.69" speed="35.99" speedRelative="1.00" departed="91" arrived="92" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="45.33" traveltime="83.23" overlapTraveltime="83.37" density="0.05" overlapDensity="0.05" laneDensity="0.02" occupancy="0.01" waitingTime="0.00" timeLoss="0.01" speed="35.99" speedRelative="1.00" departed="8" arrived="0" entered="0" left="9" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="7980.30" traveltime="83.14" overlapTraveltime="83.28" density="8.89" overlapDensity="8.89" laneDensity="4.45" occupancy="2.22" waitingTime="0.00" timeLoss="2.69" speed="35.99" speedRelative="1.00" departed="91" arrived="92" entered="9" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -73,8 +73,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="2000.00" end="2100.00" id="expect10vehs">
-        <edge id="beg" sampledSeconds="288.24" traveltime="83.24" overlapTraveltime="83.37" density="0.96" laneDensity="0.32" occupancy="0.16" waitingTime="0.00" timeLoss="0.04" speed="35.99" speedRelative="1.00" departed="56" arrived="0" entered="0" left="52" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="817.19" traveltime="83.11" overlapTraveltime="83.25" density="2.73" laneDensity="1.37" occupancy="0.68" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="6" entered="52" left="42" laneChangedFrom="0" laneChangedTo="0" vaporized="42"/>
+        <edge id="beg" sampledSeconds="288.24" traveltime="83.24" overlapTraveltime="83.37" density="0.96" overlapDensity="0.96" laneDensity="0.32" occupancy="0.16" waitingTime="0.00" timeLoss="0.04" speed="35.99" speedRelative="1.00" departed="56" arrived="0" entered="0" left="52" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="817.19" traveltime="83.11" overlapTraveltime="83.25" density="2.73" overlapDensity="2.73" laneDensity="1.37" occupancy="0.68" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="6" entered="52" left="42" laneChangedFrom="0" laneChangedTo="0" vaporized="42"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -83,8 +83,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="2200.00" end="2400.00" id="expect31vehs">
-        <edge id="beg" sampledSeconds="597.07" traveltime="83.24" overlapTraveltime="83.37" density="1.00" laneDensity="0.33" occupancy="0.17" waitingTime="0.00" timeLoss="0.09" speed="35.99" speedRelative="1.00" departed="111" arrived="0" entered="0" left="111" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="4507.57" traveltime="83.11" overlapTraveltime="83.25" density="7.53" laneDensity="3.77" occupancy="1.88" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="77" entered="111" left="80" laneChangedFrom="0" laneChangedTo="0" vaporized="80"/>
+        <edge id="beg" sampledSeconds="597.07" traveltime="83.24" overlapTraveltime="83.37" density="1.00" overlapDensity="1.00" laneDensity="0.33" occupancy="0.17" waitingTime="0.00" timeLoss="0.09" speed="35.99" speedRelative="1.00" departed="111" arrived="0" entered="0" left="111" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="4507.57" traveltime="83.11" overlapTraveltime="83.25" density="7.53" overlapDensity="7.53" laneDensity="3.77" occupancy="1.88" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="77" entered="111" left="80" laneChangedFrom="0" laneChangedTo="0" vaporized="80"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -93,8 +93,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="2400.00" end="2700.00" id="expect100vehs">
-        <edge id="beg" sampledSeconds="894.79" traveltime="83.23" overlapTraveltime="83.37" density="1.00" laneDensity="0.33" occupancy="0.17" waitingTime="0.00" timeLoss="0.14" speed="35.99" speedRelative="1.00" departed="167" arrived="0" entered="0" left="167" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="8311.10" traveltime="83.11" overlapTraveltime="83.25" density="9.26" laneDensity="4.63" occupancy="2.31" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="100" entered="167" left="67" laneChangedFrom="0" laneChangedTo="0" vaporized="67"/>
+        <edge id="beg" sampledSeconds="894.79" traveltime="83.23" overlapTraveltime="83.37" density="1.00" overlapDensity="1.00" laneDensity="0.33" occupancy="0.17" waitingTime="0.00" timeLoss="0.14" speed="35.99" speedRelative="1.00" departed="167" arrived="0" entered="0" left="167" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="8311.10" traveltime="83.11" overlapTraveltime="83.25" density="9.26" overlapDensity="9.26" laneDensity="4.63" occupancy="2.31" waitingTime="0.00" timeLoss="0.00" speed="36.00" speedRelative="1.00" departed="0" arrived="100" entered="167" left="67" laneChangedFrom="0" laneChangedTo="0" vaporized="67"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>

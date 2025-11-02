@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-14 15:01:21 by Eclipse SUMO sumo Version v1_11_0+1159-1cf7001
+<!-- generated on 2025-11-02T19:24:53.270816+01:00 by Eclipse SUMO sumo v1_24_0+1713-b6716327859
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <time-to-teleport value="-1"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -39,13 +42,13 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="600.00" end="660.00" id="dump_60">
-        <edge id="2/1to1/1" sampledSeconds="780.00" traveltime="8000.00" overlapTraveltime="8100.00" density="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="0.00" speed="0.05" speedRelative="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="3120.00" traveltime="7366.62" overlapTraveltime="7458.71" density="130.00" laneDensity="130.00" occupancy="65.00" waitingTime="3120.00" timeLoss="3103.06" speed="0.05" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4/1to3/1" sampledSeconds="780.00" traveltime="6824.82" overlapTraveltime="6910.13" density="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="775.43" speed="0.06" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="780.00" traveltime="8000.00" overlapTraveltime="8100.00" density="32.50" overlapDensity="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="0.00" speed="0.05" speedRelative="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="3120.00" traveltime="7366.62" overlapTraveltime="7458.71" density="130.00" overlapDensity="130.00" laneDensity="130.00" occupancy="65.00" waitingTime="3120.00" timeLoss="3103.06" speed="0.05" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="780.00" traveltime="6824.82" overlapTraveltime="6910.13" density="32.50" overlapDensity="32.50" laneDensity="32.50" occupancy="16.25" waitingTime="780.00" timeLoss="775.43" speed="0.06" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
