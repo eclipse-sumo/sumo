@@ -30,6 +30,6 @@ with open(outfile, 'w') as outf:
     for interval in sumolib.xml.parse(sys.argv[1], "interval"):
         for e in interval.edge:
             e.setAttribute('flow', 3.6 * float(e.speed) * float(e.density))
-        outf.write(interval.toXML(initialIndent = ' ' * 4))
+        outf.write(interval.toXML(initialIndent=' ' * 4))
 
     outf.write('</meanData>\n')
