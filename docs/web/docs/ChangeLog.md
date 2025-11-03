@@ -131,7 +131,7 @@ title: ChangeLog
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131  
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
-  - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retreive the number of pedestrions on approach to a crossing #17229
+  - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retrieve the number of pedestrions on approach to a crossing #17229
   - All insertion warnings/errors now report the failure time #17259
   - summary-output now includes the number of discarded vehicles #17282
   - When option **--summary-output.period** is set, summary-output will always include the final simulation step #17283
@@ -143,7 +143,7 @@ title: ChangeLog
   - The overwrite-elements dialog can now remember the user choice #17041
   - Gui setting 'show route index' now works for inspected routes and vehicles #17013
   - Gui setting 'show stop info' now work for inspected routes and vehicles #17014
-  - tazRelaltion width can now be scaled by attribute #17136
+  - tazRelation width can now be scaled by attribute #17136
   - Now using allow/disallow dialog for rerouter closingReroute and closingLaneReroute #5318
   - Data coloring (and scaling) settings can now be saved and loaded #17137
   - Implemented Dialog for a subset of crashes to simplify reporting from end user to developer. #12006
@@ -163,7 +163,7 @@ title: ChangeLog
 
 - duarouter
   - Added option **--keep-flows** to avoid expanding flows into individual vehicles #2407
-  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers) #9091
+  - Additional files now support element `<preference>` which can be used to [influence routing preference for different vClasses and vTypes](Simulation/Routing.md#routing_by_travel_time_and_routingtype) (also applies to other routers and routing in sumo) #9091
   - Option **--weights.reversal-penalty** can now be used to configure a penalty for train reversal when routing. A negative value disables reversals #17269
 
 - netconvert
