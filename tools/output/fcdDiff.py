@@ -83,7 +83,7 @@ ATTR_CONVERSIONS = {
 
 
 def key(row):
-    return "%s_%s" % (row[0], humanReadableTime(row['t']))
+    return "%s_%s" % (row.iloc[0], humanReadableTime(row['t']))
 
 
 def getDataFrame(options, fname, attrs, columns, tripId):
