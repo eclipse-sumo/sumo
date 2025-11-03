@@ -3,5 +3,6 @@ requires = [ "setuptools>=42",
     "scikit-build>=0.13,!=0.17.2",
     "cmake>=3.18",
     "ninja",
+    "matplotlib"
 ]
 build-backend = "setuptools.build_meta"
