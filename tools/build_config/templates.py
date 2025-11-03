@@ -336,7 +336,7 @@ def formatBinTemplate(templateStr):
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # split lines
-    return templateStr.replace("\n", '"\n    "')
+    return templateStr.replace("\n", '"\n    "').replace('""', ') + std::string(')
 
 
 def formatToolTemplate(templateStr):
@@ -371,7 +371,7 @@ def generateTemplate(app, appBin):
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
     # join variable and formatted template
-    return u'const std::string %sTemplate = "%s";\n' % (app, template)
+    return u'const std::string %sTemplate = ("%s");\n' % (app, template)
 
 
 def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
