@@ -218,7 +218,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
             if ((*i)->prohibits(&veh) || (*i)->isInternal()) {
                 // no need to check the mandatories here, this was done before
-                WRITE_MESSAGEF(TL("Removing invalid edge '%' for from route for vehicle '%'."), (*i)->getID(), veh.getID());
+                WRITE_MESSAGEF(TL("Removing invalid edge '%' from route for vehicle '%'."), (*i)->getID(), veh.getID());
                 i = oldEdges.erase(i);
             } else {
                 ++i;
