@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-29 03:03+0000\n"
+"PO-Revision-Date: 2025-11-04 12:28+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -152,7 +152,7 @@ msgstr "打开用于编辑所选项目表的对话框。"
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Select lanes which allow..."
-msgstr "选择允许... 的车道"
+msgstr "选择允许 的车道..."
 
 #: src/gui/GUIApplicationWindow.cpp:516
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
@@ -3356,11 +3356,11 @@ msgstr "存储附加档案及图形物件档案。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:457
 msgid "Save Additionals unified as..."
-msgstr ""
+msgstr "附加统一项存储为..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:457
 msgid "Save all additional elements to the chosen file."
-msgstr ""
+msgstr "保存所有附加元素到指定文件。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:461
 msgid "Save JuPedSim Elements as..."
@@ -3428,7 +3428,7 @@ msgstr "存储数据要素。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:509
 msgid "Save Data Elements unified as..."
-msgstr ""
+msgstr "保存数据元素统一为..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:509
 msgid "Save all data elements to the chosen file."
@@ -4427,7 +4427,7 @@ msgstr "在加载sumo配置文件时忽略路由元素"
 #: src/netedit/GNELoadThread.cpp:339
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
-msgstr ""
+msgstr "如果车道比附加车道短，则自动启用friendlyPos"
 
 #: src/netedit/GNELoadThread.cpp:342
 msgid ""
@@ -4953,22 +4953,22 @@ msgstr "根"
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
 #: src/netedit/GNETagPropertiesDatabase.cpp:389
 msgid "Supermode network"
-msgstr ""
+msgstr "超模网络"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:393
 #: src/netedit/GNETagPropertiesDatabase.cpp:395
 msgid "Supermode demand"
-msgstr ""
+msgstr "超模需求"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:399
 #: src/netedit/GNETagPropertiesDatabase.cpp:401
 msgid "Supermode data"
-msgstr ""
+msgstr "超模数据"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:406
 #: src/netedit/GNETagPropertiesDatabase.cpp:408
 msgid "Network elements"
-msgstr ""
+msgstr "路网元素"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:413
 #: src/netedit/GNETagPropertiesDatabase.cpp:415
@@ -5046,7 +5046,7 @@ msgstr "人员行程"
 #: src/netedit/GNETagPropertiesDatabase.cpp:496
 #: src/netedit/GNETagPropertiesDatabase.cpp:498
 msgid "Person rides"
-msgstr ""
+msgstr "人骑行"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 #: src/netedit/GNETagPropertiesDatabase.cpp:505
@@ -5056,7 +5056,7 @@ msgstr "行人"
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 #: src/netedit/GNETagPropertiesDatabase.cpp:512
 msgid "Person stop"
-msgstr ""
+msgstr "行人停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
 #: src/netedit/GNETagPropertiesDatabase.cpp:519
@@ -5067,17 +5067,17 @@ msgstr "货箱计划"
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 #: src/netedit/GNETagPropertiesDatabase.cpp:526
 msgid "Container transports"
-msgstr ""
+msgstr "集装箱运输"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:531
 #: src/netedit/GNETagPropertiesDatabase.cpp:533
 msgid "Container tranships"
-msgstr ""
+msgstr "集装箱转运"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:538
 #: src/netedit/GNETagPropertiesDatabase.cpp:540
 msgid "Container stops"
-msgstr ""
+msgstr "集装箱停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 #: src/netedit/GNETagPropertiesDatabase.cpp:547
@@ -5324,13 +5324,13 @@ msgstr "穿越道的宽度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:963
 msgid "sets the tls-index for this crossing (-1 means automatic assignment)"
-msgstr ""
+msgstr "设置此交叉点的tls索引（-1表示自动分配）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:969
 msgid ""
 "sets the opposite-direction tls-index for this crossing (-1 means not "
 "assigned)"
-msgstr ""
+msgstr "设置此交叉口的反向tls索引（-1表示未指定）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:975
 msgid "Overrides default shape of pedestrian crossing"
@@ -5413,7 +5413,7 @@ msgstr "在控制交通灯中设置此交叉路口的索引（-1代表自动指�
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light (-1 means internal junction not controlled)"
-msgstr ""
+msgstr "设置控制交通灯内此连接的内部交叉口的索引（-1表示未控制内部交叉口）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1083
 msgid "sets custom speed limit for the connection"
@@ -5483,12 +5483,12 @@ msgstr "意为停靠该火车站的火車线路的名称。这仅用于视觉化
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1219
 msgid "Access"
-msgstr ""
+msgstr "进入"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1231
 msgid ""
 "The walking length of the access in meters (default is geometric length)"
-msgstr ""
+msgstr "通道的行走长度（以米为单位）（默认为几何长度）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1242
 #: src/netedit/GNETagPropertiesDatabase.cpp:4766
@@ -5498,7 +5498,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:4809
 #: src/netedit/GNETagPropertiesDatabase.cpp:4820
 msgid "ContainerStop"
-msgstr ""
+msgstr "集装箱停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1251
 msgid ""
@@ -5609,7 +5609,7 @@ msgstr "E1 感应线圈检测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1456
 msgid "E2 LaneAreaDetector"
-msgstr ""
+msgstr "E2 车道区域探测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1469
 #: src/netedit/GNETagPropertiesDatabase.cpp:1527
@@ -5628,11 +5628,11 @@ msgstr "切换时触发聚合的交通信号灯"
 #: src/netedit/GNETagPropertiesDatabase.cpp:1501
 #: src/netedit/GNETagPropertiesDatabase.cpp:1553
 msgid "Show detector in sumo-gui"
-msgstr ""
+msgstr "在sumo-gui中显示探测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1512
 msgid "E2 MultiLaneAreaDetector"
-msgstr ""
+msgstr "E2 多车道区域探测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1520
 msgid "The sequence of lane ids in which the detector shall be laid on"
@@ -5640,7 +5640,7 @@ msgstr "检测器应铺设在的车道ID的顺序"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1564
 msgid "E3 EntryExitDetector"
-msgstr ""
+msgstr "E3 进出探测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1572
 #: src/netedit/GNETagPropertiesDatabase.cpp:1720
@@ -5652,7 +5652,7 @@ msgstr "在编辑器(editor)內,检测器的x,y位置 (只用于netedit)"
 msgid ""
 "If set to true, no error will be reported if vehicles leave the detector "
 "without first entering it"
-msgstr ""
+msgstr "如果设置为true，当车辆未进入检测器就离开检测器，则不会报错"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1598
 msgid ""
@@ -5662,16 +5662,16 @@ msgstr "当车辆到达检测器区域时，是否禁用发出警告。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1609
 msgid "E3 DetEntry"
-msgstr ""
+msgstr "E3 止动装置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1627
 #: src/netedit/GNETagPropertiesDatabase.cpp:1645
 msgid "E3 DetExit"
-msgstr ""
+msgstr "E3 目标出口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1674
 msgid "RouteProbe"
-msgstr ""
+msgstr "路由探测器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1686
 msgid "The frequency in which to report the distribution"
@@ -5683,7 +5683,7 @@ msgstr "开始产生输出的时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1707
 msgid "VariableSpeedSign"
-msgstr ""
+msgstr "变速标志"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1715
 msgid "List of Variable Speed Sign lanes"
@@ -5691,11 +5691,11 @@ msgstr "设有可变速度标志的车道清单"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1735
 msgid "VariableSpeedSign (lane)"
-msgstr ""
+msgstr "变速标志（车道）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1746
 msgid "VariableSpeedSign Step"
-msgstr ""
+msgstr "变速标志 步骤"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1757
 msgid "Speed"
@@ -5703,7 +5703,7 @@ msgstr "速度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1768
 msgid "Calibrator"
-msgstr ""
+msgstr "校准器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1782
 #: src/netedit/GNETagPropertiesDatabase.cpp:1822
@@ -5726,11 +5726,11 @@ msgstr "用于检测及清除无预期阻塞的閾值"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1808
 msgid "CalibratorLane"
-msgstr ""
+msgstr "校准车道"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1848
 msgid "CalibratorFlow"
-msgstr ""
+msgstr "校准车流量"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1854
 msgid "First calibrator flow departure time"
@@ -5760,7 +5760,7 @@ msgstr "车速"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1899
 msgid "Rerouter"
-msgstr ""
+msgstr "重路由器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1908
 msgid "X,Y position in editor (Only used in netedit)"
@@ -5789,15 +5789,15 @@ msgstr "路径重新搜寻裝置(rerouter)是否最初应处于非活动状态�
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1941
 msgid "If rerouter is optional"
-msgstr ""
+msgstr "如果重新路由是可选的"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1952
 msgid "Rerouter (Edge)"
-msgstr ""
+msgstr "重路由器（路段）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1963
 msgid "Rerouter Interval"
-msgstr ""
+msgstr "重路由器 内部"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1969
 msgid "Begin"
@@ -5809,15 +5809,15 @@ msgstr "结束"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1986
 msgid "ClosingReroute"
-msgstr ""
+msgstr "关闭重新路由"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2001
 msgid "ClosingLaneReroute"
-msgstr ""
+msgstr "关闭车道重路由器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2016
 msgid "DestinationProbabilityReroute"
-msgstr ""
+msgstr "目的地概率重路由"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2024
 #: src/netedit/GNETagPropertiesDatabase.cpp:2047
@@ -5827,7 +5827,7 @@ msgstr "SUMO机率"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2035
 msgid "ParkingAreaReroute"
-msgstr ""
+msgstr "停车场改线"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2041
 msgid "ParkingArea ID"
@@ -5839,11 +5839,11 @@ msgstr "启用或禁用停车区改道的可见度 ( visibility)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2064
 msgid "RouteProbabilityReroute"
-msgstr ""
+msgstr "路由概率重路由"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2087
 msgid "Vaporizer"
-msgstr ""
+msgstr "蒸馏器"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2097
 msgid "Start Time"
@@ -5855,7 +5855,7 @@ msgstr "结束时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2120
 msgid "Polygon"
-msgstr ""
+msgstr "多边形"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2128
 msgid "The shape of the polygon"
@@ -5886,19 +5886,19 @@ msgstr "呈现的图像的角度 (以度为单位)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2479
 #: src/netedit/GNETagPropertiesDatabase.cpp:2510
 msgid "Enable or disable GEO attributes"
-msgstr ""
+msgstr "启用或禁用地理属性"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2175
 msgid "A custom geo shape for this polygon"
-msgstr ""
+msgstr "此多边形的自定义地理形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2180
 msgid "Toggle close or open shape"
-msgstr ""
+msgstr "切换关闭或打开形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2190
 msgid "PointOfInterest"
-msgstr ""
+msgstr "兴趣点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2198
 msgid "The position in view"
@@ -5906,7 +5906,7 @@ msgstr "视图中的位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2211
 msgid "PointOfInterestLane"
-msgstr ""
+msgstr "车道兴趣点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2225
 msgid "The lateral offset on the named lane at which the POI is located at"
@@ -5914,7 +5914,7 @@ msgstr "兴趣点所在的已命名车道的侧向偏移值(lateral offset)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2239
 msgid "PointOfInterestGeo"
-msgstr ""
+msgstr "地理兴趣点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2248
 msgid "The longitude position of the parking vehicle on the view"
@@ -5926,7 +5926,7 @@ msgstr "视图中停车车辆的纬度位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2272
 msgid "TrafficAssignmentZones"
-msgstr ""
+msgstr "交通分配区"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2279
 msgid "The shape of the TAZ"
@@ -5942,15 +5942,15 @@ msgstr "是否应填写交通分区（TAZ）的信息"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2299
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "使用形状中的路径"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2301
 msgid "edges within"
-msgstr ""
+msgstr "内部边"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2311
 msgid "TAZ Source"
-msgstr ""
+msgstr "TAZ源"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2319
 msgid "Depart weight associated to this Edge"
@@ -5958,7 +5958,7 @@ msgstr "与此路段相关的出发权重(depart weight)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2330
 msgid "TAZ Sink"
-msgstr ""
+msgstr "TAZ槽"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2338
 msgid "Arrival weight associated to this Edge"
@@ -5966,7 +5966,7 @@ msgstr "与此路段相关的抵达权重 (arrival weight)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2355
 msgid "TractionSubstation"
-msgstr ""
+msgstr "牵引变电站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2368
 msgid "Voltage of at connection point for the overhead wire"
@@ -5978,7 +5978,7 @@ msgstr "馈电线路的电流限制"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2385
 msgid "WireSection"
-msgstr ""
+msgstr "导线截面"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2392
 msgid "Substation to which the circuit is connected"
@@ -6002,7 +6002,7 @@ msgstr "限制设置架空电线的內车道"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2426
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "架空线夹"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2433
 msgid ""
@@ -6026,7 +6026,7 @@ msgstr "架空电线终点夹(overheadWireIDEndClamp)的架空电线区段车道
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2464
 msgid "JuPedSim WalkableArea"
-msgstr ""
+msgstr "JuPedSim可走区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2472
 msgid "The shape of the walkable area"
@@ -6034,11 +6034,11 @@ msgstr "可步行区域的形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2485
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "此可行走区域的自定义地理形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2495
 msgid "JuPedSim Obstacle"
-msgstr ""
+msgstr "JuPedSim障碍物"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2503
 msgid "The shape of the obstacle"
@@ -6046,51 +6046,51 @@ msgstr "障碍物的形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2516
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "此障碍物的自定义地理形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2532
 msgid "RouteDistribution"
-msgstr ""
+msgstr "线路分布"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2561
 msgid "Route (Ref)"
-msgstr ""
+msgstr "路径（Ref）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2568
 msgid "Route distribution in which this routeRef is defined"
-msgstr ""
+msgstr "定义此routeRef的路由分布"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2573
 msgid "Reference ID of route"
-msgstr ""
+msgstr "路线参考ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2585
 msgid "Route (embedded)"
-msgstr ""
+msgstr "路径（嵌入式）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2604
 msgid "Deterministic distribution"
-msgstr ""
+msgstr "确定性分布"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2618
 msgid "VehicleType"
-msgstr ""
+msgstr "车辆类型"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2634
 msgid "VType (Ref)"
-msgstr ""
+msgstr "VType （Ref）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2641
 msgid "VType distribution in which this vTypeRef is defined"
-msgstr ""
+msgstr "定义此vTypeRef的VType分布"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2646
 msgid "Reference ID of vType"
-msgstr ""
+msgstr "vType的参考ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2664
 msgid "TripEdges"
-msgstr ""
+msgstr "行程路段"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2673
 #: src/netedit/GNETagPropertiesDatabase.cpp:2713
@@ -6112,7 +6112,7 @@ msgstr "应作为行程一部分的中间路段的清单"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2704
 msgid "TripJunctions"
-msgstr ""
+msgstr "行程路口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2719
 msgid "The name of the junction the trip starts at"
@@ -6124,7 +6124,7 @@ msgstr "行程结束的路口的名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2739
 msgid "TripTAZs"
-msgstr ""
+msgstr "行程TAZ"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2754
 msgid "The name of the TAZ the trip starts at"
@@ -6136,7 +6136,7 @@ msgstr "行程结束处的交通小区 (TAZ)的名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2774
 msgid "VehicleRoute"
-msgstr ""
+msgstr "车辆路线"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2783
 #: src/netedit/GNETagPropertiesDatabase.cpp:2823
@@ -6155,11 +6155,11 @@ msgstr "在路径上, 车辆结束的路段的指数(index)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2814
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "车辆绑定路线"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2849
 msgid "FlowEdges"
-msgstr ""
+msgstr "车流路段"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2858
 #: src/netedit/GNETagPropertiesDatabase.cpp:2899
@@ -6183,7 +6183,7 @@ msgstr "流量使用的中间路段的识别名(id)清单"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2890
 msgid "FlowJunctions"
-msgstr ""
+msgstr "车流交叉口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2905
 msgid "The name of the junction the flow starts at"
@@ -6195,7 +6195,7 @@ msgstr "流量结束的路口的名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2926
 msgid "FlowTAZs"
-msgstr ""
+msgstr "车流TAZ"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2941
 msgid "The name of the TAZ the flow starts at"
@@ -6207,7 +6207,7 @@ msgstr "流 (flow)结束处的交通小区 (TAZ)的名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2962
 msgid "FlowRoute"
-msgstr ""
+msgstr "车流路由"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2977
 msgid "The id of the route the flow shall drive along"
@@ -6225,11 +6225,11 @@ msgstr "流量在其路径上结束的路段的指数(index)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3003
 msgid "FlowEmbeddedRoute"
-msgstr ""
+msgstr "车流绑定路线"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3045
 msgid "StopLane"
-msgstr ""
+msgstr "停用车道"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3053
 #: src/netedit/GNETagPropertiesDatabase.cpp:3204
@@ -6255,7 +6255,7 @@ msgstr "车辆必須停靠于指定车道的侧向偏移值"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3095
 msgid "StopBusStop"
-msgstr ""
+msgstr "停止公共汽车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3101
 msgid "BusStop associated with this stop"
@@ -6263,7 +6263,7 @@ msgstr "与此停靠点相关的公交站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3114
 msgid "StopTrainStop"
-msgstr ""
+msgstr "停止列车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3120
 msgid "TrainStop associated with this stop"
@@ -6271,7 +6271,7 @@ msgstr "与此停靠点相关的火车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3133
 msgid "StopContainerStop"
-msgstr ""
+msgstr "停止集装箱停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3139
 msgid "ContainerStop associated with this stop"
@@ -6279,7 +6279,7 @@ msgstr "与此停靠点相关的集装箱停靠点(ContainerStop)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3152
 msgid "StopChargingStation"
-msgstr ""
+msgstr "停止充电站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3158
 msgid "ChargingStation associated with this stop"
@@ -6287,7 +6287,7 @@ msgstr "与此停靠点相关的充点站(ChargingStation)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3171
 msgid "StopParkingArea"
-msgstr ""
+msgstr "停止停车区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3177
 msgid "ParkingArea associated with this stop"
@@ -6295,7 +6295,7 @@ msgstr "与此停靠点相关的停车区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3196
 msgid "WaypointLane"
-msgstr ""
+msgstr "车道路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3216
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
@@ -6303,7 +6303,7 @@ msgstr "车辆必须在已指定车道上定点的侧向偏移值"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3246
 msgid "WaypointBusStop"
-msgstr ""
+msgstr "公交站路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3252
 msgid "BusWaypoint associated with this waypoint"
@@ -6311,7 +6311,7 @@ msgstr "与此定位点相关的公交车定点(BusWaypoint)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3265
 msgid "WaypointTrainStop"
-msgstr ""
+msgstr "列车站路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3271
 msgid "TrainWaypoint associated with this waypoint"
@@ -6319,7 +6319,7 @@ msgstr "与此路径点相关的火车路径点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3284
 msgid "WaypointContainerStop"
-msgstr ""
+msgstr "集装箱停靠点路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3290
 msgid "ContainerWaypoint associated with this waypoint"
@@ -6327,7 +6327,7 @@ msgstr "与此定位点相关的集装箱定点(ContainerWaypoint)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3303
 msgid "WaypointChargingStation"
-msgstr ""
+msgstr "充电站路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3309
 msgid "ChargingStation associated with this waypoint"
@@ -6335,7 +6335,7 @@ msgstr "与此定点相关的充点站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3322
 msgid "WaypointParkingArea"
-msgstr ""
+msgstr "停车区域路标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3328
 msgid "ParkingArea associated with this waypoint"
@@ -6343,11 +6343,11 @@ msgstr "与此定点相关的停车场区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3363
 msgid "PersonFlow"
-msgstr ""
+msgstr "人流"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3400
 msgid "ContainerFlow"
-msgstr ""
+msgstr "集装箱车流"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3429
 #: src/netedit/GNETagPropertiesDatabase.cpp:3439
@@ -6491,7 +6491,7 @@ msgstr "运输工具"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6856
 #: src/utils/gui/div/GUIMessageWindow.cpp:71
 msgid "edge"
-msgstr ""
+msgstr "路段"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3439
 #: src/netedit/GNETagPropertiesDatabase.cpp:3510
@@ -6569,7 +6569,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6690
 #: src/netedit/GNETagPropertiesDatabase.cpp:6771
 msgid "taz"
-msgstr ""
+msgstr "交通分配区"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3449
 #: src/netedit/GNETagPropertiesDatabase.cpp:3530
@@ -6648,7 +6648,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6781
 #: src/utils/gui/div/GUIMessageWindow.cpp:73
 msgid "junction"
-msgstr ""
+msgstr "路口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3459
 #: src/netedit/GNETagPropertiesDatabase.cpp:3540
@@ -6729,7 +6729,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6867
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "公交站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3469
 #: src/netedit/GNETagPropertiesDatabase.cpp:3550
@@ -6810,7 +6810,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6878
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "列车站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3479
 #: src/netedit/GNETagPropertiesDatabase.cpp:3560
@@ -6891,7 +6891,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6889
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "集装箱停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3489
 #: src/netedit/GNETagPropertiesDatabase.cpp:3570
@@ -6972,7 +6972,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6899
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "充电站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3499
 #: src/netedit/GNETagPropertiesDatabase.cpp:3580
@@ -7053,7 +7053,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6910
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "停车区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4093
 #: src/netedit/GNETagPropertiesDatabase.cpp:4104
@@ -7121,12 +7121,12 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:4731
 #: src/netedit/GNETagPropertiesDatabase.cpp:4741
 msgid "Tranship"
-msgstr ""
+msgstr "转运"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4093
 #: src/netedit/GNETagPropertiesDatabase.cpp:5510
 msgid "edges"
-msgstr ""
+msgstr "路段"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4847
 #: src/netedit/GNETagPropertiesDatabase.cpp:4857
@@ -7193,7 +7193,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:5474
 #: src/netedit/GNETagPropertiesDatabase.cpp:5484
 msgid "PersonTrip"
-msgstr ""
+msgstr "行人行程"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5510
 #: src/netedit/GNETagPropertiesDatabase.cpp:5520
@@ -7262,7 +7262,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6158
 #: src/netedit/GNETagPropertiesDatabase.cpp:6168
 msgid "Walk"
-msgstr ""
+msgstr "行走"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5520
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:459
@@ -7334,7 +7334,7 @@ msgstr "路径"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6821
 #: src/netedit/GNETagPropertiesDatabase.cpp:6831
 msgid "Ride"
-msgstr ""
+msgstr "骑行"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6856
 #: src/netedit/GNETagPropertiesDatabase.cpp:6867
@@ -7343,61 +7343,61 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6899
 #: src/netedit/GNETagPropertiesDatabase.cpp:6910
 msgid "PersonStop"
-msgstr ""
+msgstr "行人停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6927
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "创建后将视图居中放置在元素%上"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6928
 msgid "center view"
-msgstr ""
+msgstr "中心视图"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6936
 msgid "The path to the additional file"
-msgstr ""
+msgstr "附加文件的路径"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6938
 msgid "add. file"
-msgstr ""
+msgstr "add. 文件"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6943
 msgid "The path to the route file"
-msgstr ""
+msgstr "路线文件路径"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6945
 msgid "route file"
-msgstr ""
+msgstr "路线文件"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6950
 #: src/netedit/GNETagPropertiesDatabase.cpp:6957
 msgid "The path to the data file"
-msgstr ""
+msgstr "数据文件路径"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6952
 msgid "data file"
-msgstr ""
+msgstr "数据文件"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6959
 msgid "mean file"
-msgstr ""
+msgstr "均值数据文件"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6974
 msgid "Toggle front element"
-msgstr ""
+msgstr "切换前元素"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6979
 msgid "Toggle select element"
-msgstr ""
+msgstr "切换选择元素"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6987
 msgid "Change element parent"
-msgstr ""
+msgstr "更改元素父级"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6994
 msgid "Generic parameters (Format: key1=value1|key2=value2|..."
-msgstr ""
+msgstr "通用参数（格式：key1=value1 | key2=value2 |..."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6995
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:567
@@ -7407,23 +7407,23 @@ msgstr "参数"
 #: src/netedit/GNETagPropertiesDatabase.cpp:7031
 #, c-format
 msgid "Angle of waiting %s relative to lane angle"
-msgstr ""
+msgstr "等待角%s相对于车道角"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7038
 msgid "Length of %"
-msgstr ""
+msgstr "长度为%"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7044
 msgid "Force size during creation"
-msgstr ""
+msgstr "创建期间的力大小"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7046
 msgid "force size"
-msgstr ""
+msgstr "力大小"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7051
 msgid "Reference position used for creating %"
-msgstr ""
+msgstr "用于创建%的参考位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7066
 msgid "A typename for the POI"
@@ -7431,7 +7431,7 @@ msgstr "兴趣点的类型名称（typename)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7072
 msgid "POI Icon"
-msgstr ""
+msgstr "POI图标"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7079
 msgid "The layer of the POI for drawing and selecting"
@@ -7514,7 +7514,7 @@ msgstr "车辆长度 [米] (只用于绘制)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7194
 msgid "The parking badges assigned to the vehicle"
-msgstr ""
+msgstr "分配给车辆的停车标牌"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7201
 msgid "The model used for changing lanes"
@@ -7625,11 +7625,11 @@ msgstr "第一个流量的出发时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7384
 msgid "Criterion for flow termination"
-msgstr ""
+msgstr "车流终止标准"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7391
 msgid "Criterion for flow spacing"
-msgstr ""
+msgstr "车量间距标准"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7404
 #: src/netedit/GNETagPropertiesDatabase.cpp:7425
@@ -8023,7 +8023,7 @@ msgstr "这个货箱要使用的货箱类型的id"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7950
 msgid "The position at which the container shall enter the net"
-msgstr ""
+msgstr "容器进入网内的位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7961
 #: src/netedit/GNETagPropertiesDatabase.cpp:8329
@@ -8051,7 +8051,7 @@ msgstr "在车辆继续之前，必須登上车辆的要素清单"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7993
 msgid "Joins this train to another upon reaching the stop"
-msgstr ""
+msgstr "到达车站后与本车汇合"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7999
 msgid "List of elements that can board the vehicle before it may continue"
@@ -8093,19 +8093,19 @@ msgstr "如果从这一站跳到下一个路线的路段，则转移时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8046
 msgid "Splits the train upon reaching the stop"
-msgstr ""
+msgstr "到站时将列车分开"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8058
 msgid "list of consecutive edges"
-msgstr ""
+msgstr "连续路段列表"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8063
 msgid "Arrival position on the last edge"
-msgstr ""
+msgstr "最后一条路段上的到达位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8070
 msgid "Route ID"
-msgstr ""
+msgstr "路段ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8075
 msgid "Arrival position on the destination edge"
@@ -8113,59 +8113,59 @@ msgstr "目的地路段上的抵达位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8091
 msgid "Bus stop ID"
-msgstr ""
+msgstr "公交站ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8097
 msgid "Train stop ID"
-msgstr ""
+msgstr "列车站ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8103
 msgid "Container stop ID"
-msgstr ""
+msgstr "集装箱停靠点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8109
 msgid "Charging station ID"
-msgstr ""
+msgstr "充电站ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8115
 msgid "Parking area ID"
-msgstr ""
+msgstr "停车区域ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8122
 msgid "Edge start ID"
-msgstr ""
+msgstr "路段七点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8128
 msgid "TAZ start ID"
-msgstr ""
+msgstr "TAZ起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8134
 msgid "Junction start ID"
-msgstr ""
+msgstr "交叉口起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8140
 msgid "BusStop start ID"
-msgstr ""
+msgstr "公交站起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8146
 msgid "TrainStop start ID"
-msgstr ""
+msgstr "列车站起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8152
 msgid "ContainerStop start ID"
-msgstr ""
+msgstr "集装箱停靠点起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8158
 msgid "ChargingStation start ID"
-msgstr ""
+msgstr "充电站起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8164
 msgid "ParkingArea start ID"
-msgstr ""
+msgstr "停车区域起点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8171
 msgid "Edge end ID"
-msgstr ""
+msgstr "路段终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8178
 msgid "The position at which the tranship shall enter the net"
@@ -8177,31 +8177,31 @@ msgstr "目标路段上的抵达位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8191
 msgid "TAZ end ID"
-msgstr ""
+msgstr "TAZ终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8197
 msgid "Junction end ID"
-msgstr ""
+msgstr "交叉口终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8203
 msgid "BusStop end ID"
-msgstr ""
+msgstr "公交站终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8209
 msgid "TrainStop end ID"
-msgstr ""
+msgstr "列车站终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8215
 msgid "ContainerStop end ID"
-msgstr ""
+msgstr "集装箱停靠点终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8221
 msgid "ChargingStation end ID"
-msgstr ""
+msgstr "充电站终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8227
 msgid "ParkingArea end ID"
-msgstr ""
+msgstr "停车区域终点ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8240
 msgid ""
@@ -8215,24 +8215,24 @@ msgstr "人行程可以使用的替代车辆清单"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8250
 msgid "Walk factor"
-msgstr ""
+msgstr "步行系数"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8256
 #: src/netedit/GNETagPropertiesDatabase.cpp:8288
 #: src/netedit/GNETagPropertiesDatabase.cpp:8302
 msgid ""
 "id of the travel group. Persons with the same group may share a taxi ride"
-msgstr ""
+msgstr "旅行组的id。同一组别的人可以共用一辆出租车"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8266
 #, c-format
 msgid "speed of the person for this % in m/s (not together with duration)"
-msgstr ""
+msgstr "该百分比的人员速度（m/s）（不包括持续时间）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8272
 #: src/netedit/GNETagPropertiesDatabase.cpp:8318
 msgid "duration of the plan in second (not together with speed)"
-msgstr ""
+msgstr "以秒计的计划持续时间（不包括速度）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8283
 msgid "list of vehicle alternatives to take for the ride"
@@ -8245,7 +8245,7 @@ msgstr "运送的替代车辆清单"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8312
 msgid ""
 "speed of the person for this tranship in m/s (not together with duration)"
-msgstr ""
+msgstr "本次转运的人员速度（m/s）（不包括持续时间）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8342
 msgid "Activity displayed for stopped person in GUI and output files "
@@ -8258,7 +8258,7 @@ msgstr "数据组"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8376
 msgid "DataInterval"
-msgstr ""
+msgstr "数据间隔时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8386
 msgid "Data interval begin time"
@@ -8270,11 +8270,11 @@ msgstr "数据间隔结束时间"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8404
 msgid "EdgeRelationSingle"
-msgstr ""
+msgstr "路段关系单个"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8414
 msgid "EdgeRelation"
-msgstr ""
+msgstr "路段关系"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8420
 msgid "The ID of the edge the edgeRel starts at"
@@ -8286,7 +8286,7 @@ msgstr "路段关系(edgeRel)结束的路段的识别名(ID)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8435
 msgid "TAZRelation"
-msgstr ""
+msgstr "TAZ关系"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8442
 msgid "The name of the TAZ the TAZRel starts at"
