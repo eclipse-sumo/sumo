@@ -298,6 +298,12 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             numInsertedArguments++;
         }
     }
+    // check if create arguments
+    if (id() > 0) {
+        for (auto& argument : myArguments) {
+            argument->create();
+        }
+    }
     // adjust parameter column (call always after create elements)
     adjustParameterColumn();
 }
