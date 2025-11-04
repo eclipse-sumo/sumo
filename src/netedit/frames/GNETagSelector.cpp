@@ -138,7 +138,7 @@ GNETagSelector::updateTagTypes(const GNETagProperties::Type type, const SumoXMLT
     const auto tagPropertiesByType = myFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(type);
     // fill myACTemplates and myTagsMatchBox
     for (const auto tagProperty : tagPropertiesByType) {
-        if (!tagProperty->requireProj() || proj) {
+        if ((!tagProperty->requireProj() || proj) && !tagProperty->isListedElement() && !tagProperty->isSymbol()) {
             myTagsMatchBox->appendIconItem(tagProperty->getSelectorText().c_str(), GUIIconSubSys::getIcon(tagProperty->getGUIIcon()), tagProperty->getBackGroundColor());
         }
     }
