@@ -150,6 +150,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         myRoutingSuccess = false;
         return;
     }
+    //routeDef->validateAlternatives(this, errorHandler);
     RORoute* current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
     if (current == nullptr || current->size() == 0) {
         delete current;
@@ -175,7 +176,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         }
     }
     // add built route
-    routeDef->addAlternative(router, this, current, getDepartureTime());
+    routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
     myRoutingSuccess = true;
 }
 

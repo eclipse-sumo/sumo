@@ -72,6 +72,9 @@ public:
     /** @brief Adds an alternative loaded from the file */
     void addAlternativeDef(const RORouteDef* alternative);
 
+    /** @brief removes invalid alternatives and raise an error or warning **/
+    void validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler);
+
     /** @brief Triggers building of the complete route (via
      * preComputeCurrentRoute) or returns precomputed route */
     RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
@@ -92,7 +95,8 @@ public:
     *
      * (This may be the new route) */
     void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                        const ROVehicle* const, RORoute* current, SUMOTime begin);
+                        const ROVehicle* const, RORoute* current, SUMOTime begin,
+                        MsgHandler* errorHandler);
 
     const ROEdge* getOrigin() const;
     const ROEdge* getDestination() const;

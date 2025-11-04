@@ -167,8 +167,11 @@ public:
     void recheckForLoops(const ConstROEdgeVector& mandatory);
 
 
-    /// @brief check whether the route is valid for the given vehicle
-    bool isValid(const ROVehicle& veh, bool ignoreErrors) const;
+    /// @brief check whether the route is connected for the given vehicle
+    bool isValid(const ROVehicle& veh, bool ignoreErrors, MsgHandler* mh = nullptr) const;
+
+    /// @brief check whether the route is permitted for the given vehicle
+    bool isPermitted(const ROVehicle* veh, MsgHandler* mh) const;
 
     OutputDevice&
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,

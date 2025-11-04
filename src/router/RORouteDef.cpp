@@ -91,6 +91,25 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
 
 void
+RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler) {
+    for (int i = 0; i < (int)myAlternatives.size();) {
+        if (i != myLastUsed) {
+            if (myAlternatives[i]->isPermitted(veh, errorHandler)) {
+                i++;
+            } else {
+                myAlternatives.erase(myAlternatives.begin() + i); 
+                if (myLastUsed > i) {
+                    myLastUsed--;
+                }
+            }
+        } else {
+            i++;
+        }
+    }
+}
+
+
+void
 RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                    SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
@@ -321,7 +340,8 @@ RORouteDef::backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
 void
 RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                           const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
+                           const ROVehicle* const veh, RORoute* current, SUMOTime begin,
+                           MsgHandler* errorHandler) {
     if (myTryRepair || myUsingJTRR) {
         if (myNewRoute) {
             delete myAlternatives[0];
@@ -340,7 +360,10 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         return;
     }
     // add the route when it's new
-    if (myAlternatives.back()->getProbability() < 0) {
+    if (myAlternatives.back()->getProbability() < 0 || !myAlternatives.back()->isPermitted(veh, errorHandler)) {
+        if (myAlternatives.back()->getProbability() >= 0 && errorHandler == MsgHandler::getErrorInstance()) {
+            throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
+        }
         delete myAlternatives.back();
         myAlternatives.pop_back();
     }

@@ -78,14 +78,32 @@ RORoute::recheckForLoops(const ConstROEdgeVector& mandatory) {
 }
 
 bool
-RORoute::isValid(const ROVehicle& veh, bool ignoreErrors) const {
-    MsgHandler* mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+RORoute::isValid(const ROVehicle& veh, bool ignoreErrors, MsgHandler* mh) const {
+    if (mh == nullptr) {
+        mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+    }
     for (ConstROEdgeVector::const_iterator i = myRoute.begin() + 1; i != myRoute.end(); ++i) {
         const ROEdge* prev = *(i - 1);
         const ROEdge* cur = *i;
         if (!prev->isConnectedTo(*cur, veh.getVClass())) {
             mh->informf("Edge '%' not connected to edge '%' for vehicle '%'.", prev->getID(), cur->getID(), veh.getID());
             return ignoreErrors;
+        }
+    }
+    return true;
+}
+
+
+bool
+RORoute::isPermitted(const ROVehicle* veh, MsgHandler* mh) const {
+    const bool hasRestrictions = RONet::getInstance()->hasRestrictions();
+    const bool hasPermissions = RONet::getInstance()->hasPermissions();
+    if (hasRestrictions || hasPermissions) {
+        for (const ROEdge* e: myRoute) {
+            if ((hasPermissions && e->prohibits(veh)) || (hasRestrictions && e->restricts(veh))) {
+                mh->informf("Vehicle '%' is not permitted on Edge '%'", veh->getID(), e->getID());
+                return false;
+            }
         }
     }
     return true;
