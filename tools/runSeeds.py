@@ -48,7 +48,7 @@ def get_options(args=None):
                   help="output prefix",)
     ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
                   help=("do not create folders to distinguish multiple configurations or applications" +
-                        "but use prefixes instead"))
+                        " but use prefixes instead"))
     ap.add_option("--seeds", default="0:10",
                   help="which seeds to run")
     ap.add_option("--threads", type=int, default=1,
