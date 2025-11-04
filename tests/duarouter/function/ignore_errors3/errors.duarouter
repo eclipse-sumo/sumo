@@ -2,3 +2,6 @@ Warning: Vehicle 'v_1' is not permitted on Edge 'E2'
 Warning: No connection between edge 'E1' and edge 'E3' found.
 Warning: Mandatory edge 'E3' not reachable by vehicle 'v_2'.
 Warning: The vehicle 'v_2' has no valid route.
+Warning: Vehicle 'v_3' is not permitted on Edge 'E2'
+Error: Route '!v_3' (vehicle 'v_3') is not valid.
+Quitting (on error).

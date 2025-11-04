@@ -11,4 +11,10 @@
     <vehicle id="v_2" depart="0.00" type="DEFAULT_BIKETYPE">
         <route edges="E1 E2 E3"/>
     </vehicle>
+    <vehicle id="v_3" depart="0.00">
+        <routeDistribution>
+            <route edges="E1 E2 E3" probability="0.5"/>
+            <route edges="E2 E3" probability="0.5"/>
+        </routeDistribution>
+    </vehicle>
 </routes>
