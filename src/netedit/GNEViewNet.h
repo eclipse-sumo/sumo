@@ -280,8 +280,17 @@ public:
 
     /// @}
 
-    /// @brief transform POI to POILane, and vice versa
+    /// @brief attach POI in lane
+    long onCmdAttachPOI(FXObject*, FXSelector, void*);
+
+    /// @brief release POI from lane
+    long onCmdReleasePOI(FXObject*, FXSelector, void*);
+
+    /// @brief transform to POI
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
+
+    /// @brief transform to POIGEO
+    long onCmdTransformPOIGEO(FXObject*, FXSelector, void*);
 
     /// @brief reverse current demand element
     long onCmdReverse(FXObject*, FXSelector, void*);

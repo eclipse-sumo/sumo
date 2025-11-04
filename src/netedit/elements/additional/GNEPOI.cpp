@@ -334,11 +334,18 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // continue depending of lane number
         if (getTagProperty()->getTag() == GNE_TAG_POILANE) {
             // add option for convert to GNEPOI
-            GUIDesigns::buildFXMenuCommand(ret, TL("Release from lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
-            return ret;
+            GUIDesigns::buildFXMenuCommand(ret, TL("Release from lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_RELEASE);
         } else {
             // add option for convert to GNEPOI
-            GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_ATTACH);
+            // check if transform
+            if (GeoConvHelper::getFinal().getProjString() != "!") {
+                if (getTagProperty()->getTag() == GNE_TAG_POIGEO) {
+                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI Geo"), GUIIconSubSys::getIcon(GUIIcon::POI), &parent, MID_GNE_POI_TRANSFORM_POIGEO);
+                } else {
+                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI"), GUIIconSubSys::getIcon(GUIIcon::POIGEO), &parent, MID_GNE_POI_TRANSFORM_POI);
+                }
+            }
         }
     }
     return ret;

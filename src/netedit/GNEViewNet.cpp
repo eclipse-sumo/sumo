@@ -236,7 +236,10 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_RESET,                   GNEViewNet::onCmdResetShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_FINISH,                  GNEViewNet::onCmdFinishShapeEdited),
     // POIs
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_ATTACH,              GNEViewNet::onCmdAttachPOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_RELEASE,             GNEViewNet::onCmdReleasePOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM_POI,       GNEViewNet::onCmdTransformPOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM_POIGEO,    GNEViewNet::onCmdTransformPOIGEO),
     // Demand elements
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REVERSE,     GNEViewNet::onCmdReverse),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDREVERSE,  GNEViewNet::onCmdAddReverse),
@@ -2974,59 +2977,107 @@ GNEViewNet::onCmdFinishShapeEdited(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdAttachPOI(FXObject*, FXSelector, void*) {
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
-    if (POI) {
+    if (POI && (POI->getTagProperty()->getTag() != GNE_TAG_POILANE)) {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
-        // check what type of POI will be transformed
-        if (POI->getTagProperty()->getTag() == GNE_TAG_POILANE) {
+        // obtain lanes around POI boundary
+        getObjectsInBoundary(POI->getCenteringBoundary());
+        if (myViewObjectsSelector.getLaneFront() == nullptr) {
+            WRITE_WARNINGF("No lanes around the % '%' to attach it", toString(SUMO_TAG_POI), POI->getID());
+        } else {
+            // obtain nearest lane to POI
+            GNELane* nearestLane = myViewObjectsSelector.getLaneFront();
+            double minorPosOverLane = nearestLane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
+            double minorLateralOffset = nearestLane->getLaneShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
+            for (const auto& lane : myViewObjectsSelector.getLanes()) {
+                double posOverLane = lane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
+                double lateralOffset = lane->getLaneShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
+                if (lateralOffset < minorLateralOffset) {
+                    minorPosOverLane = posOverLane;
+                    minorLateralOffset = lateralOffset;
+                    nearestLane = lane;
+                }
+            }
             // get sumo base object of POI (And all common attributes)
             CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
             // add specific attributes
-            POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->getPositionInView().x());
-            POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->getPositionInView().y());
+            POIBaseObject->addStringAttribute(SUMO_ATTR_LANE, nearestLane->getID());
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION, minorPosOverLane);
+            POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, (POI->getAttribute(SUMO_ATTR_FRIENDLY_POS) == GNEAttributeCarrier::TRUE_STR));
+            POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
             // remove POI
-            myUndoList->begin(POI, TL("release POI from lane"));
+            myUndoList->begin(POI, TL("attach POI into lane"));
             myNet->deleteAdditional(POI, myUndoList);
             // add new POI use route handler
             additionalHandler.parseSumoBaseObject(POIBaseObject);
             myUndoList->end();
-        } else {
-            // obtain lanes around POI boundary
-            getObjectsInBoundary(POI->getCenteringBoundary());
-            if (myViewObjectsSelector.getLaneFront() == nullptr) {
-                WRITE_WARNINGF("No lanes around the % '%' to attach it", toString(SUMO_TAG_POI), POI->getID());
-            } else {
-                // obtain nearest lane to POI
-                GNELane* nearestLane = myViewObjectsSelector.getLaneFront();
-                double minorPosOverLane = nearestLane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
-                double minorLateralOffset = nearestLane->getLaneShape().positionAtOffset(minorPosOverLane).distanceTo(POI->getPositionInView());
-                for (const auto& lane : myViewObjectsSelector.getLanes()) {
-                    double posOverLane = lane->getLaneShape().nearest_offset_to_point2D(POI->getPositionInView());
-                    double lateralOffset = lane->getLaneShape().positionAtOffset(posOverLane).distanceTo(POI->getPositionInView());
-                    if (lateralOffset < minorLateralOffset) {
-                        minorPosOverLane = posOverLane;
-                        minorLateralOffset = lateralOffset;
-                        nearestLane = lane;
-                    }
-                }
-                // get sumo base object of POI (And all common attributes)
-                CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
-                // add specific attributes
-                POIBaseObject->addStringAttribute(SUMO_ATTR_LANE, nearestLane->getID());
-                POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION, minorPosOverLane);
-                POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, (POI->getAttribute(SUMO_ATTR_FRIENDLY_POS) == GNEAttributeCarrier::TRUE_STR));
-                POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
-                // remove POI
-                myUndoList->begin(POI, TL("attach POI into lane"));
-                myNet->deleteAdditional(POI, myUndoList);
-                // add new POI use route handler
-                additionalHandler.parseSumoBaseObject(POIBaseObject);
-                myUndoList->end();
-            }
         }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdReleasePOI(FXObject*, FXSelector, void*) {
+    // obtain POI at popup position
+    GNEPOI* POI = getPOIAtPopupPosition();
+    if (POI && (POI->getTagProperty()->getTag() == GNE_TAG_POILANE)) {
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        // get sumo base object of POI (And all common attributes)
+        CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+        // add specific attributes
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->getPositionInView().x());
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->getPositionInView().y());
+        // remove POI
+        myUndoList->begin(POI, TL("release POI from lane"));
+        myNet->deleteAdditional(POI, myUndoList);
+        // add new POI use route handler
+        additionalHandler.parseSumoBaseObject(POIBaseObject);
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
+    // obtain POI at popup position
+    GNEPOI* POI = getPOIAtPopupPosition();
+    if (POI && (POI->getTagProperty()->getTag() != SUMO_TAG_POI)) {
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        // get sumo base object of POI (And all common attributes)
+        CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+        // remove POI
+        myUndoList->begin(POI, TL("transform to POI"));
+        myNet->deleteAdditional(POI, myUndoList);
+        // add new POI use route handler
+        additionalHandler.parseSumoBaseObject(POIBaseObject);
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdTransformPOIGEO(FXObject*, FXSelector, void*) {
+    // obtain POI at popup position
+    GNEPOI* POI = getPOIAtPopupPosition();
+    if (POI && (POI->getTagProperty()->getTag() != SUMO_TAG_POI)) {
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        // get sumo base object of POI (And all common attributes)
+        CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+        // remove POI
+        myUndoList->begin(POI, TL("transform to POI GEO"));
+        myNet->deleteAdditional(POI, myUndoList);
+        // add new POI use route handler
+        additionalHandler.parseSumoBaseObject(POIBaseObject);
+        myUndoList->end();
     }
     return 1;
 }

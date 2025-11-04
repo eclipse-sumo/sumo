@@ -1413,8 +1413,14 @@ enum {
     /// @name GNEPOI messages
     /// @{
 
-    /// @brief Transform POI to POILane, and viceversa
-    MID_GNE_POI_TRANSFORM,
+    /// @brief attach POI to lane
+    MID_GNE_POI_ATTACH,
+    /// @brief release POI from lane
+    MID_GNE_POI_RELEASE,
+    /// @brief Transform to POI
+    MID_GNE_POI_TRANSFORM_POI,
+    /// @brief Transform to POI Geo
+    MID_GNE_POI_TRANSFORM_POIGEO,
 
     /// @}
 
