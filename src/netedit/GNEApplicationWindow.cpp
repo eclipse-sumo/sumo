@@ -2758,7 +2758,13 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
             myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element for draw over the rest"));
         }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myViewNet && (myViewNet->getMarkFrontElements().getACs().size() > 0)) {
+        myEditMenuCommands.toggleFrontElement->setText(TL("Unfront all element"));
+        myEditMenuCommands.toggleFrontElement->setTipText(TL("Unfront all elements"));
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
+        myEditMenuCommands.toggleFrontElement->setText(TL("Front element (only inspected elements)"));
+        myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element for draw over the rest"));
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
