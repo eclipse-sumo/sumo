@@ -846,7 +846,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
             edgeObj.length = float(attrs['length'])
-            if (options.vclass is None or
+            if (options.vclass == "ignoring" or
                     options.vclass in get_allowed(attrs.get('allow'), attrs.get('disallow'))):
                 edgeObj.numLanes += 1
 
@@ -968,7 +968,8 @@ parser.add_argument("-b", "--begin", type=ArgumentParser.time, help="begin time 
 parser.add_argument("--pedestrians", action="store_true",
                     default=False, help="write pedestrian flows instead of vehicles flows")
 parser.add_argument("--limit", type=int, help="limit the amount of flow assigned in a single step")
-parser.add_argument("--vclass", help="only consider lanes that allow the given vehicle class")
+parser.add_argument("--vclass", default="passenger",
+                    help="only consider lanes that allow the given vehicle class (default 'passenger')")
 parser.add_argument("-q", "--quiet", action="store_true", dest="quiet",
                     default=False, help="suppress warnings")
 parser.add_argument("--random", action="store_true", dest="random",
