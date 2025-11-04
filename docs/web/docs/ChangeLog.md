@@ -37,7 +37,7 @@ title: ChangeLog
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
-  - Removed invalid elements from addtional-mode element selector #17297 (regression in 1.11.0)
+  - Removed invalid elements from additional-mode element selector #17297 (regression in 1.11.0)
   - Fixed missing 'allow="authority' attribute in closingReroute #17299 (regression in 1.11.0)
   - Rectangle selection of edges no longer selects additional objects #17213 (regression in 1.20.0)
   - Hints when moving/creating geometry points are working again #17032 (regression in 1.20.0)
