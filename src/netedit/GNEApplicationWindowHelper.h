@@ -699,8 +699,8 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for edit view port
         FXMenuCommand* editViewPort = nullptr;
 
-        /// @brief FXMenuCommand for clear Front element
-        FXMenuCommand* clearFrontElement = nullptr;
+        /// @brief FXMenuCommand for toggle front element
+        FXMenuCommand* toggleFrontElement = nullptr;
 
         /// @brief menu check for load additionals in SUMO GUI
         FXMenuCheck* loadAdditionalsInSUMOGUI = nullptr;

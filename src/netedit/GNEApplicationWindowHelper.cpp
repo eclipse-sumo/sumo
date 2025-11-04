@@ -1309,10 +1309,10 @@ GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* 
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::buildFrontElementMenuCommand(FXMenuPane* editMenu) {
-    // add clear front element
-    clearFrontElement = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                        TL("Clear front element"), "F11", TL("Clear current front element"),
-                        GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myApplicationWindow, MID_HOTKEY_F11_FRONTELEMENT);
+    // build toggle front element
+    toggleFrontElement = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
+                         TL("Front element"), "F11", TL("Mark current inspected element as front element"),
+                         GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myApplicationWindow, MID_HOTKEY_F11_FRONTELEMENT);
 }
 
 

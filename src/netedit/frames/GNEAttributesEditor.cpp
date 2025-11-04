@@ -92,6 +92,12 @@ GNEAttributesEditor::disableAttributesEditor() {
 }
 
 
+GNEAttributesEditorType*
+GNEAttributesEditor::getNeteditAttributesEditor() const {
+    return myNeteditAttributesEditor;
+}
+
+
 bool
 GNEAttributesEditor::checkAttributes(const bool showWarning) {
     if (!myBasicAttributesEditor->checkAttributes(showWarning)) {

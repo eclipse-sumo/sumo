@@ -47,6 +47,9 @@ public:
     /// @brief disable attribute editor
     void disableAttributesEditor();
 
+    /// @brief get netedit attributes editor
+    GNEAttributesEditorType* getNeteditAttributesEditor() const;
+
     /// @brief check if current edited attributes are valid
     bool checkAttributes(const bool showWarning);
 

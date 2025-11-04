@@ -304,21 +304,25 @@ struct GNEViewNetHelper {
     /// @brief class used for group front elements
     class MarkFrontElements {
 
+        /// @brief only GNEAttributeCarrier have access to mark/unmarkAC
+        friend class GNEAttributeCarrier;
+
     public:
         /// @brief constructor
         MarkFrontElements();
 
+        /// @brief get hash table with all fronted ACs
+        const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
+
+        /// @brief unmark all ACs
+        void unmarkAll();
+
+    protected:
         /// @brief mark AC as drawing front
         void markAC(GNEAttributeCarrier* AC);
 
         /// @brief unmark AC for drawing front
         void unmarkAC(GNEAttributeCarrier* AC);
-
-        /// @brief unmark all ACs
-        void unmarkAll();
-
-        /// @brief get hash table with all fronted ACs
-        const std::unordered_set<GNEAttributeCarrier*>& getACs() const;
 
     private:
         /// @brief hash table with all marked ACs (we use a set to make deletion of massive elements more quickly)

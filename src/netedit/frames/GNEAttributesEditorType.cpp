@@ -197,6 +197,7 @@ GNEAttributesEditorType::refreshAttributesEditor() {
             // front button
             if (tagProperty->isDrawable()) {
                 myFrontButton->show();
+                myFrontButton->forceRefresh();
                 // disable if we're reparenting
                 if (isReparenting()) {
                     myOpenDialogButton->disable();
@@ -373,18 +374,18 @@ GNEAttributesEditorType::abortReparenting() {
 long
 GNEAttributesEditorType::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
     // check if all element are selectd
-    bool allSelected = true;
+    bool allFront = true;
     for (auto& AC : myEditedACs) {
         if (!AC->isMarkedForDrawingFront()) {
-            allSelected = false;
+            allFront = false;
             break;
         }
     }
-    // only unfront if all element are front
-    for (auto& AC : myEditedACs) {
-        if (allSelected) {
-            AC->unmarkForDrawingFront();
-        } else {
+    // first unfront all elements
+    myFrameParent->getViewNet()->getMarkFrontElements().unmarkAll();
+    // only mark front elements if we have at least one non-front element
+    if (!allFront) {
+        for (auto& AC : myEditedACs) {
             AC->markForDrawingFront();
         }
     }

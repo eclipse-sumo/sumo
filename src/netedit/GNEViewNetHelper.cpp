@@ -332,6 +332,22 @@ GNEViewNetHelper::InspectedElements::isInspectingMultipleElements() const {
 GNEViewNetHelper::MarkFrontElements::MarkFrontElements() {}
 
 
+const std::unordered_set<GNEAttributeCarrier*>&
+GNEViewNetHelper::MarkFrontElements::getACs() const {
+    return myMarkedACs;
+}
+
+
+void
+GNEViewNetHelper::MarkFrontElements::unmarkAll() {
+    // make a copy because container is modified in every iteration
+    const auto copy = myMarkedACs;
+    for (auto& AC : copy) {
+        AC->unmarkForDrawingFront();
+    }
+}
+
+
 void
 GNEViewNetHelper::MarkFrontElements::markAC(GNEAttributeCarrier* AC) {
     myMarkedACs.insert(AC);
@@ -346,22 +362,6 @@ GNEViewNetHelper::MarkFrontElements::unmarkAC(GNEAttributeCarrier* AC) {
             myMarkedACs.erase(it);
         }
     }
-}
-
-
-void
-GNEViewNetHelper::MarkFrontElements::unmarkAll() {
-    // make a copy because container is modified in every iteration
-    const auto copy = myMarkedACs;
-    for (auto& AC : copy) {
-        AC->unmarkForDrawingFront();
-    }
-}
-
-
-const std::unordered_set<GNEAttributeCarrier*>&
-GNEViewNetHelper::MarkFrontElements::getACs() const {
-    return myMarkedACs;
 }
 
 // ---------------------------------------------------------------------------

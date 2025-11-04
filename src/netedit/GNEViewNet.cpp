@@ -3693,7 +3693,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
             if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
-                myMarkFrontElements.unmarkAC(AC);
+                AC->unmarkForDrawingFront();
             }
         }
         // check if we're handling a selection
@@ -3727,7 +3727,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         const auto frontElements = myMarkFrontElements.getACs();
         for (const auto& AC : frontElements) {
             if (AC->getTagProperty()->getTag() == SUMO_TAG_CONNECTION) {
-                myMarkFrontElements.unmarkAC(AC);
+                AC->unmarkForDrawingFront();
             }
         }
         // check if we're handling a selection

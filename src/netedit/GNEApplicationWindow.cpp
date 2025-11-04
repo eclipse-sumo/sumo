@@ -308,7 +308,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GNEApplicationWindow::onCmdToggleDrawJunctionShape),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onCmdSetFrontElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onCmdToggleFrontElement),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onUpdNeedsFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
@@ -2383,21 +2383,26 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* sender, FXSelector 
 
 
 long
-GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToggleFrontElement(FXObject*, FXSelector, void*) {
     if (myViewNet) {
-        // get first inspected AC
-        auto inspectedAC = myViewNet->getInspectedElements().getFirstAC();
-        if (inspectedAC) {
-            // set or clear front attribute
-            if (inspectedAC->isMarkedForDrawingFront()) {
-                inspectedAC->unmarkForDrawingFront();
-            } else {
-                inspectedAC->markForDrawingFront();
+        // check if all element are front
+        bool allFront = true;
+        for (auto& AC : myViewNet->getInspectedElements().getACs()) {
+            if (!AC->isMarkedForDrawingFront()) {
+                allFront = false;
+                break;
             }
-        } else {
-            myViewNet->getMarkFrontElements().unmarkAll();
+        }
+        // first unfront all elements
+        myViewNet->getMarkFrontElements().unmarkAll();
+        // only mark front elements if we have at least one non-front element
+        if (!allFront) {
+            for (auto& AC : myViewNet->getInspectedElements().getACs()) {
+                AC->markForDrawingFront();
+            }
         }
         myViewNet->update();
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getNeteditAttributesEditor()->refreshAttributesEditor();
     }
     return 1;
 }
@@ -2735,7 +2740,23 @@ GNEApplicationWindow::onUpdNeedsNetworkElement(FXObject* sender, FXSelector, voi
 long
 GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*) {
     // check if net, viewnet and front attribute exist
-    if (myViewNet && (myViewNet->getMarkFrontElements().getACs().size() > 0)) {
+    if (myViewNet && (myViewNet->getInspectedElements().getACs().size() > 0)) {
+        // check if all element are front
+        bool allFront = true;
+        for (auto& AC : myViewNet->getInspectedElements().getACs()) {
+            if (!AC->isMarkedForDrawingFront()) {
+                allFront = false;
+                break;
+            }
+        }
+        // set button text depending of all selected
+        if (allFront) {
+            myEditMenuCommands.toggleFrontElement->setText(TL("Unfront element"));
+            myEditMenuCommands.toggleFrontElement->setTipText(TL("Unfront inspected elements"));
+        } else {
+            myEditMenuCommands.toggleFrontElement->setText(TL("Front element"));
+            myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element for draw over the rest"));
+        }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
