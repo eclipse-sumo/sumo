@@ -75,7 +75,7 @@ GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     writeAdditionalAttributes(device);
     // write specific attributes
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
-    if (getAttribute(SUMO_ATTR_ALLOW) != "authority") {
+    if (getAttribute(SUMO_ATTR_ALLOW) != getVehicleClassNames(SVCAll)) {
         if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
             device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
         } else {
