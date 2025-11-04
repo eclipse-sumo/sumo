@@ -127,6 +127,9 @@ public:
     /// @brief called when user press the "Mark as front element" button
     long onCmdMarkAsFront(FXObject*, FXSelector, void*);
 
+    /// @brief called when user update the "Mark as front element" button
+    long onUpdMarkAsFront(FXObject*, FXSelector, void*);
+
     /// @brief called when user press the "Element dialog" button
     long onCmdOpenElementDialog(FXObject*, FXSelector, void*);
 

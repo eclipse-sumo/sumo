@@ -52,6 +52,7 @@ GNEAttributesEditorType::AttributesEditorRows GNEAttributesEditorType::mySecondS
 
 FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_FRONT,         GNEAttributesEditorType::onCmdMarkAsFront),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_ATTRIBUTESEDITOR_FRONT,         GNEAttributesEditorType::onUpdMarkAsFront),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_DIALOG,        GNEAttributesEditorType::onCmdOpenElementDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_EXTENDED,      GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ATTRIBUTESEDITOR_PARAMETERS,    GNEAttributesEditorType::onCmdOpenEditParametersDialog),
@@ -371,13 +372,37 @@ GNEAttributesEditorType::onCmdMarkAsFront(FXObject*, FXSelector, void*) {
             break;
         }
     }
-    // only unfronto if all element are front
+    // only unfront if all element are front
     for (auto& AC : myEditedACs) {
         if (allSelected) {
             AC->unmarkForDrawingFront();
         } else {
             AC->markForDrawingFront();
         }
+    }
+    // update after front/unfront
+    myFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNEAttributesEditorType::onUpdMarkAsFront(FXObject*, FXSelector, void*) {
+    // check if all element are selectd
+    bool allSelected = true;
+    for (auto& AC : myEditedACs) {
+        if (!AC->isMarkedForDrawingFront()) {
+            allSelected = false;
+            break;
+        }
+    }
+    // set button text depending of all selected
+    if (allSelected) {
+        myFrontButton->setText(TL("Unfront element"));
+        myFrontButton->setTipText(TL("Unfront inspected elements"));
+    } else {
+        myFrontButton->setText(TL("Front element"));
+        myFrontButton->setTipText(TL("Mark element for draw over the rest"));
     }
     return 1;
 }
