@@ -134,7 +134,7 @@ public:
 
     /// @brief draw dotted contour (call out of this class only in special cases, for example in WalkingAreas)
     bool drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                           const double lineWidth, const bool addOffset) const;
+                           const double lineWidth, const bool addOffset, const double extraZOffset = 0) const;
     /// @}
 
 private:
