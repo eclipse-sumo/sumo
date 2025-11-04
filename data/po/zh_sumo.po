@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-09-08 06:42+0000\n"
-"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
+"PO-Revision-Date: 2025-11-04 12:29+0000\n"
+"Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr "正在读取数据输入"
+msgstr "读取输入中"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
@@ -73,13 +73,13 @@ msgstr "未知公交车站'%'。"
 msgid ""
 "generate a trips file from a stats file on a given net using arbitrary "
 "random seed"
-msgstr ""
+msgstr "使用任意随机种子，根据给定网络上的统计文件生成一个行程文件"
 
 #: src/activitygen/AGFrame.cpp:49
 msgid ""
 "generate a trips file from a stats file on a given net for numerous days "
 "(with fixed random seed)"
-msgstr ""
+msgstr "根据给定网络的统计文件，为连续多天（使用固定随机种子）生成行程文件"
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
@@ -170,7 +170,7 @@ msgstr "无法添加检测器“%”（可能 id 已被使用）。"
 #: src/dfrouter/RODFFrame.cpp:47 src/duarouter/RODUAFrame.cpp:45
 #: src/marouter/ROMAFrame.cpp:46
 msgid "run routing with options from file"
-msgstr ""
+msgstr "从文件中读取选项运行路由"
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
@@ -649,7 +649,7 @@ msgstr "为所有的公共交通输入提供路径"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "写流量，而非将其扩展为具体车辆"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -697,7 +697,7 @@ msgstr "出租车接人的预计时间"
 msgid ""
 "Only use the intended public transport line rather than any alternative line "
 "that stops at the destination"
-msgstr ""
+msgstr "请仅使用指定的公共交通线路，而非任何停靠在目的地的替代线路"
 
 #: src/duarouter/RODUAFrame.cpp:192 src/microsim/MSFrame.cpp:692
 msgid ""
@@ -717,7 +717,7 @@ msgstr "寻路径算法'%'不支持批量路径。"
 msgid ""
 "The option --weights.random-factor should not be used together with astar "
 "and precomputed distances."
-msgstr ""
+msgstr "选项 --weights.random-factor 不应与 astar 和预计算距离一起使用。"
 
 #: src/duarouter/RODUAFrame.cpp:244 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
@@ -764,7 +764,7 @@ msgstr "路段'%'和'%'不相连。"
 
 #: src/jtrrouter/ROJTRFrame.cpp:45
 msgid "run with routing options defined in file"
-msgstr ""
+msgstr "使用文件中定义的路由选项运行"
 
 #: src/jtrrouter/ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
@@ -816,7 +816,7 @@ msgstr "宣布为汇路段'%'不知道是什么。"
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
 msgid "The from-edge '%' in flow '%' is not known."
-msgstr ""
+msgstr "流量'%'的来源路段'%'未知。"
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -921,12 +921,12 @@ msgstr "找到id为'%'的% meanData定义。"
 
 #: src/libsumo/Person.cpp:149
 msgid "Edge '%' does not occur within the remaining walk of person '%'."
-msgstr ""
+msgstr "“路段（%）”未出现在行人（%）的剩余行走路径中。"
 
 #: src/libsumo/Person.cpp:162
 #, c-format
 msgid "Person '%' is not walking"
-msgstr ""
+msgstr "行人'%'未通行"
 
 #: src/libsumo/Person.cpp:585
 #, c-format
@@ -1219,7 +1219,7 @@ msgstr "传送车辆'%'；等待时间过长，从路段'%'：%，时间=%。"
 msgid ""
 "Teleporting vehicle '%'; waited too long%, from edge '%':% to edge '%':%, "
 "time=%."
-msgstr ""
+msgstr "瞬移车辆'%‘；等待时间过长%，从边缘'%':% 到边缘'%':%，用时=%。"
 
 #: src/mesosim/MESegment.cpp:374 src/microsim/MSBaseVehicle.cpp:1126
 msgid "Vehicle '%' has no valid route. %"
@@ -1228,7 +1228,7 @@ msgstr "车辆'%'没有有效的路径。%"
 #: src/mesosim/METriggeredCalibrator.cpp:84
 #, c-format
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
-msgstr ""
+msgstr "在调校器“%”中，车辆“%”的排放检测失败!"
 
 #: src/mesosim/METriggeredCalibrator.cpp:130
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1278,7 +1278,7 @@ msgstr "错误：状态中的无效车辆（可能是一个微型状态）!"
 
 #: src/mesosim/MEVehicle.cpp:634
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
-msgstr ""
+msgstr "在加载状态下，车辆“%”的未知段“%:%”。"
 
 #: src/microsim/MSBaseVehicle.cpp:190
 msgid "Changing a vehicle ID is not permitted"
@@ -1294,16 +1294,16 @@ msgstr "车辆'%'从路段'%'到停止路段'%'没有有效路径。"
 
 #: src/microsim/MSBaseVehicle.cpp:463
 msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
-msgstr ""
+msgstr "车辆'%'在时间'%'时跳过路段'%'的站点，延迟为'%'。"
 
 #: src/microsim/MSBaseVehicle.cpp:465
 msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
-msgstr ""
+msgstr "车辆'%'在时间'%'时跳过路段'%'的优先级为'%'的站点。"
 
 #: src/microsim/MSBaseVehicle.cpp:467
 msgid ""
 "Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
-msgstr ""
+msgstr "车辆'%'在时间'%'时跳过了边缘'%'上的不可达站点，该站点优先级为'%'。"
 
 #: src/microsim/MSBaseVehicle.cpp:511
 #, c-format
@@ -1517,15 +1517,15 @@ msgstr "路段'%'和bidi路段'%'没有匹配的bidi车道"
 
 #: src/microsim/MSFrame.cpp:64
 msgid "start a simulation from time 0 to 1000 with given net and routes"
-msgstr ""
+msgstr "从时间0到1000，使用给定的网络和路由进行模拟"
 
 #: src/microsim/MSFrame.cpp:65
 msgid "start with a configuration file"
-msgstr ""
+msgstr "使用配置文件运行"
 
 #: src/microsim/MSFrame.cpp:66
 msgid "print help"
-msgstr ""
+msgstr "打印帮助信息"
 
 #: src/microsim/MSFrame.cpp:80
 msgid "Load road network description from FILE"
@@ -1626,13 +1626,13 @@ msgstr "写入充电站的数据"
 
 #: src/microsim/MSFrame.cpp:154
 msgid "Write aggregated charging event data instead of single time steps"
-msgstr ""
+msgstr "写入聚合的充电事件数据，而非单个时间步长的数据"
 
 #: src/microsim/MSFrame.cpp:156
 msgid ""
 "Write aggregated charging event data for vehicles which have not arrived at "
 "simulation end"
-msgstr ""
+msgstr "为尚未到达模拟结束时的车辆编写聚合充电事件数据"
 
 #: src/microsim/MSFrame.cpp:159
 msgid "Write data of overhead wire segments"
@@ -1689,7 +1689,7 @@ msgstr "列出应该用于过滤FCD输出的形状名称"
 
 #: src/microsim/MSFrame.cpp:189
 msgid "Save fcd for persons and container to separate FILE"
-msgstr ""
+msgstr "保存行人和容器的fcd到不同的文件"
 
 #: src/microsim/MSFrame.cpp:192
 msgid ""
@@ -1819,7 +1819,7 @@ msgstr "将railsignal-blocks保存到文件（FILE）中"
 
 #: src/microsim/MSFrame.cpp:292
 msgid "Record entry and exit times of vehicles for railsignal blocks into FILE"
-msgstr ""
+msgstr "记录车辆进出轨道信号区的时间至文件"
 
 #: src/microsim/MSFrame.cpp:295
 msgid ""
@@ -1873,7 +1873,7 @@ msgstr "将总体统计数据写进文件（FILE）"
 
 #: src/microsim/MSFrame.cpp:327
 msgid "Write reports on deadlocks FILE"
-msgstr ""
+msgstr "写死锁报告文件"
 
 #: src/microsim/MSFrame.cpp:331
 msgid "Save movereminder states of selected vehicles into FILE"
@@ -2075,7 +2075,7 @@ msgstr "车辆在等待时间过长后是否应被移走，而不是被传送"
 msgid ""
 "Whether rail-signal-constraint based deadlocks shall be cleared by removing "
 "a constraint"
-msgstr ""
+msgstr "是否应通过移除约束来消除基于铁路信号约束的死锁"
 
 #: src/microsim/MSFrame.cpp:453
 msgid ""
@@ -2092,7 +2092,7 @@ msgstr "双向路段的车辆被传送后的等待时间"
 msgid ""
 "The waiting time after which vehicles in a rail-signal based deadlock are "
 "teleported"
-msgstr ""
+msgstr "在基于铁路信号的死锁中，车辆被传送（或瞬移）之前的等待时间"
 
 #: src/microsim/MSFrame.cpp:462
 msgid ""
@@ -2127,7 +2127,7 @@ msgstr "允许在需要紧急制动的情况下插入车辆"
 
 #: src/microsim/MSFrame.cpp:480
 msgid "Override default value for vehicle attribute insertionChecks"
-msgstr ""
+msgstr "覆盖车辆属性insertionChecks的默认值"
 
 #: src/microsim/MSFrame.cpp:483
 msgid ""
@@ -2173,13 +2173,13 @@ msgstr "默认情况下，让轨道信号在移动块模式下运作"
 
 #: src/microsim/MSFrame.cpp:513
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
-msgstr ""
+msgstr "不要构建超过FLOAT长度的模块，而是发出警告"
 
 #: src/microsim/MSFrame.cpp:516
 msgid ""
 "List vehicle classes that uses block-based insertion checks even when the "
 "network has no rail signals for them"
-msgstr ""
+msgstr "列出即使在网络中没有为它们设置轨道信号时，也使用基于区间的插入检查的车辆类别"
 
 #: src/microsim/MSFrame.cpp:519
 msgid ""
@@ -2191,11 +2191,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:522
 msgid "Select default depart speed"
-msgstr ""
+msgstr "选择默认出发速度"
 
 #: src/microsim/MSFrame.cpp:525
 msgid "Select default depart lane"
-msgstr ""
+msgstr "选择默认出发车道"
 
 #: src/microsim/MSFrame.cpp:528
 msgid ""
@@ -2319,7 +2319,7 @@ msgstr "在使用“条带化”模型时，行人在狭窄车道上开始挤过
 
 #: src/microsim/MSFrame.cpp:585
 msgid "Factor for reducing speed of pedestrian in jammed state"
-msgstr ""
+msgstr "拥堵状态下行人速度降低的因素"
 
 #: src/microsim/MSFrame.cpp:588
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
@@ -2407,7 +2407,7 @@ msgstr "将位置配对到路口, 而不是路段"
 
 #: src/microsim/MSFrame.cpp:635 src/router/ROFrame.cpp:172
 msgid "Match positions to taz instead of edges"
-msgstr ""
+msgstr "匹配位置对齐到taz（而非边缘）"
 
 #: src/microsim/MSFrame.cpp:646
 msgid ""
@@ -2439,12 +2439,12 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:677
 msgid ""
 "Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"
-msgstr ""
+msgstr "出租车可以在此处让乘客下车的地方（'所有路口'，'公共交通站点'，'停车场区域'）"
 
 #: src/microsim/MSFrame.cpp:680
 msgid ""
 "Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"
-msgstr ""
+msgstr "出租车可以接客的地点（'所有交叉口'，'公共交通站点'，'停车场区域'）"
 
 #: src/microsim/MSFrame.cpp:683
 msgid ""
@@ -2726,6 +2726,8 @@ msgid ""
 "Railsignal-deadlock will not be detected because time-to-teleport (%) is "
 "lower than time-to-teleport.railsignal-deadlock (%)."
 msgstr ""
+"“Railsignal-deadlock”将不会被检测到，因为time-to-teleport （%）低于 time-to-"
+"teleport.railsignal-deadlock（%）。"
 
 #: src/microsim/MSFrame.cpp:1070
 msgid "You need a non-negative delay."
@@ -2765,6 +2767,8 @@ msgid ""
 "speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). "
 "Using it is not recommended!"
 msgstr ""
+"选项 `--threads` 存在已知问题，目前无法提供有意义的速度提升（https://"
+"github.com/eclipse-sumo/sumo/issues/4767）。不建议使用此选项!"
 
 #: src/microsim/MSFrame.cpp:1118
 msgid ""
@@ -2808,7 +2812,7 @@ msgstr "车辆'%'是在紧急情况下插入的。"
 #: src/microsim/MSLane.cpp:838
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
-msgstr ""
+msgstr "车辆“%”将无法以速度%（%）从车道“%”出发，时间为%。"
 
 #: src/microsim/MSLane.cpp:856
 msgid ""
@@ -2833,7 +2837,7 @@ msgstr "正面碰撞"
 
 #: src/microsim/MSLane.cpp:2059
 msgid "side collision"
-msgstr ""
+msgstr "侧面碰撞"
 
 #: src/microsim/MSLane.cpp:2062
 msgid "junction collision"
@@ -2853,25 +2857,25 @@ msgstr "正在传送车辆 '%'; % 与车辆 '%"
 
 #: src/microsim/MSLane.cpp:2134
 msgid "Removing % participants: vehicle '%', vehicle '%"
-msgstr ""
+msgstr "移除%名参与者：车辆‘%’，车辆‘%’"
 
 #: src/microsim/MSLane.cpp:2147
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
-msgstr ""
+msgstr "保持遥控%个参与者：车辆“%”，车辆“%”"
 
 #: src/microsim/MSLane.cpp:2149
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
-msgstr ""
+msgstr "移除%个参与者：车辆'%'，保留遥控车辆'%'"
 
 #: src/microsim/MSLane.cpp:2152
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
-msgstr ""
+msgstr "保持遥控%个参与者：车辆“%”，移除车辆“%”"
 
 #: src/microsim/MSLane.cpp:2163
 msgid ", latGap="
-msgstr ""
+msgstr "，latGap="
 
 #: src/microsim/MSLane.cpp:2190
 msgid "Vehicle '%'"
@@ -2902,7 +2906,7 @@ msgstr " 与人'%'相撞，车道='%'，时间=%，阶段=%。"
 
 #: src/microsim/MSLane.cpp:2324
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
-msgstr ""
+msgstr "故障后移除车辆'%'，车道='%'，时间=%。"
 
 #: src/microsim/MSLane.cpp:2335
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -2940,7 +2944,7 @@ msgstr "不支持该方法"
 #: src/microsim/MSLink.cpp:252
 #, c-format
 msgid "Internal lane '%' has % predecessors"
-msgstr ""
+msgstr "内部车道“%”有%个前置车道"
 
 #: src/microsim/MSNet.cpp:190 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
@@ -2966,39 +2970,39 @@ msgstr "仿真于此时刻结束：%."
 
 #: src/microsim/MSNet.cpp:736
 msgid "Reason: "
-msgstr ""
+msgstr "原因： "
 
 #: src/microsim/MSNet.cpp:996
 msgid "The final simulation step has been reached."
-msgstr ""
+msgstr "已达到最终的模拟步骤。"
 
 #: src/microsim/MSNet.cpp:998
 msgid "All vehicles have left the simulation."
-msgstr ""
+msgstr "所有车辆已离开模拟环境。"
 
 #: src/microsim/MSNet.cpp:1000
 msgid "TraCI requested termination."
-msgstr ""
+msgstr "TraCI 请求终止。"
 
 #: src/microsim/MSNet.cpp:1002
 msgid "An error occurred (see log)."
-msgstr ""
+msgstr "发生了一个错误（请查看日志）。"
 
 #: src/microsim/MSNet.cpp:1004
 msgid "Interrupted."
-msgstr ""
+msgstr "被打断。"
 
 #: src/microsim/MSNet.cpp:1006
 msgid "Too many teleports."
-msgstr ""
+msgstr "太多传送点。"
 
 #: src/microsim/MSNet.cpp:1008
 msgid "TraCI issued load command."
-msgstr ""
+msgstr "TraCI 发出了加载命令。"
 
 #: src/microsim/MSNet.cpp:1010
 msgid "Unknown reason."
-msgstr ""
+msgstr "未知原因。"
 
 #: src/microsim/MSNet.cpp:1590
 msgid ""
@@ -3019,17 +3023,17 @@ msgstr "从'%'载入状态失败。"
 
 #: src/microsim/MSParkingArea.cpp:86
 msgid "Only a numerical departPos is supported for % '%'"
-msgstr ""
+msgstr "仅支持对 % '%'使用数值型的departPos"
 
 #: src/microsim/MSParkingArea.cpp:88
 msgid "Invalid departPos for % '%'"
-msgstr ""
+msgstr "无效的departPos % '%'"
 
 #: src/microsim/MSRightOfWayJunction.cpp:91
 msgid ""
 "Found invalid logic position of a link for junction '%' (%, max %) -> "
 "(network error)"
-msgstr ""
+msgstr "发现连接至交汇点“%”（%，最大%）的链接逻辑位置无效 -> （网络错误）"
 
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
 msgid "Taz usage was requested but no taz present in % '%'!"
@@ -3279,6 +3283,8 @@ msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
+"集装箱“%”的转运信息不一致，需要提供以下信息之一：'edges'（路段）、'to'（目的"
+"地）、'containerStop'（或任何其他停靠点）"
 
 #: src/microsim/MSRouteHandler.cpp:1822
 msgid "No edges to tranship container '%'."
@@ -3308,13 +3314,13 @@ msgstr "未知车道'%'处于加载状态。"
 #: src/microsim/MSStateHandler.cpp:321
 #, c-format
 msgid "Unknown segment '%' in loaded state."
-msgstr ""
+msgstr "加载状态下未知段“%”。"
 
 #: src/microsim/MSStateHandler.cpp:349
 msgid ""
 "Invalid queue index '%' on segment '%'. Check for consistency of lane "
 "numbers and queue options."
-msgstr ""
+msgstr "队列索引“%”无效，发生在路段“%”。请检查车道编号和队列选项的一致性。"
 
 #: src/microsim/MSStateHandler.cpp:454
 #, c-format
@@ -3451,11 +3457,11 @@ msgstr ""
 
 #: src/microsim/MSVehicleType.cpp:440
 msgid "singular "
-msgstr ""
+msgstr "单向 "
 
 #: src/microsim/MSVehicleType.cpp:441
 msgid "could not add %type %"
-msgstr ""
+msgstr "无法添加% 类型 %"
 
 #: src/microsim/MSVehicleType.cpp:475
 #, c-format
@@ -3505,41 +3511,45 @@ msgstr "未知列车类型：%。正在退出!"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:120
 msgid "Undefined maxPower for vType '%'."
-msgstr ""
+msgstr "未定的maxPower，针对vType \"%\"。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:122
 msgid "Undefined maxTraction for vType '%'."
-msgstr ""
+msgstr "vType % 未定义maxTraction。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:125
 msgid ""
 "Ignoring tractionTable because maxPower and maxTraction are set for vType "
 "'%'."
-msgstr ""
+msgstr "忽略牵引表，因为已为vType '%'设置了maxPower和maxTraction。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:134
 msgid ""
 "Some undefined resistance coefficients for vType '%' (requires "
 "resCoef_constant, resCoef_linear and resCoef_quadratic)"
 msgstr ""
+"对于vType '%'，存在一些未定义的阻力系数（需要resCoef_constant、resCoef_linear"
+"和resCoef_quadratic）"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:137
 msgid ""
 "Ignoring resistanceTable because resistance coefficients are set for vType "
 "'%'."
-msgstr ""
+msgstr "忽略阻力表，因为已为vType '%'设置了阻力系数。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:141
 msgid ""
 "Either tractionTable or maxPower must be defined for vType '%' with Rail "
 "model type '%'."
-msgstr ""
+msgstr "vType“%”的轨道模型类型为“%”，必须定义牵引表（tractionTable）或最大功率（maxPo"
+"wer）之一。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:144
 msgid ""
 "Either resistanceTable or resCoef_constant must be defined for vType '%' "
 "with Rail model type '%'."
-msgstr ""
+msgstr "针对vType '%'，对于类型为“%”的轨道模型，必须定义resistanceTable或resCoef_cons"
+"tant中的一项。"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:317
 msgid ""
@@ -3616,7 +3626,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Battery.cpp:206
 msgid "Battery of vehicle '%' is depleted, time=%."
-msgstr ""
+msgstr "车辆“%”的电池已耗尽，时间=%。"
 
 #: src/microsim/devices/MSDevice_Battery.cpp:371
 #: src/microsim/devices/MSDevice_Battery.cpp:381
@@ -3730,7 +3740,8 @@ msgstr "在电路中找不到具有最后一个识别名（ID）的元素或节�
 msgid ""
 "Getting the vehicle mass via parameters is deprecated, please use getMass "
 "for the vehicle or its type."
-msgstr ""
+msgstr "通过参数获取车辆质量的方法已弃用，请使用 getMass方法来获取车辆或其类型的重量"
+"。"
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:53
 msgid "Recording begin time for emission-data"
@@ -3743,7 +3754,7 @@ msgstr "排放-输出的记录期"
 #: src/microsim/devices/MSDevice_Emissions.cpp:97
 #, c-format
 msgid "Unknown attribute '%' to write in emission output."
-msgstr ""
+msgstr "未知属性“%”写入排放输出。"
 
 #: src/microsim/devices/MSDevice_Example.cpp:48
 msgid ""
@@ -3785,39 +3796,39 @@ msgstr "无法从'%'中载入用于过滤浮动车资料（fcd）输出的路段
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:61
 msgid "FCD file to read"
-msgstr ""
+msgstr "读取FCD文件"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown edge '%' in fcd replay file for person '%'."
-msgstr ""
+msgstr "未知路段“%”，在行人“%”的fcd回放文件中。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
-msgstr ""
+msgstr "未知车道“%”，在车辆“%”的回放文件中。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:352
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "位置vType \"%\"。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
-msgstr ""
+msgstr "在fcd回放文件中，人员'%'没有路段信息，在时间 %时。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:358
 msgid "No lane in fcd replay file for vehicle '%' at time %."
-msgstr ""
+msgstr "车辆“%”的回放文件中，在时间“%”时，没有车道信息。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:368
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "重复的行人“%”。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:381
 msgid "Could not add route '%'."
-msgstr ""
+msgstr "无法添加路径“%”。"
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:390
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "重复车辆“%”。"
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -3846,23 +3857,23 @@ msgstr "向红灯滑行时的最低速度"
 msgid ""
 "Additional time the vehicle shall need to reach the intersection after the "
 "signal turns green"
-msgstr ""
+msgstr "信号灯变绿后，车辆到达交叉口所需额外的时间"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:63
 msgid "Use queue in front of the tls for GLOSA calculation"
-msgstr ""
+msgstr "在TLS前使用队列进行GLOSA计算"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:66
 msgid ""
 "Override safety features - ignore the current light state, always follow "
 "GLOSA's predicted state"
-msgstr ""
+msgstr "覆盖安全功能 - 忽略当前灯光状态，始终遵循GLOSA预测的状态"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:69
 msgid ""
 "Vehicles follow a perfect speed calculation - ignore speed calculations from "
 "the CF model if not safety critical"
-msgstr ""
+msgstr "车辆遵循精确的速度计算——若非安全问题，则忽略CF模型中的速度计算"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:348
 msgid ""
@@ -3893,13 +3904,13 @@ msgstr "更新路段权重的时间间隔"
 msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "factor"
-msgstr ""
+msgstr "仅当新路线比当前路线快出给定倍数时才重新规划路线"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:75
 msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "TIME"
-msgstr ""
+msgstr "仅当新路线比当前路线快给定的时间时，才重新规划路线"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid "Use zones (districts) as routing start- and endpoints"
@@ -3908,7 +3919,7 @@ msgstr "使用区域（地区）作为路径的起点和终点"
 #: src/microsim/devices/MSDevice_Routing.cpp:83
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
-msgstr ""
+msgstr "设置路由标志（8表示忽略临时阻塞）"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:86
 msgid ""
@@ -4022,7 +4033,7 @@ msgstr "是否写入每个时间段的车道和其位置"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid "Whether to write conflict outputs with no data as NA values or skip it"
-msgstr ""
+msgstr "是否将无数据的冲突输出写为NA值或跳过"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:260
 msgid ""
@@ -4043,7 +4054,8 @@ msgstr "无法从'%'载入路段名称以过滤SSM装置的输出。"
 msgid ""
 "SSM device of vehicle '%' encountered an unexpected conflict with foe % at "
 "time=%. Please review your vehicle behavior settings."
-msgstr ""
+msgstr "车辆“%”的SSM设备与foe “%”发生了意外冲突，在时间=%.时。请检查您的车辆行为设置"
+"。"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:1130
 msgid ""
@@ -4131,7 +4143,7 @@ msgstr "vType参数'ssm.write-lan-positions'记录的位置值'%无效'。"
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
-msgstr ""
+msgstr "车辆“%”未提供车辆参数“device.ssm.write-lane-positions”。使用默认值“%”。"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4010
 #, c-format
@@ -4154,7 +4166,7 @@ msgstr ""
 msgid ""
 "SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM "
 "device '%'."
-msgstr ""
+msgstr "SSM 不支持exclude-conflict-type '%'。正在中止构建 SSM 设备 '%'。"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4058
 #, c-format
@@ -4274,13 +4286,13 @@ msgstr "电池电量耗尽时在路边等待救援车辆的时间"
 msgid ""
 "How to deal with a vehicle which has to stop due to low battery: [none, "
 "remove, tow]"
-msgstr ""
+msgstr "如何处理因电池电量不足而必须停车的车辆：[无需处理，移除电池，拖车]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:67
 msgid ""
 "Scale battery need with this factor to account for unexpected traffic "
 "situations"
-msgstr ""
+msgstr "根据这一因素调整电池规模，以应对突发的交通状况"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:69
 msgid "Battery percentage to go into rescue mode"
@@ -4294,7 +4306,7 @@ msgstr "以旅行时间秒为单位的搜索半径"
 msgid ""
 "Euclidean search distance in meters (a negative value disables the "
 "restriction)"
-msgstr ""
+msgstr "欧几里得搜索距离（以米为单位）（负值表示禁用此限制）"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:75
 msgid "When to trigger a new search if no station has been found"
@@ -4318,113 +4330,113 @@ msgstr "等待时间结束后，当初始站点被堵塞时，车辆会搜索新
 msgid ""
 "Only stops with a predicted duration of at least the given threshold are "
 "considered for opportunistic charging."
-msgstr ""
+msgstr "仅考虑那些预计停留时间至少达到给定阈值的站点，以进行机会性充电。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:85
 msgid "Target state of charge after which the vehicle stops charging"
-msgstr ""
+msgstr "车辆停止充电的目标荷电状态"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:87
 msgid "State of charge the vehicle begins searching for charging stations"
-msgstr ""
+msgstr "车辆电量状态开始寻找充电站"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:89
 msgid ""
 "State of charge below which the vehicle may look for charging opportunities "
 "along its planned stops"
-msgstr ""
+msgstr "电量低于此值时，车辆可在计划停靠站寻找充电机会"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:91
 msgid ""
 "Share of stopping time of the next independently planned stop to use for "
 "charging instead"
-msgstr ""
+msgstr "下次独立计划的停靠时间中用于充电的停靠时间占比"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:93
 msgid ""
 "Maximum distance in meters from the original stop to be replaced by the "
 "charging stop"
-msgstr ""
+msgstr "从原始站点到充电站点的最大替换距离（以米为单位）"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:95
 msgid ""
 "Set a charging strategy to alter time and charging load from the set: [none, "
 "balanced, latest]"
-msgstr ""
+msgstr "设置充电策略以更改时间及充电负荷，选项包括：[无，均衡，最新]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:97
 msgid ""
 "Only search for charging stations if the battery charge is not estimated "
 "sufficient to complete the current route"
-msgstr ""
+msgstr "仅在预计电池电量不足以完成当前路线时，才搜索充电站"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:138
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
-msgstr ""
+msgstr "无效的 device.stationfinder.chargingStrategy '%'。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:148
 msgid "Invalid device.stationfinder.rescueAction '%'."
-msgstr ""
+msgstr "无效的 device.stationfinder.rescueAction '%'。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:164
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
-msgstr ""
+msgstr "车辆“%”仅在救援情况下搜索充电站，因为搜索阈值% ≤ 救援阈值%。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:169
 msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
-msgstr ""
+msgstr "车辆“%”不会进行机会性充电，因为其阈值%与常规阈值%太接近。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:212
 msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
-msgstr ""
+msgstr "车辆“%”在先前充电站等待时间过长后，已被重新调度，时间=%。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:257
 msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
-msgstr ""
+msgstr "车辆“%”欲在车道%的%位置停车，因电量低至%，在时间=%时。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:499
 msgid "Problem with inserting the charging station stop for vehicle %."
-msgstr ""
+msgstr "在为车辆%插入车辆充电站站点时出现问题。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:519
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
-msgstr ""
+msgstr "车辆“%”希望在时间%时充电，但附近未找到任何充电站。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:591
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
-msgstr ""
+msgstr "没有可用的充电站供车辆“%”使用，当前时间为%时。因此，该车辆将被移除。"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:711
 msgid "The charging rate limit of vehicle '%' is lifted at time=%"
-msgstr ""
+msgstr "车辆“%”的充电速率限制在时间%时被解除"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:713
 msgid "The charging rate of vehicle '%' is limited to % at time=%"
-msgstr ""
+msgstr "车辆“%”的充电速率被限制为%，在时间%时"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:777
 msgid "Parameter '%' is not supported for device of type '%'"
-msgstr ""
+msgstr "参数“%”不支持设备类型为“%”的设备"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:787
 msgid "Setting parameter '%' requires a number for device of type '%'"
-msgstr ""
+msgstr "设置参数“%”需要为类型为“%”的设备指定一个数字"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:802
 msgid "Setting parameter '%' is not supported for device of type '%'"
-msgstr ""
+msgstr "设置参数“%”对于类型为“%”的设备不支持"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:86
 msgid ""
@@ -4446,7 +4458,7 @@ msgstr "逐次呼叫调度器之间的时间间隔"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:98
 msgid "The time before aborting unreachable reservations"
-msgstr ""
+msgstr "在放弃无法达到的预定之前的时间"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:101
 msgid "The behavior of idle taxis [stop|randomCircling|taxistand]"
@@ -4474,7 +4486,7 @@ msgstr "调度算法'%'不详"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:368
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
-msgstr "现有客戶   '%' 新预约的重新派送(re-dispatch)无效"
+msgstr "现有客户 '%' 新预约的重新派送(re-dispatch)无效"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:401
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
@@ -4482,11 +4494,11 @@ msgstr "重新派送未提及接取现有客户'%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:514
 msgid "Could not add taxi stop, time=%, error=%"
-msgstr ""
+msgstr "无法添加出租车站点，时间%，错误%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:550
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
-msgstr ""
+msgstr "出租车“%”放弃等待乘客：%，在时间%时。"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:747
 msgid "Taxi '%' reaches scheduled end of service at time=%."
@@ -4648,7 +4660,7 @@ msgstr "未知的ToC状态(ToCState)'%'"
 #: src/microsim/devices/MSDevice_Transportable.cpp:69
 #, c-format
 msgid "Vehicle type '%' in parameter '%' of vehicle '%' is not known."
-msgstr ""
+msgstr "车辆类型“%”、参数“%”、车辆车“%”的类型未知。"
 
 #: src/microsim/devices/MSDispatch.cpp:101
 msgid ""
@@ -4709,7 +4721,7 @@ msgstr "该人应改道的期间"
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
 "Which part of the person plan is to be replaced (stage, sequence, or trip)"
-msgstr ""
+msgstr "行人计划中的哪一部分需要被替换（阶段、顺序或行程）"
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
@@ -4759,22 +4771,22 @@ msgstr "尚未为trackVehicles完成汇总(aggregated)的平均资料（meanData
 #: src/microsim/output/MSStopOut.cpp:100
 msgid ""
 "Vehicle '%' loads persons on edge '%', time=% without starting the stop."
-msgstr ""
+msgstr "车辆“%”在未启动站点的情况下，在边缘“%”上载客，时间为%。"
 
 #: src/microsim/output/MSStopOut.cpp:112
 msgid ""
 "Vehicle '%' unloads persons on edge '%', time=% without starting the stop."
-msgstr ""
+msgstr "车辆“%”在未启动站点的情况下，在边缘“%”卸客，时间%。"
 
 #: src/microsim/output/MSStopOut.cpp:125
 msgid ""
 "Vehicle '%' loads container on edge '%', time=% without starting the stop."
-msgstr ""
+msgstr "车辆“%”在未启动站点的情况下，于边缘“%”处装载集装箱，时间%。"
 
 #: src/microsim/output/MSStopOut.cpp:137
 msgid ""
 "Vehicle '%' unloads container on edge '%', time=% without starting the stop."
-msgstr ""
+msgstr "车辆“%”在为启用站点的情况下，在边缘“%”处卸载集装箱，时间为%。"
 
 #: src/microsim/output/MSStopOut.cpp:149
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
@@ -4837,6 +4849,8 @@ msgid ""
 "Error when evaluating expression '%':\n"
 "  %"
 msgstr ""
+"计算表达式时出错 '%':\n"
+"  %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1237
 msgid "Invalid empty condition '%'"
@@ -4848,7 +4862,7 @@ msgstr "不支持的条件式'%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1284
 msgid "Parsing expressions with % elements ('%') is not supported"
-msgstr ""
+msgstr "不支持解析包含%元素（'%'）的表达式"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1315
 msgid "Division by 0 in condition '%'"
@@ -4856,15 +4870,15 @@ msgstr "在条件'式%'中除以0"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1324
 msgid "Unsupported operator '%' in condition '%'"
-msgstr ""
+msgstr "不支持的操作符“%”，在条件“%”中"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1333
 msgid "Function '%' requires % arguments but % were given"
-msgstr ""
+msgstr "函数“%”需要%个参数，但给出了%个参数"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1348
 msgid "Error when evaluating function '%' with args '%' (%)"
-msgstr ""
+msgstr "在评估函数“%”时出错，参数为“%”（%）"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1366
 #, c-format
@@ -4878,11 +4892,11 @@ msgstr "无效的空表式"
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1443
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1458
 msgid "Invalid link index '%' in expression '%'"
-msgstr ""
+msgstr "无效链接索引“%”，在表达式“%”中"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1463
 msgid "Unsupported function '%' in expression '%'"
-msgstr ""
+msgstr "不支持函数“%”，在表达式“%”中"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1507
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -4890,12 +4904,12 @@ msgstr "检索信号逻辑（tlLogic）'%'的条件'%'时出错 (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1522
 msgid "Unknown condition '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "未知条件“%”对于受控交通信号灯“%”"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1553
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1570
 msgid "Invalid lane '%' in key '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "非法车道\"%\" key “%”，针对受控信号灯“%”"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -4907,19 +4921,19 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:1029
 msgid "Found circular block after % (% edges, length %)"
-msgstr ""
+msgstr "在%处发现圆形阻塞（%条边，长度%）"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2096
 msgid "Unknown driveWay '%' with route '%'"
-msgstr ""
+msgstr "未知 driveWay “%”，在路径“%”上"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2106
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
-msgstr ""
+msgstr "未知父driverWay “%”，针对 subDriveWay “%”"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2125
 msgid "Unknown vehicle '%' in driveway '%'"
-msgstr ""
+msgstr "未知车辆“%”在车道（driveway）\"%\"上"
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
@@ -4961,16 +4975,14 @@ msgstr "车辆类型权重（VEHICLE TYPES WEIGHT）仅适用于相位策略，�
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口    % pheromoneInputLanes: 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口 % pheromoneInputLanes: 车道 % 不被允许"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
 msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
-msgstr ""
-"MSSwarmTrafficLightLogic::init 路口    % pheromoneOutputLanes 车道 % 不被允许"
+msgstr "MSSwarmTrafficLightLogic::init 路口 % pheromoneOutputLanes 车道 % 不被允许"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -4998,6 +5010,8 @@ msgid ""
 "Can not switch tls '%' to program '%';\n"
 " The program is not known."
 msgstr ""
+"无法切换 tls '%' 到程序 '%';\n"
+" 该程序未知."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:488
 #, c-format
@@ -5010,21 +5024,21 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:643
 msgid "Could not switch tls '%' to program '%': No such tls exists."
-msgstr ""
+msgstr "无法掐换 tls '%' 到程序 '%': 该 tls 不存在。"
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
-msgstr ""
+msgstr "Waut '%' 已定义。"
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:672
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:694
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:729
 msgid "Waut '%' was not yet defined."
-msgstr ""
+msgstr "Waut '%' 未定义。"
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
-msgstr ""
+msgstr "TLS '%' 在WAUT '%'中切换仍未定义。"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:168
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -5049,13 +5063,14 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:263
 #, c-format
 msgid " Overall % lanes in % phases are unsafe."
-msgstr ""
+msgstr " 所有车道 % 在 % 相位都不安全。"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:264
 msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)%"
-msgstr ""
+msgstr "不安全的绿灯相位 % 在 tlLogic '%'中, 程序'%'. 车道 '%' 策略控制为 % 'G'-"
+"links. (使用'g'代替)%"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:333
 msgid ""
@@ -5082,7 +5097,8 @@ msgstr ""
 msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
 "with option --meso-tls-penalty"
-msgstr ""
+msgstr "路段“%”的长度小于%m（%m），并且在使用--meso-tls-penalty选项时会导致错误的流量"
+"减少"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:164
 msgid ""
@@ -5145,7 +5161,7 @@ msgstr "人员 '%' 的FromTaz '%' 没有形状信息。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:313
 msgid "No waiting set for crossing at %."
-msgstr ""
+msgstr "在路口%无等待设置。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:353
 msgid "Error while adding a journey for person '%': %"
@@ -5153,7 +5169,7 @@ msgstr "为人员 '%' 添加旅程: '%' 时出错"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:387
 msgid "Error while switching to a new journey for person '%': %"
-msgstr ""
+msgstr "为行人'%'切换新行程时发生错误: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:419
 msgid "Error during iteration %: %"
@@ -5161,11 +5177,11 @@ msgstr "迭代 % 时出错: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:587
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
-msgstr ""
+msgstr "行人“%”在消失区域 “%”已从模拟器移除。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:694
 msgid "Error while generating geometry for carriages."
-msgstr ""
+msgstr "在为客车厢生成外观时失败。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:705
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1177
@@ -5173,63 +5189,63 @@ msgstr ""
 msgid ""
 "While generating geometry % connected components were detected, %% of total "
 "pedestrian area is covered by the largest."
-msgstr ""
+msgstr "在生成几何图形时，检测到了%个连通组件，%%整个行人区域被最大组件覆盖。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:759
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
-msgstr ""
+msgstr "多边形“%”在交叉路口“%”将会被跳过，因为它仅仅是一个点。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:778
 msgid ""
 "Polygon '%' at junction '%' had some equal consecutive points removed: %"
-msgstr ""
+msgstr "多边形“%”在交叉路口“%”移除了一些连续的等分点：%"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:787
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
-msgstr ""
+msgstr "多边形“%”在交叉路口“%”已经被扩展了，因为它只是一些小片段。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:789
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
-msgstr ""
+msgstr "多边形“%”已被扩展，因为它是一个片段。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:797
 #, c-format
 msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
 "not simple."
-msgstr ""
+msgstr "多边形“%”在交叉路口“%”已被其凸包所替代，由于其并非简单图形。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:802
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
-msgstr ""
+msgstr "多边形“%”在交叉路口“%”将被跳过，由于其并非简单图形。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:924
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
-msgstr ""
+msgstr "可步行区域的并集减去障碍物的并集，并不是一个简单的多边形。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1059
 msgid "Error while generating geometry: %"
-msgstr ""
+msgstr "生成几何图形时出错：%"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1148
 msgid "Error while adding waiting set for % on '%': %"
-msgstr ""
+msgstr "在为%添加等待设置时报错：%"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1198
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
-msgstr ""
+msgstr "针对jupedsim时间步长为0.02的情况，调整几何排斥默认值。"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1244
 msgid "Error creating the pedestrian model: %"
-msgstr ""
+msgstr "创建行人模型时出错：%"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1250
 msgid "Error creating the simulation: %"
-msgstr ""
+msgstr "创建模拟器时出错：%"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:124
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:920
@@ -5247,11 +5263,11 @@ msgstr "无效的步行区域'%'不允许继续。"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1541
 msgid " between edge '%' and edge '%'"
-msgstr ""
+msgstr " 在路段 '%' 和 '%' 之间"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1543
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
-msgstr ""
+msgstr "行人“%”从路段“%”走到路段“%”时出现断开连接%，时间为%。"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1846
 msgid "Disconnected walk for person '%'."
@@ -5265,13 +5281,13 @@ msgstr "行人'%'被卡在路段'%'，时间=%。"
 msgid ""
 "Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
 "%"
-msgstr ""
+msgstr "车辆“%”超过了人员容量%，在放置触发人员“%”时，时间为%"
 
 #: src/microsim/transportables/MSStageDriving.cpp:255
 msgid ""
 "Vehicle '%' exceeds containerCapacity % when placing triggered container "
 "'%', time=%"
-msgstr ""
+msgstr "车辆“%”超过了容器容量%，在放置已触发的容器“%”时，时间为%"
 
 #: src/microsim/transportables/MSStageTrip.cpp:154
 msgid ""
@@ -5299,7 +5315,7 @@ msgstr ""
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
-msgstr ""
+msgstr "行人模型使用网络中不存在的基础设施，因此timeLoss和routeLength可能无效。"
 
 #: src/microsim/transportables/MSTransportable.cpp:152
 msgid "Changing a transportable ID is not permitted"
@@ -5347,7 +5363,7 @@ msgstr "校准器'%'定义中的数字属性为非数字值。"
 msgid ""
 "Either 'vehsPerHour', 'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
-msgstr ""
+msgstr "在校准器“%”的流定义中，必须设置“vehsPerHour”、“speed”或“type”中的至少一项。"
 
 #: src/microsim/trigger/MSCalibrator.cpp:249
 msgid "Type calibration is not supported in meso for calibrator '%'."
@@ -5370,15 +5386,15 @@ msgstr "无法为校验器'%'设置负间隔的流量。"
 #: src/microsim/trigger/MSChargingStation.cpp:56
 #: src/microsim/trigger/MSChargingStation.cpp:61
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
-msgstr ""
+msgstr "充电站的属性%是非法的，其ID为“%”，非法原因（%）。"
 
 #: src/microsim/trigger/MSChargingStation.cpp:66
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
-msgstr ""
+msgstr "ID为“%”的ChargingStation位置无效（% < %）。"
 
 #: src/microsim/trigger/MSChargingStation.h:69
 msgid "Encountered an unknown charge type. Assuming charge type 'normal'."
-msgstr ""
+msgstr "遇到未知的充电类型。假定充电类型为“正常”。"
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -5417,18 +5433,18 @@ msgstr "要求的总功率无法通过架空线输送。只提供了最初要求
 msgid ""
 "Stopping place '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
-msgstr ""
+msgstr "途中停车点“%”因未知原因无法供车辆“%”使用"
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:467
 msgid ""
 "Invalid distance computation for vehicle '%' to stopping place '%' at time=%."
-msgstr ""
+msgstr "车辆“%”到停车点“%”的距离计算无效，时间为%。"
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
 "Invalid distance computation for vehicle '%' from stopping place '%' at time="
 "%."
-msgstr ""
+msgstr "车辆“%”从停车点“%”开始的距离计算无效，时间为%。"
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:575
 msgid "Invalid value '%' for vehicle parameter '%'"
@@ -5440,93 +5456,93 @@ msgstr "车辆类型(vType)参数 '%' 的值 '%' 无效"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:139
 msgid "rerouter '%': interval end % is not after begin %."
-msgstr ""
+msgstr "重路由“%”：间隔结束时间 % 不在开始时间 % 之后。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:149
 msgid "rerouter '%': destProbReroute has no destination edge id."
-msgstr ""
+msgstr "重路由程序“%”：destProbReroute没有目标路段ID。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:158
 msgid "rerouter '%': Destination edge '%' is not known."
-msgstr ""
+msgstr "重路由程序“%”：目标路径%未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:168
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
-msgstr ""
+msgstr "重路由选择器“%”：目的地“%”的属性“probability”为负值（不允许为负）。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:179
 msgid "rerouter '%': Edge '%' to close is not known."
-msgstr ""
+msgstr "重路由选择器“%”：路段“%”是否关闭未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:194
 msgid "rerouter '%': Lane '%' to close is not known."
-msgstr ""
+msgstr "重路由选择器“%”：车道“%”是否关闭未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:211
 msgid "rerouter '%': routeProbReroute has no alternative route id."
-msgstr ""
+msgstr "重路由选择器“%”：routeProbReroute没有备选路线id。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:215
 msgid "rerouter '%': Alternative route '%' does not exist."
-msgstr ""
+msgstr "重路由选择器“%”：备选路由“%”不存在。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:225
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
-msgstr ""
+msgstr "路由选择器“%”：备选路线“%”的属性“probability”为负数（不允许为负）。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:234
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
-msgstr ""
+msgstr "重路由选择器“%”：parkingAreaReroute需要一个停车区ID。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
 msgid "rerouter '%': parkingArea '%' is not known."
-msgstr ""
+msgstr "重路由选择器“%”：停车区“%”未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
-msgstr ""
+msgstr "重路由选择器“%”： 停车区域“%”的属性“probability”为负值（不应为负值）。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:259
 msgid "rerouter '%': No via edge id given."
-msgstr ""
+msgstr "重路由选择器“%”:未给出途径路径id。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:263
 msgid "rerouter '%': Via Edge '%' is not known."
-msgstr ""
+msgstr "重路由选择器“%”：途径路径“%”未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:272
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
-msgstr ""
+msgstr "重路由选择器“%”： via “%”的属性“probability”为负值（不应为负值）。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:285
 #, c-format
 msgid "The main edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "主路段“%”，在重路由器“%”中未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:293
 #, c-format
 msgid "The siding edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "侧边路段“%”，在重路由器“%”中未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:300
 #, c-format
 msgid "The siding within rerouter '%' does not have a rail signal."
-msgstr ""
+msgstr "重路由器“%”内的侧线没有轨道信号。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:315
 msgid "rerouter '%': stationReroute requires a stopping place id."
-msgstr ""
+msgstr "重路由器“%”：stationReroute需要一个停靠站点的ID。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:319
 msgid "rerouter '%': stopping place '%' is not known."
-msgstr ""
+msgstr "重路由器“%”：停车地点“%”未知。"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:680
 #, c-format
@@ -5676,11 +5692,11 @@ msgstr "增加了 % 个轨道信号灯 (在 % 个站点)。"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1499
 msgid "Could not straighten corridor %."
-msgstr ""
+msgstr "无法拉直走廊%。"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1504
 msgid "Moved % rail junctions for straightening % corridors."
-msgstr ""
+msgstr "移动了%个轨道交汇点以使%条走廊变直。"
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -5729,7 +5745,7 @@ msgstr "路段的 '%' 起点及终点在相同的位置。"
 
 #: src/netbuild/NBEdge.cpp:1077
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "去除%度的锐角，在路段“%”，部分“%”。"
 
 #: src/netbuild/NBEdge.cpp:1086
 msgid "Found angle of % degrees at edge '%', segment %."
@@ -5737,19 +5753,19 @@ msgstr "在路段 '%',区段 % 处找到 % 度的角度。"
 
 #: src/netbuild/NBEdge.cpp:1099
 msgid "Removing sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "删除锐角转弯半径为%，在%，路径为%。"
 
 #: src/netbuild/NBEdge.cpp:1100 src/netbuild/NBEdge.cpp:1109
 msgid "start"
-msgstr ""
+msgstr "启动/开始"
 
 #: src/netbuild/NBEdge.cpp:1100 src/netbuild/NBEdge.cpp:1109
 msgid "end"
-msgstr ""
+msgstr "结束"
 
 #: src/netbuild/NBEdge.cpp:1108
 msgid "Found sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "发现半径为%的急转弯，在%，路段为%。"
 
 #: src/netbuild/NBEdge.cpp:1247
 msgid "Could not set connection from '%' to '%'."
@@ -5848,7 +5864,7 @@ msgstr "移除路段 '%' 的未知对向车道 '%'。"
 
 #: src/netbuild/NBEdge.cpp:3225
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "反向车道“%”未反向连接到相同的节点，如路段“%”！"
 
 #: src/netbuild/NBEdge.cpp:3230 src/netbuild/NBEdge.cpp:3242
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
@@ -5860,11 +5876,11 @@ msgstr "为路段 '%' 调整缺失的对向车道“ '%'。"
 
 #: src/netbuild/NBEdge.cpp:3246
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "反向路段“%”未反向连接到相同节点，如路段“%”！"
 
 #: src/netbuild/NBEdge.cpp:3248
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
-msgstr ""
+msgstr "调整不一致的相反车道，涉及路段“%”、“%”和“%”。"
 
 #: src/netbuild/NBEdge.cpp:3260
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
@@ -5872,12 +5888,12 @@ msgstr "车道 '%' (长度 %)和路段 '%' (长度 %)的平均路段长度。"
 
 #: src/netbuild/NBEdge.cpp:3284
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
-msgstr ""
+msgstr "非法endOffset %，在车道%距离%处（startOffset %）。"
 
 #: src/netbuild/NBEdge.cpp:3287
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
-msgstr ""
+msgstr "允许的负速度（%）在车道%上，请使用--speed.minimum防止出现此情况。"
 
 #: src/netbuild/NBEdge.cpp:3289
 #, c-format
@@ -6076,7 +6092,7 @@ msgstr "覆盖连接线(connection)长度时的预设长度"
 
 #: src/netbuild/NBFrame.cpp:107
 msgid "Whether/where connections should have an internal junction"
-msgstr ""
+msgstr "连接是否/何处应具有内部连接"
 
 #: src/netbuild/NBFrame.cpp:110
 msgid ""
@@ -6130,7 +6146,7 @@ msgstr ""
 msgid ""
 "Ensures that objects with typed IDs from FILE (sumo-gui selection file "
 "format) are not renamed"
-msgstr ""
+msgstr "确保类型ID来自文件（sumo-gui选择文件格式）的对象不能重命名"
 
 #: src/netbuild/NBFrame.cpp:140
 msgid "Removes vehicle class restrictions from imported edges"
@@ -6200,7 +6216,7 @@ msgstr "警告连续段中角度超过 DEGREES 的路段几何形狀"
 #: src/netbuild/NBFrame.cpp:208
 msgid ""
 "Straighten edge geometries with an angle above max-angle successive segments"
-msgstr ""
+msgstr "以高于“最大角度”连续段的角度拉直路段几何图形"
 
 #: src/netbuild/NBFrame.cpp:211
 msgid ""
@@ -6294,7 +6310,7 @@ msgstr "根据估计的主方向来扩展载入的路段的优先级别值"
 
 #: src/netbuild/NBFrame.cpp:266
 msgid "Move junctions to straighten a sequence of rail edges"
-msgstr ""
+msgstr "移动路口以取直一系列轨道路段"
 
 #: src/netbuild/NBFrame.cpp:269
 msgid "Guess signals that guard public transport stops"
@@ -6302,7 +6318,7 @@ msgstr "猜测守卫公共交通站的信号灯"
 
 #: src/netbuild/NBFrame.cpp:272 src/netgen/netgen_main.cpp:97
 msgid "List rail classes that may run without rail signals"
-msgstr ""
+msgstr "列出可能在没有轨道信号的情况下运行的轨道等级"
 
 #: src/netbuild/NBFrame.cpp:275
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -6359,7 +6375,7 @@ msgstr "启用圆环的猜测"
 msgid ""
 "Structures with a circumference above FLOAT threshold are not classified as "
 "roundabout"
-msgstr ""
+msgstr "周长高于浮动阈值的结构不属于环形交叉口"
 
 #: src/netbuild/NBFrame.cpp:324
 msgid "Default visibility when approaching a roundabout"
@@ -6470,7 +6486,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:676
 msgid "Remove edges after loading, patching and joining"
-msgstr ""
+msgstr "装载、修补和接合后移除路段"
 
 #: src/netbuild/NBFrame.cpp:680
 msgid ""
@@ -6516,7 +6532,7 @@ msgstr "移除孤立的路段"
 
 #: src/netbuild/NBFrame.cpp:707
 msgid "Only keep lanes with width in meters > FLOAT"
-msgstr ""
+msgstr "仅保留车道宽度为米>FLOAT"
 
 #: src/netbuild/NBFrame.cpp:713
 msgid "All nodes will be unregulated"
@@ -6597,7 +6613,7 @@ msgstr "只能给定 'tls.green.time' 或 'tls.cycle.time' 其中一个选项"
 
 #: src/netbuild/NBFrame.cpp:788
 msgid "'tls.green.time' must be positive"
-msgstr ""
+msgstr "“tls.green.time”必须为正"
 
 #: src/netbuild/NBFrame.cpp:792
 msgid "default.lanenumber must be at least 1"
@@ -6755,22 +6771,22 @@ msgstr "移除不需要的路段"
 #: src/netbuild/NBNetBuilder.cpp:119
 #, c-format
 msgid " Removed % edges because by minimum speed."
-msgstr ""
+msgstr " 移除 % 路段由于最小时速."
 
 #: src/netbuild/NBNetBuilder.cpp:124
 #, c-format
 msgid " Removed % edges based on vClass."
-msgstr ""
+msgstr " 移除 % 路段，基于vClass。"
 
 #: src/netbuild/NBNetBuilder.cpp:131
 #, c-format
 msgid " Removed % edges because of lane width."
-msgstr ""
+msgstr " 移除 % 路段，由于车道宽度。"
 
 #: src/netbuild/NBNetBuilder.cpp:137
 #, c-format
 msgid " Split % edges to attach removed nodes"
-msgstr ""
+msgstr " 分割 % 路段以附加删除的节点"
 
 #: src/netbuild/NBNetBuilder.cpp:142
 msgid "Processing public transport stops"
@@ -6799,7 +6815,7 @@ msgstr " 合并的 % 路口群集(cluster(s))。"
 
 #: src/netbuild/NBNetBuilder.cpp:259
 msgid "Joining junctions with similar coordinates"
-msgstr ""
+msgstr "使用类似坐标连接路口"
 
 #: src/netbuild/NBNetBuilder.cpp:263
 #, c-format
@@ -7006,7 +7022,7 @@ msgstr "无效的节点识别点(id) '%'。"
 #: src/netbuild/NBNode.cpp:315 src/netbuild/NBNode.cpp:340
 #: src/netbuild/NBNode.cpp:355
 msgid "Invalid position '%' for node '%'"
-msgstr ""
+msgstr "非法未知“%”，在节点“%”上"
 
 #: src/netbuild/NBNode.cpp:512
 msgid " Removing self-looping edge '%'"
@@ -7078,7 +7094,7 @@ msgstr ""
 #: src/netbuild/NBNode.cpp:3380
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
-msgstr ""
+msgstr "忽略附加人行道“%”，在道路“%”上为行人区域设置的。"
 
 #: src/netbuild/NBNode.cpp:3496
 msgid ""
@@ -7115,7 +7131,7 @@ msgstr "请求给定路段的未知人行穿越道"
 
 #: src/netbuild/NBNode.cpp:4167
 msgid "Request for unknown walkingarea '%'."
-msgstr ""
+msgstr "未知行人区域请求“%”。"
 
 #: src/netbuild/NBNodeCont.cpp:324
 msgid "Removed a road without junctions: %."
@@ -7252,13 +7268,13 @@ msgstr "交通信号灯'%'的周期时间太高，为%。"
 msgid ""
 "Custom crossing linkIndex % conflicts with vehicular connections at tlLogic "
 "'%'"
-msgstr ""
+msgstr "自定义交叉口连接索引%与tlLogic“%”处的车辆连接冲突"
 
 #: src/netbuild/NBOwnTLDef.cpp:983
 msgid ""
 "Custom crossing linkIndex2 % conflicts with vehicular connections at tlLogic "
 "'%'"
-msgstr ""
+msgstr "自定义交叉口linkIndex2 % 与tlLogic“%”处的车辆连接冲突"
 
 #: src/netbuild/NBPTLine.cpp:208
 msgid "Could not retrieve edge '%' for first stop of line '%'."
@@ -7411,7 +7427,7 @@ msgstr "火车平交道 '%' 沒有任何道路。"
 msgid ""
 "Could not interpret rail signal direction at junction '%' due to "
 "inconsistent directions of edge '%' (%) and edge '%' (%)"
-msgstr ""
+msgstr "无法解释交叉口“%”处的轨道信号方向，由于路段“%”（%）和路段“%”（%）的方向不一致"
 
 #: src/netbuild/NBTrafficLightLogic.cpp:102
 #, c-format
@@ -7440,12 +7456,12 @@ msgstr "无法将 OpenDRIVE 信号组信息应用到 SUMO 生成的交通灯 % �
 
 #: src/netconvert_main.cpp:53
 msgid "generate net with options read from file"
-msgstr ""
+msgstr "使用从文件读取的选项生成网络"
 
 #: src/netconvert_main.cpp:55
 msgid ""
 "generate net with given nodes, edges, and edge types doing verbose output"
-msgstr ""
+msgstr "生成具有给定节点、路段和路段类型并执行详细输出的路网"
 
 #: src/netconvert_main.cpp:98
 msgid ""
@@ -7606,27 +7622,27 @@ msgstr "道路在每个节点连续的机率"
 
 #: src/netgen/NGFrame.cpp:187
 msgid "Probability for a node having at most 1 neighbor"
-msgstr ""
+msgstr "节点最多有1个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:192
 msgid "Probability for a node having at most 2 neighbors"
-msgstr ""
+msgstr "节点最多有2个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:197
 msgid "Probability for a node having at most 3 neighbors"
-msgstr ""
+msgstr "节点最多有3个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:202
 msgid "Probability for a node having at most 4 neighbors"
-msgstr ""
+msgstr "节点最多有4个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:207
 msgid "Probability for a node having at most 5 neighbors"
-msgstr ""
+msgstr "节点最多有5个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:212
 msgid "Probability for a node having at most 6 neighbors"
-msgstr ""
+msgstr "节点最多有6个邻居的概率"
 
 #: src/netgen/NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
@@ -7646,23 +7662,23 @@ msgstr "除非已载入'类型文件(type-files)'，否则选项'随机类型(ra
 
 #: src/netgen/NGFrame.cpp:277
 msgid "Option 'rand.connectivity' requires a value below 0.999"
-msgstr ""
+msgstr "选项“rand.connectivity”要求值低于0.999"
 
 #: src/netgen/netgen_main.cpp:61
 msgid "create net from given configuration"
-msgstr ""
+msgstr "从给定配置创建路网"
 
 #: src/netgen/netgen_main.cpp:62
 msgid "create grid net"
-msgstr ""
+msgstr "创建网格路网"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
-msgstr ""
+msgstr "创建蜘蛛网状路网"
 
 #: src/netgen/netgen_main.cpp:64
 msgid "create random net"
-msgstr ""
+msgstr "创建随机路网"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
@@ -7909,7 +7925,7 @@ msgstr "导入人行道"
 msgid ""
 "Default to building two sidewalks on oneway streets (may affect divided "
 "roads)"
-msgstr ""
+msgstr "默认为在单向街道上构建两条人行道（可能会影响分割的道路）"
 
 #: src/netimport/NIFrame.cpp:210
 msgid "Import crossings"
@@ -7937,7 +7953,7 @@ msgstr "火车停靠站的预设长度, 以 FLOAT 米为单位"
 
 #: src/netimport/NIFrame.cpp:225
 msgid "Specify custom rules for importing railway signals"
-msgstr ""
+msgstr "指定用于导入铁路信号的自定义规则"
 
 #: src/netimport/NIFrame.cpp:229
 msgid "Whether additional attributes shall be imported"
@@ -7959,7 +7975,7 @@ msgstr "针对现实中沒有实际限速时所设置的限速"
 #: src/netimport/NIFrame.cpp:239
 msgid ""
 "Whether edges shoulds carry information on the usage of typemap defaults"
-msgstr ""
+msgstr "路段是否应包含有关typemap默认值用法的信息"
 
 #: src/netimport/NIFrame.cpp:243
 msgid "The edge lengths given in the MATSim-file will be kept"
@@ -8237,7 +8253,7 @@ msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。
 
 #: src/netimport/NIImporter_ArcView.cpp:379
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr "无法建立路段    '-%'。 已存在具有相同识别名(id)的路段。"
+msgstr "无法建立路段 '-%'。 已存在具有相同识别名(id)的路段。"
 
 #: src/netimport/NIImporter_ArcView.cpp:393
 #: src/polyconvert/PCLoaderArcView.cpp:337
@@ -8995,7 +9011,7 @@ msgstr "交通信号逻辑(tl-logic) '%' 的定义未完成。"
 #: src/netimport/NIImporter_SUMO.cpp:957
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr "未知的交通信号类型    '%' ;发生在信号逻辑(tl-logic) '%'。"
+msgstr "未知的交通信号类型 '%' ;发生在信号逻辑(tl-logic) '%'。"
 
 #: src/netimport/NIImporter_SUMO.cpp:971
 msgid "found phase without tl-logic"
@@ -9616,7 +9632,7 @@ msgstr "无法构建路段 '%'； 将连接到相同的节点。"
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%'"
-msgstr "分配 '%' 呢?"
+msgstr "分配 '%' 呢"
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:138
 #, c-format
@@ -12406,7 +12422,7 @@ msgstr ""
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr "路段 '%' 不在多运具(intermodal)网络內。"
+msgstr "路段 '%' 不在多运具(intermodal)网络内。'"
 
 #: src/utils/router/IntermodalNetwork.h:310
 #: src/utils/router/IntermodalNetwork.h:344
