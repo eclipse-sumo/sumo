@@ -239,7 +239,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVe
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_TRIGGER_EDGE, -1, pos, radius));
         rtree.addAdditionalGLObject(myEdgeVisualizations.back());
         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
-        if (pos != Position::INVALID) {
+        if (pos != Position::INVALID && radius != std::numeric_limits<double>::max()) {
             break;
         }
     }
@@ -395,9 +395,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     myEdge(edge),
     myEdgeType(edgeType),
     myDistIndex(distIndex) {
-    UNUSED_PARAMETER(radius);  // it would be nice to have this in the visualization too
     const std::vector<MSLane*>& lanes = edge->getLanes();
-    if (pos == Position::INVALID) {
+    if (pos == Position::INVALID || radius == std::numeric_limits<double>::max()) {
         for (const MSLane* lane : lanes) {
             if ((lane->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
                 continue;
