@@ -37,9 +37,12 @@ title: ChangeLog
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
+  - Removed invalid elements from addtional-mode element selector #17297 (regression in 1.11.0)
+  - Fixed missing 'allow="authority' attribute in closingReroute #17299 (regression in 1.11.0)
   - Rectangle selection of edges no longer selects additional objects #17213 (regression in 1.20.0)
   - Hints when moving/creating geometry points are working again #17032 (regression in 1.20.0)
   - Fix invalid contour of rerouter intervals when inspecting #17001 (regression in 1.20.0)
+  - Fixed inconsistencies when using 'mark as front element' #17285 (regression in 1.22.0)
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - E2 detectors can be moved again #15551 (regression in 1.22.0)
   - Tool tip in inspect mode and create-object mode for mouse-over-attribute are working again #17239 (regression in 1.22.0)
@@ -81,6 +84,7 @@ title: ChangeLog
   - Fixed misaligned crossing with custom width #17286
 
 - sumo-gui
+  - Rerouter notification edges are visible again for rerouters created in netedit (with attribute 'pos') #17298 (regression in 1.22.0)
   - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
   - Edge and junction locator now works in [alternative-network mode](Simulation/Railways.md#abstract_networks) #17022
   - Loaded color scheme no longer resets on immediate modification #16976
@@ -108,6 +112,8 @@ title: ChangeLog
   - Fixed bug where intermodal routing failed when restricting taxi arrivals and the destination edge has a stopping place #17178 (also applies to sumo)
   - Fixed invalid error when using option **--bulk-routing** #17267
   - Option **--bulk-routing** now works for railways #17266
+  - Option **--ignore-errors** can now filter out loaded routes that violate edge permissions #17294
+
 
 
 - TraCI
@@ -119,7 +125,7 @@ title: ChangeLog
   - abstractRail.py: now gracefully handles stop input with invalid startPos or endPos #17027
   - abstractRail.py: corrected naming of temporary net when using .net.xml.gz input with option **--split** #17029
   - routeSampler.py: mismatch-output for tazRelations is now also written as tazRelations #17049
-  - osmWebWizard.py: no longer fails to start a second instance #16663
+  - osmWebWizard.py: no longer fails to start a second instance #16663  
 
 ### Enhancements
 
@@ -201,6 +207,7 @@ title: ChangeLog
 - duaIterate.py: option **--binary** was removed #16777
 - The attribute order in the FCD output of persons was changed and is now similar to the vehicles (affects only the type attribute).
 - The nightly sumogame now loads all 3D objects #3032
+- flowrouter.py option **--vclass** now defaults to 'passenger' (to avoid invalid routes in multimodal networks) #17296
 
 
 ## Version 1.24.0 (22.07.2025)
