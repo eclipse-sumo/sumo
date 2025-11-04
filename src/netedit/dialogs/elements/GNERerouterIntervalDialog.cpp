@@ -136,7 +136,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::addNewElement() {
     // get edge
     const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create closing reroute
-    return insertElement(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVCAll));
+    return insertElement(new GNEClosingReroute(myElementDialogParent->getElement(), edge, SVC_AUTHORITY));
 }
 
 
