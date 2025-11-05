@@ -31,10 +31,8 @@
 
 GNEMoveElementViewResizable::GNEMoveElementViewResizable(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
         ResizingFormat resizingFormat, SumoXMLAttr posAttr,
-        Position& position, double& width, double& height) :
+        Position& position) :
     GNEMoveElementView(element, attributesFormat, posAttr, position),
-    myWidth(width),
-    myHeight(height),
     myEditWidth((resizingFormat == ResizingFormat::WIDTH_HEIGHT) || (resizingFormat == ResizingFormat::WIDTH_LENGTH)),
     myEditHeight(resizingFormat == ResizingFormat::WIDTH_HEIGHT),
     myEditLength(resizingFormat == ResizingFormat::WIDTH_LENGTH) {

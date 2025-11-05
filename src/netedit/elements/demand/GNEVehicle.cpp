@@ -469,7 +469,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
                        GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this),
-    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, departPos, toEdge, arrivalPos)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);
@@ -480,7 +480,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters),
-    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, departPos, toEdge, arrivalPos)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);

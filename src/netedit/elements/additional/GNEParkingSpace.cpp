@@ -34,7 +34,7 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net) :
     GNEAdditional("", net, "", SUMO_TAG_PARKING_SPACE, ""),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
-                               myPosOverView, myWidth, myLength)) {
+                               myPosOverView)) {
 }
 
 
@@ -49,7 +49,7 @@ GNEParkingSpace::GNEParkingSpace(GNEAdditional* parkingAreaParent, const Positio
     myLength(length),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_LENGTH, SUMO_ATTR_POSITION,
-                               myPosOverView, myWidth, myLength)),
+                               myPosOverView)),
     myAngle(angle),
     mySlope(slope) {
     // set parents

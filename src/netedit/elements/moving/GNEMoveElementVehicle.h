@@ -41,12 +41,9 @@ public:
     /**@brief Constructor
      * @param[in] vehicle moved vehicle
      * @param[in] fromEdge Edge of this element belongs
-     * @param[in] departPos Start position value
      * @param[in] toEdge Edge of this element belongs
-     * @param[in] arrivalPos End position value
      */
-    GNEMoveElementVehicle(GNEVehicle* vehicle, GNEEdge* fromEdge, double& departPos,
-                          GNEEdge* toEdge, double& arrivalPos);
+    GNEMoveElementVehicle(GNEVehicle* vehicle, GNEEdge* fromEdge, GNEEdge* toEdge);
 
     /// @brief Destructor
     ~GNEMoveElementVehicle();
@@ -91,12 +88,6 @@ public:
 private:
     /// @brief vehicle
     GNEVehicle* myVehicle = nullptr;
-
-    /// @brief departPos
-    double& myDepartPos;
-
-    /// @brief arrivalPos
-    double& myArrivalPos;
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult) override;

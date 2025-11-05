@@ -38,7 +38,7 @@ public:
     /// @brief constructor
     GNEMoveElementViewResizable(GNEAttributeCarrier* element, AttributesFormat attributesFormat,
                                 ResizingFormat resizingFormat, SumoXMLAttr posAttr,
-                                Position& position, double& width, double& height);
+                                Position& position);
 
     //// @brief empty destructor
     ~GNEMoveElementViewResizable();
@@ -69,12 +69,6 @@ public:
     GNEContour myMovingContourRight;
 
 private:
-    /// @brief width
-    double& myWidth;
-
-    /// @brief height
-    double& myHeight;
-
     /// @brief check if width can be edited
     const bool myEditWidth = false;
 

@@ -52,12 +52,9 @@ const double GNEMoveElementVehicle::arrivalPositionDiameter = SUMO_const_halfLan
 // member method definitions
 // ===========================================================================
 
-GNEMoveElementVehicle::GNEMoveElementVehicle(GNEVehicle* vehicle, GNEEdge* fromEdge,
-        double& departPos, GNEEdge* toEdge, double& arrivalPos) :
+GNEMoveElementVehicle::GNEMoveElementVehicle(GNEVehicle* vehicle, GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEMoveElement(vehicle),
-    myVehicle(vehicle),
-    myDepartPos(departPos),
-    myArrivalPos(arrivalPos) {
+    myVehicle(vehicle) {
     // set parents
     vehicle->getHierarchicalElement()->setParents<GNEEdge*>({fromEdge, toEdge});
 }
