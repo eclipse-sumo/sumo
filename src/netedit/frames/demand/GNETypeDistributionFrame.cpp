@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/frames/GNEAttributesEditor.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GNETypeDistributionFrame.h"
 
