@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-24 12:20:45 by Eclipse SUMO netedit Version v1_22_0+1703-7c7527b6046
+<!-- generated on 2025-11-05T10:19:49.094608+01:00 by Eclipse SUMO netedit v1_24_0+1770-880790f7f7e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,21 +17,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- VTypes -->
     <vType id="typeA" probability="2.00" sigma="0"/>
     <vType id="typeB" probability="1.00" sigma="0"/>
-    <vTypeDistribution id="vTypeDist"/>
+    <vType id="vTypeDistA.1" probability="0.50" sigma="0"/>
+    <vType id="vTypeDistA.2" probability="0.50" sigma="0"/>
+    <vType id="vTypeDistB.1" probability="1.00" sigma="0"/>
+    <vType id="vTypeDistB.2" probability="1.00" sigma="0"/>
+    <vTypeDistribution id="vTypeDist">
+        <vType refId="typeA"/>
+        <vType refId="typeB"/>
+    </vTypeDistribution>
     <vTypeDistribution id="vTypeDistA">
-        <vType id="vTypeDistA.1" probability="0.50" sigma="0"/>
-        <vType id="vTypeDistA.2" probability="0.50" sigma="0"/>
+        <vType refId="vTypeDistA.1" probability="0.80"/>
+        <vType refId="vTypeDistA.2" probability="0.80"/>
     </vTypeDistribution>
     <vTypeDistribution id="vTypeDistB">
-        <vType id="vTypeDistB.1" probability="1.00" sigma="0"/>
-        <vType id="vTypeDistB.2" probability="1.00" sigma="0"/>
+        <vType refId="vTypeDistB.1" probability="0.20"/>
+        <vType refId="vTypeDistB.2" probability="0.20"/>
     </vTypeDistribution>
     <vTypeDistribution id="vTypeDistMerged"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="1" type="vTypeDist" begin="0.00" number="10" period="2.00">
+    <flow id="1" type="vTypeDist" begin="0.00" number="10" period="2">
         <route edges="Edge0 Edge1 Edge2"/>
     </flow>
-    <flow id="2" type="vTypeDistMerged" begin="30.00" number="10" period="2.00">
+    <flow id="2" type="vTypeDistMerged" begin="30.00" number="10" period="2">
         <route edges="Edge0 Edge1 Edge2"/>
     </flow>
 </routes>
