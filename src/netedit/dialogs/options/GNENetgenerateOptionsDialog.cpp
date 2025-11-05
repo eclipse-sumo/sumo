@@ -63,6 +63,15 @@ GNENetgenerateOptionsDialog::isOptionModified() const {
 
 
 long
+GNENetgenerateOptionsDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    // close dialog canceling
+    closeDialogCanceling();
+    // run netgenerate
+    return myApplicationWindow->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
+}
+
+
+long
 GNENetgenerateOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset options
     myOptionsEditor->resetAllOptions();

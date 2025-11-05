@@ -57,6 +57,9 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief event after press run button
+    long onCmdRun(FXObject*, FXSelector, void*);
+
     /// @brief called when cancel button is pressed (or dialog is closed)
     long onCmdCancel(FXObject*, FXSelector, void*);
 
