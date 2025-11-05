@@ -3006,7 +3006,7 @@ GNEViewNet::onCmdAttachPOI(FXObject*, FXSelector, void*) {
             // add specific attributes
             POIBaseObject->addStringAttribute(SUMO_ATTR_LANE, nearestLane->getID());
             POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION, minorPosOverLane);
-            POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, (POI->getAttribute(SUMO_ATTR_FRIENDLY_POS) == GNEAttributeCarrier::TRUE_STR));
+            POIBaseObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, false);
             POIBaseObject->addDoubleAttribute(SUMO_ATTR_POSITION_LAT, 0);
             // remove POI
             myUndoList->begin(POI, TL("attach POI into lane"));
@@ -3052,6 +3052,9 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // get sumo base object of POI (And all common attributes)
         CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+        // add specific attributes
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_X, POI->getPositionInView().x());
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_Y, POI->getPositionInView().y());
         // remove POI
         myUndoList->begin(POI, TL("transform to POI"));
         myNet->deleteAdditional(POI, myUndoList);
@@ -3067,11 +3070,16 @@ long
 GNEViewNet::onCmdTransformPOIGEO(FXObject*, FXSelector, void*) {
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
-    if (POI && (POI->getTagProperty()->getTag() != SUMO_TAG_POI)) {
+    if (POI && (POI->getTagProperty()->getTag() != GNE_TAG_POIGEO)) {
         // declare additional handler
         GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // get sumo base object of POI (And all common attributes)
         CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
+        // calculate cartesian position
+        Position GEOPosition = POI->getPositionInView();
+        GeoConvHelper::getFinal().cartesian2geo(GEOPosition);
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_LON, GEOPosition.x());
+        POIBaseObject->addDoubleAttribute(SUMO_ATTR_LAT, GEOPosition.y());
         // remove POI
         myUndoList->begin(POI, TL("transform to POI GEO"));
         myNet->deleteAdditional(POI, myUndoList);

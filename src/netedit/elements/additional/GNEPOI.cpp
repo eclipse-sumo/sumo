@@ -341,9 +341,9 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             // check if transform
             if (GeoConvHelper::getFinal().getProjString() != "!") {
                 if (getTagProperty()->getTag() == GNE_TAG_POIGEO) {
-                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI Geo"), GUIIconSubSys::getIcon(GUIIcon::POI), &parent, MID_GNE_POI_TRANSFORM_POIGEO);
+                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI"), GUIIconSubSys::getIcon(GUIIcon::POI), &parent, MID_GNE_POI_TRANSFORM_POI);
                 } else {
-                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI"), GUIIconSubSys::getIcon(GUIIcon::POIGEO), &parent, MID_GNE_POI_TRANSFORM_POI);
+                    GUIDesigns::buildFXMenuCommand(ret, TL("Transform to POI Geo"), GUIIconSubSys::getIcon(GUIIcon::POIGEO), &parent, MID_GNE_POI_TRANSFORM_POIGEO);
                 }
             }
         }
