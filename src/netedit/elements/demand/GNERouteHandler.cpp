@@ -156,7 +156,15 @@ GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBas
         }
         return true;
     } else if (vTypeDistribution) {
-        // in this case, overwitte probabilities of all references
+        // update probabilities of all route references of routeDistribution
+        myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TLF("update probabilities of % in '%'", distribution->getTagStr(), distribution->getID()));
+        for (auto ref : vTypeDistribution->getChildDemandElements()) {
+            if (ref->getTagProperty()->isDistributionReference()) {
+                ref->setAttribute(SUMO_ATTR_PROB, toString(probability), myNet->getViewNet()->getUndoList());
+            }
+        }
+        myNet->getViewNet()->getUndoList()->end();
+        return true;
     } else {
         return writeErrorInvalidParent(GNE_TAG_VTYPEREF, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vTypeID);
     }
@@ -271,7 +279,15 @@ GNERouteHandler::buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBas
         }
         return true;
     } else if (routeDistribution) {
-        //
+        // update probabilities of all route references of routeDistribution
+        myNet->getViewNet()->getUndoList()->begin(routeDistribution, TLF("update probabilities of % in '%'", distribution->getTagStr(), distribution->getID()));
+        for (auto ref : routeDistribution->getChildDemandElements()) {
+            if (ref->getTagProperty()->isDistributionReference()) {
+                ref->setAttribute(SUMO_ATTR_PROB, toString(probability), myNet->getViewNet()->getUndoList());
+            }
+        }
+        myNet->getViewNet()->getUndoList()->end();
+        return true;
     } else {
         return writeErrorInvalidParent(GNE_TAG_ROUTEREF, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, routeID);
     }
