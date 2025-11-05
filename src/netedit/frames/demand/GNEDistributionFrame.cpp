@@ -439,10 +439,15 @@ GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
     if (myDistributionSelector->getCurrentDistribution()) {
         // Iterate over distribution key-values
         for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
-            // create distribution row
-            auto distributionRow = new DistributionRow(this, distributionRef);
-            // add into distribution rows
-            myDistributionRows.push_back(distributionRow);
+            if (distributionRef->getTagProperty()->isDistributionReference()) {
+                // create distribution row
+                auto distributionRow = new DistributionRow(this, distributionRef);
+                // add into distribution rows
+                myDistributionRows.push_back(distributionRow);
+            } else {
+                // update geometry of vehicle
+                distributionRef->updateGeometry();
+            }
         }
     }
     // check if enable or disable add button
@@ -494,7 +499,9 @@ GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
     double sumProbability = 0;
     if (myDistributionSelector->getCurrentDistribution()) {
         for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
-            sumProbability += distributionRef->getAttributeDouble(SUMO_ATTR_PROB);
+            if (distributionRef->getTagProperty()->isDistributionReference()) {
+                sumProbability += distributionRef->getAttributeDouble(SUMO_ATTR_PROB);
+            }
         }
         // vType distributions
         if (myDistributionSelector->getCurrentDistribution()->getTagProperty()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {

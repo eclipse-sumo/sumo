@@ -728,8 +728,21 @@ GNEVehicle::getColor() const {
 void
 GNEVehicle::updateGeometry() {
     if (myTagProperty->vehicleRouteDistribution()) {
-        // update additional geometry
+        // remove vehicle from grid
+        myNet->removeGLObjectFromGrid(this);
+        // reset view position to 0
+        myPosOverView = Position(0, 0);
+        // continue depending if the routeDistribution have references
+        for (auto routeRef : getParentDemandElements().at(1)->getChildDemandElements()) {
+            if (routeRef->getTagProperty()->isDistributionReference()) {
+                myPosOverView = routeRef->getParentDemandElements().at(1)->getParentEdges().front()->getFromJunction()->getPositionInView();
+                break;
+            }
+        }
+        // update vehicle geometry
         myDemandElementGeometry.updateGeometry({myPosOverView - Position(1, 0), myPosOverView + Position(1, 0)});
+        // add object in grid again
+        myNet->addGLObjectIntoGrid(this);
     } else if (getParentJunctions().size() > 0) {
         // calculate rotation between both junctions
         const Position posA = getParentJunctions().front()->getPositionInView();
