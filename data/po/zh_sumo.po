@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-04 12:29+0000\n"
+"PO-Revision-Date: 2025-11-05 06:06+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/applications/zh_Hans/>\n"
@@ -8151,7 +8151,7 @@ msgstr "使用 OpenDRIVE 控制器信息生成信号程序"
 
 #: src/netimport/NIFrame.cpp:381
 msgid "Ignore traffic signals which do not control any driving lane"
-msgstr ""
+msgstr "忽略那些不控制任何行车道的交通信号"
 
 #: src/netimport/NIFrame.cpp:392
 msgid ""
@@ -8474,7 +8474,7 @@ msgstr "无法发现路段 '%' 的到达节点(to-node)。"
 
 #: src/netimport/NIImporter_MATSim.cpp:281
 msgid "Ignoring edge % which has no lanes."
-msgstr ""
+msgstr "忽略没有车道的路段%。"
 
 #: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
