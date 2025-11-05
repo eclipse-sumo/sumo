@@ -36,6 +36,7 @@
 // ===========================================================================
 
 #define BLACK_COLOR MFXUtils::getFXColor(RGBColor::BLACK)
+#define BLUE_COLOR MFXUtils::getFXColor(RGBColor::BLUE)
 #define RED_COLOR MFXUtils::getFXColor(RGBColor::RED)
 
 // ===========================================================================
@@ -84,33 +85,29 @@ GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distribu
         // obtain candidate IDs
         for (const auto& vType : vTypes) {
             if (referenceIDs.count(vType.second->getID()) == 0) {
-                myCandidateIDs.insert(vType.second->getID());
+                myCandidates[vType.second->getID()] = vType.second;
             }
         }
         // insert it in comboBox
-        for (const auto& vTypeID : myCandidateIDs) {
-            myReferencesComboBox->appendIconItem(vTypeID.c_str());
+        for (const auto& vTypeID : myCandidates) {
+            myReferencesComboBox->appendIconItem(vTypeID.first.c_str());
         }
-        // set default probability
-        myDefaultprobability = distributionParent->getNet()->getTagPropertiesDatabase()->getTagProperty(GNE_TAG_VTYPEREF, true)->getAttributeProperties(SUMO_ATTR_PROB)->getDefaultStringValue();
-        myProbabilityTextField->setText(myDefaultprobability.c_str());
     } else if (distributionParent->getTagProperty()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
         referenceLabel->setText(toString(SUMO_TAG_ROUTE).c_str());
         const auto& routes = distributionParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
         // obtain candidate IDs
         for (const auto& route : routes) {
             if (referenceIDs.count(route.second->getID()) == 0) {
-                myCandidateIDs.insert(route.second->getID());
+                myCandidates[route.second->getID()] = route.second;
             }
         }
         // insert it in comboBox
-        for (const auto& routeID : myCandidateIDs) {
-            myReferencesComboBox->appendIconItem(routeID.c_str());
+        for (const auto& routeID : myCandidates) {
+            myReferencesComboBox->appendIconItem(routeID.first.c_str());
         }
-        // set default probability
-        myDefaultprobability = distributionParent->getNet()->getTagPropertiesDatabase()->getTagProperty(GNE_TAG_ROUTEREF, true)->getAttributeProperties(SUMO_ATTR_PROB)->getDefaultStringValue();
-        myProbabilityTextField->setText(myDefaultprobability.c_str());
     }
+    // set current item (for update probability)
+    myReferencesComboBox->setCurrentItem(0, TRUE);
     // open dialog
     openDialog();
 }
@@ -127,31 +124,36 @@ GNEDistributionRefDialog::runInternalTest(const InternalTestStep::DialogArgument
 
 long
 GNEDistributionRefDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if ((myReferencesComboBox->getTextColor() == BLACK_COLOR) &&
-            (myProbabilityTextField->getTextColor() == BLACK_COLOR)) {
+    if ((myReferencesComboBox->getTextColor() != RED_COLOR) &&
+            (myProbabilityTextField->getTextColor() != RED_COLOR)) {
         // declare referenced element
         GNEDemandElement* reference = nullptr;
-        GNEDemandElement* referencedElement = nullptr;
         const double probability = GNEAttributeCarrier::parse<double>(myProbabilityTextField->getText().text());
         GNEDemandElement* distribution = myDistributionParent->getNet()->getAttributeCarriers()->retrieveDemandElement(myDistributionParent->getGUIGlObject());
         auto undoList = myDistributionParent->getNet()->getViewNet()->getUndoList();
         // create a routeRef o a vTypeRef
         if (distribution->getTagProperty()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
-            referencedElement = myDistributionParent->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myReferencesComboBox->getText().text());
-            reference = new GNEVTypeRef(distribution, referencedElement, probability);
+            if (myProbabilityTextField->getTextColor() == BLUE_COLOR) {
+                reference = new GNEVTypeRef(distribution, myReferencedElement);
+            } else {
+                reference = new GNEVTypeRef(distribution, myReferencedElement, probability);
+            }
         } else if (distribution->getTagProperty()->getTag() == SUMO_TAG_ROUTE_DISTRIBUTION) {
-            referencedElement = myDistributionParent->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myReferencesComboBox->getText().text());
-            reference = new GNERouteRef(distribution, referencedElement, probability);
+            if (myProbabilityTextField->getTextColor() == BLUE_COLOR) {
+                reference = new GNERouteRef(distribution, myReferencedElement);
+            } else {
+                reference = new GNERouteRef(distribution, myReferencedElement, probability);
+            }
         }
         // continue depending if allow/disallow is enabled
         if (myDistributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
-            undoList->begin(referencedElement, TLF("add % in '%'", referencedElement->getTagStr(), distribution->getID()));
+            undoList->begin(myReferencedElement, TLF("add % in '%'", myReferencedElement->getTagStr(), distribution->getID()));
             undoList->add(new GNEChange_DemandElement(reference, true), true);
             undoList->end();
         } else {
             myDistributionParent->getNet()->getAttributeCarriers()->insertDemandElement(reference);
             distribution->addChildElement(reference);
-            referencedElement->addChildElement(reference);
+            myReferencedElement->addChildElement(reference);
             reference->incRef("GNEDistributionRefDialog");
         }
         return closeDialogAccepting();
@@ -164,25 +166,28 @@ GNEDistributionRefDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNEDistributionRefDialog::onCmdSetReference(FXObject*, FXSelector, void*) {
     // check if candidateID exist in list of candidates
-    bool found = false;
-    for (const auto& candidateID : myCandidateIDs) {
-        if (myReferencesComboBox->getText().text() == candidateID) {
-            found = true;
+    GNEDemandElement* reference = nullptr;
+    for (const auto& candidate : myCandidates) {
+        if (myReferencesComboBox->getText().text() == candidate.first) {
+            reference = candidate.second;
             break;
         }
     }
     // continue depending if selected candidate exist
-    if (found) {
-        myReferencesComboBox->setTextColor(BLACK_COLOR);
-    } else {
+    if (reference == nullptr) {
         myReferencesComboBox->setTextColor(RED_COLOR);
-    }
-    // check if enable or disable accept button
-    if ((myReferencesComboBox->getTextColor() == BLACK_COLOR) &&
-            (myProbabilityTextField->getTextColor() == BLACK_COLOR)) {
-        myAcceptButton->enable();
     } else {
-        myAcceptButton->disable();
+        myReferencesComboBox->setTextColor(BLACK_COLOR);
+        myReferencedElement = reference;
+        // set default probability
+        myProbabilityTextField->setText(myReferencedElement->getAttribute(SUMO_ATTR_PROB).c_str(), TRUE);
+        // check if enable or disable accept button
+        if ((myReferencesComboBox->getTextColor() != RED_COLOR) &&
+                (myProbabilityTextField->getTextColor() != RED_COLOR)) {
+            myAcceptButton->enable();
+        } else {
+            myAcceptButton->disable();
+        }
     }
     return 1;
 }
@@ -192,17 +197,21 @@ long
 GNEDistributionRefDialog::onCmdSetProbability(FXObject*, FXSelector, void*) {
     // first check if set default probability
     if (myProbabilityTextField->getText().empty()) {
-        myProbabilityTextField->setText(myDefaultprobability.c_str(), TRUE);
+        myProbabilityTextField->setText(myReferencedElement->getAttribute(SUMO_ATTR_PROB).c_str(), TRUE);
     }
     // check if value can be parsed to double
     if (GNEAttributeCarrier::canParse<double>(myProbabilityTextField->getText().text())) {
-        myProbabilityTextField->setTextColor(BLACK_COLOR);
+        if (myProbabilityTextField->getText().text() == myReferencedElement->getAttribute(SUMO_ATTR_PROB)) {
+            myProbabilityTextField->setTextColor(BLUE_COLOR);
+        } else {
+            myProbabilityTextField->setTextColor(BLACK_COLOR);
+        }
     } else {
         myProbabilityTextField->setTextColor(RED_COLOR);
     }
     // check if enable or disable accept button
-    if ((myReferencesComboBox->getTextColor() == BLACK_COLOR) &&
-            (myProbabilityTextField->getTextColor() == BLACK_COLOR)) {
+    if ((myReferencesComboBox->getTextColor() != RED_COLOR) &&
+            (myProbabilityTextField->getTextColor() != RED_COLOR)) {
         myAcceptButton->enable();
     } else {
         myAcceptButton->disable();

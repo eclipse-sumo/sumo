@@ -77,11 +77,11 @@ protected:
     /// @brief textField probability
     MFXTextFieldIcon* myProbabilityTextField = nullptr;
 
-    /// @brief set with candidate IDs;
-    std::set<std::string> myCandidateIDs;
+    /// @brief map with candidate IDs;
+    std::map<std::string, GNEDemandElement*> myCandidates;
 
-    /// @brief default probability
-    std::string myDefaultprobability;
+    /// @brief current referenced element
+    GNEDemandElement* myReferencedElement = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
