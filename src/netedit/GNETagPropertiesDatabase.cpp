@@ -2843,6 +2843,47 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         fillDepartAttribute(myTagProperties[currentTag]);
     }
+
+    currentTag = GNE_TAG_VEHICLE_ROUTEDISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
+                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Over::ROUTE_DISTRIBUTION,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, currentTag, TL("VehicleRouteDistribution"),
+                {}, FXRGBA(210, 233, 255, 255), "vehicle (over routeDistribution)");
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the vehicle type to use for this vehicle"),
+                                   DEFAULT_VTYPE_ID);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTEDISTRIBUTION,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the routeDistribution the vehicle shall drive along"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the vehicle starts at"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the vehicle ends at"));
+
+        // add common attributes
+        fillCommonVehicleAttributes(myTagProperties[currentTag]);
+
+        fillDepartAttribute(myTagProperties[currentTag]);
+    }
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
@@ -2980,6 +3021,47 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the route the flow shall drive along"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the flow starts at"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the flow ends at"));
+
+        // add common attributes
+        fillCommonVehicleAttributes(myTagProperties[currentTag]);
+
+        // add flow attributes
+        fillCommonFlowAttributes(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR);
+    }
+    currentTag = GNE_TAG_FLOW_ROUTEDISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
+                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Over::ROUTE_DISTRIBUTION,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::ROUTEFLOW, GUIGlObjectType::GLO_ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRouteDistribution"),
+                {}, FXRGBA(210, 233, 255, 255), "flow (over routeDistribution)");
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the flow type to use for this flow"),
+                                   DEFAULT_VTYPE_ID);
+
+        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTEDISTRIBUTION,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the routeDistribution the flow shall drive along"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,

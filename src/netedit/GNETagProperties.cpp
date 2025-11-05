@@ -728,6 +728,12 @@ GNETagProperties::vehicleRouteEmbedded() const {
 
 
 bool
+GNETagProperties::vehicleRouteDistribution() const {
+    return isVehicle() && (myTagOver & Over::ROUTE_DISTRIBUTION);
+}
+
+
+bool
 GNETagProperties::vehicleEdges() const {
     return isVehicle() && (myTagOver & Over::FROM_EDGE) && (myTagOver & Over::TO_EDGE);
 }
