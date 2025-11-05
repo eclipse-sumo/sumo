@@ -67,7 +67,9 @@ GNERouteDistribution::writeDemandElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     // write references
     for (const auto& refChild : getChildDemandElements()) {
-        refChild->writeDemandElement(device);
+        if (refChild->getTagProperty()->isDistributionReference()) {
+            refChild->writeDemandElement(device);
+        }
     }
     device.closeTag();
 }

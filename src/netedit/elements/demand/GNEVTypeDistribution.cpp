@@ -71,7 +71,9 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     }
     // write references
     for (const auto& refChild : getChildDemandElements()) {
-        refChild->writeDemandElement(device);
+        if (refChild->getTagProperty()->isDistributionReference()) {
+            refChild->writeDemandElement(device);
+        }
     }
     device.closeTag();
 }
