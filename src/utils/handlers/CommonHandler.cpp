@@ -394,7 +394,7 @@ CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& i
 bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const std::vector<SumoXMLTag> parentTags, const std::string& parentID) {
     if (parentTags.size() == 1) {
-        return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTags.at(1)), parentID));
+        return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTags.front()), parentID));
     } else {
         return writeError(TLF("Could not build % with ID '%' in netedit; doesn't exist a % parent with ID '%'.", toString(tag), id, parseParentTags(parentTags), parentID));
     }
@@ -404,7 +404,7 @@ CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& 
 bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags, const std::string& parentID) {
     if (parentTags.size() == 1) {
-        return writeError(TLF("Could not build % in netedit; % parent with ID '%' doesn't exist.", toString(tag), toString(parentTags.at(1)), parentID));
+        return writeError(TLF("Could not build % in netedit; % parent with ID '%' doesn't exist.", toString(tag), toString(parentTags.front()), parentID));
     } else {
         return writeError(TLF("Could not build % in netedit; doesn't exist a % parent with ID '%'.", toString(tag), parseParentTags(parentTags), parentID));
     }
@@ -414,7 +414,7 @@ CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<S
 bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags) {
     if (parentTags.size() == 1) {
-        return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTags.at(1))));
+        return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTags.front())));
     } else {
         return writeError(TLF("Could not build % in netedit; doesn't exist a % parent.", toString(tag), parseParentTags(parentTags)));
     }
