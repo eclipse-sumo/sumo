@@ -36,11 +36,9 @@ fi
 if test $# -ge 2; then
     pushd ..
     git clone https://github.com/PedestrianDynamics/jupedsim -b $2 --depth 1
-    mkdir jupedsim-build jupedsim-install
-    cd jupedsim-build
-    cmake -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
-    cmake --build . -j$(nproc)
-    cmake --install .
+    cmake -B jupedsim-build jupedsim
+    cmake --build jupedsim-build -j$(nproc)
+    cmake --install jupedsim-build
     popd
 fi
 
