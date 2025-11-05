@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-05 07:29+0000\n"
+"PO-Revision-Date: 2025-11-05 10:40+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/applications/zh_Hans/>\n"
@@ -12106,7 +12106,7 @@ msgstr "在步行中，速度和持续时间属性不能同时定义"
 
 #: src/utils/handlers/RouteHandler.cpp:1103
 msgid "Speed and duration attributes cannot be defined together in tranships"
-msgstr ""
+msgstr "在转运中，速度和持续时间属性不能同时定义"
 
 #: src/utils/handlers/RouteHandler.cpp:1146
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
@@ -12144,7 +12144,7 @@ msgstr "无法载入范本(template) '%'。"
 #: src/utils/iodevices/CSVFormatter.h:125
 msgid ""
 "Unexpected attribute '%', this file format does not support CSV output yet."
-msgstr ""
+msgstr "意外属性“%”，此文件格式尚不支持CSV输出。"
 
 #: src/utils/iodevices/OutputDevice.cpp:97
 msgid "No port number given."
@@ -12156,11 +12156,11 @@ msgstr "关闭输出装置时发生错误。"
 
 #: src/utils/iodevices/OutputDevice.cpp:312
 msgid "Attribute '%' is not support for filtering written attributes in %."
-msgstr ""
+msgstr "属性“%”不支持用于筛选%中的已写入属性。"
 
 #: src/utils/iodevices/OutputDevice.cpp:315
 msgid "Unknown attribute '%' to write in %."
-msgstr ""
+msgstr "未知属性“%”无法写入 %。"
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -12170,7 +12170,7 @@ msgstr "无法重定向到NUL装置 (%)。"
 msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
-msgstr ""
+msgstr "意外属性“%”，此文件格式尚不支持 Parquet 输出。"
 
 #: src/utils/options/Option.cpp:352
 #, c-format
@@ -12239,6 +12239,8 @@ msgid ""
 "A value for the option '%' was already set.\n"
 " Possible synonymes: "
 msgstr ""
+"选项“%”的值已设置。\n"
+" 可能的同义词： "
 
 #: src/utils/options/OptionsCont.cpp:625 src/utils/options/OptionsCont.cpp:646
 msgid " Build features: "
@@ -12278,31 +12280,31 @@ msgstr "将模式(schema)写入 '%'"
 
 #: src/utils/options/OptionsCont.cpp:833
 msgid "Help Topics:"
-msgstr ""
+msgstr "帮助主题："
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid "Usage: "
-msgstr ""
+msgstr "用法： "
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid " [OPTION]*"
-msgstr ""
+msgstr " [选项]*"
 
 #: src/utils/options/OptionsCont.cpp:853
 msgid "Examples:"
-msgstr ""
+msgstr "示例："
 
 #: src/utils/options/OptionsCont.cpp:860
 msgid "Report bugs at %."
-msgstr ""
+msgstr "在%上报bug。"
 
 #: src/utils/options/OptionsCont.cpp:861
 msgid "Get in contact via %."
-msgstr ""
+msgstr "通过%与我联系。"
 
 #: src/utils/options/OptionsCont.cpp:867
 msgid "% Options:"
-msgstr ""
+msgstr "% 选项："
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
@@ -12322,7 +12324,7 @@ msgstr "无法载入设定(configuration)'%'。"
 
 #: src/utils/options/OptionsLoader.cpp:74
 msgid "Ignoring attribute '%' for option '%'"
-msgstr ""
+msgstr "忽略属性“%”，为选项“%”"
 
 #: src/utils/options/OptionsLoader.cpp:87
 msgid "Could not set option '%' (probably defined twice)."
@@ -12330,7 +12332,7 @@ msgstr "无法设定选项 '%' (可能定义了两次)。"
 
 #: src/utils/options/OptionsLoader.cpp:117
 msgid "Could not set option '%' because attribute 'value' is missing."
-msgstr ""
+msgstr "无法设置选项“%”，因为缺少属性“value”。"
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
@@ -12367,12 +12369,12 @@ msgstr "地标路段 '%' 不存在于路网內。"
 
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
-msgstr ""
+msgstr "地标文件中的坐标无效，无法找到路段在  '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format
 msgid "Broken landmark file, could not parse '%' as coordinates."
-msgstr ""
+msgstr "地标文件已损坏，无法将“%”解析为坐标。"
 
 #: src/utils/router/AStarLookupTable.h:189
 #: src/utils/router/AStarLookupTable.h:202
@@ -12396,14 +12398,14 @@ msgstr "地标路段 '%' 沒有对照表, 重新计算中。"
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'.%"
-msgstr ""
+msgstr "在查找表“%”中，并未找到地标边“%”的所有网络边。%"
 
 #: src/utils/router/AStarLookupTable.h:323
 #, c-format
 msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
-msgstr ""
+msgstr "地标%无法从%的路段到达，且无法到达总路段数%中的%。"
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
@@ -12414,15 +12416,15 @@ msgstr "将新的矩阵存入 '%'。"
 #: src/utils/router/SUMOAbstractRouter.h:228
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
-msgstr ""
+msgstr "未发现路段“%”和路段“%”之间存在连接。"
 
 #: src/utils/router/CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
-msgstr ""
+msgstr "CH算法不支持动态关闭路段%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
-msgstr ""
+msgstr "路径规划算法CHWrapper不支持动态关闭路径%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
@@ -12457,7 +12459,7 @@ msgstr "不使用大众运输路线 '%' 来安排人员的路径。 它只有不
 
 #: src/utils/router/IntermodalRouter.h:201
 msgid "No connection between % '%' and % '%' found."
-msgstr ""
+msgstr "在% “%”和% “%”之间未发现连接。"
 
 #: src/utils/router/IntermodalRouter.h:229
 #: src/utils/router/PedestrianRouter.h:126
@@ -12486,7 +12488,7 @@ msgstr "形状通用参数解析密键(key)时, 发生错误。 密键(key)含�
 
 #: src/utils/shapes/ShapeHandler.cpp:144
 msgid "Invalid characters for PoI ID '%'"
-msgstr ""
+msgstr "POI ID “%” 有无效字符"
 
 #: src/utils/shapes/ShapeHandler.cpp:175
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
@@ -12508,7 +12510,7 @@ msgstr "兴趣点(PoI) '%' 已经存在。"
 
 #: src/utils/shapes/ShapeHandler.cpp:218
 msgid "Invalid characters for Poly ID '%'"
-msgstr ""
+msgstr "Poly ID “%”有无效字符"
 
 #: src/utils/shapes/ShapeHandler.cpp:260
 msgid "Polygon's shape cannot be empty."
@@ -12530,43 +12532,43 @@ msgstr "从 % 中载入形状(shapes)失败。"
 
 #: src/utils/tests/InternalTest.cpp:318
 msgid "Could not open attributes enum file '%'."
-msgstr ""
+msgstr "无法打开属性枚举文件“%”。"
 
 #: src/utils/tests/InternalTest.cpp:332
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，值“%”无法解析为整数。"
 
 #: src/utils/tests/InternalTest.cpp:349 src/utils/tests/InternalTest.cpp:399
 #: src/utils/tests/InternalTest.cpp:434
 msgid "Could not open view positions file '%'."
-msgstr ""
+msgstr "无法打开位置文件“%”。"
 
 #: src/utils/tests/InternalTest.cpp:377
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，mainMenu的值“%”无法解析为整数。"
 
 #: src/utils/tests/InternalTest.cpp:379
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，subMenuA的值“%”无法解析为整数。"
 
 #: src/utils/tests/InternalTest.cpp:381
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，subMenuB的值“%”无法解析为整数。"
 
 #: src/utils/tests/InternalTest.cpp:415 src/utils/tests/InternalTest.cpp:454
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，x值“%”无法解析为整数。"
 
 #: src/utils/tests/InternalTest.cpp:417 src/utils/tests/InternalTest.cpp:456
 #: src/utils/tests/InternalTest.cpp:458 src/utils/tests/InternalTest.cpp:460
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
-msgstr ""
+msgstr "在内部测试文件中，y值“%”无法解析为整数。"
 
 #: src/utils/traction_wire/Circuit.cpp:44
 #, c-format
@@ -12669,51 +12671,51 @@ msgstr "路径文件应按出发时间排序, 忽略 '%'!"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:499
 msgid "Speed cannot be negative for stop%."
-msgstr ""
+msgstr "对于停靠点%而言，速度不能为负。"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:515
 msgid "Invalid duration or end time is given for a stop%."
-msgstr ""
+msgstr "对于停靠点%而言，无效的持续时长或结束时间。"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:519
 msgid "Triggers and waypoints cannot be combined%."
-msgstr ""
+msgstr "触发器和站点不能合并%。"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:526
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
-msgstr ""
+msgstr "对停靠点%而言，在停车区域停车会覆盖属性“parking”。"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:567
 msgid "Invalid 'index' for stop%."
-msgstr ""
+msgstr "对停靠点%而言，无效索引值。"
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:45
 msgid "Missing parameter '%' for % '%'."
-msgstr ""
+msgstr "缺少参数“%”，对% “%”而言。"
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:65
 msgid "Invalid float value '%' for parameter '%' in % '%' (%)."
-msgstr ""
+msgstr "无效的浮点数“%”，针对参数“%”在% “%”上（%）。"
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:78
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
-msgstr ""
+msgstr "无效的分布/浮点数“%”，为参数“%”在% “%”上（%）。"
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:91
 msgid "Invalid boolean value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "无效的布尔值“%”，为参数“%”在% “%”上。"
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:104
 msgid "Invalid time value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "无效的时间值“%”，为参数%在% “%”上。"
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:675
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
-msgstr ""
+msgstr "无效的表大小%，在vType“%”上（至少需要2个值）。"
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
-msgstr ""
+msgstr "速度表（%）的大小与%表（%）的大小不匹配，对于vType“%”。"
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:716
 msgid "Invalid % % given for %. Using edge end instead."
@@ -12780,7 +12782,7 @@ msgstr "无效的跟车模式属性 %。必须大于 0"
 msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
-msgstr ""
+msgstr "车辆跟驰模型属性%无效。无法解析为<速度 加速>对的向量"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1327
 msgid ""
@@ -12829,12 +12831,12 @@ msgstr "% '%' 的形状(shape)未知。"
 msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
-msgstr ""
+msgstr "车辆跟驰模型属性%无效。加速度曲线值不能为负"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
 #, c-format
 msgid "Entry '%' of % table for vType '%' cannot be parsed as 'double'"
-msgstr ""
+msgstr "条目“%”（表%）无法解析为“double”类型，对于vType %"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1821
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1837
@@ -12849,11 +12851,11 @@ msgstr ""
 msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element "
 "% '%'"
-msgstr ""
+msgstr "忽略来源% “%”在% “%”中使用，而使用之前的结束元素% “%”"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1412
 msgid "Trying to get undefined parent '%' in SUMOBaseObject '%'"
-msgstr ""
+msgstr "尝试获取未定义父级“%”在SUMOBaseObject '%'"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1429
 msgid "Undefined vehicleType parameter"
@@ -12892,7 +12894,7 @@ msgstr "路段 '%' 中缺少值 '%' 。"
 #: src/utils/xml/SAXWeightsHandler.cpp:162
 msgid ""
 "The value '%' of attribute '%' should be numeric in edge '%' at time step %."
-msgstr ""
+msgstr "值“%”（属性“%”）应为数字，路段%、时间步为 % 。"
 
 #: src/utils/xml/SUMOSAXReader.cpp:110 src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
@@ -12927,7 +12929,7 @@ msgstr "无法建立XML解析器(parser)。"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1890
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1901
 msgid "XML files"
-msgstr ""
+msgstr "XML文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1746
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1751
@@ -12950,196 +12952,196 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1896
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1902
 msgid "All files"
-msgstr ""
+msgstr "所有文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1750
 msgid "Plain text files"
-msgstr ""
+msgstr "纯文本文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 msgid "CSV files"
-msgstr ""
+msgstr "CSV文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 msgid "Open scene graph files"
-msgstr ""
+msgstr "场景图文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "All Image Files"
-msgstr ""
+msgstr "所有图像文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
 msgid "GIF Image"
-msgstr ""
+msgstr "GIF图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
 msgid "BMP Image"
-msgstr ""
+msgstr "BMP图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
 msgid "XPM Image"
-msgstr ""
+msgstr "XPM图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "PCX Image"
-msgstr ""
+msgstr "PCX图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1770
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1796
 msgid "ICO Image"
-msgstr ""
+msgstr "ICO图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1797
 msgid "RGB Image"
-msgstr ""
+msgstr "RGB图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1798
 msgid "XBM Image"
-msgstr ""
+msgstr "XBM图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1799
 msgid "TARGA Image"
-msgstr ""
+msgstr "TARGA图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1800
 msgid "PNG Image"
-msgstr ""
+msgstr "PNG图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1775
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "JPEG Image"
-msgstr ""
+msgstr "JPEG图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1802
 msgid "TIFF Image"
-msgstr ""
+msgstr "TIFF图"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1803
 msgid "Postscript"
-msgstr ""
+msgstr "附言（Postscript）"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1804
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "封装式Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1805
 msgid "Portable Document Format"
-msgstr ""
+msgstr "便携式文档格式"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "可缩放矢量图形"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1807
 msgid "LATEX text strings"
-msgstr ""
+msgstr "LATEX 文本字符串"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "便携式LaTeX图形"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1809
 msgid "All Files"
-msgstr ""
+msgstr "所有文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
 msgid "All Image and Video Files"
-msgstr ""
+msgstr "所有图像和视频文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
 msgid "All Video Files"
-msgstr ""
+msgstr "所有视频文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "G264 Video"
-msgstr ""
+msgstr "G264视频"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
 msgid "HEVC Video"
-msgstr ""
+msgstr "HEVC视频"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
 msgid "MP4 Video"
-msgstr ""
+msgstr "MP4视频"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1808
 msgid "Portable"
-msgstr ""
+msgstr "便携的"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1814
 msgid "Plain text"
-msgstr ""
+msgstr "纯文本"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1819
 msgid "View settings files"
-msgstr ""
+msgstr "视图设置文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "State GZipped XML files"
-msgstr ""
+msgstr "状态GZipped XML文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 msgid "Sumo config"
-msgstr ""
+msgstr "Sumo配置"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 msgid "Netedit config files"
-msgstr ""
+msgstr "Netedit配置文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 msgid "Netconvert config files"
-msgstr ""
+msgstr "Netconvert配置文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
 msgid "OSM network files"
-msgstr ""
+msgstr "OSM路网文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1854
 msgid "SUMO network files"
-msgstr ""
+msgstr "SUMO路网文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1860
 msgid "TLS files"
-msgstr ""
+msgstr "TLS文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1866
 msgid "Junction files"
-msgstr ""
+msgstr "路口文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1872
 msgid "Edge type files"
-msgstr ""
+msgstr "路段类型文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1878
 msgid "Additional files"
-msgstr ""
+msgstr "附加文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1889
 msgid "Route files"
-msgstr ""
+msgstr "路径文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1895
 msgid "Edge data files"
-msgstr ""
+msgstr "路段数据文件"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1900
 msgid "Mean data files"
-msgstr ""
+msgstr "平均值数据文件"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
