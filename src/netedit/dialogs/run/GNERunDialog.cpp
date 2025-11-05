@@ -165,6 +165,9 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
             case GUIEventType::OUTPUT_OCCURRED:
                 style = 2;
                 break;
+            case GUIEventType::WARNING_OCCURRED:
+                style = 4;
+                break;
             case GUIEventType::ERROR_OCCURRED:
                 style = 3;
                 myError = true;

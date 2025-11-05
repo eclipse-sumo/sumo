@@ -139,7 +139,8 @@ GNEExternalRunner::run() {
                 if (!buffer.empty() && (buffer.back() == '\r')) {
                     buffer.pop_back();
                 }
-                myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, buffer.c_str()), true);
+                buffer += "\n";
+                myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::WARNING_OCCURRED, buffer.c_str()), true);
             }
         });
         // wait until child process is finish
