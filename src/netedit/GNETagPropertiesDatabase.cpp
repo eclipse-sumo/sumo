@@ -2776,7 +2776,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::ROUTE,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, currentTag, TL("VehicleRoute"),
+                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleRoute"),
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (over route)");
 
         // set values of attributes
@@ -2849,10 +2849,10 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
-                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Property::RTREE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::ROUTE_DISTRIBUTION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, currentTag, TL("VehicleRouteDistribution"),
+                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleRouteDistribution"),
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (over routeDistribution)");
 
         // set values of attributes
@@ -3043,7 +3043,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
-                GNETagProperties::Property::NO_PROPERTY,
+                GNETagProperties::Property::RTREE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::ROUTE_DISTRIBUTION,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEFLOW, GUIGlObjectType::GLO_ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRouteDistribution"),
