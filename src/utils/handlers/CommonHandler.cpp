@@ -392,20 +392,47 @@ CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& i
 
 
 bool
-CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTag), parentID));
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const std::vector<SumoXMLTag> parentTags, const std::string& parentID) {
+    if (parentTags.size() == 1) {
+        return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTags.at(1)), parentID));
+    } else {
+        return writeError(TLF("Could not build % with ID '%' in netedit; doesn't exist a % parent with ID '%'.", toString(tag), id, parseParentTags(parentTags), parentID));
+    }
 }
 
 
 bool
-CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag, const std::string& parentID) {
-    return writeError(TLF("Could not build % in netedit; % parent with ID '%' doesn't exist.", toString(tag), toString(parentTag), parentID));
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags, const std::string& parentID) {
+    if (parentTags.size() == 1) {
+        return writeError(TLF("Could not build % in netedit; % parent with ID '%' doesn't exist.", toString(tag), toString(parentTags.at(1)), parentID));
+    } else {
+        return writeError(TLF("Could not build % in netedit; doesn't exist a % parent with ID '%'.", toString(tag), parseParentTags(parentTags), parentID));
+    }
 }
 
 
 bool
-CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag) {
-    return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTag)));
+CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags) {
+    if (parentTags.size() == 1) {
+        return writeError(TLF("Could not build % in netedit; % parent doesn't exist.", toString(tag), toString(parentTags.at(1))));
+    } else {
+        return writeError(TLF("Could not build % in netedit; doesn't exist a % parent.", toString(tag), parseParentTags(parentTags)));
+    }
+}
+
+
+std::string
+CommonHandler::parseParentTags(const std::vector<SumoXMLTag>& parentTags) const {
+    // convert parent tags to str separated by commas
+    std::string parentTagsStr;
+    for (auto it = parentTags.begin(); it != parentTags.end(); it++) {
+        if ((it + 1) != parentTags.end()) {
+            parentTagsStr.append(toString(*it) + ", ");
+        } else {
+            parentTagsStr.append(toString(*it));
+        }
+    }
+    return parentTagsStr;
 }
 
 /****************************************************************************/

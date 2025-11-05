@@ -536,13 +536,12 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
-    const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
-    const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    // check size of vTypes and probabilities
-    if (vTypes.size() != probabilities.size()) {
-        writeError(TLF("the number of vTypes and probabilities of % '%' are different", toString(SUMO_TAG_VTYPE_DISTRIBUTION), id));
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-    } else if (parsedOk) {
+    std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
+    std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
+    // adjust sizes and probabilities
+    adjustTypesAndProbabilities(vTypes, probabilities);
+    // continue if all was parsed ok
+    if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
         // add all attributes
@@ -669,13 +668,12 @@ RouteHandler::parseRouteDistribution(const SUMOSAXAttributes& attrs) {
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
-    const std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
-    const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    // check size of vTypes and probabilities
-    if (routes.size() != probabilities.size()) {
-        writeError(TLF("the number of routes and probabilities of % '%' are different", toString(SUMO_TAG_ROUTE_DISTRIBUTION), id));
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ERROR);
-    } else if (parsedOk) {
+    std::vector<std::string> routes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ROUTES, id.c_str(), parsedOk);
+    std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
+    // adjust sizes and probabilities
+    adjustTypesAndProbabilities(routes, probabilities);
+    // continue if all was parsed ok
+    if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_DISTRIBUTION);
         // add all attributes
@@ -1364,6 +1362,19 @@ RouteHandler::isOverFromToJunctions(const CommonXMLStructure::SumoBaseObject* su
 bool
 RouteHandler::isOverFromToTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     return sumoBaseObject->hasStringAttribute(SUMO_ATTR_FROM_TAZ) && sumoBaseObject->hasStringAttribute(SUMO_ATTR_TO_TAZ);
+}
+
+
+void
+RouteHandler::adjustTypesAndProbabilities(std::vector<std::string>& vTypes, std::vector<double>& probabilities) {
+    // add more probabilities
+    for (size_t i = probabilities.size(); i < vTypes.size(); i++) {
+        probabilities.push_back(INVALID_DOUBLE);
+    }
+    // reduce number of probabilities
+    while (vTypes.size() < probabilities.size()) {
+        probabilities.pop_back();
+    }
 }
 
 /****************************************************************************/

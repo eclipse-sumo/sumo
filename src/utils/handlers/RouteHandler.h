@@ -250,6 +250,9 @@ private:
 
     /// @}
 
+    /// @brief adjust types and probabilities
+    void adjustTypesAndProbabilities(std::vector<std::string>& vTypes, std::vector<double>& probabilities);
+
     /// @brief invalidate default onstructor
     RouteHandler() = delete;
 

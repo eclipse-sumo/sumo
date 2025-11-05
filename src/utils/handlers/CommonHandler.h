@@ -154,15 +154,18 @@ protected:
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid parent element" giving ids of current and parent element
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID);
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const std::vector<SumoXMLTag> parentTags, const std::string& parentID);
 
     /// @brief write error "invalid parent element" giving only the id of parent element
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag, const std::string& parentID);
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags, const std::string& parentID);
 
     /// @brief write error "invalid parent element" without giving IDs
-    bool writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parentTag);
+    bool writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<SumoXMLTag> parentTags);
 
 private:
+    /// @brief parse list of parent tags
+    std::string parseParentTags(const std::vector<SumoXMLTag>& parentTags) const;
+
     /// @brief invalidate default onstructor
     CommonHandler() = delete;
 

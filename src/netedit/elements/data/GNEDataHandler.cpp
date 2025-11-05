@@ -134,7 +134,7 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
             // get data
             GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
             if (edge == nullptr) {
-                return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
+                return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, {SUMO_TAG_EDGE});
             } else if (dataInterval->edgeRelSingleExists(edge)) {
                 return writeError(TLF("There is already a edgeRel defined in edge '%'.", edge));
             } else {
@@ -152,10 +152,10 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
                 return true;
             }
         } else {
-            return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, {SUMO_TAG_DATAINTERVAL});
         }
     } else {
-        return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, {SUMO_TAG_DATASET});
     }
 }
 
@@ -175,9 +175,9 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
             GNEEdge* const fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
             GNEEdge* const toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
             if (fromEdge == nullptr) {
-                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
+                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_EDGE}, fromEdgeID);
             } else if (toEdge == nullptr) {
-                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
+                return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_EDGE}, toEdgeID);
             } else if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
                 return writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
             } else {
@@ -195,10 +195,10 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                 return true;
             }
         } else {
-            return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_DATAINTERVAL});
         }
     } else {
-        return writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(SUMO_TAG_EDGEREL, {SUMO_TAG_DATASET});
     }
 }
 
@@ -218,9 +218,9 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
             GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
             if (fromTAZ == nullptr) {
-                return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
+                return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_TAZ}, fromTAZID);
             } else if (toTAZ == nullptr) {
-                return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
+                return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_TAZ}, toTAZID);
             } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
                 return writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
             } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
@@ -252,10 +252,10 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
                 return true;
             }
         } else {
-            return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATAINTERVAL);
+            return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_DATAINTERVAL});
         }
     } else {
-        return writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATASET);
+        return writeErrorInvalidParent(SUMO_TAG_TAZREL, {SUMO_TAG_DATASET});
     }
 }
 
