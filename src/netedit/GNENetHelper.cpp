@@ -2694,23 +2694,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(demandElement);
         demandElement->unmarkForDrawingFront();
-        viewParent->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
-        viewParent->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
-        viewParent->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
-        // update distribution frames
-        if (viewParent->getRouteDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
-            viewParent->getRouteDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
-        }
-        if (viewParent->getTypeDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
-            viewParent->getTypeDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
-        }
-        // special case for distribution references
-        if (demandElement->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
-            viewParent->getTypeDistributionFrame()->getDistributionValuesEditor()->refreshRows();
-        }
-        if (demandElement->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
-            viewParent->getRouteDistributionFrame()->getDistributionValuesEditor()->refreshRows();
-        }
         // if is the last inserted route, remove it from GNEViewNet
         if (myNet->getViewNet()->getLastCreatedRoute() == demandElement) {
             myNet->getViewNet()->setLastCreatedRoute(nullptr);
@@ -2720,6 +2703,23 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         // check if update demand elements frames
         if (updateFrames) {
             updateDemandElementFrames(demandElement->getTagProperty());
+            viewParent->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
+            viewParent->getPersonPlanFrame()->getPersonHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+            viewParent->getContainerPlanFrame()->getContainerHierarchy()->removeCurrentEditedAttributeCarrier(demandElement);
+            // update distribution frames
+            if (viewParent->getRouteDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
+                viewParent->getRouteDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
+            }
+            if (viewParent->getTypeDistributionFrame()->getDistributionSelector()->getCurrentDistribution() == demandElement) {
+                viewParent->getTypeDistributionFrame()->getDistributionSelector()->setDistribution(nullptr);
+            }
+            // special case for distribution references
+            if (demandElement->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+                viewParent->getTypeDistributionFrame()->getDistributionValuesEditor()->refreshRows();
+            }
+            if (demandElement->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+                viewParent->getRouteDistributionFrame()->getDistributionValuesEditor()->refreshRows();
+            }
         }
         // demandElements has to be saved
         myNet->getSavingStatus()->requireSaveDemandElements();
