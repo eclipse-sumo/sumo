@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-26T11:57:09.971678+01:00 by Eclipse SUMO netedit v1_24_0+1031-f311d84dc69
+<!-- generated on 2025-11-05T16:11:47.171387+01:00 by Eclipse SUMO netedit v1_24_0+1789-cc99e2dc3ea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <rerouter id="rerouter_0" pos="0.00,10.00" edges="EdgeCenter0 EdgeCenter1">
         <interval begin="0.00" end="3600.00">
             <closingReroute id="EdgeCenter0"/>
-            <closingReroute id="EdgeCenter0" allow="all"/>
+            <closingReroute id="EdgeCenter0"/>
             <closingReroute id="EdgeCenter0" allow="pedestrian passenger"/>
             <closingReroute id="EdgeCenter0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
         </interval>
