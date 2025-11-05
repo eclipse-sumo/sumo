@@ -576,10 +576,15 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write vehicle attributes, including type/distribution
         write(device, OptionsCont::getOptions(), myTagProperty->getXMLTag(), getParentDemandElements().front()->getID());
     }
-    // write specific attribute depending of tag property
+    // write route
     if (myTagProperty->vehicleRoute()) {
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getRouteParent()->getID());
+    }
+    // write routeDistribution
+    if (myTagProperty->vehicleRouteDistribution()) {
+        // write route
+        device.writeAttr(SUMO_ATTR_ROUTE, getRouteDistributionParent()->getID());
     }
     // write from, to and edge vias
     if (myTagProperty->vehicleEdges()) {
@@ -659,6 +664,8 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
+    } else if (myTagProperty->vehicleRouteDistribution()) {
+        return Problem::OK;
     } else {
         return Problem::INVALID_ELEMENT;
     }
