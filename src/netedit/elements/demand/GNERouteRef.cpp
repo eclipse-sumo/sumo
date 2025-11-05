@@ -285,6 +285,15 @@ GNERouteRef::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+bool
+GNERouteRef::isAttributeComputed(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_PROB:
+            return myProbability == INVALID_DOUBLE;
+        default:
+            return false;
+    }
+}
 
 std::string
 GNERouteRef::getPopUpID() const {
@@ -306,7 +315,7 @@ GNERouteRef::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_PROB:
             if (value.empty()) {
-                myProbability = myTagProperty->getDefaultDoubleValue(key);
+                myProbability = INVALID_DOUBLE;
             } else {
                 myProbability = parse<double>(value);
             }

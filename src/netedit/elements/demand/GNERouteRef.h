@@ -197,11 +197,17 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value) override;
 
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
+    * @param[in] key The attribute key
+    */
+    bool isAttributeComputed(SumoXMLAttr key) const override;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const override;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const override;
+
     /// @}
 
 protected:

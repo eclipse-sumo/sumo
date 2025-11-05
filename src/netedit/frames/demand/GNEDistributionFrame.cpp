@@ -320,6 +320,12 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
         // set values
         myIDTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_REFID).c_str());
         myProbabilityTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_PROB).c_str());
+        // set color depending if attribute is computed
+        if (myDistributionReference->isAttributeComputed(SUMO_ATTR_PROB)) {
+            myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLUE));
+        } else {
+            myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        }
         // Show DistributionRow
         show();
     }
@@ -354,11 +360,18 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
         myProbabilityTextField->setText(myDistributionReference->getTagProperty()->getAttributeProperties(SUMO_ATTR_PROB)->getDefaultStringValue().c_str());
     }
     // if is valid, update value in AC
-    if (GNEAttributeCarrier::canParse<double>(myProbabilityTextField->getText().text())) {
-        myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
-        myProbabilityTextField->killFocus();
+    if (myDistributionReference->isValid(SUMO_ATTR_PROB, myProbabilityTextField->getText().text())) {
         myDistributionReference->setAttribute(SUMO_ATTR_PROB, myProbabilityTextField->getText().text(), myDistributionReference->getNet()->getViewNet()->getUndoList());
         myDistributionValuesEditorParent->updateSumLabel();
+        // update probablity text field (needed for show the default value)
+        myProbabilityTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_PROB).c_str(), FALSE);
+        // set color depending if attribute is computed
+        if (myDistributionReference->isAttributeComputed(SUMO_ATTR_PROB)) {
+            myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLUE));
+        } else {
+            myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        }
+        myProbabilityTextField->killFocus();
     } else {
         myProbabilityTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
     }

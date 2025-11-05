@@ -573,6 +573,8 @@ GNERoute::getAttributeDouble(SumoXMLAttr key) const {
             return 0;
         case SUMO_ATTR_ARRIVALPOS:
             return getParentEdges().back()->getChildLanes().front()->getLaneShape().length2D();
+        case SUMO_ATTR_PROB:
+            return myProbability;
         default:
             return getCommonAttributeDouble(key);
     }
