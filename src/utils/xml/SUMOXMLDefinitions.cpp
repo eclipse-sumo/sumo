@@ -99,9 +99,11 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tripTAZs",                               GNE_TAG_TRIP_TAZS },
     { "vehicle",                                SUMO_TAG_VEHICLE },
     { "vehicleWithRoute",                       GNE_TAG_VEHICLE_WITHROUTE },
+    { "vehicleRouteDistribution",               GNE_TAG_VEHICLE_ROUTEDISTRIBUTION },
     { "flow",                                   SUMO_TAG_FLOW },
     { "flowJunctions",                          GNE_TAG_FLOW_JUNCTIONS },
     { "flowTAZs",                               GNE_TAG_FLOW_TAZS },
+    { "flowRouteDistribution",                  GNE_TAG_FLOW_ROUTEDISTRIBUTION },
     { "flowState",                              SUMO_TAG_FLOWSTATE },
     { "vType",                                  SUMO_TAG_VTYPE },
     { "vTypeRef",                               GNE_TAG_VTYPEREF },
@@ -1442,8 +1444,9 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { "edgesWithin",                        GNE_ATTR_EDGES_WITHIN },
+    { "noCommonAttributes",                 GNE_ATTR_NOCOMMON },
+    { "routeDistribution",                  GNE_ATTR_ROUTEDISTRIBUTION },
     // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
-    { "noCommonAttributes",                GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
