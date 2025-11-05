@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNEMoveElementVehicle;
+class GNEMoveElementView;
 
 // ===========================================================================
 // class definitions
@@ -311,8 +312,14 @@ public:
     static GNEDemandElement* copyVehicle(const GNEVehicle* originalVehicle);
 
 protected:
-    /// @brief move element demand
+    /// @brief move element vehicle over lanes
     GNEMoveElementVehicle* myMoveElementVehicle = nullptr;
+
+    /// @brief move element over view
+    GNEMoveElementView* myMoveElementView = nullptr;
+
+    /// @brief position over view
+    Position myPosOverView;
 
     /// @brief variable used for draw vehicle contours
     GNEContour myVehicleContour;

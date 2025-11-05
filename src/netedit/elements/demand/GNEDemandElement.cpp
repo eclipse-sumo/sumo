@@ -481,6 +481,18 @@ GNEDemandElement::getRouteParent() const {
 }
 
 
+GNEDemandElement*
+GNEDemandElement::getRouteDistributionParent() const {
+    if (getParentDemandElements().size() < 2) {
+        throw InvalidArgument("This demand element doesn't have two parent");
+    } else if (getParentDemandElements().at(1)->getTagProperty()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION) {
+        throw InvalidArgument("This demand element doesn't have a routeDistribution parent");
+    } else {
+        return getParentDemandElements().at(1);
+    }
+}
+
+
 std::vector<GNEDemandElement*>
 GNEDemandElement::getInvalidStops() const {
     if (myTagProperty->isVehicleStop()) {

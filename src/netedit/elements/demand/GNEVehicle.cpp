@@ -22,6 +22,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/moving/GNEMoveElementVehicle.h>
+#include <netedit/elements/moving/GNEMoveElementView.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
@@ -418,7 +419,9 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 #endif
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this) {
+    GNEDemandElementFlow(this),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set end and vehPerHours as default flow values
     toggleAttribute(SUMO_ATTR_END, true);
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);
@@ -428,7 +431,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
 GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename,
                        GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this) {
+    GNEDemandElementFlow(this),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEDemandElement*>({vehicleType, route});
     // SUMOVehicleParameter ID has to be set manually
@@ -441,7 +446,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEDemandElement* route,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEDemandElement*>({vehicleType, route});
     // SUMOVehicleParameter ID has to be set manually
@@ -453,7 +460,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParent<GNEDemandElement*>(vehicleType);
     // SUMOVehicleParameter ID has to be set manually
@@ -469,7 +478,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
                        GNEEdge* fromEdge, GNEEdge* toEdge) :
     GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this),
-    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);
@@ -480,7 +491,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementFlow(this, vehicleParameters),
-    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)) {
+    myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEEdge*>({fromEdge, toEdge});
     setParent<GNEDemandElement*>(vehicleType);
@@ -489,7 +502,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
     GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this) {
+    GNEDemandElementFlow(this),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEJunction*>({fromJunction, toJunction});
     setParent<GNEDemandElement*>(vehicleType);
@@ -498,7 +513,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEJunction*>({fromJunction, toJunction});
     setParent<GNEDemandElement*>(vehicleType);
@@ -507,7 +524,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
-    GNEDemandElementFlow(this, vehicleParameters) {
+    GNEDemandElementFlow(this, vehicleParameters),
+    myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
+                      SUMO_ATTR_POSITION, myPosOverView)) {
     // set parents
     setParents<GNEAdditional*>({fromTAZ, toTAZ});
     setParent<GNEDemandElement*>(vehicleType);
@@ -708,7 +727,10 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::updateGeometry() {
-    if (getParentJunctions().size() > 0) {
+    if (myTagProperty->vehicleRouteDistribution()) {
+        // update additional geometry
+        myDemandElementGeometry.updateGeometry({myPosOverView - Position(1, 0), myPosOverView + Position(1, 0)});
+    } else if (getParentJunctions().size() > 0) {
         // calculate rotation between both junctions
         const Position posA = getParentJunctions().front()->getPositionInView();
         const Position posB = getParentJunctions().back()->getPositionInView();
@@ -752,7 +774,11 @@ GNEVehicle::updateGeometry() {
 
 Position
 GNEVehicle::getPositionInView() const {
-    return myDemandElementGeometry.getShape().front();
+    if (myTagProperty->vehicleRouteEmbedded()) {
+        return myPosOverView;
+    } else {
+        return myDemandElementGeometry.getShape().front();
+    }
 }
 
 
@@ -819,7 +845,11 @@ GNEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
-    vehicleBoundary.add(myDemandElementGeometry.getShape().front());
+    if (myTagProperty->vehicleRouteDistribution()) {
+        vehicleBoundary.add(myPosOverView);
+    } else {
+        vehicleBoundary.add(myDemandElementGeometry.getShape().front());
+    }
     vehicleBoundary.grow(20);
     return vehicleBoundary;
 }
@@ -1398,6 +1428,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
+        // Specific of vehicles over routeDistributions
+        case GNE_ATTR_ROUTEDISTRIBUTION:
+            return getRouteDistributionParent()->getID();
         // Specific of from-to edge
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
@@ -1550,6 +1583,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_INSERTIONCHECKS:
         // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
+        // Specific of vehicles over routeDistributions
+        case GNE_ATTR_ROUTEDISTRIBUTION:
         // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
@@ -1692,6 +1727,13 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            } else {
+                return true;
+            }
+        // Specific of vehicles over routeDistributions
+        case GNE_ATTR_ROUTEDISTRIBUTION:
+            if (getParentDemandElements().size() == 2) {
+                return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, value, false) != nullptr);
             } else {
                 return true;
             }
@@ -2079,6 +2121,13 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             updateGeometry();
             updateSpreadStackGeometry = true;
+            break;
+        // Specific of vehicles over routeDistributions
+        case GNE_ATTR_ROUTEDISTRIBUTION:
+            if (getParentDemandElements().size() == 2) {
+                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+            }
+            updateGeometry();
             break;
         // Specific of from-to edges
         case SUMO_ATTR_FROM: {
