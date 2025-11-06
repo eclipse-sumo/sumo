@@ -520,6 +520,10 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(positionBoundary);
+    // draw routeDistributions (temporal)
+    for (auto& routeDistribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
+        routeDistribution.second->drawGL(*myVisualizationSettings);
+    }
     // swap selected objects (needed after selecting)
     gViewObjectsHandler.reverseSelectedObjects();
     // check if filter edges that have the mouse over their geometry points
@@ -1401,6 +1405,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     myNet->drawGL(*myVisualizationSettings);
     // draw all GL elements
     int hits = drawGLElements(drawingBoundary);
+    // draw routeDistributions (temporal)
+    for (auto& routeDistribution : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
+        routeDistribution.second->drawGL(*myVisualizationSettings);
+    }
     // after drawing all elements, update list of merged junctions
     myViewObjectsSelector.updateMergingJunctions();
     // draw temporal split junction

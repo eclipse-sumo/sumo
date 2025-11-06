@@ -116,7 +116,12 @@ GNERouteDistribution::getColor() const {
 
 void
 GNERouteDistribution::updateGeometry() {
-    // nothing to update
+    // update geometries of all vehicles
+    for (auto vehicle : getChildDemandElements()) {
+        if (vehicle->getTagProperty()->isVehicle()) {
+            vehicle->updateGeometry();
+        }
+    }
 }
 
 
@@ -153,8 +158,13 @@ GNERouteDistribution::splitEdgeGeometry(const double /*splitPosition*/, const GN
 
 
 void
-GNERouteDistribution::drawGL(const GUIVisualizationSettings&) const {
-    // Vehicle Types aren't draw
+GNERouteDistribution::drawGL(const GUIVisualizationSettings& s) const {
+    // draw all vehicles
+    for (auto vehicle : getChildDemandElements()) {
+        if (vehicle->getTagProperty()->isVehicle()) {
+            vehicle->drawGL(s);
+        }
+    }
 }
 
 

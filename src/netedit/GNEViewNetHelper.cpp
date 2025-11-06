@@ -105,16 +105,16 @@ GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType, const 
     } else if ((objectType >= GLO_WIRE) && (objectType <= GLO_TRACTIONSUBSTATION)) {
         // wires
         return myLockedElements.at(GLO_WIRE).lock;
-    } else if ((objectType == GLO_ROUTE) || (objectType == GLO_ROUTE_EMBEDDED)) {
+    } else if ((objectType >= GLO_ROUTE) && (objectType <= GLO_ROUTE_DISTRIBUTION)) {
         // routes
         return myLockedElements.at(GLO_ROUTE).lock;
     } else if ((objectType >= GLO_VEHICLE) && (objectType <= GLO_ROUTEFLOW)) {
         // vehicles
         return myLockedElements.at(GLO_VEHICLE).lock;
-    } else if ((objectType == GLO_PERSON) || (objectType == GLO_PERSONFLOW)) {
+    } else if ((objectType >= GLO_PERSON) && (objectType <= GLO_PERSONFLOW)) {
         // persons
         return myLockedElements.at(GLO_PERSON).lock;
-    } else if ((objectType == GLO_CONTAINER) || (objectType == GLO_CONTAINERFLOW)) {
+    } else if ((objectType >= GLO_CONTAINER) && (objectType <= GLO_CONTAINERFLOW)) {
         // containers
         return myLockedElements.at(GLO_CONTAINER).lock;
     } else if ((objectType >= GLO_STOP) && (objectType <= GLO_STOP_PLAN)) {
