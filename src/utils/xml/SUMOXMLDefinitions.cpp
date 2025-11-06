@@ -99,11 +99,9 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tripTAZs",                               GNE_TAG_TRIP_TAZS },
     { "vehicle",                                SUMO_TAG_VEHICLE },
     { "vehicleWithRoute",                       GNE_TAG_VEHICLE_WITHROUTE },
-    { "vehicleRouteDistribution",               GNE_TAG_VEHICLE_ROUTEDISTRIBUTION },
     { "flow",                                   SUMO_TAG_FLOW },
     { "flowJunctions",                          GNE_TAG_FLOW_JUNCTIONS },
     { "flowTAZs",                               GNE_TAG_FLOW_TAZS },
-    { "flowRouteDistribution",                  GNE_TAG_FLOW_ROUTEDISTRIBUTION },
     { "flowState",                              SUMO_TAG_FLOWSTATE },
     { "vType",                                  SUMO_TAG_VTYPE },
     { "vTypeRef",                               GNE_TAG_VTYPEREF },
@@ -1414,8 +1412,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
     { "stopOffset",                         GNE_ATTR_STOPOFFSET },
     { "stopOException",                     GNE_ATTR_STOPOEXCEPTION },
-    { "routeDist.",                         GNE_ATTR_ROUTE_DISTRIBUTION },
-    { "typeDist.",                          GNE_ATTR_VTYPE_DISTRIBUTION },
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
@@ -1445,7 +1441,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "frontElement",                       GNE_ATTR_FRONTELEMENT },
     { "edgesWithin",                        GNE_ATTR_EDGES_WITHIN },
     { "noCommonAttributes",                 GNE_ATTR_NOCOMMON },
-    { "routeDistribution",                  GNE_ATTR_ROUTEDISTRIBUTION },
     // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },

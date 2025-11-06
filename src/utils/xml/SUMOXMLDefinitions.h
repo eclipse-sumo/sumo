@@ -165,16 +165,12 @@ enum SumoXMLTag {
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle with an embedded route
     GNE_TAG_VEHICLE_WITHROUTE,
-    /// @brief description of a vehicle with over a route distribution
-    GNE_TAG_VEHICLE_ROUTEDISTRIBUTION,
     /// @brief a flow definition using from and to edges or a route
     SUMO_TAG_FLOW,
     /// @brief a flow between junctions
     GNE_TAG_FLOW_JUNCTIONS,
     /// @brief a flow between TAZs
     GNE_TAG_FLOW_TAZS,
-    /// @brief description of a vehicle with over a route distribution
-    GNE_TAG_FLOW_ROUTEDISTRIBUTION,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
@@ -1878,10 +1874,6 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOFFSET,
     /// @brief stop exceptions (virtual, used by edge and lanes)
     GNE_ATTR_STOPOEXCEPTION,
-    /// @brief route distribution
-    GNE_ATTR_ROUTE_DISTRIBUTION,
-    /// @brief vehicle type distribution
-    GNE_ATTR_VTYPE_DISTRIBUTION,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
     /// @brief stop index (position in the parent's children
@@ -1931,8 +1923,6 @@ enum SumoXMLAttr {
     GNE_ATTR_EDGES_WITHIN,
     /// @brief no common attributes
     GNE_ATTR_NOCOMMON,
-    /// @brief route distribution
-    GNE_ATTR_ROUTEDISTRIBUTION,
     // @}
 
     /// @name train parameters
