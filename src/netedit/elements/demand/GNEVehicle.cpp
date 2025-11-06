@@ -740,7 +740,7 @@ GNEVehicle::updateGeometry() {
         // continue depending if the routeDistribution have references
         for (auto routeRef : getParentDemandElements().at(1)->getChildDemandElements()) {
             if (routeRef->getTagProperty()->isDistributionReference()) {
-                myPosOverView = routeRef->getParentDemandElements().at(1)->getParentEdges().front()->getFromJunction()->getPositionInView();
+                myPosOverView = routeRef->getParentDemandElements().at(1)->getParentEdges().front()->getChildLanes().at(0)->getLaneShape().front();
                 break;
             }
         }
