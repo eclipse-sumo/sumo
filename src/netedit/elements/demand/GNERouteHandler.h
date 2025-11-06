@@ -273,6 +273,9 @@ protected:
     /// @brief get type (Either type o typeDistribution)
     GNEDemandElement* getType(const std::string& id) const;
 
+    /// @brief get route (Either route o routeDistribution)
+    GNEDemandElement* getRoute(const std::string& id) const;
+
     /// @brief get person parent
     GNEDemandElement* getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 

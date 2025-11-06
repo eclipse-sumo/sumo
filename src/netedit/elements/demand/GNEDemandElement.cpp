@@ -460,11 +460,11 @@ GNEDemandElement*
 GNEDemandElement::getTypeParent() const {
     if (getParentDemandElements().size() < 1) {
         throw InvalidArgument("This demand element doesn't have a type parent");
-    } else if (!getParentDemandElements().at(0)->getTagProperty()->isType()
-               && !getParentDemandElements().at(0)->getTagProperty()->isTypeDist()) {
-        throw InvalidArgument("The first parent isn't a type");
-    } else {
+    } else if ((getParentDemandElements().at(0)->getTagProperty()->isType()) ||
+               (getParentDemandElements().at(0)->getTagProperty()->isTypeDistribution())) {
         return getParentDemandElements().at(0);
+    } else {
+        throw InvalidArgument("The first parent isn't a type");
     }
 }
 
@@ -472,23 +472,12 @@ GNEDemandElement::getTypeParent() const {
 GNEDemandElement*
 GNEDemandElement::getRouteParent() const {
     if (getParentDemandElements().size() < 2) {
-        throw InvalidArgument("This demand element doesn't have two parent");
-    } else if (getParentDemandElements().at(1)->getTagProperty()->getTag() != SUMO_TAG_ROUTE) {
         throw InvalidArgument("This demand element doesn't have a route parent");
-    } else {
+    } else if ((getParentDemandElements().at(1)->getTagProperty()->isRoute()) ||
+               (getParentDemandElements().at(1)->getTagProperty()->isRouteDistribution())) {
         return getParentDemandElements().at(1);
-    }
-}
-
-
-GNEDemandElement*
-GNEDemandElement::getRouteDistributionParent() const {
-    if (getParentDemandElements().size() < 2) {
-        throw InvalidArgument("This demand element doesn't have two parent");
-    } else if (getParentDemandElements().at(1)->getTagProperty()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION) {
-        throw InvalidArgument("This demand element doesn't have a routeDistribution parent");
     } else {
-        return getParentDemandElements().at(1);
+        throw InvalidArgument("The second parent isn't a route");
     }
 }
 

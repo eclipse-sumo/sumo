@@ -279,9 +279,6 @@ protected:
     /// @brief get route parent (always the second parent demand element)
     GNEDemandElement* getRouteParent() const;
 
-    /// @brief get routeDistribution parent (always the second parent demand element)
-    GNEDemandElement* getRouteDistributionParent() const;
-
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;
 

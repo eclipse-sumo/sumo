@@ -581,11 +581,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getRouteParent()->getID());
     }
-    // write routeDistribution
-    if (myTagProperty->vehicleRouteDistribution()) {
-        // write route
-        device.writeAttr(SUMO_ATTR_ROUTE, getRouteDistributionParent()->getID());
-    }
     // write from, to and edge vias
     if (myTagProperty->vehicleEdges()) {
         // write manually from/to edges (it correspond to front and back parent edges)
@@ -651,11 +646,16 @@ GNEVehicle::isDemandElementValid() const {
             return Problem::INVALID_PATH;
         }
     } else if (myTagProperty->vehicleRoute()) {
-        // check if exist a valid path using route parent edges
-        if (myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
+        // check if routeParent is a distribution
+        if (getRouteParent()->getTagProperty()->isRouteDistribution()) {
             return Problem::OK;
         } else {
-            return Problem::INVALID_PATH;
+            // check if exist a valid path using route parent edges
+            if (myNet->getDemandPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getRouteParent()->getParentEdges()).size() > 0) {
+                return Problem::OK;
+            } else {
+                return Problem::INVALID_PATH;
+            }
         }
     } else if (myTagProperty->vehicleRouteEmbedded()) {
         // check if exist a valid path using route child edges
@@ -664,8 +664,6 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if (myTagProperty->vehicleRouteDistribution()) {
-        return Problem::OK;
     } else {
         return Problem::INVALID_ELEMENT;
     }
@@ -734,7 +732,7 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::updateGeometry() {
-    if (myTagProperty->vehicleRouteDistribution()) {
+    if (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution()) {
         // remove vehicle from grid
         myNet->removeGLObjectFromGrid(this);
         // reset view position to 0
@@ -865,7 +863,7 @@ GNEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
-    if (myTagProperty->vehicleRouteDistribution()) {
+    if (myTagProperty->vehicleRoute() && getRouteParent()->getTagProperty()->isRouteDistribution()) {
         vehicleBoundary.add(myPosOverView);
     } else {
         vehicleBoundary.add(myDemandElementGeometry.getShape().front());
@@ -1448,9 +1446,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
-        // Specific of vehicles over routeDistributions
-        case GNE_ATTR_ROUTEDISTRIBUTION:
-            return getRouteDistributionParent()->getID();
         // Specific of from-to edge
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
@@ -1603,8 +1598,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_INSERTIONCHECKS:
         // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
-        // Specific of vehicles over routeDistributions
-        case GNE_ATTR_ROUTEDISTRIBUTION:
         // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
@@ -1747,13 +1740,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
-            } else {
-                return true;
-            }
-        // Specific of vehicles over routeDistributions
-        case GNE_ATTR_ROUTEDISTRIBUTION:
-            if (getParentDemandElements().size() == 2) {
-                return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, value, false) != nullptr);
             } else {
                 return true;
             }
@@ -2141,13 +2127,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             updateGeometry();
             updateSpreadStackGeometry = true;
-            break;
-        // Specific of vehicles over routeDistributions
-        case GNE_ATTR_ROUTEDISTRIBUTION:
-            if (getParentDemandElements().size() == 2) {
-                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
-            }
-            updateGeometry();
             break;
         // Specific of from-to edges
         case SUMO_ATTR_FROM: {
