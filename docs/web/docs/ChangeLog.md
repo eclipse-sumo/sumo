@@ -55,7 +55,7 @@ title: ChangeLog
   - Fixed vehicle id written upside down #17060
   - In demand mode/stop mode, embedded routes are no longer listed as candidate parents for new stops #17062
   - Fixed invalid rotation of dotted contours in routeProbe and vaporizers #16911
-  - Fixed freen when saving empty mean data elements #16812
+  - Fixed freeze when saving empty mean data elements #16812
   - POIs no longer write layer and color attributes with the default value #17128
   - Visual scaling of selected edges is now smooth #16977
   - Fixed invalid position of elements of detectors and stopping places in networks with elevation #17189
