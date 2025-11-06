@@ -1931,7 +1931,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {
-                replaceDemandElementParent(NamespaceIDs::types, value, 1);
+                replaceDemandElementParent(NamespaceIDs::types, value, 0);
                 // set manually vtypeID (needed for saving)
                 vtypeid = value;
             }
