@@ -80,27 +80,27 @@ tool for making these choices are typemaps. SUMO provides
 recommended typemaps in the folder {{SUMO}}/data/typemap/. They are explained
 below.
 
-- **osmNetconvert.typ.xml** default settings, appropriate for rural
+- [**osmNetconvert.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvert.typ.xml) default settings, appropriate for rural
   and motorway scenarios. This is used in the absence of
   user-specified types. All other typemaps are intended as *patches*
   to this typemap.
-- **osmNetconvertUrbanDe.typ.xml** Changes default speeds to reflect
+- [**osmNetconvertUrbanDe.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertUrbanDe.typ.xml) Changes default speeds to reflect
   typical urban speed limits (50km/h).
-- **osmNetconvertPedestrians.typ.xml** Adds sidewalks for some edge
+- [**osmNetconvertPedestrians.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertPedestrians.typ.xml) Adds sidewalks for some edge
   types and sets permissions appropriate for pedestrian simulation.
-- **osmNetconvertBicycle.typ.xml** Adapts the width of bicycle lanes.
-- **osmNetconvertShips.typ.xml** Imports waterways and ferry routes.
+- [**osmNetconvertBicycle.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertBicycle.typ.xml) Adapts the width of bicycle lanes.
+- [**osmNetconvertShips.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertShips.typ.xml) Imports waterways and ferry routes.
   This typemap can be combined with any other typemap.
-- **osmNetconvertRailUsage.typ.xml** Imports additional
+- [**osmNetconvertRailUsage.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertRailUsage.typ.xml) Imports additional
   \[<https://wiki.openstreetmap.org/wiki/Key:usage> usage information
   for railways (main,branch,industrial,...). This typemap only works
   in combination with other typemaps.
-- **osmNetconvertBidiRail.typ.xml**. Changes the default from
+- [**osmNetconvertBidiRail.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertBidiRail.typ.xml). Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
   useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
-- **osmNetconvertAirport.typ.xml**. Imports aeroways (runway, taxiway, etc.)
+- [**osmNetconvertAirport.typ.xml**](https://github.com/eclipse-sumo/sumo/blob/main/data/typemap/osmNetconvertAirport.typ.xml). Imports aeroways (runway, taxiway, etc.)
 
 !!! caution
     When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.xml,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.xml**) or create a fully specified typemap file themselves.
