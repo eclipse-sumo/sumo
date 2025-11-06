@@ -238,8 +238,8 @@ ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
 void
 ROMAAssignments::resetFlows() {
     const double begin = STEPS2TIME(MIN2(myBegin, myMatrix.getCells().front()->begin));
-    for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+    for (ROEdge* e : ROEdge::getAllEdges()) {
+        ROMAEdge* const edge = static_cast<ROMAEdge*>(e);
         edge->setFlow(begin, STEPS2TIME(myEnd), 0.);
         edge->setHelpFlow(begin, STEPS2TIME(myEnd), 0.);
     }
@@ -250,8 +250,8 @@ void
 ROMAAssignments::writeInterval(const SUMOTime begin, const SUMOTime end) {
     if (myNetloadOutput != nullptr) {
         myNetloadOutput->openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
-        for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-            ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+        for (ROEdge* e : ROEdge::getAllEdges()) {
+            const ROMAEdge* const edge = static_cast<ROMAEdge*>(e);
             if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
                 myNetloadOutput->openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
                 const double traveltime = edge->getTravelTime(getDefaultVehicle(), STEPS2TIME(begin));
@@ -300,8 +300,8 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
             WRITE_MESSAGE(" starting interval " + time2string(intervalStart));
         }
         std::map<const ROMAEdge*, double> loadedTravelTimes;
-        for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-            ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+        for (ROEdge* e : ROEdge::getAllEdges()) {
+            const ROMAEdge* const edge = static_cast<ROMAEdge*>(e);
             if (edge->hasLoadedTravelTime(STEPS2TIME(intervalStart))) {
                 loadedTravelTimes[edge] = edge->getTravelTime(myDefaultVehicle, STEPS2TIME(intervalStart));
             }
@@ -418,8 +418,8 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                 const double intervalLengthInHours = STEPS2TIME(it.second - it.first) / 3600.;
                 const double intBegin = STEPS2TIME(it.first);
                 const double intEnd = STEPS2TIME(it.second);
-                for (std::map<std::string, ROEdge*>::const_iterator e = myNet.getEdgeMap().begin(); e != myNet.getEdgeMap().end(); ++e) {
-                    ROMAEdge* edge = static_cast<ROMAEdge*>(e->second);
+                for (ROEdge* e : ROEdge::getAllEdges()) {
+                    ROMAEdge* const edge = static_cast<ROMAEdge*>(e);
                     const double oldFlow = edge->getFlow(intBegin);
                     double newFlow = oldFlow;
                     if (inner == 0 && outer == 0) {

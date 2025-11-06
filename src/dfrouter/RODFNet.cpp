@@ -71,8 +71,7 @@ RODFNet::isAllowed(const ROEdge* const edge) const {
 
 void
 RODFNet::buildApproachList() {
-    for (const auto& rit : getEdgeMap()) {
-        ROEdge* const ce = rit.second;
+    for (ROEdge* const ce : ROEdge::getAllEdges()) {
         if (!isAllowed(ce)) {
             continue;
         }
