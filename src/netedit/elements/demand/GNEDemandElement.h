@@ -314,7 +314,7 @@ protected:
     void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
-    void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+    void replaceDemandElementParent(const std::vector<SumoXMLTag> tags, const std::string& value, const int parentIndex);
 
     /// @}
 

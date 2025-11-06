@@ -606,9 +606,17 @@ GNEDemandElement::replaceLastParentAdditional(SumoXMLTag tag, const std::string&
 
 
 void
-GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
-    auto newDemandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
-    GNEHierarchicalElement::updateParent(this, parentIndex, newDemandElement);
+GNEDemandElement::replaceDemandElementParent(const std::vector<SumoXMLTag> tags, const std::string& value, const int parentIndex) {
+    GNEDemandElement* newDemandElement = nullptr;
+    // search demand element
+    for (auto it = tags.begin(); (it != tags.end()) && (newDemandElement == nullptr); it++) {
+        newDemandElement = myNet->getAttributeCarriers()->retrieveDemandElement(*it, value, false);
+    }
+    if (newDemandElement) {
+        GNEHierarchicalElement::updateParent(this, parentIndex, newDemandElement);
+    } else {
+        throw ProcessError("Attempted to replace with non-existant demand element " + value);
+    }
 }
 
 

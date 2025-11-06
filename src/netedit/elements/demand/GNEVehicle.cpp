@@ -1739,7 +1739,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                return SUMOXMLDefinitions::isValidVehicleID(value) && (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+                return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) != nullptr);
             } else {
                 return true;
             }
@@ -1931,11 +1931,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TYPE:
             if (getID().size() > 0) {
-                if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr) {
-                    replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
-                } else {
-                    replaceDemandElementParent(SUMO_TAG_VTYPE_DISTRIBUTION, value, 0);
-                }
+                replaceDemandElementParent(NamespaceIDs::types, value, 1);
                 // set manually vtypeID (needed for saving)
                 vtypeid = value;
             }
@@ -2123,7 +2119,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+                replaceDemandElementParent(NamespaceIDs::routes, value, 1);
             }
             updateGeometry();
             updateSpreadStackGeometry = true;
@@ -2249,7 +2245,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         if (myTagProperty->vehicleEdges()) {
             getParentEdges().front()->updateVehicleStackLabels();
             getParentEdges().front()->updateVehicleSpreadGeometries();
-        } else if (myTagProperty->vehicleRoute()) {
+        } else if (myTagProperty->vehicleRoute() && !getRouteParent()->getTagProperty()->isRouteDistribution()) {
             getRouteParent()->getParentEdges().front()->updateVehicleStackLabels();
             getRouteParent()->getParentEdges().front()->updateVehicleSpreadGeometries();
         } else if (myTagProperty->vehicleRouteEmbedded()) {

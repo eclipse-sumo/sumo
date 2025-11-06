@@ -177,7 +177,7 @@ private:
     void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const;
 
     /// @brief replace plan parent
-    bool replacePlanParent(const std::string& newParentID);
+    void replacePlanParent(const std::string& newParentID);
 
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
