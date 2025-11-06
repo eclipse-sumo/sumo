@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-15 09:04+0000\n"
+"PO-Revision-Date: 2025-11-06 19:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -709,7 +709,7 @@ msgstr "Definisci itinerari per ogni trasporto pubblico"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "Scrivi degli flussi invece di convertirli in veicoli"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -3203,6 +3203,8 @@ msgstr "Il veicolo '%' viene inserito in una situazione di emergenza."
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
 msgstr ""
+"Il veicolo '%' non sarà capace di partire sulla corsia '%' alla velocità di "
+"% (%) alle ore %."
 
 #: src/microsim/MSLane.cpp:856
 msgid ""
@@ -9670,27 +9672,32 @@ msgstr "Non ho incontrato la referenza del segnale '%'."
 msgid ""
 "Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."
 msgstr ""
+"La geometria invalida dell'arco interno '%' (via xodr '%') dell'incrocio '%' "
+"va essere ignorata."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:284
 msgid "Inner edge '%' (xodr road '%') in junction '%' has no geometry."
 msgstr ""
+"L'arco interno '%' (via xodr '%') dell'incrocio '%' non possiede geometria."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:293
 #, c-format
 msgid "Junction '%' has no valid inner edges to determine its position."
 msgstr ""
+"L'incrocio '%' non possiede archi interni validi per determinare la sua "
+"posizione."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:294
 msgid "Could not determine position for junction '%'."
-msgstr ""
+msgstr "Non ho potuto determinare la posizione dell'incrocio '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:299
 msgid "Junction '%' resulted in invalid (NaN) position."
-msgstr ""
+msgstr "Dall'incrocio '%' risulta una posizione invalida (NaN)."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:300
 msgid "Could not compute valid position for junction '%'."
-msgstr ""
+msgstr "Non ho potuto calcolare una posizione valida per l'incrocio '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:317
 #: src/netimport/NIImporter_OpenDrive.cpp:355
@@ -13265,12 +13272,12 @@ msgstr "Digita per cercare..."
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 msgid "File Exists"
-msgstr ""
+msgstr "Il file esiste"
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 #, c-format
 msgid "Overwrite '%s'?"
-msgstr ""
+msgstr "Desideri sovrascrivere '%'?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -13804,23 +13811,23 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:841
 msgid " [OPTION]*"
-msgstr ""
+msgstr " [OPZIONE]*"
 
 #: src/utils/options/OptionsCont.cpp:853
 msgid "Examples:"
-msgstr ""
+msgstr "Esempi:"
 
 #: src/utils/options/OptionsCont.cpp:860
 msgid "Report bugs at %."
-msgstr ""
+msgstr "Riporta problemi a %."
 
 #: src/utils/options/OptionsCont.cpp:861
 msgid "Get in contact via %."
-msgstr ""
+msgstr "Contattaci attraverso %."
 
 #: src/utils/options/OptionsCont.cpp:867
 msgid "% Options:"
-msgstr ""
+msgstr "Opzioni %:"
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
