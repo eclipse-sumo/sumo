@@ -223,6 +223,10 @@ GNETagProperties::checkTagIntegrity() const {
     if (!isHierarchicalTag() && (myGLType == GUIGlObjectType::GLO_MAX)) {
         throw FormatException("Only hierarchical tags can have a GLType GLO_MAX");
     }
+    // check drawable
+    if (!isDrawable() && isPlacedInRTree()) {
+        throw FormatException("Non-drawable elements cannot be placed in RTREE");
+    }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty->checkAttributeIntegrity();
