@@ -164,7 +164,7 @@ protected:
 
 private:
     /// @brief parse list of parent tags
-    std::string parseParentTags(const std::vector<SumoXMLTag>& parentTags) const;
+    std::string parseParentTags(std::vector<SumoXMLTag> parentTags) const;
 
     /// @brief invalidate default onstructor
     CommonHandler() = delete;

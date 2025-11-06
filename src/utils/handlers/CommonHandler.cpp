@@ -422,17 +422,19 @@ CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::vector<S
 
 
 std::string
-CommonHandler::parseParentTags(const std::vector<SumoXMLTag>& parentTags) const {
-    // convert parent tags to str separated by commas
+CommonHandler::parseParentTags(std::vector<SumoXMLTag> parentTags) const {
     std::string parentTagsStr;
-    for (auto it = parentTags.begin(); it != parentTags.end(); it++) {
-        if ((it + 1) != parentTags.end()) {
-            parentTagsStr.append(toString(*it) + ", ");
-        } else {
-            parentTagsStr.append(toString(*it));
+    // Join all but the last with ", ", then add " or " + last
+    std::string result;
+    for (int i = 0; i < ((int)parentTags.size() - 1); i++) {
+        if (i != 0) {
+            result.append(", ");
         }
+        result.append(toString(parentTags[i]));
     }
-    return parentTagsStr;
+    result.append(TL(" or "));
+    result.append(toString(parentTags.back()));
+    return result;
 }
 
 /****************************************************************************/
