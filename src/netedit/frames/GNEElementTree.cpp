@@ -312,7 +312,7 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         // create center menu command
         FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
-        if (myClickedAC->getTagProperty()->isType() || myClickedAC->getTagProperty()->isTypeDist() || myClickedAC->getTagProperty()->isDistributionReference() ||
+        if (myClickedAC->getTagProperty()->isType() || myClickedAC->getTagProperty()->isDistribution() || myClickedAC->getTagProperty()->isDistributionReference() ||
                 (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATASET) || (myClickedAC->getTagProperty()->getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }

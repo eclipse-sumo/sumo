@@ -584,10 +584,6 @@ GNETagProperties::isType() const {
     return myTagType & Type::VTYPE;
 }
 
-bool
-GNETagProperties::isTypeDist() const {
-    return myTag == SUMO_TAG_VTYPE_DISTRIBUTION;
-}
 
 bool
 GNETagProperties::isVehicle() const {
@@ -634,6 +630,30 @@ GNETagProperties::isContainer() const {
 bool
 GNETagProperties::hasTypeParent() const {
     return isVehicle() || isPerson() || isContainer();
+}
+
+
+bool
+GNETagProperties::isDistribution() const {
+    return myTagType & Type::DISTRIBUTION;
+}
+
+
+bool
+GNETagProperties::isDistributionReference() const {
+    return myTagType & Type::DISTRIBUTIONREF;
+}
+
+
+bool
+GNETagProperties::isTypeDistribution() const {
+    return isType() && isDistribution();
+}
+
+
+bool
+GNETagProperties::isRouteDistribution() const {
+    return isRoute() && isDistribution();
 }
 
 
@@ -724,12 +744,6 @@ GNETagProperties::vehicleRoute() const {
 bool
 GNETagProperties::vehicleRouteEmbedded() const {
     return isVehicle() && (myTagOver & Over::ROUTE_EMBEDDED);
-}
-
-
-bool
-GNETagProperties::vehicleRouteDistribution() const {
-    return isVehicle() && (myTagOver & Over::ROUTE_DISTRIBUTION);
 }
 
 
@@ -933,12 +947,6 @@ GNETagProperties::isChild() const {
 bool
 GNETagProperties::isSymbol() const {
     return (myTagProperty & Property::SYMBOL);
-}
-
-
-bool
-GNETagProperties::isDistributionReference() const {
-    return (myTagProperty & Property::DISTRIBUTIONREF);
 }
 
 

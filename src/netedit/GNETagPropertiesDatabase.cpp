@@ -2521,20 +2521,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
 void
 GNETagPropertiesDatabase::fillDemandElements() {
     // fill demand elements
-    SumoXMLTag currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
-                GNETagProperties::Over::VIEW,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTEDISTRIBUTION, GUIGlObjectType::GLO_ROUTE_DISTRIBUTION, currentTag, TL("RouteDistribution"));
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
-    }
-    currentTag = SUMO_TAG_ROUTE;
+    SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
@@ -2553,31 +2540,6 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // add distribution probability
         fillDistributionProbability(myTagProperties[currentTag], true);
     }
-    currentTag = GNE_TAG_ROUTEREF;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::DISTRIBUTIONREF | GNETagProperties::Property::NOPARAMETERS,
-                GNETagProperties::Over::VIEW,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTEREF, GUIGlObjectType::GLO_ROUTE_REF, currentTag, TL("Route (Ref)"),
-        {SUMO_TAG_ROUTE_DISTRIBUTION});
-
-        // set values of attributes
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTE_DISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Route distribution in which this routeRef is defined"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Reference ID of route"));
-
-        // add distribution probability
-        fillDistributionProbability(myTagProperties[currentTag], false);
-    }
     currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
@@ -2592,24 +2554,37 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // add common route attributes
         fillCommonRouteAttributes(myTagProperties[currentTag]);
     }
-    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
+    currentTag = SUMO_TAG_ROUTE_DISTRIBUTION;
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT,
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE | GNETagProperties::Type::DISTRIBUTION,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VTYPEDISTRIBUTION, GUIGlObjectType::GLO_VTYPE_DISTRIBUTION, currentTag, TL("TypeDistribution"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETERMINISTIC,
-                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Deterministic distribution"),
-                                   "-1");
+                GUIIcon::ROUTEDISTRIBUTION, GUIGlObjectType::GLO_ROUTE_DISTRIBUTION, currentTag, TL("RouteDistribution"));
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
+    }
+    currentTag = GNE_TAG_ROUTEREF;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::DISTRIBUTIONREF,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Over::VIEW,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::ROUTEREF, GUIGlObjectType::GLO_ROUTE_REF, currentTag, TL("Route (Ref)"),
+        {SUMO_TAG_ROUTE_DISTRIBUTION});
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Reference ID of route"));
+
+        // add distribution probability
+        fillDistributionProbability(myTagProperties[currentTag], false);
     }
     currentTag = SUMO_TAG_VTYPE;
     {
@@ -2627,22 +2602,35 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // add common vType attributes
         fillCommonVTypeAttributes(myTagProperties[currentTag]);
     }
+    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE | GNETagProperties::Type::DISTRIBUTION,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Over::VIEW,
+                GNETagProperties::Conflicts::NO_CONFLICTS,
+                GUIIcon::VTYPEDISTRIBUTION, GUIGlObjectType::GLO_VTYPE_DISTRIBUTION, currentTag, TL("TypeDistribution"));
+
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DETERMINISTIC,
+                                   GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Deterministic distribution"),
+                                   "-1");
+
+        // set values of attributes
+        fillIDAttribute(myTagProperties[currentTag], true);
+    }
     currentTag = GNE_TAG_VTYPEREF;
     {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
-                GNETagProperties::Type::DEMANDELEMENT,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::DISTRIBUTIONREF | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::DISTRIBUTIONREF,
+                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPEREF, GUIGlObjectType::GLO_VTYPE_REF, currentTag, TL("VType (Ref)"),
         {SUMO_TAG_VTYPE_DISTRIBUTION});
-
-        // set values of attributes
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_VTYPE_DISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("VType distribution in which this vTypeRef is defined"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_REFID,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE,
@@ -2843,47 +2831,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         fillDepartAttribute(myTagProperties[currentTag]);
     }
-
-    currentTag = GNE_TAG_VEHICLE_ROUTEDISTRIBUTION;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
-                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
-                GNETagProperties::Property::RTREE | GNETagProperties::Property::SYMBOL,
-                GNETagProperties::Over::ROUTE_DISTRIBUTION,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleRouteDistribution"),
-                {}, FXRGBA(210, 233, 255, 255), "vehicle (over routeDistribution)");
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this vehicle"),
-                                   DEFAULT_VTYPE_ID);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTEDISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the routeDistribution the vehicle shall drive along"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The index of the edge within route the vehicle starts at"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The index of the edge within route the vehicle ends at"));
-
-        // add common attributes
-        fillCommonVehicleAttributes(myTagProperties[currentTag]);
-
-        fillDepartAttribute(myTagProperties[currentTag]);
-    }
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
@@ -3021,47 +2968,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
                                    TL("The id of the route the flow shall drive along"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The index of the edge within route the flow starts at"));
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ARRIVALEDGE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The index of the edge within route the flow ends at"));
-
-        // add common attributes
-        fillCommonVehicleAttributes(myTagProperties[currentTag]);
-
-        // add flow attributes
-        fillCommonFlowAttributes(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR);
-    }
-    currentTag = GNE_TAG_FLOW_ROUTEDISTRIBUTION;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties.at(SUMO_TAG_VIEWSETTINGS_VEHICLES),
-                GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
-                GNETagProperties::Property::RTREE | GNETagProperties::Property::SYMBOL,
-                GNETagProperties::Over::ROUTE_DISTRIBUTION,
-                GNETagProperties::Conflicts::NO_CONFLICTS,
-                GUIIcon::ROUTEFLOW, GUIGlObjectType::GLO_ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRouteDistribution"),
-                {}, FXRGBA(210, 233, 255, 255), "flow (over routeDistribution)");
-
-        // set values of attributes
-        fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], GNE_ATTR_ROUTEDISTRIBUTION,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the routeDistribution the flow shall drive along"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,

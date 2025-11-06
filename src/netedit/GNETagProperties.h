@@ -71,9 +71,12 @@ public:
         // sub data elements
         GENERICDATA =       1ULL << 28, // Generic data (GNEEdgeData, GNELaneData...)
         MEANDATA =          1ULL << 29, // Mean datas
+        // distributions
+        DISTRIBUTION =      1ULL << 30, // Element is a distribution (routeDistribution or vTypeDistribution)
+        DISTRIBUTIONREF =   1ULL << 31, // Element is a distribution reference of routeDistribution or vTypeDistribution
         // other
-        INTERNALLANE =      1ULL << 30, // Internal Lane
-        OTHER =             1ULL << 31, // Other type (used for TAZSourceSinks, VTypes, etc.)
+        INTERNALLANE =      1ULL << 32, // Internal Lane
+        OTHER =             1ULL << 33, // Other type (used for TAZSourceSinks, VTypes, etc.)
     };
 
     /// @brief tag property
@@ -90,11 +93,10 @@ public:
         REQUIRE_PROJ =          1ULL << 9,  // Element require a geo-projection defined in network
         VCLASS_ICON =           1ULL << 10, // Element returns icon depending of their vClass
         SYMBOL =                1ULL << 11, // Element is a symbol (VSSSymbols, RerouterSymbols...)
-        DISTRIBUTIONREF =       1ULL << 12, // Element is a distribution reference of routeDistribution or vTypeDistribution
-        EXTENDED =              1ULL << 13, // Element contains extended attributes (Usually vTypes)
-        HIERARCHICAL =          1ULL << 14, // Element is a hierarchical
-        LISTED =                1ULL << 15, // Element is a listed elements (for example, rerouter children)
-        NO_PROPERTY =           1ULL << 16, // Element doesn't have properties
+        EXTENDED =              1ULL << 12, // Element contains extended attributes (Usually vTypes)
+        HIERARCHICAL =          1ULL << 13, // Element is a hierarchical
+        LISTED =                1ULL << 14, // Element is a listed elements (for example, rerouter children)
+        NO_PROPERTY =           1ULL << 15, // Element doesn't have properties
     };
 
     /// @brief element in which this element is placed
@@ -109,28 +111,27 @@ public:
         CONSECUTIVE_LANES =     1ULL << 4,  // Placed over consecutive lanes
         ROUTE =                 1ULL << 7,  // Placed over route
         ROUTE_EMBEDDED =        1ULL << 8,  // Placed over route embedded
-        ROUTE_DISTRIBUTION =    1ULL << 9,  // Placed over route distribution
-        BUSSTOP =               1ULL << 10,  // Placed over busStop
-        TRAINSTOP =             1ULL << 11, // Placed over trainStop
-        CONTAINERSTOP =         1ULL << 12, // Placed over containerStop
-        CHARGINGSTATION =       1ULL << 13, // Placed over charging station
-        PARKINGAREA =           1ULL << 14, // Placed over parking area
-        FROM_EDGE =             1ULL << 15, // Starts in edge
-        FROM_TAZ =              1ULL << 16, // Starts in TAZ
-        FROM_JUNCTION =         1ULL << 17, // Starts in junction
-        FROM_BUSSTOP =          1ULL << 18, // Starts in busStop
-        FROM_TRAINSTOP =        1ULL << 19, // Starts in trainStop
-        FROM_CONTAINERSTOP =    1ULL << 20, // Starts in containerStop
-        FROM_CHARGINGSTATION =  1ULL << 21, // Starts in chargingStation
-        FROM_PARKINGAREA =      1ULL << 22, // Starts in parkingArea
-        TO_EDGE =               1ULL << 23, // Ends in edge
-        TO_TAZ =                1ULL << 24, // Ends in TAZ
-        TO_JUNCTION =           1ULL << 25, // Ends in junction
-        TO_BUSSTOP =            1ULL << 26, // Ends in busStop
-        TO_TRAINSTOP =          1ULL << 27, // Ends in trainStop
-        TO_CONTAINERSTOP =      1ULL << 28, // Ends in containerStop
-        TO_CHARGINGSTATION =    1ULL << 29, // Ends in chargingStation
-        TO_PARKINGAREA =        1ULL << 30, // Ends in parkingArea
+        BUSSTOP =               1ULL << 9, // Placed over busStop
+        TRAINSTOP =             1ULL << 10, // Placed over trainStop
+        CONTAINERSTOP =         1ULL << 11, // Placed over containerStop
+        CHARGINGSTATION =       1ULL << 12, // Placed over charging station
+        PARKINGAREA =           1ULL << 13, // Placed over parking area
+        FROM_EDGE =             1ULL << 14, // Starts in edge
+        FROM_TAZ =              1ULL << 15, // Starts in TAZ
+        FROM_JUNCTION =         1ULL << 16, // Starts in junction
+        FROM_BUSSTOP =          1ULL << 17, // Starts in busStop
+        FROM_TRAINSTOP =        1ULL << 18, // Starts in trainStop
+        FROM_CONTAINERSTOP =    1ULL << 19, // Starts in containerStop
+        FROM_CHARGINGSTATION =  1ULL << 20, // Starts in chargingStation
+        FROM_PARKINGAREA =      1ULL << 21, // Starts in parkingArea
+        TO_EDGE =               1ULL << 22, // Ends in edge
+        TO_TAZ =                1ULL << 23, // Ends in TAZ
+        TO_JUNCTION =           1ULL << 24, // Ends in junction
+        TO_BUSSTOP =            1ULL << 25, // Ends in busStop
+        TO_TRAINSTOP =          1ULL << 26, // Ends in trainStop
+        TO_CONTAINERSTOP =      1ULL << 27, // Ends in containerStop
+        TO_CHARGINGSTATION =    1ULL << 28, // Ends in chargingStation
+        TO_PARKINGAREA =        1ULL << 29, // Ends in parkingArea
     };
 
     // @brief conflicts
@@ -314,9 +315,6 @@ public:
     /// @brief return true if tag correspond to a vehicle/person/container type element
     bool isType() const;
 
-    /// @brief return true if tag correspond to a type distribution element
-    bool isTypeDist() const;
-
     /// @brief return true if tag correspond to a vehicle element
     bool isVehicle() const;
 
@@ -340,6 +338,18 @@ public:
 
     /// @brief return true if tag correspond to an element with a type as a first parent
     bool hasTypeParent() const;
+
+    /// @brief return true if tag correspond to a distribution element
+    bool isDistribution() const;
+
+    /// @brief return true if tag correspond to a dstribution reference element
+    bool isDistributionReference() const;
+
+    /// @brief return true if tag correspond to a type distribution element
+    bool isTypeDistribution() const;
+
+    /// @brief return true if tag correspond to a route distribution element
+    bool isRouteDistribution() const;
 
     /// @}
 
@@ -398,9 +408,6 @@ public:
 
     /// @brief return true if tag correspond to a vehicle placed over an embedded route
     bool vehicleRouteEmbedded() const;
-
-    /// @brief return true if tag correspond to a vehicle placed over a route distribution
-    bool vehicleRouteDistribution() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to edges
     bool vehicleEdges() const;
@@ -506,9 +513,6 @@ public:
 
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
-
-    /// @brief return true if tag correspond to a dstribution reference element
-    bool isDistributionReference() const;
 
     /// @brief return true if tag correspond to an internal lane
     bool isInternalLane() const;
