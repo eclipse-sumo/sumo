@@ -1,27 +1,27 @@
 Warning: Vehicle 'flowA.0' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.0' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.0' will not be able to depart using the given velocity (slow lane ahead), time=0.00.
 Warning: Vehicle 'flowA.1' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.1' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.1' will not be able to depart using the given velocity (slow lane ahead), time=200.00.
 Warning: Vehicle 'flowA.2' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.2' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.2' will not be able to depart using the given velocity (slow lane ahead), time=400.00.
 Warning: Vehicle 'flowA.3' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.3' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.3' will not be able to depart using the given velocity (slow lane ahead), time=600.00.
 Warning: Vehicle 'flowA.4' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.4' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.4' will not be able to depart using the given velocity (slow lane ahead), time=800.00.
 Warning: Vehicle 'flowA.5' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.5' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.5' will not be able to depart using the given velocity (slow lane ahead), time=1000.00.
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.6' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.6' will not be able to depart using the given velocity (slow lane ahead), time=1200.00.
 Warning: Vehicle 'flowA.7' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.7' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.7' will not be able to depart using the given velocity (slow lane ahead), time=1400.00.
 Warning: Vehicle 'flowA.8' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.8' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.8' will not be able to depart using the given velocity (slow lane ahead), time=1600.00.
 Warning: Vehicle 'flowA.9' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.9' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.9' will not be able to depart using the given velocity (slow lane ahead), time=1800.00.
 Warning: Vehicle 'flowA.10' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.10' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.10' will not be able to depart using the given velocity (slow lane ahead), time=2000.00.
 Warning: Vehicle 'flowA.11' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.11' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.11' will not be able to depart using the given velocity (slow lane ahead), time=2200.00.
 Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
-Error: Vehicle 'flowA.12' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.12' will not be able to depart using the given velocity (slow lane ahead), time=2400.00.

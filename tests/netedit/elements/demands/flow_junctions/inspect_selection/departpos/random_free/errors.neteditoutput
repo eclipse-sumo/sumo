@@ -282,4 +282,4 @@ Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.97' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.98' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.97' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowA.97' will not be able to depart using the given velocity (slow lane ahead), time=244.00.
