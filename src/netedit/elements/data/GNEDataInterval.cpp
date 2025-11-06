@@ -223,10 +223,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         myGenericDataChildren.push_back(genericData);
         // update generic data IDs
         updateGenericDataIDs();
-        // check if add to boundary
-        if (genericData->getTagProperty()->isPlacedInRTree()) {
-            myNet->addGLObjectIntoGrid(genericData);
-        }
+        // add id RTREE
+        myNet->addGLObjectIntoGrid(genericData);
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
             // update generic data RTREE
@@ -256,10 +254,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
         // delete path element
         myNet->getDataPathManager()->removePath(genericData);
-        // check if remove from RTREE
-        if (genericData->getTagProperty()->isPlacedInRTree()) {
-            myNet->removeGLObjectFromGrid(genericData);
-        }
+        // add in RTREE
+        myNet->removeGLObjectFromGrid(genericData);
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
