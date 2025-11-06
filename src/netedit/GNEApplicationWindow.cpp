@@ -1306,12 +1306,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successful
     if (ec->net == nullptr) {
-        if (ec->file.size() > 0) {
-            // report failure
-            setStatusBarText(TLF("Loading of network '%' failed", ec->file));
-        } else {
-            setStatusBarText("");
-        }
+        // report failure
+        setStatusBarText(TLF("Loading of network '%' failed", ec->file));
     } else {
         // set new Net
         myNet = ec->net;

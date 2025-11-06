@@ -135,11 +135,6 @@ GNELoadThread::run() {
         submitEndAndCleanup(net, loadedFile);
         return 0;
     }
-    // do not try to load a net if no relevant option has been given (just to load the GUI)
-    if (!neteditOptions.getBool("new") && neteditOptions.getString("osm-files").size() == 0 && loadedFile.size() == 0) {
-        submitEndAndCleanup(net, loadedFile);
-        return 0;
-    }
     // clear message instances
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
