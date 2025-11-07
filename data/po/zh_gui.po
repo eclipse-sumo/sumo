@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-05 06:06+0000\n"
+"PO-Revision-Date: 2025-11-07 07:47+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -49,12 +49,12 @@ msgstr "就绪。"
 #: src/gui/GUIApplicationWindow.cpp:466
 #: src/netedit/GNEApplicationWindow.cpp:1392
 msgid "&File"
-msgstr "&档案"
+msgstr "&文件"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindowHelper.cpp:205
 msgid "New Window"
-msgstr "新视窗"
+msgstr "新建窗口"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Open a new sumo-gui window."
