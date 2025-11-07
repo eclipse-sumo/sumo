@@ -668,7 +668,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 const SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
                 if (type == nullptr) {
                     type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
-                } else {
+                } else if (!myKeepVTypeDist) {
                     // fix the type id in case we used a distribution
                     newPars->vtypeid = type->id;
                 }
