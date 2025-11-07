@@ -533,6 +533,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
+    // add extra option for automatic closing
+    myNetgenerateOptions.doRegister("close-dialog-automatic", new Option_Bool(true));
+    myNetgenerateOptions.addDescription("close-dialog-automatic", "report", TL("Close dialog automatic"));
 }
 #ifdef _MSC_VER
 #pragma warning(pop)

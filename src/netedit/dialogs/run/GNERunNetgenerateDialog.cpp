@@ -27,8 +27,10 @@
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions) :
-    GNERunDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE, true),
+GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow,
+        const OptionsCont* netgenerateOptions) :
+    GNERunDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE,
+                 netgenerateOptions->getBool("close-dialog-automatic")),
     myNetgenerateOptions(netgenerateOptions) {
     // run tool
     applicationWindow->getExternalRunner()->runTool(this);
@@ -81,7 +83,7 @@ GNERunNetgenerateDialog::getRunCommand() const {
         if (topic != "Configuration") {
             const std::vector<std::string> entries = myNetgenerateOptions->getSubTopicsEntries(topic);
             for (const auto& entry : entries) {
-                if (!myNetgenerateOptions->isDefault(entry)) {
+                if (!myNetgenerateOptions->isDefault(entry) && (entry != "close-dialog-automatic")) {
                     runCommand += " --" + entry + " \"" + StringUtils::escapeShell(myNetgenerateOptions->getValueString(entry)) + "\" ";
                 }
             }
