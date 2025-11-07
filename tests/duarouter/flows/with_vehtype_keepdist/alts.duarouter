@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/19/17 12:09:33 by SUMO duarouter Version dev-SVN-r24744
+<!-- generated on 2025-11-07T12:25:16.038541+01:00 by Eclipse SUMO duarouter v1_24_0+1810-47b34c203ea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -15,67 +20,66 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <keep-vtype-distributions value="true"/>
+        <write-license value="true"/>
     </output>
-
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
 
     <report>
         <xml-validation value="never"/>
+        <ignore-errors value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.0" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.1" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.2" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.3" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.4" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.5" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.5" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.6" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.6" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.7" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.7" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.8" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.8" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="0.9" type="DEFAULT_VEHTYPE" depart="0.00">
+    <vehicle id="0.9" type="0" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
