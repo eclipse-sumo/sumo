@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions) :
-    GNERunDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE),
+    GNERunDialog(applicationWindow, TL("Running netgenerate results"), GUIIcon::NETGENERATE, true),
     myNetgenerateOptions(netgenerateOptions) {
     // run tool
     applicationWindow->getExternalRunner()->runTool(this);

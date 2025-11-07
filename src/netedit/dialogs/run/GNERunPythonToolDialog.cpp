@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* pythonTool) :
-    GNERunDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON),
+    GNERunDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON, false),
     myPythonTool(pythonTool) {
     // run tool
     applicationWindow->getExternalRunner()->runTool(this);

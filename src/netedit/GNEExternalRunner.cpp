@@ -111,13 +111,15 @@ GNEExternalRunner::run() {
         boost::process::v1::ipstream err;
         // declare run command
         const auto runCommand = myRunDialog->getRunCommand();
+        // begin running
+        myRunning = true;
         // Show command
         myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, runCommand + "\n"), false);
         // run command derivating the std_out to out and std_err to err
         boost::process::v1::child c(runCommand,
-                boost::process::v1::std_in < in,
-                boost::process::v1::std_out > out,
-                boost::process::v1::std_err > err);
+                                    boost::process::v1::std_in < in,
+                                    boost::process::v1::std_out > out,
+                                    boost::process::v1::std_err > err);
         // declare a stdout reader thread
         std::thread outReaderThread([&out, this]() {
             std::string buffer;
@@ -127,6 +129,7 @@ GNEExternalRunner::run() {
                 if (!buffer.empty() && (buffer.back() == '\r')) {
                     buffer.pop_back();
                 }
+                buffer += "\n";
                 myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, buffer.c_str()), true);
             }
         });
@@ -140,6 +143,7 @@ GNEExternalRunner::run() {
                     buffer.pop_back();
                 }
                 buffer += "\n";
+                // show errors as warnings
                 myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::WARNING_OCCURRED, buffer.c_str()), true);
             }
         });
@@ -152,11 +156,16 @@ GNEExternalRunner::run() {
         if (errReaderThread.joinable()) {
             errReaderThread.join();
         }
-        // add a end of line
-        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, "\n"), true);
+        // end running
+        myRunning = false;
+        // send end signal
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""), true);
         // return exit code
         return c.exit_code();
     } catch (...) {
+        myRunning = false;
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::ERROR_OCCURRED, TL("Error running tool using boost::process")), true);
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""), true);
         return EXIT_FAILURE;
     }
 #else

@@ -40,8 +40,8 @@ class GNERunDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNERunDialog(GNEApplicationWindow* applicationWindow,
-                 const std::string& name, GUIIcon titleIcon);
+    GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                 GUIIcon titleIcon, const bool closeIfSucess);
 
     /// @brief destructor
     ~GNERunDialog();
@@ -82,6 +82,9 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNERunDialog);
 
+    /// @brief flag to close dialog automatically if sucess
+    const bool myCloseIfSucess = false;
+
     /// @brief text
     FXText* myText = nullptr;
 
@@ -90,6 +93,9 @@ protected:
 
     /// @brief io-event with the runner thread
     FXEX::MFXThreadEvent myThreadEvent;
+
+    /// @brief flag to check if there is a warning
+    bool myWarning = false;
 
     /// @brief flag to check if there is an error
     bool myError = false;

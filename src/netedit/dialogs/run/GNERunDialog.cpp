@@ -42,9 +42,11 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 // member method definitions
 // ===========================================================================
 
-GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon) :
+GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                           GUIIcon titleIcon, const bool closeIfSucess) :
     GNEDialog(applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_CLOSE,
-              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
+              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
+    myCloseIfSucess(closeIfSucess) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -101,30 +103,14 @@ GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
         myText->appendStyledText(line.c_str(), (int)line.length(), 1, TRUE);
         myText->layout();
         myText->update();
+        myWarning = false;
         myError = false;
+        // update dialog button before running
+        updateDialogButtons();
         // abort external runner
         myApplicationWindow->getExternalRunner()->runTool(this);
     }
-    // update dialog button
-    updateDialogButtons();
     return 1;
-}
-
-
-long
-GNERunDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // close run dialog and call postprocessing
-    closeDialogAccepting();
-    // reset text
-    myText->setText("", 0);
-    // call postprocessing dialog depending of myError
-    if (myError) {
-        return 1;
-    } else {
-        // don't run this again
-        myError = true;
-        return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
-    }
 }
 
 
@@ -167,6 +153,7 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
                 break;
             case GUIEventType::WARNING_OCCURRED:
                 style = 4;
+                myWarning = true;
                 break;
             case GUIEventType::ERROR_OCCURRED:
                 style = 3;
@@ -184,11 +171,16 @@ GNERunDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         delete e;
     }
     if (toolFinished) {
-        // check if close dialog immediately after running
+        // analyze output to update flags
+        if (myText->getText().find("Warning") != -1) {
+            myWarning = true;
+        }
         if (myText->getText().find("Error") != -1) {
             myError = true;
-        } else if ((myText->getText().find("Success") != -1) && (myText->getText().find("Warning") == -1)) {
-            //onCmdClose(nullptr, 0, nullptr);
+        }
+        // check if automatically close dialog
+        if (myCloseIfSucess && !myWarning && !myError) {
+            return onCmdAccept(nullptr, 0, nullptr);
         }
     }
     updateDialogButtons();
