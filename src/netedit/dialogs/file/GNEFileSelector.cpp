@@ -238,14 +238,14 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
             if (FXFile::identical(originFilePath.c_str(), destinyFilename.c_str())) {
                 // open error dialog
                 GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error copying file"),
-                                    TLF("Unable to copy file:\n%\n", destinyFilename),
+                                    TLF("Unable to copy file: %", destinyFilename),
                                     TL("The source and destination files are the same"));
             } else {
                 // check if file exist
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
                     const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                 TL("Overwrite file"), TLF("The destination file:\n%\n", destinyFilename),
+                                                 TL("Overwrite file"), TLF("The destination file: %", destinyFilename),
                                                  TL("already exist. Overwrite?"));
                     // check if abort
                     if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
@@ -256,7 +256,7 @@ GNEFileSelector::onCmdCopy(FXObject*, FXSelector, void*) {
                 if (!FXFile::copyFiles(originFilePath.c_str(), destinyFilename.c_str(), TRUE)) {
                     // open error dialog
                     GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error copying file"),
-                                        TLF("Unable to copy file:\n%\n", destinyFilename),
+                                        TLF("Unable to copy file: %", destinyFilename),
                                         TL("Check destination file permissions"));
                 }
             }
@@ -290,7 +290,7 @@ GNEFileSelector::onCmdMove(FXObject*, FXSelector, void*) {
                 if (FXStat::exists(destinyFilename.c_str())) {
                     // open question dialog
                     const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
-                                                 TL("Overwrite file"), TLF("The destination file:\n%\n", destinyFilename),
+                                                 TL("Overwrite file"), TLF("The destination file: %", destinyFilename),
                                                  TL("already exist. Overwrite?"));
                     // check if abort
                     if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
@@ -328,7 +328,7 @@ GNEFileSelector::onCmdDelete(FXObject*, FXSelector, void*) {
             if (!FXFile::removeFiles(fileToDelete.c_str(), TRUE)) {
                 // open error dialog
                 GNEErrorBasicDialog(myFileDialog->getApplicationWindow(), TL("Error deleting file"),
-                                    TLF("Unable to delete file:\n%\n", fileToDelete),
+                                    TLF("Unable to delete file: %", fileToDelete),
                                     TL("Check file permissions"));
             }
         }
@@ -531,15 +531,38 @@ GNEFileSelector::setFilename(const FXString& path) {
 
 std::string
 GNEFileSelector::getFilename() const {
-    if (myOpenMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE) {
+    // continue depending if we write something in the text field
+    if (myFilenameTextField->getText().empty()) {
         for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
-            if (myFileSelector->isItemSelected(i) && !myFileSelector->isItemDirectory(i)) {
+            if (myFileSelector->isItemSelected(i) &&
+                    !myFileSelector->isItemDirectory(i)) {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
             }
         }
-    } else if (!myFilenameTextField->getText().empty()) {
-        //return FXPath::absolute(myFileSelector->getDirectory(),myFilenameTextField->getText());
-        return FXPath::absolute(myFileSelector->getDirectory(), FXPath::expand(myFilenameTextField->getText())).text();    // FIXME don't always want to expand!
+        return "";
+    } else {
+        return FXPath::absolute(myFileSelector->getDirectory(), myFilenameTextField->getText()).text();
+    }
+}
+
+
+std::string
+GNEFileSelector::getDirectory() const {
+    // continue depending if we write something in the text field
+    if (myFilenameTextField->getText().empty()) {
+        for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
+            if (myFileSelector->isItemSelected(i) &&
+                    myFileSelector->isItemDirectory(i)) {
+                return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
+            }
+        }
+    } else {
+        for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
+            if (myFileSelector->isItemDirectory(i) &&
+                    (myFileSelector->getItemFilename(i) == myFilenameTextField->getText())) {
+                return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
+            }
+        }
     }
     return "";
 }
@@ -552,7 +575,7 @@ GNEFileSelector::getFilenames() const {
 
 
 std::string
-GNEFileSelector::getDirectory() const {
+GNEFileSelector::getCurrentDirectory() const {
     return myFileSelector->getDirectory().text();
 }
 
@@ -699,7 +722,7 @@ GNEFileSelector::onCmdItemDoubleClicked(FXObject* obj, FXSelector sel, void* ptr
         }
         // Only return if we wanted a file
         if (myOpenMode != GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
-            return myFileDialog->onCmdAccept(obj, sel, ptr);
+            return onCmdAccept(obj, sel, ptr);
         }
     }
     return 1;
@@ -708,53 +731,59 @@ GNEFileSelector::onCmdItemDoubleClicked(FXObject* obj, FXSelector sel, void* ptr
 
 long
 GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
-    // Get (first) myFilenameTextField or directory
-    std::string path = getFilename();
-    // Only do something if a selection was made
-    if (path.size() > 0) {
-        // Is directory?
-        if (FXStat::isDirectory(path.c_str())) {
-            // In directory mode:- we got our answer!
-            if (myOpenMode == GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
-                return myFileDialog->onCmdAccept(obj, sel, ptr);
-            }
+    // get directory
+    const std::string directory = getDirectory();
+    // continue if we selected a directory
+    if (directory.size() > 0) {
+        // In directory mode:- we got our answer!
+        if (myOpenMode == GNEFileDialog::OpenMode::LOAD_DIRECTORY) {
+            return myFileDialog->onCmdAccept(obj, sel, ptr);
+        } else {
             // Hop over to that directory
-            myDirBox->setDirectory(path.c_str());
-            myFileSelector->setDirectory(path.c_str());
+            setDirectory(directory.c_str());
             myFilenameTextField->setText(FXString::null);
             return 1;
         }
+    }
+    // get filename
+    std::string filename = getFilename();
+    // continue if we selected a filename
+    if (filename.size() > 0) {
         // Get directory part of path
-        FXString dir = FXPath::directory(path.c_str());
+        FXString dir = FXPath::directory(filename.c_str());
         // In file mode, directory part of path should exist
         if (FXStat::isDirectory(dir)) {
-            // In any mode, existing directory part is good enough
+            // ensure that filename has extension
+            const std::string filenameExtension = myFileDialog->assureExtension(filename);
+            const std::string file = FXPath::name(filenameExtension.c_str()).text();
+            // now continue if we're loading or saving
             if (myOpenMode == GNEFileDialog::OpenMode::SAVE) {
+                // ask if file exist
+                if (FXStat::exists(filenameExtension.c_str())) {
+                    // open question dialog
+                    const auto overwriteDialog = GNEQuestionBasicDialog(myFileDialog->getApplicationWindow(), GNEDialog::Buttons::YES_NO,
+                                                 TL("Overwrite file"), TLF("The selected file: %", file),
+                                                 TL("already exist. Overwrite?"));
+                    // check if abort
+                    if (overwriteDialog.getResult() != GNEDialog::Result::ACCEPT) {
+                        return 1;
+                    }
+                }
                 return myFileDialog->onCmdAccept(obj, sel, ptr);
+            } else {
+                // check that file exist
+                if (FXStat::exists(filenameExtension.c_str())) {
+                    return myFileDialog->onCmdAccept(obj, sel, ptr);
+                } else {
+                    // open error dialog
+                    GNEErrorBasicDialog(myFileDialog->getApplicationWindow(),
+                                        TL("File doesn't exist"),
+                                        TLF("The selected file '%'", file),
+                                        TL("doesn't exist"));
+                    return 0;
+                }
             }
-            // Otherwise, the whole myFilenameTextField must exist and be a file
-            if (FXStat::exists(path.c_str())) {
-                return myFileDialog->onCmdAccept(obj, sel, ptr);
-
-            }
         }
-        // Go up to the lowest directory which still exists
-        while (!FXPath::isTopDirectory(dir) && !FXStat::isDirectory(dir)) {
-            dir = FXPath::upLevel(dir);
-        }
-        // Switch as far as we could go
-        myDirBox->setDirectory(dir);
-        myFileSelector->setDirectory(dir);
-        // Put the tail end back for further editing
-        FXASSERT(dir.length() <= (int)path.size());
-        if (ISPATHSEP(path[dir.length()])) {
-            path.erase(0, dir.length() + 1);
-        } else {
-            path.erase(0, dir.length());
-        }
-        // Replace text box with new stuff
-        myFilenameTextField->setText(path.c_str());
-        myFilenameTextField->selectAll();
     }
     // Beep
     getApp()->beep();

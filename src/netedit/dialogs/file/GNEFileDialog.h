@@ -74,6 +74,9 @@ public:
     /// @brief Return directory
     std::string getDirectory() const;
 
+    /// @brief check extensions
+    std::string assureExtension(const std::string& filename) const;
+
     /// @name FOX-callbacks
     /// @{
 
@@ -87,8 +90,7 @@ protected:
     GNEFileSelector* myFileSelector;
 
 private:
-    /// @brief check extensions
-    std::string assureExtension(const std::string& filename) const;
+
 
     /// @brief invalidate copy constructor
     GNEFileDialog(const GNEFileDialog&) = delete;

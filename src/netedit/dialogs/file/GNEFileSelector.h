@@ -64,7 +64,10 @@ public:
     /// @brief get file names
     std::vector<std::string> getFilenames() const;
 
-    /// @brief Return directory
+    /// @brief Return current directory
+    std::string getCurrentDirectory() const;
+
+    /// @brief get selected directory
     std::string getDirectory() const;
 
     /// @brief get file extension

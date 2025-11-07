@@ -108,15 +108,6 @@ GNEFileDialog::getDirectory() const {
 }
 
 
-long
-GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // update current folder
-    gCurrentFolder = myFileSelector->getDirectory().c_str();
-    // close dialog accepting changes
-    return closeDialogAccepting();
-}
-
-
 std::string
 GNEFileDialog::assureExtension(const std::string& filename) const {
     // get group of extensions selected in comboBox
@@ -134,6 +125,21 @@ GNEFileDialog::assureExtension(const std::string& filename) const {
     } else {
         return filename;
     }
+}
+
+
+long
+GNEFileDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    const FXString directory = myFileSelector->getDirectory().c_str();
+    const FXString filename = myFileSelector->getFilename().c_str();
+    // update current folder
+    if (directory.length() > 0) {
+        gCurrentFolder = directory;
+    } else if (filename.length() > 0) {
+        gCurrentFolder = FXPath::directory(filename);
+    }
+    // close dialog accepting changes
+    return closeDialogAccepting();
 }
 
 /****************************************************************************/
