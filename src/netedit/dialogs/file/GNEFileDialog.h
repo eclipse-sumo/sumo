@@ -54,6 +54,11 @@ public:
                   const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
                   GNEFileDialog::ConfigType configType);
 
+    /// @brief constructor with restoring windows
+    GNEFileDialog(FXWindow* restoringWindow, GNEApplicationWindow* applicationWindow,
+                  const std::string elementFile, const std::vector<std::string>& extensions,
+                  GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType);
+
     /// @brief destructor
     ~GNEFileDialog();
 

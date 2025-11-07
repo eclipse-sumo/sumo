@@ -110,6 +110,12 @@ GNEDialog::getContentFrame() const {
 }
 
 
+void
+GNEDialog::setRestoringFocusWindow(FXWindow* window) {
+    myRestoringFocusWindow = window;
+}
+
+
 long
 GNEDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
@@ -255,8 +261,12 @@ GNEDialog::closeDialogAccepting() {
     hide();
     // set result
     myResult = Result::ACCEPT;
-    // restore focus to application window (to avoid problems in Linux)
-    myApplicationWindow->setFocus();
+    // restore focus
+    if (myRestoringFocusWindow) {
+        myRestoringFocusWindow->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 1;
 }
 
@@ -271,8 +281,12 @@ GNEDialog::closeDialogCanceling() {
     hide();
     // set result
     myResult = Result::CANCEL;
-    // restore focus to application window (to avoid problems in Linux)
-    myApplicationWindow->setFocus();
+    // restore focus
+    if (myRestoringFocusWindow) {
+        myRestoringFocusWindow->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 0;
 }
 
@@ -287,8 +301,12 @@ GNEDialog::closeDialogAborting() {
     hide();
     // set result
     myResult = Result::ABORT;
-    // restore focus to application window (to avoid problems in Linux)
-    myApplicationWindow->setFocus();
+    // restore focus
+    if (myRestoringFocusWindow) {
+        myRestoringFocusWindow->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 0;
 }
 

@@ -111,7 +111,8 @@ GNENetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*
 long
 GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
     // get output file
-    const auto networkFileDialog = GNEFileDialog(myApplicationWindow, TL("network file"),
+    const auto networkFileDialog = GNEFileDialog(this, myApplicationWindow,
+                                   TL("network file"),
                                    SUMOXMLDefinitions::NetFileExtensions.getStrings(),
                                    GNEFileDialog::OpenMode::SAVE,
                                    GNEFileDialog::ConfigType::NETEDIT);

@@ -211,7 +211,8 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSe
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get file
-    const auto xmlFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("XML file"),
+    const auto xmlFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                               TL("XML file"),
                                SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                                GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -356,7 +357,8 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get network file
-    const auto networkFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("network file"),
+    const auto networkFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                   TL("network file"),
                                    SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
                                    GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -406,7 +408,8 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get additional file
-    const auto additionalFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Additional elements file"),
+    const auto additionalFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                      TL("Additional elements file"),
                                       SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -456,7 +459,8 @@ GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelec
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get route file
-    const auto routeFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Route elements file"),
+    const auto routeFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                 TL("Route elements file"),
                                  SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
                                  GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -506,7 +510,8 @@ GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelect
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get data file
-    const auto dataFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("Data elements file"),
+    const auto dataFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                TL("Data elements file"),
                                 SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
                                 GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
@@ -556,7 +561,8 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get sumoConfig file
-    const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent->getApplicationWindow(), TL("sumo config file"),
+    const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                      TL("sumo config file"),
                                       SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid

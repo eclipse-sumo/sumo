@@ -97,6 +97,9 @@ public:
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
+    /// @brief wet FXWindows uses for restoring focus
+    void setRestoringFocusWindow(FXWindow* window);
+
     /// @name FOX-callbacks
     /// @{
 
@@ -141,6 +144,9 @@ protected:
 
     /// @brief pointer to the main window
     GNEApplicationWindow* myApplicationWindow = nullptr;
+
+    /// @brief FXWindows that restoring focus window
+    FXWindow* myRestoringFocusWindow = nullptr;
 
     /// @brief content frame
     FXVerticalFrame* myContentFrame = nullptr;

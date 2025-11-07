@@ -109,10 +109,10 @@ public:
         virtual const std::string getValue() const = 0;
 
         /// @brief tool dialog parent
-        GNEPythonToolDialog* myToolDialogParent;
+        GNEPythonToolDialog* myToolDialogParent = nullptr;
 
         /// @brief option
-        Option* myOption;
+        Option* myOption = nullptr;
 
         /// @brief default value
         const std::string myDefaultValue;
