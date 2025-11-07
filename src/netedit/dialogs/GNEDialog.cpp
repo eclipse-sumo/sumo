@@ -468,7 +468,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             myFocusButton = myRunButton;
             break;
         }
-        case Buttons::RERUN_BACK_CLOSE: {
+        case Buttons::RERUN_BACK_OK: {
             // run/abort button
             myRunButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("Rerun tool"),
                                                     GUIIconSubSys::getIcon(GUIIcon::RESET), this,
@@ -478,7 +478,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
                            GUIIconSubSys::getIcon(GUIIcon::BACK), this,
                            MID_GNE_BUTTON_BACK, GUIDesignButtonDialog);
             // cancel button
-            myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close"),
+            myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", TL("OK"),
                              GUIIconSubSys::getIcon(GUIIcon::YES), this,
                              MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             // set focus button

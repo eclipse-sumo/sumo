@@ -50,7 +50,7 @@ public:
         SAVE_DONTSAVE_CANCEL,   // save/don't save/cancel buttons
         RUN_CANCEL_RESET,       // run/cancel/reset buttons (used in tools dialogs)
         RUN_ADVANCED_CANCEL,    // run/advanced/cancel buttons (used in tools dialogs)
-        RERUN_BACK_CLOSE,       // rerun-abort/back buttons (used in run dialogs)
+        RERUN_BACK_OK,          // rerun-abort/back buttons (used in run dialogs)
         OK_COPY_REPORT          // ok, copy trace and report to github
     };
 
