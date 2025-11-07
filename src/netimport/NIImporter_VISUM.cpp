@@ -352,7 +352,12 @@ NIImporter_VISUM::parse_Districts() {
         return;
     }
     if (myLineParser.know(KEYS.getString(VISUM_SURFACEID))) {
-        long long int flaecheID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_SURFACEID)));
+        long long int flaecheID;
+        try {
+            flaecheID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_SURFACEID)));
+        } catch (EmptyData&) {
+            flaecheID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_NO)));
+        }
         myShapeDistrictMap[flaecheID] = district;
     }
 }
