@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-06 19:53+0000\n"
+"PO-Revision-Date: 2025-11-08 16:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11995,7 +11995,7 @@ msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:64
 msgid "run with configuration options set in file"
-msgstr ""
+msgstr "esegui con le opzione da impostare dal file"
 
 #: src/polyconvert/polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
@@ -12195,6 +12195,9 @@ msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
 msgstr ""
+"Nessun intervallo corrisponde al tempo passato % nell'arco '%'.\n"
+" Verrà usato il quotiente tra la lunghezza dell'arco e il limite di velocità "
+"vigente."
 
 #: src/router/ROEdge.cpp:479
 msgid ""
@@ -12538,6 +12541,7 @@ msgstr "Omissione del flusso di persone '%' a causa del piano vuoto"
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr ""
+"il flusso di persone probabilistico '%' deve specificare l'ora terminale"
 
 #: src/router/RORouteHandler.cpp:812
 msgid "Discarding container '%' because its plan is empty"
@@ -12884,6 +12888,7 @@ msgstr "Non si può calcolare il valore massimo da un dizionario vuoto."
 #, c-format
 msgid "Mismatching data rows of % axis and % height values."
 msgstr ""
+"Righe di dati non corrispondenti tra % valori per l'asse e % per l'altura."
 
 #: src/utils/common/MapMatcher.h:51
 msgid "Cannot convert geo-positions because the network has no geo-reference"
@@ -13072,6 +13077,8 @@ msgstr "Includi informazione di licenza in ogni file in uscita"
 #: src/utils/common/SystemFrame.cpp:125
 msgid "Write parsable metadata (configuration etc.) instead of comments"
 msgstr ""
+"Scrivi dati meta analizzabili (per esempio una configurazione) invece di "
+"commenti"
 
 #: src/utils/common/SystemFrame.cpp:128
 msgid ""
@@ -13097,6 +13104,8 @@ msgid ""
 "Defines the standard compression algorithm (currently only for parquet "
 "output)"
 msgstr ""
+"Definisce l'algoritmo standard di compressione "
+"(al momento usato solamente per l'uscita Parquet)"
 
 #: src/utils/common/SystemFrame.cpp:140
 msgid ""
