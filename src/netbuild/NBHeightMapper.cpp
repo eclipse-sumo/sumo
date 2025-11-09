@@ -196,7 +196,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
 
     // triangle coordinates are stored in WGS84 and later matched with network coordinates in WGS84
     // build coordinate transformation
-    OGRSpatialReference* sr_src = layer->GetSpatialRef();
+    const OGRSpatialReference* sr_src = layer->GetSpatialRef();
     OGRSpatialReference sr_dest;
     sr_dest.SetWellKnownGeogCS("WGS84");
     OGRCoordinateTransformation* toWGS84 = OGRCreateCoordinateTransformation(sr_src, &sr_dest);
