@@ -24,6 +24,17 @@ netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 !!! caution
     If your network contains geo-coordinates (lon/lat) you must add option **--proj.utm** in order to project your network into the cartesian plane
 
+# Localization
+
+VISUM network files can use keywords in different languages. By default, [netconvert](../../netconvert.md) attempts to import german keywords.
+The option **--visum.language-file {{DT_FILE}}** can be used to switch to a different language.  The following language files are provided in the `<SUMO_HOME>/data/lang` directory:
+
+- visumEN.txt
+- visumFR.txt
+- visumIT.txt
+
+If you wish to import a file in an unsupported language, please [contact](https://eclipse.dev/sumo/contact/) us and provide an example file. 
+
 # Import Coverage
 
 The following table shows which information is parsed from a given VISUM
