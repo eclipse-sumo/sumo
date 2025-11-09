@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-08 16:51+0000\n"
+"PO-Revision-Date: 2025-11-09 18:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11505,6 +11505,8 @@ msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr ""
+"Scrivi forme incluse nella rete di ingresso e che non vengono supportate da "
+"polyconvert (OpenDRIVE)"
 
 #: src/netwrite/NWFrame.cpp:135
 msgid ""
@@ -11613,7 +11615,7 @@ msgstr ""
 
 #: src/od2trips_main.cpp:63
 msgid "run with configuration file"
-msgstr ""
+msgstr "esegui con file di configurazione"
 
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
@@ -12164,7 +12166,7 @@ msgstr "Imposta FLOAT come livello standard"
 
 #: src/polyconvert/polyconvert_main.cpp:231
 msgid "Sets default action to discard"
-msgstr ""
+msgstr "Imposta l'azione standard da scartare"
 
 #: src/polyconvert/polyconvert_main.cpp:235
 msgid "Write geo coordinates in output"
@@ -13481,6 +13483,8 @@ msgstr ""
 #: src/utils/handlers/CommonHandler.cpp:161
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; '%' "
+"non è un codice identificativo valido per un tipo di veicoli."
 
 #: src/utils/handlers/CommonHandler.cpp:197
 msgid ""
