@@ -249,14 +249,14 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 bool
 GNERouteHandler::buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability) {
     const auto distribution = getRouteDistributionParent(sumoBaseObject);
-    const auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
-    const auto routeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, routeID, false);
+    // the referenced element can be either a route or a routeDistribution
+    const auto refElement = myNet->getAttributeCarriers()->retrieveDemandElements({SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, routeID, false);
     // check distributions
     if (distribution == nullptr) {
         return writeErrorInvalidParent(GNE_TAG_ROUTEREF, {SUMO_TAG_ROUTE_DISTRIBUTION});
-    } else if (route) {
+    } else if (refElement) {
         // create distributions
-        GNEDemandElement* routeRef = new GNERouteRef(distribution, route, probability);
+        GNEDemandElement* routeRef = new GNERouteRef(distribution, refElement, probability);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(routeRef, TLF("add % in '%'", routeRef->getTagStr(), distribution->getID()));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeRef, true), true);
@@ -264,19 +264,9 @@ GNERouteHandler::buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBas
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(routeRef);
             distribution->addChildElement(routeRef);
-            route->addChildElement(routeRef);
+            refElement->addChildElement(routeRef);
             routeRef->incRef("buildRouteRef");
         }
-        return true;
-    } else if (routeDistribution) {
-        // update probabilities of all route references of routeDistribution
-        myNet->getViewNet()->getUndoList()->begin(routeDistribution, TLF("update probabilities of % in '%'", distribution->getTagStr(), distribution->getID()));
-        for (auto ref : routeDistribution->getChildDemandElements()) {
-            if (ref->getTagProperty()->isDistributionReference()) {
-                ref->setAttribute(SUMO_ATTR_PROB, toString(probability), myNet->getViewNet()->getUndoList());
-            }
-        }
-        myNet->getViewNet()->getUndoList()->end();
         return true;
     } else {
         return writeErrorInvalidParent(GNE_TAG_ROUTEREF, {SUMO_TAG_ROUTE, SUMO_TAG_ROUTE_DISTRIBUTION}, routeID);
