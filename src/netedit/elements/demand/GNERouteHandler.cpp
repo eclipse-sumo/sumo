@@ -136,14 +136,14 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 bool
 GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability) {
     const auto distribution = getVTypeDistributionParent(sumoBaseObject);
-    const auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID, false);
-    const auto vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vTypeID, false);
+    // the referenced element can be either a vType or a vTypeDistribution
+    const auto refElement = myNet->getAttributeCarriers()->retrieveDemandElements({SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vTypeID, false);
     // check distributions
     if (distribution == nullptr) {
         return writeErrorInvalidParent(GNE_TAG_VTYPEREF, {SUMO_TAG_VTYPE_DISTRIBUTION});
-    } else if (vType) {
+    } else if (refElement) {
         // create distributions
-        GNEDemandElement* vTypeRef = new GNEVTypeRef(distribution, vType, probability);
+        GNEDemandElement* vTypeRef = new GNEVTypeRef(distribution, refElement, probability);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(vTypeRef, TLF("add % '%'", vTypeRef->getTagStr(), distribution->getID()));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeRef, true), true);
@@ -151,19 +151,9 @@ GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBas
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vTypeRef);
             distribution->addChildElement(vTypeRef);
-            vType->addChildElement(vTypeRef);
+            refElement->addChildElement(vTypeRef);
             vTypeRef->incRef("buildVTypeRef");
         }
-        return true;
-    } else if (vTypeDistribution) {
-        // update probabilities of all route references of routeDistribution
-        myNet->getViewNet()->getUndoList()->begin(vTypeDistribution, TLF("update probabilities of % in '%'", distribution->getTagStr(), distribution->getID()));
-        for (auto ref : vTypeDistribution->getChildDemandElements()) {
-            if (ref->getTagProperty()->isDistributionReference()) {
-                ref->setAttribute(SUMO_ATTR_PROB, toString(probability), myNet->getViewNet()->getUndoList());
-            }
-        }
-        myNet->getViewNet()->getUndoList()->end();
         return true;
     } else {
         return writeErrorInvalidParent(GNE_TAG_VTYPEREF, {SUMO_TAG_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION}, vTypeID);

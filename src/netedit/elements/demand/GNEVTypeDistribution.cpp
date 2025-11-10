@@ -71,7 +71,7 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     }
     // write references
     for (const auto& refChild : getChildDemandElements()) {
-        if (refChild->getTagProperty()->isDistributionReference()) {
+        if (refChild->getTagProperty()->isDistributionReference() && (refChild->getParentDemandElements().front() == this)) {
             refChild->writeDemandElement(device);
         }
     }
@@ -211,7 +211,8 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
         default:
             // get value of first referenced vType
             for (const auto& vTypeRef : getChildDemandElements()) {
-                if (vTypeRef->getTagProperty()->isDistributionReference()) {
+                if (vTypeRef->getTagProperty()->isDistributionReference() &&
+                        (vTypeRef->getParentDemandElements().at(1)->getTagProperty()->getTag() == SUMO_TAG_VTYPE)) {
                     return vTypeRef->getParentDemandElements().at(1)->getAttribute(key);
                 }
             }
@@ -225,7 +226,8 @@ double
 GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
     // get value of first referenced vType
     for (const auto& vTypeRef : getChildDemandElements()) {
-        if (vTypeRef->getTagProperty()->isDistributionReference()) {
+        if (vTypeRef->getTagProperty()->isDistributionReference() &&
+                (vTypeRef->getParentDemandElements().at(1)->getTagProperty()->getTag() == SUMO_TAG_VTYPE)) {
             return vTypeRef->getParentDemandElements().at(1)->getAttributeDouble(key);
         }
     }
@@ -238,7 +240,8 @@ Position
 GNEVTypeDistribution::getAttributePosition(SumoXMLAttr key) const {
     // get value of first referenced vType
     for (const auto& vTypeRef : getChildDemandElements()) {
-        if (vTypeRef->getTagProperty()->isDistributionReference()) {
+        if (vTypeRef->getTagProperty()->isDistributionReference() &&
+                (vTypeRef->getParentDemandElements().at(1)->getTagProperty()->getTag() == SUMO_TAG_VTYPE)) {
             return vTypeRef->getParentDemandElements().at(1)->getAttributePosition(key);
         }
     }

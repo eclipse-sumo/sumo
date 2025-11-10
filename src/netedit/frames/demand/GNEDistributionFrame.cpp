@@ -440,10 +440,12 @@ GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
         // Iterate over distribution key-values
         for (const auto& distributionRef : myDistributionSelector->getCurrentDistribution()->getChildDemandElements()) {
             if (distributionRef->getTagProperty()->isDistributionReference()) {
-                // create distribution row
-                auto distributionRow = new DistributionRow(this, distributionRef);
-                // add into distribution rows
-                myDistributionRows.push_back(distributionRow);
+                if (distributionRef->getTagProperty()->isDistributionReference() && (distributionRef->getParentDemandElements().front() == myDistributionSelector->getCurrentDistribution())) {
+                    // create distribution row
+                    auto distributionRow = new DistributionRow(this, distributionRef);
+                    // add into distribution rows
+                    myDistributionRows.push_back(distributionRow);
+                }
             } else {
                 // update geometry of vehicle
                 distributionRef->updateGeometry();
