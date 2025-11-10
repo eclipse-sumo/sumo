@@ -1,29 +1,10 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="v1" probability="2"/>
+    <vType sigma="0" id="v2" probability="1"/>
 
-	<vType sigma="0" id="typeA" probability="2"/>
+    <vTypeDistribution id="vt1" vTypes="v1 v2" probabilities="1 2"/>
 
-	<vType sigma="0" id="typeB" probability="1"/>
-
-    <vTypeDistribution id="vTypeDist" vTypes="typeA typeB"/>
-
-    <flow id="1" begin="0" period="2" number="10" type="vTypeDist">
+    <flow id="1" begin="0" period="2" number="10" type="vt1">
         <route edges="Edge0 Edge1 Edge2"/>
     </flow>
-
-    <vTypeDistribution id="vTypeDistA">
-        <vType sigma="0" id="vTypeDistA.1" probability="0.5"/>
-        <vType sigma="0" id="vTypeDistA.2" probability="0.5"/>
-    </vTypeDistribution>
-
-    <vTypeDistribution id="vTypeDistB">
-        <vType sigma="0" id="vTypeDistB.1" probability="1"/>
-        <vType sigma="0" id="vTypeDistB.2" probability="1"/>
-    </vTypeDistribution>
-
-    <vTypeDistribution id="vTypeDistMerged" vTypes="vTypeDistA vTypeDistB" probabilities="0.8 0.2"/>
-
-    <flow id="2" begin="30" period="2" number="10" type="vTypeDistMerged">
-        <route edges="Edge0 Edge1 Edge2"/>
-    </flow>
-
 </routes>
