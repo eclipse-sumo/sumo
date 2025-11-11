@@ -926,6 +926,8 @@ struct GNENetHelper {
     class SavingFilesHandler {
 
     public:
+        //struct FilenameReference
+
         /// @brief typedef used for group ACs by filename
         typedef std::map<std::string, std::unordered_set<const GNEAttributeCarrier*> > ACsbyFilename;
 

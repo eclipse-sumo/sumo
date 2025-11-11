@@ -134,6 +134,18 @@ public:
         TO_PARKINGAREA =        1ULL << 29, // Ends in parkingArea
     };
 
+    /// @brief files in which element can be saved
+    enum class File : std::uint64_t {
+        NETWORK =       1ULL << 0,    // Element can be saved in a network file
+        ADDITIONAL =    1ULL << 1,    // Element can be saved in a additional file
+        DEMAND =        1ULL << 2,    // Element can be saved in a demand file
+        DATA =          1ULL << 3,    // Element can be saved in a data file
+        MEANDATA =      1ULL << 4,    // Element can be saved in a meanData file
+        JUNCTION =      1ULL << 5,    // Element can be saved in a joined junction file
+        TYPE =          1ULL << 6,    // Element can be saved in a edge type file
+        TLS =           1ULL << 7,    // Element can be saved in a TLS file
+    };
+
     // @brief conflicts
     enum class Conflicts : std::uint64_t {
         POS_LANE =                  1ULL << 0,  // Position over lane isn't valid
@@ -147,9 +159,9 @@ public:
     friend class GNEAttributeProperties;
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType, const Property tagProperty, const Over tagOver,
-                     const Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
-                     const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
+    GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type type, const Property property, const Over over,
+                     const File file, const Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
+                     const std::string tooltipText, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for hierarchical elements
@@ -508,6 +520,8 @@ public:
 
     /// @}
 
+    /// @brief properties
+    /// @{
     /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
     bool isChild() const;
 
@@ -550,6 +564,36 @@ public:
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
 
+    /// @}
+
+    /// @brief file
+    /// @{
+    /// @brief element is saved in a network file
+    bool saveInNetworkFile() const;
+
+    /// @brief element is saved in an additional file
+    bool saveInAdditionalFile() const;
+
+    /// @brief element is saved in a demand file
+    bool saveInDemandFile() const;
+
+    /// @brief element is saved in a data file
+    bool saveInDataFile() const;
+
+    /// @brief element is saved in a meanData file
+    bool saveInMeanDataFile() const;
+
+    /// @brief element is saved in a junction file
+    bool saveInJunctionFile() const;
+
+    /// @brief element is saved in a edge type file
+    bool saveInEdgeTypeFile() const;
+
+    /// @brief element is saved in a TLS type file
+    bool saveInTLSFile() const;
+
+    /// @}
+
 protected:
     /// @brief add child
     void addChild(const GNETagProperties* child);
@@ -568,13 +612,16 @@ private:
     std::vector<const GNETagProperties*> myChildren;
 
     /// @brief tag Types
-    const Type myTagType = Type::OTHER;
+    const Type myType = Type::OTHER;
 
     /// @brief tag properties
-    const Property myTagProperty = Property::NO_PROPERTY;
+    const Property myProperty = Property::NO_PROPERTY;
 
     /// @brief tag over
-    const Over myTagOver = Over::VIEW;
+    const Over myOver = Over::VIEW;
+
+    /// @brief tag file
+    const File myFile = File::NETWORK;
 
     /// @brief conflicts
     const Conflicts myConflicts = Conflicts::NO_CONFLICTS;
@@ -646,6 +693,16 @@ constexpr GNETagProperties::Over operator|(GNETagProperties::Over a, GNETagPrope
 
 /// @brief override tag parent bit operator
 constexpr bool operator&(GNETagProperties::Over a, GNETagProperties::Over b) {
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
+}
+
+/// @brief override tag parent bit operator
+constexpr GNETagProperties::File operator|(GNETagProperties::File a, GNETagProperties::File b) {
+    return static_cast<GNETagProperties::File>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNETagProperties::File a, GNETagProperties::File b) {
     return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }
 
