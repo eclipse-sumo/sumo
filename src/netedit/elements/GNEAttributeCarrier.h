@@ -27,6 +27,7 @@
 // class declarations
 // ===========================================================================
 
+class GNEFileBucket;
 class GNEHierarchicalElement;
 class GNELane;
 class GNEMoveElement;
@@ -88,12 +89,17 @@ public:
     /// @brief get pointer to net
     GNENet* getNet() const;
 
+    /// @brief get reference to fileBucket
+    GNEFileBucket* getFileBucket() const;
+
     /// @brief get filename in which save this AC
-    const std::string& getFilename() const;
+    virtual const std::string& getFilename() const = 0;
 
-    /// @brief change defaultFilename (only used in SavingFilesHandler)
-    void changeDefaultFilename(const std::string& file);
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
 
+    /// @name Function related with selection
+    /// @{
     /// @brief select attribute carrier using GUIGlobalSelection
     void selectAttributeCarrier();
 
@@ -103,8 +109,7 @@ public:
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
 
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
+    /// @}
 
     /// @name Function related with drawing
     /// @{
@@ -388,6 +393,9 @@ public:
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
     static const std::string FALSE_STR;
 
+    /// @brief value used for represent empty filenames
+    static const std::string EMPTY_FILENAME;
+
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties* myTagProperty;
@@ -404,8 +412,8 @@ protected:
     /// @brief boolean to check if this AC is in grid
     bool myInGrid = false;
 
-    /// @brief filename in which save this AC
-    std::string myFilename;
+    /// @brief filebucket vinculated whith this AC
+    GNEFileBucket* myFileBucket = nullptr;
 
     /// @brief boolean to check if center this element after creation
     bool myCenterAfterCreation = true;

@@ -115,6 +115,9 @@ public:
 
     /// @}
 
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
+
     /// @name members and functions relative to write data elements into XML
     /// @{
     /// @brief check if current data element is valid to be written into XML (by default true, can be reimplemented in children)

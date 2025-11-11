@@ -53,6 +53,7 @@ class GNEDataSet;
 class GNEDemandElement;
 class GNEEdge;
 class GNEEdgeType;
+class GNEFileBucket;
 class GNEJunction;
 class GNELane;
 class GNELaneType;
@@ -926,115 +927,81 @@ struct GNENetHelper {
     class SavingFilesHandler {
 
     public:
-        //struct FilenameReference
-
-        /// @brief typedef used for group ACs by filename
-        typedef std::map<std::string, std::unordered_set<const GNEAttributeCarrier*> > ACsbyFilename;
-
         /// @brief constructor
         SavingFilesHandler(GNENet* net);
+
+        /// @brief destructor
+        ~SavingFilesHandler();
 
         /// @brief update netedit config
         void updateNeteditConfig();
 
-        /// @brief additional elements
-        /// @{
+        /// @brief register AC (called during AC creation)
+        GNEFileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename);
 
-        /// @brief add additional filename
-        void addAdditionalFilename(const GNEAttributeCarrier* additionalElement);
+        /// @brief update AC
+        GNEFileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
 
-        /// @brief update additional elements with empty filenames with the given file
-        void updateAdditionalEmptyFilenames(const std::string& file);
+        /// @brief register AC (called during AC deletion)
+        void unregisterAC(const GNEAttributeCarrier* AC);
 
-        /// @brief get vector with additional elements saving files (starting with default)
-        const std::vector<std::string>& getAdditionalFilenames() const;
+        /// @brief vector with all file buckets
+        const std::vector<GNEFileBucket*>& getAdditionalFileBuckets() const;
 
-        /// @brief get additionals sorted by filenames (and also clear unused filenames)
-        ACsbyFilename getAdditionalsByFilename();
+        /// @brief check if at least we have an additional file defined
+        bool isAdditionalFileDefined() const;
 
-        /// @brief check if the given additional file was already registered
-        bool existAdditionalFilename(const std::string& file) const;
+        /// brief set default additional file
+        void setDefaultAdditionalFile(const std::string& filename, const bool force);
 
-        /// @}
+        /// @brief vector with all file buckets
+        const std::vector<GNEFileBucket*>& getDemandFileBuckets() const;
 
-        /// @brief demand elements
-        /// @{
+        /// @brief check if default demand file was defined
+        bool isDemandFileDefined() const;
 
-        /// @brief add demand filename
-        void addDemandFilename(const GNEAttributeCarrier* demandElement);
+        /// brief set default demand file
+        void setDefaultDemandFile(const std::string& filename, const bool force);
 
-        /// @brief update demand elements with empty filenames with the given file
-        void updateDemandEmptyFilenames(const std::string& file);
+        /// @brief vector with all file buckets
+        const std::vector<GNEFileBucket*>& getDataFileBuckets() const;
 
-        /// @brief get vector with demand elements saving files (starting with default)
-        const std::vector<std::string>& getDemandFilenames() const;
+        /// @brief check if default data file was defined
+        bool isDataFileDefined() const;
 
-        /// @brief get demands sorted by filenames (and also clear unused filenames)
-        ACsbyFilename getDemandsByFilename();
+        /// brief set default data file
+        void setDefaultDataFile(const std::string& filename, const bool force);
 
-        /// @brief check if the given demand file was already registered
-        bool existDemandFilename(const std::string& file) const;
+        /// @brief vector with all file buckets
+        const std::vector<GNEFileBucket*>& getMeanDataFileBuckets() const;
 
-        /// @}
+        /// @brief check if default meanData file was defined
+        bool isMeanDataFileDefined() const;
 
-        /// @brief data elements
-        /// @{
-
-        /// @brief add data filename
-        void addDataFilename(const GNEAttributeCarrier* dataElement);
-
-        /// @brief update data elements with empty filenames with the given file
-        void updateDataEmptyFilenames(const std::string& file);
-
-        /// @brief get vector with data elements saving files (starting with default)
-        const std::vector<std::string>& getDataFilenames() const;
-
-        /// @brief get datas sorted by filenames (and also clear unused filenames)
-        ACsbyFilename getDatasByFilename();
-
-        /// @brief check if the given data file was already registered
-        bool existDataFilename(const std::string& file) const;
-
-        /// @}
-
-        /// @brief meanData elements
-        /// @{
-
-        /// @brief add meanData filename
-        void addMeanDataFilename(const GNEAttributeCarrier* meanDataElement);
-
-        /// @brief update meanData elements with empty filenames with the given file
-        void updateMeanDataEmptyFilenames(const std::string& file);
-
-        /// @brief get vector with meanData elements saving files (starting with default)
-        const std::vector<std::string>& getMeanDataFilenames() const;
-
-        /// @brief get meanDatas sorted by filenames (and also clear unused filenames)
-        ACsbyFilename getMeanDatasByFilename();
-
-        /// @brief check if the given meanData file was already registered
-        bool existMeanDataFilename(const std::string& file) const;
-
-        /// @}
+        /// brief set default MeanData file
+        void setDefaultMeanDataFile(const std::string& filename, const bool force);
 
     private:
         /// @brief pointer to net
         GNENet* myNet;
 
-        /// @brief vector with additional elements saving files
-        std::vector<std::string> myAdditionalElementsSavingFiles;
+        /// @brief network fileBucket (currently only used for filename, because all network elementes are saved in the same file
+        GNEFileBucket* myNetworkFileBucket = nullptr;
 
-        /// @brief vector with demand elements saving files
-        std::vector<std::string> myDemandElementsSavingFiles;
+        /// @brief vector with all file buckets
+        std::vector<GNEFileBucket*> myAdditionalFileBuckets;
 
-        /// @brief vector with data elements saving files
-        std::vector<std::string> myDataElementsSavingFiles;
+        /// @brief vector with all file buckets
+        std::vector<GNEFileBucket*> myDemandFileBuckets;
 
-        /// @brief vector with mean data elements saving files
-        std::vector<std::string> myMeanDataElementsSavingFiles;
+        /// @brief vector with all file buckets
+        std::vector<GNEFileBucket*> myDataFileBuckets;
+
+        /// @brief vector with all file buckets
+        std::vector<GNEFileBucket*> myMeanDataFileBuckets;
 
         /// @brief parsing saving files
-        std::string parsingSavingFiles(const std::vector<std::string>& savingFiles) const;
+        std::string parsingSavingFiles(const std::vector<GNEFileBucket*>& buckets) const;
 
         /// @brief Invalidated default constructor.
         SavingFilesHandler() = delete;

@@ -34,6 +34,7 @@
 #include <utils/shapes/PointOfInterest.h>
 
 #include "GNEAttributeCarrier.h"
+#include "GNEFileBucket.h"
 
 // ===========================================================================
 // static members
@@ -45,6 +46,7 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const std::string GNEAttributeCarrier::TRUE_STR = toString(true);
 const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
+const std::string GNEAttributeCarrier::EMPTY_FILENAME = "";
 
 // ===========================================================================
 // method definitions
@@ -53,36 +55,20 @@ const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename, const bool isTemplate) :
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
-    myFilename(filename),
     myIsTemplate(isTemplate) {
-    // check if add this AC to saving file handler
-    if (myFilename.size() > 0) {
-        // add filename to saving files handler
-        if (myTagProperty->isAdditionalElement()) {
-            net->getSavingFilesHandler()->addAdditionalFilename(this);
-        } else if (myTagProperty->isDemandElement()) {
-            net->getSavingFilesHandler()->addDemandFilename(this);
-        } else if (myTagProperty->isDataElement()) {
-            net->getSavingFilesHandler()->addDataFilename(this);
-        } else if (myTagProperty->isMeanData()) {
-            net->getSavingFilesHandler()->addMeanDataFilename(this);
-        }
-    } else {
-        // always avoid empty files
-        if (myTagProperty->isAdditionalElement() && (net->getSavingFilesHandler()->getAdditionalFilenames().size() > 0)) {
-            myFilename = net->getSavingFilesHandler()->getAdditionalFilenames().front();
-        } else if (myTagProperty->isDemandElement() && (net->getSavingFilesHandler()->getDemandFilenames().size() > 0)) {
-            myFilename = net->getSavingFilesHandler()->getDemandFilenames().front();
-        } else if (myTagProperty->isDataElement() && (net->getSavingFilesHandler()->getDataFilenames().size() > 0)) {
-            myFilename = net->getSavingFilesHandler()->getDataFilenames().front();
-        } else if (myTagProperty->isMeanData() && (net->getSavingFilesHandler()->getMeanDataFilenames().size() > 0)) {
-            myFilename = net->getSavingFilesHandler()->getMeanDataFilenames().front();
-        }
+    // check if register this AC
+    if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
+        myFileBucket = myNet->getSavingFilesHandler()->registerAC(this, filename);
     }
 }
 
 
-GNEAttributeCarrier::~GNEAttributeCarrier() {}
+GNEAttributeCarrier::~GNEAttributeCarrier() {
+    // check if unregister this AC before deletion
+    if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
+        myNet->getSavingFilesHandler()->unregisterAC(this);
+    }
+}
 
 
 const std::string
@@ -97,17 +83,9 @@ GNEAttributeCarrier::getNet() const {
 }
 
 
-const std::string&
-GNEAttributeCarrier::getFilename() const {
-    return myFilename;
-}
-
-
-void
-GNEAttributeCarrier::changeDefaultFilename(const std::string& file) {
-    if (myFilename.empty()) {
-        myFilename = file;
-    }
+GNEFileBucket*
+GNEAttributeCarrier::getFileBucket() const {
+    return myFileBucket;
 }
 
 
@@ -850,7 +828,7 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            return myFilename;
+            return getFilename();
         case GNE_ATTR_CENTER_AFTER_CREATION:
             return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:
@@ -909,7 +887,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             // update filenames of all demand childrens
             for (auto demandChild : getHierarchicalElement()->getChildDemandElements()) {
-                demandChild->setAttribute(key, myFilename, undoList);
+                demandChild->setAttribute(key, value, undoList);
             }
             break;
         case GNE_ATTR_DATA_FILE:
@@ -932,6 +910,7 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
+            // check here filenames!
             return SUMOXMLDefinitions::isValidFilename(value);
         case GNE_ATTR_CENTER_AFTER_CREATION:
         case GNE_ATTR_SELECTED:
@@ -948,47 +927,11 @@ void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case GNE_ATTR_ADDITIONAL_FILE:
-            myFilename = value;
-            if (value.empty()) {
-                // try to avoid empty files
-                if (myNet->getSavingFilesHandler()->getAdditionalFilenames().size() > 0) {
-                    myFilename = myNet->getSavingFilesHandler()->getAdditionalFilenames().front();
-                }
-            } else {
-                myNet->getSavingFilesHandler()->addAdditionalFilename(this);
-            }
-            break;
         case GNE_ATTR_DEMAND_FILE:
-            myFilename = value;
-            if (value.empty()) {
-                // try to avoid empty files
-                if (myNet->getSavingFilesHandler()->getDemandFilenames().size() > 0) {
-                    myFilename = myNet->getSavingFilesHandler()->getDemandFilenames().front();
-                }
-            } else {
-                myNet->getSavingFilesHandler()->addDemandFilename(this);
-            }
-            break;
         case GNE_ATTR_DATA_FILE:
-            myFilename = value;
-            if (value.empty()) {
-                // try to avoid empty files
-                if (myNet->getSavingFilesHandler()->getDataFilenames().size() > 0) {
-                    myFilename = myNet->getSavingFilesHandler()->getDataFilenames().front();
-                }
-            } else {
-                myNet->getSavingFilesHandler()->addDataFilename(this);
-            }
-            break;
         case GNE_ATTR_MEANDATA_FILE:
-            myFilename = value;
-            if (value.empty()) {
-                // try to avoid empty files
-                if (myNet->getSavingFilesHandler()->getMeanDataFilenames().size() > 0) {
-                    myFilename = myNet->getSavingFilesHandler()->getMeanDataFilenames().front();
-                }
-            } else {
-                myNet->getSavingFilesHandler()->addMeanDataFilename(this);
+            if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
+                myNet->getSavingFilesHandler()->updateAC(this, value);
             }
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:

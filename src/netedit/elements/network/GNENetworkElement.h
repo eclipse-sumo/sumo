@@ -48,6 +48,9 @@ public:
     /// @brief Destructor
     virtual ~GNENetworkElement();
 
+    /// @brief methods to retrieve the elements linked to this network element
+    /// @{
+
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     GNEHierarchicalElement* getHierarchicalElement() override;
 
@@ -56,6 +59,11 @@ public:
 
     /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
     const GUIGlObject* getGUIGlObject() const override;
+
+    /// @}
+
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
 
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isNetworkElementValid() const;

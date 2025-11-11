@@ -18,6 +18,7 @@
 // A abstract class for demand elements
 /****************************************************************************/
 
+#include <netedit/elements/GNEFileBucket.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
@@ -84,6 +85,18 @@ GNEDemandElement::getGUIGlObject() {
 const GUIGlObject*
 GNEDemandElement::getGUIGlObject() const {
     return this;
+}
+
+
+const
+std::string& GNEDemandElement::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else if (myTagProperty->saveInParentDemandFile()) {
+        return getParentDemandElements().front()->getFilename();
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 
