@@ -95,7 +95,7 @@ title: ChangeLog
   - Start button is disabled when loading simulation aborts with an error #17063
   - Fixed wrong entries / paths for recent config #16906
   - Settings dialog now cancels changes on ESC #17050
-  - containerStop: custom container angle now applys to plan item `<stop>` #17089
+  - containerStop: custom container angle now applies to plan item `<stop>` #17089
   - Vehicles on edges that are shorter than their geometrical length are no longer exaggerated lengthwise #17074
   - Fixed crash when deleting last item of coloring/scaling scheme levels #17138 (also applies to netedit)
   - Rerouter ids are now shown #16715
@@ -160,8 +160,6 @@ title: ChangeLog
   - Embedded routes are now hidden when creating vehicle or flow that references a route #17220
   - POIs can be transformed between network coordinates and geo-coordinates #17118
 
-
-
 - sumo-gui
   - Various dialogs can now be closed with ESC #15463
   - edge/lane parameter dialog now shows routingType (which defaults to the edgeType when not set explicitly) #17096
@@ -194,8 +192,7 @@ title: ChangeLog
   - generateDetectors.py: Added option **--edge-probability** to allow randomization per edge #17044
   - instantOutToEdgeData.py: new tool to convert induction loop output to edgeData #17048
   - createOvertakingReroutes.py: new tool for building railway rerouters #16448
-  - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157
-  - duaIterate.py: option **--gzip** is enabled by default. Option **--no-gzip** may be used for the old behavior. #16777
+  - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157  
   - randomTrips.py: options **--flows** and **--route-file** now writes flows and runs much faster #17200, #17204
 
 
@@ -204,13 +201,14 @@ title: ChangeLog
 - Option **--junctions.join-same** whas changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
 - sumo now warns when setting option **--threads** with an argument greater than 1 #17057
 - Added warnings and errors for different problems with a configuration file #17069
-- Command line output under Windows now usees UTF charset #17093
+- Command line output under Windows now uses UTF charset #17093
 - [Automatic rerouting](Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
 - Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
 - duaIterate.py: option **--binary** was removed #16777
 - The attribute order in the FCD output of persons was changed and is now similar to the vehicles (affects only the type attribute).
 - The nightly sumogame now loads all 3D objects #3032
 - flowrouter.py option **--vclass** now defaults to 'passenger' (to avoid invalid routes in multimodal networks) #17296
+- duaIterate.py: option **--gzip** is enabled by default. Option **--no-gzip** may be used for the old behavior. #16777
 
 
 ## Version 1.24.0 (22.07.2025)
