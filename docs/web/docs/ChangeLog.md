@@ -82,6 +82,8 @@ title: ChangeLog
   - Fixed invalid junction shape (with NaN) #17182
   - OpenDRIVE import: now handling problematic geometries that were causing NaN values #17163
   - Fixed misaligned crossing with custom width #17286
+  - VISUM importer now handles missing SURFACEID #17307
+
 
 - sumo-gui
   - Rerouter notification edges are visible again for rerouters created in netedit (with attribute 'pos') #17298 (regression in 1.22.0)
@@ -113,8 +115,7 @@ title: ChangeLog
   - Fixed invalid error when using option **--bulk-routing** #17267
   - Option **--bulk-routing** now works for railways #17266
   - Option **--ignore-errors** can now filter out loaded routes that violate edge permissions #17294
-
-
+  - option **--keep-vtype-distributions** ist now working for flows #17305
 
 - TraCI
   - Fixed exaggerated slowDown after the end of the desired slowDown duration #17172 (regression in 1.23.0)
@@ -157,6 +158,8 @@ title: ChangeLog
   - Settings dialog now shows available POI parameters for the 'show poi text param' feature #17158
   - meanData mode now permits setting edgeData type (i.e. to create edge-emission-output) #15696
   - Embedded routes are now hidden when creating vehicle or flow that references a route #17220
+  - POIs can be transformed between network coordinates and geo-coordinates #17118
+
 
 
 - sumo-gui
