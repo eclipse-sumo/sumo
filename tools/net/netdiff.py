@@ -555,7 +555,7 @@ class AttributeStore:
 
 
 def create_plain(netfile, netconvert, plain_geo):
-    prefix = netfile[:-8]
+    prefix = netfile[:-11] if netfile[-3:] == '.gz' else netfile[:-8]
     call([netconvert,
           "--sumo-net-file", netfile,
           "--plain-output-prefix", prefix,
