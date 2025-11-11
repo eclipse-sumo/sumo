@@ -80,6 +80,9 @@ public:
 
     /// @}
 
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
+
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const override;
 

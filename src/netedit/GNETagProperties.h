@@ -136,14 +136,14 @@ public:
 
     /// @brief files in which element can be saved
     enum class File : std::uint64_t {
-        NETWORK =       1ULL << 0,    // Element can be saved in a network file
-        ADDITIONAL =    1ULL << 1,    // Element can be saved in a additional file
-        DEMAND =        1ULL << 2,    // Element can be saved in a demand file
-        DATA =          1ULL << 3,    // Element can be saved in a data file
-        MEANDATA =      1ULL << 4,    // Element can be saved in a meanData file
-        JUNCTION =      1ULL << 5,    // Element can be saved in a joined junction file
-        TYPE =          1ULL << 6,    // Element can be saved in a edge type file
-        TLS =           1ULL << 7,    // Element can be saved in a TLS file
+        NETWORK =           1ULL << 0,    // Element can be saved in a network file
+        ADDITIONAL =        1ULL << 1,    // Element can be saved in a additional file
+        DEMAND =            1ULL << 2,    // Element can be saved in a demand file
+        DATA =              1ULL << 3,    // Element can be saved in a data file
+        MEANDATA =          1ULL << 4,    // Element can be saved in a meanData file
+        PARENT_ADDITIONAL = 1ULL << 5,    // Element must be saved in the same file of their first parent additional
+        PARENT_DEMAND =     1ULL << 6,    // Element must be saved in the same file of their first parent demand element
+        PARENT_DATA =       1ULL << 7,    // Element must be saved in the same file of their first parent data element
     };
 
     // @brief conflicts
@@ -583,14 +583,14 @@ public:
     /// @brief element is saved in a meanData file
     bool saveInMeanDataFile() const;
 
-    /// @brief element is saved in a junction file
-    bool saveInJunctionFile() const;
+    /// @brief element is saved in the file of first parent additional element
+    bool saveInParentAdditionalFile() const;
 
-    /// @brief element is saved in a edge type file
-    bool saveInEdgeTypeFile() const;
+    /// @brief element is saved in the file of first parent demand element
+    bool saveInParentDemandFile() const;
 
-    /// @brief element is saved in a TLS type file
-    bool saveInTLSFile() const;
+    /// @brief element is saved in the file of first parent data element
+    bool saveInParentDataFile() const;
 
     /// @}
 

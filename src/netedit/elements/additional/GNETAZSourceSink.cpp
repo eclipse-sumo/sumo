@@ -48,6 +48,12 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZP
 GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
+GNEHierarchicalElement*
+GNETAZSourceSink::getHierarchicalElement() {
+    return this;
+}
+
+
 GNEMoveElement*
 GNETAZSourceSink::getMoveElement() const {
     return nullptr;
@@ -66,9 +72,12 @@ GNETAZSourceSink::getParameters() const {
 }
 
 
-GNEHierarchicalElement*
-GNETAZSourceSink::getHierarchicalElement() {
-    return this;
+const std::string& GNETAZSourceSink::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else {
+        return getParentAdditionals().front()->getFilename();
+    }
 }
 
 

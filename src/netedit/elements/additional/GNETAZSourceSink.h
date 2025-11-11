@@ -49,6 +49,9 @@ public:
     /// @brief methods to retrieve the elements linked to this TAZSourceSink
     /// @{
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() override;
+
     /// @brief get GNEMoveElement associated with this TAZSourceSink
     GNEMoveElement* getMoveElement() const override;
 
@@ -60,8 +63,8 @@ public:
 
     /// @}
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() override;
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
 
     /// @brief write TAZ sourceSink
     void writeTAZSourceSink(OutputDevice& device) const;

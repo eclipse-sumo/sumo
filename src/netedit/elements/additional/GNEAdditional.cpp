@@ -20,12 +20,7 @@
 #include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNETagPropertiesDatabase.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/GNEAttributesEditor.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/elements/GNEFileBucket.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -35,6 +30,12 @@
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -84,6 +85,18 @@ GNEAdditional::getGUIGlObject() {
 const GUIGlObject*
 GNEAdditional::getGUIGlObject() const {
     return this;
+}
+
+
+const std::string&
+GNEAdditional::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else if (myTagProperty->saveInParentAdditionalFile()) {
+        return getParentAdditionals().front()->getFilename();
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

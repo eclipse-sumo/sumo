@@ -18,11 +18,12 @@
 // A abstract class for data sets
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/GNEFileBucket.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
@@ -146,6 +147,16 @@ GNEDataSet::getGUIGlObject() {
 const GUIGlObject*
 GNEDataSet::getGUIGlObject() const {
     return nullptr;
+}
+
+
+const std::string&
+GNEDataSet::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

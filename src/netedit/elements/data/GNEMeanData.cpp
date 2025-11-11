@@ -18,9 +18,10 @@
 // Class for representing MeanData
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/elements/GNEFileBucket.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEMeanData.h"
 
@@ -103,6 +104,16 @@ GNEMeanData::getGUIGlObject() {
 const GUIGlObject*
 GNEMeanData::getGUIGlObject() const {
     return nullptr;
+}
+
+
+const std::string&
+GNEMeanData::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

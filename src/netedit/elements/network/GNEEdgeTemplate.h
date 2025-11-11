@@ -42,11 +42,11 @@ public:
     /// @brief Destructor.
     ~GNEEdgeTemplate();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() override;
-
     /// @brief methods to retrieve the elements linked to this edgeTemplate
     /// @{
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
     /// @brief get GNEMoveElement associated with this edgeTemplate
     GNEMoveElement* getMoveElement() const override;
@@ -58,6 +58,9 @@ public:
     const Parameterised* getParameters() const override;
 
     /// @}
+
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
 
     /// @brief get vector with the lane templates of this edge
     const std::vector<GNELaneTemplate*>& getLaneTemplates() const;

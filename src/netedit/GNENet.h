@@ -441,7 +441,7 @@ public:
     bool saveAdditionals();
 
     /// @brief save JuPedSim elements
-    bool saveJuPedSimElements(const std::unordered_set<const GNEAttributeCarrier*>& ACs, const std::string& file);
+    bool saveJuPedSimElements(const std::string& filename);
 
     /// @brief save demand element elements of the network
     bool saveDemandElements();
@@ -578,65 +578,64 @@ private:
     void saveMeanDatasConfirmed();
 
     /// @brief write additional element by type and sorted by ID
-    void writeAdditionalByType(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs,
-                               const std::vector<SumoXMLTag> tags) const;
+    void writeAdditionalByType(OutputDevice& device, const std::string& filename, const std::vector<SumoXMLTag> tags) const;
 
     /// @brief write demand element by type and sorted by ID
-    void writeDemandByType(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, SumoXMLTag tag) const;
+    void writeDemandByType(OutputDevice& device, const std::string& filename, SumoXMLTag tag) const;
 
     /// @brief write route distributions sorted by ID
-    void writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    void writeRouteDistributions(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write route sorted by ID
-    void writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    void writeRoutes(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
 
     /// @brief write vTypeDistributions sorted by ID
-    void writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    void writeVTypeDistributions(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write vTypes sorted by ID
-    void writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    void writeVTypes(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
 
     /// @brief write meanData element by type and sorted by ID
-    void writeMeanDatas(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, SumoXMLTag tag) const;
+    void writeMeanDatas(OutputDevice& device, const std::string& filename, SumoXMLTag tag) const;
 
     /// @brief write vType comment
-    bool writeVTypeComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    bool writeVTypeComment(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
 
     /// @brief write route comment
-    bool writeRouteComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const;
+    bool writeRouteComment(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
 
     /// @brief write routeProbe comment
-    bool writeRouteProbeComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeRouteProbeComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write calibrator comment
-    bool writeCalibratorComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeCalibratorComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write stoppingPlace comment
-    bool writeStoppingPlaceComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeStoppingPlaceComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write detector comment
-    bool writeDetectorComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeDetectorComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write other additional comment
-    bool writeOtherAdditionalsComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeOtherAdditionalsComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write shape comment
-    bool writeShapesComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeShapesComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write JuPedSim comment
-    bool writeJuPedSimComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeJuPedSimComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write TAZ comment
-    bool writeTAZComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeTAZComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write Wire comment
-    bool writeWireComment(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const;
+    bool writeWireComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write meanDataEdge comment
-    bool writeMeanDataEdgeComment(OutputDevice& device) const;
+    bool writeMeanDataEdgeComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief write Wire comment
-    bool writeMeanDataLaneComment(OutputDevice& device) const;
+    bool writeMeanDataLaneComment(OutputDevice& device, const std::string& filename) const;
 
     /// @brief replace in list attribute
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);

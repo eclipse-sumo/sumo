@@ -67,6 +67,9 @@ public:
 
     /// @}
 
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
+
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element
      */

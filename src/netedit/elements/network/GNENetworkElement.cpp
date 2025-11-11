@@ -18,10 +18,11 @@
 // A abstract class for networkElements
 /****************************************************************************/
 
+#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -61,6 +62,16 @@ GNENetworkElement::getGUIGlObject() {
 const GUIGlObject*
 GNENetworkElement::getGUIGlObject() const {
     return this;
+}
+
+
+const std::string&
+GNENetworkElement::getFilename() const {
+    if (isTemplate()) {
+        return EMPTY_FILENAME;
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

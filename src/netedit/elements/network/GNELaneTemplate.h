@@ -34,11 +34,11 @@ public:
     /// @brief Destructor.
     ~GNELaneTemplate();
 
-    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
-    GNEHierarchicalElement* getHierarchicalElement() override;
-
     /// @brief methods to retrieve the elements linked to this laneType
     /// @{
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() override;
 
     /// @brief get GNEMoveElement associated with this laneType
     GNEMoveElement* getMoveElement() const override;
@@ -50,6 +50,9 @@ public:
     const Parameterised* getParameters() const override;
 
     /// @}
+
+    /// @brief get filename in which save this AC
+    const std::string& getFilename() const override;
 
     /// @name Function related with graphics
     /// @{

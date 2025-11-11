@@ -1066,20 +1066,20 @@ GNETagProperties::saveInMeanDataFile() const {
 
 
 bool
-GNETagProperties::saveInJunctionFile() const {
-    return (myFile & File::JUNCTION);
+GNETagProperties::saveInParentAdditionalFile() const {
+    return (myFile & File::PARENT_ADDITIONAL);
 }
 
 
 bool
-GNETagProperties::saveInEdgeTypeFile() const {
-    return (myFile & File::TYPE);
+GNETagProperties::saveInParentDemandFile() const {
+    return (myFile & File::PARENT_DEMAND);
 }
 
 
 bool
-GNETagProperties::saveInTLSFile() const {
-    return (myFile & File::TLS);
+GNETagProperties::saveInParentDataFile() const {
+    return (myFile & File::PARENT_DATA);
 }
 
 
