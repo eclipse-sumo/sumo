@@ -134,13 +134,13 @@ public:
         TO_PARKINGAREA =        1ULL << 29, // Ends in parkingArea
     };
 
-    /// @brief files in which element can be saved
+    /// @brief files in which element can be saved (note: Sorting is important for buckets)
     enum class File : std::uint64_t {
         NETWORK =           1ULL << 0,    // Element can be saved in a network file
-        ADDITIONAL =        1ULL << 1,    // Element can be saved in a additional file
-        DEMAND =            1ULL << 2,    // Element can be saved in a demand file
-        DATA =              1ULL << 3,    // Element can be saved in a data file
-        MEANDATA =          1ULL << 4,    // Element can be saved in a meanData file
+        DEMAND =            1ULL << 1,    // Element can be saved in a demand file
+        MEANDATA =          1ULL << 2,    // Element can be saved in a meanData file
+        ADDITIONAL =        1ULL << 3,    // Element can be saved in a additional file (always after demand and meanData)
+        DATA =              1ULL << 4,    // Element can be saved in a data file
         PARENT_ADDITIONAL = 1ULL << 5,    // Element must be saved in the same file of their first parent additional
         PARENT_DEMAND =     1ULL << 6,    // Element must be saved in the same file of their first parent demand element
         PARENT_DATA =       1ULL << 7,    // Element must be saved in the same file of their first parent data element
