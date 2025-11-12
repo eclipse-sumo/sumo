@@ -3855,7 +3855,7 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
     // iterate over all additional files
-    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getAdditionalFileBuckets()) {
+    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::ADDITIONAL)) {
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
@@ -3884,7 +3884,7 @@ long
 GNEApplicationWindow::onUpdReloadAdditionalElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isAdditionalFileDefined()) {
+    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isFilenameDefined(GNETagProperties::File::ADDITIONAL)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3903,10 +3903,10 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     }
     // check if we have to set the output filename
     if (sel == MID_GNE_AUTOMATICFILENAME) {
-        savingFileHandler->setDefaultAdditionalFile(*(static_cast<std::string*>(ptr)) + ".add.xml", false);
+        savingFileHandler->setDefaultFilenameFile(GNETagProperties::File::ADDITIONAL, *(static_cast<std::string*>(ptr)) + ".add.xml", false);
     }
     // check if we have to open save as dialog
-    if (!savingFileHandler->isAdditionalFileDefined()) {
+    if (!savingFileHandler->isFilenameDefined(GNETagProperties::File::ADDITIONAL)) {
         // choose file to save
         return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
     } else {
@@ -4055,7 +4055,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // iterate over all demand elements
-    for (const auto& bucket : myNet->getSavingFilesHandler()->getDemandFileBuckets()) {
+    for (const auto& bucket : myNet->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DEMAND)) {
         // Create handler
         GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
@@ -4084,7 +4084,7 @@ long
 GNEApplicationWindow::onUpdReloadDemandElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isDemandFileDefined()) {
+    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isFilenameDefined(GNETagProperties::File::DEMAND)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4104,10 +4104,10 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     }
     // check if we have to set the output filename
     if (sel == MID_GNE_AUTOMATICFILENAME) {
-        savingFileHandler->setDefaultDemandFile(*(static_cast<std::string*>(ptr)) + ".rou.xml", false);
+        savingFileHandler->setDefaultFilenameFile(GNETagProperties::File::DEMAND, *(static_cast<std::string*>(ptr)) + ".rou.xml", false);
     }
     // check if we have to open save as dialog
-    if (!savingFileHandler->isDemandFileDefined()) {
+    if (!savingFileHandler->isFilenameDefined(GNETagProperties::File::DEMAND)) {
         // choose file to save
         return onCmdSaveDemandElementsUnified(sender, sel, ptr);
     } else {
@@ -4228,7 +4228,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // clear data elements
     myNet->clearDataElements(myUndoList);
     // iterate over all data elements
-    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getMeanDataFileBuckets()) {
+    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DATA)) {
         // Create additional handler
         GNEDataHandler dataHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
@@ -4259,7 +4259,7 @@ long
 GNEApplicationWindow::onUpdReloadDataElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isDataFileDefined()) {
+    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isFilenameDefined(GNETagProperties::File::DATA)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4279,10 +4279,10 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to set the output filename
     if (sel == MID_GNE_AUTOMATICFILENAME) {
-        savingFileHandler->setDefaultDataFile(*(static_cast<std::string*>(ptr)) + ".xml", false);
+        savingFileHandler->setDefaultFilenameFile(GNETagProperties::File::DATA, *(static_cast<std::string*>(ptr)) + ".xml", false);
     }
     // check if we have to open save as dialog
-    if (!savingFileHandler->isDataFileDefined()) {
+    if (!savingFileHandler->isFilenameDefined(GNETagProperties::File::DATA)) {
         return onCmdSaveDataElementsUnified(sender, sel, ptr);
     } else {
         try {
@@ -4392,7 +4392,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
     // iterate over all data elements
-    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getMeanDataFileBuckets()) {
+    for (const auto& bucket : myViewNet->getNet()->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::MEANDATA)) {
         // Create general handler
         GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
@@ -4421,7 +4421,7 @@ long
 GNEApplicationWindow::onUpdReloadMeanDataElements(FXObject* sender, FXSelector, void*) {
     if (myViewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isMeanDataFileDefined()) {
+    } else if (!myViewNet->getNet()->getSavingFilesHandler()->isFilenameDefined(GNETagProperties::File::MEANDATA)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4441,10 +4441,10 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     }
     // check if we have to set the output filename
     if (sel == MID_GNE_AUTOMATICFILENAME) {
-        savingFileHandler->setDefaultMeanDataFile(*(static_cast<std::string*>(ptr)) + ".dat.add.xml", false);
+        savingFileHandler->setDefaultFilenameFile(GNETagProperties::File::MEANDATA, *(static_cast<std::string*>(ptr)) + ".dat.add.xml", false);
     }
     // check if we have to open save as dialog
-    if (!savingFileHandler->isMeanDataFileDefined()) {
+    if (!savingFileHandler->isFilenameDefined(GNETagProperties::File::MEANDATA)) {
         return onCmdSaveMeanDataElementsUnified(sender, sel, ptr);
     } else {
         try {
@@ -4795,7 +4795,7 @@ GNEApplicationWindow::loadAdditionalElements() {
         mySumoOptions.resetDefault("additional-files");
     } else if (myNet && (additionalFiles.size() > 0)) {
         // set default demand file
-        myNet->getSavingFilesHandler()->setDefaultAdditionalFile(additionalFiles.front(), false);
+        myNet->getSavingFilesHandler()->setDefaultFilenameFile(GNETagProperties::File::ADDITIONAL, additionalFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4851,7 +4851,7 @@ GNEApplicationWindow::loadDemandElements() {
         mySumoOptions.resetDefault("route-files");
     } else if (myNet && (demandFiles.size() > 0)) {
         // set default demand file
-        myNet->getSavingFilesHandler()->setDefaultDemandFile(demandFiles.front(), false);
+        myNet->getSavingFilesHandler()->setDefaultFilenameFile(GNETagProperties::File::DEMAND, demandFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4897,7 +4897,7 @@ GNEApplicationWindow::loadDataElements() {
     const auto& dataFiles = neteditOptions.getStringVector("data-files");
     if (myNet && (dataFiles.size() > 0)) {
         // set default demand file
-        myNet->getSavingFilesHandler()->setDefaultDataFile(dataFiles.front(), false);
+        myNet->getSavingFilesHandler()->setDefaultFilenameFile(GNETagProperties::File::DATA, dataFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4943,7 +4943,7 @@ GNEApplicationWindow::loadMeanDataElements() {
     const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
     if (myNet && (meanDataFiles.size() > 0)) {
         // set default demand file
-        myNet->getSavingFilesHandler()->setDefaultMeanDataFile(meanDataFiles.front(), false);
+        myNet->getSavingFilesHandler()->setDefaultFilenameFile(GNETagProperties::File::MEANDATA, meanDataFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist

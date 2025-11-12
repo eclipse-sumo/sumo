@@ -2357,7 +2357,7 @@ GNENet::saveAdditionalsConfirmed() {
     // update netedit connfig
     mySavingFilesHandler->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getAdditionalFileBuckets()) {
+    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::ADDITIONAL)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2427,7 +2427,7 @@ GNENet::saveDemandElementsConfirmed() {
     // update netedit connfig
     mySavingFilesHandler->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getDemandFileBuckets()) {
+    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::DEMAND)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2478,7 +2478,7 @@ GNENet::saveDataElementsConfirmed() {
     // update netedit connfig
     mySavingFilesHandler->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getDataFileBuckets()) {
+    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::DATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2508,7 +2508,7 @@ GNENet::saveMeanDatasConfirmed() {
     // update netedit connfig
     mySavingFilesHandler->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getMeanDataFileBuckets()) {
+    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::MEANDATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
