@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-11-10 14:26+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-12 12:03+0000\n"
+"Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
+"python-tools/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
@@ -39,7 +41,7 @@ msgstr ""
 
 #: tools/game/runner.py:72
 msgid "Simple Junction"
-msgstr ""
+msgstr "Jednoduchá křižovatka"
 
 #: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
