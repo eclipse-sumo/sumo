@@ -3110,30 +3110,25 @@ GNENetHelper::ACTemplate::getTemplateAC(const std::string& selectorText) const {
 
 GNENetHelper::SavingFilesHandler::SavingFilesHandler(GNENet* net) :
     myNet(net) {
-    // create default buckets
-    myNetworkFileBucket = new GNEFileBucket("", true);
-    myAdditionalFileBuckets.push_back(new GNEFileBucket("", true));
-    myDemandFileBuckets.push_back(new GNEFileBucket("", true));
-    myDataFileBuckets.push_back(new GNEFileBucket("", true));
-    myMeanDataFileBuckets.push_back(new GNEFileBucket("", true));
+    // create default buckets (demand and meanData always before additionals!)
+    myBuckets[GNETagProperties::File::NETWORK].push_back(new GNEFileBucket(GNETagProperties::File::NETWORK));
+    myBuckets[GNETagProperties::File::DEMAND].push_back(new GNEFileBucket(GNETagProperties::File::DEMAND));
+    myBuckets[GNETagProperties::File::MEANDATA].push_back(new GNEFileBucket(GNETagProperties::File::MEANDATA));
+    myBuckets[GNETagProperties::File::ADDITIONAL].push_back(new GNEFileBucket(GNETagProperties::File::ADDITIONAL));
+    myBuckets[GNETagProperties::File::DATA].push_back(new GNEFileBucket(GNETagProperties::File::DATA));
+    // create invalid bucket
+    myInvalidBucket = new GNEFileBucket(GNETagProperties::File::INVALID);
 }
 
 
 GNENetHelper::SavingFilesHandler::~SavingFilesHandler() {
     // delete buckets
-    delete myNetworkFileBucket;
-    for (auto bucket : myAdditionalFileBuckets) {
-        delete bucket;
+    for (auto &bucketVector : myBuckets) {
+        for (auto &bucket : bucketVector.second) {
+            delete bucket;
+        }
     }
-    for (auto bucket : myDemandFileBuckets) {
-        delete bucket;
-    }
-    for (auto bucket : myDataFileBuckets) {
-        delete bucket;
-    }
-    for (auto bucket : myMeanDataFileBuckets) {
-        delete bucket;
-    }
+    delete myInvalidBucket;
 }
 
 
@@ -3141,10 +3136,10 @@ void
 GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get files
-    const auto additionalFiles = parsingSavingFiles(myAdditionalFileBuckets);
-    const auto demandElementFiles = parsingSavingFiles(myDemandFileBuckets);
-    const auto dataElementFiles = parsingSavingFiles(myDataFileBuckets);
-    const auto meanDataElementFiles = parsingSavingFiles(myMeanDataFileBuckets);
+    const auto additionalFiles = parsingSavingFiles(GNETagProperties::File::ADDITIONAL);
+    const auto demandElementFiles = parsingSavingFiles(GNETagProperties::File::DEMAND);
+    const auto dataElementFiles = parsingSavingFiles(GNETagProperties::File::DATA);
+    const auto meanDataElementFiles = parsingSavingFiles(GNETagProperties::File::MEANDATA);
     // additionals
     neteditOptions.resetWritable();
     if (additionalFiles.size() > 0) {
@@ -3178,169 +3173,165 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
-    if (AC->getTagProperty()->saveInNetworkFile()) {
-        // due all network elements are saved in the same file, it's not neccesary to save it in the bucket
-        return nullptr;
-    } else if (AC->getTagProperty()->saveInAdditionalFile()) {
-        // insert in additional bucket
-        for (const auto& bucket : myAdditionalFileBuckets) {
+    // iterate over all buckets to check if the given filename already exist
+    for (auto &bucketVector : myBuckets) {
+        for (auto &bucket : bucketVector.second) {
             if (bucket->getFilename() == filename) {
-                bucket->addAC(AC);
-                return bucket;
+                // continue depending if this AC can be registered in this type of bucket
+                if (AC->getTagProperty()->isFileCompatible(bucket->getFileType())) {
+                    bucket->addAC(AC);
+                    return bucket;
+                } else {
+                    // in this case, put the AC in the invalid element bucket
+                    myInvalidBucket->addAC(AC);
+                    return myInvalidBucket;
+                }
             }
         }
-        // create a new bucket for this filename
-        myAdditionalFileBuckets.push_back(new GNEFileBucket(filename, true));
-        myAdditionalFileBuckets.back()->addAC(AC);
-        return myAdditionalFileBuckets.back();
-    } else if (AC->getTagProperty()->saveInDemandFile()) {
-        // insert in demand bucket
-        for (const auto& bucket : myDemandFileBuckets) {
-            if (bucket->getFilename() == filename) {
-                bucket->addAC(AC);
-                return bucket;
-            }
-        }
-        // create a new bucket for this filename
-        myDemandFileBuckets.push_back(new GNEFileBucket(filename, true));
-        myDemandFileBuckets.back()->addAC(AC);
-        return myDemandFileBuckets.back();
-    } else if (AC->getTagProperty()->saveInDataFile()) {
-        // insert in data bucket
-        for (const auto& bucket : myDataFileBuckets) {
-            if (bucket->getFilename() == filename) {
-                bucket->addAC(AC);
-                return bucket;
-            }
-        }
-        // create a new bucket for this filename
-        myDataFileBuckets.push_back(new GNEFileBucket(filename, true));
-        myDataFileBuckets.back()->addAC(AC);
-        return myDataFileBuckets.back();
-    } else if (AC->getTagProperty()->saveInMeanDataFile()) {
-        // insert in data bucket
-        for (const auto& bucket : myMeanDataFileBuckets) {
-            if (bucket->getFilename() == filename) {
-                bucket->addAC(AC);
-                return bucket;
-            }
-        }
-        // create a new bucket for this filename
-        myMeanDataFileBuckets.push_back(new GNEFileBucket(filename, true));
-        myMeanDataFileBuckets.back()->addAC(AC);
-        return myMeanDataFileBuckets.back();
-    } else {
-        return nullptr;
     }
+    // if we didn't found a bucket whit the given filename, create new
+    for (auto &bucketVector : myBuckets) {
+        // this front() call is secure because every bucket group have always at least one default bucket)
+        const auto bucketType = bucketVector.second.front()->getFileType();
+        // check compatibility
+        if (AC->getTagProperty()->isFileCompatible(bucketType)) {
+            auto bucket = new GNEFileBucket(bucketType, filename);
+            myBuckets.at(bucketType).push_back(bucket);
+            bucket->addAC(AC);
+            return bucket;
+        }
+    }
+    // on this point this case, put the AC in the invalid element bucket
+    myInvalidBucket->addAC(AC);
+    return myInvalidBucket;
 }
 
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
-    if (AC->getTagProperty()->saveInNetworkFile()) {
-        // due all network elements are saved in the same file, it's not neccesary to save it in the bucket
-        return nullptr;
-    } else {
-        return nullptr;
-    }
+    // simply unregister and register
+    unregisterAC(AC);
+    return registerAC(AC, filename);
 }
 
 
-void
+bool
 GNENetHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
-    if (AC->getTagProperty()->saveInNetworkFile()) {
-        // due all network elements are saved in the same file, it's not neccesary to save it in the bucket
+    // iterate over all buckets to check if the given filename already exist
+    for (auto &bucketVector : myBuckets) {
+        for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
+            auto bucket = (*it);
+            if (bucket->hasAC(AC)) {
+                // remove AC from bucket
+                bucket->removeAC(AC);
+                // check if remove bucket (except if is a default bucket)
+                if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
+                    bucketVector.second.erase(it);
+                }
+                return true;
+            }
+        }
+    }
+    // on this point, check if AC is in invalid bucket
+    if (myInvalidBucket->hasAC(AC)) {
+        myInvalidBucket->removeAC(AC);
+        return true;
     } else {
-        AC->getFileBucket()->removeAC(AC);
+        // the AC was not inserted, throw error
+        throw ProcessError("Error unregistering AC=" + AC->getID());
     }
 }
 
 
 const std::vector<GNEFileBucket*>&
 GNENetHelper::SavingFilesHandler::getAdditionalFileBuckets() const {
-    return myAdditionalFileBuckets;
+    return myBuckets.at(GNETagProperties::File::ADDITIONAL);
 }
 
 
 bool
 GNENetHelper::SavingFilesHandler::isAdditionalFileDefined() const {
-    return (myAdditionalFileBuckets.size() == 1) && myAdditionalFileBuckets.front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::ADDITIONAL).size() == 1) &&
+            myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().empty();
 }
 
 
 void
 GNENetHelper::SavingFilesHandler::setDefaultAdditionalFile(const std::string& filename, const bool force) {
-    if (myAdditionalFileBuckets.front()->getFilename().empty() || force) {
-        myAdditionalFileBuckets.front()->setFilename(filename);
+    if (myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().empty() || force) {
+        myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->setFilename(filename);
     }
 }
 
 
 const std::vector<GNEFileBucket*>&
 GNENetHelper::SavingFilesHandler::getDemandFileBuckets() const {
-    return myDemandFileBuckets;
+    return myBuckets.at(GNETagProperties::File::DEMAND);
 }
 
 
 bool
 GNENetHelper::SavingFilesHandler::isDemandFileDefined() const {
-    return (myDemandFileBuckets.size() == 1) && myDemandFileBuckets.front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::DEMAND).size() == 1) &&
+            myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().empty();
 }
 
 
 void
 GNENetHelper::SavingFilesHandler::setDefaultDemandFile(const std::string& filename, const bool force) {
-    if (myDemandFileBuckets.front()->getFilename().empty() || force) {
-        myDemandFileBuckets.front()->setFilename(filename);
+    if (myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().empty() || force) {
+        myBuckets.at(GNETagProperties::File::DEMAND).front()->setFilename(filename);
     }
 }
 
 
 const std::vector<GNEFileBucket*>&
 GNENetHelper::SavingFilesHandler::getDataFileBuckets() const {
-    return myDataFileBuckets;
+    return myBuckets.at(GNETagProperties::File::DATA);
 }
 
 
 bool
 GNENetHelper::SavingFilesHandler::isDataFileDefined() const {
-    return (myDataFileBuckets.size() == 1) && myDataFileBuckets.front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::DATA).size() == 1) &&
+            myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().empty();
 }
 
 
 void
 GNENetHelper::SavingFilesHandler::setDefaultDataFile(const std::string& filename, const bool force) {
-    if (myDataFileBuckets.front()->getFilename().empty() || force) {
-        myDataFileBuckets.front()->setFilename(filename);
+    if (myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().empty() || force) {
+        myBuckets.at(GNETagProperties::File::DATA).front()->setFilename(filename);
     }
 }
 
 
 const std::vector<GNEFileBucket*>&
 GNENetHelper::SavingFilesHandler::getMeanDataFileBuckets() const {
-    return myMeanDataFileBuckets;
+    return myBuckets.at(GNETagProperties::File::MEANDATA);
 }
 
 
 bool
 GNENetHelper::SavingFilesHandler::isMeanDataFileDefined() const {
-    return (myMeanDataFileBuckets.size() == 1) && myMeanDataFileBuckets.front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::MEANDATA).size() == 1) &&
+            myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().empty();
 }
 
 
 void
 GNENetHelper::SavingFilesHandler::setDefaultMeanDataFile(const std::string& filename, const bool force) {
-    if (myMeanDataFileBuckets.front()->getFilename().empty() || force) {
-        myMeanDataFileBuckets.front()->setFilename(filename);
+    if (myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().empty() || force) {
+        myBuckets.at(GNETagProperties::File::MEANDATA).front()->setFilename(filename);
     }
 }
 
 
 std::string
-GNENetHelper::SavingFilesHandler::parsingSavingFiles(const std::vector<GNEFileBucket*>& buckets) const {
+GNENetHelper::SavingFilesHandler::parsingSavingFiles(GNETagProperties::File file) const {
     std::string savingFileNames;
     // group all saving files in a single string separated with comma
-    for (const auto& bucket : buckets) {
+    for (const auto& bucket : myBuckets.at(file)) {
         savingFileNames.append(bucket->getFilename() + ",");
     }
     // remove last ','

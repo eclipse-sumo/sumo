@@ -27,6 +27,7 @@
 #include <netbuild/NBVehicle.h>
 #include <netedit/changes/GNEChange.h>
 #include <netedit/dialogs/GNEDialog.h>
+#include <netedit/GNETagProperties.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/fxheader.h>
@@ -943,7 +944,7 @@ struct GNENetHelper {
         GNEFileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
 
         /// @brief register AC (called during AC deletion)
-        void unregisterAC(const GNEAttributeCarrier* AC);
+        bool unregisterAC(const GNEAttributeCarrier* AC);
 
         /// @brief vector with all file buckets
         const std::vector<GNEFileBucket*>& getAdditionalFileBuckets() const;
@@ -985,23 +986,14 @@ struct GNENetHelper {
         /// @brief pointer to net
         GNENet* myNet;
 
-        /// @brief network fileBucket (currently only used for filename, because all network elementes are saved in the same file
-        GNEFileBucket* myNetworkFileBucket = nullptr;
+        /// @brief map with the buckets
+        std::map<GNETagProperties::File, std::vector<GNEFileBucket*> > myBuckets;
 
-        /// @brief vector with all file buckets
-        std::vector<GNEFileBucket*> myAdditionalFileBuckets;
-
-        /// @brief vector with all file buckets
-        std::vector<GNEFileBucket*> myDemandFileBuckets;
-
-        /// @brief vector with all file buckets
-        std::vector<GNEFileBucket*> myDataFileBuckets;
-
-        /// @brief vector with all file buckets
-        std::vector<GNEFileBucket*> myMeanDataFileBuckets;
+        /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
+        GNEFileBucket* myInvalidBucket;
 
         /// @brief parsing saving files
-        std::string parsingSavingFiles(const std::vector<GNEFileBucket*>& buckets) const;
+        std::string parsingSavingFiles(GNETagProperties::File file) const;
 
         /// @brief Invalidated default constructor.
         SavingFilesHandler() = delete;

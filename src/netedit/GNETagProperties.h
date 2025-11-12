@@ -144,6 +144,7 @@ public:
         PARENT_ADDITIONAL = 1ULL << 5,    // Element must be saved in the same file of their first parent additional
         PARENT_DEMAND =     1ULL << 6,    // Element must be saved in the same file of their first parent demand element
         PARENT_DATA =       1ULL << 7,    // Element must be saved in the same file of their first parent data element
+        INVALID =           1ULL << 7,    // Used for invalid element bucket in GNEFileBucket
     };
 
     // @brief conflicts
@@ -568,6 +569,9 @@ public:
 
     /// @brief file
     /// @{
+    /// @brief check if the given File property is compatible with this TagProperty
+    bool isFileCompatible(GNETagProperties::File file) const;
+
     /// @brief element is saved in a network file
     bool saveInNetworkFile() const;
 

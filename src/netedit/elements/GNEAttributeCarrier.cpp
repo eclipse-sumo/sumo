@@ -931,7 +931,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
-                myNet->getSavingFilesHandler()->updateAC(this, value);
+                myFileBucket = myNet->getSavingFilesHandler()->updateAC(this, value);
             }
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:
