@@ -23,6 +23,8 @@
 #include <unordered_set>
 #include <string>
 
+#include <netedit/GNETagProperties.h>
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -36,11 +38,17 @@ class GNEAttributeCarrier;
 class GNEFileBucket {
 
 public:
+    /// @brief Constructor for default bucket
+    GNEFileBucket(GNETagProperties::File fileType);
+
     /// @brief Constructor
-    GNEFileBucket(const std::string filename, const bool defaultBucket);
+    GNEFileBucket(GNETagProperties::File fileType, const std::string filename);
 
     /// @brief destructor
     ~GNEFileBucket();
+
+    /// @brief get file type
+    GNETagProperties::File getFileType() const;
 
     /// @brief get filename
     const std::string& getFilename() const;
@@ -51,13 +59,27 @@ public:
     /// @brief check if this is a default bucket
     bool isDefaultBucket() const;
 
+    /// @brief check if this bucket is empty
+    bool isEmpty() const;
+
+    /// @brief function related with ACs
+    /// @{
+
     /// @brief add AC in bucket
     void addAC(const GNEAttributeCarrier* AC);
 
     /// @brief remove AC
     void removeAC(const GNEAttributeCarrier* AC);
 
+    /// @brief check if the given AC exist in this bucket
+    bool hasAC(const GNEAttributeCarrier* AC) const;
+    
+    /// @}
+
 private:
+    /// @brief fileType
+    const GNETagProperties::File myFileType;
+
     /// @brief filename
     std::string myFilename;
 

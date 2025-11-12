@@ -18,20 +18,33 @@
 // class used for link ACs with their filenames
 /****************************************************************************/
 
-#include "GNEFileBucket.h"
 #include "GNEAttributeCarrier.h"
+#include "GNEFileBucket.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEFileBucket::GNEFileBucket(const std::string filename, const bool defaultBucket) :
+GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType) :
+    myFileType(fileType),
+    myDefaultBucket(true) {
+}
+
+
+GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType, const std::string filename) :
+    myFileType(fileType),
     myFilename(filename),
-    myDefaultBucket(defaultBucket) {
+    myDefaultBucket(true) {
 }
 
 
 GNEFileBucket::~GNEFileBucket() {}
+
+
+GNETagProperties::File
+GNEFileBucket::getFileType() const {
+    return myFileType;
+}
 
 
 const std::string&
@@ -52,6 +65,12 @@ GNEFileBucket::isDefaultBucket() const {
 }
 
 
+bool
+GNEFileBucket::isEmpty() const {
+    return myACs.empty();
+}
+
+
 void
 GNEFileBucket::addAC(const GNEAttributeCarrier* AC) {
     myACs.insert(AC);
@@ -61,6 +80,12 @@ GNEFileBucket::addAC(const GNEAttributeCarrier* AC) {
 void
 GNEFileBucket::removeAC(const GNEAttributeCarrier* AC) {
     myACs.erase(AC);
+}
+
+
+bool
+GNEFileBucket::hasAC(const GNEAttributeCarrier* AC) const {
+    return myACs.find(AC) != myACs.end();
 }
 
 /****************************************************************************/
