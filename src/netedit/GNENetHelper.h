@@ -946,41 +946,14 @@ struct GNENetHelper {
         /// @brief register AC (called during AC deletion)
         bool unregisterAC(const GNEAttributeCarrier* AC);
 
-        /// @brief vector with all file buckets
-        const std::vector<GNEFileBucket*>& getAdditionalFileBuckets() const;
+        /// @brief get vector with the fileBuckets related with the given file
+        const std::vector<GNEFileBucket*>& getFileBuckets(GNETagProperties::File file) const;
 
         /// @brief check if at least we have an additional file defined
-        bool isAdditionalFileDefined() const;
+        bool isFilenameDefined(GNETagProperties::File file) const;
 
         /// brief set default additional file
-        void setDefaultAdditionalFile(const std::string& filename, const bool force);
-
-        /// @brief vector with all file buckets
-        const std::vector<GNEFileBucket*>& getDemandFileBuckets() const;
-
-        /// @brief check if default demand file was defined
-        bool isDemandFileDefined() const;
-
-        /// brief set default demand file
-        void setDefaultDemandFile(const std::string& filename, const bool force);
-
-        /// @brief vector with all file buckets
-        const std::vector<GNEFileBucket*>& getDataFileBuckets() const;
-
-        /// @brief check if default data file was defined
-        bool isDataFileDefined() const;
-
-        /// brief set default data file
-        void setDefaultDataFile(const std::string& filename, const bool force);
-
-        /// @brief vector with all file buckets
-        const std::vector<GNEFileBucket*>& getMeanDataFileBuckets() const;
-
-        /// @brief check if default meanData file was defined
-        bool isMeanDataFileDefined() const;
-
-        /// brief set default MeanData file
-        void setDefaultMeanDataFile(const std::string& filename, const bool force);
+        void setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force);
 
     private:
         /// @brief pointer to net

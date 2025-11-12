@@ -3274,84 +3274,21 @@ GNENetHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
 
 
 const std::vector<GNEFileBucket*>&
-GNENetHelper::SavingFilesHandler::getAdditionalFileBuckets() const {
-    return myBuckets.at(GNETagProperties::File::ADDITIONAL);
+GNENetHelper::SavingFilesHandler::getFileBuckets(GNETagProperties::File file) const {
+    return myBuckets.at(file);
 }
 
 
 bool
-GNENetHelper::SavingFilesHandler::isAdditionalFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().size() > 0);
+GNENetHelper::SavingFilesHandler::isFilenameDefined(GNETagProperties::File file) const {
+    return (myBuckets.at(file).front()->getFilename().size() > 0);
 }
 
 
 void
-GNENetHelper::SavingFilesHandler::setDefaultAdditionalFile(const std::string& filename, const bool force) {
-    if (myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().empty() || force) {
-        myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->setFilename(filename);
-    }
-}
-
-
-const std::vector<GNEFileBucket*>&
-GNENetHelper::SavingFilesHandler::getDemandFileBuckets() const {
-    return myBuckets.at(GNETagProperties::File::DEMAND);
-}
-
-
-bool
-GNENetHelper::SavingFilesHandler::isDemandFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().size() > 0);
-
-}
-
-
-void
-GNENetHelper::SavingFilesHandler::setDefaultDemandFile(const std::string& filename, const bool force) {
-    if (myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().empty() || force) {
-        myBuckets.at(GNETagProperties::File::DEMAND).front()->setFilename(filename);
-    }
-}
-
-
-const std::vector<GNEFileBucket*>&
-GNENetHelper::SavingFilesHandler::getDataFileBuckets() const {
-    return myBuckets.at(GNETagProperties::File::DATA);
-}
-
-
-bool
-GNENetHelper::SavingFilesHandler::isDataFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().size() > 0);
-
-}
-
-
-void
-GNENetHelper::SavingFilesHandler::setDefaultDataFile(const std::string& filename, const bool force) {
-    if (myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().empty() || force) {
-        myBuckets.at(GNETagProperties::File::DATA).front()->setFilename(filename);
-    }
-}
-
-
-const std::vector<GNEFileBucket*>&
-GNENetHelper::SavingFilesHandler::getMeanDataFileBuckets() const {
-    return myBuckets.at(GNETagProperties::File::MEANDATA);
-}
-
-
-bool
-GNENetHelper::SavingFilesHandler::isMeanDataFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().size() > 0);
-
-}
-
-
-void
-GNENetHelper::SavingFilesHandler::setDefaultMeanDataFile(const std::string& filename, const bool force) {
-    if (myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().empty() || force) {
-        myBuckets.at(GNETagProperties::File::MEANDATA).front()->setFilename(filename);
+GNENetHelper::SavingFilesHandler::setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force) {
+    if (myBuckets.at(file).front()->getFilename().empty() || force) {
+        myBuckets.at(file).front()->setFilename(filename);
     }
 }
 
