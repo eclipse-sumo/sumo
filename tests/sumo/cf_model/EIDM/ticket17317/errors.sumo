@@ -1,3 +1,2 @@
 Warning: Teleporting vehicle 'ego'; waited too long (blocked), lane='SC_0', time=41.80.
 Warning: Vehicle 'ego' ends teleporting on edge 'CE', time=41.80.
-Warning: Vehicle 'ego' performs emergency braking on lane 'CE_0' with decel=69.45, wished=4.50, severity=14.43, time=42.00.
