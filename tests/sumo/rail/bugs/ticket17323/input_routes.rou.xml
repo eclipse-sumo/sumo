@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-12T10:25:01.458067+01:00 by Eclipse SUMO netedit v1_24_0+1834-dc9da18f5ef
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="train" length="20.00" vClass="rail"/>
+    <!-- Routes -->
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="v_0" type="train" depart="0.00" fromJunction="left0" toJunction="right0" departSpeed="desired" departPos="last" speedFactor="1.0"/>
+    <trip id="v_1" type="train" depart="0.00" fromJunction="left0" toJunction="right0" departSpeed="max" departPos="last"/>
+</routes>

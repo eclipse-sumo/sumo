@@ -5714,6 +5714,8 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
                            time2string(MSNet::getInstance()->getCurrentTimeStep()));
             myStops.pop_front();
         }
+        // avoid startup-effects after teleport
+        myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
 
     }
     computeFurtherLanes(enteredLane, pos);

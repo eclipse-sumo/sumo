@@ -34,6 +34,8 @@ title: ChangeLog
   - Option **--load-state.remove-vehicles** now permits to re-use the removed vehicle-id with a new route #17270
   - Fixed crash when vehicle is inserted on an internal lane with invalid route and option **--ignore-route-errors** #17248
   - Fixed inflated density in lane/edgeData output #16241
+  - Fixed emergency braking after teleport when using the EIDM carFollowModel #17317
+  - Fixed unsafe train insertion before short signal blocks #17323
 
 - netedit
   - Fixed invalid Id when joining traffic light junctions multiple times #17010 (regression in 1.11.0)
@@ -46,7 +48,9 @@ title: ChangeLog
   - POI locator sorts IDs again #16963 (regression in 1.22.0)
   - E2 detectors can be moved again #15551 (regression in 1.22.0)
   - Tool tip in inspect mode and create-object mode for mouse-over-attribute are working again #17239 (regression in 1.22.0)
+  - Adding members to a vTypeDistribution is working again #16948 (regression in 1.23.0)
   - Turnaround connections are now visible for bidi-rail edges (again) #16956 (regression in 1.23.1)
+  - Fixed invalid file contents when saving a vTypeDistribution under a new demand file name (regression in 1.24.0)
   - Inspected trip no longer shows superfluous id when gui setting addName is active #17061
   - Transforming a vehicle with route id into a flow now preserves the route id #17017
   - Disabled "Assign E1 Detector" mode for invalid tlTypes #16949
@@ -126,7 +130,8 @@ title: ChangeLog
   - abstractRail.py: now gracefully handles stop input with invalid startPos or endPos #17027
   - abstractRail.py: corrected naming of temporary net when using .net.xml.gz input with option **--split** #17029
   - routeSampler.py: mismatch-output for tazRelations is now also written as tazRelations #17049
-  - osmWebWizard.py: no longer fails to start a second instance #16663  
+  - osmWebWizard.py: no longer fails to start a second instance #16663
+  - netdiff.py: Fixed plain-output file names when running diff on .net.xml.gz files #17319
 
 ### Enhancements
 

@@ -1,0 +1,7 @@
+-n net2.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--time-to-teleport 30
+--fcd-output.acceleration
+--device.fcd.explicit ego
+--step-length 0.2
