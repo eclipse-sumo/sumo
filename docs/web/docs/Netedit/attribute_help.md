@@ -103,7 +103,7 @@
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for busStop|
 |color|color|The RGBA color with which the busStop shall be displayed *default:* **invisible**|
-|angle|angle[0, 360]|Angle of busStop *default:* **0.00**|
+|angle|angle[0, 360]|Angle of waiting persons relative to lane angle *default:* **0.00**|
 |lines|list of strings|Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes|
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
@@ -118,7 +118,7 @@
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for trainStop|
 |color|color|The RGBA color with which the trainStop shall be displayed *default:* **invisible**|
-|angle|angle[0, 360]|Angle of trainStop *default:* **0.00**|
+|angle|angle[0, 360]|Angle of waiting persons relative to lane angle *default:* **0.00**|
 |lines|list of strings|Meant to be the names of the train lines that stop at this train stop. This is only used for visualization purposes|
 |personCapacity|non-negative integer|Larger numbers of persons trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop *default:* **0.00**|
@@ -143,7 +143,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop), [containerStop](#
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for containerStop|
 |color|color|The RGBA color with which the containerStop shall be displayed *default:* **invisible**|
-|angle|angle[0, 360]|Angle of containerStop *default:* **0.00**|
+|angle|angle[0, 360]|Angle of waiting containers relative to lane angle *default:* **0.00**|
 |lines|list of strings|meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes|
 |containerCapacity|non-negative integer|Larger numbers of container trying to enter will create an upstream jam on the sidewalk *default:* **6**|
 |parkingLength|float|Optional space definition for vehicles that park at this stop|
@@ -157,7 +157,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop), [containerStop](#
 |endPos|unique float|The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m *default:* **lane end**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for chargingStation|
-|angle|angle[0, 360]|Angle of chargingStation *default:* **0.00**|
+|angle|angle[0, 360]|Angle of waiting persons relative to lane angle *default:* **0.00**|
 |power|non-negative float|Charging power in W *default:* **22000.00**|
 |efficiency|float|Charging efficiency [0,1] *default:* **0.95**|
 |chargeInTransit|boolean|Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging *default:* **0**|
@@ -175,7 +175,7 @@ child element of [busStop](#busstop), [trainStop](#trainstop), [containerStop](#
 |endPos|unique float|The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m *default:* **lane end**|
 |friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
 |name|string|Optional name for parkingArea|
-|angle|angle[0, 360]|Angle of parkingArea *default:* **0.00**|
+|angle|angle[0, 360]|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise *default:* **0.00**|
 |departPos|string|Lane position in that vehicle must depart when leaves parkingArea|
 |acceptedBadges|list of strings|Accepted badges to access this parkingArea|
 |roadsideCapacity|non-negative integer| The number of parking spaces for road-side parking *default:* **0**|
@@ -761,7 +761,7 @@ child element of [variableSpeedSign](#variablespeedsign)
 |minGapLat|non-negative float|The minimum lateral gap at a speed difference of 50km/h when using the sublane-model *default:* **0.12**|
 |maxSpeedLat|non-negative float|The maximum lateral speed when using the sublane-model *default:* **1.00**|
 |actionStepLength|non-negative SUMOTime|The interval length for which vehicle performs its decision logic (acceleration and lane-changing) *default:* **0.00**|
-|probability|non-negative float|The probability when being added to a distribution without an explicit probability *default:* **1.00**|
+|probability|non-negative float|The probability when being added to a distribution *default:* **1.00**|
 |osgFile|string|3D model file for this class|
 |accel|non-negative float|The acceleration ability of vehicles of this type [m/s^2] *default:* **2.60**|
 |decel|non-negative float|The deceleration ability of vehicles of this type [m/s^2] *default:* **4.50**|
@@ -846,9 +846,8 @@ child element of [vTypeDistribution](#vtypedistribution)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
-|typeDist.|unique string|VType distribution in which this vTypeRef is defined|
 |refId|unique string|Reference ID of vType|
-|probability|non-negative float|The probability when being added to a distribution without an explicit probability *default:* **1.00**|
+|probability|non-negative float|The probability when being added to a distribution|
 
 ## route
 | Attribute | Type | Description |
@@ -858,15 +857,15 @@ child element of [vTypeDistribution](#vtypedistribution)
 |color|color|The RGBA color with which the route shall be displayed *default:* **invisible**|
 |repeat|non-negative integer|The number of times that the edges of this route shall be repeated *default:* **0**|
 |cycleTime|SUMOTime|When defining a repeating route with stops and those stops use the until attribute, the times will be shifted forward by 'cycleTime' on each repeat *default:* **0.00**|
+|probability|non-negative float|The probability when being added to a distribution *default:* **1.00**|
 
 ### routeRef
 child element of [routeDistribution](#routedistribution)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
-|routeDist.|unique string|Route distribution in which this routeRef is defined|
 |refId|unique string|Reference ID of route|
-|probability|non-negative float|The probability when being added to a distribution without an explicit probability *default:* **1.00**|
+|probability|non-negative float|The probability when being added to a distribution|
 
 ## route (routeEmbedded)
 | Attribute | Type | Description |

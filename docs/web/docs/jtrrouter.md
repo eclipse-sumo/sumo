@@ -113,6 +113,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--weights.tls-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs across a traffic light; *default:* **0** |
 | **--weights.turnaround-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for turnaround internal lanes; *default:* **5** |
+| **--weights.reversal-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for train reversal. Negative values disable reversal; *default:* **60** |
 | **--max-edges-factor** {{DT_FLOAT}} | Routes are cut off when the route edges to net edges ratio is larger than FLOAT; *default:* **2** |
 | **-T** {{DT_STR_LIST}}<br> **--turn-defaults** {{DT_STR_LIST}} | Use STR[] as default turn definition; *default:* **30,50,20** |
 | **--sink-edges** {{DT_STR_LIST}} | Use STR[] as list of sink edges |

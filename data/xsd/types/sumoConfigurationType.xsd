@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-18T19:38:05.539765+01:00 by Eclipse SUMO sumo v1_24_0+1504-c09129808c1
+<!-- generated on 2025-11-12T19:08:28.122146+01:00 by Eclipse SUMO sumo v1_24_0+1845-01be9a8093d
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -250,6 +250,7 @@
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.reversal-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
