@@ -1014,6 +1014,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         nextLane = (*link)->getViaLaneOrLane();
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
+                || (*link)->railSignalWasPassed()
                 || !(*link)->havePriority()) {
             // have to stop at junction
             std::string errorMsg = "";

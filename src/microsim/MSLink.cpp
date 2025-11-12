@@ -2356,4 +2356,16 @@ MSLink::getClosest() const {
 }
 
 
+bool
+MSLink::railSignalWasPassed() const {
+    if (myJunction != nullptr && myJunction->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        for (const auto& item : myApproachingVehicles) {
+            if (item.second.dist < SPEED2DIST(item.first->getSpeed())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 /****************************************************************************/

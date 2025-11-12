@@ -705,6 +705,9 @@ public:
         return myHavePedestrianCrossingFoe;
     }
 
+    /// @brief whether this link is for a railsignal that was passed in this step
+    bool railSignalWasPassed() const;
+
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 
