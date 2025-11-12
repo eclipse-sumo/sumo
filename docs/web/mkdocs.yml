@@ -99,8 +99,8 @@ markdown_extensions:
   - codehilite
 
 extra:
-    Version: 1.24.0
-    ReleaseDate: 22.07.2025
+    Version: 1.25.0
+    ReleaseDate: 13.11.2025
     DOI: "10.5281/zenodo.13907886"
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'

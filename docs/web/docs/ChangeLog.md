@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.25.0 (13.11.2025)
 
 ### Bugfixes
 
@@ -141,7 +141,7 @@ title: ChangeLog
   - Added options **--device.rerouting.threshold.factor** and **--device.rerouting.threshold.constant** to avoid routing if the [improvement in travel time is too low](Demand/Automatic_Routing.md#improvement_thresholds) #4635
   - The junction model parameter `jmDriveRedSpeed` now takes effect when emergency vehicles with the bluelight device pass an intersection on red #17120
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
-  - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131  
+  - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131
   - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
   - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retrieve the number of pedestrions on approach to a crossing #17229
   - All insertion warnings/errors now report the failure time #17259
@@ -187,7 +187,7 @@ title: ChangeLog
   - Element `<split>` now supports attribute `offset` to customize the lateral offset of newly created lanes #17103
   - Node attribute `roundabout="0"` can now be used to declare that a junction shall not be classified as a roundabout #10677
   - Invalid lane neighbor information with respect to connected junctions is now fixed automatically (with a warning) #17280
-  
+
 - TraCI
   - `vehicle.setSpeedMode` now takes effect for vehicles with the bluelight device #17122
 
@@ -197,7 +197,7 @@ title: ChangeLog
   - generateDetectors.py: Added option **--edge-probability** to allow randomization per edge #17044
   - instantOutToEdgeData.py: new tool to convert induction loop output to edgeData #17048
   - createOvertakingReroutes.py: new tool for building railway rerouters #16448
-  - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157  
+  - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157
   - randomTrips.py: options **--flows** and **--route-file** now writes flows and runs much faster #17200, #17204
 
 
