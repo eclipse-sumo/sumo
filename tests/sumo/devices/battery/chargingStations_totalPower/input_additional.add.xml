@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    
+    <!-- In this chargingStation vehicle don't need to stop to start charging -->
+    <parkingArea id="PA1" lane="D2_0" startPos="100" endPos="120">
+        <space x="-890" y="976" length="12" angle="90"/>
+        <space x="-890" y="972" length="12" angle="90"/>
+    </parkingArea>
+    <chargingStation id="CS1" lane="D2_0" startPos="100" endPos="120" power="11000" totalPower="15500" efficiency="0.9" chargeInTransit="false" parkingArea="PA1"/>
+    
+    <!-- In this chargingStation vehicle don't need to stop for charging but charging start with a delay of 1 timestep -->
+    <chargingStation id="CS2" lane="D2_0" startPos="200" endPos="300" power="13000" totalPower="15500" efficiency="0.8" chargeInTransit="true" chargeDelay="1"/>
+
+</additional>
