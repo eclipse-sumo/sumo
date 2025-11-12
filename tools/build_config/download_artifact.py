@@ -30,12 +30,13 @@ def request(url, token):
 
 def get_latest_artifact_url(options):
     prefix = "%s/repos/%s/%s/actions/" % (options.api_url, options.owner, options.repository)
-    workflow_id = None
+    workflow_id = 0
     response = request(prefix + "workflows", options.token)
     for workflow in response.json()['workflows']:
-        if workflow['name'] == options.workflow:
+        # for several workflows with the same name we take the one most recently created (highest id)
+        if workflow['name'] == options.workflow and workflow['id'] > workflow_id:
             workflow_id = workflow['id']
-    if workflow_id is None:
+    if workflow_id == 0:
         raise RuntimeError("Workflow '%s' not found." % options.workflow)
 
     workflow_run_ids = []
