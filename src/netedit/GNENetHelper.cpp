@@ -3267,8 +3267,7 @@ GNENetHelper::SavingFilesHandler::getAdditionalFileBuckets() const {
 
 bool
 GNENetHelper::SavingFilesHandler::isAdditionalFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::ADDITIONAL).size() == 1) &&
-            myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::ADDITIONAL).front()->getFilename().size() > 0);
 }
 
 
@@ -3288,8 +3287,8 @@ GNENetHelper::SavingFilesHandler::getDemandFileBuckets() const {
 
 bool
 GNENetHelper::SavingFilesHandler::isDemandFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::DEMAND).size() == 1) &&
-            myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::DEMAND).front()->getFilename().size() > 0);
+
 }
 
 
@@ -3309,8 +3308,8 @@ GNENetHelper::SavingFilesHandler::getDataFileBuckets() const {
 
 bool
 GNENetHelper::SavingFilesHandler::isDataFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::DATA).size() == 1) &&
-            myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::DATA).front()->getFilename().size() > 0);
+
 }
 
 
@@ -3330,8 +3329,8 @@ GNENetHelper::SavingFilesHandler::getMeanDataFileBuckets() const {
 
 bool
 GNENetHelper::SavingFilesHandler::isMeanDataFileDefined() const {
-    return (myBuckets.at(GNETagProperties::File::MEANDATA).size() == 1) &&
-            myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().empty();
+    return (myBuckets.at(GNETagProperties::File::MEANDATA).front()->getFilename().size() > 0);
+
 }
 
 
