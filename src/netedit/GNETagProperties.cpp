@@ -1036,6 +1036,12 @@ GNETagProperties::vClassIcon() const {
 
 
 bool
+GNETagProperties::isFileCompatible(GNETagProperties::File file) const {
+    return (myFile & file);
+}
+
+
+bool
 GNETagProperties::saveInNetworkFile() const {
     return (myFile & File::NETWORK);
 }
