@@ -21,3 +21,6 @@ ticket11374
 
 # warn about incompatibility with actionSteps
 ticket15557
+
+# emergency braking after teleport
+ticket17317
