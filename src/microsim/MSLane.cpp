@@ -947,7 +947,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       << " patchSpeed=" << patchSpeed
                       << " speed=" << speed
                       << " nspeed=" << nspeed
-                      << " nextLane=" << nextLane->getID()
                       << " leaders=" << leaders.toString()
                       << " failed (@700)!\n";
         }
@@ -1371,7 +1370,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                   << "\n myVehicles=" << toString(myVehicles)
                   << " myPartial=" << toString(myPartialVehicles)
                   << " myManeuverReservations=" << toString(myManeuverReservations)
-                  << "\n leaders=" << nextLeaders.toString()
                   << "\n success!\n";
     }
 #endif
