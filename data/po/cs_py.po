@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-11-12 12:03+0000\n"
+"PO-Revision-Date: 2025-11-12 18:10+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/cs/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
-msgstr ""
+msgstr "Interaktivní semafor"
 
 #: tools/game/runner.py:68
 msgid "Railway Control"
@@ -45,104 +45,104 @@ msgstr "Jednoduchá křižovatka"
 
 #: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
-msgstr ""
+msgstr "Jednoduchá křižovatka (Demo)"
 
 #: tools/game/runner.py:74
 msgid "Four Junctions"
-msgstr ""
+msgstr "Čtyři křižovatky"
 
 #: tools/game/runner.py:75
 msgid "Six Junctions"
-msgstr ""
+msgstr "Šest křižovatek"
 
 #: tools/game/runner.py:76
 msgid "Prof. Kühne"
-msgstr ""
+msgstr "Prof. Kühne"
 
 #: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
-msgstr ""
+msgstr "3D křižovatka Virtualní svět"
 
 #: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
-msgstr ""
+msgstr "3D křižovatka OpenStreetMap"
 
 #: tools/game/runner.py:79
 msgid "Highway Ramp"
-msgstr ""
+msgstr "Dálniční sjezd"
 
 #: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
-msgstr ""
+msgstr "Kombinovaný dálniční vjezd a sjezd"
 
 #: tools/game/runner.py:81
 msgid "Corridor"
-msgstr ""
+msgstr "Koridor"
 
 #: tools/game/runner.py:82
 msgid "Highway Ramp A10"
-msgstr ""
+msgstr "Dálniční sjezd A10"
 
 #: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
-msgstr ""
+msgstr "Poptávková doprava (nové)"
 
 #: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
-msgstr ""
+msgstr "Poptávková doprava - pokročílé (nové)"
 
 #: tools/game/runner.py:85
 msgid "DRT - Demo"
-msgstr ""
+msgstr "Poptávková doprava - Demo"
 
 #: tools/game/runner.py:86 /tools/game/runner.py:96
 msgid "Highscore"
-msgstr ""
+msgstr "Nejlepší skóre"
 
 #: tools/game/runner.py:87
 msgid "Reset Highscore"
-msgstr ""
+msgstr "Resetovat skóre"
 
 #: tools/game/runner.py:88
 msgid "German"
-msgstr ""
+msgstr "Němčina"
 
 #: tools/game/runner.py:89
 msgid "English"
-msgstr ""
+msgstr "Angličtina"
 
 #: tools/game/runner.py:90
 msgid "Italian"
-msgstr ""
+msgstr "Italština"
 
 #: tools/game/runner.py:91
 msgid "Spanish"
-msgstr ""
+msgstr "Španělština"
 
 #: tools/game/runner.py:92
 msgid "French"
-msgstr ""
+msgstr "Francouzština"
 
 #: tools/game/runner.py:93
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Čínština (zjednodušená)"
 
 #: tools/game/runner.py:94
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Čínština (tradiční)"
 
 #: tools/game/runner.py:95
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: tools/game/runner.py:97
 msgid "Congratulations!"
-msgstr ""
+msgstr "Gratulujeme!"
 
 #: tools/game/runner.py:98
 msgid "Your Score"
-msgstr ""
+msgstr "Vaše skóre"
 
 #: tools/game/runner.py:99
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
