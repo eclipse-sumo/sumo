@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEContour.h>
+#include <utils/gui/div/GUIGeometry.h>
 
 #include "GNEGenericData.h"
 

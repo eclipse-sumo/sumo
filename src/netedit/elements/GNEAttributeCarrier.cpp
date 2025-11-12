@@ -56,18 +56,14 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, cons
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
     myIsTemplate(isTemplate) {
-    // check if register this AC
-    if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
-        myFileBucket = myNet->getSavingFilesHandler()->registerAC(this, filename);
-    }
+    // register AC
+    myFileBucket = myNet->getSavingFilesHandler()->registerAC(this, filename);
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
-    // check if unregister this AC before deletion
-    if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
-        myNet->getSavingFilesHandler()->unregisterAC(this);
-    }
+    // unregister AC
+    myNet->getSavingFilesHandler()->unregisterAC(this);
 }
 
 
@@ -930,9 +926,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            if (!myIsTemplate && !myTagProperty->saveInParentAdditionalFile() && !myTagProperty->saveInParentDemandFile()) {
-                myFileBucket = myNet->getSavingFilesHandler()->updateAC(this, value);
-            }
+            myFileBucket = myNet->getSavingFilesHandler()->updateAC(this, value);
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:
             myCenterAfterCreation = parse<bool>(value);

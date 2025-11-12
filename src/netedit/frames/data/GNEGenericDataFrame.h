@@ -203,6 +203,9 @@ public:
         /// @brief get color for the given value
         const RGBColor& getScaledColor(const double min, const double max, const double value) const;
 
+        /// @brief getgeneric data tag
+        SumoXMLTag getGenericDataTag() const;
+
         /// @name FOX-callbacks
         /// @{
 
@@ -281,9 +284,6 @@ protected:
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator = nullptr;
-
-    /// @brief template generic data
-    GNEGenericData* myTemplateGenericData = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
