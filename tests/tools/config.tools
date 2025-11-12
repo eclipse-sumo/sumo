@@ -64,6 +64,7 @@ copy_test_path:connections.con.xml
 copy_test_path:selection.txt
 copy_test_path:input_selection.txt
 copy_test_path:source.net.xml
+copy_test_path:source.net.xml.gz
 copy_test_path:source.nod.xml
 copy_test_path:source.edg.xml
 copy_test_path:source.con.xml
@@ -71,6 +72,7 @@ copy_test_path:source.tll.xml
 copy_test_path:source.xml
 copy_test_path:source.xml.gz
 copy_test_path:dest.net.xml
+copy_test_path:dest.net.xml.gz
 copy_test_path:dest.nod.xml
 copy_test_path:dest.edg.xml
 copy_test_path:dest.con.xml

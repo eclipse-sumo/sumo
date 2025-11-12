@@ -143,7 +143,11 @@ NIImporter_ArcView::load() {
     poLayer->ResetReading();
 
     // build coordinate transformation
+#if GDAL_VERSION_MAJOR < 3
     OGRSpatialReference* origTransf = poLayer->GetSpatialRef();
+#else
+    const OGRSpatialReference* origTransf = poLayer->GetSpatialRef();
+#endif
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");

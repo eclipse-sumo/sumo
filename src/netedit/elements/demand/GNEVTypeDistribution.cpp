@@ -209,6 +209,8 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myDeterministic);
             }
+        case GNE_ATTR_DEMAND_FILE:
+            return getCommonAttribute(key);
         default:
             // get value of first referenced vType
             for (const auto& vTypeRef : getChildDemandElements()) {
