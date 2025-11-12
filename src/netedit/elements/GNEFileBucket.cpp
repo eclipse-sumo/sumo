@@ -34,7 +34,7 @@ GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType) :
 GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType, const std::string filename) :
     myFileType(fileType),
     myFilename(filename),
-    myDefaultBucket(true) {
+    myDefaultBucket(false) {
 }
 
 
