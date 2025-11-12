@@ -18,9 +18,6 @@
 // The Widget for add genericData elements
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
@@ -28,6 +25,10 @@
 #include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEPathCreator.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagPropertiesDatabase.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEGenericDataFrame.h"
@@ -489,8 +490,8 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         }
     }
     // show parameters
-    if (myGenericDataFrameParent->myTemplateGenericData) {
-        myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->myTemplateGenericData, true);
+    if (myGenericDataFrameParent->myGenericDataAttributesEditor) {
+        myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myGenericDataTag), true);
     }
     // update view net
     myGenericDataFrameParent->getViewNet()->updateViewNet();
@@ -515,6 +516,12 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
     myMinMaxLabel->setText(("Min: " + toString(min) + " -> Max: " + toString(max)).c_str());
     // return scaled color
     return GNEViewNetHelper::getRainbowScaledColor(min, max, value);
+}
+
+
+SumoXMLTag
+GNEGenericDataFrame::AttributeSelector::getGenericDataTag() const {
+    return myGenericDataTag;
 }
 
 
@@ -566,7 +573,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(myTemplateGenericData->getTagProperty(), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myAttributeSelector->getGenericDataTag(), true), false);
     }
     // show frame
     GNEFrame::show();
@@ -592,7 +599,7 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModule(myTemplateGenericData->getTagProperty(), false);
+        myPathCreator->showPathCreatorModule(myViewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(myAttributeSelector->getGenericDataTag(), true), false);
     }
 }
 
@@ -611,21 +618,10 @@ GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* 
     if (pathCreator) {
         myPathCreator = new GNEPathCreator(this, viewNet->getNet()->getDataPathManager());
     }
-    // create AC depending of tag
-    if (tag == GNE_TAG_EDGEREL_SINGLE) {
-        myTemplateGenericData = new GNEEdgeData(viewNet->getNet());
-    } else if (tag == SUMO_TAG_EDGEREL) {
-        myTemplateGenericData = new GNEEdgeRelData(viewNet->getNet());
-    } else if (tag == SUMO_TAG_TAZREL) {
-        myTemplateGenericData = new GNETAZRelData(viewNet->getNet());
-    } else {
-        throw ProcessError("Invalid data tag");
-    }
 }
 
 
 GNEGenericDataFrame::~GNEGenericDataFrame() {
-    delete myTemplateGenericData;
 }
 
 

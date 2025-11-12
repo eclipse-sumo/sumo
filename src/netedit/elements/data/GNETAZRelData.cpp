@@ -546,7 +546,9 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
     // mark interval toolbar for update
-    myNet->getViewNet()->getIntervalBar().markForUpdate();
+    if (!isTemplate()) {
+        myNet->getViewNet()->getIntervalBar().markForUpdate();
+    }
 }
 
 /****************************************************************************/

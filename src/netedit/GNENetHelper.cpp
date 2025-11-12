@@ -54,7 +54,10 @@
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignSymbol.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNEPersonTrip.h>
@@ -3064,6 +3067,10 @@ GNENetHelper::ACTemplate::buildTemplates() {
     for (const auto stopContainer : stopContainers) {
         myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
     }
+    // generic datas
+    myTemplates[GNE_TAG_EDGEREL_SINGLE] = new GNEEdgeData(myNet);
+    myTemplates[SUMO_TAG_EDGEREL] = new GNEEdgeRelData(myNet);
+    myTemplates[SUMO_TAG_TAZREL] = new GNETAZRelData(myNet);
     // reset all to their default values
     for (const auto& AC : myTemplates) {
         AC.second->resetDefaultValues(false);
@@ -3111,7 +3118,6 @@ GNENetHelper::ACTemplate::getTemplateAC(const std::string& selectorText) const {
 GNENetHelper::SavingFilesHandler::SavingFilesHandler(GNENet* net) :
     myNet(net) {
     // create default buckets (demand and meanData always before additionals!)
-    myBuckets[GNETagProperties::File::NETWORK].push_back(new GNEFileBucket(GNETagProperties::File::NETWORK));
     myBuckets[GNETagProperties::File::DEMAND].push_back(new GNEFileBucket(GNETagProperties::File::DEMAND));
     myBuckets[GNETagProperties::File::MEANDATA].push_back(new GNEFileBucket(GNETagProperties::File::MEANDATA));
     myBuckets[GNETagProperties::File::ADDITIONAL].push_back(new GNEFileBucket(GNETagProperties::File::ADDITIONAL));
@@ -3173,51 +3179,56 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
-    // check if this is a network element
-    if (AC->getTagProperty()->saveInNetworkFile()) {
-        // network elements aren't saved in buckets
-        return myBuckets[GNETagProperties::File::NETWORK].front();
-    }
-    // iterate over all buckets to check if the given filename already exist
-    for (auto &bucketVector : myBuckets) {
-        for (auto &bucket : bucketVector.second) {
-            if (bucket->getFilename() == filename) {
-                // continue depending if this AC can be registered in this type of bucket
-                if (AC->getTagProperty()->isFileCompatible(bucket->getFileType())) {
-                    bucket->addAC(AC);
-                    return bucket;
-                } else {
-                    // in this case, put the AC in the invalid element bucket
-                    myInvalidBucket->addAC(AC);
-                    return myInvalidBucket;
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() || 
+        AC->getTagProperty()->saveInParentAdditionalFile() ||
+        AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return nullptr;
+    } else {
+        // iterate over all buckets to check if the given filename already exist
+        for (auto &bucketVector : myBuckets) {
+            for (auto &bucket : bucketVector.second) {
+                if (bucket->getFilename() == filename) {
+                    // continue depending if this AC can be registered in this type of bucket
+                    if (AC->getTagProperty()->isFileCompatible(bucket->getFileType())) {
+                        bucket->addAC(AC);
+                        return bucket;
+                    } else {
+                        // in this case, put the AC in the invalid element bucket
+                        myInvalidBucket->addAC(AC);
+                        return myInvalidBucket;
+                    }
                 }
             }
         }
-    }
-    // if we didn't found a bucket whit the given filename, create new
-    for (auto &bucketVector : myBuckets) {
-        // this front() call is secure because every bucket group have always at least one default bucket)
-        const auto bucketType = bucketVector.second.front()->getFileType();
-        // check compatibility
-        if (AC->getTagProperty()->isFileCompatible(bucketType)) {
-            auto bucket = new GNEFileBucket(bucketType, filename);
-            myBuckets.at(bucketType).push_back(bucket);
-            bucket->addAC(AC);
-            return bucket;
+        // if we didn't found a bucket whit the given filename, create new
+        for (auto &bucketVector : myBuckets) {
+            // this front() call is secure because every bucket group have always at least one default bucket)
+            const auto bucketType = bucketVector.second.front()->getFileType();
+            // check compatibility
+            if (AC->getTagProperty()->isFileCompatible(bucketType)) {
+                auto bucket = new GNEFileBucket(bucketType, filename);
+                myBuckets.at(bucketType).push_back(bucket);
+                bucket->addAC(AC);
+                return bucket;
+            }
         }
+        // on this point this case, put the AC in the invalid element bucket
+        myInvalidBucket->addAC(AC);
+        return myInvalidBucket;
     }
-    // on this point this case, put the AC in the invalid element bucket
-    myInvalidBucket->addAC(AC);
-    return myInvalidBucket;
 }
 
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
-    // check if this is a network element
-    if (AC->getTagProperty()->saveInNetworkFile()) {
-        // network elements aren't saved in buckets
-        return myBuckets[GNETagProperties::File::NETWORK].front();
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() || 
+        AC->getTagProperty()->saveInParentAdditionalFile() ||
+        AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return nullptr;
     } else {
         // simply unregister and register
         unregisterAC(AC);
@@ -3228,8 +3239,11 @@ GNENetHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const 
 
 bool
 GNENetHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
-    // check if this is a network element
-    if (AC->getTagProperty()->saveInNetworkFile()) {
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() || 
+        AC->getTagProperty()->saveInParentAdditionalFile() ||
+        AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
         return true;
     } else {
         // iterate over all buckets to check if the given filename already exist

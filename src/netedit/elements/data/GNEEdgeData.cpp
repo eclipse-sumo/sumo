@@ -333,7 +333,9 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
         myDataIntervalParent->getDataSetParent()->updateAttributeColors();
     }
     // mark interval toolbar for update
-    myNet->getViewNet()->getIntervalBar().markForUpdate();
+    if (!isTemplate()) {
+        myNet->getViewNet()->getIntervalBar().markForUpdate();
+    }
 }
 
 /****************************************************************************/
