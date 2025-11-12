@@ -3173,6 +3173,11 @@ GNENetHelper::SavingFilesHandler::updateNeteditConfig() {
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
+    // check if this is a network element
+    if (AC->getTagProperty()->saveInNetworkFile()) {
+        // network elements aren't saved in buckets
+        return myBuckets[GNETagProperties::File::NETWORK].front();
+    }
     // iterate over all buckets to check if the given filename already exist
     for (auto &bucketVector : myBuckets) {
         for (auto &bucket : bucketVector.second) {
@@ -3209,36 +3214,47 @@ GNENetHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, cons
 
 GNEFileBucket*
 GNENetHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
-    // simply unregister and register
-    unregisterAC(AC);
-    return registerAC(AC, filename);
+    // check if this is a network element
+    if (AC->getTagProperty()->saveInNetworkFile()) {
+        // network elements aren't saved in buckets
+        return myBuckets[GNETagProperties::File::NETWORK].front();
+    } else {
+        // simply unregister and register
+        unregisterAC(AC);
+        return registerAC(AC, filename);
+    }
 }
 
 
 bool
 GNENetHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
-    // iterate over all buckets to check if the given filename already exist
-    for (auto &bucketVector : myBuckets) {
-        for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
-            auto bucket = (*it);
-            if (bucket->hasAC(AC)) {
-                // remove AC from bucket
-                bucket->removeAC(AC);
-                // check if remove bucket (except if is a default bucket)
-                if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
-                    bucketVector.second.erase(it);
-                }
-                return true;
-            }
-        }
-    }
-    // on this point, check if AC is in invalid bucket
-    if (myInvalidBucket->hasAC(AC)) {
-        myInvalidBucket->removeAC(AC);
+    // check if this is a network element
+    if (AC->getTagProperty()->saveInNetworkFile()) {
         return true;
     } else {
-        // the AC was not inserted, throw error
-        throw ProcessError("Error unregistering AC=" + AC->getID());
+        // iterate over all buckets to check if the given filename already exist
+        for (auto &bucketVector : myBuckets) {
+            for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
+                auto bucket = (*it);
+                if (bucket->hasAC(AC)) {
+                    // remove AC from bucket
+                    bucket->removeAC(AC);
+                    // check if remove bucket (except if is a default bucket)
+                    if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
+                        bucketVector.second.erase(it);
+                    }
+                    return true;
+                }
+            }
+        }
+        // on this point, check if AC is in invalid bucket
+        if (myInvalidBucket->hasAC(AC)) {
+            myInvalidBucket->removeAC(AC);
+            return true;
+        } else {
+            // the AC was not inserted, throw error
+            throw ProcessError("Error unregistering AC=" + AC->getID());
+        }
     }
 }
 
