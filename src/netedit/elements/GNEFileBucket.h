@@ -37,10 +37,7 @@ public:
         MEANDATA =          1ULL << 2,    // Element can be saved in a meanData file
         ADDITIONAL =        1ULL << 3,    // Element can be saved in a additional file (always after demand and meanData)
         DATA =              1ULL << 4,    // Element can be saved in a data file
-        PARENT_ADDITIONAL = 1ULL << 5,    // Element must be saved in the same file of their first parent additional
-        PARENT_DEMAND =     1ULL << 6,    // Element must be saved in the same file of their first parent demand element
-        PARENT_DATA =       1ULL << 7,    // Element must be saved in the same file of their first parent data element
-        INVALID =           1ULL << 7,    // Used for invalid element bucket in GNEFileBucket
+        NOTHING =           1ULL << 5,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket

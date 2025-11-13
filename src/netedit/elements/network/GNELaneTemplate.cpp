@@ -62,11 +62,7 @@ GNELaneTemplate::getParameters() const {
 
 const std::string&
 GNELaneTemplate::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myLane->getFilename();
-    }
+    return myLane->getFilename();
 }
 
 

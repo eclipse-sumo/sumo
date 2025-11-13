@@ -90,9 +90,7 @@ GNEAdditional::getGUIGlObject() const {
 
 const std::string&
 GNEAdditional::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else if (myTagProperty->saveInParentAdditionalFile()) {
+    if (myTagProperty->saveInParentFile()) {
         return getParentAdditionals().front()->getFilename();
     } else {
         return myFileBucket->getFilename();

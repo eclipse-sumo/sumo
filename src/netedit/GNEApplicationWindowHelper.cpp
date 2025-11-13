@@ -2345,7 +2345,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler() {
     myBuckets[GNEFileBucket::Type::ADDITIONAL].push_back(new GNEFileBucket(GNEFileBucket::Type::ADDITIONAL));
     myBuckets[GNEFileBucket::Type::DATA].push_back(new GNEFileBucket(GNEFileBucket::Type::DATA));
     // create invalid bucket
-    myInvalidBucket = new GNEFileBucket(GNEFileBucket::Type::INVALID);
+    myInvalidBucket = new GNEFileBucket(GNEFileBucket::Type::NOTHING);
 }
 
 
@@ -2402,9 +2402,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
 GNEFileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() ||
-            AC->getTagProperty()->saveInParentAdditionalFile() ||
-            AC->getTagProperty()->saveInParentDemandFile()) {
+    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
         // network and elements with parents are saved in the paren'ts bucket
         return nullptr;
     } else {
@@ -2446,9 +2444,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
 GNEFileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() ||
-            AC->getTagProperty()->saveInParentAdditionalFile() ||
-            AC->getTagProperty()->saveInParentDemandFile()) {
+    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
         // network and elements with parents are saved in the paren'ts bucket
         return nullptr;
     } else {
@@ -2462,9 +2458,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
 bool
 GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() ||
-            AC->getTagProperty()->saveInParentAdditionalFile() ||
-            AC->getTagProperty()->saveInParentDemandFile()) {
+    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
         // network and elements with parents are saved in the paren'ts bucket
         return true;
     } else {
@@ -2498,9 +2492,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
 bool
 GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() ||
-            AC->getTagProperty()->saveInParentAdditionalFile() ||
-            AC->getTagProperty()->saveInParentDemandFile()) {
+    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
         // network and elements with parents are saved in the paren'ts bucket
         return false;
     } else if (OptionsCont::getOptions().getString("net-file") == filename) {

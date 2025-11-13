@@ -25,9 +25,10 @@
 // ===========================================================================
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GNETagProperties::Type type,
-                                   const GNETagProperties::Property property, const GNETagProperties::Over over, const GNEFileBucket::Type file,
-                                   const GNETagProperties::Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType,
-                                   const SumoXMLTag XMLTag, const std::string tooltipText, const std::vector<SumoXMLTag> XMLParentTags,
+                                   const GNETagProperties::Property property, const GNETagProperties::Over over,
+                                   const GNEFileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts,
+                                   const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
+                                   const std::string tooltipText, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
     myTagStr(toString(tag)),
@@ -35,7 +36,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myType(type),
     myProperty(property),
     myOver(over),
-    myFile(file),
+    myBucketType(bucketType),
     myConflicts(conflicts),
     myIcon(icon),
     myGLType(GLType),
@@ -1037,57 +1038,44 @@ GNETagProperties::vClassIcon() const {
 
 bool
 GNETagProperties::isFileCompatible(GNEFileBucket::Type file) const {
-    return (myFile & file);
+    return (myBucketType & file);
 }
 
 
 bool
 GNETagProperties::saveInNetworkFile() const {
-    return (myFile & GNEFileBucket::Type::NETWORK);
+    return (myBucketType & GNEFileBucket::Type::NETWORK);
 }
 
 
 bool
 GNETagProperties::saveInAdditionalFile() const {
-    return (myFile & GNEFileBucket::Type::ADDITIONAL);
+    return (myBucketType & GNEFileBucket::Type::ADDITIONAL);
 }
 
 
 bool
 GNETagProperties::saveInDemandFile() const {
-    return (myFile & GNEFileBucket::Type::DEMAND);
+    return (myBucketType & GNEFileBucket::Type::DEMAND);
 }
 
 
 bool
 GNETagProperties::saveInDataFile() const {
-    return (myFile & GNEFileBucket::Type::DATA);
+    return (myBucketType & GNEFileBucket::Type::DATA);
 }
 
 
 bool
 GNETagProperties::saveInMeanDataFile() const {
-    return (myFile & GNEFileBucket::Type::MEANDATA);
+    return (myBucketType & GNEFileBucket::Type::MEANDATA);
 }
 
 
 bool
-GNETagProperties::saveInParentAdditionalFile() const {
-    return (myFile & GNEFileBucket::Type::PARENT_ADDITIONAL);
+GNETagProperties::saveInParentFile() const {
+    return (myBucketType & GNEFileBucket::Type::NOTHING);
 }
-
-
-bool
-GNETagProperties::saveInParentDemandFile() const {
-    return (myFile & GNEFileBucket::Type::PARENT_DEMAND);
-}
-
-
-bool
-GNETagProperties::saveInParentDataFile() const {
-    return (myFile & GNEFileBucket::Type::PARENT_DATA);
-}
-
 
 void
 GNETagProperties::addChild(const GNETagProperties* child) {

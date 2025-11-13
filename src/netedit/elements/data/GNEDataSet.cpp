@@ -152,11 +152,7 @@ GNEDataSet::getGUIGlObject() const {
 
 const std::string&
 GNEDataSet::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myFileBucket->getFilename();
-    }
+    return myFileBucket->getFilename();
 }
 
 

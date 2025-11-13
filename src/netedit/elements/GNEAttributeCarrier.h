@@ -393,9 +393,6 @@ public:
     /// @brief true value in string format(used for comparing boolean values in getAttribute(...))
     static const std::string FALSE_STR;
 
-    /// @brief value used for represent empty filenames
-    static const std::string EMPTY_FILENAME;
-
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties* myTagProperty;

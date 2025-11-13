@@ -194,11 +194,7 @@ GNEDataInterval::checkDrawMoveContour() const {
 
 const std::string&
 GNEDataInterval::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myDataSetParent->getFilename();
-    }
+    return myDataSetParent->getFilename();
 }
 
 

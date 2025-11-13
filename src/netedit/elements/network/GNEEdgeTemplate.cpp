@@ -68,11 +68,7 @@ GNEEdgeTemplate::getParameters() const {
 
 const std::string&
 GNEEdgeTemplate::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myEdge->getFilename();
-    }
+    return myEdge->getFilename();
 }
 
 
