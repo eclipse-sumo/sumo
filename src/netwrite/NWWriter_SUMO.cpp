@@ -228,7 +228,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // write loaded prohibitions
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        writeProhibitions(device, i->second->getProhibitions());
+        writeProhibitions(device, i->second->getProhibitions(), ec);
     }
 
     // write roundabout information
@@ -1006,12 +1006,21 @@ NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
 }
 
 void
-NWWriter_SUMO::writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions) {
+NWWriter_SUMO::writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions, const NBEdgeCont& ec) {
+    // the edges may have been erased from NBEdgeCont but their pointers are still valid so we need to check
     for (NBConnectionProhibits::const_iterator j = prohibitions.begin(); j != prohibitions.end(); j++) {
         NBConnection prohibited = (*j).first;
+        if (ec.retrieve(prohibited.getFrom()->getID()) == nullptr
+                || ec.retrieve(prohibited.getTo()->getID()) == nullptr) {
+            continue;
+        }
         const NBConnectionVector& prohibiting = (*j).second;
         for (NBConnectionVector::const_iterator k = prohibiting.begin(); k != prohibiting.end(); k++) {
             NBConnection prohibitor = *k;
+            if (ec.retrieve(prohibitor.getFrom()->getID()) == nullptr
+                    || ec.retrieve(prohibitor.getTo()->getID()) == nullptr) {
+                continue;
+            }
             into.openTag(SUMO_TAG_PROHIBITION);
             into.writeAttr(SUMO_ATTR_PROHIBITOR, prohibitionConnection(prohibitor));
             into.writeAttr(SUMO_ATTR_PROHIBITED, prohibitionConnection(prohibited));

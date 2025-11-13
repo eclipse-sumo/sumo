@@ -80,7 +80,7 @@ public:
                                 bool includeInternal, ConnectionStyle style = SUMONET, bool geoAccuracy = false);
 
     /// @brief writes the given prohibitions
-    static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions);
+    static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions, const NBEdgeCont& ec);
 
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
