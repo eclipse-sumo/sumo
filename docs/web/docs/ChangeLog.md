@@ -2,6 +2,10 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
 ## Version 1.25.0 (13.11.2025)
 
 ### Bugfixes
