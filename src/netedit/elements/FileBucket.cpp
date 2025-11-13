@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFileBucket.cpp
+/// @file    FileBucket.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2023
 ///
@@ -19,78 +19,78 @@
 /****************************************************************************/
 
 #include "GNEAttributeCarrier.h"
-#include "GNEFileBucket.h"
+#include "FileBucket.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEFileBucket::GNEFileBucket(GNEFileBucket::Type type) :
+FileBucket::FileBucket(FileBucket::Type type) :
     myFileType(type),
     myDefaultBucket(true) {
 }
 
 
-GNEFileBucket::GNEFileBucket(GNEFileBucket::Type type, const std::string filename) :
+FileBucket::FileBucket(FileBucket::Type type, const std::string filename) :
     myFileType(type),
     myFilename(filename),
     myDefaultBucket(false) {
 }
 
 
-GNEFileBucket::~GNEFileBucket() {}
+FileBucket::~FileBucket() {}
 
 
-GNEFileBucket::Type
-GNEFileBucket::getType() const {
+FileBucket::Type
+FileBucket::getType() const {
     return myFileType;
 }
 
 
 const std::string&
-GNEFileBucket::getFilename() const {
+FileBucket::getFilename() const {
     return myFilename;
 }
 
 
 void
-GNEFileBucket::setFilename(const std::string& filename) {
+FileBucket::setFilename(const std::string& filename) {
     myFilename = filename;
 }
 
 
 bool
-GNEFileBucket::isDefaultBucket() const {
+FileBucket::isDefaultBucket() const {
     return myDefaultBucket;
 }
 
 
 bool
-GNEFileBucket::isEmpty() const {
+FileBucket::isEmpty() const {
     return myElements.empty();
 }
 
 
 void
-GNEFileBucket::addElement(const void* element) {
+FileBucket::addElement(const void* element) {
     myElements.insert(element);
 }
 
 
 void
-GNEFileBucket::removeElement(const void* element) {
+FileBucket::removeElement(const void* element) {
     myElements.erase(element);
 }
 
 
 bool
-GNEFileBucket::hasElement(const void* element) const {
+FileBucket::hasElement(const void* element) const {
     return myElements.find(element) != myElements.end();
 }
 
 
 std::string
-GNEFileBucket::parseFilenames(const std::vector<GNEFileBucket*>& fileBuckets) {
+FileBucket::parseFilenames(const std::vector<FileBucket*>& fileBuckets) {
     std::string result;
     // group all saving files in a single string separated with comma
     for (const auto& bucket : fileBuckets) {

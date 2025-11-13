@@ -570,7 +570,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::JUNCTION, GUIGlObjectType::GLO_JUNCTION, currentTag, TL("Junction"));
         // set values of attributes
@@ -654,7 +654,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGETYPE, GUIGlObjectType::GLO_EDGETYPE, currentTag, TL("EdgeType"));
         // set values of attributes
@@ -712,7 +712,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::LANETYPE, GUIGlObjectType::GLO_LANETYPE, currentTag, TL("LaneType"));
         // set values of attributes
@@ -737,7 +737,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGE, GUIGlObjectType::GLO_EDGE, currentTag, TL("Edge"));
         // set values of attributes
@@ -858,7 +858,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::LANE, GUIGlObjectType::GLO_LANE, currentTag, TL("Lane"));
         // set values of attributes
@@ -940,7 +940,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::JUNCTION,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CROSSING, GUIGlObjectType::GLO_CROSSING, currentTag, TL("Crossing"));
         // set values of attributes
@@ -987,7 +987,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::JUNCTION,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WALKINGAREA, GUIGlObjectType::GLO_WALKINGAREA, currentTag, TL("WalkingArea"));
         // set values of attributes
@@ -1017,7 +1017,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::NETWORKELEMENT,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::JUNCTION,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CONNECTION, GUIGlObjectType::GLO_CONNECTION, currentTag, TL("Connection"));
         // set values of attributes
@@ -1143,7 +1143,7 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 GNETagProperties::Type::INTERNALLANE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::JUNCTION,
-                GNEFileBucket::Type::NETWORK,
+                FileBucket::Type::NETWORK,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::JUNCTION, GUIGlObjectType::GLO_TLLOGIC, currentTag, TL("InternalLanes"));
         //  internal lanes does't have attributes
@@ -1161,7 +1161,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::STOPPINGPLACE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::BUSSTOP, GUIGlObjectType::GLO_BUS_STOP, currentTag, TL("BusStop"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -1193,7 +1193,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::STOPPINGPLACE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::TRAINSTOP, GUIGlObjectType::GLO_TRAIN_STOP, currentTag, TL("TrainStop"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -1226,7 +1226,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::ACCESS, GUIGlObjectType::GLO_ACCESS, currentTag, TL("Access"),
         {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP, SUMO_TAG_CONTAINER_STOP}, FXRGBA(240, 255, 205, 255));
@@ -1250,7 +1250,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::STOPPINGPLACE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CONTAINERSTOP, GUIGlObjectType::GLO_CONTAINER_STOP, currentTag, TL("ContainerStop"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -1282,7 +1282,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::STOPPINGPLACE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::CHARGINGSTATION, GUIGlObjectType::GLO_CHARGING_STATION, currentTag, TL("ChargingStation"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -1340,7 +1340,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::STOPPINGPLACE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::PARKINGAREA, GUIGlObjectType::GLO_PARKING_AREA, currentTag, TL("ParkingArea"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -1396,7 +1396,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT | GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PARKINGSPACE, GUIGlObjectType::GLO_PARKING_SPACE, currentTag, TL("ParkingSpace"),
         {SUMO_TAG_PARKING_AREA}, FXRGBA(240, 255, 205, 255));
@@ -1437,7 +1437,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E1, GUIGlObjectType::GLO_E1DETECTOR, currentTag, TL("E1 InductionLoop"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1469,7 +1469,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::E2, GUIGlObjectType::GLO_E2DETECTOR, currentTag, TL("E2 LaneAreaDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1526,7 +1526,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::CONSECUTIVE_LANES,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::E2, GUIGlObjectType::GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, TL("E2 MultiLaneAreaDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1579,7 +1579,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_ADDITIONAL_CHILDREN,
                 GUIIcon::E3, GUIGlObjectType::GLO_DET_ENTRYEXIT, currentTag, TL("E3 EntryExitDetector"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1625,7 +1625,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E3ENTRY, GUIGlObjectType::GLO_DET_ENTRY, currentTag, TL("E3 DetEntry"),
         {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
@@ -1644,7 +1644,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::REPARENT,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E3EXIT, GUIGlObjectType::GLO_DET_EXIT, currentTag, TL("E3 DetExit"),
         {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
@@ -1663,7 +1663,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::DETECTOR,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::E1INSTANT, GUIGlObjectType::GLO_E1DETECTOR_INSTANT, currentTag, TL("E3 DetExit"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1693,7 +1693,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::CENTERAFTERCREATION,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEPROBE, GUIGlObjectType::GLO_ROUTEPROBE, currentTag, TL("RouteProbe"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1727,7 +1727,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::RTREE | GNETagProperties::Property::DIALOG,
                 GNETagProperties::Over::LANES,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VARIABLESPEEDSIGN, GUIGlObjectType::GLO_VSS, currentTag, TL("VariableSpeedSign"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -1756,7 +1756,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::LANE, GUIGlObjectType::GLO_VSS, currentTag, TL("VariableSpeedSign (lane)"),
         {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
@@ -1768,7 +1768,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VSSSTEP, GUIGlObjectType::GLO_VSS_STEP, currentTag, TL("VariableSpeedSign Step"),
         {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
@@ -1791,7 +1791,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::CALIBRATOR,
                 GNETagProperties::Property::DIALOG | GNETagProperties::Property::CENTERAFTERCREATION,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CALIBRATOR, GUIGlObjectType::GLO_CALIBRATOR, currentTag, TL("Calibrator"),
                 {}, FXRGBA(253, 255, 206, 255));
@@ -1832,7 +1832,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::CALIBRATOR,
                 GNETagProperties::Property::DIALOG | GNETagProperties::Property::CENTERAFTERCREATION,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CALIBRATOR, GUIGlObjectType::GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, TL("CalibratorLane"),
                 {}, FXRGBA(253, 255, 206, 255));
@@ -1873,7 +1873,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::CALIBRATOR,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::FLOW, GUIGlObjectType::GLO_CALIBRATOR_FLOW, SUMO_TAG_FLOW, TL("CalibratorFlow"),
         {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
@@ -1925,7 +1925,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::RTREE | GNETagProperties::Property::DIALOG,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::REROUTER, GUIGlObjectType::GLO_REROUTER, currentTag, TL("Rerouter"),
                 {}, FXRGBA(255, 213, 213, 255));
@@ -1979,7 +1979,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::SYMBOL,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGE, GUIGlObjectType::GLO_REROUTER, currentTag, TL("Rerouter (Edge)"),
         {GNE_TAG_REROUTER_SYMBOL}, FXRGBA(255, 213, 213, 255));
@@ -1991,7 +1991,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::REROUTERINTERVAL, GUIGlObjectType::GLO_REROUTER_INTERVAL, currentTag, TL("Rerouter Interval"),
         {SUMO_TAG_REROUTER}, FXRGBA(255, 213, 213, 255));
@@ -2015,7 +2015,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGREROUTE, GUIGlObjectType::GLO_REROUTER_CLOSINGREROUTE, currentTag, TL("ClosingReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
@@ -2031,7 +2031,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CLOSINGLANEREROUTE, GUIGlObjectType::GLO_REROUTER_CLOSINGLANEREROUTE, currentTag, TL("ClosingLaneReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
@@ -2047,7 +2047,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DESTPROBREROUTE, GUIGlObjectType::GLO_REROUTER_DESTPROBREROUTE, currentTag, TL("DestinationProbabilityReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
@@ -2067,7 +2067,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PARKINGZONEREROUTE, GUIGlObjectType::GLO_REROUTER_PARKINGAREAREROUTE, currentTag, TL("ParkingAreaReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
@@ -2097,7 +2097,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::LISTED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEPROBREROUTE, GUIGlObjectType::GLO_REROUTER_ROUTEPROBREROUTE, currentTag, TL("RouteProbabilityReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
@@ -2121,7 +2121,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT,
                 GNETagProperties::Property::CENTERAFTERCREATION,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VAPORIZER, GUIGlObjectType::GLO_VAPORIZER, currentTag, TL("Vaporizer"),
                 {}, FXRGBA(253, 255, 206, 255));
@@ -2155,7 +2155,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE,
                 GNETagProperties::Property::RTREE | GNETagProperties::Property::GEOSHAPE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::POLY, GUIGlObjectType::GLO_POLYGON, currentTag, TL("Polygon"),
                 {}, FXRGBA(240, 255, 205, 255));
@@ -2226,7 +2226,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::POI, GUIGlObjectType::GLO_POI, currentTag, TL("PointOfInterest"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -2248,7 +2248,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::POS_LANE,
                 GUIIcon::POILANE, GUIGlObjectType::GLO_POI, SUMO_TAG_POI, TL("PointOfInterestLane"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -2277,7 +2277,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE,
                 GNETagProperties::Property::RTREE | GNETagProperties::Property::REQUIRE_PROJ,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::POIGEO, GUIGlObjectType::GLO_POI, SUMO_TAG_POI, TL("PointOfInterestGeo"),
                 {}, FXRGBA(210, 233, 255, 255));
@@ -2311,7 +2311,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::TAZELEMENT,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZ, GUIGlObjectType::GLO_TAZ, currentTag, TL("TrafficAssignmentZones"));
         // set values of attributes
@@ -2351,7 +2351,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
                 GNETagProperties::Type::OTHER,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, GUIGlObjectType::GLO_TAZ, currentTag, TL("TAZ Source"),
         {SUMO_TAG_TAZ});
@@ -2371,7 +2371,7 @@ GNETagPropertiesDatabase::fillTAZElements() {
                 GNETagProperties::Type::OTHER,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZEDGE, GUIGlObjectType::GLO_TAZ, currentTag, TL("TAZ Sink"),
         {SUMO_TAG_TAZ});
@@ -2397,7 +2397,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::WIRE,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TRACTION_SUBSTATION, GUIGlObjectType::GLO_TRACTIONSUBSTATION, currentTag, TL("TractionSubstation"));
         // set attribute properties
@@ -2428,7 +2428,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::WIRE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::CONSECUTIVE_LANES,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::OVERHEADWIRE, GUIGlObjectType::GLO_OVERHEAD_WIRE_SEGMENT, currentTag, TL("WireSection"));
         // set attribute properties
@@ -2470,7 +2470,7 @@ GNETagPropertiesDatabase::fillWireElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::WIRE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::OVERHEADWIRE_CLAMP, GUIGlObjectType::GLO_OVERHEAD_WIRE_SEGMENT, currentTag, TL("OverheadWireClamp"));
         // set attribute properties
@@ -2509,7 +2509,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE | GNETagProperties::Type::JUPEDSIM,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::JPS_WALKABLEAREA, GUIGlObjectType::GLO_JPS_WALKABLEAREA, SUMO_TAG_POLY, TL("JuPedSim WalkableArea"),
                 {}, FXRGBA(253, 255, 206, 255));
@@ -2541,7 +2541,7 @@ GNETagPropertiesDatabase::fillJuPedSimElements() {
                 GNETagProperties::Type::ADDITIONALELEMENT | GNETagProperties::Type::SHAPE | GNETagProperties::Type::JUPEDSIM,
                 GNETagProperties::Property::RTREE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::JPS_OBSTACLE, GUIGlObjectType::GLO_JPS_OBSTACLE, SUMO_TAG_POLY, TL("JuPedSim Obstacle"),
                 {}, FXRGBA(253, 255, 206, 255));
@@ -2579,7 +2579,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTE, GUIGlObjectType::GLO_ROUTE, currentTag, TL("Route"));
 
@@ -2599,7 +2599,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONSECUTIVE_EDGES,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTE, GUIGlObjectType::GLO_ROUTE_EMBEDDED, SUMO_TAG_ROUTE, TL("Route (embedded)"),
         {GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE});
@@ -2614,7 +2614,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::ROUTE | GNETagProperties::Type::DISTRIBUTION,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEDISTRIBUTION, GUIGlObjectType::GLO_ROUTE_DISTRIBUTION, currentTag, TL("RouteDistribution"));
 
@@ -2628,7 +2628,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::DISTRIBUTIONREF,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEREF, GUIGlObjectType::GLO_ROUTE_REF, currentTag, TL("Route (Ref)"),
         {SUMO_TAG_ROUTE_DISTRIBUTION});
@@ -2648,7 +2648,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::VCLASS_ICON | GNETagProperties::Property::EXTENDED,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPE, GUIGlObjectType::GLO_VTYPE, currentTag, TL("VehicleType"));
 
@@ -2665,7 +2665,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VTYPE | GNETagProperties::Type::DISTRIBUTION,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPEDISTRIBUTION, GUIGlObjectType::GLO_VTYPE_DISTRIBUTION, currentTag, TL("TypeDistribution"));
 
@@ -2685,7 +2685,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::DISTRIBUTIONREF,
                 GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VTYPEREF, GUIGlObjectType::GLO_VTYPE_REF, currentTag, TL("VType (Ref)"),
         {SUMO_TAG_VTYPE_DISTRIBUTION});
@@ -2711,7 +2711,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TRIP, GUIGlObjectType::GLO_TRIP, currentTag, TL("TripEdges"),
                 {}, FXRGBA(253, 255, 206, 255), "trip (from-to edges)");
@@ -2752,7 +2752,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TRIP_JUNCTIONS, GUIGlObjectType::GLO_TRIP, SUMO_TAG_TRIP, TL("TripJunctions"),
                 {}, FXRGBA(255, 213, 213, 255), "trip (from-to junctions)");
@@ -2788,7 +2788,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TRIP_TAZS, GUIGlObjectType::GLO_TRIP, SUMO_TAG_TRIP, TL("TripTAZs"),
                 {}, FXRGBA(240, 255, 205, 255), "trip (from-to TAZs)");
@@ -2824,7 +2824,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::ROUTE,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleRoute"),
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (over route)");
@@ -2865,7 +2865,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::ROUTE_EMBEDDED,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::VEHICLE, GUIGlObjectType::GLO_VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleEmbeddedRoute"),
                 {}, FXRGBA(210, 233, 255, 255), "vehicle (embedded route)");
@@ -2901,7 +2901,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::FLOW, GUIGlObjectType::GLO_FLOW, currentTag, TL("FlowEdges"),
                 {}, FXRGBA(253, 255, 206, 255), "flow (from-to edges)");
@@ -2943,7 +2943,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::FLOW_JUNCTIONS, GUIGlObjectType::GLO_FLOW, SUMO_TAG_FLOW, TL("FlowJunctions"),
                 {}, FXRGBA(255, 213, 213, 255), "flow (from-to junctions)");
@@ -2980,7 +2980,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::FLOW_TAZS, GUIGlObjectType::GLO_FLOW, SUMO_TAG_FLOW, TL("FlowTAZs"),
                 {}, FXRGBA(240, 255, 205, 255), "flow (from-to TAZs)");
@@ -3017,7 +3017,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::ROUTE,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEFLOW, GUIGlObjectType::GLO_ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRoute"),
                 {}, FXRGBA(210, 233, 255, 255), "flow (over route)");
@@ -3059,7 +3059,7 @@ GNETagPropertiesDatabase::fillVehicleElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::VEHICLE | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::ROUTE_EMBEDDED,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::ROUTEFLOW, GUIGlObjectType::GLO_ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowEmbeddedRoute"),
                 {}, FXRGBA(210, 233, 255, 255), "flow (embedded route)");
@@ -3102,7 +3102,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopLane"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3153,7 +3153,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::BUSSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopBusStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3173,7 +3173,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::TRAINSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopTrainStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3193,7 +3193,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONTAINERSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopContainerStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3213,7 +3213,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CHARGINGSTATION,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopChargingStation"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3233,7 +3233,7 @@ GNETagPropertiesDatabase::fillStopElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::PARKINGAREA,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::STOPELEMENT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("StopParkingArea"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
@@ -3259,7 +3259,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::LANE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::POS_LANE_START | GNETagProperties::Conflicts::POS_LANE_END,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointLane"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3310,7 +3310,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::BUSSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointBusStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3330,7 +3330,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::TRAINSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointTrainStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3350,7 +3350,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CONTAINERSTOP,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointContainerStop"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3370,7 +3370,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::CHARGINGSTATION,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointChargingStation"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3390,7 +3390,7 @@ GNETagPropertiesDatabase::fillWaypointElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::STOP_VEHICLE | GNETagProperties::Type::WAYPOINT_VEHICLE,
                 GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::PARKINGAREA,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::WAYPOINT, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, TL("WaypointParkingArea"),
         {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
@@ -3416,7 +3416,7 @@ GNETagPropertiesDatabase::fillPersonElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSON,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PERSON, GUIGlObjectType::GLO_PERSON, currentTag, TL("Person"));
 
@@ -3433,7 +3433,7 @@ GNETagPropertiesDatabase::fillPersonElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSON | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::PERSONFLOW, GUIGlObjectType::GLO_PERSONFLOW, currentTag, TL("PersonFlow"));
 
@@ -3456,7 +3456,7 @@ GNETagPropertiesDatabase::fillContainerElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINER,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CONTAINER, GUIGlObjectType::GLO_CONTAINER, currentTag, TL("Container"));
 
@@ -3472,7 +3472,7 @@ GNETagPropertiesDatabase::fillContainerElements() {
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINER | GNETagProperties::Type::FLOW,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DEMAND | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::CONTAINERFLOW, GUIGlObjectType::GLO_CONTAINERFLOW, currentTag, TL("ContainerFlow"));
 
@@ -3491,7 +3491,7 @@ GNETagPropertiesDatabase::fillContainerTransportElements() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSPORT;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
     const unsigned int color = FXRGBA(240, 255, 205, 255);
@@ -4156,7 +4156,7 @@ GNETagPropertiesDatabase::fillContainerTranshipElements() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSHIP;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
     const unsigned int color = FXRGBA(210, 233, 255, 255);
@@ -4831,7 +4831,7 @@ GNETagPropertiesDatabase::fillContainerStopElements() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::STOP_CONTAINER;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
     const unsigned int color = FXRGBA(255, 213, 213, 255);
     const GUIIcon icon = GUIIcon::STOPELEMENT;
@@ -4912,7 +4912,7 @@ GNETagPropertiesDatabase::fillPersonPlanTrips() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::PERSONTRIP;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     const unsigned int color = FXRGBA(253, 255, 206, 255);
@@ -5576,7 +5576,7 @@ GNETagPropertiesDatabase::fillPersonPlanWalks() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::WALK;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     const unsigned int color = FXRGBA(240, 255, 205, 255);
@@ -6261,7 +6261,7 @@ GNETagPropertiesDatabase::fillPersonPlanRides() {
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::RIDE;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
     const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     const unsigned int color = FXRGBA(253, 255, 206, 255);
@@ -6924,7 +6924,7 @@ GNETagPropertiesDatabase::fillPersonStopElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::STOP_PERSON;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
-    const auto files = GNEFileBucket::Type::NOTHING;
+    const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     const unsigned int color = FXRGBA(255, 213, 213, 255);
@@ -8443,7 +8443,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::DATA,
+                FileBucket::Type::DATA,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DATASET, GUIGlObjectType::GLO_DATASET, currentTag, TL("DataSet"));
 
@@ -8458,7 +8458,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::DATAINTERVAL, GUIGlObjectType::GLO_DATAINTERVAL, currentTag, TL("DataInterval"),
         {SUMO_TAG_DATASET});
@@ -8487,7 +8487,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT | GNETagProperties::Type::GENERICDATA,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::EDGE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGEDATA, GUIGlObjectType::GLO_EDGEDATA, SUMO_TAG_EDGE, TL("EdgeRelationSingle"));
     }
@@ -8498,7 +8498,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT | GNETagProperties::Type::GENERICDATA,
                 GNETagProperties::Property::NO_PROPERTY,
                 GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::EDGERELDATA, GUIGlObjectType::GLO_EDGERELDATA, currentTag, TL("EdgeRelation"));
 
@@ -8520,7 +8520,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::DATAELEMENT | GNETagProperties::Type::GENERICDATA,
                 GNETagProperties::Property::RTREE | GNETagProperties::Property::XMLCHILD,
                 GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ,
-                GNEFileBucket::Type::NOTHING,
+                FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::TAZRELDATA, GUIGlObjectType::GLO_TAZRELDATA, currentTag, TL("TAZRelation"),
         {SUMO_TAG_DATAINTERVAL});
@@ -8543,7 +8543,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::MEANDATA,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::MEANDATA | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::MEANDATA | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::MEANDATAEDGE, GUIGlObjectType::GLO_MEANDATA, currentTag, TL("MeanDataEdge"));
 
@@ -8557,7 +8557,7 @@ GNETagPropertiesDatabase::fillDataElements() {
                 GNETagProperties::Type::MEANDATA,
                 GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOPARAMETERS | GNETagProperties::Property::NOTSELECTABLE,
                 GNETagProperties::Over::VIEW,
-                GNEFileBucket::Type::MEANDATA | GNEFileBucket::Type::ADDITIONAL,
+                FileBucket::Type::MEANDATA | FileBucket::Type::ADDITIONAL,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
                 GUIIcon::MEANDATALANE, GUIGlObjectType::GLO_MEANDATA, currentTag, TL("MeanDataLane"));
 

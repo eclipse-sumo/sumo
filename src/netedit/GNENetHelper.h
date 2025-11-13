@@ -53,7 +53,7 @@ class GNEDataSet;
 class GNEDemandElement;
 class GNEEdge;
 class GNEEdgeType;
-class GNEFileBucket;
+class FileBucket;
 class GNEJunction;
 class GNELane;
 class GNELaneType;

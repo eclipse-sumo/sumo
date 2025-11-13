@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/elements/FileBucket.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/GNENet.h>

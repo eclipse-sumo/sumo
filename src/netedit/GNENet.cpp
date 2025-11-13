@@ -49,7 +49,7 @@
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEMeanData.h>
-#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/elements/FileBucket.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -2235,7 +2235,7 @@ GNENet::saveAdditionals() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::ADDITIONAL)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2305,7 +2305,7 @@ GNENet::saveDemandElements() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::DEMAND)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2332,7 +2332,7 @@ GNENet::saveDataElements() {
     // Start saving data elements
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::DATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA)) {
         // get filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2396,7 +2396,7 @@ GNENet::saveMeanDatas() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::MEANDATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
