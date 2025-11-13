@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-01 22:08:36 by Eclipse SUMO sumo Version v1_14_1+0775-edc6051
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-11-13T16:37:57.792060+01:00 by Eclipse SUMO sumo v1_25_0+0021-e81defdd359
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="004/../input_net.net.xml"/>
-        <route-files value="004/input_routes_004.rou.xml"/>
+        <route-files value="004/input_routes_004.rou.xml.gz"/>
         <additional-files value="004/../edgedata.add.xml"/>
     </input>
 
@@ -21,15 +21,15 @@
 
     <processing>
         <route-steps value="200"/>
-        <no-internal-links value="false"/>
+        <no-internal-links value="False"/>
         <time-to-teleport value="300"/>
         <time-to-teleport.highways value="0"/>
-        <eager-insert value="false"/>
+        <eager-insert value="False"/>
     </processing>
 
     <report>
         <verbose value="true"/>
-        <no-warnings value="false"/>
+        <no-warnings value="False"/>
         <log value="004/../iteration_004.sumo.log"/>
         <duration-log.disable value="true"/>
         <duration-log.statistics value="true"/>
@@ -37,10 +37,10 @@
     </report>
 
     <random_number>
-        <random value="false"/>
+        <random value="False"/>
     </random_number>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -74,7 +74,7 @@
     <tripinfo id="flow_0.29" depart="105.00" departLane="start_1" departPos="5.10" departSpeed="12.94" departDelay="0.60" arrival="209.00" arrivalLane="end_0" arrivalPos="115.32" arrivalSpeed="12.65" duration="104.00" routeLength="1028.10" waitingTime="25.00" waitingCount="1" stopTime="0.00" timeLoss="50.39" rerouteNo="0" devices="tripinfo_flow_0.29" vType="DEFAULT_VEHTYPE" speedFactor="0.93" vaporized=""/>
     <tripinfo id="flow_0.30" depart="108.00" departLane="start_1" departPos="5.10" departSpeed="16.37" departDelay="0.00" arrival="211.00" arrivalLane="end_0" arrivalPos="115.32" arrivalSpeed="15.73" duration="103.00" routeLength="1028.10" waitingTime="23.00" waitingCount="1" stopTime="0.00" timeLoss="61.38" rerouteNo="0" devices="tripinfo_flow_0.30" vType="DEFAULT_VEHTYPE" speedFactor="1.18" vaporized=""/>
     <tripinfo id="flow_0.34" depart="123.00" departLane="start_0" departPos="5.10" departSpeed="13.82" departDelay="0.60" arrival="212.00" arrivalLane="end_0" arrivalPos="115.32" arrivalSpeed="13.72" duration="89.00" routeLength="996.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.05" rerouteNo="0" devices="tripinfo_flow_0.34" vType="DEFAULT_VEHTYPE" speedFactor="0.99" vaporized=""/>
-    <tripinfo id="flow_0.35" depart="126.00" departLane="start_0" departPos="5.10" departSpeed="14.16" departDelay="0.00" arrival="214.00" arrivalLane="end_0" arrivalPos="115.32" arrivalSpeed="13.10" duration="88.00" routeLength="996.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.71" rerouteNo="0" devices="tripinfo_flow_0.35" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
+    <tripinfo id="flow_0.35" depart="126.00" departLane="start_0" departPos="5.10" departSpeed="14.16" departDelay="0.00" arrival="214.00" arrivalLane="end_0" arrivalPos="115.32" arrivalSpeed="13.10" duration="88.00" routeLength="996.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.74" rerouteNo="0" devices="tripinfo_flow_0.35" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
     <tripinfo id="flow_0.25" depart="90.00" departLane="start_1" departPos="5.10" departSpeed="12.12" departDelay="0.00" arrival="232.00" arrivalLane="end_1" arrivalPos="115.32" arrivalSpeed="11.32" duration="142.00" routeLength="995.93" waitingTime="28.00" waitingCount="1" stopTime="0.00" timeLoss="54.89" rerouteNo="0" devices="tripinfo_flow_0.25" vType="DEFAULT_VEHTYPE" speedFactor="0.87" vaporized=""/>
     <tripinfo id="flow_0.28" depart="101.00" departLane="start_1" departPos="5.10" departSpeed="15.72" departDelay="0.20" arrival="234.00" arrivalLane="end_1" arrivalPos="115.32" arrivalSpeed="14.56" duration="133.00" routeLength="995.93" waitingTime="25.00" waitingCount="1" stopTime="0.00" timeLoss="65.06" rerouteNo="0" devices="tripinfo_flow_0.28" vType="DEFAULT_VEHTYPE" speedFactor="1.13" vaporized=""/>
     <tripinfo id="flow_0.31" depart="112.00" departLane="start_1" departPos="5.10" departSpeed="16.03" departDelay="0.40" arrival="236.00" arrivalLane="end_1" arrivalPos="115.32" arrivalSpeed="15.02" duration="124.00" routeLength="995.93" waitingTime="23.00" waitingCount="1" stopTime="0.00" timeLoss="57.12" rerouteNo="0" devices="tripinfo_flow_0.31" vType="DEFAULT_VEHTYPE" speedFactor="1.15" vaporized=""/>
