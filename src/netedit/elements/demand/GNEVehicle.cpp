@@ -806,7 +806,7 @@ GNEVehicle::checkDrawRelatedContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're editing a type
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_TYPE) &&
-            (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
+            (myNet->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
         return true;
     }
     // check opened popup

@@ -63,7 +63,7 @@ GNEMoveOperation*
 GNEMoveElementLaneDouble::getMoveOperation() {
     const auto& parentLanes = myMovedElement->getHierarchicalElement()->getParentLanes();
     // get allow change lane
-    const bool allowChangeLane = myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
+    const bool allowChangeLane = myMovedElement->getNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myMovedElement->drawMovingGeometryPoints()) {
         // get geometry points under cursor
@@ -341,7 +341,7 @@ GNEMoveElementLaneDouble::getMovingProblem() const {
 
 void
 GNEMoveElementLaneDouble::fixMovingProblem() {
-    const auto undolist = myMovedElement->getNet()->getViewNet()->getUndoList();
+    const auto undolist = myMovedElement->getNet()->getUndoList();
     // iterate over all lanes and build connections
     for (int i = 1; i < (int)myMovedElement->getHierarchicalElement()->getParentLanes().size(); i++) {
         // get lanes

@@ -113,7 +113,7 @@ void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {
     if ((myTagProperty->getTag() == GNE_TAG_EDGEREL_SINGLE) && (shape.length() > 0)) {
         // obtain pointer to edge data frame (only for code legibly)
-        const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
+        const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewParent()->getEdgeDataFrame();
         // check if we have to filter generic data
         if (edgeDataFrame->shown()) {
             // check attribute
@@ -256,7 +256,7 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 
 void
 GNEGenericData::deleteGLObject() {
-    myNet->deleteGenericData(this, myNet->getViewNet()->getUndoList());
+    myNet->deleteGenericData(this, myNet->getUndoList());
 }
 
 
@@ -268,7 +268,7 @@ GNEGenericData::selectGLObject() {
         selectAttributeCarrier();
     }
     // update information label
-    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+    myNet->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 

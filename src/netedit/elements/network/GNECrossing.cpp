@@ -248,7 +248,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void GNECrossing::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+    myNet->deleteNetworkElement(this, myNet->getUndoList());
 }
 
 

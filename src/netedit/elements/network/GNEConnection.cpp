@@ -341,7 +341,7 @@ void
 GNEConnection::smootShape() {
     auto shape = getConnectionShape();
     shape = shape.bezier(5);
-    setAttribute(SUMO_ATTR_CUSTOMSHAPE, toString(shape), myNet->getViewNet()->getUndoList());
+    setAttribute(SUMO_ATTR_CUSTOMSHAPE, toString(shape), myNet->getUndoList());
 }
 
 
@@ -428,7 +428,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEConnection::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+    myNet->deleteNetworkElement(this, myNet->getUndoList());
 }
 
 

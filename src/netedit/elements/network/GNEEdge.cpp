@@ -222,7 +222,7 @@ bool
 GNEEdge::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
@@ -280,7 +280,7 @@ bool
 GNEEdge::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
@@ -358,7 +358,7 @@ bool
 GNEEdge::checkDrawOverContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
     // check if we're selecting edges in additional mode
     if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
@@ -737,8 +737,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::deleteGLObject() {
     // Check if edge can be deleted
-    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
-        myNet->deleteEdge(this, myNet->getViewNet()->getUndoList(), false);
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteEdge(this, myNet->getUndoList(), false);
     }
 }
 
@@ -1225,7 +1225,7 @@ GNEEdge::getAttributeForSelection(SumoXMLAttr key) const {
 void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // get template editor
-    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to update template
     const bool updateTemplate = templateEditor->getEdgeTemplate() ? (templateEditor->getEdgeTemplate()->getID() == getID()) : false;
     switch (key) {
@@ -1965,11 +1965,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
     // get template editor
-    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if update template (except for modification status)
     if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID()) &&
             (key != GNE_ATTR_MODIFICATION_STATUS)) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
+        myNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
     }
     // invalidate demand path calculator
     myNet->getDemandPathManager()->getPathCalculator()->invalidatePathCalculator();
@@ -2106,7 +2106,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     }
     // before removing, check that lane isn't being inspected
     myNet->getViewNet()->getInspectedElements().uninspectAC(lane);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
@@ -2181,7 +2181,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (connection != nullptr) {
         // before removing, check that the connection isn't being inspected
         myNet->getViewNet()->getInspectedElements().uninspectAC(connection);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
         connection->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), connection));
         // check if connection is selected
@@ -2567,7 +2567,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
         const auto& startGeometryPointPos = myNBEdge->getGeometry().front();
         // get flags
         const bool startPosEdited = (startGeometryPointPos != getParentJunctions().front()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (startPosEdited || forceDraw) {
             // calculate angle betwen first and second geometry point
@@ -2631,7 +2631,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
         const auto& geometryPointPos = myNBEdge->getGeometry().back();
         // get flags
         const bool endPosEdited = (geometryPointPos != getParentJunctions().back()->getPositionInView());
-        const bool forceDraw = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
+        const bool forceDraw = myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         // check drawing conditions
         if (endPosEdited || forceDraw) {
             // calculate angle last and previous geometry point
@@ -2806,7 +2806,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
         // check if edit extrems
-        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
+        const bool forceDrawExtrems = myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getForceDrawGeometryPoints();
         const bool firstExtrem = forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
         const bool lastExtrem = forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
         // check if we're in move mode
@@ -2917,7 +2917,7 @@ GNEEdge::drawBigGeometryPoints() const {
     } else if (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
         return true;
     } else if ((editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
-               (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+               (myNet->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
         return true;
     } else {
         return false;

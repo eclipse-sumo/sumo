@@ -135,7 +135,7 @@ GNEMoveElementJunction::setMoveShape(const GNEMoveResult& moveResult) {
         // move geometry
         myJunction->moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
         // check if move only center
-        const bool onlyMoveCenter = myJunction->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+        const bool onlyMoveCenter = myJunction->getNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
         // set new position of adjacent edges depending if we're moving a selection
         for (const auto& NBEdge : myJunction->getNBNode()->getEdges()) {
             myJunction->getNet()->getAttributeCarriers()->retrieveEdge(NBEdge->getID())->updateJunctionPosition(myJunction, onlyMoveCenter ? myJunction->getNBNode()->getPosition() : orig);

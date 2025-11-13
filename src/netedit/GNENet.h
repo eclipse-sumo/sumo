@@ -35,10 +35,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNENet
- * @brief A NBNetBuilder extended by visualisation and editing capabilities
- */
+
 class GNENet : public GUIGlObject {
 
 public:
@@ -51,8 +48,20 @@ public:
     /// @brief get tag properties database
     GNEApplicationWindow* getGNEApplicationWindow() const;
 
-    /// @brief get tag properties database
+    /// @brief get view net (used for simplify code)
+    GNEViewNet* getViewNet() const;
+
+    /// @brief get view parent (used for simplify code)
+    GNEViewParent* getViewParent() const;
+
+    /// @brief get undo list(used for simplify code)
+    GNEUndoList* getUndoList() const;
+
+    /// @brief get tag properties database (used for simplify code)
     const GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
+
+    /// @brief get net builder
+    NBNetBuilder* getNetBuilder() const;
 
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
@@ -329,8 +338,6 @@ public:
     /// @brief modifies endpoins of the given edge
     void changeEdgeEndpoints(GNEEdge* edge, const std::string& newSourceID, const std::string& newDestID);
 
-    /// @brief get view net
-    GNEViewNet* getViewNet() const;
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
@@ -421,12 +428,6 @@ public:
 
     /// @brief check if net require recomputing
     bool isNetRecomputed() const;
-
-    /// @brief get pointer to the main App
-    FXApp* getApp();
-
-    /// @brief get net builder
-    NBNetBuilder* getNetBuilder() const;
 
     /// @brief add edge id to the list of explicit turnarounds
     void addExplicitTurnaround(std::string id);

@@ -361,7 +361,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
     }
     // if is valid, update value in AC
     if (myDistributionReference->isValid(SUMO_ATTR_PROB, myProbabilityTextField->getText().text())) {
-        myDistributionReference->setAttribute(SUMO_ATTR_PROB, myProbabilityTextField->getText().text(), myDistributionReference->getNet()->getViewNet()->getUndoList());
+        myDistributionReference->setAttribute(SUMO_ATTR_PROB, myProbabilityTextField->getText().text(), myDistributionReference->getNet()->getUndoList());
         myDistributionValuesEditorParent->updateSumLabel();
         // update probablity text field (needed for show the default value)
         myProbabilityTextField->setText(myDistributionReference->getAttribute(SUMO_ATTR_PROB).c_str(), FALSE);

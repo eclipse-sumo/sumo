@@ -249,8 +249,8 @@ GNEStop::getColor() const {
         if ((inspectedAC->getTagProperty()->isRoute() || inspectedAC->getTagProperty()->isVehicle()) && (inspectedAC != getParentDemandElements().front())) {
             return RGBColor::GREY;
         }
-    } else if (myNet->getViewNet()->getViewParent()->getStopFrame()->shown()) {
-        if (myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->getCurrentDemandElement() != getParentDemandElements().front()) {
+    } else if (myNet->getViewParent()->getStopFrame()->shown()) {
+        if (myNet->getViewParent()->getStopFrame()->getStopParentSelector()->getCurrentDemandElement() != getParentDemandElements().front()) {
             return RGBColor::GREY;
         }
     }
@@ -966,7 +966,7 @@ GNEStop::canDrawVehicleStop() const {
 bool
 GNEStop::drawIndex() const {
     // get stop frame
-    const auto stopFrame = myNet->getViewNet()->getViewParent()->getStopFrame();
+    const auto stopFrame = myNet->getViewParent()->getStopFrame();
     // check conditions
     if (myNet->getViewNet()->getInspectedElements().isACInspected(getParentDemandElements().front())) {
         return true;

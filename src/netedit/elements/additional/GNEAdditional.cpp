@@ -186,7 +186,7 @@ bool
 GNEAdditional::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
@@ -245,10 +245,10 @@ bool
 GNEAdditional::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // check conditions
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->isReparenting()) {
+    if (myNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->isReparenting()) {
         return false;
     } else if (inspectedElements.isInspectingSingleElement()) {
         const auto inspectedAC = inspectedElements.getFirstAC();
@@ -310,7 +310,7 @@ GNEAdditional::checkDrawToContour() const {
 
 bool
 GNEAdditional::checkDrawRelatedContour() const {
-    const auto& neteditAttributesEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor();
+    const auto& neteditAttributesEditor = myNet->getViewParent()->getInspectorFrame()->getAttributesEditor();
     if (neteditAttributesEditor->isReparenting()) {
         return neteditAttributesEditor->checkNewParent(this);
     }
@@ -328,7 +328,7 @@ GNEAdditional::checkDrawOverContour() const {
     if (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() != this) {
         return false;
     } else {
-        const auto& viewParent = myNet->getViewNet()->getViewParent();
+        const auto& viewParent = myNet->getViewParent();
         if (modes.isCurrentSupermodeDemand()) {
             // get current plan selector
             GNEPlanSelector* planSelector = nullptr;
@@ -499,7 +499,7 @@ GNEAdditional::markAsFrontElement() {
 
 void
 GNEAdditional::deleteGLObject() {
-    myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
+    myNet->deleteAdditional(this, myNet->getUndoList());
 }
 
 
@@ -511,7 +511,7 @@ GNEAdditional::selectGLObject() {
         selectAttributeCarrier();
     }
     // update information label
-    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+    myNet->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 
@@ -837,7 +837,7 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
-    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
+    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // check if we're in move mode
         const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)

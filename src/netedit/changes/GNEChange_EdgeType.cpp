@@ -73,8 +73,8 @@ GNEChange_EdgeType::undo() {
         myEdgeType->getNet()->getAttributeCarriers()->insertEdgeType(myEdgeType);
     }
     // refresh create edge frame
-    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    if (myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // enable save networkElements
     myEdgeType->getNet()->getSavingStatus()->requireSaveNetwork();
@@ -91,8 +91,8 @@ GNEChange_EdgeType::redo() {
         myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     }
     // refresh create edge frame
-    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    if (myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myEdgeType->getNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // enable save networkElements
     myEdgeType->getNet()->getSavingStatus()->requireSaveNetwork();

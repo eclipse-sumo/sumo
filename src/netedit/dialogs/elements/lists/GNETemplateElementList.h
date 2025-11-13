@@ -50,7 +50,7 @@ public:
     /// @brief insert element
     long insertElement(elementType* element) {
         // add change command
-        element->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Type(element, true), true);
+        element->getNet()->getUndoList()->add(new GNEChange_Type(element, true), true);
         // update table
         return updateList();
     }

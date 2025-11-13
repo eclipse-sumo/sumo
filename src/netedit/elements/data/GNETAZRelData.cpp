@@ -134,7 +134,7 @@ GNETAZRelData::getScaleValue(const GUIVisualizationSettings& s, int activeScheme
 bool
 GNETAZRelData::isGenericDataVisible() const {
     // obtain pointer to TAZ data frame (only for code legibly)
-    const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+    const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewParent()->getTAZRelDataFrame();
     // get current data edit mode
     DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
     // check if we have to filter generic data
@@ -485,14 +485,14 @@ GNETAZRelData::drawTAZRel() const {
         return false;
     }
     // check TAZRelFrame
-    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->shown()) {
+    if (myNet->getViewParent()->getTAZRelDataFrame()->shown()) {
         // check dataSet
-        const GNEDataSet* dataSet = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
+        const GNEDataSet* dataSet = myNet->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
         if (dataSet && (myDataIntervalParent->getDataSetParent() != dataSet)) {
             return false;
         }
         // check interval
-        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
+        const GNEDataInterval* dataInterval = myNet->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
         if (dataInterval && (myDataIntervalParent != dataInterval)) {
             return false;
         }

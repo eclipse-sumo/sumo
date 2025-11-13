@@ -60,7 +60,7 @@ GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
 long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
-    GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
+    GNEUndoList* undoList = route->myNet->getUndoList();
     undoList->begin(route, "apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
@@ -878,7 +878,7 @@ GNERoute::checkCreatingVehicleOverRoute() const {
         return true;
     } else {
         // get current template AC
-        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        const auto templateAC = myNet->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if (templateAC && templateAC->getTagProperty()->vehicleRoute()) {
             // we're creating a vehicle over a route, then hidde all embedded routes
             return false;

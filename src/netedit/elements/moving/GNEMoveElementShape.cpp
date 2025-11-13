@@ -70,7 +70,7 @@ GNEMoveElementShape::getMoveOperation() {
     if (myCenterPosition.distanceSquaredTo2D(myMovedElement->getNet()->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myCenterPosition);
-    } else if (myMovedElement->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
+    } else if (myMovedElement->getNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myMovingShape);
     } else {

@@ -74,7 +74,7 @@ GNEMoveElementVehicle::getMoveOperation() {
         const double startPosDouble = myVehicle->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
         const double endPosDouble = (myVehicle->getAttributeDouble(SUMO_ATTR_ARRIVALPOS) < 0) ? lastLane->getLaneShape().length2D() : myVehicle->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // check if allow change lane
-        const bool allowChangeLane = myVehicle->getNet()->getViewNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
+        const bool allowChangeLane = myVehicle->getNet()->getViewParent()->getMoveFrame()->getCommonMoveOptions()->getAllowChangeLane();
         // obtain diameter
         const double diameter = myVehicle->getAttributeDouble(SUMO_ATTR_WIDTH) > myVehicle->getAttributeDouble(SUMO_ATTR_LENGTH) ? myVehicle->getAttributeDouble(SUMO_ATTR_WIDTH) : myVehicle->getAttributeDouble(SUMO_ATTR_LENGTH);
         // return move operation depending if we're editing departPos or arrivalPos
