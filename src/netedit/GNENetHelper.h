@@ -937,6 +937,9 @@ struct GNENetHelper {
         /// @brief update netedit config
         void updateNeteditConfig();
 
+        /// @brief functions related with ACs
+        /// @{
+
         /// @brief register AC (called during AC creation)
         GNEFileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename);
 
@@ -945,6 +948,11 @@ struct GNENetHelper {
 
         /// @brief register AC (called during AC deletion)
         bool unregisterAC(const GNEAttributeCarrier* AC);
+
+        /// @brief check if the given filename can be assigned to the given AC
+        bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
+
+        /// @}
 
         /// @brief get vector with the fileBuckets related with the given file
         const std::vector<GNEFileBucket*>& getFileBuckets(GNETagProperties::File file) const;
