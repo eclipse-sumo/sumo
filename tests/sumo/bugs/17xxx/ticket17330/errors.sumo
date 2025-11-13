@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle 't_2.196'; waited too long (jam), lane='56a_2', time=2384.00.
+Warning: Vehicle 't_2.196' ends teleporting on edge '77cd', time=2397.00.
+Warning: Teleporting vehicle 't_0.198'; waited too long (wrong lane), lane='77bc_2', time=2400.00.
+Warning: Vehicle 't_0.198' ends teleporting on edge '21a', time=2400.00.
+Warning: Teleporting vehicle 't_3.193'; waited too long (yield), lane='56b_2', time=2419.00.
+Warning: Vehicle 't_3.193' ends teleporting on edge '53[0]', time=2423.00.
+Warning: Teleporting vehicle 't_3.228'; waited too long (jam), lane='56a_2', time=3212.00.
+Warning: Vehicle 't_3.228' ends teleporting on edge '77cd', time=3223.00.
+Warning: Teleporting vehicle 't_0.275'; waited too long (wrong lane), lane='77bc_2', time=3229.00.
+Warning: Vehicle 't_0.275' ends teleporting on edge '21a', time=3229.00.
+Warning: Teleporting vehicle 't_3.224'; waited too long (yield), lane='56b_2', time=3234.00.
+Warning: Vehicle 't_3.224' ends teleporting on edge '77cd', time=3236.00.
