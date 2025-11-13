@@ -1195,9 +1195,6 @@ struct GNEApplicationWindowHelper {
         /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
         GNEFileBucket* myInvalidBucket;
 
-        /// @brief parsing saving files
-        std::string parsingSavingFiles(GNETagProperties::File file) const;
-
         /// @brief Invalidated copy constructor.
         SavingFilesHandler(const SavingFilesHandler&) = delete;
 

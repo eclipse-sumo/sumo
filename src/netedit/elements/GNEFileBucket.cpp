@@ -88,4 +88,19 @@ GNEFileBucket::hasAC(const GNEAttributeCarrier* AC) const {
     return myACs.find(AC) != myACs.end();
 }
 
+
+std::string
+GNEFileBucket::parseFilenames(const std::vector<GNEFileBucket*>& fileBuckets) {
+    std::string result;
+    // group all saving files in a single string separated with comma
+    for (const auto& bucket : fileBuckets) {
+        result.append(bucket->getFilename() + ",");
+    }
+    // remove last ','
+    if (result.size() > 0) {
+        result.pop_back();
+    }
+    return result;
+}
+
 /****************************************************************************/

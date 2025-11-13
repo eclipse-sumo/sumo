@@ -2364,10 +2364,10 @@ void
 GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get files
-    const auto additionalFiles = parsingSavingFiles(GNETagProperties::File::ADDITIONAL);
-    const auto demandElementFiles = parsingSavingFiles(GNETagProperties::File::DEMAND);
-    const auto dataElementFiles = parsingSavingFiles(GNETagProperties::File::DATA);
-    const auto meanDataElementFiles = parsingSavingFiles(GNETagProperties::File::MEANDATA);
+    const auto additionalFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNETagProperties::File::ADDITIONAL));
+    const auto demandElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNETagProperties::File::DEMAND));
+    const auto dataElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNETagProperties::File::DATA));
+    const auto meanDataElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNETagProperties::File::MEANDATA));
     // additionals
     neteditOptions.resetWritable();
     if (additionalFiles.size() > 0) {
@@ -2539,21 +2539,6 @@ GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(GNETagPro
     if (myBuckets.at(file).front()->getFilename().empty() || force) {
         myBuckets.at(file).front()->setFilename(filename);
     }
-}
-
-
-std::string
-GNEApplicationWindowHelper::SavingFilesHandler::parsingSavingFiles(GNETagProperties::File file) const {
-    std::string savingFileNames;
-    // group all saving files in a single string separated with comma
-    for (const auto& bucket : myBuckets.at(file)) {
-        savingFileNames.append(bucket->getFilename() + ",");
-    }
-    // remove last ','
-    if (savingFileNames.size() > 0) {
-        savingFileNames.pop_back();
-    }
-    return savingFileNames;
 }
 
 // ---------------------------------------------------------------------------
