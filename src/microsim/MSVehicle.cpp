@@ -2499,7 +2499,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         // adapt to vehicles blocked from (urgent) lane-changing
         if (!opposite && lane->getEdge().hasLaneChanger()) {
-            v = MIN2(v, myLaneChangeModel->getCooperativeHelpSpeed(lane, seen));
+            const double vHelp = myLaneChangeModel->getCooperativeHelpSpeed(lane, seen);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND && vHelp < v) {
+                std::cout << SIMTIME << "   applying cooperativeHelpSpeed v=" << vHelp << "\n";
+            }
+#endif
+            v = MIN2(v, vHelp);
         }
 
         // process all stops and waypoints on the current edge
