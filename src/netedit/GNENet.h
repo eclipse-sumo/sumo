@@ -557,17 +557,14 @@ private:
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);
 
-    /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed();
+    /// @brief write additionals in output device
+    void writeAdditionalsInFile(OutputDevice& device, const std::string& filename);
 
-    /// @brief save demand elements after confirming invalid objects
-    void saveDemandElementsConfirmed();
-
-    /// @brief save data elements after confirming invalid objects
-    void saveDataElementsConfirmed();
+    /// @brief save demand the given bucket
+    void writeDemandElementsInFile(OutputDevice& device, const std::string& filename);
 
     /// @brief save meanDatas
-    void saveMeanDatasConfirmed();
+    void writeMeanDatasInFile(OutputDevice& device, const std::string& filename);
 
     /// @brief write additional element by type and sorted by ID
     void writeAdditionalByType(OutputDevice& device, const std::string& filename, const std::vector<SumoXMLTag> tags) const;
