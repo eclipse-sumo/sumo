@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-15T13:31:28.163067+01:00 by Eclipse SUMO marouter v1_24_0+0791-bfa764d4c7b
+<!-- generated on 2025-11-12T18:51:29.887909+01:00 by Eclipse SUMO marouter v1_24_0+1792-20e39f02fff
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -74,6 +74,7 @@
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.reversal-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="capacities.default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-18T19:37:54.575863+01:00 by Eclipse SUMO duarouter v1_24_0+1504-c09129808c1
+<!-- generated on 2025-11-12T18:51:26.672419+01:00 by Eclipse SUMO duarouter v1_24_0+1792-20e39f02fff
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -85,6 +85,7 @@
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.reversal-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>

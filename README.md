@@ -2,7 +2,7 @@
 
 Eclipse SUMO - Simulation of Urban MObility
 ===========================================
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16268320.svg )](https://doi.org/10.5281/zenodo.16268320)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17594250.svg )](https://doi.org/10.5281/zenodo.17594250)
 [![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/windows.yml)
 [![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/linux.yml)
 [![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/macos.yml)

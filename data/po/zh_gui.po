@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-07 07:47+0000\n"
+"PO-Revision-Date: 2025-11-11 09:54+0000\n"
 "Last-Translator: forevernull <forevernull@163.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -62,7 +62,7 @@ msgstr "开启一个新的 sumo-gui 视窗。"
 
 #: src/gui/GUIApplicationWindow.cpp:472
 msgid "&Open Simulation..."
-msgstr "&开启仿真..."
+msgstr "&打开仿真..."
 
 #: src/gui/GUIApplicationWindow.cpp:472
 msgid "Open a simulation (Configuration file)."
@@ -70,7 +70,7 @@ msgstr "开启仿真(设定档案)。"
 
 #: src/gui/GUIApplicationWindow.cpp:475
 msgid "Open &Network..."
-msgstr "开启 &路网..."
+msgstr "打开&路网..."
 
 #: src/gui/GUIApplicationWindow.cpp:475
 msgid "Open a network."

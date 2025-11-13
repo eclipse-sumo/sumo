@@ -32,6 +32,7 @@ authors:
   - name: "David Rusu"
   - name: "Dominik Buse"
   - name: "Dominik Salles"
+  - name: "Edson Pereira"
   - name: "Eric Melde"
   - name: "Eric Nicolay"
   - name: "Erik Newton"
@@ -60,6 +61,7 @@ authors:
   - name: "Jim Div"
   - name: "Joerg Schweizer"
   - name: "Johannes Rummel"
+  - name: "João Pedro Egidio da Silva"
   - name: "Julia Ringel"
   - name: "Karl Schrab"
   - name: "Karol Stosiek"
@@ -146,19 +148,19 @@ keywords:
   - simulation
   - microscopic
   - traffic
-date-released: "2025-07-22"
-version: 1.24.0
-doi: 10.5281/zenodo.16268320
+date-released: "2025-11-13"
+version: 1.25.0
+doi: 10.5281/zenodo.17594250
 repository-code: "https://github.com/eclipse-sumo/sumo"
 type: software
 url: "https://www.eclipse.dev/sumo/"
 identifiers:
   - description: "The GitHub tag"
     type: url
-    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_24_0"
+    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_25_0"
   - description: "The download folder"
     type: url
-    value: "https://sumo.dlr.de/releases/1.24.0/"
+    value: "https://sumo.dlr.de/releases/1.25.0/"
 license:
   - "EPL-2.0"
   - "GPL-2.0-or-later"

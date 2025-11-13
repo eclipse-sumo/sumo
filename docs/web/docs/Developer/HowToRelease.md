@@ -88,7 +88,7 @@ All scenarios should be fixed by now.
   - in CMakeLists.txt
   - [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md)
-  - [in sumo.metainfo.xml]({{Source}}build_config/package/sumo.metainfo.xml)
+  - [in org.eclipse.sumo.metainfo.xml]({{Source}}build_config/package/org.eclipse.sumo.metainfo.xml)
     for correct flatpak info
   - in [CITATION.cff]({{Source}}CITATION.cff)
   - in the [ChangeLog](../ChangeLog.md)
@@ -150,6 +150,7 @@ If everything is fine:
   - this assumes you have the devscripts package as well as all sumo dependencies installed
   - unzip the special source release `tar xzf sumo_{{Version}}.orig.tar.gz`
   - run `cd sumo-{{Version}} && tools/build_config/ubuntu_release.sh` and enter the release comment
+  - upload using `dput -f ppa:sumo/stable ../sumo_{{Version}}*_source.changes`
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - upload the wheels to PyPI using `twine upload /s/daily/wheels/*{{Version}}*.whl`
   - you might need to do this with an up to date twine in a virtual environment, see https://github.com/pypi/warehouse/issues/15611

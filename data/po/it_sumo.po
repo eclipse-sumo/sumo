@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-09 18:57+0000\n"
+"PO-Revision-Date: 2025-11-10 19:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12191,6 +12191,8 @@ msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / max speed."
 msgstr ""
+"Nessun intervallo coincide con il tempo passato % nell'arco '%'.\n"
+" Verrà usato il quotiente tra la lunghezza e il limite di velocità."
 
 #: src/router/ROEdge.cpp:254
 msgid ""
@@ -13430,7 +13432,7 @@ msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:2054
 msgid "Calibrator Flows have to be defined within a %."
-msgstr ""
+msgstr "Flussi Calibrator devono essere definiti dentro un/a %."
 
 #: src/utils/handlers/AdditionalHandler.cpp:2064
 #: src/utils/handlers/MeanDataHandler.cpp:273
@@ -13491,12 +13493,17 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; Non "
+"si può avere un itinerario esterno e uno interno insieme nella stessa "
+"definzione."
 
 #: src/utils/handlers/CommonHandler.cpp:200
 msgid ""
 "Could not build % with ID '%' in netedit; Cannot have multiple from-to "
 "attributes."
 msgstr ""
+"NOn ho potuto costruire % con il codice identificativo '%' in netedit; Non è "
+"possibile avere molteplici attributi di origine e destinazione."
 
 #: src/utils/handlers/CommonHandler.cpp:203
 msgid ""
@@ -13598,11 +13605,13 @@ msgstr ""
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
+"Non ho potuto costruire % in netedit; l'elemento padre % con il codice "
+"identificativo '%' non esiste."
 
 #: src/utils/handlers/CommonHandler.cpp:408
 #, c-format
 msgid "Could not build % in netedit; % parent doesn't exist."
-msgstr ""
+msgstr "Non ho potuto costruire % in netedit; l'elemento padre % non esiste."
 
 #: src/utils/handlers/DataHandler.cpp:123
 msgid "Data elements cannot load attributes as params"
@@ -13953,7 +13962,7 @@ msgstr ""
 #: src/utils/router/SUMOAbstractRouter.h:228
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
-msgstr ""
+msgstr "Non è stato trovato nessun collegamento tra l'arco '%' e l'arco '%'."
 
 #: src/utils/router/CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
