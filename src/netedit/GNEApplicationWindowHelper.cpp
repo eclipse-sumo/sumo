@@ -2414,11 +2414,11 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
                 if (bucket->getFilename() == filename) {
                     // continue depending if this AC can be registered in this type of bucket
                     if (AC->getTagProperty()->isFileCompatible(bucket->getFileType())) {
-                        bucket->addAC(AC);
+                        bucket->addElement(AC);
                         return bucket;
                     } else {
                         // in this case, put the AC in the invalid element bucket
-                        myInvalidBucket->addAC(AC);
+                        myInvalidBucket->addElement(AC);
                         return myInvalidBucket;
                     }
                 }
@@ -2432,12 +2432,12 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
                 auto bucket = new GNEFileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
-                bucket->addAC(AC);
+                bucket->addElement(AC);
                 return bucket;
             }
         }
         // on this point this case, put the AC in the invalid element bucket
-        myInvalidBucket->addAC(AC);
+        myInvalidBucket->addElement(AC);
         return myInvalidBucket;
     }
 }
@@ -2472,9 +2472,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
         for (auto& bucketVector : myBuckets) {
             for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
                 auto bucket = (*it);
-                if (bucket->hasAC(AC)) {
+                if (bucket->hasElement(AC)) {
                     // remove AC from bucket
-                    bucket->removeAC(AC);
+                    bucket->removeElement(AC);
                     // check if remove bucket (except if is a default bucket)
                     if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
                         bucketVector.second.erase(it);
@@ -2484,8 +2484,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
             }
         }
         // on this point, check if AC is in invalid bucket
-        if (myInvalidBucket->hasAC(AC)) {
-            myInvalidBucket->removeAC(AC);
+        if (myInvalidBucket->hasElement(AC)) {
+            myInvalidBucket->removeElement(AC);
             return true;
         } else {
             // the AC was not inserted, throw error
