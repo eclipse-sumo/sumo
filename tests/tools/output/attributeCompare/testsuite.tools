@@ -18,3 +18,4 @@ id_attribute
 
 # group by edge id and interval begin
 id_attribute2
+id_attribute_FILE
