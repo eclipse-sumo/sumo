@@ -770,6 +770,8 @@ public:
         return *myEdge;
     }
 
+    const MSJunction* getFromJunction() const;
+    const MSJunction* getToJunction() const;
 
     /** @brief Returns the lane's follower if it is an internal lane, the edge of the lane otherwise
      * @return This lane's follower
