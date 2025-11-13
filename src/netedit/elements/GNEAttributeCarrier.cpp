@@ -906,8 +906,11 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            // check here filenames!
-            return SUMOXMLDefinitions::isValidFilename(value);
+            if (SUMOXMLDefinitions::isValidFilename(value)) {
+                return myNet->getSavingFilesHandler()->checkFilename(this, value);
+            } else {
+                return false;
+            }
         case GNE_ATTR_CENTER_AFTER_CREATION:
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
