@@ -2697,7 +2697,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
             // begin undo-list
-            myNet->getViewNet()->getUndoList()->begin(polygonUnderMouse, TL("simplify shapes"));
+            myNet->getUndoList()->begin(polygonUnderMouse, TL("simplify shapes"));
             // get shapes
             const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
@@ -2711,7 +2711,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         } else {
             polygonUnderMouse->simplifyShape();
         }
@@ -2739,7 +2739,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
             // begin undo-list
-            myNet->getViewNet()->getUndoList()->begin(polygonUnderMouse, TL("close polygon shapes"));
+            myNet->getUndoList()->begin(polygonUnderMouse, TL("close polygon shapes"));
             // get selectedshapes
             const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
@@ -2753,7 +2753,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         } else {
             polygonUnderMouse->closePolygon();
         }
@@ -2771,7 +2771,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
         // check if shape is selected
         if (polygonUnderMouse->isAttributeCarrierSelected()) {
             // begin undo-list
-            myNet->getViewNet()->getUndoList()->begin(polygonUnderMouse, TL("open polygon shapes"));
+            myNet->getUndoList()->begin(polygonUnderMouse, TL("open polygon shapes"));
             // get shapes
             const auto selectedShapes = myNet->getAttributeCarriers()->getSelectedShapes();
             // iterate over shapes
@@ -2785,7 +2785,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
                 }
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         } else {
             polygonUnderMouse->openPolygon();
         }
@@ -2818,13 +2818,13 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         // continue if there are ACs
         if (ACsUnderPolygon.size() > 0) {
             // begin undo-list
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODESELECT, TL("select within polygon boundary"));
+            myNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("select within polygon boundary"));
             // iterate over shapes
             for (const auto& AC : ACsUnderPolygon) {
                 AC->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
             }
             // end undo-list
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         }
     }
     return 1;
@@ -2842,7 +2842,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
         // triangulate shape
         const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
         // begin undo-list
-        myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("triangulate polygon"));
+        myNet->getUndoList()->begin(GUIIcon::POLY, TL("triangulate polygon"));
         // create every individual triangle
         for (const auto& triangle : triangulation) {
             auto basePolygon = polygonUnderMouse->getSumoBaseObject();
@@ -2852,9 +2852,9 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
             additionalHandler.parseSumoBaseObject(basePolygon);
         }
         // delete original polygon
-        myNet->deleteAdditional(polygonUnderMouse, myNet->getViewNet()->getUndoList());
+        myNet->deleteAdditional(polygonUnderMouse, myNet->getUndoList());
         // end undo-list
-        myNet->getViewNet()->getUndoList()->end();
+        myNet->getUndoList()->end();
     }
     return 1;
 }
@@ -2873,7 +2873,7 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2888,7 +2888,7 @@ GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdStraightenShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2903,7 +2903,7 @@ GNEViewNet::onCmdStraightenShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2918,7 +2918,7 @@ GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2933,7 +2933,7 @@ GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2950,7 +2950,7 @@ GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) 
 
 long
 GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -2967,7 +2967,7 @@ GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdResetShapeEdited(FXObject*, FXSelector, void*) {
-    auto undoList = myNet->getViewNet()->getUndoList();
+    auto undoList = myNet->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
@@ -3827,11 +3827,11 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
         // check if we're adding TLS in multiple junctions
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
+            myNet->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
             for (const auto& selectedJunction : selectedJunctions) {
                 selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
             }
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         } else {
             // change junction type
             junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
@@ -3854,7 +3854,7 @@ GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
     if (junction != nullptr) {
         // check if we're adding TLS in multiple junctions
         if (junction->isAttributeCarrierSelected()) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
+            myNet->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
         }
         // change junction type
         junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
@@ -3879,7 +3879,7 @@ GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
         }
         // end undoList
         if (junction->isAttributeCarrierSelected()) {
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->end();
         }
         // change to TLS Mode
         myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);

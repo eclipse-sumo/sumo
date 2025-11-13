@@ -331,7 +331,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw polygon
             drawPolygon(s, d, color, polyExaggeration);
             // draw contour if don't move whole polygon
-            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
+            if (!myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveWholePolygons()) {
                 // get darker color
                 const RGBColor darkerColor = color.changedBrightness(-32);
                 // draw contour
@@ -386,9 +386,9 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->begin(this, "delete geometry point");
-            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(this, "delete geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getUndoList());
+            myNet->getUndoList()->end();
         } else {
             // first remove object from grid due shape is used for boundary
             myNet->removeGLObjectFromGrid(this);
@@ -417,9 +417,9 @@ GNEPoly::openPolygon(bool allowUndo) {
     // only open if shape is closed
     if (myShape.isClosed()) {
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->begin(this, "open polygon");
-            setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(this, "open polygon");
+            setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getUndoList());
+            myNet->getUndoList()->end();
         } else {
             myShape.pop_back();
             // disable simplified shape flag
@@ -438,9 +438,9 @@ GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
     if (!myShape.isClosed()) {
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->begin(this, "close shape");
-            setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(this, "close shape");
+            setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getUndoList());
+            myNet->getUndoList()->end();
         } else {
             myShape.closePolygon();
             // disable simplified shape flag
@@ -479,9 +479,9 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         }
         // set new rotated shape
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->begin(this, "change first geometry point");
-            setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(this, "change first geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(newShape), myNet->getUndoList());
+            myNet->getUndoList()->end();
         } else {
             // set new shape
             myShape = newShape;
@@ -509,9 +509,9 @@ GNEPoly::simplifyShape(bool allowUndo) {
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->begin(this, "simplify shape");
-            setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(this, "simplify shape");
+            setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), myNet->getUndoList());
+            myNet->getUndoList()->end();
         } else {
             // set new shape
             myShape = simplifiedShape;

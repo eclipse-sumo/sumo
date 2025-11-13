@@ -124,7 +124,7 @@ GNEElementList::removeElementRecursively(GNEAdditional* additionalElement) const
         removeElementRecursively(demandChild);
     }
     // delete element
-    additionalElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(additionalElement, false), true);
+    additionalElement->getNet()->getUndoList()->add(new GNEChange_Additional(additionalElement, false), true);
 }
 
 
@@ -140,7 +140,7 @@ GNEElementList::removeElementRecursively(GNEDemandElement* demandElement) const 
         removeElementRecursively(demandChild);
     }
     // delete element
-    demandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);
+    demandElement->getNet()->getUndoList()->add(new GNEChange_DemandElement(demandElement, false), true);
 }
 
 /****************************************************************************/

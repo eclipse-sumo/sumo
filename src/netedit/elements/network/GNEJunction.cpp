@@ -156,7 +156,7 @@ bool
 GNEJunction::checkDrawFromContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
@@ -221,7 +221,7 @@ bool
 GNEJunction::checkDrawToContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
     // continue depending of current status
     if (inspectedElements.isInspectingSingleElement()) {
@@ -298,7 +298,7 @@ GNEJunction::checkDrawToContour() const {
 
 bool
 GNEJunction::checkDrawRelatedContour() const {
-    if (myNet->getViewNet()->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this) {
+    if (myNet->getViewParent()->getCrossingFrame()->getEdgesSelector()->getCurrentJunction() == this) {
         return true;
     }
     // check opened popup
@@ -313,7 +313,7 @@ bool
 GNEJunction::checkDrawOverContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
     if (viewObjectsSelector.getJunctionFront() != this) {
         return false;
@@ -718,8 +718,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEJunction::deleteGLObject() {
     // Check if edge can be deleted
-    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
-        myNet->deleteJunction(this, myNet->getViewNet()->getUndoList());
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteJunction(this, myNet->getUndoList());
     }
 }
 
@@ -1454,7 +1454,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // change junction position
                 GNEChange_Attribute::changeAttribute(this, key, toString(newPosition), undoList, true);
                 // calculate delta using new position
-                const bool moveOnlyCenter = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
+                const bool moveOnlyCenter = myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter();
                 const Position delta = myNBNode->getPosition() - (moveOnlyCenter ? myNBNode->getPosition() : orig);
                 // set new position of adjacent edges
                 for (const auto& edge : myGNEIncomingEdges) {
@@ -1812,7 +1812,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
 
 void
 GNEJunction::drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter()) {
+    if (myNet->getViewParent()->getMoveFrame()->getNetworkMoveOptions()->getMoveOnlyJunctionCenter()) {
         // push matrix
         GLHelper::pushMatrix();
         // set color

@@ -130,7 +130,7 @@ GNEDistributionRefDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         GNEDemandElement* reference = nullptr;
         const double probability = GNEAttributeCarrier::parse<double>(myProbabilityTextField->getText().text());
         GNEDemandElement* distribution = myDistributionParent->getNet()->getAttributeCarriers()->retrieveDemandElement(myDistributionParent->getGUIGlObject());
-        auto undoList = myDistributionParent->getNet()->getViewNet()->getUndoList();
+        auto undoList = myDistributionParent->getNet()->getUndoList();
         // create a routeRef o a vTypeRef
         if (distribution->getTagProperty()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
             if (myProbabilityTextField->getTextColor() == BLUE_COLOR) {

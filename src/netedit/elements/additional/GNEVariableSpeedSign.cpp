@@ -335,7 +335,7 @@ GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* u
         // create VSS Symbol
         GNEAdditional* VSSSymbol = new GNEVariableSpeedSignSymbol(this, lane);
         // add it using GNEChange_Additional
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+        myNet->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
     }
     undoList->end();
 }

@@ -141,9 +141,33 @@ GNENet::getGNEApplicationWindow() const {
 }
 
 
+GNEViewNet*
+GNENet::getViewNet() const {
+    return myApplicationWindow->getViewNet();
+}
+
+
+GNEViewParent*
+GNENet::getViewParent() const {
+    return myApplicationWindow->getViewNet()->getViewParent();
+}
+
+
+GNEUndoList*
+GNENet::getUndoList() const {
+    return myApplicationWindow->getUndoList();
+}
+
+
 const GNETagPropertiesDatabase*
 GNENet::getTagPropertiesDatabase() const {
     return myApplicationWindow->getTagPropertiesDatabase();
+}
+
+
+NBNetBuilder*
+GNENet::getNetBuilder() const {
+    return myNetBuilder;
 }
 
 
@@ -1369,7 +1393,7 @@ GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
     auto& sumoOptions = myApplicationWindow->getSumoOptions();
     // begin save network
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));
@@ -1398,7 +1422,7 @@ GNENet::saveNetwork() {
     // mark network as saved
     mySavingStatus->networkSaved();
     // end save network
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
@@ -1459,7 +1483,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         }
     }
     // start recomputing
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
@@ -1520,7 +1544,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // clear myEdgesAndNumberOfLanes after reload additionals
     myEdgesAndNumberOfLanes.clear();
     // end recomputing
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
     // update status bar
     window->setStatusBarText(TL("Finished computing junctions."));
 }
@@ -1586,18 +1610,6 @@ GNENet::requireRecompute() {
 bool
 GNENet::isNetRecomputed() const {
     return !myNeedRecompute;
-}
-
-
-FXApp*
-GNENet::getApp() {
-    return myApplicationWindow->getViewNet()->getApp();
-}
-
-
-NBNetBuilder*
-GNENet::getNetBuilder() const {
-    return myNetBuilder;
 }
 
 
@@ -2172,12 +2184,6 @@ GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const s
 }
 
 
-GNEViewNet*
-GNENet::getViewNet() const {
-    return myApplicationWindow->getViewNet();
-}
-
-
 NBTrafficLightLogicCont&
 GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
@@ -2335,7 +2341,7 @@ GNENet::saveMeanDatas() {
 void
 GNENet::saveAdditionalsConfirmed() {
     // Start saving additionals
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
@@ -2398,14 +2404,14 @@ GNENet::saveAdditionalsConfirmed() {
     // mark additionals as saved
     mySavingStatus->additionalsSaved();
     // end saving additionals
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveDemandElementsConfirmed() {
     // Start saving additionals
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
@@ -2449,14 +2455,14 @@ GNENet::saveDemandElementsConfirmed() {
     // mark demand elements as saved
     mySavingStatus->demandElementsSaved();
     // end saving additionals
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveDataElementsConfirmed() {
     // Start saving additionals
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
@@ -2479,14 +2485,14 @@ GNENet::saveDataElementsConfirmed() {
     // mark data element as saved
     mySavingStatus->dataElementsSaved();
     // end saving additionals
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
 void
 GNENet::saveMeanDatasConfirmed() {
     // Start saving additionals
-    getApp()->beginWaitCursor();
+    myApplicationWindow->getApp()->beginWaitCursor();
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
@@ -2509,7 +2515,7 @@ GNENet::saveMeanDatasConfirmed() {
     // mark mean datas as saved
     mySavingStatus->meanDatasSaved();
     // end saving additionals
-    getApp()->endWaitCursor();
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 

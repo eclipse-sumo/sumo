@@ -64,8 +64,8 @@ GNEEdgeRelData::setColor(const GUIVisualizationSettings& s) const {
         col = s.dataColorer.getScheme().getColor(val);
     } else if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGERELDATA) {
         // get selected data interval and filtered attribute
-        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
-        const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute();
+        const GNEDataInterval* dataInterval = myNet->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
+        const std::string filteredAttribute = myNet->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
             // obtain minimum and maximum value
@@ -111,7 +111,7 @@ GNEEdgeRelData::getColorValue(const GUIVisualizationSettings& s, int activeSchem
 bool
 GNEEdgeRelData::isGenericDataVisible() const {
     // obtain pointer to edge data frame (only for code legibly)
-    const GNEEdgeRelDataFrame* edgeRelDataFrame = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame();
+    const GNEEdgeRelDataFrame* edgeRelDataFrame = myNet->getViewParent()->getEdgeRelDataFrame();
     // get current data edit mode
     DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
     // check if we have to filter generic data
@@ -192,8 +192,8 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESe
             // draw filtered attribute
             if (getParentEdges().front()->getChildLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
+                                      myNet->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                                      myNet->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);

@@ -81,8 +81,8 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
+    if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
     const auto parentEdges = myParents.get<GNEEdge*>();
@@ -118,8 +118,8 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
+    if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
     const auto parentEdges = myParents.get<GNEEdge*>();

@@ -254,7 +254,7 @@ GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNEEdgeType::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+    myNet->deleteNetworkElement(this, myNet->getUndoList());
 }
 
 
@@ -408,7 +408,7 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool
 GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
-    const auto edgeTypeSelector = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector();
+    const auto edgeTypeSelector = myNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector();
     switch (key) {
         case SUMO_ATTR_SIDEWALKWIDTH:
             if (edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) {
@@ -436,7 +436,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
             // update comboBox
-            myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->updateIDinComboBox(getID(), value);
+            myNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->updateIDinComboBox(getID(), value);
             // update ID
             myNet->getAttributeCarriers()->updateEdgeTypeID(this, value);
             break;
@@ -556,9 +556,9 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
     // update edge selector
-    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeAttributes()->refreshAttributesEditor();
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getLaneTypeSelector()->refreshLaneTypeSelector();
+    if (myNet->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeAttributes()->refreshAttributesEditor();
+        myNet->getViewParent()->getCreateEdgeFrame()->getLaneTypeSelector()->refreshLaneTypeSelector();
     }
 }
 

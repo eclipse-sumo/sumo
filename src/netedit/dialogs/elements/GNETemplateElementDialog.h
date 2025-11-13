@@ -40,7 +40,7 @@ public:
         myElement(element),
         myChangesDescription(TLF("change % values", element->getTagStr())) {
         // init commandGroup
-        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
+        myElement->getNet()->getUndoList()->begin(myElement, myChangesDescription);
     }
 
     /// @brief destructor
@@ -64,13 +64,13 @@ public:
 
     /// @brief called when cancel or no button is pressed
     long onCmdCancel(FXObject*, FXSelector, void*) {
-        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myElement->getNet()->getUndoList()->abortLastChangeGroup();
         return closeDialogCanceling();
     }
 
     /// @brief called when abort is called either closing dialog or pressing abort button
     long onCmdAbort(FXObject*, FXSelector, void*) {
-        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
+        myElement->getNet()->getUndoList()->abortLastChangeGroup();
         return closeDialogAborting();
     }
 
@@ -86,15 +86,15 @@ protected:
 
     /// @brief close dialog commiting changes
     long acceptElementDialog() {
-        myElement->getNet()->getViewNet()->getUndoList()->end();
+        myElement->getNet()->getUndoList()->end();
         return closeDialogAccepting();
     }
 
     /// @brief reset changes did in this dialog.
     void resetChanges() {
         // abort last command group an start editing again
-        myElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-        myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, myChangesDescription);
+        myElement->getNet()->getUndoList()->abortLastChangeGroup();
+        myElement->getNet()->getUndoList()->begin(myElement, myChangesDescription);
     }
 
 private:

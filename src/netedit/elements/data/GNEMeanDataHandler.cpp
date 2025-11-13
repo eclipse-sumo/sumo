@@ -86,9 +86,9 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(edgeMeanData, TL("add meanDataEdge"));
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(edgeMeanData, TL("add meanDataEdge"));
+            myNet->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
+            myNet->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertMeanData(edgeMeanData);
             edgeMeanData->incRef("buildEdgeMeanData");
@@ -136,9 +136,9 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(edgeMeanData, TL("add meanDataLane"));
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
-            myNet->getViewNet()->getUndoList()->end();
+            myNet->getUndoList()->begin(edgeMeanData, TL("add meanDataLane"));
+            myNet->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
+            myNet->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertMeanData(edgeMeanData);
             edgeMeanData->incRef("buildEdgeMeanData");
@@ -192,7 +192,7 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
     if (meanDataElement) {
         if (myOverwriteElements) {
             // delete meanData element (and all of their childrens)
-            myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
+            myNet->deleteMeanData(meanDataElement, myNet->getUndoList());
         } else if (myRemainElements) {
             // duplicated dataset
             return writeWarningDuplicated(tag, meanDataElement->getID(), meanDataElement->getTagProperty()->getTag());
@@ -202,7 +202,7 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete meanData element (and all of their childrens)
-                myNet->deleteMeanData(meanDataElement, myNet->getViewNet()->getUndoList());
+                myNet->deleteMeanData(meanDataElement, myNet->getUndoList());
             } else if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::CANCEL) {
                 // duplicated demand
                 return writeWarningDuplicated(tag, meanDataElement->getID(), meanDataElement->getTagProperty()->getTag());

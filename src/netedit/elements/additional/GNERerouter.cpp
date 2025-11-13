@@ -395,7 +395,7 @@ GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoL
         // create VSS Symbol
         GNEAdditional* VSSSymbol = new GNERerouterSymbol(this, edge);
         // add it using GNEChange_Additional
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+        myNet->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
     }
     undoList->end();
 }

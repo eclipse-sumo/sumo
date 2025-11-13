@@ -379,7 +379,7 @@ bool
 GNELane::checkDrawOverContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewParent = myNet->getViewParent();
     // check if we're selecting edges in additional mode
     if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
         if (viewParent->getAdditionalFrame()->getViewObjetsSelector()->isNetworkElementSelected(this)) {
@@ -479,8 +479,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNELane::deleteGLObject() {
     // Check if edge can be deleted
-    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
-        myNet->deleteLane(this, myNet->getViewNet()->getUndoList(), false);
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteLane(this, myNet->getUndoList(), false);
     }
 }
 
@@ -563,7 +563,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             // build rechable operations
             buildRechableOperations(parent, ret);
         } else if (editMode == NetworkEditMode::NETWORK_TLS) {
-            if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->controlsEdge(getParentEdges().front())) {
+            if (myNet->getViewParent()->getTLSEditorFrame()->controlsEdge(getParentEdges().front())) {
                 GUIDesigns::buildFXMenuCommand(ret, TL("Select state for all links from this edge:"), nullptr, nullptr, 0);
                 const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
                 for (auto it : names) {
@@ -897,7 +897,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     // get parent edge
     NBEdge* edge = getParentEdges().front()->getNBEdge();
     // get template editor
-    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to update template
     const bool updateTemplate = templateEditor->getEdgeTemplate() ? (templateEditor->getEdgeTemplate()->getID() == getParentEdges().front()->getID()) : false;
     switch (key) {
@@ -1452,21 +1452,21 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // special color for conflicted candidate edges
     if (getParentEdges().front()->isConflictedCandidate()) {
         // extra check for route frame
-        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
+        if (myNet->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
             color = s.candidateColorSettings.conflict;
         }
     }
     // special color for special candidate edges
     if (getParentEdges().front()->isSpecialCandidate()) {
         // extra check for route frame
-        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
+        if (myNet->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
             color = s.candidateColorSettings.special;
         }
     }
     // special color for candidate edges
     if (getParentEdges().front()->isPossibleCandidate()) {
         // extra check for route frame
-        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
+        if (myNet->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
             color = s.candidateColorSettings.possible;
         }
     }
@@ -1905,7 +1905,7 @@ GNELane::getParentName() const {
 
 long
 GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
-    myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->handleMultiChange(this, obj, sel, data);
+    myNet->getViewParent()->getTLSEditorFrame()->handleMultiChange(this, obj, sel, data);
     return 1;
 }
 
@@ -2172,7 +2172,7 @@ GNELane::buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
     GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Use edge as template"), nullptr, &parent, MID_GNE_EDGE_USEASTEMPLATE);
     auto applyTemplate = GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Apply template"), nullptr, &parent, MID_GNE_EDGE_APPLYTEMPLATE);
     // check if disable apply template
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate() == nullptr) {
+    if (myNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate() == nullptr) {
         applyTemplate->disable();
     }
 }

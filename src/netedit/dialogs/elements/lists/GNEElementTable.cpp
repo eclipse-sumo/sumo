@@ -273,7 +273,7 @@ GNEElementTable::Row::onCmdEditRow(FXObject* sender, FXSelector, void*) {
                 }
             } else {
                 // set value in GNEAttributeCarrier using undo-redo
-                myAC->setAttribute(attributeTextField.first, value, myAC->getNet()->getViewNet()->getUndoList());
+                myAC->setAttribute(attributeTextField.first, value, myAC->getNet()->getUndoList());
                 // restore black color and kill focus
                 attributeTextField.second->setTextColor(GUIDesignTextColorBlack);
                 attributeTextField.second->setBackColor(GUIDesignBackgroundColorWhite);

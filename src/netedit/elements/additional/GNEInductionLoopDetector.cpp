@@ -123,7 +123,7 @@ GNEInductionLoopDetector::updateGeometry() {
 bool
 GNEInductionLoopDetector::checkDrawRelatedContour() const {
     // get TLS Attributes
-    const auto& TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
+    const auto& TLSAttributes = myNet->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
     // check detectors
     if (myNet->getViewNet()->selectingDetectorsTLSMode() &&
             (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&

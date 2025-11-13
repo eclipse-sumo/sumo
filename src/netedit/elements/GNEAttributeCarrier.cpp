@@ -210,7 +210,7 @@ void
 GNEAttributeCarrier::resetDefaultValues(const bool allowUndoRedo) {
     if (allowUndoRedo) {
         // reset within undo-redo
-        const auto undoList = myNet->getViewNet()->getUndoList();
+        const auto undoList = myNet->getUndoList();
         undoList->begin(myTagProperty->getGUIIcon(), TLF("reset %", myTagProperty->getTagStr()));
         for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
             if (!attrProperty->isUnique() && attrProperty->hasDefaultValue()) {

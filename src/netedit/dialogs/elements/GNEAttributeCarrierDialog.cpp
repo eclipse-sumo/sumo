@@ -95,7 +95,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
 
 long
 GNEAttributeCarrierDialog::AttributeTextField::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    auto undoList = myACDialogParent->getElement()->getNet()->getViewNet()->getUndoList();
+    auto undoList = myACDialogParent->getElement()->getNet()->getUndoList();
     if (obj == myTextField) {
         if (myACDialogParent->getElement()->isValid(myAttrProperty->getAttr(), myTextField->getText().text())) {
             // set attribute
@@ -184,7 +184,7 @@ GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
         myAttributeTextFields.push_back(attributeTextField);
     }
     // init commandGroup
-    myElement->getNet()->getViewNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
+    myElement->getNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
     // open dialog
     openDialog();
 }

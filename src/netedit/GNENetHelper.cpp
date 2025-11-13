@@ -2004,7 +2004,7 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(dataInterval);
     dataInterval->unmarkForDrawingFront();
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
@@ -2137,7 +2137,7 @@ GNENetHelper::AttributeCarriers::deleteGenericData(GNEGenericData* genericData) 
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(genericData);
     genericData->unmarkForDrawingFront();
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
     // delete path element
     myNet->getDataPathManager()->removePath(genericData);
     // mark interval toolbar for update
@@ -2327,7 +2327,7 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(junction);
     junction->unmarkForDrawingFront();
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(junction);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(junction);
     // Remove from grid and container
     myNet->removeGLObjectFromGrid(junction);
     myJunctions.erase(junction->getMicrosimID());
@@ -2341,13 +2341,13 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
 void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     // get pointer to create edge frame
-    const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
+    const auto& createEdgeFrame = myNet->getViewParent()->getCreateEdgeFrame();
     // insert in myEdgeTypes
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
     myNumberOfNetworkElements++;
     // update edge selector
-    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+    if (myNet->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // set current edge type inspected
     createEdgeFrame->getEdgeTypeSelector()->setCurrentEdgeType(edgeType);
@@ -2357,11 +2357,11 @@ GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
 void
 GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // get pointer to create edge frame
-    const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
+    const auto& createEdgeFrame = myNet->getViewParent()->getCreateEdgeFrame();
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(edgeType);
     edgeType->unmarkForDrawingFront();
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
     myNumberOfNetworkElements--;
@@ -2391,7 +2391,7 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->getInspectedElements().uninspectAC(edge);
     edge->unmarkForDrawingFront();
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edge);
+    myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edge);
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
     myEdges.erase(edge->getMicrosimID());
@@ -2411,7 +2411,7 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     edge->getFromJunction()->updateCenteringBoundary(true);
     edge->getToJunction()->updateCenteringBoundary(true);
     // get template editor
-    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to remove template
     if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == edge->getID())) {
         templateEditor->setEdgeTemplate(nullptr);
@@ -2441,7 +2441,7 @@ GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(lane);
         lane->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
     }
 }
 
@@ -2469,7 +2469,7 @@ GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
         if (myNet->getViewNet()) {
             myNet->getViewNet()->getInspectedElements().uninspectAC(crossing);
             crossing->unmarkForDrawingFront();
-            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
+            myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
         }
     }
 }
@@ -2497,7 +2497,7 @@ GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) 
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(walkingArea);
         walkingArea->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
     }
 }
 
@@ -2524,7 +2524,7 @@ GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(connection);
         connection->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
     }
 }
 
@@ -2594,7 +2594,7 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(additional);
         additional->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
         // remove element from grid
         myNet->removeGLObjectFromGrid(additional);
         // delete path element
@@ -2636,7 +2636,7 @@ GNENetHelper::AttributeCarriers::deleteTAZSourceSink(GNETAZSourceSink* sourceSin
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(sourceSink);
         sourceSink->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(sourceSink);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(sourceSink);
         // additionals has to be saved
         myNet->getSavingStatus()->requireSaveAdditionals();
     }
@@ -2675,7 +2675,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames) {
     const auto tag = demandElement->getTagProperty()->getTag();
-    auto viewParent = myNet->getViewNet()->getViewParent();
+    auto viewParent = myNet->getViewParent();
     // find demanElement in demandElementTag
     auto itFind = myDemandElements.at(tag).find(demandElement->getGUIGlObject());
     // check if demandElement was previously inserted
@@ -2752,7 +2752,7 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(dataSet);
         dataSet->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
         // dataSets has to be saved
         myNet->getSavingStatus()->requireSaveDataElements();
         // mark interval toolbar for update
@@ -2788,7 +2788,7 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(meanData);
         meanData->unmarkForDrawingFront();
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
+        myNet->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
         // remove element from grid
         myNet->removeGLObjectFromGrid(meanData);
         // meanDatas has to be saved
@@ -2804,46 +2804,46 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
         switch (myNet->getViewNet()->getEditModes().demandEditMode) {
             case DemandEditMode::DEMAND_VEHICLE:
                 if (tagProperty->isType()) {
-                    myNet->getViewNet()->getViewParent()->getVehicleFrame()->getTypeSelector()->refreshDemandElementSelector();
+                    myNet->getViewParent()->getVehicleFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_TYPE:
                 if (tagProperty->isType()) {
-                    myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
+                    myNet->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
                 }
                 break;
             case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
                 if (tagProperty->isType()) {
-                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
+                    myNet->getViewParent()->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
                 if (tagProperty->isRoute()) {
-                    myNet->getViewNet()->getViewParent()->getRouteDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
+                    myNet->getViewParent()->getRouteDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_PERSON:
                 if (tagProperty->isType()) {
-                    myNet->getViewNet()->getViewParent()->getPersonFrame()->getTypeSelector()->refreshDemandElementSelector();
+                    myNet->getViewParent()->getPersonFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_PERSONPLAN:
                 if (tagProperty->isPerson()) {
-                    myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPersonSelector()->refreshDemandElementSelector();
+                    myNet->getViewParent()->getPersonPlanFrame()->getPersonSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_CONTAINER:
                 if (tagProperty->isType()) {
-                    myNet->getViewNet()->getViewParent()->getContainerFrame()->getTypeSelector()->refreshDemandElementSelector();
+                    myNet->getViewParent()->getContainerFrame()->getTypeSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_CONTAINERPLAN:
                 if (tagProperty->isContainer()) {
-                    myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
+                    myNet->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
                 }
                 break;
             case DemandEditMode::DEMAND_STOP:
-                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
+                myNet->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
                 break;
             default:
                 // nothing to update

@@ -205,14 +205,14 @@ GNEDemandElement::checkDrawOverContour() const {
     // get modes
     const auto& modes = myNet->getViewNet()->getEditModes();
     // get frames
-    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
+    const auto& personFramePlanSelector = myNet->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto& personPlanFramePlanSelector = myNet->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto& containerFramePlanSelector = myNet->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto& containerPlanFramePlanSelector = myNet->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // special case for Route
     if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         // get vehicle frame
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& vehicleFrame = myNet->getViewParent()->getVehicleFrame();
         // check if we're in vehicle mode
         if (vehicleFrame->shown()) {
             // get current vehicle template
@@ -375,13 +375,13 @@ GNEDemandElement::deleteGLObject() {
         if (planParent->getChildDemandElements().size() == 1) {
             planParent->deleteGLObject();
         } else {
-            myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+            myNet->deleteDemandElement(this, myNet->getUndoList());
         }
     } else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         // remove parent demand element
         getParentDemandElements().front()->deleteGLObject();
     } else {
-        myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+        myNet->deleteDemandElement(this, myNet->getUndoList());
     }
 }
 
@@ -394,7 +394,7 @@ GNEDemandElement::selectGLObject() {
         selectAttributeCarrier();
     }
     // update information label
-    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+    myNet->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 
