@@ -29,11 +29,13 @@ from lxml import etree as ET
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    import sumolib
-    from sumolib.statistics import Statistics
+    import sumolib  # noqa
+    from sumolib.statistics import Statistics  # noqa
+    from sumolib.miscutils import short_names  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
+FILE_ATTR = "@FILE"
 
 def get_options():
     op = sumolib.options.ArgumentParser()
@@ -56,6 +58,8 @@ def get_options():
     if options.element:
         options.element = options.element.split(',')
 
+    options.shortName = dict(zip(options.datafiles, short_names(options.datafiles, True)))
+
     return options
 
 
@@ -76,6 +80,8 @@ def main():
                         for attr in options.idAttribute:
                             if node.get(attr) is not None:
                                 idStack[-1].append(node.get(attr))
+                            elif len(idStack) == 1 and attr == FILE_ATTR:
+                                idStack[-1].append(options.shortName[fname])
 
                 else:
                     stack.pop()
