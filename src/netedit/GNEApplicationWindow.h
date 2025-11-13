@@ -37,22 +37,12 @@ class GNEExternalRunner;
 // ===========================================================================
 // class definition
 // ===========================================================================
-/**
- * @class GNEApplicationWindow
- * @brief The main window of Netedit.
- *
- * Contains the file opening support and a canvas to display the network in.
- *
- * Beside views on the simulation, shown within a MDI-window, the main window
- * may also have some further views (children) assigned which are stored
- * within a separate list.
- */
+
 class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventClient {
     /// @brief FOX-declaration
     FXDECLARE(GNEApplicationWindow)
 
 public:
-
     /**@brief Constructor
      * @param[in] app The FOX application
      * @param[in] tagPropertiesDatabase pointer to tag properties database
@@ -93,6 +83,9 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
+    /// @brief get saving files handler
+    GNEApplicationWindowHelper::SavingFilesHandler* getSavingFilesHandler() const;
+
     /// @name functions related with external runner
     /// @{
 
@@ -114,6 +107,7 @@ public:
 
     /// @brief handle event of type message
     void handleEvent_Message(GUIEvent* e);
+
     /// @}
 
     /// @name FOX-callbacks
@@ -813,6 +807,9 @@ private:
 
     /// @brief Supermode Commands
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;
+
+    /// @brief saving files handler
+    GNEApplicationWindowHelper::SavingFilesHandler* mySavingFilesHandler = nullptr;
 
     /// @brief pointer to current view net
     GNEViewNet* myViewNet = nullptr;

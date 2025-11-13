@@ -44,7 +44,7 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
 
 GNEChange_Additional::~GNEChange_Additional() {
     // only continue we have undo-redo mode enabled
-    if (myAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myAdditional->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myAdditional->decRef("GNEChange_Additional");
         if (myAdditional->unreferenced()) {
             // make sure that additional isn't in net before removing

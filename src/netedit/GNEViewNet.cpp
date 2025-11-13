@@ -300,8 +300,11 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     reparent(actualParent);
     // Build edit modes
     buildEditModeControls();
-    // set this net in Net
-    myNet->setViewNet(this);
+    // update all edge and ngeometries
+    for (const auto& edge : net->getAttributeCarriers()->getEdges()) {
+        edge.second->updateCenteringBoundary(true);
+        edge.second->updateGeometry();
+    }
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
     // Reset textures
@@ -316,6 +319,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
     myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
     myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+    update();
 }
 #ifdef _MSC_VER
 #pragma warning(pop)

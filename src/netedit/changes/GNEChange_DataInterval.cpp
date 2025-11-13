@@ -46,7 +46,7 @@ GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bo
 
 GNEChange_DataInterval::~GNEChange_DataInterval() {
     // only continue we have undo-redo mode enabled
-    if (myDataInterval->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myDataInterval->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myDataInterval->decRef("GNEChange_DataInterval");
         if (myDataInterval->unreferenced() &&
                 myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent->getID(), false) &&

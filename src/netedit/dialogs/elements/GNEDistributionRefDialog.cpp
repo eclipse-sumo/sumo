@@ -56,11 +56,11 @@ FXIMPLEMENT(GNEDistributionRefDialog, GNEDialog, GNEDistributionRefDialogMap, AR
 // ===========================================================================
 
 GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent) :
-    GNEDialog(distributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    GNEDialog(distributionParent->getNet()->getGNEApplicationWindow(),
               TLF("Add % reference", distributionParent->getTagStr()), distributionParent->getTagProperty()->getGUIIcon(),
               DialogType::DISTRIBUTION_REF, GNEDialog::Buttons::ACCEPT_CANCEL, OpenType::MODAL, ResizeMode::STATIC),
     myDistributionParent(distributionParent) {
-    auto tooltipMenu = distributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    auto tooltipMenu = distributionParent->getNet()->getGNEApplicationWindow()->getStaticTooltipMenu();
     // create reference elements
     FXHorizontalFrame* referenceFrames = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     auto referenceLabel = new FXLabel(referenceFrames, "reference", nullptr, GUIDesignLabelThickedFixed(100));
@@ -146,7 +146,7 @@ GNEDistributionRefDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             }
         }
         // continue depending if allow/disallow is enabled
-        if (myDistributionParent->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        if (myDistributionParent->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
             undoList->begin(myReferencedElement, TLF("add % in '%'", myReferencedElement->getTagStr(), distribution->getID()));
             undoList->add(new GNEChange_DemandElement(reference, true), true);
             undoList->end();

@@ -160,7 +160,7 @@ GNELoadThread::run() {
     // check if create a new net
     if (neteditOptions.getBool("new")) {
         // create new network
-        net = new GNENet(netBuilder, myApplicationWindow->getTagPropertiesDatabase());
+        net = new GNENet(myApplicationWindow, netBuilder);
     } else {
         // declare net loader
         NILoader nl(*netBuilder);
@@ -185,7 +185,7 @@ GNELoadThread::run() {
                 throw ProcessError();
             } else {
                 // now create net with al information loaded in net builder
-                net = new GNENet(netBuilder, myApplicationWindow->getTagPropertiesDatabase());
+                net = new GNENet(myApplicationWindow, netBuilder);
                 // check if change traffic direction
                 if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise

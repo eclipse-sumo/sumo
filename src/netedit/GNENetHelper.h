@@ -27,7 +27,6 @@
 #include <netbuild/NBVehicle.h>
 #include <netedit/changes/GNEChange.h>
 #include <netedit/dialogs/GNEDialog.h>
-#include <netedit/GNETagProperties.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/fxheader.h>
@@ -922,68 +921,6 @@ struct GNENetHelper {
 
         /// @brief Invalidated assignment operator
         ACTemplate& operator=(const ACTemplate& src) = delete;
-    };
-
-    /// @brief modul for handling saving files
-    class SavingFilesHandler {
-
-    public:
-        /// @brief constructor
-        SavingFilesHandler(GNENet* net);
-
-        /// @brief destructor
-        ~SavingFilesHandler();
-
-        /// @brief update netedit config
-        void updateNeteditConfig();
-
-        /// @brief functions related with ACs
-        /// @{
-
-        /// @brief register AC (called during AC creation)
-        GNEFileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename);
-
-        /// @brief update AC
-        GNEFileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
-
-        /// @brief register AC (called during AC deletion)
-        bool unregisterAC(const GNEAttributeCarrier* AC);
-
-        /// @brief check if the given filename can be assigned to the given AC
-        bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
-
-        /// @}
-
-        /// @brief get vector with the fileBuckets related with the given file
-        const std::vector<GNEFileBucket*>& getFileBuckets(GNETagProperties::File file) const;
-
-        /// @brief check if at least we have an additional file defined
-        bool isFilenameDefined(GNETagProperties::File file) const;
-
-        /// brief set default additional file
-        void setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force);
-
-    private:
-        /// @brief pointer to net
-        GNENet* myNet;
-
-        /// @brief map with the buckets
-        std::map<GNETagProperties::File, std::vector<GNEFileBucket*> > myBuckets;
-
-        /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
-        GNEFileBucket* myInvalidBucket;
-
-        /// @brief parsing saving files
-        std::string parsingSavingFiles(GNETagProperties::File file) const;
-
-        /// @brief Invalidated default constructor.
-        SavingFilesHandler() = delete;
-
-        /// @brief Invalidated copy constructor.
-        SavingFilesHandler(const SavingFilesHandler&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        SavingFilesHandler& operator=(const SavingFilesHandler&) = delete;
     };
 
     /// @brief modul for Saving status

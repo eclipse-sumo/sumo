@@ -18,11 +18,13 @@
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
 
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -57,13 +59,13 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, cons
     myNet(net),
     myIsTemplate(isTemplate) {
     // register AC
-    myFileBucket = myNet->getSavingFilesHandler()->registerAC(this, filename);
+    myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename);
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
     // unregister AC
-    myNet->getSavingFilesHandler()->unregisterAC(this);
+    myNet->getGNEApplicationWindow()->getSavingFilesHandler()->unregisterAC(this);
 }
 
 
@@ -907,7 +909,7 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             if (SUMOXMLDefinitions::isValidFilename(value)) {
-                return myNet->getSavingFilesHandler()->checkFilename(this, value);
+                return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->checkFilename(this, value);
             } else {
                 return false;
             }
@@ -929,7 +931,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            myFileBucket = myNet->getSavingFilesHandler()->updateAC(this, value);
+            myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->updateAC(this, value);
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:
             myCenterAfterCreation = parse<bool>(value);

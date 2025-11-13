@@ -140,7 +140,7 @@ GNEElementTable::Row::Row(GNEElementTable* elementTable, const size_t rowIndex,
     // create horizontal frame for text fields packed uniformly
     FXHorizontalFrame* textFieldsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrameUniform);
     // create text fields
-    const auto toolTip = AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    const auto toolTip = AC->getNet()->getGNEApplicationWindow()->getStaticTooltipMenu();
     for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
         // check if this attribute can be edited in dialog
         if (attrProperty->isDialogEditor()) {
@@ -305,7 +305,7 @@ GNEElementTable::Row::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     const int allowColumnIndex = myElementTable->myColumnHeader->getAttributeIndex(SUMO_ATTR_ALLOW);
     if (allowColumnIndex >= 0) {
         // declare allowVClassesDialog
-        const auto allowVClassesDialog = new GNEVClassesDialog(myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        const auto allowVClassesDialog = new GNEVClassesDialog(myAC->getNet()->getGNEApplicationWindow(),
                 SUMO_ATTR_ALLOW, myAC->getAttribute(SUMO_ATTR_ALLOW));
         // continue depending of result
         if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {

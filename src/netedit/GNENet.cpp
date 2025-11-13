@@ -93,13 +93,12 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagPropertiesDatabase) :
+GNENet::GNENet(GNEApplicationWindow* applicationWindow, NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
+    myApplicationWindow(applicationWindow),
     myNetBuilder(netBuilder),
-    myTagPropertiesDatabase(tagPropertiesDatabase),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
     myACTemplates(new GNENetHelper::ACTemplate(this)),
-    mySavingFilesHandler(new GNENetHelper::SavingFilesHandler(this)),
     mySavingStatus(new GNENetHelper::SavingStatus(this)),
     myNetworkPathManager(new GNEPathManager(this)),
     myDemandPathManager(new GNEPathManager(this)),
@@ -114,7 +113,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagProp
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-
+    // add default vTypes
+    myAttributeCarriers->addDefaultVTypes();
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -135,9 +135,15 @@ GNENet::~GNENet() {
 }
 
 
+GNEApplicationWindow*
+GNENet::getGNEApplicationWindow() const {
+    return myApplicationWindow;
+}
+
+
 const GNETagPropertiesDatabase*
 GNENet::getTagPropertiesDatabase() const {
-    return myTagPropertiesDatabase;
+    return myApplicationWindow->getTagPropertiesDatabase();
 }
 
 
@@ -150,12 +156,6 @@ GNENet::getAttributeCarriers() const {
 GNENetHelper::ACTemplate*
 GNENet::getACTemplates() const {
     return myACTemplates;
-}
-
-
-GNENetHelper::SavingFilesHandler*
-GNENet::getSavingFilesHandler() const {
-    return mySavingFilesHandler;
 }
 
 
@@ -1367,7 +1367,7 @@ GNENet::checkJunctionPosition(const Position& pos) {
 void
 GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
-    auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSumoOptions();
+    auto& sumoOptions = myApplicationWindow->getSumoOptions();
     // begin save network
     getApp()->beginWaitCursor();
     // set output file in SUMO and netedit options
@@ -1416,24 +1416,6 @@ GNENet::saveJoined(const std::string& filename) {
     // compute without volatile options
     computeAndUpdate(OptionsCont::getOptions(), false);
     NWWriter_XML::writeJoinedJunctions(filename, myNetBuilder->getNodeCont());
-}
-
-
-void
-GNENet::setViewNet(GNEViewNet* viewNet) {
-    // set view net
-    myViewNet = viewNet;
-    // add default vTypes
-    myAttributeCarriers->addDefaultVTypes();
-    // update all edge geometries
-    for (const auto& edge : myAttributeCarriers->getEdges()) {
-        edge.second->updateGeometry();
-    }
-    // update view Net and recalculate edge boundaries)
-    myViewNet->update();
-    for (const auto& edge : myAttributeCarriers->getEdges()) {
-        edge.second->updateCenteringBoundary(true);
-    }
 }
 
 
@@ -1493,7 +1475,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         const auto additionalFiles = StringTokenizer(OptionsCont::getOptions().getString("additional-files"), ";").getVector();
         for (const auto& file : additionalFiles) {
             // Create additional handler
-            GNEGeneralHandler generalHandler(this, file, myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+            GNEGeneralHandler generalHandler(this, file, myApplicationWindow->isUndoRedoAllowed());
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR(TL("Loading of additional file failed: ") + file);
@@ -1548,7 +1530,7 @@ void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText(TL("Computing demand elements ..."));
     // if we aren't in Demand mode, update path calculator
-    if (!myViewNet->getEditModes().isCurrentSupermodeDemand() &&
+    if (!myApplicationWindow->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
             !myDemandPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
         myDemandPathManager->getPathCalculator()->updatePathCalculator();
     }
@@ -1609,7 +1591,7 @@ GNENet::isNetRecomputed() const {
 
 FXApp*
 GNENet::getApp() {
-    return myViewNet->getApp();
+    return myApplicationWindow->getViewNet()->getApp();
 }
 
 
@@ -1649,10 +1631,10 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
-            const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
-                    TL("Position of joined junction"),
-                    TL("There is another unselected junction in the same position of joined junction."),
-                    TL("It will be joined with the other selected junctions. Continue?"));
+            const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow, GNEDialog::Buttons::YES_NO,
+                                        TL("Position of joined junction"),
+                                        TL("There is another unselected junction in the same position of joined junction."),
+                                        TL("It will be joined with the other selected junctions. Continue?"));
             // check dialog result
             if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                 // select conflicted junction an join all again
@@ -1755,15 +1737,15 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // continue depending of invalid crossings
     if (myInvalidCrossings.empty()) {
         // open a warning dialog informing that there isn't crossing to remove
-        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myApplicationWindow,
                               TL("Clear crossings"),
                               TL("There are no invalid crossings to remove."));
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
-                TL("Crossings will be cleared. Continue?"));
+        const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow,
+                                    GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
+                                    TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
@@ -2192,7 +2174,7 @@ GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const s
 
 GNEViewNet*
 GNENet::getViewNet() const {
-    return myViewNet;
+    return myApplicationWindow->getViewNet();
 }
 
 
@@ -2236,8 +2218,8 @@ GNENet::saveAdditionals() {
     // if there are invalid additionls, open GNEFixAdditionalElementsDialog
     if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
-        const GNEFixAdditionalElementsDialog fixAdditionalElements(myViewNet->getViewParent()->getGNEAppWindows(),
-                invalidAdditionals);
+        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myApplicationWindow,
+                                           invalidAdditionals);
         if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2259,7 +2241,7 @@ GNENet::saveJuPedSimElements(const std::string& filename) {
     // close device
     device.close();
     // set focus again in net
-    myViewNet->setFocus();
+    myApplicationWindow->getViewNet()->setFocus();
     return true;
 }
 
@@ -2267,7 +2249,7 @@ GNENet::saveJuPedSimElements(const std::string& filename) {
 bool
 GNENet::saveDemandElements() {
     // first recompute demand elements
-    computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
+    computeDemandElements(myApplicationWindow);
     // obtain invalid demandElements depending of number of their parent lanes
     std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
     // iterate over demandElements and obtain invalids
@@ -2284,8 +2266,8 @@ GNENet::saveDemandElements() {
     // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
         // open fix demand elements dialog
-        const GNEFixDemandElementsDialog fixDemandElement(myViewNet->getViewParent()->getGNEAppWindows(),
-                invalidSingleLaneDemandElements);
+        const auto fixDemandElement = GNEFixDemandElementsDialog(myApplicationWindow,
+                                      invalidSingleLaneDemandElements);
         if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2298,11 +2280,11 @@ GNENet::saveDemandElements() {
 bool
 GNENet::saveDataElements() {
     // first recompute data sets
-    computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
+    computeDataElements(myApplicationWindow);
     // save data elements
     saveDataElementsConfirmed();
     // set focus again in net
-    myViewNet->setFocus();
+    myApplicationWindow->getViewNet()->setFocus();
     return true;
 }
 
@@ -2345,7 +2327,7 @@ bool
 GNENet::saveMeanDatas() {
     saveMeanDatasConfirmed();
     // set focus again in net
-    myViewNet->setFocus();
+    myApplicationWindow->getViewNet()->setFocus();
     return true;
 }
 
@@ -2355,9 +2337,9 @@ GNENet::saveAdditionalsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // update netedit connfig
-    mySavingFilesHandler->updateNeteditConfig();
+    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::ADDITIONAL)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::ADDITIONAL)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2425,9 +2407,9 @@ GNENet::saveDemandElementsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // update netedit connfig
-    mySavingFilesHandler->updateNeteditConfig();
+    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::DEMAND)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DEMAND)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2476,9 +2458,9 @@ GNENet::saveDataElementsConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // update netedit connfig
-    mySavingFilesHandler->updateNeteditConfig();
+    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::DATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2506,9 +2488,9 @@ GNENet::saveMeanDatasConfirmed() {
     // Start saving additionals
     getApp()->beginWaitCursor();
     // update netedit connfig
-    mySavingFilesHandler->updateNeteditConfig();
+    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : mySavingFilesHandler->getFileBuckets(GNETagProperties::File::MEANDATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::MEANDATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -3031,8 +3013,8 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
-    if (myViewNet != nullptr) {
-        myViewNet->getViewParent()->getInspectorFrame()->clearInspection();
+    if (myApplicationWindow->getViewNet() != nullptr) {
+        myApplicationWindow->getViewNet()->getViewParent()->getInspectorFrame()->clearInspection();
     }
     // Reset Grid
     myGrid.reset();
@@ -3040,15 +3022,15 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     // if volatile options are true
     if (volatileOptions) {
         // check that net exist
-        if (myViewNet == nullptr) {
+        if (myApplicationWindow->getViewNet() == nullptr) {
             throw ProcessError("ViewNet doesn't exist");
         }
         // disable update geometry before clear undo list
         myUpdateGeometryEnabled = false;
         // destroy Popup
-        myViewNet->destroyPopup();
+        myApplicationWindow->getViewNet()->destroyPopup();
         // clear undo list (This will be remove additionals and shapes)
-        myViewNet->getUndoList()->clear();
+        myApplicationWindow->getViewNet()->getUndoList()->clear();
         // clear all elements (it will also removed from grid)
         myAttributeCarriers->clearJunctions();
         myAttributeCarriers->clearEdges();

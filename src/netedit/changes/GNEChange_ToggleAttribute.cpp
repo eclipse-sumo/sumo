@@ -48,7 +48,7 @@ GNEChange_ToggleAttribute::GNEChange_ToggleAttribute(GNEAttributeCarrier* ac, co
 
 GNEChange_ToggleAttribute::~GNEChange_ToggleAttribute() {
     // only continue we have undo-redo mode enabled
-    if (myAC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myAC->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         // decrease reference
         myAC->decRef("GNEChange_ToggleAttribute " + myAC->getTagProperty()->getTagStr());
         // remove if is unreferenced

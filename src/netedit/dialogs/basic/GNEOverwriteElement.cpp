@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEOverwriteElement::GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC) :
-    GNEDialog(AC->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    GNEDialog(AC->getNet()->getGNEApplicationWindow(),
               TLF("Overwrite % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
               DialogType::OVERWRITE, GNEDialog::Buttons::YES_NO_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC),
     myCommonHandler(commonHandler) {

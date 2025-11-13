@@ -46,7 +46,7 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
 
 GNEChange_Edge::~GNEChange_Edge() {
     // only continue we have undo-redo mode enabled
-    if (myEdge->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myEdge->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myEdge->decRef("GNEChange_Edge");
         if (myEdge->unreferenced()) {
             // delete edge

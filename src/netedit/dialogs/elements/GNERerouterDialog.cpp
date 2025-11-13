@@ -54,7 +54,7 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
     if (!myRerouterIntervals->isOverlapping()) {
         // open warning Box
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
                               TLF("Rerouter intervals of % '%' cannot be saved", toString(SUMO_TAG_REROUTER), myElement->getID()),
                               TL(". There are intervals overlapped."));
         return 1;

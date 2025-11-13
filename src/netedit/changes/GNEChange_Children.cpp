@@ -64,7 +64,7 @@ GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GN
 
 GNEChange_Children::~GNEChange_Children() {
     // only continue we have undo-redo mode enabled
-    if (myParentDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myParentDemandElement->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myParentDemandElement->decRef("GNEChange_Children");
         // remove if is unreferenced
         if (myParentDemandElement->unreferenced()) {

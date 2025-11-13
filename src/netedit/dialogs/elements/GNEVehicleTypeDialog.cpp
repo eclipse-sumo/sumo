@@ -676,7 +676,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         color = GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text());
     }
     // declare colorDialog
-    const auto colorDialog = new GNEColorDialog(editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), color);
+    const auto colorDialog = new GNEColorDialog(editedDemandElement->getNet()->getGNEApplicationWindow(), color);
     // continue depending of result
     if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
         std::string newValue = toString(colorDialog->getColor());
@@ -1798,7 +1798,7 @@ long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
         // show warning dialogbox about experimental state (only once)
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
                               TLF("Error editing %", myElement->getTagStr()),
                               TLF("The % cannot be updated because attribute % is invalid.",
                                   myElement->getTagStr(), toString(myInvalidAttr)));
