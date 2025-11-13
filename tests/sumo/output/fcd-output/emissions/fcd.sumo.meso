@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-09 17:03:24 by Eclipse SUMO sumo Version v1_23_1+0975-acf3267315e
+<!-- generated on 2025-11-13T15:39:26.538523+01:00 by Eclipse SUMO sumo v1_25_0+0017-24a85fe1992
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,18 +47,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" PMx="0.28" fuel="582.50" electricity="0.00"/>
+        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" NOx="0.67" PMx="0.28" fuel="582.50" electricity="0.00" noise="61.77"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" PMx="0.28" fuel="582.50" electricity="0.00"/>
+        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" NOx="0.67" PMx="0.28" fuel="582.50" electricity="0.00" noise="61.77"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" PMx="0.28" fuel="582.50" electricity="0.00"/>
+        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" NOx="0.67" PMx="0.28" fuel="582.50" electricity="0.00" noise="61.77"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" PMx="0.28" fuel="582.50" electricity="0.00"/>
+        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" NOx="0.67" PMx="0.28" fuel="582.50" electricity="0.00" noise="61.77"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" PMx="0.28" fuel="582.50" electricity="0.00"/>
+        <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="1796.77" CO="3.06" HC="0.02" NOx="0.67" PMx="0.28" fuel="582.50" electricity="0.00" noise="61.77"/>
     </timestep>
 </fcd-export>
