@@ -46,7 +46,7 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
 
 GNEChange_GenericData::~GNEChange_GenericData() {
     // only continue we have undo-redo mode enabled
-    if (myGenericData->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myGenericData->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myGenericData->decRef("GNEChange_GenericData");
         if (myGenericData->unreferenced() &&
                 myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&

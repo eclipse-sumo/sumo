@@ -45,7 +45,7 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
 
 GNEChange_DemandElement::~GNEChange_DemandElement() {
     // only continue we have undo-redo mode enabled
-    if (myDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myDemandElement->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myDemandElement->decRef("GNEChange_DemandElement");
         if (myDemandElement->unreferenced()) {
             // make sure that element isn't in net before removing

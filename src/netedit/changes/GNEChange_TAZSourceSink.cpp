@@ -44,7 +44,7 @@ GNEChange_TAZSourceSink::GNEChange_TAZSourceSink(GNETAZSourceSink* sourceSink, b
 
 GNEChange_TAZSourceSink::~GNEChange_TAZSourceSink() {
     // only continue we have undo-redo mode enabled
-    if (mySourceSink->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (mySourceSink->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         mySourceSink->decRef("GNEChange_TAZSourceSink");
         if (mySourceSink->unreferenced()) {
             // make sure that sourceSink isn't in net before removing

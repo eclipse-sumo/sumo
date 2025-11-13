@@ -48,7 +48,7 @@ GNEChange_EdgeType::GNEChange_EdgeType(GNEEdgeType* edgeType, bool forward):
 
 GNEChange_EdgeType::~GNEChange_EdgeType() {
     // only continue we have undo-redo mode enabled
-    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myEdgeType->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myEdgeType->decRef("GNEChange_EdgeType");
         if (myEdgeType->unreferenced()) {
             // make sure that edgeType isn't in net before removing

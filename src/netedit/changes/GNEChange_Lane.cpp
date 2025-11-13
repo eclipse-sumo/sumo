@@ -59,7 +59,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
 
 GNEChange_Lane::~GNEChange_Lane() {
     // only continue we have undo-redo mode enabled
-    if (myEdge->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myEdge->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myEdge->decRef("GNEChange_Lane");
         if (myEdge->unreferenced()) {
             delete myEdge;

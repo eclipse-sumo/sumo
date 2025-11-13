@@ -94,7 +94,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // continue depending of info
     if (infoB.size() > 0) {
         // open question dialog box with two lines
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), warningTitle, infoA, infoB);
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(), warningTitle, infoA, infoB);
         return 1;
     } else {
         // close dialog accepting changes

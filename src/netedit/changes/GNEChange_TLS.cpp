@@ -93,7 +93,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
 
 GNEChange_TLS::~GNEChange_TLS() {
     // only continue we have undo-redo mode enabled
-    if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myJunction->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myJunction->decRef("GNEChange_TLS");
         if (myJunction->unreferenced()) {
             delete myJunction;

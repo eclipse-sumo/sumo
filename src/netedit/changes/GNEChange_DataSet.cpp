@@ -45,7 +45,7 @@ GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
 
 GNEChange_DataSet::~GNEChange_DataSet() {
     // only continue we have undo-redo mode enabled
-    if (myDataSet->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myDataSet->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myDataSet->decRef("GNEChange_DataSet");
         if (myDataSet->unreferenced() &&
                 myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {

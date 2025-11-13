@@ -43,10 +43,13 @@ class GNENet : public GUIGlObject {
 
 public:
     /// @brief constructor
-    GNENet(NBNetBuilder* netBuilder, const GNETagPropertiesDatabase* tagPropertiesDatabase);
+    GNENet(GNEApplicationWindow* applicationWindow, NBNetBuilder* netBuilder);
 
     /// @brief Destructor
     ~GNENet();
+
+    /// @brief get tag properties database
+    GNEApplicationWindow* getGNEApplicationWindow() const;
 
     /// @brief get tag properties database
     const GNETagPropertiesDatabase* getTagPropertiesDatabase() const;
@@ -56,9 +59,6 @@ public:
 
     /// @brief get all attribute carriers templates used in this net
     GNENetHelper::ACTemplate* getACTemplates() const;
-
-    /// @brief get saving files handler
-    GNENetHelper::SavingFilesHandler* getSavingFilesHandler() const;
 
     /// @brief get saving status
     GNENetHelper::SavingStatus* getSavingStatus() const;
@@ -320,9 +320,6 @@ public:
     /// @brief save log of joined junctions (and nothing else)
     void saveJoined(const std::string& filename);
 
-    /// @brief Set the net to be notified of network changes
-    void setViewNet(GNEViewNet* viewNet);
-
     /// @brief add GL Object into net
     void addGLObjectIntoGrid(GNEAttributeCarrier* AC);
 
@@ -510,23 +507,17 @@ protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
+    /// @brief pointer to application window
+    GNEApplicationWindow* myApplicationWindow = nullptr;
+
     /// @brief The internal netbuilder
-    NBNetBuilder* myNetBuilder;
-
-    /// @brief The net to be notified of about changes
-    GNEViewNet* myViewNet = nullptr;
-
-    /// @brief pointer to tagProperties database
-    const GNETagPropertiesDatabase* myTagPropertiesDatabase = nullptr;
+    NBNetBuilder* myNetBuilder = nullptr;
 
     /// @brief attributeCarriers module
     GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
 
     /// @brief attributeCarriers templates
     GNENetHelper::ACTemplate* myACTemplates = nullptr;
-
-    /// @brief saving files handler module
-    GNENetHelper::SavingFilesHandler* mySavingFilesHandler = nullptr;
 
     /// @brief saving status module
     GNENetHelper::SavingStatus* mySavingStatus = nullptr;

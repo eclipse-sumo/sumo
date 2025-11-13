@@ -54,7 +54,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Steps
     if (!myVariableSpeedSignSteps->isSorted()) {
         // open warning Box
-        GNEWarningBasicDialog(myElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
                               TLF("VariableSpeedSign steps of % '%' cannot be saved", toString(SUMO_TAG_VSS), myElement->getID()),
                               TL("Steps has to be sorted."));
         return 1;

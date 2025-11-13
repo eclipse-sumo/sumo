@@ -21,26 +21,27 @@
 #include <config.h>
 
 #include <netedit/dialogs/file/GNEFileDialog.h>
+#include <netedit/GNETagProperties.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/foxtools/MFXSynchQue.h>
-#include <utils/foxtools/MFXRecentNetworks.h>
-#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
+#include <utils/foxtools/MFXRecentNetworks.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/geom/Position.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/shapes/ShapeHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/shapes/ShapeHandler.h>
 #include <utils/tests/InternalTestStep.h>
 
 #include "GNEViewNetHelper.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEApplicationWindow;
+class GNEFileBucket;
 class GNENet;
 class GNENetgenerateDialog;
 class GNEPythonTool;
@@ -1147,6 +1148,63 @@ struct GNEApplicationWindowHelper {
         /// @brief Invalidated assignment operator.
         GNENeteditConfigHandler& operator=(const GNENeteditConfigHandler&) = delete;
     };
+
+    /// @brief modul for handling saving files
+    class SavingFilesHandler {
+
+    public:
+        /// @brief constructor
+        SavingFilesHandler();
+
+        /// @brief destructor
+        ~SavingFilesHandler();
+
+        /// @brief update netedit config
+        void updateNeteditConfig();
+
+        /// @brief functions related with ACs
+        /// @{
+
+        /// @brief register AC (called during AC creation)
+        GNEFileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename);
+
+        /// @brief update AC
+        GNEFileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
+
+        /// @brief register AC (called during AC deletion)
+        bool unregisterAC(const GNEAttributeCarrier* AC);
+
+        /// @brief check if the given filename can be assigned to the given AC
+        bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
+
+        /// @}
+
+        /// @brief get vector with the fileBuckets related with the given file
+        const std::vector<GNEFileBucket*>& getFileBuckets(GNETagProperties::File file) const;
+
+        /// @brief check if at least we have an additional file defined
+        bool isFilenameDefined(GNETagProperties::File file) const;
+
+        /// brief set default additional file
+        void setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force);
+
+    private:
+        /// @brief map with the buckets
+        std::map<GNETagProperties::File, std::vector<GNEFileBucket*> > myBuckets;
+
+        /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
+        GNEFileBucket* myInvalidBucket;
+
+        /// @brief parsing saving files
+        std::string parsingSavingFiles(GNETagProperties::File file) const;
+
+        /// @brief Invalidated copy constructor.
+        SavingFilesHandler(const SavingFilesHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SavingFilesHandler& operator=(const SavingFilesHandler&) = delete;
+    };
+
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,

@@ -46,7 +46,7 @@ GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
 
 GNEChange_Junction::~GNEChange_Junction() {
     // only continue we have undo-redo mode enabled
-    if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+    if (myJunction->getNet()->getGNEApplicationWindow()->isUndoRedoAllowed()) {
         myJunction->decRef("GNEChange_Junction");
         if (myJunction->unreferenced()) {
             delete myJunction;

@@ -58,7 +58,7 @@ GNEAttributeCarrierDialog::AttributeTextField::AttributeTextField(GNEAttributeCa
     myACDialogParent(ACDialog),
     myAttrProperty(attrProperty) {
     // get static tooltip menu
-    const auto tooltipMenu = ACDialog->getElement()->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    const auto tooltipMenu = ACDialog->getElement()->getNet()->getGNEApplicationWindow()->getStaticTooltipMenu();
     // check if create button or label
     if (attrProperty->isVClass() && (attrProperty->getAttr() != SUMO_ATTR_DISALLOW)) {
         myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, attrProperty->getAttrStr(), nullptr, this,

@@ -20,10 +20,12 @@
 #include <config.h>
 
 #include <regex>
+
 #include <netedit/dialogs/file/GNEFileDialog.h>
 #include <netedit/dialogs/tools/GNEPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEFileBucket.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/templates.h>
 #include <netedit/tools/GNENetDiffTool.h>
@@ -2329,6 +2331,229 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     neteditOptions.set("ignore.additionalelements", toString(ignoreAdditionalElements));
     neteditOptions.set("ignore.routeelements", toString(ignoreRouteElements));
     return true;
+}
+
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::SavingFilesHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler() {
+    // create default buckets (demand and meanData always before additionals!)
+    myBuckets[GNETagProperties::File::DEMAND].push_back(new GNEFileBucket(GNETagProperties::File::DEMAND));
+    myBuckets[GNETagProperties::File::MEANDATA].push_back(new GNEFileBucket(GNETagProperties::File::MEANDATA));
+    myBuckets[GNETagProperties::File::ADDITIONAL].push_back(new GNEFileBucket(GNETagProperties::File::ADDITIONAL));
+    myBuckets[GNETagProperties::File::DATA].push_back(new GNEFileBucket(GNETagProperties::File::DATA));
+    // create invalid bucket
+    myInvalidBucket = new GNEFileBucket(GNETagProperties::File::INVALID);
+}
+
+
+GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
+    // delete buckets
+    for (auto& bucketVector : myBuckets) {
+        for (auto& bucket : bucketVector.second) {
+            delete bucket;
+        }
+    }
+    delete myInvalidBucket;
+}
+
+
+void
+GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get files
+    const auto additionalFiles = parsingSavingFiles(GNETagProperties::File::ADDITIONAL);
+    const auto demandElementFiles = parsingSavingFiles(GNETagProperties::File::DEMAND);
+    const auto dataElementFiles = parsingSavingFiles(GNETagProperties::File::DATA);
+    const auto meanDataElementFiles = parsingSavingFiles(GNETagProperties::File::MEANDATA);
+    // additionals
+    neteditOptions.resetWritable();
+    if (additionalFiles.size() > 0) {
+        neteditOptions.set("additional-files", additionalFiles);
+    } else {
+        neteditOptions.resetDefault("additional-files");
+    }
+    // route files
+    neteditOptions.resetWritable();
+    if (demandElementFiles.size() > 0) {
+        neteditOptions.set("route-files", demandElementFiles);
+    } else {
+        neteditOptions.resetDefault("route-files");
+    }
+    // data files
+    neteditOptions.resetWritable();
+    if (dataElementFiles.size() > 0) {
+        neteditOptions.set("data-files", dataElementFiles);
+    } else {
+        neteditOptions.resetDefault("data-files");
+    }
+    // meanData files
+    neteditOptions.resetWritable();
+    if (meanDataElementFiles.size() > 0) {
+        neteditOptions.set("meandata-files", meanDataElementFiles);
+    } else {
+        neteditOptions.resetDefault("meandata-files");
+    }
+}
+
+
+GNEFileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() ||
+            AC->getTagProperty()->saveInParentAdditionalFile() ||
+            AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return nullptr;
+    } else {
+        // iterate over all buckets to check if the given filename already exist
+        for (auto& bucketVector : myBuckets) {
+            for (auto& bucket : bucketVector.second) {
+                if (bucket->getFilename() == filename) {
+                    // continue depending if this AC can be registered in this type of bucket
+                    if (AC->getTagProperty()->isFileCompatible(bucket->getFileType())) {
+                        bucket->addAC(AC);
+                        return bucket;
+                    } else {
+                        // in this case, put the AC in the invalid element bucket
+                        myInvalidBucket->addAC(AC);
+                        return myInvalidBucket;
+                    }
+                }
+            }
+        }
+        // if we didn't found a bucket whit the given filename, create new
+        for (auto& bucketVector : myBuckets) {
+            // this front() call is secure because every bucket group have always at least one default bucket)
+            const auto bucketType = bucketVector.second.front()->getFileType();
+            // check compatibility
+            if (AC->getTagProperty()->isFileCompatible(bucketType)) {
+                auto bucket = new GNEFileBucket(bucketType, filename);
+                myBuckets.at(bucketType).push_back(bucket);
+                bucket->addAC(AC);
+                return bucket;
+            }
+        }
+        // on this point this case, put the AC in the invalid element bucket
+        myInvalidBucket->addAC(AC);
+        return myInvalidBucket;
+    }
+}
+
+
+GNEFileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() ||
+            AC->getTagProperty()->saveInParentAdditionalFile() ||
+            AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return nullptr;
+    } else {
+        // simply unregister and register
+        unregisterAC(AC);
+        return registerAC(AC, filename);
+    }
+}
+
+
+bool
+GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() ||
+            AC->getTagProperty()->saveInParentAdditionalFile() ||
+            AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return true;
+    } else {
+        // iterate over all buckets to check if the given filename already exist
+        for (auto& bucketVector : myBuckets) {
+            for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
+                auto bucket = (*it);
+                if (bucket->hasAC(AC)) {
+                    // remove AC from bucket
+                    bucket->removeAC(AC);
+                    // check if remove bucket (except if is a default bucket)
+                    if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
+                        bucketVector.second.erase(it);
+                    }
+                    return true;
+                }
+            }
+        }
+        // on this point, check if AC is in invalid bucket
+        if (myInvalidBucket->hasAC(AC)) {
+            myInvalidBucket->removeAC(AC);
+            return true;
+        } else {
+            // the AC was not inserted, throw error
+            throw ProcessError("Error unregistering AC=" + AC->getID());
+        }
+    }
+}
+
+
+bool
+GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
+    // check file properties
+    if (AC->getTagProperty()->saveInNetworkFile() ||
+            AC->getTagProperty()->saveInParentAdditionalFile() ||
+            AC->getTagProperty()->saveInParentDemandFile()) {
+        // network and elements with parents are saved in the paren'ts bucket
+        return false;
+    } else if (OptionsCont::getOptions().getString("net-file") == filename) {
+        // element cannot be saved in the network file
+        return false;
+    } else {
+        // iterate over all buckets to check if exist a bucket with this filename
+        for (auto& bucketVector : myBuckets) {
+            for (auto& bucket : bucketVector.second) {
+                if (bucket->getFilename() == filename) {
+                    // check if the bucket is compatible with this file
+                    return AC->getTagProperty()->isFileCompatible(bucket->getFileType());
+                }
+            }
+        }
+        // the file will be saved in a new bucket
+        return true;
+    }
+}
+
+
+const std::vector<GNEFileBucket*>&
+GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(GNETagProperties::File file) const {
+    return myBuckets.at(file);
+}
+
+
+bool
+GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(GNETagProperties::File file) const {
+    return (myBuckets.at(file).front()->getFilename().size() > 0);
+}
+
+
+void
+GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force) {
+    if (myBuckets.at(file).front()->getFilename().empty() || force) {
+        myBuckets.at(file).front()->setFilename(filename);
+    }
+}
+
+
+std::string
+GNEApplicationWindowHelper::SavingFilesHandler::parsingSavingFiles(GNETagProperties::File file) const {
+    std::string savingFileNames;
+    // group all saving files in a single string separated with comma
+    for (const auto& bucket : myBuckets.at(file)) {
+        savingFileNames.append(bucket->getFilename() + ",");
+    }
+    // remove last ','
+    if (savingFileNames.size() > 0) {
+        savingFileNames.pop_back();
+    }
+    return savingFileNames;
 }
 
 // ---------------------------------------------------------------------------
