@@ -77,8 +77,20 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | blockTime | m                   |    |  x   | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
 | tag | string                    |    |      | Whether a vehicle, container or person is being written (mainly useful for tabular output)           |
 
+### Emission Attributes
+
 All attributes from the [emission output](EmissionOutput.md) can be added to the FCD output as well.
 They need to be enabled by using the option **--fcd-output.attributes**, see below.
+
+```xml
+<configuration>
+  ...
+  <output>
+    <fcd-output.attributes value="eclass,CO2,CO,HC,NOx,PMx,fuel,electricity,noise"/>
+  </output>
+  ...
+</configuration>
+```
 
 When the option **--fcd-output.geo** is set, the written (x,y)-coordinates will be the
 lon/lat geo-coordinates.
