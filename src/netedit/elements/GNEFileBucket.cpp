@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2023
 ///
-// class used for link ACs with their filenames
+// class used for link Elements with their filenames
 /****************************************************************************/
 
 #include "GNEAttributeCarrier.h"
@@ -67,25 +67,25 @@ GNEFileBucket::isDefaultBucket() const {
 
 bool
 GNEFileBucket::isEmpty() const {
-    return myACs.empty();
+    return myElements.empty();
 }
 
 
 void
-GNEFileBucket::addAC(const GNEAttributeCarrier* AC) {
-    myACs.insert(AC);
+GNEFileBucket::addElement(const void* element) {
+    myElements.insert(element);
 }
 
 
 void
-GNEFileBucket::removeAC(const GNEAttributeCarrier* AC) {
-    myACs.erase(AC);
+GNEFileBucket::removeElement(const void* element) {
+    myElements.erase(element);
 }
 
 
 bool
-GNEFileBucket::hasAC(const GNEAttributeCarrier* AC) const {
-    return myACs.find(AC) != myACs.end();
+GNEFileBucket::hasElement(const void* element) const {
+    return myElements.find(element) != myElements.end();
 }
 
 
