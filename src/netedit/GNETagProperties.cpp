@@ -26,7 +26,7 @@
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GNETagProperties::Type type,
                                    const GNETagProperties::Property property, const GNETagProperties::Over over,
-                                   const GNEFileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts,
+                                   const FileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts,
                                    const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
                                    const std::string tooltipText, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
@@ -1037,44 +1037,44 @@ GNETagProperties::vClassIcon() const {
 
 
 bool
-GNETagProperties::isFileCompatible(GNEFileBucket::Type file) const {
+GNETagProperties::isFileCompatible(FileBucket::Type file) const {
     return (myBucketType & file);
 }
 
 
 bool
 GNETagProperties::saveInNetworkFile() const {
-    return (myBucketType & GNEFileBucket::Type::NETWORK);
+    return (myBucketType & FileBucket::Type::NETWORK);
 }
 
 
 bool
 GNETagProperties::saveInAdditionalFile() const {
-    return (myBucketType & GNEFileBucket::Type::ADDITIONAL);
+    return (myBucketType & FileBucket::Type::ADDITIONAL);
 }
 
 
 bool
 GNETagProperties::saveInDemandFile() const {
-    return (myBucketType & GNEFileBucket::Type::DEMAND);
+    return (myBucketType & FileBucket::Type::DEMAND);
 }
 
 
 bool
 GNETagProperties::saveInDataFile() const {
-    return (myBucketType & GNEFileBucket::Type::DATA);
+    return (myBucketType & FileBucket::Type::DATA);
 }
 
 
 bool
 GNETagProperties::saveInMeanDataFile() const {
-    return (myBucketType & GNEFileBucket::Type::MEANDATA);
+    return (myBucketType & FileBucket::Type::MEANDATA);
 }
 
 
 bool
 GNETagProperties::saveInParentFile() const {
-    return (myBucketType & GNEFileBucket::Type::NOTHING);
+    return (myBucketType & FileBucket::Type::NOTHING);
 }
 
 void

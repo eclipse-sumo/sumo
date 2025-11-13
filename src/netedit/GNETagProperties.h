@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/elements/FileBucket.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/images/GUIIcons.h>
@@ -150,7 +150,7 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GNETagProperties::Type type, const GNETagProperties::Property property,
-                     const GNETagProperties::Over over, const GNEFileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts, const GUIIcon icon,
+                     const GNETagProperties::Over over, const FileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts, const GUIIcon icon,
                      const GUIGlObjectType GLType, const SumoXMLTag XMLTag, const std::string tooltipText, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
@@ -559,7 +559,7 @@ public:
     /// @brief file
     /// @{
     /// @brief check if the given File property is compatible with this TagProperty
-    bool isFileCompatible(GNEFileBucket::Type file) const;
+    bool isFileCompatible(FileBucket::Type file) const;
 
     /// @brief element is saved in a network file
     bool saveInNetworkFile() const;
@@ -608,7 +608,7 @@ private:
     const Over myOver = Over::VIEW;
 
     /// @brief tag file
-    const GNEFileBucket::Type myBucketType = GNEFileBucket::Type::NOTHING;
+    const FileBucket::Type myBucketType = FileBucket::Type::NOTHING;
 
     /// @brief conflicts
     const Conflicts myConflicts = Conflicts::NO_CONFLICTS;

@@ -25,7 +25,7 @@
 #include <netedit/dialogs/tools/GNEPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/elements/FileBucket.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/templates.h>
 #include <netedit/tools/GNENetDiffTool.h>
@@ -2340,12 +2340,12 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 
 GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler() {
     // create default buckets (demand and meanData always before additionals!)
-    myBuckets[GNEFileBucket::Type::DEMAND].push_back(new GNEFileBucket(GNEFileBucket::Type::DEMAND));
-    myBuckets[GNEFileBucket::Type::MEANDATA].push_back(new GNEFileBucket(GNEFileBucket::Type::MEANDATA));
-    myBuckets[GNEFileBucket::Type::ADDITIONAL].push_back(new GNEFileBucket(GNEFileBucket::Type::ADDITIONAL));
-    myBuckets[GNEFileBucket::Type::DATA].push_back(new GNEFileBucket(GNEFileBucket::Type::DATA));
+    myBuckets[FileBucket::Type::DEMAND].push_back(new FileBucket(FileBucket::Type::DEMAND));
+    myBuckets[FileBucket::Type::MEANDATA].push_back(new FileBucket(FileBucket::Type::MEANDATA));
+    myBuckets[FileBucket::Type::ADDITIONAL].push_back(new FileBucket(FileBucket::Type::ADDITIONAL));
+    myBuckets[FileBucket::Type::DATA].push_back(new FileBucket(FileBucket::Type::DATA));
     // create invalid bucket
-    myInvalidBucket = new GNEFileBucket(GNEFileBucket::Type::NOTHING);
+    myInvalidBucket = new FileBucket(FileBucket::Type::NOTHING);
 }
 
 
@@ -2364,10 +2364,10 @@ void
 GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get files
-    const auto additionalFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNEFileBucket::Type::ADDITIONAL));
-    const auto demandElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNEFileBucket::Type::DEMAND));
-    const auto dataElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNEFileBucket::Type::DATA));
-    const auto meanDataElementFiles = GNEFileBucket::parseFilenames(myBuckets.at(GNEFileBucket::Type::MEANDATA));
+    const auto additionalFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::ADDITIONAL));
+    const auto demandElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::DEMAND));
+    const auto dataElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::DATA));
+    const auto meanDataElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::MEANDATA));
     // additionals
     neteditOptions.resetWritable();
     if (additionalFiles.size() > 0) {
@@ -2399,7 +2399,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
 }
 
 
-GNEFileBucket*
+FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
@@ -2428,7 +2428,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             const auto bucketType = bucketVector.second.front()->getType();
             // check compatibility
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
-                auto bucket = new GNEFileBucket(bucketType, filename);
+                auto bucket = new FileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
                 bucket->addElement(AC);
                 return bucket;
@@ -2441,7 +2441,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
 }
 
 
-GNEFileBucket*
+FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
@@ -2514,20 +2514,20 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
 }
 
 
-const std::vector<GNEFileBucket*>&
-GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(GNEFileBucket::Type file) const {
+const std::vector<FileBucket*>&
+GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(FileBucket::Type file) const {
     return myBuckets.at(file);
 }
 
 
 bool
-GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(GNEFileBucket::Type file) const {
+GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(FileBucket::Type file) const {
     return (myBuckets.at(file).front()->getFilename().size() > 0);
 }
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(GNEFileBucket::Type file, const std::string& filename, const bool force) {
+GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force) {
     if (myBuckets.at(file).front()->getFilename().empty() || force) {
         myBuckets.at(file).front()->setFilename(filename);
     }

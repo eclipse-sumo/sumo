@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFileBucket.h
+/// @file    FileBucket.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2025
 ///
@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEFileBucket {
+class FileBucket {
 
 public:
     /// @brief Files that this bucket can save
@@ -41,16 +41,16 @@ public:
     };
 
     /// @brief Constructor for default bucket
-    GNEFileBucket(GNEFileBucket::Type type);
+    FileBucket(FileBucket::Type type);
 
     /// @brief Constructor
-    GNEFileBucket(GNEFileBucket::Type type, const std::string filename);
+    FileBucket(FileBucket::Type type, const std::string filename);
 
     /// @brief destructor
-    ~GNEFileBucket();
+    ~FileBucket();
 
     /// @brief get file type
-    GNEFileBucket::Type getType() const;
+    FileBucket::Type getType() const;
 
     /// @brief get filename
     const std::string& getFilename() const;
@@ -79,11 +79,11 @@ public:
     /// @}
 
     /// @brief parse filenames
-    static std::string parseFilenames(const std::vector<GNEFileBucket*>& fileBuckets);
+    static std::string parseFilenames(const std::vector<FileBucket*>& fileBuckets);
 
 private:
     /// @brief type
-    const GNEFileBucket::Type myFileType;
+    const FileBucket::Type myFileType;
 
     /// @brief filename
     std::string myFilename;
@@ -95,21 +95,21 @@ private:
     const bool myDefaultBucket;
 
     /// @brief Invalidated default constructor.
-    GNEFileBucket() = delete;
+    FileBucket() = delete;
 
     /// @brief Invalidated copy constructor.
-    GNEFileBucket(const GNEFileBucket&) = delete;
+    FileBucket(const FileBucket&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEFileBucket& operator=(const GNEFileBucket& src) = delete;
+    FileBucket& operator=(const FileBucket& src) = delete;
 };
 
 /// @brief override tag parent bit operator
-constexpr GNEFileBucket::Type operator|(GNEFileBucket::Type a, GNEFileBucket::Type b) {
-    return static_cast<GNEFileBucket::Type>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
+constexpr FileBucket::Type operator|(FileBucket::Type a, FileBucket::Type b) {
+    return static_cast<FileBucket::Type>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
 }
 
 /// @brief override tag parent bit operator
-constexpr bool operator&(GNEFileBucket::Type a, GNEFileBucket::Type b) {
+constexpr bool operator&(FileBucket::Type a, FileBucket::Type b) {
     return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
 }

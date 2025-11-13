@@ -18,7 +18,7 @@
 // A abstract class for demand elements
 /****************************************************************************/
 
-#include <netedit/elements/GNEFileBucket.h>
+#include <netedit/elements/FileBucket.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>

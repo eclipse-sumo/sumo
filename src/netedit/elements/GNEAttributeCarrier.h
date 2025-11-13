@@ -27,7 +27,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEFileBucket;
+class FileBucket;
 class GNEHierarchicalElement;
 class GNELane;
 class GNEMoveElement;
@@ -90,7 +90,7 @@ public:
     GNENet* getNet() const;
 
     /// @brief get reference to fileBucket
-    GNEFileBucket* getFileBucket() const;
+    FileBucket* getFileBucket() const;
 
     /// @brief get filename in which save this AC
     virtual const std::string& getFilename() const = 0;
@@ -410,7 +410,7 @@ protected:
     bool myInGrid = false;
 
     /// @brief filebucket vinculated whith this AC
-    GNEFileBucket* myFileBucket = nullptr;
+    FileBucket* myFileBucket = nullptr;
 
     /// @brief boolean to check if center this element after creation
     bool myCenterAfterCreation = true;

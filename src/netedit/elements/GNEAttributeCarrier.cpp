@@ -36,7 +36,7 @@
 #include <utils/shapes/PointOfInterest.h>
 
 #include "GNEAttributeCarrier.h"
-#include "GNEFileBucket.h"
+#include "FileBucket.h"
 
 // ===========================================================================
 // static members
@@ -80,7 +80,7 @@ GNEAttributeCarrier::getNet() const {
 }
 
 
-GNEFileBucket*
+FileBucket*
 GNEAttributeCarrier::getFileBucket() const {
     return myFileBucket;
 }
