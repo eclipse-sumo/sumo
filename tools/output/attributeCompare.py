@@ -47,6 +47,8 @@ def get_options():
     op.add_option("-a", "--attribute", help="attribute to analyze")
     op.add_option("-i", "--id-attribute", dest="idAttribute",
                   help="extra attribute to distinguish values")
+    op.add_option("-l", "--label-attribute", dest="labelAttribute",
+                  help="extra attribute to label values")
     op.add_option("-o", "--xml-output", help="write differences to xml file")
     op.add_option("-p", "--precision", type=int, default=2, help="Set output precision")
     options = op.parse_args()
@@ -55,6 +57,8 @@ def get_options():
         options.attribute = options.attribute.split(',')
     if options.idAttribute:
         options.idAttribute = options.idAttribute.split(',')
+    if options.labelAttribute:
+        options.labelAttribute = options.labelAttribute.split(',')
     if options.element:
         options.element = options.element.split(',')
 
@@ -69,6 +73,7 @@ def main():
     def elements(fname):
         stack = []
         idStack = []
+        labelStack = []
         with sumolib.openz(fname, 'rb') as f:
             for event, node in ET.iterparse(f, events=('start', 'end')):
                 if options.element is not None and node.tag not in options.element:
@@ -82,11 +87,20 @@ def main():
                                 idStack[-1].append(node.get(attr))
                             elif len(idStack) == 1 and attr == FILE_ATTR:
                                 idStack[-1].append(options.shortName[fname])
+                    if options.labelAttribute:
+                        labelStack.append([])
+                        for attr in options.labelAttribute:
+                            if node.get(attr) is not None:
+                                labelStack[-1].append(node.get(attr))
+                            elif len(labelStack) == 1 and attr == FILE_ATTR:
+                                labelStack[-1].append(options.shortName[fname])
 
                 else:
                     stack.pop()
                     if options.idAttribute:
                         idStack.pop()
+                    if options.labelAttribute:
+                        labelStack.pop()
                     continue
 
                 tags = tuple(stack[1:]) if options.element is None else tuple(stack)  # exclude root
@@ -97,6 +111,10 @@ def main():
                         if ids:
                             jointID = '|'.join(ids)
                             elementDescription += '|' + jointID
+                if options.labelAttribute:
+                    for ids in labelStack:
+                        if ids:
+                            jointID = '|'.join(ids)
 
                 if options.attribute is None:
                     for k, v in node.items():
