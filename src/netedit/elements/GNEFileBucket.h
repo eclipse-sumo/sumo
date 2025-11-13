@@ -73,8 +73,11 @@ public:
 
     /// @brief check if the given AC exist in this bucket
     bool hasAC(const GNEAttributeCarrier* AC) const;
-    
+
     /// @}
+
+    /// @brief parse filenames
+    static std::string parseFilenames(const std::vector<GNEFileBucket*>& fileBuckets);
 
 private:
     /// @brief fileType
