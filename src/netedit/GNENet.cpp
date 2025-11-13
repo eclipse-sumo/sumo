@@ -2235,7 +2235,7 @@ GNENet::saveAdditionals() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::ADDITIONAL)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::ADDITIONAL)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2305,7 +2305,7 @@ GNENet::saveDemandElements() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DEMAND)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::DEMAND)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2332,7 +2332,7 @@ GNENet::saveDataElements() {
     // Start saving data elements
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::DATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::DATA)) {
         // get filename
         const auto& filename = bucket->getFilename();
         // open file
@@ -2396,7 +2396,7 @@ GNENet::saveMeanDatas() {
     // update netedit connfig
     myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNETagProperties::File::MEANDATA)) {
+    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(GNEFileBucket::Type::MEANDATA)) {
         // get current filename
         const auto& filename = bucket->getFilename();
         // open file

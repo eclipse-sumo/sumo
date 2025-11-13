@@ -1180,17 +1180,17 @@ struct GNEApplicationWindowHelper {
         /// @}
 
         /// @brief get vector with the fileBuckets related with the given file
-        const std::vector<GNEFileBucket*>& getFileBuckets(GNETagProperties::File file) const;
+        const std::vector<GNEFileBucket*>& getFileBuckets(GNEFileBucket::Type file) const;
 
         /// @brief check if at least we have an additional file defined
-        bool isFilenameDefined(GNETagProperties::File file) const;
+        bool isFilenameDefined(GNEFileBucket::Type file) const;
 
         /// brief set default additional file
-        void setDefaultFilenameFile(GNETagProperties::File file, const std::string& filename, const bool force);
+        void setDefaultFilenameFile(GNEFileBucket::Type file, const std::string& filename, const bool force);
 
     private:
         /// @brief map with the buckets
-        std::map<GNETagProperties::File, std::vector<GNEFileBucket*> > myBuckets;
+        std::map<GNEFileBucket::Type, std::vector<GNEFileBucket*> > myBuckets;
 
         /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
         GNEFileBucket* myInvalidBucket;
