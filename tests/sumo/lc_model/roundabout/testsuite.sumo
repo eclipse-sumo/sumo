@@ -39,3 +39,6 @@ outer_exitMinor
 
 # test unusual lane and connection layout (#7738)
 many_lanes
+
+# test for #17336
+high_speed
