@@ -67,11 +67,7 @@ GNENetworkElement::getGUIGlObject() const {
 
 const std::string&
 GNENetworkElement::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myFileBucket->getFilename();
-    }
+    return myFileBucket->getFilename();
 }
 
 

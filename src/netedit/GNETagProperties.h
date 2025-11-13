@@ -150,7 +150,7 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GNETagProperties::Type type, const GNETagProperties::Property property,
-                     const GNETagProperties::Over over, const GNEFileBucket::Type file, const GNETagProperties::Conflicts conflicts, const GUIIcon icon,
+                     const GNETagProperties::Over over, const GNEFileBucket::Type bucketType, const GNETagProperties::Conflicts conflicts, const GUIIcon icon,
                      const GUIGlObjectType GLType, const SumoXMLTag XMLTag, const std::string tooltipText, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
@@ -576,14 +576,8 @@ public:
     /// @brief element is saved in a meanData file
     bool saveInMeanDataFile() const;
 
-    /// @brief element is saved in the file of first parent additional element
-    bool saveInParentAdditionalFile() const;
-
-    /// @brief element is saved in the file of first parent demand element
-    bool saveInParentDemandFile() const;
-
-    /// @brief element is saved in the file of first parent data element
-    bool saveInParentDataFile() const;
+    /// @brief element is saved in the parent file
+    bool saveInParentFile() const;
 
     /// @}
 
@@ -614,7 +608,7 @@ private:
     const Over myOver = Over::VIEW;
 
     /// @brief tag file
-    const GNEFileBucket::Type myFile = GNEFileBucket::Type::NETWORK;
+    const GNEFileBucket::Type myBucketType = GNEFileBucket::Type::NOTHING;
 
     /// @brief conflicts
     const Conflicts myConflicts = Conflicts::NO_CONFLICTS;

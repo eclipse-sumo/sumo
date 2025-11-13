@@ -73,11 +73,7 @@ GNETAZSourceSink::getParameters() const {
 
 
 const std::string& GNETAZSourceSink::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return getParentAdditionals().front()->getFilename();
-    }
+    return getParentAdditionals().front()->getFilename();
 }
 
 

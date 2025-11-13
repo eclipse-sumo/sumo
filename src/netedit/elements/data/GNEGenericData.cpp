@@ -95,11 +95,7 @@ GNEGenericData::getGUIGlObject() const {
 
 const std::string&
 GNEGenericData::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myDataIntervalParent->getFilename();
-    }
+    return myDataIntervalParent->getFilename();
 }
 
 

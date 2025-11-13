@@ -90,9 +90,7 @@ GNEDemandElement::getGUIGlObject() const {
 
 const
 std::string& GNEDemandElement::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else if (myTagProperty->saveInParentDemandFile()) {
+    if (myTagProperty->saveInParentFile()) {
         return getParentDemandElements().front()->getFilename();
     } else {
         return myFileBucket->getFilename();

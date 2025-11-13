@@ -48,7 +48,6 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const std::string GNEAttributeCarrier::TRUE_STR = toString(true);
 const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
-const std::string GNEAttributeCarrier::EMPTY_FILENAME = "";
 
 // ===========================================================================
 // method definitions

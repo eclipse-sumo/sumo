@@ -109,11 +109,7 @@ GNEMeanData::getGUIGlObject() const {
 
 const std::string&
 GNEMeanData::getFilename() const {
-    if (isTemplate()) {
-        return EMPTY_FILENAME;
-    } else {
-        return myFileBucket->getFilename();
-    }
+    return myFileBucket->getFilename();
 }
 
 
