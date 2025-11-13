@@ -25,14 +25,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType) :
-    myFileType(fileType),
+GNEFileBucket::GNEFileBucket(GNEFileBucket::Type type) :
+    myFileType(type),
     myDefaultBucket(true) {
 }
 
 
-GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType, const std::string filename) :
-    myFileType(fileType),
+GNEFileBucket::GNEFileBucket(GNEFileBucket::Type type, const std::string filename) :
+    myFileType(type),
     myFilename(filename),
     myDefaultBucket(false) {
 }
@@ -41,8 +41,8 @@ GNEFileBucket::GNEFileBucket(GNETagProperties::File fileType, const std::string 
 GNEFileBucket::~GNEFileBucket() {}
 
 
-GNETagProperties::File
-GNEFileBucket::getFileType() const {
+GNEFileBucket::Type
+GNEFileBucket::getType() const {
     return myFileType;
 }
 

@@ -23,8 +23,6 @@
 #include <unordered_set>
 #include <string>
 
-#include <netedit/GNETagProperties.h>
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -32,17 +30,30 @@
 class GNEFileBucket {
 
 public:
+    /// @brief Files that this bucket can save
+    enum class Type : std::uint64_t {
+        NETWORK =           1ULL << 0,    // Element can be saved in a network file
+        DEMAND =            1ULL << 1,    // Element can be saved in a demand file
+        MEANDATA =          1ULL << 2,    // Element can be saved in a meanData file
+        ADDITIONAL =        1ULL << 3,    // Element can be saved in a additional file (always after demand and meanData)
+        DATA =              1ULL << 4,    // Element can be saved in a data file
+        PARENT_ADDITIONAL = 1ULL << 5,    // Element must be saved in the same file of their first parent additional
+        PARENT_DEMAND =     1ULL << 6,    // Element must be saved in the same file of their first parent demand element
+        PARENT_DATA =       1ULL << 7,    // Element must be saved in the same file of their first parent data element
+        INVALID =           1ULL << 7,    // Used for invalid element bucket in GNEFileBucket
+    };
+
     /// @brief Constructor for default bucket
-    GNEFileBucket(GNETagProperties::File fileType);
+    GNEFileBucket(GNEFileBucket::Type type);
 
     /// @brief Constructor
-    GNEFileBucket(GNETagProperties::File fileType, const std::string filename);
+    GNEFileBucket(GNEFileBucket::Type type, const std::string filename);
 
     /// @brief destructor
     ~GNEFileBucket();
 
     /// @brief get file type
-    GNETagProperties::File getFileType() const;
+    GNEFileBucket::Type getType() const;
 
     /// @brief get filename
     const std::string& getFilename() const;
@@ -74,8 +85,8 @@ public:
     static std::string parseFilenames(const std::vector<GNEFileBucket*>& fileBuckets);
 
 private:
-    /// @brief fileType
-    const GNETagProperties::File myFileType;
+    /// @brief type
+    const GNEFileBucket::Type myFileType;
 
     /// @brief filename
     std::string myFilename;
@@ -95,3 +106,13 @@ private:
     /// @brief Invalidated assignment operator
     GNEFileBucket& operator=(const GNEFileBucket& src) = delete;
 };
+
+/// @brief override tag parent bit operator
+constexpr GNEFileBucket::Type operator|(GNEFileBucket::Type a, GNEFileBucket::Type b) {
+    return static_cast<GNEFileBucket::Type>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
+}
+
+/// @brief override tag parent bit operator
+constexpr bool operator&(GNEFileBucket::Type a, GNEFileBucket::Type b) {
+    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
+}

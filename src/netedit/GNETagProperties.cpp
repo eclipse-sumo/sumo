@@ -24,9 +24,9 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type type,
-                                   const Property property, const Over over, const File file,
-                                   const Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const GNETagProperties::Type type,
+                                   const GNETagProperties::Property property, const GNETagProperties::Over over, const GNEFileBucket::Type file,
+                                   const GNETagProperties::Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType,
                                    const SumoXMLTag XMLTag, const std::string tooltipText, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
@@ -1036,56 +1036,56 @@ GNETagProperties::vClassIcon() const {
 
 
 bool
-GNETagProperties::isFileCompatible(GNETagProperties::File file) const {
+GNETagProperties::isFileCompatible(GNEFileBucket::Type file) const {
     return (myFile & file);
 }
 
 
 bool
 GNETagProperties::saveInNetworkFile() const {
-    return (myFile & File::NETWORK);
+    return (myFile & GNEFileBucket::Type::NETWORK);
 }
 
 
 bool
 GNETagProperties::saveInAdditionalFile() const {
-    return (myFile & File::ADDITIONAL);
+    return (myFile & GNEFileBucket::Type::ADDITIONAL);
 }
 
 
 bool
 GNETagProperties::saveInDemandFile() const {
-    return (myFile & File::DEMAND);
+    return (myFile & GNEFileBucket::Type::DEMAND);
 }
 
 
 bool
 GNETagProperties::saveInDataFile() const {
-    return (myFile & File::DATA);
+    return (myFile & GNEFileBucket::Type::DATA);
 }
 
 
 bool
 GNETagProperties::saveInMeanDataFile() const {
-    return (myFile & File::MEANDATA);
+    return (myFile & GNEFileBucket::Type::MEANDATA);
 }
 
 
 bool
 GNETagProperties::saveInParentAdditionalFile() const {
-    return (myFile & File::PARENT_ADDITIONAL);
+    return (myFile & GNEFileBucket::Type::PARENT_ADDITIONAL);
 }
 
 
 bool
 GNETagProperties::saveInParentDemandFile() const {
-    return (myFile & File::PARENT_DEMAND);
+    return (myFile & GNEFileBucket::Type::PARENT_DEMAND);
 }
 
 
 bool
 GNETagProperties::saveInParentDataFile() const {
-    return (myFile & File::PARENT_DATA);
+    return (myFile & GNEFileBucket::Type::PARENT_DATA);
 }
 
 
