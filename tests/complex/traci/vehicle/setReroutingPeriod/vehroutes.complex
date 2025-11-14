@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:20:28 by Eclipse SUMO sumo Version v1_12_0+0212-f27fcdc
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-11-14T18:08:03.333931+01:00 by Eclipse SUMO sumo v1_25_0+0052-ed3ec406d98
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -15,6 +15,7 @@
 
     <routing>
         <weights.random-factor value="10"/>
+        <weights.random-factor.dynamic value="true"/>
         <device.rerouting.period value="300"/>
     </routing>
 
@@ -23,25 +24,25 @@
     </report>
 
     <traci_server>
-        <remote-port value="56559"/>
+        <remote-port value="38511"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" type="DEFAULT_VEHTYPE@ego" depart="0.00" arrival="367.00">
+    <vehicle id="ego" type="DEFAULT_VEHTYPE@ego" depart="0.00" arrival="321.00">
         <routeDistribution>
-            <route replacedOnEdge="A0B0" reason="device.rerouting" replacedAtTime="20.00" probability="0" edges="A0B0 B0B1 B1B2 B2B3 B3B4 B4C4 C4C5 C5D5 D5E5 E5F5 F5F6 F6F7 F7G7 G7H7"/>
-            <route replacedOnEdge="B2C2" replacedOnIndex="3" reason="device.rerouting" replacedAtTime="80.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4F5 F5F6 F6G6 G6G7 G7H7"/>
-            <route replacedOnEdge="C2D2" replacedOnIndex="4" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2E3 E3F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
-            <route replacedOnEdge="D2E2" replacedOnIndex="5" reason="device.rerouting" replacedAtTime="120.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2G2 G2G3 G3G4 G4G5 G5G6 G6G7 G7H7"/>
-            <route replacedOnEdge="E2F2" replacedOnIndex="6" reason="device.rerouting" replacedAtTime="140.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
-            <route replacedOnEdge="F3F4" replacedOnIndex="8" reason="device.rerouting" replacedAtTime="200.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4F5 F5F6 F6G6 G6G7 G7H7"/>
-            <route replacedOnEdge="F4G4" replacedOnIndex="9" reason="device.rerouting" replacedAtTime="220.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4G5 G5G6 G6G7 G7H7"/>
-            <route replacedOnEdge="H4H5" replacedOnIndex="11" reason="device.rerouting" replacedAtTime="260.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6G6 G6G7 G7H7"/>
-            <route replacedOnEdge="H5H6" replacedOnIndex="12" reason="device.rerouting" replacedAtTime="280.00" probability="0" edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6H7 H7G7 G7H7"/>
-            <route edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6G6 G6G7 G7H7"/>
+            <route replacedOnEdge="A0B0" reason="device.rerouting" replacedAtTime="20.00" probability="0" edges="A0B0 B0B1 B1C1 C1C2 C2C3 C3D3 D3E3 E3F3 F3F4 F4F5 F5G5 G5H5 H5H6 H6H7"/>
+            <route replacedOnEdge="C1D1" replacedOnIndex="3" reason="device.rerouting" replacedAtTime="80.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2G2 G2H2 H2H3 H3H4 H4H5 H5H6 H6H7"/>
+            <route replacedOnEdge="D1E1" replacedOnIndex="4" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1F1 F1G1 G1G2 G2G3 G3G4 G4G5 G5H5 H5H6 H6H7"/>
+            <route replacedOnEdge="E1E2" replacedOnIndex="5" reason="device.rerouting" replacedAtTime="120.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2E3 E3E4 E4F4 F4G4 G4G5 G5G6 G6H6 H6H7"/>
+            <route replacedOnEdge="E2F2" replacedOnIndex="6" reason="device.rerouting" replacedAtTime="140.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3F4 F4G4 G4G5 G5H5 H5H6 H6H7"/>
+            <route replacedOnEdge="E2F2" replacedOnIndex="6" reason="device.rerouting" replacedAtTime="160.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3G3 G3G4 G4H4 H4H5 H5H6 H6H7"/>
+            <route replacedOnEdge="F2F3" replacedOnIndex="7" reason="device.rerouting" replacedAtTime="180.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3G3 G3G4 G4G5 G5G6 G6H6 H6H7"/>
+            <route replacedOnEdge="F3F4" replacedOnIndex="8" reason="device.rerouting" replacedAtTime="200.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3F4 F4G4 G4H4 H4H5 H5H6 H6H7"/>
+            <route replacedOnEdge="F4F5" replacedOnIndex="9" reason="device.rerouting" replacedAtTime="220.00" probability="0" edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3F4 F4F5 F5F6 F6G6 G6G7 G7H7 H7H6 H6H7"/>
+            <route edges="A0B0 B0C0 C0C1 C1D1 D1E1 E1E2 E2F2 F2F3 F3F4 F4F5 F5G5 G5H5 H5H6 H6H7"/>
         </routeDistribution>
     </vehicle>
 
