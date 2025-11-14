@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-31T11:35:42.714663+01:00 by Eclipse SUMO sumo v1_24_0+1699-ee9bf5b971d
+<!-- generated on 2025-11-14T15:06:22.669845+01:00 by Eclipse SUMO sumo v1_25_0+0045-28a3daf62ee
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -65,6 +65,9 @@
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
+
+        <!-- Suffix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-suffix value="" type="STR"/>
 
         <!-- Defines the number of digits after the comma for floating point output -->
         <precision value="2" type="INT"/>

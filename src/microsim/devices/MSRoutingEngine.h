@@ -146,9 +146,6 @@ public:
     /// @brief record actual travel time for an edge
     static void addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime);
 
-    /// @brief initialize RNG for the gui thread
-    static void initGUIThreadRNG();
-
     /** @brief Saves the state (i.e. recorded speeds)
      *
      * @param[in] out The OutputDevice to write the information into
@@ -190,18 +187,6 @@ private:
         RoutingTask& operator=(const RoutingTask&) = delete;
     };
 
-    /**
-     * @class InitTask
-     * @brief setup RNGs for each thread (with proper locking so we don't need
-     * locking later */
-    class InitTask : public MFXWorkerThread::Task {
-    public:
-        InitTask() {}
-        void run(MFXWorkerThread* context);
-    private:
-        /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&) = delete;
-    };
 #endif
 
     /// @name Network state adaptation
@@ -269,9 +254,6 @@ private:
 
     /// @brief The router to use
     static MSRouterProvider* myRouterProvider;
-
-    static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
-    static bool myHaveRoutingThreads;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;

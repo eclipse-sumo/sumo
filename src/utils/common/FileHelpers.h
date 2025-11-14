@@ -158,6 +158,8 @@ public:
     /// @brief prepend the given prefix to the last path component of the given file path
     static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);
 
+    /// @brief append the given suffix after the file name but before the extension
+    static std::string appendBeforeExtension(const std::string& path, const std::string& suffix, bool checkSep = true);
     /// @}
 
     /// @name binary writing functions

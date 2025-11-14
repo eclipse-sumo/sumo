@@ -127,6 +127,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("output-prefix", new Option_String());
     oc.addDescription("output-prefix", "Output", TL("Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time."));
 
+    oc.doRegister("output-suffix", new Option_String());
+    oc.addDescription("output-suffix", "Output", TL("Suffix which is applied to all output files. The special string 'TIME' is replaced by the current time."));
+
     oc.doRegister("precision", new Option_Integer(2));
     oc.addDescription("precision", "Output", TL("Defines the number of digits after the comma for floating point output"));
 

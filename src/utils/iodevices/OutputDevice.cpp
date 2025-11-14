@@ -110,6 +110,18 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
+        if (usePrefix && oc.isSet("output-suffix") && name2 != "/dev/null") {
+            std::string suffix = oc.getString("output-suffix");
+            const std::string::size_type metaTimeIndex = suffix.find("TIME");
+            if (metaTimeIndex != std::string::npos) {
+                const time_t rawtime = std::chrono::system_clock::to_time_t(OptionsIO::getLoadTime());
+                char buffer [80];
+                struct tm* timeinfo = localtime(&rawtime);
+                strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
+                suffix.replace(metaTimeIndex, 4, buffer);
+            }
+            name2 = FileHelpers::appendBeforeExtension(name, suffix);
+        }
         name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
         dev = new OutputDevice_File(name2, isParquet);
     }

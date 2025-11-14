@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-28T19:04:44.566013+01:00 by Eclipse SUMO duarouter v1_24_0+1618-05eb47eca84
+<!-- generated on 2025-11-14T15:06:45.878351+01:00 by Eclipse SUMO duarouter v1_25_0+0045-28a3daf62ee
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -83,6 +83,9 @@
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
+
+        <!-- Suffix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-suffix value="" type="STR"/>
 
         <!-- Defines the number of digits after the comma for floating point output -->
         <precision value="2" type="INT"/>

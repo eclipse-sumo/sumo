@@ -52,7 +52,9 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
     SUMOTrafficObject(pars->id),
     myParameter(pars), myVType(vtype), myPlan(plan),
     myAmPerson(isPerson),
-    myNumericalID(myCurrentNumericalIndex++) {
+    myNumericalID(myCurrentNumericalIndex++),
+    myRandomSeed(RandHelper::murmur3_32(pars->id, RandHelper::getSeed()))
+{
     myStep = myPlan->begin();
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);

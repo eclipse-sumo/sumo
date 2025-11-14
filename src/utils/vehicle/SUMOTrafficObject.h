@@ -86,6 +86,8 @@ public:
     //  (especially fast comparison in maps which need vehicles as keys)
     virtual NumericalID getNumericalID() const = 0;
 
+    /// @brief return an object-specific random constant
+    virtual long long int getRandomSeed() const = 0;
 
     /** @brief Returns the object's "vehicle" type
      * @return The vehicle's type
