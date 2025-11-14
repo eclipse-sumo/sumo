@@ -76,6 +76,11 @@ public:
         return myNumericalID;
     }
 
+    /// @brief return transportable-specific random number
+    long long int getRandomSeed() const {
+        return myRandomSeed;
+    }
+
     inline bool isStopped() const override {
         return getCurrentStageType() == MSStageType::WAITING;
     }
@@ -433,6 +438,8 @@ private:
     const bool myAmPerson;
 
     const NumericalID myNumericalID;
+
+    long long int myRandomSeed;
 
     WrappingCommand<MSTransportable>* myAbortCommand;
 

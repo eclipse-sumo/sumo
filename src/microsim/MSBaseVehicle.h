@@ -828,6 +828,11 @@ public:
         return myNumericalID;
     }
 
+    /// @brief return vehicle-specific random number
+    long long int getRandomSeed() const {
+        return myRandomSeed;
+    }
+
     const MSDevice_Transportable* getPersonDevice() const {
         return myPersonDevice;
     }
@@ -1185,6 +1190,8 @@ protected:
 
 private:
     const NumericalID myNumericalID;
+
+    long long int myRandomSeed;
 
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */
