@@ -11,8 +11,6 @@ set(netedit_elements_SRCS
    GNECandidateElement.h
    GNEContour.cpp
    GNEContour.h
-   FileBucket.cpp
-   FileBucket.h
    GNEGeneralHandler.cpp
    GNEGeneralHandler.h
    GNEHierarchicalElement.cpp

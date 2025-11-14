@@ -18,7 +18,6 @@
 // A abstract class for networkElements
 /****************************************************************************/
 
-#include <netedit/elements/FileBucket.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>

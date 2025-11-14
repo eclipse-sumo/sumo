@@ -13,12 +13,11 @@
 /****************************************************************************/
 /// @file    FileBucket.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Aug 2023
+/// @date    Nov 2025
 ///
 // class used for link Elements with their filenames
 /****************************************************************************/
 
-#include "GNEAttributeCarrier.h"
 #include "FileBucket.h"
 
 // ===========================================================================

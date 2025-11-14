@@ -49,7 +49,6 @@
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEMeanData.h>
-#include <netedit/elements/FileBucket.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>

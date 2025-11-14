@@ -1,6 +1,8 @@
 set(utils_iodevices_STAT_SRCS
    CSVFormatter.cpp
    CSVFormatter.h
+   FileBucket.cpp
+   FileBucket.h
    OutputDevice.cpp
    OutputDevice.h
    OutputDevice_CERR.cpp
@@ -9,10 +11,10 @@ set(utils_iodevices_STAT_SRCS
    OutputDevice_COUT.h
    OutputDevice_File.cpp
    OutputDevice_File.h
-   OutputDevice_String.cpp
-   OutputDevice_String.h
    OutputDevice_Network.cpp
    OutputDevice_Network.h
+   OutputDevice_String.cpp
+   OutputDevice_String.h
    OutputFormatter.h
    PlainXMLFormatter.cpp
    PlainXMLFormatter.h
