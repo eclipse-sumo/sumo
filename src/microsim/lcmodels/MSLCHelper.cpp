@@ -198,10 +198,6 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 #endif
 
     const double maxOccupancy = MAX2(occupancyInner, occupancyOuter);
-    if (maxOccupancy == 0) {
-        // no bonues if the roundabout is empty
-        return 0;
-    }
     // give some bonus for using the inside lane at equal occupancy
     const double bonus = roundaboutJunctionsAhead * 7.5;
     const double relativeJam = (occupancyOuter - occupancyInner + bonus) / (maxOccupancy + bonus);
