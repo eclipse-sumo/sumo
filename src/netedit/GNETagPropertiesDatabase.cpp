@@ -1296,6 +1296,12 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    TL("Charging power in W"),
                                    "22000");
 
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TOTALPOWER,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Total power in W"),
+                                   "0");
+
         auto efficiency = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_EFFICIENCY,
                 GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::RANGE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,

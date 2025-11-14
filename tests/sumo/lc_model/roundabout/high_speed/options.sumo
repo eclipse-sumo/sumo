@@ -1,1 +1,3 @@
 --lanechange-output lanechanges.xml
+--fcd-output fcd.xml
+--fcd-output.attributes acceleration
