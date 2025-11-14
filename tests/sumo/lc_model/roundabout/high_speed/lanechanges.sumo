@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T08:26:42.248355+01:00 by Eclipse SUMO sumo v1_25_0+0030-68cc19beeac
+<!-- generated on 2025-11-14T09:18:00.793012+01:00 by Eclipse SUMO sumo v1_25_0+0032-94501433e15
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="acceleration"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
@@ -39,6 +41,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <lanechanges>
     <change id="t_0" type="DEFAULT_VEHTYPE" time="5.00" from="E5_1" to="E5_2" dir="1" speed="8.20" pos="6.33" reason="cooperative" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="t_0" type="DEFAULT_VEHTYPE" time="16.00" from="E7_2" to="E7_1" dir="-1" speed="26.91" pos="10.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="t_0" type="DEFAULT_VEHTYPE" time="17.00" from="E7_1" to="E7_0" dir="-1" speed="18.50" pos="29.28" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="t_0" type="DEFAULT_VEHTYPE" time="15.00" from=":J2_4_2" to=":J2_4_1" dir="-1" speed="26.96" pos="3.87" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="t_0" type="DEFAULT_VEHTYPE" time="16.00" from="E7_1" to="E7_0" dir="-1" speed="19.89" pos="3.76" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

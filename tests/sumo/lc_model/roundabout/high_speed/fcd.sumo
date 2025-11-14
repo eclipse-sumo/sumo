@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T08:29:00.018595+01:00 by Eclipse SUMO sumo v1_25_0+0030-68cc19beeac
+<!-- generated on 2025-11-14T09:18:00.792736+01:00 by Eclipse SUMO sumo v1_25_0+0032-94501433e15
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -89,28 +89,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="t_0" acceleration="2.02"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="t_0" acceleration="-0.05"/>
+        <vehicle id="t_0" acceleration="-7.07"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="t_0" acceleration="-8.41"/>
+        <vehicle id="t_0" acceleration="1.67"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="t_0" acceleration="0.84"/>
+        <vehicle id="t_0" acceleration="-1.39"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="t_0" acceleration="-4.28"/>
+        <vehicle id="t_0" acceleration="-4.30"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="t_0" acceleration="-4.50"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="t_0" acceleration="-4.17"/>
+        <vehicle id="t_0" acceleration="-2.38"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="t_0" acceleration="0.26"/>
+        <vehicle id="t_0" acceleration="-2.90"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="t_0" acceleration="0.02"/>
+        <vehicle id="t_0" acceleration="0.60"/>
     </timestep>
     <timestep time="24.00">
         <vehicle id="t_0" acceleration="1.99"/>
