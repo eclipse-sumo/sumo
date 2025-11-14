@@ -23,35 +23,29 @@
 
 #include <netbuild/NBTypeCont.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNELaneType;
 class GNEEdgeTemplate;
 class GNECreateEdgeFrame;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GNEEdgeType : public GNENetworkElement, public Parameterised, public NBTypeCont::EdgeTypeDefinition {
+
 public:
     /// @brief GNECreateEdgeFrame need access to setAttribute
     friend class GNECreateEdgeFrame;
 
-    /**@brief Constructor for default edge (empty ID)
-     * @param[in] createEdgeFrame Frame in which edgeType is created
-     */
-    GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame);
+    /// @brief default constructor
+    GNEEdgeType(GNENet* net, const bool generateID);
 
     /// @brief copy constructor (this doesn't create new lanes)
     GNEEdgeType(const GNEEdgeType* edgeType);
-
-    /**@brief Constructor
-     * @param[in] net The net to inform about gui updates
-     */
-    GNEEdgeType(GNENet* net);
 
     /**@brief Constructor (parameters)
      * @param[in] net The net to inform about gui updates

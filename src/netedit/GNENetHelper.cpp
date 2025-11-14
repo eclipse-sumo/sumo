@@ -2952,6 +2952,9 @@ void
 GNENetHelper::ACTemplate::buildTemplates() {
     // network
     myTemplates[SUMO_TAG_CROSSING] = new GNECrossing(myNet);
+    // special case for edge type
+    myEdgeType = new GNEEdgeType(myNet, false);
+    myTemplates[SUMO_TAG_TYPE] = myEdgeType;
     // additionals
     myTemplates[SUMO_TAG_BUS_STOP] = GNEBusStop::buildBusStop(myNet);
     myTemplates[SUMO_TAG_TRAIN_STOP] = GNEBusStop::buildTrainStop(myNet);
@@ -3108,6 +3111,12 @@ GNENetHelper::ACTemplate::getTemplateAC(const std::string& selectorText) const {
         }
     }
     return nullptr;
+}
+
+
+GNEEdgeType*
+GNENetHelper::ACTemplate::getDefaultEdgeType() const {
+    return myEdgeType;
 }
 
 // ---------------------------------------------------------------------------
