@@ -76,9 +76,9 @@ RandHelper::initRand(SumoRNG* which, const bool random, const int seed) {
         which = &myRandomNumberGenerator;
     }
     if (random) {
-        which->seed((unsigned long)time(nullptr));
+        which->setSeed((unsigned long)time(nullptr));
     } else {
-        which->seed(seed);
+        which->setSeed(seed);
     }
 }
 
@@ -89,6 +89,13 @@ RandHelper::initRandGlobal(SumoRNG* which) {
     initRand(which, oc.getBool("random"), oc.getInt("seed"));
 }
 
+int
+RandHelper::getSeed(SumoRNG* which) {
+    if (which == nullptr) {
+        which = &myRandomNumberGenerator;
+    }
+    return which->origSeed;
+}
 
 double
 RandHelper::rand(SumoRNG* rng) {

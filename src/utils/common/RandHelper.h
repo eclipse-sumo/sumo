@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <cstring>
 #include <vector>
 #include <map>
 #include <random>
@@ -32,6 +33,18 @@
 
 // TODO make this configurable
 #define SAVE_ONLY_COUNT 1000000
+
+// ===========================================================================
+// helper function
+// ===========================================================================
+
+inline uint64_t splitmix64(const uint64_t seed) {
+    uint64_t z = (seed + 0x9e3779b97f4a7c15);
+    z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9;
+    z = (z ^ (z >> 27)) * 0x94d049bb133111eb;
+    return z ^ (z >> 31);
+}
+
 
 // ===========================================================================
 // class declaration
@@ -89,13 +102,6 @@ private:
         return (x << k) | (x >> (64 - k));
     }
 
-    static inline uint64_t splitmix64(const uint64_t seed) {
-        uint64_t z = (seed + 0x9e3779b97f4a7c15);
-        z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9;
-        z = (z ^ (z >> 27)) * 0x94d049bb133111eb;
-        return z ^ (z >> 31);
-    }
-
     uint64_t state[4];
 
 };
@@ -106,7 +112,13 @@ class SumoRNG : public std::mt19937 {
 public:
     SumoRNG(const std::string& _id) : id(_id) {}
 
+    void setSeed(int _seed) {
+        origSeed = _seed;
+        seed(_seed);
+    }
+
     unsigned long long int count = 0;
+    int origSeed = default_seed;
     std::string id;
 };
 
@@ -126,6 +138,8 @@ public:
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
     static void initRandGlobal(SumoRNG* which = nullptr);
+
+    static int getSeed(SumoRNG* which = nullptr);
 
     /// @brief Returns a random real number in [0, 1)
     static double rand(SumoRNG* rng = nullptr);
@@ -248,8 +262,55 @@ public:
         return myRandomNumberGenerator.count;
     }
 
+    /// @brief return a value scrambled value from [0, 1]
+    static double randHash(long long int x) {
+        uint64_t h = splitmix64(x);
+        h = h >> 11;
+        return h / (double(1ULL << 53));
+    }
+
+    /// @brief string hashing adapted from https://en.wikipedia.org/wiki/MurmurHash
+    static uint32_t murmur3_32(const std::string& key2, int seed) {
+        const uint8_t* key = reinterpret_cast<const uint8_t*>(key2.data());
+        const size_t len = key2.size();
+        uint32_t h = seed;
+        uint32_t k;
+        /* Read in groups of 4. */
+        for (size_t i = len >> 2; i; i--) {
+            memcpy(&k, key, sizeof(uint32_t));
+            key += sizeof(uint32_t);
+            h ^= murmur_32_scramble(k);
+            h = (h << 13) | (h >> 19);
+            h = h * 5 + 0xe6546b64;
+        }
+        /* Read the rest. */
+        k = 0;
+        for (size_t i = len & 3; i; i--) {
+            k <<= 8;
+            k |= key[i - 1];
+        }
+        h ^= murmur_32_scramble(k);
+        /* Finalize. */
+        h ^= len;
+        h ^= h >> 16;
+        h *= 0x85ebca6b;
+        h ^= h >> 13;
+        h *= 0xc2b2ae35;
+        h ^= h >> 16;
+        return h;
+    }
+
+
 protected:
     /// @brief the default random number generator to use
     static SumoRNG myRandomNumberGenerator;
+
+    /// @brief helper function for murmur_32_scramble from https://en.wikipedia.org/wiki/MurmurHash
+    static inline uint32_t murmur_32_scramble(uint32_t k) {
+        k *= 0xcc9e2d51;
+        k = (k << 15) | (k >> 17);
+        k *= 0x1b873593;
+        return k;
+    }
 
 };
