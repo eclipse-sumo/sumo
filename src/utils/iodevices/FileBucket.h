@@ -32,12 +32,13 @@ class FileBucket {
 public:
     /// @brief Files that this bucket can save
     enum class Type : std::uint64_t {
-        NETWORK =           1ULL << 0,    // Element can be saved in a network file
-        DEMAND =            1ULL << 1,    // Element can be saved in a demand file
-        MEANDATA =          1ULL << 2,    // Element can be saved in a meanData file
-        ADDITIONAL =        1ULL << 3,    // Element can be saved in a additional file (always after demand and meanData)
-        DATA =              1ULL << 4,    // Element can be saved in a data file
-        NOTHING =           1ULL << 5,    // Element is not saved in bucket
+        NETWORK =       1ULL << 0,    // Bucket for network elements
+        DEMAND =        1ULL << 1,    // Bucket for demand elements
+        MEANDATA =      1ULL << 2,    // Bucket for meanData elements
+        ADDITIONAL =    1ULL << 3,    // Bucket for additional elements (always after demand and meanData)
+        DATA =          1ULL << 4,    // Bucket for data elements
+        TEMPLATE =      1ULL << 4,    // Bucket for templates elements
+        NOTHING =       1ULL << 5,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket

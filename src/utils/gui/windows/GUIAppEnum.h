@@ -719,6 +719,8 @@ enum {
     MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
     /// @brief save network as
     MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
+    /// @brief save additionals element as
+    MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_AS,
     /// @brief save additionals unified
     MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,
     /// @brief save JuPedSim as
@@ -733,16 +735,22 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief reload edge types
     MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
+    /// @brief save demand elements as
+    MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_AS,
     /// @brief save demand elements unified
     MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,
     /// @brief reload demand elements
     MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,
+    /// @brief save data elements as
+    MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_AS,
     /// @brief save data elements unified
     MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,
     /// @brief reload data elements
     MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
     /// @brief open meanData file
     MID_GNE_TOOLBARFILE_OPENMEANDATAELEMENTS,
+    /// @brief save meanDatas as
+    MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_AS,
     /// @brief save meanDatas unified
     MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,
     /// @brief reload meanDatas

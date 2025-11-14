@@ -32,6 +32,7 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
@@ -89,7 +90,10 @@ GNEAdditional::getGUIGlObject() const {
 
 const std::string&
 GNEAdditional::getFilename() const {
-    if (myTagProperty->saveInParentFile()) {
+    if (isTemplate()) {
+        // get filename of default bucket (secure, because it always exist)
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL).front()->getFilename();
+    } else if (myTagProperty->saveInParentFile()) {
         return getParentAdditionals().front()->getFilename();
     } else {
         return myFileBucket->getFilename();

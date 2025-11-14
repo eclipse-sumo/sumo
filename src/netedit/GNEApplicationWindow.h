@@ -262,6 +262,9 @@ public:
     /// @brief called when the command/FXCall save additionals is executed
     long onCmdSaveAdditionalElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save additionals as
+    long onCmdSaveAdditionalElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save additionals unified is executed
     long onCmdSaveAdditionalElementsUnified(FXObject*, FXSelector, void*);
 
@@ -289,11 +292,17 @@ public:
     /// @brief called when the command/FXCall reload data elements is updated
     long onUpdReloadDataElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save demand elements as is executed
+    long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save demand elements unified is executed
     long onCmdSaveDemandElementsUnified(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save data elements is executed
     long onCmdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save data elements as is executed
+    long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save data elements unified is executed
     long onCmdSaveDataElementsUnified(FXObject*, FXSelector, void*);
@@ -309,6 +318,9 @@ public:
 
     /// @brief called when the command/FXCall save meanDatas is executed
     long onCmdSaveMeanDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save meanDatas as is executed
+    long onCmdSaveMeanDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save meanDatas unified is executed
     long onCmdSaveMeanDataElementsUnified(FXObject*, FXSelector, void*);

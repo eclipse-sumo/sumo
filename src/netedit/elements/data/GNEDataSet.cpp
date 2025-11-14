@@ -21,6 +21,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/iodevices/FileBucket.h>
@@ -152,7 +153,12 @@ GNEDataSet::getGUIGlObject() const {
 
 const std::string&
 GNEDataSet::getFilename() const {
-    return myFileBucket->getFilename();
+    if (isTemplate()) {
+        // get filename of default bucket (secure, because it always exist)
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA).front()->getFilename();
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

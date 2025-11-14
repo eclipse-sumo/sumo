@@ -160,6 +160,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALELEMENTS,              GNEApplicationWindow::onUpdReloadAdditionalElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS,             GNEApplicationWindow::onCmdSaveAdditionalElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS,             GNEApplicationWindow::onUpdSaveAdditionalElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_AS,              GNEApplicationWindow::onCmdSaveAdditionalElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,         GNEApplicationWindow::onCmdSaveAdditionalElementsUnified),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED,         GNEApplicationWindow::onUpdSaveAdditionalElementsUnified),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS,                GNEApplicationWindow::onCmdSaveJuPedSimElementsAs),
@@ -171,6 +173,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS,                  GNEApplicationWindow::onUpdReloadDemandElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onCmdSaveDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onUpdSaveDemandElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_AS,                  GNEApplicationWindow::onCmdSaveDemandElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_AS,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,             GNEApplicationWindow::onCmdSaveDemandElementsUnified),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED,             GNEApplicationWindow::onUpdSaveDemandElementsUnified),
     // data elements
@@ -180,6 +184,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,            GNEApplicationWindow::onUpdReloadDataElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onCmdSaveDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onUpdSaveDataElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_AS,            GNEApplicationWindow::onCmdSaveDataElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_AS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,       GNEApplicationWindow::onCmdSaveDataElementsUnified),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED,       GNEApplicationWindow::onUpdSaveDataElementsUnified),
     // meanDatas
@@ -189,6 +195,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_MEANDATAELEMENTS,        GNEApplicationWindow::onUpdReloadMeanDataElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS,       GNEApplicationWindow::onCmdSaveMeanDataElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS,       GNEApplicationWindow::onUpdSaveMeanDataElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_AS,        GNEApplicationWindow::onCmdSaveMeanDataElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_AS,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,   GNEApplicationWindow::onCmdSaveMeanDataElementsUnified),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED,   GNEApplicationWindow::onUpdSaveMeanDataElementsUnified),
     // other
@@ -1609,6 +1617,8 @@ GNEApplicationWindow::closeAllWindows() {
         myNet = nullptr;
         GeoConvHelper::resetLoaded();
     }
+    // reset default filanemes in bucket
+    mySavingFilesHandler->resetDefaultFilenameFile();
     // check if view has to be saved
     if (myViewNet) {
         myViewNet->saveVisualizationSettings();
@@ -3899,7 +3909,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
         // choose file to save
-        return onCmdSaveAdditionalElementsUnified(sender, sel, ptr);
+        return onCmdSaveAdditionalElementsAs(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
@@ -3926,6 +3936,35 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
 
 
 long
+GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // get additional file
+    const auto additionalFileDialog = GNEFileDialog(this, TL("Additional elements as"),
+                                      SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
+                                      GNEFileDialog::OpenMode::SAVE,
+                                      GNEFileDialog::ConfigType::NETEDIT);
+    // check that file is valid
+    if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // update default name
+        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
+        // save additional
+        return onCmdSaveAdditionalElements(sender, sel, ptr);
+    } else {
+        return 0;
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
@@ -3938,12 +3977,14 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get additional file
-    const GNEFileDialog additionalFileDialog(this, TL("Additional elements file"),
-            SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
-            GNEFileDialog::OpenMode::SAVE,
-            GNEFileDialog::ConfigType::NETEDIT);
+    const auto additionalFileDialog = GNEFileDialog(this, TL("Additional elements in unified file"),
+                                      SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
+                                      GNEFileDialog::OpenMode::SAVE,
+                                      GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // set default type in file
+        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("saving of unified additional elements in '%'", additionalFileDialog.getFilename()));
         // iterate over all demand elementes and change file
@@ -4100,7 +4141,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
         // choose file to save
-        return onCmdSaveDemandElementsUnified(sender, sel, ptr);
+        return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
         // always recompute before saving
         myNet->computeNetwork(this);
@@ -4125,6 +4166,35 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
 
 
 long
+GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // get route file
+    const auto routeFileDialog = GNEFileDialog(this, TL("Route elements"),
+                                 SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
+                                 GNEFileDialog::OpenMode::SAVE,
+                                 GNEFileDialog::ConfigType::NETEDIT);
+    // check that file is correct
+    if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // update default name
+        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, routeFileDialog.getFilename(), true);
+        // save demand elements
+        return onCmdSaveDemandElements(sender, sel, ptr);
+    } else {
+        return 0;
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
@@ -4137,10 +4207,10 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get route file
-    const GNEFileDialog routeFileDialog(this, TL("Route elements file"),
-                                        SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
-                                        GNEFileDialog::OpenMode::SAVE,
-                                        GNEFileDialog::ConfigType::NETEDIT);
+    const auto routeFileDialog = GNEFileDialog(this, TL("Route elements file in unified file"),
+                                 SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
+                                 GNEFileDialog::OpenMode::SAVE,
+                                 GNEFileDialog::ConfigType::NETEDIT);
     // check that file is correct
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // begin undoList operation
@@ -4274,7 +4344,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DATA)) {
-        return onCmdSaveDataElementsUnified(sender, sel, ptr);
+        return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
         try {
             // save data elements
@@ -4297,7 +4367,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -4313,6 +4383,35 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
                                        SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
                                        GNEFileDialog::OpenMode::SAVE,
                                        GNEFileDialog::ConfigType::NETEDIT);
+    // check that file is correct
+    if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // update default name
+        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename(), true);
+        // save data elements
+        return onCmdSaveDataElements(sender, sel, ptr);
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // get data file
+    const auto dataFileDialog = GNEFileDialog(this, TL("Data elements file in unified file"),
+                                SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
+                                GNEFileDialog::OpenMode::SAVE,
+                                GNEFileDialog::ConfigType::NETEDIT);
     // check that file is correct
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // begin undoList operation
@@ -4436,7 +4535,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {
-        return onCmdSaveMeanDataElementsUnified(sender, sel, ptr);
+        return onCmdSaveMeanDataElementsAs(sender, sel, ptr);
     } else {
         try {
             // compute before saving
@@ -4461,6 +4560,35 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
 
 
 long
+GNEApplicationWindow::onCmdSaveMeanDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // get meanData file
+    const auto meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements"),
+                                    SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
+                                    GNEFileDialog::OpenMode::SAVE,
+                                    GNEFileDialog::ConfigType::NETEDIT);
+    // check that file is valid
+    if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // update default name
+        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename(), true);
+        // save meanDatas
+        return onCmdSaveMeanDataElements(sender, sel, ptr);
+    } else {
+        return 0;
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
@@ -4473,10 +4601,10 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // get meanData file
-    const GNEFileDialog meanDataFileDialog(this, TL("MeanData elements file"),
-                                           SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
-                                           GNEFileDialog::OpenMode::SAVE,
-                                           GNEFileDialog::ConfigType::NETEDIT);
+    const auto meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file in unified file"),
+                                    SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
+                                    GNEFileDialog::OpenMode::SAVE,
+                                    GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // begin undoList operation
