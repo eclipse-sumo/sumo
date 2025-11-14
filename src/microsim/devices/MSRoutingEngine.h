@@ -266,6 +266,9 @@ private:
     /// @brief the difference between maximum and minimum priority for all edges
     static double myEdgePriorityRange;
 
+    /// @brief whether randomness varies over time
+    static bool myDynamicRandomness;
+
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing the route cache
     static FXMutex myRouteCacheMutex;
