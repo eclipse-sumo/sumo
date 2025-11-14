@@ -1191,7 +1191,7 @@ protected:
 private:
     const NumericalID myNumericalID;
 
-    long long int myRandomSeed;
+    const long long int myRandomSeed;
 
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */

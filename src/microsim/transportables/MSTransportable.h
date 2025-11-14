@@ -439,7 +439,7 @@ private:
 
     const NumericalID myNumericalID;
 
-    long long int myRandomSeed;
+    const long long int myRandomSeed;
 
     WrappingCommand<MSTransportable>* myAbortCommand;
 

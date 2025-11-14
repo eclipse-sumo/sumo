@@ -193,7 +193,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
                      ? getEffort(e, v, t)
                      : getEffortBike(e, v, t));
     if (gWeightsRandomFactor != 1.) {
-        effort *= (1 + RandHelper::randHash(v->getRandomSeed() + e->getNumericalID()) * gWeightsRandomFactor);
+        effort *= (1 + RandHelper::randHash(v->getRandomSeed() ^ e->getNumericalID()) * (gWeightsRandomFactor - 1));
     }
     if (myPriorityFactor != 0) {
         // lower priority should result in higher effort (and the edge with
