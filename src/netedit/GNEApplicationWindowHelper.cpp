@@ -2338,13 +2338,11 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler() {
-    // create default buckets (demand and meanData always before additionals!)
+    // create buckets
     myBuckets[FileBucket::Type::DEMAND].push_back(new FileBucket(FileBucket::Type::DEMAND));
     myBuckets[FileBucket::Type::MEANDATA].push_back(new FileBucket(FileBucket::Type::MEANDATA));
     myBuckets[FileBucket::Type::ADDITIONAL].push_back(new FileBucket(FileBucket::Type::ADDITIONAL));
     myBuckets[FileBucket::Type::DATA].push_back(new FileBucket(FileBucket::Type::DATA));
-    // create invalid bucket
-    myInvalidBucket = new FileBucket(FileBucket::Type::NOTHING);
 }
 
 
@@ -2355,7 +2353,6 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
             delete bucket;
         }
     }
-    delete myInvalidBucket;
 }
 
 
@@ -2363,21 +2360,27 @@ FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements with parents are saved in the paren'ts bucket
+        // network and elements aren't saved in buckets
         return nullptr;
     } else {
         // iterate over all buckets to check if the given filename already exist
         for (auto& bucketVector : myBuckets) {
-            for (auto& bucket : bucketVector.second) {
-                if (bucket->getFilename() == filename) {
-                    // continue depending if this AC can be registered in this type of bucket
-                    if (AC->getTagProperty()->isFileCompatible(bucket->getType())) {
-                        bucket->addElement(AC);
-                        return bucket;
-                    } else {
-                        // in this case, put the AC in the invalid element bucket
-                        myInvalidBucket->addElement(AC);
-                        return myInvalidBucket;
+            // get default bucket (secure because first bucket always exist)
+            auto defaultBucket = bucketVector.second.front();
+            // check if this bucket type is compatible
+            if (AC->getTagProperty()->isFileCompatible(defaultBucket->getType())) {
+                // now check if update name of first bucket
+                if (AC->isTemplate()) {
+                    defaultBucket->setFilename(filename);
+                    defaultBucket->addElement(AC);
+                    return defaultBucket;
+                } else {
+                    // search bucket with this filename
+                    for (auto& bucket : bucketVector.second) {
+                        if (bucket->getFilename() == filename) {
+                            bucket->addElement(AC);
+                            return bucket;
+                        }
                     }
                 }
             }
@@ -2394,9 +2397,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
                 return bucket;
             }
         }
-        // on this point this case, put the AC in the invalid element bucket
-        myInvalidBucket->addElement(AC);
-        return myInvalidBucket;
+        // the AC was not inserted, throw error
+        throw ProcessError(TLF("Element '% cannot be registered in bucket '%'", AC->getID(), filename));
     }
 }
 
@@ -2405,7 +2407,7 @@ FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements with parents are saved in the paren'ts bucket
+        // network and elements aren't saved in buckets
         return nullptr;
     } else {
         // simply unregister and register
@@ -2419,7 +2421,7 @@ bool
 GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements with parents are saved in the paren'ts bucket
+        // network and elements aren't saved in buckets
         return true;
     } else {
         // iterate over all buckets to check if the given filename already exist
@@ -2437,14 +2439,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
                 }
             }
         }
-        // on this point, check if AC is in invalid bucket
-        if (myInvalidBucket->hasElement(AC)) {
-            myInvalidBucket->removeElement(AC);
-            return true;
-        } else {
-            // the AC was not inserted, throw error
-            throw ProcessError("Error unregistering AC=" + AC->getID());
-        }
+        // the AC was not inserted, throw error
+        throw ProcessError(TLF("Element '% cannot be unregister in bucket", AC->getID()));
     }
 }
 
@@ -2490,6 +2486,14 @@ void
 GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force) {
     if (myBuckets.at(file).front()->getFilename().empty() || force) {
         myBuckets.at(file).front()->setFilename(filename);
+    }
+}
+
+
+void
+GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenameFile() {
+    for (const auto& bucketPair : myBuckets) {
+        bucketPair.second.front()->setFilename("");
     }
 }
 
