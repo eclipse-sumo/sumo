@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-05 12:34:49 by Eclipse SUMO sumo Version v1_20_0+0364-33072c69074
+<!-- generated on 2025-11-14T13:48:51.411578+01:00 by Eclipse SUMO sumo v1_25_0+0037-ed261d6fc09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -48,48 +48,48 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0.0" depart="0.00" arrival="44.00">
-        <route edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3D3"/>
+        <route edges="A0A1 A1B1 B1C1 C1C2 C2C3 C3D3"/>
     </vehicle>
 
     <vehicle id="0.1" depart="1.00" arrival="45.00">
-        <route edges="A0A1 A1B1 B1B2 B2B3 B3C3 C3D3"/>
+        <route edges="A0B0 B0C0 C0D0 D0D1 D1D2 D2D3"/>
     </vehicle>
 
-    <vehicle id="0.3" depart="1.00" arrival="45.00">
-        <route edges="A0B0 B0C0 C0C1 C1D1 D1D2 D2D3"/>
+    <vehicle id="0.2" depart="1.00" arrival="45.00">
+        <route edges="A0A1 A1A2 A2B2 B2B3 B3C3 C3D3"/>
     </vehicle>
 
     <vehicle id="0.4" depart="1.00" arrival="46.00">
-        <route edges="A0B0 B0B1 B1C1 C1D1 D1D2 D2D3"/>
+        <route edges="A0B0 B0C0 C0D0 D0D1 D1D2 D2D3"/>
     </vehicle>
 
-    <vehicle id="0.2" depart="1.00" arrival="47.00">
-        <route edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3D3"/>
+    <vehicle id="0.3" depart="1.00" arrival="47.00">
+        <route edges="A0A1 A1A2 A2B2 B2B3 B3C3 C3D3"/>
     </vehicle>
 
-    <vehicle id="0.5" depart="1.00" arrival="49.00">
-        <route edges="A0B0 B0B1 B1B2 B2C2 C2C3 C3D3"/>
-    </vehicle>
-
-    <vehicle id="0.6" depart="1.00" arrival="50.00">
+    <vehicle id="0.5" depart="1.00" arrival="48.00">
         <route edges="A0B0 B0C0 C0C1 C1D1 D1D2 D2D3"/>
     </vehicle>
 
-    <vehicle id="0.8" depart="1.00" arrival="51.00">
-        <route edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3"/>
+    <vehicle id="0.6" depart="1.00" arrival="50.00">
+        <route edges="A0B0 B0B1 B1C1 C1C2 C2C3 C3D3"/>
     </vehicle>
 
-    <vehicle id="0.9" depart="1.00" arrival="52.00">
-        <route edges="A0A1 A1B1 B1B2 B2B3 B3C3 C3D3"/>
+    <vehicle id="0.7" depart="1.00" arrival="51.00">
+        <route edges="A0B0 B0B1 B1C1 C1C2 C2C3 C3D3"/>
     </vehicle>
 
-    <vehicle id="0.7" depart="1.00" arrival="54.00">
-        <route edges="A0B0 B0B1 B1B2 B2C2 C2C3 C3D3"/>
+    <vehicle id="0.8" depart="9.00" arrival="53.00">
+        <route edges="A0B0 B0C0 C0D0 D0D1 D1D2 D2D3"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="10.00" arrival="55.00">
+        <route edges="A0B0 B0C0 C0C1 C1C2 C2C3 C3D3"/>
     </vehicle>
 
 </routes>
