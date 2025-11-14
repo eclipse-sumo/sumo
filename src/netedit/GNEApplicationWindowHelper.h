@@ -1159,9 +1159,6 @@ struct GNEApplicationWindowHelper {
         /// @brief destructor
         ~SavingFilesHandler();
 
-        /// @brief update netedit config
-        void updateNeteditConfig();
-
         /// @brief functions related with ACs
         /// @{
 

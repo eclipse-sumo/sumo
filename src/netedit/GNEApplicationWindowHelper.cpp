@@ -2359,45 +2359,6 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
 }
 
 
-void
-GNEApplicationWindowHelper::SavingFilesHandler::updateNeteditConfig() {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // get files
-    const auto additionalFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::ADDITIONAL));
-    const auto demandElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::DEMAND));
-    const auto dataElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::DATA));
-    const auto meanDataElementFiles = FileBucket::parseFilenames(myBuckets.at(FileBucket::Type::MEANDATA));
-    // additionals
-    neteditOptions.resetWritable();
-    if (additionalFiles.size() > 0) {
-        neteditOptions.set("additional-files", additionalFiles);
-    } else {
-        neteditOptions.resetDefault("additional-files");
-    }
-    // route files
-    neteditOptions.resetWritable();
-    if (demandElementFiles.size() > 0) {
-        neteditOptions.set("route-files", demandElementFiles);
-    } else {
-        neteditOptions.resetDefault("route-files");
-    }
-    // data files
-    neteditOptions.resetWritable();
-    if (dataElementFiles.size() > 0) {
-        neteditOptions.set("data-files", dataElementFiles);
-    } else {
-        neteditOptions.resetDefault("data-files");
-    }
-    // meanData files
-    neteditOptions.resetWritable();
-    if (meanDataElementFiles.size() > 0) {
-        neteditOptions.set("meandata-files", meanDataElementFiles);
-    } else {
-        neteditOptions.resetDefault("meandata-files");
-    }
-}
-
-
 FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties

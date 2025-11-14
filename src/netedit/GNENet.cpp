@@ -1493,51 +1493,63 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     auto& neteditOptions = OptionsCont::getOptions();
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
-    if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
-        // split and load every file individually
-        const auto additionalFiles = StringTokenizer(OptionsCont::getOptions().getString("additional-files"), ";").getVector();
-        for (const auto& file : additionalFiles) {
-            // Create additional handler
-            GNEGeneralHandler generalHandler(this, file, myApplicationWindow->isUndoRedoAllowed());
-            // Run parser
-            if (!generalHandler.parse()) {
-                WRITE_ERROR(TL("Loading of additional file failed: ") + file);
-            } else {
-                WRITE_MESSAGE(TL("Loading of additional file successfully: ") + file);
+    if (volatileOptions) {
+        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
+            if (bucket->getFilename().size() > 0) {
+                // Create general handler
+                GNEGeneralHandler generalHandler(this, bucket->getFilename(), myApplicationWindow->isUndoRedoAllowed());
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TL("Loading of additional file failed: ") + bucket->getFilename());
+                } else {
+                    WRITE_MESSAGE(TL("Loading of additional file successfully: ") + bucket->getFilename());
+                }
             }
         }
     }
     // load demand elements if was recomputed with volatile options
-    if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
-        // Create general handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false);
-        // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TL("Loading of route file failed: ") + OptionsCont::getOptions().getString("route-files"));
-        } else {
-            WRITE_MESSAGE(TL("Loading of route file successfully: ") + OptionsCont::getOptions().getString("route-files"));
+    if (volatileOptions) {
+        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
+            if (bucket->getFilename().size() > 0) {
+                // Create general handler
+                GNEGeneralHandler generalHandler(this, bucket->getFilename(), myApplicationWindow->isUndoRedoAllowed());
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TL("Loading of route file failed: ") + bucket->getFilename());
+                } else {
+                    WRITE_MESSAGE(TL("Loading of route file successfully: ") + bucket->getFilename());
+                }
+            }
         }
     }
     // load datas if was recomputed with volatile options
-    if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
-        // Create data handler
-        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false);
-        // Run parser
-        if (!dataHandler.parse()) {
-            WRITE_ERROR(TL("Loading of data file failed: ") + OptionsCont::getOptions().getString("data-files"));
-        } else {
-            WRITE_MESSAGE(TL("Loading of data file successfully: ") + OptionsCont::getOptions().getString("data-files"));
+    if (volatileOptions) {
+        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA)) {
+            if (bucket->getFilename().size() > 0) {
+                // Create general handler
+                GNEGeneralHandler generalHandler(this, bucket->getFilename(), myApplicationWindow->isUndoRedoAllowed());
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TL("Loading of data file failed: ") + bucket->getFilename());
+                } else {
+                    WRITE_MESSAGE(TL("Loading of data file successfully: ") + bucket->getFilename());
+                }
+            }
         }
     }
     // load meanDatas if was recomputed with volatile options
-    if (volatileOptions && OptionsCont::getOptions().getString("meandata-files").size() > 0) {
-        // Create meanData handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false);
-        // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TL("Loading of meandata file failed: ") + OptionsCont::getOptions().getString("meandata-files"));
-        } else {
-            WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + OptionsCont::getOptions().getString("meandata-files"));
+    if (volatileOptions) {
+        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
+            if (bucket->getFilename().size() > 0) {
+                // Create general handler
+                GNEGeneralHandler generalHandler(this, bucket->getFilename(), myApplicationWindow->isUndoRedoAllowed());
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TL("Loading of meandata file failed: ") + bucket->getFilename());
+                } else {
+                    WRITE_MESSAGE(TL("Loading of meandata file successfully: ") + bucket->getFilename());
+                }
+            }
         }
     }
     // clear myEdgesAndNumberOfLanes after reload additionals
@@ -2231,8 +2243,6 @@ GNENet::saveAdditionals() {
     }
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
-    // update netedit connfig
-    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
         // get current filename
@@ -2301,8 +2311,6 @@ GNENet::saveDemandElements() {
     }
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
-    // update netedit connfig
-    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
         // get current filename
@@ -2392,8 +2400,6 @@ bool
 GNENet::saveMeanDatas() {
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
-    // update netedit connfig
-    myApplicationWindow->getSavingFilesHandler()->updateNeteditConfig();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
         // get current filename
