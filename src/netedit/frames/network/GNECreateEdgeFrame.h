@@ -71,9 +71,6 @@ public:
         /// @brief void enable checkbox for disable pedestrians
         void enableCheckBoxDisablePedestrians();
 
-        /// @brief get default edgeType
-        GNEEdgeType* getDefaultEdgeType() const;
-
         /// @brief get edgeType selected
         GNEEdgeType* getEdgeTypeSelected() const;
 
@@ -127,9 +124,6 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
-
-        /// @brief default edge type
-        GNEEdgeType* myDefaultEdgeType;
 
         /// @brief selected edgeType
         GNEEdgeType* myEdgeTypeSelected = nullptr;

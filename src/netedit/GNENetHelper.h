@@ -906,12 +906,18 @@ struct GNENetHelper {
         /// @brief get template AC by text (using selector text
         GNEAttributeCarrier* getTemplateAC(const std::string& selectorText) const;
 
+        /// @brief get default edge type
+        GNEEdgeType* getDefaultEdgeType() const;
+
     private:
         /// @brief pointer to net
         GNENet* myNet = nullptr;
 
         /// @brief map with templates
         std::map<SumoXMLTag, GNEAttributeCarrier*> myTemplates;
+
+        /// @brief edge type
+        GNEEdgeType* myEdgeType = nullptr;
 
         /// @brief Invalidated default constructor.
         ACTemplate() = delete;
