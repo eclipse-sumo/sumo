@@ -15,3 +15,6 @@ ticket17208
 
 # crash with invalid route from internal lane
 ticket17248
+
+# deadlock in roundabout
+ticket17330

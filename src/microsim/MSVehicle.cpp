@@ -2499,7 +2499,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         // adapt to vehicles blocked from (urgent) lane-changing
         if (!opposite && lane->getEdge().hasLaneChanger()) {
-            v = MIN2(v, myLaneChangeModel->getCooperativeHelpSpeed(lane, seen));
+            const double vHelp = myLaneChangeModel->getCooperativeHelpSpeed(lane, seen);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND && vHelp < v) {
+                std::cout << SIMTIME << "   applying cooperativeHelpSpeed v=" << vHelp << "\n";
+            }
+#endif
+            v = MIN2(v, vHelp);
         }
 
         // process all stops and waypoints on the current edge
@@ -3843,20 +3849,22 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             }
             // we have: i->link == 0 || !i->setRequest
             vSafe = dpi.myVLinkWait;
-            if (vSafe < getSpeed()) {
-                myHaveToWaitOnNextLink = true;
+            if (link != nullptr || myStopDist < (myLane->getLength() - getPositionOnLane())) {
+                if (vSafe < getSpeed()) {
+                    myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking) vSafe=" << vSafe << "\n";
-                }
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking) vSafe=" << vSafe << "\n";
+                    }
 #endif
-            } else if (vSafe < SUMO_const_haltingSpeed) {
-                myHaveToWaitOnNextLink = true;
+                } else if (vSafe < SUMO_const_haltingSpeed) {
+                    myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, stopping)\n";
-                }
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, stopping)\n";
+                    }
 #endif
+                }
             }
             if (link == nullptr && myLFLinkLanes.size() == 1
                     && getBestLanesContinuation().size() > 1

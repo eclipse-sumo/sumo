@@ -1097,6 +1097,8 @@ enum SumoXMLAttr {
     /// @{
     /// @brief charge in W/s of the Charging Stations
     SUMO_ATTR_CHARGINGPOWER,
+    /// @brief total charge in W/s of the Charging Stations
+    SUMO_ATTR_TOTALPOWER,
     /// @brief Eficiency of the charge in Charging Stations
     SUMO_ATTR_EFFICIENCY,
     /// @brief Allow/disallow charge in transit in Charging Stations

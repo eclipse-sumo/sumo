@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    20-12-13
 ///
 // Charging Station for Electric vehicles
@@ -37,7 +38,7 @@ class MSLane;
 class MSBusStop;
 class OptionsCont;
 class MSDevice_Battery;
-
+class Command;
 
 // ===========================================================================
 // class definitions
@@ -91,11 +92,11 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
+                      const std::string& name, double chargingPower, double totalPower, double efficency, bool chargeInTransit,
                       SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
 
     MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
-                      double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
+                      double totalPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                       SUMOTime waitingTime);
 
     /// @brief destructor
@@ -138,6 +139,9 @@ public:
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
+
+    /// @brief update the delivered power to all charging vehicles after all requests are known
+    SUMOTime checkTotalPower(SUMOTime currentTime);
 
     /** @brief Check if a vehicle is inside in  the Charge Station
      * @param[in] position Position of vehicle in the LANE
@@ -204,8 +208,11 @@ protected:
 
     static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
 
-    /// @brief Charging station's charging power
-    double myChargingPower = 0;
+    /// @brief Charging station's nominal charging power per vehicle
+    double myNominalChargingPower = 0;
+
+    /// @brief The maximal charging power available to serve all charging vehicles (value <= 0 take no effect)
+    double myTotalChargingPower = 0;
 
     /// @brief Efficiency of the charging station
     double myEfficiency = 0;
@@ -235,6 +242,13 @@ protected:
     std::map<std::string, std::vector<Charge> > myChargeValues;
     /// @brief order vehicles by time of first charge
     std::vector<std::string> myChargedVehicles;
+
+    /// @brief map with the Batteries charged by this charging station (key = vehicleID)
+    std::map<std::string, MSDevice_Battery*> myChargedBatteries;
+
+    /// @brief Event for checking at every time-step if myTotalPower has been exceeded
+    Command* myTotalPowerCheckEvent;
+
 
 private:
     /// @brief Invalidated copy constructor.

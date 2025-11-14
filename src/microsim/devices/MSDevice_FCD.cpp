@@ -192,9 +192,11 @@ MSDevice_FCD::initOnce() {
     emissions.set(SUMO_ATTR_CO2);
     emissions.set(SUMO_ATTR_CO);
     emissions.set(SUMO_ATTR_HC);
+    emissions.set(SUMO_ATTR_NOX);
     emissions.set(SUMO_ATTR_PMX);
     emissions.set(SUMO_ATTR_FUEL);
     emissions.set(SUMO_ATTR_ELECTRICITY);
+    emissions.set(SUMO_ATTR_NOISE);
     SumoXMLAttrMask misc;
     misc.set(SUMO_ATTR_SIGNALS);
     misc.set(SUMO_ATTR_ACCELERATION);

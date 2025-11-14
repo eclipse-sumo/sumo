@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType accel="1.0" decel="5.0" id="ElectricVehicle" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" mass="1600" emissionClass="Energy">
+        <param key="device.battery.capacity" value="35000"/>
+        <param key="device.battery.maximumChargeRate" value="15000"/>
+        <param key="rotatingMass" value="30"/>
+        <param key="frontSurfaceArea" value="2.2"/>
+        <param key="airDragCoefficient" value="0.33"/>
+        <param key="radialDragCoefficient" value="0"/>
+        <param key="rollDragCoefficient" value="0.1"/>
+        <param key="constantPowerIntake" value="40"/>
+        <param key="propulsionEfficiency" value="0.8"/>
+        <param key="recuperationEfficiency" value="0.8"/>
+    </vType>
+
+    <route id="route01" edges="D2 L2 L12 L10 L7 D7"/>
+    
+    <vehicle id="v0" type="ElectricVehicle" depart="0" route="route01">
+        <param key="device.battery.chargeLevel" value="13000"/>
+        <stop chargingStation="CS1" duration="15"/>
+        <stop lane="D2_0" startPos="220" endPos="300" speed="3"/>
+    </vehicle>
+    <vehicle id="v1" type="ElectricVehicle" depart="2" route="route01">
+        <param key="device.battery.chargeLevel" value="13000"/>
+        <stop chargingStation="CS1" duration="15"/>
+        <stop lane="D2_0" startPos="220" endPos="250" speed="2"/>
+    </vehicle>
+</routes>

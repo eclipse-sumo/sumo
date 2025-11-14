@@ -17,6 +17,7 @@
 /// @author  Michael Behrisch
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    20-12-13
 ///
 // A lane area vehicles can halt at (gui-version)
@@ -67,7 +68,8 @@ public:
      * @param[in] lane The lane the charging station is placed on
      * @param[in] frompos Begin position of the charging station on the lane
      * @param[in] topos End position of the charging station on the lane
-     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] chargingPower max energy charged in every timeStep by one vehicle
+     * @param[in] totalPower max energy charged in every timeStep across all charging vehicles
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
@@ -75,7 +77,7 @@ public:
      * @param[in] waitingTime waiting time until start charging
      */
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
-                       const std::string& name, double chargingPower, double efficiency,
+                       const std::string& name, double chargingPower, double totalPower, double efficiency,
                        bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                        SUMOTime waitingTime);
 
@@ -84,7 +86,8 @@ public:
      * @param[in] parkingArea The parking area the charging station is placed on
      * @param[in] frompos Begin position of the charging station on the lane
      * @param[in] topos End position of the charging station on the lane
-     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] chargingPower max energy charged in every timeStep by one vehicle
+     * @param[in] totalPower max energy charged in every timeStep across all charging vehicles
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
@@ -92,7 +95,7 @@ public:
      * @param[in] waitingTime waiting time until start charging
      */
     GUIChargingStation(const std::string& id, MSParkingArea* parkingArea,
-                       const std::string& name, double chargingPower, double efficiency,
+                       const std::string& name, double chargingPower, double totalPower, double efficiency,
                        bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                        SUMOTime waitingTime);
 

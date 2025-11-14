@@ -323,6 +323,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                          obj->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                                          obj->getStringAttribute(SUMO_ATTR_NAME),
                                          obj->getDoubleAttribute(SUMO_ATTR_CHARGINGPOWER),
+                                         obj->getDoubleAttribute(SUMO_ATTR_TOTALPOWER),
                                          obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                                          obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
                                          obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),

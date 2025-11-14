@@ -798,7 +798,7 @@ protected:
     double myOvertakeRightParam;
     // @brief willingness to undercut longitudinal safe gaps
     double myAssertive;
-    // @brief brake for blocked vehicles enter after they have been waiting for the given time
+    // @brief brake for blocked vehicles after they have been waiting for the given time
     SUMOTime myCooperativeHelpTime;
 
     /// @brief whether this vehicle is driving with special permissions and behavior

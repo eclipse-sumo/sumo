@@ -28,6 +28,9 @@ chargingStations_parked_explicit
 # leave the road while charging
 chargingStations_parkingCapacity
 
+# restrained max total power of a charging station with multiple charging vehicles
+chargingStations_totalPower
+
 # usually loaded from vehicle parameter,
 # default taken from vType parameter
 actualBatteryCapacity

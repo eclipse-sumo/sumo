@@ -380,7 +380,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
     // write loaded prohibitions to the connections-file
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions());
+        NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions(), ec);
     }
     // write pedestrian crossings to the connections-file
     for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {

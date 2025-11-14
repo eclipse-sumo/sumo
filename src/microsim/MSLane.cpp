@@ -4719,4 +4719,16 @@ MSLane::allowsVehicleClass(SUMOVehicleClass vclass, int routingMode) const {
     return (((routingMode & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) ? myOriginalPermissions : myPermissions) & vclass) == vclass;
 }
 
+
+const MSJunction*
+MSLane::getFromJunction() const {
+    return myEdge->getFromJunction();
+}
+
+
+const MSJunction*
+MSLane::getToJunction() const {
+    return myEdge->getToJunction();
+}
+
 /****************************************************************************/

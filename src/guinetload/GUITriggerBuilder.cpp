@@ -103,10 +103,10 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
-                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
+                                        const std::string& name, double chargingPower, double totalPower, double efficiency, bool chargeInTransit,
                                         SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
-    GUIChargingStation* chargingStation = (parkingArea == nullptr) ? new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-                                          chargeInTransit, chargeDelay, chargeType, waitingTime) : new GUIChargingStation(id, parkingArea, name, chargingPower, efficiency,
+    GUIChargingStation* chargingStation = (parkingArea == nullptr) ? new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, totalPower, efficiency,
+                                          chargeInTransit, chargeDelay, chargeType, waitingTime) : new GUIChargingStation(id, parkingArea, name, chargingPower, totalPower, efficiency,
                                                   chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;

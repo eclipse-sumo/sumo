@@ -1,0 +1,4 @@
+input_data.xml input_data2.xml --xml-output stats.xml
+--label-attribute @FILE
+-a waitingTime
+-v
