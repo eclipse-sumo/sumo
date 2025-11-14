@@ -2004,7 +2004,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
             }
             myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
-            MSRoutingEngine::initGUIThreadRNG();
         }
     }
     getApp()->endWaitCursor();

@@ -69,8 +69,6 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngi
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
-std::map<std::thread::id, SumoRNG*> MSRoutingEngine::myThreadRNGs;
-bool MSRoutingEngine::myHaveRoutingThreads(false);
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
@@ -186,17 +184,6 @@ MSRoutingEngine::getEffortBike(const MSEdge* const e, const SUMOVehicle* const v
         return MAX2(e->getLength() / MAX2(myEdgeBikeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
     }
     return e->getMinimumTravelTime(v);
-}
-
-SumoRNG*
-MSRoutingEngine::getThreadRNG() {
-    if (myHaveRoutingThreads) {
-        auto it = myThreadRNGs.find(std::this_thread::get_id());
-        // created by InitTask
-        assert(it != myThreadRNGs.end());
-        return it->second;
-    }
-    return nullptr;
 }
 
 
@@ -445,28 +432,6 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
                 static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouterProvider(myRouterProvider->clone());
             }
         }
-        myHaveRoutingThreads = true;
-        for (int i = 0; i < threadPool.size(); i++) {
-            threadPool.add(new InitTask(), i);
-        }
-        threadPool.waitAll();
-        // to use when routing is triggered from the main thread (i.e. by a rerouter)
-        myThreadRNGs[std::this_thread::get_id()] = nullptr;
-    }
-#endif
-#endif
-}
-
-
-void
-MSRoutingEngine::initGUIThreadRNG() {
-#ifndef THREAD_POOL
-#ifdef HAVE_FOX
-    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
-    if (threadPool.size() > 0) {
-        FXMutexLock lock(myRouteCacheMutex);
-        SumoRNG* rng = new SumoRNG("routingGUI");
-        myThreadRNGs[std::this_thread::get_id()] = rng;
     }
 #endif
 #endif
@@ -737,15 +702,6 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
     }
 }
 
-// ---------------------------------------------------------------------------
-// MSRoutingEngine::InitTask-methods
-// ---------------------------------------------------------------------------
-void
-MSRoutingEngine::InitTask::run(MFXWorkerThread* /*context*/) {
-    FXMutexLock lock(myRouteCacheMutex);
-    SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
-    myThreadRNGs[std::this_thread::get_id()] = rng;
-}
 
 #endif
 
