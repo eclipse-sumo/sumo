@@ -262,7 +262,17 @@
         <xsd:attribute name="writeAttributes" type="xsd:string" use="optional"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="edgesFile" type="xsd:string" use="optional"/>
-        <xsd:attribute name="aggregate" type="boolType" use="optional"/>
+        <xsd:attribute name="aggregate" use="optional">
+            <xsd:simpleType>
+                <xsd:union memberTypes="boolType">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="taz"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="minSamples" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="speedThreshold" type="floatType" use="optional"/>
     </xsd:complexType>
