@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter v1_24_0+0753-7ddc191931e
+Eclipse SUMO dfrouter v1_25_0+0045-28a3daf62ee
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -25,6 +25,9 @@ Output Options:
   --write-metadata                     Write parsable metadata (configuration
                                         etc.) instead of comments
   --output-prefix STR                  Prefix which is applied to all output
+                                        files. The special string 'TIME' is
+                                        replaced by the current time.
+  --output-suffix STR                  Suffix which is applied to all output
                                         files. The special string 'TIME' is
                                         replaced by the current time.
   --precision INT                      Defines the number of digits after the

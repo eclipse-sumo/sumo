@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-11T14:39:47.496652+01:00 by Eclipse SUMO netgenerate v1_24_0+0753-7ddc191931e
+<!-- generated on 2025-11-14T15:07:08.893061+01:00 by Eclipse SUMO netgenerate v1_25_0+0045-28a3daf62ee
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -140,6 +140,9 @@
 
         <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
         <output-prefix value="" type="STR"/>
+
+        <!-- Suffix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-suffix value="" type="STR"/>
 
         <!-- Defines the number of digits after the comma for floating point output -->
         <precision value="2" type="INT"/>
