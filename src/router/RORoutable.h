@@ -24,6 +24,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RandHelper.h>
 #include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -56,8 +57,11 @@ public:
      * @param[in] pars Parameter of this routable
      * @param[in] type The type of the routable
      */
-    RORoutable(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* type)
-        : myParameter(pars), myType(type), myRoutingSuccess(false) {}
+    RORoutable(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* type) :
+        myParameter(pars),
+        myType(type),
+        myRandomSeed(RandHelper::murmur3_32(pars.id, RandHelper::getSeed())),
+        myRoutingSuccess(false) {}
 
 
     /// @brief Destructor
@@ -92,6 +96,10 @@ public:
         return myParameter.id;
     }
 
+    /// @brief return vehicle-specific random number
+    long long int getRandomSeed() const {
+        return myRandomSeed;
+    }
 
     /** @brief Returns the time the vehicle starts at, -1 for triggered vehicles
      *
@@ -187,6 +195,9 @@ private:
 
     /// @brief The type of the vehicle
     const SUMOVTypeParameter* const myType;
+
+    /// @brief object-specific random constant
+    const long long int myRandomSeed;
 
 protected:
     /// @brief Whether the last routing was successful

@@ -435,7 +435,9 @@ public:
     }
 
     static inline double getTravelTimeStaticRandomized(const ROEdge* const edge, const ROVehicle* const veh, double time) {
-        return edge->getTravelTime(veh, time) * RandHelper::rand(1., gWeightsRandomFactor) * getRoutingFactor(edge, veh);
+        return edge->getTravelTime(veh, time)
+            * (1 + RandHelper::randHash(veh->getRandomSeed() ^ edge->getNumericalID()) * (gWeightsRandomFactor - 1))
+            * getRoutingFactor(edge, veh);
     }
 
     /// @brief Alias for getTravelTimeStatic (there is no routing device to provide aggregated travel times)
