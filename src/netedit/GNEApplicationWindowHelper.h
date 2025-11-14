@@ -1185,12 +1185,13 @@ struct GNEApplicationWindowHelper {
         /// brief set default additional file
         void setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force);
 
+        /// brief set default files for all buckets
+        void resetDefaultFilenameFile();
+
+
     private:
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
-
-        /// @brief invalid bucket (used for save ACs that cannot be classified in the main buckets)
-        FileBucket* myInvalidBucket;
 
         /// @brief Invalidated copy constructor.
         SavingFilesHandler(const SavingFilesHandler&) = delete;
