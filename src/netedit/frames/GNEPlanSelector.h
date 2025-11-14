@@ -100,11 +100,8 @@ protected:
     /// @brief check if selected plan is valid
     bool isPlanValid() const;
 
-    /// @brief fill person templates
-    void fillPersonPlanTemplates(GNENet* net);
-
-    /// @brief fill container templates
-    void fillContainerPlanTemplates(GNENet* net);
+    /// @brief plan type
+    SumoXMLTag myPlanType;
 
 private:
     /// @brief pointer to Frame Parent
@@ -115,7 +112,4 @@ private:
 
     /// @brief current plan template;
     std::pair<GNETagProperties*, GNEDemandElement*> myCurrentPlanTemplate;
-
-    /// @brief list with demand templates
-    std::vector<std::pair<GNETagProperties*, GNEDemandElement*> > myPlanTemplates;
 };

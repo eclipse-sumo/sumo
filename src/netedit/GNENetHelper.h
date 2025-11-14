@@ -909,12 +909,22 @@ struct GNENetHelper {
         /// @brief get default edge type
         GNEEdgeType* getDefaultEdgeType() const;
 
+        /// @brief get plan templates
+        const std::vector<std::pair<GNETagProperties*, GNEDemandElement*> >& getPlanTemplates(SumoXMLTag tag) const;
+
+    protected:
+        /// @brief fill plan templates
+        void fillPlanTemplates();
+
     private:
         /// @brief pointer to net
         GNENet* myNet = nullptr;
 
         /// @brief map with templates
         std::map<SumoXMLTag, GNEAttributeCarrier*> myTemplates;
+
+        /// @brief list with demand templates
+        std::map<SumoXMLTag, std::vector<std::pair<GNETagProperties*, GNEDemandElement*> > > myPlanTemplates;
 
         /// @brief edge type
         GNEEdgeType* myEdgeType = nullptr;

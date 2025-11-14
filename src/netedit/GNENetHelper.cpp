@@ -3077,6 +3077,8 @@ GNENetHelper::ACTemplate::buildTemplates() {
     for (const auto& AC : myTemplates) {
         AC.second->resetDefaultValues(false);
     }
+    // fill plan templates
+    fillPlanTemplates();
 }
 
 
@@ -3117,6 +3119,147 @@ GNENetHelper::ACTemplate::getTemplateAC(const std::string& selectorText) const {
 GNEEdgeType*
 GNENetHelper::ACTemplate::getDefaultEdgeType() const {
     return myEdgeType;
+}
+
+
+const std::vector<std::pair<GNETagProperties*, GNEDemandElement*>>&
+GNENetHelper::ACTemplate::getPlanTemplates(SumoXMLTag tag) const {
+    return myPlanTemplates.at(tag);
+}
+
+
+void
+GNENetHelper::ACTemplate::fillPlanTemplates() {
+    GNETagProperties* tagProperty = nullptr;
+    // person trip
+    tagProperty = new GNETagProperties(SUMO_TAG_PERSONTRIP, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE |
+                                       GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ |
+                                       GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION |
+                                       GNETagProperties::Over::FROM_BUSSTOP | GNETagProperties::Over::TO_BUSSTOP |
+                                       GNETagProperties::Over::FROM_TRAINSTOP | GNETagProperties::Over::TO_TRAINSTOP |
+                                       GNETagProperties::Over::FROM_CONTAINERSTOP | GNETagProperties::Over::TO_CONTAINERSTOP |
+                                       GNETagProperties::Over::FROM_CHARGINGSTATION | GNETagProperties::Over::TO_CHARGINGSTATION |
+                                       GNETagProperties::Over::FROM_PARKINGAREA | GNETagProperties::Over::TO_PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP, "PersonTrip");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, myNet)));
+    // ride
+    tagProperty = new GNETagProperties(SUMO_TAG_RIDE, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE |
+                                       GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ |
+                                       GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION |
+                                       GNETagProperties::Over::FROM_BUSSTOP | GNETagProperties::Over::TO_BUSSTOP |
+                                       GNETagProperties::Over::FROM_TRAINSTOP | GNETagProperties::Over::TO_TRAINSTOP |
+                                       GNETagProperties::Over::FROM_CONTAINERSTOP | GNETagProperties::Over::TO_CONTAINERSTOP |
+                                       GNETagProperties::Over::FROM_CHARGINGSTATION | GNETagProperties::Over::TO_CHARGINGSTATION |
+                                       GNETagProperties::Over::FROM_PARKINGAREA | GNETagProperties::Over::TO_PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_RIDE, SUMO_TAG_RIDE, "Ride");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNERide(GNE_TAG_RIDE_EDGE_EDGE, myNet)));
+    // walk
+    tagProperty = new GNETagProperties(SUMO_TAG_WALK, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE |
+                                       GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ |
+                                       GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION |
+                                       GNETagProperties::Over::FROM_BUSSTOP | GNETagProperties::Over::TO_BUSSTOP |
+                                       GNETagProperties::Over::FROM_TRAINSTOP | GNETagProperties::Over::TO_TRAINSTOP |
+                                       GNETagProperties::Over::FROM_CONTAINERSTOP | GNETagProperties::Over::TO_CONTAINERSTOP |
+                                       GNETagProperties::Over::FROM_CHARGINGSTATION | GNETagProperties::Over::TO_CHARGINGSTATION |
+                                       GNETagProperties::Over::FROM_PARKINGAREA | GNETagProperties::Over::TO_PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_WALK, SUMO_TAG_WALK, "Walk");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGE_EDGE, myNet)));
+    // walk (edges)
+    tagProperty = new GNETagProperties(GNE_TAG_WALK_EDGES, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::CONSECUTIVE_EDGES,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_WALK, SUMO_TAG_WALK, "Walk (edges)");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGES, myNet)));
+    // walk (route)
+    tagProperty = new GNETagProperties(GNE_TAG_WALK_ROUTE, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::ROUTE,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_WALK, SUMO_TAG_WALK, "Walk (route)");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_ROUTE, myNet)));
+    // stop
+    tagProperty = new GNETagProperties(GNE_TAG_PERSONSTOPS, nullptr,
+                                       GNETagProperties::Type::PERSONPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::EDGE | GNETagProperties::Over::BUSSTOP |
+                                       GNETagProperties::Over::TRAINSTOP | GNETagProperties::Over::CONTAINERSTOP |
+                                       GNETagProperties::Over::CHARGINGSTATION | GNETagProperties::Over::PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_STOP, SUMO_TAG_STOP, "Person Stop");
+    myPlanTemplates[SUMO_TAG_PERSON].push_back(std::make_pair(tagProperty, new GNEStopPlan(GNE_TAG_STOPPERSON_EDGE, myNet)));
+    // transport
+    tagProperty = new GNETagProperties(SUMO_TAG_TRANSPORT, nullptr,
+                                       GNETagProperties::Type::CONTAINERPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE |
+                                       //GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ |
+                                       //GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION |
+                                       //GNETagProperties::Over::FROM_BUSSTOP | GNETagProperties::Over::TO_BUSSTOP |
+                                       //GNETagProperties::Over::FROM_TRAINSTOP | GNETagProperties::Over::TO_TRAINSTOP |
+                                       GNETagProperties::Over::FROM_CONTAINERSTOP | GNETagProperties::Over::TO_CONTAINERSTOP,
+                                       //GNETagProperties::Over::FROM_CHARGINGSTATION | GNETagProperties::Over::TO_CHARGINGSTATION |
+                                       //GNETagProperties::Over::FROM_PARKINGAREA | GNETagProperties::Over::TO_PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_TRANSPORT, SUMO_TAG_PERSONTRIP, "Transport");
+    myPlanTemplates[SUMO_TAG_CONTAINER].push_back(std::make_pair(tagProperty, new GNETransport(GNE_TAG_TRANSPORT_EDGE_EDGE, myNet)));
+    // tranship
+    tagProperty = new GNETagProperties(SUMO_TAG_TRANSHIP, nullptr,
+                                       GNETagProperties::Type::CONTAINERPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::FROM_EDGE | GNETagProperties::Over::TO_EDGE |
+                                       //GNETagProperties::Over::FROM_TAZ | GNETagProperties::Over::TO_TAZ |
+                                       //GNETagProperties::Over::FROM_JUNCTION | GNETagProperties::Over::TO_JUNCTION |
+                                       //GNETagProperties::Over::FROM_BUSSTOP | GNETagProperties::Over::TO_BUSSTOP |
+                                       //GNETagProperties::Over::FROM_TRAINSTOP | GNETagProperties::Over::TO_TRAINSTOP |
+                                       GNETagProperties::Over::FROM_CONTAINERSTOP | GNETagProperties::Over::TO_CONTAINERSTOP,
+                                       //GNETagProperties::Over::FROM_CHARGINGSTATION | GNETagProperties::Over::TO_CHARGINGSTATION |
+                                       //GNETagProperties::Over::FROM_PARKINGAREA | GNETagProperties::Over::TO_PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_TRANSHIP, SUMO_TAG_PERSONTRIP, "Tranship");
+    myPlanTemplates[SUMO_TAG_CONTAINER].push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGE_EDGE, myNet)));
+    // tranship (edges)
+    tagProperty = new GNETagProperties(GNE_TAG_TRANSHIP_EDGES, nullptr,
+                                       GNETagProperties::Type::CONTAINERPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::CONSECUTIVE_EDGES,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_TRANSPORT, SUMO_TAG_PERSONTRIP, "Tranship (edges)");
+    myPlanTemplates[SUMO_TAG_CONTAINER].push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGES, myNet)));
+    // stop
+    tagProperty = new GNETagProperties(GNE_TAG_CONTAINERSTOPS, nullptr,
+                                       GNETagProperties::Type::CONTAINERPLAN,
+                                       GNETagProperties::Property::NO_PROPERTY,
+                                       GNETagProperties::Over::EDGE | GNETagProperties::Over::BUSSTOP |
+                                       GNETagProperties::Over::TRAINSTOP | GNETagProperties::Over::CONTAINERSTOP |
+                                       GNETagProperties::Over::CHARGINGSTATION | GNETagProperties::Over::PARKINGAREA,
+                                       FileBucket::Type::DEMAND | FileBucket::Type::ADDITIONAL,
+                                       GNETagProperties::Conflicts::NO_CONFLICTS,
+                                       GUIIcon::EMPTY, GUIGlObjectType::GLO_CONTAINER_STOP, SUMO_TAG_STOP, "Container Stop");
+    myPlanTemplates[SUMO_TAG_CONTAINER].push_back(std::make_pair(tagProperty, new GNEStopPlan(GNE_TAG_STOPCONTAINER_EDGE, myNet)));
 }
 
 // ---------------------------------------------------------------------------
