@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
-#include <netedit/elements/FileBucket.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>

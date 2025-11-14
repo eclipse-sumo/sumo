@@ -36,7 +36,6 @@
 #include <utils/shapes/PointOfInterest.h>
 
 #include "GNEAttributeCarrier.h"
-#include "FileBucket.h"
 
 // ===========================================================================
 // static members

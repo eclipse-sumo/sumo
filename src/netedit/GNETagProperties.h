@@ -20,10 +20,10 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/FileBucket.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/images/GUIIcons.h>
+#include <utils/iodevices/FileBucket.h>
 
 #include "GNEAttributeProperties.h"
 

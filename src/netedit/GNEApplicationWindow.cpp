@@ -34,7 +34,6 @@
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEMeanData.h>
-#include <netedit/elements/FileBucket.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
