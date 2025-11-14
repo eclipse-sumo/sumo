@@ -116,7 +116,7 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const std::string& vTypes,
         const std::string& writeAttributes,
         const std::vector<MSEdge*>& edges,
-        bool aggregate) :
+        AggregateType aggregate) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate) {
 }

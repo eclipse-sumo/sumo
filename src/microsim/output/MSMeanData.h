@@ -329,7 +329,7 @@ public:
                const std::string& vTypes,
                const std::string& writeAttributes,
                const std::vector<MSEdge*>& edges,
-               bool aggregate);
+               AggregateType aggregate);
 
 
     /// @brief Destructor
@@ -516,7 +516,7 @@ private:
     const SumoXMLAttrMask myWrittenAttributes;
 
     /// @brief whether the data for all edges shall be aggregated
-    const bool myAggregate;
+    const AggregateType myAggregate;
 
     /// @brief The intervals for which output still has to be generated (only in the tracking case)
     std::list< std::pair<SUMOTime, SUMOTime> > myPendingIntervals;

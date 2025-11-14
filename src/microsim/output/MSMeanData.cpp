@@ -421,7 +421,7 @@ MSMeanData::MSMeanData(const std::string& id,
                        const std::string& vTypes,
                        const std::string& writeAttributes,
                        const std::vector<MSEdge*>& edges,
-                       bool aggregate) :
+                       AggregateType aggregate) :
     MSDetectorFileOutput(id, vTypes, "", detectPersons),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
@@ -737,7 +737,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             myPendingIntervals.pop_front();
         }
         openInterval(dev, startTime, stopTime);
-        if (myAggregate) {
+        if (myAggregate == AggregateType::YES) {
             writeAggregated(dev, startTime, stopTime);
         } else {
             MSEdgeVector::const_iterator edge = myEdges.begin();
