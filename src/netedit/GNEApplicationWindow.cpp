@@ -1348,15 +1348,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             Position p(off.x(), off.y(), 0);
             myViewNet->setViewportFromToRot(off, p, 0);
         }
-        // if we're loading a sumo config, update netedit options
-        if ((mySumoOptions.getStringVector("additional-files").size() > 0) && neteditOptions.getStringVector("additional-files").empty()) {
-            neteditOptions.resetWritable();
-            neteditOptions.set("additional-files", mySumoOptions.getValueString("additional-files"));
-        }
-        if ((mySumoOptions.getStringVector("route-files").size() > 0) && neteditOptions.getStringVector("route-files").empty()) {
-            neteditOptions.resetWritable();
-            neteditOptions.set("route-files", mySumoOptions.getValueString("route-files"));
-        }
         // load elements
         loadAdditionalElements();
         loadDemandElements();
@@ -3482,8 +3473,6 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         const auto filePath = FileHelpers::getFilePath(neteditConfigFile);
         // get patter file
         auto patterFile = StringUtils::replace(neteditConfigFile, ".netecfg", "");
-        // update netedit config
-        mySavingFilesHandler->updateNeteditConfig();
         // save all elements giving automatic names based on patter if their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of netedit configuration aborted."));
@@ -3589,8 +3578,6 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
         auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
-        // update netedit config
-        mySavingFilesHandler->updateNeteditConfig();
         // save all elements giving automatic names based on patter in their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
@@ -3612,8 +3599,6 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
-        // set input in sumo options
-        setInputInSumoOptions(ignoreAdditionals, ignoreDemandElements);
         // if we have trips or flow over junctions, add option junction-taz
         if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
                 (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
@@ -4559,40 +4544,6 @@ GNEApplicationWindow::askSaveElements() {
 }
 
 
-void
-GNEApplicationWindow::setInputInSumoOptions(const bool ignoreAdditionals, const bool ignoreRoutes) {
-    // obtain netedit option container
-    auto& neteditOptions = OptionsCont::getOptions();
-    mySumoOptions.resetWritable();
-    // set network
-    mySumoOptions.set("net-file", neteditOptions.getString("net-file"));
-    // set routes
-    if (ignoreRoutes || neteditOptions.getString("route-files").empty()) {
-        mySumoOptions.resetDefault("route-files");
-    } else {
-        mySumoOptions.set("route-files", neteditOptions.getString("route-files"));
-    }
-    // set SumoOptions depending of additionalFiles and meanData files
-    if (ignoreAdditionals) {
-        if (neteditOptions.getString("meandata-files").empty()) {
-            mySumoOptions.resetDefault("additional-files");
-        } else {
-            mySumoOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-        }
-    } else {
-        if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
-            mySumoOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else if (neteditOptions.getString("additional-files").size() > 0) {
-            mySumoOptions.set("additional-files", neteditOptions.getString("additional-files"));
-        } else if (neteditOptions.getString("meandata-files").size() > 0) {
-            mySumoOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-        } else {
-            mySumoOptions.resetDefault("additional-files");
-        }
-    }
-}
-
-
 FXString
 GNEApplicationWindow::getFolder(const std::string& folder) const {
     // declare folder
@@ -4796,9 +4747,6 @@ GNEApplicationWindow::loadAdditionalElements() {
         // reset flag
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.additionalelements", "false");
-        // also reset route files in both containers
-        neteditOptions.resetDefault("additional-files");
-        mySumoOptions.resetDefault("additional-files");
     } else if (myNet && (additionalFiles.size() > 0)) {
         // set default demand file
         mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFiles.front(), false);
@@ -4820,8 +4768,6 @@ GNEApplicationWindow::loadAdditionalElements() {
                     WRITE_ERROR(TLF("Loading of '%' failed.", file));
                 }
                 setSaved &= !handler.isErrorCreatingElement();
-                // set additionals in SumoConfig
-                setInputInSumoOptions(false, false);
             }
         }
         // end undo list
@@ -4852,9 +4798,6 @@ GNEApplicationWindow::loadDemandElements() {
         // reset flag
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.routeelements", "false");
-        // also reset route files in both containers
-        neteditOptions.resetDefault("route-files");
-        mySumoOptions.resetDefault("route-files");
     } else if (myNet && (demandFiles.size() > 0)) {
         // set default demand file
         mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, demandFiles.front(), false);
@@ -4876,8 +4819,6 @@ GNEApplicationWindow::loadDemandElements() {
                     WRITE_ERROR(TLF("Loading of '%' failed.", file));
                 }
                 setSaved &= !handler.isErrorCreatingElement();
-                // set additionals in SumoConfig
-                setInputInSumoOptions(false, false);
             }
         }
         // end undo list
@@ -4922,8 +4863,6 @@ GNEApplicationWindow::loadDataElements() {
                     WRITE_ERROR(TLF("Loading of % failed.", file));
                 }
                 setSaved &= !handler.isErrorCreatingElement();
-                // set additionals in SumoConfig
-                setInputInSumoOptions(false, false);
             }
         }
         // end undo list
@@ -4968,8 +4907,6 @@ GNEApplicationWindow::loadMeanDataElements() {
                     WRITE_ERROR(TLF("Loading of % failed.", file));
                 }
                 setSaved &= !handler.isErrorCreatingElement();
-                // set additionals in SumoConfig
-                setInputInSumoOptions(false, false);
             }
         }
         // end undo list
