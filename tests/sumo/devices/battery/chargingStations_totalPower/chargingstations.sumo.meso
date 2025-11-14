@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-05 14:59:32 by Eclipse SUMO sumo Version v1_17_0+0721-5dd5dce
+<!-- generated on 2025-11-14T08:21:33.812163+01:00 by Eclipse SUMO sumo v1_25_0+0027-5c3bcfe9774
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -45,13 +45,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <chargingstations-export>
     <chargingStation id="CS1" totalEnergyCharged="0.00" chargingSteps="0"/>
     <chargingStation id="CS2" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS3" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS4" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS5" totalEnergyCharged="0.00" chargingSteps="0"/>
 </chargingstations-export>
