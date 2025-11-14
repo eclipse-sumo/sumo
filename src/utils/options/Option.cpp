@@ -231,6 +231,18 @@ Option::setPositional() {
     myPositional = true;
 }
 
+
+bool
+Option::isEditable() const {
+    return myEditable;
+}
+
+
+void Option::setEditable(const bool value) {
+    myEditable = value;
+}
+
+
 const std::string&
 Option::getListSeparator() const {
     return myListSeparator;

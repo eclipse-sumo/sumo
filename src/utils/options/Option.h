@@ -313,6 +313,12 @@ public:
     /// @brief mark option as positional
     void setPositional();
 
+    /// @brief check if this option is editable
+    bool isEditable() const;
+
+    /// @brief set editable
+    void setEditable(const bool value);
+
     /// @brief retrieve list separator
     const std::string& getListSeparator() const;
 
@@ -381,6 +387,9 @@ private:
 
     /// @brief this option is positional (needed for python tools)
     bool myPositional = false;
+
+    /// @brief this option can be edited using option dialog
+    bool myEditable = false;
 
     /// @brief the list separator for this option (needed for python tools)
     std::string myListSeparator = "";
