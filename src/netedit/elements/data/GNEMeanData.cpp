@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 
@@ -108,7 +109,12 @@ GNEMeanData::getGUIGlObject() const {
 
 const std::string&
 GNEMeanData::getFilename() const {
-    return myFileBucket->getFilename();
+    if (isTemplate()) {
+        // get filename of default bucket (secure, because it always exist)
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA).front()->getFilename();
+    } else {
+        return myFileBucket->getFilename();
+    }
 }
 
 

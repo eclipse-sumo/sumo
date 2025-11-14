@@ -25,6 +25,7 @@
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
 #include <netedit/GNETagPropertiesDatabase.h>
@@ -89,7 +90,10 @@ GNEDemandElement::getGUIGlObject() const {
 
 const
 std::string& GNEDemandElement::getFilename() const {
-    if (myTagProperty->saveInParentFile()) {
+    if (isTemplate()) {
+        // get filename of default bucket (secure, because it always exist)
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND).front()->getFilename();
+    } else if (myTagProperty->saveInParentFile()) {
         return getParentDemandElements().front()->getFilename();
     } else {
         return myFileBucket->getFilename();
