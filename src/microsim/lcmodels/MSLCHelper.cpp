@@ -109,9 +109,13 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     }
     // no bonus if we want to take the next exit
     if (roundaboutJunctionsAhead < 2) {
+#ifdef DEBUG_WANTS_CHANGE
+        if (debugVehicle) {
+            std::cout << "   noBonus: roundaboutJunctionsAhead=" << roundaboutJunctionsAhead << "\n";
+        }
+#endif
         return 0;
     }
-
     // compute bonus value based on jamming and exact distances (taking into
     // account internal lanes)
     double occupancyOuter = 0;
@@ -196,6 +200,19 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
                   << "\n";
     }
 #endif
+    if (abs(curr.bestLaneOffset) > 1 && enteredRoundabout) {
+        const double bGap = veh.getCarFollowModel().brakeGap(veh.getSpeed() + ACCEL2SPEED(veh.getCarFollowModel().getMaxAccel()), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLengthSecs());
+        const double reservation = veh.getLaneChangeModel().getExtraReservation(curr.bestLaneOffset);
+        const double leftSpace = distanceInRoundabout - reservation - veh.getPositionOnLane();
+#ifdef DEBUG_WANTS_CHANGE
+        if (debugVehicle) {
+            std::cout << "   bGap=" << bGap << " reserving=" << reservation << " leftover=" << (leftSpace - bGap) << "\n";
+        }
+#endif
+        if (bGap > leftSpace) {
+            return 0;
+        }
+    }
 
     const double maxOccupancy = MAX2(occupancyInner, occupancyOuter);
     // give some bonus for using the inside lane at equal occupancy
