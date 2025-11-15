@@ -130,12 +130,11 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that enters the bus stop
-     * @param[in] beg The begin halting position of the vehicle
-     * @param[in] what The end halting position of the vehicle
+     * @param[in] veh The vehicle that enters the stopping place
+     * @param[in] parking whether this is offroad parking
      * @see computeLastFreePos
      */
-    virtual void enter(SUMOVehicle* veh, bool parking);
+    virtual void enter(SUMOVehicle* veh, const bool parking);
 
 
     /** @brief Called if a vehicle leaves this stop

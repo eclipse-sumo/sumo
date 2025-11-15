@@ -125,9 +125,9 @@ MSStoppingPlace::getCenterPos() const {
 
 
 void
-MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {
-    double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap() * (parking ? myParkingFactor : 1);
-    double end = beg - veh->getVehicleType().getLengthWithGap() * (parking ? myParkingFactor : 1);
+MSStoppingPlace::enter(SUMOVehicle* veh, const bool parking) {
+    const double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap() * (parking ? myParkingFactor : 1);
+    const double end = beg - veh->getVehicleType().getLengthWithGap() * (parking ? myParkingFactor : 1);
     myEndPositions[veh] = std::make_pair(beg, end);
     computeLastFreePos();
 }

@@ -280,8 +280,8 @@ public:
             memcpy(&k, key, sizeof(uint32_t));
             key += sizeof(uint32_t);
             h ^= murmur_32_scramble(k);
-            h = (h << 13) | (h >> 19);
-            h = h * 5 + 0xe6546b64;
+            h = (uint32_t)(h << 13) | (h >> 19);
+            h = (uint32_t)((uint32_t)(h * 5) + 0xe6546b64);
         }
         /* Read the rest. */
         k = 0;
@@ -293,9 +293,9 @@ public:
         /* Finalize. */
         h ^= len;
         h ^= h >> 16;
-        h *= 0x85ebca6b;
+        h = (uint32_t)(h * 0x85ebca6b);
         h ^= h >> 13;
-        h *= 0xc2b2ae35;
+        h = (uint32_t)(h * 0xc2b2ae35);
         h ^= h >> 16;
         return h;
     }
@@ -307,9 +307,9 @@ protected:
 
     /// @brief helper function for murmur_32_scramble from https://en.wikipedia.org/wiki/MurmurHash
     static inline uint32_t murmur_32_scramble(uint32_t k) {
-        k *= 0xcc9e2d51;
-        k = (k << 15) | (k >> 17);
-        k *= 0x1b873593;
+        k = (uint32_t)(k * 0xcc9e2d51);
+        k = (uint32_t)(k << 15) | (k >> 17);
+        k = (uint32_t)(k * 0x1b873593);
         return k;
     }
 
