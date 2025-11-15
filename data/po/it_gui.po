@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-31 14:08+0000\n"
+"PO-Revision-Date: 2025-11-15 14:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -2759,11 +2759,11 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "joined junctions file"
-msgstr ""
+msgstr "file di incroci combinati"
 
 #: src/netedit/GNEApplicationWindow.cpp:3423
 msgid "Joined junctions saved to '%'."
-msgstr ""
+msgstr "Incroci combinati salvati in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Saving joined junctions failed"
@@ -9573,11 +9573,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:3446
 msgid "Data type"
-msgstr ""
+msgstr "Tipo di dati"
 
 #: src/netedit/GNEViewNetHelper.cpp:3460
 msgid "Data sets"
-msgstr ""
+msgstr "Insiemi di dati"
 
 #: src/netedit/GNEViewNetHelper.cpp:3469
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:209
@@ -10738,7 +10738,7 @@ msgstr "esiste già. Desideri sovrasciverlo?"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:305
 msgid "Check destination file permissions"
-msgstr ""
+msgstr "Controlla le autorizzazioni del file di destinazione"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:277
 msgid "Move File"
@@ -10780,11 +10780,11 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:332
 msgid "Check file permissions"
-msgstr ""
+msgstr "Controlla le autorizzazioni file"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:409
 msgid "Up one level"
-msgstr ""
+msgstr "Al livello superiore"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:410
 msgid "Home directory"
@@ -10879,17 +10879,17 @@ msgstr "Immagini giganti"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:455
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:910
 msgid "Bookmarks"
-msgstr ""
+msgstr "Segnalibri"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:458
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:855
 msgid "Set bookmark"
-msgstr ""
+msgstr "Imposta segnalibro"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:459
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:857
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Svuota segnalibri"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:475
 msgid "New directory..."
@@ -10909,25 +10909,27 @@ msgstr "Cancella..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:824
 msgid "Create New Directory"
-msgstr ""
+msgstr "Crea una nuova cartella"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:824
 msgid "Create new directory with name:"
-msgstr ""
+msgstr "Crea una nuova cartella del nome:"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:831
 msgid "Directory already Exists"
-msgstr ""
+msgstr "La cartella esiste già"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:832
 msgid ""
 "The new directory:\n"
 "%"
 msgstr ""
+"La nuova cartella:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:833
 msgid "already exists"
-msgstr ""
+msgstr "esiste già"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:839
 msgid "Cannot create directory"
