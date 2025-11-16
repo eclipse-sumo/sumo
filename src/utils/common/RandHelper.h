@@ -264,12 +264,14 @@ public:
 
     /// @brief return a value scrambled value from [0, 1]
     static double randHash(long long int x) {
-        uint64_t h = splitmix64(x);
-        h = h >> 11;
-        return h / (double(1ULL << 53));
+        const uint64_t h = splitmix64(x) >> 11;
+        return (double)h / (double(1ULL << 53));
     }
 
     /// @brief string hashing adapted from https://en.wikipedia.org/wiki/MurmurHash
+#ifdef __clang__
+    __attribute__((no_sanitize("integer"))) // left-shift and unsigned-integer-overflow
+#endif
     static uint32_t murmur3_32(const std::string& key2, int seed) {
         const uint8_t* key = reinterpret_cast<const uint8_t*>(key2.data());
         const size_t len = key2.size();
@@ -280,8 +282,8 @@ public:
             memcpy(&k, key, sizeof(uint32_t));
             key += sizeof(uint32_t);
             h ^= murmur_32_scramble(k);
-            h = (uint32_t)(h << 13) | (h >> 19);
-            h = (uint32_t)((uint32_t)(h * 5) + 0xe6546b64);
+            h = (h << 13) | (h >> 19);
+            h = h * 5 + 0xe6546b64;
         }
         /* Read the rest. */
         k = 0;
@@ -293,9 +295,9 @@ public:
         /* Finalize. */
         h ^= len;
         h ^= h >> 16;
-        h = (uint32_t)(h * 0x85ebca6b);
+        h *= 0x85ebca6b;
         h ^= h >> 13;
-        h = (uint32_t)(h * 0xc2b2ae35);
+        h *= 0xc2b2ae35;
         h ^= h >> 16;
         return h;
     }
@@ -306,10 +308,13 @@ protected:
     static SumoRNG myRandomNumberGenerator;
 
     /// @brief helper function for murmur_32_scramble from https://en.wikipedia.org/wiki/MurmurHash
+#ifdef __clang__
+    __attribute__((no_sanitize("integer"))) // left-shift and unsigned-integer-overflow
+#endif
     static inline uint32_t murmur_32_scramble(uint32_t k) {
-        k = (uint32_t)(k * 0xcc9e2d51);
-        k = (uint32_t)(k << 15) | (k >> 17);
-        k = (uint32_t)(k * 0x1b873593);
+        k *= 0xcc9e2d51;
+        k = (k << 15) | (k >> 17);
+        k *= 0x1b873593;
         return k;
     }
 
