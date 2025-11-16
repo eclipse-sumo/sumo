@@ -212,14 +212,9 @@ if (SWIG_FOUND)
             swig_link_libraries(libsumo ${PYTHON_LIBRARIES})
         endif()
         swig_link_libraries(libsumo ${sumo_link_libraries})
-        if (NOT ${PYTHON_SETUPTOOLS_MISSING})
-            if (${PYTHON_BUILD_MISSING})
-                install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/setup-libsumo.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
-                        COMPONENT pylibsumo)
-            else ()
-                install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-libsumo.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . WORKING_DIRECTORY ${SUMO_TOOLS_DIR})"
-                        COMPONENT pylibsumo)
-            endif()
+        if (NOT ${PYTHON_SETUPTOOLS_MISSING} AND NOT ${PYTHON_BUILD_MISSING})
+            install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-libsumo.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . WORKING_DIRECTORY ${SUMO_TOOLS_DIR})"
+                    COMPONENT pylibsumo)
         endif()
     endif()
 
