@@ -1395,9 +1395,7 @@ GNENet::saveNetwork() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
-    neteditOptions.set("output-file", neteditOptions.getString("net-file"));
-    sumoOptions.resetWritable();
-    sumoOptions.set("net-file", neteditOptions.getString("net-file"));
+    neteditOptions.set("output-file", myApplicationWindow->getSavingFilesHandler()->getDefaultFilename(FileBucket::Type::NETWORK));
     // compute without volatile options and update network
     computeAndUpdate(neteditOptions, false);
     // clear typeContainer

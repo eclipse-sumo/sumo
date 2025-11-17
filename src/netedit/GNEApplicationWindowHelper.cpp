@@ -2359,6 +2359,12 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
 }
 
 
+const std::vector<FileBucket*>&
+GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(FileBucket::Type file) const {
+    return myBuckets.at(file);
+}
+
+
 FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
@@ -2399,6 +2405,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
                 auto bucket = new FileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
+                // update filename in options
+                updateOptions();
                 bucket->addElement(AC);
                 return bucket;
             }
@@ -2443,6 +2451,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
                     // check if remove bucket (except if is a default bucket)
                     if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
                         bucketVector.second.erase(it);
+                        // update filename in options
+                        updateOptions();
                     }
                     return true;
                 }
@@ -2476,9 +2486,19 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
 }
 
 
-const std::vector<FileBucket*>&
-GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(FileBucket::Type file) const {
-    return myBuckets.at(file);
+const std::string&
+GNEApplicationWindowHelper::SavingFilesHandler::getDefaultFilename(FileBucket::Type file) const {
+    return myBuckets.at(file).front()->getFilename();
+}
+
+
+void
+GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force) {
+    if (myBuckets.at(file).front()->getFilename().empty() || force) {
+        myBuckets.at(file).front()->setFilename(filename);
+        // update filename in options
+        updateOptions();
+    }
 }
 
 
@@ -2489,17 +2509,85 @@ GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(FileBucket::Ty
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force) {
-    if (myBuckets.at(file).front()->getFilename().empty() || force) {
-        myBuckets.at(file).front()->setFilename(filename);
+GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenameFile() {
+    for (const auto& bucketPair : myBuckets) {
+        bucketPair.second.front()->setFilename("");
+        // update filename in options
+        updateOptions();
     }
 }
 
 
+std::string
+GNEApplicationWindowHelper::SavingFilesHandler::parseFilenames(const std::vector<FileBucket::Type> types) const {
+    std::string result;
+    // group all saving files in a single string separated with comma
+    for (const auto& type : types) {
+        for (const auto& bucket : myBuckets.at(type)) {
+            if (bucket->getFilename().size() > 0) {
+                result.append(bucket->getFilename() + ",");
+            }
+        }
+    }
+    // remove last ','
+    if (result.size() > 0) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
 void
-GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenameFile() {
-    for (const auto& bucketPair : myBuckets) {
-        bucketPair.second.front()->setFilename("");
+GNEApplicationWindowHelper::SavingFilesHandler::updateOptions() {
+    // get filenames
+    const auto networkFile = parseFilenames({FileBucket::Type::NETWORK});
+    const auto additional = parseFilenames({FileBucket::Type::ADDITIONAL});
+    const auto demandFile = parseFilenames({FileBucket::Type::DEMAND});
+    const auto data = parseFilenames({FileBucket::Type::DATA});
+    const auto meanData = parseFilenames({FileBucket::Type::MEANDATA});
+    const auto additionalMeanData = parseFilenames({FileBucket::Type::ADDITIONAL, FileBucket::Type::MEANDATA});
+    // set default filename depending of type
+    myNeteditOptions.resetWritable();
+    mySumoOptions.resetWritable();
+    // network file (common)
+    if (networkFile.size() > 0) {
+        myNeteditOptions.set("net-file", networkFile);
+        mySumoOptions.set("net-file", networkFile);
+    } else {
+        myNeteditOptions.resetDefault("net-file");
+        mySumoOptions.resetDefault("net-file");
+    }
+    // demand file (common)
+    if (demandFile.size() > 0) {
+        myNeteditOptions.set("route-files", demandFile);
+        mySumoOptions.set("route-files", demandFile);
+    } else {
+        myNeteditOptions.resetDefault("route-files");
+        mySumoOptions.resetDefault("route-files");
+    }
+    // meanData file
+    if (demandFile.size() > 0) {
+        myNeteditOptions.set("meandata-files", meanData);
+    } else {
+        myNeteditOptions.resetDefault("meandata-files");
+    }
+    // additional file
+    if (additional.size() > 0) {
+        myNeteditOptions.set("additional-files", additional);
+    } else {
+        myNeteditOptions.resetDefault("additional-files");
+    }
+    // additional + meanData files
+    if (additionalMeanData.size() > 0) {
+        mySumoOptions.set("additional-files", additionalMeanData);
+    } else {
+        mySumoOptions.resetDefault("additional-files");
+    }
+    // data file (only netedit)
+    if (data.size() > 0) {
+        myNeteditOptions.set("data-files", data);
+    } else {
+        myNeteditOptions.resetDefault("data-files");
     }
 }
 
