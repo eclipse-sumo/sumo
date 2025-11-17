@@ -92,8 +92,9 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
 void
 RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler) {
+    const bool validateAll = RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation();
     for (int i = 0; i < (int)myAlternatives.size();) {
-        if (i != myLastUsed) {
+        if (i != myLastUsed || validateAll) {
             if (myAlternatives[i]->isPermitted(veh, errorHandler)) {
                 i++;
             } else {
