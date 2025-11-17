@@ -85,6 +85,9 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     if (oc.isSet("lane-weight-files")) {
         loader.loadWeights(net, "lane-weight-files", oc.getString("weight-attribute"), true, oc.getBool("weights.expand"));
     }
+    if (oc.getBool("skip-new-routes")) {
+        RORouteDef::setSkipNew();
+    }
 }
 
 

@@ -149,6 +149,10 @@ public:
         myUsingJTRR = true;
     }
 
+    static void setSkipNew() {
+        mySkipNewRoutes = true;
+    }
+
 protected:
     /// @brief backtrack to last mandatory edge and route to next mandatory
     static bool backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
@@ -178,6 +182,7 @@ protected:
     mutable bool myDiscardSilent;
 
     static bool myUsingJTRR;
+    static bool mySkipNewRoutes;
 
 private:
     /// @brief Invalidated copy constructor
