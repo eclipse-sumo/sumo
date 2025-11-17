@@ -40,6 +40,10 @@ def get_options(args=None):
     # output
     op.add_argument("-o", "--output-trip-file", category="output", dest="outfile", required=True, type=op.route_file,
                     help="define the output route file")
+    # processing
+    op.add_argument("--vclass", help="Only include routes for the given vclass")
+    op.add_argument("-a", "--attributes", default="",
+                    help="additional flow attributes.")
 
     options = op.parse_args(args=args)
     return options
@@ -66,8 +70,15 @@ def repair(net, prevEdge, edge):
 def main(options):
     vTypes = dict()
     nSkipped = 0
+    nDisallowed = 0
     nZeroFlows = 0
     net = sumolib.net.readNet(options.netfile)
+    allowed = set()
+    if options.vclass:
+        for e in net.getEdges():
+            if e.allows(options.vclass):
+                allowed.add(e.getID())
+
     edgedict = {}  # (from,to) -> edge
     for e in net.getEdges():
         edgedict[e.getFromNode().getID(), e.getToNode().getID()] = e.getID()
@@ -113,14 +124,23 @@ def main(options):
                 else:
                     prev = n
                                 
+            if options.vclass:
+                if any([e not in allowed for e in edges]):
+                    nDisallowed += 1
+                    continue
+
+
             fout.write('    <route id="%s" edges="%s"/>\n' % (route.INDEX, ' '.join(edges)))
             for demand in route.DEMAND:
                 flowID = "%s_%s" % (route.INDEX, demand.VTI)
                 vtype, begin, end = vTypes[demand.VTI]
                 rate = float(demand.VOLUME) / 3600
                 if rate > 0:
-                    fout.write('    <flow id="%s" route="%s" type="%s" begin="%s" end="%s" period="exp(%s)"/>\n' % (
-                        flowID, route.INDEX, vtype, begin, end, rate))
+                    attrs = ""
+                    if options.attributes:
+                        attrs = " " + options.attributes
+                    fout.write('    <flow id="%s" route="%s" type="%s" begin="%s" end="%s" period="exp(%s)%s"/>\n' % (
+                        flowID, route.INDEX, vtype, begin, end, rate, attrs))
                 else:
                     nZeroFlows += 1
         fout.write("</routes>\n")
@@ -129,6 +149,9 @@ def main(options):
             print("Warning: Skipped %s routes because they were defined with a single node" % nSkipped)
         if nZeroFlows > 0:
             print("Warning: Skipped %s flows because they have no volume" % nZeroFlows)
+        if nDisallowed > 0:
+            print("Warning: Ignored %s routes because they have edges that are not allowed for %s " % (
+                nDisallowed, options.vclass))
 
 if __name__ == "__main__":
     main(get_options())
