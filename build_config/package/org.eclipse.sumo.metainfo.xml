@@ -14,28 +14,34 @@
            to remotely control the simulation.
         </p>
     </description>
-    <url type="homepage">https://www.eclipse.dev/sumo/</url>
+    <url type="homepage">https://eclipse.dev/sumo/</url>
     <url type="help">https://sumo.dlr.de/docs/</url>
     <url type="bugtracker">https://github.com/eclipse-sumo/sumo/issues</url>
     <developer_name>German Aerospace Center and contributors</developer_name>
     <screenshots>
         <screenshot type="default">
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot1.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot1.png</image>
+            <caption>Different views in sumo-gui</caption>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot2.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot2.png</image>
+            <caption>Traffic light phases</caption>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot3.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot3.png</image>
+            <caption>Complex road network (Berlin)</caption>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot4.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot4.png</image>
+            <caption>Netedit connection view</caption>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot5.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot5.png</image>
+            <caption>Views of motorways and roundabouts</caption>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot6.png</image>
+            <image>https://eclipse.dev/sumo/images/screenshots/screenshot6.png</image>
+            <caption>Blended real and virtual traffic</caption>
         </screenshot>
     </screenshots>
     <content_rating type="oars-1.1"/>
