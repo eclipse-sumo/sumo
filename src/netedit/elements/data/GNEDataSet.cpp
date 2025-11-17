@@ -24,7 +24,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <utils/iodevices/FileBucket.h>
+#include <utils/common/FileBucket.h>
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
