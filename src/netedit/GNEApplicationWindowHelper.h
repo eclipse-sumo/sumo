@@ -1159,6 +1159,9 @@ struct GNEApplicationWindowHelper {
         /// @brief destructor
         ~SavingFilesHandler();
 
+        /// @brief get vector with the fileBuckets related with the given file
+        const std::vector<FileBucket*>& getFileBuckets(FileBucket::Type file) const;
+
         /// @brief functions related with ACs
         /// @{
 
@@ -1176,20 +1179,30 @@ struct GNEApplicationWindowHelper {
 
         /// @}
 
-        /// @brief get vector with the fileBuckets related with the given file
-        const std::vector<FileBucket*>& getFileBuckets(FileBucket::Type file) const;
+        /// @brief functions related with filenames
+        /// @{
 
-        /// @brief check if at least we have an additional file defined
-        bool isFilenameDefined(FileBucket::Type file) const;
+        /// @brief get vector with the fileBuckets related with the given file
+        const std::string& getDefaultFilename(FileBucket::Type file) const;
 
         /// brief set default additional file
         void setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force);
 
+        /// @brief check if at least we have an additional file defined
+        bool isFilenameDefined(FileBucket::Type file) const;
+
         /// brief set default files for all buckets
         void resetDefaultFilenameFile();
 
+        /// @}
 
     private:
+        /// @brief parse filenames
+        std::string parseFilenames(const std::vector<FileBucket::Type> types) const;
+
+        /// @brief update options
+        void updateOptions();
+
         /// @brief reference to netedit options
         OptionsCont& myNeteditOptions;
 

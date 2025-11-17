@@ -79,9 +79,6 @@ public:
 
     /// @}
 
-    /// @brief parse filenames
-    static std::string parseFilenames(const std::vector<FileBucket*>& fileBuckets);
-
 private:
     /// @brief type
     const FileBucket::Type myFileType;
