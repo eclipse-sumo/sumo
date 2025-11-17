@@ -173,10 +173,11 @@ public:
      *
      * Recomputes the free space using "computeLastFreePos" then.
      *
-     * @param[in] what The vehicle that enters the parking area
+     * @param[in] veh The vehicle that enters the parking area
+     * @param[in] parking whether this is offroad parking
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* veh);
+    void enter(SUMOVehicle* veh, const bool parking);
 
     /** @brief Called if a vehicle leaves this stop
      *

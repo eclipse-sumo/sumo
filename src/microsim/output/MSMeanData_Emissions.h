@@ -142,7 +142,7 @@ public:
                          const std::string& vTypes,
                          const std::string& writeAttributes,
                          const std::vector<MSEdge*>& edges,
-                         bool aggregate);
+                         AggregateType aggregate);
 
 
     /// @brief Destructor

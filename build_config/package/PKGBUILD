@@ -1,0 +1,68 @@
+# Maintainer: Aleksandar Trifunović <akstrfn at gmail dot com>
+# Contributor: Holger Doebler <holger DOD doebler AD posteo DOD de>
+# Contributor: Florian Jacob <projects+arch AT florianjacob )DOT( de>
+# Contributor: mareex <marcus [dot] behrendt [dot] 86 [at] gmail [dot] com>
+
+SUMO_HOME='/usr/share/sumo'
+pkgname=('sumo' 'sumo-doc')
+pkgbase=sumo
+pkgver=git
+pkgrel=2
+pkgdesc="Traffic simulation modelling road vehicles, public transport and pedestrians."
+arch=('i686' 'x86_64')
+url="http://sumo.dlr.de"
+license=('GPL')
+depends=('openscenegraph' 'python' 'proj' 'fox' 'xerces-c' 'gdal' 'gl2ps' 'arrow' 'python-pyproj' 'python-pandas' 'python-scipy')
+makedepends=('cmake' 'help2man' 'swig' 'eigen' 'gtest' 'gmock' 'flake8' 'autopep8' 'python-setuptools' 'python-build' 'python-matplotlib' 'jdk-openjdk')
+source=("${pkgbase}_${pkgver}.orig.tar.gz")
+
+sha256sums=('SKIP')
+
+prepare() {
+    cd ${pkgbase}-${pkgver}
+
+    cmake -H. -Bbuild \
+        -DCMAKE_C_FLAGS:STRING="${CFLAGS}" \
+        -DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS}" \
+        -DCMAKE_EXE_LINKER_FLAGS:STRING="${LDFLAGS}" \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release
+}
+
+build() {
+    cd ${pkgbase}-${pkgver}
+    cmake --build build -j 4
+    cmake --build build -- man
+}
+
+# example tests still fails
+# check() {
+#     cd ${pkgbase}-${pkgver}
+#     cmake --build build -- test
+# }
+
+package_sumo() {
+    optdepends=('java-runtime-common: for executing Jar files like TraCI4J'
+                "python2: for executing various python scripts in $SUMO_HOME/tools")
+
+    cd ${pkgbase}-${pkgver}
+
+    # Installs just the bin files
+    cmake --build build -- DESTDIR="${pkgdir}/" install
+
+    install -Dm644 data/logo/sumo-128x138.png ${pkgdir}/usr/share/pixmaps/${pkgbase}.png
+    install -Dm644 build_config/package/*.desktop -t ${pkgdir}/usr/share/applications/
+    install -Dm644 build_config/package/*sh -t ${pkgdir}/etc/profile.d/
+}
+
+package_sumo-doc() {
+    cd ${pkgbase}-${pkgver}
+
+    install -d ${pkgdir}/usr/share/doc/${pkgbase}
+
+    # just man pages for now
+    # cp -a * ${pkgdir}/usr/share/doc/${pkgbase}/
+    install -Dm644 docs/man/* -t ${pkgdir}/usr/share/man/man1/
+    install -m0644 {AUTHORS,ChangeLog,LICENSE,README.md} ${pkgdir}/usr/share/doc/${pkgbase}
+}

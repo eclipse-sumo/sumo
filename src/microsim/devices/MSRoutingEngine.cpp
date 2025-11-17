@@ -69,6 +69,7 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngi
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
+bool MSRoutingEngine::myDynamicRandomness(false);
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
@@ -154,6 +155,7 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
         myPriorityFactor = oc.getFloat("weights.priority-factor");
+        myDynamicRandomness = oc.getBool("weights.random-factor.dynamic");
         if (myPriorityFactor < 0) {
             throw ProcessError(TL("weights.priority-factor cannot be negative."));
         }
@@ -193,7 +195,11 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
                      ? getEffort(e, v, t)
                      : getEffortBike(e, v, t));
     if (gWeightsRandomFactor != 1.) {
-        effort *= (1 + RandHelper::randHash(v->getRandomSeed() ^ e->getNumericalID()) * (gWeightsRandomFactor - 1));
+        long long int key = v->getRandomSeed() ^ e->getNumericalID();
+        if (myDynamicRandomness) {
+            key ^= SIMSTEP;
+        }
+        effort *= (1 + RandHelper::randHash(key) * (gWeightsRandomFactor - 1));
     }
     if (myPriorityFactor != 0) {
         // lower priority should result in higher effort (and the edge with

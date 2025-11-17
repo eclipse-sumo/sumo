@@ -549,7 +549,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop);
+    bool addStoppingPlace(SumoXMLTag category, MSStoppingPlace* stop);
 
 
     /** @brief Adds a traction substation
@@ -583,6 +583,10 @@ public:
      * @return The stop id on the location, or "" if no such stop exists
      */
     std::string getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const;
+
+    /* @brief returns all stopping places of that category with the same (non-empty) name attribute
+     */
+    const std::vector<MSStoppingPlace*>& getStoppingPlaceAlternatives(const std::string& name, SumoXMLTag category) const;
     /// @}
 
     const NamedObjectCont<MSStoppingPlace*>& getStoppingPlaces(SumoXMLTag category) const;
@@ -1007,6 +1011,9 @@ protected:
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;
 
+    /// @brief dictionary of named stopping places
+    std::map<SumoXMLTag, std::map<std::string, std::vector<MSStoppingPlace*> > > myNamedStoppingPlaces;
+
     /// @brief Dictionary of traction substations
     std::vector<MSTractionSubstation*> myTractionSubstations;
 
@@ -1027,6 +1034,7 @@ protected:
     FXMutex myTransportableStateListenerMutex;
 #endif
     static const NamedObjectCont<MSStoppingPlace*> myEmptyStoppingPlaceCont;
+    static const std::vector<MSStoppingPlace*> myEmptyStoppingPlaceVector;
 
     /// @brief container to record warnings that shall only be issued once
     std::map<std::string, bool> myWarnedOnce;

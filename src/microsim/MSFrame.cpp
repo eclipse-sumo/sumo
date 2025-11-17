@@ -642,6 +642,9 @@ MSFrame::fillOptions() {
     oc.doRegister("weights.random-factor", new Option_Float(1.));
     oc.addDescription("weights.random-factor", "Routing", TL("Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"));
 
+    oc.doRegister("weights.random-factor.dynamic", new Option_Bool(false));
+    oc.addDescription("weights.random-factor.dynamic", "Routing", TL("When using option --weights.random-factor, vary the randomness over time"));
+
     oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
     oc.addDescription("weights.minor-penalty", "Routing", TL("Apply the given time penalty when computing minimum routing costs for minor-link internal lanes"));
 

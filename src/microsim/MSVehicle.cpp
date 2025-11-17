@@ -1879,7 +1879,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 if (stop.parkingarea != nullptr && stop.getSpeed() <= 0) {
                     // let the parking area know the vehicle
-                    stop.parkingarea->enter(this);
+                    stop.parkingarea->enter(this, stop.pars.parking == ParkingType::OFFROAD);
                 }
                 if (stop.chargingStation != nullptr) {
                     // let the container stop know the vehicle

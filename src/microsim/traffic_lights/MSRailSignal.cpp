@@ -371,8 +371,31 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     if (endIndex < 0) {
         endIndex = (int)edges.size() - 1;
     }
-    const int departIndex = ego->getParameter().departEdge;
-    MSDriveWay* prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego, true));
+    int departIndex = ego->getParameter().departEdge;
+    MSDriveWay* prev = nullptr;
+    if (update && ego->hasDeparted()) {
+        // find last rail signal on the route and obtain the driveway
+        const MSEdge* next = ego->getEdge();
+        for (int i = ego->getRoutePosition() - 1; i > departIndex; i--) {
+            const MSEdge* e = ego->getRoute().getEdges()[i];
+            if (e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+                const MSLink* link = e->getLanes().front()->getLinkTo(next->getLanes().front());
+                //std::cout << SIMTIME << " veh=" << ego->getID() << " rp=" << ego->getRoutePosition()
+                //    << " i=" << i << " e=" << e->getID() << " next=" << next->getID() << " link=" << (link == nullptr ? "NUL" : link->getDescription()) << "\n";
+                if (link != nullptr && link->isTLSControlled()) {
+                    MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
+                    LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
+                    prev = &li.getDriveWay(ego, i);
+                    departIndex = ego->getRoutePosition();
+                    break;
+                }
+            }
+            next = e;
+        }
+    }
+    if (prev == nullptr) {
+        prev = const_cast<MSDriveWay*>(MSDriveWay::getDepartureDriveway(ego, true));
+    }
     if (update && ego->hasDeparted()) {
         MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(const_cast<SUMOVehicle*>(ego));
         if (!prev->hasTrain(veh) && prev->notifyEnter(*veh, prev->NOTIFICATION_REROUTE, nullptr) && !veh->hasReminder(prev)) {
@@ -421,7 +444,6 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
             }
         }
     }
-    MSDriveWay::getDepartureDriveway(ego, true);
 }
 
 

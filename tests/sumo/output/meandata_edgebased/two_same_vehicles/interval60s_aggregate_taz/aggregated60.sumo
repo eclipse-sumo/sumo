@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-14T16:30:12.544584+01:00 by Eclipse SUMO sumo v1_25_0+0049-39e1c2da5ee
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+        <junction-taz value="true"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="2/1-sink" sampledSeconds="53.00" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.55" overlapDensity="0.55" laneDensity="0.14" occupancy="0.04" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0" flow="19.87"/>
+        <edge id="3/1-sink" sampledSeconds="60.60" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.62" overlapDensity="0.63" laneDensity="0.16" occupancy="0.05" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0" flow="22.50"/>
+        <edge id="3/1-source" sampledSeconds="53.00" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.55" overlapDensity="0.55" laneDensity="0.14" occupancy="0.04" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0" flow="19.87"/>
+        <edge id="4/1-source" sampledSeconds="60.60" numEdges="3" traveltime="120.00" overlapTraveltime="120.30" density="0.83" overlapDensity="0.84" laneDensity="0.28" occupancy="0.08" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0" flow="30.00"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="0/1-sink" sampledSeconds="13.00" numEdges="3" traveltime="120.00" overlapTraveltime="120.30" density="0.18" overlapDensity="0.18" laneDensity="0.06" occupancy="0.02" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0" flow="6.50"/>
+        <edge id="1/1-sink" sampledSeconds="80.60" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.83" overlapDensity="0.84" laneDensity="0.21" occupancy="0.06" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0" flow="30.00"/>
+        <edge id="1/1-source" sampledSeconds="13.00" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.14" overlapDensity="0.14" laneDensity="0.03" occupancy="0.01" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0" flow="4.88"/>
+        <edge id="2/1-sink" sampledSeconds="27.60" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.28" overlapDensity="0.29" laneDensity="0.07" occupancy="0.02" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0" flow="10.12"/>
+        <edge id="2/1-source" sampledSeconds="80.60" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.83" overlapDensity="0.84" laneDensity="0.21" occupancy="0.06" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0" flow="30.00"/>
+        <edge id="3/1-source" sampledSeconds="27.60" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="0.28" overlapDensity="0.29" laneDensity="0.07" occupancy="0.02" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0" flow="10.12"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="0/1-sink" sampledSeconds="60.00" numEdges="3" traveltime="120.00" overlapTraveltime="120.30" density="1.67" overlapDensity="1.67" laneDensity="0.56" occupancy="0.17" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="60.00"/>
+        <edge id="1/1-source" sampledSeconds="60.00" numEdges="4" traveltime="160.00" overlapTraveltime="160.30" density="1.25" overlapDensity="1.25" laneDensity="0.31" occupancy="0.09" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0" flow="45.00"/>
+    </interval>
+</meandata>

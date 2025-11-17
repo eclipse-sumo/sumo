@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:22.654039+01:00 by Eclipse SUMO sumo v1_25_0+0045-28a3daf62ee
+<!-- generated on 2025-11-14T18:08:22.638403+01:00 by Eclipse SUMO sumo v1_25_0+0052-ed3ec406d98
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -230,6 +230,7 @@
     <routing>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
+        <weights.random-factor.dynamic value="false" type="BOOL" help="When using option --weights.random-factor, vary the randomness over time"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing minimum routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>

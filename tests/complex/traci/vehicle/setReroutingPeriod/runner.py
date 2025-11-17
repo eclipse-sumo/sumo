@@ -34,6 +34,7 @@ traci.start([sumoBinary,
              '--junction-taz',
              '--device.rerouting.period', '300',
              '--weights.random-factor', '10',  # cause frequent rerouting
+             '--weights.random-factor.dynamic',  # cause frequent rerouting
              '--vehroute-output', 'vehroutes.xml',
              '--no-step-log',
              ])

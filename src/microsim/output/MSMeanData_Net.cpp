@@ -417,7 +417,7 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const std::string& vTypes,
                                const std::string& writeAttributes,
                                const std::vector<MSEdge*>& edges,
-                               bool aggregate) :
+                               AggregateType aggregate) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate),
     myHaltSpeed(haltSpeed)

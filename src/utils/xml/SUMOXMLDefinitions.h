@@ -2054,6 +2054,17 @@ enum class ParkingType {
 };
 
 /**
+ * @enum AggregateType
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * Information on edgeData/laneData output should aggregate over all edges or over loaded taz
+ */
+enum class AggregateType {
+    NO = 0,
+    YES = 1,
+    TAZ = 2
+};
+
+/**
  * @enum ChargeType
  * @brief Charging types of charging stations
  */

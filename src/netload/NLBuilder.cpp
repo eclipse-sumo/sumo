@@ -477,7 +477,7 @@ NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string
         try {
             SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
             myDetectorBuilder.createEdgeLaneMeanData(id, -1, begin, -1, "traffic", useLanes, false, false,
-                    false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,
+                    false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), AggregateType::NO,
                     OptionsCont::getOptions().getString(optionName));
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());

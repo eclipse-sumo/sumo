@@ -77,7 +77,7 @@ public:
     }
 
     /// @brief return transportable-specific random number
-    long long int getRandomSeed() const {
+    long long int getRandomSeed() const override {
         return myRandomSeed;
     }
 

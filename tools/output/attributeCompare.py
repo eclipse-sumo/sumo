@@ -37,6 +37,7 @@ else:
 
 FILE_ATTR = "@FILE"
 
+
 def get_options():
     op = sumolib.options.ArgumentParser()
     op.add_option("datafiles", nargs="+", category="input", type=op.data_file,

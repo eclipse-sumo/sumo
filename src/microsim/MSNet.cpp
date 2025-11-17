@@ -144,6 +144,7 @@ const std::string MSNet::STAGE_INSERTIONS("insertion");
 const std::string MSNet::STAGE_REMOTECONTROL("remoteControl");
 
 const NamedObjectCont<MSStoppingPlace*> MSNet::myEmptyStoppingPlaceCont;
+const std::vector<MSStoppingPlace*> MSNet::myEmptyStoppingPlaceVector;
 
 // ===========================================================================
 // static member method definitions
@@ -1440,8 +1441,15 @@ MSNet::removeOutdatedCollisions() {
 
 
 bool
-MSNet::addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop) {
-    return myStoppingPlaces[category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category].add(stop->getID(), stop);
+MSNet::addStoppingPlace(SumoXMLTag category, MSStoppingPlace* stop) {
+    if (category == SUMO_TAG_TRAIN_STOP) {
+        category = SUMO_TAG_BUS_STOP;
+    }
+    const bool isNew = myStoppingPlaces[category].add(stop->getID(), stop);
+    if (isNew && stop->getMyName() != "") {
+        myNamedStoppingPlaces[category][stop->getMyName()].push_back(stop);
+    }
+    return isNew;
 }
 
 
@@ -1487,6 +1495,22 @@ MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag
         }
     }
     return "";
+}
+
+
+const std::vector<MSStoppingPlace*>&
+MSNet::getStoppingPlaceAlternatives(const std::string& name, SumoXMLTag category) const {
+    if (category == SUMO_TAG_TRAIN_STOP) {
+        category = SUMO_TAG_BUS_STOP;
+    }
+    auto it = myNamedStoppingPlaces.find(category);
+    if (it != myNamedStoppingPlaces.end()) {
+        auto it2 = it->second.find(name);
+        if (it2 != it->second.end()) {
+            return it2->second;
+        }
+    }
+    return myEmptyStoppingPlaceVector;
 }
 
 

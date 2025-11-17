@@ -329,7 +329,7 @@ public:
                const std::string& vTypes,
                const std::string& writeAttributes,
                const std::vector<MSEdge*>& edges,
-               bool aggregate);
+               AggregateType aggregate);
 
 
     /// @brief Destructor
@@ -437,7 +437,7 @@ protected:
                    const MSEdge* const edge, SUMOTime startTime, SUMOTime stopTime);
 
 
-    /** @brief Writes aggregate of all edge values into the given stream
+    /** @brief Writes aggregated data of all edge values into the given stream
      *
      * microsim: It is checked whether the dump shall be generated edge-
      *  or lane-wise. In the first case, the lane-data are collected
@@ -449,6 +449,19 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      */
     void writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
+
+    /** @brief Writes aggregated data for each TAZ into the given stream
+     *
+     * microsim: It is checked whether the dump shall be generated edge-
+     *  or lane-wise. In the first case, the lane-data are collected
+     *  and aggregated and written directly. In the second case, "writeLane"
+     *  is used to write each lane's state.
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    void writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
 
     /** @brief Writes the interval opener
      *
@@ -500,6 +513,8 @@ private:
     /// @brief The corresponding first edges
     MSEdgeVector myEdges;
 
+    ConstMSEdgeVector myTAZ;
+
     /// @brief The index in myEdges / myMeasures
     std::map<const MSEdge*, int> myEdgeIndex;
 
@@ -516,7 +531,7 @@ private:
     const SumoXMLAttrMask myWrittenAttributes;
 
     /// @brief whether the data for all edges shall be aggregated
-    const bool myAggregate;
+    const AggregateType myAggregate;
 
     /// @brief The intervals for which output still has to be generated (only in the tracking case)
     std::list< std::pair<SUMOTime, SUMOTime> > myPendingIntervals;

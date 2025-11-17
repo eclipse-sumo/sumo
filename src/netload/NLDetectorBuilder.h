@@ -361,7 +361,7 @@ public:
                                 const double haltSpeed, const std::string& vTypes,
                                 const std::string& writeAttributes,
                                 std::vector<MSEdge*> edges,
-                                bool aggregate,
+                                AggregateType aggregate,
                                 const std::string& device);
     /// @}
 
