@@ -139,7 +139,7 @@ def main(options):
                     attrs = ""
                     if options.attributes:
                         attrs = " " + options.attributes
-                    fout.write('    <flow id="%s" route="%s" type="%s" begin="%s" end="%s" period="exp(%s)%s"/>\n' % (
+                    fout.write('    <flow id="%s" route="%s" type="%s" begin="%s" end="%s" period="exp(%s)%s/>\n' % (
                         flowID, route.INDEX, vtype, begin, end, rate, attrs))
                 else:
                     nZeroFlows += 1
