@@ -518,7 +518,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
-    mySavingFilesHandler(new GNEApplicationWindowHelper::SavingFilesHandler()),
+    mySavingFilesHandler(new GNEApplicationWindowHelper::SavingFilesHandler(OptionsCont::getOptions(), mySumoOptions)),
     myTitlePrefix("netedit " VERSION_STRING),
     myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
     myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {

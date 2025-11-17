@@ -1154,7 +1154,7 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief constructor
-        SavingFilesHandler();
+        SavingFilesHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions);
 
         /// @brief destructor
         ~SavingFilesHandler();
@@ -1190,6 +1190,12 @@ struct GNEApplicationWindowHelper {
 
 
     private:
+        /// @brief reference to netedit options
+        OptionsCont& myNeteditOptions;
+
+        /// @brief reference to sumoOptions
+        OptionsCont& mySumoOptions;
+
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
 

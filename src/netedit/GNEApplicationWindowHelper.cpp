@@ -2337,8 +2337,11 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // GNEApplicationWindowHelper::SavingFilesHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler() {
+GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
+    myNeteditOptions(neteditOptions),
+    mySumoOptions(sumoOptions) {
     // create buckets
+    myBuckets[FileBucket::Type::NETWORK].push_back(new FileBucket(FileBucket::Type::NETWORK));
     myBuckets[FileBucket::Type::DEMAND].push_back(new FileBucket(FileBucket::Type::DEMAND));
     myBuckets[FileBucket::Type::MEANDATA].push_back(new FileBucket(FileBucket::Type::MEANDATA));
     myBuckets[FileBucket::Type::ADDITIONAL].push_back(new FileBucket(FileBucket::Type::ADDITIONAL));
@@ -2359,9 +2362,12 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
 FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements aren't saved in buckets
+    if (AC->getTagProperty()->saveInParentFile()) {
+        // elements with parent aren't saved in buckets
         return nullptr;
+    } else if (AC->getTagProperty()->saveInParentFile()) {
+        // network elements are saved in a single file
+        return myBuckets.at(FileBucket::Type::NETWORK).front();
     } else {
         // iterate over all buckets to check if the given filename already exist
         for (auto& bucketVector : myBuckets) {
@@ -2406,8 +2412,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
 FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements aren't saved in buckets
+    if (AC->getTagProperty()->saveInParentFile()) {
+        // elements with parent aren't saved in buckets
         return nullptr;
     } else {
         // simply unregister and register
@@ -2421,7 +2427,10 @@ bool
 GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
     // check file properties
     if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements aren't saved in buckets
+        // elements with parent aren't saved in buckets
+        return true;
+    } else if (AC->getTagProperty()->saveInNetworkFile()) {
+        // network elements are saved in a single file
         return true;
     } else {
         // iterate over all buckets to check if the given filename already exist
@@ -2448,11 +2457,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
 bool
 GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
-        // network and elements with parents are saved in the paren'ts bucket
-        return false;
-    } else if (OptionsCont::getOptions().getString("net-file") == filename) {
-        // element cannot be saved in the network file
+    if (AC->getTagProperty()->saveInParentFile()) {
+        // elements with parent aren't saved in buckets
         return false;
     } else {
         // iterate over all buckets to check if exist a bucket with this filename
