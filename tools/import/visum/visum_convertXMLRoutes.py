@@ -24,7 +24,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from functools import lru_cache
+from functools import cache
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
@@ -57,7 +57,7 @@ def append_no_duplicate(edges, e):
     edges.append(e)
 
 
-@lru_cache
+@cache
 def repair(net, prevEdge, edge):
     path, cost = net.getShortestPath(prevEdge, edge)
     if path:
@@ -72,6 +72,7 @@ def repair(net, prevEdge, edge):
 def main(options):
     vTypes = dict()
     nSkipped = 0
+    nBroken = 0
     nDisallowed = 0
     nZeroFlows = 0
     nZeroRoutes = 0
@@ -105,27 +106,34 @@ def main(options):
             for n in nodes:
                 if prev is not None:
                     e = edgedict.get((prev, n))
-                    if e is not None:
-                        append_no_duplicate(edges, e)
-                        prev = n
-                    elif ' ' in n:
+                    if e is None and ' ' in n:
                         _, ex = n.split()
-                        e = ex[:-1]
-                        if net.hasEdge(e):
+                        if ex[-1] == 'A':
+                            e = ex[:-1]
+                            if not net.hasEdge(e):
+                                e = None
+                    if e is not None:
+                        if edges:
+                            prevEdge = net.getEdge(edges[-1])
                             edge = net.getEdge(e)
-                            if edges:
-                                prevEdge = net.getEdge(edges[-1])
-                                if prevEdge.getToNode() == edge.getFromNode():
-                                    append_no_duplicate(edges, e)
+                            if (prevEdge.getToNode() == edge.getFromNode()
+                                    and prevEdge.getAllowedOutgoing(options.vclass).get(edge)):
+                                append_no_duplicate(edges, e)
+                            else:
+                                path = repair(net, prevEdge, edge)
+                                if path:
+                                    edges += path[1:]
                                 else:
-                                    path = repair(net, prevEdge, edge)
-                                    if path:
-                                        edges += path[1:]
-                            prev = edge.getToNode().getID()
+                                    # avoid invalid routes
+                                    edges = []
+                                    break
                         else:
-                            prev = None
-                else:
-                    prev = n
+                            edges.append(e)
+                prev = n
+
+            if not edges:
+                nBroken += 1
+                continue
                                 
             if options.vclass:
                 if any([e not in allowed for e in edges]):
@@ -157,6 +165,8 @@ def main(options):
 
         if nSkipped > 0:
             print("Warning: Skipped %s routes because they were defined with a single node" % nSkipped)
+        if nBroken > 0:
+            print("Warning: Skipped %s routes because they could not be repaired" % nBroken)
         if nZeroRoutes > 0:
             print("Warning: Skipped %s routes because they have no volume" % nZeroRoutes)
         if nZeroFlows > 0:
