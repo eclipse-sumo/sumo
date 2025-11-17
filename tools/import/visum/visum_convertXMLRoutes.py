@@ -41,6 +41,8 @@ def get_options(args=None):
     op.add_argument("-o", "--output-trip-file", category="output", dest="outfile", required=True, type=op.route_file,
                     help="define the output route file")
     # processing
+    op.add_argument("--scale", metavar="FLOAT", type=float, default=1,
+                    help="Scale volume by the given value (i.e. 24 when volume denotes hourly rather than daily traffic)")
     op.add_argument("--vclass", help="Only include routes for the given vclass")
     op.add_argument("-a", "--attributes", default="",
                     help="additional flow attributes.")
@@ -72,6 +74,7 @@ def main(options):
     nSkipped = 0
     nDisallowed = 0
     nZeroFlows = 0
+    nZeroRoutes = 0
     net = sumolib.net.readNet(options.netfile)
     allowed = set()
     if options.vclass:
@@ -129,12 +132,19 @@ def main(options):
                     nDisallowed += 1
                     continue
 
+            totalVolume = 0
+            for demand in route.DEMAND:
+                totalVolume += float(demand.VOLUME)
+            if totalVolume == 0:
+                nZeroRoutes += 1
+                continue
 
             fout.write('    <route id="%s" edges="%s"/>\n' % (route.INDEX, ' '.join(edges)))
             for demand in route.DEMAND:
                 flowID = "%s_%s" % (route.INDEX, demand.VTI)
                 vtype, begin, end = vTypes[demand.VTI]
-                rate = float(demand.VOLUME) / 3600
+                #  assume VOLUME is per day
+                rate = float(demand.VOLUME) * options.scale / (3600 * 24)
                 if rate > 0:
                     attrs = ""
                     if options.attributes:
@@ -147,6 +157,8 @@ def main(options):
 
         if nSkipped > 0:
             print("Warning: Skipped %s routes because they were defined with a single node" % nSkipped)
+        if nZeroRoutes > 0:
+            print("Warning: Skipped %s routes because they have no volume" % nZeroRoutes)
         if nZeroFlows > 0:
             print("Warning: Skipped %s flows because they have no volume" % nZeroFlows)
         if nDisallowed > 0:
