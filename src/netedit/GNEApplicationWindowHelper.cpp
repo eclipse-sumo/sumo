@@ -2341,6 +2341,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& 
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions) {
     // create buckets
+    myBuckets[FileBucket::Type::SUMOCONFIG].push_back(new FileBucket(FileBucket::Type::SUMOCONFIG));
+    myBuckets[FileBucket::Type::NETEDITCONFIG].push_back(new FileBucket(FileBucket::Type::NETEDITCONFIG));
     myBuckets[FileBucket::Type::NETWORK].push_back(new FileBucket(FileBucket::Type::NETWORK));
     myBuckets[FileBucket::Type::DEMAND].push_back(new FileBucket(FileBucket::Type::DEMAND));
     myBuckets[FileBucket::Type::MEANDATA].push_back(new FileBucket(FileBucket::Type::MEANDATA));
@@ -2366,14 +2368,39 @@ GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(FileBucket::Type 
 
 
 FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename) {
+GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename,
+        FileBucket::Type bucketType) {
     // check file properties
     if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
         return nullptr;
-    } else if (AC->getTagProperty()->saveInParentFile()) {
+    } else if (AC->getTagProperty()->isNetworkElement()) {
         // network elements are saved in a single file
         return myBuckets.at(FileBucket::Type::NETWORK).front();
+    } else if (bucketType != FileBucket::Type::AUTOMATIC) {
+        // force to register in an specific bucket
+        auto defaultBucket = myBuckets.at(bucketType).front();
+        // now check if update name of first bucket
+        if (AC->isTemplate()) {
+            defaultBucket->setFilename(filename);
+            defaultBucket->addElement(AC);
+            return defaultBucket;
+        } else {
+            // search bucket with this filename
+            for (auto& bucket : myBuckets.at(bucketType)) {
+                if (bucket->getFilename() == filename) {
+                    bucket->addElement(AC);
+                    return bucket;
+                }
+            }
+        }
+        auto bucket = new FileBucket(bucketType, filename);
+        myBuckets.at(bucketType).push_back(bucket);
+        // update filename in options because we have a new bucket
+        updateOptions();
+        // add element in buckets
+        bucket->addElement(AC);
+        return bucket;
     } else {
         // iterate over all buckets to check if the given filename already exist
         for (auto& bucketVector : myBuckets) {
@@ -2405,8 +2432,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
                 auto bucket = new FileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
-                // update filename in options
+                // update filename in options because we have a new bucket
                 updateOptions();
+                // add element in bucket
                 bucket->addElement(AC);
                 return bucket;
             }
@@ -2424,9 +2452,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
         // elements with parent aren't saved in buckets
         return nullptr;
     } else {
-        // simply unregister and register
+        // simply unregister and register using automatic bucket
         unregisterAC(AC);
-        return registerAC(AC, filename);
+        return registerAC(AC, filename, FileBucket::Type::AUTOMATIC);
     }
 }
 
@@ -2434,7 +2462,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
 bool
 GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
     // check file properties
-    if (AC->getTagProperty()->saveInNetworkFile() || AC->getTagProperty()->saveInParentFile()) {
+    if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
         return true;
     } else if (AC->getTagProperty()->saveInNetworkFile()) {
@@ -2509,12 +2537,12 @@ GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(FileBucket::Ty
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenameFile() {
+GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenames() {
     for (const auto& bucketPair : myBuckets) {
         bucketPair.second.front()->setFilename("");
-        // update filename in options
-        updateOptions();
     }
+    // update filename in options
+    updateOptions();
 }
 
 
