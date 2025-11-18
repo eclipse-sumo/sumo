@@ -31,7 +31,7 @@
 // ===========================================================================
 
 DataHandler::DataHandler(const std::string& filename) :
-    CommonHandler(filename),
+    CommonHandler(filename, FileBucket::Type::DATA),
     SUMOSAXHandler(filename) {
 }
 

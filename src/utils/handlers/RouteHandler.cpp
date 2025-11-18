@@ -36,11 +36,17 @@
 // method definitions
 // ===========================================================================
 
-RouteHandler::RouteHandler(const std::string& filename, const bool hardFail) :
-    CommonHandler(filename),
+RouteHandler::RouteHandler(const std::string& filename, FileBucket::Type bucketType, const bool hardFail) :
+    CommonHandler(filename, bucketType),
     myHardFail(hardFail),
     myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
+    // ensure that buckets type are valid
+    if ((bucketType != FileBucket::Type::AUTOMATIC) &&
+            (bucketType != FileBucket::Type::DEMAND) &&
+            (bucketType != FileBucket::Type::ADDITIONAL)) {
+        throw ProcessError(TL("Invalid bucket type for RouteHandler"));
+    }
 }
 
 

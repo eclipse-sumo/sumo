@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/FileBucket.h>
 #include <utils/xml/CommonXMLStructure.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
@@ -39,8 +40,9 @@ class CommonHandler {
 public:
     /**@brief Constructor
      * @param[in] filename Name of the parsed file
+     * @param[in] bucketType bucket in which place the element
      */
-    CommonHandler(const std::string& filename);
+    CommonHandler(const std::string& filename, FileBucket::Type bucketType);
 
     /// @brief Destructor
     virtual ~CommonHandler();
@@ -69,6 +71,9 @@ public:
 protected:
     /// @brief filename
     const std::string myFilename;
+
+    /// @brief bucket type
+    const FileBucket::Type myBucketType;
 
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;

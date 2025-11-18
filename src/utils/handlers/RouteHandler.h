@@ -31,9 +31,10 @@ class RouteHandler : public CommonHandler {
 public:
     /**@brief Constructor
      * @param[in] filename Name of the parsed file
+     * @param[in] bucketType bucket in which place the element
      * @param[in] hardFail enable or disable hardFails (continue handling demand elements if there is an error)
      */
-    RouteHandler(const std::string& filename, const bool hardFail);
+    RouteHandler(const std::string& filename, FileBucket::Type bucketType, const bool hardFail);
 
     /// @brief Destructor
     virtual ~RouteHandler();
