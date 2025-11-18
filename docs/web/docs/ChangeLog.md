@@ -199,7 +199,7 @@ title: ChangeLog
   - net2geojson.py: now permits exporting of edge AND lane shapes by using options **--edges --lanes** #16774
   - abstractRail.py: Added option **--main-stops** for filtering stops when determining region angle #17024
   - generateDetectors.py: Added option **--edge-probability** to allow randomization per edge #17044
-  - instantOutToEdgeData.py: new tool to convert induction loop output to edgeData #17048
+  - instantOutToEdgeCounts.py: new tool to convert induction loop output to edgeData #17048
   - createOvertakingReroutes.py: new tool for building railway rerouters #16448
   - tazRel2POI.py: [new tool for visualizing taz relations](Tools/District.md#tazrel2poipy) #17157
   - randomTrips.py: options **--flows** and **--route-file** now writes flows and runs much faster #17200, #17204
