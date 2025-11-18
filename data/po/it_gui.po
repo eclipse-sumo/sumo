@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-15 14:01+0000\n"
+"PO-Revision-Date: 2025-11-18 19:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2735,7 +2735,7 @@ msgstr "Reimposta"
 
 #: src/netedit/GNEApplicationWindow.cpp:3325
 msgid "Saving network failed"
-msgstr ""
+msgstr "Il salvataggio della rete è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3329
 msgid "Network saved in '%'."
@@ -2755,7 +2755,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3398
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "Il salvataggio del file PlainXML è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "joined junctions file"
@@ -2767,7 +2767,7 @@ msgstr "Incroci combinati salvati in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Saving joined junctions failed"
-msgstr ""
+msgstr "Il salvataggio del file di incroci combinati è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3455
 #: src/netedit/GNEApplicationWindow.cpp:3459
@@ -2775,7 +2775,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3467
 #: src/netedit/GNEApplicationWindow.cpp:3471
 msgid "Saving of netedit configuration aborted."
-msgstr ""
+msgstr "Il salvataggio della configurazione netedit è stato interrotto."
 
 #: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Netedit configuration saved in '%'."
@@ -2807,7 +2807,7 @@ msgstr "Programmi semaforici salvati in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3661
 msgid "Saving TLS Programs failed"
-msgstr ""
+msgstr "Il salvataggio dei programmi semaforici è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3702
 msgid "EdgeType saved in '%'."
@@ -2815,7 +2815,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3705
 msgid "Saving edgeTypes failed"
-msgstr ""
+msgstr "Il salvataggio dei tipi di archi è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3781
 #: src/netedit/GNEApplicationWindow.cpp:3922
@@ -2858,11 +2858,11 @@ msgstr "Salvati gli elementi addizionali."
 
 #: src/netedit/GNEApplicationWindow.cpp:3897
 msgid "Saving additional aborted."
-msgstr ""
+msgstr "Il salvataggio degli elementi addizionali è stato interrotto."
 
 #: src/netedit/GNEApplicationWindow.cpp:3902
 msgid "Saving additional elements failed"
-msgstr ""
+msgstr "Il salvataggio degli elementi addizionali è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3929
 msgid "saving of unified additional elements in '%'"
@@ -2874,15 +2874,15 @@ msgstr "File di elementi JuPedSim"
 
 #: src/netedit/GNEApplicationWindow.cpp:3971
 msgid "JuPedSim elements saved."
-msgstr ""
+msgstr "Gli elementi JuPedSim sono stati salvati."
 
 #: src/netedit/GNEApplicationWindow.cpp:3974
 msgid "Saving JuPedSim elements aborted."
-msgstr ""
+msgstr "Il salvataggio degli elementi JuPedSim è stato interrotto."
 
 #: src/netedit/GNEApplicationWindow.cpp:3980
 msgid "Saving JuPedSim elements failed"
-msgstr ""
+msgstr "Il salvataggio degli elementi JuPedSim è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3990
 #: src/netedit/GNEApplicationWindow.cpp:4130
