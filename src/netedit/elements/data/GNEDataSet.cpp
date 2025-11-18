@@ -24,7 +24,6 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <utils/common/FileBucket.h>
 
 #include "GNEDataSet.h"
 #include "GNEDataInterval.h"
@@ -107,7 +106,7 @@ GNEDataSet::AttributeColors::clear() {
 // ---------------------------------------------------------------------------
 
 GNEDataSet::GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename) :
-    GNEAttributeCarrier(SUMO_TAG_DATASET, net, filename, false),
+    GNEAttributeCarrier(SUMO_TAG_DATASET, net, filename, FileBucket::Type::DATA, false),
     myDataSetID(dataSetID) {
 }
 

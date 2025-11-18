@@ -52,12 +52,13 @@ const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
 // method definitions
 // ===========================================================================
 
-GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename, const bool isTemplate) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename,
+        FileBucket::Type bucketType, const bool isTemplate) :
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
     myIsTemplate(isTemplate) {
     // register AC
-    myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename);
+    myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename, bucketType);
 }
 
 
