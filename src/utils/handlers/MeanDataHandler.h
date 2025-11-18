@@ -30,7 +30,7 @@ class MeanDataHandler : public CommonHandler {
 
 public:
     /// @brief Constructor
-    MeanDataHandler(const std::string& filename);
+    MeanDataHandler(const std::string& filename, FileBucket::Type bucketType);
 
     /// @brief Destructor
     virtual ~MeanDataHandler();
