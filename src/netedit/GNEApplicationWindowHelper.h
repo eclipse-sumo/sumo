@@ -1166,7 +1166,7 @@ struct GNEApplicationWindowHelper {
         /// @{
 
         /// @brief register AC (called during AC creation)
-        FileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename);
+        FileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename, FileBucket::Type bucketType);
 
         /// @brief update AC
         FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
@@ -1192,7 +1192,7 @@ struct GNEApplicationWindowHelper {
         bool isFilenameDefined(FileBucket::Type file) const;
 
         /// brief set default files for all buckets
-        void resetDefaultFilenameFile();
+        void resetDefaultFilenames();
 
         /// @}
 
