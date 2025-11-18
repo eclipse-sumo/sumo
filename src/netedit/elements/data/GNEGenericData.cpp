@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNEGenericData::GNEGenericData(SumoXMLTag tag, GNENet* net) :
-    GNEAttributeCarrier(tag, net, "", true),
+    GNEAttributeCarrier(tag, net, "", FileBucket::Type::AUTOMATIC, true),
     GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), "",
                 GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),
@@ -45,7 +45,7 @@ GNEGenericData::GNEGenericData(SumoXMLTag tag, GNENet* net) :
 
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent, const Parameterised::Map& parameters) :
-    GNEAttributeCarrier(tag, dataIntervalParent->getNet(), dataIntervalParent->getFilename(), false),
+    GNEAttributeCarrier(tag, dataIntervalParent->getNet(), dataIntervalParent->getFilename(), FileBucket::Type::DATA, false),
     GUIGlObject(dataIntervalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), dataIntervalParent->getID(),
                 GUIIconSubSys::getIcon(dataIntervalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::DATA_ELEMENT),

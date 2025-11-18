@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNELaneTemplate::GNELaneTemplate(const GNELane* lane) :
-    GNEAttributeCarrier(SUMO_TAG_LANE, lane->getNet(), "", false),
+    GNEAttributeCarrier(SUMO_TAG_LANE, lane->getNet(), "", FileBucket::Type::NETWORK, false),
     myLane(lane) {
 }
 

@@ -28,12 +28,12 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNENet* net) :
-    GNEAttributeCarrier(sourceSinkTag, net, "", true) {
+    GNEAttributeCarrier(sourceSinkTag, net, "", FileBucket::Type::AUTOMATIC, true) {
 }
 
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, const double departWeight) :
-    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet(), TAZParent->getFilename(), false),
+    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet(), TAZParent->getFilename(), FileBucket::Type::DATA, false),
     myWeight(departWeight) {
     // set parents
     setParent<GNEEdge*>(edge);

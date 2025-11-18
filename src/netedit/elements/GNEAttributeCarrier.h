@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/GNEReferenceCounter.h>
+#include <utils/common/FileBucket.h>
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
@@ -53,9 +54,11 @@ public:
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
      * @param[in] filename file in which this AttributeCarrier is stored
+     * @param[in] bucketType bucketType in which this AC will be stored (usually automatic)
      * @param[in] isTemplate flag to mark this AttributeCarrier as template
      */
-    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename, const bool isTemplate);
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename,
+                        FileBucket::Type bucketType, const const bool isTemplate);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
