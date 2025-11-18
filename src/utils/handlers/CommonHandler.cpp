@@ -30,9 +30,8 @@
 // method definitions
 // ===========================================================================
 
-CommonHandler::CommonHandler(const std::string& filename, FileBucket::Type bucketType) :
-    myFilename(filename),
-    myBucketType(bucketType) {
+CommonHandler::CommonHandler(FileBucket* fileBucket) :
+    myFileBucket(fileBucket) {
 }
 
 

@@ -37,9 +37,9 @@ class DataHandler : public CommonHandler, private SUMOSAXHandler {
 
 public:
     /**@brief Constructor
-     * @param[in] filename Name of the parsed file
+     * @param[in] bucket FileBucket in which place the element
      */
-    DataHandler(const std::string& filename);
+    DataHandler(FileBucket* fileBucket);
 
     /// @brief Destructor
     ~DataHandler();
