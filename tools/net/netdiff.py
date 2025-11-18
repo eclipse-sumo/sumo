@@ -296,8 +296,10 @@ class AttributeStore:
 
             elif tag == TAG_EDGE and oldChildren:
                 # see CAVEAT9
+                oldKeys = list(oldChildren.id_attrs.keys())
                 children = oldChildren
-                for k, (n, v, c) in oldChildren.id_attrs.items():
+                for k in oldKeys:
+                    n, v, c = oldChildren.id_attrs[k]
                     if c:
                         deletedNeigh = False
                         for k2, (n2, v2, c2) in c.id_attrs.items():
