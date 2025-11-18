@@ -43,6 +43,7 @@
 // static members
 // ===========================================================================
 bool RORouteDef::myUsingJTRR(false);
+bool RORouteDef::mySkipNewRoutes(false);
 
 // ===========================================================================
 // method definitions
@@ -93,7 +94,7 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 void
 RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler) {
     for (int i = 0; i < (int)myAlternatives.size();) {
-        if (i != myLastUsed) {
+        if (i != myLastUsed || mySkipNewRoutes) {
             if (myAlternatives[i]->isPermitted(veh, errorHandler)) {
                 i++;
             } else {

@@ -6,6 +6,9 @@ ignore_errors2
 
 # loaded route with disallowed edges
 ignore_errors3
+
+# loaded route with disallowed edges
+ignore_errors3_skip
 ignore_errors_invalid_depart_edge
 
 # randomize edge weights
