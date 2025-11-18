@@ -646,7 +646,7 @@ GNEApplicationWindow::create() {
 
 
 GNEApplicationWindow::~GNEApplicationWindow() {
-    closeAllWindows();
+    closeAllWindows(true);
     // Close icons
     GUIIconSubSys::close();
     // Close gifs (Textures)
@@ -1157,7 +1157,10 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector sel, void*) {
     if (myViewNet == nullptr) {
         return 1;
     } else if (askSaveElements()) {
-        closeAllWindows();
+        // check if is reloading
+        const bool reloading = (FXSELID(sel) == MID_GNE_TOOLBARFILE_RELOADNETWORK) || (FXSELID(sel) == MID_HOTKEY_CTRL_R_RELOAD);
+        // close all windows
+        closeAllWindows(!reloading);
         // add a separator to the log
         myMessageWindow->addSeparator();
         // hide all menu commands
@@ -1169,19 +1172,12 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector sel, void*) {
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
         // reset files (except if we're reloading)
-        if ((FXSELID(sel) != MID_GNE_TOOLBARFILE_RELOADNETWORK) && (FXSELID(sel) != MID_HOTKEY_CTRL_R_RELOAD)) {
-            // restore default files
-            mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, "", true);
-            mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, "", true);
-            mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, "", true);
-            mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, "", true);
-            mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DATA, "", true);
+        if (!reloading) {
             // specific from SUMO
             auto& neteditOptions = OptionsCont::getOptions();
             neteditOptions.resetWritable();
             neteditOptions.set("configuration-file", "");
             neteditOptions.set("sumocfg-file", "");
-            neteditOptions.set("net-file", "");
             neteditOptions.set("tls-file", "");
             neteditOptions.set("edgetypes-file", "");
             // also in sumoConfig
@@ -1608,15 +1604,17 @@ GNEApplicationWindow::updateRecomputingLabel() {
 
 
 void
-GNEApplicationWindow::closeAllWindows() {
+GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     // first check if net must be deleted
     if (myNet != nullptr) {
         delete myNet;
         myNet = nullptr;
         GeoConvHelper::resetLoaded();
     }
-    // reset default filanemes in bucket
-    mySavingFilesHandler->resetDefaultFilenameFile();
+    // reset default filenames
+    if (resetFilenames) {
+        mySavingFilesHandler->resetDefaultFilenames();
+    }
     // check if view has to be saved
     if (myViewNet) {
         myViewNet->saveVisualizationSettings();
@@ -4857,8 +4855,8 @@ void
 GNEApplicationWindow::loadAdditionalElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // get additional files
-    const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
+    // get additional files (don't use reference because it's modified during loading)
+    const StringVector additionalFiles = neteditOptions.getStringVector("additional-files");
     // check if ignore loading of additional files
     const auto ignoreLoadAdditionalFiles = neteditOptions.getBool("ignore.additionalelements");
     // check conditions
@@ -4867,8 +4865,6 @@ GNEApplicationWindow::loadAdditionalElements() {
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.additionalelements", "false");
     } else if (myNet && (additionalFiles.size() > 0)) {
-        // set default demand file
-        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4908,8 +4904,8 @@ void
 GNEApplicationWindow::loadDemandElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // get demand files
-    const auto& demandFiles = neteditOptions.getStringVector("route-files");
+    // get demand files (don't use reference because it's modified during loading)
+    const StringVector demandFiles = neteditOptions.getStringVector("route-files");
     // check if ignore loading of additional files
     const auto ignoreLoadDemandFiles = neteditOptions.getBool("ignore.routeelements");
     // check conditions
@@ -4918,8 +4914,6 @@ GNEApplicationWindow::loadDemandElements() {
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.routeelements", "false");
     } else if (myNet && (demandFiles.size() > 0)) {
-        // set default demand file
-        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, demandFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4959,11 +4953,9 @@ void
 GNEApplicationWindow::loadDataElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // get data files
-    const auto& dataFiles = neteditOptions.getStringVector("data-files");
+    // get data files (don't use reference because it's modified during loading)
+    const StringVector dataFiles = neteditOptions.getStringVector("data-files");
     if (myNet && (dataFiles.size() > 0)) {
-        // set default demand file
-        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -5003,11 +4995,9 @@ void
 GNEApplicationWindow::loadMeanDataElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // get meanData files
-    const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
+    // get meanData files (don't use reference because it's modified during loading)
+    const StringVector meanDataFiles = neteditOptions.getStringVector("meandata-files");
     if (myNet && (meanDataFiles.size() > 0)) {
-        // set default demand file
-        mySavingFilesHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, meanDataFiles.front(), false);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist

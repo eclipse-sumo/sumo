@@ -841,8 +841,8 @@ private:
     /// @brief Builds the menu bar
     void fillMenuBar();
 
-    /// @brief this method closes all windows and deletes the current simulation */
-    void closeAllWindows();
+    /// @brief this method closes all windows and deletes the current simulation
+    void closeAllWindows(const bool resetFilenames);
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool askSaveElements();
