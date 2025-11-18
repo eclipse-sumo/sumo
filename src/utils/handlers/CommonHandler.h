@@ -20,29 +20,26 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/FileBucket.h>
 #include <utils/xml/CommonXMLStructure.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class FileBucket;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class CommonHandler
- * @brief The XML-Handler for network loading
- *
- * The SAX2-handler responsible for parsing networks and routes to load.
- * This is an extension of the MSRouteHandler as routes and vehicles may also
- *  be loaded from network descriptions.
- */
+
 class CommonHandler {
 
 public:
     /**@brief Constructor
-     * @param[in] filename Name of the parsed file
-     * @param[in] bucketType bucket in which place the element
+     * @param[in] bucket FileBucket in which place the element
      */
-    CommonHandler(const std::string& filename, FileBucket::Type bucketType);
+    CommonHandler(FileBucket* fileBucket);
 
     /// @brief Destructor
     virtual ~CommonHandler();
@@ -69,11 +66,8 @@ public:
     bool isAbortLoading() const;
 
 protected:
-    /// @brief filename
-    const std::string myFilename;
-
-    /// @brief bucket type
-    const FileBucket::Type myBucketType;
+    /// @brief fileBucket
+    FileBucket* myFileBucket = nullptr;
 
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;

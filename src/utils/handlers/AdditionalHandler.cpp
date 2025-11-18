@@ -34,8 +34,8 @@
 // method definitions
 // ===========================================================================
 
-AdditionalHandler::AdditionalHandler(const std::string& filename) :
-    CommonHandler(filename, FileBucket::Type::ADDITIONAL) {
+AdditionalHandler::AdditionalHandler(FileBucket* fileBucket) :
+    CommonHandler(fileBucket) {
 }
 
 

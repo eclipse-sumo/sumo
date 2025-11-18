@@ -30,14 +30,8 @@
 // method definitions
 // ===========================================================================
 
-MeanDataHandler::MeanDataHandler(const std::string& filename, FileBucket::Type bucketType) :
-    CommonHandler(filename, bucketType) {
-    // ensure that buckets type are valid
-    if ((bucketType != FileBucket::Type::AUTOMATIC) &&
-            (bucketType != FileBucket::Type::MEANDATA) &&
-            (bucketType != FileBucket::Type::ADDITIONAL)) {
-        throw ProcessError(TL("Invalid bucket type for MeanDataHandler"));
-    }
+MeanDataHandler::MeanDataHandler(FileBucket* fileBucket) :
+    CommonHandler(fileBucket) {
 }
 
 

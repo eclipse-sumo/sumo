@@ -19,15 +19,16 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/FileBucket.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/shapes/Shape.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/NamespaceIDs.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/xml/NamespaceIDs.h>
 
 #include "RouteHandler.h"
 
@@ -36,17 +37,11 @@
 // method definitions
 // ===========================================================================
 
-RouteHandler::RouteHandler(const std::string& filename, FileBucket::Type bucketType, const bool hardFail) :
-    CommonHandler(filename, bucketType),
+RouteHandler::RouteHandler(FileBucket* fileBucket, const bool hardFail) :
+    CommonHandler(fileBucket),
     myHardFail(hardFail),
     myFlowBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myFlowEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
-    // ensure that buckets type are valid
-    if ((bucketType != FileBucket::Type::AUTOMATIC) &&
-            (bucketType != FileBucket::Type::DEMAND) &&
-            (bucketType != FileBucket::Type::ADDITIONAL)) {
-        throw ProcessError(TL("Invalid bucket type for RouteHandler"));
-    }
 }
 
 
@@ -501,7 +496,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 void
 RouteHandler::parseVType(const SUMOSAXAttributes& attrs) {
     // parse vehicleType
-    SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, myFilename);
+    SUMOVTypeParameter* vehicleTypeParameter = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, myFileBucket->getFilename());
     if (vehicleTypeParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE);

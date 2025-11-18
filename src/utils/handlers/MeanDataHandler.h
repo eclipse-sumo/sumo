@@ -29,8 +29,10 @@
 class MeanDataHandler : public CommonHandler {
 
 public:
-    /// @brief Constructor
-    MeanDataHandler(const std::string& filename, FileBucket::Type bucketType);
+    /**@brief Constructor
+     * @param[in] bucket FileBucket in which place the element
+     */
+    MeanDataHandler(FileBucket* fileBucket);
 
     /// @brief Destructor
     virtual ~MeanDataHandler();

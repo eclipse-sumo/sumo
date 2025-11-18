@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/FileBucket.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
@@ -30,9 +31,9 @@
 // method definitions
 // ===========================================================================
 
-DataHandler::DataHandler(const std::string& filename) :
-    CommonHandler(filename, FileBucket::Type::DATA),
-    SUMOSAXHandler(filename) {
+DataHandler::DataHandler(FileBucket* fileBucket) :
+    CommonHandler(fileBucket),
+    SUMOSAXHandler(fileBucket->getFilename()) {
 }
 
 

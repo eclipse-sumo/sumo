@@ -30,9 +30,9 @@ class AdditionalHandler : public CommonHandler {
 
 public:
     /**@brief Constructor
-     * @param[in] filename Name of the parsed file
+     * @param[in] bucket FileBucket in which place the element
      */
-    AdditionalHandler(const std::string& filename);
+    AdditionalHandler(FileBucket* fileBucket);
 
     /// @brief Destructor
     virtual ~AdditionalHandler();
