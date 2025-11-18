@@ -56,23 +56,24 @@ public:
         NO_PLANS                    // Person or container doesn't have a plan
     };
 
-    /**@brief Constructor
-     * @param[in] id Gl-id of the demand element element (Must be unique)
-     * @param[in] net pointer to GNEViewNet of this demand element element belongs
-     * @param[in] filename file in which this AttributeCarrier is stored
+    /**@brief Constructor for templates
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] pathOptions path options
      */
-    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
-                     SumoXMLTag tag, const GNEPathElement::Options pathOptions);
+    GNEDemandElement(GNENet* net, SumoXMLTag tag);
 
     /**@brief Constructor
-     * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
-     * @param[in] net pointer to GNEViewNet of this demand element element belongs
-     * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] pathOptions path options
+     * @param[in] id Gl-id of the demand element element (Must be unique)
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag, const GNEPathElement::Options pathOptions);
+    GNEDemandElement(const std::string& id, GNENet* net, SumoXMLTag tag, FileBucket* fileBucket);
+
+    /**@brief Constructor
+     * @param[in] demandElementParent pointer to parent demand element pointer
+     * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
+     */
+    GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();
@@ -91,8 +92,8 @@ public:
 
     /// @}
 
-    /// @brief get filename in which save this AC
-    const std::string& getFilename() const override;
+    /// @brief get reference to fileBucket in which save this AC
+    FileBucket* getFileBucket() const override;
 
     /// @brief get demand element geometry (stacked)
     const GUIGeometry& getDemandElementGeometry();

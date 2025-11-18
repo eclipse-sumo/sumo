@@ -33,14 +33,14 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional("", net, "", tag, ""),
+    GNEAdditional(net, tag),
     myEdgeCalibratorContours(new std::vector<GNEContour*>()) {
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, FileBucket* fileBucket, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_CALIBRATOR, name),
+    GNEAdditional(id, net, SUMO_TAG_CALIBRATOR, fileBucket, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -55,10 +55,10 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, FileBucket* fileBucket, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_CALIBRATOR, name),
+    GNEAdditional(id, net, SUMO_TAG_CALIBRATOR, fileBucket, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -74,9 +74,9 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GNE_TAG_CALIBRATOR_LANE, name),
+    GNEAdditional(id, net, GNE_TAG_CALIBRATOR_LANE, fileBucket, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -91,10 +91,10 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::stri
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, GNE_TAG_CALIBRATOR_LANE, name),
+    GNEAdditional(id, net, GNE_TAG_CALIBRATOR_LANE, fileBucket, name),
     Parameterised(parameters),
     myPositionOverLane(pos),
     myFrequency(frequency),

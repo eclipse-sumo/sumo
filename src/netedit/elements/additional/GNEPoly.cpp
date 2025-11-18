@@ -41,16 +41,16 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
-                  GNEAdditional("", net, "", tag, ""),
+                  GNEAdditional(net, tag),
 myMoveElementShape(new GNEMoveElementShape(this)) {
 }
 
 
-GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
+GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const PositionVector& shape,
                  bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
                  const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
-    GNEAdditional(id, net, filename, SUMO_TAG_POLY, ""),
+    GNEAdditional(id, net, SUMO_TAG_POLY, fileBucket, ""),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, false)),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
@@ -75,11 +75,11 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, const std::string& filename
 }
 
 
-GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape,
+GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape,
                  bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", name, parameters),
-    GNEAdditional(id, net, filename, tag, ""),
+    GNEAdditional(id, net, tag, fileBucket, ""),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE))),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {

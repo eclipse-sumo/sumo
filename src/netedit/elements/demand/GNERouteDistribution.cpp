@@ -30,12 +30,12 @@
 // ===========================================================================
 
 GNERouteDistribution::GNERouteDistribution(GNENet* net) :
-    GNEDemandElement("", net, "", SUMO_TAG_ROUTE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT) {
+    GNEDemandElement(net, SUMO_TAG_ROUTE_DISTRIBUTION) {
 }
 
 
-GNERouteDistribution::GNERouteDistribution(const std::string& ID, GNENet* net, const std::string& filename) :
-    GNEDemandElement(ID, net, filename, SUMO_TAG_ROUTE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT) {
+GNERouteDistribution::GNERouteDistribution(const std::string& ID, GNENet* net, FileBucket* fileBucket) :
+    GNEDemandElement(ID, net, SUMO_TAG_ROUTE_DISTRIBUTION, fileBucket) {
 }
 
 

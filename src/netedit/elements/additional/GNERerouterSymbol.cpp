@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
-    GNEAdditional("", net, "", GNE_TAG_REROUTER_SYMBOL, ""),
+    GNEAdditional(net, GNE_TAG_REROUTER_SYMBOL),
     mySymbolContours(new std::vector<GNEContour*>()) {
 }
 

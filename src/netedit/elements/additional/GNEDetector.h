@@ -38,7 +38,7 @@ public:
     /**@brief Constructor
      * @param[in] id Gl-id of the detector (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this AttributeCarrier is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
@@ -48,8 +48,8 @@ public:
      * @param[in] name detector name
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag,
-                const SUMOTime period, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
+    GNEDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, SumoXMLTag tag, const SUMOTime period,
+                const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                 const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                 const Parameterised::Map& parameters);
 

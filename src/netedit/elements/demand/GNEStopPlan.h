@@ -46,7 +46,7 @@ public:
      */
     GNEStopPlan(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                 const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType,
-                bool friendlyPos, const int parameterSet);
+                const bool friendlyPos, const int parameterSet);
 
     /// @brief destructor
     ~GNEStopPlan();

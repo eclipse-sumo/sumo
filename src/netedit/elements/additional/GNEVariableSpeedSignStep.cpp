@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_STEP, ""),
+    GNEAdditional(net, SUMO_TAG_STEP),
     GNEAdditionalListed(this) {
 }
 

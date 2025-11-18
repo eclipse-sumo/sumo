@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
@@ -36,9 +37,9 @@
 // ===========================================================================
 
 GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag) :
-    GNEAttributeCarrier(tag, net, "", FileBucket::Type::NETWORK, false),
-    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
-                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GNEAttributeCarrier(tag, net, net->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::NETWORK)),
+    GUIGlObject(myTagProperty->getGLType(), id,
+                GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     myShapeEdited(false) {
 }
 
@@ -64,9 +65,9 @@ GNENetworkElement::getGUIGlObject() const {
 }
 
 
-const std::string&
-GNENetworkElement::getFilename() const {
-    return myFileBucket->getFilename();
+FileBucket*
+GNENetworkElement::getFileBucket() const {
+    return myFileBucket;
 }
 
 

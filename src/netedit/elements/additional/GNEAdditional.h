@@ -46,22 +46,27 @@ public:
     friend class GNEAdditionalListed;
     friend class GNEAdditionalSquared;
 
+    /**@brief Constructor for templates
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
+     */
+    GNEAdditional(GNENet* net, SumoXMLTag tag);
+
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
-     * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this AttributeCarrier is stored
-     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] additionalName Additional name
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
+     * @param[in] name Additional name
      */
-    GNEAdditional(const std::string& id, GNENet* net, const std::string& filename,
-                  SumoXMLTag tag, const std::string& additionalName);
+    GNEAdditional(const std::string& id, GNENet* net, SumoXMLTag tag, FileBucket* fileBucket, const std::string& name);
 
     /**@brief Constructor for additional with parents
      * @param[in] additionalParent pointer to additional parent
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] additionalName Additional name
+     * @param[in] name Additional name
      */
-    GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& additionalName);
+    GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& name);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -80,8 +85,8 @@ public:
 
     /// @}
 
-    /// @brief get filename in which save this AC
-    const std::string& getFilename() const override;
+    /// @brief get reference to fileBucket in which save this AC
+    FileBucket* getFileBucket() const override;
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const override;

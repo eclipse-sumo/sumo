@@ -76,13 +76,13 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+    GNEDemandElement(net, tag) {
 }
 
 
 GNERoute::GNERoute(GNEAdditional* calibrator) :
-    GNEDemandElement(calibrator->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), calibrator->getNet(),
-                     calibrator->getFilename(), SUMO_TAG_ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+    GNEDemandElement(calibrator->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE),
+                     calibrator->getNet(), SUMO_TAG_ROUTE, calibrator->getFileBucket()) {
     // set parent edge
     if (calibrator->getParentEdges().size() > 0) {
         setParents<GNEEdge*>({calibrator->getParentEdges().front()});
@@ -95,8 +95,7 @@ GNERoute::GNERoute(GNEAdditional* calibrator) :
 
 
 GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getTagProperty()->getTag(),
-                     originalRoute->getPathElementOptions()),
+    GNEDemandElement(id, originalRoute->getNet(), originalRoute->getTagProperty()->getTag(), originalRoute->getFileBucket()),
     Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -108,7 +107,7 @@ GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute)
 
 
 GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag(), originalRoute->getPathElementOptions()),
+    GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag()),
     Parameterised(originalRoute->getParameters()->getParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
@@ -120,11 +119,10 @@ GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRo
 }
 
 
-GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass,
+GNERoute::GNERoute(const std::string& id, GNENet* net, FileBucket* fileBucket, SUMOVehicleClass vClass,
                    const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
                    const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters) :
-    GNEDemandElement(id, net, filename, SUMO_TAG_ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+    GNEDemandElement(id, net, SUMO_TAG_ROUTE, fileBucket),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
@@ -138,8 +136,7 @@ GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filena
 
 GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
                    const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, GNE_TAG_ROUTE_EMBEDDED,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+    GNEDemandElement(vehicleParent, GNE_TAG_ROUTE_EMBEDDED),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),

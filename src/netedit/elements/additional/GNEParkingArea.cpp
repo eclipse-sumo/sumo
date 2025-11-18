@@ -35,11 +35,11 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
 }
 
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+GNEParkingArea::GNEParkingArea(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
                                const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
                                const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, filename, SUMO_TAG_PARKING_AREA, lane, startPos,
+    GNEStoppingPlace(id, net, fileBucket, SUMO_TAG_PARKING_AREA, lane, startPos,
                      endPos, name, friendlyPosition, RGBColor::INVISIBLE, angle, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),

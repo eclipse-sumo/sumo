@@ -33,8 +33,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo) :
-    MeanDataHandler(filename),
+GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo) :
+    MeanDataHandler(fileBucket),
     myNet(net),
     myAllowUndoRedo(allowUndoRedo) {
 }
@@ -82,7 +82,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_EDGE, id, myNet, myFilename, file, type, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_EDGE, id, myNet, myFileBucket, file, type, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
@@ -132,7 +132,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_LANE, id, myNet, myFilename, file, type, period, begin, end,
+        GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_LANE, id, myNet, myFileBucket, file, type, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {

@@ -37,7 +37,7 @@ class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
     /// @brief Constructor
-    GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo);
+    GNEMeanDataHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo);
 
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();

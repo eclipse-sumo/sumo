@@ -30,12 +30,13 @@
 // ===========================================================================
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
-    GNEDemandElement("", net, "", SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT) {
+    GNEDemandElement(net, SUMO_TAG_VTYPE_DISTRIBUTION) {
 }
 
 
-GNEVTypeDistribution::GNEVTypeDistribution(const std::string& ID, GNENet* net, const std::string& filename, const int deterministic) :
-    GNEDemandElement(ID, net, filename, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVTypeDistribution::GNEVTypeDistribution(const std::string& ID, GNENet* net, FileBucket* fileBucket,
+        const int deterministic) :
+    GNEDemandElement(ID, net, SUMO_TAG_VTYPE_DISTRIBUTION, fileBucket),
     myDeterministic(deterministic) {
 }
 

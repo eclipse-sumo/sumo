@@ -34,7 +34,7 @@ public:
     GNERerouterInterval(GNENet* net);
 
     /// @brief parameter constructor
-    GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end);
+    GNERerouterInterval(GNEAdditional* rerouterParent, const SUMOTime begin, const SUMOTime end);
 
     /// @brief destructor
     ~GNERerouterInterval();

@@ -28,12 +28,12 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNENet* net) :
-    GNEAttributeCarrier(sourceSinkTag, net, "", FileBucket::Type::AUTOMATIC, true) {
+    GNEAttributeCarrier(sourceSinkTag, net) {
 }
 
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, const double departWeight) :
-    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet(), TAZParent->getFilename(), FileBucket::Type::DATA, false),
+    GNEAttributeCarrier(sourceSinkTag, TAZParent->getNet(), TAZParent->getFileBucket()),
     myWeight(departWeight) {
     // set parents
     setParent<GNEEdge*>(edge);
@@ -72,10 +72,10 @@ GNETAZSourceSink::getParameters() const {
 }
 
 
-const std::string& GNETAZSourceSink::getFilename() const {
-    return getParentAdditionals().front()->getFilename();
+FileBucket*
+GNETAZSourceSink::getFileBucket() const {
+    return getParentAdditionals().front()->getFileBucket();
 }
-
 
 void
 GNETAZSourceSink::writeTAZSourceSink(OutputDevice& device) const {

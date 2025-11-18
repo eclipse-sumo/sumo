@@ -35,7 +35,7 @@ public:
     /**@brief Constructor
      * @param[in] id parking area ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -50,7 +50,7 @@ public:
      * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
      */
-    GNEParkingArea(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
+    GNEParkingArea(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, const double startPos, const double endPos,
                    const std::string& departPos, const std::string& name, const std::vector<std::string>& badges, const bool friendlyPosition,
                    const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
                    const Parameterised::Map& parameters);

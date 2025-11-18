@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_CLOSING_REROUTE, ""),
+    GNEAdditional(net, SUMO_TAG_CLOSING_REROUTE),
     GNEAdditionalListed(this) {
 }
 

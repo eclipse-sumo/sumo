@@ -40,18 +40,18 @@
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
-    GNEAdditional("", net, "", tag, ""),
+    GNEAdditional(net, tag),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos, GNEMoveElementLaneSingle::PositionType::SINGLE)),
     myMoveElementViewResizable(new GNEMoveElementViewResizable(this, (tag == GNE_TAG_POIGEO) ? GNEMoveElementView::AttributesFormat::GEO : GNEMoveElementView::AttributesFormat::CARTESIAN,
                                GNEMoveElementViewResizable::ResizingFormat::WIDTH_HEIGHT, SUMO_ATTR_POSITION, myPosOverView)) {
 }
 
 
-GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const Position& pos,
+GNEPOI::GNEPOI(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const RGBColor& color, const Position& pos,
                const bool geo, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
     Shape(id, type, color, layer, angle, imgFile, ""),
-    GNEAdditional(id, net, filename, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, name),
+    GNEAdditional(id, net, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, fileBucket, name),
     Parameterised(parameters),
     myPosOverView(pos),
     myWidth(width),
@@ -71,11 +71,11 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, 
 }
 
 
-GNEPOI::GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
+GNEPOI::GNEPOI(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name),
-    GNEAdditional(id, net, filename, GNE_TAG_POILANE, ""),
+    GNEAdditional(id, net, GNE_TAG_POILANE, fileBucket, ""),
     Parameterised(parameters),
     myPosOverLane(posOverLane),
     myFriendlyPos(friendlyPos),

@@ -30,19 +30,20 @@
 // ===========================================================================
 
 GNERouteRef::GNERouteRef(GNENet* net) :
-    GNEDemandElement("", net, "", GNE_TAG_ROUTEREF, GNEPathElement::Options::DEMAND_ELEMENT) {
+    GNEDemandElement(net, GNE_TAG_ROUTEREF) {
 }
 
 
 GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent) :
-    GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF, GNEPathElement::Options::DEMAND_ELEMENT) {
+    GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF) {
     // set parents
     setParents<GNEDemandElement*>({distributionParent, routeParent});
 }
 
 
-GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent, const double probability) :
-    GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF, GNEPathElement::Options::DEMAND_ELEMENT),
+GNERouteRef::GNERouteRef(GNEDemandElement* distributionParent, GNEDemandElement* routeParent,
+                         const double probability) :
+    GNEDemandElement(distributionParent, GNE_TAG_ROUTEREF),
     myProbability(probability) {
     // set parents
     setParents<GNEDemandElement*>({distributionParent, routeParent});

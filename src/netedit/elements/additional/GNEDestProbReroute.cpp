@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
-    GNEAdditional("", net, "", SUMO_TAG_DEST_PROB_REROUTE, ""),
+    GNEAdditional(net, SUMO_TAG_DEST_PROB_REROUTE),
     GNEAdditionalListed(this),
     myNewEdgeDestination(nullptr),
     myProbability(0) {

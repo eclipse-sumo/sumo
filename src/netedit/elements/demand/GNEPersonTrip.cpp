@@ -32,7 +32,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(net, tag),
     GNEDemandElementPlan(this, -1, -1) {
 }
 
@@ -40,7 +40,7 @@ GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                              const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines, const double walkFactor, const std::string& group) :
-    GNEDemandElement(personParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(personParent, tag),
     GNEDemandElementPlan(this, -1, arrivalPosition),
     myVTypes(types),
     myModes(modes),

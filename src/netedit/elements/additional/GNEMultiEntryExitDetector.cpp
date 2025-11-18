@@ -31,15 +31,15 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ENTRY_EXIT_DETECTOR, ""),
+    GNEAdditional(net, SUMO_TAG_ENTRY_EXIT_DETECTOR),
     GNEAdditionalSquared(this) {
 }
 
 
-GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const std::string& filename, const Position pos, const SUMOTime freq,
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, const Position pos, const SUMOTime freq,
         const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry, const bool expectedArrival, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_ENTRY_EXIT_DETECTOR, name),
+    GNEAdditional(id, net, SUMO_TAG_ENTRY_EXIT_DETECTOR, fileBucket, name),
     GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
     myPeriod(freq),

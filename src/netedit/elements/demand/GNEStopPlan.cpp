@@ -35,15 +35,15 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(net, tag),
     GNEDemandElementPlan(this, -1, -1) {
 }
 
 
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                          const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType,
-                         bool friendlyPos, const int parameterSet) :
-    GNEDemandElement(personParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+                         const bool friendlyPos, const int parameterSet) :
+    GNEDemandElement(personParent, tag),
     GNEDemandElementPlan(this, -1, endPos),
     myDuration(duration),
     myUntil(until),

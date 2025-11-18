@@ -143,7 +143,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(net, tag),
     GNEDemandElementFlow(this),
     myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // enable set and persons per hour as default flow values
@@ -152,8 +152,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* pType,
+                     const SUMOVehicleParameter& personparameters) :
+    GNEDemandElement(personparameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, personparameters),
     myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // set parents

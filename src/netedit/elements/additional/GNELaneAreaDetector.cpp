@@ -38,11 +38,11 @@ GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double pos, const double length, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, const double pos, const double length, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const bool show, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges, detectPersons, name, parameters),
+    GNEDetector(id, net, fileBucket, SUMO_TAG_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges, detectPersons, name, parameters),
     myStartPosOverLane(pos),
     myEndPosPosOverLane(pos + length),
     myFriendlyPosition(friendlyPos),
@@ -57,11 +57,11 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, con
 }
 
 
-GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, const std::string& filename, std::vector<GNELane*> lanes, const double pos, const double endPos, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, std::vector<GNELane*> lanes, const double pos, const double endPos, const SUMOTime freq,
         const std::string& trafficLight, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos, const bool show,
         const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
+    GNEDetector(id, net, fileBucket, GNE_TAG_MULTI_LANE_AREA_DETECTOR, freq, outputFilename, vehicleTypes, nextEdges,
                 detectPersons, name, parameters),
     myStartPosOverLane(pos),
     myEndPosPosOverLane(endPos),

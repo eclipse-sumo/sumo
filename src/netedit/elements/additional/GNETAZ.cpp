@@ -44,15 +44,15 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 
 GNETAZ::GNETAZ(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_TAZ, ""),
+    GNEAdditional(net, SUMO_TAG_TAZ),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, ""),
 myMoveElementShape(new GNEMoveElementShape(this)) {
 }
 
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape, const Position& center, const bool fill,
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_TAZ, ""),
+    GNEAdditional(id, net, SUMO_TAG_TAZ, fileBucket, ""),
     TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, name, parameters),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, center, true)) {
     // update centering boundary without updating grid

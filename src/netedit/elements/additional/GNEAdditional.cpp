@@ -48,22 +48,25 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, const std::string& filename,
-                             SumoXMLTag tag, const std::string& additionalName) :
-    GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
-                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
-    GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
-    myAdditionalName(additionalName) {
+GNEAdditional::GNEAdditional(GNENet* net, SumoXMLTag tag) :
+    GNEAttributeCarrier(tag, net),
+    GUIGlObject(myTagProperty->getGLType(), "", GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT) {
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& additionalName) :
-    GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFilename(), false),
-    GUIGlObject(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), additionalParent->getID(),
-                GUIIconSubSys::getIcon(additionalParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, SumoXMLTag tag, FileBucket* fileBucket, const std::string& name) :
+    GNEAttributeCarrier(tag, net, fileBucket),
+    GUIGlObject(myTagProperty->getGLType(), id, GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT) {
+}
+
+
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& name) :
+    GNEAttributeCarrier(tag, additionalParent->getNet(), additionalParent->getFileBucket()),
+    GUIGlObject(myTagProperty->getGLType(), "", GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
-    myAdditionalName(additionalName) {
+    myAdditionalName(name) {
 }
 
 
@@ -88,15 +91,15 @@ GNEAdditional::getGUIGlObject() const {
 }
 
 
-const std::string&
-GNEAdditional::getFilename() const {
+FileBucket*
+GNEAdditional::getFileBucket() const {
     if (isTemplate()) {
         // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL).front()->getFilename();
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL).front();
     } else if (myTagProperty->saveInParentFile()) {
-        return getParentAdditionals().front()->getFilename();
+        return getParentAdditionals().front()->getFileBucket();
     } else {
-        return myFileBucket->getFilename();
+        return myFileBucket;
     }
 }
 

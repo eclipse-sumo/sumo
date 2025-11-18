@@ -52,8 +52,8 @@ public:
 
     /// @}
 
-    /// @brief get filename in which save this AC
-    const std::string& getFilename() const override;
+    /// @brief get reference to fileBucket in which save this AC
+    FileBucket* getFileBucket() const override;
 
     /// @name Function related with graphics
     /// @{

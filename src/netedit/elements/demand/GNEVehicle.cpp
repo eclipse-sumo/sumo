@@ -418,7 +418,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(net, tag),
     GNEDemandElementFlow(this),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -428,9 +428,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename,
+GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, FileBucket* fileBucket,
                        GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(vehicleID, net, tag, fileBucket),
     GNEDemandElementFlow(this),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -443,9 +443,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEDemandElement* route,
-                       const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* vehicleType,
+                       GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, vehicleParameters),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -458,8 +458,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* vehicleType,
+                       const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, vehicleParameters),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -474,9 +475,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType,
-                       GNEEdge* fromEdge, GNEEdge* toEdge) :
-    GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, FileBucket* fileBucket,
+                       GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge) :
+    GNEDemandElement(vehicleID, net, tag, fileBucket),
     GNEDemandElementFlow(this),
     myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
@@ -487,9 +488,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
-                       const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* vehicleType,
+                       GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, vehicleParameters),
     myMoveElementVehicle(new GNEMoveElementVehicle(this, fromEdge, toEdge)),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
@@ -500,8 +501,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
-    GNEDemandElement(vehicleID, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net, FileBucket* fileBucket,
+                       GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
+    GNEDemandElement(vehicleID, net, tag, fileBucket),
     GNEDemandElementFlow(this),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -511,8 +513,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, const std::string& vehicleID, GNENet* net
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* vehicleType,
+                       GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, vehicleParameters),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -522,8 +525,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename,
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* vehicleType,
+                       GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, vehicleParameters),
     myMoveElementView(new GNEMoveElementView(this, GNEMoveElementView::AttributesFormat::POSITION,
                       SUMO_ATTR_POSITION, myPosOverView)) {
@@ -1852,28 +1856,33 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
     // create vehicle using vehicleParameters
     if (originalVehicle->getTagProperty()->vehicleRoute()) {
         newRoute = new GNERoute(newRouteID, originalVehicle->getParentDemandElements().at(1));
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                    originalVehicle->getFileBucket(),
                                     originalVehicle->getParentDemandElements().at(0), newRoute,
                                     newVehicleParameters);
     } else if (originalVehicle->getTagProperty()->vehicleRouteEmbedded()) {
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                    originalVehicle->getFileBucket(),
                                     originalVehicle->getParentDemandElements().at(0),
                                     newVehicleParameters);
         newEmbeddedRoute = new GNERoute(newVehicle, originalVehicle->getChildDemandElements().front());
     } else if (originalVehicle->getTagProperty()->vehicleEdges()) {
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                    originalVehicle->getFileBucket(),
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentEdges().front(),
                                     originalVehicle->getParentEdges().back(),
                                     newVehicleParameters);
     } else if (originalVehicle->getTagProperty()->vehicleJunctions()) {
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                    originalVehicle->getFileBucket(),
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentJunctions().front(),
                                     originalVehicle->getParentJunctions().back(),
                                     newVehicleParameters);
     } else if (originalVehicle->getTagProperty()->vehicleTAZs()) {
-        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net, originalVehicle->getFilename(),
+        newVehicle = new GNEVehicle(originalVehicle->getTagProperty()->getTag(), net,
+                                    originalVehicle->getFileBucket(),
                                     originalVehicle->getParentDemandElements().at(0),
                                     originalVehicle->getParentAdditionals().front(),
                                     originalVehicle->getParentAdditionals().back(),

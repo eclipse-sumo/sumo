@@ -35,7 +35,7 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] edge edge in which this routeProbe is placed
      * @param[in] period The period in which to report the distribution
      * @oaran[in] name Route Probe Name
@@ -44,7 +44,7 @@ public:
      * @param[in] vTypes list of vehicle types to be affected
      * @param[in] parameters generic parameters
      */
-    GNERouteProbe(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, const SUMOTime period,
+    GNERouteProbe(const std::string& id, GNENet* net, FileBucket* fileBucket, GNEEdge* edge, const SUMOTime period,
                   const std::string& name, const std::string& outputFilename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
                   const Parameterised::Map& parameters);
 

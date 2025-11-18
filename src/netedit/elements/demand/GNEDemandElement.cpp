@@ -45,22 +45,30 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
-                                   SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
-    GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
-                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
-    GNEPathElement(pathOptions),
+
+GNEDemandElement::GNEDemandElement(GNENet* net, SumoXMLTag tag) :
+    GNEAttributeCarrier(tag, net),
+    GUIGlObject(myTagProperty->getGLType(), "", GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
+                   GNEPathElement::Options::DEMAND_ELEMENT),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag,
-                                   const GNEPathElement::Options pathOptions) :
-    GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
-    GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
-                GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
-    GNEPathElement(pathOptions),
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, SumoXMLTag tag, FileBucket* fileBucket) :
+    GNEAttributeCarrier(tag, net, fileBucket),
+    GUIGlObject(myTagProperty->getGLType(), id, GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
+                   GNEPathElement::Options::DEMAND_ELEMENT),
+    myStackedLabelNumber(0) {
+}
+
+
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag) :
+    GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFileBucket()),
+    GUIGlObject(myTagProperty->getGLType(), demandElementParent->getID(), GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
+                   GNEPathElement::Options::DEMAND_ELEMENT),
     myStackedLabelNumber(0) {
 }
 #ifdef _MSC_VER
@@ -88,15 +96,15 @@ GNEDemandElement::getGUIGlObject() const {
 }
 
 
-const
-std::string& GNEDemandElement::getFilename() const {
+FileBucket*
+GNEDemandElement::getFileBucket() const {
     if (isTemplate()) {
         // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND).front()->getFilename();
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND).front();
     } else if (myTagProperty->saveInParentFile()) {
-        return getParentDemandElements().front()->getFilename();
+        return getParentDemandElements().front()->getFileBucket();
     } else {
-        return myFileBucket->getFilename();
+        return myFileBucket;
     }
 }
 

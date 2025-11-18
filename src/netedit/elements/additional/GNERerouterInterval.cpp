@@ -28,12 +28,12 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_INTERVAL, ""),
+    GNEAdditional(net, SUMO_TAG_INTERVAL),
     GNEAdditionalListed(this) {
 }
 
 
-GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
+GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, const SUMOTime begin, const SUMOTime end) :
     GNEAdditional(rerouterParent, SUMO_TAG_INTERVAL, ""),
     GNEAdditionalListed(this),
     myBegin(begin),

@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_CLOSING_LANE_REROUTE, ""),
+    GNEAdditional(net, SUMO_TAG_CLOSING_LANE_REROUTE),
     GNEAdditionalListed(this),
     myClosedLane(nullptr),
     myPermissions(0) {

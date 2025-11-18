@@ -34,14 +34,14 @@ public:
 
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
      * @param[in] edge edge in which this vaporizer is placed
      * @param[in] from start time of vaporizer
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    GNEVaporizer(GNENet* net, const std::string& filename, GNEEdge* edge, SUMOTime from, SUMOTime end,
+    GNEVaporizer(GNENet* net, FileBucket* fileBucket, GNEEdge* edge, SUMOTime from, SUMOTime end,
                  const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor

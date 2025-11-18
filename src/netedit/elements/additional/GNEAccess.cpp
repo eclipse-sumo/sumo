@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ACCESS, ""),
+    GNEAdditional(net, SUMO_TAG_ACCESS),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
                             GNEMoveElementLaneSingle::PositionType::SINGLE)) {
 }
