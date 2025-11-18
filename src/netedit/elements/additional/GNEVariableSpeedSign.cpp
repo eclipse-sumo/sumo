@@ -32,15 +32,15 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_VSS, ""),
+    GNEAdditional(net, SUMO_TAG_VSS),
     GNEAdditionalSquared(this) {
 }
 
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const std::string& filename,
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, FileBucket* fileBucket,
         const Position& pos, const std::string& name, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_VSS, name),
+    GNEAdditional(id, net, SUMO_TAG_VSS, fileBucket, name),
     GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
     myVehicleTypes(vTypes) {

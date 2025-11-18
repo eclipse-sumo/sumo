@@ -46,7 +46,7 @@ public:
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
      * @param[in] shape TAZ shape
      * @param[in] center TAZ center
      * @param[in] fill flag for fill TAZ shape
@@ -54,7 +54,7 @@ public:
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
      */
-    GNETAZ(const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape, const Position& TAZ,
+    GNETAZ(const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape, const Position& TAZ,
            const bool fill, const RGBColor& color, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief GNETAZ Destructor

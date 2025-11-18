@@ -29,22 +29,21 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename) :
-    GNEAttributeCarrier(tag, net, filename, FileBucket::Type::AUTOMATIC, true),
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket) :
+    GNEAttributeCarrier(tag, net, fileBucket),
     myID(ID) {
     // reset default values
     resetDefaultValues(false);
 }
 
 
-GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file,
-                         FileBucket::Type bucketType, const std::string& type, const SUMOTime period, const SUMOTime begin,
-                         const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
-                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                         const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
-                         const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
-                         const double speedThreshold) :
-    GNEAttributeCarrier(tag, net, filename, bucketType, false),
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket, const std::string& file,
+                         const std::string& type, const SUMOTime period, const SUMOTime begin, const SUMOTime end,
+                         const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const bool aggregate,
+                         const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
+                         const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples,
+                         const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
+    GNEAttributeCarrier(tag, net, fileBucket),
     myID(ID),
     myFile(file),
     myType(type),
@@ -109,13 +108,13 @@ GNEMeanData::getGUIGlObject() const {
 }
 
 
-const std::string&
-GNEMeanData::getFilename() const {
+FileBucket*
+GNEMeanData::getFileBucket() const {
     if (isTemplate()) {
         // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA).front()->getFilename();
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA).front();
     } else {
-        return myFileBucket->getFilename();
+        return myFileBucket;
     }
 }
 

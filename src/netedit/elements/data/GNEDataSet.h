@@ -74,9 +74,9 @@ public:
     /**@brief Constructor
      * @param[in] net pointer to GNEViewNet of this data element element belongs
      * @param[in] dataSetID data set ID
-     * @param[in] filename file in which this dataSet is stored
+     * @param[in] fileBucket file in which this element is stored
      */
-    GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename);
+    GNEDataSet(const std::string& dataSetID, GNENet* net, FileBucket* fileBucket);
 
     /// @brief Destructor
     ~GNEDataSet();
@@ -104,8 +104,8 @@ public:
 
     /// @}
 
-    /// @brief get filename in which save this AC
-    const std::string& getFilename() const override;
+    /// @brief get reference to fileBucket in which save this AC
+    FileBucket* getFileBucket() const override;
 
     /// @brief update attribute colors deprecated
     void updateAttributeColors();

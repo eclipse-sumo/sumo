@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
-    GNEAdditional("", net, "", GNE_TAG_VSS_SYMBOL, "") {
+    GNEAdditional(net, GNE_TAG_VSS_SYMBOL) {
 }
 
 

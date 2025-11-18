@@ -105,8 +105,8 @@ GNEDataSet::AttributeColors::clear() {
 // GNEDataSet - methods
 // ---------------------------------------------------------------------------
 
-GNEDataSet::GNEDataSet(const std::string& dataSetID, GNENet* net, const std::string& filename) :
-    GNEAttributeCarrier(SUMO_TAG_DATASET, net, filename, FileBucket::Type::DATA, false),
+GNEDataSet::GNEDataSet(const std::string& dataSetID, GNENet* net, FileBucket* fileBucket) :
+    GNEAttributeCarrier(SUMO_TAG_DATASET, net, fileBucket),
     myDataSetID(dataSetID) {
 }
 
@@ -150,13 +150,13 @@ GNEDataSet::getGUIGlObject() const {
 }
 
 
-const std::string&
-GNEDataSet::getFilename() const {
+FileBucket*
+GNEDataSet::getFileBucket() const {
     if (isTemplate()) {
         // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA).front()->getFilename();
+        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA).front();
     } else {
-        return myFileBucket->getFilename();
+        return myFileBucket;
     }
 }
 

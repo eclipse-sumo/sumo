@@ -110,7 +110,8 @@ public:
     GNEPerson(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for persons
-    GNEPerson(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
+    GNEPerson(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket, GNEDemandElement* pType,
+              const SUMOVehicleParameter& personparameters);
 
     /// @brief destructor
     ~GNEPerson();

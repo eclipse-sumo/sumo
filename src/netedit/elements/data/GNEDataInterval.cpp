@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet(), dataSetParent->getFilename(), FileBucket::Type::DATA, false),
+    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet(), dataSetParent->getFileBucket()),
     myDataSetParent(dataSetParent),
     myBegin(begin),
     myEnd(end) {
@@ -192,9 +192,9 @@ GNEDataInterval::checkDrawMoveContour() const {
 }
 
 
-const std::string&
-GNEDataInterval::getFilename() const {
-    return myDataSetParent->getFilename();
+FileBucket*
+GNEDataInterval::getFileBucket() const {
+    return myDataSetParent->getFileBucket();
 }
 
 

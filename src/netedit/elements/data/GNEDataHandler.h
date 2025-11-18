@@ -37,10 +37,10 @@ class GNEDataHandler : public DataHandler {
 public:
     /**@brief Constructor
      * @param[in] net GNENet
-     * @param[in] file Name of the parsed file
+     * @param[in] bucket FileBucket in which place the element
      * @param[in] allowUndoRedo enable or disable undoRedo
      */
-    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEDataHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEDataHandler();

@@ -42,13 +42,13 @@ public:
     /**@brief Constructor
      * @param[in] id The name of the variable speed sign
      * @param[in] net net in which this polygon is placed
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] name VSS name
      * @param[in] parameters generic parameters
      * @param[in] vTypes list of vehicle types to be affected
      */
-    GNEVariableSpeedSign(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
+    GNEVariableSpeedSign(const std::string& id, GNENet* net, FileBucket* fileBucket, const Position& pos,
                          const std::string& name, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters);
 

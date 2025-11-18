@@ -35,7 +35,7 @@ public:
     /**@brief Constructor
      * @param[in] id containerStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -48,10 +48,10 @@ public:
      * @param[in] angle container stop angle
      * @param[in] parameters generic parameters
      */
-    GNEContainerStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
-                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
-                     const int containerCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
-                     const double angle, const Parameterised::Map& parameters);
+    GNEContainerStop(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane, const double startPos,
+                     const double endPos, const std::string& name, const std::vector<std::string>& lines, const int containerCapacity,
+                     const double parkingLength, const RGBColor& color, const bool friendlyPosition, const double angle,
+                     const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEContainerStop();

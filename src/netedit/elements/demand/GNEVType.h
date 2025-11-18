@@ -38,13 +38,13 @@ public:
     GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass);
 
     /// @brief constructor for standard vTypes
-    GNEVType(const std::string& vTypeID, GNENet* net, const std::string& filename);
+    GNEVType(const std::string& vTypeID, GNENet* net, FileBucket* fileBucket);
 
     /// @brief constructor called in calibrator dialogs
     GNEVType(const GNEAdditional* calibrator);
 
     /// @brief parameter constructor for standard vTypes
-    GNEVType(GNENet* net, const std::string& filename, const SUMOVTypeParameter& vTypeParameter);
+    GNEVType(GNENet* net, FileBucket* fileBucket, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief copy constructor
     GNEVType(const std::string& newVTypeID, GNENet* net, GNEVType* vTypeOriginal);

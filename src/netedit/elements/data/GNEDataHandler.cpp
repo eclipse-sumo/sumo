@@ -38,8 +38,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
-    DataHandler(file),
+GNEDataHandler::GNEDataHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo) :
+    DataHandler(fileBucket),
     myNet(net),
     myAllowUndoRedo(allowUndoRedo) {
 }
@@ -63,7 +63,7 @@ GNEDataHandler::buildDataSet(const std::string& id) {
     } else if (!checkDuplicatedDataSet(id)) {
         return false;
     } else {
-        GNEDataSet* dataSet = new GNEDataSet(id, myNet, myFilename);
+        GNEDataSet* dataSet = new GNEDataSet(id, myNet, myFileBucket);
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(dataSet, TL("add data set"));
             myNet->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
@@ -86,7 +86,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
     // first check if dataSet exist
     if (dataSet == nullptr) {
         // create dataset AND data interval
-        dataSet = new GNEDataSet(dataSetID, myNet, myFilename);
+        dataSet = new GNEDataSet(dataSetID, myNet, myFileBucket);
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(dataInterval, TL("add data set and data interval"));

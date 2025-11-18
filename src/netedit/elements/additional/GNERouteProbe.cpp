@@ -30,14 +30,14 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ROUTEPROBE, "") {
+    GNEAdditional(net, SUMO_TAG_ROUTEPROBE) {
 }
 
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, const std::string& filename, GNEEdge* edge, const SUMOTime period, const std::string& name,
+GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, FileBucket* fileBucket, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& outputFilename, SUMOTime begin, const std::vector<std::string>& vehicleTypes,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_ROUTEPROBE, name),
+    GNEAdditional(id, net, SUMO_TAG_ROUTEPROBE, fileBucket, name),
     Parameterised(parameters),
     myPeriod(period),
     myOutputFilename(outputFilename),

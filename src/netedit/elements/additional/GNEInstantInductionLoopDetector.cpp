@@ -38,10 +38,10 @@ GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
 }
 
 
-GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
         const double pos, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
         const std::string& detectPersons, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, filename, SUMO_TAG_INSTANT_INDUCTION_LOOP, 0, outputFilename,
+    GNEDetector(id, net, fileBucket, SUMO_TAG_INSTANT_INDUCTION_LOOP, 0, outputFilename,
                 vehicleTypes, nextEdges, detectPersons, name, parameters),
     myPosOverLane(pos),
     myFriendlyPos(friendlyPos),

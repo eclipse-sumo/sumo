@@ -47,7 +47,7 @@ class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNERouteHandler(GNENet* net, FileBucket* bucket, const bool allowUndoRedo);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();

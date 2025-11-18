@@ -35,17 +35,17 @@
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
-    GNEAdditional("", net, "", tag, ""),
+    GNEAdditional(net, tag),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
                             SUMO_ATTR_ENDPOS, myEndPosPosOverLane, myFriendlyPosition)) {
 }
 
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename,
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, FileBucket* fileBucket,
                                    SumoXMLTag tag, GNELane* lane, const double startPos, const double endPos,
                                    const std::string& name, bool friendlyPosition, const RGBColor& color,
                                    const double angle, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, tag, name),
+    GNEAdditional(id, net, tag, fileBucket, name),
     Parameterised(parameters),
     myStartPosOverLane(startPos),
     myEndPosPosOverLane(endPos),

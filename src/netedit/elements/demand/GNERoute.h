@@ -77,7 +77,7 @@ public:
     /**@brief parameter constructor for routes
      * @param[in] id route ID
      * @param[in] net net in which this Route is placed
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
      * @param[in] color route color
@@ -86,7 +86,7 @@ public:
      * @param[in] probability default probability for vType distributions
      * @param[in] parameters generic parameters
      */
-    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+    GNERoute(const std::string& id, GNENet* net, FileBucket* fileBucket, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
              const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes

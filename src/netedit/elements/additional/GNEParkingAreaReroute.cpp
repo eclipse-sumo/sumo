@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, "", SUMO_TAG_PARKING_AREA_REROUTE, ""),
+    GNEAdditional(net, SUMO_TAG_PARKING_AREA_REROUTE),
     GNEAdditionalListed(this) {
 }
 

@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, "", GNE_TAG_CALIBRATOR_FLOW, ""),
+    GNEAdditional(net, GNE_TAG_CALIBRATOR_FLOW),
     GNEAdditionalListed(this) {
     // set VPH and speed enabled
     toggleAttribute(SUMO_ATTR_VEHSPERHOUR, true);

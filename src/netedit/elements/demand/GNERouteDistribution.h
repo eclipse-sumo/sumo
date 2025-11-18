@@ -33,7 +33,7 @@ public:
     GNERouteDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNERouteDistribution(const std::string& ID, GNENet* net, const std::string& filename);
+    GNERouteDistribution(const std::string& ID, GNENet* net, FileBucket* fileBucket);
 
     /// @brief destructor
     ~GNERouteDistribution();

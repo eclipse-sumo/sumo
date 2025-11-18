@@ -38,7 +38,7 @@ public:
     /**@brief parameter constructor for bus stops
      * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -51,7 +51,7 @@ public:
      * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
-    static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+    static GNEBusStop* buildBusStop(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                                     const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                     const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
                                     const double angle, const Parameterised::Map& parameters);
@@ -59,7 +59,7 @@ public:
     /**@brief parameter constructor for train stops
      * @param[in] id trainStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -72,7 +72,7 @@ public:
      * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
-    static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+    static GNEBusStop* buildTrainStop(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                                       const double startPos, const double endPos, const std::string& name, const std::vector<std::string>& lines,
                                       const int personCapacity, const double parkingLength, const RGBColor& color, const bool friendlyPosition,
                                       const double angle, const Parameterised::Map& parameters);
@@ -155,7 +155,7 @@ private:
      * @param[in] tag busStop or trainStop tag
      * @param[in] id busStop ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -168,7 +168,7 @@ private:
      * @param[in] angle busStop's angle
      * @param[in] parameters generic parameters
      */
-    GNEBusStop(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename,
+    GNEBusStop(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket* fileBucket,
                GNELane* lane, const double startPos, const double endPos, const std::string& name,
                const std::vector<std::string>& lines, const int personCapacity, const double parkingLength,
                const RGBColor& color, const bool friendlyPosition, const double angle,

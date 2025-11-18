@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_ROUTE_PROB_REROUTE, ""),
+    GNEAdditional(net, SUMO_TAG_ROUTE_PROB_REROUTE),
     GNEAdditionalListed(this) {
 }
 

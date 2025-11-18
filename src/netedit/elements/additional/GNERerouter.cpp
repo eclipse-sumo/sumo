@@ -32,15 +32,15 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(GNENet* net) :
-    GNEAdditional("", net, "", SUMO_TAG_REROUTER, ""),
+    GNEAdditional(net, SUMO_TAG_REROUTER),
     GNEAdditionalSquared(this) {
 }
 
 
-GNERerouter::GNERerouter(const std::string& id, GNENet* net, const std::string& filename, const Position& pos, const std::string& name,
+GNERerouter::GNERerouter(const std::string& id, GNENet* net, FileBucket* fileBucket, const Position& pos, const std::string& name,
                          double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, SUMO_TAG_REROUTER, name),
+    GNEAdditional(id, net, SUMO_TAG_REROUTER, fileBucket, name),
     GNEAdditionalSquared(this, pos),
     Parameterised(parameters),
     myProbability(probability),

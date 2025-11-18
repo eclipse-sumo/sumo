@@ -52,19 +52,27 @@ const std::string GNEAttributeCarrier::FALSE_STR = toString(false);
 // method definitions
 // ===========================================================================
 
-GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename,
-        FileBucket::Type bucketType, const bool isTemplate) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
-    myIsTemplate(isTemplate) {
+    myIsTemplate(true),
+    myFileBucket(net->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::TEMPLATE).front()) {
     // register AC
-    myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename, bucketType);
+    //myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename, bucketType);
+}
+
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, FileBucket* fileBucket) :
+    myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
+    myNet(net),
+    myFileBucket(fileBucket) {
+    // register AC
+    //myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->registerAC(this, filename, bucketType);
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
     // unregister AC
-    myNet->getGNEApplicationWindow()->getSavingFilesHandler()->unregisterAC(this);
+    //myNet->getGNEApplicationWindow()->getSavingFilesHandler()->unregisterAC(this);
 }
 
 
@@ -77,12 +85,6 @@ GNEAttributeCarrier::getID() const {
 GNENet*
 GNEAttributeCarrier::getNet() const {
     return myNet;
-}
-
-
-FileBucket*
-GNEAttributeCarrier::getFileBucket() const {
-    return myFileBucket;
 }
 
 
@@ -825,7 +827,7 @@ GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            return getFilename();
+            return getFileBucket()->getFilename();
         case GNE_ATTR_CENTER_AFTER_CREATION:
             return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:

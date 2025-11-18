@@ -50,15 +50,18 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEAttributesEditorType;
 
 public:
+    /**@brief Constructor for templates
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
+     */
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net);
+
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
-     * @param[in] filename file in which this AttributeCarrier is stored
-     * @param[in] bucketType bucketType in which this AC will be stored (usually automatic)
-     * @param[in] isTemplate flag to mark this AttributeCarrier as template
+     * @param[in] fileBucket bucket in which this AttributeCarrier is stored
      */
-    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, const std::string& filename,
-                        FileBucket::Type bucketType, const const bool isTemplate);
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, FileBucket* fileBucket);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
@@ -92,11 +95,8 @@ public:
     /// @brief get pointer to net
     GNENet* getNet() const;
 
-    /// @brief get reference to fileBucket
-    FileBucket* getFileBucket() const;
-
-    /// @brief get filename in which save this AC
-    virtual const std::string& getFilename() const = 0;
+    /// @brief get reference to fileBucket in which save this AC
+    virtual FileBucket* getFileBucket() const = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;

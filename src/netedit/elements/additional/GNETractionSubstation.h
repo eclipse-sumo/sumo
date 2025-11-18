@@ -36,13 +36,13 @@ public:
     /**@brief Constructor
      * @param[in] id The name of the traction substation
      * @param[in] net net in which this polygon is placed
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] pos position (center) of the tractionSubstation in the map
      * @param[in] voltage tractionSubstation voltage
      * @param[in] currentLimit tractionSubstation currentLimit
      * @param[in] parameters generic parameters
      */
-    GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
+    GNETractionSubstation(const std::string& id, GNENet* net, FileBucket* fileBucket, const Position& pos,
                           const double voltage, const double currentLimit, const Parameterised::Map& parameters);
 
     /// @brief Destructor

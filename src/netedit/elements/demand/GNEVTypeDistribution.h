@@ -33,7 +33,8 @@ public:
     GNEVTypeDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNEVTypeDistribution(const std::string& ID, GNENet* net, const std::string& filename, const int deterministic);
+    GNEVTypeDistribution(const std::string& ID, GNENet* net, FileBucket* fileBucket,
+                         const int deterministic);
 
     /// @brief destructor
     ~GNEVTypeDistribution();

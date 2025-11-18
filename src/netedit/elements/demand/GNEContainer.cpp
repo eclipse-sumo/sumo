@@ -144,7 +144,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement(net, tag),
     GNEDemandElementFlow(this),
     myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // set end and container per hours as default flow values
@@ -153,8 +153,9 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, const std::string& filename, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
-    GNEDemandElement(containerparameters.id, net, filename, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, FileBucket* fileBucket,
+                           GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
+    GNEDemandElement(containerparameters.id, net, tag, fileBucket),
     GNEDemandElementFlow(this, containerparameters),
     myMoveElementPlanParent(new GNEMoveElementPlanParent(this, departPos, departPosProcedure)) {
     // set parents

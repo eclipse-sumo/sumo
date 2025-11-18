@@ -36,7 +36,7 @@ public:
     /**@brief Constructor of charging station
      * @param[in] id charging station ID
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] filename file in which this element is stored
+     * @param[in] fileBucket file in which this element is stored
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -51,7 +51,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane,
+    GNEChargingStation(const std::string& id, GNENet* net, FileBucket* fileBucket, GNELane* lane,
                        const double startPos, const double endPos, const std::string& name, const double chargingPower,
                        const double totalPower, const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay,
                        const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID,

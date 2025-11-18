@@ -31,16 +31,15 @@ class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /// @brief Default constructor
-    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename);
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket);
 
     /// @brief Parameter constructor
-    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file,
-                FileBucket::Type bucketType, const std::string& type, const SUMOTime period, const SUMOTime begin,
-                const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
-                const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
-                const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
-                const double speedThreshold);
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket, const std::string& file,
+                const std::string& type, const SUMOTime period, const SUMOTime begin, const SUMOTime end,
+                const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const bool aggregate,
+                const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
+                const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples,
+                const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -68,8 +67,8 @@ public:
 
     /// @}
 
-    /// @brief get filename in which save this AC
-    const std::string& getFilename() const override;
+    /// @brief get reference to fileBucket in which save this AC
+    FileBucket* getFileBucket() const override;
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element

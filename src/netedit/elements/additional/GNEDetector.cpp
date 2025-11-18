@@ -32,15 +32,15 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(GNENet* net, SumoXMLTag tag) :
-    GNEAdditional("", net, "", tag, "") {
+    GNEAdditional(net, tag) {
 }
 
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, SumoXMLTag tag,
                          const SUMOTime period, const std::string& outputFilename, const std::vector<std::string>& vehicleTypes,
                          const std::vector<std::string>& nextEdges, const std::string& detectPersons, const std::string& name,
                          const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, filename, tag, name),
+    GNEAdditional(id, net, tag, fileBucket, name),
     Parameterised(parameters),
     myPeriod(period),
     myOutputFilename(outputFilename),
