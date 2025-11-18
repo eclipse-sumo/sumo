@@ -17,13 +17,15 @@ REM Tries Visum Python, fallback to any Python with pywin32
 
 REM Scan Program Files for VISUM Python
 for /d %%d in ("C:\Program Files\PTV Vision\PTV Visum*" "C:\Program Files (x86)\PTV Vision\PTV Visum*") do (
-    if exist %%d\Exe\Python\python.exe (
-        set PYTHON_EXE=%%d\Exe\Python\python.exe
-        goto :found_python
-    )
-    if exist %%d\Exe\PythonModules\Scripts\python.exe (
-        set PYTHON_EXE=%%d\Exe\PythonModules\Scripts\python.exe
-        goto :found_python
+    for /d %%e in ("%%d\Exe\Python*") do (
+        if exist %%e\python.exe (
+            set PYTHON_EXE=%%e\python.exe
+            goto :found_python
+        )
+        if exist %%e\Scripts\python.exe (
+            set PYTHON_EXE=%%e\Scripts\python.exe
+            goto :found_python
+        )
     )
 )
 
@@ -53,4 +55,4 @@ exit /b 1
 
 
 :found_python
-"%PYTHON_EXE%" "%~dp0\visum_export.py" %*
+"%PYTHON_EXE%" "%~dp0\visum_export.py" %* > "%~dp0\visum_export.log" 2>&1
