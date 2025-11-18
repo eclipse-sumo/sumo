@@ -1,0 +1,10 @@
+<edges>
+    <edge id="39013713" from="260746748" to="2878682905" name="Manessestrasse" priority="12" type="highway.primary" numLanes="2" speed="7.08" shape="11838.48,12543.70 11833.45,12540.93 11826.77,12537.01 11807.85,12522.36" spreadType="roadCenter" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+        <lane index="0">
+            <param key="origId" value="39013713"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="39013713"/>
+        </lane>
+    </edge>
+</edges>
