@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-02T19:54:02.568802+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
+<!-- generated on 2025-11-18T16:33:45.095138+01:00 by Eclipse SUMO sumo v1_25_0+0086-b1f02afa5bd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="2.67" traveltime="281.13" overlapTraveltime="168.65" density="0.30" overlapDensity="0.71" laneDensity="0.30" occupancy="0.16" waitingTime="0.00" timeLoss="2.27" speed="1.50" speedRelative="0.11" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" flow="1.62"/>
+            <lane id="1si_2" sampledSeconds="2.67" traveltime="281.13" overlapTraveltime="168.65" density="0.30" overlapDensity="0.71" laneDensity="0.30" occupancy="0.16" waitingTime="0.00" timeLoss="2.27" speed="1.50" speedRelative="0.11" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" flow="0.96"/>
         </edge>
         <edge id="4o">
             <lane id="4o_0" sampledSeconds="13.87" traveltime="75.90" overlapTraveltime="76.36" density="1.85" overlapDensity="1.85" laneDensity="1.85" occupancy="0.52" waitingTime="0.00" timeLoss="4.73" speed="6.59" speedRelative="0.59" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0" flow="43.87"/>

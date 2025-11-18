@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-02T19:54:04.439034+01:00 by Eclipse SUMO sumo v1_24_0+1715-28a54f8871d
+<!-- generated on 2025-11-18T16:33:47.643617+01:00 by Eclipse SUMO sumo v1_25_0+0086-b1f02afa5bd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="300.00" id="expect10vehs">
-        <edge id="beg" sampledSeconds="2674.29" traveltime="23.38" overlapTraveltime="23.57" density="17.70" overlapDensity="17.83" laneDensity="17.70" occupancy="8.88" waitingTime="0.00" timeLoss="612.86" speed="21.43" speedRelative="0.77" departed="120" arrived="0" entered="0" left="111" laneChangedFrom="0" laneChangedTo="0" flow="1365.12"/>
+        <edge id="beg" sampledSeconds="2674.29" traveltime="23.38" overlapTraveltime="23.57" density="17.70" overlapDensity="17.83" laneDensity="17.70" occupancy="8.88" waitingTime="0.00" timeLoss="612.86" speed="21.43" speedRelative="0.77" departed="120" arrived="0" entered="0" left="111" laneChangedFrom="0" laneChangedTo="0" flow="1362.07"/>
         <edge id="end" sampledSeconds="401.51" traveltime="39.03" overlapTraveltime="39.21" density="1.23" overlapDensity="1.23" laneDensity="1.23" occupancy="0.61" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="0" arrived="10" entered="60" left="50" laneChangedFrom="0" laneChangedTo="0" vaporized="50" flow="122.92"/>
         <edge id="middle" sampledSeconds="60.41" traveltime="0.54" overlapTraveltime="0.72" density="11.03" overlapDensity="13.42" laneDensity="11.03" occupancy="5.00" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="0" arrived="0" entered="111" left="111" laneChangedFrom="0" laneChangedTo="0" vaporized="51" flow="1103.52"/>
     </interval>
