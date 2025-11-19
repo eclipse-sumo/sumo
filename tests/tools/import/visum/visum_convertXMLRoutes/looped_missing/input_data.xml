@@ -8,10 +8,12 @@
 		<ROUTES>
 			<ROUTE FROMZONENO="120" TOZONENO="835" INDEX="1">
 				<ITEMS>
-					<ITEM NODE="J28"/>
-					<ITEM NODE="J26"/>
-					<ITEM NODE="J18 E24A"/>
-					<ITEM NODE="J1"/>
+					<ITEM NODE="J0"/>
+					<ITEM NODE="J12"/>
+					<ITEM NODE="J17x"/>
+					<ITEM NODE="J25x"/>
+					<ITEM NODE="J12"/>
+					<ITEM NODE="J0"/>
 				</ITEMS>
 				<DEMANDS>
 					<DEMAND VTI="1" VOLUME="1.0"/>

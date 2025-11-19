@@ -1,5 +1,9 @@
 basic
 repair
 
-# test nodes that consist of "<NODEID> <PREFIX><EDGEID>"
+# test nodes that consist of "<NODEID> <EDGEID><DIRECTION_SUFFIX>"
 complexNode
+looped_missing
+
+# Copy of basic
+vclass

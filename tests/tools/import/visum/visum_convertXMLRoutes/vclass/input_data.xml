@@ -10,11 +10,10 @@
 				<ITEMS>
 					<ITEM NODE="J28"/>
 					<ITEM NODE="J26"/>
-					<ITEM NODE="J18 E24A"/>
-					<ITEM NODE="J1"/>
+					<ITEM NODE="J18"/>
 				</ITEMS>
 				<DEMANDS>
-					<DEMAND VTI="1" VOLUME="1.0"/>
+					<DEMAND VTI="1" VOLUME="0.268"/>
 				</DEMANDS>
 			</ROUTE>
 		</ROUTES>
