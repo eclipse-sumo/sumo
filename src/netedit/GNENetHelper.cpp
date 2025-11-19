@@ -1588,7 +1588,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEDemandElement* demandE
 void
 GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // get default bucket
-    auto bucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::DEMAND);
+    auto bucket = myNet->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::DEMAND);
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultVehicleType = new GNEVType(DEFAULT_VTYPE_ID, myNet, bucket, SVC_PASSENGER);
     myDemandElements.at(defaultVehicleType->getTagProperty()->getTag()).insert(std::make_pair(defaultVehicleType->getGUIGlObject(), defaultVehicleType));

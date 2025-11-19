@@ -83,8 +83,8 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
-    /// @brief get saving files handler
-    GNEApplicationWindowHelper::SavingFilesHandler* getSavingFilesHandler() const;
+    /// @brief get file bucket handler
+    GNEApplicationWindowHelper::FileBucketHandler* getFileBucketHandler() const;
 
     /// @name functions related with external runner
     /// @{
@@ -821,7 +821,7 @@ private:
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;
 
     /// @brief saving files handler
-    GNEApplicationWindowHelper::SavingFilesHandler* mySavingFilesHandler = nullptr;
+    GNEApplicationWindowHelper::FileBucketHandler* myFileBucketHandler = nullptr;
 
     /// @brief pointer to current view net
     GNEViewNet* myViewNet = nullptr;

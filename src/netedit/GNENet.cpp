@@ -1395,7 +1395,7 @@ GNENet::saveNetwork() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
-    neteditOptions.set("output-file", myApplicationWindow->getSavingFilesHandler()->getDefaultFilename(FileBucket::Type::NETWORK));
+    neteditOptions.set("output-file", myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::NETWORK));
     // compute without volatile options and update network
     computeAndUpdate(neteditOptions, false);
     // clear typeContainer
@@ -1492,7 +1492,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (volatileOptions) {
-        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
+        for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
             if (bucket->getFilename().size() > 0) {
                 // Create general handler
                 GNEGeneralHandler generalHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
@@ -1507,7 +1507,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load demand elements if was recomputed with volatile options
     if (volatileOptions) {
-        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
+        for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
             if (bucket->getFilename().size() > 0) {
                 // Create general handler
                 GNEGeneralHandler generalHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
@@ -1522,7 +1522,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load datas if was recomputed with volatile options
     if (volatileOptions) {
-        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA)) {
+        for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DATA)) {
             if (bucket->getFilename().size() > 0) {
                 // Create general handler
                 GNEGeneralHandler generalHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
@@ -1537,7 +1537,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // load meanDatas if was recomputed with volatile options
     if (volatileOptions) {
-        for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
+        for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
             if (bucket->getFilename().size() > 0) {
                 // Create general handler
                 GNEGeneralHandler generalHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
@@ -2242,7 +2242,7 @@ GNENet::saveAdditionals() {
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
+    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
         // open file
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // open header
@@ -2308,7 +2308,7 @@ GNENet::saveDemandElements() {
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
+    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
         // open file
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // open header
@@ -2333,7 +2333,7 @@ GNENet::saveDataElements() {
     // Start saving data elements
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA)) {
+    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DATA)) {
         // open file
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // write header
@@ -2393,7 +2393,7 @@ GNENet::saveMeanDatas() {
     // Start saving additionals
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
-    for (const auto& bucket : myApplicationWindow->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
+    for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
         // open file
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // open header

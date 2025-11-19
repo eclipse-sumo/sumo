@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag) :
-    GNEAttributeCarrier(tag, net, net->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::NETWORK)),
+    GNEAttributeCarrier(tag, net, net->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::NETWORK)),
     GUIGlObject(myTagProperty->getGLType(), id,
                 GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     myShapeEdited(false) {

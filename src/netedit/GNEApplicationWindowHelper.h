@@ -1149,15 +1149,15 @@ struct GNEApplicationWindowHelper {
         GNENeteditConfigHandler& operator=(const GNENeteditConfigHandler&) = delete;
     };
 
-    /// @brief modul for handling saving files
-    class SavingFilesHandler {
+    /// @brief modul for handling file buckets
+    class FileBucketHandler {
 
     public:
         /// @brief constructor
-        SavingFilesHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions);
+        FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions);
 
         /// @brief destructor
-        ~SavingFilesHandler();
+        ~FileBucketHandler();
 
         /// @brief update filename vinculated with this AC
         FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
@@ -1219,12 +1219,11 @@ struct GNEApplicationWindowHelper {
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
 
         /// @brief Invalidated copy constructor.
-        SavingFilesHandler(const SavingFilesHandler&) = delete;
+        FileBucketHandler(const FileBucketHandler&) = delete;
 
         /// @brief Invalidated assignment operator.
-        SavingFilesHandler& operator=(const SavingFilesHandler&) = delete;
+        FileBucketHandler& operator=(const FileBucketHandler&) = delete;
     };
-
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
