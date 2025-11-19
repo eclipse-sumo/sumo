@@ -59,15 +59,154 @@ def append_no_duplicate(edges, e):
 
 
 @cache
-def repair(net, prevEdge, edge):
-    path, cost = net.getShortestPath(prevEdge, edge)
-    if path:
-        path = [pe.getID() for pe in path]
-        print("Repaired path %s, cost %s" % (path, cost), file=sys.stderr)
-        return path
-    else:
-        print("Found no path from %s to %s" % (prevEdge.getID(), edge.getID()), sys.stderr)
-        return None
+def repairEdgeEdge(net, prevEdge, edge, vClass):
+    if edge in prevEdge.getAllowedOutgoing(vClass):
+        return [prevEdge, edge], None
+    return net.getFastestPath(prevEdge, edge, vClass=vClass)
+
+@cache
+def repairEdgeNode(net, prevEdge, node, vClass):
+    bestPath = None
+    bestCost = 1e400
+    for edge in node.getIncoming():
+        path, cost = net.getFastestPath(prevEdge, edge, vClass=vClass)
+        if path and cost < bestCost:
+            bestPath = path
+            bestCost = cost
+    return bestPath, bestCost
+
+@cache
+def repairNodeNode(net, prevNode, node, vClass):
+    bestPath = None
+    bestCost = 1e400
+    for prevEdge in prevNode.getOutgoing():
+        for edge in node.getIncoming():
+            path, cost = net.getFastestPath(prevEdge, edge, vClass=vClass)
+            if path and cost < bestCost:
+                bestPath = path
+                bestCost = cost
+    return bestPath, bestCost
+
+
+@cache
+def repairNodeEdge(net, prevNode, edge, vClass):
+    bestPath = None
+    bestCost = 1e400
+    for prevEdge in prevNode.getOutgoing():
+        path, cost = net.getFastestPath(prevEdge, edge, vClass=vClass)
+        if path and cost < bestCost:
+            bestPath = path
+            bestCost = cost
+    return bestPath, bestCost
+
+
+def getValidNodes(net, nodes):
+    """obtain a stream of nodes that exist in the network"""
+    for nodeID in nodes:
+        if ' ' in nodeID:
+            nodeID, id2 = nodeID.split()
+            if id2[-1] == 'B':
+                continue
+            elif id2[-1] == 'A':
+                if net.hasNode(nodeID):
+                    yield net.getNode(nodeID)
+                edgeID = id2[:-1]
+                if net.hasEdge(edgeID):
+                    yield net.getEdge(edgeID).getToNode()
+            else:
+                if net.hasNode(nodeID):
+                    yield net.getNode(nodeID)
+                if net.hasNode(id2):
+                    yield net.getNode(id2)
+        else:
+            if net.hasNode(nodeID):
+                yield net.getNode(nodeID)
+
+
+def getValidEdgesNodes(edgedict, validNodes):
+    """obtain stream of edges intermixed with nodes that could not be assigned to edges"""
+    singleNodes = []
+    for node in validNodes:
+        if singleNodes:
+            e = edgedict.get((singleNodes[-1], node))
+            if e is not None:
+                singleNodes.pop()
+                yield singleNodes, e
+                singleNodes = []
+            else:
+                singleNodes.append(node)
+        else:
+            singleNodes.append(node)
+    if singleNodes:
+        yield singleNodes, None
+
+
+MSG_CACHE = set()
+def msgOnce(msg, key, file):
+    if key not in MSG_CACHE:
+        print(msg, file=file)
+        MSG_CACHE.add(key)
+
+
+def getConnectedEdges(net, validEdgesNodes, vClass, routeID):
+    """obtain a sequence of connected edges"""
+    result = []
+    lastEdge = None
+    lastNode = None
+    msgSuccess = "Route %s:" % routeID + " Repaired path between %s, length %s, cost %s"
+    msgFail = "Route %s:" % routeID + " Found no path between %s"
+    for singleNodes, edge in validEdgesNodes:
+        for n in singleNodes:
+            if lastEdge:
+                path, cost = repairEdgeNode(net, lastEdge, n, vClass)
+                between = "edge %s and node %s" % (lastEdge.getID(), n.getID())
+                if path:
+                    if len(path) > 2:
+                        msgOnce(msgSuccess % (between, len(path), cost), between, sys.stderr)
+                    result += path[1:]
+                    lastEdge = path[-1]
+                else:
+                    print(msgFail % between, file=sys.stderr)
+                    return None
+            elif lastNode:
+                path, cost = repairNodeNode(net, lastNode, n, vClass)
+                between = "node %s and node %s" % (lastNode.getID(), n.getID())
+                if path:
+                    msgOnce(msgSuccess % (between, len(path), cost), between, sys.stderr)
+                    result += path
+                    lastEdge = path[-1]
+                else:
+                    print(msgFail % between, file=sys.stderr)
+                    return None
+            else:
+                lastNode = n
+        if edge is not None:
+            if lastEdge:
+                path, cost = repairEdgeEdge(net, lastEdge, edge, vClass)
+                between = "edge %s and edge %s" % (lastEdge.getID(), edge.getID())
+                if path:
+                    if len(path) > 2:
+                        msgOnce(msgSuccess % (between, len(path), cost), between, sys.stderr)
+                    result += path[1:]
+                    lastEdge = path[-1]
+                else:
+                    print(msgFail % between, file=sys.stderr)
+                    return None
+            elif lastNode:
+                path, cost = repairNodeEdge(net, lastNode, edge, vClass)
+                between = "node %s and edge %s" % (lastNode.getID(), edge.getID())
+                if path:
+                    msgOnce(msgSuccess % (between, len(path), cost), between, sys.stderr)
+                    result += path
+                    lastEdge = path[-1]
+                else:
+                    print(msgFail % between, file=sys.stderr)
+                    return None
+            else:
+                result.append(edge)
+                lastEdge = edge
+
+    return result
 
 
 def main(options):
@@ -80,13 +219,14 @@ def main(options):
     net = sumolib.net.readNet(options.netfile)
     allowed = set()
     if options.vclass:
+        allowed.add(None)
         for e in net.getEdges():
             if e.allows(options.vclass):
-                allowed.add(e.getID())
+                allowed.add(e)
 
     edgedict = {}  # (from,to) -> edge
     for e in net.getEdges():
-        edgedict[e.getFromNode().getID(), e.getToNode().getID()] = e.getID()
+        edgedict[e.getFromNode(), e.getToNode()] = e
 
     with openz(options.outfile, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "routes", options=options)
@@ -100,47 +240,19 @@ def main(options):
                 'DEMAND': ['VTI', 'VOLUME']}
         for route in sumolib.xml.parse_fast_structured(options.routefile, 'ROUTE', ['INDEX'], nested):
             nodes = [i.NODE for i in route.ITEM]
-            if len(nodes) < 2:
+            validNodes = list(getValidNodes(net, nodes))
+            if len(validNodes) < 2:
                 nSkipped += 1
                 continue
-            edges = []
-            prev = None
-            for n in nodes:
-                if prev is not None:
-                    e = edgedict.get((prev, n))
-                    if e is None and ' ' in n:
-                        _, ex = n.split()
-                        if ex[-1] == 'A':
-                            e = ex[:-1]
-                            if not net.hasEdge(e):
-                                e = None
-                    if e is not None:
-                        if edges:
-                            prevEdge = net.getEdge(edges[-1])
-                            edge = net.getEdge(e)
-                            if (prevEdge.getToNode() == edge.getFromNode()
-                                    and prevEdge.getAllowedOutgoing(options.vclass).get(edge)):
-                                append_no_duplicate(edges, e)
-                            else:
-                                path = repair(net, prevEdge, edge)
-                                if path:
-                                    edges += path[1:]
-                                else:
-                                    # avoid invalid routes
-                                    edges = []
-                                    break
-                        else:
-                            edges.append(e)
-                prev = n
-
+            validEdgesNodes = list(getValidEdgesNodes(edgedict, validNodes))
+            if options.vclass:
+                if any([e not in allowed for s, e in validEdgesNodes]):
+                    nDisallowed += 1
+                    continue
+            edges = getConnectedEdges(net, validEdgesNodes, options.vclass, route.INDEX)
             if not edges:
                 nBroken += 1
                 continue
-
-            if options.vclass:
-                if any([e not in allowed for e in edges]):
-                    nDisallowed += 1
-                    continue
 
             totalVolume = 0
             for demand in route.DEMAND:
@@ -149,7 +261,9 @@ def main(options):
                 nZeroRoutes += 1
                 continue
 
-            fout.write('    <route id="%s" edges="%s"/>\n' % (route.INDEX, ' '.join(edges)))
+            edgeIDs = [e.getID() for e in edges]
+
+            fout.write('    <route id="%s" edges="%s"/>\n' % (route.INDEX, ' '.join(edgeIDs)))
             for demand in route.DEMAND:
                 flowID = "%s_%s" % (route.INDEX, demand.VTI)
                 vtype, begin, end = vTypes[demand.VTI]
