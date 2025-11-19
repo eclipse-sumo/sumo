@@ -30,6 +30,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 from sumolib.miscutils import openz  # noqa
 
+
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Import VISUM route file")
     # input
@@ -42,7 +43,7 @@ def get_options(args=None):
                     help="define the output route file")
     # processing
     op.add_argument("--scale", metavar="FLOAT", type=float, default=1,
-                    help="Scale volume by the given value (i.e. 24 when volume denotes hourly rather than daily traffic)")
+                    help="Scale volume by the given value (i.e. 24 when volume denotes hourly rather than daily traffic)")  # noqa
     op.add_argument("--vclass", help="Only include routes for the given vclass")
     op.add_argument("-a", "--attributes", default="",
                     help="additional flow attributes.")
@@ -89,7 +90,8 @@ def main(options):
 
     with openz(options.outfile, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "routes", options=options)
-        for vtype in sumolib.xml.parse_fast(options.routefile, 'VEHTYPETI', ['INDEX', 'FROMTIME', 'TOTIME', 'VEHTYPEID']):
+        for vtype in sumolib.xml.parse_fast(options.routefile, 'VEHTYPETI',
+                ['INDEX', 'FROMTIME', 'TOTIME', 'VEHTYPEID']):
             vTypes[vtype.INDEX] = (vtype.VEHTYPEID, vtype.FROMTIME, vtype.TOTIME)
             fout.write('    <vType id="%s"/>\n' % vtype.VEHTYPEID)
 
@@ -134,7 +136,7 @@ def main(options):
             if not edges:
                 nBroken += 1
                 continue
-                                
+
             if options.vclass:
                 if any([e not in allowed for e in edges]):
                     nDisallowed += 1
@@ -174,6 +176,7 @@ def main(options):
         if nDisallowed > 0:
             print("Warning: Ignored %s routes because they have edges that are not allowed for %s " % (
                 nDisallowed, options.vclass))
+
 
 if __name__ == "__main__":
     main(get_options())
