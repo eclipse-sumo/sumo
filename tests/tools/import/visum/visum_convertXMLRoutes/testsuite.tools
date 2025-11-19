@@ -1,0 +1,5 @@
+basic
+repair
+
+# test nodes that consist of "<NODEID> <PREFIX><EDGEID>"
+complexNode

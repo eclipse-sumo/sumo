@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-19 08:53:57.360570 by Eclipse SUMO visum_convertXMLRoutes.py v1_25_0+0090-063586976d9
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-file value="input_data.xml"/>
+    <output-trip-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="200"/>
+    <vType id="300"/>
+    <route id="1" edges="E38"/>
+    <flow id="1_1" route="1" type="200" begin="09:00:00" end="12:00:00" period="exp(1.1574074074074073e-05)"/>
+</routes>
