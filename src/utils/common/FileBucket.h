@@ -31,17 +31,16 @@ class FileBucket {
 
 public:
     /// @brief Files that this bucket can save
-    enum class Type : std::uint64_t {
-        SUMOCONFIG =    1ULL << 0,    // Bucket for sumo configs (usually only one)
-        NETEDITCONFIG = 1ULL << 1,    // Bucket for netedit configs (usually only one)
-        NETWORK =       1ULL << 2,    // Bucket for network elements (usually only one)
-        DEMAND =        1ULL << 3,    // Bucket for demand elements
-        MEANDATA =      1ULL << 4,    // Bucket for meanData elements
-        ADDITIONAL =    1ULL << 5,    // Bucket for additional elements (always after demand and meanData)
-        DATA =          1ULL << 6,    // Bucket for data elements
-        AUTOMATIC =     1ULL << 7,    // Element choose automatic the bucket
-        TEMPLATE =      1ULL << 8,    // Element is a template
-        NOTHING =       1ULL << 9,    // Element is not saved in bucket
+    enum class Type : int {
+        SUMOCONFIG =    1 << 0, // Bucket for sumo configs (usually only one)
+        NETEDITCONFIG = 1 << 1, // Bucket for netedit configs (usually only one)
+        NETWORK =       1 << 2, // Bucket for network elements (usually only one)
+        DEMAND =        1 << 3, // Bucket for demand elements
+        MEANDATA =      1 << 4, // Bucket for meanData elements
+        ADDITIONAL =    1 << 5, // Bucket for additional elements (always after demand and meanData)
+        DATA =          1 << 6, // Bucket for data elements
+        AUTOMATIC =     1 << 7, // Element choose automatic the bucket
+        NOTHING =       1 << 8, // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket
@@ -105,12 +104,12 @@ private:
     FileBucket& operator=(const FileBucket& src) = delete;
 };
 
-/// @brief override tag parent bit operator
+/// @brief override type bit operator
 constexpr FileBucket::Type operator|(FileBucket::Type a, FileBucket::Type b) {
-    return static_cast<FileBucket::Type>(static_cast<std::uint64_t>(a) | static_cast<std::uint64_t>(b));
+    return static_cast<FileBucket::Type>(static_cast<int>(a) | static_cast<int>(b));
 }
 
-/// @brief override tag parent bit operator
+/// @brief override type bit operator
 constexpr bool operator&(FileBucket::Type a, FileBucket::Type b) {
-    return (static_cast<std::uint64_t>(a) & static_cast<std::uint64_t>(b)) != 0;
+    return (static_cast<int>(a) & static_cast<int>(b)) != 0;
 }

@@ -41,8 +41,8 @@ GNEVType::GNEVType(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, SUMO_TAG_VTYPE, ""),
+GNEVType::GNEVType(const std::string& vTypeID, GNENet* net, FileBucket* fileBucket, const SUMOVehicleClass& defaultVClass) :
+    GNEDemandElement(vTypeID, net, SUMO_TAG_VTYPE, fileBucket),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {

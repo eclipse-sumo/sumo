@@ -23,6 +23,12 @@
 #include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class FileBucket;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -30,9 +36,9 @@ class GeneralHandler : public SUMOSAXHandler {
 
 public:
     /**@brief Constructor
-     * @param[in] file Name of the parsed file
+     * @param[in] bucket FileBucket in which place the element
      */
-    GeneralHandler(const std::string& file);
+    GeneralHandler(FileBucket* fileBucket);
 
     /// @brief Destructor
     ~GeneralHandler();

@@ -131,8 +131,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myWireAttributesEditor->checkAttributes(true)) {
                 // declare additional handler
-                GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                                       myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(tagProperty->getTag())->getFileBucket(),
                                                        myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
                 // build additional
                 additionalHandler.parseSumoBaseObject(myBaseWire);
@@ -248,8 +247,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties* tagProperty) {
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseWire->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                               myBaseWire->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(tagProperty->getTag())->getFileBucket(),
                                                myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // build wire
         additionalHandler.parseSumoBaseObject(myBaseWire);

@@ -93,10 +93,7 @@ GNEAdditional::getGUIGlObject() const {
 
 FileBucket*
 GNEAdditional::getFileBucket() const {
-    if (isTemplate()) {
-        // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL).front();
-    } else if (myTagProperty->saveInParentFile()) {
+    if (myTagProperty->saveInParentFile()) {
         return getParentAdditionals().front()->getFileBucket();
     } else {
         return myFileBucket;

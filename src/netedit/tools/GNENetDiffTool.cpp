@@ -152,17 +152,19 @@ GNENetDiffTool::loadShapes(const std::string& file) {
     auto undoList = myApplicationWindow->getUndoList();
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
+    // get (or create) bucket for this new file
+    auto bucket = myApplicationWindow->getSavingFilesHandler()->getBucket(FileBucket::Type::ADDITIONAL, file, true);
     // Create additional handler
-    GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, myApplicationWindow->isUndoRedoAllowed());
+    GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), bucket, myApplicationWindow->isUndoRedoAllowed());
     // begin undoList operation
     undoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load shapes from '") + file + "'");
     // Run parser
     if (!generalHandler.parse()) {
         // write error
-        WRITE_ERROR(TL("Loading of shape file failed: ") + file);
+        WRITE_ERROR(TLF("Loading of shape file '%' failed", file));
     } else {
         // write info
-        WRITE_MESSAGE(TL("Loading of shape file successfully: ") + file);
+        WRITE_MESSAGE(TLF("Loading of shape file '%' successfully", file));
     }
     // end undoList operation
     undoList->end();

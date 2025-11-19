@@ -197,8 +197,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             // declare additional handler
             GNEAdditionalHandler additionalHandler(myShapeFrameParent->myViewNet->getNet(),
-                                                   myShapeFrameParent->myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                                   myShapeFrameParent->myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                                   myShapeFrameParent->myViewNet->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_POIGEO)->getFileBucket(),
                                                    myShapeFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // build shape
             additionalHandler.parseSumoBaseObject(myShapeFrameParent->myBaseShape);
@@ -346,8 +345,7 @@ GNEShapeFrame::shapeDrawed() {
         }
         myBaseShape->addPositionVectorAttribute(SUMO_ATTR_SHAPE, temporalShape);
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
-                                               myBaseShape->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(shapeTag)->getFileBucket(),
                                                myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // build shape
         additionalHandler.parseSumoBaseObject(myBaseShape);
@@ -421,8 +419,7 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(POITag)->getFileBucket(),
                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build shape
     additionalHandler.parseSumoBaseObject(myBaseShape);
@@ -452,8 +449,7 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_POIGEO)->getFileBucket(),
                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build shape
     additionalHandler.parseSumoBaseObject(myBaseShape);
@@ -486,8 +482,7 @@ GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector&
                                         myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) /
                                     viewObjects.getLaneFront()->getLengthGeometryFactor());
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(GNE_TAG_POILANE)->getFileBucket(),
                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build shape
     additionalHandler.parseSumoBaseObject(myBaseShape);

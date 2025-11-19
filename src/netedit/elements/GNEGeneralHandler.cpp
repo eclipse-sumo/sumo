@@ -26,11 +26,11 @@
 // method definitions
 // ===========================================================================
 
-GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
-    GeneralHandler(file),
-    myAdditionalHandler(net, file, allowUndoRedo),
-    myDemandHandler(net, file, allowUndoRedo),
-    myMeanDataHandler(net, file, allowUndoRedo) {
+GNEGeneralHandler::GNEGeneralHandler(GNENet* net, FileBucket* fileBucket, const bool allowUndoRedo) :
+    GeneralHandler(fileBucket),
+    myAdditionalHandler(net, fileBucket, allowUndoRedo),
+    myDemandHandler(net, fileBucket, allowUndoRedo),
+    myMeanDataHandler(net, fileBucket, allowUndoRedo) {
 }
 
 

@@ -108,12 +108,14 @@ GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXS
     auto undoList = myFrameParent->getViewNet()->getUndoList();
     // obtain a new valid ID
     const auto distributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionTag);
+    // get bucket
+    auto bucket = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myDistributionTag)->getFileBucket();
     // create new distribution
     GNEDemandElement* distribution = nullptr;
     if (myDistributionTag == SUMO_TAG_VTYPE_DISTRIBUTION) {
-        distribution = new GNEVTypeDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME, -1);
+        distribution = new GNEVTypeDistribution(distributionID, myFrameParent->getViewNet()->getNet(), bucket, -1);
     } else if (myDistributionTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
-        distribution = new GNERouteDistribution(distributionID, myFrameParent->getViewNet()->getNet(), TEMPORAL_FILENAME);
+        distribution = new GNERouteDistribution(distributionID, myFrameParent->getViewNet()->getNet(), bucket);
     } else {
         throw ProcessError("Invalid distribution");
     }

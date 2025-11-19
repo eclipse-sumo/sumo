@@ -2353,23 +2353,52 @@ GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& 
 
 GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
     // delete buckets
-    for (auto& bucketVector : myBuckets) {
-        for (auto& bucket : bucketVector.second) {
+    for (auto& bucketMap : myBuckets) {
+        for (auto& bucket : bucketMap.second) {
             delete bucket;
         }
     }
 }
 
 
+FileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::getDefaultBucket(const FileBucket::Type type) const {
+    return myBuckets.at(type).front();
+}
+
+
+FileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
+    // iterate over all buckets to check if the given filename already exist
+    for (auto& bucketMap : myBuckets) {
+        for (auto& bucket : bucketMap.second) {
+            if (bucket->getFilename() == filename && bucket->getType() == type) {
+                return bucket;
+            }
+        }
+    }
+    // on this point, we need to check if create a new bucket
+    if (create) {
+        auto bucket = new FileBucket(type, filename);
+        myBuckets.at(type).push_back(bucket);
+        // update filename in options because we have a new bucket
+        updateOptions();
+        return bucket;
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::vector<FileBucket*>&
-GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(FileBucket::Type file) const {
-    return myBuckets.at(file);
+GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(const FileBucket::Type type) const {
+    return myBuckets.at(type);
 }
 
 
 FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename,
-        FileBucket::Type bucketType) {
+        const FileBucket::Type type) {
     // check file properties
     if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
@@ -2377,9 +2406,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
     } else if (AC->getTagProperty()->isNetworkElement()) {
         // network elements are saved in a single file
         return myBuckets.at(FileBucket::Type::NETWORK).front();
-    } else if (bucketType != FileBucket::Type::AUTOMATIC) {
+    } else if (type != FileBucket::Type::AUTOMATIC) {
         // force to register in an specific bucket
-        auto defaultBucket = myBuckets.at(bucketType).front();
+        auto defaultBucket = myBuckets.at(type).front();
         // now check if update name of first bucket
         if (AC->isTemplate()) {
             defaultBucket->setFilename(filename);
@@ -2387,15 +2416,15 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             return defaultBucket;
         } else {
             // search bucket with this filename
-            for (auto& bucket : myBuckets.at(bucketType)) {
+            for (auto& bucket : myBuckets.at(type)) {
                 if (bucket->getFilename() == filename) {
                     bucket->addElement(AC);
                     return bucket;
                 }
             }
         }
-        auto bucket = new FileBucket(bucketType, filename);
-        myBuckets.at(bucketType).push_back(bucket);
+        auto bucket = new FileBucket(type, filename);
+        myBuckets.at(type).push_back(bucket);
         // update filename in options because we have a new bucket
         updateOptions();
         // add element in buckets
@@ -2403,9 +2432,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
         return bucket;
     } else {
         // iterate over all buckets to check if the given filename already exist
-        for (auto& bucketVector : myBuckets) {
+        for (auto& bucketMap : myBuckets) {
             // get default bucket (secure because first bucket always exist)
-            auto defaultBucket = bucketVector.second.front();
+            auto defaultBucket = bucketMap.second.front();
             // check if this bucket type is compatible
             if (AC->getTagProperty()->isFileCompatible(defaultBucket->getType())) {
                 // now check if update name of first bucket
@@ -2415,7 +2444,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
                     return defaultBucket;
                 } else {
                     // search bucket with this filename
-                    for (auto& bucket : bucketVector.second) {
+                    for (auto& bucket : bucketMap.second) {
                         if (bucket->getFilename() == filename) {
                             bucket->addElement(AC);
                             return bucket;
@@ -2425,9 +2454,9 @@ GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCar
             }
         }
         // if we didn't found a bucket whit the given filename, create new
-        for (auto& bucketVector : myBuckets) {
+        for (auto& bucketMap : myBuckets) {
             // this front() call is secure because every bucket group have always at least one default bucket)
-            const auto bucketType = bucketVector.second.front()->getType();
+            const auto bucketType = bucketMap.second.front()->getType();
             // check compatibility
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
                 auto bucket = new FileBucket(bucketType, filename);
@@ -2451,10 +2480,42 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
     if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
         return nullptr;
+    } else if (AC->getTagProperty()->isNetworkElement()) {
+        // network elements are saved in a single file
+        return myBuckets.at(FileBucket::Type::NETWORK).front();
     } else {
-        // simply unregister and register using automatic bucket
-        unregisterAC(AC);
-        return registerAC(AC, filename, FileBucket::Type::AUTOMATIC);
+        // iterate over all buckets to check if the given filename already exist
+        for (auto& bucketMap : myBuckets) {
+            // get default bucket (secure because first bucket always exist)
+            auto defaultBucket = bucketMap.second.front();
+            // check if this bucket type is compatible
+            if (AC->getTagProperty()->isFileCompatible(defaultBucket->getType())) {
+                // search bucket with this filename
+                for (auto& bucket : bucketMap.second) {
+                    if (bucket->getFilename() == filename) {
+                        bucket->addElement(AC);
+                        return bucket;
+                    }
+                }
+            }
+        }
+        // if we didn't found a bucket whit the given filename, create new
+        for (auto& bucketMap : myBuckets) {
+            // this front() call is secure because every bucket group have always at least one default bucket)
+            const auto bucketType = bucketMap.second.front()->getType();
+            // check compatibility
+            if (AC->getTagProperty()->isFileCompatible(bucketType)) {
+                auto bucket = new FileBucket(bucketType, filename);
+                myBuckets.at(bucketType).push_back(bucket);
+                // update filename in options because we have a new bucket
+                updateOptions();
+                // add element in bucket
+                bucket->addElement(AC);
+                return bucket;
+            }
+        }
+        // the AC was not inserted, throw error
+        throw ProcessError(TLF("Element '% cannot be registered in bucket '%'", AC->getID(), filename));
     }
 }
 
@@ -2470,15 +2531,15 @@ GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeC
         return true;
     } else {
         // iterate over all buckets to check if the given filename already exist
-        for (auto& bucketVector : myBuckets) {
-            for (auto it = bucketVector.second.begin(); it != bucketVector.second.end(); it++) {
+        for (auto& bucketMap : myBuckets) {
+            for (auto it = bucketMap.second.begin(); it != bucketMap.second.end(); it++) {
                 auto bucket = (*it);
                 if (bucket->hasElement(AC)) {
                     // remove AC from bucket
                     bucket->removeElement(AC);
                     // check if remove bucket (except if is a default bucket)
                     if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
-                        bucketVector.second.erase(it);
+                        bucketMap.second.erase(it);
                         // update filename in options
                         updateOptions();
                     }
@@ -2500,8 +2561,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
         return false;
     } else {
         // iterate over all buckets to check if exist a bucket with this filename
-        for (auto& bucketVector : myBuckets) {
-            for (auto& bucket : bucketVector.second) {
+        for (auto& bucketMap : myBuckets) {
+            for (auto& bucket : bucketMap.second) {
                 if (bucket->getFilename() == filename) {
                     // check if the bucket is compatible with this file
                     return AC->getTagProperty()->isFileCompatible(bucket->getType());
@@ -2515,15 +2576,15 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
 
 
 const std::string&
-GNEApplicationWindowHelper::SavingFilesHandler::getDefaultFilename(FileBucket::Type file) const {
-    return myBuckets.at(file).front()->getFilename();
+GNEApplicationWindowHelper::SavingFilesHandler::getDefaultFilename(const FileBucket::Type type) const {
+    return myBuckets.at(type).front()->getFilename();
 }
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force) {
-    if (myBuckets.at(file).front()->getFilename().empty() || force) {
-        myBuckets.at(file).front()->setFilename(filename);
+GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
+    if (myBuckets.at(type).front()->getFilename().empty() || force) {
+        myBuckets.at(type).front()->setFilename(filename);
         // update filename in options
         updateOptions();
     }
@@ -2531,8 +2592,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(FileBucke
 
 
 bool
-GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(FileBucket::Type file) const {
-    return (myBuckets.at(file).front()->getFilename().size() > 0);
+GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(const FileBucket::Type type) const {
+    return (myBuckets.at(type).front()->getFilename().size() > 0);
 }
 
 
