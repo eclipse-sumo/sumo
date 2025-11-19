@@ -50,8 +50,7 @@ GNEDemandElement::GNEDemandElement(GNENet* net, SumoXMLTag tag) :
     GNEAttributeCarrier(tag, net),
     GUIGlObject(myTagProperty->getGLType(), "", GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
-                   GNEPathElement::Options::DEMAND_ELEMENT),
-    myStackedLabelNumber(0) {
+                   GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 
 
@@ -59,8 +58,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, SumoXMLTa
     GNEAttributeCarrier(tag, net, fileBucket),
     GUIGlObject(myTagProperty->getGLType(), id, GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
-                   GNEPathElement::Options::DEMAND_ELEMENT),
-    myStackedLabelNumber(0) {
+                   GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 
 
@@ -68,8 +66,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXM
     GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFileBucket()),
     GUIGlObject(myTagProperty->getGLType(), demandElementParent->getID(), GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
     GNEPathElement(myTagProperty->isRoute() ? GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE :
-                   GNEPathElement::Options::DEMAND_ELEMENT),
-    myStackedLabelNumber(0) {
+                   GNEPathElement::Options::DEMAND_ELEMENT) {
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -98,10 +95,7 @@ GNEDemandElement::getGUIGlObject() const {
 
 FileBucket*
 GNEDemandElement::getFileBucket() const {
-    if (isTemplate()) {
-        // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DEMAND).front();
-    } else if (myTagProperty->saveInParentFile()) {
+    if (myTagProperty->saveInParentFile()) {
         return getParentDemandElements().front()->getFileBucket();
     } else {
         return myFileBucket;

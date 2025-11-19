@@ -1212,6 +1212,9 @@ struct GNEApplicationWindowHelper {
         /// @brief reference to sumoOptions
         OptionsCont& mySumoOptions;
 
+        /// @brief vector with all types managed in this get bucket handler
+        const std::vector<FileBucket::Type> myTypes;
+
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
 

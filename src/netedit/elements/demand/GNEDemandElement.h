@@ -266,7 +266,7 @@ protected:
     GUIGeometry mySpreadGeometry;
 
     /// @brief stacked label number
-    int myStackedLabelNumber;
+    int myStackedLabelNumber = 0;
 
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& value) const;

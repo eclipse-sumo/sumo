@@ -2339,15 +2339,14 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 
 GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
     myNeteditOptions(neteditOptions),
-    mySumoOptions(sumoOptions) {
-    // create buckets
-    myBuckets[FileBucket::Type::SUMOCONFIG].push_back(new FileBucket(FileBucket::Type::SUMOCONFIG));
-    myBuckets[FileBucket::Type::NETEDITCONFIG].push_back(new FileBucket(FileBucket::Type::NETEDITCONFIG));
-    myBuckets[FileBucket::Type::NETWORK].push_back(new FileBucket(FileBucket::Type::NETWORK));
-    myBuckets[FileBucket::Type::DEMAND].push_back(new FileBucket(FileBucket::Type::DEMAND));
-    myBuckets[FileBucket::Type::MEANDATA].push_back(new FileBucket(FileBucket::Type::MEANDATA));
-    myBuckets[FileBucket::Type::ADDITIONAL].push_back(new FileBucket(FileBucket::Type::ADDITIONAL));
-    myBuckets[FileBucket::Type::DATA].push_back(new FileBucket(FileBucket::Type::DATA));
+    mySumoOptions(sumoOptions),
+    myTypes({FileBucket::Type::SUMOCONFIG, FileBucket::Type::NETEDITCONFIG, FileBucket::Type::NETWORK,
+            FileBucket::Type::DEMAND, FileBucket::Type::MEANDATA, FileBucket::Type::ADDITIONAL,
+            FileBucket::Type::DATA}) {
+    // create default buckets
+    for (auto type : myTypes) {
+        myBuckets[type].push_back(new FileBucket(type));
+    }
 }
 
 
@@ -2454,11 +2453,18 @@ GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type
     }
     // on this point, we need to check if create a new bucket
     if (create) {
-        auto bucket = new FileBucket(type, filename);
-        myBuckets.at(type).push_back(bucket);
-        // update filename in options because we have a new bucket
-        updateOptions();
-        return bucket;
+        // if the default bucket is empty, but not the filename, update the default bucket
+        if (getDefaultFilename(type).empty() && (filename.size() > 0)) {
+            setDefaultFilenameFile(type, filename, true);
+            return getDefaultBucket(type);
+        } else {
+            // create new bucket
+            auto bucket = new FileBucket(type, filename);
+            myBuckets.at(type).push_back(bucket);
+            // update filename in options because we have a new bucket
+            updateOptions();
+            return bucket;
+        }
     } else {
         return nullptr;
     }
@@ -2498,6 +2504,8 @@ GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenames() {
     for (const auto& bucketPair : myBuckets) {
         bucketPair.second.front()->setFilename("");
     }
+    // also remove empty buckets
+    removeEmptyBuckets();
     // update filename in options
     updateOptions();
 }
@@ -2526,12 +2534,16 @@ void
 GNEApplicationWindowHelper::SavingFilesHandler::removeEmptyBuckets() {
     bool bucketDeleted = false;
     // iterate over all buckets and remove empty buckets (except default buckets)
-    for (auto itMap = myBuckets.begin(); itMap != myBuckets.end(); itMap++) {
-        for (auto itBucket = itMap->second.begin(); itBucket != itMap->second.end(); itBucket++) {
-            if ((*itBucket)->isEmpty() && ((*itBucket)->isDefaultBucket() == false)) {
-                delete (*itBucket);
-                itBucket = itMap->second.erase(itBucket);
+    for (auto type : myTypes) {
+        size_t bucketIndex = 0;
+        while (bucketIndex < myBuckets.at(type).size()) {
+            auto bucket = myBuckets.at(type).at(bucketIndex);
+            if (bucket->isEmpty() && (bucket->isDefaultBucket() == false)) {
+                delete bucket;
+                myBuckets.at(type).erase(myBuckets.at(type).begin() + bucketIndex);
                 bucketDeleted = true;
+            } else {
+                bucketIndex++;
             }
         }
     }
