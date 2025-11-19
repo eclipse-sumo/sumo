@@ -64,27 +64,21 @@ FileBucket::isDefaultBucket() const {
 }
 
 
-bool
-FileBucket::isEmpty() const {
-    return myElements.empty();
+void
+FileBucket::addElement() {
+    myNumElements++;
 }
 
 
 void
-FileBucket::addElement(const void* element) {
-    myElements.insert(element);
-}
-
-
-void
-FileBucket::removeElement(const void* element) {
-    myElements.erase(element);
+FileBucket::removeElement() {
+    myNumElements--;
 }
 
 
 bool
-FileBucket::hasElement(const void* element) const {
-    return myElements.find(element) != myElements.end();
+FileBucket::isEmpty() const {
+    return myNumElements == 0;
 }
 
 /****************************************************************************/

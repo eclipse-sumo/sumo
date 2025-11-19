@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <unordered_set>
 #include <string>
 
 // ===========================================================================
@@ -64,20 +63,17 @@ public:
     /// @brief check if this is a default bucket
     bool isDefaultBucket() const;
 
-    /// @brief check if this bucket is empty
-    bool isEmpty() const;
-
     /// @brief function related with Elements
     /// @{
 
     /// @brief add element in bucket
-    void addElement(const void* element);
+    void addElement();
 
     /// @brief remove element
-    void removeElement(const void* element);
+    void removeElement();
 
-    /// @brief check if the given element exist in this bucket
-    bool hasElement(const void* element) const;
+    /// @brief check if this bucket is empty
+    bool isEmpty() const;
 
     /// @}
 
@@ -88,8 +84,8 @@ private:
     /// @brief filename
     std::string myFilename;
 
-    /// @brief Elements vinculated with this fileBucket
-    std::unordered_set<const void*> myElements;
+    /// @brief number of elements vinculated with this file bucket
+    int myNumElements = 0;
 
     /// @brief flag to indicate if this is a default bucket (it cannot be removed)
     const bool myDefaultBucket;
