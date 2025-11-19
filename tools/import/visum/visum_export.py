@@ -21,14 +21,13 @@ import sys
 import zipfile
 
 import win32com.client
-from pywintypes import com_error
 
 
 def load(ver_file):
     try:
         visum = win32com.client.Dispatch("Visum.Visum")
         visum.LoadVersion(os.path.abspath(ver_file))
-    except com_error as e:
+    except Exception as e:
         print("Could not load Visum or the ver file %s (%s)." % (ver_file, e), file=sys.stderr)
         return None
     return visum
@@ -56,17 +55,49 @@ def main(visum, ver_file, zip_file):
         for f in (network, routes, matrices, net, dmd):
             if os.path.exists(f):
                 os.remove(f)
-        visum.SaveNet(net)
+        try:
+            visum.SaveNet(net)
+            print("Wrote %s successfully." % net)
+        except Exception as e:
+            print("Could not write net %s (%s)." % (net, e), file=sys.stderr)
         if hasattr(visum, "IO"):
-            visum.IO.ExportANMNet(network, "")
-            visum.IO.ExportANMRoutes(routes, "", True, False)
-            visum.IO.ExportANMRoutes(matrices, "", False, True)
-            visum.IO.SaveDemandFile(dmd, True)
-        else:
-            visum.ExportAnmNet(network, "")
-            visum.ExportAnmRoutes(routes, "", True, False)
-            visum.ExportAnmRoutes(matrices, "", False, True)
-            visum.SaveDemandFile(dmd, True)
+            try:
+                visum.IO.ExportANMNet(network, "")
+                print("Wrote %s successfully." % network)
+            except Exception as e:
+                print("Could not write network %s (%s)." % (network, e), file=sys.stderr)
+            try:
+                visum.IO.ExportANMRoutes(routes, "", True, False)
+                print("Wrote %s successfully." % routes)
+                visum.IO.ExportANMRoutes(matrices, "", False, True)
+                print("Wrote %s successfully." % matrices)
+            except Exception as e:
+                print("Could not write routes %s (%s)." % (routes, e), file=sys.stderr)
+            try:
+                visum.IO.SaveDemandFile(dmd, True)
+                print("Wrote %s successfully." % dmd)
+            except Exception as e:
+                print("Could not write dmd %s (%s)." % (dmd, e), file=sys.stderr)
+        if not os.path.exists(network + ".anm"):
+            try:
+                visum.ExportAnmNet(network, "")
+                print("Wrote %s successfully." % network)
+            except Exception as e:
+                print("Could not write network %s (%s)." % (network, e), file=sys.stderr)
+        if not os.path.exists(routes + ".anmRoutes"):
+            try:
+                visum.ExportAnmRoutes(routes, "", True, False)
+                print("Wrote %s successfully." % routes)
+                visum.ExportAnmRoutes(matrices, "", False, True)
+                print("Wrote %s successfully." % matrices)
+            except Exception as e:
+                print("Could not write routes %s (%s)." % (routes, e), file=sys.stderr)
+        if not os.path.exists(dmd):
+            try:
+                visum.SaveDemandFile(dmd, True)
+                print("Wrote %s successfully." % dmd)
+            except Exception as e:
+                print("Could not write dmd %s (%s)." % (dmd, e), file=sys.stderr)
         write(zipf, network + ".anm", network)
         write(zipf, routes + ".anmRoutes", routes)
         write(zipf, matrices + ".anmRoutes", matrices)

@@ -277,6 +277,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
 
     if (myParent == nullptr) {
         const double speed = sampleSeconds == 0 ? 0. : travelledDistance / sampleSeconds;
+        const double frontSpeed = frontSampleSeconds == 0 ? 0. : frontTravelledDistance / frontSampleSeconds;
         dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask, sampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask, sampleSeconds == 0);
@@ -291,11 +292,12 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
         dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
         dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
-        dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * speed * 3.6, attributeMask, sampleSeconds == 0);
+        dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * frontSpeed * 3.6, attributeMask, frontSampleSeconds == 0);
         dev.closeTag();
         return;
     }
     const bool haveSamples = sampleSeconds > myParent->myMinSamples;
+    const bool haveFrontSamples = frontSampleSeconds > myParent->myMinSamples;
     const bool haveSamplesOrDefault = haveSamples || defaultTravelTime >= 0.;
     bool haveTravelTime = haveSamplesOrDefault;
     double traveltime = myParent->myMaxTravelTime;
@@ -330,10 +332,16 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
     dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask, !haveSamples);
     dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask, !haveSamples);
     double speed = 0.;
+    double frontSpeed = 0.;
     if (haveSamples) {
         speed = travelledDistance / sampleSeconds;
     } else if (defaultTravelTime > 0.) {
         speed = myLaneLength / defaultTravelTime;
+    }
+    if (haveFrontSamples) {
+        frontSpeed = frontTravelledDistance / frontSampleSeconds;
+    } else if (defaultTravelTime > 0.) {
+        frontSpeed = myLaneLength / defaultTravelTime;
     }
     dev.writeOptionalAttr(SUMO_ATTR_SPEED, speed, attributeMask, !haveSamplesOrDefault);
     dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : speed / speedLimit, attributeMask, !haveSamplesOrDefault);
@@ -345,7 +353,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
     dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
     dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
-    dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * speed * 3.6, attributeMask, !haveSamples || numVehicles > 0);
+    dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * frontSpeed * 3.6, attributeMask, !haveSamples || numVehicles == 0);
     dev.closeTag();
 }
 
@@ -391,9 +399,9 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
         case SUMO_ATTR_TELEPORTED:
             return nVehTeleported;
         case SUMO_ATTR_FLOW: {
-            const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+            const double density = MIN2(frontSampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
-            const double speed = travelledDistance / sampleSeconds;
+            const double speed = frontTravelledDistance / frontSampleSeconds;
             return density * speed * 3.6;
         }
         default:
