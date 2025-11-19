@@ -70,6 +70,10 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
         // additional MUST be the last, because demand and data elements can be saved in additional files
         myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::ADDITIONAL);
     }
+    // update counter in filebucket
+    if (myFileBucket) {
+        myFileBucket->addElement();
+    }
 }
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, FileBucket* fileBucket) :
@@ -83,7 +87,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, File
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
     // update counter in filebucket
-    if (myIsTemplate == false) {
+    if (myFileBucket) {
         myFileBucket->removeElement();
     }
 }
