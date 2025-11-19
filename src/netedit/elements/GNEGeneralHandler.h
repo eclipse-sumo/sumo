@@ -44,10 +44,10 @@ class GNEGeneralHandler : public GeneralHandler {
 public:
     /**@brief Constructor
      * @param[in] net GNENet
-     * @param[in] file Name of the parsed file
+     * @param[in] bucket fileBucket in which save the loaded
      * @param[in] allowUndoRedo enable or disable undoRedo
      */
-    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEGeneralHandler(GNENet* net, FileBucket* bucket, const bool allowUndoRedo);
 
     /// @brief Destructor
     ~GNEGeneralHandler();

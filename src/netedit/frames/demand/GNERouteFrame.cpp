@@ -273,8 +273,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         // declare route handler
-        GNERouteHandler routeHandler(myViewNet->getNet(), myRouteBaseObject->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
-                                     myRouteBaseObject->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
+        GNERouteHandler routeHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(SUMO_TAG_ROUTE)->getFileBucket(),
                                      myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
         // create route
         routeHandler.parseSumoBaseObject(myRouteBaseObject);

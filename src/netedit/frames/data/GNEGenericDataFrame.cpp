@@ -140,6 +140,7 @@ GNEGenericDataFrame::DataSetSelector::getDataSet() const {
 
 long
 GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, void*) {
+    auto net = myGenericDataFrameParent->getViewNet()->getNet();
     // first disable interval selector
     myGenericDataFrameParent->getIntervalSelector()->disableContents();
     // get string
@@ -149,12 +150,12 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING(TL("Invalid dataSet ID"));
     } else if (dataSetID.empty()) {
         WRITE_WARNING(TL("Invalid empty dataSet ID"));
-    } else if (myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID, false) != nullptr) {
+    } else if (net->getAttributeCarriers()->retrieveDataSet(dataSetID, false) != nullptr) {
         WRITE_WARNING(TL("Invalid duplicated dataSet ID"));
     } else {
         // build data set
-        GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
-                                   myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+        GNEDataHandler dataHandler(net, net->getACTemplates()->getTemplateAC(SUMO_TAG_DATASET)->getFileBucket(),
+                                   net->getGNEApplicationWindow()->isUndoRedoAllowed());
         dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
         refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID));
@@ -325,7 +326,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
         GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             // declare dataHandler
-            GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "",
+            GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), dataSet->getFileBucket(),
                                        myGenericDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // build data interval
             dataHandler.buildDataInterval(nullptr, dataSet->getID(), begin, end);

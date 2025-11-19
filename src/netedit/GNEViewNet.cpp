@@ -2838,7 +2838,7 @@ GNEViewNet::onCmdTriangulatePolygon(FXObject*, FXSelector, void*) {
     // check polygon
     if (polygonUnderMouse) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        GNEAdditionalHandler additionalHandler(myNet, polygonUnderMouse->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // triangulate shape
         const auto triangulation = Triangle::triangulate(polygonUnderMouse->getShape());
         // begin undo-list
@@ -2993,8 +2993,8 @@ GNEViewNet::onCmdAttachPOI(FXObject*, FXSelector, void*) {
     // obtain POI at popup position
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI && (POI->getTagProperty()->getTag() != GNE_TAG_POILANE)) {
-        // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        // declare additional handle
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // obtain lanes around POI boundary
         getObjectsInBoundary(POI->getCenteringBoundary());
         if (myViewObjectsSelector.getLaneFront() == nullptr) {
@@ -3038,7 +3038,7 @@ GNEViewNet::onCmdReleasePOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI && (POI->getTagProperty()->getTag() == GNE_TAG_POILANE)) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // get sumo base object of POI (And all common attributes)
         CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
         // add specific attributes
@@ -3061,7 +3061,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI && (POI->getTagProperty()->getTag() != SUMO_TAG_POI)) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // get sumo base object of POI (And all common attributes)
         CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
         // add specific attributes
@@ -3084,7 +3084,7 @@ GNEViewNet::onCmdTransformPOIGEO(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI && (POI->getTagProperty()->getTag() != GNE_TAG_POIGEO)) {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myNet, POI->getFilename(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
+        GNEAdditionalHandler additionalHandler(myNet, POI->getFileBucket(), myViewParent->getGNEAppWindows()->isUndoRedoAllowed());
         // get sumo base object of POI (And all common attributes)
         CommonXMLStructure::SumoBaseObject* POIBaseObject = POI->getSumoBaseObject();
         // calculate cartesian position

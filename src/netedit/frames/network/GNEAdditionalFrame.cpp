@@ -238,8 +238,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
     // add basic attributes and values
     myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                           myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(tagProperties->getTag())->getFileBucket(),
                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
     // build additional
     additionalHandler.parseSumoBaseObject(myBaseAdditional);
@@ -302,8 +301,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                 // show warning dialogbox and stop check if input parameters are valid
                 if (myAdditionalAttributesEditor->checkAttributes(true)) {
                     // declare additional handler
-                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseAdditional->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
-                                                           myBaseAdditional->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(SUMO_TAG_LANE_AREA_DETECTOR)->getFileBucket(),
                                                            myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseAdditional);

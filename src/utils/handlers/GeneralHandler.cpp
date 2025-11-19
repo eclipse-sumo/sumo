@@ -18,22 +18,17 @@
 // General element handler
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#include <utils/common/FileBucket.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GeneralHandler.h"
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GeneralHandler::GeneralHandler(const std::string& file) :
-    SUMOSAXHandler(file) {
+GeneralHandler::GeneralHandler(FileBucket* fileBucket) :
+    SUMOSAXHandler(fileBucket->getFilename()) {
 }
 
 

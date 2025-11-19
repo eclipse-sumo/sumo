@@ -558,73 +558,73 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief write additionals in output device
-    void writeAdditionalsInFile(OutputDevice& device, const std::string& filename);
+    void writeAdditionalsInFile(OutputDevice& device, const FileBucket* fileBucket);
 
     /// @brief save demand the given bucket
-    void writeDemandElementsInFile(OutputDevice& device, const std::string& filename);
+    void writeDemandElementsInFile(OutputDevice& device, const FileBucket* fileBucket);
 
     /// @brief save meanDatas
-    void writeMeanDatasInFile(OutputDevice& device, const std::string& filename);
+    void writeMeanDatasInFile(OutputDevice& device, const FileBucket* fileBucket);
 
     /// @brief write additional element by type and sorted by ID
-    void writeAdditionalByType(OutputDevice& device, const std::string& filename, const std::vector<SumoXMLTag> tags) const;
+    void writeAdditionalByType(OutputDevice& device, const FileBucket* fileBucket, const std::vector<SumoXMLTag> tags) const;
 
     /// @brief write demand element by type and sorted by ID
-    void writeDemandByType(OutputDevice& device, const std::string& filename, SumoXMLTag tag) const;
+    void writeDemandByType(OutputDevice& device, const FileBucket* fileBucket, SumoXMLTag tag) const;
 
     /// @brief write route distributions sorted by ID
-    void writeRouteDistributions(OutputDevice& device, const std::string& filename) const;
+    void writeRouteDistributions(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write route sorted by ID
-    void writeRoutes(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
+    void writeRoutes(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
 
     /// @brief write vTypeDistributions sorted by ID
-    void writeVTypeDistributions(OutputDevice& device, const std::string& filename) const;
+    void writeVTypeDistributions(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write vTypes sorted by ID
-    void writeVTypes(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
+    void writeVTypes(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
 
     /// @brief write meanData element by type and sorted by ID
-    void writeMeanDatas(OutputDevice& device, const std::string& filename, SumoXMLTag tag) const;
+    void writeMeanDatas(OutputDevice& device, const FileBucket* fileBucket, SumoXMLTag tag) const;
 
     /// @brief write vType comment
-    bool writeVTypeComment(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
+    bool writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
 
     /// @brief write route comment
-    bool writeRouteComment(OutputDevice& device, const std::string& filename, const bool additionalFile) const;
+    bool writeRouteComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
 
     /// @brief write routeProbe comment
-    bool writeRouteProbeComment(OutputDevice& device, const std::string& filename) const;
+    bool writeRouteProbeComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write calibrator comment
-    bool writeCalibratorComment(OutputDevice& device, const std::string& filename) const;
+    bool writeCalibratorComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write stoppingPlace comment
-    bool writeStoppingPlaceComment(OutputDevice& device, const std::string& filename) const;
+    bool writeStoppingPlaceComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write detector comment
-    bool writeDetectorComment(OutputDevice& device, const std::string& filename) const;
+    bool writeDetectorComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write other additional comment
-    bool writeOtherAdditionalsComment(OutputDevice& device, const std::string& filename) const;
+    bool writeOtherAdditionalsComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write shape comment
-    bool writeShapesComment(OutputDevice& device, const std::string& filename) const;
+    bool writeShapesComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write JuPedSim comment
-    bool writeJuPedSimComment(OutputDevice& device, const std::string& filename) const;
+    bool writeJuPedSimComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write TAZ comment
-    bool writeTAZComment(OutputDevice& device, const std::string& filename) const;
+    bool writeTAZComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write Wire comment
-    bool writeWireComment(OutputDevice& device, const std::string& filename) const;
+    bool writeWireComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write meanDataEdge comment
-    bool writeMeanDataEdgeComment(OutputDevice& device, const std::string& filename) const;
+    bool writeMeanDataEdgeComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write Wire comment
-    bool writeMeanDataLaneComment(OutputDevice& device, const std::string& filename) const;
+    bool writeMeanDataLaneComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief replace in list attribute
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);

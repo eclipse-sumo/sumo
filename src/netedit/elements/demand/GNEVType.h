@@ -35,7 +35,7 @@ public:
     GNEVType(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for default VTypes
-    GNEVType(const std::string& vTypeID, GNENet* net, const SUMOVehicleClass& defaultVClass);
+    GNEVType(const std::string& vTypeID, GNENet* net, FileBucket* fileBucket, const SUMOVehicleClass& defaultVClass);
 
     /// @brief constructor for standard vTypes
     GNEVType(const std::string& vTypeID, GNENet* net, FileBucket* fileBucket);

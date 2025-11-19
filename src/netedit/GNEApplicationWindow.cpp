@@ -3804,19 +3804,21 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // flag for save current saving status
         const auto previouslySaved = myNet->getSavingStatus()->isAdditionalsSaved();
+        // get (or create) bucket for this new file
+        auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, additionalFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("load additionals from '%'", additionalFileDialog.getFilename()));
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("load additionals from '%'", bucket->getFilename()));
         // Run parser
         if (!generalHandler.parse()) {
             // write error
-            WRITE_ERROR(TLF("Loading of additional file '%' failed.", additionalFileDialog.getFilename()));
+            WRITE_ERROR(TLF("Loading of additional file '%' failed.", bucket->getFilename()));
         } else {
             // write info
-            WRITE_MESSAGE(TLF("Loading of additional file '%' successfully.", additionalFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of additional file '%' successfully.", bucket->getFilename()));
             // enable save if there is errors loading additionals
             if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->additionalsSaved();
@@ -3847,7 +3849,7 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     // iterate over all additional files
     for (const auto& bucket : mySavingFilesHandler->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
         // Create general handler
-        GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
         generalHandler.forceOverwriteElements();
         // Run parser
@@ -4037,17 +4039,19 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         const auto previouslySaved = myNet->getSavingStatus()->isDemandElementsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
+        // get (or create) bucket for this new file
+        auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::DEMAND, routeFileDialog.getFilename(), true);
         // Create generic handler
-        GNEGeneralHandler handler(myNet, routeFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading demand elements from '%'", routeFileDialog.getFilename()));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading demand elements from '%'", bucket->getFilename()));
         // Run parser for additionals
         if (!handler.parse()) {
             // write error
-            WRITE_ERROR(TLF("Loading of route file '%' failed.", routeFileDialog.getFilename()));
+            WRITE_ERROR(TLF("Loading of route file '%' failed.", bucket->getFilename()));
         } else {
             // show info
-            WRITE_MESSAGE(TLF("Loading of route file '%' successfully.", routeFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of route file '%' successfully.", bucket->getFilename()));
             // enable demand elements if there is an error creating element
             if (previouslySaved && !handler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->demandElementsSaved();
@@ -4078,7 +4082,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // iterate over all demand elements
     for (const auto& bucket : mySavingFilesHandler->getFileBuckets(FileBucket::Type::DEMAND)) {
         // Create handler
-        GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
         generalHandler.forceOverwriteElements();
         // Run parser for additionals
@@ -4231,21 +4235,23 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isDataElementsSaved();
+        // get (or create) bucket for this new file
+        auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::DATA, dataFileDialog.getFilename(), true);
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEDataHandler dataHandler(myNet, dataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEDataHandler dataHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("loading data elements from '%'.", dataFileDialog.getFilename()));
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("loading data elements from '%'.", bucket->getFilename()));
         // Run data parser
         if (!dataHandler.parse()) {
             // write error
-            WRITE_ERROR(TLF("Loading of data file '%' failed.", dataFileDialog.getFilename()));
+            WRITE_ERROR(TLF("Loading of data file '%' failed.", bucket->getFilename()));
         } else {
             // show info
-            WRITE_MESSAGE(TLF("Loading of data file '%' successfully.", dataFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of data file '%' successfully.", bucket->getFilename()));
             // enable demand elements if there is an error creating element
             if (previouslySaved && !dataHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->dataElementsSaved();
@@ -4280,7 +4286,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // iterate over all data elements
     for (const auto& bucket : mySavingFilesHandler->getFileBuckets(FileBucket::Type::DATA)) {
         // Create additional handler
-        GNEDataHandler dataHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEDataHandler dataHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
         dataHandler.forceOverwriteElements();
         // Run data parser
@@ -4430,19 +4436,21 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
         const auto previouslySaved = myNet->getSavingStatus()->isMeanDatasSaved();
+        // get (or create) bucket for this new file
+        auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename(), true);
         // disable validation for meanDatas
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create meanData handler
-        GNEGeneralHandler generalHandler(myNet, meanDataFileDialog.getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // begin undoList operation
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("load meanDatas from '%'", meanDataFileDialog.getFilename()));
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("load meanDatas from '%'", bucket->getFilename()));
         // Run parser
         if (!generalHandler.parse()) {
             // write error
-            WRITE_ERROR(TLF("Loading of meandata file '%' failed.", meanDataFileDialog.getFilename()));
+            WRITE_ERROR(TLF("Loading of meandata file '%' failed.", bucket->getFilename()));
         } else {
             // show info
-            WRITE_MESSAGE(TLF("Loading of meandata file '%' successfully.", meanDataFileDialog.getFilename()));
+            WRITE_MESSAGE(TLF("Loading of meandata file '%' successfully.", bucket->getFilename()));
             // enable demand elements if there is an error creating element
             if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
                 myNet->getSavingStatus()->meanDatasSaved();
@@ -4473,7 +4481,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     // iterate over all data elements
     for (const auto& bucket : mySavingFilesHandler->getFileBuckets(FileBucket::Type::MEANDATA)) {
         // Create general handler
-        GNEGeneralHandler generalHandler(myNet, bucket->getFilename(), myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
         // force overwritte elements
         generalHandler.forceOverwriteElements();
         // Run parser
@@ -4876,8 +4884,10 @@ GNEApplicationWindow::loadAdditionalElements() {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TLF("loading additionals from '%'.", file));
+                // get (or create) bucket for this new file
+                auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::ADDITIONAL, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERROR(TLF("Loading of '%' failed.", file));
@@ -4925,8 +4935,10 @@ GNEApplicationWindow::loadDemandElements() {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TLF("loading demand elements from '%'.", file));
+                // get (or create) bucket for this new file
+                auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::DEMAND, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERROR(TLF("Loading of '%' failed.", file));
@@ -4967,8 +4979,10 @@ GNEApplicationWindow::loadDataElements() {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TLF("loading data elements from '%'.", file));
+                // get (or create) bucket for this new file
+                auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::DATA, file, true);
                 // declare general handler
-                GNEDataHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                GNEDataHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERROR(TLF("Loading of % failed.", file));
@@ -5009,8 +5023,10 @@ GNEApplicationWindow::loadMeanDataElements() {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
                 WRITE_MESSAGE(TLF("loading meanData elements from '%'.", file));
+                // get (or create) bucket for this new file
+                auto bucket = mySavingFilesHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, file, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
                 // Run parser
                 if (!handler.parse()) {
                     WRITE_ERROR(TLF("Loading of % failed.", file));

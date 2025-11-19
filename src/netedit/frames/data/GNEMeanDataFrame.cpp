@@ -32,8 +32,6 @@
 
 #include "GNEMeanDataFrame.h"
 
-#define TEMPORAL_FILENAME std::string()
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -204,17 +202,18 @@ GNEMeanDataFrame::MeanDataEditor::refreshMeanDataEditorModule() {
 
 long
 GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, void*) {
+    auto net = myMeanDataFrameParent->myViewNet->getNet();
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag();
     // obtain a new valid MeanData ID
     const std::string typeID = myMeanDataFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateMeanDataID(meanDataTag);
     // create new meanData
     GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag(), typeID,
-                                            myMeanDataFrameParent->myViewNet->getNet(), TEMPORAL_FILENAME);
+                                            net, net->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::MEANDATA));
     // add it using undoList (to allow undo-redo)
-    myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanData, "create meanData");
-    myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
-    myMeanDataFrameParent->myViewNet->getUndoList()->end();
+    net->getUndoList()->begin(meanData, "create meanData");
+    net->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
+    net->getUndoList()->end();
     // set created meanData in selector
     myMeanDataFrameParent->myMeanDataSelector->setCurrentMeanData(meanData);
     return 1;
@@ -248,7 +247,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
     if (meanData) {
         // create a new MeanData based on the current selected meanData
         GNEMeanData* meanDataCopy = new GNEMeanData(meanData->getTagProperty()->getTag(), typeID, myMeanDataFrameParent->myViewNet->getNet(),
-                meanData->getFilename());
+                meanData->getFileBucket());
         // begin undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanDataCopy, "copy meanData");
         // add it using undoList (to allow undo-redo)

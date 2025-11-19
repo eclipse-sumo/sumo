@@ -1159,14 +1159,25 @@ struct GNEApplicationWindowHelper {
         /// @brief destructor
         ~SavingFilesHandler();
 
-        /// @brief get vector with the fileBuckets related with the given file
-        const std::vector<FileBucket*>& getFileBuckets(FileBucket::Type file) const;
+        /// @brief functions related with buckets
+        /// @{
+
+        /// @brief get default bucket
+        FileBucket* getDefaultBucket(const FileBucket::Type type) const;
+
+        /// @brief get bucket
+        FileBucket* getBucket(const FileBucket::Type type, const std::string filename, const bool create);
+
+        /// @brief get vector with all fileBuckets related with the given file type
+        const std::vector<FileBucket*>& getFileBuckets(const FileBucket::Type type) const;
+
+        /// @}
 
         /// @brief functions related with ACs
         /// @{
 
         /// @brief register AC (called during AC creation)
-        FileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename, FileBucket::Type bucketType);
+        FileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename, const FileBucket::Type type);
 
         /// @brief update AC
         FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
@@ -1183,13 +1194,13 @@ struct GNEApplicationWindowHelper {
         /// @{
 
         /// @brief get vector with the fileBuckets related with the given file
-        const std::string& getDefaultFilename(FileBucket::Type file) const;
+        const std::string& getDefaultFilename(const FileBucket::Type type) const;
 
         /// brief set default additional file
-        void setDefaultFilenameFile(FileBucket::Type file, const std::string& filename, const bool force);
+        void setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force);
 
         /// @brief check if at least we have an additional file defined
-        bool isFilenameDefined(FileBucket::Type file) const;
+        bool isFilenameDefined(const FileBucket::Type type) const;
 
         /// brief set default files for all buckets
         void resetDefaultFilenames();

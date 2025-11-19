@@ -173,7 +173,9 @@ void
 GNETAZRelDataFrame::buildTAZRelationData() {
     // check conditions
     if (myFirstTAZ && mySecondTAZ) {
-        if (!myIntervalSelector->getDataInterval()) {
+        if (!myDataSetSelector->getDataSet()) {
+            WRITE_WARNINGF(TL("A % must be defined within an dataSet."), toString(SUMO_TAG_TAZREL));
+        } else if (!myIntervalSelector->getDataInterval()) {
             WRITE_WARNINGF(TL("A % must be defined within an interval."), toString(SUMO_TAG_TAZREL));
         } else if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ)) {
             WRITE_WARNINGF(TL("There is already a % defined in TAZ'%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID());
@@ -181,7 +183,8 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNINGF(TL("There is already a % defined between TAZ'%' and '%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID(), mySecondTAZ->getID());
         } else if (myGenericDataAttributesEditor->checkAttributes(true)) {
             // declare data handler
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+            GNEDataHandler dataHandler(myViewNet->getNet(), myDataSetSelector->getDataSet()->getFileBucket(),
+                                       myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
             // build data interval object and fill it
             CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
