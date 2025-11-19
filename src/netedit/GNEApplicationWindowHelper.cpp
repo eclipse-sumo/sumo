@@ -2362,119 +2362,6 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
 
 
 FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::getDefaultBucket(const FileBucket::Type type) const {
-    return myBuckets.at(type).front();
-}
-
-
-FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
-    // iterate over all buckets to check if the given filename already exist
-    for (auto& bucketMap : myBuckets) {
-        for (auto& bucket : bucketMap.second) {
-            if (bucket->getFilename() == filename && bucket->getType() == type) {
-                return bucket;
-            }
-        }
-    }
-    // on this point, we need to check if create a new bucket
-    if (create) {
-        auto bucket = new FileBucket(type, filename);
-        myBuckets.at(type).push_back(bucket);
-        // update filename in options because we have a new bucket
-        updateOptions();
-        return bucket;
-    } else {
-        return nullptr;
-    }
-}
-
-
-const std::vector<FileBucket*>&
-GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(const FileBucket::Type type) const {
-    return myBuckets.at(type);
-}
-
-
-FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::registerAC(const GNEAttributeCarrier* AC, const std::string& filename,
-        const FileBucket::Type type) {
-    // check file properties
-    if (AC->getTagProperty()->saveInParentFile()) {
-        // elements with parent aren't saved in buckets
-        return nullptr;
-    } else if (AC->getTagProperty()->isNetworkElement()) {
-        // network elements are saved in a single file
-        return myBuckets.at(FileBucket::Type::NETWORK).front();
-    } else if (type != FileBucket::Type::AUTOMATIC) {
-        // force to register in an specific bucket
-        auto defaultBucket = myBuckets.at(type).front();
-        // now check if update name of first bucket
-        if (AC->isTemplate()) {
-            defaultBucket->setFilename(filename);
-            defaultBucket->addElement(AC);
-            return defaultBucket;
-        } else {
-            // search bucket with this filename
-            for (auto& bucket : myBuckets.at(type)) {
-                if (bucket->getFilename() == filename) {
-                    bucket->addElement(AC);
-                    return bucket;
-                }
-            }
-        }
-        auto bucket = new FileBucket(type, filename);
-        myBuckets.at(type).push_back(bucket);
-        // update filename in options because we have a new bucket
-        updateOptions();
-        // add element in buckets
-        bucket->addElement(AC);
-        return bucket;
-    } else {
-        // iterate over all buckets to check if the given filename already exist
-        for (auto& bucketMap : myBuckets) {
-            // get default bucket (secure because first bucket always exist)
-            auto defaultBucket = bucketMap.second.front();
-            // check if this bucket type is compatible
-            if (AC->getTagProperty()->isFileCompatible(defaultBucket->getType())) {
-                // now check if update name of first bucket
-                if (AC->isTemplate()) {
-                    defaultBucket->setFilename(filename);
-                    defaultBucket->addElement(AC);
-                    return defaultBucket;
-                } else {
-                    // search bucket with this filename
-                    for (auto& bucket : bucketMap.second) {
-                        if (bucket->getFilename() == filename) {
-                            bucket->addElement(AC);
-                            return bucket;
-                        }
-                    }
-                }
-            }
-        }
-        // if we didn't found a bucket whit the given filename, create new
-        for (auto& bucketMap : myBuckets) {
-            // this front() call is secure because every bucket group have always at least one default bucket)
-            const auto bucketType = bucketMap.second.front()->getType();
-            // check compatibility
-            if (AC->getTagProperty()->isFileCompatible(bucketType)) {
-                auto bucket = new FileBucket(bucketType, filename);
-                myBuckets.at(bucketType).push_back(bucket);
-                // update filename in options because we have a new bucket
-                updateOptions();
-                // add element in bucket
-                bucket->addElement(AC);
-                return bucket;
-            }
-        }
-        // the AC was not inserted, throw error
-        throw ProcessError(TLF("Element '% cannot be registered in bucket '%'", AC->getID(), filename));
-    }
-}
-
-
-FileBucket*
 GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInParentFile()) {
@@ -2493,7 +2380,12 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
                 // search bucket with this filename
                 for (auto& bucket : bucketMap.second) {
                     if (bucket->getFilename() == filename) {
-                        bucket->addElement(AC);
+                        // update number of elements in buckets
+                        AC->getFileBucket()->removeElement();
+                        bucket->addElement();
+                        // removed empty buckets
+                        removeEmptyBuckets();
+                        // return the new bucket
                         return bucket;
                     }
                 }
@@ -2505,50 +2397,19 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
             const auto bucketType = bucketMap.second.front()->getType();
             // check compatibility
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
+                // create new bucket with the given filename
                 auto bucket = new FileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
                 // update filename in options because we have a new bucket
                 updateOptions();
-                // add element in bucket
-                bucket->addElement(AC);
+                // update number of elements in new bucket
+                bucket->addElement();
+                // return the new bucket
                 return bucket;
             }
         }
-        // the AC was not inserted, throw error
-        throw ProcessError(TLF("Element '% cannot be registered in bucket '%'", AC->getID(), filename));
-    }
-}
-
-
-bool
-GNEApplicationWindowHelper::SavingFilesHandler::unregisterAC(const GNEAttributeCarrier* AC) {
-    // check file properties
-    if (AC->getTagProperty()->saveInParentFile()) {
-        // elements with parent aren't saved in buckets
-        return true;
-    } else if (AC->getTagProperty()->saveInNetworkFile()) {
-        // network elements are saved in a single file
-        return true;
-    } else {
-        // iterate over all buckets to check if the given filename already exist
-        for (auto& bucketMap : myBuckets) {
-            for (auto it = bucketMap.second.begin(); it != bucketMap.second.end(); it++) {
-                auto bucket = (*it);
-                if (bucket->hasElement(AC)) {
-                    // remove AC from bucket
-                    bucket->removeElement(AC);
-                    // check if remove bucket (except if is a default bucket)
-                    if (bucket->isEmpty() && !bucket->isDefaultBucket()) {
-                        bucketMap.second.erase(it);
-                        // update filename in options
-                        updateOptions();
-                    }
-                    return true;
-                }
-            }
-        }
-        // the AC was not inserted, throw error
-        throw ProcessError(TLF("Element '% cannot be unregister in bucket", AC->getID()));
+        // the AC was not updated, throw error
+        throw ProcessError(TLF("Element '% cannot be updateAC in bucket '%'", AC->getID(), filename));
     }
 }
 
@@ -2572,6 +2433,41 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
         // the file will be saved in a new bucket
         return true;
     }
+}
+
+
+FileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::getDefaultBucket(const FileBucket::Type type) const {
+    return myBuckets.at(type).front();
+}
+
+
+FileBucket*
+GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
+    // iterate over all buckets to check if the given filename already exist
+    for (auto& bucketMap : myBuckets) {
+        for (auto& bucket : bucketMap.second) {
+            if ((bucket->getFilename() == filename) && (bucket->getType() == type)) {
+                return bucket;
+            }
+        }
+    }
+    // on this point, we need to check if create a new bucket
+    if (create) {
+        auto bucket = new FileBucket(type, filename);
+        myBuckets.at(type).push_back(bucket);
+        // update filename in options because we have a new bucket
+        updateOptions();
+        return bucket;
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::vector<FileBucket*>&
+GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(const FileBucket::Type type) const {
+    return myBuckets.at(type);
 }
 
 
@@ -2623,6 +2519,26 @@ GNEApplicationWindowHelper::SavingFilesHandler::parseFilenames(const std::vector
         result.pop_back();
     }
     return result;
+}
+
+
+void
+GNEApplicationWindowHelper::SavingFilesHandler::removeEmptyBuckets() {
+    bool bucketDeleted = false;
+    // iterate over all buckets and remove empty buckets (except default buckets)
+    for (auto itMap = myBuckets.begin(); itMap != myBuckets.end(); itMap++) {
+        for (auto itBucket = itMap->second.begin(); itBucket != itMap->second.end(); itBucket++) {
+            if ((*itBucket)->isEmpty() && ((*itBucket)->isDefaultBucket() == false)) {
+                delete (*itBucket);
+                itBucket = itMap->second.erase(itBucket);
+                bucketDeleted = true;
+            }
+        }
+    }
+    // check if update options
+    if (bucketDeleted) {
+        updateOptions();
+    }
 }
 
 

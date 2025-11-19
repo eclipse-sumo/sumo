@@ -1159,6 +1159,12 @@ struct GNEApplicationWindowHelper {
         /// @brief destructor
         ~SavingFilesHandler();
 
+        /// @brief update filename vinculated with this AC
+        FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
+
+        /// @brief check if the given filename can be assigned to the given AC
+        bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
+
         /// @brief functions related with buckets
         /// @{
 
@@ -1170,23 +1176,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief get vector with all fileBuckets related with the given file type
         const std::vector<FileBucket*>& getFileBuckets(const FileBucket::Type type) const;
-
-        /// @}
-
-        /// @brief functions related with ACs
-        /// @{
-
-        /// @brief register AC (called during AC creation)
-        FileBucket* registerAC(const GNEAttributeCarrier* AC, const std::string& filename, const FileBucket::Type type);
-
-        /// @brief update AC
-        FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
-
-        /// @brief register AC (called during AC deletion)
-        bool unregisterAC(const GNEAttributeCarrier* AC);
-
-        /// @brief check if the given filename can be assigned to the given AC
-        bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
 
         /// @}
 
@@ -1210,6 +1199,9 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief parse filenames
         std::string parseFilenames(const std::vector<FileBucket::Type> types) const;
+
+        /// @brief removed empty buckets
+        void removeEmptyBuckets();
 
         /// @brief update options
         void updateOptions();

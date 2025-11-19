@@ -59,16 +59,16 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     // set default bucket for template elements
     auto savingFilesHandler = net->getGNEApplicationWindow()->getSavingFilesHandler();
     if (myTagProperty->saveInNetworkFile()) {
-        savingFilesHandler->getDefaultBucket(FileBucket::Type::NETWORK);
+        myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::NETWORK);
     } else if (myTagProperty->saveInDataFile()) {
-        savingFilesHandler->getDefaultBucket(FileBucket::Type::DATA);
+        myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::DATA);
     } else if (myTagProperty->saveInDemandFile()) {
-        savingFilesHandler->getDefaultBucket(FileBucket::Type::DEMAND);
+        myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::DEMAND);
     } else if (myTagProperty->saveInMeanDataFile()) {
-        savingFilesHandler->getDefaultBucket(FileBucket::Type::MEANDATA);
+        myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::MEANDATA);
     } else if (myTagProperty->saveInAdditionalFile()) {
         // additional MUST be the last, because demand and data elements can be saved in additional files
-        savingFilesHandler->getDefaultBucket(FileBucket::Type::ADDITIONAL);
+        myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::ADDITIONAL);
     }
 }
 
@@ -76,10 +76,16 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, File
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
     myFileBucket(fileBucket) {
+    // update counter in filebucket
+    myFileBucket->addElement();
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
+    // update counter in filebucket
+    if (myIsTemplate == false) {
+        myFileBucket->removeElement();
+    }
 }
 
 
