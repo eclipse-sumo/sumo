@@ -57,7 +57,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myNet(net),
     myIsTemplate(true) {
     // set default bucket for template elements
-    auto savingFilesHandler = net->getGNEApplicationWindow()->getSavingFilesHandler();
+    auto savingFilesHandler = net->getGNEApplicationWindow()->getFileBucketHandler();
     if (myTagProperty->saveInNetworkFile()) {
         myFileBucket = savingFilesHandler->getDefaultBucket(FileBucket::Type::NETWORK);
     } else if (myTagProperty->saveInDataFile()) {
@@ -927,7 +927,7 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
             if (SUMOXMLDefinitions::isValidFilename(value)) {
-                return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->checkFilename(this, value);
+                return myNet->getGNEApplicationWindow()->getFileBucketHandler()->checkFilename(this, value);
             } else {
                 return false;
             }
@@ -949,7 +949,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
         case GNE_ATTR_DEMAND_FILE:
         case GNE_ATTR_DATA_FILE:
         case GNE_ATTR_MEANDATA_FILE:
-            myFileBucket = myNet->getGNEApplicationWindow()->getSavingFilesHandler()->updateAC(this, value);
+            myFileBucket = myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateAC(this, value);
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:
             myCenterAfterCreation = parse<bool>(value);

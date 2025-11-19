@@ -2334,10 +2334,10 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 
 
 // ---------------------------------------------------------------------------
-// GNEApplicationWindowHelper::SavingFilesHandler - methods
+// GNEApplicationWindowHelper::FileBucketHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
+GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions),
     myTypes({FileBucket::Type::SUMOCONFIG, FileBucket::Type::NETEDITCONFIG, FileBucket::Type::NETWORK,
@@ -2350,7 +2350,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::SavingFilesHandler(OptionsCont& 
 }
 
 
-GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
+GNEApplicationWindowHelper::FileBucketHandler::~FileBucketHandler() {
     // delete buckets
     for (auto& bucketMap : myBuckets) {
         for (auto& bucket : bucketMap.second) {
@@ -2361,7 +2361,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::~SavingFilesHandler() {
 
 
 FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
+GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
     if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
@@ -2414,7 +2414,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::updateAC(const GNEAttributeCarri
 
 
 bool
-GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
+GNEApplicationWindowHelper::FileBucketHandler::checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const {
     // check file properties
     if (AC->getTagProperty()->saveInParentFile()) {
         // elements with parent aren't saved in buckets
@@ -2436,13 +2436,13 @@ GNEApplicationWindowHelper::SavingFilesHandler::checkFilename(const GNEAttribute
 
 
 FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::getDefaultBucket(const FileBucket::Type type) const {
+GNEApplicationWindowHelper::FileBucketHandler::getDefaultBucket(const FileBucket::Type type) const {
     return myBuckets.at(type).front();
 }
 
 
 FileBucket*
-GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
+GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
     // iterate over all buckets to check if the given filename already exist
     for (auto& bucketMap : myBuckets) {
         for (auto& bucket : bucketMap.second) {
@@ -2472,19 +2472,19 @@ GNEApplicationWindowHelper::SavingFilesHandler::getBucket(const FileBucket::Type
 
 
 const std::vector<FileBucket*>&
-GNEApplicationWindowHelper::SavingFilesHandler::getFileBuckets(const FileBucket::Type type) const {
+GNEApplicationWindowHelper::FileBucketHandler::getFileBuckets(const FileBucket::Type type) const {
     return myBuckets.at(type);
 }
 
 
 const std::string&
-GNEApplicationWindowHelper::SavingFilesHandler::getDefaultFilename(const FileBucket::Type type) const {
+GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBucket::Type type) const {
     return myBuckets.at(type).front()->getFilename();
 }
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
+GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
     if (myBuckets.at(type).front()->getFilename().empty() || force) {
         myBuckets.at(type).front()->setFilename(filename);
         // update filename in options
@@ -2494,13 +2494,13 @@ GNEApplicationWindowHelper::SavingFilesHandler::setDefaultFilenameFile(const Fil
 
 
 bool
-GNEApplicationWindowHelper::SavingFilesHandler::isFilenameDefined(const FileBucket::Type type) const {
+GNEApplicationWindowHelper::FileBucketHandler::isFilenameDefined(const FileBucket::Type type) const {
     return (myBuckets.at(type).front()->getFilename().size() > 0);
 }
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenames() {
+GNEApplicationWindowHelper::FileBucketHandler::resetDefaultFilenames() {
     for (const auto& bucketPair : myBuckets) {
         bucketPair.second.front()->setFilename("");
     }
@@ -2512,7 +2512,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::resetDefaultFilenames() {
 
 
 std::string
-GNEApplicationWindowHelper::SavingFilesHandler::parseFilenames(const std::vector<FileBucket::Type> types) const {
+GNEApplicationWindowHelper::FileBucketHandler::parseFilenames(const std::vector<FileBucket::Type> types) const {
     std::string result;
     // group all saving files in a single string separated with comma
     for (const auto& type : types) {
@@ -2531,7 +2531,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::parseFilenames(const std::vector
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::removeEmptyBuckets() {
+GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
     bool bucketDeleted = false;
     // iterate over all buckets and remove empty buckets (except default buckets)
     for (auto type : myTypes) {
@@ -2555,7 +2555,7 @@ GNEApplicationWindowHelper::SavingFilesHandler::removeEmptyBuckets() {
 
 
 void
-GNEApplicationWindowHelper::SavingFilesHandler::updateOptions() {
+GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // get filenames
     const auto networkFile = parseFilenames({FileBucket::Type::NETWORK});
     const auto additional = parseFilenames({FileBucket::Type::ADDITIONAL});

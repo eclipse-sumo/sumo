@@ -209,7 +209,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     const std::string typeID = myMeanDataFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateMeanDataID(meanDataTag);
     // create new meanData
     GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()->getTag(), typeID,
-                                            net, net->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::MEANDATA));
+                                            net, net->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::MEANDATA));
     // add it using undoList (to allow undo-redo)
     net->getUndoList()->begin(meanData, "create meanData");
     net->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);

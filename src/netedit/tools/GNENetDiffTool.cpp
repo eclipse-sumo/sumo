@@ -153,7 +153,7 @@ GNENetDiffTool::loadShapes(const std::string& file) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // get (or create) bucket for this new file
-    auto bucket = myApplicationWindow->getSavingFilesHandler()->getBucket(FileBucket::Type::ADDITIONAL, file, true);
+    auto bucket = myApplicationWindow->getFileBucketHandler()->getBucket(FileBucket::Type::ADDITIONAL, file, true);
     // Create additional handler
     GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), bucket, myApplicationWindow->isUndoRedoAllowed());
     // begin undoList operation

@@ -252,7 +252,7 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // obtain a new valid Type ID
     const std::string typeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* type = new GNEVType(typeID, net, net->getGNEApplicationWindow()->getSavingFilesHandler()->getDefaultBucket(FileBucket::Type::DEMAND));
+    GNEDemandElement* type = new GNEVType(typeID, net, net->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::DEMAND));
     // add it using undoList (to allow undo-redo)
     net->getUndoList()->begin(type, TL("create vehicle type"));
     net->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
