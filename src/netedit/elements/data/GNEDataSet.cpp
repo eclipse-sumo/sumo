@@ -152,12 +152,7 @@ GNEDataSet::getGUIGlObject() const {
 
 FileBucket*
 GNEDataSet::getFileBucket() const {
-    if (isTemplate()) {
-        // get filename of default bucket (secure, because it always exist)
-        return myNet->getGNEApplicationWindow()->getSavingFilesHandler()->getFileBuckets(FileBucket::Type::DATA).front();
-    } else {
-        return myFileBucket;
-    }
+    return myFileBucket;
 }
 
 
