@@ -86,11 +86,11 @@ GNELoadThread::run() {
         // load a network file
         validInput = true;
         loadedFile = neteditOptions.getString("net-file");
-    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
+    } else if (myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::SUMOCONFIG).size() > 0) {
         // set sumo config as loaded file
-        loadedFile = neteditOptions.getString("sumocfg-file");
+        loadedFile = myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
         // declare parser for sumo config file
-        GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow->getSumoOptions(), loadedFile);
+        GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
         if (confighandler.loadSumoConfig()) {
             validInput = true;
