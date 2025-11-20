@@ -24,7 +24,12 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from functools import cache
+try:
+    from functools import cache
+except ImportError as e:
+    # python < 3.9
+    from functools import lru_cache as cache
+
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
