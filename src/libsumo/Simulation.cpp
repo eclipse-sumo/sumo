@@ -655,7 +655,6 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         result.edges.push_back(e->getID());
     }
     result.travelTime = result.cost = router.recomputeCostsPos(edges, vehicle, departPos, arrivalPos, dep, &result.length);
-    result.length -= departPos + toEdge->getLength() - arrivalPos;
     result.arrivalPos = arrivalPos;
     result.departPos = departPos;
     if (vehicle != nullptr) {
