@@ -599,7 +599,8 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 
 
 TraCIStage
-Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const double depart, const int routingMode) {
+Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID,
+        double depart, int routingMode, double departPos, double arrivalPos) {
     TraCIStage result(STAGE_DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == nullptr) {
@@ -631,14 +632,32 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     } catch (ProcessError& e) {
         throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + e.what() + ")");
     }
+    if (abs(departPos) > fromEdge->getLength()) {
+        throw TraCIException("Invalid departPos " + toString(departPos) + " on edge '" + fromEdge->getID() + " (length " + toString(fromEdge->getLength()) + ")");
+    }
+    if (departPos < 0) {
+        departPos += fromEdge->getLength();
+    }
+    if (arrivalPos == INVALID_DOUBLE_VALUE) {
+        arrivalPos = toEdge->getLength();
+    }
+    if (abs(arrivalPos) > toEdge->getLength()) {
+        throw TraCIException("Invalid arrivalPos " + toString(arrivalPos) + " on edge '" + toEdge->getID() + " (length " + toString(toEdge->getLength()) + ")");
+    }
+    if (arrivalPos < 0) {
+        arrivalPos += toEdge->getLength();
+    }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT(0, vehicle->getVClass()) : MSNet::getInstance()->getRouterTT(0);
-    router.compute(fromEdge, toEdge, vehicle, dep, edges);
+    router.compute(fromEdge, departPos, toEdge, arrivalPos, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep, &result.length);
+    result.travelTime = result.cost = router.recomputeCostsPos(edges, vehicle, departPos, arrivalPos, dep, &result.length);
+    result.length -= departPos + toEdge->getLength() - arrivalPos;
+    result.arrivalPos = arrivalPos;
+    result.departPos = departPos;
     if (vehicle != nullptr) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
         MSNet::getInstance()->getVehicleControl().discountRoutingVehicle();

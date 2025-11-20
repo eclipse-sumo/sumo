@@ -146,7 +146,8 @@ public:
     static double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
     static double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
 
-    static libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const double depart = -1., const int routingMode = 0);
+    static libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "",
+            double depart = -1., int routingMode = 0, double departPos = 0, double arrivalPos = libsumo::INVALID_DOUBLE_VALUE);
 
     /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction,
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.

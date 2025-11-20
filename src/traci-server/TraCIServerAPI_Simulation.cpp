@@ -203,8 +203,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a compound object.", outputStorage);
                 }
-                if (inputStorage.readInt() != 5) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires five parameter.", outputStorage);
+                const int nArgs = inputStorage.readInt();
+                if (nArgs < 5) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires at least five parameter.", outputStorage);
+                }
+                if (nArgs > 7) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires at most seven parameter.", outputStorage);
                 }
                 std::string from, to, vtype;
                 double depart;
@@ -221,7 +225,15 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
                 }
                 const int routingMode = StoHelp::readTypedInt(inputStorage, "Retrieval of a route requires an integer as fifth parameter.");
-                libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
+                int departPos = 0;
+                int arrivalPos = libsumo::INVALID_DOUBLE_VALUE;
+                if (nArgs > 5) {
+                    departPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as sixth parameter.");
+                }
+                if (nArgs > 6) {
+                    arrivalPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as seventh parameter.");
+                }
+                libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode, departPos, arrivalPos));
                 break;
             }
             case libsumo::FIND_INTERMODAL_ROUTE: {

@@ -484,14 +484,17 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 
 
 libsumo::TraCIStage
-Simulation::findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType, const double depart, const int routingMode) {
+Simulation::findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType,
+        double depart, int routingMode, double departPos, double arrivalPos) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 5);
+    StoHelp::writeCompound(content, 7);
     StoHelp::writeTypedString(content, fromEdge);
     StoHelp::writeTypedString(content, toEdge);
     StoHelp::writeTypedString(content, vType);
     StoHelp::writeTypedDouble(content, depart);
     StoHelp::writeTypedInt(content, routingMode);
+    StoHelp::writeTypedDouble(content, departPos);
+    StoHelp::writeTypedDouble(content, arrivalPos);
     return Dom::getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
