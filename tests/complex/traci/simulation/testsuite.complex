@@ -14,3 +14,6 @@ state_save_vtype
 
 # test for #16105
 convertRoad
+
+# Tests the simulation API
+findRoute
