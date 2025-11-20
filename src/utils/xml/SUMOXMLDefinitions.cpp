@@ -1427,10 +1427,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "size",                               GNE_ATTR_SIZE },
     { "forceSize",                          GNE_ATTR_FORCESIZE },
     { "laneLength",                         GNE_ATTR_LANELENGTH },
-    { "additionalFile",                     GNE_ATTR_ADDITIONAL_FILE },
-    { "routeFile",                          GNE_ATTR_DEMAND_FILE },
-    { "dataFile",                           GNE_ATTR_DATA_FILE },
-    { "meanDataFile",                       GNE_ATTR_MEANDATA_FILE },
+    { "saveFile",                           GNE_ATTR_SAVEFILE },
     // mapped to additional elements on writing
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },

@@ -840,10 +840,7 @@ GNEAttributeCarrier::getTagProperty() const {
 std::string
 GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case GNE_ATTR_ADDITIONAL_FILE:
-        case GNE_ATTR_DEMAND_FILE:
-        case GNE_ATTR_DATA_FILE:
-        case GNE_ATTR_MEANDATA_FILE:
+        case GNE_ATTR_SAVEFILE:
             return getFileBucket()->getFilename();
         case GNE_ATTR_CENTER_AFTER_CREATION:
             return toString(myCenterAfterCreation);
@@ -892,22 +889,7 @@ GNEAttributeCarrier::getCommonAttributePositionVector(SumoXMLAttr key) const {
 void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case GNE_ATTR_ADDITIONAL_FILE:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            // update filenames of all additional childrens
-            for (auto additionalChild : getHierarchicalElement()->getChildAdditionals()) {
-                additionalChild->setAttribute(key, value, undoList);
-            }
-            break;
-        case GNE_ATTR_DEMAND_FILE:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            // update filenames of all demand childrens
-            for (auto demandChild : getHierarchicalElement()->getChildDemandElements()) {
-                demandChild->setAttribute(key, value, undoList);
-            }
-            break;
-        case GNE_ATTR_DATA_FILE:
-        case GNE_ATTR_MEANDATA_FILE:
+        case GNE_ATTR_SAVEFILE:
         case GNE_ATTR_CENTER_AFTER_CREATION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -922,10 +904,7 @@ GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& valu
 bool
 GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& value) const {
     switch (key) {
-        case GNE_ATTR_ADDITIONAL_FILE:
-        case GNE_ATTR_DEMAND_FILE:
-        case GNE_ATTR_DATA_FILE:
-        case GNE_ATTR_MEANDATA_FILE:
+        case GNE_ATTR_SAVEFILE:
             if (SUMOXMLDefinitions::isValidFilename(value)) {
                 return myNet->getGNEApplicationWindow()->getFileBucketHandler()->checkFilename(this, value);
             } else {
@@ -945,10 +924,7 @@ GNEAttributeCarrier::isCommonAttributeValid(SumoXMLAttr key, const std::string& 
 void
 GNEAttributeCarrier::setCommonAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case GNE_ATTR_ADDITIONAL_FILE:
-        case GNE_ATTR_DEMAND_FILE:
-        case GNE_ATTR_DATA_FILE:
-        case GNE_ATTR_MEANDATA_FILE:
+        case GNE_ATTR_SAVEFILE:
             myFileBucket = myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateAC(this, value);
             break;
         case GNE_ATTR_CENTER_AFTER_CREATION:
