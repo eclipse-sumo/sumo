@@ -557,14 +557,8 @@ private:
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);
 
-    /// @brief write additionals in output device
-    void writeAdditionalsInFile(OutputDevice& device, const FileBucket* fileBucket);
-
-    /// @brief save demand the given bucket
-    void writeDemandElementsInFile(OutputDevice& device, const FileBucket* fileBucket);
-
-    /// @brief save meanDatas
-    void writeMeanDatasInFile(OutputDevice& device, const FileBucket* fileBucket);
+    /// @brief write additionals demand elements and meanData in output device
+    void writeAdditionalFileElements(OutputDevice& device, const FileBucket* fileBucket);
 
     /// @brief write additional element by type and sorted by ID
     void writeAdditionalByType(OutputDevice& device, const FileBucket* fileBucket, const std::vector<SumoXMLTag> tags) const;
@@ -576,25 +570,34 @@ private:
     void writeRouteDistributions(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write route sorted by ID
-    void writeRoutes(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
+    void writeRoutes(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write vTypeDistributions sorted by ID
     void writeVTypeDistributions(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write vTypes sorted by ID
-    void writeVTypes(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
+    void writeVTypes(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write meanData element by type and sorted by ID
     void writeMeanDatas(OutputDevice& device, const FileBucket* fileBucket, SumoXMLTag tag) const;
 
     /// @brief write vType comment
-    bool writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
+    bool writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write route comment
-    bool writeRouteComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const;
+    bool writeRouteComment(OutputDevice& device, const FileBucket* fileBucket) const;
+
+    /// @brief write rerouter comment
+    bool writeRerouterComment(OutputDevice& device, const FileBucket* fileBucket) const;
+
+    /// @brief write variable speed sign comment
+    bool writeVariableSpeedSignComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write routeProbe comment
     bool writeRouteProbeComment(OutputDevice& device, const FileBucket* fileBucket) const;
+
+    /// @brief write vaporizer comment
+    bool writeVaporizerComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write calibrator comment
     bool writeCalibratorComment(OutputDevice& device, const FileBucket* fileBucket) const;
@@ -604,9 +607,6 @@ private:
 
     /// @brief write detector comment
     bool writeDetectorComment(OutputDevice& device, const FileBucket* fileBucket) const;
-
-    /// @brief write other additional comment
-    bool writeOtherAdditionalsComment(OutputDevice& device, const FileBucket* fileBucket) const;
 
     /// @brief write shape comment
     bool writeShapesComment(OutputDevice& device, const FileBucket* fileBucket) const;

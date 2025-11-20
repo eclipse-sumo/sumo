@@ -2233,8 +2233,7 @@ GNENet::saveAdditionals() {
     // if there are invalid additionls, open GNEFixAdditionalElementsDialog
     if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
-        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myApplicationWindow,
-                                           invalidAdditionals);
+        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myApplicationWindow, invalidAdditionals);
         if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2248,9 +2247,7 @@ GNENet::saveAdditionals() {
         // open header
         device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
         // save additionals, demand elements and meanDatas
-        writeAdditionalsInFile(device, bucket);
-        writeDemandElementsInFile(device, bucket);
-        writeMeanDatasInFile(device, bucket);
+        writeAdditionalFileElements(device, bucket);
         // close device
         device.close();
     }
@@ -2299,8 +2296,7 @@ GNENet::saveDemandElements() {
     // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
         // open fix demand elements dialog
-        const auto fixDemandElement = GNEFixDemandElementsDialog(myApplicationWindow,
-                                      invalidSingleLaneDemandElements);
+        const auto fixDemandElement = GNEFixDemandElementsDialog(myApplicationWindow, invalidSingleLaneDemandElements);
         if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2313,8 +2309,8 @@ GNENet::saveDemandElements() {
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // open header
         device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
-        // write additionals
-        writeDemandElementsInFile(device, bucket);
+        // save additionals, demand elements and meanDatas
+        writeAdditionalFileElements(device, bucket);
         // close device
         device.close();
     }
@@ -2398,8 +2394,8 @@ GNENet::saveMeanDatas() {
         OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
         // open header
         device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-        // write mean datas in file
-        writeMeanDatasInFile(device, bucket);
+        // save additionals, demand elements and meanDatas
+        writeAdditionalFileElements(device, bucket);
         // close device
         device.close();
     }
@@ -2412,20 +2408,8 @@ GNENet::saveMeanDatas() {
 
 
 void
-GNENet::writeAdditionalsInFile(OutputDevice& device, const FileBucket* fileBucket) {
-    // write vTypes with additional childrens (due calibrators)
-    writeVTypeComment(device, fileBucket, true);
-    writeVTypes(device, fileBucket, true);
-    // write routes with additional children (due route prob reroutes)
-    writeRouteComment(device, fileBucket, true);
-    writeRoutes(device, fileBucket, true);
-    // routeProbes
-    writeRouteProbeComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_ROUTEPROBE});
-    // calibrator
-    writeCalibratorComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
-    // stoppingPlaces
+GNENet::writeAdditionalFileElements(OutputDevice& device, const FileBucket* fileBucket) {
+    // 1) stoppingPlaces
     writeStoppingPlaceComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_BUS_STOP});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_TRAIN_STOP});
@@ -2438,11 +2422,6 @@ GNENet::writeAdditionalsInFile(OutputDevice& device, const FileBucket* fileBucke
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
-    // Other additionals
-    writeOtherAdditionalsComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_REROUTER});
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VSS});
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VAPORIZER});
     // shapes
     writeShapesComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_POLY});
@@ -2459,18 +2438,13 @@ GNENet::writeAdditionalsInFile(OutputDevice& device, const FileBucket* fileBucke
     writeJuPedSimComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, fileBucket, {GNE_TAG_JPS_OBSTACLE});
-}
-
-
-void
-GNENet::writeDemandElementsInFile(OutputDevice& device, const FileBucket* fileBucket) {
-    // first write all vTypeDistributions (and their vTypes)
-    writeVTypeComment(device, fileBucket, false);
-    writeVTypes(device, fileBucket, false);
+    // vtypes
+    writeVTypeComment(device, fileBucket);
+    writeVTypes(device, fileBucket);
     writeVTypeDistributions(device, fileBucket);
     // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
-    writeRouteComment(device, fileBucket, false);
-    writeRoutes(device, fileBucket, false);
+    writeRouteComment(device, fileBucket);
+    writeRoutes(device, fileBucket);
     writeRouteDistributions(device, fileBucket);
     // sort vehicles/persons by depart
     std::map<double, std::map<std::pair<SumoXMLTag, std::string>, GNEDemandElement*> > vehiclesSortedByDepart;
@@ -2491,11 +2465,21 @@ GNENet::writeDemandElementsInFile(OutputDevice& device, const FileBucket* fileBu
             }
         }
     }
-}
-
-
-void
-GNENet::writeMeanDatasInFile(OutputDevice& device, const FileBucket* fileBucket) {
+    // calibrator
+    writeCalibratorComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE});
+    // rerouters
+    writeRerouterComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_REROUTER});
+    // variable speed signs
+    writeVariableSpeedSignComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VSS});
+    // routeProbes
+    writeRouteProbeComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_ROUTEPROBE});
+    // vaporizers
+    writeVaporizerComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VAPORIZER});
     // MeanDataEdges
     writeMeanDataEdgeComment(device, fileBucket);
     writeMeanDatas(device, fileBucket, SUMO_TAG_MEANDATA_EDGE);
@@ -2557,7 +2541,7 @@ GNENet::writeRouteDistributions(OutputDevice& device, const FileBucket* fileBuck
 
 
 void
-GNENet::writeRoutes(OutputDevice& device, const FileBucket* fileBucket, const bool /* additionalFile */) const {
+GNENet::writeRoutes(OutputDevice& device, const FileBucket* fileBucket) const {
     std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (route.second->getFileBucket() == fileBucket) {
@@ -2586,7 +2570,7 @@ GNENet::writeVTypeDistributions(OutputDevice& device, const FileBucket* fileBuck
 
 
 void
-GNENet::writeVTypes(OutputDevice& device, const FileBucket* fileBucket, const bool /* additionalFile */) const {
+GNENet::writeVTypes(OutputDevice& device, const FileBucket* fileBucket) const {
     std::map<std::string, GNEDemandElement*> sortedVTypes;
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (vType.second->getFileBucket() == fileBucket) {
@@ -2617,7 +2601,7 @@ GNENet::writeMeanDatas(OutputDevice& device, const FileBucket* fileBucket, SumoX
 }
 
 bool
-GNENet::writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const {
+GNENet::writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket) const {
     // vTypes
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // special case for default vTypes
@@ -2626,13 +2610,8 @@ GNENet::writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket, co
         // only write default vType modified
         if ((vType.second->getParentDemandElements().size() == 0) && (!defaultVType || (defaultVType && defaultVTypeModified))) {
             if (vType.second->getFileBucket() == fileBucket) {
-                if (additionalFile && (vType.second->getChildAdditionals().size() != 0)) {
-                    device << ("    <!-- VTypes (used in calibratorFlows) -->\n");
-                    return true;
-                } else if (!additionalFile && (vType.second->getChildAdditionals().size() == 0)) {
-                    device << ("    <!-- VTypes -->\n");
-                    return true;
-                }
+                device << ("    <!-- VTypes -->\n");
+                return true;
             }
         }
     }
@@ -2641,16 +2620,35 @@ GNENet::writeVTypeComment(OutputDevice& device, const FileBucket* fileBucket, co
 
 
 bool
-GNENet::writeRouteComment(OutputDevice& device, const FileBucket* fileBucket, const bool additionalFile) const {
+GNENet::writeRouteComment(OutputDevice& device, const FileBucket* fileBucket) const {
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (route.second->getFileBucket() == fileBucket) {
-            if (additionalFile && (route.second->getChildAdditionals().size() != 0)) {
-                device << ("    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->\n");
-                return true;
-            } else if (!additionalFile && (route.second->getChildAdditionals().size() == 0)) {
-                device << ("    <!-- Routes -->\n");
-                return true;
-            }
+            device << ("    <!-- Routes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeRerouterComment(OutputDevice& device, const FileBucket* fileBucket) const {
+    for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_REROUTER)) {
+        if (routeProbe.second->getFileBucket() == fileBucket) {
+            device << ("    <!-- Rerouter -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeVariableSpeedSignComment(OutputDevice& device, const FileBucket* fileBucket) const {
+    for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VSS)) {
+        if (routeProbe.second->getFileBucket() == fileBucket) {
+            device << ("    <!-- VariableSpeedSigns -->\n");
+            return true;
         }
     }
     return false;
@@ -2662,6 +2660,18 @@ GNENet::writeRouteProbeComment(OutputDevice& device, const FileBucket* fileBucke
     for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_ROUTEPROBE)) {
         if (routeProbe.second->getFileBucket() == fileBucket) {
             device << ("    <!-- RouteProbes -->\n");
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeVaporizerComment(OutputDevice& device, const FileBucket* fileBucket) const {
+    for (const auto& routeProbe : myAttributeCarriers->getAdditionals().at(SUMO_TAG_VAPORIZER)) {
+        if (routeProbe.second->getFileBucket() == fileBucket) {
+            device << ("    <!-- Vaporizers -->\n");
             return true;
         }
     }
@@ -2706,27 +2716,6 @@ GNENet::writeDetectorComment(OutputDevice& device, const FileBucket* fileBucket)
             if (additional.second->getTagProperty()->isDetector() &&
                     (additional.second->getFileBucket() == fileBucket)) {
                 device << ("    <!-- Detectors -->\n");
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-
-bool
-GNENet::writeOtherAdditionalsComment(OutputDevice& device, const FileBucket* fileBucket) const {
-    for (const auto& additionalTag : myAttributeCarriers->getAdditionals()) {
-        for (const auto& additional : additionalTag.second) {
-            const auto& tagProperty = additional.second->getTagProperty();
-            if (tagProperty->isAdditionalPureElement() &&
-                    (additional.second->getFileBucket() == fileBucket) &&
-                    !tagProperty->isStoppingPlace() && !tagProperty->isDetector() &&
-                    !tagProperty->isCalibrator() &&
-                    (tagProperty->getTag() != SUMO_TAG_ROUTEPROBE) &&
-                    (tagProperty->getTag() != SUMO_TAG_ACCESS) &&
-                    (tagProperty->getTag() != SUMO_TAG_PARKING_SPACE)) {
-                device << ("    <!-- Other additionals -->\n");
                 return true;
             }
         }
