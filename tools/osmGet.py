@@ -89,11 +89,13 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
 
     if queryStringNode and getShapes:
         unionQueryString = """
-    <union into="nodesBB">
-      %s
-    </union>
     <union into="waysBB">
        %s
+    </union>
+    <union into="nodesBB">
+       %s
+       <item from="waysBB"/>
+       <recurse type="way-node"/>
     </union>
     <union into="waysBB2">
        <item from="waysBB"/>
@@ -121,7 +123,7 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
      <item from="waysBB4"/>
      <item from="relsBB4"/>
    </union>
-    """ % (query, "\n".join(queryStringNode))
+    """ % ("\n".join(queryStringNode), query)
 
     elif queryStringNode:
         unionQueryString = """
