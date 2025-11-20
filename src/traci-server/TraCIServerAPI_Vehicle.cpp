@@ -315,68 +315,34 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::VAR_EDGE_EFFORT: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort requires a compound object.", outputStorage);
-                }
-                int parameterCount = inputStorage.readInt();
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "Setting travel time requires a compound object.");
                 std::string edgeID;
                 double begTime = 0.;
                 double endTime = std::numeric_limits<double>::max();
                 double value = libsumo::INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
-                    // begin time
-                    if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
-                    }
-                    // begin time
-                    if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the end time as second parameter.", outputStorage);
-                    }
-                    // edge
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the referenced edge as third parameter.", outputStorage);
-                    }
-                    // value
-                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
-                    }
+                    begTime = StoHelp::readTypedDouble(inputStorage, "Setting effort using 4 parameters requires the begin time as first parameter.");
+                    endTime = StoHelp::readTypedDouble(inputStorage, "Setting effort using 4 parameters requires the end time as second parameter.");
+                    edgeID = StoHelp::readTypedString(inputStorage, "Setting effort using 4 parameters requires the referenced edge as third parameter.");
+                    value = StoHelp::readTypedDouble(inputStorage, "Setting effort using 4 parameters requires the effort as double as fourth parameter.");
                 } else if (parameterCount == 2) {
-                    // edge
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the referenced edge as first parameter.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
-                    }
+                    edgeID = StoHelp::readTypedString(inputStorage, "Setting effort using 2 parameters requires the referenced edge as first parameter.");
+                    value = StoHelp::readTypedDouble(inputStorage, "Setting effort using 2 parameters requires the effort as double as second parameter.");
                 } else if (parameterCount == 1) {
-                    // edge
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort using 1 parameter requires the referenced edge as first parameter.", outputStorage);
-                    }
+                    edgeID = StoHelp::readTypedString(inputStorage, "Setting effort using 1 parameter requires the referenced edge as first parameter.");
                 } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
                 }
-                // retrieve
                 libsumo::Vehicle::setEffort(id, edgeID, value, begTime, endTime);
             }
             break;
             case libsumo::CMD_REROUTE_TRAVELTIME: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Rerouting requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 0) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 0, "Rerouting by travel time requires an empty compound object.");
                 libsumo::Vehicle::rerouteTraveltime(id, false);
             }
             break;
             case libsumo::CMD_REROUTE_EFFORT: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Rerouting requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 0) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 0, "Rerouting by effort requires an empty compound object.");
                 libsumo::Vehicle::rerouteEffort(id);
             }
             break;

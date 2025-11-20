@@ -28,6 +28,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/VehicleType.h>
 #include "TraCIServerAPI_VehicleType.h"
@@ -112,306 +113,197 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                                         tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
         case libsumo::VAR_LENGTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting length requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid length.", outputStorage);
             }
             libsumo::VehicleType::setLength(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_HEIGHT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting height requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting height requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid height.", outputStorage);
             }
             libsumo::VehicleType::setHeight(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_MASS: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting mass requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting mass requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid mass.", outputStorage);
             }
             libsumo::VehicleType::setMass(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_MAXSPEED: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting maximum speed requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid maximum speed.", outputStorage);
             }
             libsumo::VehicleType::setMaxSpeed(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_VEHICLECLASS: {
-            std::string vclass;
-            if (!server.readTypeCheckingString(inputStorage, vclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
-            }
-            try {
-                libsumo::VehicleType::setVehicleClass(id, vclass);
-            } catch (InvalidArgument&) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle class '" + vclass + "'.", outputStorage);
-            }
+            libsumo::VehicleType::setVehicleClass(id, StoHelp::readTypedString(inputStorage, "Setting vehicle class requires a string."));
+            break;
         }
-        break;
         case libsumo::VAR_SPEED_FACTOR: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
-            }
+            double value = StoHelp::readTypedDouble(inputStorage, "Setting speed factor requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid speed factor.", outputStorage);
             }
             libsumo::VehicleType::setSpeedFactor(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_SPEED_DEVIATION: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting speed deviation requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid speed deviation.", outputStorage);
             }
             libsumo::VehicleType::setSpeedDeviation(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_EMISSIONCLASS: {
-            std::string eclass;
-            if (!server.readTypeCheckingString(inputStorage, eclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
-            }
-            try {
-                libsumo::VehicleType::setEmissionClass(id, eclass);
-            } catch (InvalidArgument& e) {
-                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
-            }
+            libsumo::VehicleType::setEmissionClass(id, StoHelp::readTypedString(inputStorage, "Setting emission class requires a string."));
+            break;
         }
-        break;
         case libsumo::VAR_WIDTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting width requires a double.");
             if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid width.", outputStorage);
             }
             libsumo::VehicleType::setWidth(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_MINGAP: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting minimum gap requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid minimum gap.", outputStorage);
             }
             libsumo::VehicleType::setMinGap(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_MINGAP_LAT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting minimum lateral gap requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting minimum lateral gap requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid minimum lateral gap.", outputStorage);
             }
             libsumo::VehicleType::setMinGapLat(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_MAXSPEED_LAT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting maximum lateral speed requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting maximum lateral speed requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid maximum lateral speed.", outputStorage);
             }
             libsumo::VehicleType::setMaxSpeedLat(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_LATALIGNMENT: {
-            std::string latAlign;
-            if (!server.readTypeCheckingString(inputStorage, latAlign)) {
-                return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.",
-                                                  outputStorage);
-            }
-            try {
-                libsumo::VehicleType::setLateralAlignment(id, latAlign);
-            } catch (const libsumo::TraCIException& e) {
-                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
-            }
+            libsumo::VehicleType::setLateralAlignment(id, StoHelp::readTypedString(inputStorage, "Setting preferred lateral alignment requires a string."));
+            break;
         }
-        break;
         case libsumo::VAR_SHAPECLASS: {
-            std::string sclass;
-            if (!server.readTypeCheckingString(inputStorage, sclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
-            }
-            try {
-                libsumo::VehicleType::setShapeClass(id, sclass);
-            } catch (InvalidArgument& e) {
-                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
-            }
+            libsumo::VehicleType::setShapeClass(id, StoHelp::readTypedString(inputStorage, "Setting vehicle shape requires a string."));
+            break;
         }
-        break;
         case libsumo::VAR_ACCEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting acceleration requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid acceleration.", outputStorage);
             }
             libsumo::VehicleType::setAccel(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_DECEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting deceleration requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
             }
             libsumo::VehicleType::setDecel(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_EMERGENCY_DECEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting emergency deceleration requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
+                return server.writeErrorStatusCmd(cmd, "Invalid emergency deceleration.", outputStorage);
             }
             libsumo::VehicleType::setEmergencyDecel(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_APPARENT_DECEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting apparent deceleration requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
+                return server.writeErrorStatusCmd(cmd, "Invalid apparent deceleration.", outputStorage);
             }
             libsumo::VehicleType::setApparentDecel(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_SCALE: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting traffic scale requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Traffic scale requires a double.");
             if (value < 0.0) {
-                return server.writeErrorStatusCmd(cmd, "Traffic scale may not be negative.", outputStorage);
+                return server.writeErrorStatusCmd(cmd, "Invalid traffic scale.", outputStorage);
             }
             libsumo::VehicleType::setScale(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_ACTIONSTEPLENGTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting action step length requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting action step length requires a double.");
             if (fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Invalid action step length.", outputStorage);
             }
             bool resetActionOffset = value >= 0.0;
             libsumo::VehicleType::setActionStepLength(id, fabs(value), resetActionOffset);
+            break;
         }
-        break;
         case libsumo::VAR_IMPERFECTION: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting driver imperfection requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid driver imperfection.", outputStorage);
             }
             libsumo::VehicleType::setImperfection(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_TAU: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
-            }
+            const double value = StoHelp::readTypedDouble(inputStorage, "Setting headway time requires a double.");
             if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
                 return server.writeErrorStatusCmd(cmd, "Invalid headway time.", outputStorage);
             }
             libsumo::VehicleType::setTau(id, value);
+            break;
         }
-        break;
         case libsumo::VAR_IMPATIENCE: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting impatience requires a double.", outputStorage);
-            }
-            libsumo::VehicleType::setImpatience(id, value);
+            libsumo::VehicleType::setImpatience(id, StoHelp::readTypedDouble(inputStorage, "Setting impatience requires a double."));
+            break;
         }
-        break;
         case libsumo::VAR_BOARDING_DURATION: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting boardingDuration requires a double.", outputStorage);
-            }
-            libsumo::VehicleType::setBoardingDuration(id, value);
+            libsumo::VehicleType::setBoardingDuration(id, StoHelp::readTypedDouble(inputStorage, "Setting boarding duration requires a double."));
+            break;
         }
-        break;
         case libsumo::VAR_COLOR: {
             libsumo::TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }
             libsumo::VehicleType::setColor(id, col);
+            break;
         }
-        break;
         case libsumo::COPY: {
-            std::string newTypeID;
-            if (!server.readTypeCheckingString(inputStorage, newTypeID)) {
-                return server.writeErrorStatusCmd(cmd, "copying a vehicle type requires a string.",
-                                                  outputStorage);
-            }
-            libsumo::VehicleType::copy(id, newTypeID);
+            libsumo::VehicleType::copy(id, StoHelp::readTypedString(inputStorage, "Copying a vehicle type requires a string."));
+            break;
         }
-        break;
         case libsumo::VAR_PARAMETER: {
             if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.",
-                                                  outputStorage);
+                return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.", outputStorage);
             }
-            //readt itemNo
+            // read itemNo
             inputStorage.readInt();
-            std::string name;
-            if (!server.readTypeCheckingString(inputStorage, name)) {
-                return server.writeErrorStatusCmd(cmd, "The name of the parameter must be given as a string.",
-                                                  outputStorage);
-            }
-            std::string value;
-            if (!server.readTypeCheckingString(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "The value of the parameter must be given as a string.",
-                                                  outputStorage);
-            }
+            std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+            std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
             libsumo::VehicleType::setParameter(id, name, value);
+            break;
         }
-        break;
         default:
             break;
     }
