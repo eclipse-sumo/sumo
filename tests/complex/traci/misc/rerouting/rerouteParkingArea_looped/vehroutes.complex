@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-20T09:38:30.683777+01:00 by Eclipse SUMO sumo v1_25_0+0098-6ac69331d2b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="35751"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="9.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" reason="TraCI:parkingAreaReroute" replacedAtTime="5.00" probability="0" edges="A0B0"/>
+            <route edges="A0B0"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
