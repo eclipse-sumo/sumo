@@ -299,6 +299,9 @@ public:
             double lastEffort = this->getEffort(edges.back(), v, STEPS2TIME(msTime));
             effort -= firstEffort * fromPos / edges.front()->getLength();
             effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
+            if (lengthp != nullptr) {
+                (*lengthp) -= fromPos + edges.back()->getLength() - toPos;
+            }
         }
         return effort;
     }

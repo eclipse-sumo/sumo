@@ -1,0 +1,6 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0" maxSpeed="10"/>
+    <trip id="ego" depart="0" departSpeed="max">
+        <stop parkingArea="parkA0B0_60" duration="10"/>
+    </trip>
+</routes>

@@ -1,0 +1,8 @@
+ Retrying in 1 seconds
+findRoute Stage(type=3, edges=('A0B0', 'B0C0', 'C0D0'), travelTime=21.137508999280058, cost=21.137508999280058, length=293.6, depart=INVALID, departPos=0.0, arrivalPos=92.1)
+findRoute Stage(type=3, edges=('A0B0', 'B0C0', 'C0D0'), travelTime=17.5377969762419, cost=17.5377969762419, length=243.60000000000002, depart=INVALID, departPos=50.0, arrivalPos=92.1)
+findRoute Stage(type=3, edges=('A0B0', 'B0C0', 'C0D0'), travelTime=15.946724262059035, cost=15.946724262059035, length=221.50000000000003, depart=INVALID, departPos=72.1, arrivalPos=92.1)
+findRoute Stage(type=3, edges=('A0B0', 'B0C0', 'C0D0'), travelTime=15.226781857451405, cost=15.226781857451405, length=211.50000000000003, depart=INVALID, departPos=0.0, arrivalPos=10.0)
+findRoute Stage(type=3, edges=('A0B0', 'B0C0', 'C0D0'), travelTime=13.938084953203743, cost=13.938084953203743, length=193.60000000000002, depart=INVALID, departPos=50.0, arrivalPos=42.099999999999994)
+findRoute Stage(type=3, edges=('A0B0',), travelTime=6.630669546436285, cost=6.630669546436285, length=92.1, depart=INVALID, departPos=0.0, arrivalPos=92.1)
+findRoute Stage(type=3, edges=('A0B0', 'B0A0', 'A0B0'), travelTime=29.614830813534915, cost=29.614830813534915, length=133.54999999999998, depart=INVALID, departPos=80.0, arrivalPos=20.0)

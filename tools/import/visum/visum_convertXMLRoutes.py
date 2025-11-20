@@ -30,6 +30,8 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 from sumolib.miscutils import openz  # noqa
 
+MSG_CACHE = set()
+
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Import VISUM route file")
@@ -64,6 +66,7 @@ def repairEdgeEdge(net, prevEdge, edge, vClass):
         return [prevEdge, edge], None
     return net.getFastestPath(prevEdge, edge, vClass=vClass)
 
+
 @cache
 def repairEdgeNode(net, prevEdge, node, vClass):
     bestPath = None
@@ -74,6 +77,7 @@ def repairEdgeNode(net, prevEdge, node, vClass):
             bestPath = path
             bestCost = cost
     return bestPath, bestCost
+
 
 @cache
 def repairNodeNode(net, prevNode, node, vClass):
@@ -141,7 +145,6 @@ def getValidEdgesNodes(edgedict, validNodes):
         yield singleNodes, None
 
 
-MSG_CACHE = set()
 def msgOnce(msg, key, file):
     if key not in MSG_CACHE:
         print(msg, file=file)
@@ -231,7 +234,7 @@ def main(options):
     with openz(options.outfile, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "routes", options=options)
         for vtype in sumolib.xml.parse_fast(options.routefile, 'VEHTYPETI',
-                ['INDEX', 'FROMTIME', 'TOTIME', 'VEHTYPEID']):
+                                            ['INDEX', 'FROMTIME', 'TOTIME', 'VEHTYPEID']):
             vTypes[vtype.INDEX] = (vtype.VEHTYPEID, vtype.FROMTIME, vtype.TOTIME)
             fout.write('    <vType id="%s"/>\n' % vtype.VEHTYPEID)
 
