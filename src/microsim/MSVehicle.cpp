@@ -7233,7 +7233,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
 
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;
-    router.compute(getEdge(), newEdge, this, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark);
+    router.compute(getEdge(), getPositionOnLane(), newEdge, newParkingArea->getEndLanePosition(), this, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark);
 
     // Compute the route from the parking area edge to the end of the route
     ConstMSEdgeVector edgesFromPark;
