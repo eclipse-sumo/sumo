@@ -1109,14 +1109,14 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief Constructor
-        GNESumoConfigHandler(OptionsCont& sumoOptions, const std::string& file);
+        GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
         /// @brief load SUMO config
         bool loadSumoConfig();
 
     private:
-        /// @brief sumo options
-        OptionsCont& mySumoOptions;
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow* myApplicationWindow;
 
         /// @brief SUMO config file
         const std::string myFile;

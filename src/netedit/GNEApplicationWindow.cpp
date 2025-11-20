@@ -840,9 +840,8 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set sumo configuration file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("sumocfg-file", sumoConfigFileDialog.getFilename());
+        // set sumo config
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, sumoConfigFileDialog.getFilename(), true);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -887,7 +886,7 @@ GNEApplicationWindow::onCmdReloadSumoConfig(FXObject*, FXSelector, void*) {
         if (myInternalTest) {
             myInternalTest->stopTests();
         }
-        const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
+        const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
@@ -917,7 +916,7 @@ GNEApplicationWindow::onUpdReloadNeteditConfig(FXObject* sender, FXSelector, voi
 long
 GNEApplicationWindow::onUpdReloadSumoConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-file").empty()) {
+    if (myViewNet && !myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMOCONFIG)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -1019,7 +1018,7 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
         myAmLoading = true;
         // get files
         const auto neteditConfig = neteditOptions.getString("configuration-file");
-        const auto sumoConfig = neteditOptions.getString("sumocfg-file");
+        const auto sumoConfig = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
         const auto& networkFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETWORK);
         // fill (reset) all options
         myLoadThread->fillOptions(neteditOptions);
@@ -1032,7 +1031,8 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
             // set status bar
             setStatusBarText(TLF("Reloading netedit config file '%'", neteditConfig));
         } else if (sumoConfig.size() > 0) {
-            neteditOptions.set("sumocfg-file", sumoConfig);
+            // set sumo config
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, sumoConfig, true);
             // set status bar
             setStatusBarText(TL("Reloading sumo config file '%'", sumoConfig));
         } else if (networkFile.size() > 0) {
@@ -1065,7 +1065,7 @@ GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), &neteditConfig);
-    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
+    } else if (myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG).size() > 0) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), &sumoConfig);
     } else if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
@@ -1117,7 +1117,7 @@ GNEApplicationWindow::onUpdReloadNetwork(FXObject* sender, FXSelector, void*) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_HIDE), nullptr);
     } else if ((myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) &&
-               ((neteditOptions.getString("configuration-file").size() > 0) || (neteditOptions.getString("sumocfg-file").size() > 0))) {
+               ((neteditOptions.getString("configuration-file").size() > 0) || (myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG).size() > 0))) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SHOW), nullptr);
     } else {
@@ -1341,10 +1341,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
-        if (myViewNet) {
-            myViewNet->forceSupemodeNetwork();
-        }
-        if (myViewNet && ec->viewportFromRegistry) {
+        myViewNet->forceSupemodeNetwork();
+        // update view port
+        if (ec->viewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);
@@ -2158,9 +2157,9 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
             // SumoConfig wasn't saved, then stop
             return 0;
         }
-        inputParameters = " --registry-viewport -c \"" + neteditOptions.getString("sumocfg-file") + "\"";
+        inputParameters = " --registry-viewport -c \"" + myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG) + "\"";
         // write info
-        WRITE_MESSAGE(TLF("Loading sumo config '%' in SUMO-GUI.", neteditOptions.getString("sumocfg-file")));
+        WRITE_MESSAGE(TLF("Loading sumo config '%' in SUMO-GUI.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG)));
     }
     // save current viewport in registry
     FXRegistry reg("SUMO GUI", "sumo-gui");
@@ -3566,7 +3565,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
     neteditOptions.resetWritable();
     mySumoOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("sumocfg-file").empty()) {
+    if (myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG).empty()) {
         return onCmdSaveSumoConfigAs(sender, sel, ptr);
     } else {
         // check if ignore additionals and demand elements (only used open SUMO-GUI from netedit)
@@ -3574,7 +3573,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         const bool ignoreAdditionals = (sel == openSUMO) ? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
         const bool ignoreDemandElements = (sel == openSUMO) ? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
         // get SumoConfig file
-        const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
+        const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
         // get config file without extension
         auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
         // save all elements giving automatic names based on patter in their file isn't defined
@@ -3614,7 +3613,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
                 myNet->getSavingStatus()->SumoConfigSaved();
             }
             // After saving a config successfully, add it into recent configs
-            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
+            myMenuBarFile.myRecentConfigs.appendFile(myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMOCONFIG).c_str());
         } else {
             WRITE_MESSAGE(TLF("Could not save SUMO configuration in '%'.", sumoConfigFile));
         }
@@ -3634,9 +3633,8 @@ GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, vo
             GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of file
     if (sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // save file in netedit options
-        neteditOptions.resetWritable();
-        neteditOptions.set("sumocfg-file", sumoConfigFileDialog.getFilename());
+        // set sumo config
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, sumoConfigFileDialog.getFilename(), true);
         // continue saving SUMO Config
         return onCmdSaveSumoConfig(sender, sel, ptr);
     } else {
@@ -3649,7 +3647,7 @@ long
 GNEApplicationWindow::onUpdSaveSumoConfig(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
+    } else if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMOCONFIG)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (!myNet->getSavingStatus()->isSumoConfigSaved()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3981,7 +3979,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
         // iterate over all demand elementes and change file
         for (const auto& additionalElementTag : myNet->getAttributeCarriers()->getAdditionals()) {
             for (const auto& additionalElement : additionalElementTag.second) {
-                additionalElement.second->setAttribute(GNE_ATTR_ADDITIONAL_FILE, additionalFileDialog.getFilename(), myUndoList);
+                additionalElement.second->setAttribute(GNE_ATTR_SAVEFILE, additionalFileDialog.getFilename(), myUndoList);
             }
         }
         // end undoList operation
@@ -4211,7 +4209,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
         // iterate over all demand elementes and change file
         for (const auto& demandElementTag : myNet->getAttributeCarriers()->getDemandElements()) {
             for (const auto& demandElement : demandElementTag.second) {
-                demandElement.second->setAttribute(GNE_ATTR_DEMAND_FILE, routeFileDialog.getFilename(), myUndoList);
+                demandElement.second->setAttribute(GNE_ATTR_SAVEFILE, routeFileDialog.getFilename(), myUndoList);
             }
         }
         // end undoList operation
@@ -4413,7 +4411,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("saving of unified data elements in '%'", dataFileDialog.getFilename()));
         // iterate over all demand elementes and change file
         for (const auto& dataSet : myNet->getAttributeCarriers()->getDataSets()) {
-            dataSet.second->setAttribute(GNE_ATTR_DATA_FILE, dataFileDialog.getFilename(), myUndoList);
+            dataSet.second->setAttribute(GNE_ATTR_SAVEFILE, dataFileDialog.getFilename(), myUndoList);
         }
         // end undoList operation
         myUndoList->end();
@@ -4609,7 +4607,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
         // iterate over all demand elementes and change file
         for (const auto& meanDataTag : myNet->getAttributeCarriers()->getMeanDatas()) {
             for (const auto& meanData : meanDataTag.second) {
-                meanData.second->setAttribute(GNE_ATTR_MEANDATA_FILE, meanDataFileDialog.getFilename(), myUndoList);
+                meanData.second->setAttribute(GNE_ATTR_SAVEFILE, meanDataFileDialog.getFilename(), myUndoList);
             }
         }
         // end undoList operation

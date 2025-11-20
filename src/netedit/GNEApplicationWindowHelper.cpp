@@ -2231,8 +2231,8 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 // GNESumoConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNESumoConfigHandler::GNESumoConfigHandler(OptionsCont& sumoOptions, const std::string& file) :
-    mySumoOptions(sumoOptions),
+GNEApplicationWindowHelper::GNESumoConfigHandler::GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+    myApplicationWindow(applicationWindow),
     myFile(file) {
 }
 
@@ -2242,17 +2242,17 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
     // reset options
-    mySumoOptions.resetDefault();
+    myApplicationWindow->getSumoOptions().resetDefault();
     neteditOptions.resetDefault();
     // make all options writables
-    mySumoOptions.resetWritable();
+    myApplicationWindow->getSumoOptions().resetWritable();
     neteditOptions.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler(mySumoOptions);
+    OptionsLoader handler(myApplicationWindow->getSumoOptions());
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
@@ -2266,16 +2266,14 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
         return false;
     }
     // relocate files
-    mySumoOptions.relocateFiles(myFile);
-    // set loaded files in netedit options
-    neteditOptions.set("sumocfg-file", myFile);
-    neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
-    // check if we need to define the configuration file
-    if (neteditOptions.getString("configuration-file").empty()) {
-        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".netecfg");
-        neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", newConfiguration);
+    myApplicationWindow->getSumoOptions().relocateFiles(myFile);
+    // set files
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, myFile, true);
+    if (myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::NETEDITCONFIG).empty()) {
+        const auto neteditConfig = StringUtils::replace(myFile, ".sumocfg", ".netecfg");
+        myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, neteditConfig, true);
     }
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, myApplicationWindow->getSumoOptions().getString("net-file"), true);
     return true;
 }
 
@@ -2327,8 +2325,16 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     }
     // restore ignores
     neteditOptions.resetWritable();
-    neteditOptions.set("ignore.additionalelements", toString(ignoreAdditionalElements));
-    neteditOptions.set("ignore.routeelements", toString(ignoreRouteElements));
+    if (ignoreAdditionalElements) {
+        neteditOptions.set("ignore.additionalelements", GNEAttributeCarrier::TRUE_STR);
+    } else {
+        neteditOptions.resetDefault("ignore.additionalelements");
+    }
+    if (ignoreRouteElements) {
+        neteditOptions.set("ignore.routeelements", GNEAttributeCarrier::TRUE_STR);
+    } else {
+        neteditOptions.resetDefault("ignore.routeelements");
+    }
     return true;
 }
 
@@ -2574,6 +2580,12 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         myNeteditOptions.resetDefault("net-file");
         mySumoOptions.resetDefault("net-file");
     }
+    // additional file (only netedit)
+    if (additional.size() > 0) {
+        myNeteditOptions.set("additional-files", additional);
+    } else {
+        myNeteditOptions.resetDefault("additional-files");
+    }
     // demand file (common)
     if (demandFile.size() > 0) {
         myNeteditOptions.set("route-files", demandFile);
@@ -2582,29 +2594,23 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         myNeteditOptions.resetDefault("route-files");
         mySumoOptions.resetDefault("route-files");
     }
-    // meanData file
-    if (demandFile.size() > 0) {
-        myNeteditOptions.set("meandata-files", meanData);
-    } else {
-        myNeteditOptions.resetDefault("meandata-files");
-    }
-    // additional file
-    if (additional.size() > 0) {
-        myNeteditOptions.set("additional-files", additional);
-    } else {
-        myNeteditOptions.resetDefault("additional-files");
-    }
-    // additional + meanData files
-    if (additionalMeanData.size() > 0) {
-        mySumoOptions.set("additional-files", additionalMeanData);
-    } else {
-        mySumoOptions.resetDefault("additional-files");
-    }
     // data file (only netedit)
     if (data.size() > 0) {
         myNeteditOptions.set("data-files", data);
     } else {
         myNeteditOptions.resetDefault("data-files");
+    }
+    // meanData file (only netedit)
+    if (meanData.size() > 0) {
+        myNeteditOptions.set("meandata-files", meanData);
+    } else {
+        myNeteditOptions.resetDefault("meandata-files");
+    }
+    // additional + meanData files (only sumo)
+    if (additionalMeanData.size() > 0) {
+        mySumoOptions.set("additional-files", additionalMeanData);
+    } else {
+        mySumoOptions.resetDefault("additional-files");
     }
 }
 
