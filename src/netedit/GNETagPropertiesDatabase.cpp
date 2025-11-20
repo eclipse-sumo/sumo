@@ -7017,36 +7017,13 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 TLF("Center view over element % after creation", tagProperties->getTagStr()));
         commonAttribute->setAlternativeName(TL("center view"));
     }
-    // fill file attributes
-    if (tagProperties->isAdditionalElement()) {
-        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_ADDITIONAL_FILE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                TL("The path to the additional file"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
-        commonAttribute->setAlternativeName(TL("add. file"));
-    } else if (tagProperties->isDemandElement()) {
-        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DEMAND_FILE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                TL("The path to the route file"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
-        commonAttribute->setAlternativeName(TL("route file"));
-    } else if (tagProperties->isDataElement()) {
-        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_DATA_FILE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                TL("The path to the data file"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings());
-        commonAttribute->setAlternativeName(TL("data file"));
-    } else if (tagProperties->isMeanData()) {
-        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_MEANDATA_FILE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-                TL("The path to the data file"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
-        commonAttribute->setAlternativeName(TL("mean file"));
-    }
+    // fill save file attributes
+    commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
+            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+            TL("The path to the file to save this element"));
+    commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+    commonAttribute->setAlternativeName(TL("File"));
     /*
     new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
             GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
