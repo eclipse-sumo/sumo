@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-20T09:38:30.683777+01:00 by Eclipse SUMO sumo v1_25_0+0098-6ac69331d2b
+<!-- generated on 2025-11-20T09:40:55.708667+01:00 by Eclipse SUMO sumo v1_25_0+0100-34386e9f9f2
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,18 +24,19 @@
     </report>
 
     <traci_server>
-        <remote-port value="35751"/>
+        <remote-port value="38673"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="9.00">
+    <vehicle id="ego" depart="0.00" departSpeed="10.00" speedFactor="1.0000" arrival="42.00">
         <routeDistribution>
             <route replacedOnEdge="A0B0" reason="TraCI:parkingAreaReroute" replacedAtTime="5.00" probability="0" edges="A0B0"/>
-            <route edges="A0B0"/>
+            <route edges="A0B0 B0A0 A0B0"/>
         </routeDistribution>
+        <stop parkingArea="parkA0B0_30" index="1" duration="10.00"/>
     </vehicle>
 
 </routes>
