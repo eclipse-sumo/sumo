@@ -23,6 +23,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSStoppingPlace.h>
 #include <libsumo/ParkingArea.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_ParkingArea.h"
 
@@ -66,30 +67,15 @@ TraCIServerAPI_ParkingArea::processSet(TraCIServer& server, tcpip::Storage& inpu
         // process
         switch (variable) {
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::ParkingArea::setParameter(id, name, value);
                 break;
             }
-            case libsumo::VAR_ACCESS_BADGE: {
-                std::vector<std::string> badges;
-                if (!server.readTypeCheckingStringList(inputStorage, badges)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PARKINGAREA_VARIABLE, "A string list is needed to update the ParkingArea access badges.", outputStorage);
-                }
-                libsumo::ParkingArea::setAcceptedBadges(id, badges);
+            case libsumo::VAR_ACCESS_BADGE:
+                libsumo::ParkingArea::setAcceptedBadges(id, StoHelp::readTypedStringList(inputStorage, "A string list is needed to update the ParkingArea access badges."));
                 break;
-            }
             default:
                 break;
         }

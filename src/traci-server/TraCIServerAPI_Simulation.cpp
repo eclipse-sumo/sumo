@@ -200,88 +200,41 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 break;
             case libsumo::FIND_ROUTE: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a compound object.", outputStorage);
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "Retrieval of a route requires a compound object.");
+                if (parameterCount < 5 || parameterCount > 7) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires between five to seven parameters.", outputStorage);
                 }
-                const int nArgs = inputStorage.readInt();
-                if (nArgs < 5) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires at least five parameter.", outputStorage);
-                }
-                if (nArgs > 7) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires at most seven parameter.", outputStorage);
-                }
-                std::string from, to, vtype;
-                double depart;
-                if (!server.readTypeCheckingString(inputStorage, from)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, to)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as second parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, vtype)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as third parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
-                }
+                const std::string from = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as first parameter.");
+                const std::string to = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as second parameter.");
+                const std::string vtype = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as third parameter.");
+                const double depart = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as fourth parameter.");
                 const int routingMode = StoHelp::readTypedInt(inputStorage, "Retrieval of a route requires an integer as fifth parameter.");
-                int departPos = 0;
-                int arrivalPos = libsumo::INVALID_DOUBLE_VALUE;
-                if (nArgs > 5) {
+                double departPos = 0.;
+                if (parameterCount > 5) {
                     departPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as sixth parameter.");
                 }
-                if (nArgs > 6) {
+                double arrivalPos = libsumo::INVALID_DOUBLE_VALUE;
+                if (parameterCount > 6) {
                     arrivalPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as seventh parameter.");
                 }
                 libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode, departPos, arrivalPos));
                 break;
             }
             case libsumo::FIND_INTERMODAL_ROUTE: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 13) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires thirteen parameters.", outputStorage);
-                }
-                std::string from, to, modes, ptype, vtype, destStop;
-                double depart, speed, walkFactor, departPos, arrivalPos, departPosLat;
-                if (!server.readTypeCheckingString(inputStorage, from)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, to)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as second parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, modes)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as third parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 13, "Retrieval of an intermodal route requires thirteen parameters.");
+                const std::string from = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as first parameter.");
+                const std::string to = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as second parameter.");
+                const std::string modes = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as third parameter.");
+                const double depart = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as fourth parameter.");
                 const int routingMode = StoHelp::readTypedInt(inputStorage, "Retrieval of a route requires an integer as fifth parameter.");
-                if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as sixth parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, walkFactor)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as seventh parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, departPos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as eigth parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as nineth parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingDouble(inputStorage, departPosLat)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as tenth parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, ptype)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as eleventh parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, vtype)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as twelvth parameter.", outputStorage);
-                }
-                if (!server.readTypeCheckingString(inputStorage, destStop)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as thirteenth parameter.", outputStorage);
-                }
+                const double speed = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as sixth parameter.");
+                const double walkFactor = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as seventh parameter.");
+                const double departPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as eighth parameter.");
+                const double arrivalPos = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as ninth parameter.");
+                const double departPosLat = StoHelp::readTypedDouble(inputStorage, "Retrieval of a route requires a double as tenth parameter.");
+                const std::string ptype = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as eleventh parameter.");
+                const std::string vtype = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as twelfth parameter.");
+                const std::string destStop = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as thirteenth parameter.");
                 const std::vector<libsumo::TraCIStage>& result = libsumo::Simulation::findIntermodalRoute(from, to, modes, depart, routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                 server.getWrapperStorage().writeInt((int)result.size());
@@ -325,41 +278,24 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     try {
         switch (variable) {
             case libsumo::VAR_SCALE: {
-                double value;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A double is needed for setting traffic scale.", outputStorage);
-                }
+                const double value = StoHelp::readTypedDouble(inputStorage, "A double is needed for setting traffic scale.");
                 if (value < 0.0) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Traffic scale may not be negative.", outputStorage);
                 }
                 libsumo::Simulation::setScale(value);
             }
             break;
-            case libsumo::CMD_CLEAR_PENDING_VEHICLES: {
+            case libsumo::CMD_CLEAR_PENDING_VEHICLES:
                 //clear any pending vehicle insertions
-                std::string route;
-                if (!server.readTypeCheckingString(inputStorage, route)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for clearing pending vehicles.", outputStorage);
-                }
-                libsumo::Simulation::clearPending(route);
-            }
-            break;
-            case libsumo::CMD_SAVE_SIMSTATE: {
+                libsumo::Simulation::clearPending(StoHelp::readTypedString(inputStorage, "A string is needed for clearing pending vehicles."));
+                break;
+            case libsumo::CMD_SAVE_SIMSTATE:
                 //save current simulation state
-                std::string file;
-                if (!server.readTypeCheckingString(inputStorage, file)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for saving simulation state.", outputStorage);
-                }
-                libsumo::Simulation::saveState(file);
-            }
-            break;
+                libsumo::Simulation::saveState(StoHelp::readTypedString(inputStorage, "A string is needed for saving simulation state."));
+                break;
             case libsumo::CMD_LOAD_SIMSTATE: {
                 //quick-load simulation state
-                std::string file;
-                if (!server.readTypeCheckingString(inputStorage, file)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for loading simulation state.", outputStorage);
-                }
-                double time = libsumo::Simulation::loadState(file);
+                const double time = libsumo::Simulation::loadState(StoHelp::readTypedString(inputStorage, "A string is needed for loading simulation state."));
                 TraCIServer::getInstance()->stateLoaded(TIME2STEPS(time));
             }
             break;
@@ -370,14 +306,9 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 libsumo::Simulation::setParameter(id, name, value);
                 break;
             }
-            case libsumo::CMD_MESSAGE: {
-                std::string msg;
-                if (!server.readTypeCheckingString(inputStorage, msg)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for adding a log message.", outputStorage);
-                }
-                libsumo::Simulation::writeMessage(msg);
-            }
-            break;
+            case libsumo::CMD_MESSAGE:
+                libsumo::Simulation::writeMessage(StoHelp::readTypedString(inputStorage, "A string is needed for adding a log message."));
+                break;
             default:
                 break;
         }
@@ -472,12 +403,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             return false;
     }
 
-    int destPosType = 0;
-    if (!server.readTypeCheckingUnsignedByte(inputStorage, destPosType)) {
-        server.writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Destination position type must be of type ubyte.");
-        return false;
-    }
-
+    const int destPosType = StoHelp::readTypedUnsignedByte(inputStorage, "Destination position type must be of type ubyte.");
     SUMOVehicleClass vClass = SVC_IGNORING;
     if (compoundSize == 3) {
         inputStorage.readUnsignedByte();

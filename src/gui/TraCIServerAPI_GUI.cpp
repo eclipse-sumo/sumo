@@ -42,11 +42,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         if (!libsumo::GUI::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::VAR_SELECT: {
-                    std::string objType;
-                    if (!server.readTypeCheckingString(inputStorage, objType)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "The type of the object must be given as a string.", outputStorage);
-                    }
-                    StoHelp::writeTypedInt(server.getWrapperStorage(), libsumo::GUI::isSelected(id, objType) ? 1 : 0);
+                    StoHelp::writeTypedInt(server.getWrapperStorage(), libsumo::GUI::isSelected(id, StoHelp::readTypedString(inputStorage, "The type of the object must be given as a string.")) ? 1 : 0);
                     break;
                 }
                 default:
@@ -79,65 +75,34 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     try {
         switch (variable) {
             case libsumo::VAR_VIEW_ZOOM: {
-                double zoom = 0.;
-                if (!server.readTypeCheckingDouble(inputStorage, zoom)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", outputStorage);
-                }
-                libsumo::GUI::setZoom(id, zoom);
+                libsumo::GUI::setZoom(id, StoHelp::readTypedDouble(inputStorage, "The zoom must be given as a double."));
                 break;
             }
             case libsumo::VAR_VIEW_OFFSET: {
-                libsumo::TraCIPosition tp;
-                if (!server.readTypeCheckingPosition2D(inputStorage, tp)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
-                }
+                const libsumo::TraCIPosition tp = StoHelp::readTypedPosition2D(inputStorage,  "The view port must be given as a position.");
                 libsumo::GUI::setOffset(id, tp.x, tp.y);
                 break;
             }
             case libsumo::VAR_SELECT: {
-                std::string objType;
-                if (!server.readTypeCheckingString(inputStorage, objType)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The type of the object must be given as a string.", outputStorage);
-                }
-                libsumo::GUI::toggleSelection(id, objType);
+                libsumo::GUI::toggleSelection(id, StoHelp::readTypedString(inputStorage, "The type of the object must be given as a string."));
                 break;
             }
             case libsumo::VAR_VIEW_SCHEMA: {
-                std::string schema;
-                if (!server.readTypeCheckingString(inputStorage, schema)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The scheme must be specified by a string.", outputStorage);
-                }
-                libsumo::GUI::setSchema(id, schema);
+                libsumo::GUI::setSchema(id, StoHelp::readTypedString(inputStorage, "The scheme must be specified by a string."));
                 break;
             }
             case libsumo::VAR_VIEW_BOUNDARY: {
-                PositionVector p;
-                if (!server.readTypeCheckingPolygon(inputStorage, p)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
-                }
-                libsumo::GUI::setBoundary(id, p[0].x(), p[0].y(), p[1].x(), p[1].y());
+                const libsumo::TraCIPositionVector tp = StoHelp::readTypedPolygon(inputStorage, "The boundary must be specified by a bounding box.");
+                libsumo::GUI::setBoundary(id, tp.value[0].x, tp.value[0].y, tp.value[1].x, tp.value[1].y);
                 break;
             }
             case libsumo::VAR_ANGLE: {
-                double rot;
-                if (!server.readTypeCheckingDouble(inputStorage, rot)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The rotation must be given as a double.", outputStorage);
-                }
-                libsumo::GUI::setAngle(id, rot);
+                libsumo::GUI::setAngle(id, StoHelp::readTypedDouble(inputStorage, "The rotation must be given as a double."));
                 break;
             }
             case libsumo::VAR_SCREENSHOT: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Screenshot requires a compound object.", outputStorage);
-                }
-                int parameterCount = inputStorage.readInt();
-                if (parameterCount != 3) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Screenshot requires three values as parameter.", outputStorage);
-                }
-                std::string filename;
-                if (!server.readTypeCheckingString(inputStorage, filename)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The first variable must be a file name.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 3, "Screenshot requires three values as parameter.");
+                const std::string filename = StoHelp::readTypedString(inputStorage, "The first variable must be a file name.");
                 const int width = StoHelp::readTypedInt(inputStorage, "The second variable must be the width given as int.");
                 const int height = StoHelp::readTypedInt(inputStorage, "The third variable must be the height given as int.");
                 // take screenshot after the current step is finished (showing the same state as sumo-gui and netstate-output)
@@ -145,25 +110,12 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             }
             case libsumo::VAR_TRACK_VEHICLE: {
-                std::string objID;
-                if (!server.readTypeCheckingString(inputStorage, objID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string ID.", outputStorage);
-                }
-                libsumo::GUI::trackVehicle(id, objID);
+                libsumo::GUI::trackVehicle(id, StoHelp::readTypedString(inputStorage, "Tracking requires a string ID."));
                 break;
             }
             case libsumo::ADD: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Adding a view requires a compound object.", outputStorage);
-                }
-                int parameterCount = inputStorage.readInt();
-                if (parameterCount != 2) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Adding a view requires two values as parameter.", outputStorage);
-                }
-                std::string scheme;
-                if (!server.readTypeCheckingString(inputStorage, scheme)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The first variable must be a scheme name.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "Adding a view requires two values as parameter.");
+                const std::string scheme = StoHelp::readTypedString(inputStorage, "The first variable must be a scheme name.");
                 const int viewType = StoHelp::readTypedInt(inputStorage, "The second variable must be the view type given as int.");
                 libsumo::GUI::addView(id, scheme,
                                       viewType == 1 ?  GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL);

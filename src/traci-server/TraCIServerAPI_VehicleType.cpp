@@ -282,11 +282,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             break;
         }
         case libsumo::VAR_COLOR: {
-            libsumo::TraCIColor col;
-            if (!server.readTypeCheckingColor(inputStorage, col)) {
-                return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
-            }
-            libsumo::VehicleType::setColor(id, col);
+            libsumo::VehicleType::setColor(id, StoHelp::readTypedColor(inputStorage, "The color must be given using the according type."));
             break;
         }
         case libsumo::COPY: {
@@ -294,13 +290,9 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             break;
         }
         case libsumo::VAR_PARAMETER: {
-            if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.", outputStorage);
-            }
-            // read itemNo
-            inputStorage.readInt();
-            std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
-            std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
+            StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+            const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+            const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
             libsumo::VehicleType::setParameter(id, name, value);
             break;
         }

@@ -45,23 +45,10 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::TL_CONSTRAINT_SWAP: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for swapping constraints.", outputStorage);
-                    }
-                    //read itemNo
-                    inputStorage.readInt();
-                    std::string tripId;
-                    if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
-                    }
-                    std::string foeSignal;
-                    if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foeSignal id must be given as a string.", outputStorage);
-                    }
-                    std::string foeId;
-                    if (!server.readTypeCheckingString(inputStorage, foeId)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
-                    }
+                    StoHelp::readCompound(inputStorage, 3, "A compound object of size 3 is needed for swapping constraints.");
+                    const std::string tripId = StoHelp::readTypedString(inputStorage, "The tripId must be given as a string.");
+                    const std::string foeSignal = StoHelp::readTypedString(inputStorage, "The foeSignal id must be given as a string.");
+                    const std::string foeId = StoHelp::readTypedString(inputStorage, "The foe tripId must be given as a string.");
                     server.wrapSignalConstraintVector(id, variable, libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId));
                     break;
                 }
@@ -100,170 +87,79 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 libsumo::TrafficLight::setPhase(id, StoHelp::readTypedInt(inputStorage, "The phase index must be given as an integer."));
             }
             break;
-            case libsumo::VAR_NAME: {
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase name must be given as a string.", outputStorage);
-                }
-                libsumo::TrafficLight::setPhaseName(id, name);
-            }
-            break;
-            case libsumo::TL_PROGRAM: {
-                std::string subID;
-                if (!server.readTypeCheckingString(inputStorage, subID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The program must be given as a string.", outputStorage);
-                }
-                libsumo::TrafficLight::setProgram(id, subID);
-            }
-            break;
-            case libsumo::TL_PHASE_DURATION: {
-                double duration = 0.;
-                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase duration must be given as a double.", outputStorage);
-                }
-                libsumo::TrafficLight::setPhaseDuration(id, duration);
-            }
-            break;
-            case libsumo::TL_RED_YELLOW_GREEN_STATE: {
-                std::string state;
-                if (!server.readTypeCheckingString(inputStorage, state)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase must be given as a string.", outputStorage);
-                }
-                libsumo::TrafficLight::setRedYellowGreenState(id, state);
-            }
-            break;
+            case libsumo::VAR_NAME:
+                libsumo::TrafficLight::setPhaseName(id, StoHelp::readTypedString(inputStorage, "The phase name must be given as a string."));
+                break;
+            case libsumo::TL_PROGRAM:
+                libsumo::TrafficLight::setProgram(id, StoHelp::readTypedString(inputStorage, "The program must be given as a string."));
+                break;
+            case libsumo::TL_PHASE_DURATION:
+                libsumo::TrafficLight::setPhaseDuration(id, StoHelp::readTypedDouble(inputStorage, "The phase duration must be given as a double."));
+                break;
+            case libsumo::TL_RED_YELLOW_GREEN_STATE:
+                libsumo::TrafficLight::setRedYellowGreenState(id, StoHelp::readTypedString(inputStorage, "The phase must be given as a string."));
+                break;
             case libsumo::TL_COMPLETE_PROGRAM_RYG: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for setting a new program.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
+                StoHelp::readCompound(inputStorage, -1, "A compound object is needed for setting a new program.");
                 libsumo::TraCILogic logic;
-                if (!server.readTypeCheckingString(inputStorage, logic.programID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 1. parameter (programID) must be a string.", outputStorage);
-                }
+                logic.programID = StoHelp::readTypedString(inputStorage, "set program: 1. parameter (programID) must be a string.");
                 logic.type = StoHelp::readTypedInt(inputStorage, "set program: 2. parameter (type) must be an int.");
                 logic.currentPhaseIndex = StoHelp::readTypedInt(inputStorage, "set program: 3. parameter (index) must be an int.");
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for the phases.", outputStorage);
-                }
-                const int numPhases = inputStorage.readInt();
+
+                const int numPhases = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for the phases.");
                 for (int j = 0; j < numPhases; ++j) {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for every phase.", outputStorage);
-                    }
-                    const int items = inputStorage.readInt();
+                    const int items = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for every phase.");
                     if (items != 6 && items != 5) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A phase compound object requires 5 or 6 items.", outputStorage);
                     }
-                    double duration = 0., minDuration = 0., maxDuration = 0.;
+                    const double duration = StoHelp::readTypedDouble(inputStorage, "set program: 4.1. parameter (duration) must be a double.");
+                    const std::string state = StoHelp::readTypedString(inputStorage, "set program: 4.2. parameter (phase) must be a string.");
+                    const double minDuration = StoHelp::readTypedDouble(inputStorage, "set program: 4.3. parameter (min duration) must be a double.");
+                    const double maxDuration = StoHelp::readTypedDouble(inputStorage, "set program: 4.4. parameter (max duration) must be a double.");
+                    const int numNext = StoHelp::readCompound(inputStorage, -1, "set program 4.5 parameter (next) must be a compound (list of ints).");
                     std::vector<int> next;
-                    std::string name;
-                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.1. parameter (duration) must be a double.", outputStorage);
-                    }
-                    std::string state;
-                    if (!server.readTypeCheckingString(inputStorage, state)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.2. parameter (phase) must be a string.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, minDuration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.3. parameter (min duration) must be a double.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.4. parameter (max duration) must be a double.", outputStorage);
-                    }
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program 4.5 parameter (next) must be a compound (list of ints).", outputStorage);
-                    }
-                    const int numNext = inputStorage.readInt();
-                    for (int k = 0; k < numNext; k++) {
+                    for (int k = 0; k < numNext; ++k) {
                         next.push_back(StoHelp::readTypedInt(inputStorage, "set program: 4.5. parameter (next) must be a list of int."));
                     }
+                    std::string name;
                     if (items == 6) {
-                        if (!server.readTypeCheckingString(inputStorage, name)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.6. parameter (name) must be a string.", outputStorage);
-                        }
+                        name = StoHelp::readTypedString(inputStorage, "set program: 4.6. parameter (name) must be a string.");
                     }
                     logic.phases.emplace_back(new libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next, name));
                 }
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 5. parameter (subparams) must be a compound object.", outputStorage);
-                }
-                const int numParams = inputStorage.readInt();
-                for (int j = 0; j < numParams; j++) {
-                    std::vector<std::string> par;
-                    server.readTypeCheckingStringList(inputStorage, par);
+                const int numParams = StoHelp::readCompound(inputStorage, -1, "set program: 5. parameter (subparams) must be a compound object.");
+                for (int j = 0; j < numParams; ++j) {
+                    const std::vector<std::string> par = StoHelp::readTypedStringList(inputStorage);
                     logic.subParameter[par[0]] = par[1];
                 }
                 libsumo::TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }
             break;
             case libsumo::TL_CONSTRAINT_REMOVE: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for removing constraints.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string tripId;
-                if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
-                }
-                std::string foeSignal;
-                if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foeSignal id must be given as a string.", outputStorage);
-                }
-                std::string foeId;
-                if (!server.readTypeCheckingString(inputStorage, foeId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 3, "A compound object of size 3 is needed for removing constraints.");
+                const std::string tripId = StoHelp::readTypedString(inputStorage, "The tripId must be given as a string.");
+                const std::string foeSignal = StoHelp::readTypedString(inputStorage, "The foeSignal id must be given as a string.");
+                const std::string foeId = StoHelp::readTypedString(inputStorage, "The foe tripId must be given as a string.");
                 libsumo::TrafficLight::removeConstraints(id, tripId, foeSignal, foeId);
             }
             break;
-            case libsumo::TL_CONSTRAINT_UPDATE: {
-                std::string tripId;
-                if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId index must be given as a string.", outputStorage);
-                }
-                libsumo::TrafficLight::updateConstraints(id, tripId);
-            }
-            break;
+            case libsumo::TL_CONSTRAINT_UPDATE:
+                libsumo::TrafficLight::updateConstraints(id, StoHelp::readTypedString(inputStorage, "The tripId index must be given as a string."));
+                break;
             case libsumo::TL_CONSTRAINT_ADD: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for adding constraints.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string tripId;
-                if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
-                }
-                std::string foeSignal;
-                if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe signal must be given as a string.", outputStorage);
-                }
-                std::string foeId;
-                if (!server.readTypeCheckingString(inputStorage, foeId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 5, "A compound object of size 5 is needed for adding constraints.");
+                const std::string tripId = StoHelp::readTypedString(inputStorage, "The tripId must be given as a string.");
+                const std::string foeSignal = StoHelp::readTypedString(inputStorage, "The foe signal must be given as a string.");
+                const std::string foeId = StoHelp::readTypedString(inputStorage, "The foe tripId must be given as a string.");
                 const int type = StoHelp::readTypedInt(inputStorage, "The type must be an int.");
                 const int limit = StoHelp::readTypedInt(inputStorage, "The limit must be an int.");
                 libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
             }
             break;
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::TrafficLight::setParameter(id, name, value);
             }
             break;

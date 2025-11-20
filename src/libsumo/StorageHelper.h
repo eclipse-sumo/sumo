@@ -137,6 +137,13 @@ public:
         return ret.readDouble();
     }
 
+    static inline std::vector<double> readTypedDoubleList(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_DOUBLELIST && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readDoubleList();
+    }
+
     static inline std::string readTypedString(tcpip::Storage& ret, const std::string& error = "") {
         if (ret.readUnsignedByte() != libsumo::TYPE_STRING && error != "") {
             throw TraCIException(error);
@@ -149,6 +156,37 @@ public:
             throw TraCIException(error);
         }
         return ret.readStringList();
+    }
+
+    static inline const libsumo::TraCIColor readTypedColor(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_COLOR && error != "") {
+            throw TraCIException(error);
+        }
+        libsumo::TraCIColor into;
+        into.r = static_cast<unsigned char>(ret.readUnsignedByte());
+        into.g = static_cast<unsigned char>(ret.readUnsignedByte());
+        into.b = static_cast<unsigned char>(ret.readUnsignedByte());
+        into.a = static_cast<unsigned char>(ret.readUnsignedByte());
+        return into;
+    }
+
+    static inline const libsumo::TraCIPosition readTypedPosition2D(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::POSITION_2D & error != "") {
+            throw TraCIException(error);
+        }
+        libsumo::TraCIPosition p;
+        p.x = ret.readDouble();
+        p.y = ret.readDouble();
+        return p;
+    }
+
+    static inline const libsumo::TraCIPositionVector readTypedPolygon(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_POLYGON && error != "") {
+            throw TraCIException(error);
+        }
+        libsumo::TraCIPositionVector poly;
+        readPolygon(ret, poly);
+        return poly;
     }
 
     static inline int readCompound(tcpip::Storage& ret, int expectedSize = -1, const std::string& error = "") {
