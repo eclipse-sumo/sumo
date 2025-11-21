@@ -24,11 +24,47 @@
 // member method definitions
 // ===========================================================================
 
-
-GNEEvent_NetworkLoaded::GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file, const std::string& _settingsFile, const bool _viewportFromRegistry) :
+GNEEvent_NetworkLoaded::GNEEvent_NetworkLoaded(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& file,
+        const std::string& settingsFile, const bool viewportFromRegistry) :
     GUIEvent(GUIEventType::SIMULATION_LOADED),
-    net(_net),
-    file(_file),
-    settingsFile(_settingsFile),
-    viewportFromRegistry(_viewportFromRegistry) {
+    myType(type),
+    myNet(net),
+    myFile(file),
+    mySettingsFile(settingsFile),
+    myViewportFromRegistry(viewportFromRegistry) {
 }
+
+
+GNEEvent_NetworkLoaded::~GNEEvent_NetworkLoaded() {}
+
+
+GNEEvent_NetworkLoaded::Type
+GNEEvent_NetworkLoaded::getType() const {
+    return myType;
+}
+
+
+GNENet*
+GNEEvent_NetworkLoaded::getNet() const {
+    return myNet;
+}
+
+
+const std::string&
+GNEEvent_NetworkLoaded::getFile() const {
+    return myFile;
+}
+
+
+const std::string&
+GNEEvent_NetworkLoaded::getSettingsFile() const {
+    return mySettingsFile;
+}
+
+
+bool
+GNEEvent_NetworkLoaded::getViewportFromRegistry() const {
+    return myViewportFromRegistry;
+}
+
+/****************************************************************************/
