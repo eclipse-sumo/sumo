@@ -26,7 +26,7 @@ import os
 import sys
 try:
     from functools import cache
-except ImportError as e:
+except ImportError:
     # python < 3.9
     from functools import lru_cache as cache
 
