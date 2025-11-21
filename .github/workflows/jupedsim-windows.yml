@@ -86,8 +86,8 @@ jobs:
         cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
 
     - name: Running sumo.extra tests
-      # Tests in Debug hit a timeout
-      if: matrix.build_config == 'Release'
+      # Tests in Debug hit a timeout and master does not have the C-API anymore
+      if: matrix.build_config == 'Release' && matrix.jps_version != 'master'
       run: |
         python -m pip install texttest
         $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
