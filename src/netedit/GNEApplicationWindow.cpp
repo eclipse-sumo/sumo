@@ -1349,6 +1349,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             Position p(off.x(), off.y(), 0);
             myViewNet->setViewportFromToRot(off, p, 0);
         }
+        // set network in bucket handler
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("net-file"), true);
         // load elements
         loadAdditionalElements();
         loadDemandElements();
@@ -4859,18 +4861,12 @@ GNEApplicationWindow::getNetgenerateOptions() {
 
 void
 GNEApplicationWindow::loadAdditionalElements() {
-    // get option container
+    // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files (don't use reference because it's modified during loading)
     const StringVector additionalFiles = neteditOptions.getStringVector("additional-files");
-    // check if ignore loading of additional files
-    const auto ignoreLoadAdditionalFiles = neteditOptions.getBool("ignore.additionalelements");
-    // check conditions
-    if (ignoreLoadAdditionalFiles) {
-        // reset flag
-        neteditOptions.resetWritable();
-        neteditOptions.set("ignore.additionalelements", "false");
-    } else if (myNet && (additionalFiles.size() > 0)) {
+    // check if we have additionals to load
+    if (myNet && (additionalFiles.size() > 0)) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4910,18 +4906,12 @@ GNEApplicationWindow::loadAdditionalElements() {
 
 void
 GNEApplicationWindow::loadDemandElements() {
-    // get option container
+    // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get demand files (don't use reference because it's modified during loading)
     const StringVector demandFiles = neteditOptions.getStringVector("route-files");
-    // check if ignore loading of additional files
-    const auto ignoreLoadDemandFiles = neteditOptions.getBool("ignore.routeelements");
-    // check conditions
-    if (ignoreLoadDemandFiles) {
-        // reset flag
-        neteditOptions.resetWritable();
-        neteditOptions.set("ignore.routeelements", "false");
-    } else if (myNet && (demandFiles.size() > 0)) {
+    // check if we have demand files to load
+    if (myNet && (demandFiles.size() > 0)) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
