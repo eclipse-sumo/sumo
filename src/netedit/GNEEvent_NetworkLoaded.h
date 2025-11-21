@@ -20,34 +20,34 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/events/GUIEvent.h>
+#include <string>
 
+#include <utils/gui/events/GUIEvent.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNENet;
 
+class GNENet;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class  GNEEvent_NetworkLoaded
- *
- * Throw to GUIApplicationWindow from GUILoadThread after a simulation has
- * been loaded or the loading process failed
- */
+
 class GNEEvent_NetworkLoaded : public GUIEvent {
+
 public:
+    /// @brief type of loaded element
+    enum class Type {
+        NETECFG,    // netedit config
+        SUMOCFG,    // sumo config
+        NETCCFG,    // netconvert config
+        NETWORK     // network
+    };
+
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file,
-                           const std::string& _settingsFile, const bool _viewportFromRegistry) :
-        GUIEvent(GUIEventType::SIMULATION_LOADED),
-        net(_net),
-        file(_file),
-        settingsFile(_settingsFile),
-        viewportFromRegistry(_viewportFromRegistry) { }
+    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file, const std::string& _settingsFile,
+                           const bool _viewportFromRegistry);
 
     /// @brief destructor
     ~GNEEvent_NetworkLoaded() { }
@@ -63,4 +63,11 @@ public:
 
     /// @brief whether loading viewport from registry
     const bool viewportFromRegistry;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEEvent_NetworkLoaded(const GNEEvent_NetworkLoaded&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEEvent_NetworkLoaded& operator=(const GNEEvent_NetworkLoaded& src) = delete;
 };

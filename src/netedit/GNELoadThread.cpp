@@ -85,7 +85,7 @@ GNELoadThread::run() {
         validInput = true;
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
-        loadedFile = myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
+        loadedFile = neteditOptions.getString("sumocfg-file");
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
@@ -114,7 +114,7 @@ GNELoadThread::run() {
     }
     // check input
     if (!validInput) {
-        WRITE_ERROR(TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option"));
+        WRITE_ERROR(TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with --new option"));
         submitEndAndCleanup(nullptr, loadedFile);
         return 0;
     }
