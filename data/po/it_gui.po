@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-18 19:22+0000\n"
+"PO-Revision-Date: 2025-11-22 11:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2751,7 +2751,7 @@ msgstr "file PlainXML"
 
 #: src/netedit/GNEApplicationWindow.cpp:3395
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "PlainXML salvato usando il prefisso '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3398
 msgid "Saving plain xml failed"
@@ -2779,11 +2779,11 @@ msgstr "Il salvataggio della configurazione netedit è stato interrotto."
 
 #: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Netedit configuration saved in '%'."
-msgstr ""
+msgstr "La configurazione netedit è stata salvata in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3486
 msgid "Could not save netedit configuration in '%'."
-msgstr ""
+msgstr "Non ho potuto salvare la configurazione netedit in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 #: src/netedit/GNEApplicationWindow.cpp:3566
@@ -2795,11 +2795,11 @@ msgstr "Interruzione del processo di salvataggio della configurazione SUMO"
 
 #: src/netedit/GNEApplicationWindow.cpp:3593
 msgid "SUMO configuration saved in '%'."
-msgstr ""
+msgstr "La configurazione sumo è stata salvata in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3601
 msgid "Could not save SUMO configuration in '%'."
-msgstr ""
+msgstr "Non ho potuto salvare la configurazione sumo in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3658
 msgid "TLS Programs saved in '%'."
@@ -2811,7 +2811,7 @@ msgstr "Il salvataggio dei programmi semaforici è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:3702
 msgid "EdgeType saved in '%'."
-msgstr ""
+msgstr "Tipi di archi salvati in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3705
 msgid "Saving edgeTypes failed"
