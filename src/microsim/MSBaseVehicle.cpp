@@ -716,6 +716,13 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                 std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
             }
 #endif
+            if (iter->edge == edges.end() && iter->pars.priority >= 0) {
+                const std::string oldName = iter->getStoppingPlaceName().first;
+                if (replaceWithAlternative(iter, searchStart, edges.end())) {
+                    WRITE_WARNINGF(TL("Vehicle '%' replaced stop % (named '%') and now stops at '%' instead; after rerouting (%) at time=%."),
+                            getID(), stopIndex, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
+                }
+            }
             if (iter->edge == edges.end()) {
                 if (!removeStops) {
                     WRITE_ERRORF(TL("Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."), getID(), iter->getDescription(), info, time2string(SIMSTEP));
@@ -744,6 +751,28 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
 }
 
 
+bool
+MSBaseVehicle::replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end) {
+    std::pair<const std::string&, SumoXMLTag> nameTag = iter->getStoppingPlaceName();
+    if (!nameTag.first.empty()) {
+        const std::vector<MSStoppingPlace*>& alternatives = MSNet::getInstance()->getStoppingPlaceAlternatives(nameTag.first, nameTag.second);
+        for (MSStoppingPlace* alt : alternatives) {
+            //std::cout << SIMTIME << " veh=" << getID() << " name=" << nameTag.first << " alt=" << alt->getID() << "\n";
+            if (&alt->getLane().getEdge() == &iter->lane->getEdge()
+                    || !alt->getLane().allowsVehicleClass(getVClass())) {
+                continue;
+            }
+            iter->edge = std::find(searchStart, end, &alt->getLane().getEdge());
+            if (iter->edge != end) {
+                iter->replaceStoppingPlace(alt);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 ConstMSEdgeVector
 MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const MSEdge* source, double sourcePos,
                                std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const {
@@ -753,11 +782,9 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
     for (int i = 0; i < (int)stops.size(); i++) {
         if (stops[i].skipped) {
             skipped.push_back(i);
+            skippedPrio += stops[i].priority;
         }
         minPrio = MIN2(minPrio, stops[i].priority);
-    }
-    for (int i : skipped) {
-        skippedPrio += stops[i].priority;
     }
 #ifdef DEBUG_OPTIMIZE_SKIPPED
     std::cout << SIMTIME << " veh=" << getID() << " optimzeSkipped=" << toString(skipped) << " source=" << source->getID() << "\n";
@@ -792,6 +819,8 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
 #endif
         return edges;
     }
+    // collect stops that were not skipped but that could be skipped
+    // (backtracking) to reach more or higher-priority stops
     std::set<int> unskippedBefore;
     for (int i = 0; i < (int)stops.size(); i++) {
         if (i < skipped.back()) {
@@ -803,13 +832,15 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
     }
     // otherwise, skippedReachable should have been empty
     assert(unskippedBefore.size() > 0);
+
     // the unskipped stops may form several non contiguous sequences. We care about the last element of each sequence
     std::vector<int> unskippedEnds;
     std::vector<int> skippedStarts;
     for (int i : unskippedBefore) {
         if (unskippedBefore.count(i + 1) == 0) {
             for (int i2 : skippedReachable) {
-                if (i2 >= i + 1) {
+                if (i2 > i) {
+                    // stop i was not skipped, stop + 1 was skipped and each i2 is potentially reachable when skipping i
                     unskippedEnds.push_back(i);
                     skippedStarts.push_back(i2);
                     break;
@@ -833,6 +864,7 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
                 || prio < 0 // cannot backtrack past unskippable stop
                 || altSkippedPrio >= skippedPrio // backtracking past this stop cannot improve result
            ) {
+            // i is not a candidate for skippking
             unskippedEnds.pop_back();
             skippedStarts.pop_back();
             if (unskippedEnds.empty()) {
@@ -844,6 +876,7 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
             altSkippedPrio = 0;
             continue;
         }
+        // try skipping i and check whether it improves reachable prio
         const MSEdge* prev = i > 0 ? stops[i - 1].edge : source;
         const double prevPos = i > 0 ? stops[i - 1].pos : sourcePos;
         ConstMSEdgeVector into;
@@ -889,7 +922,7 @@ ConstMSEdgeVector
 MSBaseVehicle::routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
                                std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
                                int originStop, SUMOTime maxDelay, double& skippedPrio2) const {
-    // originStop was already reached an the edges appended
+    // originStop was already reached and the edges appended
     for (int i = originStop + 1; i < (int)stops.size(); i++) {
         ConstMSEdgeVector into;
         router.computeLooped(edges.back(), stops[i].edge, this, t, into, true);

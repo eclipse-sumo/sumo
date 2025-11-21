@@ -1068,6 +1068,8 @@ protected:
         bool skipped = false;
         bool backtracked = false;
         SUMOTime delay = 0;
+        /// @brief set when replacing stop with an alternative
+        std::string orig = "";
 
         bool operator==(const StopEdgeInfo& o) const {
             return edge == o.edge;
@@ -1084,14 +1086,20 @@ protected:
 
     static double addStopPriority(double p1, double p2);
 
-
+    /* @brief increase the total priority of reachable stops
+     * - backtrack along the planned route to avoid dead-ends
+     * - use alternative stops (with the same name) to replace unreachable stops
+     * */
     ConstMSEdgeVector optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
                                       const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
 
+    /// @brief find a route starting from originStop that reaches or skips the remaining stop and return the total stop priority achieved
     ConstMSEdgeVector routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
                                       std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
                                       int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
 
+    /// @brief replace stop with a same-name alternative that is on the route and return success
+    bool replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end); 
 
 protected:
     /// @brief This vehicle's parameter.
