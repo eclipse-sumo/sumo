@@ -1133,12 +1133,15 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief Constructor
-        GNENeteditConfigHandler(const std::string& file);
+        GNENeteditConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
         /// @brief load netedit config
         bool loadNeteditConfig();
 
     private:
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow* myApplicationWindow;
+
         /// @brief netedit config file
         const std::string myFile;
 

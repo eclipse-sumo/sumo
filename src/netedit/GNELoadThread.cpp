@@ -71,8 +71,6 @@ GNELoadThread::run() {
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
     // flag for check if input is valid
     bool validInput = false;
-    // declare network
-    GNENet* net = nullptr;
     // declare loaded file
     std::string loadedFile;
     // check conditions
@@ -85,8 +83,7 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // load a network file
         validInput = true;
-        loadedFile = neteditOptions.getString("net-file");
-    } else if (myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::SUMOCONFIG).size() > 0) {
+    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::SUMOCONFIG);
         // declare parser for sumo config file
@@ -96,20 +93,20 @@ GNELoadThread::run() {
             validInput = true;
         } else {
             WRITE_ERRORF(TL("Loading of sumo config file '%' failed."), loadedFile);
-            submitEndAndCleanup(net, loadedFile);
+            submitEndAndCleanup(nullptr, loadedFile);
             return 0;
         }
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
-        GNEApplicationWindowHelper::GNENeteditConfigHandler confighandler(loadedFile);
+        GNEApplicationWindowHelper::GNENeteditConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
         if (confighandler.loadNeteditConfig()) {
             validInput = true;
         } else {
             WRITE_ERRORF(TL("Loading of netedit config file '%' failed."), loadedFile);
-            submitEndAndCleanup(net, loadedFile);
+            submitEndAndCleanup(nullptr, loadedFile);
             return 0;
         }
     } else if (loadConsoleOptions()) {
@@ -118,7 +115,7 @@ GNELoadThread::run() {
     // check input
     if (!validInput) {
         WRITE_ERROR(TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option"));
-        submitEndAndCleanup(net, loadedFile);
+        submitEndAndCleanup(nullptr, loadedFile);
         return 0;
     }
     // update aggregate warnings
@@ -132,7 +129,7 @@ GNELoadThread::run() {
             NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
-        submitEndAndCleanup(net, loadedFile);
+        submitEndAndCleanup(nullptr, loadedFile);
         return 0;
     }
     // clear message instances
@@ -144,7 +141,7 @@ GNELoadThread::run() {
     // check if geo projection can be initialized
     if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
-        submitEndAndCleanup(net, loadedFile);
+        submitEndAndCleanup(nullptr, loadedFile);
         return 0;
     }
     // set validation
@@ -157,6 +154,8 @@ GNELoadThread::run() {
     NBNetBuilder* netBuilder = new NBNetBuilder();
     // apply netedit options in netBuilder. In this options we have all information for building network
     netBuilder->applyOptions(neteditOptions);
+    // declare network
+    GNENet* net = nullptr;
     // check if create a new net
     if (neteditOptions.getBool("new")) {
         // create new network
