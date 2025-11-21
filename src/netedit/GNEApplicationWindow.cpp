@@ -1176,13 +1176,9 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector sel, void*) {
             // specific from SUMO
             auto& neteditOptions = OptionsCont::getOptions();
             neteditOptions.resetWritable();
-            neteditOptions.set("configuration-file", "");
-            neteditOptions.set("sumocfg-file", "");
+            neteditOptions.set("-file", "");
             neteditOptions.set("tls-file", "");
             neteditOptions.set("edgetypes-file", "");
-            // also in sumoConfig
-            mySumoOptions.resetWritable();
-            mySumoOptions.set("configuration-file", "");
         }
         return 1;
     } else {
@@ -3454,9 +3450,11 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
                                            SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                            GNEFileDialog::OpenMode::SAVE,
                                            GNEFileDialog::ConfigType::NETEDIT);
-    // Remove extension
+    // continue depending of dialog
     if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         auto plainXMLFile = plainXMLFileDialog.getFilename();
+        // update default netconvert file
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, plainXMLFile, true);
         // adjust file
         if (plainXMLFile.back() == '.') {
             plainXMLFile.pop_back();
