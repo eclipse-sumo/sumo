@@ -1307,18 +1307,57 @@ GNEApplicationWindow::eventOccurred() {
 void
 GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myAmLoading = false;
-    GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
+    GNEEvent_NetworkLoaded* fileLoadedEvent = static_cast<GNEEvent_NetworkLoaded*>(e);
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successful
-    if (ec->net == nullptr) {
+    if (fileLoadedEvent->getNet() == nullptr) {
         // report failure
-        setStatusBarText(TLF("Loading of network '%' failed", ec->file));
+        std::string failureMessage;
+        if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETECFG) {
+            failureMessage = TLF("Loading of netedit config '%' failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::SUMOCFG) {
+            failureMessage = TLF("Loading of sumo config '%' failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETCCFG) {
+            failureMessage = TLF("Loading of netconvert config '%' failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETWORK) {
+            failureMessage = TLF("Loading of network '%' failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+            failureMessage = TLF("Loading of OSM Network '%' failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+            failureMessage = TLF("Loading of Network '%' through console failed", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::INVALID_OPTIONS) {
+            failureMessage = TL("Invalid Options. Nothing loaded");
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::INVALID_PROJECTION) {
+            failureMessage = TL("Could not build projection. Nothing loaded");
+        } else {
+            failureMessage = TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with --new option");
+        }
+        // write info
+        WRITE_ERROR(failureMessage);
+        setStatusBarText(failureMessage);
     } else {
-        // set new Net
-        myNet = ec->net;
         // report success
-        setStatusBarText(TLF("Network '%' loaded", ec->file));
+        std::string successMessage;
+        if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETECFG) {
+            successMessage = TLF("Netedit config '%' loaded", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::SUMOCFG) {
+            successMessage = TLF("Sumo config '%' loaded", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETCCFG) {
+            successMessage = TLF("Netconvert config '%' loaded", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETWORK) {
+            successMessage = TLF("Network '%' loaded", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+            successMessage = TLF("OSM Network '%' loaded", fileLoadedEvent->getFile());
+        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::CONSOLE) {
+            successMessage = TLF("Network '%' loaded through console", fileLoadedEvent->getFile());
+        }
+        // write info
+        WRITE_MESSAGE(successMessage);
+        setStatusBarText(successMessage);
+        // set new Net
+        myNet = fileLoadedEvent->getNet();
+        // set size and pos
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
@@ -1331,19 +1370,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // cast pointer myViewNet
         myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
         // set settings in view
-        if (viewParent->getView() && ec->settingsFile != "") {
-            GUISettingsHandler settings(ec->settingsFile, true, true);
+        if (viewParent->getView() && (fileLoadedEvent->getSettingsFile().size() > 0)) {
+            GUISettingsHandler settings(fileLoadedEvent->getSettingsFile(), true, true);
             settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());
             settings.setSnapshots(viewParent->getView());
         }
         // set network name on the caption
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, fileLoadedEvent->getFile().c_str()));
         // force supermode network
         myViewNet->forceSupemodeNetwork();
         // update view port
-        if (ec->viewportFromRegistry) {
+        if (fileLoadedEvent->getViewportFromRegistry()) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);

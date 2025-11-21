@@ -32,7 +32,6 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
 
@@ -69,54 +68,49 @@ GNELoadThread::run() {
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
-    // flag for check if input is valid
-    bool validInput = false;
+    // type of loading
+    GNEEvent_NetworkLoaded::Type type = GNEEvent_NetworkLoaded::Type::INVALID_TYPE;
     // declare loaded file
     std::string loadedFile;
     // check conditions
     if (neteditOptions.getBool("new")) {
         // create new network
-        validInput = true;
+        type = GNEEvent_NetworkLoaded::Type::NEW;
     } else if (neteditOptions.getString("osm-files").size() > 0) {
         // load an osm file
-        validInput = true;
+        type = GNEEvent_NetworkLoaded::Type::OSM;
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // load a network file
-        validInput = true;
+        type = GNEEvent_NetworkLoaded::Type::NETWORK;
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
+        // load a sumo config file
+        type = GNEEvent_NetworkLoaded::Type::SUMOCFG;
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
-        if (confighandler.loadSumoConfig()) {
-            validInput = true;
-        } else {
-            WRITE_ERRORF(TL("Loading of sumo config file '%' failed."), loadedFile);
-            submitEndAndCleanup(nullptr, loadedFile);
-            return 0;
+        if (!confighandler.loadSumoConfig()) {
+            return submitEndAndCleanup(type, nullptr, loadedFile);
         }
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
+        // load a netedit config file
+        type = GNEEvent_NetworkLoaded::Type::NETECFG;
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENeteditConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
-        if (confighandler.loadNeteditConfig()) {
-            validInput = true;
-        } else {
-            WRITE_ERRORF(TL("Loading of netedit config file '%' failed."), loadedFile);
-            submitEndAndCleanup(nullptr, loadedFile);
-            return 0;
+        if (!confighandler.loadNeteditConfig()) {
+            return submitEndAndCleanup(type, nullptr, loadedFile);
         }
     } else if (loadConsoleOptions()) {
-        validInput = true;
+        // load information through console
+        type = GNEEvent_NetworkLoaded::Type::CONSOLE;
     }
     // check input
-    if (!validInput) {
-        WRITE_ERROR(TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with --new option"));
-        submitEndAndCleanup(nullptr, loadedFile);
-        return 0;
+    if (type == GNEEvent_NetworkLoaded::Type::INVALID_TYPE) {
+        return submitEndAndCleanup(type, nullptr, loadedFile);
     }
     // update aggregate warnings
     if (neteditOptions.isDefault("aggregate-warnings")) {
@@ -128,9 +122,7 @@ GNELoadThread::run() {
     if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) &&
             NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
-        WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
-        submitEndAndCleanup(nullptr, loadedFile);
-        return 0;
+        return submitEndAndCleanup(GNEEvent_NetworkLoaded::Type::INVALID_OPTIONS, nullptr, loadedFile);
     }
     // clear message instances
     MsgHandler::getErrorInstance()->clear();
@@ -140,9 +132,7 @@ GNELoadThread::run() {
     RandHelper::initRandGlobal();
     // check if geo projection can be initialized
     if (!GeoConvHelper::init(neteditOptions)) {
-        WRITE_ERROR(TL("Could not build projection!"));
-        submitEndAndCleanup(nullptr, loadedFile);
-        return 0;
+        return submitEndAndCleanup(GNEEvent_NetworkLoaded::Type::INVALID_PROJECTION, nullptr, loadedFile);
     }
     // set validation
     XMLSubSys::setValidation(neteditOptions.getString("xml-validation"), neteditOptions.getString("xml-validation.net"), neteditOptions.getString("xml-validation.routes"));
@@ -226,21 +216,22 @@ GNELoadThread::run() {
         }
     }
     // only a single setting file is supported
-    submitEndAndCleanup(net, loadedFile, neteditOptions.getString("gui-settings-file"), neteditOptions.getBool("registry-viewport"));
-    return 0;
+    return submitEndAndCleanup(type, net, loadedFile, neteditOptions.getString("gui-settings-file"),
+                               neteditOptions.getBool("registry-viewport"));
 }
 
 
-
-void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+FXint
+GNELoadThread::submitEndAndCleanup(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& loadedFile,
+                                   const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, loadedFile, guiSettingsFile, viewportFromRegistry));
+    myEventQueue.push_back(new GNEEvent_NetworkLoaded(type, net, loadedFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
+    return 0;
 }
 
 
