@@ -39,30 +39,55 @@ class GNEEvent_NetworkLoaded : public GUIEvent {
 public:
     /// @brief type of loaded element
     enum class Type {
-        NETECFG,    // netedit config
-        SUMOCFG,    // sumo config
-        NETCCFG,    // netconvert config
-        NETWORK     // network
+        NETECFG,            // netedit config
+        SUMOCFG,            // sumo config
+        NETCCFG,            // netconvert config
+        NETWORK,            // sumo network
+        OSM,                // OSM network
+        CONSOLE,            // console options
+        NEW,                // new network
+        INVALID_TYPE,       // invalid loading type
+        INVALID_OPTIONS,    // invalid options
+        INVALID_PROJECTION  // invalid options
     };
 
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file, const std::string& _settingsFile,
-                           const bool _viewportFromRegistry);
+    GNEEvent_NetworkLoaded(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& file,
+                           const std::string& settingsFile, const bool viewportFromRegistry);
 
     /// @brief destructor
-    ~GNEEvent_NetworkLoaded() { }
+    ~GNEEvent_NetworkLoaded();
+
+    /// @brief get event type
+    GNEEvent_NetworkLoaded::Type getType() const;
+
+    /// @brief get the loaded net
+    GNENet* getNet() const;
+
+    /// @brief get the name of the loaded file
+    const std::string& getFile() const;
+
+    /// @brief get the name of the settings file to load
+    const std::string& getSettingsFile() const;
+
+    /// @brief get whether loading viewport from registry
+    bool getViewportFromRegistry() const;
+
+protected:
+    /// @brief event type
+    GNEEvent_NetworkLoaded::Type myType = GNEEvent_NetworkLoaded::Type::INVALID_TYPE;
 
     /// @brief the loaded net
-    GNENet* net;
+    GNENet* myNet;
 
     /// @brief the name of the loaded file
-    const std::string file;
+    std::string myFile;
 
     /// @brief the name of the settings file to load
-    const std::string settingsFile;
+    std::string mySettingsFile;
 
     /// @brief whether loading viewport from registry
-    const bool viewportFromRegistry;
+    bool myViewportFromRegistry;
 
 private:
     /// @brief Invalidated copy constructor.
