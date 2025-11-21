@@ -2367,8 +2367,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // relocate files
     neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNeteditConfigFile, ".netccfg", ".netecfg"), true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNeteditConfigFile, ".netccfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, myNeteditConfigFile, true);
     // restore ignores
     neteditOptions.resetWritable();
     // check if ignore additional or route files
@@ -2389,9 +2388,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions),
-    myTypes({FileBucket::Type::SUMOCONFIG, FileBucket::Type::NETEDITCONFIG, FileBucket::Type::NETWORK,
-            FileBucket::Type::DEMAND, FileBucket::Type::MEANDATA, FileBucket::Type::ADDITIONAL,
-            FileBucket::Type::DATA}) {
+    myTypes({FileBucket::Type::SUMOCONFIG, FileBucket::Type::NETCONVERTCONFIG, FileBucket::Type::NETEDITCONFIG,
+            FileBucket::Type::NETWORK, FileBucket::Type::DEMAND, FileBucket::Type::MEANDATA,
+            FileBucket::Type::ADDITIONAL, FileBucket::Type::DATA}) {
     // create default buckets
     for (auto type : myTypes) {
         myBuckets[type].push_back(new FileBucket(type));
@@ -2606,6 +2605,9 @@ GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
 void
 GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // get filenames
+    const auto sumoconfig = parseFilenames({FileBucket::Type::SUMOCONFIG});
+    const auto netconvertconfig = parseFilenames({FileBucket::Type::NETCONVERTCONFIG});
+    const auto neteditconfig = parseFilenames({FileBucket::Type::NETEDITCONFIG});
     const auto networkFile = parseFilenames({FileBucket::Type::NETWORK});
     const auto additional = parseFilenames({FileBucket::Type::ADDITIONAL});
     const auto demandFile = parseFilenames({FileBucket::Type::DEMAND});
@@ -2615,6 +2617,24 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // set default filename depending of type
     myNeteditOptions.resetWritable();
     mySumoOptions.resetWritable();
+    // sumo config (only netedit)
+    if (sumoconfig.size() > 0) {
+        myNeteditOptions.set("sumocfg-file", sumoconfig);
+    } else {
+        myNeteditOptions.resetDefault("sumocfg-file");
+    }
+    // netconvert config (only netedit)
+    if (netconvertconfig.size() > 0) {
+        myNeteditOptions.set("netconvert-file", netconvertconfig);
+    } else {
+        myNeteditOptions.resetDefault("netconvert-file");
+    }
+    // netedit config (only netedit)
+    if (neteditconfig.size() > 0) {
+        myNeteditOptions.set("configuration-file", neteditconfig);
+    } else {
+        myNeteditOptions.resetDefault("configuration-file");
+    }
     // network file (common)
     if (networkFile.size() > 0) {
         myNeteditOptions.set("net-file", networkFile);
