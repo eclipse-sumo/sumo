@@ -48,7 +48,8 @@ public:
         NEW,                // new network
         INVALID_TYPE,       // invalid loading type
         INVALID_OPTIONS,    // invalid options
-        INVALID_PROJECTION  // invalid options
+        INVALID_PROJECTION, // invalid options
+        INVALID_CONFIG      // invalid config
     };
 
     /// @brief constructor

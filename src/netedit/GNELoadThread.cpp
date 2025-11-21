@@ -87,26 +87,56 @@ GNELoadThread::run() {
         type = GNEEvent_FileLoaded::Type::SUMOCFG;
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
+    } else if (neteditOptions.getString("netconvert-file").size() > 0) {
+        // load a netconvert config file
+        type = GNEEvent_FileLoaded::Type::NETCCFG;
+        // set netconvert config file as loaded file
+        loadedFile = neteditOptions.getString("netccfg-file");
+    } else if (neteditOptions.getString("configuration-file").size() > 0) {
+        // get configuration
+        loadedFile = neteditOptions.getString("configuration-file");
+        // check the extension to determine what we're loading
+        if (StringUtils::endsWith(loadedFile, ".sumocfg")) {
+            // load a sumo config file
+            type = GNEEvent_FileLoaded::Type::SUMOCFG;
+        } else if (StringUtils::endsWith(loadedFile, ".netccfg")) {
+            // load a netconvert config file
+            type = GNEEvent_FileLoaded::Type::NETCCFG;
+        } else if (StringUtils::endsWith(loadedFile, ".netecfg")) {
+            // load a netedit config file
+            type = GNEEvent_FileLoaded::Type::NETECFG;
+        } else {
+            // invalid config
+            type = GNEEvent_FileLoaded::Type::INVALID_CONFIG;
+            // stop loading
+            return submitEndAndCleanup(type, nullptr, loadedFile);
+        }
+    } else if (loadConsoleOptions()) {
+        // load information through console
+        type = GNEEvent_FileLoaded::Type::CONSOLE;
+    }
+    // run handlers
+    if (type == GNEEvent_FileLoaded::Type::SUMOCFG) {
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
         if (!confighandler.loadSumoConfig()) {
             return submitEndAndCleanup(type, nullptr, loadedFile);
         }
-    } else if (neteditOptions.getString("configuration-file").size() > 0) {
-        // load a netedit config file
-        type = GNEEvent_FileLoaded::Type::NETECFG;
-        // set netedit config as loaded file
-        loadedFile = neteditOptions.getString("configuration-file");
+    } else if (type == GNEEvent_FileLoaded::Type::NETCCFG) {
+        // declare parser for netedit config file
+        GNEApplicationWindowHelper::GNENetconvertConfigHandler confighandler(myApplicationWindow, loadedFile);
+        // if there is an error loading sumo config, stop
+        if (!confighandler.loadNetconvertConfig()) {
+            return submitEndAndCleanup(type, nullptr, loadedFile);
+        }
+    } else if (type == GNEEvent_FileLoaded::Type::NETECFG) {
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENeteditConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
         if (!confighandler.loadNeteditConfig()) {
             return submitEndAndCleanup(type, nullptr, loadedFile);
         }
-    } else if (loadConsoleOptions()) {
-        // load information through console
-        type = GNEEvent_FileLoaded::Type::CONSOLE;
     }
     // check input
     if (type == GNEEvent_FileLoaded::Type::INVALID_TYPE) {

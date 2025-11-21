@@ -1109,7 +1109,7 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief Constructor
-        GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+        GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& sumoConfigFile);
 
         /// @brief load SUMO config
         bool loadSumoConfig();
@@ -1119,7 +1119,7 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myApplicationWindow;
 
         /// @brief SUMO config file
-        const std::string myFile;
+        const std::string mySumoConfigFile;
 
         /// @brief Invalidated copy constructor.
         GNESumoConfigHandler(const GNESumoConfigHandler&) = delete;
@@ -1128,12 +1128,36 @@ struct GNEApplicationWindowHelper {
         GNESumoConfigHandler& operator=(const GNESumoConfigHandler&) = delete;
     };
 
+    /// @brief netconvert config handler
+    class GNENetconvertConfigHandler {
+
+    public:
+        /// @brief Constructor
+        GNENetconvertConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+
+        /// @brief load netconvert config
+        bool loadNetconvertConfig();
+
+    private:
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow* myApplicationWindow;
+
+        /// @brief netconvert config file
+        const std::string myNetconvertConfigFile;
+
+        /// @brief Invalidated copy constructor.
+        GNENetconvertConfigHandler(const GNENetconvertConfigHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        GNENetconvertConfigHandler& operator=(const GNENetconvertConfigHandler&) = delete;
+    };
+
     /// @brief netedit config handler
     class GNENeteditConfigHandler {
 
     public:
         /// @brief Constructor
-        GNENeteditConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+        GNENeteditConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& neteditConfigFile);
 
         /// @brief load netedit config
         bool loadNeteditConfig();
@@ -1143,7 +1167,7 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myApplicationWindow;
 
         /// @brief netedit config file
-        const std::string myFile;
+        const std::string myNeteditConfigFile;
 
         /// @brief Invalidated copy constructor.
         GNENeteditConfigHandler(const GNENeteditConfigHandler&) = delete;

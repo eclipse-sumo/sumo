@@ -2231,9 +2231,9 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 // GNESumoConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNESumoConfigHandler::GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+GNEApplicationWindowHelper::GNESumoConfigHandler::GNESumoConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& sumoConfigFile) :
     myApplicationWindow(applicationWindow),
-    myFile(file) {
+    mySumoConfigFile(sumoConfigFile) {
 }
 
 
@@ -2257,20 +2257,20 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
+        parser.parse(StringUtils::transcodeToLocal(mySumoConfigFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load SUMO configuration '%'.", myFile));
+            WRITE_ERROR(TLF("Could not load SUMO configuration '%'.", mySumoConfigFile));
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load SUMO configuration '%':\n %", myFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TL("Could not load SUMO configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
-    sumoOptions.relocateFiles(myFile);
+    sumoOptions.relocateFiles(mySumoConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, myFile, true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myFile, ".sumocfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, mySumoConfigFile, true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(mySumoConfigFile, ".sumocfg", ".netecfg"), true);
     // set load options in netdit
     neteditOptions.resetWritable();
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
@@ -2279,12 +2279,58 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
 }
 
 // ---------------------------------------------------------------------------
+// GNENetconvertConfigHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNENetconvertConfigHandler::GNENetconvertConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& sumoConfigFile) :
+    myApplicationWindow(applicationWindow),
+    myNetconvertConfigFile(sumoConfigFile) {
+}
+
+
+bool
+GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
+    // get options
+    auto& neteditOptions = OptionsCont::getOptions();
+    // reset options and mark all options as writables
+    neteditOptions.resetDefault();
+    neteditOptions.resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(neteditOptions);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(myNetconvertConfigFile).c_str());
+        if (handler.errorOccurred()) {
+            WRITE_ERROR(TLF("Could not load SUMO configuration '%'.", myNetconvertConfigFile));
+            return false;
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        WRITE_ERROR(TL("Could not load SUMO configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
+        return false;
+    }
+    // relocate files
+    neteditOptions.relocateFiles(myNetconvertConfigFile);
+    // configure files in bucket
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, myNetconvertConfigFile, true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNetconvertConfigFile, ".netccfg", ".netecfg"), true);
+    // set load options in netdit
+    neteditOptions.resetWritable();
+    return true;
+}
+
+
+// ---------------------------------------------------------------------------
 // GNENeteditConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNENeteditConfigHandler::GNENeteditConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+GNEApplicationWindowHelper::GNENeteditConfigHandler::GNENeteditConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& neteditConfigFile) :
     myApplicationWindow(applicationWindow),
-    myFile(file) {
+    myNeteditConfigFile(neteditConfigFile) {
 }
 
 
@@ -2308,19 +2354,19 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
+        parser.parse(StringUtils::transcodeToLocal(myNeteditConfigFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load netedit configuration '%'.", myFile));
+            WRITE_ERROR(TLF("Could not load netedit configuration '%'.", myNeteditConfigFile));
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load netedit configuration '%':\n %", myFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TL("Could not load netedit configuration '%':\n %", myNeteditConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
-    neteditOptions.relocateFiles(myFile);
+    neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myFile, ".netccfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNeteditConfigFile, ".netccfg", ".netecfg"), true);
     // restore ignores
     neteditOptions.resetWritable();
     // check if ignore additional or route files
