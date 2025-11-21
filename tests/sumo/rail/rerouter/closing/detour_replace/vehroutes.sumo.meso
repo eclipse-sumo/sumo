@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-17T07:58:50.065114+01:00 by Eclipse SUMO sumo v1_25_0+0067-3619a2a5e3f
+<!-- generated on 2025-11-21T11:55:37.626236+01:00 by Eclipse SUMO sumo v1_25_0+0113-67aecfda183
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="E0 E5 E6 E7 E4"/>
         </routeDistribution>
         <stop busStop="ts_0" duration="10.00" until="20.00" priority="2.00"/>
+        <stop busStop="ts_3" duration="10.00" until="100.00" priority="1.00"/>
         <stop busStop="ts_2" duration="10.00" until="200.00" priority="2.00"/>
     </vehicle>
 
