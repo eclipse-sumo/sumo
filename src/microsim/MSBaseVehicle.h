@@ -1068,6 +1068,8 @@ protected:
         bool skipped = false;
         bool backtracked = false;
         SUMOTime delay = 0;
+        /// @brief set when replacing stop with an alternative
+        std::string orig = "";
 
         bool operator==(const StopEdgeInfo& o) const {
             return edge == o.edge;
@@ -1096,6 +1098,8 @@ protected:
                                       std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
                                       int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
 
+    /// @brief replace stop with a same-name alternative that is on the route and return success
+    bool replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end); 
 
 protected:
     /// @brief This vehicle's parameter.

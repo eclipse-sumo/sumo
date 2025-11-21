@@ -716,6 +716,13 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                 std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
             }
 #endif
+            if (iter->edge == edges.end() && iter->pars.priority >= 0) {
+                const std::string oldName = iter->getStoppingPlaceName().first;
+                if (replaceWithAlternative(iter, searchStart, edges.end())) {
+                    WRITE_WARNINGF(TL("Vehicle '%' replaced stop % (named '%') and now stops at '%' instead; after rerouting (%) at time=%."),
+                            getID(), stopIndex, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
+                }
+            }
             if (iter->edge == edges.end()) {
                 if (!removeStops) {
                     WRITE_ERRORF(TL("Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."), getID(), iter->getDescription(), info, time2string(SIMSTEP));
@@ -741,6 +748,28 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         }
     }
     return true;
+}
+
+
+bool
+MSBaseVehicle::replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end) {
+    std::pair<const std::string&, SumoXMLTag> nameTag = iter->getStoppingPlaceName();
+    if (!nameTag.first.empty()) {
+        const std::vector<MSStoppingPlace*>& alternatives = MSNet::getInstance()->getStoppingPlaceAlternatives(nameTag.first, nameTag.second);
+        for (MSStoppingPlace* alt : alternatives) {
+            //std::cout << SIMTIME << " veh=" << getID() << " name=" << nameTag.first << " alt=" << alt->getID() << "\n";
+            if (&alt->getLane().getEdge() == &iter->lane->getEdge()
+                    || !alt->getLane().allowsVehicleClass(getVClass())) {
+                continue;
+            }
+            iter->edge = std::find(searchStart, end, &alt->getLane().getEdge());
+            if (iter->edge != end) {
+                iter->replaceStoppingPlace(alt);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
