@@ -71,7 +71,7 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEEvent_NetworkLoaded.h"
+#include "GNEEvent_FileLoaded.h"
 #include "GNEInternalTest.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
@@ -1287,7 +1287,7 @@ GNEApplicationWindow::eventOccurred() {
         // process
         switch (e->getOwnType()) {
             case GUIEventType::SIMULATION_LOADED:
-                handleEvent_NetworkLoaded(e);
+                handleEvent_FileLoaded(e);
                 break;
             case GUIEventType::MESSAGE_OCCURRED:
             case GUIEventType::WARNING_OCCURRED:
@@ -1305,30 +1305,30 @@ GNEApplicationWindow::eventOccurred() {
 
 
 void
-GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
+GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
     myAmLoading = false;
-    GNEEvent_NetworkLoaded* fileLoadedEvent = static_cast<GNEEvent_NetworkLoaded*>(e);
+    GNEEvent_FileLoaded* fileLoadedEvent = static_cast<GNEEvent_FileLoaded*>(e);
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successful
     if (fileLoadedEvent->getNet() == nullptr) {
         // report failure
         std::string failureMessage;
-        if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETECFG) {
+        if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETECFG) {
             failureMessage = TLF("Loading of netedit config '%' failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::SUMOCFG) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::SUMOCFG) {
             failureMessage = TLF("Loading of sumo config '%' failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETCCFG) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETCCFG) {
             failureMessage = TLF("Loading of netconvert config '%' failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETWORK) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETWORK) {
             failureMessage = TLF("Loading of network '%' failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::OSM) {
             failureMessage = TLF("Loading of OSM Network '%' failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::OSM) {
             failureMessage = TLF("Loading of Network '%' through console failed", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::INVALID_OPTIONS) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::INVALID_OPTIONS) {
             failureMessage = TL("Invalid Options. Nothing loaded");
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::INVALID_PROJECTION) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::INVALID_PROJECTION) {
             failureMessage = TL("Could not build projection. Nothing loaded");
         } else {
             failureMessage = TL("Invalid input network option. Load with either sumo/netedit/netconvert config or with --new option");
@@ -1339,17 +1339,17 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     } else {
         // report success
         std::string successMessage;
-        if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETECFG) {
+        if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETECFG) {
             successMessage = TLF("Netedit config '%' loaded", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::SUMOCFG) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::SUMOCFG) {
             successMessage = TLF("Sumo config '%' loaded", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETCCFG) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETCCFG) {
             successMessage = TLF("Netconvert config '%' loaded", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::NETWORK) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::NETWORK) {
             successMessage = TLF("Network '%' loaded", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::OSM) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::OSM) {
             successMessage = TLF("OSM Network '%' loaded", fileLoadedEvent->getFile());
-        } else if (fileLoadedEvent->getType() == GNEEvent_NetworkLoaded::Type::CONSOLE) {
+        } else if (fileLoadedEvent->getType() == GNEEvent_FileLoaded::Type::CONSOLE) {
             successMessage = TLF("Network '%' loaded through console", fileLoadedEvent->getFile());
         }
         // write info

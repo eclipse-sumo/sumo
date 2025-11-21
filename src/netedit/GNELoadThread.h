@@ -26,7 +26,7 @@
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 
-#include "GNEEvent_NetworkLoaded.h"
+#include "GNEEvent_FileLoaded.h"
 
 // ===========================================================================
 // class declarations
@@ -75,7 +75,7 @@ private:
      * All message callbacks to this instance are removed and the parent
      * application is informed about the loading
      */
-    FXint submitEndAndCleanup(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& loadedFile,
+    FXint submitEndAndCleanup(GNEEvent_FileLoaded::Type type, GNENet* net, const std::string& loadedFile,
                               const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
     /// @brief netedit application windows
