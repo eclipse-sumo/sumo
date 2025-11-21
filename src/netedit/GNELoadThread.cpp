@@ -299,6 +299,11 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("sumocfg-file", "Input", TL("Load sumo config"));
     neteditOptions.addXMLDefault("sumocfg-file", "sumoConfiguration");
 
+    neteditOptions.doRegister("netconvert-file", new Option_FileName());
+    neteditOptions.addSynonyme("netconvert-file", "netccfg");
+    neteditOptions.addDescription("netconvert-file", "Input", TL("Load netconvert config"));
+    neteditOptions.addXMLDefault("netconvert-file", "netconvertConfiguration");
+
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
     neteditOptions.addDescription("additional-files", "Input", TL("Load additional and shapes descriptions from FILE(s)"));
