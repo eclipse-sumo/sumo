@@ -171,7 +171,7 @@ public:
     }
 
     static inline const libsumo::TraCIPosition readTypedPosition2D(tcpip::Storage& ret, const std::string& error = "") {
-        if (ret.readUnsignedByte() != libsumo::POSITION_2D & error != "") {
+        if (ret.readUnsignedByte() != libsumo::POSITION_2D && error != "") {
             throw TraCIException(error);
         }
         libsumo::TraCIPosition p;
