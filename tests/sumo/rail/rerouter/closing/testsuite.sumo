@@ -12,11 +12,22 @@ detour_default
 # see #16421
 detour_skip
 
+# skip stops with priority if the detour is too high
+# (threshold is high enough to accept detour)
+# see #16421
+detour_accept
+
 # replace stops with priority if the detour is too high
 # (replacement must have the same name)
 # 
 # see #16421
 detour_replace
+
+# replace stops by an alternative with the same name.
+# reroute to the alternative stop
+# 
+# see #16421
+detour_replace2
 
 # do not skip on initial routing (only when triggered by rerouter)
 # 
