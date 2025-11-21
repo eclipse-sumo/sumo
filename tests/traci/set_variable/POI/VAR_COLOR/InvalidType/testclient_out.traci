@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Aug 11 18:20:48 2019
+TraCITestClient output file. Date: Thu Nov 20 21:02:07 2025
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:20:48 2019
 
 -> Command sent: <SetValue>:
   domID=199 varID=69 objID=p1
-.. Answered with error to command (199), [description: The color must be given using an according type.]
+.. Answered with error to command (199), [description: The color must be given using the according type.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

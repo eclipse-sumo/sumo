@@ -604,7 +604,7 @@ class SimulationDomain(Domain):
                                   (edgeID1, pos1, 0), (edgeID2, pos2, 0), distType)
 
     def findRoute(self, fromEdge, toEdge, vType="", depart=-1., routingMode=0,
-            departPos = 0., arrivalPos = tc.INVALID_DOUBLE_VALUE):
+                  departPos=0., arrivalPos=tc.INVALID_DOUBLE_VALUE):
         """findRoute(string, string, string, double, int, double, double) -> Stage
         Computes the fastest route between the given edges for the given vehicle
         type (defaults to DEFAULT_VEHTYPE)

@@ -23,6 +23,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSStoppingPlace.h>
 #include <libsumo/OverheadWire.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_OverheadWire.h"
 
@@ -65,19 +66,9 @@ TraCIServerAPI_OverheadWire::processSet(TraCIServer& server, tcpip::Storage& inp
         // process
         switch (variable) {
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_OVERHEADWIRE_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_OVERHEADWIRE_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_OVERHEADWIRE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::OverheadWire::setParameter(id, name, value);
             }
             break;

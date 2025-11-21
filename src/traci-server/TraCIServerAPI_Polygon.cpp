@@ -72,81 +72,39 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     try {
         // process
         switch (variable) {
-            case libsumo::VAR_TYPE: {
-                std::string type;
-                if (!server.readTypeCheckingString(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
-                }
-                libsumo::Polygon::setType(id, type);
-            }
-            break;
-            case libsumo::VAR_COLOR: {
-                libsumo::TraCIColor col;
-                if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
-                }
-                libsumo::Polygon::setColor(id, col);
-            }
-            break;
-            case libsumo::VAR_SHAPE: {
-                PositionVector shape;
-                if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The shape must be given using an according type.", outputStorage);
-                }
-                libsumo::Polygon::setShape(id, libsumo::Helper::makeTraCIPositionVector(shape));
-            }
-            break;
-            case libsumo::VAR_FILL: {
-                const int value = StoHelp::readTypedInt(inputStorage, "'fill' must be defined using an integer.");
-                libsumo::Polygon::setFilled(id, value != 0);
-            }
-            break;
-            case libsumo::VAR_WIDTH: {
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "'lineWidth' must be defined using an double.", outputStorage);
-                }
-                libsumo::Polygon::setLineWidth(id, value);
-            }
-            break;
+            case libsumo::VAR_TYPE:
+                libsumo::Polygon::setType(id, StoHelp::readTypedString(inputStorage, "The type must be given as a string."));
+                break;
+            case libsumo::VAR_COLOR:
+                libsumo::Polygon::setColor(id, StoHelp::readTypedColor(inputStorage, "The color must be given using an according type."));
+                break;
+            case libsumo::VAR_SHAPE:
+                libsumo::Polygon::setShape(id, StoHelp::readTypedPolygon(inputStorage, "The shape must be given using an according type."));
+                break;
+            case libsumo::VAR_FILL:
+                libsumo::Polygon::setFilled(id, StoHelp::readTypedInt(inputStorage, "'fill' must be defined using an integer.") != 0);
+                break;
+            case libsumo::VAR_WIDTH:
+                libsumo::Polygon::setLineWidth(id, StoHelp::readTypedDouble(inputStorage, "'lineWidth' must be defined using a double."));
+                break;
             case libsumo::ADD: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a new polygon.", outputStorage);
-                }
-                int itemNo = inputStorage.readInt();
-                if (itemNo != 5 && itemNo != 6) {
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for adding a new polygon.");
+                if (parameterCount != 5 && parameterCount != 6) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding a polygon needs five to six parameters.", outputStorage);
                 }
-                std::string type;
-                if (!server.readTypeCheckingString(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
-                }
-                libsumo::TraCIColor col;
-                if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
-                }
-                int value = 0;
-                if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
-                }
-                bool fill = value != 0;
+                const std::string type = StoHelp::readTypedString(inputStorage, "The type must be given as a string.");
+                const libsumo::TraCIColor col = StoHelp::readTypedColor(inputStorage, "The second polygon parameter must be the color.");
+                const bool fill = StoHelp::readBool(inputStorage, "The third polygon parameter must be 'fill' encoded as ubyte.");
                 const int layer = StoHelp::readTypedInt(inputStorage, "The fourth polygon parameter must be the layer encoded as int.");
-                PositionVector shape;
-                if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
+                const libsumo::TraCIPositionVector tp = StoHelp::readTypedPolygon(inputStorage, "The fifth polygon parameter must be the shape.");
+                double lineWidth = 1.;
+                if (parameterCount == 6) {
+                    lineWidth = StoHelp::readTypedDouble(inputStorage, "The sixth polygon parameter must be the lineWidth encoded as double.");
                 }
-                double lineWidth = 1;
-                if (itemNo == 6) {
-                    if (!server.readTypeCheckingDouble(inputStorage, lineWidth)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The sixth polygon parameter must be the lineWidth encoded as double.", outputStorage);
-                    }
-                }
-                libsumo::TraCIPositionVector tp = libsumo::Helper::makeTraCIPositionVector(shape);
                 libsumo::Polygon::add(id, tp, col, fill, type, layer, lineWidth);
             }
             break;
-            case libsumo::VAR_ADD_DYNAMICS : {
-                // Add dynamics to polygon.
+            case libsumo::VAR_ADD_DYNAMICS: {
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for adding dynamics to a polygon.", outputStorage);
                 }
@@ -154,56 +112,23 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (itemNo != 5) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs four parameters.", outputStorage);
                 }
-
-                std::string trackedID;
-                if (!server.readTypeCheckingString(inputStorage, trackedID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The first parameter for adding polygon dynamics must be ID of the tracked object as a string ('' to disregard tracking).", outputStorage);
-                }
-
-                std::vector<double> timeSpan;
-                if (!server.readTypeCheckingDoubleList(inputStorage, timeSpan)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The second parameter for adding polygon dynamics must be the timespan of the animation (length=0 to disregard animation).", outputStorage);
-                }
-
-                std::vector<double> alphaSpan;
-                if (!server.readTypeCheckingDoubleList(inputStorage, alphaSpan)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
-                }
-
-                int looped;
-                if (!server.readTypeCheckingUnsignedByte(inputStorage, looped)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fourth parameter for adding polygon dynamics must be boolean indicating whether the animation should be looped.", outputStorage);
-                }
-
-                int rotate;
-                if (!server.readTypeCheckingUnsignedByte(inputStorage, rotate)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fifth parameter for adding polygon dynamics must be boolean indicating whether the tracking polygon should be rotated.", outputStorage);
-                }
-
-                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, looped != 0, rotate != 0);
+                const std::string trackedID = StoHelp::readTypedString(inputStorage, "The first parameter for adding polygon dynamics must be ID of the tracked object as a string ('' to disregard tracking).");
+                const std::vector<double> timeSpan = StoHelp::readTypedDoubleList(inputStorage, "The second parameter for adding polygon dynamics must be the timespan of the animation (length=0 to disregard animation).");
+                const std::vector<double> alphaSpan = StoHelp::readTypedDoubleList(inputStorage, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).");
+                const bool looped = StoHelp::readBool(inputStorage, "The fourth parameter for adding polygon dynamics must be boolean indicating whether the animation should be looped.");
+                const bool rotate = StoHelp::readBool(inputStorage, "The fifth parameter for adding polygon dynamics must be boolean indicating whether the tracking polygon should be rotated.");
+                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, looped, rotate);
             }
             break;
             case libsumo::REMOVE: {
-                // !!! layer not used yet (shouldn't the id be enough?)
                 libsumo::Polygon::remove(id, StoHelp::readTypedInt(inputStorage, "The layer must be given using an int."));
             }
             break;
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //readt itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::Polygon::setParameter(id, name, value);
-
             }
             break;
             default:

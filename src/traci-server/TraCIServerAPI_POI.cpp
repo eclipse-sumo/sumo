@@ -79,148 +79,81 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     try {
         switch (variable) {
             case libsumo::VAR_TYPE: {
-                std::string type;
-                if (!server.readTypeCheckingString(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The type must be given as a string.", outputStorage);
-                }
-                libsumo::POI::setType(id, type);
+                libsumo::POI::setType(id, StoHelp::readTypedString(inputStorage, "The type must be given as a string."));
             }
             break;
             case libsumo::VAR_COLOR: {
-                libsumo::TraCIColor col;
-                if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The color must be given using an according type.", outputStorage);
-                }
-                libsumo::POI::setColor(id, col);
+                libsumo::POI::setColor(id, StoHelp::readTypedColor(inputStorage, "The color must be given using the according type."));
             }
             break;
             case libsumo::VAR_POSITION: {
-                libsumo::TraCIPosition pos;
-                if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The position must be given using an according type.", outputStorage);
-                }
+                const libsumo::TraCIPosition pos = StoHelp::readTypedPosition2D(inputStorage, "The position must be given using an according type.");
                 libsumo::POI::setPosition(id, pos.x, pos.y);
             }
             break;
             case libsumo::VAR_WIDTH: {
-                double width;
-                if (!server.readTypeCheckingDouble(inputStorage, width)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The width must be given using an according type.", outputStorage);
-                }
-                libsumo::POI::setWidth(id, width);
+                libsumo::POI::setWidth(id, StoHelp::readTypedDouble(inputStorage, "The width must be given as a double."));
             }
             break;
             case libsumo::VAR_HEIGHT: {
-                double height;
-                if (!server.readTypeCheckingDouble(inputStorage, height)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The height must be given using an according type.", outputStorage);
-                }
-                libsumo::POI::setHeight(id, height);
+                libsumo::POI::setHeight(id, StoHelp::readTypedDouble(inputStorage, "The height must be given as a double."));
             }
             break;
             case libsumo::VAR_ANGLE: {
-                double angle;
-                if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The angle must be given using an according type.", outputStorage);
-                }
-                libsumo::POI::setAngle(id, angle);
+                libsumo::POI::setAngle(id, StoHelp::readTypedDouble(inputStorage, "The angle must be given as a double."));
             }
             break;
             case libsumo::VAR_IMAGEFILE: {
-                std::string imageFile;
-                if (!server.readTypeCheckingString(inputStorage, imageFile)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The type must be given as a string.", outputStorage);
-                }
-                libsumo::POI::setImageFile(id, imageFile);
+                libsumo::POI::setImageFile(id, StoHelp::readTypedString(inputStorage, "The image file must be given as a string."));
             }
             break;
             case libsumo::VAR_HIGHLIGHT: {
-                // Highlight the POI by adding a polygon (NOTE: duplicated code exists for vehicle domain)
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
-                }
-                const int itemNo = inputStorage.readInt();
-                if (itemNo > 5) {
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for highlighting an object.");
+                if (parameterCount > 5) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Highlighting an object needs zero to five parameters.", outputStorage);
                 }
                 libsumo::TraCIColor col = libsumo::TraCIColor(255, 0, 0);
-                if (itemNo > 0) {
-                    if (!server.readTypeCheckingColor(inputStorage, col)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
-                    }
+                if (parameterCount > 0) {
+                    col = StoHelp::readTypedColor(inputStorage, "The first parameter for highlighting must be the highlight color.");
                 }
                 double size = -1;
-                if (itemNo > 1) {
-                    if (!server.readTypeCheckingDouble(inputStorage, size)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second parameter for highlighting must be the highlight size.", outputStorage);
-                    }
+                if (parameterCount > 1) {
+                    size = StoHelp::readTypedDouble(inputStorage, "The second parameter for highlighting must be the highlight size.");
                 }
                 int alphaMax = -1;
-                if (itemNo > 2) {
-                    if (!server.readTypeCheckingUnsignedByte(inputStorage, alphaMax)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The third parameter for highlighting must be maximal alpha.", outputStorage);
-                    }
+                if (parameterCount > 2) {
+                    alphaMax = StoHelp::readTypedUnsignedByte(inputStorage, "The third parameter for highlighting must be maximal alpha.");
                 }
                 double duration = -1;
-                if (itemNo > 3) {
-                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for highlighting must be the highlight duration.", outputStorage);
-                    }
+                if (parameterCount > 3) {
+                    duration = StoHelp::readTypedDouble(inputStorage, "The fourth parameter for highlighting must be the highlight duration.");
                 }
                 int type = 0;
-                if (itemNo > 4) {
-                    if (!server.readTypeCheckingUnsignedByte(inputStorage, type)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for highlighting must be the highlight type id as ubyte.", outputStorage);
-                    }
+                if (parameterCount > 4) {
+                    type = StoHelp::readTypedUnsignedByte(inputStorage, "The fifth parameter for highlighting must be the highlight type id as ubyte.");
                 }
                 libsumo::POI::highlight(id, col, size, alphaMax, duration, type);
             }
             break;
             case libsumo::ADD: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "A compound object is needed for setting a new PoI.", outputStorage);
-                }
-                //read itemNo
-                const int parameterCount = inputStorage.readInt();
-                std::string type;
-                if (!server.readTypeCheckingString(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The first PoI parameter must be the type encoded as a string.", outputStorage);
-                }
-                libsumo::TraCIColor col;
-                if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second PoI parameter must be the color.", outputStorage);
-                }
-                int layer = StoHelp::readTypedInt(inputStorage, "The third PoI parameter must be the layer encoded as int.");
-                libsumo::TraCIPosition pos;
-                if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
-                }
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for adding a new PoI.");
+                const std::string type = StoHelp::readTypedString(inputStorage, "The first PoI parameter must be the type encoded as a string.");
+                libsumo::TraCIColor col = StoHelp::readTypedColor(inputStorage, "The second PoI parameter must be the color.");
+                const int layer = StoHelp::readTypedInt(inputStorage, "The third PoI parameter must be the layer encoded as int.");
+                const libsumo::TraCIPosition pos = StoHelp::readTypedPosition2D(inputStorage, "The fourth PoI parameter must be the position.");
                 if (parameterCount == 4) {
                     if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
                 } else if (parameterCount >= 8) {
-                    std::string imgFile;
-                    if (!server.readTypeCheckingString(inputStorage, imgFile)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the imgFile encoded as a string.", outputStorage);
-                    }
-                    double width;
-                    if (!server.readTypeCheckingDouble(inputStorage, width)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the width encoded as a double.", outputStorage);
-                    }
-                    double height;
-                    if (!server.readTypeCheckingDouble(inputStorage, height)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the height encoded as a double.", outputStorage);
-                    }
-                    double angle;
-                    if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eigth PoI parameter must be the angle encoded as a double.", outputStorage);
-                    }
+                    const std::string imgFile = StoHelp::readTypedString(inputStorage, "The fifth PoI parameter must be the imgFile encoded as a string.");
+                    const double width = StoHelp::readTypedDouble(inputStorage, "The sixth PoI parameter must be the width encoded as a double.");
+                    const double height = StoHelp::readTypedDouble(inputStorage, "The seventh PoI parameter must be the height encoded as a double.");
+                    const double angle = StoHelp::readTypedDouble(inputStorage, "The eighth PoI parameter must be the angle encoded as a double.");
                     std::string icon;
-                    if (parameterCount == 9 && !server.readTypeCheckingString(inputStorage, icon)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The ninth PoI parameter must be the icon encoded as a string.", outputStorage);
+                    if (parameterCount == 9) {
+                        icon = StoHelp::readTypedString(inputStorage, "The ninth PoI parameter must be the icon encoded as a string.");
                     }
-                    //
                     if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle, icon)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
@@ -232,7 +165,6 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case libsumo::REMOVE: {
-                // !!! layer not used yet (shouldn't the id be enough?)
                 const int layer = StoHelp::readTypedInt(inputStorage, "The layer must be given using an int.");
                 if (!libsumo::POI::remove(id, layer)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not remove PoI '" + id + "'", outputStorage);
@@ -240,19 +172,9 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //readt itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::POI::setParameter(id, name, value);
             }
             break;

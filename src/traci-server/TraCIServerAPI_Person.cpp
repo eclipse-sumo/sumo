@@ -98,267 +98,125 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         // process
         switch (variable) {
             case libsumo::VAR_SPEED: {
-                double speed = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting speed requires a double.", outputStorage);
-                }
                 // set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
-                libsumo::Person::setSpeed(id, speed);
+                libsumo::Person::setSpeed(id, StoHelp::readTypedDouble(inputStorage, "Setting speed requires a double."));
             }
             break;
             case libsumo::VAR_TYPE: {
-                std::string vTypeID;
-                if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
-                }
-                libsumo::Person::setType(id, vTypeID);
+                libsumo::Person::setType(id, StoHelp::readTypedString(inputStorage, "The vehicle type id must be given as a string."));
                 break;
             }
             case libsumo::VAR_SPEED_FACTOR: {
-                double speedfactor = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, speedfactor)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting SpeedFactor requires a double.", outputStorage);
-                }
-                libsumo::Person::setSpeedFactor(id, speedfactor);
+                libsumo::Person::setSpeedFactor(id, StoHelp::readTypedDouble(inputStorage, "Setting SpeedFactor requires a double."));
             }
             break;
             case libsumo::VAR_COLOR: {
-                libsumo::TraCIColor col;
-                if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
-                }
-                libsumo::Person::setColor(id, col);
+                libsumo::Person::setColor(id, StoHelp::readTypedColor(inputStorage, "The color must be given using the according type."));
                 break;
             }
             case libsumo::ADD: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a person requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 4) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a person needs four parameters.", outputStorage);
-                }
-                std::string vTypeID;
-                if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "First parameter (type) requires a string.", outputStorage);
-                }
-                std::string edgeID;
-                if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
-                }
-                double depart;
-                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (depart) requires a double.", outputStorage);
-                }
-                double pos;
-                if (!server.readTypeCheckingDouble(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 4, "Adding a person needs four parameters.");
+                const std::string vTypeID = StoHelp::readTypedString(inputStorage, "First parameter (type) requires a string.");
+                const std::string edgeID = StoHelp::readTypedString(inputStorage, "Second parameter (edge) requires a string.");
+                const double depart = StoHelp::readTypedDouble(inputStorage, "Third parameter (depart) requires a double.");
+                const double pos = StoHelp::readTypedDouble(inputStorage, "Fourth parameter (position) requires a double.");
                 libsumo::Person::add(id, edgeID, pos, depart, vTypeID);
             }
             break;
             case libsumo::REMOVE: {
-                int why = 0;
-                if (!server.readTypeCheckingByte(inputStorage, why)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Removing a person requires a byte.", outputStorage);
-                }
-                libsumo::Person::remove(id, (char)why);
+                libsumo::Person::remove(id, (char)StoHelp::readTypedByte(inputStorage, "Removing a person requires a byte."));
             }
             break;
             case libsumo::APPEND_STAGE: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a person stage requires a compound object.", outputStorage);
-                }
-                int numParameters = inputStorage.readInt();
-                if (numParameters == 13) {
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "Adding a person stage requires a compound object.");
+                if (parameterCount == 13) {
                     libsumo::TraCIStage stage;
-                    libsumo::StorageHelper::readStage(inputStorage, stage);
+                    StoHelp::readStage(inputStorage, stage);
                     libsumo::Person::appendStage(id, stage);
                 } else {
                     const int stageType = StoHelp::readTypedInt(inputStorage, "The first parameter for adding a stage must be the stage type given as int.");
                     if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
-                        if (numParameters != 4) {
+                        if (parameterCount != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
                         }
-                        std::string edgeID;
-                        if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
-                        }
-                        std::string lines;
-                        if (!server.readTypeCheckingString(inputStorage, lines)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (lines) requires a string.", outputStorage);
-                        }
-                        std::string stopID;
-                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                        }
+                        const std::string edgeID = StoHelp::readTypedString(inputStorage, "Second parameter (edge) requires a string.");
+                        const std::string lines = StoHelp::readTypedString(inputStorage, "Third parameter (lines) requires a string.");
+                        const std::string stopID = StoHelp::readTypedString(inputStorage, "Fourth parameter (stopID) requires a string.");
                         libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
                     } else if (stageType == libsumo::STAGE_WAITING) {
                         // append waiting stage
-                        if (numParameters != 4) {
+                        if (parameterCount != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
                         }
-                        double duration;
-                        if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires a double.", outputStorage);
-                        }
-                        std::string description;
-                        if (!server.readTypeCheckingString(inputStorage, description)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (description) requires a string.", outputStorage);
-                        }
-                        std::string stopID;
-                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                        }
+                        const double duration = StoHelp::readTypedDouble(inputStorage, "Second parameter (duration) requires a double.");
+                        const std::string description = StoHelp::readTypedString(inputStorage, "Third parameter (description) requires a string.");
+                        const std::string stopID = StoHelp::readTypedString(inputStorage, "Fourth parameter (stopID) requires a string.");
                         libsumo::Person::appendWaitingStage(id, duration, description, stopID);
                     } else if (stageType == libsumo::STAGE_WALKING) {
                         // append walking stage
-                        if (numParameters != 6) {
+                        if (parameterCount != 6) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);
                         }
-                        std::vector<std::string> edgeIDs;
-                        if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Second parameter (edges) route must be defined as a list of edge ids.", outputStorage);
-                        }
-                        double arrivalPos;
-                        if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (arrivalPos) requires a double.", outputStorage);
-                        }
-                        double duration;
-                        if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires a double.", outputStorage);
-                        }
-                        double speed;
-                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
-                        }
-                        std::string stopID;
-                        if (!server.readTypeCheckingString(inputStorage, stopID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
-                        }
+                        const std::vector<std::string> edgeIDs = StoHelp::readTypedStringList(inputStorage, "Second parameter (edges) route must be defined as a list of edge ids.");
+                        const double arrivalPos = StoHelp::readTypedDouble(inputStorage, "Third parameter (arrivalPos) requires a double.");
+                        const double duration = StoHelp::readTypedDouble(inputStorage, "Fourth parameter (duration) requires a double.");
+                        const double speed = StoHelp::readTypedDouble(inputStorage, "Fifth parameter (speed) requires a double.");
+                        const std::string stopID = StoHelp::readTypedString(inputStorage, "Sixth parameter (stopID) requires a string.");
                         libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, duration, speed, stopID);
                     } else {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
                     }
                 }
-
             }
             break;
-
-            case libsumo::REPLACE_STAGE : {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object of size 2.", outputStorage);
-                }
-                const int nextStageIndex = StoHelp::readTypedInt(inputStorage,  "First parameter of replace stage should be an integer");
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object", outputStorage);
-                }
-                if (inputStorage.readInt() != 13) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object of size 13", outputStorage);
-                }
+            case libsumo::REPLACE_STAGE: {
+                StoHelp::readCompound(inputStorage, 2, "Replacing a person stage requires a compound object of size 2.");
+                const int nextStageIndex = StoHelp::readTypedInt(inputStorage, "First parameter of replace stage should be an integer");
+                StoHelp::readCompound(inputStorage, 13, "Second parameter of replace stage should be a compound object of size 13");
                 libsumo::TraCIStage stage;
-                libsumo::StorageHelper::readStage(inputStorage, stage);
+                StoHelp::readStage(inputStorage, stage);
                 libsumo::Person::replaceStage(id, nextStageIndex, stage);
             }
             break;
-
             case libsumo::REMOVE_STAGE: {
-                const int nextStageIndex = StoHelp::readTypedInt(inputStorage, "The message must contain the stage index.");
-                libsumo::Person::removeStage(id, nextStageIndex);
+                libsumo::Person::removeStage(id, StoHelp::readTypedInt(inputStorage, "The message must contain the stage index."));
             }
             break;
             case libsumo::CMD_REROUTE_TRAVELTIME: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Rerouting requires a compound object.", outputStorage);
-                }
-                if (inputStorage.readInt() != 0) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 0, "Resuming requires an empty compound object.");
                 libsumo::Person::rerouteTraveltime(id);
             }
             break;
             case libsumo::VAR_MOVE_TO: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position requires a compound object.", outputStorage);
-                }
-                const int numArgs = inputStorage.readInt();
-                if (numArgs != 3) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position should obtain the edge id, the position and the lateral position.", outputStorage);
-                }
-                std::string laneID;
-                if (!server.readTypeCheckingString(inputStorage, laneID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The first parameter for setting a position must be the laneID given as a string.", outputStorage);
-                }
-                double position = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, position)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
-                }
-                double posLat = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, posLat)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The third parameter for setting a position must be the lateral position given as a double.", outputStorage);
-                }
-                // process
+                StoHelp::readCompound(inputStorage, 3, "Setting position should obtain the edge id, the position and the lateral position.");
+                const std::string laneID = StoHelp::readTypedString(inputStorage, "The first parameter for setting a position must be the laneID given as a string.");
+                const double position = StoHelp::readTypedDouble(inputStorage, "The second parameter for setting a position must be the position given as a double.");
+                const double posLat = StoHelp::readTypedDouble(inputStorage, "The third parameter for setting a position must be the lateral position given as a double.");
                 libsumo::Person::moveTo(id, laneID, position, posLat);
             }
             break;
             case libsumo::MOVE_TO_XY: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person requires a compound object.", outputStorage);
-                }
-                const int numArgs = inputStorage.readInt();
-                if (numArgs != 5 && numArgs != 6) {
+                const int parameterCount = StoHelp::readCompound(inputStorage, -1, "MoveToXY person requires a compound object.");
+                if (parameterCount != 5 && parameterCount != 6) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "MoveToXY person should obtain: edgeID, x, y, angle, keepRouteFlag and optionally matchThreshold.", outputStorage);
                 }
-                // edge ID
-                std::string edgeID;
-                if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The first parameter for moveToXY must be the edge ID given as a string.", outputStorage);
-                }
-                // x
-                double x = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, x)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The second parameter for moveToXY must be the x-position given as a double.", outputStorage);
-                }
-                // y
-                double y = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, y)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The third parameter for moveToXY must be the y-position given as a double.", outputStorage);
-                }
-                // angle
-                double angle = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The fourth parameter for moveToXY must be the angle given as a double.", outputStorage);
-                }
-                int keepRouteFlag = 1;
-                if (!server.readTypeCheckingByte(inputStorage, keepRouteFlag)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The fifth parameter for moveToXY must be the keepRouteFlag given as a byte.", outputStorage);
-                }
-                double matchThreshold = 100;
-                if (numArgs == 6) {
-                    if (!server.readTypeCheckingDouble(inputStorage, matchThreshold)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
-                    }
+                const std::string edgeID = StoHelp::readTypedString(inputStorage, "The first parameter for moveToXY must be the edge ID given as a string.");
+                const double x = StoHelp::readTypedDouble(inputStorage, "The second parameter for moveToXY must be the x-position given as a double.");
+                const double y = StoHelp::readTypedDouble(inputStorage, "The third parameter for moveToXY must be the y-position given as a double.");
+                const double angle = StoHelp::readTypedDouble(inputStorage, "The fourth parameter for moveToXY must be the angle given as a double.");
+                const int keepRouteFlag = StoHelp::readTypedByte(inputStorage, "The fifth parameter for moveToXY must be the keepRouteFlag given as a byte.");
+                double matchThreshold = 100.;
+                if (parameterCount == 6) {
+                    matchThreshold = StoHelp::readTypedDouble(inputStorage, "The sixth parameter for moveToXY must be the matchThreshold given as a double.");
                 }
                 libsumo::Person::moveToXY(id, edgeID, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_PARAMETER: {
-                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
-                }
-                //read itemNo
-                inputStorage.readInt();
-                std::string name;
-                if (!server.readTypeCheckingString(inputStorage, name)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-                }
-                std::string value;
-                if (!server.readTypeCheckingString(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-                }
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
+                const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
+                const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::Person::setParameter(id, name, value);
             }
             break;

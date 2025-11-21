@@ -1011,15 +1011,12 @@ TraCIServer::dispatchCommand() {
                 success = commandGetVersion();
                 break;
             case libsumo::CMD_LOAD: {
-                std::vector<std::string> args;
-                if (!readTypeCheckingStringList(myInputStorage, args)) {
-                    return writeErrorStatusCmd(libsumo::CMD_LOAD, "A load command needs a list of string arguments.", myOutputStorage);
-                }
-#ifdef DEBUG_MULTI_CLIENTS
-                std::cout << "       commandId == libsumo::CMD_LOAD"
-                          << ", args = " << toString(args) << std::endl;
-#endif
                 try {
+                    const std::vector<std::string> args = StoHelp::readTypedStringList(myInputStorage, "A load command needs a list of string arguments.");
+#ifdef DEBUG_MULTI_CLIENTS
+                    std::cout << "       commandId == libsumo::CMD_LOAD"
+                              << ", args = " << toString(args) << std::endl;
+#endif
                     myLoadArgs = args;
                     success = true;
                     writeStatusCmd(libsumo::CMD_LOAD, libsumo::RTYPE_OK, "");
@@ -1773,130 +1770,6 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
         outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     }
     outputStorage.writeStorage(tempMsg);
-}
-
-
-void
-TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape) {
-    outputStorage.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    if (shape.value.size() < 256) {
-        outputStorage.writeUnsignedByte((int)shape.value.size());
-    } else {
-        outputStorage.writeUnsignedByte(0);
-        outputStorage.writeInt((int)shape.value.size());
-    }
-    for (const libsumo::TraCIPosition& pos : shape.value) {
-        outputStorage.writeDouble(pos.x);
-        outputStorage.writeDouble(pos.y);
-    }
-}
-
-
-bool
-TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, double& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_DOUBLE) {
-        return false;
-    }
-    into = inputStorage.readDouble();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingString(tcpip::Storage& inputStorage, std::string& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_STRING) {
-        return false;
-    }
-    into = inputStorage.readString();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vector<std::string>& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_STRINGLIST) {
-        return false;
-    }
-    into = inputStorage.readStringList();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingDoubleList(tcpip::Storage& inputStorage, std::vector<double>& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_DOUBLELIST) {
-        return false;
-    }
-    into = inputStorage.readDoubleList();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, libsumo::TraCIColor& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COLOR) {
-        return false;
-    }
-    into.r = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    into.g = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    into.b = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    into.a = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, libsumo::TraCIPosition& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::POSITION_2D) {
-        return false;
-    }
-    into.x = inputStorage.readDouble();
-    into.y = inputStorage.readDouble();
-    into.z = 0;
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, int& into) {
-    if (inputStorage.readByte() != libsumo::TYPE_BYTE) {
-        return false;
-    }
-    into = inputStorage.readByte();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, int& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_UBYTE) {
-        return false;
-    }
-    into = inputStorage.readUnsignedByte();
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVector& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_POLYGON) {
-        return false;
-    }
-    into.clear();
-    int size = inputStorage.readUnsignedByte();
-    if (size == 0) {
-        size = inputStorage.readInt();
-    }
-    PositionVector shape;
-    for (int i = 0; i < size; ++i) {
-        double x = inputStorage.readDouble();
-        double y = inputStorage.readDouble();
-        if (std::isnan(x) || std::isnan(y)) {
-            throw libsumo::TraCIException("NaN-Value in shape.");
-        }
-        into.push_back(Position(x, y));
-    }
-    return true;
 }
 
 

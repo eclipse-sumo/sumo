@@ -71,11 +71,7 @@ TraCIServerAPI_InductionLoop::processSet(TraCIServer& server, tcpip::Storage& in
     try {
         switch (variable) {
             case libsumo::VAR_VIRTUAL_DETECTION: {
-                double time = -1;
-                if (!server.readTypeCheckingDouble(inputStorage, time)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE, "Setting time since last detection requires a double.", outputStorage);
-                }
-                libsumo::InductionLoop::overrideTimeSinceDetection(id, time);
+                libsumo::InductionLoop::overrideTimeSinceDetection(id, StoHelp::readTypedDouble(inputStorage, "Setting time since last detection requires a double."));
                 break;
             }
             case libsumo::VAR_PARAMETER: {

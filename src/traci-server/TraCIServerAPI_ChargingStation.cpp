@@ -77,32 +77,19 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
             }
             break;
             case libsumo::VAR_CS_POWER: {
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting chargingPower requires a double.", outputStorage);
-                }
-                libsumo::ChargingStation::setChargingPower(id, value);
+                libsumo::ChargingStation::setChargingPower(id, StoHelp::readTypedDouble(inputStorage, "Setting chargingPower requires a double."));
             }
             break;
             case libsumo::VAR_CS_EFFICIENCY: {
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting efficiency requires a double.", outputStorage);
-                }
-                libsumo::ChargingStation::setEfficiency(id, value);
+                libsumo::ChargingStation::setEfficiency(id, StoHelp::readTypedDouble(inputStorage, "Setting efficiency requires a double."));
             }
             break;
             case libsumo::VAR_CS_CHARGE_DELAY: {
-                double value = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge delay requires a double.", outputStorage);
-                }
-                libsumo::ChargingStation::setChargeDelay(id, value);
+                libsumo::ChargingStation::setChargeDelay(id, StoHelp::readTypedDouble(inputStorage, "Setting charge delay requires a double."));
             }
             break;
             case libsumo::VAR_CS_CHARGE_IN_TRANSIT: {
-                const int value = StoHelp::readTypedInt(inputStorage, "Setting charge in transit requires an integer.");
-                libsumo::ChargingStation::setChargeInTransit(id, value != 0);
+                libsumo::ChargingStation::setChargeInTransit(id, StoHelp::readTypedInt(inputStorage, "Setting charge in transit requires an integer.") != 0);
             }
             break;
             default:

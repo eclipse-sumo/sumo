@@ -30,7 +30,6 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-
 version = traci.start([sumolib.checkBinary('sumo'),
                        "-n", "input_net4.net.xml",
                        "--no-step-log",
