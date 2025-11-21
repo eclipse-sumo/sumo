@@ -33,6 +33,7 @@ jobs:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
         path: jupedsim
+        submodules: recursive
 
     - name: Configuring Python
       # to avoid issues similar to https://github.com/saghul/pycares/issues/234
