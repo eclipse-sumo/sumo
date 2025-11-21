@@ -13,8 +13,8 @@ set(netedit_SRCS
    GNEApplicationWindowHelper.h
    GNEAttributeProperties.cpp
    GNEAttributeProperties.h
-   GNEEvent_NetworkLoaded.cpp
-   GNEEvent_NetworkLoaded.h
+   GNEEvent_FileLoaded.cpp
+   GNEEvent_FileLoaded.h
    GNEExternalRunner.cpp
    GNEExternalRunner.h
    GNEInternalTest.cpp

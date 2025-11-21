@@ -103,7 +103,7 @@ public:
     void eventOccurred();
 
     /// @brief handle event of type Network loaded
-    void handleEvent_NetworkLoaded(GUIEvent* e);
+    void handleEvent_FileLoaded(GUIEvent* e);
 
     /// @brief handle event of type message
     void handleEvent_Message(GUIEvent* e);

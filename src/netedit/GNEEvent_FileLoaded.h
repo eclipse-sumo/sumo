@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEvent_NetworkLoaded.h
+/// @file    GNEEvent_FileLoaded.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 ///
@@ -34,7 +34,7 @@ class GNENet;
 // class definitions
 // ===========================================================================
 
-class GNEEvent_NetworkLoaded : public GUIEvent {
+class GNEEvent_FileLoaded : public GUIEvent {
 
 public:
     /// @brief type of loaded element
@@ -52,14 +52,14 @@ public:
     };
 
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& file,
-                           const std::string& settingsFile, const bool viewportFromRegistry);
+    GNEEvent_FileLoaded(GNEEvent_FileLoaded::Type type, GNENet* net, const std::string& file,
+                        const std::string& settingsFile, const bool viewportFromRegistry);
 
     /// @brief destructor
-    ~GNEEvent_NetworkLoaded();
+    ~GNEEvent_FileLoaded();
 
     /// @brief get event type
-    GNEEvent_NetworkLoaded::Type getType() const;
+    GNEEvent_FileLoaded::Type getType() const;
 
     /// @brief get the loaded net
     GNENet* getNet() const;
@@ -75,7 +75,7 @@ public:
 
 protected:
     /// @brief event type
-    GNEEvent_NetworkLoaded::Type myType = GNEEvent_NetworkLoaded::Type::INVALID_TYPE;
+    GNEEvent_FileLoaded::Type myType = GNEEvent_FileLoaded::Type::INVALID_TYPE;
 
     /// @brief the loaded net
     GNENet* myNet;
@@ -91,8 +91,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEEvent_NetworkLoaded(const GNEEvent_NetworkLoaded&) = delete;
+    GNEEvent_FileLoaded(const GNEEvent_FileLoaded&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEEvent_NetworkLoaded& operator=(const GNEEvent_NetworkLoaded& src) = delete;
+    GNEEvent_FileLoaded& operator=(const GNEEvent_FileLoaded& src) = delete;
 };

@@ -11,20 +11,20 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEEvent_NetworkLoaded.cpp
+/// @file    GNEEvent_FileLoaded.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 ///
 // Event to send when the network has been loaded by GNELoadThread
 /****************************************************************************/
 
-#include "GNEEvent_NetworkLoaded.h"
+#include "GNEEvent_FileLoaded.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEEvent_NetworkLoaded::GNEEvent_NetworkLoaded(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& file,
+GNEEvent_FileLoaded::GNEEvent_FileLoaded(GNEEvent_FileLoaded::Type type, GNENet* net, const std::string& file,
         const std::string& settingsFile, const bool viewportFromRegistry) :
     GUIEvent(GUIEventType::SIMULATION_LOADED),
     myType(type),
@@ -35,35 +35,35 @@ GNEEvent_NetworkLoaded::GNEEvent_NetworkLoaded(GNEEvent_NetworkLoaded::Type type
 }
 
 
-GNEEvent_NetworkLoaded::~GNEEvent_NetworkLoaded() {}
+GNEEvent_FileLoaded::~GNEEvent_FileLoaded() {}
 
 
-GNEEvent_NetworkLoaded::Type
-GNEEvent_NetworkLoaded::getType() const {
+GNEEvent_FileLoaded::Type
+GNEEvent_FileLoaded::getType() const {
     return myType;
 }
 
 
 GNENet*
-GNEEvent_NetworkLoaded::getNet() const {
+GNEEvent_FileLoaded::getNet() const {
     return myNet;
 }
 
 
 const std::string&
-GNEEvent_NetworkLoaded::getFile() const {
+GNEEvent_FileLoaded::getFile() const {
     return myFile;
 }
 
 
 const std::string&
-GNEEvent_NetworkLoaded::getSettingsFile() const {
+GNEEvent_FileLoaded::getSettingsFile() const {
     return mySettingsFile;
 }
 
 
 bool
-GNEEvent_NetworkLoaded::getViewportFromRegistry() const {
+GNEEvent_FileLoaded::getViewportFromRegistry() const {
     return myViewportFromRegistry;
 }
 

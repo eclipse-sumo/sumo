@@ -69,22 +69,22 @@ GNELoadThread::run() {
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
     // type of loading
-    GNEEvent_NetworkLoaded::Type type = GNEEvent_NetworkLoaded::Type::INVALID_TYPE;
+    GNEEvent_FileLoaded::Type type = GNEEvent_FileLoaded::Type::INVALID_TYPE;
     // declare loaded file
     std::string loadedFile;
     // check conditions
     if (neteditOptions.getBool("new")) {
         // create new network
-        type = GNEEvent_NetworkLoaded::Type::NEW;
+        type = GNEEvent_FileLoaded::Type::NEW;
     } else if (neteditOptions.getString("osm-files").size() > 0) {
         // load an osm file
-        type = GNEEvent_NetworkLoaded::Type::OSM;
+        type = GNEEvent_FileLoaded::Type::OSM;
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // load a network file
-        type = GNEEvent_NetworkLoaded::Type::NETWORK;
+        type = GNEEvent_FileLoaded::Type::NETWORK;
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // load a sumo config file
-        type = GNEEvent_NetworkLoaded::Type::SUMOCFG;
+        type = GNEEvent_FileLoaded::Type::SUMOCFG;
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
         // declare parser for sumo config file
@@ -95,7 +95,7 @@ GNELoadThread::run() {
         }
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // load a netedit config file
-        type = GNEEvent_NetworkLoaded::Type::NETECFG;
+        type = GNEEvent_FileLoaded::Type::NETECFG;
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
@@ -106,10 +106,10 @@ GNELoadThread::run() {
         }
     } else if (loadConsoleOptions()) {
         // load information through console
-        type = GNEEvent_NetworkLoaded::Type::CONSOLE;
+        type = GNEEvent_FileLoaded::Type::CONSOLE;
     }
     // check input
-    if (type == GNEEvent_NetworkLoaded::Type::INVALID_TYPE) {
+    if (type == GNEEvent_FileLoaded::Type::INVALID_TYPE) {
         return submitEndAndCleanup(type, nullptr, loadedFile);
     }
     // update aggregate warnings
@@ -122,7 +122,7 @@ GNELoadThread::run() {
     if (!(NIFrame::checkOptions(neteditOptions) && NBFrame::checkOptions(neteditOptions) &&
             NWFrame::checkOptions(neteditOptions) && SystemFrame::checkOptions(neteditOptions))) {
         // options are not valid
-        return submitEndAndCleanup(GNEEvent_NetworkLoaded::Type::INVALID_OPTIONS, nullptr, loadedFile);
+        return submitEndAndCleanup(GNEEvent_FileLoaded::Type::INVALID_OPTIONS, nullptr, loadedFile);
     }
     // clear message instances
     MsgHandler::getErrorInstance()->clear();
@@ -132,7 +132,7 @@ GNELoadThread::run() {
     RandHelper::initRandGlobal();
     // check if geo projection can be initialized
     if (!GeoConvHelper::init(neteditOptions)) {
-        return submitEndAndCleanup(GNEEvent_NetworkLoaded::Type::INVALID_PROJECTION, nullptr, loadedFile);
+        return submitEndAndCleanup(GNEEvent_FileLoaded::Type::INVALID_PROJECTION, nullptr, loadedFile);
     }
     // set validation
     XMLSubSys::setValidation(neteditOptions.getString("xml-validation"), neteditOptions.getString("xml-validation.net"), neteditOptions.getString("xml-validation.routes"));
@@ -222,14 +222,14 @@ GNELoadThread::run() {
 
 
 FXint
-GNELoadThread::submitEndAndCleanup(GNEEvent_NetworkLoaded::Type type, GNENet* net, const std::string& loadedFile,
+GNELoadThread::submitEndAndCleanup(GNEEvent_FileLoaded::Type type, GNENet* net, const std::string& loadedFile,
                                    const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    myEventQueue.push_back(new GNEEvent_NetworkLoaded(type, net, loadedFile, guiSettingsFile, viewportFromRegistry));
+    myEventQueue.push_back(new GNEEvent_FileLoaded(type, net, loadedFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
     return 0;
 }
