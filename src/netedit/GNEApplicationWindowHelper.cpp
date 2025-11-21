@@ -2271,7 +2271,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // configure files in bucket
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, mySumoConfigFile, true);
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(mySumoConfigFile, ".sumocfg", ".netecfg"), true);
-    // set load options in netdit
+    // set load options in netedit
     neteditOptions.resetWritable();
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
@@ -2306,18 +2306,19 @@ GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myNetconvertConfigFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load SUMO configuration '%'.", myNetconvertConfigFile));
+            WRITE_ERROR(TLF("Could not load netconvert configuration '%'.", myNetconvertConfigFile));
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load SUMO configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TL("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
     neteditOptions.relocateFiles(myNetconvertConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, myNetconvertConfigFile, true);
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNetconvertConfigFile, ".netccfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, neteditOptions.getString("netconvert-file"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, neteditOptions.getString("sumocfg-file"), true);
     // set load options in netdit
     neteditOptions.resetWritable();
     return true;
@@ -2366,6 +2367,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // relocate files
     neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNeteditConfigFile, ".netccfg", ".netecfg"), true);
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNeteditConfigFile, ".netccfg", ".netecfg"), true);
     // restore ignores
     neteditOptions.resetWritable();
