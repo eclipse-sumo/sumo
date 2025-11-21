@@ -2422,22 +2422,31 @@ GNENet::writeAdditionalFileElements(OutputDevice& device, const FileBucket* file
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
-    // shapes
-    writeShapesComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_POLY});
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
-    // TAZs
-    writeTAZComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_TAZ});
+    // variable speed signs
+    writeVariableSpeedSignComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VSS});
+    // routeProbes
+    writeRouteProbeComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_ROUTEPROBE});
+    // vaporizers
+    writeVaporizerComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VAPORIZER});
     // Wire element
     writeWireComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_TRACTION_SUBSTATION});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+    // shapes
+    writeShapesComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_POLY});
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO});
     // juPedSim elements
     writeJuPedSimComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, fileBucket, {GNE_TAG_JPS_OBSTACLE});
+    // TAZs
+    writeTAZComment(device, fileBucket);
+    writeAdditionalByType(device, fileBucket, {SUMO_TAG_TAZ});
     // vtypes
     writeVTypeComment(device, fileBucket);
     writeVTypes(device, fileBucket);
@@ -2471,15 +2480,6 @@ GNENet::writeAdditionalFileElements(OutputDevice& device, const FileBucket* file
     // rerouters
     writeRerouterComment(device, fileBucket);
     writeAdditionalByType(device, fileBucket, {SUMO_TAG_REROUTER});
-    // variable speed signs
-    writeVariableSpeedSignComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VSS});
-    // routeProbes
-    writeRouteProbeComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_ROUTEPROBE});
-    // vaporizers
-    writeVaporizerComment(device, fileBucket);
-    writeAdditionalByType(device, fileBucket, {SUMO_TAG_VAPORIZER});
     // MeanDataEdges
     writeMeanDataEdgeComment(device, fileBucket);
     writeMeanDatas(device, fileBucket, SUMO_TAG_MEANDATA_EDGE);
