@@ -248,8 +248,8 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
     endif()
 endif()
 
-execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
-execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
+execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools; import build; import pip; build.__version__"
+                RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
 if (MSVC)
     # disable the installation of python wheels during "cmake --install" on Windows because they go into a strange location, see #17288
     set(PYTHON_SETUPTOOLS_MISSING True)
@@ -684,7 +684,7 @@ endif ()
 install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
-if (NOT ${PYTHON_SETUPTOOLS_MISSING} AND NOT ${PYTHON_BUILD_MISSING})
+if (NOT ${PYTHON_SETUPTOOLS_MISSING})
     if (NOT VERBOSE_SUB)
         set(PYTHON_BUILD_OPTS "-C--quiet")
     endif ()
