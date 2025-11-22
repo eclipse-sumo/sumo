@@ -463,6 +463,8 @@ if (ZLIB_FOUND)
     set(HAVE_ZLIB 1)
     link_directories(${ZLIB_LIBRARY_DIR})
     include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
+else ()
+    set(ZLIB_LIBRARIES "")
 endif ()
 
 find_package(Intl)
