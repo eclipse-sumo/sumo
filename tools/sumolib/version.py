@@ -25,14 +25,16 @@ from __future__ import print_function
 import subprocess
 from os.path import dirname, exists, join
 
-UNKNOWN_REVISION = "UNKNOWN"
 GITDIR = join(dirname(__file__), '..', '..', '.git')
 
 
 def fromVersionHeader():
+    """
+    Returns the version as defined in "include/version.h" or as a fallback
+    "src/config.h.cmake". Since the latter only contains the last release info it is extended
+    with "-0000000000" to mark that it may not be a release and the commit hash is unknown.
+    """
     versionFile = join(dirname(__file__), '..', '..', 'include', 'version.h')
-    if not exists(versionFile):
-        versionFile = join('src', 'version.h')
     if exists(versionFile):
         with open(versionFile) as f:
             version = f.read().split()
@@ -43,14 +45,19 @@ def fromVersionHeader():
     if exists(configFile):
         with open(configFile) as f:
             config = f.read()
-        if "//#define HAVE_VERSION_H" in config:
-            version = config.find("VERSION_STRING") + 16
-            if version > 16:
-                return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
-    return UNKNOWN_REVISION
+        version = config.find("VERSION_STRING") + 16
+        if version > 16:
+            return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
+    raise EnvironmentError("Could not determine version.")
 
 
 def gitDescribe(commit="HEAD", gitDir=GITDIR, padZero=True):
+    """
+    The original git describe format is "<tag>-<commit_count>-g<hash>".
+    We convert it to "<tag>+<commit-count>-hash". If padZero is true (the default),
+    the commit count is padded to four digits.
+    If the git describe call fails, the result of fromVersionHeader is returned.
+    """
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
         command[1:1] = ["--git-dir=" + gitDir]
