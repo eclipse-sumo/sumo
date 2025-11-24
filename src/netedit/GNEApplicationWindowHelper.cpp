@@ -2646,12 +2646,14 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         myNeteditOptions.resetDefault("sumocfg-file");
     }
-    // netconvert config (only netedit)
-    if (netconvertconfig.size() > 0) {
-        myNeteditOptions.set("netconvert-file", netconvertconfig);
-    } else {
-        myNeteditOptions.resetDefault("netconvert-file");
-    }
+    // netconvert config (only netedit, but currently disabled)
+    /*
+        if (netconvertconfig.size() > 0) {
+            myNeteditOptions.set("netconvert-file", myPlainXMLPrefix + ".netccfg");
+        } else {
+            myNeteditOptions.resetDefault("netconvert-file");
+        }
+    */
     // netedit config (only netedit)
     if (neteditconfig.size() > 0) {
         myNeteditOptions.set("configuration-file", neteditconfig);

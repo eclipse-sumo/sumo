@@ -1172,15 +1172,6 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector sel, void*) {
         myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
-        // reset files (except if we're reloading)
-        if (!reloading) {
-            // specific from SUMO
-            auto& neteditOptions = OptionsCont::getOptions();
-            neteditOptions.resetWritable();
-            neteditOptions.set("-file", "");
-            neteditOptions.set("tls-file", "");
-            neteditOptions.set("edgetypes-file", "");
-        }
         return 1;
     } else {
         return 0;
@@ -1364,6 +1355,9 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
                 break;
             case GNEEvent_FileLoaded::Type::CONSOLE:
                 successMessage = TLF("Network '%' loaded through console", fileLoadedEvent->getFile());
+                break;
+            case GNEEvent_FileLoaded::Type::NEW:
+                successMessage = TL("New network successfully created");
                 break;
             default:
                 throw ProcessError("Invalid sucess mesage. Check if all cases were covered");
