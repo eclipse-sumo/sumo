@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-22 11:15+0000\n"
+"PO-Revision-Date: 2025-11-25 18:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2888,21 +2888,21 @@ msgstr "Il salvataggio degli elementi JuPedSim è fallito"
 #: src/netedit/GNEApplicationWindow.cpp:4130
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
-msgstr ""
+msgstr "File di itinerari"
 
 #: src/netedit/GNEApplicationWindow.cpp:4003
 msgid "loading demand elements from '%'"
-msgstr ""
+msgstr "caricamento degli elementi di domanda da '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4007
 #, c-format
 msgid "Loading of route file '%' failed."
-msgstr ""
+msgstr "Il caricamento del file di itinerari '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4010
 #, c-format
 msgid "Loading of route file '%' successfully."
-msgstr ""
+msgstr "Il file di itinerari '%' è stato caricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4035
 msgid "reloading demand elements"
@@ -2911,7 +2911,7 @@ msgstr "caricamento ripetuto degli elementi di domanda"
 #: src/netedit/GNEApplicationWindow.cpp:4046
 #, c-format
 msgid "Reloading of route file '%' failed."
-msgstr ""
+msgstr "Il caricamento ripetuto del file di itinerari '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4048
 #, c-format
