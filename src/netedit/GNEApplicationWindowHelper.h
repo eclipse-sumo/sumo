@@ -1245,6 +1245,9 @@ struct GNEApplicationWindowHelper {
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
 
+        /// @brief plainXML prefix
+        std::string myPlainXMLPrefix;
+
         /// @brief Invalidated copy constructor.
         FileBucketHandler(const FileBucketHandler&) = delete;
 

@@ -24,7 +24,7 @@
 // static members
 // ===========================================================================
 
-const std::vector<FileBucket::Type> FileBucket::managedTypes = {
+const std::vector<FileBucket::Type> FileBucket::types = {
     FileBucket::Type::SUMOCONFIG,
     FileBucket::Type::NETCONVERTCONFIG,
     FileBucket::Type::NETEDITCONFIG,
@@ -32,7 +32,12 @@ const std::vector<FileBucket::Type> FileBucket::managedTypes = {
     FileBucket::Type::DEMAND,
     FileBucket::Type::MEANDATA,
     FileBucket::Type::ADDITIONAL,
-    FileBucket::Type::DATA
+    FileBucket::Type::DATA,
+    FileBucket::Type::EDGE,
+    FileBucket::Type::NODE,
+    FileBucket::Type::CONNECTION,
+    FileBucket::Type::TYPE,
+    FileBucket::Type::TRAFFICLIGHT
 };
 
 // ===========================================================================

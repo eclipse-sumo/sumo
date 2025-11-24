@@ -2391,7 +2391,7 @@ GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& ne
     mySumoOptions(sumoOptions),
     myNetconvertOptions(netconvertOptions) {
     // create default buckets
-    for (auto type : FileBucket::managedTypes) {
+    for (auto type : FileBucket::types) {
         myBuckets[type].push_back(new FileBucket(type));
     }
 }
@@ -2526,7 +2526,11 @@ GNEApplicationWindowHelper::FileBucketHandler::getFileBuckets(const FileBucket::
 
 const std::string&
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBucket::Type type) const {
-    return myBuckets.at(type).front()->getFilename();
+    if (type == FileBucket::Type::PLAINXMLPREFIX) {
+        return myPlainXMLPrefix;
+    } else {
+        return myBuckets.at(type).front()->getFilename();
+    }
 }
 
 
@@ -2534,6 +2538,28 @@ void
 GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
     if (myBuckets.at(type).front()->getFilename().empty() || force) {
         myBuckets.at(type).front()->setFilename(filename);
+        // special case for netconvert
+        if (type == FileBucket::Type::NETCONVERTCONFIG) {
+            // clean plain xml prefix
+            myPlainXMLPrefix = filename;
+            if (myPlainXMLPrefix.back() == '.') {
+                myPlainXMLPrefix.pop_back();
+            } else {
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".edg.xml", "");
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".nod.xml", "");
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".con.xml", "");
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".typ.xml", "");
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".tll.xml", "");
+                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".xml", "");
+            }
+            // set filenames
+            myBuckets.at(FileBucket::Type::EDGE).front()->setFilename(myPlainXMLPrefix + ".edg.xml");
+            myBuckets.at(FileBucket::Type::NODE).front()->setFilename(myPlainXMLPrefix + ".nod.xml");
+            myBuckets.at(FileBucket::Type::CONNECTION).front()->setFilename(myPlainXMLPrefix + ".con.xml");
+            myBuckets.at(FileBucket::Type::TYPE).front()->setFilename(myPlainXMLPrefix + ".typ.xml");
+            myBuckets.at(FileBucket::Type::TRAFFICLIGHT).front()->setFilename(myPlainXMLPrefix + ".tll.xml");
+            myBuckets.at(FileBucket::Type::EDGE).front()->setFilename(myPlainXMLPrefix + ".edg.xml");
+        }
         // update filename in options
         updateOptions();
     }
@@ -2581,7 +2607,7 @@ void
 GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
     bool bucketDeleted = false;
     // iterate over all buckets and remove empty buckets (except default buckets)
-    for (auto type : FileBucket::managedTypes) {
+    for (auto type : FileBucket::types) {
         size_t bucketIndex = 0;
         while (bucketIndex < myBuckets.at(type).size()) {
             auto bucket = myBuckets.at(type).at(bucketIndex);
