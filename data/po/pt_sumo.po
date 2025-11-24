@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-09-23 16:02+0000\n"
-"Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
+"PO-Revision-Date: 2025-11-25 18:51+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -74,6 +75,8 @@ msgid ""
 "generate a trips file from a stats file on a given net using arbitrary "
 "random seed"
 msgstr ""
+"gera um arquivo de viagens (trips) a partir de um arquivo de estatísticas em "
+"uma determinada rede usando uma semente aleatória arbitrária"
 
 #: src/activitygen/AGFrame.cpp:49
 msgid ""
@@ -2209,6 +2212,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Duração do intervalo padrão entre pontos de ação para os modelos de "
+"seguimento veicular (car-following) e mudança de faixa (em segundos). Se não "
+"especificado, o passo de simulação é usado por padrão. Configurações "
+"específicas de Veículo ou VType sobrescrevem o padrão. Deve ser um múltiplo "
+"do passo de simulação."
 
 #: src/microsim/MSFrame.cpp:531
 msgid "Select default car following model (Krauss, IDM, ...)"
@@ -2937,7 +2945,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:734
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "Simulação finalizada no tempo: %."
 
 #: src/microsim/MSNet.cpp:736
 msgid "Reason: "
@@ -10296,7 +10304,7 @@ msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:986
 msgid "(No projection defined)"
-msgstr ""
+msgstr "(Sem projeção definida)"
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
