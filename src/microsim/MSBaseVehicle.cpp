@@ -753,7 +753,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
 
 bool
 MSBaseVehicle::replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end) {
-    std::pair<const std::string&, SumoXMLTag> nameTag = iter->getStoppingPlaceName();
+    std::pair<std::string, SumoXMLTag> nameTag = iter->getStoppingPlaceName();
     if (!nameTag.first.empty()) {
         const std::vector<MSStoppingPlace*>& alternatives = MSNet::getInstance()->getStoppingPlaceAlternatives(nameTag.first, nameTag.second);
         for (MSStoppingPlace* alt : alternatives) {
