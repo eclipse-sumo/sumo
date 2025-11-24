@@ -1181,7 +1181,7 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief constructor
-        FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions);
+        FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions, OptionsCont& netconvertOptions);
 
         /// @brief destructor
         ~FileBucketHandler();
@@ -1236,11 +1236,11 @@ struct GNEApplicationWindowHelper {
         /// @brief reference to netedit options
         OptionsCont& myNeteditOptions;
 
-        /// @brief reference to sumoOptions
+        /// @brief reference to sumo options
         OptionsCont& mySumoOptions;
 
-        /// @brief vector with all types managed in this get bucket handler
-        const std::vector<FileBucket::Type> myTypes;
+        /// @brief reference to netconvert options
+        OptionsCont& myNetconvertOptions;
 
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;

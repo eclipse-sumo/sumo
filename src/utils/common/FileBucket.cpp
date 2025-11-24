@@ -21,6 +21,21 @@
 #include "FileBucket.h"
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+const std::vector<FileBucket::Type> FileBucket::managedTypes = {
+    FileBucket::Type::SUMOCONFIG,
+    FileBucket::Type::NETCONVERTCONFIG,
+    FileBucket::Type::NETEDITCONFIG,
+    FileBucket::Type::NETWORK,
+    FileBucket::Type::DEMAND,
+    FileBucket::Type::MEANDATA,
+    FileBucket::Type::ADDITIONAL,
+    FileBucket::Type::DATA
+};
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 

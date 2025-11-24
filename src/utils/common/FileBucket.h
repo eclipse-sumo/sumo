@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <string>
+#include <vector>
 
 // ===========================================================================
 // class definitions
@@ -77,6 +78,9 @@ public:
     bool isEmpty() const;
 
     /// @}
+
+    /// @brief vector with all types managed in this get bucket handler
+    static const std::vector<FileBucket::Type> managedTypes;
 
 private:
     /// @brief type

@@ -771,6 +771,9 @@ private:
     /// @brief sumo options container
     OptionsCont mySumoOptions;
 
+    /// @brief netconvert options container
+    OptionsCont myNetconvertOptions;
+
     /// @brief original sumo options container
     OptionsCont myOriginalSumoOptions;
 

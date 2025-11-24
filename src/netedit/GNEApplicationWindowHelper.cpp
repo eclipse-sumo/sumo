@@ -2385,14 +2385,13 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // GNEApplicationWindowHelper::FileBucketHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
+GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions,
+        OptionsCont& netconvertOptions) :
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions),
-    myTypes({FileBucket::Type::SUMOCONFIG, FileBucket::Type::NETCONVERTCONFIG, FileBucket::Type::NETEDITCONFIG,
-            FileBucket::Type::NETWORK, FileBucket::Type::DEMAND, FileBucket::Type::MEANDATA,
-            FileBucket::Type::ADDITIONAL, FileBucket::Type::DATA}) {
+    myNetconvertOptions(netconvertOptions) {
     // create default buckets
-    for (auto type : myTypes) {
+    for (auto type : FileBucket::managedTypes) {
         myBuckets[type].push_back(new FileBucket(type));
     }
 }
@@ -2582,7 +2581,7 @@ void
 GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
     bool bucketDeleted = false;
     // iterate over all buckets and remove empty buckets (except default buckets)
-    for (auto type : myTypes) {
+    for (auto type : FileBucket::managedTypes) {
         size_t bucketIndex = 0;
         while (bucketIndex < myBuckets.at(type).size()) {
             auto bucket = myBuckets.at(type).at(bucketIndex);
