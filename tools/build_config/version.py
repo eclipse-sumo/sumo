@@ -44,6 +44,9 @@ def get_version(padZero=True):
 
 def get_pep440_version():
     v = get_version(padZero=False).replace("_", ".").replace("+", ".post")
+    if v.endswith("-" + (10 * "0")):
+        # this is a fake version number since we could only determine the last release number, see #14228
+        return v[:-11] + ".post0"
     v = v[1:v.rfind("-")]
     vs = v.split(".")
     if len(vs) == 4 and vs[3] == "post0":

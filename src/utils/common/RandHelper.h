@@ -39,7 +39,7 @@
 // ===========================================================================
 
 #ifdef __clang__
-__attribute__((no_sanitize("unsigned-integer-overflow"))) // left-shift and unsigned-integer-overflow
+__attribute__((no_sanitize("unsigned-integer-overflow")))
 #endif
 inline uint64_t splitmix64(const uint64_t seed) {
     uint64_t z = (seed + 0x9e3779b97f4a7c15);
