@@ -690,9 +690,9 @@ if (NOT ${PYTHON_SETUPTOOLS_MISSING})
     if (NOT VERBOSE_SUB)
         set(PYTHON_BUILD_OPTS "-C--quiet")
     endif ()
-    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_BINARY_DIR})"
+    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
             COMPONENT pysumolib)
-    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_BINARY_DIR})"
+    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
             COMPONENT pytraci)
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
             COMPONENT pytraci)
