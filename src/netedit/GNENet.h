@@ -324,7 +324,7 @@ public:
     void saveNetwork();
 
     /// @brief save plain xml representation of the network (and nothing else)
-    void savePlain(const std::string& prefix);
+    void savePlain(const std::string& prefix, const OptionsCont& netconvertOptions);
 
     /// @brief save log of joined junctions (and nothing else)
     void saveJoined(const std::string& filename);

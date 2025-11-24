@@ -32,16 +32,23 @@ class FileBucket {
 public:
     /// @brief Files that this bucket can save
     enum class Type : int {
-        SUMOCONFIG =        1 << 0, // Bucket for sumo configs (usually only one)
-        NETCONVERTCONFIG =  1 << 1, // Bucket for netconvert configs (usually only one)
-        NETEDITCONFIG =     1 << 2, // Bucket for netedit configs (usually only one)
-        NETWORK =           1 << 3, // Bucket for network elements (usually only one)
-        DEMAND =            1 << 4, // Bucket for demand elements
-        MEANDATA =          1 << 5, // Bucket for meanData elements
-        ADDITIONAL =        1 << 6, // Bucket for additional elements (always after demand and meanData)
-        DATA =              1 << 7, // Bucket for data elements
-        AUTOMATIC =         1 << 8, // Element choose automatic the bucket
-        NOTHING =           1 << 9, // Element is not saved in bucket
+        SUMOCONFIG =        1 << 0,     // Bucket for sumo configs (usually only one)
+        NETCONVERTCONFIG =  1 << 1,     // Bucket for netconvert configs (usually only one)
+        NETEDITCONFIG =     1 << 2,     // Bucket for netedit configs (usually only one)
+        NETWORK =           1 << 3,     // Bucket for network elements (usually only one)
+        DEMAND =            1 << 4,     // Bucket for demand elements
+        MEANDATA =          1 << 5,     // Bucket for meanData elements
+        ADDITIONAL =        1 << 6,     // Bucket for additional elements (always after demand and meanData)
+        DATA =              1 << 7,     // Bucket for data elements
+        EDGE =              1 << 8,     // Bucket for edge file (netconvert)
+        NODE =              1 << 9,     // Bucket for node file (netconvert)
+        CONNECTION =        1 << 10,    // Bucket for connection file (netconvert)
+        TYPE =              1 << 11,    // Bucket for edge type file (netconvert)
+        TRAFFICLIGHT =      1 << 12,    // Bucket for traffic light file (netconvert)
+        // other
+        PLAINXMLPREFIX =    1 << 13,    // Bucket for plain xml prefix (netconvert)
+        AUTOMATIC =         1 << 14,    // Element choose automatic the bucket
+        NOTHING =           1 << 15,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket
@@ -80,7 +87,7 @@ public:
     /// @}
 
     /// @brief vector with all types managed in this get bucket handler
-    static const std::vector<FileBucket::Type> managedTypes;
+    static const std::vector<FileBucket::Type> types;
 
 private:
     /// @brief type

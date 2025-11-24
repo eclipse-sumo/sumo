@@ -1424,11 +1424,11 @@ GNENet::saveNetwork() {
 
 
 void
-GNENet::savePlain(const std::string& prefix) {
-    auto& neteditOptions = OptionsCont::getOptions();
+GNENet::savePlain(const std::string& prefix, const OptionsCont& netconvertOptions) {
     // compute without volatile options
-    computeAndUpdate(neteditOptions, false);
-    NWWriter_XML::writeNetwork(neteditOptions, prefix, *myNetBuilder);
+    computeAndUpdate(OptionsCont::getOptions(), false);
+    // save netconvert options
+    NWWriter_XML::writeNetwork(netconvertOptions, prefix, *myNetBuilder);
 }
 
 

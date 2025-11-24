@@ -3453,37 +3453,24 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
                                            GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of dialog
     if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        auto plainXMLFile = plainXMLFileDialog.getFilename();
         // update default netconvert file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, plainXMLFile, true);
-        // adjust file
-        if (plainXMLFile.back() == '.') {
-            plainXMLFile.pop_back();
-        } else {
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".edg.xml", "");
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".nod.xml", "");
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".con.xml", "");
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".typ.xml", "");
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".tll.xml", "");
-            plainXMLFile = StringUtils::replace(plainXMLFile, ".xml", "");
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, plainXMLFileDialog.getFilename(), true);
+        // start saving plain XML
+        getApp()->beginWaitCursor();
+        try {
+            const auto& plainXMLFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::PLAINXMLPREFIX);
+            // save plain xml
+            myNet->savePlain(plainXMLFile, myNetconvertOptions);
+            // write info
+            WRITE_MESSAGE(TLF("Plain XML saved with prefix '%'.", plainXMLFile));
+        } catch (IOError& e) {
+            // open message box
+            GNEErrorBasicDialog(this, TL("Saving plain xml failed"), e.what());
         }
-        // continue depending of file
-        if (!plainXMLFile.empty()) {
-            // start saving plain XML
-            getApp()->beginWaitCursor();
-            try {
-                myNet->savePlain(plainXMLFile);
-                // write info
-                WRITE_MESSAGE(TLF("Plain XML saved with prefix '%'.", plainXMLFile));
-            } catch (IOError& e) {
-                // open message box
-                GNEErrorBasicDialog(this, TL("Saving plain xml failed"), e.what());
-            }
-            // end saving plain XML
-            getApp()->endWaitCursor();
-            // set focus again in viewNet
-            myViewNet->setFocus();
-        }
+        // end saving plain XML
+        getApp()->endWaitCursor();
+        // set focus again in viewNet
+        myViewNet->setFocus();
     }
     return 1;
 }
