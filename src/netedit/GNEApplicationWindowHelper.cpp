@@ -2385,11 +2385,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // GNEApplicationWindowHelper::FileBucketHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions,
-        OptionsCont& netconvertOptions) :
+GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
     myNeteditOptions(neteditOptions),
-    mySumoOptions(sumoOptions),
-    myNetconvertOptions(netconvertOptions) {
+    mySumoOptions(sumoOptions) {
     // create default buckets
     for (auto type : FileBucket::types) {
         myBuckets[type].push_back(new FileBucket(type));
@@ -2526,7 +2524,7 @@ GNEApplicationWindowHelper::FileBucketHandler::getFileBuckets(const FileBucket::
 
 const std::string&
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBucket::Type type) const {
-    if (type == FileBucket::Type::PLAINXMLPREFIX) {
+    if (type & FileBucket::Type::PLAINXMLPREFIX) {
         return myPlainXMLPrefix;
     } else {
         return myBuckets.at(type).front()->getFilename();
@@ -2539,7 +2537,7 @@ GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const File
     if (myBuckets.at(type).front()->getFilename().empty() || force) {
         myBuckets.at(type).front()->setFilename(filename);
         // special case for netconvert
-        if (type == FileBucket::Type::NETCONVERTCONFIG) {
+        if (type & FileBucket::Type::NETCONVERTCONFIG) {
             // clean plain xml prefix
             myPlainXMLPrefix = filename;
             if (myPlainXMLPrefix.back() == '.') {
