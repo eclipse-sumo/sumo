@@ -518,7 +518,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
-    myFileBucketHandler(new GNEApplicationWindowHelper::FileBucketHandler(OptionsCont::getOptions(), mySumoOptions)),
+    myFileBucketHandler(new GNEApplicationWindowHelper::FileBucketHandler(OptionsCont::getOptions(), mySumoOptions, myNetconvertOptions)),
     myTitlePrefix("netedit " VERSION_STRING),
     myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
     myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {
@@ -539,6 +539,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
     // parse options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
+    TemplateHandler::parseTemplate(myNetconvertOptions, netconvertTemplate);
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
