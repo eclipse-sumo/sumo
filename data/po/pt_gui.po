@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-10-07 09:30+0000\n"
-"Last-Translator: Edson Pereira <edson.pereira@joinville.sc.gov.br>\n"
+"PO-Revision-Date: 2025-11-25 18:51+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -858,7 +859,7 @@ msgstr "Simulação finalizou no tempo: %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2115
 msgid "Simulation ended at time: %."
-msgstr "Simulação finalizou no tempo: %."
+msgstr "Simulação finalizada no tempo: %."
 
 #: src/gui/GUIApplicationWindow.cpp:2116
 msgid "Reason:"
@@ -4654,6 +4655,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Duração do intervalo padrão entre pontos de ação para os modelos de "
+"seguimento veicular (car-following) e mudança de faixa (em segundos). Se não "
+"especificado, o passo de simulação é usado por padrão. Configurações "
+"específicas de Veículo ou VType sobrescrevem o padrão. Deve ser um múltiplo "
+"do passo de simulação."
 
 #: src/netedit/GNELoadThread.cpp:514
 msgid ""
@@ -5406,6 +5412,8 @@ msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
 msgstr ""
+"Se definido para um valor maior que 0, uma junção interna será construída "
+"nesta posição (em m) a partir do início da faixa interna para esta conexão"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1057
 msgid ""
@@ -5471,6 +5479,8 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
+"Devem ser os nomes das linhas de ônibus que param neste ponto de ônibus. "
+"Usado apenas para fins de visualização"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1170
 #: src/netedit/GNETagPropertiesDatabase.cpp:1201
@@ -5494,6 +5504,8 @@ msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
 msgstr ""
+"Devem ser os nomes das linhas de trem que param nesta parada de trem. Usado "
+"apenas para fins de visualização"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1219
 msgid "Access"
@@ -5519,6 +5531,8 @@ msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
 msgstr ""
+"devem ser os nomes das linhas de ônibus que param nesta parada de ônibus. "
+"Usado apenas para fins de visualização"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1256
 msgid ""
@@ -6264,6 +6278,8 @@ msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
 msgstr ""
+"A posição final na faixa (a posição de valor mais alto na faixa) em metros, "
+"deve ser maior que startPos em mais de 0,1m"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3065
 msgid "The lateral offset on the named lane at which the vehicle must stop"
@@ -7865,12 +7881,16 @@ msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr ""
+"Este valor faz com que os veículos avancem no sinal amarelo se a duração da "
+"fase amarela for inferior ao limiar definido."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7742
 msgid ""
 "This value causes vehicles to violate a red light if the duration of the red "
 "phase is lower than the given threshold."
 msgstr ""
+"Este valor faz com que os veículos avancem no sinal vermelho se a duração da "
+"fase vermelha for inferior ao limiar definido."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7748
 msgid ""
@@ -8058,6 +8078,8 @@ msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr ""
+"Se definido para um valor de tempo não negativo, a duração da parada pode "
+"ser estendida no máximo pelo valor da extensão em segundos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7981
 msgid "Whether a person or container or both may end the stop"
@@ -8510,6 +8532,8 @@ msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
 msgstr ""
+"A distância máxima até o próximo veículo parado para que este veículo seja "
+"considerado participante do congestionamento (em m)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8801
 #: src/netedit/GNETagPropertiesDatabase.cpp:8807
@@ -9846,7 +9870,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:480
 msgid "Report"
-msgstr ""
+msgstr "Reportar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:480
 msgid "Report bug to github"
@@ -15305,6 +15329,8 @@ msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
+"Expandir o vetor de estado para todas as fases em uma entrada. (Não "
+"utilizado até que uma conexão ou travessia seja atribuída ao novo índice)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1901
 msgid "Group Sig."
@@ -16963,19 +16989,19 @@ msgstr "sinal"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2247
 msgid "busStops"
-msgstr ""
+msgstr "paradas de ônibus"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2250
 msgid "trainStops"
-msgstr ""
+msgstr "paradas de trem"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2253
 msgid "containerStops"
-msgstr ""
+msgstr "paradas de contêiners"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2256
 msgid "chargingStations"
-msgstr ""
+msgstr "estações de carregamento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2269
 msgid "element"
@@ -16983,27 +17009,27 @@ msgstr "elemento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2272
 msgid "trips"
-msgstr ""
+msgstr "viagens"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2276
 msgid "personTrips"
-msgstr ""
+msgstr "viagens de pessoas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2280
 msgid "walks"
-msgstr ""
+msgstr "caminhada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
 msgid "rides"
-msgstr ""
+msgstr "viagens de veículos"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2298
 msgid "stop"
-msgstr ""
+msgstr "parada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "waypoint"
-msgstr ""
+msgstr "ponto de referência"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2302
 msgid "stop (persons)"
