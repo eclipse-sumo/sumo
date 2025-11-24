@@ -8,9 +8,7 @@ title: VISUM
 positions, and optionally, their values. As count positions may be
 extended by user attributes, we have set up a small script which
 extracts both, the positions, and the user attributes, and fixes the
-positions on the given network. The tool is named
-"*visum_parseZaehlstelle.py*" and can be found in
-{{SUMO}}\\tools\\import\\visum.
+positions on the given network.
 
 The call is:
 
@@ -33,3 +31,7 @@ Example
 ```
 <SUMO_HOME>/tools/import/visum/visum_convertXMLRoutes.py -n <SUMO-net> -r <VISUM-route-file> -o <output-file>
 ```
+
+By default, the volume data in the input route file is interpreted as daily volume. This can be changed by setting option **--scale**.
+For intermodal networks, option **--vclass** can be used to restrict routes to those which are usable by the given class.
+Option **--attributes** permits to set further attributes for the generated flows.
