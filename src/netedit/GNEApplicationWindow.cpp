@@ -3442,10 +3442,10 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const GNEFileDialog plainXMLFileDialog(this, TL("plain XML file"),
-                                           SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
-                                           GNEFileDialog::OpenMode::SAVE,
-                                           GNEFileDialog::ConfigType::NETEDIT);
+    const auto plainXMLFileDialog = GNEFileDialog(this, TL("plain XML file"),
+                                    SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
+                                    GNEFileDialog::OpenMode::SAVE,
+                                    GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of dialog
     if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default netconvert file
