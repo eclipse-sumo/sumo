@@ -1222,7 +1222,7 @@ struct GNEApplicationWindowHelper {
         std::string getDefaultFolder(const FileBucket::Type type) const;
 
         /// brief set default additional file
-        void setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force);
+        void setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename);
 
         /// @brief check if at least we have an additional file defined
         bool isFilenameDefined(const FileBucket::Type type) const;

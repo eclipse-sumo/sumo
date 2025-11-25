@@ -29,6 +29,8 @@ const std::vector<FileBucket::Type> FileBucket::types = {
     FileBucket::Type::NETEDIT_CONFIG,
     FileBucket::Type::NETCONVERT_CONFIG,
     FileBucket::Type::NETWORK,
+    FileBucket::Type::EDGETYPE,
+    FileBucket::Type::TLS,
     FileBucket::Type::DEMAND,
     FileBucket::Type::MEANDATA,
     FileBucket::Type::ADDITIONAL,
