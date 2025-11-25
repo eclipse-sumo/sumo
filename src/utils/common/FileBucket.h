@@ -40,15 +40,10 @@ public:
         MEANDATA =          1 << 5,     // Bucket for meanData elements
         ADDITIONAL =        1 << 6,     // Bucket for additional elements (always after demand and meanData)
         DATA =              1 << 7,     // Bucket for data elements
-        EDGE =              1 << 8,     // Bucket for edge file (netconvert)
-        NODE =              1 << 9,     // Bucket for node file (netconvert)
-        CONNECTION =        1 << 10,    // Bucket for connection file (netconvert)
-        TYPE =              1 << 11,    // Bucket for edge type file (netconvert)
-        TRAFFICLIGHT =      1 << 12,    // Bucket for traffic light file (netconvert)
         // other
-        PLAINXMLPREFIX =    1 << 13,    // Bucket for plain xml prefix (netconvert)
-        AUTOMATIC =         1 << 14,    // Element choose automatic the bucket
-        NOTHING =           1 << 15,    // Element is not saved in bucket
+        PLAINXMLPREFIX =    1 << 8,     // Bucket for plain xml prefix (netconvert)
+        AUTOMATIC =         1 << 9,     // Element choose automatic the bucket
+        NOTHING =           1 << 10,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket

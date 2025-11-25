@@ -1213,7 +1213,7 @@ struct GNEApplicationWindowHelper {
         const std::string& getDefaultFilename(const FileBucket::Type type) const;
 
         /// brief set default additional file
-        void setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force);
+        void setDefaultFilenameFile(const FileBucket::Type type, std::string filename, const bool force);
 
         /// @brief check if at least we have an additional file defined
         bool isFilenameDefined(const FileBucket::Type type) const;
@@ -1241,9 +1241,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief map with the buckets
         std::map<FileBucket::Type, std::vector<FileBucket*> > myBuckets;
-
-        /// @brief plainXML prefix
-        std::string myPlainXMLPrefix;
 
         /// @brief Invalidated copy constructor.
         FileBucketHandler(const FileBucketHandler&) = delete;
