@@ -3443,7 +3443,7 @@ long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
     const auto plainXMLFileDialog = GNEFileDialog(this, TL("plain XML file"),
-                                    SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                    SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
                                     GNEFileDialog::OpenMode::SAVE,
                                     GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of dialog
