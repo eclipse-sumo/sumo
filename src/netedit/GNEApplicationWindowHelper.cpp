@@ -2392,6 +2392,8 @@ GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& ne
     for (auto type : FileBucket::types) {
         myBuckets[type].push_back(new FileBucket(type));
     }
+    // add bucket for plain xml prefix
+    myBuckets[FileBucket::Type::PLAINXMLPREFIX].push_back(new FileBucket(FileBucket::Type::PLAINXMLPREFIX));
 }
 
 
@@ -2524,40 +2526,28 @@ GNEApplicationWindowHelper::FileBucketHandler::getFileBuckets(const FileBucket::
 
 const std::string&
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBucket::Type type) const {
-    if (type & FileBucket::Type::PLAINXMLPREFIX) {
-        return myPlainXMLPrefix;
-    } else {
-        return myBuckets.at(type).front()->getFilename();
-    }
+    return myBuckets.at(type).front()->getFilename();
 }
 
 
 void
-GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
+GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, std::string filename, const bool force) {
     if (myBuckets.at(type).front()->getFilename().empty() || force) {
-        myBuckets.at(type).front()->setFilename(filename);
         // special case for netconvert
         if (type & FileBucket::Type::NETCONVERTCONFIG) {
             // clean plain xml prefix
-            myPlainXMLPrefix = filename;
-            if (myPlainXMLPrefix.back() == '.') {
-                myPlainXMLPrefix.pop_back();
+            if (filename.back() == '.') {
+                filename.pop_back();
             } else {
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".edg.xml", "");
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".nod.xml", "");
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".con.xml", "");
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".typ.xml", "");
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".tll.xml", "");
-                myPlainXMLPrefix = StringUtils::replace(myPlainXMLPrefix, ".xml", "");
+                filename = StringUtils::replace(filename, ".edg.xml", "");
+                filename = StringUtils::replace(filename, ".nod.xml", "");
+                filename = StringUtils::replace(filename, ".con.xml", "");
+                filename = StringUtils::replace(filename, ".typ.xml", "");
+                filename = StringUtils::replace(filename, ".tll.xml", "");
+                filename = StringUtils::replace(filename, ".xml", "");
             }
-            // set filenames
-            myBuckets.at(FileBucket::Type::EDGE).front()->setFilename(myPlainXMLPrefix + ".edg.xml");
-            myBuckets.at(FileBucket::Type::NODE).front()->setFilename(myPlainXMLPrefix + ".nod.xml");
-            myBuckets.at(FileBucket::Type::CONNECTION).front()->setFilename(myPlainXMLPrefix + ".con.xml");
-            myBuckets.at(FileBucket::Type::TYPE).front()->setFilename(myPlainXMLPrefix + ".typ.xml");
-            myBuckets.at(FileBucket::Type::TRAFFICLIGHT).front()->setFilename(myPlainXMLPrefix + ".tll.xml");
-            myBuckets.at(FileBucket::Type::EDGE).front()->setFilename(myPlainXMLPrefix + ".edg.xml");
         }
+        myBuckets.at(type).front()->setFilename(filename);
         // update filename in options
         updateOptions();
     }
@@ -2646,14 +2636,6 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         myNeteditOptions.resetDefault("sumocfg-file");
     }
-    // netconvert config (only netedit, but currently disabled)
-    /*
-        if (netconvertconfig.size() > 0) {
-            myNeteditOptions.set("netconvert-file", myPlainXMLPrefix + ".netccfg");
-        } else {
-            myNeteditOptions.resetDefault("netconvert-file");
-        }
-    */
     // netedit config (only netedit)
     if (neteditconfig.size() > 0) {
         myNeteditOptions.set("configuration-file", neteditconfig);

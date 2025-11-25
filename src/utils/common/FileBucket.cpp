@@ -32,12 +32,7 @@ const std::vector<FileBucket::Type> FileBucket::types = {
     FileBucket::Type::DEMAND,
     FileBucket::Type::MEANDATA,
     FileBucket::Type::ADDITIONAL,
-    FileBucket::Type::DATA,
-    FileBucket::Type::EDGE,
-    FileBucket::Type::NODE,
-    FileBucket::Type::CONNECTION,
-    FileBucket::Type::TYPE,
-    FileBucket::Type::TRAFFICLIGHT
+    FileBucket::Type::DATA
 };
 
 // ===========================================================================
