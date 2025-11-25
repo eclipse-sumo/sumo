@@ -32,18 +32,22 @@ class FileBucket {
 public:
     /// @brief Files that this bucket can save
     enum class Type : int {
-        SUMOCONFIG =        1 << 0,     // Bucket for sumo configs (usually only one)
-        NETCONVERTCONFIG =  1 << 1,     // Bucket for netconvert configs (usually only one)
-        NETEDITCONFIG =     1 << 2,     // Bucket for netedit configs (usually only one)
+        SUMO_CONFIG =       1 << 0,     // Bucket for sumo configs (usually only one)
+        NETEDIT_CONFIG =    1 << 1,     // Bucket for netedit configs (usually only one)
+        NETCONVERT_CONFIG = 1 << 2,     // Bucket for netconvert configs (usually only one)
         NETWORK =           1 << 3,     // Bucket for network elements (usually only one)
         DEMAND =            1 << 4,     // Bucket for demand elements
         MEANDATA =          1 << 5,     // Bucket for meanData elements
         ADDITIONAL =        1 << 6,     // Bucket for additional elements (always after demand and meanData)
         DATA =              1 << 7,     // Bucket for data elements
+        // prefixes
+        SUMO_PREFIX =       1 << 8,     // Bucket for sumo prefix
+        NETEDIT_PREFIX =    1 << 9,     // Bucket for netedit prefix
+        NETCONVERT_PREFIX = 1 << 10,    // Bucket for netconvert prefix
+        NETWORK_PREFIX =    1 << 11,    // Bucket for net prefix
         // other
-        PLAINXMLPREFIX =    1 << 8,     // Bucket for plain xml prefix (netconvert)
-        AUTOMATIC =         1 << 9,     // Element choose automatic the bucket
-        NOTHING =           1 << 10,    // Element is not saved in bucket
+        AUTOMATIC =         1 << 12,    // Element choose automatic the bucket
+        NOTHING =           1 << 13,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket
@@ -83,6 +87,9 @@ public:
 
     /// @brief vector with all types managed in this get bucket handler
     static const std::vector<FileBucket::Type> types;
+
+    /// @brief vector with all types and prefixes managed in this get bucket handler
+    static const std::vector<FileBucket::Type> prefixes;
 
 private:
     /// @brief type
