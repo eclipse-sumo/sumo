@@ -5,7 +5,7 @@
 #if defined(SWIGJAVA)
 %typemap(javaimports) libsumo::Simulation "import java.lang.Runtime.Version;"
 %extend libsumo::Simulation {
-%proxycode %{
+%insert(proxycode) %{
     public static void preloadLibraries() {
         if (Version.parse(System.getProperty("java.version")).compareTo(Version.parse("21.0.5")) < 0) {
             System.err.println("The recommended minimal Java version is 21.0.5.");
