@@ -2269,8 +2269,8 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // relocate files
     sumoOptions.relocateFiles(mySumoConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, mySumoConfigFile, true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(mySumoConfigFile, ".sumocfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile, true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, StringUtils::replace(mySumoConfigFile, ".sumocfg", ".netecfg"), true);
     // set load options in netedit
     neteditOptions.resetWritable();
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
@@ -2316,9 +2316,9 @@ GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
     // relocate files
     neteditOptions.relocateFiles(myNetconvertConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, StringUtils::replace(myNetconvertConfigFile, ".netccfg", ".netecfg"), true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETCONVERTCONFIG, neteditOptions.getString("netconvert-file"), true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMOCONFIG, neteditOptions.getString("sumocfg-file"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, StringUtils::replace(myNetconvertConfigFile, ".netccfg", ".netecfg"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETCONVERT_PREFIX, neteditOptions.getString("netconvert-file"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"), true);
     // set load options in netdit
     neteditOptions.resetWritable();
     return true;
@@ -2367,7 +2367,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // relocate files
     neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDITCONFIG, myNeteditConfigFile, true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile, true);
     // restore ignores
     neteditOptions.resetWritable();
     // check if ignore additional or route files
@@ -2389,11 +2389,12 @@ GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& ne
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions) {
     // create default buckets
-    for (auto type : FileBucket::types) {
+    for (const auto& type : FileBucket::types) {
         myBuckets[type].push_back(new FileBucket(type));
     }
-    // add bucket for plain xml prefix
-    myBuckets[FileBucket::Type::PLAINXMLPREFIX].push_back(new FileBucket(FileBucket::Type::PLAINXMLPREFIX));
+    for (const auto& type : FileBucket::prefixes) {
+        myBuckets[type].push_back(new FileBucket(type));
+    }
 }
 
 
@@ -2482,6 +2483,28 @@ GNEApplicationWindowHelper::FileBucketHandler::checkFilename(const GNEAttributeC
 }
 
 
+std::string
+GNEApplicationWindowHelper::FileBucketHandler::getConfigDirectory() const {
+    for (const auto& type : FileBucket::prefixes) {
+        if (isFilenameDefined(type)) {
+            return getDefaultFolder(type);
+        }
+    }
+    return "";
+}
+
+
+std::string
+GNEApplicationWindowHelper::FileBucketHandler::getConfigFilePrefix() const {
+    for (const auto& type : FileBucket::prefixes) {
+        if (isFilenameDefined(type)) {
+            return getDefaultFilename(type);
+        }
+    }
+    return "";
+}
+
+
 FileBucket*
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultBucket(const FileBucket::Type type) const {
     return myBuckets.at(type).front();
@@ -2489,7 +2512,7 @@ GNEApplicationWindowHelper::FileBucketHandler::getDefaultBucket(const FileBucket
 
 
 FileBucket*
-GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string filename, const bool create) {
+GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type type, const std::string& filename, const bool create) {
     // iterate over all buckets to check if the given filename already exist
     for (auto& bucketMap : myBuckets) {
         for (auto& bucket : bucketMap.second) {
@@ -2524,29 +2547,33 @@ GNEApplicationWindowHelper::FileBucketHandler::getFileBuckets(const FileBucket::
 }
 
 
-const std::string&
+std::string
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBucket::Type type) const {
     return myBuckets.at(type).front()->getFilename();
 }
 
 
-void
-GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, std::string filename, const bool force) {
-    if (myBuckets.at(type).front()->getFilename().empty() || force) {
-        // special case for netconvert
-        if (type & FileBucket::Type::NETCONVERTCONFIG) {
-            // clean plain xml prefix
-            if (filename.back() == '.') {
-                filename.pop_back();
-            } else {
-                filename = StringUtils::replace(filename, ".edg.xml", "");
-                filename = StringUtils::replace(filename, ".nod.xml", "");
-                filename = StringUtils::replace(filename, ".con.xml", "");
-                filename = StringUtils::replace(filename, ".typ.xml", "");
-                filename = StringUtils::replace(filename, ".tll.xml", "");
-                filename = StringUtils::replace(filename, ".xml", "");
-            }
+std::string
+GNEApplicationWindowHelper::FileBucketHandler::getDefaultFolder(const FileBucket::Type type) const {
+    std::string prefix = getDefaultFilename(type);
+    // remove until empty or slash
+    while (true) {
+        if (prefix.empty()) {
+            return prefix;
+        } else if ((prefix.back() == '\'') ||
+                   (prefix.back() == '\\') ||
+                   (prefix.back() == '/')) {
+            return prefix;
+        } else {
+            prefix.pop_back();
         }
+    }
+}
+
+
+void
+GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
+    if (myBuckets.at(type).front()->getFilename().empty() || force) {
         myBuckets.at(type).front()->setFilename(filename);
         // update filename in options
         updateOptions();
@@ -2618,9 +2645,8 @@ GNEApplicationWindowHelper::FileBucketHandler::removeEmptyBuckets() {
 void
 GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // get filenames
-    const auto sumoconfig = parseFilenames({FileBucket::Type::SUMOCONFIG});
-    const auto netconvertconfig = parseFilenames({FileBucket::Type::NETCONVERTCONFIG});
-    const auto neteditconfig = parseFilenames({FileBucket::Type::NETEDITCONFIG});
+    const auto sumoconfig = parseFilenames({FileBucket::Type::SUMO_CONFIG});
+    const auto neteditconfig = parseFilenames({FileBucket::Type::NETEDIT_CONFIG});
     const auto networkFile = parseFilenames({FileBucket::Type::NETWORK});
     const auto additional = parseFilenames({FileBucket::Type::ADDITIONAL});
     const auto demandFile = parseFilenames({FileBucket::Type::DEMAND});
@@ -2682,6 +2708,27 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         mySumoOptions.resetDefault("additional-files");
     }
+    // update prefixes
+    myBuckets.at(FileBucket::Type::SUMO_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::SUMO_CONFIG, {".sumocfg", ".xml"}));
+    myBuckets.at(FileBucket::Type::NETEDIT_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETEDIT_CONFIG, {".netecfg", ".xml"}));
+    myBuckets.at(FileBucket::Type::NETCONVERT_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETCONVERT_CONFIG, {".edg.xml", ".nod.xml", ".con.xml", ".typ.xml", ".tll.xml", ".xml"}));
+    myBuckets.at(FileBucket::Type::NETWORK_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETWORK, {".net.xml", ".xml"}));
+}
+
+
+std::string
+GNEApplicationWindowHelper::FileBucketHandler::getPrefix(FileBucket::Type type, const std::vector<std::string> invalidExtensions) const {
+    std::string filename = getDefaultFilename(type);
+    if (filename.size() > 0) {
+        if (filename.back() == '.') {
+            filename.pop_back();
+        } else {
+            for (const auto& invalidExtension : invalidExtensions) {
+                filename = StringUtils::replace(filename, invalidExtension, "");
+            }
+        }
+    }
+    return filename;
 }
 
 // ---------------------------------------------------------------------------

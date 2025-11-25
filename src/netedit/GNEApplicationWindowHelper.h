@@ -1192,6 +1192,12 @@ struct GNEApplicationWindowHelper {
         /// @brief check if the given filename can be assigned to the given AC
         bool checkFilename(const GNEAttributeCarrier* AC, const std::string& filename) const;
 
+        /// @brief get current config directory (if we defined a netedit, sumo or netconvert config)
+        std::string getConfigDirectory() const;
+
+        /// @brief get current config patter (if we defined a netedit, sumo or netconvert config)
+        std::string getConfigFilePrefix() const;
+
         /// @brief functions related with buckets
         /// @{
 
@@ -1199,7 +1205,7 @@ struct GNEApplicationWindowHelper {
         FileBucket* getDefaultBucket(const FileBucket::Type type) const;
 
         /// @brief get bucket
-        FileBucket* getBucket(const FileBucket::Type type, const std::string filename, const bool create);
+        FileBucket* getBucket(const FileBucket::Type type, const std::string& filename, const bool create);
 
         /// @brief get vector with all fileBuckets related with the given file type
         const std::vector<FileBucket*>& getFileBuckets(const FileBucket::Type type) const;
@@ -1209,11 +1215,14 @@ struct GNEApplicationWindowHelper {
         /// @brief functions related with filenames
         /// @{
 
-        /// @brief get vector with the fileBuckets related with the given file
-        const std::string& getDefaultFilename(const FileBucket::Type type) const;
+        /// @brief get default filename associated with the given tipe
+        std::string getDefaultFilename(const FileBucket::Type type) const;
+
+        /// @brief get default folder associated with the given tipe
+        std::string getDefaultFolder(const FileBucket::Type type) const;
 
         /// brief set default additional file
-        void setDefaultFilenameFile(const FileBucket::Type type, std::string filename, const bool force);
+        void setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force);
 
         /// @brief check if at least we have an additional file defined
         bool isFilenameDefined(const FileBucket::Type type) const;
@@ -1232,6 +1241,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief update options
         void updateOptions();
+
+        /// @brief get prefix of the given filename
+        std::string getPrefix(FileBucket::Type type, const std::vector<std::string> invalidExtensions) const;
 
         /// @brief reference to netedit options
         OptionsCont& myNeteditOptions;
