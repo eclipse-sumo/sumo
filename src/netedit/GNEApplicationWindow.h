@@ -850,9 +850,6 @@ private:
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool askSaveElements();
 
-    /// @brief extract folder
-    FXString getFolder(const std::string& folder) const;
-
     /// @brief Invalidated copy constructor.
     GNEApplicationWindow(const GNEApplicationWindow&) = delete;
 

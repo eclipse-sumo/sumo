@@ -1709,8 +1709,6 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
-    /// @brief create automatic filename if it was not defined previously
-    MID_GNE_AUTOMATICFILENAME,
 
     /// @}
 
