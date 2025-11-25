@@ -1028,7 +1028,8 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
         // set file to load
         neteditOptions.resetWritable();
         if (neteditConfig.size() > 0) {
-            neteditOptions.set("configuration-file", neteditConfig);
+            // set netedit config
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfig, true);
             // set status bar
             setStatusBarText(TLF("Reloading netedit config file '%'", neteditConfig));
         } else if (sumoConfig.size() > 0) {
@@ -1037,7 +1038,8 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
             // set status bar
             setStatusBarText(TL("Reloading sumo config file '%'", sumoConfig));
         } else if (networkFile.size() > 0) {
-            neteditOptions.set("net-file", networkFile);
+            // set network config
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile, true);
             // set status bar
             setStatusBarText(TL("Reloading network file '%'", networkFile));
         } else {
@@ -1138,8 +1140,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         // get filedata
         const std::string recentFile = ((const char*)fileData);
         // check if we're loading a network o a config
-        if ((recentFile.find(".neteditcfg") != std::string::npos) ||    // neteditcfg deprecated
-                (recentFile.find(".netecfg") != std::string::npos) ||
+        if ((recentFile.find(".netecfg") != std::string::npos) ||
                 (recentFile.find(".sumocfg") != std::string::npos) ||
                 (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
