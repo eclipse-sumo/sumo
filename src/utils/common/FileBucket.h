@@ -36,18 +36,20 @@ public:
         NETEDIT_CONFIG =    1 << 1,     // Bucket for netedit configs (usually only one)
         NETCONVERT_CONFIG = 1 << 2,     // Bucket for netconvert configs (usually only one)
         NETWORK =           1 << 3,     // Bucket for network elements (usually only one)
-        DEMAND =            1 << 4,     // Bucket for demand elements
-        MEANDATA =          1 << 5,     // Bucket for meanData elements
-        ADDITIONAL =        1 << 6,     // Bucket for additional elements (always after demand and meanData)
-        DATA =              1 << 7,     // Bucket for data elements
+        EDGETYPE =          1 << 4,     // Bucket for edge type (usually only one)
+        TLS =               1 << 5,     // Bucket for traffic lights (usually only one)
+        DEMAND =            1 << 6,     // Bucket for demand elements
+        MEANDATA =          1 << 7,     // Bucket for meanData elements
+        ADDITIONAL =        1 << 8,     // Bucket for additional elements (always after demand and meanData)
+        DATA =              1 << 9,     // Bucket for data elements
         // prefixes
-        SUMO_PREFIX =       1 << 8,     // Bucket for sumo prefix
-        NETEDIT_PREFIX =    1 << 9,     // Bucket for netedit prefix
-        NETCONVERT_PREFIX = 1 << 10,    // Bucket for netconvert prefix
-        NETWORK_PREFIX =    1 << 11,    // Bucket for net prefix
+        SUMO_PREFIX =       1 << 10,    // Bucket for sumo prefix
+        NETEDIT_PREFIX =    1 << 11,    // Bucket for netedit prefix
+        NETCONVERT_PREFIX = 1 << 12,    // Bucket for netconvert prefix
+        NETWORK_PREFIX =    1 << 13,    // Bucket for net prefix
         // other
-        AUTOMATIC =         1 << 12,    // Element choose automatic the bucket
-        NOTHING =           1 << 13,    // Element is not saved in bucket
+        AUTOMATIC =         1 << 14,    // Element choose automatic the bucket
+        NOTHING =           1 << 15,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket

@@ -2269,7 +2269,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // relocate files
     sumoOptions.relocateFiles(mySumoConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile, true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile);
     // set load options in netedit
     neteditOptions.resetWritable();
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
@@ -2362,8 +2362,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // relocate files
     neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile, true);
-    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"), true);
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile);
+
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"));
     // restore ignores
     neteditOptions.resetWritable();
     // check if ignore additional or route files
@@ -2415,13 +2416,13 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
         return myBuckets.at(FileBucket::Type::NETWORK).front();
     } else {
         // iterate over all buckets to check if the given filename already exist
-        for (auto& bucketMap : myBuckets) {
+        for (const auto& type : FileBucket::types) {
             // get default bucket (secure because first bucket always exist)
-            auto defaultBucket = bucketMap.second.front();
+            auto defaultBucket = getDefaultBucket(type);
             // check if this bucket type is compatible
             if (AC->getTagProperty()->isFileCompatible(defaultBucket->getType())) {
                 // search bucket with this filename
-                for (auto& bucket : bucketMap.second) {
+                for (auto& bucket : myBuckets.at(type)) {
                     if (bucket->getFilename() == filename) {
                         // update number of elements in buckets
                         AC->getFileBucket()->removeElement();
@@ -2435,9 +2436,9 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
             }
         }
         // if we didn't found a bucket whit the given filename, create new
-        for (auto& bucketMap : myBuckets) {
+        for (const auto& type : FileBucket::types) {
             // this front() call is secure because every bucket group have always at least one default bucket)
-            const auto bucketType = bucketMap.second.front()->getType();
+            const auto bucketType = getDefaultBucket(type)->getType();
             // check compatibility
             if (AC->getTagProperty()->isFileCompatible(bucketType)) {
                 // create new bucket with the given filename
@@ -2465,8 +2466,8 @@ GNEApplicationWindowHelper::FileBucketHandler::checkFilename(const GNEAttributeC
         return false;
     } else {
         // iterate over all buckets to check if exist a bucket with this filename
-        for (auto& bucketMap : myBuckets) {
-            for (auto& bucket : bucketMap.second) {
+        for (const auto& type : FileBucket::types) {
+            for (auto& bucket : myBuckets.at(type)) {
                 if (bucket->getFilename() == filename) {
                     // check if the bucket is compatible with this file
                     return AC->getTagProperty()->isFileCompatible(bucket->getType());
@@ -2521,7 +2522,7 @@ GNEApplicationWindowHelper::FileBucketHandler::getBucket(const FileBucket::Type 
     if (create) {
         // if the default bucket is empty, but not the filename, update the default bucket
         if (getDefaultFilename(type).empty() && (filename.size() > 0)) {
-            setDefaultFilenameFile(type, filename, true);
+            setDefaultFilenameFile(type, filename);
             return getDefaultBucket(type);
         } else {
             // create new bucket
@@ -2568,12 +2569,10 @@ GNEApplicationWindowHelper::FileBucketHandler::getDefaultFolder(const FileBucket
 
 
 void
-GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename, const bool force) {
-    if (myBuckets.at(type).front()->getFilename().empty() || force) {
-        myBuckets.at(type).front()->setFilename(filename);
-        // update filename in options
-        updateOptions();
-    }
+GNEApplicationWindowHelper::FileBucketHandler::setDefaultFilenameFile(const FileBucket::Type type, const std::string& filename) {
+    myBuckets.at(type).front()->setFilename(filename);
+    // update filename in options
+    updateOptions();
 }
 
 
@@ -2649,6 +2648,8 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     const auto data = parseFilenames({FileBucket::Type::DATA});
     const auto meanData = parseFilenames({FileBucket::Type::MEANDATA});
     const auto additionalMeanData = parseFilenames({FileBucket::Type::ADDITIONAL, FileBucket::Type::MEANDATA});
+    const auto edgeType = parseFilenames({FileBucket::Type::EDGETYPE});
+    const auto tls = parseFilenames({FileBucket::Type::TLS});
     // set default filename depending of type
     myNeteditOptions.resetWritable();
     mySumoOptions.resetWritable();
@@ -2703,6 +2704,18 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         mySumoOptions.set("additional-files", additionalMeanData);
     } else {
         mySumoOptions.resetDefault("additional-files");
+    }
+    // edgeType (only netedit)
+    if (edgeType.size() > 0) {
+        myNeteditOptions.set("edgetypes-file", edgeType);
+    } else {
+        myNeteditOptions.resetDefault("edgetypes-file");
+    }
+    // TLS (only netedit)
+    if (tls.size() > 0) {
+        myNeteditOptions.set("tls-file", tls);
+    } else {
+        myNeteditOptions.resetDefault("tls-file");
     }
     // update prefixes
     myBuckets.at(FileBucket::Type::SUMO_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::SUMO_CONFIG, {".sumocfg", ".xml"}));

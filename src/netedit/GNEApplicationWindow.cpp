@@ -842,7 +842,7 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
         // set sumo config
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename());
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -935,9 +935,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
                                       GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of netconvertFile
     if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // set file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("tls-file", TLSfileDialog.getFilename());
+        // set tls type in bucket
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // load traffic lights
         loadTrafficLights(false);
     }
@@ -956,7 +955,7 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("tls-file").empty()) {
+    if (myViewNet && !myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -974,9 +973,8 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
                                             GNEFileDialog::ConfigType::NETEDIT);
     // continue depending of netconvertFile
     if (edgeTypesFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // set file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("edgetypes-file", edgeTypesFileDialog.getFilename());
+        // set tls type in bucket
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypesFileDialog.getFilename());
         // load edge types
         loadEdgeTypes(false);
     }
@@ -995,7 +993,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("edgetypes-file").empty()) {
+    if (myViewNet && !myFileBucketHandler->isFilenameDefined(FileBucket::Type::EDGETYPE)) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -1029,17 +1027,17 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
         neteditOptions.resetWritable();
         if (neteditConfig.size() > 0) {
             // set netedit config
-            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfig, true);
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfig);
             // set status bar
             setStatusBarText(TLF("Reloading netedit config file '%'", neteditConfig));
         } else if (sumoConfig.size() > 0) {
             // set sumo config
-            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfig, true);
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfig);
             // set status bar
             setStatusBarText(TL("Reloading sumo config file '%'", sumoConfig));
         } else if (networkFile.size() > 0) {
             // set network config
-            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile, true);
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile);
             // set status bar
             setStatusBarText(TL("Reloading network file '%'", networkFile));
         } else {
@@ -1103,7 +1101,7 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
         // set default options defined in GNELoadThread::setDefaultOptions(...)
         myLoadThread->setDefaultOptions(neteditOptions);
         // set file to load
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile, true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile);
         // set status bar
         setStatusBarText(TLF("Reloading network file '%'", networkFile));
         // loaad network
@@ -1400,7 +1398,7 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
             myViewNet->setViewportFromToRot(off, p, 0);
         }
         // set network in bucket handler
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("net-file"), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("net-file"));
         // load elements
         loadAdditionalElements();
         loadDemandElements();
@@ -1717,7 +1715,7 @@ GNEApplicationWindow::loadOptionOnStartup() {
         createNewNetwork();
         // check if define network file using this ouput file
         if (!outputFile.empty()) {
-            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, outputFile, true);
+            myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, outputFile);
         }
     } else {
         // set flag
@@ -1779,7 +1777,7 @@ GNEApplicationWindow::loadNetwork(const std::string& networkFile) {
         // set default options defined in GNELoadThread::setDefaultOptions(...)
         myLoadThread->setDefaultOptions(neteditOptions);
         // update default net file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile, true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile);
         // set status bar
         setStatusBarText(TLF("Loading network file '%'.", networkFile));
         // load network
@@ -3356,7 +3354,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
     }
     // first check if we have to set the output filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, myFileBucketHandler->getConfigFilePrefix() + ".net.xml", true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, myFileBucketHandler->getConfigFilePrefix() + ".net.xml");
     }
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
@@ -3426,7 +3424,7 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
                                           GNEFileDialog::ConfigType::NETEDIT);
     if (networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default network file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFileDialog.getFilename());
         // update netedit title with the network name
         setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFileDialog.getFilename().c_str()));
         // enable save network
@@ -3449,7 +3447,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // continue depending of dialog
     if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default netconvert file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERT_CONFIG, plainXMLFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERT_CONFIG, plainXMLFileDialog.getFilename());
         // start saving plain XML
         getApp()->beginWaitCursor();
         try {
@@ -3556,7 +3554,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel,
     // continue depending of file
     if (neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set file in file bucket handler
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfigFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfigFileDialog.getFilename());
         // continue saving netedit config
         return onCmdSaveNeteditConfig(sender, sel, ptr);
     } else {
@@ -3667,7 +3665,7 @@ GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, vo
     // continue depending of file
     if (sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set sumo config
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename());
         // continue saving SUMO Config
         return onCmdSaveSumoConfig(sender, sel, ptr);
     } else {
@@ -3695,16 +3693,17 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // Check if TLS Programs file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("tls-file").empty()) {
+    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS)) {
         return onCmdSaveTLSProgramsAs(obj, sel, ptr);
     } else {
         // Start saving TLS Programs
         getApp()->beginWaitCursor();
         try {
+            // compute before saving
             myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
-            myNet->saveTLSPrograms(neteditOptions.getString("tls-file"));
+            myNet->saveTLSPrograms(myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS));
             // write info
-            WRITE_MESSAGE(TLF("TLS Programs saved in '%'.", neteditOptions.getString("tls-file")));
+            WRITE_MESSAGE(TLF("TLS Programs saved in '%'.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS)));
         } catch (IOError& e) {
             // open error message box
             GNEErrorBasicDialog(this, TL("Saving TLS Programs failed"), e.what());
@@ -3740,15 +3739,17 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // Check if edgeType file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("edgetypes-file").empty()) {
+    if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::EDGETYPE)) {
         return onCmdSaveEdgeTypesAs(obj, sel, ptr);
     } else {
         // Start saving edgeTypes
         getApp()->beginWaitCursor();
         try {
-            myNet->saveEdgeTypes(neteditOptions.getString("edgetypes-file"));
+            const auto edgeTypeFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::EDGETYPE);
+            // save edge types
+            myNet->saveEdgeTypes(edgeTypeFile);
             // write info
-            WRITE_MESSAGE(TLF("EdgeType saved in '%'.", neteditOptions.getString("edgetypes-file")));
+            WRITE_MESSAGE(TLF("EdgeType saved in '%'.", edgeTypeFile));
         } catch (IOError& e) {
             // open error message box
             GNEErrorBasicDialog(this, TL("Saving edgeTypes failed"), e.what());
@@ -3783,9 +3784,8 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check tat file is valid
     if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // change value of "tls-file"
-        neteditOptions.resetWritable();
-        neteditOptions.set("tls-file", TLSfileDialog.getFilename());
+        // set tls type in bucket
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // enable save netedit config
         myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet
@@ -3809,9 +3809,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
                                            GNEFileDialog::ConfigType::NETEDIT);
     // check tat file is valid
     if (edgeTypeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // change value of "edgetypes-file"
-        neteditOptions.resetWritable();
-        neteditOptions.set("edgetypes-file", edgeTypeFileDialog.getFilename());
+        // set tls type in bucket
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypeFileDialog.getFilename());
         // enable save netedit config
         myNet->getSavingStatus()->requireSaveNeteditConfig();
         // set focus again in viewNet
@@ -3926,7 +3925,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, myFileBucketHandler->getConfigFilePrefix() + ".add.xml", true);
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, myFileBucketHandler->getConfigFilePrefix() + ".add.xml");
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
@@ -3968,7 +3967,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector
     // check that file is valid
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default name
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename());
         // save additional
         return onCmdSaveAdditionalElements(sender, sel, ptr);
     } else {
@@ -3987,8 +3986,6 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
                                       myFileBucketHandler->getConfigDirectory());
     // check that file is valid
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        // set default type in file
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename(), true);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("saving of unified additional elements in '%'", additionalFileDialog.getFilename()));
         // iterate over all demand elementes and change file
@@ -4141,7 +4138,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, myFileBucketHandler->getConfigFilePrefix() + ".rou.xml", true);
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, myFileBucketHandler->getConfigFilePrefix() + ".rou.xml");
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
@@ -4181,7 +4178,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
     // check that file is correct
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default name
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, routeFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, routeFileDialog.getFilename());
         // save demand elements
         return onCmdSaveDemandElements(sender, sel, ptr);
     } else {
@@ -4329,7 +4326,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DATA)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix() + ".xml", true);
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix() + ".xml");
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DATA)) {
@@ -4366,7 +4363,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
     // check that file is correct
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default name
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename());
         // save data elements
         return onCmdSaveDataElements(sender, sel, ptr);
     } else {
@@ -4504,7 +4501,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, myFileBucketHandler->getConfigFilePrefix() + ".dat.add.xml", true);
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, myFileBucketHandler->getConfigFilePrefix() + ".dat.add.xml");
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {
@@ -4543,7 +4540,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsAs(FXObject* sender, FXSelector s
     // check that file is valid
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default name
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename(), true);
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename());
         // save meanDatas
         return onCmdSaveMeanDataElements(sender, sel, ptr);
     } else {
@@ -4971,7 +4968,7 @@ GNEApplicationWindow::loadMeanDataElements() {
 void
 GNEApplicationWindow::loadTrafficLights(const bool reloading) {
     // get TLS file
-    const auto tlsFile = OptionsCont::getOptions().getString("tls-file");
+    const auto tlsFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS);
     // check if file exist
     if (tlsFile.size() > 0) {
         // Run parser
@@ -4998,7 +4995,7 @@ GNEApplicationWindow::loadTrafficLights(const bool reloading) {
 void
 GNEApplicationWindow::loadEdgeTypes(const bool reloading) {
     // get edgeType file
-    const auto edgeTypeFile = OptionsCont::getOptions().getString("edgetypes-file");
+    const auto edgeTypeFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::EDGETYPE);
     // check if file exist
     if (edgeTypeFile.size() > 0) {
         // declare type container
