@@ -59,6 +59,13 @@ def create_version_file(versionFile, revision):
         print('#define VERSION_STRING "%s"' % revision, file=f)
 
 
+def filter_sumolib(version_py):
+    with open(version_py) as inf:
+        inp = inf.read()
+    with open(version_py, "w") as outf:
+        outf.write(inp.replace('0.0.0', get_pep440_version()))
+
+
 def filter_setup_py(in_file, out_file):
     with open(in_file) as inf, open(out_file, "w") as outf:
         for line in inf:
@@ -72,7 +79,10 @@ def filter_setup_py(in_file, out_file):
 
 def main():
     if len(sys.argv) > 2:
-        filter_setup_py(sys.argv[1], sys.argv[2])
+        if sys.argv[1] == "--sumolib":
+            filter_sumolib(sys.argv[2])
+        else:
+            filter_setup_py(sys.argv[1], sys.argv[2])
         return
     # determine output file
     if len(sys.argv) > 1:

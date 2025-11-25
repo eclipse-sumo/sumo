@@ -25,6 +25,14 @@ from __future__ import print_function
 import subprocess
 from os.path import dirname, exists, join
 
+try:
+    # this tries to determine the version number of an installed wheel
+    import importlib.metadata  # noqa
+    _version = importlib.metadata.version("sumolib")
+except ImportError:
+    # this is the fallback version, it gets replaced with the current version on "make install" or "make dist"
+    _version = "0.0.0"
+
 GITDIR = join(dirname(__file__), '..', '..', '.git')
 
 
@@ -48,7 +56,7 @@ def fromVersionHeader():
         version = config.find("VERSION_STRING") + 16
         if version > 16:
             return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
-    raise EnvironmentError("Could not determine version.")
+    return "v" + _version
 
 
 def gitDescribe(commit="HEAD", gitDir=GITDIR, padZero=True):

@@ -679,6 +679,7 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "*.pyc" EXCLUDE
         PATTERN "*.egg-info" EXCLUDE
         PATTERN ".git" EXCLUDE)
+install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --sumolib \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)")
 if (DATA_PATH)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
 endif ()
@@ -914,6 +915,7 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/tests
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
         COMMAND find tools/contributed/saga/ tools/contributed/traci4matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
+        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --sumolib sumo-${PACKAGE_VERSION}/tools/sumolib/version.py
         COMMAND mkdir sumo-${PACKAGE_VERSION}/include
         COMMAND cp ${CMAKE_BINARY_DIR}/src/version.h sumo-${PACKAGE_VERSION}/include
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
