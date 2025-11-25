@@ -25,14 +25,21 @@
 // ===========================================================================
 
 const std::vector<FileBucket::Type> FileBucket::types = {
-    FileBucket::Type::SUMOCONFIG,
-    FileBucket::Type::NETCONVERTCONFIG,
-    FileBucket::Type::NETEDITCONFIG,
+    FileBucket::Type::SUMO_CONFIG,
+    FileBucket::Type::NETEDIT_CONFIG,
+    FileBucket::Type::NETCONVERT_CONFIG,
     FileBucket::Type::NETWORK,
     FileBucket::Type::DEMAND,
     FileBucket::Type::MEANDATA,
     FileBucket::Type::ADDITIONAL,
     FileBucket::Type::DATA
+};
+
+const std::vector<FileBucket::Type> FileBucket::prefixes = {
+    FileBucket::Type::SUMO_PREFIX,
+    FileBucket::Type::NETEDIT_PREFIX,
+    FileBucket::Type::NETCONVERT_PREFIX,
+    FileBucket::Type::NETWORK_PREFIX
 };
 
 // ===========================================================================
