@@ -213,7 +213,7 @@ if (SWIG_FOUND)
         endif()
         swig_link_libraries(libsumo ${sumo_link_libraries})
         if (NOT ${PYTHON_SETUPTOOLS_MISSING})
-            install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-libsumo.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . WORKING_DIRECTORY ${SUMO_TOOLS_DIR})"
+            install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-libsumo.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --no-build-isolation --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . WORKING_DIRECTORY ${SUMO_TOOLS_DIR})"
                     COMPONENT pylibsumo)
         endif()
     endif()

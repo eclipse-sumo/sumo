@@ -32,7 +32,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
         filter: tree:0
@@ -98,7 +98,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v6

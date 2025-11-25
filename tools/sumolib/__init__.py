@@ -28,6 +28,7 @@ from . import color, geomhelper, miscutils, options, route, vehicletype, version
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
 from .miscutils import openz
 from .options import pullOptions, ArgumentParser
+from .version import _version as __version__
 from .xml import writeHeader as writeXMLHeader  # noqa
 
 
