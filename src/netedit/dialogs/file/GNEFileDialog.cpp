@@ -31,14 +31,15 @@
 
 GNEFileDialog::GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string elementFile,
                              const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
-                             GNEFileDialog::ConfigType configType):
-    GNEFileDialog(applicationWindow, applicationWindow, elementFile, extensions, openMode, configType) {
+                             GNEFileDialog::ConfigType configType, const std::string initialFolder):
+    GNEFileDialog(applicationWindow, applicationWindow, elementFile, extensions, openMode, configType, initialFolder) {
 }
 
 
 GNEFileDialog::GNEFileDialog(FXWindow* restoringWindow, GNEApplicationWindow* applicationWindow,
                              const std::string elementFile, const std::vector<std::string>& extensions,
-                             GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType) :
+                             GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType,
+                             const std::string initialFolder) :
     GNEDialog(applicationWindow, TLF("Save % as", elementFile), GUIIcon::SAVE,
               DialogType::FILE, GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL,
               GNEDialog::ResizeMode::RESIZABLE, 500, 300) {
@@ -58,7 +59,9 @@ GNEFileDialog::GNEFileDialog(FXWindow* restoringWindow, GNEApplicationWindow* ap
     myFileSelector->setFileBoxStyle(getApp()->reg().readUnsignedEntry("GNEFileDialog", "style", myFileSelector->getFileBoxStyle()));
     myFileSelector->showHiddenFiles((getApp()->reg().readUnsignedEntry("GNEFileDialog", "showhidden", myFileSelector->showHiddenFiles()) == 1) ? TRUE : FALSE);
     // set initial directory
-    if (gCurrentFolder.length() > 0) {
+    if (initialFolder.size() > 0) {
+        myFileSelector->setDirectory(gCurrentFolder);
+    } else if (gCurrentFolder.length() > 0) {
         myFileSelector->setDirectory(gCurrentFolder);
     }
     // set restoring window
