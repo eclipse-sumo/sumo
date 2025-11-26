@@ -556,6 +556,8 @@ GNEFileSelector::getDirectory() const {
                 return FXPath::absolute(myFileSelector->getDirectory(), myFileSelector->getItemFilename(i)).text();
             }
         }
+    } else if (FXStat::isDirectory(myFilenameTextField->getText())) {
+        return myFilenameTextField->getText().text();
     } else {
         for (FXint i = 0; i < myFileSelector->getNumItems(); i++) {
             if (myFileSelector->isItemDirectory(i) &&
@@ -753,6 +755,8 @@ GNEFileSelector::onCmdAccept(FXObject* obj, FXSelector sel, void* ptr) {
         FXString dir = FXPath::directory(filename.c_str());
         // In file mode, directory part of path should exist
         if (FXStat::isDirectory(dir)) {
+            // set directory
+            setDirectory(dir);
             // ensure that filename has extension
             const std::string filenameExtension = myFileDialog->assureExtension(filename);
             const std::string file = FXPath::name(filenameExtension.c_str()).text();
