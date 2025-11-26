@@ -197,10 +197,11 @@ bool
 GNETLSEditorFrame::isTLSSaved() {
     if (myTLSPrograms->checkHaveModifications()) {
         // show question dialog
-        const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO_CANCEL,
-                TL("Save TLS Changes"),
-                TL("There are unsaved changes in the currently edited traffic light."),
-                TL("Do you want to save it before changing mode?"));
+        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), myViewNet->getViewParent()->getGNEAppWindows(),
+                                    GNEDialog::Buttons::YES_NO_CANCEL,
+                                    TL("Save TLS Changes"),
+                                    TL("There are unsaved changes in the currently edited traffic light."),
+                                    TL("Do you want to save it before changing mode?"));
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // save modifications
@@ -1566,6 +1567,7 @@ GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
 
 long
 GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
+    auto GNEApp = myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows();
     // get current edited junction (needed because onCmdDiscardChanges clear junction)
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // abort because we onCmdOk assumes we wish to save an edited definition
@@ -1573,7 +1575,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     // check number of edges
     if (currentJunction->getGNEIncomingEdges().empty() && currentJunction->getGNEOutgoingEdges().empty()) {
         // open warning dialog
-        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(GNEApp, GNEApp,
                               TL("TLS cannot be created"),
                               TL("Traffic Light cannot be created because junction must have"),
                               TL("at least one incoming edge and one outgoing edge.")
@@ -1583,7 +1585,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     // check number of connections
     if (currentJunction->getGNEConnections().empty()) {
         // open warning dialog
-        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(GNEApp, GNEApp,
                               TL("TLS cannot be created"),
                               TL("Traffic Light cannot be created because junction"),
                               TL("must have at least one connection.")
@@ -1599,7 +1601,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     }
     if (!connectionControlled) {
         // open warning dialog
-        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+        GNEWarningBasicDialog(GNEApp, GNEApp,
                               TL("TLS cannot be created"),
                               TL("Traffic Light cannot be created because junction"),
                               TL("must have at least one controlled connection.")

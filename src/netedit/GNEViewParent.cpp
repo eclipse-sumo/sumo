@@ -491,7 +491,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     const std::string error = myView->makeSnapshot(file);
     if (error.size() > 0) {
         // open error message box
-        GNEErrorBasicDialog(myGNEAppWindows, TL("Saving failed."), error.c_str());
+        GNEErrorBasicDialog(myGNEAppWindows, myGNEAppWindows, TL("Saving failed."), error.c_str());
     } else {
         WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }

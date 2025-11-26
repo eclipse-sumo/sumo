@@ -412,7 +412,7 @@ GNEParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelec
             << TL("- Duplicated and empty Keys aren't valid.") << "\n"
             << TL("- Whitespace and certain characters aren't allowed (@$%^&/|\\....)");
     // create and open dialog
-    GNEHelpBasicDialog(myParameterDialogParent->getApplicationWindow(),
+    GNEHelpBasicDialog(this, myParameterDialogParent->getApplicationWindow(),
                        TL("Parameters Help"), help);
     return 1;
 }
@@ -515,11 +515,11 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     for (const auto& editedParameter : editedParameters) {
         if (editedParameter.first.empty()) {
             // open warning Box
-            GNEWarningBasicDialog(myApplicationWindow, TL("Empty Parameter key"), TL("Parameters with empty keys aren't allowed"));
+            GNEWarningBasicDialog(this, myApplicationWindow, TL("Empty Parameter key"), TL("Parameters with empty keys aren't allowed"));
             return 1;
         } else if (!SUMOXMLDefinitions::isValidParameterKey(editedParameter.first)) {
             // open warning Box
-            GNEWarningBasicDialog(myApplicationWindow, TL("Invalid Parameter key"), TL("There are keys with invalid characters"));
+            GNEWarningBasicDialog(this, myApplicationWindow, TL("Invalid Parameter key"), TL("There are keys with invalid characters"));
             return 1;
         }
     }
@@ -529,7 +529,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     for (auto i = editedParameters.begin(); (i + 1) != editedParameters.end(); i++) {
         if ((i->first) == (i + 1)->first) {
             // open warning Box
-            GNEWarningBasicDialog(myApplicationWindow, TL("Duplicated Parameters"), TL("Parameters with the same key aren't allowed"));
+            GNEWarningBasicDialog(this, myApplicationWindow, TL("Duplicated Parameters"), TL("Parameters with the same key aren't allowed"));
             return 1;
         }
     }

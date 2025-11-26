@@ -18,13 +18,14 @@
 // The Widget for modifying lane-to-lane connections
 /****************************************************************************/
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -127,6 +128,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
                 if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     // open warning dialog
                     GNEWarningBasicDialog(myConnectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                          myConnectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                           TL("Error saving connection operations"),
                                           TLF("Connection edition cannot be saved because route '%s' is broken.", demandElement->getID()));
                     return 1;

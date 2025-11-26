@@ -25,15 +25,15 @@
 // method definitions
 // ===========================================================================
 
-GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow,
+GNEWarningBasicDialog::GNEWarningBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GUIIcon::WARNING_SMALL, DialogType::BASIC_WARNING,
+    GNEBasicDialog(parentWindow, applicationWindow, name, info, GUIIcon::WARNING_SMALL, DialogType::BASIC_WARNING,
                    GNEDialog::Buttons::OK, GUIIcon::WARNING_LARGE) {
 }
 
 
-GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow,
+GNEWarningBasicDialog::GNEWarningBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
-    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::WARNING_SMALL,
+    GNEBasicDialog(parentWindow, applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::WARNING_SMALL,
                    DialogType::BASIC_WARNING, GNEDialog::Buttons::OK, GUIIcon::WARNING_LARGE) {
 }

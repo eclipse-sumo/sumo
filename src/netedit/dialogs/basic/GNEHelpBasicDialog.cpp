@@ -27,8 +27,8 @@
 // method definitions
 // ===========================================================================
 
-GNEHelpBasicDialog::GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow,
+GNEHelpBasicDialog::GNEHelpBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
                                        const std::string& name, const std::ostringstream& stream) :
-    GNEBasicDialog(applicationWindow, name, stream.str(), GUIIcon::HELP, DialogType::BASIC_HELP,
+    GNEBasicDialog(parentWindow, applicationWindow, name, stream.str(), GUIIcon::HELP, DialogType::BASIC_HELP,
                    GNEDialog::Buttons::OK, GUIIcon::EMPTY) {
 }
