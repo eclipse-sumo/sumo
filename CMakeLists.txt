@@ -475,7 +475,7 @@ if (Intl_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Intl")
 endif ()
 
-find_package(SWIG 3.0)
+find_package(SWIG 3.0.12)
 if (SWIG_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
 endif ()
