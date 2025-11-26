@@ -1052,13 +1052,18 @@ public:
 
     struct StopEdgeInfo {
 
-        StopEdgeInfo(const MSEdge* _edge, double _priority, SUMOTime _arrival, double _pos):
+        StopEdgeInfo(const MSEdge* _edge, double _priority, SUMOTime _arrival, double _pos, bool _isSink = false):
             edge(_edge), pos(_pos),
-            priority(_priority), arrival(_arrival) {};
+            priority(_priority),
+            arrival(_arrival),
+            isSink(_isSink) {}
+
         const MSEdge* edge;
         double pos;
         double priority;
         SUMOTime arrival;
+        bool isSink;
+        const SUMOVehicleParameter::Stop* stopPar = nullptr;
         /// @brief values set during routing and used during optimization
         int routeIndex = -1;
         bool skipped = false;
