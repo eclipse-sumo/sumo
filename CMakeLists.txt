@@ -123,7 +123,7 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     endif ()
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=1500000")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=5000000")
     endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")

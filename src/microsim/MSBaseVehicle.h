@@ -1072,7 +1072,7 @@ public:
         /// @brief optional info about stopping place
         std::pair<std::string, SumoXMLTag> nameTag;
         /// @brief set when replacing stop with an alternative
-        std::string origEdge = "";
+        const MSEdge* origEdge = nullptr;
 
         bool operator==(const StopEdgeInfo& o) const {
             return edge == o.edge;

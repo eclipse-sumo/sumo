@@ -394,7 +394,11 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
         // !!! need to adapt t here
         router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, t, into, silent || priority >= 0);
-        //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " edges=" << toString(into) << "\n";
+#ifdef DEBUG_REROUTE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " edges=" << toString(into) << "\n";
+        }
+#endif
         if (into.size() > 0) {
             while (stopIt != myStops.end() && stopIt->pars.edge != stopEdge->getID()) {
                 stopIt++;
@@ -456,16 +460,17 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
     }
     if (hasSkipped) {
-        MSStopOptimizer opti(this);
-        edges = opti.optimizeSkipped(t, router, origSource, origSourcePos, stops, edges, maxDelay);
+        MSStopOptimizer opti(this, router, t, maxDelay);
+        edges = opti.optimizeSkipped(origSource, origSourcePos, stops, edges);
         for (auto stop : stops) {
-            if (stop.skipped) {
+            if (stop.skipped || stop.origEdge != nullptr) {
+                const MSEdge* origEdge = stop.origEdge == nullptr ? stop.edge : stop.origEdge;
                 if (stop.delay > 0) {
-                    WRITE_WARNING(TLF("Vehicle '%' skips stop on edge '%' with delay % at time %.", getID(), stop.edge->getID(), time2string(stop.delay), time2string(SIMSTEP)));
+                    WRITE_WARNING(TLF("Vehicle '%' skips stop on edge '%' with delay % at time %.", getID(), origEdge->getID(), time2string(stop.delay), time2string(SIMSTEP)));
                 } else if (stop.backtracked) {
-                    WRITE_WARNING(TLF("Vehicle '%' skips stop on edge '%' with priority % at time %.", getID(), stop.edge->getID(), stop.priority, time2string(SIMSTEP)));
+                    WRITE_WARNING(TLF("Vehicle '%' skips stop on edge '%' with priority % at time %.", getID(), origEdge->getID(), stop.priority, time2string(SIMSTEP)));
                 } else {
-                    WRITE_WARNING(TLF("Vehicle '%' skips unreachable stop on edge '%' with priority % at time %.", getID(), stop.edge->getID(), stop.priority, time2string(SIMSTEP)));
+                    WRITE_WARNING(TLF("Vehicle '%' skips unreachable stop on edge '%' with priority % at time %.", getID(), origEdge->getID(), stop.priority, time2string(SIMSTEP)));
                 }
             }
         }
@@ -717,10 +722,11 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
             }
 #endif
             if (iter->edge == edges.end() && iter->pars.priority >= 0) {
+                const std::string oldEdge = iter->pars.edge;
                 const std::string oldName = iter->getStoppingPlaceName().first;
                 if (replaceWithAlternative(iter, searchStart, edges.end())) {
-                    WRITE_WARNINGF(TL("Vehicle '%' replaced stop % (named '%') and now stops at '%' instead; after rerouting (%) at time=%."),
-                            getID(), stopIndex, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
+                    WRITE_WARNINGF(TL("Vehicle '%' replaced stop on edge '%' (named '%') and now stops at '%' instead; after rerouting (%) at time=%."),
+                            getID(), oldEdge, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
                 }
             }
             if (iter->edge == edges.end()) {

@@ -1,1 +1,2 @@
 Warning: Vehicle 'v_0' skips unreachable stop on edge 'E2' with priority 1.00 at time 0.00.
+Warning: Vehicle 'v_0' replaced stop on edge 'E2' (named 'B') and now stops at 'ts_3' instead; after rerouting (rr_0) at time=0.00.
