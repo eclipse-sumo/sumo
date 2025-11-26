@@ -486,8 +486,14 @@ OptionsCont::resetDefault(const std::string& name) {
 
 bool
 OptionsCont::isWriteable(const std::string& name) {
-    Option* o = getSecure(name);
-    return o->isWriteable();
+    return getSecure(name)->isWriteable();
+}
+
+
+bool
+OptionsCont::isEditable(const std::string& name) {
+    return getSecure(name)->isEditable();
+
 }
 
 
@@ -540,8 +546,13 @@ OptionsCont::setFurtherAttributes(const std::string& name, const std::string& su
 
 
 void
-OptionsCont::setApplicationName(const std::string& appName,
-                                const std::string& fullName) {
+OptionsCont::setOptionEditable(const std::string& name, const bool value) {
+    getSecure(name)->setEditable(value);
+}
+
+
+void
+OptionsCont::setApplicationName(const std::string& appName, const std::string& fullName) {
     myAppName = appName;
     myFullName = fullName;
 }

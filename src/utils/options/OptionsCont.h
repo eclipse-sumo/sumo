@@ -273,20 +273,17 @@ public:
      */
     void setFurtherAttributes(const std::string& name, const std::string& subtopic, bool required, bool positional, const std::string& listSep);
 
-    /** @brief Adds a category for an option
+    /** @brief set option editable
      *
-     * Tries to retrieve the named option and to set the given category. Adds
-     *  the name to the list of option names to be located in the named subtopic.
+     * Tries to change the flag editable in the given option
      *
-     * Throws an InvalidArgument if the option is not known or already has
-     *  a category set.
+     * Throws an InvalidArgument if the option is not known
      *
      * @param[in] name The option's name
-     * @param[in] subtopic The subtopic to locate the category within
-     * @param[in] category The category
-     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
+     * @param[in] value editable value (true/false)
+     * @exception InvalidArgument If option doesn't exist
      */
-    void addCategory(const std::string& name, const std::string& subtopic, const std::string& category);
+    void setOptionEditable(const std::string& name, const bool value);
 
     /// @}
 
@@ -420,6 +417,14 @@ public:
      * @exception InvalidArgument If the option does not exist
      */
     bool isWriteable(const std::string& name);
+
+    /** @brief Returns the information whether the named option is editable
+     *
+     * @param[in] name The name of the option to check
+     * @return Whether the value is editable
+     * @exception InvalidArgument If the option does not exist
+     */
+    bool isEditable(const std::string& name);
 
     /// @}
 
