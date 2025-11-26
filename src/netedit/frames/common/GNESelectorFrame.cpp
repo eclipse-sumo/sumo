@@ -362,6 +362,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // open message box error
         GNEErrorBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                            mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                             TL("Storing Selection failed"), e.what());
     }
     return 1;
@@ -602,6 +603,7 @@ bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
     // open question dialog box
     const auto questionDialog = GNEQuestionBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                 GNEDialog::Buttons::YES_NO,
                                 TL("Confirm selection operation"),
                                 TL("There are locked elements in the current selection."),

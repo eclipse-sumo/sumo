@@ -235,13 +235,13 @@ public:
                     // close output device
                     device.close();
                     // open information message box
-                    GNEInformationBasicDialog(myFixElementDialogParent->myApplicationWindow,
+                    GNEInformationBasicDialog(myFixElementDialogParent, myFixElementDialogParent->myApplicationWindow,
                                               TL("Saving successfully"),
                                               TL("List of conflicted items was successfully saved"));
                     return true;
                 } catch (IOError& e) {
                     // open message box error
-                    GNEErrorBasicDialog(myFixElementDialogParent->myApplicationWindow,
+                    GNEErrorBasicDialog(myFixElementDialogParent, myFixElementDialogParent->myApplicationWindow,
                                         TL("Saving list of conflicted items failed"), e.what());
                     return false;
                 }

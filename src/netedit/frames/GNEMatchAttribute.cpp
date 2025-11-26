@@ -338,6 +338,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
             << TL("     edge; speed; '>10' -> match all edges with a speed above 10");
     // open help dialog
     GNEHelpBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                       mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                        TL("Netedit parameters Help"), help);
     return 1;
 }

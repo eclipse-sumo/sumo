@@ -1799,9 +1799,10 @@ GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
         // show warning dialogbox about experimental state (only once)
         GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
+                              myElement->getNet()->getGNEApplicationWindow(),
                               TLF("Error editing %", myElement->getTagStr()),
                               TLF("The % cannot be updated because attribute % is invalid.",
-                                  myElement->getTagStr(), toString(myInvalidAttr)));
+                              myElement->getTagStr(), toString(myInvalidAttr)));
         return 1;
     } else {
         // close dialog accepting changes

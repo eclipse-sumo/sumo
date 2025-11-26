@@ -1652,7 +1652,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow, GNEDialog::Buttons::YES_NO,
+            const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow, myApplicationWindow, GNEDialog::Buttons::YES_NO,
                                         TL("Position of joined junction"),
                                         TL("There is another unselected junction in the same position of joined junction."),
                                         TL("It will be joined with the other selected junctions. Continue?"));
@@ -1758,13 +1758,13 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // continue depending of invalid crossings
     if (myInvalidCrossings.empty()) {
         // open a warning dialog informing that there isn't crossing to remove
-        GNEWarningBasicDialog(myApplicationWindow,
+        GNEWarningBasicDialog(myApplicationWindow, myApplicationWindow,
                               TL("Clear crossings"),
                               TL("There are no invalid crossings to remove."));
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow,
+        const auto questionDialog = GNEQuestionBasicDialog(myApplicationWindow, myApplicationWindow,
                                     GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
                                     TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc

@@ -25,15 +25,15 @@
 // method definitions
 // ===========================================================================
 
-GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
+GNEErrorBasicDialog::GNEErrorBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GUIIcon::ERROR_SMALL, DialogType::BASIC_ERROR,
+    GNEBasicDialog(parentWindow, applicationWindow, name, info, GUIIcon::ERROR_SMALL, DialogType::BASIC_ERROR,
                    GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
 }
 
 
-GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
+GNEErrorBasicDialog::GNEErrorBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
-    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::ERROR_SMALL,
+    GNEBasicDialog(parentWindow, applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::ERROR_SMALL,
                    DialogType::BASIC_ERROR, GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
 }
