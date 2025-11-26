@@ -709,7 +709,7 @@ class Net:
         return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,
                                    includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
 
-    def getReachable(self, source, vclass=None, useIncoming=False):
+    def getReachable(self, source, vclass=None, useIncoming=False, cache=None):
         if vclass is not None and not source.allows(vclass):
             raise RuntimeError("'{}' does not allow {}".format(source.getID(), vclass))
         fringe = [source]
@@ -730,9 +730,14 @@ class Net:
                         for reachable in [conn.getTo(), conn.getFrom()]:
                             if reachable not in found:
                                 # print("added %s via %s" % (reachable, conn))
-                                found.add(reachable)
-                                new_fringe.append(reachable)
+                                if cache and reachable in cache:
+                                    found.update(cache[reachable])
+                                else:
+                                    found.add(reachable)
+                                    new_fringe.append(reachable)
             fringe = new_fringe
+        if cache is not None:
+            cache[source] = tuple(found)
         return found
 
 

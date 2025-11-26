@@ -91,10 +91,13 @@ def findNotifcationEdges(options, net, closedEdges):
                 upstream.append(pred)
 
     seen = set()
+    cache = {}
     while upstream and reachable:
         cand = upstream.pop(0)
+        if cand in seen:
+            continue
         seen.add(cand)
-        reachable2 = net.getReachable(cand, options.vclass)
+        reachable2 = net.getReachable(cand, options.vclass, cache=cache)
         found = reachable2.intersection(reachable)
         if found:
             result.add(cand)
