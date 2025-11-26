@@ -121,23 +121,25 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
                     const std::string description = myOptionsContainer.getDescription(entry);
                     // get default value
                     const std::string defaultValue = myOptionsContainer.getValueString(entry);
+                    // check if is editable
+                    const bool editable = myOptionsContainer.isEditable(entry);
                     // continue depending of type
                     if (type == "STR") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionString(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionString(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "TIME") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionTime(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionTime(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if ((type == "FILE") || (type == "NETWORK") || (type == "ADDITIONAL") || (type == "ROUTE") || (type == "DATA")) {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionFilename(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionFilename(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "BOOL") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionBool(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionBool(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "INT") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionInt(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionInt(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "FLOAT") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionFloat(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionFloat(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "INT[]") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionIntVector(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionIntVector(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     } else if (type == "STR[]") {
-                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionStringVector(this, myEntriesFrame, topic, entry, description, defaultValue));
+                        myOptionRowEntries.push_back(new GNEOptionsEditorRow::OptionStringVector(this, myEntriesFrame, topic, entry, description, defaultValue, editable));
                     }
                 }
             }

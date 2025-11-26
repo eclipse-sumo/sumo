@@ -389,7 +389,7 @@ private:
     bool myPositional = false;
 
     /// @brief this option can be edited using option dialog
-    bool myEditable = false;
+    bool myEditable = true;
 
     /// @brief the list separator for this option (needed for python tools)
     std::string myListSeparator = "";
