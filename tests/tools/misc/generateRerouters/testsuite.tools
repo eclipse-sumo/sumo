@@ -5,3 +5,4 @@ close2
 
 # load closed edges from input file
 close2_file
+no_detour
