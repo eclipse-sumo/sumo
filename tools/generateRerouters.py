@@ -37,6 +37,8 @@ def get_options(args=None):
                   help="define the output rerouter filename", default="rerouters.xml")
     op.add_option("-x", "--closed-edges", category="input", dest="closedEdges", type=op.edge_list,
                   help="provide a comma-separated list of edges to close")
+    op.add_option("-f", "--closed-edges.input-file", category="input", dest="closedEdgesFile", type=op.file,
+                  help="provide a selection file with edges to close")
     op.add_option("-i", "--id-prefix", category="processing", dest="idPrefix", default="rr",
                   help="id prefix for generated rerouters")
     op.add_option("--vclass", category="processing", default="passenger",
@@ -50,11 +52,19 @@ def get_options(args=None):
     op.add_option("-e", "--end", category="time", default=86400, type=float,
                   help="end time for the closing (default 86400)")
     options = op.parse_args(args=args)
-    if not options.netfile or not options.closedEdges:
+    if not options.netfile or (not options.closedEdges and not options.closedEdgesFile):
         op.print_help()
         sys.exit(1)
 
-    options.closedEdges = options.closedEdges.split(',')
+    options.closedEdges = options.closedEdges.split(',') if options.closedEdges else []
+    if options.closedEdgesFile:
+        with sumolib.miscutils.openz(options.closedEdgesFile, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("edge:"):
+                    edgeID = line[5:]
+                    options.closedEdges.append(edgeID)
+
     return options
 
 
