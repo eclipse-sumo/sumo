@@ -48,6 +48,7 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
+#include <microsim/trigger/MSStopOptimizer.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include "MSEventControl.h"
@@ -69,7 +70,6 @@
 //#define DEBUG_COND (getID() == "")
 //#define DEBUG_COND (true)
 //#define DEBUG_REPLACE_ROUTE
-//#define DEBUG_OPTIMIZE_SKIPPED
 #define DEBUG_COND (isSelected())
 
 // ===========================================================================
@@ -133,9 +133,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0) {
         setDepartAndArrivalEdge();
     }
-    if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
-        calculateArrivalParams(true);
-    }
+    calculateArrivalParams(true);
     initTransientModelParams();
 }
 
@@ -283,11 +281,25 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
     ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;
+    if (source != sink || !sink->prohibits(this)) {
+        edges.push_back(source);
+    }
     std::vector<StopEdgeInfo> stops;
     std::set<int> jumps;
-    double sinkPriority = -1;
-    bool stopAtSink = false;
-    double sourcePos = onInit ? 0 : getPositionOnLane();
+
+
+    double sourcePos = getPositionOnLane();
+#ifdef DEBUG_REROUTE
+    if (DEBUG_COND) {
+        std::cout << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << "\n";
+    }
+#endif
+    if (onInit && myParameter->departPosProcedure == DepartPosDefinition::GIVEN) {
+        sourcePos = myParameter->departPos;
+    } else if (getLane() != nullptr && source != &getLane()->getEdge()) {
+        // routing starts on the next edge
+        sourcePos = 0;
+    }
     if (myParameter->via.size() == 0) {
         double firstPos = INVALID_DOUBLE;
         double lastPos = INVALID_DOUBLE;
@@ -296,33 +308,24 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             if (MSGlobals::gUseMesoSim && isStopped()) {
                 sourcePos = getNextStop().pars.endPos;
             }
-            // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front().edge == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
-            const bool skipLast = (stops.back().edge == sink
-                                   && myArrivalPos >= lastPos
-                                   && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
-                                   && (stops.size() > 1 || skipFirst));
-            if (stops.back().edge == sink && myArrivalPos >= lastPos) {
-                sinkPriority = stops.back().priority;
+            if (/*!MSGlobals::gUseMesoSim &&*/ !isStopped() && myStops.front().pars.speed == 0) {
+                sourcePos += getBrakeGap();
             }
+            // avoid superfluous waypoints for first and last edge
+            const bool skipFirst = stops.front().edge == source && (source != getEdge() || sourcePos <= firstPos + NUMERICAL_EPS);
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << Named::getIDSecure(getLane())
                           << " source=" << source->getID() << " sourcePos=" << sourcePos << " firstPos=" << firstPos << " arrivalPos=" << myArrivalPos << " lastPos=" << lastPos
-                          << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";
+                          << " route=" << toString(myRoute->getEdges()) << " skipFirst=" << skipFirst << "\n";
             }
 #endif
-            if (stops.size() == 1 && (skipFirst || skipLast)) {
+            if (stops.size() == 1 && skipFirst) {
                 stops.clear();
-            } else {
-                if (skipFirst) {
-                    stops.erase(stops.begin());
-                }
-                if (skipLast) {
-                    stops.erase(stops.end() - 1);
-                }
+            } else if (skipFirst) {
+                sourcePos = stops.front().pos;
+                stops.erase(stops.begin());
             }
-            stopAtSink = stops.size() > 0 && stops.back().edge == sink && jumps.size() == 0;
         }
     } else {
         std::set<const MSEdge*> jumpEdges;
@@ -352,7 +355,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             auto itsov = stopsOnVia.find(viaEdge);
             const double priority = (itsov == stopsOnVia.end() ? -1 : itsov->second.priority);
             const SUMOTime arrival = (itsov == stopsOnVia.end() ? -1 : itsov->second.arrival);
-            const double pos = (itsov == stopsOnVia.end() ? viaEdge->getLength() : itsov->second.pos);
+            const double pos = (itsov == stopsOnVia.end() ? 0 : itsov->second.pos);
             stops.push_back(StopEdgeInfo(viaEdge, priority, arrival, pos));
             // @todo determine wether the viaEdge is also used by a stop and then use the stop priority here
             if (jumpEdges.count(viaEdge) != 0) {
@@ -360,7 +363,18 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
         }
     }
-
+    if ((stops.size() == 0 && (source != sink || sourcePos > myArrivalPos))
+            || ((stops.size() != 0) && (stops.back().edge != sink || myArrivalPos < stops.back().pos))) {
+        stops.push_back(StopEdgeInfo(sink, -1, -1, myArrivalPos, true));
+    }
+#ifdef DEBUG_REROUTE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " stops: veh=" << getID() << " source=" << source->getID() << " sink=" << sink->getID() << " sourcePos=" << sourcePos << " arrivalPos=" << myArrivalPos << "\n";
+        for (auto item : stops) {
+            std::cout << " e=" << item.edge->getID() << " pos=" << item.pos << "\n";
+        }
+    }
+#endif
     int stopIndex = -1;
     auto stopIt = myStops.begin();
     SUMOTime startTime = t;
@@ -374,13 +388,13 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         stopIndex++;
         ConstMSEdgeVector into;
         if (jumps.count(stopIndex) != 0) {
-            edges.push_back(source);
+            edges.push_back(stopEdge);
             source = stopEdge;
             continue;
         }
         // !!! need to adapt t here
-        router.computeLooped(source, stopEdge, this, t, into, silent || priority >= 0);
-        //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
+        router.compute(source, sourcePos, stopEdge, stopEdgeInfo.pos, this, t, into, silent || priority >= 0);
+        //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " target=" << stopEdgeInfo.edge->getID() << " targetPos=" << stopEdgeInfo.pos << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
             while (stopIt != myStops.end() && stopIt->pars.edge != stopEdge->getID()) {
                 stopIt++;
@@ -411,53 +425,39 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 sourcePos = stopEdgeInfo.pos;
                 startTime += stopIt->getMinDuration(startTime);
             }
-            into.pop_back();
+            edges.pop_back();
             edges.insert(edges.end(), into.begin(), into.end());
-            if (stopEdge->isTazConnector()) {
-                source = into.back();
+            if (edges.back()->isTazConnector()) {
                 edges.pop_back();
-            } else {
-                source = stopEdge;
             }
+            source = edges.back();
             stopEdgeInfo.routeIndex = (int)edges.size() - 1;
         } else {
-            if ((source != sink || !stopAtSink)) {
-                if (priority >= 0) {
-                    stopEdgeInfo.skipped = true;
-                    hasSkipped = true;
-                    continue;
+            if (priority >= 0) {
+                stopEdgeInfo.skipped = true;
+                hasSkipped = true;
+                continue;
+            } else if (stopEdgeInfo.isSink) {
+                //error = TLF("Vehicle '%' has no valid route from edge '%' to destination edge '%'.", getID(), source->getID(), stopEdge->getID());
+                edges.clear();
+            } else if (source == stopEdge && stopEdgeInfo.stopPar != nullptr && stopEdgeInfo.stopPar->endPos >= sourcePos) {
+                // special case: no failure on dynamically computed stop position
+                edges.clear();
+            } else {
+                std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
+                if (MSGlobals::gCheckRoutes || silent) {
+                    throw ProcessError(error);
                 } else {
-                    std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
-                    if (MSGlobals::gCheckRoutes || silent) {
-                        throw ProcessError(error);
-                    } else {
-                        WRITE_WARNING(error);
-                        edges.push_back(source);
-                        source = stopEdge;
-                    }
+                    WRITE_WARNING(error);
+                    edges.push_back(source);
+                    source = stopEdge;
                 }
             }
         }
     }
-    if (stops.empty() && source == sink && onInit
-            && myParameter->departPosProcedure == DepartPosDefinition::GIVEN
-            && myParameter->arrivalPosProcedure == ArrivalPosDefinition::GIVEN
-            && myParameter->departPos > myParameter->arrivalPos) {
-        router.computeLooped(source, sink, this, t, edges, silent);
-    } else {
-        if (!router.compute(source, sink, this, t, edges, silent || sinkPriority >= 0)) {
-            if (sinkPriority >= 0) {
-                edges.push_back(source);
-                hasSkipped = true;
-                stops.push_back(StopEdgeInfo(sink, sinkPriority, -1, getArrivalPos()));
-                stops.back().skipped = true;
-            } else {
-                edges.clear();
-            }
-        }
-    }
     if (hasSkipped) {
-        edges = optimizeSkipped(t, router, origSource, origSourcePos, stops, edges, maxDelay);
+        MSStopOptimizer opti(this);
+        edges = opti.optimizeSkipped(t, router, origSource, origSourcePos, stops, edges, maxDelay);
         for (auto stop : stops) {
             if (stop.skipped) {
                 if (stop.delay > 0) {
@@ -773,189 +773,6 @@ MSBaseVehicle::replaceWithAlternative(std::list<MSStop>::iterator iter, const MS
 }
 
 
-ConstMSEdgeVector
-MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const MSEdge* source, double sourcePos,
-                               std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const {
-    double skippedPrio = 0;
-    double minPrio = std::numeric_limits<double>::max();
-    std::vector<int> skipped;
-    for (int i = 0; i < (int)stops.size(); i++) {
-        if (stops[i].skipped) {
-            skipped.push_back(i);
-            skippedPrio += stops[i].priority;
-        }
-        minPrio = MIN2(minPrio, stops[i].priority);
-    }
-#ifdef DEBUG_OPTIMIZE_SKIPPED
-    std::cout << SIMTIME << " veh=" << getID() << " optimzeSkipped=" << toString(skipped) << " source=" << source->getID() << "\n";
-    for (int i = 0; i < (int)stops.size(); i++) {
-        const auto& stop = stops[i];
-        std::cout << "  " << i << " edge=" << stop.edge->getID() << " routeIndex=" << stop.routeIndex << " prio=" << stop.priority << " skipped=" << stop.skipped << " arrival=" << stop.arrival << "\n";
-    }
-#endif
-    if (skippedPrio == minPrio) {
-        // case A: only one stop was skipped and it had the lowest priority (or multiple stops with prio 0 were skipped): this is already optimal
-#ifdef DEBUG_OPTIMIZE_SKIPPED
-        std::cout << "  skippedPrio=" << skippedPrio << " minPrio=" << minPrio << "\n";
-#endif
-        return edges;
-    }
-    // check reachability of skipped stops
-    std::vector<int> skippedReachable;
-    for (int si : skipped) {
-        ConstMSEdgeVector into;
-        router.computeLooped(source, stops[si].edge, this, t, into, true);
-        if (into.size() > 0) {
-            SUMOTime arrival = t + TIME2STEPS(router.recomputeCostsPos(into, this, sourcePos, stops[si].pos, t));
-            if (arrival - stops[si].arrival <= maxDelay) {
-                skippedReachable.push_back(si);
-            }
-        }
-    }
-    if (skippedReachable.size() == 0) {
-        // case B: skipped stops are not reachable with backtracking
-#ifdef DEBUG_OPTIMIZE_SKIPPED
-        std::cout << "  noneReachable\n";
-#endif
-        return edges;
-    }
-    // collect stops that were not skipped but that could be skipped
-    // (backtracking) to reach more or higher-priority stops
-    std::set<int> unskippedBefore;
-    for (int i = 0; i < (int)stops.size(); i++) {
-        if (i < skipped.back()) {
-            unskippedBefore.insert(i);
-        }
-    }
-    for (int i : skipped) {
-        unskippedBefore.erase(i);
-    }
-    // otherwise, skippedReachable should have been empty
-    assert(unskippedBefore.size() > 0);
-
-    // the unskipped stops may form several non contiguous sequences. We care about the last element of each sequence
-    std::vector<int> unskippedEnds;
-    std::vector<int> skippedStarts;
-    for (int i : unskippedBefore) {
-        if (unskippedBefore.count(i + 1) == 0) {
-            for (int i2 : skippedReachable) {
-                if (i2 > i) {
-                    // stop i was not skipped, stop + 1 was skipped and each i2 is potentially reachable when skipping i
-                    unskippedEnds.push_back(i);
-                    skippedStarts.push_back(i2);
-                    break;
-                }
-            }
-        }
-    }
-    std::sort(unskippedEnds.begin(), unskippedEnds.end()); // ascending
-    std::set<int> skippedSet(skipped.begin(), skipped.end());
-#ifdef DEBUG_OPTIMIZE_SKIPPED
-    std::cout << "  unskippedEnds=" << toString(unskippedEnds) << " skippedStarts=" << toString(skippedStarts) << "\n";
-#endif
-
-    ConstMSEdgeVector bestEdges = edges;
-    double altSkippedPrio = 0;
-    const MSEdge* firstSkipped = stops[skippedStarts.back()].edge;
-    for (int i = unskippedEnds.back(); i >= 0; i--) {
-        double prio = stops[i].priority;
-        altSkippedPrio += prio;
-        if (skippedSet.count(i)  // found start of another skip sequence
-                || prio < 0 // cannot backtrack past unskippable stop
-                || altSkippedPrio >= skippedPrio // backtracking past this stop cannot improve result
-           ) {
-            // i is not a candidate for skippking
-            unskippedEnds.pop_back();
-            skippedStarts.pop_back();
-            if (unskippedEnds.empty()) {
-                return edges;
-            }
-            // try to optimize earlier sequence of skips
-            i = unskippedEnds.back();
-            firstSkipped = stops[skippedStarts.back()].edge;
-            altSkippedPrio = 0;
-            continue;
-        }
-        // try skipping i and check whether it improves reachable prio
-        const MSEdge* prev = i > 0 ? stops[i - 1].edge : source;
-        const double prevPos = i > 0 ? stops[i - 1].pos : sourcePos;
-        ConstMSEdgeVector into;
-        SUMOTime start = stops[i - 1].arrival;
-        router.computeLooped(prev, firstSkipped, this, start, into, true);
-        if (into.size() == 0) {
-            // cannot reach firstSkipped and need to backtrack further
-            continue;
-        }
-        start += TIME2STEPS(router.recomputeCostsPos(into, this, prevPos, stops[skippedStarts.back()].pos, start));
-        // initialize skipped priority with stops skipped during backtracking and any skipped before that
-        std::vector<StopEdgeInfo> stops2 = stops;
-        double skippedPrio2 = altSkippedPrio;
-        for (int i2 = 0; i2 < i - 1; i2++) {
-            if (stops[i2].skipped) {
-                skippedPrio2 += stops[i2].priority;
-            }
-        }
-        for (int i2 = i; i2 <= unskippedEnds.back(); i2++) {
-            stops2[i2].skipped = true;
-            stops2[i2].backtracked = true;
-        }
-        int prevRouteIndex = i > 0 ? stops[i - 1].routeIndex : getDepartEdge();
-        assert(prevRouteIndex >= 0 && prevRouteIndex < (int)edges.size());
-        ConstMSEdgeVector edges2(edges.begin(), edges.begin() + prevRouteIndex);
-        stops2[skippedStarts.back()].skipped = false;
-        edges2.insert(edges2.begin(), into.begin(), into.end());
-        edges2 = routeAlongStops(start, router, stops2, edges2, skippedStarts.back(), maxDelay, skippedPrio2);
-        if (skippedPrio2 < skippedPrio) {
-#ifdef DEBUG_OPTIMIZE_SKIPPED
-            std::cout << " skippedPrio=" << skippedPrio << " skippedPrio2=" << skippedPrio2 << "\n";
-#endif
-            bestEdges = edges2;
-            skippedPrio = skippedPrio2;
-            stops = stops2;
-        }
-    }
-    return bestEdges;
-}
-
-
-ConstMSEdgeVector
-MSBaseVehicle::routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-                               std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
-                               int originStop, SUMOTime maxDelay, double& skippedPrio2) const {
-    // originStop was already reached and the edges appended
-    for (int i = originStop + 1; i < (int)stops.size(); i++) {
-        ConstMSEdgeVector into;
-        router.computeLooped(edges.back(), stops[i].edge, this, t, into, true);
-        if (into.size() == 0) {
-            if (stops[i].priority < 0) {
-                // failure: cannot reach required stop
-                skippedPrio2 = std::numeric_limits<double>::max();
-                return edges;
-            }
-            skippedPrio2 += stops[i].priority;
-            stops[i].skipped = true;
-        } else {
-            t += TIME2STEPS(router.recomputeCostsPos(into, this, stops[i - 1].pos, stops[i].pos, t));
-            SUMOTime delay = t - stops[i].arrival;
-            if (delay > maxDelay) {
-                if (stops[i].priority < 0) {
-                    // failure: cannot reach required stop in time
-                    skippedPrio2 = std::numeric_limits<double>::max();
-                    return edges;
-                }
-                skippedPrio2 += stops[i].priority;
-                stops[i].skipped = true;
-                stops[i].delay = true;
-            } else {
-                edges.pop_back();
-                edges.insert(edges.end(), into.begin(), into.end());
-            }
-        }
-    }
-    return edges;
-}
-
-
 double
 MSBaseVehicle::getAcceleration() const {
     return 0;
@@ -1250,8 +1067,10 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     }
     const int arrivalEdgeIndex = MIN2(myParameter->arrivalEdge, (int)myRoute->getEdges().size() - 1);
     if (arrivalEdgeIndex != myParameter->arrivalEdge) {
-        WRITE_WARNINGF(TL("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)"),
-                       getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
+        if (!(onInit && myParameter->wasSet(VEHPARS_FORCE_REROUTE))) {
+            WRITE_WARNINGF(TL("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)"),
+                    getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
+        }
     }
     const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[arrivalEdgeIndex] : myRoute->getLastEdge();
     if (!onInit) {
@@ -2011,15 +1830,20 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
             }
             continue;
         }
-        const double stopPos = stop.getEndPos(*this);
+        double stopPos = stop.getEndPos(*this);
         if ((prev == nullptr
                 || prev->edge != stop.edge
                 || (prev->lane == stop.lane && prev->getEndPos(*this) > stopPos))
                 && *stop.edge != internalSuccessor) {
+            if (stop.lane->isInternal()) {
+                stopPos = (*stop.edge)->getLength();
+            }
             result.push_back(StopEdgeInfo(*stop.edge, stop.pars.priority, stop.getArrivalFallback(), stopPos));
+            result.back().nameTag = stop.getStoppingPlaceName();
+            result.back().stopPar = &stop.pars;
             if (stop.lane->isInternal()) {
                 internalSuccessor = stop.lane->getNextNormal();
-                result.push_back(StopEdgeInfo(internalSuccessor, stop.pars.priority, stop.getArrivalFallback(), stopPos));
+                result.push_back(StopEdgeInfo(internalSuccessor, stop.pars.priority, stop.getArrivalFallback(), 0));
             } else {
                 internalSuccessor = nullptr;
             }
@@ -2039,7 +1863,10 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
             jumps.insert((int)result.size() - 1);
         }
     }
-    //std::cout << "getStopEdges veh=" << getID() << " result=" << toString(result) << "\n";
+    //std::cout << SIMTIME << " getStopEdges veh=" << getID() << "\n";
+    //for (auto item : result) {
+    //    std::cout << " e=" << item.edge->getID() << " pos=" << item.pos << "\n";
+    //}
     return result;
 }
 

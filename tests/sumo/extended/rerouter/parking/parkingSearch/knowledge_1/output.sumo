@@ -1,10 +1,10 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
+Loading net-file from 'net.net.xml' ... done (6ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (3ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (2ms).
 Loading additional-files from 'input_additional3.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_23_1+0085-89ef851ee7b started with time: 0.00.
+Simulation version v1_25_0+0128-a5b3ec08c71 started with time: 0.00.
 Simulation ended at time: 500.00.
 Reason: The final simulation step has been reached.
 Statistics (avg of 10):
@@ -16,6 +16,4 @@ Statistics (avg of 10):
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 DijkstraRouter answered 206 queries and explored 31.38 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.01ms on average).
-DijkstraRouter answered 10 queries and explored 1.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
