@@ -58,7 +58,8 @@ GNEAdditional::GNEAdditional(GNENet* net, SumoXMLTag tag) :
 GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, SumoXMLTag tag, FileBucket* fileBucket, const std::string& name) :
     GNEAttributeCarrier(tag, net, fileBucket),
     GUIGlObject(myTagProperty->getGLType(), id, GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
-    GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT) {
+    GNEPathElement(GNEPathElement::Options::ADDITIONAL_ELEMENT),
+    myAdditionalName(name) {
 }
 
 
