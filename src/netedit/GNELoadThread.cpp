@@ -304,6 +304,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("netconvert-file", "Input", TL("Load netconvert config"));
     neteditOptions.addXMLDefault("netconvert-file", "netconvertConfiguration");
 
+    neteditOptions.doRegister("autosave-netconvert-file", new Option_Bool(false));
+    neteditOptions.addDescription("autosave-netconvert-file", "Input", TL("If enabled, automatically save a netconvert configuration after saving a netedit config"));
+
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
     neteditOptions.addDescription("additional-files", "Input", TL("Load additional and shapes descriptions from FILE(s)"));
