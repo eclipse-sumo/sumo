@@ -48,8 +48,7 @@ public:
         NETCONVERT_PREFIX = 1 << 12,    // Bucket for netconvert prefix
         NETWORK_PREFIX =    1 << 13,    // Bucket for net prefix
         // other
-        AUTOMATIC =         1 << 14,    // Element choose automatic the bucket
-        NOTHING =           1 << 15,    // Element is not saved in bucket
+        NOTHING =           1 << 14,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket
