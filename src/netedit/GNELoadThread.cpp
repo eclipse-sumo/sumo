@@ -298,11 +298,13 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
     neteditOptions.addDescription("sumocfg-file", "Input", TL("Load sumo config"));
     neteditOptions.addXMLDefault("sumocfg-file", "sumoConfiguration");
+    neteditOptions.setOptionEditable("sumocfg-file", false);
 
     neteditOptions.doRegister("netconvert-file", new Option_FileName());
     neteditOptions.addSynonyme("netconvert-file", "netccfg");
     neteditOptions.addDescription("netconvert-file", "Input", TL("Load netconvert config"));
     neteditOptions.addXMLDefault("netconvert-file", "netconvertConfiguration");
+    neteditOptions.setOptionEditable("netconvert-file", false);
 
     neteditOptions.doRegister("autosave-netconvert-file", new Option_Bool(false));
     neteditOptions.addDescription("autosave-netconvert-file", "Input", TL("If enabled, automatically save a netconvert configuration after saving a netedit config"));
@@ -310,18 +312,22 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
     neteditOptions.addDescription("additional-files", "Input", TL("Load additional and shapes descriptions from FILE(s)"));
+    neteditOptions.setOptionEditable("additional-files", false);
 
     neteditOptions.doRegister("route-files", 'r', new Option_FileName());
     neteditOptions.addSynonyme("route-files", "routes");
     neteditOptions.addDescription("route-files", "Input", TL("Load demand elements descriptions from FILE(s)"));
+    neteditOptions.setOptionEditable("route-files", false);
 
     neteditOptions.doRegister("data-files", 'd', new Option_FileName());
     neteditOptions.addSynonyme("data-files", "data");
     neteditOptions.addDescription("data-files", "Input", TL("Load data elements descriptions from FILE(s)"));
+    neteditOptions.setOptionEditable("data-files", false);
 
     neteditOptions.doRegister("meandata-files", 'm', new Option_FileName());
     neteditOptions.addSynonyme("meandata-files", "meandata");
     neteditOptions.addDescription("meandata-files", "Input", TL("Load meanData descriptions from FILE(s)"));
+    neteditOptions.setOptionEditable("meandata-files", false);
 
     neteditOptions.doRegister("ignore-missing-inputs", new Option_Bool(false));
     neteditOptions.addDescription("ignore-missing-inputs", "Input", TL("Reset path values (additional, route, data...) after loading netedit config"));
@@ -542,6 +548,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     NBFrame::fillOptions(neteditOptions, false);
     NWFrame::fillOptions(neteditOptions, false);
     RandHelper::insertRandOptions(neteditOptions);
+
+    // don't edit net and config file
+    neteditOptions.setOptionEditable("sumo-net-file", false);
+    neteditOptions.setOptionEditable("configuration-file", false);
 }
 
 
