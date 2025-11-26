@@ -43,8 +43,8 @@ public:
         ADDITIONAL =        1 << 8,     // Bucket for additional elements (always after demand and meanData)
         DATA =              1 << 9,     // Bucket for data elements
         // prefixes
-        SUMO_PREFIX =       1 << 10,    // Bucket for sumo prefix
-        NETEDIT_PREFIX =    1 << 11,    // Bucket for netedit prefix
+        NETEDIT_PREFIX =    1 << 10,    // Bucket for netedit prefix
+        SUMO_PREFIX =       1 << 11,    // Bucket for sumo prefix
         NETCONVERT_PREFIX = 1 << 12,    // Bucket for netconvert prefix
         NETWORK_PREFIX =    1 << 13,    // Bucket for net prefix
         // other
