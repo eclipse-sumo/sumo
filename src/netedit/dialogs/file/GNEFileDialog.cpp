@@ -60,7 +60,7 @@ GNEFileDialog::GNEFileDialog(FXWindow* restoringWindow, GNEApplicationWindow* ap
     myFileSelector->showHiddenFiles((getApp()->reg().readUnsignedEntry("GNEFileDialog", "showhidden", myFileSelector->showHiddenFiles()) == 1) ? TRUE : FALSE);
     // set initial directory
     if (initialFolder.size() > 0) {
-        myFileSelector->setDirectory(gCurrentFolder);
+        myFileSelector->setDirectory(initialFolder.c_str());
     } else if (gCurrentFolder.length() > 0) {
         myFileSelector->setDirectory(gCurrentFolder);
     }
