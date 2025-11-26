@@ -78,7 +78,7 @@ public:
     void setStatusBarText(const std::string& statusBarText);
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
-    long computeJunctionWithVolatileOptions();
+    long computeJunctionWithVolatileOptions(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
@@ -207,6 +207,9 @@ public:
 
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save plain xml is executed
+    long onCmdSavePlainXML(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSavePlainXMLAs(FXObject*, FXSelector, void*);
@@ -848,7 +851,7 @@ private:
     void closeAllWindows(const bool resetFilenames);
 
     /// @brief warns about unsaved changes and gives the user the option to abort
-    bool askSaveElements();
+    bool askSaveElements(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindow(const GNEApplicationWindow&) = delete;
