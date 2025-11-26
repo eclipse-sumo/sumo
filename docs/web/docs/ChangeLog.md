@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - Fixed deadlock in roundabout #17330 (regressin in 1.24.0)
+  - Fixed deadlock in roundabout #17330 (regression in 1.24.0)
   - Fixed inconsistent computation of attribute flow in edgeData output #17349
   - Fixed invalid braking when trying to avoid junction blockage #17318
   - Fixed incosistent lane-changing inside roundabout while on an internal lane #17336
