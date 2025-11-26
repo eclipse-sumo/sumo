@@ -35,8 +35,16 @@ BuildRequires:  cmake3
 BuildRequires:  cmake
 BuildRequires:  java-devel
 %endif
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+BuildRequires:  python3-build
+BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
+%endif
 BuildRequires:  python3-devel
+%if 0%{?fedora_version} || 0%{?suse_version}
+BuildRequires:  python3-matplotlib
+%endif
 BuildRequires:  swig
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
@@ -84,6 +92,7 @@ Requires:       libsumocpp = %{version}
 This package provides development libraries and headers needed to build
 software using libsumocpp.
 
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
 %package -n python3-libsumo
 Summary:        libsumo Python3 module
 Requires:       %{name} = %{version}-%{release}
@@ -92,6 +101,7 @@ Obsoletes:      python3-%{name} < %{version}
 
 %description -n python3-libsumo
 The libsumo python module provides support to connect to and remote control a running sumo simulation.
+%endif
 
 %if 0%{?fedora_version} || 0%{?centos_version}
 %global debug_package %{nil}
@@ -139,10 +149,8 @@ install -d -m 755 %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build_config/package/org.eclipse.sumo.png %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build_config/package/org.eclipse.sumo.netedit.png %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
-%if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
 install -p -m 644 build_config/package/org.eclipse.sumo.xml %{buildroot}%{_datadir}/mime/application
-%endif
 %fdupes %{buildroot}%{_datadir}
 
 %check
@@ -168,9 +176,7 @@ cd cmake-build
 %config %{_sysconfdir}/profile.d/%{name}.*sh
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
-%if 0%{?suse_version}
 %{_datadir}/mime/application
-%endif
 
 %files -n libsumocpp
 %license LICENSE
@@ -181,6 +187,7 @@ cd cmake-build
 %license LICENSE
 %{_includedir}/libsumo
 
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
 %files -n python3-libsumo
 %license LICENSE
 %{python3_sitelib}/sumolib*/
@@ -188,5 +195,6 @@ cd cmake-build
 %{python3_sitelib}/simpla*/
 %{python3_sitearch}/libsumo*/
 %{python3_sitearch}/libtraci*/
+%endif
 
 %changelog
