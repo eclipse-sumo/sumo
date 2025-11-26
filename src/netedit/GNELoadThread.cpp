@@ -306,9 +306,6 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addXMLDefault("netconvert-file", "netconvertConfiguration");
     neteditOptions.setOptionEditable("netconvert-file", false);
 
-    neteditOptions.doRegister("autosave-netconvert-file", new Option_Bool(false));
-    neteditOptions.addDescription("autosave-netconvert-file", "Input", TL("If enabled, automatically save a netconvert configuration after saving a netedit config"));
-
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
     neteditOptions.addDescription("additional-files", "Input", TL("Load additional and shapes descriptions from FILE(s)"));
@@ -331,6 +328,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     neteditOptions.doRegister("ignore-missing-inputs", new Option_Bool(false));
     neteditOptions.addDescription("ignore-missing-inputs", "Input", TL("Reset path values (additional, route, data...) after loading netedit config"));
+
+    neteditOptions.doRegister("autosave-netconvert-file", new Option_Bool(false));
+    neteditOptions.addDescription("autosave-netconvert-file", "Input", TL("If enabled, automatically save a netconvert configuration after saving a netedit config"));
 
     neteditOptions.doRegister("selection-file", new Option_FileName());
     neteditOptions.addDescription("selection-file", "Input", TL("Load element selection"));

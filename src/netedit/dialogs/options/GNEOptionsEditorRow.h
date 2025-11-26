@@ -46,7 +46,8 @@ public:
     public:
         /// @brief constructor
         OptionRow(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                  const std::string& name, const std::string& description, const std::string& defaultValue);
+                  const std::string& name, const std::string& description, const std::string& defaultValue,
+                  const bool editable);
 
         /// @brief adjust input name size
         void adjustNameSize();
@@ -94,6 +95,9 @@ public:
         /// @brief content frame
         FXHorizontalFrame* myContentFrame = nullptr;
 
+        /// @brief editable
+        const bool myEditable = true;
+
         /// @brief update reset button
         void updateResetButton();
 
@@ -114,7 +118,8 @@ public:
     public:
         /// @brief constructor
         OptionString(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                     const std::string& name, const std::string& description, const std::string& defaultValue);
+                     const std::string& name, const std::string& description, const std::string& defaultValue,
+                     const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -142,7 +147,8 @@ public:
     public:
         /// @brief constructor
         OptionStringVector(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                           const std::string& name, const std::string& description, const std::string& defaultValue);
+                           const std::string& name, const std::string& description, const std::string& defaultValue,
+                           const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -170,7 +176,8 @@ public:
     public:
         /// @brief constructor
         OptionBool(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                   const std::string& name, const std::string& description, const std::string& defaultValue);
+                   const std::string& name, const std::string& description, const std::string& defaultValue,
+                   const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -198,7 +205,8 @@ public:
     public:
         /// @brief
         OptionInt(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                  const std::string& name, const std::string& description, const std::string& defaultValue);
+                  const std::string& name, const std::string& description, const std::string& defaultValue,
+                  const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -226,7 +234,8 @@ public:
     public:
         /// @brief
         OptionIntVector(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                        const std::string& name, const std::string& description, const std::string& defaultValue);
+                        const std::string& name, const std::string& description, const std::string& defaultValue,
+                        const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -254,7 +263,8 @@ public:
     public:
         /// @brief constructor
         OptionFloat(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                    const std::string& name, const std::string& description, const std::string& defaultValue);
+                    const std::string& name, const std::string& description, const std::string& defaultValue,
+                    const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -285,7 +295,8 @@ public:
     public:
         /// @brief constructor
         OptionTime(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                   const std::string& name, const std::string& description, const std::string& defaultValue);
+                   const std::string& name, const std::string& description, const std::string& defaultValue,
+                   const bool editable);
 
         /// @brief update option
         void updateOption();
@@ -318,7 +329,8 @@ public:
     public:
         /// @brief constructor
         OptionFilename(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-                       const std::string& name, const std::string& description, const std::string& defaultValue);
+                       const std::string& name, const std::string& description, const std::string& defaultValue,
+                       const bool editable);
 
         /// @brief update option
         void updateOption();

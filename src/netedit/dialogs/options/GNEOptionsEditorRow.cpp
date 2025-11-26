@@ -62,13 +62,14 @@ FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionFilename,   GNEOptionsEditorRow:
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionRow::OptionRow(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-        const std::string& name, const std::string& description, const std::string& defaultValue) :
+        const std::string& name, const std::string& description, const std::string& defaultValue, const bool editable) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myOptionsEditor(optionsEditor),
     myTopic(topic),
     myName(name),
     myDescription(description),
-    myDefaultValue(defaultValue) {
+    myDefaultValue(defaultValue),
+    myEditable(editable) {
     // build label with name (default width 150)
     myNameLabel = new MFXLabelTooltip(this, myOptionsEditor->myDialog->getApplicationWindow()->getStaticTooltipMenu(),
                                       name.c_str(), nullptr, GUIDesignLabelThickedFixed(MINNAMEWIDTH));
@@ -122,10 +123,14 @@ GNEOptionsEditorRow::OptionRow::updateResetButton() {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionString::OptionString(GNEOptionsEditor* optionsEditor, FXComposite* parent,
-        const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myStringTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->setText(myOptionsEditor->myOptionsContainer.getString(name).c_str());
+    if (!editable) {
+        myStringTextField->disable();
+    }
     updateOption();
 }
 
@@ -169,9 +174,13 @@ GNEOptionsEditorRow::OptionString::getValue() const {
 
 
 GNEOptionsEditorRow::OptionStringVector::OptionStringVector(GNEOptionsEditor* optionsEditor, FXComposite* parent,
-        const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myStringVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    if (!editable) {
+        myStringVectorTextField->disable();
+    }
     updateOption();
 }
 
@@ -218,9 +227,13 @@ GNEOptionsEditorRow::OptionStringVector::getValue() const {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionBool::OptionBool(GNEOptionsEditor* optionsEditor, FXComposite* parent,
-        const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myCheckButton = new FXCheckButton(myContentFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    if (!editable) {
+        myCheckButton->disable();
+    }
     updateOption();
 }
 
@@ -301,9 +314,13 @@ GNEOptionsEditorRow::OptionBool::getValue() const {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionInt::OptionInt(GNEOptionsEditor* optionsEditor, FXComposite* parent,
-        const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myIntTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
+    if (!editable) {
+        myIntTextField->disable();
+    }
     updateOption();
 }
 
@@ -354,10 +371,14 @@ GNEOptionsEditorRow::OptionInt::getValue() const {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionIntVector::OptionIntVector(GNEOptionsEditor* optionsEditor, FXComposite* parent,
-        const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myIntVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myIntVectorTextField->setText(toString(myOptionsEditor->myOptionsContainer.getIntVector(name)).c_str());
+    if (!editable) {
+        myIntVectorTextField->disable();
+    }
     updateOption();
 }
 
@@ -413,11 +434,15 @@ GNEOptionsEditorRow::OptionIntVector::getValue() const {
 // GNEOptionsEditorRow::OptionFloat - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsEditorRow::OptionFloat::OptionFloat(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-        const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, parseFloat(defaultValue)) {
+GNEOptionsEditorRow::OptionFloat::OptionFloat(GNEOptionsEditor* optionsEditor, FXComposite* parent,
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, parseFloat(defaultValue), editable) {
     myFloatTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->setText(toString(myOptionsEditor->myOptionsContainer.getFloat(name)).c_str());
+    if (!editable) {
+        myFloatTextField->disable();
+    }
     updateOption();
 }
 
@@ -478,11 +503,15 @@ GNEOptionsEditorRow::OptionFloat::parseFloat(const std::string& value) const {
 // GNEOptionsEditorRow::OptionTime - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsEditorRow::OptionTime::OptionTime(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-        const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, parseTime(defaultValue)) {
+GNEOptionsEditorRow::OptionTime::OptionTime(GNEOptionsEditor* optionsEditor, FXComposite* parent,
+        const std::string& topic, const std::string& name, const std::string& description,
+        const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, parseTime(defaultValue), editable) {
     myTimeTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTimeTextField->setText(toString(myOptionsEditor->myOptionsContainer.getString(name)).c_str());
+    if (!editable) {
+        myTimeTextField->disable();
+    }
     updateOption();
 }
 
@@ -544,11 +573,15 @@ GNEOptionsEditorRow::OptionTime::parseTime(const std::string& value) const {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionFilename::OptionFilename(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-        const std::string& name, const std::string& description, const std::string& defaultValue) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue) {
+        const std::string& name, const std::string& description, const std::string& defaultValue, const bool editable) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable) {
     myOpenFilenameButton = GUIDesigns::buildFXButton(myContentFrame, "", "", TL("Select filename"),
                            GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    if (!editable) {
+        myOpenFilenameButton->disable();
+        myFilenameTextField->disable();
+    }
     updateOption();
 }
 
