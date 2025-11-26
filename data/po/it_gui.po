@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-25 18:51+0000\n"
+"PO-Revision-Date: 2025-11-26 19:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2916,20 +2916,20 @@ msgstr "Il caricamento ripetuto del file di itinerari '%' è fallito."
 #: src/netedit/GNEApplicationWindow.cpp:4048
 #, c-format
 msgid "Reloading of route file '%' successfully."
-msgstr ""
+msgstr "Il file di itinerari '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4102
 msgid "Demand elements saved."
-msgstr ""
+msgstr "Salvati gli elementi di domanda."
 
 #: src/netedit/GNEApplicationWindow.cpp:4105
 #: src/netedit/GNEApplicationWindow.cpp:4277
 msgid "Saving demand elements aborted."
-msgstr ""
+msgstr "Il salvataggio degli elementi di domanda è stato interrotto."
 
 #: src/netedit/GNEApplicationWindow.cpp:4110
 msgid "Saving demand elements failed"
-msgstr ""
+msgstr "Il salvataggio degli elementi di domanda è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:4137
 msgid "saving of unified demand elements in '%'."
@@ -2944,17 +2944,17 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4172
 #: src/netedit/GNEApplicationWindow.cpp:4892
 msgid "loading data elements from '%'."
-msgstr ""
+msgstr "caricamento degli elementi di dati da '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4176
 #, c-format
 msgid "Loading of data file '%' failed."
-msgstr ""
+msgstr "Il caricamento del file di dati '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4179
 #, c-format
 msgid "Loading of data file '%' successfully."
-msgstr ""
+msgstr "Il file di dati '%' è stato caricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4208
 msgid "reloading data elements"
@@ -2963,12 +2963,12 @@ msgstr "caricamento ripetuto degli elementi di dati"
 #: src/netedit/GNEApplicationWindow.cpp:4219
 #, c-format
 msgid "Reloading of data file '%' failed."
-msgstr ""
+msgstr "Il caricamento ripetuto del file di dati '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4221
 #, c-format
 msgid "Reloading of data file '%' successfully."
-msgstr ""
+msgstr "Il file di dati '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Data elements saved."
