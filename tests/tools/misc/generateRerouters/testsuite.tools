@@ -2,6 +2,7 @@ close1
 
 # Copy of close1
 close2
+close_consecutive
 
 # load closed edges from input file
 close2_file

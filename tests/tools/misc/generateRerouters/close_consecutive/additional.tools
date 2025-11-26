@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-26 14:03:22.182351 by Eclipse SUMO generateRerouters.py v1_25_0+0143-6da7e0ff750
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <closed-edges value="E0,E2"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <rerouter id="rr" edges="E0 E2">
+      <interval begin="0" end="86400">
+          <closingReroute id="E0" allow="authority"/>
+          <closingReroute id="E2" allow="authority"/>
+       </interval>
+   </rerouter>
+</additional>
