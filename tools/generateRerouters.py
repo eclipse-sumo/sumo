@@ -111,8 +111,13 @@ def main(options):
     closedEdges = []
     for closedID in options.closedEdges:
         if not net.hasEdge(closedID):
-            sys.exit("Unknown closed edge '%s'" % closedID)
+            print("Error: Unknown closed edge '%s'" % closedID, file=sys.stderr)
+            sys.exit(1)
         closedEdges.append(net.getEdge(closedID))
+
+    if not closedEdges:
+        print("Error: found no edges to close.", file=sys.stderr)
+        sys.exit(1)
 
     allowDisallow = ""
     if options.disallow is not None:
@@ -124,6 +129,9 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
 
         rerouterEdges = findNotifcationEdges(options, net, closedEdges)
+        if not rerouterEdges:
+            print("Warning: No detours found. Rerouter will only close edges.", file=sys.stderr)
+            rerouterEdges = closedEdges
         rerouterEdgeIDs = sorted([e.getID() for e in rerouterEdges])
 
         outf.write('   <rerouter id="%s" edges="%s">\n' % (
