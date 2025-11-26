@@ -115,7 +115,7 @@ GNECalibratorDialog::RoutesList::addNewElement() {
     // insert route
     insertElement(route);
     // open route dialog
-    const auto routeDialog = GNEAttributeCarrierDialog(route);
+    const GNEAttributeCarrierDialog routeDialog(route);
     // continue depending of result of routeDialog
     if (routeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove route
@@ -150,7 +150,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
     // insert vType
     insertElement(vType);
     // open route dialog
-    const auto vTypeDialog = GNEVehicleTypeDialog(vType);
+    const GNEVehicleTypeDialog vTypeDialog(vType);
     // continue depending of result of routeDialog
     if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove vType
@@ -208,7 +208,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
         // add using undo-redo
         insertElement(calibratorFlow);
         // open route dialog
-        const auto calibratorFlowDialog = GNEAttributeCarrierDialog(calibratorFlow);
+        const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow);
         // continue depending of result of routeDialog
         if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
             // add calibratorFlow
