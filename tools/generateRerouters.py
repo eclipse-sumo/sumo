@@ -78,30 +78,32 @@ def findNotifcationEdges(options, net, closedEdges):
             p.remove(options.vclass)
             lane.setPermissions(p)
 
+    reachable = set()
     for e in closedEdges:
-        reachable = set()
         for succ in e.getOutgoing().keys():
             if succ.allows(options.vclass):
                 reachable.update(net.getReachable(succ, options.vclass))
 
-        upstream = []
-        seen = set()
+    upstream = []
+    for e in closedEdges:
         for pred in e.getIncoming().keys():
             if pred.allows(options.vclass):
                 upstream.append(pred)
 
-        while upstream and reachable:
-            cand = upstream.pop(0)
-            seen.add(cand)
-            reachable2 = net.getReachable(cand, options.vclass)
-            found = reachable2.intersection(reachable)
-            if found:
-                result.add(cand)
-                reachable.difference_update(found)
-            for pred in cand.getIncoming().keys():
-                if pred.allows(options.vclass):
-                    if pred not in seen:
-                        upstream.append(pred)
+    seen = set()
+    while upstream and reachable:
+        cand = upstream.pop(0)
+        seen.add(cand)
+        reachable2 = net.getReachable(cand, options.vclass)
+        found = reachable2.intersection(reachable)
+        if found:
+            result.add(cand)
+            reachable.difference_update(found)
+        for pred in cand.getIncoming().keys():
+            if pred.allows(options.vclass):
+                if pred not in seen:
+                    upstream.append(pred)
+
     return result
 
 
