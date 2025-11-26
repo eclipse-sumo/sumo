@@ -78,30 +78,32 @@ def findNotifcationEdges(options, net, closedEdges):
             p.remove(options.vclass)
             lane.setPermissions(p)
 
+    reachable = set()
     for e in closedEdges:
-        reachable = set()
         for succ in e.getOutgoing().keys():
             if succ.allows(options.vclass):
                 reachable.update(net.getReachable(succ, options.vclass))
 
-        upstream = []
-        seen = set()
+    upstream = []
+    for e in closedEdges:
         for pred in e.getIncoming().keys():
             if pred.allows(options.vclass):
                 upstream.append(pred)
 
-        while upstream and reachable:
-            cand = upstream.pop(0)
-            seen.add(cand)
-            reachable2 = net.getReachable(cand, options.vclass)
-            found = reachable2.intersection(reachable)
-            if found:
-                result.add(cand)
-                reachable.difference_update(found)
-            for pred in cand.getIncoming().keys():
-                if pred.allows(options.vclass):
-                    if pred not in seen:
-                        upstream.append(pred)
+    seen = set()
+    while upstream and reachable:
+        cand = upstream.pop(0)
+        seen.add(cand)
+        reachable2 = net.getReachable(cand, options.vclass)
+        found = reachable2.intersection(reachable)
+        if found:
+            result.add(cand)
+            reachable.difference_update(found)
+        for pred in cand.getIncoming().keys():
+            if pred.allows(options.vclass):
+                if pred not in seen:
+                    upstream.append(pred)
+
     return result
 
 
@@ -111,8 +113,13 @@ def main(options):
     closedEdges = []
     for closedID in options.closedEdges:
         if not net.hasEdge(closedID):
-            sys.exit("Unknown closed edge '%s'" % closedID)
+            print("Error: Unknown closed edge '%s'" % closedID, file=sys.stderr)
+            sys.exit(1)
         closedEdges.append(net.getEdge(closedID))
+
+    if not closedEdges:
+        print("Error: found no edges to close.", file=sys.stderr)
+        sys.exit(1)
 
     allowDisallow = ""
     if options.disallow is not None:
@@ -124,6 +131,9 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
 
         rerouterEdges = findNotifcationEdges(options, net, closedEdges)
+        if not rerouterEdges:
+            print("Warning: No detours found. Rerouter will only close edges.", file=sys.stderr)
+            rerouterEdges = closedEdges
         rerouterEdgeIDs = sorted([e.getID() for e in rerouterEdges])
 
         outf.write('   <rerouter id="%s" edges="%s">\n' % (
