@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-26 13:15+0000\n"
+"PO-Revision-Date: 2025-11-26 16:03+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1501,19 +1501,19 @@ msgstr "número de congestionamentos [#]"
 
 #: src/guisim/GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "extensão máxima do congestionamento [veículos]"
 
 #: src/guisim/GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "extensão máxima do congestionamento [m]"
 
 #: src/guisim/GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "extensão total do congestionamento [veículos]"
 
 #: src/guisim/GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "extensão total do congestionamento [m]"
 
 #: src/guisim/GUIE2Collector.cpp:155
 msgid "started halts [#]"
@@ -1521,7 +1521,7 @@ msgstr "paradas iniciadas [#]"
 
 #: src/guisim/GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "veículos vistos no intervalo [#]"
 
 #: src/guisim/GUIE2Collector.cpp:159 src/guisim/GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
@@ -1533,23 +1533,23 @@ msgstr "ocupação de intervalo [%]"
 
 #: src/guisim/GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "extensão máxima do congestionamento no intervalo [m]"
 
 #: src/guisim/GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "número de veículos no intervalo anterior [#]"
 
 #: src/guisim/GUIE2Collector.cpp:167 src/guisim/GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "velocidade do intervalo anterior [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:169 src/guisim/GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "ocupação no intervalo anterior [%]"
 
 #: src/guisim/GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "extensão máxima do congestionamento no intervalo anterior [m]"
 
 #: src/guisim/GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
@@ -1561,11 +1561,11 @@ msgstr "paradas [#]"
 
 #: src/guisim/GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "tempo de viagem médio no intervalo anterior [s]"
 
 #: src/guisim/GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "número médio de paradas no intervalo anterior [#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
@@ -4920,19 +4920,19 @@ msgstr "rede"
 
 #: src/netedit/GNENetHelper.cpp:3668
 msgid "additional elements"
-msgstr ""
+msgstr "elementos adicionais"
 
 #: src/netedit/GNENetHelper.cpp:3700
 msgid "demand elements"
-msgstr ""
+msgstr "elementos de demanda"
 
 #: src/netedit/GNENetHelper.cpp:3732
 msgid "data elements"
-msgstr ""
+msgstr "elementos de dados"
 
 #: src/netedit/GNENetHelper.cpp:3764
 msgid "meanData elements"
-msgstr ""
+msgstr "elementos meanData"
 
 #: src/netedit/GNENetHelper.cpp:3812
 msgid "Redo replace in TLS"
@@ -5436,6 +5436,8 @@ msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light (-1 means internal junction not controlled)"
 msgstr ""
+"define o índice da junção interna desta conexão no controlador semafórico "
+"(-1 significa junção interna não controlada)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1083
 msgid "sets custom speed limit for the connection"
@@ -8512,6 +8514,8 @@ msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to "
 "qualify for detection"
 msgstr ""
+"Lista de IDs de arestas que devem fazer parte da rota futura do veículo para "
+"se qualificar para detecção"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8777
 msgid ""
@@ -9789,7 +9793,7 @@ msgstr "Editar cor"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:57
 msgid "Critical error"
-msgstr ""
+msgstr "Erro crítico"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:63
 msgid "Netedit found an internal critical error and will be closed:"
@@ -9797,7 +9801,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:69
 msgid "ErrorTrace:"
-msgstr ""
+msgstr "ErrorTrace:"
 
 #: src/netedit/dialogs/GNEDialog.cpp:335 src/netedit/dialogs/GNEDialog.cpp:348
 msgid "Yes"
@@ -9862,7 +9866,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:476
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:476
 msgid "Copy error trace to clipboard"
@@ -12947,6 +12951,8 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
 msgstr ""
+"- Um objeto corresponde se a comparação entre seu atributo e o número dado, "
+"através do operador especificado, for avaliada como 'verdadeira'"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:329
 msgid ""
@@ -15347,6 +15353,8 @@ msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
+"Encurtar a definição de estado permitindo que conexões com os mesmos estados "
+"de sinal usem o mesmo índice. (Não permitido para múltiplos programas)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1908
 msgid "Ungroup Sig."
@@ -17082,15 +17090,15 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2401
 msgid "Prohibition"
-msgstr ""
+msgstr "Proibição"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2413
 msgid "PersonPlan"
-msgstr ""
+msgstr "Plano de Pessoas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2415
 msgid "edgeData"
-msgstr ""
+msgstr "edgeData"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2459
 msgid "Exaggerate edgeRelation width by"
