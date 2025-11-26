@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-25 18:51+0000\n"
+"PO-Revision-Date: 2025-11-26 13:15+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -240,7 +240,7 @@ msgstr "Abrir rede no netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:543
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Abre a rede atual no NETEDIT."
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
@@ -1370,7 +1370,7 @@ msgstr "eficiência de carregamento [#]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "carregar em movimento [true/false]"
 
 #: src/guisim/GUIChargingStation.cpp:91
 msgid "charge delay [s]"
@@ -1493,7 +1493,7 @@ msgstr "velocidade média [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "comprimento médio de veículo [m]"
 
 #: src/guisim/GUIE2Collector.cpp:145
 msgid "jam number [#]"
