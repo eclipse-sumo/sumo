@@ -6,6 +6,49 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed deadlock in roundabout #17330 (regressin in 1.24.0)
+  - Fixed inconsistent computation of attribute flow in edgeData output #17349
+  - Fixed invalid braking when trying to avoid junction blockage #17318
+  - Fixed incosistent lane-changing inside roundabout while on an internal lane #17336
+  - Fixed emergency braking in roundabout #17306
+  - Fixed invalid warning after train rerouting #17343
+
+- netedit
+  - No longer saving an invalid network when edges from prohibition elements are deleted #17331
+
+- duarouter
+  - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
+
+- TraCI
+  - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
+
+
+- tools
+  - osmGet.py: fixed missing road nodes when using option **--shapes** #17293 (regression in 1.20.0)
+  - netdiff.py: fixed crash involving removed `<neigh>` attribute #17345
+
+### Enhancements
+
+- sumo
+  - Routing with randomized weights (**--weights.random-factor**) is now stable with respect to network changes, vehicle composition and state loading. The random noise for each edge only depends on the random seed and vehicle id (also applies to duarouter). If thew new option **--weights.random-factor.dynamic** is set, the randomness in the simulation also varies over time. #17325
+  - The new option **--output-suffix** can be used to modify the names of all output files (similar to **--output-prefix**). The suffix will be inserted right before the file name extension. #17338
+  - edgeData output definitions now support attribute `aggregate="taz"` which will aggregated data within each loaded taz definition #11104
+
+- TraCI
+  - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
+
+- tools
+  - attributeCompare.py: Now supports special id-attribute @FILE #17334
+  - [visum_convertXMLRoutes.py](Tools/Import/VISUM.md#visum_convertxmlroutespy): new tool for importing VISUM routes file #17347
+  - generateRerouters.py: Added option **--closed-edges.inpu-file** for loading edges to close from a selection file #17359
+
+
+### Miscellaneous
+
+- TraCI version is now 23
+
+
 ## Version 1.25.0 (13.11.2025)
 
 ### Bugfixes
