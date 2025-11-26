@@ -3986,6 +3986,8 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
                                       myFileBucketHandler->getConfigDirectory());
     // check that file is valid
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // use the file as default file
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, additionalFileDialog.getFilename());
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("saving of unified additional elements in '%'", additionalFileDialog.getFilename()));
         // iterate over all demand elementes and change file
@@ -4197,6 +4199,8 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
                                  myFileBucketHandler->getConfigDirectory());
     // check that file is correct
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // use the file as default file
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, routeFileDialog.getFilename());
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("saving of unified demand elements in '%'.", routeFileDialog.getFilename()));
         // iterate over all demand elementes and change file
@@ -4382,6 +4386,8 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
                                 myFileBucketHandler->getConfigDirectory());
     // check that file is correct
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // use the file as default file
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::DATA, dataFileDialog.getFilename());
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TLF("saving of unified data elements in '%'", dataFileDialog.getFilename()));
         // iterate over all demand elementes and change file
@@ -4559,6 +4565,8 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
                                     myFileBucketHandler->getConfigDirectory());
     // check that file is valid
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
+        // use the file as default file
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, meanDataFileDialog.getFilename());
         // begin undoList operation
         myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TLF("saving of unified mean data elements in '%'", meanDataFileDialog.getFilename()));
         // iterate over all demand elementes and change file

@@ -3291,7 +3291,6 @@ GNENetHelper::SavingStatus::isSumoConfigSaved() const {
 }
 
 
-
 void
 GNENetHelper::SavingStatus::requireSaveNeteditConfig() {
     myNeteditConfigSaved = false;
