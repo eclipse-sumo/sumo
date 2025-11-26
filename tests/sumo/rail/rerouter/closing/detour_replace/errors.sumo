@@ -1,2 +1,2 @@
-Warning: Vehicle 'v_0' skips stop on edge 'E3' with delay 1025.59 at time 0.00.
+Warning: Vehicle 'v_0' skips stop on edge 'E3' with delay 1019.12 at time 0.00.
 Warning: Vehicle 'v_0' replaced stop 1 (named 'B') and now stops at 'ts_3' instead; after rerouting (rr_0) at time=0.00.
