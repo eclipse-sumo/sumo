@@ -257,6 +257,14 @@ some false negatives also in system libraries. It is recommended to use
 `export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt`
 before calling the executable.
 
+## Building a minimal feature set
+
+Many of the project features are optional. To test a minimal setup, the following build configuration can be used:
+
+```
+cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF -B build. 
+```
+
 ## Installing the SUMO binaries
 
 This (optional) step will copy the SUMO binaries to another path, so
