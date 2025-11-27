@@ -19,9 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 #include <queue>
-#include <microsim/MSLane.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSStoppingPlace.h>
+#include "MSLane.h"
+#include "MSEdge.h"
+#include "MSStoppingPlace.h"
 #include "MSStopOptimizer.h"
 
 //#define DEBUG_OPTIMIZE_SKIPPED

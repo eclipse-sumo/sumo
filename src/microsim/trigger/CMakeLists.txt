@@ -11,8 +11,6 @@ set(microsim_trigger_STAT_SRCS
    MSOverheadWire.h
    MSStoppingPlaceRerouter.h
    MSStoppingPlaceRerouter.cpp
-   MSStopOptimizer.h
-   MSStopOptimizer.cpp
 )
 
 add_library(microsim_trigger STATIC ${microsim_trigger_STAT_SRCS})

@@ -48,7 +48,6 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
-#include <microsim/trigger/MSStopOptimizer.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include "MSEventControl.h"
@@ -63,6 +62,7 @@
 #include "MSStop.h"
 #include "MSParkingArea.h"
 #include "MSInsertionControl.h"
+#include "MSStopOptimizer.h"
 #include "MSBaseVehicle.h"
 
 //#define DEBUG_REROUTE

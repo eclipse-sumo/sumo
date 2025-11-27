@@ -22,7 +22,7 @@
 
 #include <string>
 #include <vector>
-#include <microsim/MSBaseVehicle.h>
+#include "MSBaseVehicle.h"
 
 // ===========================================================================
 // class declarations
