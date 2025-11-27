@@ -218,7 +218,7 @@ protected:
     FXDirBox* myDirBox = nullptr;
 
     /// @brief Bookmarked places
-    FXRecentFiles myBookmarksRecentFiles = nullptr;
+    FXRecentFiles myBookmarksRecentFiles;
 
     /// @brief extensions
     std::vector<std::vector<std::string> > myExtensions;
