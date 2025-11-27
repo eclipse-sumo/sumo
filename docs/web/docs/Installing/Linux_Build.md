@@ -234,11 +234,11 @@ the stdlib option has to be set. The blacklist filters out a known bug
 in the cstdlib. For details see the clang documentation.
 
 The current CMake configuration already contains this for the debug
-build, so for building with CMake and clang just change to your build
-dir and use
+build, so for building with CMake and clang just change to your repository base dir and use
 
 ```
-CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug --build build -j $(nproc)
+CXX=clang++ cmake -D CMAKE_BUILD_TYPE=Debug -B build .
+cmake --build build -j $(nproc)
 ```
 
 The clang-debug-build will detect memory leaks (among other things)
