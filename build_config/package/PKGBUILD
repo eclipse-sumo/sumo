@@ -36,11 +36,11 @@ build() {
     cmake --build build -- man
 }
 
-# example tests still fails
-# check() {
-#     cd ${pkgbase}-${pkgver}
-#     cmake --build build -- test
-# }
+example tests still fails
+check() {
+    cd ${pkgbase}-${pkgver}
+    cmake --build build -- test
+}
 
 package_sumo() {
     optdepends=('java-runtime-common: for executing Jar files like TraCI4J'

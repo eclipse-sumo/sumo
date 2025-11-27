@@ -86,6 +86,8 @@ set(microsim_STAT_SRCS
    Command_RouteReplacement.cpp
    MSTrainHelper.cpp
    MSTrainHelper.h
+   MSStopOptimizer.h
+   MSStopOptimizer.cpp
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})

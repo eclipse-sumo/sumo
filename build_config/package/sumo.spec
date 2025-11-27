@@ -40,6 +40,12 @@ BuildRequires:  python3-build
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
+BuildRequires:  pkgconfig(geos)
+BuildRequires:  jupedsim
+%endif
+%if 0%{?fedora_version} > 36
+BuildRequires:  libarrow-devel
+BuildRequires:  parquet-libs-devel
 %endif
 BuildRequires:  python3-devel
 %if 0%{?fedora_version} || 0%{?suse_version}
@@ -112,6 +118,9 @@ The libsumo python module provides support to connect to and remote control a ru
 # Use real shebang
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3$,#!%{_bindir}/python3,'
+%if 0%{?fedora_version}
+rm -rf tools/contributed/sumopy
+%endif
 
 %build
 mkdir cmake-build
@@ -155,7 +164,7 @@ install -p -m 644 build_config/package/org.eclipse.sumo.xml %{buildroot}%{_datad
 
 %check
 cd cmake-build
-#make %{?_smp_mflags} test
+make %{?_smp_mflags} test
 
 %post -n libsumocpp -p /sbin/ldconfig
 %postun -n libsumocpp -p /sbin/ldconfig

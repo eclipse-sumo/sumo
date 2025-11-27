@@ -234,11 +234,11 @@ the stdlib option has to be set. The blacklist filters out a known bug
 in the cstdlib. For details see the clang documentation.
 
 The current CMake configuration already contains this for the debug
-build, so for building with CMake and clang just change to your build
-dir and use
+build, so for building with CMake and clang just change to your repository base dir and use
 
 ```
-CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug --build build -j $(nproc)
+CXX=clang++ cmake -D CMAKE_BUILD_TYPE=Debug -B build .
+cmake --build build -j $(nproc)
 ```
 
 The clang-debug-build will detect memory leaks (among other things)
@@ -256,6 +256,14 @@ Please note that the undefined behavior checker is very sensitive and will repor
 some false negatives also in system libraries. It is recommended to use
 `export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt`
 before calling the executable.
+
+## Building a minimal feature set
+
+Many of the project features are optional. To test a minimal setup, the following build configuration can be used:
+
+```
+cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF -B build. 
+```
 
 ## Installing the SUMO binaries
 
