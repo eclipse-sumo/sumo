@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-26 19:31+0000\n"
+"PO-Revision-Date: 2025-11-28 20:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2933,13 +2933,13 @@ msgstr "Il salvataggio degli elementi di domanda è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:4137
 msgid "saving of unified demand elements in '%'."
-msgstr ""
+msgstr "salvataggio unificato degli elementi di domanda in '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4157
 #: src/netedit/GNEApplicationWindow.cpp:4302
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:529
 msgid "Data elements file"
-msgstr ""
+msgstr "File di elementi di dati"
 
 #: src/netedit/GNEApplicationWindow.cpp:4172
 #: src/netedit/GNEApplicationWindow.cpp:4892
@@ -2972,11 +2972,11 @@ msgstr "Il file di dati '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Data elements saved."
-msgstr ""
+msgstr "Salvati gli elementi di dati."
 
 #: src/netedit/GNEApplicationWindow.cpp:4282
 msgid "Saving data elements failed"
-msgstr ""
+msgstr "Il salvataggio degli elementi di dati è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:4309
 msgid "saving of unified data elements in '%'"
@@ -3037,7 +3037,7 @@ msgstr "carica elementi addizionali da '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4790
 msgid "loading additionals from '%'."
-msgstr ""
+msgstr "carica elementi addizionali da '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4795
 #: src/netedit/GNEApplicationWindow.cpp:4851
@@ -3051,7 +3051,7 @@ msgstr "carica elementi di domanda da '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4846
 msgid "loading demand elements from '%'."
-msgstr ""
+msgstr "carica elementi di domanda da '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4885
 msgid "loading data elements from '"
@@ -3063,7 +3063,7 @@ msgstr "carica elementi meanData da '"
 
 #: src/netedit/GNEApplicationWindow.cpp:4938
 msgid "loading meanData elements from '%'."
-msgstr ""
+msgstr "carica elementi meanData da '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "Reloading TLS programs"
@@ -3087,11 +3087,11 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:5007
 msgid "loading edge types from '%'"
-msgstr ""
+msgstr "carica tipi di archi da '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5009
 msgid "Loading edge types from '%'"
-msgstr ""
+msgstr "Carica tipi di archi da '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5010
 msgid "reloading edge types from '%'"
@@ -10933,13 +10933,15 @@ msgstr "esiste già"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:839
 msgid "Cannot create directory"
-msgstr ""
+msgstr "Incapace di creare la cartella"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:840
 msgid ""
 "Cannot create directory:\n"
 "%"
 msgstr ""
+"Incapace di create la cartella:\n"
+"%"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:841
 msgid "Check folder permissions"
