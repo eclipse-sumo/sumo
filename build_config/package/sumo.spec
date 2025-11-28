@@ -101,7 +101,7 @@ software using libsumocpp.
 %if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
 %package -n python3-libsumo
 Summary:        libsumo Python3 module
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}
 Provides:       python3-%{name} = %{version}
 Obsoletes:      python3-%{name} < %{version}
 
