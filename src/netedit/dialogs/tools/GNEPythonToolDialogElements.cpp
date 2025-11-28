@@ -211,10 +211,10 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSe
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get file
-    const auto xmlFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                               TL("XML file"),
-                               SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
-                               GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog xmlFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                      TL("XML file"),
+                                      SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
+                                      GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (xmlFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(xmlFileDialog.getFilename().c_str(), TRUE);
@@ -357,10 +357,10 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get network file
-    const auto networkFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                                   TL("network file"),
-                                   SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog networkFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                          TL("network file"),
+                                          SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(networkFileDialog.getFilename().c_str(), TRUE);
@@ -408,10 +408,10 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get additional file
-    const auto additionalFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                                      TL("Additional elements file"),
-                                      SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
-                                      GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog additionalFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+            TL("Additional elements file"),
+            SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
+            GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(additionalFileDialog.getFilename().c_str(), TRUE);
@@ -459,10 +459,10 @@ GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelec
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get route file
-    const auto routeFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                                 TL("Route elements file"),
-                                 SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
-                                 GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog routeFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                        TL("Route elements file"),
+                                        SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
+                                        GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(routeFileDialog.getFilename().c_str(), TRUE);
@@ -510,10 +510,10 @@ GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelect
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get data file
-    const auto dataFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                                TL("Data elements file"),
-                                SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
-                                GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog dataFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+                                       TL("Data elements file"),
+                                       SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
+                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(dataFileDialog.getFilename().c_str(), TRUE);
@@ -561,10 +561,10 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get sumoConfig file
-    const auto sumoConfigFileDialog = GNEFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
-                                      TL("sumo config file"),
-                                      SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
-                                      GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog sumoConfigFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+            TL("sumo config file"),
+            SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
+            GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myFilenameTextField->setText(sumoConfigFileDialog.getFilename().c_str(), TRUE);

@@ -226,11 +226,11 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto optionsFileDialog = GNEFileDialog(this, myDialog->getApplicationWindow(),
-                                   TL("options file"),
-                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::SAVE,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog optionsFileDialog(this, myDialog->getApplicationWindow(),
+                                          TL("options file"),
+                                          SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::SAVE,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         std::ofstream out(StringUtils::transcodeToLocal(optionsFileDialog.getFilename()));
@@ -244,11 +244,11 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto optionsFileDialog = GNEFileDialog(this, myDialog->getApplicationWindow(),
-                                   TL("options file"),
-                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog optionsFileDialog(this, myDialog->getApplicationWindow(),
+                                          TL("options file"),
+                                          SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if ((optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) && loadConfiguration(optionsFileDialog.getFilename())) {
         // update entries

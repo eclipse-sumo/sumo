@@ -822,8 +822,8 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
         // get previous parameters
         const auto previousParameters = getParameters();
         // open parameters dialog
-        const auto parametersDialog = GNEParametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                      myTLSEditorParent->myEditedDef->getParametersMap());
+        const GNEParametersDialog parametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                myTLSEditorParent->myEditedDef->getParametersMap());
         // continue depending of result
         if (parametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // set parameters in myEditedDef

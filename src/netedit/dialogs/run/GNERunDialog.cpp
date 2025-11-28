@@ -117,11 +117,11 @@ GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
 long
 GNERunDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // create fileDialog
-    const auto saveLogFileDialog = GNEFileDialog(this, myApplicationWindow,
-                                   TL("tool log file"),
-                                   SUMOXMLDefinitions::TXTFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::SAVE,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog saveLogFileDialog(this, myApplicationWindow,
+                                          TL("tool log file"),
+                                          SUMOXMLDefinitions::TXTFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::SAVE,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (saveLogFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         OutputDevice& dev = OutputDevice::getDevice(saveLogFileDialog.getFilename());
