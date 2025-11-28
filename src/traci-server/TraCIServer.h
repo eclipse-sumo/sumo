@@ -94,6 +94,14 @@ public:
     ///        (except the case that a load or close command is received)s
     int processCommands(const SUMOTime step, const bool afterMove = false);
 
+    /** @brief Processes a get value command
+     *
+     * @param[in] commandID The id of the command to process
+     * @param[in] inputStorage The storage to read the command parameters from
+     * @param[out] outputStorage The storage to write the result to
+     */
+    bool processGet(const int commandID, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
+
     /// @brief clean up subscriptions
     void cleanup();
 

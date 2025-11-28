@@ -40,16 +40,6 @@ class TraCIServer;
  */
 class TraCIServerAPI_Lane {
 public:
-    /** @brief Processes a get value command (Command 0xa3: Get Lane Variable)
-     *
-     * @param[in] server The TraCI-server-instance which schedules this request
-     * @param[in] inputStorage The storage to read the command from
-     * @param[out] outputStorage The storage to write the result to
-     */
-    static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                           tcpip::Storage& outputStorage);
-
-
     /** @brief Processes a set value command (Command 0xc3: Change Lane State)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
