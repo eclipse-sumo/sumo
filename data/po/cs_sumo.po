@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:25+0100\n"
-"PO-Revision-Date: 2025-11-10 14:25+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-30 13:00+0000\n"
+"Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2796,7 +2798,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2066
 msgid "collision"
-msgstr ""
+msgstr "kolize"
 
 #: src/microsim/MSLane.cpp:2073
 msgid "Vehicle '%'; % with vehicle '%"
@@ -2921,7 +2923,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:740
 msgid "Reason: "
-msgstr ""
+msgstr "Důvod: "
 
 #: src/microsim/MSNet.cpp:1002
 msgid "The final simulation step has been reached."
@@ -10268,7 +10270,7 @@ msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/polyconvert/PCLoaderArcView.cpp:112
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
