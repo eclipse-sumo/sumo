@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-11-12 18:10+0000\n"
+"PO-Revision-Date: 2025-11-30 13:00+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "python-tools/cs/>\n"
@@ -25,19 +25,19 @@ msgstr "Interaktivní semafor"
 
 #: tools/game/runner.py:68
 msgid "Railway Control"
-msgstr ""
+msgstr "Řízení železnice"
 
 #: tools/game/runner.py:69
 msgid "Railway Control (Demo)"
-msgstr ""
+msgstr "Řízení železnice (Demo)"
 
 #: tools/game/runner.py:70
 msgid "Research intersection Braunschweig (Demo)"
-msgstr ""
+msgstr "Výzkumná křižovatka Braunschweig (Demo)"
 
 #: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
-msgstr ""
+msgstr "Výzkumná křižovatka Ingolstadt"
 
 #: tools/game/runner.py:72
 msgid "Simple Junction"
