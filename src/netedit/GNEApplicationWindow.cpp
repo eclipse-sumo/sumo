@@ -1792,7 +1792,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open netedit options dialog
-    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
+    const GNENeteditOptionsDialog neteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // open wizard dialog
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // needed to set projection parameters
@@ -1817,10 +1817,10 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 long
 GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // open question dialog box
-    const auto questionDialog = GNEQuestionBasicDialog(this, GNEDialog::Buttons::YES_NO,
-                                TL("Recompute with volatile options"),
-                                TL("Changes produced in the net due a recomputing with"),
-                                TL("volatile options cannot be undone. Continue?"));
+    const GNEQuestionBasicDialog questionDialog(this, GNEDialog::Buttons::YES_NO,
+            TL("Recompute with volatile options"),
+            TL("Changes produced in the net due a recomputing with"),
+            TL("volatile options cannot be undone. Continue?"));
     // check result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save all elements
@@ -2522,7 +2522,7 @@ long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // open netedit option dialog
-    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
+    const GNENeteditOptionsDialog neteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // continue depending of result
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
@@ -2541,7 +2541,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     // open sumo option dialog
-    const auto sumoOptionsDialog = GNESumoOptionsDialog(this, mySumoOptions, myOriginalSumoOptions);
+    const GNESumoOptionsDialog sumoOptionsDialog(this, mySumoOptions, myOriginalSumoOptions);
     // continue depending of result
     if ((sumoOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();

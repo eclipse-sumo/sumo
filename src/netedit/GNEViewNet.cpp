@@ -938,7 +938,7 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
                                      targetJunction->getMicrosimID(),
                                      movedJunction->getMicrosimID(),
                                      targetJunction->getMicrosimID());
-        const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+        const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return true;
@@ -966,8 +966,8 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
         throw ProcessError("invalid expected supermode");
     }
     // open question dialog
-    const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
-                                TL("Confirm switch mode"), body);
+    const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
+            TL("Confirm switch mode"), body);
     // continue depending of result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myEditModes.setSupermode(expectedSupermode, true);
@@ -1048,7 +1048,7 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
             // show question dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
@@ -1115,7 +1115,7 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             // show question dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
@@ -1196,7 +1196,7 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             // show question dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
@@ -3140,7 +3140,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get index position
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
         // edit position using GNEGeometryPointDialog
-        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), edgeGeometry[index]);
+        const GNEGeometryPointDialog geometryPointDialog(myViewParent->getGNEAppWindows(), edgeGeometry[index]);
         // now check position
         if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != edgeGeometry[index])) {
             // update new position
@@ -3170,7 +3170,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get index position
         const int index = polygonGeometry.indexOfClosest(getPositionInformation(), true);
         // edit position using GNEGeometryPointDialog
-        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), polygonGeometry[index]);
+        const GNEGeometryPointDialog geometryPointDialog(myViewParent->getGNEAppWindows(), polygonGeometry[index]);
         // now check position
         if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != polygonGeometry[index])) {
             // update new position
@@ -3188,7 +3188,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get index position
         const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
         // edit position using GNEGeometryPointDialog
-        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), TAZGeometry[index]);
+        const GNEGeometryPointDialog geometryPointDialog(myViewParent->getGNEAppWindows(), TAZGeometry[index]);
         // now check position
         if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != TAZGeometry[index])) {
             // update new position

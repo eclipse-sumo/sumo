@@ -197,10 +197,10 @@ bool
 GNETLSEditorFrame::isTLSSaved() {
     if (myTLSPrograms->checkHaveModifications()) {
         // show question dialog
-        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO_CANCEL,
-                                    TL("Save TLS Changes"),
-                                    TL("There are unsaved changes in the currently edited traffic light."),
-                                    TL("Do you want to save it before changing mode?"));
+        const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO_CANCEL,
+                TL("Save TLS Changes"),
+                TL("There are unsaved changes in the currently edited traffic light."),
+                TL("Do you want to save it before changing mode?"));
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // save modifications

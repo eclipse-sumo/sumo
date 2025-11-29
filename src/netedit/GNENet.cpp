@@ -1648,10 +1648,10 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
-                                        TL("Position of joined junction"),
-                                        TL("There is another unselected junction in the same position of joined junction."),
-                                        TL("It will be joined with the other selected junctions. Continue?"));
+            const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
+                    TL("Position of joined junction"),
+                    TL("There is another unselected junction in the same position of joined junction."),
+                    TL("It will be joined with the other selected junctions. Continue?"));
             // check dialog result
             if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                 // select conflicted junction an join all again
@@ -1760,9 +1760,9 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
-                                    TL("Crossings will be cleared. Continue?"));
+        const GNEQuestionBasicDialog questionDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
+                TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
