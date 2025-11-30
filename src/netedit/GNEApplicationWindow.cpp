@@ -3332,7 +3332,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             // if there are invalid network elements, open GNEFixNetworkElements
             if (invalidNetworkElements.size() > 0) {
                 // create fix network elements dialog
-                const auto fixNetworkElementsDialog = GNEFixNetworkElements(this, invalidNetworkElements);
+                const GNEFixNetworkElements fixNetworkElementsDialog(this, invalidNetworkElements);
                 // continue depending of result
                 if (fixNetworkElementsDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // Save network
