@@ -39,25 +39,6 @@
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                  tcpip::Storage& outputStorage) {
-    const int variable = inputStorage.readUnsignedByte();
-    const std::string id = inputStorage.readString();
-    server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
-    try {
-        if (!libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
-            return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-        }
-    } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
-    }
-    server.writeStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
-    return true;
-}
-
-
-bool
 TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                                   tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response

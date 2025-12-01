@@ -197,11 +197,11 @@ bool
 GNETLSEditorFrame::isTLSSaved() {
     if (myTLSPrograms->checkHaveModifications()) {
         // show question dialog
-        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), myViewNet->getViewParent()->getGNEAppWindows(),
-                                                           GNEDialog::Buttons::YES_NO_CANCEL,
-                                                           TL("Save TLS Changes"),
-                                                           TL("There are unsaved changes in the currently edited traffic light."),
-                                                           TL("Do you want to save it before changing mode?"));
+        const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), myViewNet->getViewParent()->getGNEAppWindows(),
+                GNEDialog::Buttons::YES_NO_CANCEL,
+                TL("Save TLS Changes"),
+                TL("There are unsaved changes in the currently edited traffic light."),
+                TL("Do you want to save it before changing mode?"));
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // save modifications
@@ -823,8 +823,8 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
         // get previous parameters
         const auto previousParameters = getParameters();
         // open parameters dialog
-        const auto parametersDialog = GNEParametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                      myTLSEditorParent->myEditedDef->getParametersMap());
+        const GNEParametersDialog parametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                myTLSEditorParent->myEditedDef->getParametersMap());
         // continue depending of result
         if (parametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // set parameters in myEditedDef

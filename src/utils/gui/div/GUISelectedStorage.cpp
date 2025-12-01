@@ -300,7 +300,7 @@ GUISelectedStorage::remove2Update() {
 
 void
 GUISelectedStorage::save(const std::string& filename, const std::unordered_set<GUIGlID>& ids) {
-    OutputDevice& dev = OutputDevice::getDevice(filename);
+    OutputDevice& dev = OutputDevice::getDevice(filename, false);
     for (const auto glID : ids) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
         if (object != nullptr) {

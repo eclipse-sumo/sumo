@@ -30,23 +30,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool
-TraCIServerAPI_MeanData::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                    tcpip::Storage& outputStorage) {
-    const int variable = inputStorage.readUnsignedByte();
-    const std::string id = inputStorage.readString();
-    server.initWrapper(libsumo::RESPONSE_GET_MEANDATA_VARIABLE, variable, id);
-    try {
-        if (!libsumo::MeanData::handleVariable(id, variable, &server, &inputStorage)) {
-            return server.writeErrorStatusCmd(libsumo::CMD_GET_MEANDATA_VARIABLE, "Get MeanData Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-        }
-    } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_MEANDATA_VARIABLE, e.what(), outputStorage);
-    }
-    server.writeStatusCmd(libsumo::CMD_GET_MEANDATA_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
-    return true;
-}
 
 
 /****************************************************************************/

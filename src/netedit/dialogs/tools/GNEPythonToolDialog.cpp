@@ -140,11 +140,11 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const auto optionsFileDialog = GNEFileDialog(this, myApplicationWindow,
-                                   TL("options file"),
-                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::SAVE,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog optionsFileDialog(this, myApplicationWindow,
+                                          TL("options file"),
+                                          SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::SAVE,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myPythonTool->saveConfiguration(optionsFileDialog.getFilename());
@@ -156,11 +156,11 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const auto optionsFileDialog = GNEFileDialog(this, myApplicationWindow,
-                                   TL("options file"),
-                                   SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                   GNEFileDialog::ConfigType::NETEDIT);
+    const GNEFileDialog optionsFileDialog(this, myApplicationWindow,
+                                          TL("options file"),
+                                          SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                          GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if ((optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) && myPythonTool->loadConfiguration(optionsFileDialog.getFilename())) {
         // rebuild arguments

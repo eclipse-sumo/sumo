@@ -751,11 +751,11 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
     // get netconvert file dialog
-    const auto netConvertFileDialog = GNEFileDialog(this, TL("netconvert config file"),
-                                      SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
-                                      GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                      GNEFileDialog::ConfigType::NETEDIT,
-                                      myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog netConvertFileDialog = GNEFileDialog(this, TL("netconvert config file"),
+            SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((netConvertFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         // load configuration
@@ -768,11 +768,11 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get netconvert filename
-    const auto networkFileDialog = GNEFileDialog(this, TL("network file"),
-                                   SUMOXMLDefinitions::NetFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                   GNEFileDialog::ConfigType::NETEDIT,
-                                   myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog networkFileDialog = GNEFileDialog(this, TL("network file"),
+                                            SUMOXMLDefinitions::NetFileExtensions.getStrings(),
+                                            GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                            GNEFileDialog::ConfigType::NETEDIT,
+                                            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         // load network
@@ -785,11 +785,11 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // get OSM file dilaog
-    const auto OSMFileDialog = GNEFileDialog(this, TL("OpenStreetMap file"),
-                               SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
-                               GNEFileDialog::OpenMode::LOAD_SINGLE,
-                               GNEFileDialog::ConfigType::NETEDIT,
-                               myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog OSMFileDialog = GNEFileDialog(this, TL("OpenStreetMap file"),
+                                        SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
+                                        GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                        GNEFileDialog::ConfigType::NETEDIT,
+                                        myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((OSMFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         loadOSM(OSMFileDialog.getFilename());
@@ -802,11 +802,11 @@ long
 GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
-                                         SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
-                                         GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                         GNEFileDialog::ConfigType::NETEDIT,
-                                         myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
+            SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         // stop test before calling load thread
@@ -832,11 +832,11 @@ long
 GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
-                                      SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
-                                      GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                      GNEFileDialog::ConfigType::NETEDIT,
-                                      myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
+            SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
         // stop test before calling load thread
@@ -934,11 +934,11 @@ long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
-                               SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
-                               GNEFileDialog::OpenMode::LOAD_SINGLE,
-                               GNEFileDialog::ConfigType::NETEDIT,
-                               myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
+                                        SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
+                                        GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                        GNEFileDialog::ConfigType::NETEDIT,
+                                        myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
@@ -973,11 +973,11 @@ long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto edgeTypesFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
-                                     SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
-                                     GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                     GNEFileDialog::ConfigType::NETEDIT,
-                                     myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog edgeTypesFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
+            SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (edgeTypesFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
@@ -1844,7 +1844,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open netedit options dialog
-    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
+    const GNENeteditOptionsDialog neteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // open wizard dialog
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // needed to set projection parameters
@@ -1869,10 +1869,10 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 long
 GNEApplicationWindow::computeJunctionWithVolatileOptions(FXObject* sender, FXSelector sel, void* ptr) {
     // open question dialog box
-    const auto questionDialog = GNEQuestionBasicDialog(this, this, GNEDialog::Buttons::YES_NO,
-                                TL("Recompute with volatile options"),
-                                TL("Changes produced in the net due a recomputing with"),
-                                TL("volatile options cannot be undone. Continue?"));
+    const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(this, this, GNEDialog::Buttons::YES_NO,
+            TL("Recompute with volatile options"),
+            TL("Changes produced in the net due a recomputing with"),
+            TL("volatile options cannot be undone. Continue?"));
     // check result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save all elements
@@ -2580,7 +2580,7 @@ long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // open netedit option dialog
-    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
+    const GNENeteditOptionsDialog neteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // continue depending of result
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
@@ -2599,7 +2599,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     // open sumo option dialog
-    const auto sumoOptionsDialog = GNESumoOptionsDialog(this, mySumoOptions, myOriginalSumoOptions);
+    const GNESumoOptionsDialog sumoOptionsDialog(this, mySumoOptions, myOriginalSumoOptions);
     // continue depending of result
     if ((sumoOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -3387,7 +3387,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             // if there are invalid network elements, open GNEFixNetworkElements
             if (invalidNetworkElements.size() > 0) {
                 // create fix network elements dialog
-                const auto fixNetworkElementsDialog = GNEFixNetworkElements(this, invalidNetworkElements);
+                const GNEFixNetworkElements fixNetworkElementsDialog(this, invalidNetworkElements);
                 // continue depending of result
                 if (fixNetworkElementsDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // Save network
@@ -3425,11 +3425,11 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
 long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get network file file
-    const auto networkFileDialog = GNEFileDialog(this, TL("network file"),
-                                   SUMOXMLDefinitions::NetFileExtensions.getStrings(),
-                                   GNEFileDialog::OpenMode::SAVE,
-                                   GNEFileDialog::ConfigType::NETEDIT,
-                                   myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog networkFileDialog = GNEFileDialog(this, TL("network file"),
+                                            SUMOXMLDefinitions::NetFileExtensions.getStrings(),
+                                            GNEFileDialog::OpenMode::SAVE,
+                                            GNEFileDialog::ConfigType::NETEDIT,
+                                            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (networkFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default network file
@@ -3481,11 +3481,11 @@ GNEApplicationWindow::onCmdSavePlainXML(FXObject* sender, FXSelector sel, void* 
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get neteditConfig filename
-    const auto plainXMLFileDialog = GNEFileDialog(this, TL("plain XML file"),
-                                    SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
-                                    GNEFileDialog::OpenMode::SAVE,
-                                    GNEFileDialog::ConfigType::NETEDIT,
-                                    myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog plainXMLFileDialog = GNEFileDialog(this, TL("plain XML file"),
+            SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (plainXMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default netconvert file
@@ -3500,11 +3500,11 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject* sender, FXSelector sel, void
 long
 GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto joinedJunctionsFileDialog = GNEFileDialog(this, TL("joined junctions file"),
-                                           SUMOXMLDefinitions::JunctionFileExtensions.getStrings(),
-                                           GNEFileDialog::OpenMode::SAVE,
-                                           GNEFileDialog::ConfigType::NETEDIT,
-                                           myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog joinedJunctionsFileDialog = GNEFileDialog(this, TL("joined junctions file"),
+            SUMOXMLDefinitions::JunctionFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (joinedJunctionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         getApp()->beginWaitCursor();
@@ -3560,7 +3560,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
         // configuration
         std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
         if (out.good()) {
-            const auto &neteditOptions = OptionsCont::getOptions();
+            const auto& neteditOptions = OptionsCont::getOptions();
             // write netedit config
             neteditOptions.writeConfiguration(out, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
             // write info
@@ -3589,11 +3589,11 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
 long
 GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get neteditConfig filename
-    const auto neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
-                                         SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
-                                         GNEFileDialog::OpenMode::SAVE,
-                                         GNEFileDialog::ConfigType::NETEDIT,
-                                         myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
+            SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set file in file bucket handler
@@ -3711,11 +3711,11 @@ long
 GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get sumoConfig filename
-    const auto sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
-                                      SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
-                                      GNEFileDialog::OpenMode::SAVE,
-                                      GNEFileDialog::ConfigType::NETEDIT,
-                                      myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
+            SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set sumo config
@@ -3832,11 +3832,11 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject* sender, FXSelector sel, v
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get TLS file
-    const auto TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
-                               SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
-                               GNEFileDialog::OpenMode::SAVE,
-                               GNEFileDialog::ConfigType::NETEDIT,
-                               myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
+                                        SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
+                                        GNEFileDialog::OpenMode::SAVE,
+                                        GNEFileDialog::ConfigType::NETEDIT,
+                                        myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (TLSfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
@@ -3858,11 +3858,11 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, voi
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get network file file
-    const auto edgeTypeFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
-                                    SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
-                                    GNEFileDialog::OpenMode::SAVE,
-                                    GNEFileDialog::ConfigType::NETEDIT,
-                                    myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog edgeTypeFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
+            SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (edgeTypeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set tls type in bucket
@@ -3882,11 +3882,11 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, voi
 long
 GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto additionalFileDialog = GNEFileDialog(this, TL("Additional elements file"),
-                                      SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
-                                      GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                      GNEFileDialog::ConfigType::NETEDIT,
-                                      myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, TL("Additional elements file"),
+            SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // flag for save current saving status
@@ -4036,11 +4036,11 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector
 long
 GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get additional file
-    const auto additionalFileDialog = GNEFileDialog(this, TL("Additional elements in unified file"),
-                                      SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
-                                      GNEFileDialog::OpenMode::SAVE,
-                                      GNEFileDialog::ConfigType::NETEDIT,
-                                      myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, TL("Additional elements in unified file"),
+            SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (additionalFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // use the file as default file
@@ -4066,11 +4066,11 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
 long
 GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) {
     // get juPedSim file
-    const auto juPedSimfileDialog = GNEFileDialog(this, TL("JuPedSim elements file"),
-                                    SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
-                                    GNEFileDialog::OpenMode::SAVE,
-                                    GNEFileDialog::ConfigType::NETEDIT,
-                                    myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog juPedSimfileDialog = GNEFileDialog(this, TL("JuPedSim elements file"),
+            SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (juPedSimfileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         try {
@@ -4098,11 +4098,11 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto routeFileDialog = GNEFileDialog(this, TL("Route elements file"),
-                                 SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
-                                 GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                 GNEFileDialog::ConfigType::NETEDIT,
-                                 myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog routeFileDialog = GNEFileDialog(this, TL("Route elements file"),
+                                          SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                          GNEFileDialog::ConfigType::NETEDIT,
+                                          myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
@@ -4251,11 +4251,11 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
 long
 GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get route file
-    const auto routeFileDialog = GNEFileDialog(this, TL("Route elements file in unified file"),
-                                 SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
-                                 GNEFileDialog::OpenMode::SAVE,
-                                 GNEFileDialog::ConfigType::NETEDIT,
-                                 myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog routeFileDialog = GNEFileDialog(this, TL("Route elements file in unified file"),
+                                          SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
+                                          GNEFileDialog::OpenMode::SAVE,
+                                          GNEFileDialog::ConfigType::NETEDIT,
+                                          myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (routeFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // use the file as default file
@@ -4281,11 +4281,11 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
 long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
-                                SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
-                                GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                GNEFileDialog::ConfigType::NETEDIT,
-                                myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
+                                         SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
+                                         GNEFileDialog::OpenMode::LOAD_SINGLE,
+                                         GNEFileDialog::ConfigType::NETEDIT,
+                                         myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
@@ -4419,11 +4419,11 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get data file
-    const auto dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
-                                SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
-                                GNEFileDialog::OpenMode::SAVE,
-                                GNEFileDialog::ConfigType::NETEDIT,
-                                myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
+                                         SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
+                                         GNEFileDialog::OpenMode::SAVE,
+                                         GNEFileDialog::ConfigType::NETEDIT,
+                                         myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (dataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // update default name
@@ -4467,11 +4467,11 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
 long
 GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const auto meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file"),
-                                    SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
-                                    GNEFileDialog::OpenMode::LOAD_SINGLE,
-                                    GNEFileDialog::ConfigType::NETEDIT,
-                                    myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file"),
+            SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::LOAD_SINGLE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save previous demand element status saving
@@ -4619,11 +4619,11 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsAs(FXObject* sender, FXSelector s
 long
 GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get meanData file
-    const auto meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file in unified file"),
-                                    SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
-                                    GNEFileDialog::OpenMode::SAVE,
-                                    GNEFileDialog::ConfigType::NETEDIT,
-                                    myFileBucketHandler->getConfigDirectory());
+    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file in unified file"),
+            SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
+            GNEFileDialog::OpenMode::SAVE,
+            GNEFileDialog::ConfigType::NETEDIT,
+            myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if (meanDataFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // use the file as default file

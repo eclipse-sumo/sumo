@@ -34,16 +34,6 @@
  */
 class TraCIServerAPI_Edge {
 public:
-    /** @brief Processes a get value command (Command 0xaa: Get Edge Variable)
-     *
-     * @param[in] server The TraCI-server-instance which schedules this request
-     * @param[in] inputStorage The storage to read the command from
-     * @param[out] outputStorage The storage to write the result to
-     */
-    static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                           tcpip::Storage& outputStorage);
-
-
     /** @brief Processes a set value command (Command 0xca: Change Edge State)
      *
      * @param[in] server The TraCI-server-instance which schedules this request

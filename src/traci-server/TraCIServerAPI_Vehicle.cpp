@@ -56,25 +56,6 @@
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                   tcpip::Storage& outputStorage) {
-    const int variable = inputStorage.readUnsignedByte();
-    const std::string id = inputStorage.readString();
-    server.initWrapper(libsumo::RESPONSE_GET_VEHICLE_VARIABLE, variable, id);
-    try {
-        if (!libsumo::Vehicle::handleVariable(id, variable, &server, &inputStorage)) {
-            return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-        }
-    } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
-    }
-    server.writeStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
-    return true;
-}
-
-
-bool
 TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                                    tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response

@@ -445,7 +445,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
     // open vehicle type dialog
     if (demandElement) {
         // open dialog
-        const auto vTypeDialog = GNEVehicleTypeDialog(demandElement);
+        const GNEVehicleTypeDialog vTypeDialog(demandElement);
         if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
             refreshAttributesEditor();
         }
@@ -457,7 +457,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // create parameters dialog
-    const auto singleParametersDialog = GNEParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getParameters()->getParametersMap());
+    const GNEParametersDialog singleParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), myEditedACs.front()->getParameters()->getParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         if (isEditorTypeCreator()) {

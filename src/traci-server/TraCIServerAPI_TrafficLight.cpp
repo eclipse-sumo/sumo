@@ -36,36 +36,6 @@
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                        tcpip::Storage& outputStorage) {
-    const int variable = inputStorage.readUnsignedByte();
-    const std::string id = inputStorage.readString();
-    server.initWrapper(libsumo::RESPONSE_GET_TL_VARIABLE, variable, id);
-    try {
-        if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::TL_CONSTRAINT_SWAP: {
-                    StoHelp::readCompound(inputStorage, 3, "A compound object of size 3 is needed for swapping constraints.");
-                    const std::string tripId = StoHelp::readTypedString(inputStorage, "The tripId must be given as a string.");
-                    const std::string foeSignal = StoHelp::readTypedString(inputStorage, "The foeSignal id must be given as a string.");
-                    const std::string foeId = StoHelp::readTypedString(inputStorage, "The foe tripId must be given as a string.");
-                    server.wrapSignalConstraintVector(id, variable, libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId));
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
-        }
-    } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, e.what(), outputStorage);
-    }
-    server.writeStatusCmd(libsumo::CMD_GET_TL_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
-    return true;
-}
-
-
-bool
 TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                                         tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response

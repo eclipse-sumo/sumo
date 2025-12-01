@@ -32,25 +32,6 @@
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Rerouter::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                    tcpip::Storage& outputStorage) {
-    const int variable = inputStorage.readUnsignedByte();
-    const std::string id = inputStorage.readString();
-    server.initWrapper(libsumo::RESPONSE_GET_REROUTER_VARIABLE, variable, id);
-    try {
-        if (!libsumo::Rerouter::handleVariable(id, variable, &server, &inputStorage)) {
-            return server.writeErrorStatusCmd(libsumo::CMD_GET_REROUTER_VARIABLE, "Get Rerouter Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-        }
-    } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(libsumo::CMD_GET_REROUTER_VARIABLE, e.what(), outputStorage);
-    }
-    server.writeStatusCmd(libsumo::CMD_GET_REROUTER_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
-    return true;
-}
-
-
-bool
 TraCIServerAPI_Rerouter::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                                     tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response

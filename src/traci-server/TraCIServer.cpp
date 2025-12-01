@@ -61,7 +61,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <libsumo/Helper.h>
 #include <libsumo/StorageHelper.h>
-#include <libsumo/Simulation.h>
+#include <libsumo/libsumo.h>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServer.h"
@@ -466,52 +466,29 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myTransportableStateChanges[MSNet::TransportableState::CONTAINER_DEPARTED] = std::vector<std::string>();
     myTransportableStateChanges[MSNet::TransportableState::CONTAINER_ARRIVED] = std::vector<std::string>();
 
-    myExecutors[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
     myExecutors[libsumo::CMD_SET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processSet;
-    myExecutors[libsumo::CMD_GET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processGet;
     myExecutors[libsumo::CMD_SET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processSet;
-    myExecutors[libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE] = &TraCIServerAPI_MultiEntryExit::processGet;
     myExecutors[libsumo::CMD_SET_MULTIENTRYEXIT_VARIABLE] = &TraCIServerAPI_MultiEntryExit::processSet;
 
-    myExecutors[libsumo::CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TrafficLight::processGet;
     myExecutors[libsumo::CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TrafficLight::processSet;
-    myExecutors[libsumo::CMD_GET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processGet;
     myExecutors[libsumo::CMD_SET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processSet;
-    myExecutors[libsumo::CMD_GET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processGet;
     myExecutors[libsumo::CMD_SET_VEHICLE_VARIABLE] = &TraCIServerAPI_Vehicle::processSet;
-    myExecutors[libsumo::CMD_GET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processGet;
     myExecutors[libsumo::CMD_SET_VEHICLETYPE_VARIABLE] = &TraCIServerAPI_VehicleType::processSet;
-    myExecutors[libsumo::CMD_GET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processGet;
     myExecutors[libsumo::CMD_SET_ROUTE_VARIABLE] = &TraCIServerAPI_Route::processSet;
-    myExecutors[libsumo::CMD_GET_POI_VARIABLE] = &TraCIServerAPI_POI::processGet;
     myExecutors[libsumo::CMD_SET_POI_VARIABLE] = &TraCIServerAPI_POI::processSet;
-    myExecutors[libsumo::CMD_GET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processGet;
     myExecutors[libsumo::CMD_SET_POLYGON_VARIABLE] = &TraCIServerAPI_Polygon::processSet;
-    myExecutors[libsumo::CMD_GET_JUNCTION_VARIABLE] = &TraCIServerAPI_Junction::processGet;
     myExecutors[libsumo::CMD_SET_JUNCTION_VARIABLE] = &TraCIServerAPI_Junction::processSet;
-    myExecutors[libsumo::CMD_GET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processGet;
     myExecutors[libsumo::CMD_SET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processSet;
-    myExecutors[libsumo::CMD_GET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processGet;
     myExecutors[libsumo::CMD_SET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processSet;
-    myExecutors[libsumo::CMD_GET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processGet;
     myExecutors[libsumo::CMD_SET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processSet;
-    myExecutors[libsumo::CMD_GET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processGet;
     myExecutors[libsumo::CMD_SET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processSet;
-    myExecutors[libsumo::CMD_GET_BUSSTOP_VARIABLE] = &TraCIServerAPI_BusStop::processGet;
     myExecutors[libsumo::CMD_SET_BUSSTOP_VARIABLE] = &TraCIServerAPI_BusStop::processSet;
-    myExecutors[libsumo::CMD_GET_PARKINGAREA_VARIABLE] = &TraCIServerAPI_ParkingArea::processGet;
     myExecutors[libsumo::CMD_SET_PARKINGAREA_VARIABLE] = &TraCIServerAPI_ParkingArea::processSet;
-    myExecutors[libsumo::CMD_GET_CHARGINGSTATION_VARIABLE] = &TraCIServerAPI_ChargingStation::processGet;
     myExecutors[libsumo::CMD_SET_CHARGINGSTATION_VARIABLE] = &TraCIServerAPI_ChargingStation::processSet;
-    myExecutors[libsumo::CMD_GET_ROUTEPROBE_VARIABLE] = &TraCIServerAPI_RouteProbe::processGet;
     myExecutors[libsumo::CMD_SET_ROUTEPROBE_VARIABLE] = &TraCIServerAPI_RouteProbe::processSet;
-    myExecutors[libsumo::CMD_GET_REROUTER_VARIABLE] = &TraCIServerAPI_Rerouter::processGet;
     myExecutors[libsumo::CMD_SET_REROUTER_VARIABLE] = &TraCIServerAPI_Rerouter::processSet;
-    myExecutors[libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE] = &TraCIServerAPI_VariableSpeedSign::processGet;
     myExecutors[libsumo::CMD_SET_VARIABLESPEEDSIGN_VARIABLE] = &TraCIServerAPI_VariableSpeedSign::processSet;
-    myExecutors[libsumo::CMD_GET_MEANDATA_VARIABLE] = &TraCIServerAPI_MeanData::processGet;
     //myExecutors[libsumo::CMD_SET_MEANDATA_VARIABLE] = &TraCIServerAPI_MeanData::processSet;
-    myExecutors[libsumo::CMD_GET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processGet;
     myExecutors[libsumo::CMD_SET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processSet;
 
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
@@ -942,6 +919,151 @@ TraCIServer::processCommands(const SUMOTime step, const bool afterMove) {
 }
 
 
+bool
+TraCIServer::processGet(const int commandID, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    initWrapper(commandID + 0x10, variable, id);
+    try {
+        switch (commandID) {
+            case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
+                if (!libsumo::InductionLoop::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Induction Loop Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE:
+                if (!libsumo::MultiEntryExit::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Multi Entry Exit Detector Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_TL_VARIABLE:
+                if (!libsumo::TrafficLight::handleVariable(id, variable, this, &inputStorage)) {
+                    switch (variable) {
+                        case libsumo::TL_CONSTRAINT_SWAP: {
+                            StoHelp::readCompound(inputStorage, 3, "A compound object of size 3 is needed for swapping constraints.");
+                            const std::string tripId = StoHelp::readTypedString(inputStorage, "The tripId must be given as a string.");
+                            const std::string foeSignal = StoHelp::readTypedString(inputStorage, "The foeSignal id must be given as a string.");
+                            const std::string foeId = StoHelp::readTypedString(inputStorage, "The foe tripId must be given as a string.");
+                            wrapSignalConstraintVector(id, variable, libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId));
+                            break;
+                        }
+                        default:
+                            throw libsumo::TraCIException("Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                    }
+                }
+                break;
+            case libsumo::CMD_GET_LANE_VARIABLE:
+                if (!libsumo::Lane::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_VEHICLE_VARIABLE:
+                if (!libsumo::Vehicle::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_VEHICLETYPE_VARIABLE:
+                if (!libsumo::VehicleType::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_ROUTE_VARIABLE:
+                if (!libsumo::Route::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Route Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_POI_VARIABLE:
+                if (!libsumo::POI::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_POLYGON_VARIABLE:
+                if (!libsumo::Polygon::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Polygon Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_JUNCTION_VARIABLE:
+                if (!libsumo::Junction::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_EDGE_VARIABLE:
+                if (!libsumo::Edge::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Edge Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_SIM_VARIABLE:
+                if (!TraCIServerAPI_Simulation::processGet(*this, inputStorage, id, variable)) {
+                    throw libsumo::TraCIException("Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_LANEAREA_VARIABLE:
+                if (!libsumo::LaneArea::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_PERSON_VARIABLE:
+                if (!libsumo::Person::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_BUSSTOP_VARIABLE:
+                if (!libsumo::BusStop::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get BusStop Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_PARKINGAREA_VARIABLE:
+                if (!libsumo::ParkingArea::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get ParkingArea Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_CHARGINGSTATION_VARIABLE:
+                if (!libsumo::ChargingStation::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get ChargingStation Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_ROUTEPROBE_VARIABLE:
+                if (!libsumo::RouteProbe::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get RouteProbe Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_CALIBRATOR_VARIABLE:
+                if (!libsumo::Calibrator::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Calibrator Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_REROUTER_VARIABLE:
+                if (!libsumo::Rerouter::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get Rerouter Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE:
+                if (!libsumo::VariableSpeedSign::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get VariableSpeedSign Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_MEANDATA_VARIABLE:
+                if (!libsumo::MeanData::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get MeanData Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            case libsumo::CMD_GET_OVERHEADWIRE_VARIABLE:
+                if (!libsumo::OverheadWire::handleVariable(id, variable, this, &inputStorage)) {
+                    throw libsumo::TraCIException("Get OverheadWire Variable: unsupported variable " + toHex(variable, 2) + " specified");
+                }
+                break;
+            default:
+                return false;
+        }
+    } catch (libsumo::TraCIException& e) {
+        return writeErrorStatusCmd(commandID, e.what(), outputStorage);
+    }
+    writeStatusCmd(commandID, libsumo::RTYPE_OK, "", outputStorage);
+    writeResponseWithLength(outputStorage, getWrapperStorage());
+    return true;
+}
+
+
 void
 TraCIServer::cleanup() {
     mySubscriptions.clear();
@@ -1005,6 +1127,13 @@ TraCIServer::dispatchCommand() {
     // dispatch commands
     if (myExecutors.find(commandId) != myExecutors.end()) {
         success = myExecutors[commandId](*this, myInputStorage, myOutputStorage);
+    } else if ((commandId >= libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE && commandId <= libsumo::CMD_GET_BUSSTOP_VARIABLE)
+               || (commandId >= libsumo::CMD_GET_PARKINGAREA_VARIABLE && commandId <= libsumo::CMD_GET_OVERHEADWIRE_VARIABLE)) {
+        if (commandId == libsumo::CMD_GET_GUI_VARIABLE) {
+            writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo");
+        } else {
+            success = processGet(commandId, myInputStorage, myOutputStorage);
+        }
     } else {
         switch (commandId) {
             case libsumo::CMD_GETVERSION:
@@ -1151,12 +1280,11 @@ TraCIServer::dispatchCommand() {
             case libsumo::CMD_ADD_SUBSCRIPTION_FILTER:
                 success = addSubscriptionFilter();
                 break;
+            case libsumo::CMD_SET_GUI_VARIABLE:
+                writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo");
+                break;
             default:
-                if (commandId == libsumo::CMD_GET_GUI_VARIABLE || commandId == libsumo::CMD_SET_GUI_VARIABLE) {
-                    writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo");
-                } else {
-                    writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
-                }
+                writeStatusCmd(commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         }
     }
     if (!success) {
@@ -1415,8 +1543,10 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                 try {
                     if (myExecutors.find(getCommandId) != myExecutors.end()) {
                         ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-                    } else {
-                        writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                    } else if (!processGet(getCommandId, message, tmpOutput)) {
+                        if (getCommandId == libsumo::CMD_GET_GUI_VARIABLE) {
+                            writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo", tmpOutput);
+                        }
                         ok = false;
                     }
                 } catch (const std::invalid_argument&) {
