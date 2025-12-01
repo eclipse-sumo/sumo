@@ -228,7 +228,7 @@ GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const GNEFileDialog optionsFileDialog(this, myDialog->getApplicationWindow(),
+    const GNEFileDialog optionsFileDialog(myDialog->getApplicationWindow(), this,
                                           TL("options file"),
                                           SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::SAVE,
@@ -246,7 +246,7 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
-    const GNEFileDialog optionsFileDialog(this, myDialog->getApplicationWindow(),
+    const GNEFileDialog optionsFileDialog(myDialog->getApplicationWindow(), this,
                                           TL("options file"),
                                           SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::LOAD_SINGLE,

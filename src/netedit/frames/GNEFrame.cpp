@@ -177,8 +177,9 @@ GNEFrame::getScrollBarWidth() const {
 
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
+    auto GNEApp = myViewNet->getViewParent()->getGNEAppWindows();
     // open help dialog with attributes of the given attribute carrier
-    GNEHelpAttributesDialog(myViewNet->getViewParent()->getGNEAppWindows(), AC);
+    GNEHelpAttributesDialog(GNEApp, GNEApp, AC);
 }
 
 

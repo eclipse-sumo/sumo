@@ -231,7 +231,8 @@ public:
     };
 
     /// @brief constructor
-    GNEParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters);
+    GNEParametersDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                        const Parameterised::Map& parameters);
 
     /// @brief destructor
     ~GNEParametersDialog();

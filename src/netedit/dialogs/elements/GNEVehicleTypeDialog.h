@@ -621,7 +621,7 @@ public:
     };
 
     /// @brief constructor
-    GNEVehicleTypeDialog(GNEDemandElement* vehicleType);
+    GNEVehicleTypeDialog(GNEDemandElement* vehicleType, FXWindow* restoringFocusWindow);
 
     /// @brief destructor
     ~GNEVehicleTypeDialog();

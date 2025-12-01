@@ -126,7 +126,7 @@ public:
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
      * @throw invalid argument if additional doesn't have an additional Dialog
      */
-    virtual void openAdditionalDialog();
+    virtual void openAdditionalDialog(FXWindow* restoringFocusWindow);
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;

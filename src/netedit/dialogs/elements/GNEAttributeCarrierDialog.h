@@ -88,7 +88,7 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC);
+    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow);
 
     /// @brief destructor
     ~GNEAttributeCarrierDialog();

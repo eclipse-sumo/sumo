@@ -44,7 +44,7 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 
 GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
                            GUIIcon titleIcon, const bool closeIfSucess) :
-    GNEDialog(applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_OK,
+    GNEDialog(applicationWindow, applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_OK,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
     myCloseIfSucess(closeIfSucess) {
     // build the thread - io
@@ -117,7 +117,7 @@ GNERunDialog::onCmdRun(FXObject*, FXSelector, void*) {
 long
 GNERunDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // create fileDialog
-    const GNEFileDialog saveLogFileDialog(this, myApplicationWindow,
+    const GNEFileDialog saveLogFileDialog(myApplicationWindow, this,
                                           TL("tool log file"),
                                           SUMOXMLDefinitions::TXTFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::SAVE,

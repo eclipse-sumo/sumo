@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
-    GNETemplateElementDialog<GNEAdditional>(rerouter, DialogType::REROUTER) {
+GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEAdditional>(rerouter, restoringFocusWindow, DialogType::REROUTER) {
     // create rerouter intervals element list
     myRerouterIntervals = new RerouterIntervalsList(this);
     // open dialog
@@ -54,7 +54,7 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
     if (!myRerouterIntervals->isOverlapping()) {
         // open warning Box
-        GNEWarningBasicDialog(this, myElement->getNet()->getGNEApplicationWindow(),
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(), this,
                               TLF("Rerouter intervals of % '%' cannot be saved", toString(SUMO_TAG_REROUTER), myElement->getID()),
                               TL(". There are intervals overlapped."));
         return 1;
@@ -102,7 +102,7 @@ GNERerouterDialog::RerouterIntervalsList::addNewElement() {
 long
 GNERerouterDialog::RerouterIntervalsList::openElementDialog(const size_t rowIndex) {
     // simply open dialog for the edited additional element
-    GNERerouterIntervalDialog(getEditedElements().at(rowIndex));
+    GNERerouterIntervalDialog(getEditedElements().at(rowIndex), myElementDialogParent);
     return 1;
 }
 

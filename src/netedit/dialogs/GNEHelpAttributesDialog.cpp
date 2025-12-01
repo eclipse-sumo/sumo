@@ -30,8 +30,8 @@
 // ===========================================================================
 
 GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow,
-        const GNEAttributeCarrier* AC) :
-    GNEDialog(applicationWindow, TLF("Attributes of %", AC->getTagStr()).c_str(),
+        FXWindow* restoringFocusWindow, const GNEAttributeCarrier* AC) :
+    GNEDialog(applicationWindow, restoringFocusWindow, TLF("Attributes of %", AC->getTagStr()).c_str(),
               GUIIcon::MODEINSPECT, DialogType::BASIC_HELP, GNEDialog::Buttons::OK,
               OpenType::MODAL, ResizeMode::RESIZABLE) {
     // Create FXTable

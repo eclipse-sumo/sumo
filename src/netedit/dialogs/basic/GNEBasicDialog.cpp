@@ -27,10 +27,10 @@
 // method definitions
 // ===========================================================================
 
-GNEBasicDialog::GNEBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
+GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
                                const std::string& title, const std::string& info, GUIIcon titleIcon, DialogType type,
                                GNEDialog::Buttons buttons, GUIIcon largeIcon) :
-    GNEDialog(applicationWindow, title.c_str(), titleIcon, type, buttons, OpenType::MODAL, ResizeMode::STATIC) {
+    GNEDialog(applicationWindow, restoringFocusWindow, title.c_str(), titleIcon, type, buttons, OpenType::MODAL, ResizeMode::STATIC) {
     // create dialog layout (obtained from FXMessageBox)
     auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add icon label (only if large icon is defined)
@@ -39,7 +39,6 @@ GNEBasicDialog::GNEBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* app
     }
     // add information label
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    setRestoringFocusWindow(parentWindow);
     // open modal dialog
     openDialog();
 }

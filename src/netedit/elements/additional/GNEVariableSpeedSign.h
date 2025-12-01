@@ -97,7 +97,7 @@ public:
     /// @}
 
     /// @brief open GNEVariableSpeedSignDialog
-    void openAdditionalDialog() override;
+    void openAdditionalDialog(FXWindow* restoringFocusWindow) override;
 
     /// @name Functions related with geometry of element
     /// @{

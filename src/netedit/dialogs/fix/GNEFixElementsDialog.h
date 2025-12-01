@@ -235,13 +235,13 @@ public:
                     // close output device
                     device.close();
                     // open information message box
-                    GNEInformationBasicDialog(myFixElementDialogParent, myFixElementDialogParent->myApplicationWindow,
+                    GNEInformationBasicDialog(myFixElementDialogParent->myApplicationWindow, myFixElementDialogParent,
                                               TL("Saving successfully"),
                                               TL("List of conflicted items was successfully saved"));
                     return true;
                 } catch (IOError& e) {
                     // open message box error
-                    GNEErrorBasicDialog(myFixElementDialogParent, myFixElementDialogParent->myApplicationWindow,
+                    GNEErrorBasicDialog(myFixElementDialogParent->myApplicationWindow, myFixElementDialogParent,
                                         TL("Saving list of conflicted items failed"), e.what());
                     return false;
                 }
@@ -256,9 +256,9 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixElementsDialog(GNEApplicationWindow* mainWindow, const std::string title,
-                         GUIIcon icon, DialogType type):
-        GNEDialog(mainWindow, title.c_str(), icon, type, GNEDialog::Buttons::ACCEPT_CANCEL,
+    GNEFixElementsDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                         const std::string title, GUIIcon icon, DialogType type):
+        GNEDialog(applicationWindow, restoringFocusWindow, title.c_str(), icon, type, GNEDialog::Buttons::ACCEPT_CANCEL,
                   GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
         // create left and right frames
         FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);

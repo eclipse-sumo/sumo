@@ -818,13 +818,13 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void
 
 long
 GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, void*) {
+    auto GNEApp = myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows();
     // continue depending of myEditedDef
     if (myTLSEditorParent->myEditedDef) {
         // get previous parameters
         const auto previousParameters = getParameters();
         // open parameters dialog
-        const GNEParametersDialog parametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                myTLSEditorParent->myEditedDef->getParametersMap());
+        const GNEParametersDialog parametersDialog(GNEApp, GNEApp, myTLSEditorParent->myEditedDef->getParametersMap());
         // continue depending of result
         if (parametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // set parameters in myEditedDef

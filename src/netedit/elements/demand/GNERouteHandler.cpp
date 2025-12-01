@@ -2726,7 +2726,7 @@ GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElem
             return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement overwriteElementDialog(this, demandElement);
+            GNEOverwriteElement overwriteElementDialog(this, demandElement, myNet->getGNEApplicationWindow());
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element

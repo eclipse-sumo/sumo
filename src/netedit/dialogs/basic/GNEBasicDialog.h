@@ -30,7 +30,7 @@ class GNEBasicDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
+    GNEBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
                    const std::string& title, const std::string& info, GUIIcon titleIcon,
                    DialogType type, GNEDialog::Buttons buttons, GUIIcon largeIcon);
 

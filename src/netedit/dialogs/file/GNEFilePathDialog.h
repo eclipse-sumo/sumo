@@ -36,8 +36,8 @@ class GNEFilePathDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEFilePathDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
-                      const std::string& info, const std::string& originalFilePath);
+    GNEFilePathDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                      const std::string& title, const std::string& info, const std::string& originalFilePath);
 
     /// @brief Destructor
     ~GNEFilePathDialog();

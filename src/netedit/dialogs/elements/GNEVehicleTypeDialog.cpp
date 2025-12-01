@@ -676,7 +676,8 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         color = GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text());
     }
     // declare colorDialog
-    const auto colorDialog = new GNEColorDialog(editedDemandElement->getNet()->getGNEApplicationWindow(), color);
+    const auto colorDialog = new GNEColorDialog(editedDemandElement->getNet()->getGNEApplicationWindow(),
+            myVTypeAttributesParent->myVehicleTypeDialog, color);
     // continue depending of result
     if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
         std::string newValue = toString(colorDialog->getColor());
@@ -1275,7 +1276,8 @@ long
 GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
     auto viewNet = myVehicleTypeDialog->getElement()->getNet()->getViewNet();
     // create parameters dialog
-    const GNEParametersDialog singleParametersDialog(viewNet->getViewParent()->getGNEAppWindows(), myVehicleTypeDialog->getElement()->getParameters()->getParametersMap());
+    const GNEParametersDialog singleParametersDialog(viewNet->getViewParent()->getGNEAppWindows(), myVehicleTypeDialog,
+            myVehicleTypeDialog->getElement()->getParameters()->getParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set values edited in Parameter dialog in Edited AC
@@ -1766,8 +1768,8 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // GNEVehicleTypeDialog - public methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType) :
-    GNETemplateElementDialog<GNEDemandElement>(vehicleType, DialogType::VTYPE),
+GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEDemandElement>(vehicleType, restoringFocusWindow, DialogType::VTYPE),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // Create auxiliar frames for values

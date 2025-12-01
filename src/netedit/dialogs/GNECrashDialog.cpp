@@ -54,7 +54,7 @@ FXIMPLEMENT(GNECrashDialog, GNEDialog, GNECrashDialogMap, ARRAYNUMBER(GNECrashDi
 // ===========================================================================
 
 GNECrashDialog::GNECrashDialog(GNEApplicationWindow* applicationWindow, const ProcessError& processError) :
-    GNEDialog(applicationWindow, TL("Critical error"), GUIIcon::ERROR_SMALL,
+    GNEDialog(applicationWindow, applicationWindow, TL("Critical error"), GUIIcon::ERROR_SMALL,
               DialogType::ABOUT, GNEDialog::Buttons::OK_COPY_REPORT, OpenType::MODAL, ResizeMode::RESIZABLE, 800, 600),
     myTraceText(processError.getTrace()) {
     // create dialog layout (obtained from FXMessageBox)

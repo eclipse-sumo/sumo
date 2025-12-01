@@ -3452,6 +3452,7 @@ GNENetHelper::SavingStatus::isMeanDatasSaved() const {
 
 GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result& commonResult) const {
+    auto GNEApp = myNet->getGNEApplicationWindow();
     // Check if there are non saved network elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3463,8 +3464,7 @@ GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result& commonResult) cons
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getGNEApplicationWindow(),
-                                              TL("network"));
+        const GNESaveDialog saveDialog = GNESaveDialog(GNEApp, GNEApp, TL("network"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {
             commonResult = GNEDialog::Result::ABORT;
@@ -3484,6 +3484,7 @@ GNENetHelper::SavingStatus::askSaveNetwork(GNEDialog::Result& commonResult) cons
 
 GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result& commonResult) const {
+    auto GNEApp = myNet->getGNEApplicationWindow();
     // Check if there are non saved additional elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3495,8 +3496,7 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result& commonR
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getGNEApplicationWindow(),
-                                              TL("additional elements"));
+        const GNESaveDialog saveDialog = GNESaveDialog(GNEApp, GNEApp, TL("additional elements"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {
             commonResult = GNEDialog::Result::ABORT;
@@ -3516,6 +3516,7 @@ GNENetHelper::SavingStatus::askSaveAdditionalElements(GNEDialog::Result& commonR
 
 GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result& commonResult) const {
+    auto GNEApp = myNet->getGNEApplicationWindow();
     // Check if there are non saved demand elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3527,8 +3528,7 @@ GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result& commonResul
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getGNEApplicationWindow(),
-                                              TL("demand elements"));
+        const GNESaveDialog saveDialog = GNESaveDialog(GNEApp, GNEApp, TL("demand elements"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {
             commonResult = GNEDialog::Result::ABORT;
@@ -3548,6 +3548,7 @@ GNENetHelper::SavingStatus::askSaveDemandElements(GNEDialog::Result& commonResul
 
 GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result& commonResult) const {
+    auto GNEApp = myNet->getGNEApplicationWindow();
     // Check if there are non saved data elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3559,8 +3560,7 @@ GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result& commonResult)
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getGNEApplicationWindow(),
-                                              TL("data elements"));
+        const GNESaveDialog saveDialog = GNESaveDialog(GNEApp, GNEApp, TL("data elements"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {
             commonResult = GNEDialog::Result::ABORT;
@@ -3580,6 +3580,7 @@ GNENetHelper::SavingStatus::askSaveDataElements(GNEDialog::Result& commonResult)
 
 GNEDialog::Result
 GNENetHelper::SavingStatus::askSaveMeanDataElements(GNEDialog::Result& commonResult) const {
+    auto GNEApp = myNet->getGNEApplicationWindow();
     // Check if there are non saved mean data elements
     if (commonResult == GNEDialog::Result::ABORT) {
         return GNEDialog::Result::ABORT;
@@ -3591,8 +3592,7 @@ GNENetHelper::SavingStatus::askSaveMeanDataElements(GNEDialog::Result& commonRes
         return GNEDialog::Result::CANCEL;
     } else {
         // open save dialog
-        const auto saveDialog = GNESaveDialog(myNet->getGNEApplicationWindow(),
-                                              TL("meanData elements"));
+        const GNESaveDialog saveDialog = GNESaveDialog(GNEApp, GNEApp, TL("meanData elements"));
         // continue depending of result
         if (saveDialog.getResult() == GNEDialog::Result::ABORT) {
             commonResult = GNEDialog::Result::ABORT;

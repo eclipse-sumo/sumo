@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEOverwriteElement::GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC) :
-    GNEDialog(AC->getNet()->getGNEApplicationWindow(),
+GNEOverwriteElement::GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow) :
+    GNEDialog(AC->getNet()->getGNEApplicationWindow(), restoringFocusWindow,
               TLF("Overwrite % '%'", AC->getTagProperty()->getTagStr(), AC->getID()), GUIIcon::QUESTION_SMALL,
               DialogType::OVERWRITE, GNEDialog::Buttons::YES_NO_CANCEL, GNEDialog::OpenType::MODAL, ResizeMode::STATIC),
     myCommonHandler(commonHandler) {

@@ -3402,7 +3402,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     GNEAdditional* addtional = getAdditionalAtPopupPosition();
     // check if additional can open dialog
     if (addtional && addtional->getTagProperty()->hasDialog()) {
-        addtional->openAdditionalDialog();
+        addtional->openAdditionalDialog(this);
     }
     return 1;
 }
