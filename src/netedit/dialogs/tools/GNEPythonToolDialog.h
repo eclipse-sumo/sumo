@@ -45,8 +45,7 @@ class GNEPythonToolDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-                        GNEPythonTool* tool);
+    GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool);
 
     /// @brief destructor
     ~GNEPythonToolDialog();

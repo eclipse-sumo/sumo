@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, applicationWindow, TL("About Eclipse SUMO netedit"), GUIIcon::NETEDIT_MINI,
+    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"), GUIIcon::NETEDIT_MINI,
               DialogType::ABOUT, GNEDialog::Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
     // Netedit icon
     new FXLabel(myContentFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);

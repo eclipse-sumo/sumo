@@ -25,15 +25,29 @@
 // method definitions
 // ===========================================================================
 
-GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-        const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, info, GUIIcon::ERROR_SMALL, DialogType::BASIC_ERROR,
+GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+        const std::string& info) :
+    GNEBasicDialog(applicationWindow, name, info, GUIIcon::ERROR_SMALL, DialogType::BASIC_ERROR,
                    GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
 }
 
 
-GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+        const std::string& name, const std::string& info) :
+    GNEBasicDialog(applicationWindow, parentDialog, name, info, GUIIcon::ERROR_SMALL, DialogType::BASIC_ERROR,
+                   GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
+}
+
+
+GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+        const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::ERROR_SMALL,
+                   DialogType::BASIC_ERROR, GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
+}
+
+
+GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
         const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::ERROR_SMALL,
+    GNEBasicDialog(applicationWindow, parentDialog, name, infoLineA + "\n" + infoLineB, GUIIcon::ERROR_SMALL,
                    DialogType::BASIC_ERROR, GNEDialog::Buttons::OK, GUIIcon::ERROR_LARGE) {
 }

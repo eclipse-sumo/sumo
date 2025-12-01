@@ -128,7 +128,6 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
                 if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     // open warning dialog
                     GNEWarningBasicDialog(myConnectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                          myConnectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                           TL("Error saving connection operations"),
                                           TLF("Connection edition cannot be saved because route '%s' is broken.", demandElement->getID()));
                     return 1;

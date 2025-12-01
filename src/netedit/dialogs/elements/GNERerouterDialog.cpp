@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEAdditional>(rerouter, restoringFocusWindow, DialogType::REROUTER) {
+GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
+    GNETemplateElementDialog<GNEAdditional>(rerouter, DialogType::REROUTER) {
     // create rerouter intervals element list
     myRerouterIntervals = new RerouterIntervalsList(this);
     // open dialog

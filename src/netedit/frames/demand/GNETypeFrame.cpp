@@ -348,7 +348,6 @@ GNETypeFrame::TypeEditor::deleteType() {
         }
         // Ask confirmation to user
         const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                 GNEDialog::Buttons::YES_NO, title, info);
         // continue depending of answer
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {

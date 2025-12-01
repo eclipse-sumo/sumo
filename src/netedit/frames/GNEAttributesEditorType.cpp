@@ -425,13 +425,13 @@ GNEAttributesEditorType::onCmdOpenElementDialog(FXObject*, FXSelector, void*) {
         // check AC
         if (editedTag == SUMO_TAG_REROUTER) {
             // Open rerouter dialog
-            GNERerouterDialog(dynamic_cast<GNERerouter*>(myEditedACs.front()), this);
+            GNERerouterDialog(dynamic_cast<GNERerouter*>(myEditedACs.front()));
         } else if ((editedTag == SUMO_TAG_CALIBRATOR) || (editedTag == GNE_TAG_CALIBRATOR_LANE)) {
             // Open calibrator dialog
-            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(myEditedACs.front()), this);
+            GNECalibratorDialog(dynamic_cast<GNECalibrator*>(myEditedACs.front()));
         } else if (editedTag == SUMO_TAG_VSS) {
             // Open VSS dialog
-            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(myEditedACs.front()), this);
+            GNEVariableSpeedSignDialog(dynamic_cast<GNEVariableSpeedSign*>(myEditedACs.front()));
         }
     }
     return 1;
@@ -445,7 +445,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
     // open vehicle type dialog
     if (demandElement) {
         // open dialog
-        const GNEVehicleTypeDialog vTypeDialog(demandElement, myFrameParent->getViewNet());
+        const GNEVehicleTypeDialog vTypeDialog(demandElement);
         if (vTypeDialog.getResult() == GNEDialog::Result::ACCEPT) {
             refreshAttributesEditor();
         }
@@ -457,7 +457,7 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // create parameters dialog
-    const GNEParametersDialog singleParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), this,
+    const GNEParametersDialog singleParametersDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
             myEditedACs.front()->getParameters()->getParametersMap());
     // continue depending of result
     if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {

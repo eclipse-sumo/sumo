@@ -1768,8 +1768,8 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // GNEVehicleTypeDialog - public methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEDemandElement>(vehicleType, restoringFocusWindow, DialogType::VTYPE),
+GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType) :
+    GNETemplateElementDialog<GNEDemandElement>(vehicleType, DialogType::VTYPE),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // Create auxiliar frames for values
@@ -1801,7 +1801,6 @@ GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
         // show warning dialogbox about experimental state (only once)
         GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
-                              myElement->getNet()->getGNEApplicationWindow(),
                               TLF("Error editing %", myElement->getTagStr()),
                               TLF("The % cannot be updated because attribute % is invalid.",
                                   myElement->getTagStr(), toString(myInvalidAttr)));

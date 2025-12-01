@@ -605,7 +605,7 @@ GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void
     // get open mode
     GNEFileDialog::OpenMode openMode = (myName.find("output") != std::string::npos) ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE;
     // open dialog
-    const GNEFileDialog XMLFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), this,
+    const GNEFileDialog XMLFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), myOptionsEditor->myDialog,
                                       TL("XML file"),
                                       SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);

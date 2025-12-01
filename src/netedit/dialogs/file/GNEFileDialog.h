@@ -50,7 +50,12 @@ public:
     };
 
     /// @brief constructor
-    GNEFileDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringWindow,
+    GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string elementFile,
+                  const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
+                  GNEFileDialog::ConfigType configType, const std::string initialFolder = "");
+
+    /// @brief constructor with dialog parent
+    GNEFileDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                   const std::string elementFile, const std::vector<std::string>& extensions,
                   GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType,
                   const std::string initialFolder = "");
@@ -86,7 +91,10 @@ protected:
     GNEFileSelector* myFileSelector;
 
 private:
-
+    /// @brief builder
+    void buildFileDialog(const std::string elementFile, const std::vector<std::string>& extensions,
+                         GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType,
+                         const std::string initialFolder);
 
     /// @brief invalidate copy constructor
     GNEFileDialog(const GNEFileDialog&) = delete;

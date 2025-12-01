@@ -412,7 +412,7 @@ GNEParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelec
             << TL("- Duplicated and empty Keys aren't valid.") << "\n"
             << TL("- Whitespace and certain characters aren't allowed (@$%^&/|\\....)");
     // create and open dialog
-    GNEHelpBasicDialog(myParameterDialogParent->getApplicationWindow(), this,
+    GNEHelpBasicDialog(myParameterDialogParent->getApplicationWindow(), myParameterDialogParent,
                        TL("Parameters Help"), help);
     return 1;
 }
@@ -468,21 +468,22 @@ GNEParametersDialog::ParametersOperations::GNEParameterHandler::myStartElement(i
 // GNEParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::GNEParametersDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-        const Parameterised::Map& parameters) :
-    GNEDialog(applicationWindow, restoringFocusWindow, TL("Edit parameters"), GUIIcon::APP_TABLE, DialogType::PARAMETERS,
+GNEParametersDialog::GNEParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters) :
+    GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE, DialogType::PARAMETERS,
               GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myOriginalParameters(parameters) {
-    // create frame for Parameters and operations
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-    // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrame, TL("Parameters"));
-    // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrame, this);
-    // fill myParametersValues
-    myParametersValues->setParameters(parameters);
-    // open modal dialog
-    openDialog();
+    // build dialog
+    builder(parameters);
+}
+
+
+GNEParametersDialog::GNEParametersDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+        const Parameterised::Map& parameters) :
+    GNEDialog(applicationWindow, parentDialog, TL("Edit parameters"), GUIIcon::APP_TABLE, DialogType::PARAMETERS,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
+    myOriginalParameters(parameters) {
+    // build dialog
+    builder(parameters);
 }
 
 GNEParametersDialog::~GNEParametersDialog() {}
@@ -544,6 +545,21 @@ GNEParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // restore original parameters
     myParametersValues->setParameters(myOriginalParameters);
     return 1;
+}
+
+
+void
+GNEParametersDialog::builder(const Parameterised::Map& parameters) {
+    // create frame for Parameters and operations
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+    // create parameters values
+    myParametersValues = new ParametersValues(horizontalFrame, TL("Parameters"));
+    // create parameters operations
+    myParametersOperations = new ParametersOperations(horizontalFrame, this);
+    // fill myParametersValues
+    myParametersValues->setParameters(parameters);
+    // open modal dialog
+    openDialog();
 }
 
 /****************************************************************************/

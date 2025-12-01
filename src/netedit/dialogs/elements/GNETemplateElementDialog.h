@@ -32,8 +32,20 @@ class GNETemplateElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNETemplateElementDialog(T* element, FXWindow* restoringFocusWindow, DialogType type) :
-        GNEDialog(element->getNet()->getGNEApplicationWindow(), restoringFocusWindow,
+    GNETemplateElementDialog(T* element, DialogType type) :
+        GNEDialog(element->getNet()->getGNEApplicationWindow(),
+                  TLF("Edit % '%'", element->getTagStr(), element->getID()).c_str(),
+                  element->getTagProperty()->getGUIIcon(), type, Buttons::ACCEPT_CANCEL_RESET,
+                  OpenType::MODAL, ResizeMode::STATIC),
+        myElement(element),
+        myChangesDescription(TLF("change % values", element->getTagStr())) {
+        // init commandGroup
+        myElement->getNet()->getUndoList()->begin(myElement, myChangesDescription);
+    }
+
+    /// @brief constructor with parent dialog
+    GNETemplateElementDialog(T* element, GNEDialog* parentDialog, DialogType type) :
+        GNEDialog(element->getNet()->getGNEApplicationWindow(), parentDialog,
                   TLF("Edit % '%'", element->getTagStr(), element->getID()).c_str(),
                   element->getTagProperty()->getGUIIcon(), type, Buttons::ACCEPT_CANCEL_RESET,
                   OpenType::MODAL, ResizeMode::STATIC),

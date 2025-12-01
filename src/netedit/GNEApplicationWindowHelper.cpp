@@ -2097,7 +2097,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) {
             if (myPythonToolDialog) {
                 delete myPythonToolDialog;
             }
-            myPythonToolDialog = new GNEPythonToolDialog(myApplicationWindow, myApplicationWindow, tool);
+            myPythonToolDialog = new GNEPythonToolDialog(myApplicationWindow, tool);
             return 1;
         }
     }

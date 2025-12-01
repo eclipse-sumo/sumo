@@ -34,7 +34,7 @@ class GNEVariableSpeedSignDialog : public GNETemplateElementDialog<GNEAdditional
 
 public:
     /// @brief Constructor
-    GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign, FXWindow* restoringFocusWindow);
+    GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign);
 
     /// @brief destructor
     ~GNEVariableSpeedSignDialog();

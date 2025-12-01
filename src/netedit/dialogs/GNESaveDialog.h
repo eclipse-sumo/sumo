@@ -30,7 +30,10 @@ class GNESaveDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNESaveDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elementTypes);
+
+    /// @brief Constructor with parent dialog
+    GNESaveDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                   const std::string& elementTypes);
 
     /// @brief Destructor
@@ -50,6 +53,9 @@ protected:
     FXCheckButton* myApplyToAllButton = nullptr;
 
 private:
+    /// @brief builder
+    void builder(const std::string& elementTypes);
+
     /// @brief Invalidated copy constructor.
     GNESaveDialog(const GNESaveDialog&) = delete;
 

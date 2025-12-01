@@ -476,7 +476,7 @@ GNEDistributionFrame::DistributionValuesEditor::getFrameParent() const {
 long
 GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
     // open distribution dialog
-    GNEDistributionRefDialog distributionDialog(myDistributionSelector->getCurrentDistribution(), myFrameParent->getViewNet());
+    GNEDistributionRefDialog distributionDialog(myDistributionSelector->getCurrentDistribution());
     // only refresh if we added a new row
     if (distributionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         refreshRows();

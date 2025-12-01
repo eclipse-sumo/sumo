@@ -76,12 +76,22 @@ public:
     };
 
     /// @brief basic constructor
-    GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEDialog(GNEApplicationWindow* applicationWindow,
+              const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
+              OpenType openType, ResizeMode resizeMode);
+
+    /// @brief basic constructor with dialog parent
+    GNEDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
               const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
               OpenType openType, ResizeMode resizeMode);
 
     /// @brief constructor with layout explicit
-    GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEDialog(GNEApplicationWindow* applicationWindow,
+              const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
+              OpenType openType, ResizeMode resizeMode, const int width, const int height);
+
+    /// @brief constructor with layout explicit and dialog parent
+    GNEDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
               const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
               OpenType openType, ResizeMode resizeMode, const int width, const int height);
 
@@ -142,8 +152,8 @@ protected:
     /// @brief pointer to the main window
     GNEApplicationWindow* myApplicationWindow = nullptr;
 
-    /// @brief FXWindows that restoring focus window
-    FXWindow* myRestoringFocusWindow = nullptr;
+    /// @brief parent dialog used for restoring focus after closing dialog
+    GNEDialog* myParentDialog = nullptr;
 
     /// @brief content frame
     FXVerticalFrame* myContentFrame = nullptr;

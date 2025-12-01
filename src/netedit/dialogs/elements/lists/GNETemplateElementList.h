@@ -36,7 +36,7 @@ public:
     /// @brief constructor
     GNETemplateElementList(GNETemplateElementDialog<elementDialogType>* elementDialogParent,
                            FXVerticalFrame* contentFrame, SumoXMLTag tag, GNEElementList::Options options) :
-        GNEElementList(contentFrame, elementDialogParent->getApplicationWindow()->getTagPropertiesDatabase()->getTagProperty(tag, true), options),
+        GNEElementList(elementDialogParent, contentFrame, tag, options),
         myElementDialogParent(elementDialogParent) {
         // update table
         updateList();

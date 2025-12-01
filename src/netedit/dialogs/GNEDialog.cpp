@@ -57,14 +57,13 @@ FXIMPLEMENT_ABSTRACT(GNEDialog, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDia
 // method definitions
 // ===========================================================================
 
-GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow,
                      const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
                      OpenType openType, ResizeMode resizeMode) :
     FXDialogBox(applicationWindow->getApp(), name.c_str(),
                 (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStatic : GUIDesignGNEDialogResizable,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
-    myRestoringFocusWindow(restoringFocusWindow),
     myType(type),
     myOpenType(openType) {
     // build dialog only if applicationWindow was created
@@ -74,14 +73,50 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restorin
 }
 
 
-GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+                     const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
+                     OpenType openType, ResizeMode resizeMode) :
+    FXDialogBox(applicationWindow->getApp(), name.c_str(),
+                (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStatic : GUIDesignGNEDialogResizable,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+    myApplicationWindow(applicationWindow),
+    myParentDialog(parentDialog),
+    myType(type),
+    myOpenType(openType) {
+    // build dialog only if applicationWindow was created
+    if (applicationWindow->id()) {
+        buildDialog(titleIcon, buttons);
+    }
+}
+
+
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                     GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
+                     ResizeMode resizeMode, const int width, const int height) :
+    FXDialogBox(applicationWindow->getApp(), name.c_str(),
+                (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStaticExplicit : GUIDesignGNEDialogResizableExplicit,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+    myApplicationWindow(applicationWindow),
+    myType(type),
+    myOpenType(openType) {
+    // build dialog only if applicationWindow was created
+    if (applicationWindow->id()) {
+        // build dialog
+        buildDialog(titleIcon, buttons);
+        // set explicit size
+        resize(width, height);
+    }
+}
+
+
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                      const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
                      OpenType openType, ResizeMode resizeMode, const int width, const int height) :
     FXDialogBox(applicationWindow->getApp(), name.c_str(),
                 (resizeMode == ResizeMode::STATIC) ? GUIDesignGNEDialogStaticExplicit : GUIDesignGNEDialogResizableExplicit,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myApplicationWindow(applicationWindow),
-    myRestoringFocusWindow(restoringFocusWindow),
+    myParentDialog(parentDialog),
     myType(type),
     myOpenType(openType) {
     // build dialog only if applicationWindow was created
@@ -258,7 +293,11 @@ GNEDialog::closeDialogAccepting() {
     // set result
     myResult = Result::ACCEPT;
     // restore focus
-    myRestoringFocusWindow->setFocus();
+    if (myParentDialog) {
+        myParentDialog->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 1;
 }
 
@@ -274,7 +313,11 @@ GNEDialog::closeDialogCanceling() {
     // set result
     myResult = Result::CANCEL;
     // restore focus
-    myRestoringFocusWindow->setFocus();
+    if (myParentDialog) {
+        myParentDialog->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 0;
 }
 
@@ -290,7 +333,11 @@ GNEDialog::closeDialogAborting() {
     // set result
     myResult = Result::ABORT;
     // restore focus
-    myRestoringFocusWindow->setFocus();
+    if (myParentDialog) {
+        myParentDialog->setFocus();
+    } else {
+        myApplicationWindow->setFocus();
+    }
     return 0;
 }
 

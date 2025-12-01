@@ -88,7 +88,10 @@ public:
     };
 
     /// @brief constructor
-    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow);
+    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC);
+
+    /// @brief constructor with parent dialog
+    GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, GNEDialog* parentDialog);
 
     /// @brief destructor
     ~GNEAttributeCarrierDialog();
@@ -112,6 +115,9 @@ protected:
     std::vector<AttributeTextField*> myAttributeTextFields;
 
 private:
+    /// @brief builder
+    void builder(GNEAttributeCarrier* AC);
+
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrierDialog(const GNEAttributeCarrierDialog&) = delete;
 

@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign, restoringFocusWindow, DialogType::VSS) {
+GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
+    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign, DialogType::VSS) {
     // create variableSpeedSign steps element list
     myVariableSpeedSignSteps = new VariableSpeedSignStepsList(this);
     // open dialog

@@ -41,7 +41,7 @@ FXIMPLEMENT(GNEUndoListDialog, GNEDialog, GNEUndoListDialogMap, ARRAYNUMBER(GNEU
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, applicationWindow, TL("Undo/Redo history"), GUIIcon::UNDOLIST,
+    GNEDialog(applicationWindow, TL("Undo/Redo history"), GUIIcon::UNDOLIST,
               DialogType::UNDOLIST, Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
     // create scroll windows for rows
     auto* scrollWindowsContents = new FXScrollWindow(myContentFrame, GUIDesignScrollWindowFixed(560, 400));

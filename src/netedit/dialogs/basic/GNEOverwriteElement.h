@@ -37,7 +37,7 @@ class GNEOverwriteElement : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow);
+    GNEOverwriteElement(CommonHandler* commonHandler, const GNEAttributeCarrier* AC);
 
     /// @brief destructor
     ~GNEOverwriteElement();

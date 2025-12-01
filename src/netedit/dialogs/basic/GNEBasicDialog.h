@@ -30,7 +30,12 @@ class GNEBasicDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
+                   const std::string& info, GUIIcon titleIcon, DialogType type,
+                   GNEDialog::Buttons buttons, GUIIcon largeIcon);
+
+    /// @brief Constructor
+    GNEBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                    const std::string& title, const std::string& info, GUIIcon titleIcon,
                    DialogType type, GNEDialog::Buttons buttons, GUIIcon largeIcon);
 
@@ -41,6 +46,9 @@ public:
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 private:
+    /// @brief builder
+    void builder(const std::string& info, GUIIcon largeIcon);
+
     /// @brief Invalidated copy constructor.
     GNEBasicDialog(const GNEBasicDialog&) = delete;
 

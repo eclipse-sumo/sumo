@@ -25,15 +25,29 @@
 // method definitions
 // ===========================================================================
 
-GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, info, GUIIcon::INFORMATION_SMALL, DialogType::BASIC_INFORMATION,
+    GNEBasicDialog(applicationWindow, name, info, GUIIcon::INFORMATION_SMALL, DialogType::BASIC_INFORMATION,
                    GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
 }
 
 
-GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
+        GNEDialog* parentDialog, const std::string& name, const std::string& info) :
+    GNEBasicDialog(applicationWindow, parentDialog, name, info, GUIIcon::INFORMATION_SMALL, DialogType::BASIC_INFORMATION,
+                   GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
+}
+
+
+GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
         const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::INFORMATION_SMALL,
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::INFORMATION_SMALL,
+                   DialogType::BASIC_INFORMATION, GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
+}
+
+
+GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
+        GNEDialog* parentDialog, const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, parentDialog, name, infoLineA + "\n" + infoLineB, GUIIcon::INFORMATION_SMALL,
                    DialogType::BASIC_INFORMATION, GNEDialog::Buttons::OK, GUIIcon::INFORMATION_LARGE) {
 }

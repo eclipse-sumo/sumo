@@ -47,7 +47,7 @@ public:
     };
 
     /// @brief constructor
-    GNEElementList(FXVerticalFrame* contentFrame, const GNETagProperties* tagProperty, GNEElementList::Options options);
+    GNEElementList(GNEDialog* parentDialog, FXVerticalFrame* contentFrame, SumoXMLTag tag, GNEElementList::Options options);
 
     /// @brief destructor
     ~GNEElementList();
@@ -60,6 +60,9 @@ public:
 
     /// @brief check if the current list is valid
     bool isListValid() const;
+
+    /// @brief pointer to dialog parent
+    GNEDialog* getDialogParent();
 
     /// @brief update element list
     virtual long updateList() = 0;
@@ -90,6 +93,9 @@ public:
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEElementList)
+
+    /// @brief pointer to dialog parent
+    GNEDialog* myDialogParent = nullptr;
 
     /// @brief pointer to tag property
     const GNETagProperties* myTagProperty = nullptr;

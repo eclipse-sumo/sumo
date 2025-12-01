@@ -55,10 +55,10 @@ FXIMPLEMENT(GNEDistributionRefDialog, GNEDialog, GNEDistributionRefDialogMap, AR
 // member method definitions
 // ===========================================================================
 
-GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent, FXWindow* restoringFocusWindow) :
-    GNEDialog(distributionParent->getNet()->getGNEApplicationWindow(), restoringFocusWindow,
-              TLF("Add % reference", distributionParent->getTagStr()), distributionParent->getTagProperty()->getGUIIcon(),
-              DialogType::DISTRIBUTION_REF, GNEDialog::Buttons::ACCEPT_CANCEL, OpenType::MODAL, ResizeMode::STATIC),
+GNEDistributionRefDialog::GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent) :
+    GNEDialog(distributionParent->getNet()->getGNEApplicationWindow(), TLF("Add % reference", distributionParent->getTagStr()),
+              distributionParent->getTagProperty()->getGUIIcon(), DialogType::DISTRIBUTION_REF, GNEDialog::Buttons::ACCEPT_CANCEL,
+              OpenType::MODAL, ResizeMode::STATIC),
     myDistributionParent(distributionParent) {
     auto tooltipMenu = distributionParent->getNet()->getGNEApplicationWindow()->getStaticTooltipMenu();
     // create reference elements

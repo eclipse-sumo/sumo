@@ -45,7 +45,7 @@ FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
+    GNEDialog(applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
               DialogType::NETGENERATE, GNEDialog::Buttons::RUN_ADVANCED_CANCEL,
               GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // build labels
