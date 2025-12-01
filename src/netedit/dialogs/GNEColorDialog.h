@@ -33,7 +33,8 @@ class GNEColorDialog : public GNEDialog {
 
 public:
     /// @brief Construct color dialog
-    GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color);
+    GNEColorDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                   const RGBColor color);
 
     /// @brief Destructor
     virtual ~GNEColorDialog();

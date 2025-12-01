@@ -34,7 +34,7 @@ class GNERerouterDialog : public GNETemplateElementDialog<GNEAdditional> {
 
 public:
     /// @brief Constructor
-    GNERerouterDialog(GNEAdditional* rerouter);
+    GNERerouterDialog(GNEAdditional* rerouter, FXWindow* restoringFocusWindow);
 
     /// @brief destructor
     ~GNERerouterDialog();

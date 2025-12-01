@@ -35,8 +35,8 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
-    GNETemplateElementDialog<GNEAdditional>(calibrator, DialogType::CALIBRATOR) {
+GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEAdditional>(calibrator, restoringFocusWindow, DialogType::CALIBRATOR) {
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -78,7 +78,7 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // continue depending of info
     if (infoB.size() > 0) {
         // open question dialog box with two lines
-        GNEWarningBasicDialog(this, myElement->getNet()->getGNEApplicationWindow(), warningTitle, infoA, infoB);
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(), this, warningTitle, infoA, infoB);
         return 1;
     } else {
         // close dialog accepting changes
@@ -115,7 +115,7 @@ GNECalibratorDialog::RoutesList::addNewElement() {
     // insert route
     insertElement(route);
     // open route dialog
-    const GNEAttributeCarrierDialog routeDialog(route);
+    const GNEAttributeCarrierDialog routeDialog(route, myElementDialogParent);
     // continue depending of result of routeDialog
     if (routeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove route
@@ -129,7 +129,7 @@ GNECalibratorDialog::RoutesList::addNewElement() {
 long
 GNECalibratorDialog::RoutesList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex));
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex), myElementDialogParent);
     return 1;
 }
 
@@ -150,7 +150,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
     // insert vType
     insertElement(vType);
     // open route dialog
-    const GNEVehicleTypeDialog vTypeDialog(vType);
+    const GNEVehicleTypeDialog vTypeDialog(vType, myElementDialogParent);
     // continue depending of result of routeDialog
     if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove vType
@@ -164,7 +164,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
 long
 GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
     // open vType dialog
-    GNEVehicleTypeDialog(myEditedElements.at(rowIndex));
+    GNEVehicleTypeDialog(myEditedElements.at(rowIndex), myElementDialogParent);
     return 1;
 }
 
@@ -208,7 +208,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
         // add using undo-redo
         insertElement(calibratorFlow);
         // open route dialog
-        const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow);
+        const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow, myElementDialogParent);
         // continue depending of result of routeDialog
         if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
             // add calibratorFlow
@@ -222,7 +222,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
 long
 GNECalibratorDialog::CalibratorFlowsList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex));
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex), myElementDialogParent);
     return 1;
 }
 

@@ -36,8 +36,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval) :
-    GNETemplateElementDialog<GNEAdditional>(rerouterInterval, DialogType::REROUTERINTERVAL) {
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEAdditional>(rerouterInterval, restoringFocusWindow, DialogType::REROUTERINTERVAL) {
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);
@@ -145,7 +145,7 @@ GNERerouterIntervalDialog::ClosingReroutesList::addNewElement() {
 long
 GNERerouterIntervalDialog::ClosingReroutesList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front());
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front(), myElementDialogParent);
     return 1;
 }
 
@@ -176,7 +176,7 @@ GNERerouterIntervalDialog::ClosingLaneReroutesList::addNewElement() {
 long
 GNERerouterIntervalDialog::ClosingLaneReroutesList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentLanes().front());
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentLanes().front(), myElementDialogParent);
     return 1;
 }
 
@@ -207,7 +207,7 @@ GNERerouterIntervalDialog::DestProbReroutesList::addNewElement() {
 long
 GNERerouterIntervalDialog::DestProbReroutesList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front());
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentEdges().front(), myElementDialogParent);
     return 1;
 }
 
@@ -242,7 +242,7 @@ GNERerouterIntervalDialog::RouteProbReroutesList::addNewElement() {
 long
 GNERerouterIntervalDialog::RouteProbReroutesList::openElementDialog(const size_t rowIndex) {
     // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentDemandElements().front());
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentDemandElements().front(), myElementDialogParent);
     return 1;
 }
 
@@ -273,7 +273,7 @@ GNERerouterIntervalDialog::ParkingAreaReroutesList::addNewElement() {
 long
 GNERerouterIntervalDialog::ParkingAreaReroutesList::openElementDialog(const size_t rowIndex) {
 // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentAdditionals().back());
+    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex)->getParentAdditionals().back(), myElementDialogParent);
     return 1;
 }
 

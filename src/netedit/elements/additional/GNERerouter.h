@@ -71,7 +71,7 @@ public:
     /// @}
 
     /// @brief open GNERerouterDialog
-    void openAdditionalDialog() override;
+    void openAdditionalDialog(FXWindow* restoringFocusWindow) override;
 
     /// @name members and functions relative to write additionals into XML
     /// @{

@@ -323,9 +323,9 @@ GNECalibrator::checkDrawMoveContour() const {
 
 
 void
-GNECalibrator::openAdditionalDialog() {
+GNECalibrator::openAdditionalDialog(FXWindow* restoringFocusWindow) {
     // Open calibrator dialog
-    GNECalibratorDialog calibratorDialog(this);
+    GNECalibratorDialog calibratorDialog(this, restoringFocusWindow);
 }
 
 

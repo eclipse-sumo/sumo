@@ -18,10 +18,11 @@
 // The "About" - dialog for netedit, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLinkLabel.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -34,7 +35,7 @@
 // ===========================================================================
 
 GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"), GUIIcon::NETEDIT_MINI,
+    GNEDialog(applicationWindow, applicationWindow, TL("About Eclipse SUMO netedit"), GUIIcon::NETEDIT_MINI,
               DialogType::ABOUT, GNEDialog::Buttons::OK, OpenType::MODAL, ResizeMode::STATIC) {
     // Netedit icon
     new FXLabel(myContentFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);

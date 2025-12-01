@@ -137,7 +137,7 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenColorDialog(FXObject*, F
         color = myAttrProperty->getDefaultColorValue();
     }
     // declare colorDialog
-    const auto colorDialog = new GNEColorDialog(myACDialogParent->getApplicationWindow(), color);
+    const auto colorDialog = new GNEColorDialog(myACDialogParent->getApplicationWindow(), myACDialogParent, color);
     // continue depending of result
     if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
         myTextField->setText(toString(colorDialog->getColor()).c_str(), TRUE);
@@ -149,8 +149,8 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenColorDialog(FXObject*, F
 long
 GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     // declare allowVClassesDialog
-    const auto allowVClassesDialog = new GNEVClassesDialog(myACDialogParent->getApplicationWindow(), myAttrProperty->getAttr(),
-            myTextField->getText().text());
+    const auto allowVClassesDialog = new GNEVClassesDialog(myACDialogParent->getApplicationWindow(), myACDialogParent,
+            myAttrProperty->getAttr(), myTextField->getText().text());
     // continue depending of result
     if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {
         myTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
@@ -162,8 +162,8 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog(FXObject*, 
 // GNEAttributeCarrierDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
+GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, restoringFocusWindow, DialogType::ATTRIBUTECARRIER) {
     // Create auxiliar frames for rows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));

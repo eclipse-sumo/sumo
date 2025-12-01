@@ -401,6 +401,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
 
 long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
+    auto GNEApp = myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows();
     RGBColor color = RGBColor::BLACK;
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
@@ -409,7 +410,7 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
         color = myAttrProperty->getDefaultColorValue();
     }
     // declare colorDialog
-    const auto colorDialog = new GNEColorDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(), color);
+    const auto colorDialog = new GNEColorDialog(GNEApp, GNEApp, color);
     // continue depending of result
     if (colorDialog->getResult() == GNEDialog::Result::ACCEPT) {
         myValueTextField->setText(toString(colorDialog->getColor()).c_str(), TRUE);
@@ -420,9 +421,9 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
+    auto GNEApp = myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows();
     // declare allowVClassesDialog
-    const auto allowVClassesDialog = new GNEVClassesDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
-            myAttrProperty->getAttr(), myValueTextField->getText().text());
+    const auto allowVClassesDialog = new GNEVClassesDialog(GNEApp, GNEApp, myAttrProperty->getAttr(), myValueTextField->getText().text());
     // continue depending of result
     if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {
         myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
@@ -433,8 +434,9 @@ GNEAttributesEditorRow::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
+    auto GNEApp = myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows();
     // open dialog
-    const GNEFileDialog fileDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    const GNEFileDialog fileDialog(GNEApp, GNEApp,
                                    myAttrProperty->getAttrStr(),
                                    myAttrProperty->getFilenameExtensions(),
                                    myAttrProperty->isFileSave() ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE,

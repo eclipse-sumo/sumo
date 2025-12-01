@@ -36,7 +36,8 @@ class GNEHelpAttributesDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC);
+    GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                            const GNEAttributeCarrier* AC);
 
     /// @brief Destructor
     ~GNEHelpAttributesDialog();

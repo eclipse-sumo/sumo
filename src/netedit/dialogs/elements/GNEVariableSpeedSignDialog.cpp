@@ -31,8 +31,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
-    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign, DialogType::VSS) {
+GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign, FXWindow* restoringFocusWindow) :
+    GNETemplateElementDialog<GNEAdditional>(variableSpeedSign, restoringFocusWindow, DialogType::VSS) {
     // create variableSpeedSign steps element list
     myVariableSpeedSignSteps = new VariableSpeedSignStepsList(this);
     // open dialog
@@ -54,7 +54,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Steps
     if (!myVariableSpeedSignSteps->isSorted()) {
         // open warning Box
-        GNEWarningBasicDialog(this, myElement->getNet()->getGNEApplicationWindow(),
+        GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(), this,
                               TLF("VariableSpeedSign steps of % '%' cannot be saved", toString(SUMO_TAG_VSS), myElement->getID()),
                               TL("Steps has to be sorted."));
         return 1;

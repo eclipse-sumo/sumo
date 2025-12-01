@@ -50,12 +50,7 @@ public:
     };
 
     /// @brief constructor
-    GNEFileDialog(GNEApplicationWindow* applicationWindow, const std::string elementFile,
-                  const std::vector<std::string>& extensions, GNEFileDialog::OpenMode openMode,
-                  GNEFileDialog::ConfigType configType, const std::string initialFolder = "");
-
-    /// @brief constructor with restoring windows
-    GNEFileDialog(FXWindow* restoringWindow, GNEApplicationWindow* applicationWindow,
+    GNEFileDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringWindow,
                   const std::string elementFile, const std::vector<std::string>& extensions,
                   GNEFileDialog::OpenMode openMode, GNEFileDialog::ConfigType configType,
                   const std::string initialFolder = "");

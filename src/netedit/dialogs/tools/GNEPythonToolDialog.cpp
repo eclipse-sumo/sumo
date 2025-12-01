@@ -58,8 +58,8 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 // member method definitions
 // ===========================================================================
 
-GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
-    GNEDialog(applicationWindow, TL("Tool"), GUIIcon::TOOL_PYTHON, DialogType::PYTHON,
+GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow, GNEPythonTool* tool) :
+    GNEDialog(applicationWindow, restoringFocusWindow, TL("Tool"), GUIIcon::TOOL_PYTHON, DialogType::PYTHON,
               GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL, ResizeMode::RESIZABLE) {
     // create options
     auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
@@ -140,7 +140,7 @@ GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     // open save dialog
-    const GNEFileDialog optionsFileDialog(this, myApplicationWindow,
+    const GNEFileDialog optionsFileDialog(myApplicationWindow, this,
                                           TL("options file"),
                                           SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::SAVE,
@@ -156,7 +156,7 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
     // open file dialog
-    const GNEFileDialog optionsFileDialog(this, myApplicationWindow,
+    const GNEFileDialog optionsFileDialog(myApplicationWindow, this,
                                           TL("options file"),
                                           SUMOXMLDefinitions::XMLFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::LOAD_SINGLE,

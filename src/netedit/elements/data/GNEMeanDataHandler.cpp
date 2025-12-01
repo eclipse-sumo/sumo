@@ -21,6 +21,7 @@
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -198,7 +199,7 @@ GNEMeanDataHandler::checkDuplicatedMeanDataElement(const SumoXMLTag tag, const s
             return writeWarningDuplicated(tag, meanDataElement->getID(), meanDataElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement overwriteElementDialog(this, meanDataElement);
+            GNEOverwriteElement overwriteElementDialog(this, meanDataElement, myNet->getGNEApplicationWindow());
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete meanData element (and all of their childrens)

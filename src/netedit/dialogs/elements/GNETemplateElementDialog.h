@@ -32,8 +32,8 @@ class GNETemplateElementDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNETemplateElementDialog(T* element, DialogType type) :
-        GNEDialog(element->getNet()->getGNEApplicationWindow(),
+    GNETemplateElementDialog(T* element, FXWindow* restoringFocusWindow, DialogType type) :
+        GNEDialog(element->getNet()->getGNEApplicationWindow(), restoringFocusWindow,
                   TLF("Edit % '%'", element->getTagStr(), element->getID()).c_str(),
                   element->getTagProperty()->getGUIIcon(), type, Buttons::ACCEPT_CANCEL_RESET,
                   OpenType::MODAL, ResizeMode::STATIC),

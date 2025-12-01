@@ -76,14 +76,14 @@ public:
     };
 
     /// @brief basic constructor
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
-              ResizeMode resizeMode);
+    GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+              const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
+              OpenType openType, ResizeMode resizeMode);
 
     /// @brief constructor with layout explicit
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-              GUIIcon titleIcon, DialogType type, Buttons buttons, OpenType openType,
-              ResizeMode resizeMode, const int width, const int height);
+    GNEDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+              const std::string& name, GUIIcon titleIcon, DialogType type, Buttons buttons,
+              OpenType openType, ResizeMode resizeMode, const int width, const int height);
 
     /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
     Result getResult() const;
@@ -96,9 +96,6 @@ public:
 
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
-
-    /// @brief wet FXWindows uses for restoring focus
-    void setRestoringFocusWindow(FXWindow* window);
 
     /// @name FOX-callbacks
     /// @{

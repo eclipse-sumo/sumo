@@ -39,8 +39,8 @@ FXIMPLEMENT(GNEColorDialog, GNEDialog, GNEColorDialogMap, ARRAYNUMBER(GNEColorDi
 // method definitions
 // ===========================================================================
 
-GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color):
-    GNEDialog(applicationWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
+GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow, const RGBColor color):
+    GNEDialog(applicationWindow, restoringFocusWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
               Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, 600, 300),
     myOriginalColor(color) {
     myColorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);

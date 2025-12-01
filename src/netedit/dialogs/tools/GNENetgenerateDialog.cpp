@@ -45,7 +45,7 @@ FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
+    GNEDialog(applicationWindow, applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
               DialogType::NETGENERATE, GNEDialog::Buttons::RUN_ADVANCED_CANCEL,
               GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
     // build labels
@@ -111,7 +111,7 @@ GNENetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*
 long
 GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
     // get output file
-    const GNEFileDialog networkFileDialog(this, myApplicationWindow,
+    const GNEFileDialog networkFileDialog(myApplicationWindow, this,
                                           TL("network file"),
                                           SUMOXMLDefinitions::NetFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::SAVE,

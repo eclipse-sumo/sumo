@@ -35,9 +35,9 @@
 // method definitions
 // ===========================================================================
 
-GNESumoOptionsDialog::GNESumoOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
-        const OptionsCont& originalOptionsContainer) :
-    GNEDialog(applicationWindow, TL("Edit SUMO options"), GUIIcon::SUMO_MINI, DialogType::OPTIONS_SUMO,
+GNESumoOptionsDialog::GNESumoOptionsDialog(GNEApplicationWindow* applicationWindow,
+        OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer) :
+    GNEDialog(applicationWindow, applicationWindow, TL("Edit SUMO options"), GUIIcon::SUMO_MINI, DialogType::OPTIONS_SUMO,
               GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 800, 600) {
     // build options editor
     myOptionsEditor = new GNEOptionsEditor(this, "SUMO", optionsContainer, originalOptionsContainer);

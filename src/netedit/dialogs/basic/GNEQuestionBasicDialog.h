@@ -30,11 +30,11 @@ class GNEQuestionBasicDialog : public GNEBasicDialog {
 
 public:
     /// @brief constructor
-    GNEQuestionBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
+    GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
                            GNEDialog::Buttons buttons, const std::string& name, const std::string& info);
 
     /// @brief constructor for multiple lines
-    GNEQuestionBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
+    GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
                            GNEDialog::Buttons buttons, const std::string& name, const std::string& infoLineA,
                            const std::string& infoLineB);
 

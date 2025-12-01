@@ -25,16 +25,15 @@
 // method definitions
 // ===========================================================================
 
-GNEQuestionBasicDialog::GNEQuestionBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
         GNEDialog::Buttons buttons, const std::string& name, const std::string& info) :
-    GNEBasicDialog(parentWindow, applicationWindow, name, info, GUIIcon::QUESTION_SMALL,
+    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, info, GUIIcon::QUESTION_SMALL,
                    DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }
 
 
-GNEQuestionBasicDialog::GNEQuestionBasicDialog(FXWindow* parentWindow, GNEApplicationWindow* applicationWindow,
-        GNEDialog::Buttons buttons, const std::string& name, const std::string& infoLineA,
-        const std::string& infoLineB) :
-    GNEBasicDialog(parentWindow, applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+        GNEDialog::Buttons buttons, const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
                    DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }

@@ -26,6 +26,7 @@
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -274,7 +275,7 @@ GNEDataHandler::checkDuplicatedDataSet(const std::string& id) {
             return writeWarningDuplicated(SUMO_TAG_DATASET, id, SUMO_TAG_DATASET);
         } else {
             // open overwrite dialog
-            GNEOverwriteElement overwriteElementDialog(this, dataSet);
+            GNEOverwriteElement overwriteElementDialog(this, dataSet, myNet->getGNEApplicationWindow());
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete data element (and all of their childrens)

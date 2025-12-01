@@ -88,8 +88,8 @@ public:
     };
 
     /// @brief Constructor
-    GNEVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
-                      const std::string originalVClasses);
+    GNEVClassesDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                      SumoXMLAttr attr, const std::string originalVClasses);
 
     /// @brief destructor
     ~GNEVClassesDialog();

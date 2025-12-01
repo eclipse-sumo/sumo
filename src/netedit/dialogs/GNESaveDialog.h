@@ -30,7 +30,8 @@ class GNESaveDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elementTypes);
+    GNESaveDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+                  const std::string& elementTypes);
 
     /// @brief Destructor
     ~GNESaveDialog();

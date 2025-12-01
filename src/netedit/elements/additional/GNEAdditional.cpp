@@ -149,7 +149,7 @@ GNEAdditional::fixAdditionalProblem() {
 
 
 void
-GNEAdditional::openAdditionalDialog() {
+GNEAdditional::openAdditionalDialog(FXWindow* restoringFocusWindow) {
     throw InvalidArgument(getTagStr() + " doesn't have an additional dialog");
 }
 

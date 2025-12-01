@@ -211,7 +211,7 @@ GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSe
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get file
-    const GNEFileDialog xmlFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog xmlFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
                                       TL("XML file"),
                                       SUMOXMLDefinitions::XMLFileExtensions.getStrings(), openMode,
                                       GNEFileDialog::ConfigType::NETEDIT);
@@ -357,7 +357,7 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdOpenFilename(FXObject*, FXSel
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get network file
-    const GNEFileDialog networkFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog networkFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
                                           TL("network file"),
                                           SUMOXMLDefinitions::NetFileExtensions.getStrings(), openMode,
                                           GNEFileDialog::ConfigType::NETEDIT);
@@ -408,7 +408,7 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get additional file
-    const GNEFileDialog additionalFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog additionalFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
             TL("Additional elements file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(), openMode,
             GNEFileDialog::ConfigType::NETEDIT);
@@ -459,7 +459,7 @@ GNEPythonToolDialogElements::RouteArgument::onCmdOpenFilename(FXObject*, FXSelec
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get route file
-    const GNEFileDialog routeFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog routeFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
                                         TL("Route elements file"),
                                         SUMOXMLDefinitions::RouteFileExtensions.getStrings(), openMode,
                                         GNEFileDialog::ConfigType::NETEDIT);
@@ -510,7 +510,7 @@ GNEPythonToolDialogElements::DataArgument::onCmdOpenFilename(FXObject*, FXSelect
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get data file
-    const GNEFileDialog dataFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog dataFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
                                        TL("Data elements file"),
                                        SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(), openMode,
                                        GNEFileDialog::ConfigType::NETEDIT);
@@ -561,7 +561,7 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdOpenFilename(FXObject*, FX
         openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
     }
     // get sumoConfig file
-    const GNEFileDialog sumoConfigFileDialog(myToolDialogParent, myToolDialogParent->getApplicationWindow(),
+    const GNEFileDialog sumoConfigFileDialog(myToolDialogParent->getApplicationWindow(), myToolDialogParent,
             TL("sumo config file"),
             SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(), openMode,
             GNEFileDialog::ConfigType::NETEDIT);
