@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.26Sep085546.1501128/complex.perf/gtfs_mitte/osmroutes/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.01Dec111328.4094126/complex.perf/gtfs_mitte/osmroutes/test'.
 generating trips...
 Skipping line '1231708' because it only drives at night
 Skipping line '2194813' because it only drives at night
@@ -23,11 +23,11 @@ Skipping line '3353027' because it only drives at night
 Skipping line '35040' because it only drives at night
 Skipping line '6187328' because it only drives at night
 Skipping line '6187329' because it only drives at night
-Imported 103 lines with 300 stops and skipped 16 lines
+Imported 101 lines with 296 stops and skipped 16 lines
    bus: 45
    light_rail: 18
    subway: 8
-   train: 10
+   train: 8
    tram: 22
 done.
 running SUMO to determine actual departure times...
@@ -35,12 +35,12 @@ done.
 creating routes...
 done.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Fri, 26 Sep 2025 08:57:28 +0000
-function import_gtfs finished after 0.881090 seconds
-function filter_gtfs called at Fri, 26 Sep 2025 08:57:29 +0000
-function filter_gtfs finished after 0.488058 seconds
-function import_osm called at Fri, 26 Sep 2025 08:57:29 +0000
-function import_osm finished after 0.031218 seconds
-function map_gtfs_osm called at Fri, 26 Sep 2025 08:57:29 +0000
-function map_gtfs_osm finished after 4.723733 seconds
+function import_gtfs called at Mon, 01 Dec 2025 11:15:50 +0000
+function import_gtfs finished after 1.379780 seconds
+function filter_gtfs called at Mon, 01 Dec 2025 11:15:51 +0000
+function filter_gtfs finished after 0.570059 seconds
+function import_osm called at Mon, 01 Dec 2025 11:15:52 +0000
+function import_osm finished after 0.036269 seconds
+function map_gtfs_osm called at Mon, 01 Dec 2025 11:15:52 +0000
+function map_gtfs_osm finished after 8.774884 seconds
 Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information
