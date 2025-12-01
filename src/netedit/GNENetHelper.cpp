@@ -2566,6 +2566,8 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
             myAdditionalIDs.at(tag)[additional->getID()] = additional;
         }
         myNumberOfNetworkElements++;
+        // insert AC in fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->registerAC(additional);
         // add element in grid
         myNet->addGLObjectIntoGrid(additional);
         // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
@@ -2593,6 +2595,8 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
             myAdditionalIDs.at(tag).erase(myAdditionalIDs.at(tag).find(additional->getID()));
         }
         myNumberOfNetworkElements--;
+        // remove AC from fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->unregisterAC(additional);
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(additional);
         additional->unmarkForDrawingFront();
@@ -2617,6 +2621,8 @@ GNENetHelper::AttributeCarriers::insertTAZSourceSink(GNETAZSourceSink* sourceSin
     } else {
         myTAZSourceSinks.at(sourceSinkTag)[sourceSink] = sourceSink;
         myNumberOfNetworkElements++;
+        // insert AC in fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->registerAC(sourceSink);
         // additionals has to be saved
         myNet->getSavingStatus()->requireSaveAdditionals();
     }
@@ -2635,6 +2641,8 @@ GNENetHelper::AttributeCarriers::deleteTAZSourceSink(GNETAZSourceSink* sourceSin
         // remove from both container
         myTAZSourceSinks.at(tag).erase(itFind);
         myNumberOfNetworkElements--;
+        // remove AC from fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->unregisterAC(sourceSink);
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(sourceSink);
         sourceSink->unmarkForDrawingFront();
@@ -2652,10 +2660,12 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     } else {
         myDemandElements.at(tag)[demandElement->getGUIGlObject()] = demandElement;
-        myNumberOfDemandElements++;
         if (demandElement->getTagProperty()->hasAttribute(SUMO_ATTR_ID)) {
             myDemandElementIDs.at(tag)[demandElement->getID()] = demandElement;
         }
+        myNumberOfDemandElements++;
+        // insert AC in fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->registerAC(demandElement);
         // add element in grid
         myNet->addGLObjectIntoGrid(demandElement);
         // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
@@ -2690,6 +2700,8 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
             myDemandElementIDs.at(tag).erase(myDemandElementIDs.at(tag).find(demandElement->getID()));
         }
         myNumberOfDemandElements--;
+        // remove AC from fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->unregisterAC(demandElement);
         // remove element from grid
         myNet->removeGLObjectFromGrid(demandElement);
         // remove it from inspected elements and GNEElementTree
@@ -2735,6 +2747,8 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
     } else {
         myDataSets[dataSet->getID()] = dataSet;
         myNumberOfDataElements++;
+        // insert AC in fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->registerAC(dataSet);
         // dataSets has to be saved
         myNet->getSavingStatus()->requireSaveDataElements();
         // mark interval toolbar for update
@@ -2751,6 +2765,8 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     } else {
         myDataSets.erase(finder);
         myNumberOfDataElements--;
+        // remove AC from fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->unregisterAC(dataSet);
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(dataSet);
         dataSet->unmarkForDrawingFront();
@@ -2770,6 +2786,8 @@ GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
     } else {
         myMeanDatas.at(meanData->getTagProperty()->getTag()).insert(std::make_pair(meanData->getID(), meanData));
         myNumberOfMeanDataElements++;
+        // insert AC in fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->registerAC(meanData);
         // meanDatas has to be saved
         myNet->getSavingStatus()->requireSaveMeanDatas();
     }
@@ -2787,6 +2805,8 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
         // remove from container
         myMeanDatas.at(meanData->getTagProperty()->getTag()).erase(itFind);
         myNumberOfMeanDataElements--;
+        // remove AC from fileBucket (use this function ton maintain integrity in options)
+        myNet->getGNEApplicationWindow()->getFileBucketHandler()->unregisterAC(meanData);
         // remove it from inspected elements and GNEElementTree
         myNet->getViewNet()->getInspectedElements().uninspectAC(meanData);
         meanData->unmarkForDrawingFront();

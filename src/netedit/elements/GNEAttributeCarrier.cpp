@@ -72,7 +72,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     }
     // update counter in filebucket
     if (myFileBucket) {
-        myFileBucket->addElement();
+        myFileBucket->addElement(true);
     }
 }
 
@@ -80,15 +80,13 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net, File
     myTagProperty(net->getTagPropertiesDatabase()->getTagProperty(tag, true)),
     myNet(net),
     myFileBucket(fileBucket) {
-    // update counter in filebucket
-    myFileBucket->addElement();
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {
     // update counter in filebucket
-    if (myFileBucket) {
-        myFileBucket->removeElement();
+    if (myIsTemplate && myFileBucket) {
+        myFileBucket->removeElement(true);
     }
 }
 
