@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-11-28 20:12+0000\n"
+"PO-Revision-Date: 2025-12-01 18:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2985,21 +2985,21 @@ msgstr "salvataggio unificato degli elementi di dati in '%'"
 #: src/netedit/GNEApplicationWindow.cpp:4327
 #: src/netedit/GNEApplicationWindow.cpp:4466
 msgid "MeanData elements file"
-msgstr ""
+msgstr "File di elementi meanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4340
 msgid "load meanDatas from '%'"
-msgstr ""
+msgstr "caricamento degli elementi meanData da '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4344
 #, c-format
 msgid "Loading of meandata file '%' failed."
-msgstr ""
+msgstr "Il caricamento del file meanData '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4347
 #, c-format
 msgid "Loading of meandata file '%' successfully."
-msgstr ""
+msgstr "Il file meanData '%' è stato caricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4372
 msgid "reloading meanDatas"
@@ -3008,12 +3008,12 @@ msgstr "caricamento ripetuto degli elementi meanData"
 #: src/netedit/GNEApplicationWindow.cpp:4383
 #, c-format
 msgid "Reloading of meanData file '%' failed."
-msgstr ""
+msgstr "Il caricamento ripetuto del file meanData '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:4385
 #, c-format
 msgid "Reloading of meanData file '%' successfully."
-msgstr ""
+msgstr "Il file meanData '%' è stato ricaricato con successo."
 
 #: src/netedit/GNEApplicationWindow.cpp:4438
 msgid "MeanDatas elements saved"
