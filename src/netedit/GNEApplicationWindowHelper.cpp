@@ -2405,6 +2405,28 @@ GNEApplicationWindowHelper::FileBucketHandler::~FileBucketHandler() {
 }
 
 
+void
+GNEApplicationWindowHelper::FileBucketHandler::registerAC(const GNEAttributeCarrier* AC) {
+    // insert element
+    AC->getFileBucket()->addElement(false);
+    // if the bucket hat ONE element, then update options
+    if (AC->getFileBucket()->getNumElements() == 1) {
+        updateOptions();
+    }
+}
+
+
+void
+GNEApplicationWindowHelper::FileBucketHandler::unregisterAC(const GNEAttributeCarrier* AC) {
+    // remove element
+    AC->getFileBucket()->removeElement(false);
+    // if the bucket is emptyelement, then update options
+    if (AC->getFileBucket()->getNumElements() == 0) {
+        updateOptions();
+    }
+}
+
+
 FileBucket*
 GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrier* AC, const std::string& filename) {
     // check file properties
@@ -2415,6 +2437,10 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
         // network elements are saved in a single file
         return myBuckets.at(FileBucket::Type::NETWORK).front();
     } else {
+        // remove element from bucket
+        AC->getFileBucket()->removeElement(AC->isTemplate());
+        // removed empty buckets
+        removeEmptyBuckets();
         // iterate over all buckets to check if the given filename already exist
         for (const auto& type : FileBucket::types) {
             // get default bucket (secure because first bucket always exist)
@@ -2424,11 +2450,8 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
                 // search bucket with this filename
                 for (auto& bucket : myBuckets.at(type)) {
                     if (bucket->getFilename() == filename) {
-                        // update number of elements in buckets
-                        AC->getFileBucket()->removeElement();
-                        bucket->addElement();
-                        // removed empty buckets
-                        removeEmptyBuckets();
+                        // add element in bucket
+                        bucket->addElement(AC->isTemplate());
                         // return the new bucket
                         return bucket;
                     }
@@ -2444,10 +2467,10 @@ GNEApplicationWindowHelper::FileBucketHandler::updateAC(const GNEAttributeCarrie
                 // create new bucket with the given filename
                 auto bucket = new FileBucket(bucketType, filename);
                 myBuckets.at(bucketType).push_back(bucket);
+                // add element in bucket
+                bucket->addElement(AC->isTemplate());
                 // update filename in options because we have a new bucket
                 updateOptions();
-                // update number of elements in new bucket
-                bucket->addElement();
                 // return the new bucket
                 return bucket;
             }
@@ -2600,7 +2623,7 @@ GNEApplicationWindowHelper::FileBucketHandler::parseFilenames(const std::vector<
     // group all saving files in a single string separated with comma
     for (const auto& type : types) {
         for (const auto& bucket : myBuckets.at(type)) {
-            if (bucket->getFilename().size() > 0) {
+            if ((bucket->getFilename().size() > 0) && (bucket->isDefaultBucket() || (bucket->getNumElements() > 0))) {
                 result.append(bucket->getFilename() + ",");
             }
         }

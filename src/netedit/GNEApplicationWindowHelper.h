@@ -1186,6 +1186,12 @@ struct GNEApplicationWindowHelper {
         /// @brief destructor
         ~FileBucketHandler();
 
+        /// @brief register AC
+        void registerAC(const GNEAttributeCarrier* AC);
+
+        /// @brief delete AC
+        void unregisterAC(const GNEAttributeCarrier* AC);
+
         /// @brief update filename vinculated with this AC
         FileBucket* updateAC(const GNEAttributeCarrier* AC, const std::string& filename);
 

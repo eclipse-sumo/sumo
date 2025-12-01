@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include "FileBucket.h"
+#include "UtilExceptions.h"
 
 // ===========================================================================
 // static members
@@ -89,20 +90,42 @@ FileBucket::isDefaultBucket() const {
 
 
 void
-FileBucket::addElement() {
-    myNumElements++;
+FileBucket::addElement(const bool isTemplate) {
+    if (isTemplate) {
+        myNumTemplates++;
+    } else {
+        myNumElements++;
+    }
 }
 
 
 void
-FileBucket::removeElement() {
-    myNumElements--;
+FileBucket::removeElement(const bool isTemplate) {
+    if (isTemplate) {
+        myNumTemplates--;
+        // check that number of elementes are not negative
+        if (myNumTemplates < 0) {
+            throw ProcessError("Number of element negative");
+        }
+    } else {
+        myNumElements--;
+        // check that number of elementes are not negative
+        if (myNumElements < 0) {
+            throw ProcessError("Number of templates negative");
+        }
+    }
+}
+
+
+int
+FileBucket::getNumElements() const {
+    return myNumElements;
 }
 
 
 bool
 FileBucket::isEmpty() const {
-    return myNumElements == 0;
+    return (myNumElements + myNumTemplates) == 0;
 }
 
 /****************************************************************************/

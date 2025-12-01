@@ -76,10 +76,13 @@ public:
     /// @{
 
     /// @brief add element in bucket
-    void addElement();
+    void addElement(const bool isTemplate);
 
     /// @brief remove element
-    void removeElement();
+    void removeElement(const bool isTemplate);
+
+    /// @brief check number of elements (no templates)
+    int getNumElements() const;
 
     /// @brief check if this bucket is empty
     bool isEmpty() const;
@@ -101,6 +104,9 @@ private:
 
     /// @brief number of elements vinculated with this file bucket
     int myNumElements = 0;
+
+    /// @brief number of templates vinculated with this file bucket
+    int myNumTemplates = 0;
 
     /// @brief flag to indicate if this is a default bucket (it cannot be removed)
     const bool myDefaultBucket;
