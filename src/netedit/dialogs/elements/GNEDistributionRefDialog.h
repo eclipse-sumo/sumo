@@ -42,7 +42,7 @@ class GNEDistributionRefDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent, FXWindow* restoringFocusWindow);
+    GNEDistributionRefDialog(GNEAttributeCarrier* distributionParent);
 
     /// @brief destructor
     ~GNEDistributionRefDialog();

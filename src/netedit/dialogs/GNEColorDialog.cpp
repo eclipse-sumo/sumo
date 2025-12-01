@@ -39,20 +39,22 @@ FXIMPLEMENT(GNEColorDialog, GNEDialog, GNEColorDialogMap, ARRAYNUMBER(GNEColorDi
 // method definitions
 // ===========================================================================
 
-GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow, const RGBColor color):
-    GNEDialog(applicationWindow, restoringFocusWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
+GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color):
+    GNEDialog(applicationWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
               Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, 600, 300),
     myOriginalColor(color) {
-    myColorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    // set color
-    myColorbox->setRGBA(MFXUtils::getFXColor(color));
-    // hide buttons
-    myColorbox->acceptButton()->disable();
-    myColorbox->acceptButton()->hide();
-    myColorbox->cancelButton()->disable();
-    myColorbox->cancelButton()->hide();
-    // open dialog
-    openDialog();
+    // build dialog
+    builder(color);
+}
+
+
+GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+                               const RGBColor color):
+    GNEDialog(applicationWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, 600, 300),
+    myOriginalColor(color) {
+    // build dialog
+    builder(color);
 }
 
 
@@ -105,4 +107,19 @@ GNEColorDialog::onCmdColor(FXObject*, FXSelector, void* ptr) {
     } else {
         return 0;
     }
+}
+
+
+void
+GNEColorDialog::builder(const RGBColor color) {
+    myColorbox = new FXColorSelector(getContentFrame(), this, FXColorDialog::ID_COLORSELECTOR, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // set color
+    myColorbox->setRGBA(MFXUtils::getFXColor(color));
+    // hide buttons
+    myColorbox->acceptButton()->disable();
+    myColorbox->acceptButton()->hide();
+    myColorbox->cancelButton()->disable();
+    myColorbox->cancelButton()->hide();
+    // open dialog
+    openDialog();
 }

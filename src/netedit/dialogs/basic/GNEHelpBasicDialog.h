@@ -30,7 +30,11 @@ class GNEHelpBasicDialog : public GNEBasicDialog {
 
 public:
     /// @brief constructor
-    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                       const std::ostringstream& stream);
+
+    /// @brief constructor with parent dialog
+    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                        const std::string& name, const std::ostringstream& stream);
 
 private:

@@ -305,7 +305,8 @@ GNEElementTable::Row::onCmdOpenVClassDialog(FXObject*, FXSelector, void*) {
     const int allowColumnIndex = myElementTable->myColumnHeader->getAttributeIndex(SUMO_ATTR_ALLOW);
     if (allowColumnIndex >= 0) {
         // declare allowVClassesDialog
-        const auto allowVClassesDialog = new GNEVClassesDialog(myAC->getNet()->getGNEApplicationWindow(), this,
+        const auto allowVClassesDialog = new GNEVClassesDialog(myAC->getNet()->getGNEApplicationWindow(),
+                myElementTable->myElementList->getDialogParent(),
                 SUMO_ATTR_ALLOW, myAC->getAttribute(SUMO_ATTR_ALLOW));
         // continue depending of result
         if (allowVClassesDialog->getResult() == GNEDialog::Result::ACCEPT) {

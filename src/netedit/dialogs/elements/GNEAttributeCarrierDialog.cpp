@@ -162,31 +162,17 @@ GNEAttributeCarrierDialog::AttributeTextField::onCmdOpenVClassDialog(FXObject*, 
 // GNEAttributeCarrierDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC, restoringFocusWindow, DialogType::ATTRIBUTECARRIER) {
-    // Create auxiliar frames for rows
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
-    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
-    // calculate number of attributes
-    std::vector<const GNEAttributeProperties*> attrProperties;
-    for (const auto& attrProperty : myElement->getTagProperty()->getAttributeProperties()) {
-        // check if this attribute can be edited in edit mode and in basic editor
-        if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
-            attrProperties.push_back(attrProperty);
-        }
-    }
-    // spread attributes in two columns
-    for (size_t i = 0; i < attrProperties.size(); i++) {
-        // create attribute text field
-        auto attributeTextField = new AttributeTextField(this, (i % 2 == 0) ? columnLeft : columnRight, attrProperties[i]);
-        // add to myAttributeTextFields vector
-        myAttributeTextFields.push_back(attributeTextField);
-    }
-    // init commandGroup
-    myElement->getNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
-    // open dialog
-    openDialog();
+GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
+    // build dialog
+    builder(AC);
+}
+
+
+GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, GNEDialog* parentDialog) :
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
+    // build dialog
+    builder(AC);
 }
 
 
@@ -212,5 +198,34 @@ GNEAttributeCarrierDialog::onCmdReset(FXObject*, FXSelector, void*) {
     resetChanges();
     return 1;
 }
+
+
+void
+GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* AC) {
+    // Create auxiliar frames for rows
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
+    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
+    // calculate number of attributes
+    std::vector<const GNEAttributeProperties*> attrProperties;
+    for (const auto& attrProperty : myElement->getTagProperty()->getAttributeProperties()) {
+        // check if this attribute can be edited in edit mode and in basic editor
+        if (attrProperty->isEditMode() && attrProperty->isBasicEditor()) {
+            attrProperties.push_back(attrProperty);
+        }
+    }
+    // spread attributes in two columns
+    for (size_t i = 0; i < attrProperties.size(); i++) {
+        // create attribute text field
+        auto attributeTextField = new AttributeTextField(this, (i % 2 == 0) ? columnLeft : columnRight, attrProperties[i]);
+        // add to myAttributeTextFields vector
+        myAttributeTextFields.push_back(attributeTextField);
+    }
+    // init commandGroup
+    myElement->getNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
+    // open dialog
+    openDialog();
+}
+
 
 /****************************************************************************/

@@ -347,9 +347,8 @@ GNETypeFrame::TypeEditor::deleteType() {
             info = TLF("Delete % '%' will remove % vehicles. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID(), numChildren);
         }
         // Ask confirmation to user
-        const auto questionDialog = GNEQuestionBasicDialog(myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                    GNEDialog::Buttons::YES_NO, title, info);
+        const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                GNEDialog::Buttons::YES_NO, title, info);
         // continue depending of answer
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // begin undo list operation

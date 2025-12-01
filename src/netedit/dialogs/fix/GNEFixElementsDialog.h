@@ -256,9 +256,8 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixElementsDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-                         const std::string title, GUIIcon icon, DialogType type):
-        GNEDialog(applicationWindow, restoringFocusWindow, title.c_str(), icon, type, GNEDialog::Buttons::ACCEPT_CANCEL,
+    GNEFixElementsDialog(GNEApplicationWindow* applicationWindow, const std::string title, GUIIcon icon, DialogType type):
+        GNEDialog(applicationWindow, title.c_str(), icon, type, GNEDialog::Buttons::ACCEPT_CANCEL,
                   GNEDialog::OpenType::MODAL, ResizeMode::STATIC) {
         // create left and right frames
         FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);

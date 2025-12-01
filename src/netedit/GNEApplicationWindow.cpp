@@ -751,7 +751,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
     // get netconvert file dialog
-    const GNEFileDialog netConvertFileDialog = GNEFileDialog(this, this, TL("netconvert config file"),
+    const GNEFileDialog netConvertFileDialog = GNEFileDialog(this, TL("netconvert config file"),
             SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -768,7 +768,7 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get netconvert filename
-    const GNEFileDialog networkFileDialog = GNEFileDialog(this, this, TL("network file"),
+    const GNEFileDialog networkFileDialog = GNEFileDialog(this, TL("network file"),
                                             SUMOXMLDefinitions::NetFileExtensions.getStrings(),
                                             GNEFileDialog::OpenMode::LOAD_SINGLE,
                                             GNEFileDialog::ConfigType::NETEDIT,
@@ -785,7 +785,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     // get OSM file dilaog
-    const GNEFileDialog OSMFileDialog = GNEFileDialog(this, this, TL("OpenStreetMap file"),
+    const GNEFileDialog OSMFileDialog = GNEFileDialog(this, TL("OpenStreetMap file"),
                                         SUMOXMLDefinitions::OSMFileExtensions.getStrings(),
                                         GNEFileDialog::OpenMode::LOAD_SINGLE,
                                         GNEFileDialog::ConfigType::NETEDIT,
@@ -802,7 +802,7 @@ long
 GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, this, TL("netedit config file"),
+    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
             SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -832,7 +832,7 @@ long
 GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, this, TL("sumo config file"),
+    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
             SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -934,7 +934,7 @@ long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, this, TL("Traffic Light definitions file"),
+    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
                                         SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
                                         GNEFileDialog::OpenMode::LOAD_SINGLE,
                                         GNEFileDialog::ConfigType::NETEDIT,
@@ -973,7 +973,7 @@ long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const GNEFileDialog edgeTypesFileDialog = GNEFileDialog(this, this, TL("EdgeTypes file"),
+    const GNEFileDialog edgeTypesFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
             SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -1869,10 +1869,10 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 long
 GNEApplicationWindow::computeJunctionWithVolatileOptions(FXObject* sender, FXSelector sel, void* ptr) {
     // open question dialog box
-    const auto questionDialog = GNEQuestionBasicDialog(this, this, GNEDialog::Buttons::YES_NO,
-                                TL("Recompute with volatile options"),
-                                TL("Changes produced in the net due a recomputing with"),
-                                TL("volatile options cannot be undone. Continue?"));
+    const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(this, GNEDialog::Buttons::YES_NO,
+            TL("Recompute with volatile options"),
+            TL("Changes produced in the net due a recomputing with"),
+            TL("volatile options cannot be undone. Continue?"));
     // check result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save all elements
@@ -3404,7 +3404,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving network failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving network failed"), e.what());
         }
         if (saved) {
             // write info
@@ -3425,7 +3425,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
 long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get network file file
-    const GNEFileDialog networkFileDialog = GNEFileDialog(this, this, TL("network file"),
+    const GNEFileDialog networkFileDialog = GNEFileDialog(this, TL("network file"),
                                             SUMOXMLDefinitions::NetFileExtensions.getStrings(),
                                             GNEFileDialog::OpenMode::SAVE,
                                             GNEFileDialog::ConfigType::NETEDIT,
@@ -3467,7 +3467,7 @@ GNEApplicationWindow::onCmdSavePlainXML(FXObject* sender, FXSelector sel, void* 
             WRITE_MESSAGE(TLF("Plain XML saved with prefix '%'.", plainXMLPrefix));
         } catch (IOError& e) {
             // open message box
-            GNEErrorBasicDialog(this, this, TL("Saving plain xml failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving plain xml failed"), e.what());
         }
         // end saving plain XML
         getApp()->endWaitCursor();
@@ -3481,7 +3481,7 @@ GNEApplicationWindow::onCmdSavePlainXML(FXObject* sender, FXSelector sel, void* 
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get neteditConfig filename
-    const GNEFileDialog plainXMLFileDialog = GNEFileDialog(this, this, TL("plain XML file"),
+    const GNEFileDialog plainXMLFileDialog = GNEFileDialog(this, TL("plain XML file"),
             SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -3500,7 +3500,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject* sender, FXSelector sel, void
 long
 GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const GNEFileDialog joinedJunctionsFileDialog = GNEFileDialog(this, this, TL("joined junctions file"),
+    const GNEFileDialog joinedJunctionsFileDialog = GNEFileDialog(this, TL("joined junctions file"),
             SUMOXMLDefinitions::JunctionFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -3514,7 +3514,7 @@ GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE(TLF("Joined junctions saved to '%'.", joinedJunctionsFileDialog.getFilename()));
         } catch (IOError& e) {
             // opening error message
-            GNEErrorBasicDialog(this, this, TL("Saving joined junctions failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving joined junctions failed"), e.what());
         }
         getApp()->endWaitCursor();
         // set focus again in viewNet
@@ -3589,7 +3589,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
 long
 GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get neteditConfig filename
-    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, this, TL("netedit config file"),
+    const GNEFileDialog neteditConfigFileDialog = GNEFileDialog(this, TL("netedit config file"),
             SUMOXMLDefinitions::NeteditConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -3711,7 +3711,7 @@ long
 GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get sumoConfig filename
-    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, this, TL("sumo config file"),
+    const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
             SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -3760,7 +3760,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
             WRITE_MESSAGE(TLF("TLS Programs saved in '%'.", myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS)));
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving TLS Programs failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving TLS Programs failed"), e.what());
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3806,7 +3806,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
             WRITE_MESSAGE(TLF("EdgeType saved in '%'.", edgeTypeFile));
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving edgeTypes failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving edgeTypes failed"), e.what());
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3832,7 +3832,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject* sender, FXSelector sel, v
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get TLS file
-    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, this, TL("Traffic Light definitions file"),
+    const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
                                         SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
                                         GNEFileDialog::OpenMode::SAVE,
                                         GNEFileDialog::ConfigType::NETEDIT,
@@ -3858,7 +3858,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, voi
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get network file file
-    const GNEFileDialog edgeTypeFileDialog = GNEFileDialog(this, this, TL("EdgeTypes file"),
+    const GNEFileDialog edgeTypeFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
             SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -3882,7 +3882,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, voi
 long
 GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) {
     // get file
-    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, this, TL("Additional elements file"),
+    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, TL("Additional elements file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -4006,7 +4006,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving additional elements failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving additional elements failed"), e.what());
         }
         return 0;
     }
@@ -4016,7 +4016,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
 long
 GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get additional file
-    const auto additionalFileDialog = GNEFileDialog(this, this, TL("Additional elements as"),
+    const auto additionalFileDialog = GNEFileDialog(this, TL("Additional elements as"),
                                       SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
                                       GNEFileDialog::OpenMode::SAVE,
                                       GNEFileDialog::ConfigType::NETEDIT,
@@ -4036,7 +4036,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsAs(FXObject* sender, FXSelector
 long
 GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get additional file
-    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, this, TL("Additional elements in unified file"),
+    const GNEFileDialog additionalFileDialog = GNEFileDialog(this, TL("Additional elements in unified file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -4066,7 +4066,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
 long
 GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) {
     // get juPedSim file
-    const GNEFileDialog juPedSimfileDialog = GNEFileDialog(this, this, TL("JuPedSim elements file"),
+    const GNEFileDialog juPedSimfileDialog = GNEFileDialog(this, TL("JuPedSim elements file"),
             SUMOXMLDefinitions::AdditionalFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -4088,7 +4088,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving JuPedSim elements failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving JuPedSim elements failed"), e.what());
         }
     }
     return 0;
@@ -4098,7 +4098,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // get file
-    const GNEFileDialog routeFileDialog = GNEFileDialog(this, this, TL("Route elements file"),
+    const GNEFileDialog routeFileDialog = GNEFileDialog(this, TL("Route elements file"),
                                           SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::LOAD_SINGLE,
                                           GNEFileDialog::ConfigType::NETEDIT,
@@ -4221,7 +4221,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving demand elements failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving demand elements failed"), e.what());
         }
     }
     return 0;
@@ -4231,7 +4231,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
 long
 GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get route file
-    const auto routeFileDialog = GNEFileDialog(this, this, TL("Route elements"),
+    const auto routeFileDialog = GNEFileDialog(this, TL("Route elements"),
                                  SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
                                  GNEFileDialog::OpenMode::SAVE,
                                  GNEFileDialog::ConfigType::NETEDIT,
@@ -4251,7 +4251,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
 long
 GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get route file
-    const GNEFileDialog routeFileDialog = GNEFileDialog(this, this, TL("Route elements file in unified file"),
+    const GNEFileDialog routeFileDialog = GNEFileDialog(this, TL("Route elements file in unified file"),
                                           SUMOXMLDefinitions::RouteFileExtensions.getStrings(),
                                           GNEFileDialog::OpenMode::SAVE,
                                           GNEFileDialog::ConfigType::NETEDIT,
@@ -4281,7 +4281,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
 long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const GNEFileDialog dataFileDialog = GNEFileDialog(this, this, TL("Data elements file"),
+    const GNEFileDialog dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
                                          SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
                                          GNEFileDialog::OpenMode::LOAD_SINGLE,
                                          GNEFileDialog::ConfigType::NETEDIT,
@@ -4409,7 +4409,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving data elements failed"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving data elements failed"), e.what());
         }
     }
     return 0;
@@ -4419,7 +4419,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get data file
-    const GNEFileDialog dataFileDialog = GNEFileDialog(this, this, TL("Data elements file"),
+    const GNEFileDialog dataFileDialog = GNEFileDialog(this, TL("Data elements file"),
                                          SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
                                          GNEFileDialog::OpenMode::SAVE,
                                          GNEFileDialog::ConfigType::NETEDIT,
@@ -4439,7 +4439,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
 long
 GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get data file
-    const auto dataFileDialog = GNEFileDialog(this, this, TL("Data elements file in unified file"),
+    const auto dataFileDialog = GNEFileDialog(this, TL("Data elements file in unified file"),
                                 SUMOXMLDefinitions::EdgeDataFileExtensions.getStrings(),
                                 GNEFileDialog::OpenMode::SAVE,
                                 GNEFileDialog::ConfigType::NETEDIT,
@@ -4467,7 +4467,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
 long
 GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, this, TL("MeanData elements file"),
+    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file"),
             SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::LOAD_SINGLE,
             GNEFileDialog::ConfigType::NETEDIT,
@@ -4589,7 +4589,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
             }
         } catch (IOError& e) {
             // open error message box
-            GNEErrorBasicDialog(this, this, TL("Saving demand elements failed!"), e.what());
+            GNEErrorBasicDialog(this, TL("Saving demand elements failed!"), e.what());
         }
     }
     return 0;
@@ -4599,7 +4599,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
 long
 GNEApplicationWindow::onCmdSaveMeanDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get meanData file
-    const auto meanDataFileDialog = GNEFileDialog(this, this, TL("MeanData elements"),
+    const auto meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements"),
                                     SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
                                     GNEFileDialog::OpenMode::SAVE,
                                     GNEFileDialog::ConfigType::NETEDIT,
@@ -4619,7 +4619,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsAs(FXObject* sender, FXSelector s
 long
 GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelector sel, void* ptr) {
     // get meanData file
-    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, this, TL("MeanData elements file in unified file"),
+    const GNEFileDialog meanDataFileDialog = GNEFileDialog(this, TL("MeanData elements file in unified file"),
             SUMOXMLDefinitions::MeanDataFileExtensions.getStrings(),
             GNEFileDialog::OpenMode::SAVE,
             GNEFileDialog::ConfigType::NETEDIT,

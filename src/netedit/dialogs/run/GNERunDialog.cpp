@@ -44,7 +44,7 @@ FXIMPLEMENT_ABSTRACT(GNERunDialog, GNEDialog, GNERunDialogMap, ARRAYNUMBER(GNERu
 
 GNERunDialog::GNERunDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
                            GUIIcon titleIcon, const bool closeIfSucess) :
-    GNEDialog(applicationWindow, applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_OK,
+    GNEDialog(applicationWindow, name, titleIcon, DialogType::RUN, GNEDialog::Buttons::RERUN_BACK_OK,
               OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 640, 480),
     myCloseIfSucess(closeIfSucess) {
     // build the thread - io

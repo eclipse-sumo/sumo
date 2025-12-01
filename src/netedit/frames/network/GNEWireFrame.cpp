@@ -68,7 +68,6 @@ GNEWireFrame::show() {
     if (!myWarnedExperimental) {
         // show warning dialogbox about experimental state (only once)
         GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                              myViewNet->getViewParent()->getGNEAppWindows(),
                               TL("Experimental Part"),
                               TL("Warning: The netedit overhead editor is still in experimental state."));
         myWarnedExperimental = true;

@@ -179,7 +179,7 @@ void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     auto GNEApp = myViewNet->getViewParent()->getGNEAppWindows();
     // open help dialog with attributes of the given attribute carrier
-    GNEHelpAttributesDialog(GNEApp, GNEApp, AC);
+    GNEHelpAttributesDialog(GNEApp, AC);
 }
 
 

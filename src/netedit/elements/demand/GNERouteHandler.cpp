@@ -1695,7 +1695,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1785,7 +1785,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
@@ -1882,7 +1882,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_TRIP));
@@ -1944,7 +1944,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of edges";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // begin undo-redo operation
         net->getViewNet()->getUndoList()->begin(originalVehicle, "transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
@@ -1993,7 +1993,7 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2037,7 +2037,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of junctions";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2090,7 +2090,7 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2134,7 +2134,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         // declare message
         const std::string message = "Vehicle cannot be transformed. Invalid number of TAZs";
         // open message box
-        GNEWarningBasicDialog(GNEApp, GNEApp, header, message);
+        GNEWarningBasicDialog(GNEApp, header, message);
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
@@ -2726,7 +2726,7 @@ GNERouteHandler::checkElement(const SumoXMLTag tag, GNEDemandElement* demandElem
             return writeWarningDuplicated(tag, demandElement->getID(), demandElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement overwriteElementDialog(this, demandElement, myNet->getGNEApplicationWindow());
+            GNEOverwriteElement overwriteElementDialog(this, demandElement);
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element

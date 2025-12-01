@@ -231,7 +231,10 @@ public:
     };
 
     /// @brief constructor
-    GNEParametersDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEParametersDialog(GNEApplicationWindow* applicationWindow, const Parameterised::Map& parameters);
+
+    /// @brief constructor with parent dialog
+    GNEParametersDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                         const Parameterised::Map& parameters);
 
     /// @brief destructor
@@ -268,6 +271,9 @@ protected:
     ParametersOperations* myParametersOperations = nullptr;
 
 private:
+    /// @brief builder
+    void builder(const Parameterised::Map& parameters);
+
     /// @brief Invalidated copy constructor.
     GNEParametersDialog(const GNEParametersDialog&) = delete;
 

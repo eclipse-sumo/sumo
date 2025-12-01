@@ -25,15 +25,29 @@
 // method definitions
 // ===========================================================================
 
-GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-        GNEDialog::Buttons buttons, const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, info, GUIIcon::QUESTION_SMALL,
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog::Buttons buttons,
+        const std::string& name, const std::string& info) :
+    GNEBasicDialog(applicationWindow, name, info, GUIIcon::QUESTION_SMALL,
                    DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }
 
 
-GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+        GNEDialog::Buttons buttons, const std::string& name, const std::string& info) :
+    GNEBasicDialog(applicationWindow, parentDialog, name, info, GUIIcon::QUESTION_SMALL,
+                   DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
+}
+
+
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog::Buttons buttons,
+        const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
+                   DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
+}
+
+
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
         GNEDialog::Buttons buttons, const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
-    GNEBasicDialog(applicationWindow, restoringFocusWindow, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
+    GNEBasicDialog(applicationWindow, parentDialog, name, infoLineA + "\n" + infoLineB, GUIIcon::QUESTION_SMALL,
                    DialogType::QUESTION, buttons, GUIIcon::QUESTION_LARGE) {
 }

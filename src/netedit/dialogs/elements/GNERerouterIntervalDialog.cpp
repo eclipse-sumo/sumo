@@ -30,14 +30,15 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAttributeCarrierDialog.h"
+#include "GNERerouterDialog.h"
 #include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEAdditional>(rerouterInterval, restoringFocusWindow, DialogType::REROUTERINTERVAL) {
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, GNEDialog* rerouterDialogParent) :
+    GNETemplateElementDialog<GNEAdditional>(rerouterInterval, rerouterDialogParent, DialogType::REROUTERINTERVAL) {
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarVerticalFrame);
@@ -95,7 +96,6 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (infoB.size() > 0) {
         // open question dialog box with two lines
         GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(),
-                              myElement->getNet()->getGNEApplicationWindow(),
                               warningTitle, infoA, infoB);
         return 1;
     } else {

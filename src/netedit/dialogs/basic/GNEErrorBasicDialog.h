@@ -30,11 +30,20 @@ class GNEErrorBasicDialog : public GNEBasicDialog {
 
 public:
     /// @brief constructor
-    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
+                        const std::string& name, const std::string& info);
+
+    /// @brief constructor with parent dialog
+    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                         const std::string& name, const std::string& info);
 
     /// @brief constructor for multiple lines
-    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
+                        const std::string& name, const std::string& infoLineA,
+                        const std::string& infoLineB);
+
+    /// @brief constructor for multiple lines and parent dialog
+    GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                         const std::string& name, const std::string& infoLineA,
                         const std::string& infoLineB);
 

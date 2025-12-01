@@ -226,7 +226,7 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     }
     // open message box only if we're not running internal tests
     if (!runningInternalTests) {
-        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), myViewNet->getViewParent()->getGNEAppWindows(), header, msg);
+        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), header, msg);
     }
 }
 

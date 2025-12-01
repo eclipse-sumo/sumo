@@ -22,7 +22,6 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/dialogs/basic/GNEOverwriteElement.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -2064,7 +2063,7 @@ GNEAdditionalHandler::checkElement(const SumoXMLTag tag, GNEAdditional* addition
             return writeWarningDuplicated(tag, additionalElement->getID(), additionalElement->getTagProperty()->getTag());
         } else {
             // open overwrite dialog
-            GNEOverwriteElement overwriteElementDialog(this, additionalElement, myNet->getGNEApplicationWindow());
+            GNEOverwriteElement overwriteElementDialog(this, additionalElement);
             // continue depending of result
             if (overwriteElementDialog.getResult() == GNEOverwriteElement::Result::ACCEPT) {
                 // delete element

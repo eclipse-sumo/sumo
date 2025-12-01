@@ -34,7 +34,7 @@ class GNERerouterIntervalDialog : public GNETemplateElementDialog<GNEAdditional>
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, FXWindow* restoringFocusWindow);
+    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, GNEDialog* rerouterDialogParent);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();

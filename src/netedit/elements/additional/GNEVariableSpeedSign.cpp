@@ -161,7 +161,7 @@ GNEVariableSpeedSign::checkDrawMoveContour() const {
 void
 GNEVariableSpeedSign::openAdditionalDialog(FXWindow* restoringFocusWindow) {
     // Open VSS dialog
-    GNEVariableSpeedSignDialog(this, restoringFocusWindow);
+    GNEVariableSpeedSignDialog(this);
 }
 
 

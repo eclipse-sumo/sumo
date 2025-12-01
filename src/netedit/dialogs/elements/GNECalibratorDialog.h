@@ -36,7 +36,7 @@ class GNECalibratorDialog : public GNETemplateElementDialog<GNEAdditional> {
 
 public:
     /// @brief Constructor
-    GNECalibratorDialog(GNEAdditional* calibrator, FXWindow* restoringFocusWindow);
+    GNECalibratorDialog(GNEAdditional* calibrator);
 
     /// @brief destructor
     ~GNECalibratorDialog();

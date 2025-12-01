@@ -88,7 +88,11 @@ public:
     };
 
     /// @brief Constructor
-    GNEVClassesDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    GNEVClassesDialog(GNEApplicationWindow* applicationWindow, SumoXMLAttr attr,
+                      const std::string originalVClasses);
+
+    /// @brief Constructor with parent dialog
+    GNEVClassesDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                       SumoXMLAttr attr, const std::string originalVClasses);
 
     /// @brief destructor
@@ -140,6 +144,9 @@ protected:
     std::map<SUMOVehicleClass, VClassRow* > myVClassMap;
 
 private:
+    /// @brief builder
+    void builder();
+
     /// @brief Invalidated copy constructor.
     GNEVClassesDialog(const GNEVClassesDialog&) = delete;
 

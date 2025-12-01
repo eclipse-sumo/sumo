@@ -41,7 +41,7 @@ FXIMPLEMENT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialog
 // ===========================================================================
 
 GNEGeometryPointDialog::GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position& pos) :
-    GNEDialog(applicationWindow, applicationWindow, TL("Custom Geometry Point"), GUIIcon::MODEMOVE, DialogType::GEOMETRYPOINT,
+    GNEDialog(applicationWindow, TL("Custom Geometry Point"), GUIIcon::MODEMOVE, DialogType::GEOMETRYPOINT,
               Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, 320, 80),
     myEditedPosition(pos),
     myOriginalPos(pos),

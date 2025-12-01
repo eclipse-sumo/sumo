@@ -32,8 +32,11 @@ class GNEColorDialog : public GNEDialog {
     FXDECLARE(GNEColorDialog)
 
 public:
-    /// @brief Construct color dialog
-    GNEColorDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+    /// @brief Constructor
+    GNEColorDialog(GNEApplicationWindow* applicationWindow, const RGBColor color);
+
+    /// @brief Constructor with parent dialog
+    GNEColorDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                    const RGBColor color);
 
     /// @brief Destructor
@@ -70,6 +73,9 @@ protected:
     const RGBColor myOriginalColor = RGBColor::BLACK;
 
 private:
+    /// @brief builder
+    void builder(const RGBColor color);
+
     /// @brief Invalidated copy constructor.
     GNEColorDialog(const GNEColorDialog&) = delete;
 

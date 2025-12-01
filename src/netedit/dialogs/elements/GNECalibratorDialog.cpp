@@ -35,8 +35,8 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator, FXWindow* restoringFocusWindow) :
-    GNETemplateElementDialog<GNEAdditional>(calibrator, restoringFocusWindow, DialogType::CALIBRATOR) {
+GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
+    GNETemplateElementDialog<GNEAdditional>(calibrator, DialogType::CALIBRATOR) {
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -150,7 +150,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
     // insert vType
     insertElement(vType);
     // open route dialog
-    const GNEVehicleTypeDialog vTypeDialog(vType, myElementDialogParent);
+    const GNEVehicleTypeDialog vTypeDialog(vType);
     // continue depending of result of routeDialog
     if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // remove vType
@@ -164,7 +164,7 @@ GNECalibratorDialog::VTypesList::addNewElement() {
 long
 GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
     // open vType dialog
-    GNEVehicleTypeDialog(myEditedElements.at(rowIndex), myElementDialogParent);
+    GNEVehicleTypeDialog(myEditedElements.at(rowIndex));
     return 1;
 }
 

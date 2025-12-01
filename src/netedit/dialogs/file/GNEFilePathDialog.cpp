@@ -28,9 +28,9 @@
 // method definitions
 // ===========================================================================
 
-GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
+GNEFilePathDialog::GNEFilePathDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                                      const std::string& title, const std::string& info, const std::string& originalFilePath) :
-    GNEDialog(applicationWindow, restoringFocusWindow, title.c_str(), GUIIcon::OPEN, DialogType::FILEPATH,
+    GNEDialog(applicationWindow, parentDialog, title.c_str(), GUIIcon::OPEN, DialogType::FILEPATH,
               GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC),
     myOriginalFilePath(originalFilePath) {
     // create dialog layout (obtained from FXMessageBox)

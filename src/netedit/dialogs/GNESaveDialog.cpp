@@ -1,3 +1,5 @@
+#include "GNESaveDialog.h"
+#include "GNESaveDialog.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -29,20 +31,18 @@
 // method definitions
 // ===========================================================================
 
-GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, FXWindow* restoringFocusWindow,
-                             const std::string& elementTypes) :
-    GNEDialog(applicationWindow, restoringFocusWindow, TLF("Save %", elementTypes), GUIIcon::SAVE, DialogType::SAVE,
+GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, const std::string& elementTypes) :
+    GNEDialog(applicationWindow, TLF("Save %", elementTypes), GUIIcon::SAVE, DialogType::SAVE,
               GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, OpenType::MODAL, ResizeMode::STATIC) {
-    // create dialog layout (obtained from FXMessageBox)
-    auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
-    // add information label
-    const std::string info = TLF("You have unsaved %.", elementTypes) + std::string("\n") +
-                             TL("Do you wish to close and discard all changes?");
-    new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    // create applyToAll button
-    myApplyToAllButton = new FXCheckButton(infoFrame, TL("Apply to all unsaved elements"), nullptr, 0, GUIDesignCheckButton);
-    // open modal dialog
-    openDialog();
+    builder(elementTypes);
+}
+
+
+GNESaveDialog::GNESaveDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
+                             const std::string& elementTypes) :
+    GNEDialog(applicationWindow, parentDialog, TLF("Save %", elementTypes), GUIIcon::SAVE, DialogType::SAVE,
+              GNEDialog::Buttons::SAVE_DONTSAVE_CANCEL, OpenType::MODAL, ResizeMode::STATIC) {
+    builder(elementTypes);
 }
 
 
@@ -77,6 +77,21 @@ GNESaveDialog::onCmdCancel(FXObject*, FXSelector, void*) {
         myResult = Result::CANCEL_ALL;
     }
     return 0;
+}
+
+
+void
+GNESaveDialog::builder(const std::string& elementTypes) {
+    // create dialog layout (obtained from FXMessageBox)
+    auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    // add information label
+    const std::string info = TLF("You have unsaved %.", elementTypes) + std::string("\n") +
+                             TL("Do you wish to close and discard all changes?");
+    new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // create applyToAll button
+    myApplyToAllButton = new FXCheckButton(infoFrame, TL("Apply to all unsaved elements"), nullptr, 0, GUIDesignCheckButton);
+    // open modal dialog
+    openDialog();
 }
 
 /****************************************************************************/
