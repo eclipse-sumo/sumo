@@ -2235,8 +2235,8 @@ GNENet::saveAdditionals() {
     // if there are invalid additionls, open GNEFixAdditionalElementsDialog
     if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
-        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                           invalidAdditionals);
+        const GNEFixAdditionalElementsDialog fixAdditionalElements(myViewNet->getViewParent()->getGNEAppWindows(),
+                invalidAdditionals);
         if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2283,8 +2283,8 @@ GNENet::saveDemandElements() {
     // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
         // open fix demand elements dialog
-        const auto fixDemandElement = GNEFixDemandElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                      invalidSingleLaneDemandElements);
+        const GNEFixDemandElementsDialog fixDemandElement(myViewNet->getViewParent()->getGNEAppWindows(),
+                invalidSingleLaneDemandElements);
         if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
