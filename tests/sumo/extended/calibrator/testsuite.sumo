@@ -74,4 +74,7 @@ departLane_given
 
 # see #16626
 2day_sim
+
+# see #17371, #6589
+high_period_short_edge
 errors
