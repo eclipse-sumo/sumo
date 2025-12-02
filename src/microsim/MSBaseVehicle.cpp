@@ -1404,7 +1404,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     MSStop stop(stopPar);
     if (stopPar.lane == "") {
         MSEdge* e = MSEdge::dictionary(stopPar.edge);
-        stop.lane = e->getFirstAllowed(getVClass());
+        stop.lane = e->getFirstAllowed(getVClass(), getRoutingMode());
         if (stop.lane == nullptr) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on any lane of edge '" + stopPar.edge + "'.";
             return false;
@@ -1417,7 +1417,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             stop.lane = interpretOppositeStop(tmp);
             assert(stop.lane != nullptr);
         }
-        if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
+        if (!stop.lane->allowsVehicleClass(myType->getVehicleClass(), getRoutingMode())) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
             return false;
         }

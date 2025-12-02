@@ -732,9 +732,9 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 
 
 MSLane*
-MSEdge::getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst) const {
+MSEdge::getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst, int routingMode) const {
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        if ((*i)->allowsVehicleClass(vClass)) {
+        if ((*i)->allowsVehicleClass(vClass, routingMode)) {
             return *i;
         }
     }
