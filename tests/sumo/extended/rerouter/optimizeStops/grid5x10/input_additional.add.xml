@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-02 08:39:49.523756 by Eclipse SUMO generatebusStops.py v1_25_0+0186-18b5f2ee9b5
+<configuration>
+    <net-file value="straight.net.xml"/>
+    <output-file value="stops.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="paA0B0" name="paA" lane="A0B0_0" startPos="30" endPos="-30"/>
+    <busStop id="paA1B1" name="paA" lane="A1B1_0" startPos="30" endPos="-30"/>
+    <busStop id="paA2B2" name="paA" lane="A2B2_0" startPos="30" endPos="-30"/>
+    <busStop id="paA3B3" name="paA" lane="A3B3_0" startPos="30" endPos="-30"/>
+    <busStop id="paA4B4" name="paA" lane="A4B4_0" startPos="30" endPos="-30"/>
+    <busStop id="paB0C0" name="paB" lane="B0C0_0" startPos="30" endPos="-30"/>
+    <busStop id="paB1C1" name="paB" lane="B1C1_0" startPos="30" endPos="-30"/>
+    <busStop id="paB2C2" name="paB" lane="B2C2_0" startPos="30" endPos="-30"/>
+    <busStop id="paB3C3" name="paB" lane="B3C3_0" startPos="30" endPos="-30"/>
+    <busStop id="paB4C4" name="paB" lane="B4C4_0" startPos="30" endPos="-30"/>
+    <busStop id="paC0D0" name="paC" lane="C0D0_0" startPos="30" endPos="-30"/>
+    <busStop id="paC1D1" name="paC" lane="C1D1_0" startPos="30" endPos="-30"/>
+    <busStop id="paC2D2" name="paC" lane="C2D2_0" startPos="30" endPos="-30"/>
+    <busStop id="paC3D3" name="paC" lane="C3D3_0" startPos="30" endPos="-30"/>
+    <busStop id="paC4D4" name="paC" lane="C4D4_0" startPos="30" endPos="-30"/>
+    <busStop id="paD0E0" name="paD" lane="D0E0_0" startPos="30" endPos="-30"/>
+    <busStop id="paD1E1" name="paD" lane="D1E1_0" startPos="30" endPos="-30"/>
+    <busStop id="paD2E2" name="paD" lane="D2E2_0" startPos="30" endPos="-30"/>
+    <busStop id="paD3E3" name="paD" lane="D3E3_0" startPos="30" endPos="-30"/>
+    <busStop id="paD4E4" name="paD" lane="D4E4_0" startPos="30" endPos="-30"/>
+    <busStop id="paE0F0" name="paE" lane="E0F0_0" startPos="30" endPos="-30"/>
+    <busStop id="paE1F1" name="paE" lane="E1F1_0" startPos="30" endPos="-30"/>
+    <busStop id="paE2F2" name="paE" lane="E2F2_0" startPos="30" endPos="-30"/>
+    <busStop id="paE3F3" name="paE" lane="E3F3_0" startPos="30" endPos="-30"/>
+    <busStop id="paE4F4" name="paE" lane="E4F4_0" startPos="30" endPos="-30"/>
+    <busStop id="paF0G0" name="paF" lane="F0G0_0" startPos="30" endPos="-30"/>
+    <busStop id="paF1G1" name="paF" lane="F1G1_0" startPos="30" endPos="-30"/>
+    <busStop id="paF2G2" name="paF" lane="F2G2_0" startPos="30" endPos="-30"/>
+    <busStop id="paF3G3" name="paF" lane="F3G3_0" startPos="30" endPos="-30"/>
+    <busStop id="paF4G4" name="paF" lane="F4G4_0" startPos="30" endPos="-30"/>
+    <busStop id="paG0H0" name="paG" lane="G0H0_0" startPos="30" endPos="-30"/>
+    <busStop id="paG1H1" name="paG" lane="G1H1_0" startPos="30" endPos="-30"/>
+    <busStop id="paG2H2" name="paG" lane="G2H2_0" startPos="30" endPos="-30"/>
+    <busStop id="paG3H3" name="paG" lane="G3H3_0" startPos="30" endPos="-30"/>
+    <busStop id="paG4H4" name="paG" lane="G4H4_0" startPos="30" endPos="-30"/>
+    <busStop id="paH0I0" name="paH" lane="H0I0_0" startPos="30" endPos="-30"/>
+    <busStop id="paH1I1" name="paH" lane="H1I1_0" startPos="30" endPos="-30"/>
+    <busStop id="paH2I2" name="paH" lane="H2I2_0" startPos="30" endPos="-30"/>
+    <busStop id="paH3I3" name="paH" lane="H3I3_0" startPos="30" endPos="-30"/>
+    <busStop id="paH4I4" name="paH" lane="H4I4_0" startPos="30" endPos="-30"/>
+    <busStop id="paI0J0" name="paI" lane="I0J0_0" startPos="30" endPos="-30"/>
+    <busStop id="paI1J1" name="paI" lane="I1J1_0" startPos="30" endPos="-30"/>
+    <busStop id="paI2J2" name="paI" lane="I2J2_0" startPos="30" endPos="-30"/>
+    <busStop id="paI3J3" name="paI" lane="I3J3_0" startPos="30" endPos="-30"/>
+    <busStop id="paI4J4" name="paI" lane="I4J4_0" startPos="30" endPos="-30"/>
+</additional>

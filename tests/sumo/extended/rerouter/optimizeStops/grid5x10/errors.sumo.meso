@@ -1,0 +1,16 @@
+Warning: Vehicle 't_0' skips unreachable stop on edge 'B0C0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'C0D0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'D0E0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'E0F0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'F0G0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'G0H0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips unreachable stop on edge 'H0I0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips stop on edge 'I0J0' with priority 1.00 at time 8.00.
+Warning: Vehicle 't_0' skips stop on edge 'J0right0' with priority -1.00 at time 8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'B0C0' (named 'paB') and now stops at 'paB3C3' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'C0D0' (named 'paC') and now stops at 'paC3D3' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'D0E0' (named 'paD') and now stops at 'paD2E2' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'E0F0' (named 'paE') and now stops at 'paE2F2' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'F0G0' (named 'paF') and now stops at 'paF4G4' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'G0H0' (named 'paG') and now stops at 'paG2H2' instead; after rerouting (rr_0) at time=8.00.
+Warning: Vehicle 't_0' replaced stop on edge 'H0I0' (named 'paH') and now stops at 'paH2I2' instead; after rerouting (rr_0) at time=8.00.
