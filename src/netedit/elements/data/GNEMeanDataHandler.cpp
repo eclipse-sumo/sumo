@@ -21,6 +21,7 @@
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/dialogs/basic/GNEOverwriteElement.h>
 #include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -40,13 +41,9 @@ GNEMeanDataHandler::GNEMeanDataHandler(GNENet* net, FileBucket* fileBucket, cons
 }
 
 
-GNEMeanDataHandler::~GNEMeanDataHandler() {}
-
-
-bool
-GNEMeanDataHandler::postParserTasks() {
-    // nothing to do
-    return true;
+GNEMeanDataHandler::~GNEMeanDataHandler() {
+    // update options based in current buckets
+    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
 }
 
 

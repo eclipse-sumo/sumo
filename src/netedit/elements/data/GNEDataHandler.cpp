@@ -26,6 +26,7 @@
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -45,13 +46,9 @@ GNEDataHandler::GNEDataHandler(GNENet* net, FileBucket* fileBucket, const bool a
 }
 
 
-GNEDataHandler::~GNEDataHandler() {}
-
-
-bool
-GNEDataHandler::postParserTasks() {
-    // nothing to do
-    return true;
+GNEDataHandler::~GNEDataHandler() {
+    // update options based in current buckets
+    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
 }
 
 

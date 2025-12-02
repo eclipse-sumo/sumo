@@ -61,12 +61,6 @@ GNERouteHandler::GNERouteHandler(GNENet* net, FileBucket* bucket, const bool all
 
 
 GNERouteHandler::~GNERouteHandler() {
-    delete myPlanObject;
-}
-
-
-bool
-GNERouteHandler::postParserTasks() {
     // clear all parent plan elements without children
     for (const auto& parentPlanElement : myParentPlanElements) {
         if (parentPlanElement->getChildDemandElements().empty()) {
@@ -80,9 +74,11 @@ GNERouteHandler::postParserTasks() {
             }
         }
     }
-    return true;
+    // update options based in current buckets
+    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
+    // delete plan object
+    delete myPlanObject;
 }
-
 
 bool
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {

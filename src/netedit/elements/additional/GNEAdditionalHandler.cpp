@@ -22,6 +22,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/dialogs/basic/GNEOverwriteElement.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
@@ -73,13 +74,8 @@ GNEAdditionalHandler::GNEAdditionalHandler(GNENet* net, FileBucket* fileBucket, 
 
 
 GNEAdditionalHandler::~GNEAdditionalHandler() {
-}
-
-
-bool
-GNEAdditionalHandler::postParserTasks() {
-    // nothing to do
-    return true;
+    // update options based in current buckets
+    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
 }
 
 
