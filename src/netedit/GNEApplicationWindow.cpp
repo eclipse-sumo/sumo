@@ -2644,6 +2644,8 @@ GNEApplicationWindow::onCmdUndo(FXObject* sender, FXSelector, void*) {
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
             myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
         }
+        // update file bucket options (needed to maintain integrity)
+        myFileBucketHandler->updateOptions();
         // update manually undo/redo menu commands (see #6005)
         onUpdUndo(myEditMenuCommands.undoLastChange, 0, 0);
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
@@ -2675,6 +2677,8 @@ GNEApplicationWindow::onCmdRedo(FXObject* sender, FXSelector, void*) {
         if (myViewNet->getViewParent()->getCurrentShownFrame()) {
             myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
         }
+        // update file bucket options (needed to maintain integrity)
+        myFileBucketHandler->updateOptions();
         // update manually undo/redo menu commands (see #6005)
         onUpdUndo(myEditMenuCommands.undoLastChange, 0, 0);
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
@@ -3935,15 +3939,18 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     myNet->clearAdditionalElements(myUndoList);
     // iterate over all additional files
     for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
-        // Create general handler
-        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-        // force overwritte elements
-        generalHandler.forceOverwriteElements();
-        // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TLF("Reloading of additional file '%' failed.", bucket->getFilename()));
-        } else {
-            WRITE_MESSAGE(TLF("Reloading of additional file '%' successfully.", bucket->getFilename()));
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // Create general handler
+            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+            // force overwritte elements
+            generalHandler.forceOverwriteElements();
+            // Run parser
+            if (!generalHandler.parse()) {
+                WRITE_ERROR(TLF("Reloading of additional file '%' failed.", bucket->getFilename()));
+            } else {
+                WRITE_MESSAGE(TLF("Reloading of additional file '%' successfully.", bucket->getFilename()));
+            }
         }
     }
     // end undoList operation
@@ -4151,15 +4158,18 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     myNet->clearDemandElements(myUndoList);
     // iterate over all demand elements
     for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::DEMAND)) {
-        // Create handler
-        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-        // force overwritte elements
-        generalHandler.forceOverwriteElements();
-        // Run parser for additionals
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TLF("Reloading of route file '%' failed.", bucket->getFilename()));
-        } else {
-            WRITE_MESSAGE(TLF("Reloading of route file '%' successfully.", bucket->getFilename()));
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // Create handler
+            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+            // force overwritte elements
+            generalHandler.forceOverwriteElements();
+            // Run parser for additionals
+            if (!generalHandler.parse()) {
+                WRITE_ERROR(TLF("Reloading of route file '%' failed.", bucket->getFilename()));
+            } else {
+                WRITE_MESSAGE(TLF("Reloading of route file '%' successfully.", bucket->getFilename()));
+            }
         }
     }
     // end undoList operation and update view
@@ -4340,15 +4350,18 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     myNet->clearDataElements(myUndoList);
     // iterate over all data elements
     for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::DATA)) {
-        // Create additional handler
-        GNEDataHandler dataHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-        // force overwritte elements
-        dataHandler.forceOverwriteElements();
-        // Run data parser
-        if (!dataHandler.parse()) {
-            WRITE_ERROR(TLF("Reloading of data file '%' failed.", bucket->getFilename()));
-        } else {
-            WRITE_MESSAGE(TLF("Reloading of data file '%' successfully.", bucket->getFilename()));
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // Create additional handler
+            GNEDataHandler dataHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+            // force overwritte elements
+            dataHandler.forceOverwriteElements();
+            // Run data parser
+            if (!dataHandler.parse()) {
+                WRITE_ERROR(TLF("Reloading of data file '%' failed.", bucket->getFilename()));
+            } else {
+                WRITE_MESSAGE(TLF("Reloading of data file '%' successfully.", bucket->getFilename()));
+            }
         }
     }
     // restore validation for data
@@ -4520,15 +4533,18 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     myNet->clearMeanDataElements(myUndoList);
     // iterate over all data elements
     for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::MEANDATA)) {
-        // Create general handler
-        GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-        // force overwritte elements
-        generalHandler.forceOverwriteElements();
-        // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_ERROR(TLF("Reloading of meanData file '%' failed.", bucket->getFilename()));
-        } else {
-            WRITE_MESSAGE(TLF("Reloading of meanData file '%' successfully.", bucket->getFilename()));
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // Create general handler
+            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+            // force overwritte elements
+            generalHandler.forceOverwriteElements();
+            // Run parser
+            if (!generalHandler.parse()) {
+                WRITE_ERROR(TLF("Reloading of meanData file '%' failed.", bucket->getFilename()));
+            } else {
+                WRITE_MESSAGE(TLF("Reloading of meanData file '%' successfully.", bucket->getFilename()));
+            }
         }
     }
     // end undoList operation and update view
