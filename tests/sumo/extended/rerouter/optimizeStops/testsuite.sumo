@@ -1,1 +1,5 @@
+# use 9 stops
 grid5x10
+
+# only use stops 1,2,9
+grid5x10_129
