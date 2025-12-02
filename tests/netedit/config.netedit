@@ -36,56 +36,56 @@ copy_test_path:input_net_A.xml.gz
 copy_test_path:input_net_A.txt
 
 # ADDITIONALS
-copy_test_path:input_additionalsA.add.xml
-copy_test_path:input_additionalsA.add.xml.gz
-copy_test_path:input_additionalsA.xml
-copy_test_path:input_additionalsA.xml.gz
-copy_test_path:input_additionalsA.txt
+copy_test_path:input_additionals_A.add.xml
+copy_test_path:input_additionals_A.add.xml.gz
+copy_test_path:input_additionals_A.xml
+copy_test_path:input_additionals_A.xml.gz
+copy_test_path:input_additionals_A.txt
 
-copy_test_path:input_additionalsB.add.xml
-copy_test_path:input_additionalsB.add.xml.gz
-copy_test_path:input_additionalsB.xml
-copy_test_path:input_additionalsB.xml.gz
-copy_test_path:input_additionalsB.txt
+copy_test_path:input_additionals_B.add.xml
+copy_test_path:input_additionals_B.add.xml.gz
+copy_test_path:input_additionals_B.xml
+copy_test_path:input_additionals_B.xml.gz
+copy_test_path:input_additionals_B.txt
 
 # ROUTES
-copy_test_path:input_routesA.rou.xml
-copy_test_path:input_routesA.rou.xml.gz
-copy_test_path:input_routesA.xml
-copy_test_path:input_routesA.xml.gz
-copy_test_path:input_routesA.txt
+copy_test_path:input_routes_A.rou.xml
+copy_test_path:input_routes_A.rou.xml.gz
+copy_test_path:input_routes_A.xml
+copy_test_path:input_routes_A.xml.gz
+copy_test_path:input_routes_A.txt
 
-copy_test_path:input_routesB.rou.xml
-copy_test_path:input_routesB.rou.xml.gz
-copy_test_path:input_routesB.xml
-copy_test_path:input_routesB.xml.gz
-copy_test_path:input_routesB.txt
+copy_test_path:input_routes_B.rou.xml
+copy_test_path:input_routes_B.rou.xml.gz
+copy_test_path:input_routes_B.xml
+copy_test_path:input_routes_B.xml.gz
+copy_test_path:input_routes_B.txt
 
 # DATAS
-copy_test_path:input_datasA.dat.xml
-copy_test_path:input_datasA.dat.xml.gz
-copy_test_path:input_datasA.xml
-copy_test_path:input_datasA.xml.gz
-copy_test_path:input_datasA.txt
+copy_test_path:input_datas_A.dat.xml
+copy_test_path:input_datas_A.dat.xml.gz
+copy_test_path:input_datas_A.xml
+copy_test_path:input_datas_A.xml.gz
+copy_test_path:input_datas_A.txt
 
-copy_test_path:input_datasB.dat.xml
-copy_test_path:input_datasB.dat.xml.gz
-copy_test_path:input_datasB.xml
-copy_test_path:input_datasB.xml.gz
-copy_test_path:input_datasB.txt
+copy_test_path:input_datas_B.dat.xml
+copy_test_path:input_datas_B.dat.xml.gz
+copy_test_path:input_datas_B.xml
+copy_test_path:input_datas_B.xml.gz
+copy_test_path:input_datas_B.txt
 
 # MEANDATAS
-copy_test_path:input_meandatasA.add.xml
-copy_test_path:input_meandatasA.add.xml.gz
-copy_test_path:input_meandatasA.xml
-copy_test_path:input_meandatasA.xml.gz
-copy_test_path:input_meandatasA.txt
+copy_test_path:input_meandatas_A.add.xml
+copy_test_path:input_meandatas_A.add.xml.gz
+copy_test_path:input_meandatas_A.xml
+copy_test_path:input_meandatas_A.xml.gz
+copy_test_path:input_meandatas_A.txt
 
-copy_test_path:input_meandatasB.add.xml
-copy_test_path:input_meandatasB.add.xml.gz
-copy_test_path:input_meandatasB.xml
-copy_test_path:input_meandatasB.xml.gz
-copy_test_path:input_meandatasB.txt
+copy_test_path:input_meandatas_B.add.xml
+copy_test_path:input_meandatas_B.add.xml.gz
+copy_test_path:input_meandatas_B.xml
+copy_test_path:input_meandatas_B.xml.gz
+copy_test_path:input_meandatas_B.txt
 
 
 copy_test_path:trafficlights.tll.xml
@@ -233,122 +233,29 @@ viewport:viewport.xml
 
 [run_dependent_text]
 
-net:<!--{[->]}-->
-net:\\{REPLACE /}
+# ADDITIONALS
+input_additionals_A_add_xml:<!-- generated{[->]}-->
+input_additionals_A_add_xml:\\{REPLACE /}
+input_additionals_A_add_xml_gz:<!-- generated{[->]}-->
+input_additionals_A_add_xml_gz:\\{REPLACE /}
+input_additionals_A_xml:<!-- generated{[->]}-->
+input_additionals_A_xml:\\{REPLACE /}
+input_additionals_A_xml_gz:<!-- generated{[->]}-->
+input_additionals_A_xml_gz:\\{REPLACE /}
+input_additionals_A_txt:<!-- generated{[->]}-->
+input_additionals_A_txt:\\{REPLACE /}
 
-net_net_xml:<!--{[->]}-->
-net_net_xml:\\{REPLACE /}
-net_net_xml_gz:
-net_xml:<!--{[->]}-->
-net_xml:\\{REPLACE /}
-net_xml_gz:
-net_txt:<!--{[->]}-->
-net_txt:\\{REPLACE /}
+input_additionals_B_add_xml:<!-- generated{[->]}-->
+input_additionals_B_add_xml:\\{REPLACE /}
+input_additionals_B_add_xml_gz:<!-- generated{[->]}-->
+input_additionals_B_add_xml_gz:\\{REPLACE /}
+input_additionals_B_xml:<!-- generated{[->]}-->
+input_additionals_B_xml:\\{REPLACE /}
+input_additionals_B_xml_gz:<!-- generated{[->]}-->
+input_additionals_B_xml_gz:\\{REPLACE /}
+input_additionals_B_txt:<!-- generated{[->]}-->
+input_additionals_B_txt:\\{REPLACE /}
 
-net3:<!--{[->]}-->
-net3:\\{REPLACE /}
-
-trafficlights_ttl_xml:<!--{[->]}-->
-trafficlights_ttl_xml:\\{REPLACE /}
-trafficlights_ttl_xml_gz:
-trafficlights_xml:<!--{[->]}-->
-trafficlights_xml:\\{REPLACE /}
-trafficlights_xml_gz:
-trafficlights_txt:<!--{[->]}-->
-trafficlights_txt:\\{REPLACE /}
-
-edgetypes_typ_xml:<!--{[->]}-->
-edgetypes_typ_xml:\\{REPLACE /}
-edgetypes_typ_xml_gz:
-edgetypes_xml:<!--{[->]}-->
-edgetypes_xml:\\{REPLACE /}
-edgetypes_xml_gz:
-edgetypes_txt:<!--{[->]}-->
-edgetypes_txt:\\{REPLACE /}
-
-additionals:<!-- generated{[->]}-->
-additionals:\\{REPLACE /}
-
-additionals_add_xml:<!-- generated{[->]}-->
-additionals_add_xml:\\{REPLACE /}
-additionals_add_xml_gz:
-additionals_xml:<!-- generated{[->]}-->
-additionals_xml:\\{REPLACE /}
-additionals_xml_gz:
-additionals_txt:<!-- generated{[->]}-->
-additionals_txt:\\{REPLACE /}
-
-additionals3:<!-- generated{[->]}-->
-additionals3:\\{REPLACE /}
-
-additionalsconfig2:<!-- generated{[->]}-->
-additionalsconfig2:\\{REPLACE /}
-
-additionalsconfig3:<!-- generated{[->]}-->
-additionalsconfig3:\\{REPLACE /}
-
-routes:<!-- generated{[->]}-->
-routes:\\{REPLACE /}
-
-routes_rou_xml:<!-- generated{[->]}-->
-routes_rou_xml:\\{REPLACE /}
-routes_rou_xml_gz:
-routes_xml:<!-- generated{[->]}-->
-routes_xml:\\{REPLACE /}
-routes_xml_gz:
-routes_txt:<!-- generated{[->]}-->
-routes_txt:\\{REPLACE /}
-
-routes3:<!-- generated{[->]}-->
-routes3:\\{REPLACE /}
-
-routesconfig2:<!-- generated{[->]}-->
-routesconfig2:\\{REPLACE /}
-
-routesconfig3:<!-- generated{[->]}-->
-routesconfig3:\\{REPLACE /}
-
-datas:<!-- generated{[->]}-->
-datas:\\{REPLACE /}
-
-datas_dat_xml:<!-- generated{[->]}-->
-datas_dat_xml:\\{REPLACE /}
-datas_dat_xml_gz:
-datas_xml:<!-- generated{[->]}-->
-datas_xml:\\{REPLACE /}
-datas_xml_gz:
-datas_txt:<!-- generated{[->]}-->
-datas_txt:\\{REPLACE /}
-
-datas3:<!-- generated{[->]}-->
-datas3:\\{REPLACE /}
-
-datasconfig2:<!-- generated{[->]}-->
-datasconfig2:\\{REPLACE /}
-
-datasconfig3:<!-- generated{[->]}-->
-datasconfig3:\\{REPLACE /}
-
-meandatas:<!-- generated{[->]}-->
-meandatas:\\{REPLACE /}
-
-meandatas_add_xml:<!-- generated{[->]}-->
-meandatas_add_xml:\\{REPLACE /}
-meandatas_add_xml_gz:
-meandatas_xml:<!-- generated{[->]}-->
-meandatas_xml:\\{REPLACE /}
-meandatas_xml_gz:
-meandatas_txt:<!-- generated{[->]}-->
-meandatas_txt:\\{REPLACE /}
-
-meandatas3:<!-- generated{[->]}-->
-meandatas3:\\{REPLACE /}
-
-meandatasconfig2:<!-- generated{[->]}-->
-meandatasconfig2:\\{REPLACE /}
-
-meandatasconfig3:<!-- generated{[->]}-->
-meandatasconfig3:\\{REPLACE /}
 
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
@@ -374,6 +281,25 @@ sumo3:<!--{[->]}-->
 
 config2:<!--{[->]}-->
 config3:<!--{[->]}-->
+
+
+trafficlights_ttl_xml:<!--{[->]}-->
+trafficlights_ttl_xml:\\{REPLACE /}
+trafficlights_ttl_xml_gz:
+trafficlights_xml:<!--{[->]}-->
+trafficlights_xml:\\{REPLACE /}
+trafficlights_xml_gz:
+trafficlights_txt:<!--{[->]}-->
+trafficlights_txt:\\{REPLACE /}
+
+edgetypes_typ_xml:<!--{[->]}-->
+edgetypes_typ_xml:\\{REPLACE /}
+edgetypes_typ_xml_gz:
+edgetypes_xml:<!--{[->]}-->
+edgetypes_xml:\\{REPLACE /}
+edgetypes_xml_gz:
+edgetypes_txt:<!--{[->]}-->
+edgetypes_txt:\\{REPLACE /}
 
 joinedjunctions_nod_xml:<!--{[->]}-->
 joinedjunctions_nod_xml_gz:
