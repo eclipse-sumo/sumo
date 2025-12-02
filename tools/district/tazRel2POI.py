@@ -102,7 +102,7 @@ def main(options):
                     # compute shape from edges
                     if options.net is None:
                         if options.netfile is None:
-                            print(("TAZ '%s' because it doesn't define 'center' or 'shape'." % taz.id)
+                            print(("Skipping TAZ '%s' because it doesn't define 'center' or 'shape'." % taz.id)
                                   + " Option --net-file must be set to handle this input",
                                   file=sys.stderr)
                             continue
