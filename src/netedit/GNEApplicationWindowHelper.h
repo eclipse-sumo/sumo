@@ -1238,15 +1238,15 @@ struct GNEApplicationWindowHelper {
 
         /// @}
 
+        /// @brief update options
+        void updateOptions();
+
     private:
         /// @brief parse filenames
         std::string parseFilenames(const std::vector<FileBucket::Type> types) const;
 
         /// @brief removed empty buckets
         void removeEmptyBuckets();
-
-        /// @brief update options
-        void updateOptions();
 
         /// @brief get prefix of the given filename
         std::string getPrefix(FileBucket::Type type, const std::vector<std::string> invalidExtensions) const;

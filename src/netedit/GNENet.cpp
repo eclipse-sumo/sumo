@@ -2242,14 +2242,17 @@ GNENet::saveAdditionals() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
-        // open file
-        OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
-        // open header
-        device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-        // save additionals, demand elements and meanDatas
-        writeAdditionalFileElements(device, bucket);
-        // close device
-        device.close();
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // open file
+            OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
+            // open header
+            device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+            // save additionals, demand elements and meanDatas
+            writeAdditionalFileElements(device, bucket);
+            // close device
+            device.close();
+        }
     }
     // mark additionals as saved
     mySavingStatus->additionalsSaved();
@@ -2305,14 +2308,17 @@ GNENet::saveDemandElements() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
-        // open file
-        OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
-        // open header
-        device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
-        // save additionals, demand elements and meanDatas
-        writeAdditionalFileElements(device, bucket);
-        // close device
-        device.close();
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // open file
+            OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
+            // open header
+            device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
+            // save additionals, demand elements and meanDatas
+            writeAdditionalFileElements(device, bucket);
+            // close device
+            device.close();
+        }
     }
     // mark demand elements as saved
     mySavingStatus->demandElementsSaved();
@@ -2330,17 +2336,20 @@ GNENet::saveDataElements() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DATA)) {
-        // open file
-        OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
-        // write header
-        device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
-        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-            if (dataSet.second->getFileBucket() == bucket) {
-                dataSet.second->writeDataSet(device);
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // open file
+            OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
+            // write header
+            device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
+            for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+                if (dataSet.second->getFileBucket() == bucket) {
+                    dataSet.second->writeDataSet(device);
+                }
             }
+            // close device
+            device.close();
         }
-        // close device
-        device.close();
     }
     // mark data element as saved
     mySavingStatus->dataElementsSaved();
@@ -2390,14 +2399,17 @@ GNENet::saveMeanDatas() {
     myApplicationWindow->getApp()->beginWaitCursor();
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
-        // open file
-        OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
-        // open header
-        device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
-        // save additionals, demand elements and meanDatas
-        writeAdditionalFileElements(device, bucket);
-        // close device
-        device.close();
+        // only write buckets with elements
+        if (bucket->getNumElements() > 0) {
+            // open file
+            OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
+            // open header
+            device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
+            // save additionals, demand elements and meanDatas
+            writeAdditionalFileElements(device, bucket);
+            // close device
+            device.close();
+        }
     }
     // mark mean datas as saved
     mySavingStatus->meanDatasSaved();
