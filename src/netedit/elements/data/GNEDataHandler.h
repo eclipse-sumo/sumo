@@ -45,9 +45,6 @@ public:
     /// @brief Destructor
     ~GNEDataHandler();
 
-    /// @brief run post parser tasks
-    bool postParserTasks();
-
     /// @name build functions
     /// @{
     /**@brief Builds DataSet (exclusive of netedit)

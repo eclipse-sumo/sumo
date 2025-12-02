@@ -46,9 +46,6 @@ public:
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
-    /// @brief run post parser tasks
-    virtual bool postParserTasks() = 0;
-
     /// @name build functions
     /// @{
 

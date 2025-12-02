@@ -52,9 +52,6 @@ public:
     /// @brief Destructor
     virtual ~GNERouteHandler();
 
-    /// @brief run post parser tasks
-    bool postParserTasks();
-
     /// @name build functions
     /// @{
 

@@ -53,9 +53,6 @@ private:
     /// @brief end element
     virtual void endTag() = 0;
 
-    /// @brief run post parser tasks
-    virtual bool postParserTasks() = 0;
-
     /// @name inherited from SUMOSAXHandler
     /// @{
     /** @brief Called on the opening of a tag;

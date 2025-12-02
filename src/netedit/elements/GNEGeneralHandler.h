@@ -55,9 +55,6 @@ public:
     /// @brief force overwritte elements (used if we're reloading elements)
     void forceOverwriteElements();
 
-    /// @brief run post parser tasks
-    bool postParserTasks();
-
     /// @brief get flag for check if a element wasn't created
     bool isErrorCreatingElement() const;
 

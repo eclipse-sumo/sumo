@@ -37,10 +37,7 @@ GeneralHandler::~GeneralHandler() {}
 
 bool
 GeneralHandler::parse() {
-    // run parser and postParser Task
-    const bool parseResult = XMLSubSys::runParser(*this, getFileName());
-    const bool postTaskResult = postParserTasks();
-    return parseResult && postTaskResult;
+    return XMLSubSys::runParser(*this, getFileName());
 }
 
 
