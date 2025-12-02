@@ -42,7 +42,7 @@ For this tutorial we imported the network of Eichwalde with the osmWebWizard too
 
 # Finding a data source for GTFS
 
-There are [several sources](https://transitfeeds.com/) for GTFS data usually on the website of your local
+There are [several sources](https://mobilitydatabase.org/) for GTFS data usually on the website of your local
 transit agency. [Some examples from Germany](https://gist.github.com/highsource/67d0846029a43ea28dfd90540bacb1ee):
 
 - [Aggregated data for a lot of German regions](https://gtfs.de/en/)
