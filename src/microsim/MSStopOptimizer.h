@@ -79,6 +79,7 @@ private:
             so(_so) {
                 nameTag = o.nameTag;
                 delay = o.delay;
+                routeIndex = o.routeIndex;
             }
 
         // ordering criterion (minimize in order)
@@ -87,6 +88,8 @@ private:
         double skippedPrio = 0;
         // @brief sum of reached stop priority between source and this node
         double reachedPrio = 0;
+        // @brief number of reached mandatory stops
+        int reachedMandatory = 0;
 
         int trackChanges = 0;
         double cost = 0;
@@ -101,13 +104,16 @@ private:
         std::shared_ptr<StopPathNode> getSuccessor(const std::vector<StopEdgeInfo>& stops, double minSkipped);
 
         bool operator<(StopPathNode& b) const {
-            if (skippedPrio == b.skippedPrio) {
-                if (trackChanges == b.trackChanges) {
-                    return cost > b.cost;
+            if (reachedMandatory == b.reachedMandatory) {
+                if (reachedPrio == b.reachedPrio) {
+                    if (trackChanges == b.trackChanges) {
+                        return cost > b.cost;
+                    }
+                    return trackChanges > b.trackChanges;
                 }
-                return trackChanges > b.trackChanges;
+                return reachedPrio < b.reachedPrio;
             }
-            return skippedPrio > b.skippedPrio;
+            return reachedMandatory < b.reachedMandatory;
         }
     };
 
