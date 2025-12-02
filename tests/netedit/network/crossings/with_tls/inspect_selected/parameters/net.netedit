@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_additionalsA.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_routesA.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_datasA.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_netA.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_additionals_A.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_routes_A.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_datas_A.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_netA.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul102911.15548\netedit.gui\network\crossings\with_tls\inspect_selected\parameters\input_net_A.net.xml"/>
     </output>
 
     <processing>

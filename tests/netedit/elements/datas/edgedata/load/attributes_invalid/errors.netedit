@@ -1,5 +1,5 @@
 Error: attribute name expected
- In file 'input_datasA.dat.xml'
+ In file 'input_datas_A.dat.xml'
  At line/column 62/26.
 
-Error: Loading of input_datasA.dat.xml failed.
+Error: Loading of input_datas_A.dat.xml failed.

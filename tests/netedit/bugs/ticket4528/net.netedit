@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.21Apr123611.3185/netedit.daily.bugs/bugs/ticket4528/input_input_netA.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.21Apr123611.3185/netedit.daily.bugs/bugs/ticket4528/input_input_net_A.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.21Apr123611.3185/netedit.daily.bugs/bugs/ticket4528/input_netA.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.21Apr123611.3185/netedit.daily.bugs/bugs/ticket4528/input_net_A.net.xml"/>
     </output>
 
     <processing>
