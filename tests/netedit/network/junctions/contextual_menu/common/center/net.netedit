@@ -17,12 +17,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/input_additionalsA.add.xml"/>
         <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/input_routesA.rou.xml"/>
         <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/input_datasA.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/common/center/input_netA.net.xml"/>
     </output>
 
     <processing>

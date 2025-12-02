@@ -18,12 +18,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\input_routesA.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\input_datasA.dat.xml"/>
         <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\input_meandatasA.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks.guess\input_netA.net.xml"/>
     </output>
 
     <processing>

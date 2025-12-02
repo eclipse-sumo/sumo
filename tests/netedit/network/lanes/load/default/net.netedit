@@ -17,12 +17,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\input_additionalsA.add.xml"/>
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\input_routesA.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\input_datasA.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Jul140354.26464\netedit.gui\network\edges\load\default\input_netA.net.xml"/>
     </output>
 
     <processing>

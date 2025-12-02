@@ -18,12 +18,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\input_routesA.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\input_datasA.dat.xml"/>
         <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\input_meandatasA.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan121901.21832\netedit.gui\network\edges\inspect_selected\allow_dialog\reset\input_netA.net.xml"/>
     </output>
 
     <processing>

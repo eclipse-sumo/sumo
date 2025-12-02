@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\trafficlights\single\programs/net.net.xml"/>
+        <output-file value="D:/SUMO/tests/netedit\netelements\trafficlights\single\programs/input_netA.net.xml"/>
     </output>
 
 </configuration>

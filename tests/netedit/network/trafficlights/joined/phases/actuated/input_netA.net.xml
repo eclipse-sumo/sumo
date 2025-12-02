@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-10 10:03:11 by Eclipse SUMO netedit Version v1_23_1+0978-b3f6417a0cf
+<!-- generated on 2025-07-10 09:55:25 by Eclipse SUMO netedit Version v1_23_1+0978-b3f6417a0cf
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\static\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\actuated\input_netA.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\static\net.net.xml"/>
+        <output-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\actuated\input_netA.net.xml"/>
     </output>
 
     <processing>
@@ -149,20 +149,20 @@
         <lane id="EdgeExternTop_0" index="0" speed="13.89" length="173.04" shape="60.00,1.60 46.60,1.60 46.60,25.66 40.66,31.60 -40.66,31.60 -46.60,25.66 -46.60,1.60 -60.00,1.60"/>
     </edge>
 
-    <tlLogic id="J0" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGG"/>
+    <tlLogic id="J0" type="actuated" programID="0" offset="0">
+        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyGGrrGGryrrrrGGGG"/>
-        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGG"/>
+        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrryyyyGGrryyryGGGG"/>
-        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGG"/>
+        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGyyrrrryyyyrrrrGGGG"/>
-        <phase duration="65" state="GGrrGGrgrrrrGGGgGGGG"/>
+        <phase duration="65" state="GGrrGGrgrrrrGGGgGGGG" minDur="10" maxDur="100"/>
         <phase duration="3"  state="yyrrGGrgrrrrGGygGGGG"/>
-        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGG"/>
+        <phase duration="31" state="rrrrGGGgGGrrGGrgGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrGGyyGGrryyryGGGG"/>
-        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGG"/>
+        <phase duration="31" state="GGGgGGrrGGrgrrrrGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGGgyyrrGGrgrrrrGGGG"/>
-        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGG"/>
+        <phase duration="31" state="GGGgrrrrGGGgrrrrGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="GGGgrrrrGGygrrrrGGGG"/>
     </tlLogic>
 

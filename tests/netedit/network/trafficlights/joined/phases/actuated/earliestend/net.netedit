@@ -7,11 +7,11 @@
         <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/input_additionalsA.add.xml"/>
         <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/input_routesA.rou.xml"/>
         <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/input_datasA.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/input_netA.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/earliestend/input_netA.net.xml"/>
     </output>
 
     <processing>

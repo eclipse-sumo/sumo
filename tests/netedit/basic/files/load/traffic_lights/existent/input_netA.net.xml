@@ -4,11 +4,11 @@
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\input_netA.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\net.net.xml"/>
+        <output-file value="D:\SUMO\tests\netedit\basic\files\load\traffic_lights\input_netA.net.xml"/>
     </output>
 
     <processing>

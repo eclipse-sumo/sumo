@@ -22,12 +22,12 @@ copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
-copy_test_path:net.net.xml
 
-copy_test_path:net.net.xml.gz
-copy_test_path:net.xml
-copy_test_path:net.xml.gz
-copy_test_path:net.txt
+copy_test_path:input_netA.net.xml
+copy_test_path:input_netA.net.xml.gz
+copy_test_path:input_netA.xml
+copy_test_path:input_netA.xml.gz
+copy_test_path:input_netA.txt
 
 copy_test_path:trafficlights.tll.xml
 copy_test_path:trafficlights2.tll.xml
@@ -121,7 +121,7 @@ netnod3:net3.nod.xml
 nettll3:net3.tll.xml
 nettyp3:net3.typ.xml
 
-net:net.net.xml
+net:input_netA.net.xml
 net_net_xml:net2.net.xml
 net_net_xml_gz:net2.net.xml.gz
 net_xml:net2.xml

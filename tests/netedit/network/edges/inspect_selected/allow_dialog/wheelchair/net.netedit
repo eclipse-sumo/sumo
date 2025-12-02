@@ -17,12 +17,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/input_additionalsA.add.xml"/>
         <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/input_routesA.rou.xml"/>
         <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/input_datasA.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Aug092223.2590/netedit.gui/network/edges/inspect_selected/allow_dialog/wheelchair/input_netA.net.xml"/>
     </output>
 
     <processing>

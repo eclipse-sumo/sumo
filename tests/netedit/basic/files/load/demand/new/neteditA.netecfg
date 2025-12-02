@@ -19,7 +19,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="input_additionalsA.add.xml"/>
         <meandata-files value="input_meandatasA.add.xml"/>
         <data-files value="input_datasA.dat.xml"/>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="input_netA.net.xml"/>
     </input>
 
     <output>

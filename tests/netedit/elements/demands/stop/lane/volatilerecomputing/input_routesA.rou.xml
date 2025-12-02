@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_input_netA.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
+        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_input_netA.net.xml"/>
     </output>
 
     <processing>

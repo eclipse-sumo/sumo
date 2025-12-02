@@ -18,12 +18,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\input_routesA.rou.xml"/>
         <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\input_datasA.dat.xml"/>
         <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\input_meandatasA.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\input_netA.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Jan093243.17952\netedit.gui\basic\quit\no_saving\additionals\input_netA.net.xml"/>
     </output>
 
     <processing>
