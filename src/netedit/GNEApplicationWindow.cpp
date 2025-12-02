@@ -3724,8 +3724,14 @@ GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, vo
     if (sumoConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set sumo config
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename());
-        // continue saving SUMO Config
-        return onCmdSaveSumoConfig(sender, sel, ptr);
+        // mark netedit config as unsaved
+        myNet->getSavingStatus()->requireSaveNeteditConfig();
+        // check instead saving sumo config, save netedit config (this will save also the sumoConfig)
+        if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
+            return onCmdSaveNeteditConfig(sender, sel, ptr);
+        } else {
+            return onCmdSaveSumoConfig(sender, sel, ptr);
+        }
     } else {
         return 0;
     }
