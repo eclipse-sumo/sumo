@@ -34,11 +34,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="output_guisettings.xml"/>
     </visualisation>
 
     <report>
