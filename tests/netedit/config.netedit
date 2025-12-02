@@ -9,10 +9,15 @@ use_case_record_mode:GUI
 copy_test_path:test.py
 copy_test_path:gui-settings.xml
 
-copy_test_path:netedit.netecfg
-copy_test_path:sumo.sumocfg
-copy_test_path:netccfg.netecfg
+# CONFIGS
+copy_test_path:neteditA.netecfg
+copy_test_path:neteditB.netecfg
+copy_test_path:sumoA.sumocfg
+copy_test_path:sumoB.sumocfg
+copy_test_path:netconvertA.netccfg
+copy_test_path:netconvertB.netccfg
 
+#NETWORKS
 copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
@@ -40,37 +45,37 @@ copy_test_path:edgetypes2.xml.gz
 copy_test_path:edgetypes2.txt
 copy_test_path:edgetypes3.typ.xml
 
+# ADDITIONALS
 copy_test_path:input_additionalsA.add.xml
 copy_test_path:input_additionalsB.add.xml
 copy_test_path:input_additionalsB.add.xml.gz
 copy_test_path:input_additionalsB.xml
 copy_test_path:input_additionalsB.xml.gz
 copy_test_path:input_additionalsB.txt
-copy_test_path:additionals3.add.xml
 
+# ROUTES
 copy_test_path:input_routesA.rou.xml
 copy_test_path:input_routesB.rou.xml
 copy_test_path:input_routesB.rou.xml.gz
 copy_test_path:input_routesB.xml
 copy_test_path:input_routesB.xml.gz
 copy_test_path:input_routesB.txt
-copy_test_path:routes3.rou.xml
 
+# DATAS
 copy_test_path:input_datasA.dat.xml
 copy_test_path:input_datasB.dat.xml
 copy_test_path:input_datasB.dat.xml.gz
 copy_test_path:input_datasB.xml
 copy_test_path:input_datasB.xml.gz
 copy_test_path:input_datasB.txt
-copy_test_path:datas3.dat.xml
 
+# MEANDATAS
 copy_test_path:input_meandatasA.add.xml
 copy_test_path:input_meandatasB.add.xml
 copy_test_path:input_meandatasB.add.xml.gz
 copy_test_path:input_meandatasB.xml
 copy_test_path:input_meandatasB.xml.gz
 copy_test_path:input_meandatasB.txt
-copy_test_path:meandatas3.dat.add.xml
 
 copy_test_path:vtypes.rou.xml
 
@@ -145,64 +150,37 @@ edgetypes_txt:edgetypes2.txt
 
 edgetypes3:edgetypes3.typ.xml
 
-additionals:input_additionalsA.add.xml
+# ADDITIONALS
+input_additionalsA_add_xml:input_additionalsA.add.xml
+input_additionalsB_add_xml:input_additionalsB.add.xml
+input_additionalsB_add_xml_gz:input_additionalsB.add.xml.gz
+input_additionalsB_xml:input_additionalsB.xml
+input_additionalsB_xml_gz:input_additionalsB.xml.gz
+input_additionalsB_txt:input_additionalsB.txt
 
-additionals_add_xml:additionals2.add.xml
-additionals_add_xml_gz:additionals2.add.xml.gz
-additionals_xml:additionals2.xml
-additionals_xml_gz:additionals2.xml.gz
-additionals_txt:additionals2.txt
+# ROUTES
+input_routesA_add_xml:input_routesA.add.xml
+input_routesB_add_xml:input_routesB.add.xml
+input_routesB_add_xml_gz:input_routesB.add.xml.gz
+input_routesB_xml:input_routesB.xml
+input_routesB_xml_gz:input_routesB.xml.gz
+input_routesB_txt:input_routesB.txt
 
-additionals3:additionals3.add.xml
-additionalsconfig2:sumo2.add.xml
-additionalsconfig3:sumo3.add.xml
-additionalsconfig2:netedit2.add.xml
-additionalsconfig3:netedit3.add.xml
+# DATAS
+input_datasA_add_xml:input_datasA.add.xml
+input_datasB_add_xml:input_datasB.add.xml
+input_datasB_add_xml_gz:input_datasB.add.xml.gz
+input_datasB_xml:input_datasB.xml
+input_datasB_xml_gz:input_datasB.xml.gz
+input_datasB_txt:input_datasB.txt
 
-routes:input_routesA.rou.xml
-
-routes_rou_xml:routes2.rou.xml
-routes_rou_xml_gz:routes2.rou.xml.gz
-routes_xml:routes2.xml
-routes_xml_gz:routes2.xml.gz
-routes_txt:routes2.txt
-
-routes3:routes3.rou.xml
-
-routesconfig2:sumo2.rou.xml
-routesconfig3:sumo3.rou.xml
-routesconfig2:netedit2.rou.xml
-routesconfig2:netedit3.rou.xml
-
-datas:input_datasA.dat.xml
-
-datas_dat_xml:datas2.dat.xml
-datas_dat_xml_gz:datas2.dat.xml.gz
-datas_xml:datas2.xml
-datas_xml_gz:datas2.xml.gz
-datas_txt:datas2.txt
-
-datas3:datas3.dat.xml
-
-datasconfig2:sumo2.dat.xml
-datasconfig3:sumo3.dat.xml
-datasconfig2:netedit2.dat.xml
-datasconfig3:netedit3.dat.xml
-
-meandatas:input_meandatasA.add.xml
-
-meandatas_add_xml:meandatas2.dat.add.xml
-meandatas_add_xml_gz:meandatas2.dat.add.xml.gz
-meandatas_xml:meandatas2.dat.xml
-meandatas_xml_gz:meandatas2.dat.xml.gz
-meandatas_txt:meandatas2.dat.txt
-
-meandatas3:meandatas3.dat.add.xml
-
-meandatasconfig2:sumo2.dat.add.xml
-meandatasconfig3:sumo3.dat.add.xml
-meandatasconfig2:netedit2.dat.add.xml
-meandatasconfig3:netedit3.dat.add.xml
+# MEANDATAS
+input_meandatasA_add_xml:input_meandatasA.add.xml
+input_meandatasB_add_xml:input_meandatasB.add.xml
+input_meandatasB_add_xml_gz:input_meandatasB.add.xml.gz
+input_meandatasB_xml:input_meandatasB.xml
+input_meandatasB_xml_gz:input_meandatasB.xml.gz
+input_meandatasB_txt:input_meandatasB.txt
 
 joinedjunctions_nod_xml:joinedjunctions2.nod.xml
 joinedjunctions_nod_xml_gz:joinedjunctions2.nod.xml.gz
