@@ -4,7 +4,7 @@
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <route-files value="D:\Netedit_dev\tests\netedit\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\routes.rou.xml"/>
+        <route-files value="D:\Netedit_dev\tests\netedit\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\input_routesA.rou.xml"/>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\net.net.xml"/>
     </input>
 

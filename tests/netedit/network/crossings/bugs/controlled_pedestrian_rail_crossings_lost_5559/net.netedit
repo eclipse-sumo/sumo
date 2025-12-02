@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\datas.dat.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\input_additionalsA.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\input_routesA.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\input_datasA.dat.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul125928.6872\netedit.gui\network\crossings\bugs\controlled_pedestrian_rail_crossings_lost_5559\net.net.xml"/>
     </input>
 

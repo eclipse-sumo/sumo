@@ -4,9 +4,9 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/datas.dat.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/input_additionalsA.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/input_routesA.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/input_datasA.dat.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.trafficlights.06Jul112909.2147/netedit.daily.net.trafficlights/netelements/trafficlights/joined/phases/actuated/latestend/net.net.xml"/>
     </input>
 

@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\datas.dat.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\input_additionalsA.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\input_routesA.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\input_datasA.dat.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Jul131206.18556\netedit.gui\network\junctions\load\radius\net.net.xml"/>
     </input>
 

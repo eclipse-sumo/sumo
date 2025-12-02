@@ -4,9 +4,9 @@
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\additionals.add.xml"/>
-        <route-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\routes.rou.xml"/>
-        <data-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\datas.dat.xml"/>
+        <additional-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\input_additionalsA.add.xml"/>
+        <route-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\input_routesA.rou.xml"/>
+        <data-files value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\input_datasA.dat.xml"/>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\contextual_menu\split\net.net.xml"/>
     </input>
 

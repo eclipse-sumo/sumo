@@ -17,8 +17,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="routes.rou.xml"/>
-        <additional-files value="additionals.add.xml,meandatas.dat.add.xml"/>
+        <route-files value="input_routesA.rou.xml"/>
+        <additional-files value="input_additionalsA.add.xml,input_meandatasA.add.xml"/>
         <junction-taz value="true"/>
     </input>
 

@@ -14,10 +14,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/datas.dat.xml"/>
-        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/meandatas.dat.add.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/input_additionalsA.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/input_routesA.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/input_datasA.dat.xml"/>
+        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/input_meandatasA.add.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jan133530.5984/netedit.gui/basic/quit/no_saving/meandatas/net.net.xml"/>
     </input>
 

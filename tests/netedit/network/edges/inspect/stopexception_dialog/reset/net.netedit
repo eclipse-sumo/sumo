@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/datas.dat.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/input_additionalsA.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/input_routesA.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/input_datasA.dat.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_29Jul130452.18857/netedit.gui/network/edges/inspect/stopexception_dialog/reset/net.net.xml"/>
     </input>
 

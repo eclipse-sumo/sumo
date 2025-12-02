@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\datas.dat.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\input_additionalsA.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\input_routesA.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\input_datasA.dat.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Oct103519.15572\netedit.gui\network\edges\move\selected_both_both_junctions\net.net.xml"/>
     </input>
 

@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/datas.dat.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/input_additionalsA.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/input_routesA.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/input_datasA.dat.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/reset_junction_shape/net.net.xml"/>
     </input>
 

@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\datas.dat.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\input_additionalsA.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\input_routesA.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\input_datasA.dat.xml"/>
         <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Jul090221.7708\netedit.gui\network\crossings\with_tls\delete\noredo\net.net.xml"/>
     </input>
 

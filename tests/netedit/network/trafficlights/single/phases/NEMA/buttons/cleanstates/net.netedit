@@ -14,9 +14,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/datas.dat.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/input_additionalsA.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/input_routesA.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/input_datasA.dat.xml"/>
         <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.08Oct125211.19304/netedit.gui/network/trafficlights/single/phases/NEMA/buttons/cleanstates/net.net.xml"/>
     </input>
 

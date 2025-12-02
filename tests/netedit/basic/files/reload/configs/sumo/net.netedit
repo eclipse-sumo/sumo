@@ -15,10 +15,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <sumocfg-file value="C:\Users\alva_pa\.texttest\tmp\netedit.external.09Sep105814.16408\netedit.external\basic\files\reload\configs\sumo\config2.sumocfg"/>
-        <additional-files value="additionals.add.xml"/>
-        <route-files value="routes.rou.xml"/>
-        <data-files value="datas.dat.xml"/>
-        <meandata-files value="meandatas.dat.add.xml"/>
+        <additional-files value="input_additionalsA.add.xml"/>
+        <route-files value="input_routesA.rou.xml"/>
+        <data-files value="input_datasA.dat.xml"/>
+        <meandata-files value="input_meandatasA.add.xml"/>
         <sumo-net-file value="net.net.xml"/>
     </input>
 
