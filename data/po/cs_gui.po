@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-11-10 14:26+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-30 13:00+0000\n"
+"Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2301 src/gui/GUIApplicationWindow.cpp:2302
@@ -27,7 +29,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1645
 #: src/netedit/GNEApplicationWindow.cpp:1646
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:312
 #: src/netedit/GNEApplicationWindow.cpp:568
@@ -42,12 +44,12 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:343
 #: src/netedit/GNEApplicationWindow.cpp:595
 msgid "Ready."
-msgstr ""
+msgstr "Připraveno."
 
 #: src/gui/GUIApplicationWindow.cpp:466
 #: src/netedit/GNEApplicationWindow.cpp:1393
 msgid "&File"
-msgstr ""
+msgstr "&Soubor"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindowHelper.cpp:205
@@ -93,7 +95,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:484
 #: src/netedit/GNEApplicationWindow.cpp:1048
 msgid "&Reload"
-msgstr ""
+msgstr "Znovu &Načíst"
 
 #: src/gui/GUIApplicationWindow.cpp:484
 msgid "Reloads the simulation / the network."
@@ -101,7 +103,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Znovu načíst (rychlý režim)"
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Reloads the simulation (but not network)."
@@ -119,7 +121,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
 #: src/netedit/dialogs/GNEDialog.cpp:463
 msgid "Close"
-msgstr ""
+msgstr "Zavřít"
 
 #: src/gui/GUIApplicationWindow.cpp:494
 msgid "Close the simulation."
@@ -128,7 +130,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1413
 msgid "&Quit"
-msgstr ""
+msgstr "&Ukončit"
 
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1413
@@ -138,7 +140,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:511
 #: src/netedit/GNEApplicationWindow.cpp:1428
 msgid "&Edit"
-msgstr ""
+msgstr "&Upravit"
 
 #: src/gui/GUIApplicationWindow.cpp:513 src/gui/GUIApplicationWindow.cpp:885
 msgid "Edit Selected..."
@@ -220,7 +222,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:540
 msgid "Open in netedit"
-msgstr ""
+msgstr "Otevřít v netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:540
 msgid "Opens current simulation in NETEDIT."
@@ -236,12 +238,12 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
-msgstr ""
+msgstr "&Nastavení"
 
 #: src/gui/GUIApplicationWindow.cpp:549
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Nastavení aplikace"
 
 #: src/gui/GUIApplicationWindow.cpp:549
 msgid "Open a Dialog for Application Settings editing."
@@ -253,22 +255,22 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:555
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Režim celé obrazovky"
 
 #: src/gui/GUIApplicationWindow.cpp:555
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "Zapnutí/vypnutí režimu celé obrazovky."
 
 #: src/gui/GUIApplicationWindow.cpp:559
 #: src/netedit/GNEApplicationWindow.cpp:1464
 msgid "&Locate"
-msgstr ""
+msgstr "&Lokalizovat"
 
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindowHelper.cpp:1348
 #: src/netedit/GNEApplicationWindowHelper.cpp:2013
 msgid "&Junctions"
-msgstr ""
+msgstr "&Křižovatky"
 
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindowHelper.cpp:2013

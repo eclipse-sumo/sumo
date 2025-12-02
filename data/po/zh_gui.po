@@ -931,7 +931,7 @@ msgstr "交通信号选择器"
 
 #: src/gui/GUISUMOViewParent.cpp:250
 msgid "Additional Objects Chooser"
-msgstr "附加对象选择器"
+msgstr "附加物件选择器"
 
 #: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:615
 msgid "POI Chooser"
@@ -1889,7 +1889,7 @@ msgstr "运行中的人数 [#]"
 
 #: src/guisim/GUINet.cpp:519
 msgid "jammed persons [#]"
-msgstr "被堵塞的行人数 [#]"
+msgstr "被堵塞的人数 [#]"
 
 #: src/guisim/GUINet.cpp:522
 msgid "end time [s]"
@@ -2263,7 +2263,7 @@ msgstr "设备"
 
 #: src/guisim/GUIVehicle.cpp:183
 msgid "persons"
-msgstr "行人"
+msgstr "人员"
 
 #: src/guisim/GUIVehicle.cpp:185
 msgid "containers"
@@ -3613,7 +3613,7 @@ msgstr "类型"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:714
 msgid "Create types (vehicles, person and containers)."
-msgstr "建立类型（车辆, 人和容器）。"
+msgstr "建立类型（车辆, 人和集装箱）。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:717
 #: src/netedit/GNETagPropertiesDatabase.cpp:2599
@@ -3785,7 +3785,7 @@ msgstr "显示图形物件"
 #: src/netedit/GNEApplicationWindowHelper.cpp:1064
 #: src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Show all trips"
-msgstr "显示所有行程"
+msgstr "显示所有旅次"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1069
 #: src/netedit/GNEViewNetHelper.cpp:3027
@@ -3799,12 +3799,12 @@ msgstr "锁定选取的人"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1079
 msgid "Show all container plans"
-msgstr "显示所有容器(container)运送计划"
+msgstr "显示所有集装箱(container)运送计划"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1084
 #: src/netedit/GNEViewNetHelper.cpp:3048
 msgid "Lock selected container"
-msgstr "锁定选定的容器"
+msgstr "锁定选定的集装箱"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1089
 #: src/netedit/GNEViewNetHelper.cpp:3055
@@ -3939,7 +3939,7 @@ msgstr "&路径"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1428
 msgid "Person&Trips"
-msgstr "人&行程"
+msgstr "人员&旅次"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1433
 msgid "&Walks"
@@ -3952,7 +3952,7 @@ msgstr "&搭乘"
 #: src/netedit/GNEApplicationWindowHelper.cpp:1443
 #: src/netedit/GNEApplicationWindowHelper.cpp:2028
 msgid "&Containers"
-msgstr "&容器"
+msgstr "&集装箱"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1448
 msgid "Tra&nsports"
@@ -4080,7 +4080,7 @@ msgstr "清除无效的路径要素"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1888
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
-msgstr "清除与无效路线相关的要素(路径、旅程、流量...)。"
+msgstr "清除与无效路线相关的要素(路径、旅次、流量...)。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1894
 msgid "Sumo options"
@@ -4561,11 +4561,11 @@ msgstr "人流的命名前缀"
 
 #: src/netedit/GNELoadThread.cpp:444
 msgid "Prefix for container naming"
-msgstr "容器的命名前缀"
+msgstr "集装箱的命名前缀"
 
 #: src/netedit/GNELoadThread.cpp:447
 msgid "Prefix for containerFlow naming"
-msgstr "容器流的命名前缀"
+msgstr "集装箱流的命名前缀"
 
 #: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for dataSet naming"
@@ -5041,22 +5041,22 @@ msgstr "人员计划"
 #: src/netedit/frames/GNETagSelector.cpp:122
 #: src/netedit/frames/common/GNESelectorFrame.cpp:118
 msgid "Person trips"
-msgstr "人员行程"
+msgstr "人员旅次"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:496
 #: src/netedit/GNETagPropertiesDatabase.cpp:498
 msgid "Person rides"
-msgstr "人骑行"
+msgstr "人员车程"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 #: src/netedit/GNETagPropertiesDatabase.cpp:505
 msgid "Person walks"
-msgstr "行人"
+msgstr "人员步行"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 #: src/netedit/GNETagPropertiesDatabase.cpp:512
 msgid "Person stop"
-msgstr "行人停靠点"
+msgstr "人员停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
 #: src/netedit/GNETagPropertiesDatabase.cpp:519
@@ -6026,7 +6026,7 @@ msgstr "架空电线终点夹(overheadWireIDEndClamp)的架空电线区段车道
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2464
 msgid "JuPedSim WalkableArea"
-msgstr "JuPedSim可走区域"
+msgstr "JuPedSim可步行区域"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2472
 msgid "The shape of the walkable area"
@@ -6034,7 +6034,7 @@ msgstr "可步行区域的形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2485
 msgid "A custom geo shape for this walkable area"
-msgstr "此可行走区域的自定义地理形状"
+msgstr "此可步行区域的自定义地理形状"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2495
 msgid "JuPedSim Obstacle"
@@ -7193,7 +7193,7 @@ msgstr "路段"
 #: src/netedit/GNETagPropertiesDatabase.cpp:5474
 #: src/netedit/GNETagPropertiesDatabase.cpp:5484
 msgid "PersonTrip"
-msgstr "行人行程"
+msgstr "人员行程"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5510
 #: src/netedit/GNETagPropertiesDatabase.cpp:5520
@@ -7262,7 +7262,7 @@ msgstr "行人行程"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6158
 #: src/netedit/GNETagPropertiesDatabase.cpp:6168
 msgid "Walk"
-msgstr "行走"
+msgstr "步行"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5520
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:459
@@ -7334,7 +7334,7 @@ msgstr "路径"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6821
 #: src/netedit/GNETagPropertiesDatabase.cpp:6831
 msgid "Ride"
-msgstr "骑行"
+msgstr "车程"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6856
 #: src/netedit/GNETagPropertiesDatabase.cpp:6867
@@ -7343,7 +7343,7 @@ msgstr "骑行"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6899
 #: src/netedit/GNETagPropertiesDatabase.cpp:6910
 msgid "PersonStop"
-msgstr "行人停靠点"
+msgstr "人员停靠点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6927
 #, c-format
@@ -7602,7 +7602,7 @@ msgstr "当车辆被置入路网时, 已占用的座位数"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7349
 msgid "The number of occupied container places when the vehicle is inserted"
-msgstr "车辆置入时, 已占用的容器位置数"
+msgstr "车辆置入时, 已占用的集装箱位置数"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7355
 msgid ""
@@ -7646,7 +7646,7 @@ msgstr "每小时流量的数量,等间隔"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7412
 msgid "(not together with period or probability or poisson)"
-msgstr "(不与周期或概率或泊松一起使用)"
+msgstr "(不与周期或概率或泊松分配一起使用)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7418
 msgid "Insert equally spaced flows at that period"
@@ -7835,7 +7835,7 @@ msgstr "火车类型"
 msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
-msgstr "行人走向与自我(ego)车辆的冲突点的最小距离。"
+msgstr "行人走向与自车(ego vehicle)的冲突点的最小距离。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7730
 msgid ""
@@ -8023,7 +8023,7 @@ msgstr "这个货箱要使用的货箱类型的id"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7950
 msgid "The position at which the container shall enter the net"
-msgstr "容器进入网内的位置"
+msgstr "集装箱进入网内的位置"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7961
 #: src/netedit/GNETagPropertiesDatabase.cpp:8329
@@ -8539,11 +8539,11 @@ msgstr "在路网內定位人员。(Shift+P)"
 
 #: src/netedit/GNEViewNet.cpp:401
 msgid "Locate Containers"
-msgstr "定位容器"
+msgstr "定位集装箱"
 
 #: src/netedit/GNEViewNet.cpp:401
 msgid "Locate a container within the network. (Shift+C)"
-msgstr "在路网内定位容器。 (Shift+C)"
+msgstr "在路网内定位集装箱。 (Shift+C)"
 
 #: src/netedit/GNEViewNet.cpp:405
 msgid "Locate Route"
@@ -9180,7 +9180,7 @@ msgstr "切换显示形狀（多边形和兴趣点）。"
 
 #: src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Toggle show all trips (requires updated demand - F5)."
-msgstr "切换显示所有行程(trips)（需要更新需求 - F5）。"
+msgstr "切换显示所有旅次(trips)（需要更新需求 - F5）。"
 
 #: src/netedit/GNEViewNetHelper.cpp:3027
 msgid "Toggle show all person plans."
@@ -9192,15 +9192,15 @@ msgstr "切换锁定选择的人员(person)。"
 
 #: src/netedit/GNEViewNetHelper.cpp:3041
 msgid "Show all containers plans"
-msgstr "显示所有容器(container)运送计划"
+msgstr "显示所有集装箱(container)运送计划"
 
 #: src/netedit/GNEViewNetHelper.cpp:3041
 msgid "Toggle show all container plans."
-msgstr "切换显示所有容器(container)运送计划。"
+msgstr "切换显示所有集装箱(container)运送计划。"
 
 #: src/netedit/GNEViewNetHelper.cpp:3048
 msgid "Toggle lock selected container."
-msgstr "切换锁定选择的容器(container)。"
+msgstr "切换锁定选择的集装箱(container)。"
 
 #: src/netedit/GNEViewNetHelper.cpp:3055
 msgid "Toggle show non-inspected demand elements."
@@ -9414,7 +9414,7 @@ msgstr "建立停靠点模式。(A)"
 
 #: src/netedit/GNEViewNetHelper.cpp:4050
 msgid "Person mode"
-msgstr "行人模式"
+msgstr "人员模式"
 
 #: src/netedit/GNEViewNetHelper.cpp:4050
 msgid "Mode for creating persons. (P)"
@@ -9422,7 +9422,7 @@ msgstr "建立人员(person)模式。(P)"
 
 #: src/netedit/GNEViewNetHelper.cpp:4055
 msgid "Person plan mode"
-msgstr "行人规划模式"
+msgstr "人员规划模式"
 
 #: src/netedit/GNEViewNetHelper.cpp:4055
 msgid "Mode for creating person plans. (L)"
@@ -9434,7 +9434,7 @@ msgstr "集装箱模式"
 
 #: src/netedit/GNEViewNetHelper.cpp:4060
 msgid "Mode for creating containers. (C)"
-msgstr "创建容器的模式。 (C)"
+msgstr "创建集装箱的模式。 (C)"
 
 #: src/netedit/GNEViewNetHelper.cpp:4065
 msgid "Container plan mode"
@@ -10861,7 +10861,7 @@ msgstr "选择无效停靠点"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:405
 msgid "Person/container plans"
-msgstr "行人/集装箱 规划"
+msgstr "人员/集装箱 规划"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:408
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:409
@@ -10883,11 +10883,11 @@ msgstr "选择冲突计划并放弃保存"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:444
 msgid "delete invalid person plans"
-msgstr "删除无效行人规划"
+msgstr "删除无效人员出行计划"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:451
 msgid "select invalid person plans"
-msgstr "选择无效行人规划"
+msgstr "选择无效人员出行计划"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:490
 msgid "Fix demand elements problems"
@@ -11480,7 +11480,7 @@ msgstr "添加 jps (JuPedSim) 障碍物 '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2026
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2573
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
-msgstr "无法再netedit里构建%，其ID为“%”；对象%（ID为%）不存在。"
+msgstr "无法再netedit里构建%，其ID为“%”；物件%（ID为%）不存在。"
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:227
 msgid "Both edges and lanes aren't defined"
@@ -11907,7 +11907,7 @@ msgstr "人员行程无效组合"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:934
 msgid "invalid combination for ride"
-msgstr "骑行无效组合"
+msgstr "车程无效组合"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:969
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1003
@@ -11928,7 +11928,7 @@ msgstr "集装箱不支持在公交站或火车站停靠"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1235
 msgid "Persons don't support stops at containerStops"
-msgstr "人员不支持在容器停靠处停车"
+msgstr "人员不支持在集装箱停靠处停车"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1242
 msgid "Persons don't support stops at chargingStations"
@@ -11936,7 +11936,7 @@ msgstr "人员不支持在充电站停车"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1244
 msgid "Containers don't support stops at chargingStations"
-msgstr "容器不支持在充电站停车"
+msgstr "集装箱不支持在充电站停车"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1251
 msgid "Persons don't support stops at parkingAreas"
@@ -11944,7 +11944,7 @@ msgstr "人员(Persons)不支援停靠站位于停车区域"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1253
 msgid "Containers don't support stops at parkingAreas"
-msgstr "货柜(Containers)不支援停靠站位于停车区域"
+msgstr "集装箱不支援停靠站位于停车区域"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1262
 msgid "vehicles don't support stops at edges"
@@ -12026,7 +12026,7 @@ msgstr "路径流（嵌入路径的）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:124
 msgid "Trip"
-msgstr "出行"
+msgstr "旅次(trip)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:199
 #: src/netedit/elements/demand/GNEVehicle.cpp:220
@@ -12036,7 +12036,7 @@ msgstr "将选择转换为"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:202
 msgid "Trips (over junctions) (only %)"
-msgstr "出行（在交叉口之间） (仅 %)"
+msgstr "旅次（在交叉口之间） (仅 %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:205
 msgid "Flows (over junctions) (only %)"
@@ -12044,27 +12044,27 @@ msgstr "流（在交叉口之间） (仅 %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:211
 msgid "Trips (over junctions)"
-msgstr "出行（在交叉口之间）"
+msgstr "旅次（在交叉口之间）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:214
 msgid "Flows (over junctions)"
-msgstr "流（在交叉口之间）"
+msgstr "旅次流（在交叉口之间）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:223
 msgid "Trips (over TAZs) (only %)"
-msgstr "出行（在交通小区TAZs之间） (仅 %)"
+msgstr "旅次（在交通小区TAZs之间） (仅 %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:226
 msgid "Flows (over TAZs) (only %)"
-msgstr "流（在交通小区TAZs之间） (仅 %)"
+msgstr "旅次流（在交通小区TAZs之间） (仅 %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:232
 msgid "Trips (over TAZs)"
-msgstr "出行（在交通小区 TAZs之间）"
+msgstr "旅次（在交通小区 TAZs之间）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:235
 msgid "Flows (over TAZs)"
-msgstr "流（在交通小区 TAZs之间）"
+msgstr "旅次流（在交通小区 TAZs之间）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:244
 msgid "Vehicles (only %)"
@@ -12084,11 +12084,11 @@ msgstr "路径流（嵌入路径的） (仅 %)"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:256
 msgid "Trips (only %)"
-msgstr "出行（仅 %）"
+msgstr "旅次（仅 %）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:259
 msgid "Flows (only %)"
-msgstr "流 （仅 %）"
+msgstr "旅次流 （仅 %）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:268
 msgid "Vehicles (embedded route)"
@@ -12104,7 +12104,7 @@ msgstr "路径流（嵌入路径的）"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:277
 msgid "Trips"
-msgstr "出行"
+msgstr "旅次"
 
 #: src/netedit/elements/demand/GNEVehicle.cpp:808
 msgid "Invalid vehicle tag"
@@ -12889,7 +12889,7 @@ msgstr "应用选择"
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection"
-msgstr "-“匹配属性”控件允许指定一组对象，这些对象随后将应用于当前选择"
+msgstr "-“匹配属性”控件允许指定一组物件，这些物件随后将应用于当前选择"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:320
 msgid "  according to the current 'Modification Mode'."
@@ -12897,7 +12897,7 @@ msgstr "  依赖当前 'Modification Mode'。"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:321
 msgid "     1. Select an object type from the first input box"
-msgstr "     1.从第一个输入框选择一个对象类型"
+msgstr "     1.从第一个输入框选择一个物件类型"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:322
 msgid "     2. Select an attribute from the second input box"
@@ -12910,7 +12910,7 @@ msgstr "     3. 输入'match expression' 在第三个输入框并按下 <return>
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
-msgstr "- 空表达式匹配所有对象"
+msgstr "- 空表达式匹配所有物件"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:326
 msgid ""
@@ -12922,7 +12922,7 @@ msgstr "- 对于数值属性，匹配表达式必须包含一个比较运算符�
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
-msgstr "- 如果一个对象的属性与给定运算符作用于给定数字的比较结果为“真”，则该对象匹配"
+msgstr "- 如果一个物件的属性与给定运算符作用于给定数字的比较结果为“真”，则该物件匹配"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:329
 msgid ""
@@ -12935,7 +12935,7 @@ msgstr "- 对于字符串属性，匹配表达式必须由一个比较运算符�
 msgid ""
 "     '' (no operator) matches if string is a substring of that object's "
 "attribute."
-msgstr "     '' （无操作符）如果字符串是该对象属性的子字符串，则匹配。"
+msgstr "     '' （无操作符）如果字符串是该物件属性的子字符串，则匹配。"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
@@ -13090,7 +13090,7 @@ msgstr "只允许有两个交通小区 (TAZs)"
 
 #: src/netedit/frames/GNEPathCreator.cpp:343
 msgid "creation of path between TAZs"
-msgstr "在TAZ间路径的创建"
+msgstr "在交通小区(TAZ)间路径的创建"
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
 #: src/netedit/frames/GNEPlanCreator.cpp:755
@@ -13199,7 +13199,7 @@ msgstr " 目的地元素"
 
 #: src/netedit/frames/GNEPlanSelector.cpp:90
 msgid "Plan type"
-msgstr "规划类型"
+msgstr "出行计划类型"
 
 #: src/netedit/frames/GNESelectorParent.cpp:35
 msgid "Parent selector"
@@ -13360,7 +13360,7 @@ msgstr "步行"
 #: src/netedit/frames/GNETagSelector.cpp:128
 #: src/netedit/frames/common/GNESelectorFrame.cpp:120
 msgid "Rides"
-msgstr "骑行"
+msgstr "车程"
 
 #: src/netedit/frames/GNETagSelector.cpp:131
 msgid "Person stops"
@@ -13626,12 +13626,12 @@ msgstr "车道"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:103
 msgid "Connections"
-msgstr "连接器"
+msgstr "连接线段"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:104
 #: src/netedit/frames/network/GNECrossingFrame.cpp:528
 msgid "Crossings"
-msgstr "交叉"
+msgstr "交叉口"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:105
 msgid "WalkingAreas"
@@ -13666,7 +13666,7 @@ msgstr "兴趣点"
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:41
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2154
 msgid "Containers"
-msgstr "容器"
+msgstr "集装箱"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:123
 msgid "Tranships"
@@ -13694,7 +13694,7 @@ msgstr "添加"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "Selected objects are added to the previous selection"
-msgstr "被选中的对象被添加到前一个选择中"
+msgstr "被选中的物件被添加到前一个选择中"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:160
 msgid "remove"
@@ -13702,7 +13702,7 @@ msgstr "删除"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:160
 msgid "Selected objects are removed from the previous selection"
-msgstr "选定的对象将从先前的选择中移除"
+msgstr "选定的物件将从先前的选择中移除"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:162
 #: src/netedit/frames/network/GNETAZFrame.cpp:652
@@ -13727,7 +13727,7 @@ msgstr "视觉缩放"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:228
 msgid "Enlarge selected objects"
-msgstr "放大选中的对象"
+msgstr "放大选中的物件"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:248
 msgid "Selection operations"
@@ -13735,7 +13735,7 @@ msgstr "选择操作"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:257
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr "取消选择所有对象（热键：ESC）"
+msgstr "取消选择所有物件（热键：ESC）"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:259
 msgid "Invert"
@@ -13743,11 +13743,11 @@ msgstr "反转"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:259
 msgid "Invert selection status of all objects"
-msgstr "反转所有对象的选择状态"
+msgstr "反转所有物件的选择状态"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Save ids of currently selected objects to a file."
-msgstr "将当前选择的对象的ID保存到一个文件中。"
+msgstr "将当前选择的物件的ID保存到一个文件中。"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:263
 msgid "Load ids from a file according to the current modification mode."
@@ -13755,7 +13755,7 @@ msgstr "根据当前的修改模式，从文件中加载id。"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:265
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr "删除所有选定的对象（热键：DEL）"
+msgstr "删除所有选定的物件（热键：DEL）"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:267
 msgid "Reduce"
@@ -13848,7 +13848,7 @@ msgstr "按住<Shift> 进行矩形框选。"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:933
 msgid "Press <DEL> to delete selected objects."
-msgstr "按<DEL> 删除所选对象。"
+msgstr "按<DEL> 删除所选物件。"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:944
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:316
@@ -13965,20 +13965,20 @@ msgstr "在TAZ'%'和'%'之间已经定义了一个%。"
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:104
 #: src/netedit/frames/demand/GNEContainerPlanFrame.cpp:121
 msgid "Current selected container isn't valid."
-msgstr "当前选择的容器无效。"
+msgstr "当前选择的集装箱无效。"
 
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:109
 msgid "Current selected container type isn't valid."
-msgstr "当前选择的容器类型无效。"
+msgstr "当前选择的集装箱类型无效。"
 
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:114
 #: src/netedit/frames/demand/GNEContainerPlanFrame.cpp:127
 msgid "Current selected container plan isn't valid."
-msgstr "当前选择的容器计划无效。"
+msgstr "当前选择的集装箱运送计划无效。"
 
 #: src/netedit/frames/demand/GNEContainerPlanFrame.cpp:39
 msgid "ContainerPlans"
-msgstr "容器计划"
+msgstr "集装箱运送计划"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:80
 msgid "Distribution Editor"
@@ -14015,7 +14015,7 @@ msgstr "添加新的分布值"
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:104
 #: src/netedit/frames/demand/GNEPersonPlanFrame.cpp:121
 msgid "Current selected person isn't valid."
-msgstr "目前被选中的人是无效的。"
+msgstr "目前被选中的人员是无效的。"
 
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:109
 msgid "Current selected person type isn't valid."
@@ -14024,11 +14024,11 @@ msgstr "当前选择的人员类型无效。"
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:114
 #: src/netedit/frames/demand/GNEPersonPlanFrame.cpp:127
 msgid "Current selected person plan isn't valid."
-msgstr "目前选定的人的计划是无效的。"
+msgstr "目前选定的人员出行计划是无效的。"
 
 #: src/netedit/frames/demand/GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr "人员计划"
+msgstr "人员出行计划"
 
 #: src/netedit/frames/demand/GNERouteDistributionFrame.cpp:31
 msgid "Route Distributions"
@@ -14305,11 +14305,11 @@ msgstr "修改"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
-msgstr "放弃连接的修改（Esc）"
+msgstr "放弃连接线段的修改（Esc）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:96
 msgid "Save connection modifications (Enter)"
-msgstr "保存连接的修改（回车）"
+msgstr "保存连接线段的修改（回车）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:100
 msgid "Protect routes"
@@ -14321,12 +14321,12 @@ msgstr "更改已被恢复"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:130
 msgid "Error saving connection operations"
-msgstr "保存连接操作错误"
+msgstr "保存连接线段操作時发生错误"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:131
 #, c-format
 msgid "Connection edition cannot be saved because route '%s' is broken."
-msgstr "由于路线“%s”已损坏，无法保存连接版本。"
+msgstr "由于路线“%s”已损坏，无法保存已编修的连接线段。"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -14340,7 +14340,7 @@ msgstr "选择死胡同"
 msgid ""
 "Selects all lanes that have no outgoing connection (clears previous "
 "selection)"
-msgstr "选择所有没有出站连接的车道（清除之前的选择）"
+msgstr "选择所有没有向外離開连接线段的车道（清除之前的选择）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:160
 msgid "Select Dead Starts"
@@ -14350,7 +14350,7 @@ msgstr "选择死机"
 msgid ""
 "Selects all lanes that have no incoming connection (clears previous "
 "selection)"
-msgstr "选择所有没有传入连接的车道（清除之前的选择）"
+msgstr "选择所有没有进入连接线段的车道（清除之前的选择）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:163
 msgid "Select Conflicts"
@@ -14360,7 +14360,7 @@ msgstr "选择冲突"
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
-msgstr "选择所有有一个以上来自同一路段的传入连接的车道（清除之前的选择）"
+msgstr "选择所有有一个以上来自同一路段的进入连接线段的车道（清除之前的选择）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:166
 msgid "Select Passing"
@@ -14368,15 +14368,15 @@ msgstr "选择通过"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:166
 msgid "Selects all lanes with a connection that has the 'pass' attribute set"
-msgstr "选择所有具有 \"通过 \"属性的连接的车道"
+msgstr "选择所有具有 \"通过 \"属性的连接线段的车道"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:169
 msgid "Clear Selected"
-msgstr "清除选择"
+msgstr "清除已选择物件"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:169
 msgid "Clears all connections of all selected objects"
-msgstr "清除所有选定对象的所有连接"
+msgstr "清除所有选定物件的所有连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:172
 msgid "Reset Selected"
@@ -14384,27 +14384,27 @@ msgstr "重置选择"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:172
 msgid "Recomputes connections at all selected junctions"
-msgstr "重新计算所有选定路口的连接"
+msgstr "重新计算所有选定路口的连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:268
 msgid "clear connections from selected lanes, edges and junctions"
-msgstr "从选定的车道、路段和路口明确连接"
+msgstr "清除选定的车道、路段和路口的连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:296
 msgid "reset connections from selected lanes"
-msgstr "从选定的车道重置连接"
+msgstr "从选定的车道重置连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:318
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
-msgstr "在单击时按住 <Shift> 以创建牢固 (unyielding) 连接 (pass=true)。"
+msgstr "在单击时按住 <Shift> 以创建不礼让 (unyielding) 连接线段 (pass=true)。"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:319
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions)"
 msgstr ""
-"在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
+"在单击时按住 <Ctrl> 以创建冲突连接线段（例如，在拉链节点或具有不兼容的权限时）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:333
 msgid "Possible Target"
@@ -14424,15 +14424,15 @@ msgstr "目标（通过）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:362
 msgid "Edit Connections"
-msgstr "编辑连接"
+msgstr "编辑连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:428
 msgid "modify connections"
-msgstr "修改连接"
+msgstr "修改连接线段"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:479
 msgid "Pedestrian connections are generated automatically"
-msgstr "行人连接是自动生成的"
+msgstr "行人连接线段是自动生成的"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:481
 msgid "Incompatible vehicle class permissions"
@@ -14444,7 +14444,7 @@ msgstr "来自同一路段的另一条车道已经与该车道相连接"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:491
 msgid "Invalid target for connection"
-msgstr "无效的连接目标"
+msgstr "无效的连接线段目标"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
@@ -14652,11 +14652,11 @@ msgstr "贴花"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr "选择连接"
+msgstr "选择连接线段"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr "没有选择连接\n"
+msgstr "没有选择连接线段\n"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
@@ -14676,7 +14676,7 @@ msgstr "选定的"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr "当前选定的连接"
+msgstr "当前选定的连接线段"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:101
 msgid "No conflict"
@@ -14684,7 +14684,7 @@ msgstr "无冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr "与所选连接没有冲突"
+msgstr "与所选连接线段没有冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
@@ -14692,7 +14692,7 @@ msgstr "收益率"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
-msgstr "连接产生选定的连接"
+msgstr "连接线段产生选定的连接线段"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
@@ -14700,7 +14700,7 @@ msgstr "拥有路权"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
-msgstr "连接处与所选连接处有路权"
+msgstr "连接线段与所选连接线段有路权"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
@@ -14708,7 +14708,7 @@ msgstr "不受管制的冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:120
 msgid "Connection has an unregulated conflict with the selected connection"
-msgstr "连接与选定的连接有不规范的冲突"
+msgstr "连接线段与选定的连接线段有不规范的冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
@@ -14716,7 +14716,7 @@ msgstr "相互冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
-msgstr "连接与所选择的连接有相互冲突"
+msgstr "连接线段与所选择的连接线段有相互冲突"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
@@ -14728,7 +14728,7 @@ msgstr "取消选择联系"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr "取消选择连接（Esc）"
+msgstr "取消选择连接线段（Esc）"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
@@ -15263,11 +15263,11 @@ msgstr "不能创建交通灯，因为路口"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1589
 msgid "must have at least one connection."
-msgstr "必须至少有一个连接。"
+msgstr "必须至少有一个连接线段。"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1605
 msgid "must have at least one controlled connection."
-msgstr "必须至少有一个受控连接。"
+msgstr "必须至少有一个受控连接线段。"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1653
 msgid "reset current program"
@@ -15283,7 +15283,7 @@ msgstr "复制交通灯'%'的程序'%'"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1864
 msgid "Traffic Light does not control any links"
-msgstr "交通信号灯未控制任何连接"
+msgstr "交通信号灯未控制任何路段"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1876
 msgid "Phases"
@@ -15314,7 +15314,7 @@ msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
-"将所有相位的状态向量扩展一个条目。(在一个连接或交叉点被分配到新的指数之前未使"
+"将所有相位的状态向量扩展一个条目。(在一个连接线段或交叉点被分配到新的指数之前未使"
 "用)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1901
@@ -15325,14 +15325,14 @@ msgstr "灯组。"
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
-msgstr "通过让具有相同信号状态的连接使用相同的指数来缩短状态定义"
+msgstr "通过让具有相同信号状态的连接线段使用相同的指数来缩短状态定义"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1903
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
-"通过让具有相同信号状态的连接使用相同的指数来缩短状态定义。(对于多个程序来说不"
+"通过让具有相同信号状态的连接线段使用相同的指数来缩短状态定义。(对于多个程序来说不"
 "允许)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1908
@@ -15341,13 +15341,13 @@ msgstr "未分组的信号灯。"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1909
 msgid "Let every connection use a distinct index (reverse state grouping)"
-msgstr "让每个连接使用一个不同的指数（反向状态分组）"
+msgstr "让每个连接线段使用一个不同的指数（反向状态分组）"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1910
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
-msgstr "让每个连接使用一个不同的指数（反向状态分组）。(对于多个程序不允许)"
+msgstr "让每个连接线段使用一个不同的指数（反向状态分组）。(对于多个程序不允许)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2090
 msgid "invalid column"
@@ -15511,7 +15511,7 @@ msgstr "车辆"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:75
 msgid "person"
-msgstr "行人"
+msgstr "人员"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
@@ -15545,7 +15545,7 @@ msgstr "项目“%”为找到\n"
 #: src/utils/gui/div/GUISelectedStorage.cpp:244
 #, c-format
 msgid "% objects ignored, % objects not found\n"
-msgstr "%个对象被忽略，%个对象被找到\n"
+msgstr "%个物件被忽略，%个物件被找到\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:255
 msgid "Could not open '%'.\n"
@@ -15609,7 +15609,7 @@ msgstr "编码时出错!"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:62
 msgid "Overlapped objects"
-msgstr "重叠对象"
+msgstr "重叠的物件"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:64
 msgid "Delete element"
@@ -15625,7 +15625,7 @@ msgstr "标记前端元素"
 
 #: src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:178
 msgid "Object must be a lane"
-msgstr "对象必须是一个车道"
+msgstr "物件必须是一个车道"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:298
 #, c-format
@@ -16267,11 +16267,11 @@ msgstr "按拥堵状态"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1448
 msgid "given container/type color"
-msgstr "按容器/类型颜色"
+msgstr "按集装箱/类型颜色"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1450
 msgid "given/assigned container color"
-msgstr "给定/指定的容器颜色"
+msgstr "给定/指定的集装箱颜色"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1459
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2288
@@ -16423,7 +16423,7 @@ msgstr "几何点"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1943
 msgid "connections missing"
-msgstr "连接缺失"
+msgstr "连接线段缺失"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1944
 msgid "custom shape"
@@ -16475,7 +16475,7 @@ msgstr "&选择/取消选择"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
 msgid "Select/deselect current object"
-msgstr "选择/取消选择当前对象"
+msgstr "选择/取消选择当前物件"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:99
 msgid "&Filter substring"
@@ -16743,7 +16743,7 @@ msgstr "显示车道方向"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1968
 msgid "Hide macro connectors"
-msgstr "隐藏macro连接器"
+msgstr "隐藏宏观连接器"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1970
 msgid "Show sublanes"
@@ -16751,7 +16751,7 @@ msgstr "显示辅车道"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 msgid "Show rails"
-msgstr "显示栏杆"
+msgstr "显示铁路"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1976
 msgid "Spread bidirectional railways/roads"
@@ -16899,7 +16899,7 @@ msgstr "显示JuPedSim行人路网"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2182
 msgid "Show container id"
-msgstr "显示容器ID"
+msgstr "显示集装箱ID"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2209
 msgid "Draw junction shape"
@@ -16956,7 +16956,7 @@ msgstr "补充"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2236
 msgid "Show object id"
-msgstr "显示对象的ID"
+msgstr "显示物件的ID"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2237
 msgid "Show full name"
@@ -16996,19 +16996,19 @@ msgstr "要素"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2272
 msgid "trips"
-msgstr "行程"
+msgstr "旅次"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2276
 msgid "personTrips"
-msgstr "行人行程"
+msgstr "人员旅次"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2280
 msgid "walks"
-msgstr "走"
+msgstr "步行"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
 msgid "rides"
-msgstr "骑行"
+msgstr "车程"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2298
 msgid "stop"
@@ -17073,7 +17073,7 @@ msgstr "禁止"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2413
 msgid "PersonPlan"
-msgstr "行人规划"
+msgstr "人员出行計划"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2415
 msgid "edgeData"
@@ -17105,7 +17105,7 @@ msgstr "显示车辆颜色图例"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2500
 msgid "Draw all objects at their true Z-level"
-msgstr "将所有对象绘制到其真实的Z轴层级"
+msgstr "将所有物件绘制到其真实的Z轴层级"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2503
 msgid "Combobox max rows"
@@ -17796,13 +17796,13 @@ msgstr "无法将WGS84坐标%转换为十进制表示，假定其为UTM坐标。
 #~ msgid ""
 #~ "- The 'Match Attribute' controls allow to specify a set of objects which "
 #~ "are then applied to the current selection\n"
-#~ msgstr "- 匹配属性 \"控件允许指定一组对象，然后将其应用于当前选择。\n"
+#~ msgstr "- 匹配属性 \"控件允许指定一组物件，然后将其应用于当前选择。\n"
 
 #~ msgid "  according to the current 'Modification Mode'.\n"
 #~ msgstr "  根据当前的 \"修改模式\"。\n"
 
 #~ msgid "     1. Select an object type from the first input box\n"
-#~ msgstr "     1. 从第一个输入框中选择一个对象类型\n"
+#~ msgstr "     1. 从第一个输入框中选择一个物件类型\n"
 
 #~ msgid "     2. Select an attribute from the second input box\n"
 #~ msgstr "     2. 从第二个输入框中选择一个属性\n"
@@ -17813,7 +17813,7 @@ msgstr "无法将WGS84坐标%转换为十进制表示，假定其为UTM坐标。
 #~ msgstr "     3. 在第三个输入框中输入一个 \"匹配表达式\"，然后按<回车>。\n"
 
 #~ msgid "- The empty expression matches all objects\n"
-#~ msgstr "- 空表达式可以匹配所有对象\n"
+#~ msgstr "- 空表达式可以匹配所有物件\n"
 
 #~ msgid ""
 #~ "- For numerical attributes the match expression must consist of a "
@@ -17826,8 +17826,8 @@ msgstr "无法将WGS84坐标%转换为十进制表示，假定其为UTM坐标。
 #~ "- An object matches if the comparison between its attribute and the given "
 #~ "number by the given operator evaluates to 'true'\n"
 #~ msgstr ""
-#~ "- 如果一个对象的属性与给定的数字通过给定的运算符进行比较后评估为'真'，则该"
-#~ "对象匹配。\n"
+#~ "- 如果一个物件的属性与给定的数字通过给定的运算符进行比较后评估为'真'，则该"
+#~ "物件匹配。\n"
 
 #~ msgid ""
 #~ "- For string attributes the match expression must consist of a comparison "
@@ -17839,7 +17839,7 @@ msgstr "无法将WGS84坐标%转换为十进制表示，假定其为UTM坐标。
 #~ msgid ""
 #~ "     '' (no operator) matches if string is a substring of that object's "
 #~ "attribute.\n"
-#~ msgstr "     ''（无操作符）如果字符串是该对象属性的子串，则匹配。\n"
+#~ msgstr "     ''（无操作符）如果字符串是该物件属性的子串，则匹配。\n"
 
 #~ msgid "     '=' matches if string is an exact match.\n"
 #~ msgstr "     如果字符串是完全匹配的，'='就会匹配。\n"
@@ -18585,11 +18585,11 @@ msgstr "无法将WGS84坐标%转换为十进制表示，假定其为UTM坐标。
 #~ "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 #~ "objects which are then applied to the current selection\n"
 #~ msgstr ""
-#~ "-- MatchGenericData Attribute \"控件允许指定一组对象，然后将其应用于当前选"
+#~ "-- MatchGenericData Attribute \"控件允许指定一组物件，然后将其应用于当前选"
 #~ "择。\n"
 
 #~ msgid "Invalid container parameters."
-#~ msgstr "无效的容器参数。"
+#~ msgstr "无效的集装箱参数。"
 
 #~ msgid "Invalid person parameters."
 #~ msgstr "无效的人员参数。"

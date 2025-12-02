@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <calibrator id="calibtest" lane="middle_0" pos="0" output="detector.xml" period="10">
+        <route id="c1" edges="beg middle end"/>
+        <!-- 5 vehs in 300s -->
+        <flow begin="0"   end="300" route="c1" vehsPerHour="60"/>
+        <!-- 100 vehs in 300s -->
+        <flow begin="300" end="600" route="c1" vehsPerHour="1200"/>
+    </calibrator>
+
+</additional>

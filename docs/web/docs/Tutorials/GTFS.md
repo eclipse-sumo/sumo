@@ -42,7 +42,7 @@ For this tutorial we imported the network of Eichwalde with the osmWebWizard too
 
 # Finding a data source for GTFS
 
-There are [several sources](https://transitfeeds.com/) for GTFS data usually on the website of your local
+There are [several sources](https://mobilitydatabase.org/) for GTFS data usually on the website of your local
 transit agency. [Some examples from Germany](https://gist.github.com/highsource/67d0846029a43ea28dfd90540bacb1ee):
 
 - [Aggregated data for a lot of German regions](https://gtfs.de/en/)
@@ -80,10 +80,12 @@ From OSM you can (sometimes) get abstract schedules ("line runs every 10 minutes
 While it may be desirable to choose for every of the three data types individually whether it should be imported from OSM
 or from GTFS, currently, only the following scenarios are possible:
 
+- Import [Stops from OSM](GTFS.md#stops_from_osm). This will map each GTFS stop location to the most appropriate OSM stop location. This is the recommended approach.
 - Ignore the OSM and route data completely, see [Routes from shortest path](GTFS.md#routes_from_shortest_path).
   - This approach works with every network (not only OSM) and is the default if you do not have ptline output or your GTFS does not contain a shapes.txt file
 - Import [Routes from OSM](GTFS.md#routes_from_osm).
   - This will try to find for every GTFS route the corresponding OSM route by using geometrical distance (stop information from OSM is not used)
+
 
 ## Routes from shortest path
 
@@ -156,6 +158,9 @@ python tools/import/gtfs/gtfs2pt.py -n osm.net.xml.gz --gtfs GTFS_VBB_Juni-Dezem
 ```
 
 The generated simulation inputs are the same as [above](#routes_from_osm) and thus the same call to sumo/sumo-gui can be used.
+
+!!! note
+    It is recommended that the stops are imported with netconvert options **--ptstop-output <stops> --ptline-output <lines>**, because importing lines improves the localization of stops.
 
 # Using the outputs in a simulation
 
