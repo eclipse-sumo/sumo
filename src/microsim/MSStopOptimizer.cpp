@@ -65,6 +65,8 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
             ptr->reachedPrio = prev->reachedPrio + stop.priority;
             ptr->prev = prev;
             ptr->stopIndex = i;
+            ConstMSEdgeVector subEdges(edges.begin(), edges.begin() + stop.routeIndex);
+            ptr->cost = myRouter.recomputeCostsPos(subEdges, myVehicle, sourcePos, 0, myT);
             prev = ptr;
             queue.push(ptr);
         }
@@ -79,6 +81,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
         << " minSkipped=" << minSkipped << " maxReached=" << maxReached << "\n";
 #endif
 
+    std::map<const MSEdge*, std::shared_ptr<StopPathNode> > bestIntermediate;
     while (!queue.empty()) {
         auto ptr = queue.top();
         queue.pop();
@@ -91,7 +94,8 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
             << " stopIndex=" << ptr->stopIndex << "\n";
 #endif
         auto succ = ptr->getSuccessor(stops, minSkipped);
-        if (ptr->skippedPrio < minSkipped && ptr->reachedPrio > maxReached) {
+        if ((ptr->skippedPrio < minSkipped && ptr->reachedPrio > maxReached)
+                || (ptr->skippedPrio == minSkipped && ptr->reachedPrio == maxReached && ptr->cost < bestNode->cost)) {
             minSkipped = MIN2(minSkipped, totalPrio - ptr->reachedPrio);
             maxReached = ptr->reachedPrio;
             bestNode = ptr;
@@ -100,6 +104,33 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
 #endif
         }
         if (succ != nullptr) {
+            auto it = bestIntermediate.find(ptr->edge);
+            if (it == bestIntermediate.end()) {
+                bestIntermediate[ptr->edge] = ptr;
+            } else {
+                auto best = it->second;
+                assert(best->checked);
+                assert(ptr->checked);
+                if (!(*best < *ptr) && best != ptr) {
+#ifdef DEBUG_OPTIMIZE_SKIPPED
+                    std::cout << "skip " << ptr->edge->getID()
+                        << " osp=" << best->skippedPrio << " sp=" << ptr->skippedPrio
+                        << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
+                        << " oc=" << best->cost << " c=" << ptr->cost
+                        << "\n";
+#endif
+                    continue;
+                } else {
+                    bestIntermediate[ptr->edge] = ptr;
+#ifdef DEBUG_OPTIMIZE_SKIPPED
+                    std::cout << "newBest " << ptr->edge->getID()
+                        << " osp=" << best->skippedPrio << " sp=" << ptr->skippedPrio
+                        << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
+                        << " oc=" << best->cost << " c=" << ptr->cost
+                        << "\n";
+#endif
+                }
+            }
             queue.push(ptr);
             queue.push(succ);
         }
@@ -132,17 +163,19 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
     if (!checked) {
         checked = true;
         // @todo caching, bulk-routing
-        if (!so.reachableInTime(prev->edge, prev->pos, edge, pos, arrival, edges)) {
+        double newCost = 0;
+        if (!so.reachableInTime(prev->edge, prev->pos, edge, pos, arrival, edges, newCost)) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
             std::cout << "    prevIndex=" << prev->stopIndex << " prevEdge=" << prev->edge->getID() << " i=" << stopIndex << " edge=" << edge->getID() << " unreachable\n";
 #endif
             return nullptr;
         } else {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-            std::cout << "    prevIndex=" << prev->stopIndex << " prevEdge=" << prev->edge->getID() << " i=" << stopIndex << " edge=" << edge->getID() << " reached with edges=" << toString(edges) << "\n";
+            std::cout << "    prevIndex=" << prev->stopIndex << " prevEdge=" << prev->edge->getID() << " i=" << stopIndex << " edge=" << edge->getID() << " reached with edges=" << toString(edges) << " cost=" << cost << " newCost=" << newCost << "\n";
 #endif
         }
         reachedPrio += priority;
+        cost += newCost;
     }
     int nextIndex = stopIndex + numSkipped + 1;
     while (nextIndex < (int)stops.size()) {
@@ -164,6 +197,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             succ->skippedPrio = skippedPrio;
             succ->reachedPrio = reachedPrio;
             succ->trackChanges = trackChanges;
+            succ->cost = cost;
             succ->prev = shared_from_this();
             succ->stopIndex = nextIndex;
             return succ;
@@ -184,6 +218,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             succ->skippedPrio = skippedPrio;
             succ->reachedPrio = reachedPrio;
             succ->trackChanges = trackChanges + 1;
+            succ->cost = cost;
             succ->prev = shared_from_this();
             succ->stopIndex = nextIndex;
             return succ;
@@ -211,12 +246,12 @@ bool
 MSStopOptimizer::reachableInTime(const MSEdge* from, double fromPos,
         const MSEdge* to, double toPos,
         SUMOTime arrival,
-        ConstMSEdgeVector& into) const {
+        ConstMSEdgeVector& into, double &cost) const {
     myRouter.compute(from, fromPos, to, toPos, myVehicle, myT, into, true);
     if (into.size() > 0) {
-        SUMOTime cost = TIME2STEPS(myRouter.recomputeCostsPos(into, myVehicle, fromPos, toPos, myT));
+        cost = myRouter.recomputeCostsPos(into, myVehicle, fromPos, toPos, myT);
         //std::cout << " from=" << from->getID() << " fromPos=" << fromPos << " to=" << to->getID() << " toPos=" << toPos << " t=" << myT << " cost=" << cost << " arrival=" << arrival << " maxDelay=" << myMaxDelay << "\n";
-        if (myT + cost <= arrival + myMaxDelay) {
+        if (myT + TIME2STEPS(cost) <= arrival + myMaxDelay) {
             return true;
         }
     }

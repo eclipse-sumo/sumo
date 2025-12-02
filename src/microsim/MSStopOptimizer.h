@@ -99,23 +99,27 @@ private:
         std::shared_ptr<StopPathNode> prev = nullptr;
 
         std::shared_ptr<StopPathNode> getSuccessor(const std::vector<StopEdgeInfo>& stops, double minSkipped);
+
+        bool operator<(StopPathNode& b) const {
+            if (skippedPrio == b.skippedPrio) {
+                if (trackChanges == b.trackChanges) {
+                    return cost > b.cost;
+                }
+                return trackChanges > b.trackChanges;
+            }
+            return skippedPrio > b.skippedPrio;
+        }
     };
 
     struct spnCompare {
         bool operator()(const std::shared_ptr<StopPathNode>& a,
                         const std::shared_ptr<StopPathNode>& b) const {
-            if (a->skippedPrio == b->skippedPrio) {
-                if (a->trackChanges == b->trackChanges) {
-                    return a->cost > b->cost;
-                }
-                return a->trackChanges > b->trackChanges;
-            }
-            return a->skippedPrio > b->skippedPrio;
+            return *a < *b;
         }
     };
 
     bool reachableInTime(const MSEdge* from, double fromPos,
         const MSEdge* to, double toPos,
-        SUMOTime arrival, ConstMSEdgeVector& into) const;
+        SUMOTime arrival, ConstMSEdgeVector& into, double& cost) const;
 
 };
