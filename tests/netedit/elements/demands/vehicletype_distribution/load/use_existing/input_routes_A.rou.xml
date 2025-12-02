@@ -1,0 +1,25 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="v1" probability="2"/>
+    <vType sigma="0" id="v2" probability="1"/>
+
+    <vTypeDistribution id="vt1" vTypes="v1 v2"/>
+
+    <flow id="1" begin="0" period="2" number="10" type="vt1">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </flow>
+
+    <vTypeDistribution id="vd1">
+        <vType sigma="0" id="v1.1" probability="0.5"/>
+        <vType sigma="0" id="v1.2" probability="0.5"/>
+    </vTypeDistribution>
+
+    <vTypeDistribution id="vd2">
+        <vType sigma="0" id="v2.1" probability="1"/>
+        <vType sigma="0" id="v2.2" probability="1"/>
+    </vTypeDistribution>
+
+    <vTypeDistribution id="vt2" vTypes="vd1 vd2" probabilities="0.8 0.2"/>
+    <flow id="2" begin="30" period="2" number="10" type="vt2">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </flow>
+</routes>

@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\straighten_elevation_edge\input_net.net.xml"/>
+        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\straighten_elevation_edge\input_input_net_A.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\straighten_elevation_edge\input_net.net.xml"/>
+        <output-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\straighten_elevation_edge\input_input_net_A.net.xml"/>
     </output>
 
     <processing>

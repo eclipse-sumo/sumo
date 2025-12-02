@@ -1,3 +1,3 @@
 Error: Attribute 'lineWidth' in definition of poly 'poly_1' Invalid Number Format (double) dummyLineWidth.
 Error: Could not build poly with ID 'poly_2' in netedit; Attribute lineWidth cannot be negative (-3.00).
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

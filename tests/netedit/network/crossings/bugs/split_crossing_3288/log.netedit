@@ -2,7 +2,7 @@ Error: Could not build inductionLoop with ID 'e1_3' in netedit; lane parent with
 Error: Could not build inductionLoop with ID 'e1_4' in netedit; lane parent with ID '-E2_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_5' in netedit; lane parent with ID 'E2_2' doesn't exist.
 Error: Could not build inductionLoop with ID 'e1_6' in netedit; lane parent with ID '-E3_2' doesn't exist.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c2' across [-E2] has no target.

@@ -3,10 +3,10 @@ import_config_file:../config_all
 
 binary:$SUMO_BINARY
 
-copy_test_path:net.net.xml
-copy_test_path:additionals.add.xml
-copy_test_path:routes.rou.xml
-copy_test_path:meandatas.dat.add.xml
+copy_test_path:input_net_A.net.xml
+copy_test_path:input_additionals_A.add.xml
+copy_test_path:input_routes_A.rou.xml
+copy_test_path:input_meandatas_A.add.xml
 
 copy_test_path:net.netedit
 copy_test_path:net_net_xml.netedit

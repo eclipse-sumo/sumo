@@ -3,4 +3,4 @@ Error: Could not build access with ID 'trainStop_0' in netedit; Invalid position
 Error: Could not build access with ID 'trainStop_0' in netedit; Invalid position over lane.
 Error: Could not build trainStop with ID 'trainStop_1' in netedit; Invalid position over lane.
 Error: Could not build access in netedit; doesn't exist a busStop, trainStop, containerStop parent with ID 'trainStop_1'.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

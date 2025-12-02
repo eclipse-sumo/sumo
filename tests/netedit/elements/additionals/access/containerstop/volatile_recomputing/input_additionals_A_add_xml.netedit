@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-03 14:30:04 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="cs_0" lane="EdgeExternBot_0" startPos="62.28" endPos="72.28">
+        <access lane="Edge0_0" pos="15.00"/>
+    </containerStop>
+    <containerStop id="cs_1" lane="EdgeExternBot_0" startPos="102.72" endPos="112.72">
+        <access lane="Edge0_0" pos="55.00"/>
+    </containerStop>
+    <containerStop id="cs_2" lane="EdgeExternTop_0" startPos="102.72" endPos="112.72">
+        <access lane="Edge2_0" pos="50.00"/>
+    </containerStop>
+    <containerStop id="cs_3" lane="EdgeExternTop_0" startPos="62.28" endPos="72.28">
+        <access lane="Edge2_0" pos="10.00"/>
+    </containerStop>
+</additional>

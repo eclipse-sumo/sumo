@@ -1,0 +1,12 @@
+<additionals>
+
+    <!-- valid name (missing) -->
+    <taz id="TAZ_0" color="red" fill="0" layer="0.00" shape="-10.00,40.00 0.00,40.00 0.00,30.00 -10.00,30.00 -10.00,40.00"/>
+
+    <!-- invalid center (empty) -->
+    <taz id="TAZ_1" center="" color="red" fill="0" layer="0.00" shape="10.00,40.00 20.00,40.00 20.00,30.00 10.00,30.00 10.00,40.00"/>
+
+    <!-- invalid name -->
+    <taz id="TAZ_2" center="20,30" color="red" fill="0" layer="0.00" shape="30.00,40.00 40.00,40.00 40.00,30.00 30.00,30.00 30.00,40.00"/>
+
+</additionals>

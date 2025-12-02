@@ -1,0 +1,24 @@
+<additionals>
+
+    <!-- non valid shape (missing) -->
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" />
+
+    <!-- non valid shape (dummy) -->
+    <poly id="jps.obstacle_1" type="jupedsim.obstacle" shape="dummyShape"/>
+
+    <!-- non valid valid shape (duplicated points)-->
+    <poly id="jps.obstacle_2" type="jupedsim.obstacle" shape="10.00,-40.00 20.00,-40.00 20.00,-50.00 20.00,-50.00 10.00,-50.00 10.00,-50.00 10.00,-40.00"/>
+
+    <!-- valid valid shape (only 1 point)-->
+    <poly id="jps.obstacle_3" type="jupedsim.obstacle" shape="40.00,-40.00"/>
+
+    <!-- valid valid shape 3 points, area 0-->
+    <poly id="jps.obstacle_4" type="jupedsim.obstacle" shape="-70.00,40.00 -60.00,40.00 -70.00,40.00 -60.00,40.00"/>
+
+    <!-- valid shape (only 2 points)-->
+    <poly id="jps.obstacle_5" type="jupedsim.obstacle" shape="-70.00,20.00 -60.00,20.00"/>
+
+    <!-- valid shape (duplicated with poly_0 shape) -->
+    <poly id="jps.obstacle_6" type="jupedsim.obstacle" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+</additionals>

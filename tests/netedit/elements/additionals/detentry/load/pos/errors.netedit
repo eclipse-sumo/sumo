@@ -2,4 +2,4 @@ Error: Attribute 'pos' is missing in definition of a detEntry.
 Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double) dummyPosition.
 Error: Attribute 'pos' in definition of a detEntry is empty.
 Error: Could not build detEntry with ID 'entryExitDetector_0' in netedit; Invalid position over lane.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

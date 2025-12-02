@@ -1,4 +1,4 @@
 Error: The shape 'dummyGuiShape' for vType 'vType0' is not known.
 Error: Attribute 'guiShape' in definition of vType 'vType1' is empty.
 Error: The shape 'unknown' for vType 'vType2' is not known.
-Error: Loading of 'routes.rou.xml' failed.
+Error: Loading of 'input_routes_A.rou.xml' failed.

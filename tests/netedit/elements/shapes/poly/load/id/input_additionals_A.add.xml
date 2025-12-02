@@ -1,0 +1,18 @@
+<additionals>
+
+    <!-- Without errors -->
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+    <!-- non valid ID (missing) -->
+    <poly color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (invalid) -->
+    <poly id="%%%%;;$$$%" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (duplicated) -->
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- valid ID -->
+    <poly id="poly_1" color="green" fill="0" layer="0.00" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+</additionals>

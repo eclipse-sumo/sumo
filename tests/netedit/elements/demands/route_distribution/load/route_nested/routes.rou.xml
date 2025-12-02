@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <flow id="v" begin="0" end="20" number="10">
-        <routeDistribution>
-            <route edges="Edge0 Edge1 Edge2" probability="0.5"/>
-            <route edges="Edge3 Edge4 Edge5" probability="0.5"/>
-        </routeDistribution>
-    </flow>
-</routes>

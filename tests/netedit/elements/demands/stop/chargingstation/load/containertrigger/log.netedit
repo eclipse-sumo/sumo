@@ -6,4 +6,4 @@ Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Forma
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStationA'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStationA'
-Error: Loading of 'routes.rou.xml' failed.
+Error: Loading of 'input_routes_A.rou.xml' failed.

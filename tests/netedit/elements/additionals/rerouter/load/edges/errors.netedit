@@ -1,4 +1,4 @@
 Error: Attribute 'edges' is missing in definition of rerouter 'rerouter_0'.
 Error: Attribute 'edges' in definition of rerouter 'rerouter_1' is empty.
 Error: Could not build rerouter with ID 'rerouter_2' in netedit; edge with ID 'ABC' doesn't exist.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

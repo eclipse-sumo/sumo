@@ -16,11 +16,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="additionals.add.xml"/>
-        <route-files value="routes.rou.xml"/>
-        <data-files value="datas.dat.xml"/>
-        <meandata-files value="meandatas.dat.add.xml"/>
-        <sumo-net-file value="net.net.xml"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>

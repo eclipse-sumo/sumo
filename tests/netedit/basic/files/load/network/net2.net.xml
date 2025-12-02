@@ -4,10 +4,10 @@
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Data\SUMO\tests\netedit\basic\additionals2.add.xml"/>
-        <route-files value="C:\Data\SUMO\tests\netedit\basic\routes2.rou.xml"/>
-        <data-files value="C:\Data\SUMO\tests\netedit\basic\datas2.dat.xml"/>
-        <meandata-files value="C:\Data\SUMO\tests\netedit\basic\meandatas2.dat.add.xml"/>
+        <additional-files value="C:\Data\SUMO\tests\netedit\basic\input_additionalsB.add.xml"/>
+        <route-files value="C:\Data\SUMO\tests\netedit\basic\input_routesB.rou.xml"/>
+        <data-files value="C:\Data\SUMO\tests\netedit\basic\input_datasB.dat.xml"/>
+        <meandata-files value="C:\Data\SUMO\tests\netedit\basic\meaninput_datasB.dat.add.xml"/>
         <sumo-net-file value="C:\Data\SUMO\tests\netedit\basic\net2.net.xml"/>
     </input>
 

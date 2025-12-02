@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a route.
 Error: Attribute 'id' in definition of a route is empty.
 Error: Could not build route with ID '%%$$$%  $$%' in netedit; ID contains invalid characters.
-Error: Loading of 'routes.rou.xml' failed.
+Error: Loading of 'input_routes_A.rou.xml' failed.

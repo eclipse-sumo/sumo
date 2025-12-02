@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-09-25T14:11:11.620488+01:00 by Eclipse SUMO netedit v1_24_0+0995-bd6e31d9754
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poi id="POI_1" name="nameA" lon="-0.000180" lat="0.000090" type="typeA" color="125,60,200" angle="18.00" imgFile="fileA" width="20.00" height="15.00">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </poi>
+    <poi id="POI_2" name="nameB" lon="0.001440" lat="0.000900" type="typeA" color="125,60,200" layer="16.00" angle="21.00" imgFile="fileB" width="19.00" height="32.00">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </poi>
+</additional>

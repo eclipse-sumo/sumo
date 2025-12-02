@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- access with non valid trainStop parent (Without ID) -->
+    <trainStop lane="Edge4_1" startPos="9.00" endPos="15.00">
+        <access lane="Edge4_0" pos="1.1" length="10" friendlyPos="0"/>
+    </trainStop>
+</additional>

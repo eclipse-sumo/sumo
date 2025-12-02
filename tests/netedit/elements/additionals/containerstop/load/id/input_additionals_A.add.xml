@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- Valid ID -->
+    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10"/>
+
+    <!-- missing ID -->
+    <containerStop lane="EdgeCenter1_1" startPos="5" endPos="10" />
+
+    <!-- invalid ID -->
+    <containerStop id="ID with spaces" lane="EdgeCenter1_1" startPos="5" endPos="10" />
+
+    <!-- Duplicated ID -->
+    <containerStop id="containerStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" />
+
+    <!-- Duplicated ID (train) -->
+    <trainStop id="containerStop_00" lane="Edge3_1" startPos="5" endPos="10" />
+
+</additional>

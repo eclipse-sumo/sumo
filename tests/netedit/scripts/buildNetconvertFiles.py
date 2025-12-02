@@ -22,12 +22,12 @@ import scandir
 # folder lists
 folderList = []
 
-# get all net.net.xml
+# get all input_net_A.net.xml
 for paths, dirs, files in scandir.walk("D:/SUMO/tests/netedit"):
     for file in files:
-        if file.endswith("net.net.xml"):
+        if file.endswith("input_net_A.net.xml"):
             folderList.append(os.path.join(paths))
 
 for folder in folderList:
     os.system("D:/SUMO/bin/netconvert.exe -s " + folder +
-              "/net.net.xml --plain-output-prefix " + folder + "/net")
+              "/input_net_A.net.xml --plain-output-prefix " + folder + "/net")

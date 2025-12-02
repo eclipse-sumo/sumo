@@ -1,4 +1,4 @@
 Error: lane and position must be defined together in POIs
 Error: Attribute 'pos' in definition of poi 'POI_1' Invalid Number Format (double) dummyY.
 Error: Could not build poiLane with ID 'POI_3' in netedit; Invalid position over lane.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

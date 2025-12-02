@@ -6,4 +6,4 @@ Error: Could not build inductionLoop with ID 'e1_3' in netedit; Invalid position
 Error: Could not build inductionLoop with ID 'e1_4' in netedit; Invalid position over lane.
 Error: Could not build inductionLoop with ID 'e1_7' in netedit; Invalid position over lane.
 Error: Could not build inductionLoop with ID 'e1_8' in netedit; Invalid position over lane.
-Error: Loading of additional file failed: additionals.add.xml
+Error: Loading of additional file failed: input_additionals_A.add.xml

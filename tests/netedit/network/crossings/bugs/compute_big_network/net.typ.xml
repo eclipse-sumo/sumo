@@ -4,7 +4,7 @@
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\network\crossings\bugs\compute_big_network/net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\network\crossings\bugs\compute_big_network/input_net_A.net.xml"/>
     </input>
 
     <output>

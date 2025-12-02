@@ -1,4 +1,4 @@
 Error: Attribute 'file' is missing in definition of instantInductionLoop 'E1_01'.
 Error: Could not build instantInductionLoop with ID 'E1_02' in netedit; file is invalid %%%$$$%%% ()
 Error: Attribute 'file' in definition of instantInductionLoop 'E1_03' is empty.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

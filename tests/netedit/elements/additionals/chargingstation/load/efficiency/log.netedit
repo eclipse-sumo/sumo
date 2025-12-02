@@ -1,2 +1,2 @@
 Error: Attribute 'efficiency' in definition of chargingStation 'chargingStation_1' Invalid Number Format (double) dummyEfficiency.
-Error: Loading of 'additionals.add.xml' failed.
+Error: Loading of 'input_additionals_A.add.xml' failed.

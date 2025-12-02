@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-20 15:16:33 by Eclipse SUMO netedit Version v1_16_0+2228-9f242c35b76
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="walkableArea_1" type="jupedsim.walkable_area" shape="20.00,-4.00 20.00,6.00 10.00,6.00 10.00,-4.00 20.00,-4.00"/>
+</additional>

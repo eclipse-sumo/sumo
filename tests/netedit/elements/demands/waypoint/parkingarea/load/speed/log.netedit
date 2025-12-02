@@ -3,4 +3,4 @@ Error: Speed cannot be negative for stop at 'parkingAreaA'
 Error: Attribute 'speed' in definition of a stop Invalid Number Format (double) dummySpeed.
 Error: Speed cannot be negative for stop at 'parkingAreaA'
 Error: Speed cannot be negative for stop at 'parkingAreaA'
-Error: Loading of 'routes.rou.xml' failed.
+Error: Loading of 'input_routes_A.rou.xml' failed.

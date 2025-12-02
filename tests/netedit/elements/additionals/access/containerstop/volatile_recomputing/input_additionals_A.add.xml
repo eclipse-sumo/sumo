@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-03 14:05:51 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="cs_0" lane="EdgeExternBot_0" startPos="62.28" endPos="72.28">
+        <access lane="Edge0_0" pos="15.00"/>
+    </containerStop>
+    <containerStop id="cs_1" lane="EdgeExternBot_0" startPos="102.72" endPos="112.72">
+        <access lane="Edge0_0" pos="55.00"/>
+    </containerStop>
+    <containerStop id="cs_2" lane="EdgeExternTop_0" startPos="102.72" endPos="112.72">
+        <access lane="Edge2_0" pos="50.00"/>
+    </containerStop>
+    <containerStop id="cs_3" lane="EdgeExternTop_0" startPos="62.28" endPos="72.28">
+        <access lane="Edge2_0" pos="10.00"/>
+    </containerStop>
+</additional>

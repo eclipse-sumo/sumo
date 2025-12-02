@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-05 10:06:03 by Eclipse SUMO netedit Version v1_20_0+1528-fbf81e3bf5b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_0" edges="E0">
+        <stop busStop="bs_0" duration="60.00"/>
+        <stop busStop="bs_3" duration="60.00"/>
+    </route>
+    <route id="r_1" edges="-E0">
+        <stop busStop="bs_2" duration="60.00"/>
+        <stop busStop="bs_1" duration="60.00"/>
+    </route>
+</routes>

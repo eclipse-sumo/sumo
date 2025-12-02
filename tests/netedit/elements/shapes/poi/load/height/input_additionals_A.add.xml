@@ -1,0 +1,12 @@
+<additionals>
+
+    <!-- non valid height (missing) -->
+    <poi id="POI_0" color="red" layer="0.00" x="0.00" y="30.00" width="0.00"/>
+
+    <!-- non valid height (invalid) -->
+    <poi id="POI_1" color="red" layer="0.00" x="10.00" y="30.00" width="0.00" height="dummyHeight"/>
+
+    <!-- valid height -->
+    <poi id="POI_2" color="red" layer="0.00" x="20.00" y="30.00" width="0.00" height="2.00"/>
+
+</additionals>
