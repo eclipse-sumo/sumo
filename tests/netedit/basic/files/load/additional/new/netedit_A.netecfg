@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="output_guisettings.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
