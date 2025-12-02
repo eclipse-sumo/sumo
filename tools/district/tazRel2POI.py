@@ -54,6 +54,8 @@ def get_options(args=None):
                     help="define the tazRel attribute to read")
     op.add_argument("-s", "--size-metric", category="processing", dest="sizeMetric", default='all',
                     help="define the metric to visualize ('in', 'out', 'all')")
+    op.add_argument("-r", "--reference-taz", category="processing", dest="refTaz",
+                    help="Only include relations that start or end at the given taz id")
 
     options = op.parse_args(args=args)
     options.net = None
@@ -76,6 +78,8 @@ def main(options):
     for tazrel in sumolib.xml.parse(options.tazrel, ['tazRelation']):
         if tazrel.hasAttribute(options.attribute):
             val = float(tazrel.getAttribute(options.attribute))
+            if options.refTaz is not None and tazrel.attr_from != options.refTaz and tazrel.to != options.refTaz:
+                continue
             relsFrom[tazrel.attr_from] += val
             relsTo[tazrel.to] += val
 
