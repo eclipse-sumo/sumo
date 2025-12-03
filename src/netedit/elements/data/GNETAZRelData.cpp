@@ -289,7 +289,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             drawInLayer(GLO_TAZ + 1);
             GLHelper::setColor(color);
             // check if update lastWidth
-            const double width = (onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration
+            const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+            const double width = (onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration * selectionScale
                                   * s.dataScaler.getScheme().getColor(getScaleValue(s, s.dataScaler.getActive())));
             if (width != myLastWidth) {
                 myLastWidth = width;
