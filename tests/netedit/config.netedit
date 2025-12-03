@@ -34,17 +34,17 @@ copy_test_path:input_net_A.xml.gz
 copy_test_path:input_net_A.txt
 
 # ADDITIONALS
-copy_test_path:input_meandatas_A.add.xml
-copy_test_path:input_meandatas_A.add.xml.gz
-copy_test_path:input_meandatas_A.xml
-copy_test_path:input_meandatas_A.xml.gz
-copy_test_path:input_meandatas_A.txt
+copy_test_path:input_additionals_A.add.xml
+copy_test_path:input_additionals_A.add.xml.gz
+copy_test_path:input_additionals_A.xml
+copy_test_path:input_additionals_A.xml.gz
+copy_test_path:input_additionals_A.txt
 
-copy_test_path:input_meandatas_B.add.xml
-copy_test_path:input_meandatas_B.add.xml.gz
-copy_test_path:input_meandatas_B.xml
-copy_test_path:input_meandatas_B.xml.gz
-copy_test_path:input_meandatas_B.txt
+copy_test_path:input_additionals_B.add.xml
+copy_test_path:input_additionals_B.add.xml.gz
+copy_test_path:input_additionals_B.xml
+copy_test_path:input_additionals_B.xml.gz
+copy_test_path:input_additionals_B.txt
 
 # ROUTES
 copy_test_path:input_routes_A.rou.xml
