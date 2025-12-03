@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-11-30 13:00+0000\n"
+"PO-Revision-Date: 2025-12-03 10:00+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
+"gui-netedit/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,12 +34,12 @@ msgstr "N/A"
 #: src/gui/GUIApplicationWindow.cpp:312
 #: src/netedit/GNEApplicationWindow.cpp:568
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr ""
+msgstr "Původní souřadnice (před transformací souřadnic v netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:315
 #: src/netedit/GNEApplicationWindow.cpp:572
 msgid "Network coordinate"
-msgstr ""
+msgstr "Souřadnice sítě"
 
 #: src/gui/GUIApplicationWindow.cpp:343
 #: src/netedit/GNEApplicationWindow.cpp:595
@@ -54,43 +54,43 @@ msgstr "&Soubor"
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindowHelper.cpp:205
 msgid "New Window"
-msgstr ""
+msgstr "Nové okno"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "Otevřít nové sumo-gui okno."
 
 #: src/gui/GUIApplicationWindow.cpp:472
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Otevřít Simulaci..."
 
 #: src/gui/GUIApplicationWindow.cpp:472
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Otevřít simulaci (Konfigurační soubor)."
 
 #: src/gui/GUIApplicationWindow.cpp:475
 msgid "Open &Network..."
-msgstr ""
+msgstr "Otevřít &Síť..."
 
 #: src/gui/GUIApplicationWindow.cpp:475
 msgid "Open a network."
-msgstr ""
+msgstr "Otevřít síť."
 
 #: src/gui/GUIApplicationWindow.cpp:478
 msgid "Open Shapes "
-msgstr ""
+msgstr "Otevřít tvary "
 
 #: src/gui/GUIApplicationWindow.cpp:478
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "Načíst body zájmu (POI) a polygony pro vizualizaci."
 
 #: src/gui/GUIApplicationWindow.cpp:481
 msgid "Open EdgeData "
-msgstr ""
+msgstr "Otevřít EdgeData "
 
 #: src/gui/GUIApplicationWindow.cpp:481
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "Načíst data související s hranami pro vizualizaci."
 
 #: src/gui/GUIApplicationWindow.cpp:484
 #: src/netedit/GNEApplicationWindow.cpp:1048
@@ -99,7 +99,7 @@ msgstr "Znovu &Načíst"
 
 #: src/gui/GUIApplicationWindow.cpp:484
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Znovu načte simulaci / síť."
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Quick-Reload"
@@ -107,15 +107,15 @@ msgstr "Znovu načíst (rychlý režim)"
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Znovu načte simulaci (ale ne síť)."
 
 #: src/gui/GUIApplicationWindow.cpp:491
 msgid "Save Configuration"
-msgstr ""
+msgstr "Uložit konfiguraci"
 
 #: src/gui/GUIApplicationWindow.cpp:491
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Uložit aktuální možnosti jako konfigurační soubor."
 
 #: src/gui/GUIApplicationWindow.cpp:494
 #: src/netedit/GNEApplicationWindowHelper.cpp:313
@@ -125,7 +125,7 @@ msgstr "Zavřít"
 
 #: src/gui/GUIApplicationWindow.cpp:494
 msgid "Close the simulation."
-msgstr ""
+msgstr "Zavřít simulaci."
 
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1413
@@ -135,7 +135,7 @@ msgstr "&Ukončit"
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1413
 msgid "Quit the Application."
-msgstr ""
+msgstr "Ukončit aplikaci."
 
 #: src/gui/GUIApplicationWindow.cpp:511
 #: src/netedit/GNEApplicationWindow.cpp:1428
@@ -144,11 +144,11 @@ msgstr "&Upravit"
 
 #: src/gui/GUIApplicationWindow.cpp:513 src/gui/GUIApplicationWindow.cpp:885
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Upravit výběr..."
 
 #: src/gui/GUIApplicationWindow.cpp:513
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "Otevře dialogové okno pro úpravu výběru objektů."
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Select lanes which allow..."
@@ -187,12 +187,12 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:528
 #: src/netedit/GNEApplicationWindowHelper.cpp:1302
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "Upravit vizualizaci"
 
 #: src/gui/GUIApplicationWindow.cpp:528
 #: src/netedit/GNEApplicationWindowHelper.cpp:1302
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "Otevře dialogové okno pro úpravu nastavení vizualizace."
 
 #: src/gui/GUIApplicationWindow.cpp:531
 #: src/netedit/GNEApplicationWindowHelper.cpp:1305
@@ -251,7 +251,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:552
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "Herní režim\tCtrl+G\tZapnout/vypnout herní režim."
 
 #: src/gui/GUIApplicationWindow.cpp:555
 msgid "Full Screen Mode"
@@ -292,7 +292,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1418
 #: src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "&Vehicles"
-msgstr ""
+msgstr "&Vozidla"
 
 #: src/gui/GUIApplicationWindow.cpp:567
 #: src/netedit/GNEApplicationWindowHelper.cpp:2022
