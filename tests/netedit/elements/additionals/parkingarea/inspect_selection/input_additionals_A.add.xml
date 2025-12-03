@@ -5,11 +5,4 @@
         <param key="KeyA2" value="valueA2"/>
         <param key="KeyA3" value="valueA3"/>
     </parkingArea>
-
-    <!-- Parking Area B -->
-    <parkingArea id="parkingAreaB" lane="EdgeCenter0_0" startPos="20" endPos="35" roadsideCapacity="10" width="6.00" length="8.00" angle="30.00" departPos="5" name="parkingArea2" friendlyPos="false" onRoad="false" lefthand="true">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB2" value="valueB2"/>
-        <param key="KeyB3" value="valueB3"/>
-    </parkingArea>
 </additional>
