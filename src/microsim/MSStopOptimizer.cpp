@@ -110,13 +110,24 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
         std::cout << "      cost2=" << ptr->cost << " reachedPrio2=" << ptr->reachedPrio << " mandatory2=" << ptr->reachedMandatory << " succ=" << (succ == nullptr ? "NULL" : succ->edge->getID()) << "\n";
 #endif
         if (*bestNode < *ptr) {
-            bestNode = ptr;
-            minSkipped = MIN2(minSkipped, totalPrio - bestNode->reachedPrio);
+            minSkipped = MIN2(minSkipped, totalPrio - ptr->reachedPrio);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-            std::cout << "   newBestNode edge=" << bestNode->edge->getID() << " minSkipped=" << minSkipped << "\n";
+            std::cout << "   newBestNode edge=" << bestNode->edge->getID() << " minSkipped=" << minSkipped
+                        << " orm=" << bestNode->reachedMandatory << " rm=" << ptr->reachedMandatory
+                        << " orp=" << bestNode->reachedPrio << " rp=" << ptr->reachedPrio
+                        << " otc=" << bestNode->trackChanges << " tc=" << ptr->trackChanges
+                        << " oc=" << bestNode->cost << " c=" << ptr->cost
+                        << "\n";
 #endif
+            bestNode = ptr;
         }
         if (succ != nullptr) {
+            if (minSkipped == 0 && ptr->trackChanges > bestNode->trackChanges) {
+#ifdef DEBUG_OPTIMIZE_SKIPPED
+                std::cout << "pruned by minTC=" << bestNode->trackChanges << "\n";
+#endif
+                continue;
+            }
             auto it = bestIntermediate.find(ptr->edge);
             if (it == bestIntermediate.end()) {
                 bestIntermediate[ptr->edge] = ptr;
@@ -129,7 +140,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
                 assert(ptr->checked);
                 if (best == ptr) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-                    std::cout << "alreadyBest " << ptr->edge->getID() << "\n";
+                    std::cout << "alreadyBest " << ptr->edge->getID() << " rp=" << ptr->reachedPrio << " tc=" << ptr->trackChanges << " c=" << ptr->cost << "\n";
 #endif
                 } else if (!(*best < *ptr)) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
@@ -210,11 +221,11 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
     int nextIndex = stopIndex + numSkipped + 1;
     while (nextIndex < (int)stops.size()) {
         const StopEdgeInfo& next = stops[nextIndex];
-        const std::vector<MSStoppingPlace*>& alternatives = MSNet::getInstance()->getStoppingPlaceAlternatives(next.nameTag.first, next.nameTag.second);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-        std::cout << "    i=" << stopIndex << " next=" << nextIndex << " numSkipped=" << numSkipped << " altIndex=" << altIndex << " nAlt=" << alternatives.size() << "\n";
+        std::cout << "    i=" << stopIndex << " next=" << nextIndex << " numSkipped=" << numSkipped << " altIndex=" << altIndex << "\n";
 #endif
-        if ((alternatives.empty() || next.priority < 0) && altIndex == 0) {
+        // always try the default track first
+        if (altIndex == -1) {
             altIndex++;
             auto succ = std::make_shared<StopPathNode>(so, next);
             succ->skippedPrio = skippedPrio;
@@ -226,6 +237,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             succ->stopIndex = nextIndex;
             return succ;
         }
+        const std::vector<MSStoppingPlace*>& alternatives = MSNet::getInstance()->getStoppingPlaceAlternatives(next.nameTag.first, next.nameTag.second);
         if (next.priority < 0) {
             // next stop can neither be skipped nor changed
 #ifdef DEBUG_OPTIMIZE_SKIPPED
@@ -237,7 +249,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             MSStoppingPlace* alt = alternatives[altIndex];
             const MSEdge* altEdge = &alt->getLane().getEdge();
             altIndex++;
-            if ((altEdge == edge && numSkipped == 0) || !alt->getLane().allowsVehicleClass(so.myVehicle->getVClass())) {
+            if (altEdge == next.edge || !alt->getLane().allowsVehicleClass(so.myVehicle->getVClass())) {
                 continue;
             }
             auto succ = std::make_shared<StopPathNode>(so, next);
@@ -249,11 +261,9 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             succ->cost = cost;
             succ->prev = shared_from_this();
             succ->stopIndex = nextIndex;
-            if (altEdge != succ->edge) {
-                succ->origEdge = succ->edge;
-                succ->edge = altEdge;
-                succ->trackChanges += 1;
-            }
+            succ->origEdge = succ->edge;
+            succ->edge = altEdge;
+            succ->trackChanges += 1;
             return succ;
         }
         skippedPrio =+ next.priority;
@@ -265,7 +275,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             return nullptr;
         }
         nextIndex++;
-        altIndex = 0;
+        altIndex = -1;
         numSkipped++;
     }
 #ifdef DEBUG_OPTIMIZE_SKIPPED

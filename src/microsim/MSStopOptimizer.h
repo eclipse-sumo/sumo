@@ -96,7 +96,7 @@ private:
 
         int stopIndex;
         int numSkipped = 0;
-        int altIndex = 0;
+        int altIndex = -1;
         bool checked = false;
         ConstMSEdgeVector edges;
         std::shared_ptr<StopPathNode> prev = nullptr;
