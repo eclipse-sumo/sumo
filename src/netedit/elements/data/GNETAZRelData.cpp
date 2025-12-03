@@ -276,8 +276,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // draw TAZRels
     if (drawTAZRel()) {
-        // get detail level
-        const auto d = s.getDetailLevel(1);
+        // fixed detail level because tazRelations need high detail when zoomed out
+        const auto d = GUIVisualizationSettings::Detail::Level1;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             const auto& color = setColor(s);
