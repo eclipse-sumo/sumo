@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-01 15:39:51 by Eclipse SUMO netedit Version v1_23_1+0800-f8343165c15
+<!-- generated on 2025-12-03T14:24:08.429782+01:00 by Eclipse SUMO netedit v1_25_0+0312-f508c03ca92
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,10 +19,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
-    </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="1" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" chargeType="fuel" waitingTime="500.00">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB2" value="valueB3"/>
-        <param key="KeyB3" value="valueB2"/>
     </chargingStation>
 </additional>
