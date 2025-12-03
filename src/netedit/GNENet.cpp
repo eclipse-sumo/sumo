@@ -2243,7 +2243,7 @@ GNENet::saveAdditionals() {
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
         // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
+        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // open header
@@ -2309,7 +2309,7 @@ GNENet::saveDemandElements() {
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DEMAND)) {
         // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
+        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // open header
@@ -2337,7 +2337,7 @@ GNENet::saveDataElements() {
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DATA)) {
         // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
+        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // write header
@@ -2400,7 +2400,7 @@ GNENet::saveMeanDatas() {
     // iterate over all elements and save files
     for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::MEANDATA)) {
         // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
+        if ((bucket->getNumElements() > 0) || (bucket->isDefaultBucket() && (bucket->getFilename().size() > 0))) {
             // open file
             OutputDevice& device = OutputDevice::getDevice(bucket->getFilename());
             // open header
