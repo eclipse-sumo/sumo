@@ -37,7 +37,8 @@ def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
                                         allowed_programs=['duarouter', 'marouter'])
     # input
-    op.add_argument("-t", "--taz-file", "--taz-files", category="input", dest="taz", required=True, type=op.additional_file,
+    op.add_argument("-t", "--taz-file", "--taz-files", category="input", dest="taz", required=True,
+                    type=op.additional_file,
                     help="define taz file to be loaded")
     op.add_argument("-d", "--taz-relation-file", category="input", dest="tazrel",
                     required=True, type=op.additional_file,
