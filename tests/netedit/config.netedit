@@ -5,15 +5,13 @@ import_config_file:../config_all
 binary:$NETEDIT_BINARY
 use_case_record_mode:GUI
 
-# Copy files to sandbox folder
-copy_test_path:test.py
-copy_test_path:gui-settings.xml
-
 # CONFIGS
 copy_test_path:netedit_A.netecfg
 copy_test_path:netedit_B.netecfg
+
 copy_test_path:sumo_A.sumocfg
 copy_test_path:sumo_B.sumocfg
+
 copy_test_path:netconvert_A.netccfg
 copy_test_path:netconvert_B.netccfg
 
@@ -36,17 +34,17 @@ copy_test_path:input_net_A.xml.gz
 copy_test_path:input_net_A.txt
 
 # ADDITIONALS
-copy_test_path:input_additionals_A.add.xml
-copy_test_path:input_additionals_A.add.xml.gz
-copy_test_path:input_additionals_A.xml
-copy_test_path:input_additionals_A.xml.gz
-copy_test_path:input_additionals_A.txt
+copy_test_path:input_meandatas_A.add.xml
+copy_test_path:input_meandatas_A.add.xml.gz
+copy_test_path:input_meandatas_A.xml
+copy_test_path:input_meandatas_A.xml.gz
+copy_test_path:input_meandatas_A.txt
 
-copy_test_path:input_additionals_B.add.xml
-copy_test_path:input_additionals_B.add.xml.gz
-copy_test_path:input_additionals_B.xml
-copy_test_path:input_additionals_B.xml.gz
-copy_test_path:input_additionals_B.txt
+copy_test_path:input_meandatas_B.add.xml
+copy_test_path:input_meandatas_B.add.xml.gz
+copy_test_path:input_meandatas_B.xml
+copy_test_path:input_meandatas_B.xml.gz
+copy_test_path:input_meandatas_B.txt
 
 # ROUTES
 copy_test_path:input_routes_A.rou.xml
@@ -104,8 +102,9 @@ copy_test_path:edgetypes2.xml.gz
 copy_test_path:edgetypes2.txt
 copy_test_path:edgetypes3.typ.xml
 
-copy_test_path:vtypes.rou.xml
-
+# OTHER
+copy_test_path:test.py
+copy_test_path:input_guisettings.xml
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
 copy_test_path:fileB.txt
@@ -118,8 +117,12 @@ copy_test_path:loadViewport.xml
 # CONFIGS
 netedit_A:netedit_A.netecfg
 netedit_B:netedit_B.netecfg
+
 sumo_A:sumo_A.sumocfg
 sumo_B:sumo_B.sumocfg
+
+sumo:sumo.sumocfg
+
 netconvert_A:netconvert_A.netccfg
 netconvert_B:netconvert_B.netccfg
 
@@ -146,6 +149,12 @@ input_netconvert_B_nod_xml:input_netconvert_B.nod.xml
 input_netconvert_B_tll_xml:input_netconvert_B.tll.xml
 
 # ADDITIONALS
+netedit_A_add_XML:netedit_A.add.xml
+netedit_B_add_XML:netedit_B.add.xml
+
+sumo_A_add_XML:sumo_A.add.xml
+sumo_B_add_XML:sumo_B.add.xml
+
 input_additionals_A_add_xml:input_additionals_A.add.xml
 input_additionals_A_add_xml_gz:input_additionals_A.add.xml.gz
 input_additionals_A_xml:input_additionals_A.xml
@@ -159,6 +168,12 @@ input_additionals_B_xml_gz:input_additionals_B.xml.gz
 input_additionals_B_txt:input_additionals_B.txt
 
 # ROUTES
+netedit_A_rou_XML:netedit_A.rou.xml
+netedit_B_rou_XML:netedit_B.rou.xml
+
+sumo_A_rou_XML:sumo_A.rou.xml
+sumo_B_rou_XML:sumo_B.rou.xml
+
 input_routes_A_rou_xml:input_routes_A.rou.xml
 input_routes_A_rou_xml_gz:input_routes_A.rou.xml.gz
 input_routes_A_xml:input_routes_A.xml
@@ -172,6 +187,12 @@ input_routes_B_xml_gz:input_routes_B.xml.gz
 input_routes_B_txt:input_routes_B.txt
 
 # DATAS
+netedit_A_dat_XML:netedit_A.dat.xml
+netedit_B_dat_XML:netedit_B.dat.xml
+
+sumo_A_dat_XML:sumo_A.dat.xml
+sumo_B_dat_XML:sumo_B.dat.xml
+
 input_datas_A_dat_xml:input_datas_A.dat.xml
 input_datas_A_dat_xml_gz:input_datas_A.dat.xml.gz
 input_datas_A_xml:input_datas_A.xml
@@ -185,6 +206,12 @@ input_datas_B_xml_gz:input_datas_B.xml.gz
 input_datas_B_txt:input_datas_B.txt
 
 # MEANDATAS
+netedit_A_dat_add_XML:netedit_A.dat.add.xml
+netedit_B_dat_add_XML:netedit_B.dat.add.xml
+
+sumo_A_dat_add_XML:sumo_A.dat.add.xml
+sumo_B_dat_add_XML:sumo_B.dat.add.xml
+
 input_meandatas_A_add_xml:input_meandatas_A.add.xml
 input_meandatas_A_add_xml_gz:input_meandatas_A.add.xml.gz
 input_meandatas_A_xml:input_meandatas_A.xml
@@ -224,8 +251,8 @@ joinedjunctions_xml:joinedjunctions2.xml
 joinedjunctions_xml_gz:joinedjunctions2.xml.gz
 joinedjunctions_txt:joinedjunctions2.txt
 
-guisettingsoutput:guisettingsoutput.xml
-cfg:config.cfg
+# OTHER
+guisettings:guisettings.xml
 log:log.txt
 selection:selection.txt
 errorScreenshot:errorScreenshot.png
@@ -233,7 +260,55 @@ viewport:viewport.xml
 
 [run_dependent_text]
 
+# CONFIGS
+netedit_A:<!-- generated{[->]}-->
+netedit_A:\\{REPLACE /}
+netedit_B:<!-- generated{[->]}-->
+netedit_B:\\{REPLACE /}
+
+sumo_A:<!-- generated{[->]}-->
+sumo_A:\\{REPLACE /}
+sumo_B:<!-- generated{[->]}-->
+sumo_B:\\{REPLACE /}
+
+sumo:<!-- generated{[->]}-->
+sumo:\\{REPLACE /}
+
+netconvert_A:<!-- generated{[->]}-->
+netconvert_A:\\{REPLACE /}
+netconvert_B:<!-- generated{[->]}-->
+netconvert_B:\\{REPLACE /}
+
+# NETWORKS
+input_net_A_net_xml:<!-- generated{[->]}-->
+input_net_A_net_xml:\\{REPLACE /}
+input_net_A_xml_gz:<!-- generated{[->]}-->
+input_net_A_xml_gz:\\{REPLACE /}
+input_net_A_xml:<!-- generated{[->]}-->
+input_net_A_xml:\\{REPLACE /}
+input_net_A_txt:<!-- generated{[->]}-->
+input_net_A_txt:\\{REPLACE /}
+
+input_net_B_net_xml:<!-- generated{[->]}-->
+input_net_B_net_xml:\\{REPLACE /}
+input_net_B_xml_gz:<!-- generated{[->]}-->
+input_net_B_xml_gz:\\{REPLACE /}
+input_net_B_xml:<!-- generated{[->]}-->
+input_net_B_xml:\\{REPLACE /}
+input_net_B_txt:<!-- generated{[->]}-->
+input_net_B_txt:\\{REPLACE /}
+
 # ADDITIONALS
+netedit_A_add_XML:<!-- generated{[->]}-->
+netedit_A_add_XML:\{REPLACE /}
+netedit_B_add_XML:<!-- generated{[->]}-->
+netedit_B_add_XML:\{REPLACE /}
+
+sumo_A_add_XML:<!-- generated{[->]}-->
+sumo_A_add_XML:\{REPLACE /}
+sumo_B_add_XML:<!-- generated{[->]}-->
+sumo_B_add_XML:\{REPLACE /}
+
 input_additionals_A_add_xml:<!-- generated{[->]}-->
 input_additionals_A_add_xml:\\{REPLACE /}
 input_additionals_A_add_xml_gz:<!-- generated{[->]}-->
@@ -256,31 +331,105 @@ input_additionals_B_xml_gz:\\{REPLACE /}
 input_additionals_B_txt:<!-- generated{[->]}-->
 input_additionals_B_txt:\\{REPLACE /}
 
+# ROUTES
+netedit_A_rou_XML:<!-- generated{[->]}-->
+netedit_A_rou_XML:\{REPLACE /}
+netedit_B_rou_XML:<!-- generated{[->]}-->
+netedit_B_rou_XML:\{REPLACE /}
 
-netcon:<!--{[->]}-->
-netedg:<!--{[->]}-->
-netnod:<!--{[->]}-->
-nettll:<!--{[->]}-->
-nettyp:<!--{[->]}-->
+sumo_A_rou_XML:<!-- generated{[->]}-->
+sumo_A_rou_XML:\{REPLACE /}
+sumo_B_rou_XML:<!-- generated{[->]}-->
+sumo_B_rou_XML:\{REPLACE /}
 
-netcon2:<!--{[->]}-->
-netedg2:<!--{[->]}-->
-netnod2:<!--{[->]}-->
-nettll2:<!--{[->]}-->
-nettyp2:<!--{[->]}-->
+input_routes_A_rou_xml:<!-- generated{[->]}-->
+input_routes_A_rou_xml:\\{REPLACE /}
+input_routes_A_rou_xml_gz:<!-- generated{[->]}-->
+input_routes_A_rou_xml_gz:\\{REPLACE /}
+input_routes_A_xml:<!-- generated{[->]}-->
+input_routes_A_xml:\\{REPLACE /}
+input_routes_A_xml_gz:<!-- generated{[->]}-->
+input_routes_A_xml_gz:\\{REPLACE /}
+input_routes_A_txt:<!-- generated{[->]}-->
+input_routes_A_txt:\\{REPLACE /}
 
-netedit2:<!--{[->]}-->
-netedit2_xml:<!--{[->]}-->
-netedit2_txt:<!--{[->]}-->
-netedit3:<!--{[->]}-->
+input_routes_B_rou_xml:<!-- generated{[->]}-->
+input_routes_B_rou_xml:\\{REPLACE /}
+input_routes_B_rou_xml_gz:<!-- generated{[->]}-->
+input_routes_B_rou_xml_gz:\\{REPLACE /}
+input_routes_B_xml:<!-- generated{[->]}-->
+input_routes_B_xml:\\{REPLACE /}
+input_routes_B_xml_gz:<!-- generated{[->]}-->
+input_routes_B_xml_gz:\\{REPLACE /}
+input_routes_B_txt:<!-- generated{[->]}-->
+input_routes_B_txt:\\{REPLACE /}
 
-sumo2:<!--{[->]}-->
-sumo2_xml:<!--{[->]}-->
-sumo2_txt:<!--{[->]}-->
-sumo3:<!--{[->]}-->
+# DATAS
+netedit_A_dat_XML:<!-- generated{[->]}-->
+netedit_A_dat_XML:\{REPLACE /}
+netedit_B_dat_XML:<!-- generated{[->]}-->
+netedit_B_dat_XML:\{REPLACE /}
 
-config2:<!--{[->]}-->
-config3:<!--{[->]}-->
+sumo_A_dat_XML:<!-- generated{[->]}-->
+sumo_A_dat_XML:\{REPLACE /}
+sumo_B_dat_XML:<!-- generated{[->]}-->
+sumo_B_dat_XML:\{REPLACE /}
+
+input_datas_A_dat_xml:<!-- generated{[->]}-->
+input_datas_A_dat_xml:\\{REPLACE /}
+input_datas_A_dat_xml_gz:<!-- generated{[->]}-->
+input_datas_A_dat_xml_gz:\\{REPLACE /}
+input_datas_A_xml:<!-- generated{[->]}-->
+input_datas_A_xml:\\{REPLACE /}
+input_datas_A_xml_gz:<!-- generated{[->]}-->
+input_datas_A_xml_gz:\\{REPLACE /}
+input_datas_A_txt:<!-- generated{[->]}-->
+input_datas_A_txt:\\{REPLACE /}
+
+input_datas_B_dat_xml:<!-- generated{[->]}-->
+input_datas_B_dat_xml:\\{REPLACE /}
+input_datas_B_dat_xml_gz:<!-- generated{[->]}-->
+input_datas_B_dat_xml_gz:\\{REPLACE /}
+input_datas_B_xml:<!-- generated{[->]}-->
+input_datas_B_xml:\\{REPLACE /}
+input_datas_B_xml_gz:<!-- generated{[->]}-->
+input_datas_B_xml_gz:\\{REPLACE /}
+input_datas_B_txt:<!-- generated{[->]}-->
+input_datas_B_txt:\\{REPLACE /}
+
+# MEANDATAS
+netedit_A_dat_add_XML:<!-- generated{[->]}-->
+netedit_A_dat_add_XML:\{REPLACE /}
+netedit_B_dat_add_XML:<!-- generated{[->]}-->
+netedit_B_dat_add_XML:\{REPLACE /}
+
+sumo_A_dat_add_XML:<!-- generated{[->]}-->
+sumo_A_dat_add_XML:\{REPLACE /}
+sumo_B_dat_add_XML:<!-- generated{[->]}-->
+sumo_B_dat_add_XML:\{REPLACE /}
+
+input_meandatas_A_add_xml:<!-- generated{[->]}-->
+input_meandatas_A_add_xml:\\{REPLACE /}
+input_meandatas_A_add_xml_gz:<!-- generated{[->]}-->
+input_meandatas_A_add_xml_gz:\\{REPLACE /}
+input_meandatas_A_xml:<!-- generated{[->]}-->
+input_meandatas_A_xml:\\{REPLACE /}
+input_meandatas_A_xml_gz:<!-- generated{[->]}-->
+input_meandatas_A_xml_gz:\\{REPLACE /}
+input_meandatas_A_txt:<!-- generated{[->]}-->
+input_meandatas_A_txt:\\{REPLACE /}
+
+input_meandatas_B_add_xml:<!-- generated{[->]}-->
+input_meandatas_B_add_xml:\\{REPLACE /}
+input_meandatas_B_add_xml_gz:<!-- generated{[->]}-->
+input_meandatas_B_add_xml_gz:\\{REPLACE /}
+input_meandatas_B_xml:<!-- generated{[->]}-->
+input_meandatas_B_xml:\\{REPLACE /}
+input_meandatas_B_xml_gz:<!-- generated{[->]}-->
+input_meandatas_B_xml_gz:\\{REPLACE /}
+input_meandatas_B_txt:<!-- generated{[->]}-->
+input_meandatas_B_txt:\\{REPLACE /}
+
 
 
 trafficlights_ttl_xml:<!--{[->]}-->
@@ -307,6 +456,12 @@ joinedjunctions_xml:<!--{[->]}-->
 joinedjunctions_xml_gz:
 joinedjunctions_txt:<!--{[->]}-->
 
+
+
+# OTHER
+guisettings:<scheme{[->]}</scheme>
+
+# OUTPUT
 output:\[log\]
 output:\[info\]
 output:+++
@@ -318,8 +473,7 @@ output:vm3dgl: Unable to acquire VMware SVGA 3D display device.
 output:vm3dgl: Failed to initialize svga driver.
 output:vm3dgl: Falling back to LLVMPipe.
 
-guisettingsoutput:<scheme{[->]}</scheme>
-
+# ERROR
 errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
@@ -334,14 +488,14 @@ errors:\\{REPLACE /}
 errors:avx512er{LINES 1}
 errors:avx512pf{LINES 1}
 
+# LOG
 log:\\{REPLACE /}
 log:Discarding invalid crossing{LINES 1}
 log:Invalid pedestrian topology{LINES 1}
-
 
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
 errors:0.0101
-additionals:0.0101
+meandatas:0.0101
 routes:0.0101
