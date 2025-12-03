@@ -61,6 +61,9 @@ def get_options(args=None):
 
     if not options.edgeod:
         options.tazfiles = options.tazfiles.split()
+        if len(options.tazfiles) == 1:
+            options.tazfiles = options.tazfiles[0].split(',')
+
     return options
 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-03T10:40:36.517191+01:00 by Eclipse SUMO netedit v1_25_0+0212-fa4efffd73b
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="po_0" geo="1" color="red" fill="0" layer="0.00" shape="13.534224,52.427126 13.535301,52.427802 13.536588,52.427008 13.535251,52.426412 13.534309,52.426975"/>
+</additional>

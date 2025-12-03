@@ -79,6 +79,7 @@ private:
             so(_so) {
                 nameTag = o.nameTag;
                 delay = o.delay;
+                routeIndex = o.routeIndex;
             }
 
         // ordering criterion (minimize in order)
@@ -87,28 +88,46 @@ private:
         double skippedPrio = 0;
         // @brief sum of reached stop priority between source and this node
         double reachedPrio = 0;
+        // @brief number of reached mandatory stops
+        int reachedMandatory = 0;
 
         int trackChanges = 0;
         double cost = 0;
 
         int stopIndex;
         int numSkipped = 0;
-        int altIndex = 0;
+        int altIndex = -1;
         bool checked = false;
         ConstMSEdgeVector edges;
         std::shared_ptr<StopPathNode> prev = nullptr;
 
         std::shared_ptr<StopPathNode> getSuccessor(const std::vector<StopEdgeInfo>& stops, double minSkipped);
+
+        // for finding the best final node
+        bool operator<(StopPathNode& b) const {
+            if (reachedMandatory == b.reachedMandatory) {
+                if (reachedPrio == b.reachedPrio) {
+                    if (trackChanges == b.trackChanges) {
+                        return cost > b.cost;
+                    }
+                    return trackChanges > b.trackChanges;
+                }
+                return reachedPrio < b.reachedPrio;
+            }
+            return reachedMandatory < b.reachedMandatory;
+        }
     };
 
+    // for setting the exploration order: nodes with fewer skips should be
+    // explored first but they aren't strictly better
     struct spnCompare {
         bool operator()(const std::shared_ptr<StopPathNode>& a,
                         const std::shared_ptr<StopPathNode>& b) const {
             if (a->skippedPrio == b->skippedPrio) {
-                if (a->trackChanges == b->trackChanges) {
-                    return a->cost > b->cost;
+                if (a->stopIndex == b->stopIndex) {
+                    return *a < *b;
                 }
-                return a->trackChanges > b->trackChanges;
+                return a->stopIndex < b->stopIndex;
             }
             return a->skippedPrio > b->skippedPrio;
         }
@@ -116,6 +135,6 @@ private:
 
     bool reachableInTime(const MSEdge* from, double fromPos,
         const MSEdge* to, double toPos,
-        SUMOTime arrival, ConstMSEdgeVector& into) const;
+        SUMOTime arrival, ConstMSEdgeVector& into, double& cost) const;
 
 };

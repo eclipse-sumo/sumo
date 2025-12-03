@@ -6,6 +6,7 @@
 # - rerouter edge (detour sign) encountered before alternative route branches off  vs not encountered
 # - ignore-route-errors on/off
 closingReroute
+optimizeStops
 closingLaneReroute
 routeProb
 
