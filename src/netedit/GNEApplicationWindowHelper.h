@@ -1181,7 +1181,7 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief constructor
-        FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions);
+        FileBucketHandler(GNEApplicationWindow* applicationWindow, OptionsCont& neteditOptions, OptionsCont& sumoOptions);
 
         /// @brief destructor
         ~FileBucketHandler();
@@ -1250,6 +1250,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief get prefix of the given filename
         std::string getPrefix(FileBucket::Type type, const std::vector<std::string> invalidExtensions) const;
+
+        /// @brief pointer to application window
+        GNEApplicationWindow* myApplicationWindow = nullptr;
 
         /// @brief reference to netedit options
         OptionsCont& myNeteditOptions;

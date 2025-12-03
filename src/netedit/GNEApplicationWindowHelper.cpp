@@ -2382,7 +2382,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // GNEApplicationWindowHelper::FileBucketHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
+GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(GNEApplicationWindow* applicationWindow, 
+        OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
+    myApplicationWindow(applicationWindow),
     myNeteditOptions(neteditOptions),
     mySumoOptions(sumoOptions) {
     // create default buckets
@@ -2624,6 +2626,9 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     // set default filename depending of type
     myNeteditOptions.resetWritable();
     mySumoOptions.resetWritable();
+    // check if save sumo additionals
+    const bool sumoAdditionals = (myApplicationWindow->getEditMenuCommands().loadAdditionalsInSUMOGUI->getCheck() == TRUE);
+    const bool sumoDemandElements = (myApplicationWindow->getEditMenuCommands().loadDemandInSUMOGUI->getCheck() == TRUE);
     // sumo config (only netedit)
     if (sumoconfig.size() > 0) {
         myNeteditOptions.set("sumocfg-file", sumoconfig);
@@ -2650,12 +2655,16 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     } else {
         myNeteditOptions.resetDefault("additional-files");
     }
-    // demand file (common)
+    // demand file (netedit)
     if (demandFile.size() > 0) {
         myNeteditOptions.set("route-files", demandFile);
-        mySumoOptions.set("route-files", demandFile);
     } else {
         myNeteditOptions.resetDefault("route-files");
+    }
+    // demand file (sumo)
+    if (sumoDemandElements && (demandFile.size() > 0)) {
+        mySumoOptions.set("route-files", demandFile);
+    } else {
         mySumoOptions.resetDefault("route-files");
     }
     // data file (only netedit)
@@ -2671,7 +2680,7 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
         myNeteditOptions.resetDefault("meandata-files");
     }
     // additional + meanData files (only sumo)
-    if (additionalMeanData.size() > 0) {
+    if (sumoAdditionals && (additionalMeanData.size() > 0)) {
         mySumoOptions.set("additional-files", additionalMeanData);
     } else {
         mySumoOptions.resetDefault("additional-files");

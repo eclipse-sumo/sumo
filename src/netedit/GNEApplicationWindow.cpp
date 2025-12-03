@@ -518,7 +518,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
-    myFileBucketHandler(new GNEApplicationWindowHelper::FileBucketHandler(OptionsCont::getOptions(), mySumoOptions)),
+    myFileBucketHandler(new GNEApplicationWindowHelper::FileBucketHandler(this, OptionsCont::getOptions(), mySumoOptions)),
     myTitlePrefix("netedit " VERSION_STRING),
     myAllowUndoRedo(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true) == TRUE),
     myAllowUndoRedoLoading(getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true) == TRUE) {
@@ -3575,7 +3575,17 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
             myMenuBarFile.myRecentConfigs.appendFile(neteditConfigFile.c_str());
             // if we have a sumo config defined, save it also
             if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG)) {
-                onCmdSaveSumoConfig(sender, sel, ptr);
+                // get SumoConfig file
+                const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
+                std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
+                if (out.good()) {
+                    // write SUMO config
+                    mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
+                    // write info
+                    WRITE_MESSAGE(TLF("SUMO configuration saved in '%'.", sumoConfigFile));
+                    // After saving a config successfully, add it into recent configs
+                    myMenuBarFile.myRecentConfigs.appendFile(sumoConfigFile.c_str());
+                }
             }
             // save in plain XML (netconvert) if the option is enabled (usually used in netedit tests)
             if (neteditOptions.getBool("autosave-netconvert-file")) {
@@ -3652,10 +3662,6 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
     } else {
         // check if ignore additionals and demand elements (only used open SUMO-GUI from netedit)
         const FXSelector openSUMO = FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
-        const bool ignoreAdditionals = (sel == openSUMO) ? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
-        const bool ignoreDemandElements = (sel == openSUMO) ? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
-        // get SumoConfig file
-        const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
         // save all elements giving automatic names based on patter in their file isn't defined
         if (onCmdSaveNetwork(sender, sel, ptr) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
@@ -3682,21 +3688,33 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
                 (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
             mySumoOptions.set("junction-taz", "true");
         }
+        // get SumoConfig file
+        const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
+        // confinguration
         std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
             // write SUMO config
             mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
             // write info
             WRITE_MESSAGE(TLF("SUMO configuration saved in '%'.", sumoConfigFile));
-            // if ignoreAdditionals or ignoreDemandElements is enabled, don't mark SumoConfig as saved
-            if (!ignoreAdditionals && !ignoreDemandElements) {
-                myNet->getSavingStatus()->SumoConfigSaved();
-            }
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(sumoConfigFile.c_str());
             // if we have a netedit cong defined, save it also
             if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
-                onCmdSaveNeteditConfig(sender, sel, ptr);
+                // get netedit config file
+                auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
+                // configuration
+                std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
+                if (out.good()) {
+                    // write netedit config
+                    neteditOptions.writeConfiguration(out, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
+                    // write info
+                    WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
+                    // config saved
+                    myNet->getSavingStatus()->neteditConfigSaved();
+                    // After saving a config successfully, add it into recent configs
+                    myMenuBarFile.myRecentConfigs.appendFile(neteditConfigFile.c_str());
+                }
             }
             // save in plain XML (netconvert) if the option is enabled (usually used in netedit tests)
             if (neteditOptions.getBool("autosave-netconvert-file")) {
