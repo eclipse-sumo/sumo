@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-21 15:59:07 by Eclipse SUMO netedit Version v1_20_0+0745-4885fc9a1a0
+<!-- generated on 2025-12-03T15:59:06.716735+01:00 by Eclipse SUMO netedit v1_25_0+0312-f508c03ca92
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,13 +17,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- StoppingPlaces -->
     <parkingArea id="parkingArea_A" lane="EdgeCenter1_1" startPos="12.00" endPos="22.00" length="5.00">
         <space name="nameA" x="-6.00" y="10.00" z="10.00" width="4.00" length="5.00" angle="45.00" slope="23.50">
-            <param key="keyFinal1" value="value1"/>
-            <param key="keyFinal2" value="value2"/>
-            <param key="keyFinal3" value="value3"/>
-        </space>
-    </parkingArea>
-    <parkingArea id="parkingArea_B" lane="EdgeCenter1_1" startPos="29.00" endPos="39.00" length="5.00">
-        <space name="nameB" x="15.00" y="10.00" z="20.00" width="2.00" length="12.00" angle="12.00" slope="30.00">
             <param key="keyFinal1" value="value1"/>
             <param key="keyFinal2" value="value2"/>
             <param key="keyFinal3" value="value3"/>

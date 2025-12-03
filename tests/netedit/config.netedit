@@ -34,17 +34,17 @@ copy_test_path:input_net_A.xml.gz
 copy_test_path:input_net_A.txt
 
 # ADDITIONALS
-copy_test_path:input_meandatas_A.add.xml
-copy_test_path:input_meandatas_A.add.xml.gz
-copy_test_path:input_meandatas_A.xml
-copy_test_path:input_meandatas_A.xml.gz
-copy_test_path:input_meandatas_A.txt
+copy_test_path:input_additionals_A.add.xml
+copy_test_path:input_additionals_A.add.xml.gz
+copy_test_path:input_additionals_A.xml
+copy_test_path:input_additionals_A.xml.gz
+copy_test_path:input_additionals_A.txt
 
-copy_test_path:input_meandatas_B.add.xml
-copy_test_path:input_meandatas_B.add.xml.gz
-copy_test_path:input_meandatas_B.xml
-copy_test_path:input_meandatas_B.xml.gz
-copy_test_path:input_meandatas_B.txt
+copy_test_path:input_additionals_B.add.xml
+copy_test_path:input_additionals_B.add.xml.gz
+copy_test_path:input_additionals_B.xml
+copy_test_path:input_additionals_B.xml.gz
+copy_test_path:input_additionals_B.txt
 
 # ROUTES
 copy_test_path:input_routes_A.rou.xml
@@ -149,11 +149,11 @@ input_netconvert_B_nod_xml:input_netconvert_B.nod.xml
 input_netconvert_B_tll_xml:input_netconvert_B.tll.xml
 
 # ADDITIONALS
-netedit_A_add_XML:netedit_A.add.xml
-netedit_B_add_XML:netedit_B.add.xml
+netedit_A_add_xml:netedit_A.add.xml
+netedit_B_add_xml:netedit_B.add.xml
 
-sumo_A_add_XML:sumo_A.add.xml
-sumo_B_add_XML:sumo_B.add.xml
+sumo_A_add_xml:sumo_A.add.xml
+sumo_B_add_xml:sumo_B.add.xml
 
 input_additionals_A_add_xml:input_additionals_A.add.xml
 input_additionals_A_add_xml_gz:input_additionals_A.add.xml.gz
@@ -168,11 +168,11 @@ input_additionals_B_xml_gz:input_additionals_B.xml.gz
 input_additionals_B_txt:input_additionals_B.txt
 
 # ROUTES
-netedit_A_rou_XML:netedit_A.rou.xml
-netedit_B_rou_XML:netedit_B.rou.xml
+netedit_A_rou_xml:netedit_A.rou.xml
+netedit_B_rou_xml:netedit_B.rou.xml
 
-sumo_A_rou_XML:sumo_A.rou.xml
-sumo_B_rou_XML:sumo_B.rou.xml
+sumo_A_rou_xml:sumo_A.rou.xml
+sumo_B_rou_xml:sumo_B.rou.xml
 
 input_routes_A_rou_xml:input_routes_A.rou.xml
 input_routes_A_rou_xml_gz:input_routes_A.rou.xml.gz
@@ -187,11 +187,11 @@ input_routes_B_xml_gz:input_routes_B.xml.gz
 input_routes_B_txt:input_routes_B.txt
 
 # DATAS
-netedit_A_dat_XML:netedit_A.dat.xml
-netedit_B_dat_XML:netedit_B.dat.xml
+netedit_A_dat_xml:netedit_A.dat.xml
+netedit_B_dat_xml:netedit_B.dat.xml
 
-sumo_A_dat_XML:sumo_A.dat.xml
-sumo_B_dat_XML:sumo_B.dat.xml
+sumo_A_dat_xml:sumo_A.dat.xml
+sumo_B_dat_xml:sumo_B.dat.xml
 
 input_datas_A_dat_xml:input_datas_A.dat.xml
 input_datas_A_dat_xml_gz:input_datas_A.dat.xml.gz
@@ -206,11 +206,11 @@ input_datas_B_xml_gz:input_datas_B.xml.gz
 input_datas_B_txt:input_datas_B.txt
 
 # MEANDATAS
-netedit_A_dat_add_XML:netedit_A.dat.add.xml
-netedit_B_dat_add_XML:netedit_B.dat.add.xml
+netedit_A_dat_add_xml:netedit_A.dat.add.xml
+netedit_B_dat_add_xml:netedit_B.dat.add.xml
 
-sumo_A_dat_add_XML:sumo_A.dat.add.xml
-sumo_B_dat_add_XML:sumo_B.dat.add.xml
+sumo_A_dat_add_xml:sumo_A.dat.add.xml
+sumo_B_dat_add_xml:sumo_B.dat.add.xml
 
 input_meandatas_A_add_xml:input_meandatas_A.add.xml
 input_meandatas_A_add_xml_gz:input_meandatas_A.add.xml.gz
@@ -299,15 +299,15 @@ input_net_B_txt:<!-- generated{[->]}-->
 input_net_B_txt:\\{REPLACE /}
 
 # ADDITIONALS
-netedit_A_add_XML:<!-- generated{[->]}-->
-netedit_A_add_XML:\{REPLACE /}
-netedit_B_add_XML:<!-- generated{[->]}-->
-netedit_B_add_XML:\{REPLACE /}
+netedit_A_add_xml:<!-- generated{[->]}-->
+netedit_A_add_xml:\{REPLACE /}
+netedit_B_add_xml:<!-- generated{[->]}-->
+netedit_B_add_xml:\{REPLACE /}
 
-sumo_A_add_XML:<!-- generated{[->]}-->
-sumo_A_add_XML:\{REPLACE /}
-sumo_B_add_XML:<!-- generated{[->]}-->
-sumo_B_add_XML:\{REPLACE /}
+sumo_A_add_xml:<!-- generated{[->]}-->
+sumo_A_add_xml:\{REPLACE /}
+sumo_B_add_xml:<!-- generated{[->]}-->
+sumo_B_add_xml:\{REPLACE /}
 
 input_additionals_A_add_xml:<!-- generated{[->]}-->
 input_additionals_A_add_xml:\\{REPLACE /}
@@ -332,15 +332,15 @@ input_additionals_B_txt:<!-- generated{[->]}-->
 input_additionals_B_txt:\\{REPLACE /}
 
 # ROUTES
-netedit_A_rou_XML:<!-- generated{[->]}-->
-netedit_A_rou_XML:\{REPLACE /}
-netedit_B_rou_XML:<!-- generated{[->]}-->
-netedit_B_rou_XML:\{REPLACE /}
+netedit_A_rou_xml:<!-- generated{[->]}-->
+netedit_A_rou_xml:\{REPLACE /}
+netedit_B_rou_xml:<!-- generated{[->]}-->
+netedit_B_rou_xml:\{REPLACE /}
 
-sumo_A_rou_XML:<!-- generated{[->]}-->
-sumo_A_rou_XML:\{REPLACE /}
-sumo_B_rou_XML:<!-- generated{[->]}-->
-sumo_B_rou_XML:\{REPLACE /}
+sumo_A_rou_xml:<!-- generated{[->]}-->
+sumo_A_rou_xml:\{REPLACE /}
+sumo_B_rou_xml:<!-- generated{[->]}-->
+sumo_B_rou_xml:\{REPLACE /}
 
 input_routes_A_rou_xml:<!-- generated{[->]}-->
 input_routes_A_rou_xml:\\{REPLACE /}
@@ -365,15 +365,15 @@ input_routes_B_txt:<!-- generated{[->]}-->
 input_routes_B_txt:\\{REPLACE /}
 
 # DATAS
-netedit_A_dat_XML:<!-- generated{[->]}-->
-netedit_A_dat_XML:\{REPLACE /}
-netedit_B_dat_XML:<!-- generated{[->]}-->
-netedit_B_dat_XML:\{REPLACE /}
+netedit_A_dat_xml:<!-- generated{[->]}-->
+netedit_A_dat_xml:\{REPLACE /}
+netedit_B_dat_xml:<!-- generated{[->]}-->
+netedit_B_dat_xml:\{REPLACE /}
 
-sumo_A_dat_XML:<!-- generated{[->]}-->
-sumo_A_dat_XML:\{REPLACE /}
-sumo_B_dat_XML:<!-- generated{[->]}-->
-sumo_B_dat_XML:\{REPLACE /}
+sumo_A_dat_xml:<!-- generated{[->]}-->
+sumo_A_dat_xml:\{REPLACE /}
+sumo_B_dat_xml:<!-- generated{[->]}-->
+sumo_B_dat_xml:\{REPLACE /}
 
 input_datas_A_dat_xml:<!-- generated{[->]}-->
 input_datas_A_dat_xml:\\{REPLACE /}
@@ -398,15 +398,15 @@ input_datas_B_txt:<!-- generated{[->]}-->
 input_datas_B_txt:\\{REPLACE /}
 
 # MEANDATAS
-netedit_A_dat_add_XML:<!-- generated{[->]}-->
-netedit_A_dat_add_XML:\{REPLACE /}
-netedit_B_dat_add_XML:<!-- generated{[->]}-->
-netedit_B_dat_add_XML:\{REPLACE /}
+netedit_A_dat_add_xml:<!-- generated{[->]}-->
+netedit_A_dat_add_xml:\{REPLACE /}
+netedit_B_dat_add_xml:<!-- generated{[->]}-->
+netedit_B_dat_add_xml:\{REPLACE /}
 
-sumo_A_dat_add_XML:<!-- generated{[->]}-->
-sumo_A_dat_add_XML:\{REPLACE /}
-sumo_B_dat_add_XML:<!-- generated{[->]}-->
-sumo_B_dat_add_XML:\{REPLACE /}
+sumo_A_dat_add_xml:<!-- generated{[->]}-->
+sumo_A_dat_add_xml:\{REPLACE /}
+sumo_B_dat_add_xml:<!-- generated{[->]}-->
+sumo_B_dat_add_xml:\{REPLACE /}
 
 input_meandatas_A_add_xml:<!-- generated{[->]}-->
 input_meandatas_A_add_xml:\\{REPLACE /}

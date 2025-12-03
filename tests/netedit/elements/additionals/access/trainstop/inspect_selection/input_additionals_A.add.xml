@@ -7,13 +7,4 @@
             <param key="KeyA2" value="valueA3"/>
         </access>
     </trainStop>
-
-    <!-- Access B -->
-    <trainStop id="trainStopB" lane="EdgeCenter0_0" startPos="23.00" endPos="33.00">
-        <access lane="Edge3_0" pos="8.00" length="20" friendlyPos="1">
-            <param key="KeyB1" value="valueB1"/>
-            <param key="KeyB3" value="valueB2"/>
-            <param key="KeyB2" value="valueB3"/>
-        </access>
-    </trainStop>
 </additional>

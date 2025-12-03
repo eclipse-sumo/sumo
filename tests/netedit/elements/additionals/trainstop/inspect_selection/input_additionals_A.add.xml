@@ -5,11 +5,4 @@
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </trainStop>
-
-    <!-- Bus B -->
-    <trainStop id="trainStopB" lane="EdgeCenter0_1" startPos="15" endPos="20" lines="line3 line4" name="trainStop" personCapacity="20" parkingLength="15.00" friendlyPos="false" angle="20">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB3" value="valueB2"/>
-        <param key="KeyB2" value="valueB3"/>
-    </trainStop>
 </additional>
