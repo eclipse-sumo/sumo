@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:26+0100\n"
-"PO-Revision-Date: 2025-12-03 10:00+0000\n"
+"PO-Revision-Date: 2025-12-04 08:10+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/cs/>\n"
@@ -1364,11 +1364,11 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:230
 msgid "stage"
-msgstr ""
+msgstr "úsek"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:232
 msgid "stage index"
-msgstr ""
+msgstr "index úseku"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:233
 msgid "start edge [id]"
