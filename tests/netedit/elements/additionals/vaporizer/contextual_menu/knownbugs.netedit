@@ -1,0 +1,12 @@
+[Reported by Windows at 15Aug15:57:09]
+search_string:python: can't open file
+search_file:errors
+full_description:#3045
+brief_description:External test needed #3045
+
+[Reported by Windows at 27Jun09:33:44]
+search_string:Could not open test file 'test.py'
+search_file:output
+ignore_other_errors:1
+full_description:#3045
+brief_description:Internal test needed #3045
