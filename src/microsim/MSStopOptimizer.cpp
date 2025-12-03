@@ -111,8 +111,9 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
 #endif
         if (*bestNode < *ptr) {
             bestNode = ptr;
+            minSkipped = MIN2(minSkipped, totalPrio - bestNode->reachedPrio);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-            std::cout << "   newBestNode edge=" << bestNode->edge->getID() << "\n";
+            std::cout << "   newBestNode edge=" << bestNode->edge->getID() << " minSkipped=" << minSkipped << "\n";
 #endif
         }
         if (succ != nullptr) {
