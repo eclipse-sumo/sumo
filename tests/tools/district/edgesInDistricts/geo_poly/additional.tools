@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-03 10:41:16.596485 by Eclipse SUMO edgesInDistricts.py v1_25_0+0212-fa4efffd73b
+  options: -n input_net.net.xml -t input_districts.xml -o out.add.xml -s
+-->
+
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="po_0" shape="991.3068174963701,190.96419778838754 1066.055290313263,264.6655385075137 1151.7684376149555,174.58301249798387 1059.5227095679147,110.13633474521339 996.7453477787203,174.05252928379923" color="red" edges="-5198584 -5198586#3 -5198586#4 5198584 5198586#3 5198586#4"/>
+</tazs>
