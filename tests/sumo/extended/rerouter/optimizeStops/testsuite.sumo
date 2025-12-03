@@ -3,3 +3,6 @@ grid5x10
 
 # only use stops 1,2,9
 grid5x10_129
+
+# close multiple edges
+grid5x10_close23

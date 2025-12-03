@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-03T08:19:48.638820+01:00 by Eclipse SUMO sumo v1_25_0+0204-450f4853d88
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.mode value="8"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="t_0" depart="0.00" arrival="677.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" replacedOnIndex="1" reason="rr_0" replacedAtTime="8.00" probability="0" edges="left0A0 A0B0 B0C0 C0D0 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0"/>
+            <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2C3 C3C4 C4D4 -D3D4 -D2D3 -D1D2 -D0D1 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0"/>
+        </routeDistribution>
+        <stop busStop="paA0B0" duration="60.00" priority="1.00"/>
+        <stop busStop="paB2C2" duration="60.00" priority="1.00"/>
+        <stop busStop="paC4D4" duration="60.00" priority="1.00"/>
+        <stop busStop="paD0E0" duration="60.00" priority="1.00"/>
+        <stop busStop="paE0F0" duration="60.00" priority="1.00"/>
+        <stop busStop="paF0G0" duration="60.00" priority="1.00"/>
+        <stop busStop="paG0H0" duration="60.00" priority="1.00"/>
+        <stop busStop="paH0I0" duration="60.00" priority="1.00"/>
+        <stop busStop="paI0J0" duration="60.00" priority="1.00"/>
+    </vehicle>
+
+</routes>
