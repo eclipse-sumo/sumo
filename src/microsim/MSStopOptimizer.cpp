@@ -89,7 +89,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
     for (const StopEdgeInfo& stop : stops) {
         std::cout << "   edge=" << stop.edge->getID() << " name=" << stop.nameTag.first << " wasSkipped=" << stop.skipped << " prio=" << stop.priority << "\n";
     }
-    std::cout << " bestNode edge=" << bestNode->edge->getID() << " rPrio=" << bestNode->reachedPrio << "\n";
+    std::cout << " bestNode edge=" << bestNode->edge->getID() << " rPrio=" << bestNode->reachedPrio << " cost=" << bestNode->cost << "\n";
 #endif
 
     std::map<const MSEdge*, std::shared_ptr<StopPathNode> > bestIntermediate;
@@ -107,7 +107,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
 #endif
         auto succ = ptr->getSuccessor(stops, minSkipped);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-        std::cout << "      topNode cost2=" << ptr->cost << " reachedPrio2=" << ptr->reachedPrio << " mandatory2=" << ptr->reachedMandatory << "\n";
+        std::cout << "      cost2=" << ptr->cost << " reachedPrio2=" << ptr->reachedPrio << " mandatory2=" << ptr->reachedMandatory << " succ=" << (succ == nullptr ? "NULL" : succ->edge->getID()) << "\n";
 #endif
         if (*bestNode < *ptr) {
             bestNode = ptr;
@@ -119,14 +119,21 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
             auto it = bestIntermediate.find(ptr->edge);
             if (it == bestIntermediate.end()) {
                 bestIntermediate[ptr->edge] = ptr;
+#ifdef DEBUG_OPTIMIZE_SKIPPED
+                std::cout << "firstBest " << ptr->edge->getID() << "\n";
+#endif
             } else {
                 auto best = it->second;
                 assert(best->checked);
                 assert(ptr->checked);
-                if (!(*best < *ptr) && best != ptr) {
+                if (best == ptr) {
+#ifdef DEBUG_OPTIMIZE_SKIPPED
+                    std::cout << "alreadyBest " << ptr->edge->getID() << "\n";
+#endif
+                } else if (!(*best < *ptr)) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
                     std::cout << "skip " << ptr->edge->getID()
-                        << " osp=" << best->skippedPrio << " sp=" << ptr->skippedPrio
+                        << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
                         << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
                         << " oc=" << best->cost << " c=" << ptr->cost
                         << "\n";
@@ -136,7 +143,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
                     bestIntermediate[ptr->edge] = ptr;
 #ifdef DEBUG_OPTIMIZE_SKIPPED
                     std::cout << "newBest " << ptr->edge->getID()
-                        << " osp=" << best->skippedPrio << " sp=" << ptr->skippedPrio
+                        << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
                         << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
                         << " oc=" << best->cost << " c=" << ptr->cost
                         << "\n";

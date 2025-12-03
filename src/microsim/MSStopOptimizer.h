@@ -103,6 +103,7 @@ private:
 
         std::shared_ptr<StopPathNode> getSuccessor(const std::vector<StopEdgeInfo>& stops, double minSkipped);
 
+        // for finding the best final node
         bool operator<(StopPathNode& b) const {
             if (reachedMandatory == b.reachedMandatory) {
                 if (reachedPrio == b.reachedPrio) {
@@ -117,10 +118,18 @@ private:
         }
     };
 
+    // for setting the exploration order: nodes with fewer skips should be
+    // explored first but they aren't strictly better
     struct spnCompare {
         bool operator()(const std::shared_ptr<StopPathNode>& a,
                         const std::shared_ptr<StopPathNode>& b) const {
-            return *a < *b;
+            if (a->skippedPrio == b->skippedPrio) {
+                if (a->stopIndex == b->stopIndex) {
+                    return *a < *b;
+                }
+                return a->stopIndex < b->stopIndex;
+            }
+            return a->skippedPrio > b->skippedPrio;
         }
     };
 
