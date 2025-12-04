@@ -274,10 +274,8 @@ GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr key) const {
         case GNE_ATTR_SAVEFILE:
             if (myTagProperty->saveInNetworkFile() || myTagProperty->saveInParentFile()) {
                 return false;
-            } else if (myFileBucket == false) {
-                return false;
             } else {
-                return true;
+                return (myFileBucket != nullptr);
             }
         default:
             return true;

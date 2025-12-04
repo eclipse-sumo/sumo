@@ -2263,7 +2263,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load SUMO configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load SUMO configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2309,7 +2309,7 @@ GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2356,7 +2356,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load netedit configuration '%':\n %", myNeteditConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load netedit configuration '%':\n %", myNeteditConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2382,7 +2382,7 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // GNEApplicationWindowHelper::FileBucketHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(GNEApplicationWindow* applicationWindow, 
+GNEApplicationWindowHelper::FileBucketHandler::FileBucketHandler(GNEApplicationWindow* applicationWindow,
         OptionsCont& neteditOptions, OptionsCont& sumoOptions) :
     myApplicationWindow(applicationWindow),
     myNeteditOptions(neteditOptions),
