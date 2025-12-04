@@ -1041,12 +1041,12 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
             // set sumo config
             myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfig);
             // set status bar
-            setStatusBarText(TL("Reloading sumo config file '%'", sumoConfig));
+            setStatusBarText(TLF("Reloading sumo config file '%'", sumoConfig));
         } else if (networkFile.size() > 0) {
             // set network config
             myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, networkFile);
             // set status bar
-            setStatusBarText(TL("Reloading network file '%'", networkFile));
+            setStatusBarText(TLF("Reloading network file '%'", networkFile));
         } else {
             // nothing to load
             return 0;
