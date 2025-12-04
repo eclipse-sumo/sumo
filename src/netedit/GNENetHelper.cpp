@@ -3091,6 +3091,8 @@ GNENetHelper::ACTemplate::buildTemplates() {
     for (const auto stopContainer : stopContainers) {
         myTemplates[stopContainer->getTag()] = new GNEStopPlan(stopContainer->getTag(), myNet);
     }
+    // dataSet
+    myTemplates[SUMO_TAG_DATASET] = new GNEDataSet(myNet);
     // generic datas
     myTemplates[GNE_TAG_EDGEREL_SINGLE] = new GNEEdgeData(myNet);
     myTemplates[SUMO_TAG_EDGEREL] = new GNEEdgeRelData(myNet);

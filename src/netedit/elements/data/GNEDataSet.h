@@ -73,6 +73,11 @@ public:
 
     /**@brief Constructor
      * @param[in] net pointer to GNEViewNet of this data element element belongs
+     */
+    GNEDataSet(GNENet* net);
+
+    /**@brief Constructor
+     * @param[in] net pointer to GNEViewNet of this data element element belongs
      * @param[in] dataSetID data set ID
      * @param[in] fileBucket file in which this element is stored
      */

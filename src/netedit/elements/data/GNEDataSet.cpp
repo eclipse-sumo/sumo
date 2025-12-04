@@ -105,6 +105,11 @@ GNEDataSet::AttributeColors::clear() {
 // GNEDataSet - methods
 // ---------------------------------------------------------------------------
 
+GNEDataSet::GNEDataSet(GNENet* net) :
+    GNEAttributeCarrier(SUMO_TAG_DATASET, net) {
+}
+
+
 GNEDataSet::GNEDataSet(const std::string& dataSetID, GNENet* net, FileBucket* fileBucket) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net, fileBucket),
     myDataSetID(dataSetID) {
@@ -448,7 +453,9 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
     }
     // mark interval toolbar for update
-    myNet->getViewNet()->getIntervalBar().markForUpdate();
+    if (!isTemplate()) {
+        myNet->getViewNet()->getIntervalBar().markForUpdate();
+    }
 }
 
 
