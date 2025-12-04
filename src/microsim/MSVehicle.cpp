@@ -2186,6 +2186,8 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
                          && link->getViaLane() == nullptr
                          // this is the exit link of a junction. The normal edge should support the shadow
                          && ((myLaneChangeModel->getShadowLane(link->getLane()) == nullptr)
+                             // the shadow lane must be permitted
+                             || !myLaneChangeModel->getShadowLane(link->getLane())->allowsVehicleClass(getVClass())
                              // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
                              || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
                          // ignore situations where the shadow lane is part of a double-connection with the current lane
@@ -2198,8 +2200,12 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getDescription() << " lane=" << lane->getID()
+                  << " linkLane=" << link->getLane()->getID()
+                  << " shadowLane=" << Named::getIDSecure(myLaneChangeModel->getShadowLane())
                   << " shift=" << link->getLateralShift()
-                  << " fpLat=" << futurePosLat << " overlap=" << overlap << " w=" << getVehicleType().getWidth() << " result=" << result << "\n";
+                  << " fpLat=" << futurePosLat << " overlap=" << overlap << " w=" << getVehicleType().getWidth()
+                  << " shadowLane=" << Named::getIDSecure(myLaneChangeModel->getShadowLane(link->getLane()))
+                  << " result=" << result << "\n";
     }
 #endif
     return result;
