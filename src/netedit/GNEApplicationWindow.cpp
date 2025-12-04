@@ -932,7 +932,6 @@ GNEApplicationWindow::onUpdReloadSumoConfig(FXObject* sender, FXSelector, void*)
 
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
     const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
                                         SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
@@ -971,7 +970,6 @@ GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
     const GNEFileDialog edgeTypesFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
             SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
@@ -1060,7 +1058,6 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onUpdSmartReload(FXObject* sender, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // declare strings
     FXString neteditConfig = TL("&Reload Netedit config");
     FXString sumoConfig = TL("&Reload Sumo config");
@@ -1120,7 +1117,6 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onUpdReloadNetwork(FXObject* sender, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     if (myNet == nullptr) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         sender->handle(this, FXSEL(SEL_COMMAND, ID_HIDE), nullptr);
@@ -2193,8 +2189,6 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* /*ptr*/) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // input parameters
     std::string inputParameters;
     // if we have only a network, then load directly without creating a SumoConfig
@@ -3664,8 +3658,6 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
     if (myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG).empty()) {
         return onCmdSaveSumoConfigAs(sender, sel, ptr);
     } else {
-        // check if ignore additionals and demand elements (only used open SUMO-GUI from netedit)
-        const FXSelector openSUMO = FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
         // save all elements giving automatic names based on patter in their file isn't defined
         if (onCmdSaveNetwork(sender, sel, ptr) != 1) {
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
@@ -3735,7 +3727,6 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
 
 long
 GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get sumoConfig filename
     const GNEFileDialog sumoConfigFileDialog = GNEFileDialog(this, TL("sumo config file"),
             SUMOXMLDefinitions::SumoConfigFileExtensions.getStrings(),
@@ -3776,8 +3767,6 @@ GNEApplicationWindow::onUpdSaveSumoConfig(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* ptr) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // Check if TLS Programs file was already set at start of netedit or with a previous save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::TLS)) {
         return onCmdSaveTLSProgramsAs(obj, sel, ptr);
@@ -3822,8 +3811,6 @@ GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* ptr) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // Check if edgeType file was already set at start of netedit or with a previous save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::EDGETYPE)) {
         return onCmdSaveEdgeTypesAs(obj, sel, ptr);
@@ -3887,8 +3874,6 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject* sender, FXSelector sel, v
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject* sender, FXSelector sel, void* ptr) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // get network file file
     const GNEFileDialog edgeTypeFileDialog = GNEFileDialog(this, TL("EdgeTypes file"),
             SUMOXMLDefinitions::EdgeTypeFileExtensions.getStrings(),
