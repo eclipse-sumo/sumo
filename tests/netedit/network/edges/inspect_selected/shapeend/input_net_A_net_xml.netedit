@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-15 10:23:29 by Eclipse SUMO netedit Version v1_23_1+1081-603be8fe035
+<!-- generated on 2025-12-04T15:04:17.793547+01:00 by Eclipse SUMO netedit v1_25_0+0364-fb1aa6c26c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <sumocfg-file value="sumo.sumocfg"/>
         <additional-files value="input_additionals_A.add.xml"/>
         <route-files value="input_routes_A.rou.xml"/>
         <data-files value="input_datas_A.dat.xml"/>
@@ -48,17 +49,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
-        <ignore.additionalelements value="0"/>
-        <ignore.routeelements value="0"/>
         <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
@@ -74,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":J2_0" function="internal">
-        <lane id=":J2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="5.58" length="11.00" width="2.00" shape="-23.87,16.79 -29.87,17.03 -28.39,17.49 -27.74,18.20 -27.91,19.14 -28.91,20.32"/>
+        <lane id=":J2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="5.58" length="11.00" width="2.00" shape="-23.87,16.80 -29.87,17.04 -28.40,17.50 -27.75,18.20 -27.92,19.14 -28.91,20.32"/>
     </edge>
     <edge id=":J3_0" function="internal">
         <lane id=":J3_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.02" length="18.36" width="2.00" shape="27.95,16.17 33.94,16.50 32.98,18.06 29.95,21.39 26.86,24.57 25.73,25.69"/>
@@ -94,8 +93,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="25.00,25.00 34.00,15.50 1.03,16.81">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="24.27,24.31 31.58,16.60 -23.29,18.77"/>
-        <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="25.73,25.69 36.42,14.40 -23.87,16.79"/>
+        <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="24.27,24.31 31.58,16.60 -23.29,18.78"/>
+        <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="25.73,25.69 36.42,14.40 -23.87,16.80"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
@@ -136,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="J0" type="dead_end" x="-30.00" y="0.00" incLanes="" intLanes="" shape="-30.00,0.00 -29.25,-3.11"/>
     <junction id="J1" type="dead_end" x="30.00" y="0.00" incLanes="E0_0" intLanes="" shape="27.43,10.62 26.68,13.73"/>
-    <junction id="J2" type="priority" x="-30.00" y="20.00" incLanes="-E1_0 -E1_1" intLanes=":J2_0_0" shape="-28.59,21.41 -31.41,18.59 -30.00,20.04 -30.16,16.04">
+    <junction id="J2" type="priority" x="-30.00" y="20.00" incLanes="-E1_0 -E1_1" intLanes=":J2_0_0" shape="-28.59,21.41 -31.41,18.59 -30.00,20.04 -30.16,16.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="J3" type="priority" x="30.00" y="20.00" incLanes="E1_0 E1_1" intLanes=":J3_0_0" shape="26.45,26.38 23.55,23.62 34.11,13.50 33.89,17.50 32.25,19.98 30.29,22.23 28.30,24.41 26.83,25.97">
