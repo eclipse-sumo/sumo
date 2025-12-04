@@ -269,9 +269,19 @@ GNEAttributeCarrier::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoLi
 
 
 bool
-GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    // by default, all attributes are enabled
-    return true;
+GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_SAVEFILE:
+            if (myTagProperty->saveInNetworkFile() || myTagProperty->saveInParentFile()) {
+                return false;
+            } else if (myFileBucket == false) {
+                return false;
+            } else {
+                return true;
+            }
+        default:
+            return true;
+    }
 }
 
 
@@ -839,7 +849,11 @@ std::string
 GNEAttributeCarrier::getCommonAttribute(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_SAVEFILE:
-            return getFileBucket()->getFilename();
+            if (myFileBucket) {
+                return getFileBucket()->getFilename();
+            } else {
+                return TL("Parent filename");
+            }
         case GNE_ATTR_CENTER_AFTER_CREATION:
             return toString(myCenterAfterCreation);
         case GNE_ATTR_SELECTED:

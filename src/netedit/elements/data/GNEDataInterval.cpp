@@ -194,7 +194,11 @@ GNEDataInterval::checkDrawMoveContour() const {
 
 FileBucket*
 GNEDataInterval::getFileBucket() const {
-    return myDataSetParent->getFileBucket();
+    if (isTemplate()) {
+        return nullptr;
+    } else {
+        return myDataSetParent->getFileBucket();
+    }
 }
 
 
