@@ -3848,8 +3848,6 @@ GNEApplicationWindow::onUpdSaveEdgeTypes(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject* sender, FXSelector sel, void* ptr) {
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // get TLS file
     const GNEFileDialog TLSfileDialog = GNEFileDialog(this, TL("Traffic Light definitions file"),
                                         SUMOXMLDefinitions::TLSFileExtensions.getStrings(),
