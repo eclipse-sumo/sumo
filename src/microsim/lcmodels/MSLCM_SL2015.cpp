@@ -2375,7 +2375,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     myCanChangeFully = (maneuverDist == 0 || latDist == maneuverDist);
 #ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
-        std::cout << "    checkBlocking fully=" << myCanChangeFully << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "\n";
+        std::cout << "    checkBlocking latDist=" << latDist << " maneuverDist=" << maneuverDist << "\n";
     }
 #endif
     // destination sublanes must be safe
@@ -2410,6 +2410,12 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     if (retBlockedFully != nullptr) {
         *retBlockedFully = blockedFully;
     }
+#ifdef DEBUG_BLOCKING
+    if (gDebugFlag2) {
+        std::cout << "    blocked=" << blocked << " (" << toString((LaneChangeAction)blocked) << ") blockedFully=" << toString((LaneChangeAction)blockedFully)
+            << " canChangeFully=" << myCanChangeFully << " keepLatGapManeuver=" << keepLatGapManeuver << "\n";
+    }
+#endif
     if (blocked == 0 && !myCanChangeFully && myPushy == 0 && !keepLatGapManeuver) {
         // aggressive drivers immediately start moving towards potential
         // blockers and only check that the start of their maneuver (latDist) is safe. In
@@ -2420,6 +2426,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
         // XXX: in case of action step length > simulation step length, pushing may lead to collisions,
         //      because maneuver is continued until maneuverDist is reached (perhaps set maneuverDist=latDist)
     }
+#ifdef DEBUG_BLOCKING
+    if (gDebugFlag2) {
+        std::cout << "    blocked2=" << blocked << " (" << toString((LaneChangeAction)blocked) << ")\n";
+    }
+#endif
     if (collectFollowBlockers != nullptr && collectLeadBlockers != nullptr) {
         // prevent vehicles from being classified as leader and follower simultaneously
         for (std::vector<CLeaderDist>::const_iterator it2 = collectLeadBlockers->begin(); it2 != collectLeadBlockers->end(); ++it2) {
