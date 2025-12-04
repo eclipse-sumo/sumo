@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-08 11:30:11 by Eclipse SUMO netedit Version v1_21_0+1720-9160afd48ee
+<!-- generated on 2025-12-04T15:04:12.021877+01:00 by Eclipse SUMO netedit v1_25_0+0364-fb1aa6c26c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_additionals_A.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_routes_A.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_datas_A.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_meandatas_A.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -50,16 +52,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jan111805.19096\netedit.gui\network\edges\inspect_selected\stopexception_dialog\bus\log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -73,13 +75,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":J2_0_0" index="0" speed="3.65" length="4.67" shape="-30.00,21.60 -31.20,20.80 -31.60,20.00 -31.20,19.20 -30.00,18.40"/>
     </edge>
     <edge id=":J3_0" function="internal">
-        <lane id=":J3_0_0" index="0" speed="3.65" length="4.67" shape="30.00,18.40 31.21,19.19 31.62,19.98 31.23,20.78 30.04,21.60"/>
+        <lane id=":J3_0_0" index="0" speed="3.65" length="4.67" shape="30.00,18.40 31.21,19.19 31.62,19.98 31.23,20.79 30.04,21.60"/>
     </edge>
     <edge id=":J4_0" function="internal">
         <lane id=":J4_0_0" index="0" speed="3.65" length="4.67" shape="-30.00,-18.40 -31.20,-19.20 -31.60,-20.00 -31.20,-20.80 -30.00,-21.60"/>
     </edge>
     <edge id=":J5_0" function="internal">
-        <lane id=":J5_0_0" index="0" speed="3.65" length="4.67" shape="30.04,-21.60 31.23,-20.78 31.62,-19.98 31.21,-19.19 30.00,-18.40"/>
+        <lane id=":J5_0_0" index="0" speed="3.65" length="4.67" shape="30.04,-21.60 31.23,-20.79 31.62,-19.98 31.21,-19.19 30.00,-18.40"/>
     </edge>
     <edge id=":JunctionExtern0_0" function="internal">
         <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
