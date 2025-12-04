@@ -3363,7 +3363,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
     }
     // first check if we have to set the output filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, myFileBucketHandler->getConfigFilePrefix() + ".net.xml");
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, myFileBucketHandler->getConfigFilePrefix(".net.xml"));
     }
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETWORK)) {
@@ -3452,7 +3452,7 @@ long
 GNEApplicationWindow::onCmdSavePlainXML(FXObject* sender, FXSelector sel, void* ptr) {
     // first check if we have to set the output filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETCONVERT_CONFIG)) {
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERT_CONFIG, myFileBucketHandler->getConfigFilePrefix() + ".netccfg");
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETCONVERT_CONFIG, myFileBucketHandler->getConfigFilePrefix(".netccfg"));
     }
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETCONVERT_CONFIG)) {
@@ -4005,7 +4005,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, myFileBucketHandler->getConfigFilePrefix() + ".add.xml");
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::ADDITIONAL, myFileBucketHandler->getConfigFilePrefix(".add.xml"));
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
@@ -4229,7 +4229,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, myFileBucketHandler->getConfigFilePrefix() + ".rou.xml");
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DEMAND, myFileBucketHandler->getConfigFilePrefix(".rou.xml"));
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
@@ -4427,7 +4427,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DATA)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix() + ".xml");
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix(".xml"));
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DATA)) {
@@ -4612,7 +4612,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, myFileBucketHandler->getConfigFilePrefix() + ".dat.add.xml");
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::MEANDATA, myFileBucketHandler->getConfigFilePrefix(".dat.add.xml"));
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {

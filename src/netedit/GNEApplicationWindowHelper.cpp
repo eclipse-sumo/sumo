@@ -2512,10 +2512,10 @@ GNEApplicationWindowHelper::FileBucketHandler::getConfigDirectory() const {
 
 
 std::string
-GNEApplicationWindowHelper::FileBucketHandler::getConfigFilePrefix() const {
+GNEApplicationWindowHelper::FileBucketHandler::getConfigFilePrefix(const std::string& sufix) const {
     for (const auto& type : FileBucket::prefixes) {
         if (isFilenameDefined(type)) {
-            return getDefaultFilename(type);
+            return getDefaultFilename(type) + sufix;
         }
     }
     return "";
@@ -2701,7 +2701,6 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     myBuckets.at(FileBucket::Type::SUMO_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::SUMO_CONFIG, {".sumocfg", ".xml"}));
     myBuckets.at(FileBucket::Type::NETEDIT_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETEDIT_CONFIG, {".netecfg", ".xml"}));
     myBuckets.at(FileBucket::Type::NETCONVERT_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETCONVERT_CONFIG, {".netccfg", ".edg.xml", ".nod.xml", ".con.xml", ".typ.xml", ".tll.xml", ".xml"}));
-    myBuckets.at(FileBucket::Type::NETWORK_PREFIX).front()->setFilename(getPrefix(FileBucket::Type::NETWORK, {".net.xml", ".xml"}));
 }
 
 

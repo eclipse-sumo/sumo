@@ -1202,7 +1202,7 @@ struct GNEApplicationWindowHelper {
         std::string getConfigDirectory() const;
 
         /// @brief get current config patter (if we defined a netedit, sumo or netconvert config)
-        std::string getConfigFilePrefix() const;
+        std::string getConfigFilePrefix(const std::string& sufix) const;
 
         /// @brief functions related with buckets
         /// @{
