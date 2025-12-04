@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-12-01 18:56+0000\n"
+"PO-Revision-Date: 2025-12-04 18:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10945,55 +10945,55 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:841
 msgid "Check folder permissions"
-msgstr ""
+msgstr "Controlla le autorizzazioni delle cartelle"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:855
 msgid "Bookmark current directory."
-msgstr ""
+msgstr "Aggiunge un segnalibro alla cartella attuale."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:857
 msgid "Clear bookmarks."
-msgstr ""
+msgstr "Svuota i segnalibri."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:883
 msgid "Go up one directory"
-msgstr ""
+msgstr "Vai alla cartella del livello superiore"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:887
 msgid "Go to home directory"
-msgstr ""
+msgstr "Vai alla cartella personale"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:891
 msgid "Go to work directory"
-msgstr ""
+msgstr "Vai alla cartella corrente"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:902
 msgid "Go to netedit config directory"
-msgstr ""
+msgstr "Vai alla cartella della configurazione netedit"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:905
 msgid "Go to sumo config directory"
-msgstr ""
+msgstr "Vai alla cartella della configurazione sumo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:915
 msgid "Create new directory"
-msgstr ""
+msgstr "Crea una cartella nuova"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:919
 msgid "Display directory with small icons"
-msgstr ""
+msgstr "Usa degli icon piccoli"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:923
 msgid "Display directory with big icons"
-msgstr ""
+msgstr "Usa degli icon grandi"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:927
 msgid "Display detailed directory listing"
-msgstr ""
+msgstr "Mostra elenco di cartella dettagliato"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:933
 msgid "Toggle show hidden files and directories"
-msgstr ""
+msgstr "Mostra/nascondi file e cartelle nascosti"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:54
 msgid "Select a solution for StoppingPlaces and E2 detectors"
