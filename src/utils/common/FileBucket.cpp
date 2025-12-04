@@ -42,7 +42,6 @@ const std::vector<FileBucket::Type> FileBucket::prefixes = {
     FileBucket::Type::NETEDIT_PREFIX,
     FileBucket::Type::SUMO_PREFIX,
     FileBucket::Type::NETCONVERT_PREFIX,
-    FileBucket::Type::NETWORK_PREFIX
 };
 
 // ===========================================================================

@@ -46,9 +46,8 @@ public:
         NETEDIT_PREFIX =    1 << 10,    // Bucket for netedit prefix
         SUMO_PREFIX =       1 << 11,    // Bucket for sumo prefix
         NETCONVERT_PREFIX = 1 << 12,    // Bucket for netconvert prefix
-        NETWORK_PREFIX =    1 << 13,    // Bucket for net prefix
         // other
-        NOTHING =           1 << 14,    // Element is not saved in bucket
+        NOTHING =           1 << 13,    // Element is not saved in bucket
     };
 
     /// @brief Constructor for default bucket
