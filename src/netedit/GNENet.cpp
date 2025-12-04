@@ -1525,9 +1525,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         for (const auto& bucket : myApplicationWindow->getFileBucketHandler()->getFileBuckets(FileBucket::Type::DATA)) {
             if (bucket->getFilename().size() > 0) {
                 // Create general handler
-                GNEGeneralHandler generalHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
+                GNEDataHandler dataHandler(this, bucket, myApplicationWindow->isUndoRedoAllowed());
                 // Run parser
-                if (!generalHandler.parse()) {
+                if (!dataHandler.parse()) {
                     WRITE_ERROR(TL("Loading of data file failed: ") + bucket->getFilename());
                 } else {
                     WRITE_MESSAGE(TL("Loading of data file successfully: ") + bucket->getFilename());
