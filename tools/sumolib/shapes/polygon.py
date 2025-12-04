@@ -56,7 +56,7 @@ class Polygon:
         self.color_str = color_str
         if self.color is not None and self.color_str is None:
             if hasattr(self.color, "toXML"):
-                self.color_str = self.color_str.toXML()
+                self.color_str = self.color.toXML()
             else:
                 self.color_str = self.color
 
