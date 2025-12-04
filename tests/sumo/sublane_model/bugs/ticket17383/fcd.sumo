@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-04T09:06:34.946864+01:00 by Eclipse SUMO sumo v1_25_0+0215-c577e32eef6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="b_left" x="78.50" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="0.00" pos="78.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="b_left" x="78.76" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="0.52" pos="78.76" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="b_left" x="79.26" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="1.01" pos="79.26" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="b_left" x="79.95" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="1.38" pos="79.95" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="b_left" x="80.84" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="1.78" pos="80.84" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="b_left" x="81.98" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="2.28" pos="81.98" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="b_left" x="83.34" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="2.72" pos="83.34" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="b_left" x="84.86" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="3.03" pos="84.86" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="b_left" x="86.62" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="3.52" pos="86.62" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="b_left" x="88.62" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="4.00" pos="88.62" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="b_left" x="90.90" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="4.58" pos="90.90" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="b_left" x="93.43" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.05" pos="93.43" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="b_left" x="95.42" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="3.98" pos="95.42" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="b_left" x="96.81" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="2.79" pos="96.81" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="b_left" x="97.46" y="-0.40" angle="90.00" type="DEFAULT_BIKETYPE" speed="1.29" pos="97.46" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="b_left" x="97.49" y="-0.33" angle="87.33" type="DEFAULT_BIKETYPE" speed="0.08" pos="97.49" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.01" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.50">
+        <vehicle id="b_left" x="97.50" y="-0.33" angle="87.34" type="DEFAULT_BIKETYPE" speed="0.00" pos="97.50" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="b_left" x="97.76" y="-0.33" angle="87.78" type="DEFAULT_BIKETYPE" speed="0.53" pos="97.76" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.50">
+        <vehicle id="b_left" x="98.27" y="-0.33" angle="88.48" type="DEFAULT_BIKETYPE" speed="1.00" pos="98.27" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="b_left" x="98.37" y="-0.33" angle="88.58" type="DEFAULT_BIKETYPE" speed="0.21" pos="98.37" lane="E0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.50">
+        <vehicle id="b_left" x="99.17" y="-0.39" angle="90.80" type="DEFAULT_BIKETYPE" speed="0.77" pos="0.26" lane=":J1_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="b_left" x="99.77" y="-0.48" angle="93.64" type="DEFAULT_BIKETYPE" speed="1.20" pos="0.86" lane=":J1_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.50">
+        <vehicle id="b_left" x="101.32" y="-1.05" angle="105.76" type="DEFAULT_BIKETYPE" speed="1.57" pos="1.64" lane=":J1_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="b_left" x="101.43" y="-1.09" angle="114.36" type="DEFAULT_BIKETYPE" speed="2.01" pos="2.65" lane=":J1_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.50">
+        <vehicle id="b_left" x="102.36" y="-1.13" angle="93.40" type="DEFAULT_BIKETYPE" speed="2.61" pos="0.86" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="b_left" x="103.83" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="2.94" pos="2.33" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.50">
+        <vehicle id="b_left" x="105.51" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="3.37" pos="4.01" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="b_left" x="107.44" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="3.85" pos="5.94" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.50">
+        <vehicle id="b_left" x="109.57" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="4.26" pos="8.07" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="b_left" x="111.87" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="4.60" pos="10.37" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.50">
+        <vehicle id="b_left" x="114.45" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.16" pos="12.95" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="b_left" x="117.17" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.42" pos="15.67" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.50">
+        <vehicle id="b_left" x="119.94" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.55" pos="18.44" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="b_left" x="122.62" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.36" pos="21.12" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.50">
+        <vehicle id="b_left" x="125.28" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.33" pos="23.78" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="b_left" x="127.92" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.26" pos="26.42" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.50">
+        <vehicle id="b_left" x="130.58" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.32" pos="29.08" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="b_left" x="133.28" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.41" pos="31.78" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.50">
+        <vehicle id="b_left" x="135.99" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.42" pos="34.49" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="b_left" x="138.72" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.46" pos="37.22" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.50">
+        <vehicle id="b_left" x="141.36" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.28" pos="39.86" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="b_left" x="144.13" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.54" pos="42.63" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.50">
+        <vehicle id="b_left" x="146.82" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.38" pos="45.32" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="b_left" x="149.58" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.52" pos="48.08" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.50">
+        <vehicle id="b_left" x="152.21" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.26" pos="50.71" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="b_left" x="154.87" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.32" pos="53.37" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.50">
+        <vehicle id="b_left" x="157.51" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.29" pos="56.01" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="b_left" x="160.15" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.28" pos="58.65" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.50">
+        <vehicle id="b_left" x="162.79" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.28" pos="61.29" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="b_left" x="165.56" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.54" pos="64.06" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.50">
+        <vehicle id="b_left" x="168.30" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.46" pos="66.80" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="b_left" x="170.96" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.33" pos="69.46" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.50">
+        <vehicle id="b_left" x="173.71" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.49" pos="72.21" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="b_left" x="176.40" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.39" pos="74.90" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.50">
+        <vehicle id="b_left" x="179.17" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.54" pos="77.67" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="b_left" x="181.84" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.34" pos="80.34" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.50">
+        <vehicle id="b_left" x="184.53" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.37" pos="83.03" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="b_left" x="187.23" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.40" pos="85.73" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.50">
+        <vehicle id="b_left" x="190.00" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.55" pos="88.50" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="b_left" x="192.69" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.38" pos="91.19" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.50">
+        <vehicle id="b_left" x="195.44" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.50" pos="93.94" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="b_left" x="198.10" y="-1.13" angle="90.00" type="DEFAULT_BIKETYPE" speed="5.32" pos="96.60" lane="E1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.50"/>
+</fcd-export>
