@@ -4928,7 +4928,7 @@ GNEApplicationWindow::loadAdditionalElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '%'", toString(additionalFiles)));
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("loading additional elements from '%'", toString(additionalFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = additionalFiles.size() == 1;
         // iterate over every additional file
@@ -4973,7 +4973,7 @@ GNEApplicationWindow::loadDemandElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '%'", toString(demandFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading demand elements from '%'", toString(demandFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = demandFiles.size() == 1;
         // iterate over every demand file
@@ -5017,7 +5017,7 @@ GNEApplicationWindow::loadDataElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading data elements from '%'", toString(dataFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading data elements from '%'", toString(dataFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = dataFiles.size() == 1;
         // iterate over every data file
@@ -5061,7 +5061,7 @@ GNEApplicationWindow::loadMeanDataElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading meanData elements from '%'", toString(meanDataFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading meanData elements from '%'", toString(meanDataFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = meanDataFiles.size() == 1;
         // iterate over every meanData file
