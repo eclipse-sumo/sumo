@@ -4,3 +4,4 @@
 --lateral-resolution 0.8
 --step-length 0.5
 --fcd-output fcd.xml
+--fcd-output.attributes pos,posLat,speed
