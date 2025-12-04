@@ -3359,7 +3359,11 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, vo
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isNetworkSaved() && !neteditOptions.getBool("force-saving")) {
+    // check if we're forcing to saving additionals
+    if (myNet->getSavingStatus()->isNetworkSaved() &&
+            neteditOptions.getBool("force-saving")) {
+        WRITE_MESSAGE(TL("Force save network"));
+    } else if (myNet->getSavingStatus()->isNetworkSaved()) {
         // nothing to save
         return 1;
     }
@@ -4007,7 +4011,12 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     const auto savingFileHandler = myFileBucketHandler;
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    if (myNet->getSavingStatus()->isAdditionalsSaved() && !neteditOptions.getBool("force-saving")) {
+    // check if we're forcing to saving additionals
+    if (myNet->getSavingStatus()->isAdditionalsSaved() &&
+            neteditOptions.getBool("force-saving") &&
+            myFileBucketHandler->isFilenameDefined(FileBucket::Type::ADDITIONAL)) {
+        WRITE_MESSAGE(TL("Force save additional elements"));
+    } else if (myNet->getSavingStatus()->isAdditionalsSaved()) {
         // nothing to save
         return 1;
     }
@@ -4226,8 +4235,12 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
     const auto savingFileHandler = myFileBucketHandler;
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check saving conditions
-    if (myNet->getSavingStatus()->isDemandElementsSaved() && !neteditOptions.getBool("force-saving")) {
+    // check if we're forcing to saving demand elements
+    if (myNet->getSavingStatus()->isDemandElementsSaved() &&
+            neteditOptions.getBool("force-saving") &&
+            myFileBucketHandler->isFilenameDefined(FileBucket::Type::DEMAND)) {
+        WRITE_MESSAGE(TL("Force save demand elements"));
+    } else if (myNet->getSavingStatus()->isDemandElementsSaved()) {
         // nothing to save
         return 1;
     }
@@ -4420,8 +4433,12 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     const auto savingFileHandler = myFileBucketHandler;
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check saving conditions
-    if (myNet->getSavingStatus()->isDataElementsSaved() && !neteditOptions.getBool("force-saving")) {
+    // check if we're forcing to saving data elements
+    if (myNet->getSavingStatus()->isDataElementsSaved() &&
+            neteditOptions.getBool("force-saving") &&
+            myFileBucketHandler->isFilenameDefined(FileBucket::Type::DATA)) {
+        WRITE_MESSAGE(TL("Force save data elements"));
+    } else if (myNet->getSavingStatus()->isDataElementsSaved()) {
         // nothing to save
         return 1;
     }
@@ -4601,8 +4618,12 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     const auto savingFileHandler = myFileBucketHandler;
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check saving conditions
-    if (myNet->getSavingStatus()->isMeanDatasSaved() && !neteditOptions.getBool("force-saving")) {
+    // check if we're forcing to saving meandata elements
+    if (myNet->getSavingStatus()->isMeanDatasSaved() &&
+            neteditOptions.getBool("force-saving") &&
+            myFileBucketHandler->isFilenameDefined(FileBucket::Type::MEANDATA)) {
+        WRITE_MESSAGE(TL("Force save meandata elements"));
+    } else if (myNet->getSavingStatus()->isMeanDatasSaved()) {
         // nothing to save
         return 1;
     }
