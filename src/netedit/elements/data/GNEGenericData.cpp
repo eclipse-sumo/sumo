@@ -95,7 +95,11 @@ GNEGenericData::getGUIGlObject() const {
 
 FileBucket*
 GNEGenericData::getFileBucket() const {
-    return myDataIntervalParent->getFileBucket();
+    if (isTemplate()) {
+        return nullptr;
+    } else {
+        return myDataIntervalParent->getFileBucket();
+    }
 }
 
 

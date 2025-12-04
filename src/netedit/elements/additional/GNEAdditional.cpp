@@ -95,7 +95,11 @@ GNEAdditional::getGUIGlObject() const {
 FileBucket*
 GNEAdditional::getFileBucket() const {
     if (myTagProperty->saveInParentFile()) {
-        return getParentAdditionals().front()->getFileBucket();
+        if (isTemplate()) {
+            return nullptr;
+        } else {
+            return getParentAdditionals().front()->getFileBucket();
+        }
     } else {
         return myFileBucket;
     }
