@@ -42,7 +42,7 @@ def copy_file_to_matching_folders(root_path, target_folder_name, source_file_pat
 def main():
 
     # Run the function
-    copy_file_to_matching_folders("D:/Netedit_dev/tests/netedit/elements/demands", "inspect_selection",
+    copy_file_to_matching_folders("D:/Netedit_dev/tests/netedit/elements/demands", "volatile_recomputing",
                                   "D:/Netedit_dev/tests/netedit/scripts/copyConfigs/netedit_A.netecfg")
 
 
