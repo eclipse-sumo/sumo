@@ -88,8 +88,8 @@ FXIMPLEMENT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagS
 
 GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     MFXGroupBoxModule(frameParent, TL("Plan type")),
-    myFrameParent(frameParent),
-    myPlanType(planType) {
+    myPlanType(planType),
+    myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
     myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                           false, GUIDesignComboBoxVisibleItems, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);

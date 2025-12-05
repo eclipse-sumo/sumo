@@ -50,7 +50,7 @@ GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, const RG
 
 GNEColorDialog::GNEColorDialog(GNEApplicationWindow* applicationWindow, GNEDialog* parentDialog,
                                const RGBColor color):
-    GNEDialog(applicationWindow, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
+    GNEDialog(applicationWindow, parentDialog, TL("Edit color"), GUIIcon::COLORWHEEL, DialogType::COLOR,
               Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, ResizeMode::STATIC, 600, 300),
     myOriginalColor(color) {
     // build dialog
