@@ -178,7 +178,9 @@ MSLaneChangerSublane::change() {
         for (int offset : ce->siblings) {
             // treat sibling lanes (internal lanes with the same origin lane) as if they have the same geometry
             ChangerIt ceSib = ce + offset;
-            vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ceSib->aheadNext, sublaneIndex, ceSib->lane->getIndex());
+            if (ceSib->lane->allowsVehicleClass(vehicle->getVClass())) {
+                vehicle->getLaneChangeModel().updateExpectedSublaneSpeeds(ceSib->aheadNext, sublaneIndex, ceSib->lane->getIndex());
+            }
         }
         sublaneIndex += ce->ahead.numSublanes();
     }
