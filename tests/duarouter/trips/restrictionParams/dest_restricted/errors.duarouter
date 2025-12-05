@@ -1,2 +1,3 @@
-Error: Route '!0' (vehicle '0') is not valid.
+Error: Vehicle '0' is not allowed to arrive on edge 'middle'.
+Error: The vehicle '0' has no valid route.
 Quitting (on error).
