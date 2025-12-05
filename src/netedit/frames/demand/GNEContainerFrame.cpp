@@ -256,7 +256,7 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
         GNEDemandElement* container = buildContainer();
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), container->getFileBucket(),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // check if container and container plan can be created
         if (routeHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(),
                                             container, myContainerPlanAttributesEditor, myPlanCreator, true)) {
@@ -300,7 +300,7 @@ GNEContainerFrame::buildContainer() {
     myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
     GNERouteHandler routeHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(containerTag)->getFileBucket(),
-                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {
         // Add parameter departure

@@ -311,7 +311,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(vehicleTag)->getFileBucket(),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // check if use last route
         if (useLastRoute) {
             // build vehicle using last route
@@ -546,7 +546,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         myVehicleAttributesEditor->fillSumoBaseObject(myVehicleBaseObject);
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), route->getFileBucket(),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // check if departLane is valid
         if ((route->getTagProperty()->getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
                 GNEAttributeCarrier::canParse<int>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
