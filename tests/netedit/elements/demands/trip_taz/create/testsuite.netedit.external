@@ -1,33 +1,33 @@
-default
+arrivallane
 
-id
+arrivalpos
 
-type
+arrivalposlat
+
+arrivalspeed
 
 color
+
+containernumber
+
+default
+
+depart
 
 departlane
 
 departpos
 
+departposlat
+
 departspeed
 
-arrivallane
+id
 
-arrivalpos
-
-arrivalspeed
+insertionchecks
 
 line
 
 personnumber
 
-containernumber
-
-departposlat
-
-arrivalposlat
-
-insertionchecks
-
-depart
+type

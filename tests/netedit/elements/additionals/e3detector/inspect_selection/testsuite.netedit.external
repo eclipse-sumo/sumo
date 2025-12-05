@@ -1,15 +1,15 @@
-period
-
-name
+expectArrival
 
 file
 
-vtypes
+name
 
-timethreshold
+parameters
+
+period
 
 speedthreshold
 
-expectArrival
+timethreshold
 
-parameters
+vtypes

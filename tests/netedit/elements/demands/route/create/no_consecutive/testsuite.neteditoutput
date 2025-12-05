@@ -1,23 +1,23 @@
+abort
+
+abort_button
+
+color
+
+cycletime
+
 default
 
 default_button
 
-abort
+id
 
-abort_button
+invalid_vclass
 
 remove_last
 
 remove_last_button
 
-invalid_vclass
-
-single_edge
-
-id
-
-color
-
 repeat
 
-cycletime
+single_edge

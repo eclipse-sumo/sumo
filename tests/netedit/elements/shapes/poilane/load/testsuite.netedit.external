@@ -1,25 +1,25 @@
-default
-
-id
+angle
 
 color
 
-layer
-
-lane
-
-pos
-
-width
+default
 
 height
 
+id
+
 imgfile
 
-type
+lane
+
+layer
 
 name
 
-angle
-
 parameters
+
+pos
+
+type
+
+width

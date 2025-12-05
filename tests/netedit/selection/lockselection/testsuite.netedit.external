@@ -1,20 +1,20 @@
-junctions
-
-edges
-
-lanes
+additionals
 
 connections
 
-additionals
-
 crossings
 
-polygons
+edges
+
+junctions
+
+lanes
+
+obstacles
 
 pois
 
-obstacles
+polygons
 
 tazs
 

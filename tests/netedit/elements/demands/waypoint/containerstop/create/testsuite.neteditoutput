@@ -1,27 +1,21 @@
-default
+acttype
 
-no_parent
+default
 
 duration
 
-until
-
 extension
-
-
-
-
-
-
-
-permitted
-
-parking
-
-acttype
-
-tripid
 
 line
 
+no_parent
+
+parking
+
+permitted
+
 speed
+
+tripid
+
+until

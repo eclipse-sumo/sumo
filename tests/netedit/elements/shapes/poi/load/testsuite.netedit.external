@@ -1,25 +1,25 @@
-default
-
-id
+angle
 
 color
 
+default
+
+height
+
+id
+
+imgfile
+
 layer
+
+name
+
+parameters
+
+type
+
+width
 
 x
 
 y
-
-width
-
-height
-
-imgfile
-
-type
-
-name
-
-angle
-
-parameters

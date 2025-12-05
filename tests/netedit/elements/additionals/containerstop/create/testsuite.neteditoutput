@@ -1,25 +1,27 @@
-id
-
-friendlypos
-
-name
-
-color
-
-lines
-
-containercapacity
-
-parkinglength
+additionalfile
 
 angle
 
-parameters
+color
 
-size
+containercapacity
+
+default
 
 forcesize
 
+friendlypos
+
+id
+
+lines
+
+name
+
+parameters
+
+parkinglength
+
 reference
 
-additionalfile
+size

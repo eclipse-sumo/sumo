@@ -1,13 +1,13 @@
+color
+
+default_stop
+
 default_tranship
 
 default_transport
 
-default_stop
-
-id
-
-color
-
 departpos
 
 flow_attributes
+
+id

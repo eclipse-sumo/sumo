@@ -1,9 +1,9 @@
 basic
 
-no_recomputing
-
-no_redo
-
 junction
 
 junction_noredo
+
+no_recomputing
+
+no_redo

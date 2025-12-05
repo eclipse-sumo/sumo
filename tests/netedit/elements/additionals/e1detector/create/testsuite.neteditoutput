@@ -1,13 +1,13 @@
 default
 
-id
+file
 
-period
+friendlypos
+
+id
 
 name
 
-file
+period
 
 vtypes
-
-friendlypos

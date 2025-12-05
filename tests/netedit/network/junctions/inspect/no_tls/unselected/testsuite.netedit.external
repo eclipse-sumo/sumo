@@ -1,19 +1,19 @@
-type
-
-pos
+fringe
 
 id
 
-shape
-
-radius
-
 keepclear
-
-rightofway
-
-fringe
 
 name
 
 parameters
+
+pos
+
+radius
+
+rightofway
+
+shape
+
+type

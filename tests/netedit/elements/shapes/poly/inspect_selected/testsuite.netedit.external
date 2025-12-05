@@ -1,32 +1,21 @@
-# all test check also the undo-redo of modifications and save the into a file
-# edit color
+angle
+
+closeshape
+
 color
 
-# edit fill
 fill
 
-# edit linewidth
-linewidth
+geo_use
 
-# edit layer
+imgfile
+
 layer
 
-# edit type
-type
+linewidth
 
 name
 
-# edit imgfile
-imgfile
-
-# edit angle
-angle
-
-# edit use geo
-geo_use
-
-# edit parameters
 parameters
 
-# edit close shape
-closeshape
+type

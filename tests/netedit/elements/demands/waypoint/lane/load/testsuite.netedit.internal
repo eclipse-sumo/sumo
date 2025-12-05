@@ -1,16 +1,17 @@
+acttype
+
+containertrigger
+
 default
 
 duration
 
-until
-
 extension
-parking
-
-acttype
 
 line
 
+parking
+
 tripid
 
-containertrigger
+until

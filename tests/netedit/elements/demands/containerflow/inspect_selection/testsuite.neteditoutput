@@ -1,5 +1,3 @@
-type
-
 color
 
 departpos
@@ -7,3 +5,5 @@ departpos
 flow_attributes
 
 parameters
+
+type

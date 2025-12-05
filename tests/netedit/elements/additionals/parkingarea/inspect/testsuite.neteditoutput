@@ -1,27 +1,27 @@
+angle
+
+departpos
+
+endpos
+
+friendlypos
+
 id
 
 lane
 
-startpos
-
-endpos
-
-name
-
-roadsidecapacity
-
-onroad
-
-friendlypos
-
-width
+lefthand
 
 length
 
-angle
+name
 
-lefthand
-
-departpos
+onroad
 
 parameters
+
+roadsidecapacity
+
+startpos
+
+width

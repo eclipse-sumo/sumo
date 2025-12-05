@@ -1,20 +1,19 @@
-id
-
-default
+angle
 
 color
 
-type
-
-name
-
-layer
-
-width
+default
 
 height
 
+id
+
 imgfile
 
+layer
 
-angle
+name
+
+type
+
+width

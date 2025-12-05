@@ -1,13 +1,13 @@
-id
+begin
 
 edge
 
-period
+file
+
+id
 
 name
 
-file
-
-begin
-
 parameters
+
+period

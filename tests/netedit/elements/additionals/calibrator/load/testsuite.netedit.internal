@@ -1,21 +1,21 @@
 default
 
-id
-
 edge
 
-pos
-
-period
-
-name
-
-routeprobe
-
-output
+id
 
 jamthreshold
 
-vtypes
+name
+
+output
 
 parameters
+
+period
+
+pos
+
+routeprobe
+
+vtypes

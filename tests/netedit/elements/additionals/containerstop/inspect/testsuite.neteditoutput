@@ -1,33 +1,33 @@
+additionalfile
+
+angle
+
+color
+
+containercapacity
+
+endpos
+
+forcesize
+
+friendlypos
+
+front
+
 id
 
 lane
 
-startpos
-
-endpos
-
-friendlypos
+lines
 
 name
 
-color
-
-lines
-
-containercapacity
+parameters
 
 parkinglength
 
-angle
-
-parameters
-
-front
+reference
 
 size
 
-forcesize
-
-reference
-
-additionalfile
+startpos

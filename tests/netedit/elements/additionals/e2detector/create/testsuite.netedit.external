@@ -1,23 +1,23 @@
 default
 
-id
-
-length
-
-period
-
-tl
-
-name
-
 file
 
-vtypes
+friendlypos
 
-timetreshold
-
-speedtreshold
+id
 
 jamtreshold
 
-friendlypos
+length
+
+name
+
+period
+
+speedtreshold
+
+timetreshold
+
+tl
+
+vtypes

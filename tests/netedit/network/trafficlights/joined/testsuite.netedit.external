@@ -1,10 +1,9 @@
-create
-
-programs
-
 attributes
 
-# disabled phase tests in external tests
-#phases
+create
 
 file
+
+phases
+
+programs

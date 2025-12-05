@@ -1,21 +1,21 @@
-duration
+acttype
 
-until
+duration
 
 extension
 
-permitted
-
-parking
-
-acttype
+jump
 
 line
 
-tripid
+parking
+
+permitted
 
 speed
 
-jump
-
 split
+
+tripid
+
+until

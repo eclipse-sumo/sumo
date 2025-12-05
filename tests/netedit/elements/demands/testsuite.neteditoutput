@@ -1,30 +1,18 @@
 basic
 
-route
+container
 
-vehicletype
+containerflow
 
-vehicletype_distribution
-
-trip
-
-vehicle
-
-vehicle_embedded
-
-trip_junctions
-
-flow_junctions
-
-trip_taz
-
-flow_taz
+containerplan
 
 flow
 
-routeflow
-
 flow_embedded
+
+flow_junctions
+
+flow_taz
 
 person
 
@@ -32,12 +20,26 @@ personflow
 
 personplan
 
-container
+route
 
-containerflow
+route_distribution
 
-containerplan
+routeflow
 
 stop
+
+trip
+
+trip_junctions
+
+trip_taz
+
+vehicle
+
+vehicle_embedded
+
+vehicletype
+
+vehicletype_distribution
 
 waypoint

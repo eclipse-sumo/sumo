@@ -1,55 +1,55 @@
-vclass
-
-id
-
-color
-
-length
-
-mingap
-
-maxspeed
-
-desiredmaxspeed
-
-speedfactor
-
-emissionclass
-
-width
-
-height
-
-imgfile
-
-osgfile
-
-lanechangemodel
-
-guishape
-
-probability
-
-personcapacity
-
-containercapacity
+actionsteplength
 
 boardingduration
 
-loadingduration
+carriagegap
+
+carriagelength
+
+color
+
+containercapacity
+
+desiredmaxspeed
+
+emissionclass
+
+guishape
+
+height
+
+id
+
+imgfile
+
+lanechangemodel
 
 latalignment
 
-mingaplat
+length
+
+loadingduration
+
+locomotivelength
+
+maxspeed
 
 maxspeedlat
 
-actionsteplength
+mingap
 
-#carriagelength
+mingaplat
 
-#locomotivelength
-
-#carriagegap
+osgfile
 
 parameters
+
+personcapacity
+
+probability
+
+speedfactor
+
+vclass
+
+width

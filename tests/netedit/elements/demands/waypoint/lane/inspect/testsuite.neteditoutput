@@ -1,33 +1,27 @@
-lane
-
-startpos
-
-endpos
-
-friendlypos
-
-poslat
+acttype
 
 duration
 
-until
+endpos
 
 extension
 
+friendlypos
 
-
-
-
-
-
-permitted
-
-parking
-
-acttype
-
-tripid
+lane
 
 line
 
+parking
+
+permitted
+
+poslat
+
 speed
+
+startpos
+
+tripid
+
+until

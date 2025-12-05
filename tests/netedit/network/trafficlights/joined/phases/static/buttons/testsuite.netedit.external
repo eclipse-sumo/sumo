@@ -1,15 +1,15 @@
 add
 
-delete
-
-moveup
-
-movedown
-
 addstates
 
 cleanstates
 
+delete
+
 groupsignals
+
+movedown
+
+moveup
 
 ungroupsignals

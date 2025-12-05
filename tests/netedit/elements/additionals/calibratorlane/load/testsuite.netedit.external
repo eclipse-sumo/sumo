@@ -2,20 +2,20 @@ default
 
 id
 
+jamthreshold
+
 lane
-
-pos
-
-period
 
 name
 
-routeprobe
-
 output
 
-jamthreshold
+parameters
+
+period
+
+pos
+
+routeprobe
 
 vtypes
-
-parameters

@@ -1,39 +1,39 @@
+allow
+
 allow_dialog
+
+changeleft
 
 changeleft_dialog
 
+changeright
+
 changeright_dialog
-
-pass
-
-keepclear
 
 contpos
 
-uncontrolled
+customshape
 
-visibility
+disallow
+
+indirect
+
+keepclear
+
+length
 
 linkindex
 
 linkindex2
 
-allow
+parameters
 
-disallow
+pass
 
 speed
 
-length
-
-customshape
-
-changeleft
-
-changeright
-
-indirect
-
 type
 
-parameters
+uncontrolled
+
+visibility

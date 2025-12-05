@@ -1,7 +1,7 @@
-default
-
-edge
-
 allow
 
+default
+
 disallow
+
+edge

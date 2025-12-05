@@ -2,18 +2,18 @@ default
 
 default_nochilds
 
-id
-
-period
-
-name
+expectArrival
 
 file
 
-vtypes
+id
 
-timethreshold
+name
+
+period
 
 speedthreshold
 
-expectArrival
+timethreshold
+
+vtypes

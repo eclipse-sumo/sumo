@@ -1,11 +1,11 @@
-edit
+allow
 
 allow_dialog
 
-speed
-
-allow
-
 disallow
+
+edit
+
+speed
 
 width

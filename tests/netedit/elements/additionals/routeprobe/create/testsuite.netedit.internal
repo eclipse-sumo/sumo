@@ -1,13 +1,13 @@
+begin
+
 default
 
 default_nocenter
 
-id
+file
 
-period
+id
 
 name
 
-file
-
-begin
+period

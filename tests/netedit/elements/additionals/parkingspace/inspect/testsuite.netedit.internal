@@ -1,15 +1,15 @@
-pos
-
-width
+angle
 
 length
 
-angle
-
 name
-
-slope
 
 parameters
 
 parent
+
+pos
+
+slope
+
+width

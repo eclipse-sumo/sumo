@@ -1,42 +1,54 @@
+aircraft
+
 all_vehicles
 
-only_road_vehicles
+army
 
-only_rail_vehicles
-
-disallow_all
-
-passenger
-
-private
-
-taxi
-
-bus
-
-coach
-
-delivery
-
-truck
-
-trailer
-
-emergency
-
-motorcycle
-
-moped
+authority
 
 bicycle
 
-scooter
+bus
+
+cable_car
+
+cancel
+
+coach
+
+container
+
+custom1
+
+custom2
+
+delivery
+
+disallow_all
+
+drone
+
+emergency
+
+evehicle
+
+hov
+
+moped
+
+motorcycle
+
+only_rail_vehicles
+
+only_road_vehicles
+
+passenger
 
 pedestrian
 
-wheelchair
+private
 
-tram
+rail
 
 rail_electric
 
@@ -44,34 +56,22 @@ rail_fast
 
 rail_urban
 
-rail
+reset
 
-cable_car
-
-subway
-
-evehicle
-
-army
+scooter
 
 ship
 
-authority
+subway
+
+taxi
+
+trailer
+
+tram
+
+truck
 
 vip
 
-hov
-
-container
-
-aircraft
-
-drone
-
-custom1
-
-custom2
-
-cancel
-
-reset
+wheelchair

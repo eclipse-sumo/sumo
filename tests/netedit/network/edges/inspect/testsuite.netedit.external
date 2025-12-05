@@ -1,45 +1,45 @@
-allow_dialog
-
-stopexception_dialog
-
-id
-
-from
-
-to
-
-speed
-
-priority
-
-numlanes
-
-type
-
 allow
+
+allow_dialog
 
 disallow
 
-shape
-
-length
-
-spreadtype
-
-name
-
-width
+distance
 
 endoffset
 
-shapestart
+from
+
+id
+
+length
+
+name
+
+numlanes
+
+parameters
+
+priority
+
+shape
 
 shapeend
 
-distance
+shapestart
 
-stopoffset
+speed
+
+spreadtype
 
 stopexception
 
-parameters
+stopexception_dialog
+
+stopoffset
+
+to
+
+type
+
+width

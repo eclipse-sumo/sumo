@@ -1,43 +1,43 @@
-default
+arrivallane
 
-invalid
+arrivalpos
 
-type
+arrivalposlat
 
-id
-
-route
-
-speed
-
-vehsperhour
+arrivalspeed
 
 begin
 
-end
-
 color
+
+containernumber
+
+default
 
 departlane
 
 departpos
 
+departposlat
+
 departspeed
 
-arrivallane
+end
 
-arrivalpos
+id
 
-arrivalspeed
+invalid
 
 line
 
 personnumber
 
-containernumber
-
 reroute
 
-departposlat
+route
 
-arrivalposlat
+speed
+
+type
+
+vehsperhour

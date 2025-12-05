@@ -1,25 +1,25 @@
-default
-
-no_child
-
-type
+begin
 
 color
 
-departpos
+default
 
-begin
+departpos
 
 end
 
+no_child
+
 number
 
-personsperhour
+parameters
 
 period
+
+personsperhour
 
 poisson
 
 probability
 
-parameters
+type

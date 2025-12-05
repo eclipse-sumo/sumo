@@ -1,51 +1,51 @@
-default
+arrivallane
 
-no_route
+arrivalpos
 
-id
+arrivalposlat
 
-type
+arrivalspeed
 
-route
+begin
 
 color
+
+containernumber
+
+default
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
-
-insertionchecks
-
-begin
+departspeed
 
 end
 
-vehsperhour
+id
+
+insertionchecks
+
+line
+
+no_route
+
+number
+
+parameters
 
 period
+
+personnumber
 
 poisson
 
 probability
 
-number
+route
 
-parameters
+type
+
+vehsperhour

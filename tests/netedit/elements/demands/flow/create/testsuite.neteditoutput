@@ -1,49 +1,49 @@
+arrivallane
+
+arrivalpos
+
+arrivalposlat
+
+arrivalspeed
+
+begin
+
+color
+
+containernumber
+
 default
 
 default_continuous
-
-id
-
-type
-
-color
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
-
-insertionchecks
-
-begin
-
-endnumber
+departspeed
 
 end
 
+endnumber
+
+id
+
+insertionchecks
+
+line
+
 number
 
-vehsperhour
-
 period
+
+personnumber
 
 poisson
 
 probability
+
+type
+
+vehsperhour

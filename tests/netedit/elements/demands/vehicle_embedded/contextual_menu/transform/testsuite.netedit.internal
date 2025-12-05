@@ -1,4 +1,4 @@
-vehicle
+flow
 
 route_flow
 
@@ -6,4 +6,4 @@ route_flow_embedded
 
 trip
 
-flow
+vehicle

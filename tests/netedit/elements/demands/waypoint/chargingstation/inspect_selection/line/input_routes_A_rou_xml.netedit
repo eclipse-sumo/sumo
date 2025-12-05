@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-10T11:00:05.858149+01:00 by Eclipse SUMO netedit v1_24_0+1353-b4ecc5e6b17
+<!-- generated on 2025-12-05T10:37:05.713875+01:00 by Eclipse SUMO netedit v1_25_0+0386-e1311562516
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,8 +19,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flowA" type="bike" begin="0.00" end="36.00" number="18" from="Edge0" to="EdgeCenter0">
         <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" parking="1" permitted="A B" tripId="tripA" line="custom line" split="splitA" speed="10.00" jump="12.00" actType="walking"/>
-    </flow>
-    <flow id="flowB" type="bike" begin="0.00" end="36.00" number="18" from="EdgeCenter1" to="Edge5">
-        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" parking="1" permitted="C D" tripId="tripB" line="custom line" split="splitB" speed="22.50" jump="16.00" actType="singing"/>
     </flow>
 </routes>

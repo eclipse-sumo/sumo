@@ -1,22 +1,6 @@
-cancel-recomputing
-
 abort-recomputing
 
-#remove-edges.isolated
-
-#ramps.guess
-
-#roundabouts.guess
-
-#junctions.join
-
-#geometry.remove
-
-#edges.join
-
-#opposites.guess
-
-#geometry.split
+cancel-recomputing
 
 crossings.guess
 

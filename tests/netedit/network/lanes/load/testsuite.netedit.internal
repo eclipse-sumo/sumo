@@ -1,29 +1,29 @@
-default
-
-speed
-
-allow
-
-disallow
-
-width
-
-endoffset
-
 acceleration
 
-customshape
-
-opposite
+allow
 
 changeleft
 
 changeright
 
-type
+customshape
 
-stopoffset
+default
+
+disallow
+
+endoffset
+
+opposite
+
+parameters
+
+speed
 
 stopexception
 
-parameters
+stopoffset
+
+type
+
+width

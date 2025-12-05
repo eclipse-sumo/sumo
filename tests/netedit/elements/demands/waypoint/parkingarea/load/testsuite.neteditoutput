@@ -1,23 +1,17 @@
+acttype
+
+containertrigger
+
 default
 
 duration
 
-until
-
 extension
-
-
-
-
-
-
-
-
-
-acttype
 
 line
 
+speed
+
 tripid
 
-speed
+until

@@ -1,31 +1,31 @@
-type
+arrivallane
+
+arrivalpos
+
+arrivalposlat
+
+arrivalspeed
 
 color
+
+containernumber
+
+depart
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
+departspeed
 
 insertionchecks
 
-depart
+line
 
 parameters
+
+personnumber
+
+type

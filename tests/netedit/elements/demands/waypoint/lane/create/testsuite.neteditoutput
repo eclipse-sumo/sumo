@@ -1,29 +1,23 @@
+acttype
+
 default
-
-friendlypos
-
-poslat
 
 duration
 
-until
-
 extension
 
-
-
-
-
-
-
-permitted
-
-parking
-
-acttype
+friendlypos
 
 line
 
-tripid
+parking
+
+permitted
+
+poslat
 
 speed
+
+tripid
+
+until

@@ -1,6 +1,12 @@
+bugs
+
+contextual_menu
+
 create
 
 delete
+
+geometry_points
 
 inspect
 
@@ -12,10 +18,4 @@ move
 
 select_vtypes
 
-contextual_menu
-
 templates
-
-geometry_points
-
-bugs

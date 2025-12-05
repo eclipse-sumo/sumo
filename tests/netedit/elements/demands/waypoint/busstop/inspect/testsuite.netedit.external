@@ -1,17 +1,17 @@
-duration
+acttype
 
-until
+duration
 
 extension
 
-permitted
+line
 
 parking
 
-acttype
+permitted
+
+speed
 
 tripid
 
-line
-
-speed
+until

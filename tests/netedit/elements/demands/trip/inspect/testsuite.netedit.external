@@ -1,41 +1,41 @@
-id
+arrivallane
 
-from
+arrivalpos
 
-to
+arrivalposlat
 
-via
-
-type
-
-typebutton
+arrivalspeed
 
 color
+
+containernumber
+
+depart
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
+departspeed
+
+from
+
+id
 
 insertionchecks
 
-depart
+line
 
 parameters
+
+personnumber
+
+to
+
+type
+
+typebutton
+
+via

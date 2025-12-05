@@ -1,15 +1,15 @@
-default_persontrip
+color
 
-default_walk
+default_persontrip
 
 default_ride
 
 default_stop
 
-id
-
-color
+default_walk
 
 departpos
 
 flow_attributes
+
+id

@@ -1,7 +1,7 @@
-Warning: Emission classes should always use the model as a prefix, please recheck 'dummyEmissionClass'. Starting with SUMO 1.24 this will be an error.
+Warning: Emission classes should always use the model as a prefix, please recheck 'dummyEmissionClass'. In later SUMO versions this might become an error.
 Error: emissionClass with name 'dummyEmissionClass' doesn't exist.
 Error: Attribute 'emissionClass' in definition of vType 'vType1' is empty.
-Warning: Emission classes should always use the model as a prefix, please recheck ''. Starting with SUMO 1.24 this will be an error.
+Warning: Emission classes should always use the model as a prefix, please recheck ''. In later SUMO versions this might become an error.
 Error: emissionClass with name '' doesn't exist.
-Warning: Emission classes should always use the model as a prefix, please recheck 'HDV_12_1'. Starting with SUMO 1.24 this will be an error.
+Warning: Emission classes should always use the model as a prefix, please recheck 'HDV_12_1'. In later SUMO versions this might become an error.
 Error: Loading of 'input_routes_A.rou.xml' failed.

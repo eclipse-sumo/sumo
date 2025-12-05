@@ -1,25 +1,25 @@
-default
-
-id
-
-friendlypos
-
-poslat
+angle
 
 color
 
-type
+default
 
-name
+frame
 
-layer
-
-width
+friendlypos
 
 height
 
+id
+
 imgfile
 
-angle
+layer
 
-frame
+name
+
+poslat
+
+type
+
+width

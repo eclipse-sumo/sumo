@@ -1,6 +1,10 @@
+contextual_menu
+
 create
 
 delete
+
+fix
 
 inspect
 
@@ -11,7 +15,3 @@ load
 move
 
 volatile_recomputing
-
-fix
-
-contextual_menu

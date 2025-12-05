@@ -4,22 +4,22 @@ default_nonconsecutive
 
 default_singlelane
 
-id
-
-period
-
-tl
-
-name
-
 file
 
-vtypes
+friendlypos
 
-timethreshold
-
-speedthreshold
+id
 
 jamthreshold
 
-friendlypos
+name
+
+period
+
+speedthreshold
+
+timethreshold
+
+tl
+
+vtypes

@@ -1,3 +1,5 @@
+contextual_menu
+
 create
 
 delete
@@ -8,6 +10,4 @@ inspect_selection
 
 load
 
-volatilerecomputing
-
-contextual_menu
+volatile_recomputing

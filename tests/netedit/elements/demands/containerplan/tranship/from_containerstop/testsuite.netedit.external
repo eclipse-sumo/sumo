@@ -1,17 +1,17 @@
 create_single
 
-to_edge
+to_busstop
 
-#to_junction
-
-#to_taz
-
-#to_busstop
-
-#to_trainstop
+to_chargingstation
 
 to_containerstop
 
-#to_chargingstation
+to_edge
 
-#to_parkingarea
+to_junction
+
+to_parkingarea
+
+to_taz
+
+to_trainstop

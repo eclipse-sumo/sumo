@@ -1,19 +1,19 @@
-type
-
-tltype
-
-tllayout
-
-radius
+fringe
 
 keepclear
 
-rightofway
-
-fringe
-
 name
+
+parameters
+
+radius
+
+rightofway
 
 tl
 
-parameters
+tllayout
+
+tltype
+
+type

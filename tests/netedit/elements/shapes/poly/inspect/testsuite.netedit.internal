@@ -1,41 +1,27 @@
-# all test check also the undo-redo of modifications and save the poly into a file
-# edit poly id
-id
+angle
 
-# edit poly shape
-shape
+closeshape
 
-# edit poly color
 color
 
-# edit poly fill
 fill
 
-# edit poly linewidth
-linewidth
+geo
 
-# edit poly layer
+geo_shape
+
+id
+
+imgfile
+
 layer
 
-# edit poly type
-type
+linewidth
 
 name
 
-# edit poly imgfile
-imgfile
-
-# edit poly angle
-angle
-
-# edit use geo
-geo
-
-# edit geo shape
-geo_shape
-
-# edit poly parameters
 parameters
 
-# edit poly close shape
-closeshape
+shape
+
+type

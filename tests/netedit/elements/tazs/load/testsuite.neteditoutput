@@ -1,17 +1,17 @@
-default
-
-id
-
 center
-
-fill
 
 color
 
-shape
+default
+
+fill
+
+id
 
 name
 
 parameters
 
 parameters_noshape
+
+shape

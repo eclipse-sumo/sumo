@@ -1,27 +1,27 @@
+acttype
+
+containertrigger
+
 default
 
 duration
 
-until
-
-extension
-
-triggered
-
 expected
-
-containertrigger
 
 expectedcontainers
 
-acttype
+extension
 
-line
-
-tripid
-
-ondemand
+join
 
 jump
 
-join
+line
+
+ondemand
+
+triggered
+
+tripid
+
+until
