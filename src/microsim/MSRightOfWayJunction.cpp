@@ -138,7 +138,7 @@ MSRightOfWayJunction::postloadInit() {
                         // both cases are encoded in a positive linkResponse
                         // (case 2 only if netconvert option --tls.ignore-internal-junction-jam was not set)
                         myLinkFoeInternalLanes[link].push_back(myInternalLanes[li]);
-                        if (linkResponse.test(c) || sortedLinks[c].second->isIndirect() ||
+                        if (link->getLane()->isCrossing() || linkResponse.test(c) || sortedLinks[c].second->isIndirect() ||
                                 link->getLane()->getBidiLane() == sortedLinks[c].second->getLaneBefore()) {
                             const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
                             if (l.size() == 1 && l[0].lane->getEdge().isInternal()) {
