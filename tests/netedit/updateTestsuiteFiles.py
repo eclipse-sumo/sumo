@@ -32,9 +32,8 @@ def update_testsuite_files():
 
                 try:
                     with open(file_path, 'w') as f:
-                        for folder in subfolders:
-                            # Added extra newline \n for the empty line between entries
-                            f.write(f"{folder}\n\n")
+                        # Join the list with double newlines and write it at once
+                        f.write("\n\n".join(subfolders))
                 except IOError as e:
                     print(f"Error writing to {file_path}: {e}")
 
