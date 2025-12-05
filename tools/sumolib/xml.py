@@ -385,7 +385,90 @@ def _get_compound_object(node, element_types, element_name, element_attrs, attr_
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict, node.text, child_list)
 
+def attributes_from_xsd(xsd_path, type_or_element_name):
+    """Extract attribute and child element names (document order) from an XSD
+    file for the given complexType name or element name.
 
+    This function is tolerant: it looks for an <xsd:complexType name="..."> or
+    an <xsd:element name="..."> (which may have an inline complexType or a
+    type reference). It returns a list of attribute and element names in the
+    order they appear in the XSD source. If the requested type/element cannot
+    be found or parsing fails, an empty list is returned.
+    """
+    try:
+        tree = ET.parse(xsd_path)
+        root = tree.getroot()
+    except Exception:
+        return []
+
+    # helper to strip namespace
+    def local_tag(t):
+        if t is None:
+            return ''
+        if t.startswith('{'):
+            return t.split('}', 1)[1]
+        return t
+
+    # find namespace uri if any
+    ns_uri = ''
+    if root.tag.startswith('{'):
+        ns_uri = root.tag.split('}')[0].strip('{')
+
+    def qname(tag):
+        return f"{{{ns_uri}}}{tag}" if ns_uri else tag
+
+    # Try to find a complexType by name
+    complex_elem = None
+    xpath = f".//{qname('complexType')}[@name='" + type_or_element_name + "']"
+    complex_elem = root.find(xpath)
+
+    # If not found, try element with that name and inline complexType or type ref
+    if complex_elem is None:
+        xpath_elem = f".//{qname('element')}[@name='" + type_or_element_name + "']"
+        elem = root.find(xpath_elem)
+        if elem is not None:
+            # inline complexType
+            for child in list(elem):
+                if local_tag(child.tag) == 'complexType':
+                    complex_elem = child
+                    break
+            # or type reference to a named complexType
+            if complex_elem is None:
+                type_attr = elem.get('type')
+                if type_attr:
+                    ref_name = type_attr.split(':')[-1]
+                    xpath_ref = f".//{qname('complexType')}[@name='" + ref_name + "']"
+                    complex_elem = root.find(xpath_ref)
+
+    if complex_elem is None:
+        # last resort: search for any element that has a complexType with matching name
+        # (some schemas nest definitions differently)
+        for ct in root.findall(f".//{qname('complexType')}"):
+            if ct.get('name') == type_or_element_name:
+                complex_elem = ct
+                break
+
+    if complex_elem is None:
+        return []
+
+    # collect attribute and child element names in document order
+    names = []
+    for node in complex_elem.iter():
+        lt = local_tag(node.tag)
+        if lt == 'attribute' and 'name' in node.attrib:
+            names.append(node.attrib['name'])
+        elif lt == 'element' and 'name' in node.attrib:
+            names.append(node.attrib['name'])
+
+    # deduplicate while preserving order
+    seen = set()
+    ordered = []
+    for n in names:
+        if n not in seen:
+            seen.add(n)
+            ordered.append(n)
+    return ordered
+    
 def create_document(root_element_name, attrs=None, schema=None):
     if attrs is None:
         attrs = {}
