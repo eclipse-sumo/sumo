@@ -84,7 +84,7 @@ public:
      * @param[in] svc The vehicle class the restriction refers to
      * @param[in] speed The restricted speed
      */
-    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
+    void addSpeedRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
 
 
     /** @brief Returns the restrictions for an edge type
@@ -94,8 +94,8 @@ public:
      */
     const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
-    bool hasRestrictions() const {
-        return !myRestrictions.empty();
+    bool hasSpeedRestrictions() const {
+        return !mySpeedRestrictions.empty();
     }
 
     bool hasParamRestrictions() const {
@@ -588,7 +588,7 @@ private:
     bool myHavePermissions;
 
     /// @brief The vehicle class specific speed restrictions
-    std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
+    std::map<std::string, std::map<SUMOVehicleClass, double> > mySpeedRestrictions;
 
     /// @brief whether parameter-based access restrictions are configured
     bool myHaveParamRestrictions;

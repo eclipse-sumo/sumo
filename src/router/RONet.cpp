@@ -144,8 +144,8 @@ RONet::~RONet() {
 
 
 void
-RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
-    myRestrictions[id][svc] = speed;
+RONet::addSpeedRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
+    mySpeedRestrictions[id][svc] = speed;
 }
 
 
@@ -196,8 +196,8 @@ RONet::addPreference(const std::string& routingType, std::string vType, double p
 
 const std::map<SUMOVehicleClass, double>*
 RONet::getRestrictions(const std::string& id) const {
-    std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = myRestrictions.find(id);
-    if (i == myRestrictions.end()) {
+    std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = mySpeedRestrictions.find(id);
+    if (i == mySpeedRestrictions.end()) {
         return nullptr;
     }
     return &i->second;

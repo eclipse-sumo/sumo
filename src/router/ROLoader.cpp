@@ -157,9 +157,9 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
             edgeIt.second->cacheParamRestrictions(paramKeys);
         }
     }
-    if (toFill.hasRestrictions()) {
+    if (toFill.hasSpeedRestrictions()) {
         for (auto& edgeIt : toFill.getEdgeMap()) {
-            edgeIt.second->setRestrictions(toFill.getRestrictions(edgeIt.second->getType()));
+            edgeIt.second->setSpeedRestrictions(toFill.getRestrictions(edgeIt.second->getType()));
         }
     }
 }
