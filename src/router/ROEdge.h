@@ -281,9 +281,9 @@ public:
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle must not enter this edge
      */
-    inline bool prohibits(const ROVehicle* const vehicle) const {
+    inline bool prohibits(const ROVehicle* const vehicle, bool checkRestrictions = false) const {
         const SUMOVehicleClass vclass = vehicle->getVClass();
-        return (myCombinedPermissions & vclass) != vclass;
+        return (myCombinedPermissions & vclass) != vclass || (checkRestrictions && restricts(vehicle));
     }
 
     inline SVCPermissions getPermissions() const {

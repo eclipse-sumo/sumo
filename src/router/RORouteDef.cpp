@@ -116,15 +116,16 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
     myNewRoute = false;
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool ignoreErrors = oc.getBool("ignore-errors");
+    const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
     assert(myAlternatives[0]->getEdgeVector().size() > 0);
     MsgHandler* mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
-    if (myAlternatives[0]->getFirst()->prohibits(&veh) && (!oc.getBool("repair.from")
+    if (myAlternatives[0]->getFirst()->prohibits(&veh, hasRestrictions) && (!oc.getBool("repair.from")
             // do not try to reassign starting edge for trip input
             || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
         mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" +
                    myAlternatives[0]->getFirst()->getID() + "'.");
         return;
-    } else if (myAlternatives[0]->getLast()->prohibits(&veh) && (!oc.getBool("repair.to")
+    } else if (myAlternatives[0]->getLast()->prohibits(&veh, hasRestrictions) && (!oc.getBool("repair.to")
                // do not try to reassign destination edge for trip input
                || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
         // this check is not strictly necessary unless myTryRepair is set.
@@ -194,6 +195,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     const int initialSize = (int)oldEdges.size();
+    const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
@@ -203,11 +205,11 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             newEdges = oldEdges;
         }
     } else {
-        if (oldEdges.front()->prohibits(&veh)) {
+        if (oldEdges.front()->prohibits(&veh, hasRestrictions)) {
             // option repair.from is in effect
             const std::string& frontID = oldEdges.front()->getID();
             for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
-                if ((*i)->prohibits(&veh) || (*i)->isInternal()) {
+                if ((*i)->prohibits(&veh, hasRestrictions) || (*i)->isInternal()) {
                     i = oldEdges.erase(i);
                 } else {
                     WRITE_MESSAGE("Changing invalid starting edge '" + frontID
@@ -220,11 +222,11 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             mh->inform("Could not find new starting edge for vehicle '" + veh.getID() + "'.");
             return false;
         }
-        if (oldEdges.back()->prohibits(&veh)) {
+        if (oldEdges.back()->prohibits(&veh, hasRestrictions)) {
             // option repair.to is in effect
             const std::string& backID = oldEdges.back()->getID();
             // oldEdges cannot get empty here, otherwise we would have left the stage when checking "from"
-            while (oldEdges.back()->prohibits(&veh) || oldEdges.back()->isInternal()) {
+            while (oldEdges.back()->prohibits(&veh, hasRestrictions) || oldEdges.back()->isInternal()) {
                 oldEdges.pop_back();
             }
             WRITE_MESSAGE("Changing invalid destination edge '" + backID
@@ -236,7 +238,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         assert(mandatory.size() >= 2);
         // removed prohibited
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
-            if ((*i)->prohibits(&veh) || (*i)->isInternal()) {
+            if ((*i)->prohibits(&veh, hasRestrictions) || (*i)->isInternal()) {
                 // no need to check the mandatories here, this was done before
                 WRITE_MESSAGEF(TL("Removing invalid edge '%' from route for vehicle '%'."), (*i)->getID(), veh.getID());
                 i = oldEdges.erase(i);

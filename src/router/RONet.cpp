@@ -71,6 +71,7 @@ RONet::RONet() :
     myRoutesOutput(nullptr), myRouteAlternativesOutput(nullptr), myTypesOutput(nullptr),
     myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
     myHavePermissions(false),
+    myHaveParamRestrictions(false),
     myNumInternalEdges(0),
     myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
                    && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),

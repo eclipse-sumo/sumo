@@ -98,6 +98,14 @@ public:
         return !myRestrictions.empty();
     }
 
+    bool hasParamRestrictions() const {
+        return myHaveParamRestrictions;
+    }
+
+    void setParamRestrictions() {
+        myHaveParamRestrictions = true;
+    }
+
     /// @brief retriefe edge type specific routing preference
     double getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const;
 
@@ -581,6 +589,9 @@ private:
 
     /// @brief The vehicle class specific speed restrictions
     std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
+
+    /// @brief whether parameter-based access restrictions are configured
+    bool myHaveParamRestrictions;
 
     /// @brief Preferences for routing
     std::map<SUMOVehicleClass, std::map<std::string, double> > myVClassPreferences;

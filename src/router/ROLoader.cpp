@@ -151,6 +151,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     }
     toFill.setBidiEdges(handler.getBidiMap());
     if (myOptions.exists("restriction-params") && myOptions.isSet("restriction-params")) {
+        toFill.setParamRestrictions();
         const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
         for (auto& edgeIt : toFill.getEdgeMap()) {
             edgeIt.second->cacheParamRestrictions(paramKeys);
