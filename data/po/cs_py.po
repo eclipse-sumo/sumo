@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-11-10 14:26+0100\n"
+"POT-Creation-Date: 2025-12-05 18:57+0000\n"
 "PO-Revision-Date: 2025-11-30 13:00+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -95,7 +95,7 @@ msgstr "Poptávková doprava - pokročílé (nové)"
 msgid "DRT - Demo"
 msgstr "Poptávková doprava - Demo"
 
-#: tools/game/runner.py:86 /tools/game/runner.py:96
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "Nejlepší skóre"
 
