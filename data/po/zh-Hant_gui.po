@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-20 12:28+0200\n"
-"PO-Revision-Date: 2025-12-01 18:56+0000\n"
+"PO-Revision-Date: 2025-12-03 10:00+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -168,13 +168,13 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "設定帶偏移量(offset)的暫停點"
 
 #: src/gui/GUIApplicationWindow.cpp:522
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
-msgstr ""
+msgstr "設定現有模擬步長為暫停點+在應用程式設定中設定的偏移值(offset)"
 
 #: src/gui/GUIApplicationWindow.cpp:525
 msgid "Edit Breakpoints"
@@ -234,7 +234,7 @@ msgstr "在netedit內開啟路網"
 
 #: src/gui/GUIApplicationWindow.cpp:543
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "在NETEDIT內開啟現有路網。"
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
@@ -833,11 +833,11 @@ msgstr "'%' 已載入。"
 
 #: src/gui/GUIApplicationWindow.cpp:1981
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO互動式交通號誌"
 
 #: src/gui/GUIApplicationWindow.cpp:1983
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO 互動式需求反應式運輸"
 
 #: src/gui/GUIApplicationWindow.cpp:2112
 msgid "Simulation ended at time: %. (%)"
@@ -845,15 +845,15 @@ msgstr "模擬結束時間於: %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2115
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "模擬結束時間: %."
 
 #: src/gui/GUIApplicationWindow.cpp:2116
 msgid "Reason:"
-msgstr ""
+msgstr "原因:"
 
 #: src/gui/GUIApplicationWindow.cpp:2117
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "你要關閉所有已開啟的檔案和視窗嗎？"
 
 #: src/gui/GUIApplicationWindow.cpp:2118
 msgid "Simulation ended"
@@ -870,7 +870,7 @@ msgstr "秒"
 
 #: src/gui/GUIApplicationWindow.cpp:2518
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "設定暫停點於 %"
 
 #: src/gui/GUILoadThread.cpp:209
 msgid "Could not load edgedata-files '%'"
@@ -1041,7 +1041,7 @@ msgstr "用於微觀、多模式交通模擬 SUMO 的圖形使用者介面。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "包含行人模擬軟體JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAboutDialog.cpp:59
@@ -1588,7 +1588,7 @@ msgstr "總佔有率 [百分比]"
 
 #: src/guisim/GUIEdge.cpp:196
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "路段流量[車輛數/小時/公尺]"
 
 #: src/guisim/GUIEdge.cpp:200
 msgid "segment index"
@@ -1620,7 +1620,7 @@ msgstr "路段平均車速 [公尺/秒]"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "路段流量 [車輛數/小時/公尺]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment vehicles [#]"
@@ -1648,7 +1648,7 @@ msgstr "類型[識別號(id)]"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "routing type [id]"
-msgstr ""
+msgstr "路徑導引類型[識別名]"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "tauff"
@@ -1793,7 +1793,7 @@ msgstr "路段類型"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "routing type"
-msgstr ""
+msgstr "路段導引類型"
 
 #: src/guisim/GUILane.cpp:1076 src/guisim/GUITrafficLightLogicWrapper.cpp:261
 msgid "priority"
@@ -2010,8 +2010,9 @@ msgid "alternatives [#]"
 msgstr "替代方案數 [#]"
 
 #: src/guisim/GUIParkingArea.cpp:116
+#, fuzzy
 msgid "access badges"
-msgstr ""
+msgstr "出入證"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
@@ -2131,7 +2132,7 @@ msgstr "被阻塞的"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:259
 msgid "blocking driveways"
-msgstr ""
+msgstr "堵住車道出入口"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:260
 msgid "rival"
@@ -2216,7 +2217,7 @@ msgstr "插入機率"
 
 #: src/guisim/GUIVehicle.cpp:162 src/mesogui/GUIMEVehicle.cpp:97
 msgid "poisson rate"
-msgstr ""
+msgstr "泊松事件率"
 
 #: src/guisim/GUIVehicle.cpp:164
 msgid "stop info"
@@ -2280,7 +2281,7 @@ msgstr "車道變換狀態 (lcState) 向左"
 
 #: src/guisim/GUIVehicle.cpp:189
 msgid "parking badges"
-msgstr ""
+msgstr "停車證"
 
 #: src/guisim/GUIVehicle.cpp:192
 msgid "lcState center"
@@ -2308,7 +2309,7 @@ msgstr "車道變換操作距離 [公尺]"
 
 #: src/guisim/GUIVehicle.cpp:200
 msgid "driveways"
-msgstr ""
+msgstr "車行道"
 
 #: src/guisim/GUIVehicle.cpp:203
 msgid "present state of charge [Wh]"
@@ -2324,7 +2325,7 @@ msgstr "目前充電量 [瓦小時(Wh)]"
 
 #: src/guisim/GUIVehicle.cpp:211
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "最大充電速率 [瓦特]"
 
 #: src/guisim/GUIVehicle.cpp:215
 msgid "present electric current [A]"
@@ -2400,7 +2401,7 @@ msgstr "速度因子"
 
 #: src/guisim/GUIVehicle.cpp:254
 msgid "startupDelay [s]"
-msgstr ""
+msgstr "啟動延遲[秒]"
 
 #: src/guisim/GUIVehicle.cpp:256
 msgid "action step length [s]"
@@ -2464,39 +2465,39 @@ msgstr "測試坐標"
 
 #: src/netedit/GNEApplicationWindow.cpp:740
 msgid "netconvert config file"
-msgstr ""
+msgstr "netconvert 設定檔"
 
 #: src/netedit/GNEApplicationWindow.cpp:756
 #: src/netedit/GNEApplicationWindow.cpp:3346
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:122
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network file"
-msgstr ""
+msgstr "路網檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:772
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "開元街道地圖(OpenStreetMap)檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:788
 #: src/netedit/GNEApplicationWindow.cpp:3498
 msgid "netedit config file"
-msgstr ""
+msgstr "netedit 設定檔"
 
 #: src/netedit/GNEApplicationWindow.cpp:817
 #: src/netedit/GNEApplicationWindow.cpp:3613
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:583
 msgid "sumo config file"
-msgstr ""
+msgstr "sumo 設定檔"
 
 #: src/netedit/GNEApplicationWindow.cpp:919
 #: src/netedit/GNEApplicationWindow.cpp:3731
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "交通號誌定義檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:958
 #: src/netedit/GNEApplicationWindow.cpp:3757
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "路段類型檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:1020
 msgid "Reloading netedit config file '"
@@ -2526,12 +2527,12 @@ msgstr "&重新載入路網"
 #: src/netedit/GNEApplicationWindow.cpp:1310
 #, c-format
 msgid "Loading of network '%' failed"
-msgstr ""
+msgstr "載入路網 '%' 失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:1318
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "路網 '%' 已載入"
 
 #: src/netedit/GNEApplicationWindow.cpp:1416
 msgid "&Modes"
@@ -2551,7 +2552,7 @@ msgstr "&工具"
 
 #: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Assign"
-msgstr ""
+msgstr "指派"
 
 #: src/netedit/GNEApplicationWindow.cpp:1489
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
@@ -2609,7 +2610,7 @@ msgstr "交通號誌"
 
 #: src/netedit/GNEApplicationWindow.cpp:1503
 msgid "Trigger"
-msgstr ""
+msgstr "觸發器"
 
 #: src/netedit/GNEApplicationWindow.cpp:1504
 msgid "Turn-defs"
@@ -2637,7 +2638,7 @@ msgstr "路網需要重新計算"
 
 #: src/netedit/GNEApplicationWindow.cpp:1678
 msgid "Loading console arguments."
-msgstr ""
+msgstr "正在載入主控台參數。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1706
 msgid "Creating new network."
@@ -2645,23 +2646,23 @@ msgstr "建立新路網。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1717
 msgid "Trying to load an empty network."
-msgstr ""
+msgstr "嘗試載入一個空的網路。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1737
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "正在載入路網檔案'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1749
 msgid "Trying to load an empty configuration."
-msgstr ""
+msgstr "嘗試載入一個空的設定檔。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1765
 msgid "Loading configuration file '%'."
-msgstr ""
+msgstr "正在載入設定檔'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1804
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "正在載入開放街道地圖(OSM)檔案 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:1821
 msgid "Recompute with volatile options"
@@ -2669,26 +2670,26 @@ msgstr "使用易失變數選項進行重新計算"
 
 #: src/netedit/GNEApplicationWindow.cpp:1822
 msgid "Changes produced in the net due a recomputing with"
-msgstr ""
+msgstr "因使用…重新計算而在網路中產生的變更"
 
 #: src/netedit/GNEApplicationWindow.cpp:1823
 msgid "volatile options cannot be undone. Continue?"
-msgstr ""
+msgstr "不穩定/臨時選項將無法還原，是否要繼續？"
 
 #: src/netedit/GNEApplicationWindow.cpp:2129
 #: src/netedit/GNEApplicationWindow.cpp:2189
 msgid "Running '%'."
-msgstr ""
+msgstr "執行中 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2152
 #, c-format
 msgid "Loading network '%' in SUMO-GUI."
-msgstr ""
+msgstr "正在載入路網 '%' 於SUMO-GUI。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2161
 #, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
-msgstr ""
+msgstr "正在載入sumo設定檔'%' 於SUMO-GUI內。"
 
 #: src/netedit/GNEApplicationWindow.cpp:2575
 #: src/netedit/GNEApplicationWindowHelper.cpp:1282
@@ -2706,39 +2707,39 @@ msgstr "重做"
 
 #: src/netedit/GNEApplicationWindow.cpp:3325
 msgid "Saving network failed"
-msgstr ""
+msgstr "儲存路網失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3329
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "路網儲存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3335
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "無法將路網儲存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3370
 msgid "plain XML file"
-msgstr ""
+msgstr "純 XML 檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:3395
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "已儲存帶有前綴 '%'的純 XML 檔案。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3398
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "儲存純 XML 檔案失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "joined junctions file"
-msgstr ""
+msgstr "已合併路口的檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:3423
 msgid "Joined junctions saved to '%'."
-msgstr ""
+msgstr "已合併路口儲存於'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Saving joined junctions failed"
-msgstr ""
+msgstr "儲存已合併的路口失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3455
 #: src/netedit/GNEApplicationWindow.cpp:3459
@@ -2746,15 +2747,15 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3467
 #: src/netedit/GNEApplicationWindow.cpp:3471
 msgid "Saving of netedit configuration aborted."
-msgstr ""
+msgstr "netedit 設定檔儲存已中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Netedit configuration saved in '%'."
-msgstr ""
+msgstr "Netedit 設定檔以儲存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3486
 msgid "Could not save netedit configuration in '%'."
-msgstr ""
+msgstr "無法將netedit 設定檔儲存於'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 #: src/netedit/GNEApplicationWindow.cpp:3566
@@ -2762,103 +2763,103 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3574
 #: src/netedit/GNEApplicationWindow.cpp:3578
 msgid "Saving of SUMO configuration aborted"
-msgstr ""
+msgstr "SUMO 設定檔儲存已中止"
 
 #: src/netedit/GNEApplicationWindow.cpp:3593
 msgid "SUMO configuration saved in '%'."
-msgstr ""
+msgstr "SUMO 設定檔已儲存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3601
 msgid "Could not save SUMO configuration in '%'."
-msgstr ""
+msgstr "無法將SUMO設定檔處存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3658
 msgid "TLS Programs saved in '%'."
-msgstr ""
+msgstr "交通號誌時制計畫以儲存於 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3661
 msgid "Saving TLS Programs failed"
-msgstr ""
+msgstr "儲存交通號誌時制計畫失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3702
 msgid "EdgeType saved in '%'."
-msgstr ""
+msgstr "路段類型以儲存於'%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3705
 msgid "Saving edgeTypes failed"
-msgstr ""
+msgstr "儲存路段類型失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3781
 #: src/netedit/GNEApplicationWindow.cpp:3922
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:421
 msgid "Additional elements file"
-msgstr ""
+msgstr "附加元素檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:3794
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "從'%'載入附加元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:3798
 #, c-format
 msgid "Loading of additional file '%' failed."
-msgstr ""
+msgstr "載入附加檔案 '%' 失敗。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3801
 #, c-format
 msgid "Loading of additional file '%' successfully."
-msgstr ""
+msgstr "成功載入附加檔案 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3826
 msgid "reloading additionals"
-msgstr ""
+msgstr "重新載入附加元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:3837
 #, c-format
 msgid "Reloading of additional file '%' failed."
-msgstr ""
+msgstr "重新載入附加檔案 '%'失敗。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3839
 #, c-format
 msgid "Reloading of additional file '%' successfully."
-msgstr ""
+msgstr "成功載入附加檔案 '%'。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "Additionals saved."
-msgstr ""
+msgstr "附加元素以儲存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3897
 msgid "Saving additional aborted."
-msgstr ""
+msgstr "附加元素儲存中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3902
 msgid "Saving additional elements failed"
-msgstr ""
+msgstr "儲存附加元素失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3929
 msgid "saving of unified additional elements in '%'"
-msgstr ""
+msgstr "已將統一的附加元素儲存至 '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3949
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "JuPedSim 元素檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:3971
 msgid "JuPedSim elements saved."
-msgstr ""
+msgstr "JuPedSim 元素已儲存。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3974
 msgid "Saving JuPedSim elements aborted."
-msgstr ""
+msgstr "JuPedSim元素儲存中止。"
 
 #: src/netedit/GNEApplicationWindow.cpp:3980
 msgid "Saving JuPedSim elements failed"
-msgstr ""
+msgstr "儲存JuPedSim元素失敗"
 
 #: src/netedit/GNEApplicationWindow.cpp:3990
 #: src/netedit/GNEApplicationWindow.cpp:4130
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:475
 msgid "Route elements file"
-msgstr ""
+msgstr "路徑元素檔案"
 
 #: src/netedit/GNEApplicationWindow.cpp:4003
 msgid "loading demand elements from '%'"

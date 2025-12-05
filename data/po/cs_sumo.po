@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-11-10 14:25+0100\n"
-"PO-Revision-Date: 2025-11-30 13:00+0000\n"
+"PO-Revision-Date: 2025-12-03 10:01+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/cs/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "Čtení vstupu"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"

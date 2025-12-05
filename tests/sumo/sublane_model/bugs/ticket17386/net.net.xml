@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-03T17:16:42.036635+01:00 by Eclipse SUMO netedit v1_25_0+0215-c577e32eef6
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="/localdata1/debug/17383/bicycle_sim_case_demo/test2.sumocfg"/>
+        <route-files value="/localdata1/debug/17383/bicycle_sim_case_demo/test2.rou.xml"/>
+        <sumo-net-file value="/localdata1/debug/17383/bicycle_sim_case_demo/test2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/17383/bicycle_sim_case_demo/test2.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <new-network value="false"/>
+    </netedit>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" allow="bicycle" speed="13.89" length="3.09" width="1.60" shape="98.50,-3.20 99.41,-3.33 100.00,-3.60 100.59,-3.88 101.50,-4.00"/>
+        <lane id=":J1_0_1" index="1" allow="passenger" speed="13.89" length="3.09" shape="98.50,-2.00 99.39,-1.94 100.00,-1.80 100.61,-1.66 101.50,-1.60"/>
+    </edge>
+
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="98.50" width="4.00" shape="0.00,-2.00 98.50,-2.00"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1">
+        <lane id="E1_0" index="0" allow="bicycle" speed="13.89" length="98.50" width="1.60" shape="101.50,-4.00 200.00,-4.00"/>
+        <lane id="E1_1" index="1" allow="passenger" speed="13.89" length="98.50" shape="101.50,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <tlLogic id="J1" type="static" programID="0" offset="0">
+        <phase duration="10" state="GG"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="60" state="rr"/>
+    </tlLogic>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-4.00"/>
+    <junction id="J1" type="traffic_light" x="100.00" y="0.00" incLanes="E0_0" intLanes=":J1_0_0 :J1_0_1" shape="101.50,0.00 101.50,-4.80 100.38,-4.59 99.62,-4.21 99.15,-4.06 98.50,-4.00 98.50,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="J2" type="dead_end" x="200.00" y="0.00" incLanes="E1_0 E1_1" intLanes="" shape="200.00,-4.80 200.00,0.00"/>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="0" via=":J1_0_0" tl="J1" linkIndex="0" dir="s" state="O"/>
+    <connection from="E0" to="E1" fromLane="0" toLane="1" via=":J1_0_1" tl="J1" linkIndex="1" dir="s" state="O"/>
+
+    <connection from=":J1_0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J1_0" to="E1" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

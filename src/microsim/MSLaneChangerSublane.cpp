@@ -636,7 +636,8 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
         std::cout << "   outsideBounds=" << toString(target->outsideBounds) << " result=" << result.toString() << "\n";
     }
 #endif
-    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(), result);
+    // @note use the exact same vehiclePos as in getLastVehicleInformation() to avoid missing vehicles
+    target->lane->addLeaders(vehicle, vehicle->getPositionOnLane(vehicle->getLane()), result);
     return result;
 }
 
