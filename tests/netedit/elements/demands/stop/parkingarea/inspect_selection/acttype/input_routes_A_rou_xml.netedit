@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-25 16:19:30 by Eclipse SUMO netedit Version v1_22_0+1819-d3f1974c2b4
+<!-- generated on 2025-12-05T10:34:55.371740+01:00 by Eclipse SUMO netedit v1_25_0+0386-e1311562516
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,9 +18,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="Edge0 Edge1 Edge2" color="yellow"/>
         <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="person" expected="perA perB" permitted="A B" tripId="tripA" line="lineA" split="splitA" onDemand="1" jump="4.00" actType="singing"/>
-    </vehicle>
-    <vehicle id="vehicle_1" depart="0.00">
-        <route edges="EdgeCenter0 EdgeCenter1" color="yellow"/>
-        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="container" expected="conA conB" permitted="C D" tripId="tripB" line="lineB" split="splitB" jump="8.40" actType="singing"/>
     </vehicle>
 </routes>

@@ -1,2 +1,2 @@
-Error: Could not build flowRoute with ID 'flow_0' in netedit; route parent with ID 'route_0' doesn't exist.
+Error: Could not build vehicle with ID 'flow_0' in netedit; doesn't exist a route or routeDistribution parent with ID 'route_0'.
 Error: Loading of 'input_routes_A.rou.xml' failed.
