@@ -6,7 +6,7 @@ def update_testsuite_files():
     target_files = [
         "testsuite.netedit.external",
         "testsuite.netedit.internal",
-        "testsuite.netedit.output"
+        "testsuite.neteditoutput"
     ]
 
     # Get the directory where the script is located
