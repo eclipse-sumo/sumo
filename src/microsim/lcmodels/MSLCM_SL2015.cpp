@@ -2113,6 +2113,9 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
     const std::vector<MSLane*>& lanes = myVehicle.getLane()->getEdge().getLanes();
     const std::vector<MSVehicle::LaneQ>& preb = myVehicle.getBestLanes();
     const MSLane* lane = isOpposite() ? myVehicle.getLane()->getParallelOpposite() : lanes[laneIndex];
+    const MSLane* next = myVehicle.getBestLanesContinuation().size() > 1 ? myVehicle.getBestLanesContinuation()[1] : nullptr;
+    const MSLink* link = next != nullptr ? lane->getLinkTo(next) : nullptr;
+    const double shift = link != nullptr ? link->getLateralShift() + 0.5 * (lane->getWidth() - next->getWidth()) : 0;
     const MSLane* bidi = myVehicle.getLane()->getBidiLane();
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size() || isOpposite());
@@ -2129,7 +2132,16 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
             // this may happen if a sibling lane is wider than the changer lane
             continue;
         }
-        if (lane->allowsVehicleClass(myVehicle.getVehicleType().getVehicleClass())) {
+        if (link != nullptr && lane->getWidth() > next->getWidth() + NUMERICAL_EPS && MSGlobals::gLateralResolution > 0 && sublaneEnds(sublane, next, shift)) {
+            // sublane does not continue, discourage from use
+            myExpectedSublaneSpeeds[edgeSublane] = 0;
+#ifdef DEBUG_EXPECTED_SLSPEED
+            if (DEBUG_COND) {
+                std::cout << "   updateExpectedSublaneSpeeds sublane=" << sublane << " doesNotContinue\n";
+            }
+#endif
+            continue;
+        } else if (lane->allowsVehicleClass(myVehicle.getVehicleType().getVehicleClass())) {
             // lane allowed, find potential leaders and compute safe speeds
             // XXX anticipate future braking if leader has a lower speed than myVehicle
             const MSVehicle* leader = ahead[sublane].first;
@@ -2220,9 +2232,24 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
         } else {
             // lane forbidden
             myExpectedSublaneSpeeds[edgeSublane] = -1;
+#ifdef DEBUG_EXPECTED_SLSPEED
+            if (DEBUG_COND) {
+                std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " lane " << lane->getID() << " forbidden\n";
+            }
+#endif
         }
     }
     // XXX deal with leaders on subsequent lanes based on preb
+}
+
+
+bool
+MSLCM_SL2015::sublaneEnds(int i, const MSLane* next, double shift) {
+    const double side = i * MSGlobals::gLateralResolution + shift;
+    return ((side < -NUMERICAL_EPS
+                && (next->getParallelLane(-1) == nullptr || !next->getParallelLane(-1)->allowsVehicleClass(myVehicle.getVClass())))
+            || (side + MSGlobals::gLateralResolution > next->getWidth()
+                && (next->getParallelLane(1) == nullptr || !next->getParallelLane(1)->allowsVehicleClass(myVehicle.getVClass()))));
 }
 
 
@@ -2835,7 +2862,9 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     const bool left = (laneOffset == 1);
 
     const double forwardPos = getForwardPos();
-    myLeftSpace = currentDist - forwardPos;
+    if (laneOffset != 0) {
+        myLeftSpace = currentDist - forwardPos;
+    }
     const double usableDist = (currentDist - forwardPos - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(neigh.occupation, curr.occupation);
@@ -2863,7 +2892,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 #endif
 
     if (laneOffset == 0) {
-        if (overlap > NUMERICAL_EPS
+        if (overlap > MAX2(POSITION_EPS, MSGlobals::gLateralResolution)
                 && (getShadowLane() == nullptr || !getShadowLane()->allowsVehicleClass(myVehicle.getVClass()))
                 && getWidth() < myVehicle.getLane()->getWidth()) {
             // @brief we urgently need to return to within lane bounds
@@ -2875,6 +2904,38 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             }
 #endif
             //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " overlap=" << overlap << " returnToLaneBounds\n";
+        } else if (myVehicle.getBestLanesContinuation().size() > 1 && myVehicle.getLane()->getWidth() > myVehicle.getBestLanesContinuation()[1]->getWidth()) {
+            const MSLane* cur = myVehicle.getLane();
+            const MSLane* next = myVehicle.getBestLanesContinuation()[1];
+            const MSLink* link = cur->getLinkTo(next);
+            const double distOnLane = cur->getLength() - myVehicle.getPositionOnLane();
+            if (link != nullptr && getWidth() < next->getWidth() && distOnLane < 100) {
+                double hwDiff = 0.5 * (cur->getWidth() - next->getWidth());
+                double rightVehSide = myVehicle.getRightSideOnLane() + link->getLateralShift() - hwDiff;
+                double leftVehSide = myVehicle.getLeftSideOnLane() + link->getLateralShift() - hwDiff;
+                const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : next->getWidth();
+                if (rightVehSide < -res && (next->getParallelLane(-1) == nullptr || !next->getParallelLane(-1)->allowsVehicleClass(myVehicle.getVClass()))) {
+                    latDist = -rightVehSide;
+                    myLeftSpace = distOnLane;
+                    ret |= LCA_STRATEGIC | LCA_URGENT;
+#ifdef DEBUG_STRATEGIC_CHANGE
+                    if (gDebugFlag2) {
+                        std::cout << SIMTIME << " rightSublaneEnds rVSide=" << myVehicle.getRightSideOnLane()
+                            << " shift=" << link->getLateralShift() << " rVSide2=" << rightVehSide << " myLeftSpace=" << myLeftSpace << " \n";
+                    }
+#endif
+                } else if (leftVehSide > next->getWidth() + res && (next->getParallelLane(1) == nullptr || !next->getParallelLane(1)->allowsVehicleClass(myVehicle.getVClass()))) {
+                    latDist = -(leftVehSide - next->getWidth());
+                    myLeftSpace = distOnLane;
+                    ret |= LCA_STRATEGIC | LCA_URGENT;
+#ifdef DEBUG_STRATEGIC_CHANGE
+                    if (gDebugFlag2) {
+                        std::cout << SIMTIME << " leftSublaneEnds lVSide=" << myVehicle.getLeftSideOnLane()
+                            << " shift=" << link->getLateralShift() << " lVSide2=" << leftVehSide << " myLeftSpace=" << myLeftSpace << "\n";
+                    }
+#endif
+                }
+            }
         }
     } else if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
@@ -2982,7 +3043,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             ret |= LCA_STAY | LCA_STRATEGIC;
         }
     }
-    if ((ret & LCA_URGENT) == 0 && getShadowLane() != nullptr &&
+    if (laneOffset != 0 && (ret & LCA_URGENT) == 0 && getShadowLane() != nullptr &&
             // ignore overlap if it goes in the correct direction
             bestLaneOffset * myVehicle.getLateralPositionOnLane() <= 0) {
         // no decision or decision to stay

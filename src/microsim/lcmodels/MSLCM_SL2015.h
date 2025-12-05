@@ -338,6 +338,9 @@ protected:
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
 
+    /// @brief check whether the sublane continues on the next lane
+    bool sublaneEnds(int i, const MSLane* next, double shift);
+
     /// @brief estimate average speed over mySpeedGainLookahead time
     double forecastAverageSpeed(double vSafe, double vMax, double gap, double vLeader) const;
 
