@@ -4,3 +4,7 @@ ship_test_trips_hazB_2
 
 # Copy of ship_test_trips_draught
 load_taz
+dest_restricted
+
+# Copy of dest_restricted
+dest_restricted_ignore
