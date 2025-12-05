@@ -117,7 +117,7 @@ RONetHandler::myStartElement(int element,
             const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
             const double speed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
             if (ok) {
-                myNet.addRestriction(myCurrentTypeID, svc, speed);
+                myNet.addSpeedRestriction(myCurrentTypeID, svc, speed);
             }
             break;
         }

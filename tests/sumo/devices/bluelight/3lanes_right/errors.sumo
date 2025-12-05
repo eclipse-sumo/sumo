@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'straight.1'; side collision with vehicle 'rescue', lane='SC_1', gap=-0.08, latGap=-0.10, time=26.00, stage=laneChange.
+Warning: Teleporting vehicle 'straight.0'; side collision with vehicle 'rescue', lane='SC_1', gap=-7.58, latGap=-0.36, time=26.00, stage=laneChange.
+Warning: Vehicle 'straight.0' ends teleporting on edge 'CN', time=26.00.
+Warning: Vehicle 'straight.1' ends teleporting on edge 'CN', time=26.00.

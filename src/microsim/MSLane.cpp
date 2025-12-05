@@ -1923,9 +1923,9 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
             if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())
                     && collider->getBoundingPoly().overlapsWith((*it_p)->getBoundingBox())) {
                 std::string collisionType = "junctionPedestrian";
-                if (foeLane->getEdge().isCrossing()) {
+                if (foeLane->isCrossing()) {
                     collisionType = "crossing";
-                } else if (foeLane->getEdge().isWalkingArea()) {
+                } else if (foeLane->isWalkingArea()) {
                     collisionType = "walkingarea";
                 }
                 handleIntermodalCollisionBetween(timestep, stage, collider, *it_p, 0, collisionType, toRemove, toTeleport);
@@ -3365,7 +3365,7 @@ MSLane::enteredByLaneChange(MSVehicle* v) {
 int
 MSLane::getCrossingIndex() const {
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        if ((*i)->getLane()->getEdge().isCrossing()) {
+        if ((*i)->getLane()->isCrossing()) {
             return (int)(i - myLinks.begin());
         }
     }

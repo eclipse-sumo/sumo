@@ -1,4 +1,5 @@
-Warning: Vehicle 'case_1_engine.7'; side collision with vehicle 'case_1_engine.9', lane='edge_5_1', gap=-8.26, latGap=-0.52, time=116.00, stage=laneChange.
+Warning: Vehicle 'case_1_engine.5'; junction collision with vehicle 'case_1_engine.4', lane=':junc4_19_0', gap=-0.31, latGap=-0.16, time=121.60, stage=move.
+Warning: Vehicle 'case_1_engine.7'; side collision with vehicle 'case_1_engine.9', lane='edge_5_1', gap=-8.26, latGap=-0.52, time=147.30, stage=laneChange.
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='edge_5_1', time=339.80.
 Warning: Vehicle '0' ends teleporting on edge 'edge_0', time=339.80.
 Warning: Teleporting vehicle '2'; waited too long (yield), lane='edge_5_0', time=345.00.

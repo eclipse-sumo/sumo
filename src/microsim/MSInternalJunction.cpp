@@ -121,7 +121,7 @@ MSInternalJunction::postloadInit() {
     exitLink->setRequestInformation(ownLinkIndex, false, false, std::vector<MSLink*>(),
                                     myInternalLaneFoes, thisLink->getViaLane());
     for (const auto& ili : exitLink->getLane()->getIncomingLanes()) {
-        if (ili.lane->getEdge().isWalkingArea()) {
+        if (ili.lane->isWalkingArea()) {
             exitLink->addWalkingAreaFoeExit(ili.lane);
             break;
         }

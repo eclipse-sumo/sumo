@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-04T09:44:50.800379+01:00 by Eclipse SUMO sumo v1_25_0+0215-c577e32eef6
+<!-- generated on 2025-12-05T10:36:16.044364+01:00 by Eclipse SUMO sumo v1_25_0+0225-366109546ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,217 +49,220 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="b_left" speed="0.52" pos="78.76" posLat="1.60"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="b_left" speed="1.01" pos="79.26" posLat="1.60"/>
+        <vehicle id="b_left" speed="1.06" pos="79.29" posLat="1.60"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="b_left" speed="1.38" pos="79.95" posLat="1.60"/>
+        <vehicle id="b_left" speed="1.55" pos="80.07" posLat="1.60"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="b_left" speed="1.78" pos="80.84" posLat="1.60"/>
+        <vehicle id="b_left" speed="2.05" pos="81.09" posLat="1.35"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="b_left" speed="2.28" pos="81.98" posLat="1.60"/>
+        <vehicle id="b_left" speed="2.55" pos="82.37" posLat="0.85"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="b_left" speed="2.72" pos="83.34" posLat="1.60"/>
+        <vehicle id="b_left" speed="2.99" pos="83.86" posLat="0.35"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="b_left" speed="3.03" pos="84.86" posLat="1.60"/>
+        <vehicle id="b_left" speed="3.32" pos="85.52" posLat="-0.15"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="b_left" speed="3.52" pos="86.62" posLat="1.60"/>
+        <vehicle id="b_left" speed="3.62" pos="87.33" posLat="-0.65"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="b_left" speed="4.00" pos="88.62" posLat="1.60"/>
+        <vehicle id="b_left" speed="4.01" pos="89.34" posLat="-1.15"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="b_left" speed="4.58" pos="90.90" posLat="1.60"/>
+        <vehicle id="b_left" speed="4.42" pos="91.55" posLat="-1.40"/>
     </timestep>
     <timestep time="5.50">
-        <vehicle id="b_left" speed="5.05" pos="93.43" posLat="1.60"/>
+        <vehicle id="b_left" speed="4.80" pos="93.95" posLat="-1.67"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="b_left" speed="3.98" pos="95.42" posLat="1.60"/>
+        <vehicle id="b_left" speed="3.85" pos="95.87" posLat="-1.67"/>
     </timestep>
     <timestep time="6.50">
-        <vehicle id="b_left" speed="2.79" pos="96.81" posLat="1.60"/>
+        <vehicle id="b_left" speed="2.35" pos="97.05" posLat="-1.67"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="b_left" speed="1.29" pos="97.46" posLat="1.60"/>
+        <vehicle id="b_left" speed="0.85" pos="97.48" posLat="-1.67"/>
     </timestep>
     <timestep time="7.50">
-        <vehicle id="b_left" speed="0.08" pos="97.49" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.04" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="b_left" speed="0.01" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="8.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="9.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="10.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="11.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="12.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="-1.67"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.50" pos="97.75" posLat="-1.67"/>
     </timestep>
     <timestep time="13.50">
-        <vehicle id="b_left" speed="0.00" pos="97.50" posLat="1.67"/>
+        <vehicle id="b_left" speed="1.00" pos="98.25" posLat="-1.67"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="b_left" speed="0.53" pos="97.76" posLat="1.67"/>
+        <vehicle id="b_left" speed="1.50" pos="0.50" posLat="-0.47"/>
     </timestep>
     <timestep time="14.50">
-        <vehicle id="b_left" speed="1.00" pos="98.27" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="0.50" posLat="-0.47"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="b_left" speed="0.21" pos="98.37" posLat="1.67"/>
+        <vehicle id="b_left" speed="0.00" pos="0.50" posLat="-0.47"/>
     </timestep>
     <timestep time="15.50">
-        <vehicle id="b_left" speed="0.77" pos="0.26" posLat="2.87"/>
+        <vehicle id="b_left" speed="0.59" pos="0.79" posLat="-0.47"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="b_left" speed="1.20" pos="0.86" posLat="2.87"/>
+        <vehicle id="b_left" speed="1.05" pos="1.32" posLat="-0.47"/>
     </timestep>
     <timestep time="16.50">
-        <vehicle id="b_left" speed="1.57" pos="1.64" posLat="2.87"/>
+        <vehicle id="b_left" speed="1.47" pos="2.05" posLat="-0.47"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="b_left" speed="2.01" pos="2.65" posLat="2.87"/>
+        <vehicle id="b_left" speed="2.06" pos="3.08" posLat="-0.47"/>
     </timestep>
     <timestep time="17.50">
-        <vehicle id="b_left" speed="2.61" pos="0.86" posLat="2.87"/>
+        <vehicle id="b_left" speed="2.43" pos="1.21" posLat="-0.47"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="b_left" speed="2.94" pos="2.33" posLat="2.87"/>
+        <vehicle id="b_left" speed="2.97" pos="2.69" posLat="-0.47"/>
     </timestep>
     <timestep time="18.50">
-        <vehicle id="b_left" speed="3.37" pos="4.01" posLat="2.87"/>
+        <vehicle id="b_left" speed="3.31" pos="4.35" posLat="-0.47"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="b_left" speed="3.85" pos="5.94" posLat="2.87"/>
+        <vehicle id="b_left" speed="3.87" pos="6.28" posLat="-0.47"/>
     </timestep>
     <timestep time="19.50">
-        <vehicle id="b_left" speed="4.26" pos="8.07" posLat="2.87"/>
+        <vehicle id="b_left" speed="4.30" pos="8.43" posLat="-0.47"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="b_left" speed="4.60" pos="10.37" posLat="2.87"/>
+        <vehicle id="b_left" speed="4.79" pos="10.83" posLat="-0.47"/>
     </timestep>
     <timestep time="20.50">
-        <vehicle id="b_left" speed="5.16" pos="12.95" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.19" pos="13.42" posLat="-0.47"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="b_left" speed="5.42" pos="15.67" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.30" pos="16.07" posLat="-0.47"/>
     </timestep>
     <timestep time="21.50">
-        <vehicle id="b_left" speed="5.55" pos="18.44" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.51" pos="18.83" posLat="-0.47"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="b_left" speed="5.36" pos="21.12" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.42" pos="21.54" posLat="-0.47"/>
     </timestep>
     <timestep time="22.50">
-        <vehicle id="b_left" speed="5.33" pos="23.78" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.55" pos="24.31" posLat="-0.47"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="b_left" speed="5.26" pos="26.42" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.36" pos="26.99" posLat="-0.47"/>
     </timestep>
     <timestep time="23.50">
-        <vehicle id="b_left" speed="5.32" pos="29.08" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.33" pos="29.66" posLat="-0.47"/>
     </timestep>
     <timestep time="24.00">
-        <vehicle id="b_left" speed="5.41" pos="31.78" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.26" pos="32.29" posLat="-0.47"/>
     </timestep>
     <timestep time="24.50">
-        <vehicle id="b_left" speed="5.42" pos="34.49" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.32" pos="34.95" posLat="-0.47"/>
     </timestep>
     <timestep time="25.00">
-        <vehicle id="b_left" speed="5.46" pos="37.22" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.41" pos="37.66" posLat="-0.47"/>
     </timestep>
     <timestep time="25.50">
-        <vehicle id="b_left" speed="5.28" pos="39.86" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.42" pos="40.36" posLat="-0.47"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="b_left" speed="5.54" pos="42.63" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.46" pos="43.10" posLat="-0.47"/>
     </timestep>
     <timestep time="26.50">
-        <vehicle id="b_left" speed="5.38" pos="45.32" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.28" pos="45.74" posLat="-0.47"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="b_left" speed="5.52" pos="48.08" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.54" pos="48.50" posLat="-0.47"/>
     </timestep>
     <timestep time="27.50">
-        <vehicle id="b_left" speed="5.26" pos="50.71" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.38" pos="51.20" posLat="-0.47"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="b_left" speed="5.32" pos="53.37" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.52" pos="53.95" posLat="-0.47"/>
     </timestep>
     <timestep time="28.50">
-        <vehicle id="b_left" speed="5.29" pos="56.01" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.26" pos="56.58" posLat="-0.47"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="b_left" speed="5.28" pos="58.65" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.32" pos="59.24" posLat="-0.47"/>
     </timestep>
     <timestep time="29.50">
-        <vehicle id="b_left" speed="5.28" pos="61.29" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.29" pos="61.89" posLat="-0.47"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="b_left" speed="5.54" pos="64.06" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.28" pos="64.53" posLat="-0.47"/>
     </timestep>
     <timestep time="30.50">
-        <vehicle id="b_left" speed="5.46" pos="66.80" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.28" pos="67.17" posLat="-0.47"/>
     </timestep>
     <timestep time="31.00">
-        <vehicle id="b_left" speed="5.33" pos="69.46" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.54" pos="69.94" posLat="-0.47"/>
     </timestep>
     <timestep time="31.50">
-        <vehicle id="b_left" speed="5.49" pos="72.21" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.46" pos="72.67" posLat="-0.47"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="b_left" speed="5.39" pos="74.90" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.33" pos="75.34" posLat="-0.47"/>
     </timestep>
     <timestep time="32.50">
-        <vehicle id="b_left" speed="5.54" pos="77.67" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.49" pos="78.08" posLat="-0.47"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="b_left" speed="5.34" pos="80.34" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.39" pos="80.77" posLat="-0.47"/>
     </timestep>
     <timestep time="33.50">
-        <vehicle id="b_left" speed="5.37" pos="83.03" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.54" pos="83.54" posLat="-0.47"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="b_left" speed="5.40" pos="85.73" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.34" pos="86.22" posLat="-0.47"/>
     </timestep>
     <timestep time="34.50">
-        <vehicle id="b_left" speed="5.55" pos="88.50" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.37" pos="88.90" posLat="-0.47"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="b_left" speed="5.38" pos="91.19" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.40" pos="91.60" posLat="-0.47"/>
     </timestep>
     <timestep time="35.50">
-        <vehicle id="b_left" speed="5.50" pos="93.94" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.55" pos="94.37" posLat="-0.47"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="b_left" speed="5.32" pos="96.60" posLat="2.87"/>
+        <vehicle id="b_left" speed="5.38" pos="97.06" posLat="-0.47"/>
     </timestep>
     <timestep time="36.50"/>
+    <timestep time="37.00"/>
+    <timestep time="37.50"/>
+    <timestep time="38.00"/>
 </fcd-export>

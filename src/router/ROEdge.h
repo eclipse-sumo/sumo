@@ -139,8 +139,8 @@ public:
     /** @brief Sets the vehicle class specific speed limits of the edge
      * @param[in] restrictions The restrictions for the edge
      */
-    inline void setRestrictions(const std::map<SUMOVehicleClass, double>* restrictions) {
-        myRestrictions = restrictions;
+    inline void setSpeedRestrictions(const std::map<SUMOVehicleClass, double>* restrictions) {
+        mySpeedRestrictions = restrictions;
     }
 
     inline void setTimePenalty(double value) {
@@ -250,9 +250,9 @@ public:
      * @return This lane's resulting max. speed
      */
     inline double getVClassMaxSpeed(SUMOVehicleClass vclass) const {
-        if (myRestrictions != 0) {
-            std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(vclass);
-            if (r != myRestrictions->end()) {
+        if (mySpeedRestrictions != 0) {
+            std::map<SUMOVehicleClass, double>::const_iterator r = mySpeedRestrictions->find(vclass);
+            if (r != mySpeedRestrictions->end()) {
                 return r->second;
             }
         }
@@ -281,9 +281,9 @@ public:
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle must not enter this edge
      */
-    inline bool prohibits(const ROVehicle* const vehicle) const {
+    inline bool prohibits(const ROVehicle* const vehicle, bool checkRestrictions = false) const {
         const SUMOVehicleClass vclass = vehicle->getVClass();
-        return (myCombinedPermissions & vclass) != vclass;
+        return (myCombinedPermissions & vclass) != vclass || (checkRestrictions && restricts(vehicle));
     }
 
     inline SVCPermissions getPermissions() const {
@@ -659,7 +659,7 @@ protected:
     SumoXMLEdgeFunc myFunction;
 
     /// The vClass speed restrictions for this edge
-    const std::map<SUMOVehicleClass, double>* myRestrictions;
+    const std::map<SUMOVehicleClass, double>* mySpeedRestrictions;
 
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;

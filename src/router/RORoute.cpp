@@ -96,7 +96,7 @@ RORoute::isValid(const ROVehicle& veh, bool ignoreErrors, MsgHandler* mh) const 
 
 bool
 RORoute::isPermitted(const ROVehicle* veh, MsgHandler* mh) const {
-    const bool hasRestrictions = RONet::getInstance()->hasRestrictions();
+    const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
     const bool hasPermissions = RONet::getInstance()->hasPermissions();
     if (hasRestrictions || hasPermissions) {
         for (const ROEdge* e: myRoute) {

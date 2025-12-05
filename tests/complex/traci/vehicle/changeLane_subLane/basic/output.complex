@@ -13,11 +13,11 @@ t=7.0 laneIndex=1
   L=(('left', 'TraCI'), ('left', 'TraCI'))
 t=8.0 laneIndex=1
   R=(('left', 'TraCI'), ('left', 'TraCI'))
-  C=(('left', 'TraCI', 'sublane'), ('left', 'TraCI', 'sublane'))
+  C=(('left', 'TraCI'), ('left', 'TraCI'))
   L=(('left', 'TraCI'), ('left', 'TraCI'))
 t=9.0 laneIndex=1
   R=((), ('stay', 'TraCI'))
-  C=(('left', 'sublane'), ('stay', 'TraCI'))
+  C=((), ('stay', 'TraCI'))
   L=((), ('stay', 'TraCI'))
 t=10.0 laneIndex=1
   R=(('left', 'sublane'), ())
@@ -29,15 +29,15 @@ t=11.0 laneIndex=0
   L=(('left', 'sublane'), ('right', 'TraCI', 'urgent'))
 t=12.0 laneIndex=0
   R=((), ())
-  C=(('right', 'TraCI', 'sublane'), ('right', 'TraCI', 'sublane'))
+  C=(('right', 'TraCI'), ('right', 'TraCI'))
   L=(('right', 'TraCI'), ('right', 'TraCI'))
 t=13.0 laneIndex=0
   R=((), ())
-  C=(('right', 'sublane'), ('stay', 'TraCI'))
+  C=((), ('stay', 'TraCI'))
   L=((), ('stay', 'TraCI'))
 t=14.0 laneIndex=0
   R=((), ())
-  C=(('right', 'sublane'), ('stay', 'TraCI'))
+  C=((), ('stay', 'TraCI'))
   L=((), ('stay', 'TraCI'))
 t=15.0 laneIndex=0
   R=((), ())
@@ -65,15 +65,15 @@ t=20.0 laneIndex=2
   L=(('left', 'TraCI'), ('left', 'TraCI'))
 t=21.0 laneIndex=2
   R=(('left', 'TraCI'), ('left', 'TraCI'))
-  C=(('left', 'TraCI', 'sublane'), ('left', 'TraCI', 'sublane'))
+  C=(('left', 'TraCI'), ('left', 'TraCI'))
   L=((), ())
 t=22.0 laneIndex=2
   R=((), ('stay', 'TraCI'))
-  C=(('left', 'sublane'), ('stay', 'TraCI'))
+  C=((), ('stay', 'TraCI'))
   L=((), ())
 t=23.0 laneIndex=2
   R=((), ('stay', 'TraCI'))
-  C=(('left', 'sublane'), ('stay', 'TraCI'))
+  C=((), ('stay', 'TraCI'))
   L=((), ())
 t=24.0 laneIndex=2
   R=(('left', 'sublane'), ())
