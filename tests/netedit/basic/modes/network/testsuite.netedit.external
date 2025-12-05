@@ -1,25 +1,25 @@
+applyallphases
+
+chainmode
+
 grid
 
 junctionshape
 
-spreadvehicle
+mergingjunction
 
-showdemandelements
+moveelevation
 
 selectlane
 
+showbubbles
+
 showconnections
+
+showdemandelements
 
 showsubadditionals
 
-chainmode
+spreadvehicle
 
 twowaymode
-
-applyallphases
-
-mergingjunction
-
-showbubbles
-
-moveelevation

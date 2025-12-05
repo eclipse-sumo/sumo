@@ -1,33 +1,33 @@
+allow
+
 allow_dialog
+
+changeleft
 
 changeleft_dialog
 
+changeright
+
 changeright_dialog
 
-pass
+contpos
+
+disallow
+
+indirect
 
 keepclear
 
-contpos
+length
+
+parameters
+
+pass
+
+speed
+
+type
 
 uncontrolled
 
 visibility
-
-allow
-
-disallow
-
-speed
-
-length
-
-changeleft
-
-changeright
-
-indirect
-
-type
-
-parameters

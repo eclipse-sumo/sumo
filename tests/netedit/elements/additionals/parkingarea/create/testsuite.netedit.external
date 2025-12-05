@@ -1,21 +1,21 @@
+angle
+
 default
 
-id
-
-name
-
-roadsidecapacity
-
-onroad
+departpos
 
 friendlypos
 
-width
-
-length
-
-angle
+id
 
 lefthand
 
-departpos
+length
+
+name
+
+onroad
+
+roadsidecapacity
+
+width

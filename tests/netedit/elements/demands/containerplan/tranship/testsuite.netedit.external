@@ -1,19 +1,19 @@
 common
 
-from_edge
+edges
 
-#from_junction
+from_busstop
 
-#from_taz
-
-#from_busstop
-
-#from_trainstop
+from_chargingstation
 
 from_containerstop
 
-#from_chargingstation
+from_edge
 
-#from_parkingarea
+from_junction
 
-edges
+from_parkingarea
+
+from_taz
+
+from_trainstop

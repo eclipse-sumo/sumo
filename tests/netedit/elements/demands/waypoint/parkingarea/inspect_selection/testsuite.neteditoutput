@@ -1,19 +1,19 @@
-duration
+acttype
 
-until
+duration
 
 extension
 
-permitted
-
-acttype
-
-tripid
+jump
 
 line
 
+permitted
+
 speed
 
-jump
-
 split
+
+tripid
+
+until

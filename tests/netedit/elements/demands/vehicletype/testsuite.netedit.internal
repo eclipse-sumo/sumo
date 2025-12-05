@@ -1,10 +1,9 @@
 buttons
 
-edit_default
-
 edit
 
-# edit dialog disabled until #16898
-#edit_dialog
+edit_default
+
+edit_dialog
 
 load

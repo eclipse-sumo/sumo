@@ -1,39 +1,39 @@
-default
-
-speed
-
-priority
-
-numlanes
-
-type
-
 allow
+
+default
 
 disallow
 
-shape
-
-length
-
-spreadtype
-
-name
-
-width
+distance
 
 endoffset
 
-shapestart
+isbidi
+
+length
+
+name
+
+numlanes
+
+parameters
+
+priority
+
+shape
 
 shapeend
 
-isbidi
+shapestart
 
-distance
+speed
 
-stopoffset
+spreadtype
 
 stopexception
 
-parameters
+stopoffset
+
+type
+
+width

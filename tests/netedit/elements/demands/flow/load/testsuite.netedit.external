@@ -1,60 +1,57 @@
-default
+arrivallane
 
-no_edges
+arrivalpos
 
-id
+arrivalposlat
 
-type
+arrivalspeed
 
-from
-
-to
-
-no_fromto
-
-#via
+begin
 
 color
+
+containernumber
+
+default
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
-
-insertionchecks
-
-begin
+departspeed
 
 end
 
-vehsperhour
+from
 
-period
+id
 
-poisson
+insertionchecks
 
-probability
+line
+
+no_edges
+
+no_fromto
 
 number
 
 parameters
 
+period
+
+personnumber
+
+poisson
+
+probability
+
+to
+
+type
+
+vehsperhour
 
 via

@@ -1,37 +1,37 @@
-lane
-
-startpos
-
-endpos
-
-friendlypos
-
-poslat
+acttype
 
 duration
 
-until
+endpos
 
 extension
 
-triggered_person
+friendlypos
 
-triggered_container
+jump
 
-triggered_join
-
-permitted
-
-parking
-
-acttype
-
-tripid
+lane
 
 line
 
 ondemand
 
-jump
+parking
+
+permitted
+
+poslat
 
 split
+
+startpos
+
+triggered_container
+
+triggered_join
+
+triggered_person
+
+tripid
+
+until

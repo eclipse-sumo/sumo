@@ -1,19 +1,19 @@
-id
-
-pos
-
-period
-
-name
+expectArrival
 
 file
 
-vtypes
+id
 
-timethreshold
+name
+
+parameters
+
+period
+
+pos
 
 speedthreshold
 
-expectArrival
+timethreshold
 
-parameters
+vtypes

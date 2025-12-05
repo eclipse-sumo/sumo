@@ -1,3 +1,7 @@
+bugs
+
+contextual_menu
+
 create
 
 delete
@@ -6,10 +10,6 @@ inspect
 
 load
 
-move
-
 merge
 
-contextual_menu
-
-bugs
+move

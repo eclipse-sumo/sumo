@@ -1,13 +1,17 @@
+buttons
+
 dur
 
-min
+earliestend
+
+latestend
 
 max
 
-state
-
-next
+min
 
 name
 
-buttons
+next
+
+state

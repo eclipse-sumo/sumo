@@ -1,21 +1,21 @@
 default
 
-id
-
-position
-
 edges
 
+id
+
 name
-
-probability
-
-timetreshold
-
-vtypes
 
 off
 
 optional
 
 parameters
+
+position
+
+probability
+
+timetreshold
+
+vtypes

@@ -1,21 +1,21 @@
+chargedelay
+
+chargeintransit
+
+efficiency
+
+endpos
+
+friendlypos
+
 id
 
 lane
 
-startpos
-
-endpos
-
 name
 
-friendlypos
+parameters
 
 power
 
-efficiency
-
-chargeintransit
-
-chargedelay
-
-parameters
+startpos

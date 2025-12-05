@@ -1,40 +1,27 @@
-# all test check also the undo-redo of modifications and save the poi into a file
-# edit poi id
-id
+angle
 
-# edit poi lane
-lane
-
-# edit poi position
-pos
+color
 
 friendlypos
 
-# edit poi lat position
-poslat
+height
 
-# edit poi color
-color
+id
 
-# edit poi type
-type
+imgfile
+
+lane
+
+layer
 
 name
 
-# edit poi layer
-layer
-
-# edit poi width
-width
-
-# edit poi height
-height
-
-# edit poi imgfile
-imgfile
-
-# edit poi angle
-angle
-
-# edit poi parameters
 parameters
+
+pos
+
+poslat
+
+type
+
+width

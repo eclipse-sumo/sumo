@@ -1,13 +1,13 @@
-default
-
-no_child
-
-type
-
 color
 
-departpos
+default
 
 depart
 
+departpos
+
+no_child
+
 parameters
+
+type

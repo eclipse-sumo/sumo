@@ -1,19 +1,19 @@
-vclass
+accel
 
 color
 
-length
-
-mingap
-
-maxspeed
+decel
 
 desiredmaxspeed
 
-accel
+length
 
-decel
+maxspeed
+
+mingap
 
 sigma
 
 tau
+
+vclass

@@ -1,23 +1,23 @@
-split_edge
-
-split_edge_both
-
-set_geometry_point
-
-restore_geometry_point
-
-reverse_edge
-
 add_reverse_direction
 
 add_reverse_direction_disconnected
 
 reset_lenght
 
-straigthen_edge
+restore_geometry_point
+
+reverse_edge
+
+set_geometry_point
 
 smooth_edge
 
+smooth_elevation_edge
+
+split_edge
+
+split_edge_both
+
 straighten_elevation_edge
 
-smooth_elevation_edge
+straigthen_edge

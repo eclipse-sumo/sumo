@@ -1,34 +1,35 @@
-id
-
-file
-
-type
-
-period
+aggregate
 
 begin
 
-end
-
-exclude_empty
-
-with_internal
-
-max_travel_time
-
-min_samples
-
-speed_threshold
-
-vtypes
-
-track_vehicles
-
-
-write_attributes
+detect_persons
 
 edges
 
 edges_file
 
-aggregate
+end
+
+exclude_empty
+
+file
+
+id
+
+max_travel_time
+
+min_samples
+
+period
+
+speed_threshold
+
+track_vehicles
+
+type
+
+vtypes
+
+with_internal
+
+write_attributes

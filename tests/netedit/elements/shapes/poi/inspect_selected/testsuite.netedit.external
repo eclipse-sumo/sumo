@@ -1,26 +1,17 @@
-# all test check also the undo-redo of modifications and save the poi into a file
-# edit poi color
+angle
+
 color
 
-# edit poi type
-type
+height
+
+imgfile
+
+layer
 
 name
 
-# edit poi layer
-layer
-
-# edit poi width
-width
-
-# edit poi height
-height
-
-# edit poi imgfile
-imgfile
-
-# edit poi angle
-angle
-
-# edit poi parameters
 parameters
+
+type
+
+width

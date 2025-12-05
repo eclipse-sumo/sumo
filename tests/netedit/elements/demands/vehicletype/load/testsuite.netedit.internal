@@ -1,57 +1,57 @@
-default
+actionsteplength
 
-id
+boardingduration
 
-length
+carfollowingmodel
 
-mingap
-
-maxspeed
-
-speedfactor
-
-speeddev
+carfollowingmodel_params
 
 color
 
-vclass
+containercapacity
+
+default
 
 emissionclass
 
 guishape
 
-width
+id
 
 imgfile
 
-osgfile
-
 impatience
-
-lanechangemodel
-
-carfollowingmodel
-
-personcapacity
-
-containercapacity
-
-boardingduration
-
-loadingduration
-
-latalignment
-
-mingaplat
-
-maxspeedlat
-
-actionsteplength
-
-carfollowingmodel_params
-
-lanechangemodel_params
 
 junctionmodel_params
 
+lanechangemodel
+
+lanechangemodel_params
+
+latalignment
+
+length
+
+loadingduration
+
+maxspeed
+
+maxspeedlat
+
+mingap
+
+mingaplat
+
+osgfile
+
 parameters
+
+personcapacity
+
+speeddev
+
+speedfactor
+
+vclass
+
+width

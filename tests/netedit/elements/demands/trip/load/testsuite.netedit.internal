@@ -1,45 +1,45 @@
-default
+arrivallane
 
-no_edges
+arrivalpos
 
-id
+arrivalposlat
 
-type
-
-from
-
-to
-
-no_fromto
-
-via
+arrivalspeed
 
 color
+
+containernumber
+
+default
+
+depart
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
+departspeed
 
-depart
+from
+
+id
 
 insertionchecks
 
+line
+
+no_edges
+
+no_fromto
+
 parameters
+
+personnumber
+
+to
+
+type
+
+via

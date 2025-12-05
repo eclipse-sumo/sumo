@@ -1,43 +1,43 @@
-id
-
-route
-
-type
-
-typebutton
-
-type_bike
-
-color
-
-departedge
-
 arrivaledge
-
-departlane
-
-departpos
-
-departspeed
 
 arrivallane
 
 arrivalpos
 
+arrivalposlat
+
 arrivalspeed
 
-line
-
-personnumber
+color
 
 containernumber
 
+depart
+
+departedge
+
+departlane
+
+departpos
+
 departposlat
 
-arrivalposlat
+departspeed
+
+id
 
 insertionchecks
 
-depart
+line
 
 parameters
+
+personnumber
+
+route
+
+type
+
+type_bike
+
+typebutton

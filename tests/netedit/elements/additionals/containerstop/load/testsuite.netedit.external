@@ -1,25 +1,25 @@
+angle
+
+color
+
+containercapacity
+
 default
+
+endpos
+
+friendlypos
 
 id
 
 lane
 
-startpos
-
-endpos
+lines
 
 name
 
-friendlypos
-
-lines
-
-containercapacity
+parameters
 
 parkinglength
 
-color
-
-angle
-
-parameters
+startpos

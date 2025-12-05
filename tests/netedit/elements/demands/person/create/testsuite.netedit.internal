@@ -1,15 +1,15 @@
-default_persontrip
+color
 
-default_walk
+default_persontrip
 
 default_ride
 
 default_stop
 
-id
+default_walk
 
-color
+depart
 
 departpos
 
-depart
+id

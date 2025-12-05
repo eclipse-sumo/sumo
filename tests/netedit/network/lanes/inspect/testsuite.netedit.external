@@ -1,35 +1,35 @@
-allow_dialog
-
-stopexception_dialog
-
-changeleft_dialog
-
-changeright_dialog
-
-speed
+acceleration
 
 allow
 
-disallow
-
-width
-
-endoffset
-
-acceleration
-
-customshape
-
-opposite
+allow_dialog
 
 changeleft
 
+changeleft_dialog
+
 changeright
 
-type
+changeright_dialog
+
+customshape
+
+disallow
+
+endoffset
+
+opposite
+
+parameters
+
+speed
+
+stopexception_dialog
 
 stopoffset
 
 stopoffsetexception
 
-parameters
+type
+
+width

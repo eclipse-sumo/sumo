@@ -1,29 +1,19 @@
-# create crossings with default values
+button_clear
+
 default
 
-# create crossing with shortcut enter
-default_shortcut
-
-# create crossings with default values but invalid
 default_invalid
 
-# create crossing manually
-manual
+default_shortcut
 
-# try to create a duplicated crossing
 duplicated
 
-# try to create single crossing (isn't allowed)
-single_crossing
+manual
 
-# create single crossing
-split_crossing
-
-# create crossing with different width
-width
-
-# create crossing with different priority
 priority
 
-# check clear button
-button_clear
+single_crossing
+
+split_crossing
+
+width

@@ -1,31 +1,31 @@
-default
+acttype
 
-no_parent
+default
 
 duration
 
-until
-
 extension
 
-triggered_person
+jump
+
+line
+
+no_parent
+
+ondemand
+
+parking
+
+permitted
+
+split
 
 triggered_container
 
 triggered_join
 
-permitted
-
-parking
-
-acttype
+triggered_person
 
 tripid
 
-line
-
-ondemand
-
-jump
-
-split
+until

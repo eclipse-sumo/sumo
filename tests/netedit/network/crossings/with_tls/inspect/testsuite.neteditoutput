@@ -1,20 +1,13 @@
-# edit attribute edges
-edges
-
-# edit attribute priority
-priority
-
-# edit attribute width
-width
-
-# edit attribute linkindex
-linkindex
-
-# edit attribute linkindex2
-linkindex2
-
-# edit attribute customshape
 customshape
 
-# edit attribute parameters
+edges
+
+linkindex
+
+linkindex2
+
 parameters
+
+priority
+
+width

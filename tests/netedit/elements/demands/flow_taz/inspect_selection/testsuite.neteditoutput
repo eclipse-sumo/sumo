@@ -1,43 +1,43 @@
-type
+arrivallane
+
+arrivalpos
+
+arrivalposlat
+
+arrivalspeed
+
+begin
 
 color
+
+containernumber
 
 departlane
 
 departpos
 
-departspeed
-
-arrivallane
-
-arrivalpos
-
-arrivalspeed
-
-line
-
-personnumber
-
-containernumber
-
 departposlat
 
-arrivalposlat
-
-begin
+departspeed
 
 end
 
 insertionchecks
 
+line
+
 number
 
-vehsperhour
+parameters
 
 period
+
+personnumber
 
 poisson
 
 probability
 
-parameters
+type
+
+vehsperhour

@@ -1,25 +1,25 @@
-type
+fringe
 
 id
 
-pos
-
-shape
-
-radius
+is_roundabout
 
 keep_clear
 
-right_of_way
-
-fringe
-
 name
 
-tl_type
+pos
 
-tl_layout
+radius
+
+right_of_way
+
+shape
 
 tl
 
-is_roundabout
+tl_layout
+
+tl_type
+
+type

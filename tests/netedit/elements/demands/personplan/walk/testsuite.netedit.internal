@@ -1,21 +1,21 @@
 common
 
+edges
+
+from_busstop
+
+from_chargingstation
+
+from_containerstop
+
 from_edge
 
 from_junction
 
-from_taz
+from_parkingarea
 
-from_busstop
+from_taz
 
 from_trainstop
 
-from_containerstop
-
-from_chargingstation
-
-from_parkingarea
-
 route
-
-edges

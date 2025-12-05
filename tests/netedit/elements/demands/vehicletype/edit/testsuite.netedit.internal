@@ -1,21 +1,21 @@
-id
-
-vclass
+accel
 
 color
 
-length
-
-mingap
-
-maxspeed
+decel
 
 desiredmaxspeed
 
-accel
+id
 
-decel
+length
+
+maxspeed
+
+mingap
 
 sigma
 
 tau
+
+vclass

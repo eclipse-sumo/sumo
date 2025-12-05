@@ -1,27 +1,27 @@
-duration
+acttype
 
-until
+duration
 
 extension
 
-triggered_person
-
-triggered_container
-
-triggered_join
-
-permitted
-
-parking
-
-acttype
-
-tripid
+jump
 
 line
 
 ondemand
 
-jump
+parking
+
+permitted
 
 split
+
+triggered_container
+
+triggered_join
+
+triggered_person
+
+tripid
+
+until

@@ -1,21 +1,15 @@
-duration
+acttype
 
-until
+duration
 
 extension
 
-
-
-
-
-
+line
 
 permitted
 
-acttype
+speed
 
 tripid
 
-line
-
-speed
+until

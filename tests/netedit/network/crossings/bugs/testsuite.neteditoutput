@@ -1,20 +1,13 @@
-# compute network with a lot of crossings
-compute_big_network
-
-# crash changing junction from/to of a gneedge with a associated gnecrossing
 change_from_to_3149
 
-# crash during undo/redo of a discarded crossing
-undo_redo_discarded_3201
+compute_big_network
 
-# defining split crossings is broken again
-split_crossing_3288
-
-# recomputing a net without crossing disable all new created crossings
-recomputing_disable_crossings_3292
-
-# controlled pedestrian rail crossings are lost when loading/saving with netedit
 controlled_pedestrian_rail_crossings_lost_5559
 
-#Deleting one edge remove all crossings
+recomputing_disable_crossings_3292
+
 remove_neighbor_junction_16017
+
+split_crossing_3288
+
+undo_redo_discarded_3201

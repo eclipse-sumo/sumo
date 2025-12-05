@@ -1,31 +1,31 @@
-friendlypos
-
-poslat
+acttype
 
 duration
 
-until
-
 extension
 
-triggered_person
+friendlypos
 
-triggered_container
-
-triggered_join
-
-permitted
-
-parking
-
-acttype
-
-tripid
+jump
 
 line
 
 ondemand
 
-jump
+parking
+
+permitted
+
+poslat
 
 split
+
+triggered_container
+
+triggered_join
+
+triggered_person
+
+tripid
+
+until

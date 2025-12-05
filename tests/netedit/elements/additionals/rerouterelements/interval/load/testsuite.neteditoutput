@@ -1,13 +1,13 @@
+begin
+
 default
+
+duplicated
 
 empty
 
-duplicated
+end
 
 overlapped
 
 unsorted
-
-begin
-
-end

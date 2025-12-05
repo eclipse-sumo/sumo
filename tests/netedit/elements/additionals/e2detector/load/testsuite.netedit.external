@@ -1,27 +1,27 @@
-id
-
-lane
-
-pos
-
 endpos
-
-length
-
-period
-
-tl
 
 file
 
-vtypes
+friendlypos
 
-timethreshold
-
-speedthreshold
+id
 
 jamthreshold
 
-friendlypos
+lane
+
+length
 
 parameters
+
+period
+
+pos
+
+speedthreshold
+
+timethreshold
+
+tl
+
+vtypes

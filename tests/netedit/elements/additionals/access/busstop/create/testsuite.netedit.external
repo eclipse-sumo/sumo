@@ -1,11 +1,11 @@
 default
 
-no_parent
-
 duplicated
 
-no_sidewalk
+friendlypos
 
 length
 
-friendlypos
+no_parent
+
+no_sidewalk

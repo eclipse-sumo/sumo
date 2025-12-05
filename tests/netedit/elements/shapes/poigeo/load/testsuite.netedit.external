@@ -1,25 +1,25 @@
-default
-
-id
+angle
 
 color
 
-name
+default
 
-type
+height
+
+id
+
+imgfile
+
+lat
 
 layer
 
 lon
 
-lat
-
-width
-
-height
-
-imgfile
-
-angle
+name
 
 parameters
+
+type
+
+width

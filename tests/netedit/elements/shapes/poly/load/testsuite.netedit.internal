@@ -1,23 +1,23 @@
-default
-
-id
+angle
 
 color
 
+default
+
 fill
 
-layer
-
-name
-
-type
-
-linewidth
+id
 
 imgfile
 
-angle
+layer
+
+linewidth
+
+name
+
+parameters
 
 shape
 
-parameters
+type

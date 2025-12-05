@@ -1,8 +1,12 @@
 basic
 
+contextual_menu
+
 create
 
 delete
+
+fix
 
 inspect
 
@@ -11,7 +15,3 @@ inspect_selection
 load
 
 volatilerecomputing
-
-fix
-
-contextual_menu
