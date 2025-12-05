@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-05T14:35:05.527183+01:00 by Eclipse SUMO netedit v1_25_0+0240-f00ef16e8e6
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="veh" depart="0.00" from="SC" to="CE">
+        <stop lane=":C_10_0" endPos="2" duration="300"/>
+    </trip>
+    <personFlow id="p" begin="0.00" number="1" period="2" departPos="-10" arrivalPos="10">
+        <personTrip from="WC" to="CE"/>
+    </personFlow>
+</routes>
