@@ -55,9 +55,4 @@
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </poly>
-    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" name="areaB" shape="-20.000000,10.000000 -20.000000,20.000000 -30.000000,20.000000 -30.000000,10.000000 -20.000000,10.000000">
-        <param key="keyB1" value="valueB1"/>
-        <param key="keyB2" value="valueB2"/>
-        <param key="keyB3" value="valueB3"/>
-    </poly>
 </additional>

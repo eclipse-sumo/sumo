@@ -15,6 +15,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="poly_0" type="typeB" color="orange" fill="0" lineWidth="2.00" layer="114.00" name="nameB" geo="1" shape="-0.000036,0.000090 -0.000036,0.000180 -0.000126,0.000180 -0.000126,0.000090 -0.000036,0.000090" angle="3.00"/>
-    <poly id="poly_1" type="typeA" color="green" fill="1" lineWidth="2.00" layer="130.00" name="NameA" shape="-18.000000,20.000000 -28.000000,20.000000 -28.000000,10.000000 -18.000000,10.000000" angle="1.00"/>
+    <poly id="poly_0" type="typeB" color="orange" fill="0" lineWidth="2.00" layer="114.00" name="nameB" geo="1" shape="-0.000036,0.000090 -0.000036,0.000180 -0.000126,0.000180 -0.000126,0.000090 -0.000036,0.000090" angle="3.00">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA3" value="valueA2"/>
+        <param key="KeyA2" value="valueA3"/>
+    </poly>
 </additional>

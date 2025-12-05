@@ -55,9 +55,4 @@
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
     </poi>
-    <poi id="POI_2" lane="Edge3_1" color="blue" layer="16.00" pos="26.00" width="19" height="32" angle="21" friendlyPos="false" imgFile="fileB" name="nameB" posLat="4" type="typeA">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB3" value="valueB2"/>
-        <param key="KeyB2" value="valueB3"/>
-    </poi>
 </additional>

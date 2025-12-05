@@ -20,9 +20,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </taz>
-    <taz id="TAZ_1" shape="-8.00,10.00 -8.00,18.00 -24.00,18.00 -24.00,10.00 -8.00,10.00" center="40.00,50.00" name="name2" color="red">
-        <param key="keyB1" value="valueB1"/>
-        <param key="keyB2" value="valueB2"/>
-        <param key="keyB3" value="valueB3"/>
-    </taz>
 </additional>
