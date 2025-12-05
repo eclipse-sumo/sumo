@@ -522,7 +522,7 @@ GUILane::drawLane2LaneConnections(double exaggeration, bool s2) const {
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
         glBegin(GL_LINES);
         Position p1 = myEdge->isWalkingArea() ? getShape(s2).getCentroid() : getShape(s2)[-1];
-        Position p2 = connected->getEdge().isWalkingArea() ? connected->getShape(s2).getCentroid() : connected->getShape(s2)[0];
+        Position p2 = connected->isWalkingArea() ? connected->getShape(s2).getCentroid() : connected->getShape(s2)[0];
         if (exaggeration > 1) {
             p1 = centroid + ((p1 - centroid) * exaggeration);
             p2 = centroid + ((p2 - centroid) * exaggeration);

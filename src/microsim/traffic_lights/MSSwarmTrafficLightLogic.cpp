@@ -100,7 +100,7 @@ MSSwarmTrafficLightLogic::~MSSwarmTrafficLightLogic() {
 
 bool MSSwarmTrafficLightLogic::allowLine(MSLane* lane) {
     //No walking areas
-    if (lane->getEdge().isWalkingArea()) {
+    if (lane->isWalkingArea()) {
         return false;
     }
     //No pedestrian crossing

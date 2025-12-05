@@ -64,8 +64,8 @@ MSRightOfWayJunction::postloadInit() {
     for (MSLane* const lane : myIncomingLanes) {
         // ... set information for every link
         for (MSLink* const link : lane->getLinkCont()) {
-            if (link->getLane()->getEdge().isWalkingArea() ||
-                    (lane->getEdge().isWalkingArea() && !link->getLane()->isCrossing())) {
+            if (link->getLane()->isWalkingArea() ||
+                    (lane->isWalkingArea() && !link->getLane()->isCrossing())) {
                 continue;
             }
             sortedLinks.emplace_back(lane, link);
@@ -78,13 +78,13 @@ MSRightOfWayJunction::postloadInit() {
         // ... set information for every link
         const MSLane* walkingAreaFoe = nullptr;
         for (MSLink* const link : lane->getLinkCont()) {
-            if (link->getLane()->getEdge().isWalkingArea()) {
+            if (link->getLane()->isWalkingArea()) {
                 if (lane->getPermissions() != SVC_PEDESTRIAN) {
                     // vehicular lane connects to a walkingarea
                     walkingAreaFoe = link->getLane();
                 }
                 continue;
-            } else if ((lane->getEdge().isWalkingArea() && !link->getLane()->isCrossing())) {
+            } else if ((lane->isWalkingArea() && !link->getLane()->isCrossing())) {
                 continue;
             }
             if (myLogic->getLogicSize() <= requestPos) {
@@ -158,7 +158,7 @@ MSRightOfWayJunction::postloadInit() {
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
                                                 myLinkFoeInternalLanes[link], link->getViaLane());
                 for (const auto& ili : exitLink->getLane()->getIncomingLanes()) {
-                    if (ili.lane->getEdge().isWalkingArea()) {
+                    if (ili.lane->isWalkingArea()) {
                         exitLink->addWalkingAreaFoeExit(ili.lane);
                         break;
                     }
@@ -174,7 +174,7 @@ MSRightOfWayJunction::postloadInit() {
         }
         if (walkingAreaFoe != nullptr && lane->getLinkCont().size() > 1) {
             for (const MSLink* const link : lane->getLinkCont()) {
-                if (!link->getLane()->getEdge().isWalkingArea()) {
+                if (!link->getLane()->isWalkingArea()) {
                     MSLink* exitLink = link->getViaLane()->getLinkCont()[0];
                     exitLink->addWalkingAreaFoe(walkingAreaFoe);
                 }

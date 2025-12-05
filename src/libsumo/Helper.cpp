@@ -1613,7 +1613,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 dist2 = FAR_AWAY;
             }
             const double angle2 = useCurrentAngle ? currentAngle : angle;
-            const double angleDiff = (angle2 == INVALID_DOUBLE_VALUE || l->getEdge().isWalkingArea() ? 0 : GeomHelper::getMinAngleDiff(angle2, langle));
+            const double angleDiff = (angle2 == INVALID_DOUBLE_VALUE || l->isWalkingArea() ? 0 : GeomHelper::getMinAngleDiff(angle2, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << std::setprecision(gPrecision)
                       << " candLane=" << l->getID() << " lAngle=" << langle << " lLength=" << l->getLength()
@@ -1817,7 +1817,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, 100, into);
         for (const Named* named : into) {
             const MSLane* cand = dynamic_cast<const MSLane*>(named);
-            if ((cand->getEdge().isWalkingArea() || cand->isCrossing())
+            if ((cand->isWalkingArea() || cand->isCrossing())
                     && routeJunctions.count(cand->getEdge().getToJunction()) != 0) {
                 if (findCloserLane(&cand->getEdge(), pos, vClass, bestDistance, lane)) {
                     routeOffset = routeJunctions[cand->getEdge().getToJunction()];

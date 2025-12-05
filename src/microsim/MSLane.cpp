@@ -1925,7 +1925,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
                 std::string collisionType = "junctionPedestrian";
                 if (foeLane->isCrossing()) {
                     collisionType = "crossing";
-                } else if (foeLane->getEdge().isWalkingArea()) {
+                } else if (foeLane->isWalkingArea()) {
                     collisionType = "walkingarea";
                 }
                 handleIntermodalCollisionBetween(timestep, stage, collider, *it_p, 0, collisionType, toRemove, toTeleport);
