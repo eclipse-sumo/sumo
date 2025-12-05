@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-29 11:04+0200\n"
+"POT-Creation-Date: 2025-12-05 18:57+0000\n"
 "PO-Revision-Date: 2025-02-05 12:40+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -95,7 +95,7 @@ msgstr "デマンド型交通（DRT） - Advanced (new)"
 msgid "DRT - Demo"
 msgstr "デマンド型交通（DRT） - Demo"
 
-#: tools/game/runner.py:86 /tools/game/runner.py:96
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "ハイスコア"
 
