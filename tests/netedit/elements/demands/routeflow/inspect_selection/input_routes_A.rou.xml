@@ -23,9 +23,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </flow>
-    <flow id="flowB" begin="10.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" insertionChecks="leaderGap speedLimit all" containerNumber="10" route="routeB" end="3600.00" number="18">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB2" value="valueB3"/>
-        <param key="KeyB3" value="valueB2"/>
-    </flow>
 </routes>

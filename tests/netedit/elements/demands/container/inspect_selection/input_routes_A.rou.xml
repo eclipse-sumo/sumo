@@ -11,10 +11,4 @@
         <param key="KeyA2" value="valueA3"/>
         <tranship from="Edge0" to="Edge1"/>
     </container>
-    <container id="f_1" color="blue" departPos="11.00" depart="12.00">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB3" value="valueB2"/>
-        <param key="KeyB2" value="valueB3"/>
-        <tranship from="Edge1" to="Edge2"/>
-    </container>
 </routes>
