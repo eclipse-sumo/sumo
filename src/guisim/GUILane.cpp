@@ -247,7 +247,7 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
         return;
     }
     // draw all links
-    if (getEdge().isCrossing()) {
+    if (isCrossing()) {
         // draw indices at the start and end of the crossing
         const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         PositionVector shape = getShape(s.secondaryShape);
@@ -273,7 +273,7 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     if (noLinks == 0) {
         return;
     }
-    if (getEdge().isCrossing()) {
+    if (isCrossing()) {
         // draw indices at the start and end of the crossing
         const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         int linkNo = net.getLinkTLIndex(link);
@@ -314,7 +314,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         drawLinkRule(s, net, nullptr, shape, 0, 0);
         return;
     }
-    if (getEdge().isCrossing()) {
+    if (isCrossing()) {
         // draw rules at the start and end of the crossing
         const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         const MSLink* link2 = myLinks.front();

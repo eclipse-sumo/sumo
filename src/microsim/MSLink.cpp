@@ -223,7 +223,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     if (internalLaneBefore != nullptr) {
         // this is an exit link. compute crossing points with all foeLanes
         lane = internalLaneBefore;
-        //} else if (myLane->getEdge().isCrossing()) {
+        //} else if (myLane->isCrossing()) {
         //    // this is the link to a pedestrian crossing. compute crossing points with all foeLanes
         //    // @note not currently used by pedestrians
         //    lane = myLane;
@@ -302,7 +302,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #endif
                 continue;
             }
-            myHavePedestrianCrossingFoe = myHavePedestrianCrossingFoe || foeLane->getEdge().isCrossing();
+            myHavePedestrianCrossingFoe = myHavePedestrianCrossingFoe || foeLane->isCrossing();
             const bool sameTarget = myLane == foeLane->getLinkCont()[0]->getLane();
             if (sameTarget && !beforeInternalJunction && !contIntersect(lane, foeLane)) {
                 //if (myLane == foeLane->getLinkCont()[0]->getLane()) {
@@ -394,11 +394,11 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos? refs #3031)
                     intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
 
-                    if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !foeLane->getEdge().isCrossing())  {
+                    if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !foeLane->isCrossing())  {
                         flag = CONFLICT_STOP_AT_INTERNAL_JUNCTION;
                     }
 
-                    if (foeLane->getEdge().isCrossing()) {
+                    if (foeLane->isCrossing()) {
                         const MSLink* before = myInternalLaneBefore->getCanonicalPredecessorLane()->getLinkTo(myInternalLaneBefore);
                         const_cast<MSLink*>(before)->updateDistToFoePedCrossing(intersections1.back());
                     };

@@ -3801,7 +3801,7 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, const MSLane* co
     };
 
     // stop condition
-    if (seenLanes.find(egoJunctionLane) != seenLanes.end() || egoJunctionLane->getEdge().isCrossing()) {
+    if (seenLanes.find(egoJunctionLane) != seenLanes.end() || egoJunctionLane->isCrossing()) {
         return;
     }
 

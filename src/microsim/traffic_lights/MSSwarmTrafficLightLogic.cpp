@@ -104,7 +104,7 @@ bool MSSwarmTrafficLightLogic::allowLine(MSLane* lane) {
         return false;
     }
     //No pedestrian crossing
-    if (lane->getEdge().isCrossing()) {
+    if (lane->isCrossing()) {
         return false;
     }
     //No pedestrian only lanes

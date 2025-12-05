@@ -1507,7 +1507,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
             length = via->getLength();
-        } else if (toLane->getEdge().isCrossing()) {
+        } else if (toLane->isCrossing()) {
             length = toLane->getLength();
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);

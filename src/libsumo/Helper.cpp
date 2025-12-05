@@ -1200,7 +1200,7 @@ Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTr
         std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
 #endif
         for (auto& foeLane : l->getFoeLanes()) {
-            if (foeLane->getEdge().isCrossing()) {
+            if (foeLane->isCrossing()) {
 #ifdef DEBUG_SURROUNDING
                 std::cout << "   skipping crossing foeLane '" << foeLane->getID() << "'" << std::endl;
 #endif
@@ -1817,7 +1817,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, 100, into);
         for (const Named* named : into) {
             const MSLane* cand = dynamic_cast<const MSLane*>(named);
-            if ((cand->getEdge().isWalkingArea() || cand->getEdge().isCrossing())
+            if ((cand->getEdge().isWalkingArea() || cand->isCrossing())
                     && routeJunctions.count(cand->getEdge().getToJunction()) != 0) {
                 if (findCloserLane(&cand->getEdge(), pos, vClass, bestDistance, lane)) {
                     routeOffset = routeJunctions[cand->getEdge().getToJunction()];

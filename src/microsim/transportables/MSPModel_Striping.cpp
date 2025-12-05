@@ -594,9 +594,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 // most often this is due to a zero-size junction. However, if
                 // the person needs to pass a crossing we cannot skip ahead
                 if ((nextLane->getCanonicalSuccessorLane() == nullptr
-                        || !nextLane->getCanonicalSuccessorLane()->getEdge().isCrossing())
+                        || !nextLane->getCanonicalSuccessorLane()->isCrossing())
                         && (nextLane->getLogicalPredecessorLane() == nullptr ||
-                            !nextLane->getLogicalPredecessorLane()->getEdge().isCrossing())) {
+                            !nextLane->getLogicalPredecessorLane()->isCrossing())) {
                     //WRITE_WARNING("Person '" + ped.getID()
                     //        + "' skips short lane '" + nextLane->getID()
                     //        + "' length=" + toString(nextLane->getLength())
@@ -790,7 +790,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                     obs[otherStripe] = pObs;
                 }
             }
-            if (nextLane->getEdge().isCrossing()) {
+            if (nextLane->isCrossing()) {
                 // add vehicle obstacles
                 const MSLink* crossingEntryLink = nextLane->getIncomingLanes().front().viaLink;
                 const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
@@ -1051,7 +1051,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 
     Obstacles crossingVehs(stripes, Obstacle(dir));
     bool hasCrossingVehObs = false;
-    if (lane->getEdge().isCrossing()) {
+    if (lane->isCrossing()) {
         // assume that vehicles will brake when already on the crossing
         hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true);
     }
@@ -1945,7 +1945,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
     // forbid a portion of the leftmost stripes (in walking direction).
     // lanes with stripes less than 1 / RESERVE_FOR_ONCOMING_FACTOR
     // may still deadlock in heavy pedestrian traffic
-    const bool onJunction = myLane->getEdge().isWalkingArea() || myLane->getEdge().isCrossing();
+    const bool onJunction = myLane->getEdge().isWalkingArea() || myLane->isCrossing();
     const int reserved = getReserved(stripes, (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR));
     if (myDir == FORWARD) {
         for (int i = 0; i < reserved; ++i) {
@@ -2041,7 +2041,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
                       << " vehWait=" << STEPS2TIME(obs[current].vehicle ? obs[current].vehicle->getWaitingTime() : 0)
                       << "\n";
         }
-        if (myWaitingTime > ((myLane->getEdge().isCrossing()
+        if (myWaitingTime > ((myLane->isCrossing()
                               // treat shared walkingarea like a crossing to avoid deadlocking vehicles
                               || (myLane->getEdge().isWalkingArea() && obs[current].vehicle != nullptr && obs[current].vehicle->getWaitingTime() > jamTimeCrossing
                                   && myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())) ? jamTimeCrossing : jamTime)
@@ -2089,7 +2089,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
                // still on the road
                && stripe() == stripe(myPosLat)
                // only when the vehicle is moving on the same lane
-               && !(myLane->getEdge().isCrossing() || myLane->getEdge().isWalkingArea())) {
+               && !(myLane->isCrossing() || myLane->getEdge().isWalkingArea())) {
         // step aside to let the vehicle pass
         int stepAsideDir = myDir;
         if (myLane->getEdge().getLanes().size() > 1 || current > sMax / 2) {

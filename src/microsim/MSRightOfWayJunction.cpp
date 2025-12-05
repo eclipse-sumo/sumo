@@ -65,7 +65,7 @@ MSRightOfWayJunction::postloadInit() {
         // ... set information for every link
         for (MSLink* const link : lane->getLinkCont()) {
             if (link->getLane()->getEdge().isWalkingArea() ||
-                    (lane->getEdge().isWalkingArea() && !link->getLane()->getEdge().isCrossing())) {
+                    (lane->getEdge().isWalkingArea() && !link->getLane()->isCrossing())) {
                 continue;
             }
             sortedLinks.emplace_back(lane, link);
@@ -84,7 +84,7 @@ MSRightOfWayJunction::postloadInit() {
                     walkingAreaFoe = link->getLane();
                 }
                 continue;
-            } else if ((lane->getEdge().isWalkingArea() && !link->getLane()->getEdge().isCrossing())) {
+            } else if ((lane->getEdge().isWalkingArea() && !link->getLane()->isCrossing())) {
                 continue;
             }
             if (myLogic->getLogicSize() <= requestPos) {
@@ -165,7 +165,7 @@ MSRightOfWayJunction::postloadInit() {
                 }
             }
             // the exit link for a crossing is needed for the pedestrian model
-            if (MSGlobals::gUsingInternalLanes && link->getLane()->getEdge().isCrossing()) {
+            if (MSGlobals::gUsingInternalLanes && link->getLane()->isCrossing()) {
                 MSLink* exitLink = link->getLane()->getLinkCont()[0];
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
                                                 myLinkFoeInternalLanes[link], link->getLane());
