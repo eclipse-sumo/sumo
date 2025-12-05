@@ -47,7 +47,7 @@ class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(GNENet* net, FileBucket* bucket, const bool allowUndoRedo);
+    GNERouteHandler(GNENet* net, FileBucket* bucket, const bool allowUndoRedo, const bool removeEmptyPersons);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();
@@ -307,7 +307,10 @@ private:
     std::set<GNEDemandElement*> myParentPlanElements;
 
     /// @brief allow undo/redo
-    const bool myAllowUndoRedo;
+    const bool myAllowUndoRedo = false;
+
+    /// @brief check if remove empty persons
+    const bool myRemoveEmptyPersons = false;
 
     /// @brief invalidate default onstructor
     GNERouteHandler() = delete;

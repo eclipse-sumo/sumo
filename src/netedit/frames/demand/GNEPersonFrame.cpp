@@ -254,7 +254,7 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
         GNEDemandElement* person = buildPerson();
         // declare route handler
         GNERouteHandler routeHandler(myViewNet->getNet(), person->getFileBucket(),
-                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                     myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), true);
         // check if person and person plan can be created
         if (routeHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(),
                                          person, myPersonPlanAttributesEditor, myPlanCreator, true)) {
@@ -298,7 +298,7 @@ GNEPersonFrame::buildPerson() {
     myPersonBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // declare route handler
     GNERouteHandler routeHandler(myViewNet->getNet(), myViewNet->getNet()->getACTemplates()->getTemplateAC(personTag)->getFileBucket(),
-                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed());
+                                 myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
     // check if we're creating a person or personFlow
     if (personTag == SUMO_TAG_PERSON) {
         // Add parameter departure
