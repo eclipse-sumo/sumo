@@ -13,20 +13,34 @@ title: ChangeLog
   - Fixed incosistent lane-changing inside roundabout while on an internal lane #17336
   - Fixed emergency braking in roundabout #17306
   - Fixed invalid warning after train rerouting #17343
+  - Fixed problems when configuring calibrator with period > 1 (period now truncated to 1) #6589, #17371
+  - Fixed invalid error about stops when configuring vehicles to ignore temporary permission changes #17380
+  - Fixed unsafe sublane-change due to missed neighbor vehicles #17388
+  - Fixed invalid expected sublane speeds at lane split with forbidden connections #17390
+  - Fixed failure to return from outside lane bounds after lane width change in the sublane model #17383
 
 - netedit
+  - ;ane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
   - No longer saving an invalid network when edges from prohibition elements are deleted #17331
+  - selection scaling now work for tazRelations #17382
+
+- sumo-gui
+  - saving selection to file no longer uses **--output-prefix** #17368
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
+  - Option **--gnore-errors** now works when origin or destination are prohibited by option **--restriction-params** #17387
+
 
 - TraCI
   - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
 
-
 - tools
   - osmGet.py: fixed missing road nodes when using option **--shapes** #17293 (regression in 1.20.0)
   - netdiff.py: fixed crash involving removed `<neigh>` attribute #17345
+  - generateRerouters.py: Fixed invalid output when no detours are possible #17361
+  - generateRerouters.py: now find notication edges for consecutive closed edges #17360
+  - tazRel2POI.py: fixed invalid error on skipped taz #17379
 
 ### Enhancements
 
@@ -42,6 +56,11 @@ title: ChangeLog
   - attributeCompare.py: Now supports special id-attribute @FILE #17334
   - [visum_convertXMLRoutes.py](Tools/Import/VISUM.md#visum_convertxmlroutespy): new tool for importing VISUM routes file #17347
   - generateRerouters.py: Added option **--closed-edges.inpu-file** for loading edges to close from a selection file #17359
+  - generateRerouters.py: major speed-up #17362
+  - tazRel2POI.py: Added option **--reference-taz** to allow filtering relations to those that interact with a specific taz #17375
+  - tazRel2POI.py: supports multiple taz input files #17378
+  - route2OD.py: supports separating multiple input files with ',' #17377
+  - edgesInDistricts.py: now supports geo polygons #17376
 
 
 ### Miscellaneous
