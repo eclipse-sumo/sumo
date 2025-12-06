@@ -6106,6 +6106,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
                 } else {
                     myViewObjectsSelector.getLaneFront()->selectAttributeCarrier();
                 }
+                myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
             }
         }
         // finish selection
