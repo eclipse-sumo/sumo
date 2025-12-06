@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-06T09:52:37.044678+01:00 by Eclipse SUMO netedit v1_25_0+0249-ec1429c3633
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="t0" jmIgnoreKeepClearTime="1"/>
+    <flow id="f_0" type="t0" begin="0.00" number="5" period="2">
+        <route edges="EC CS"/>
+        <stop edge="CS" duration="100" endPos="1"/>
+    </flow>
+    <flow id="f_1" begin="0.00" number="10" period="2">
+        <route edges="NC CE"/>
+    </flow>
+</routes>

@@ -18,3 +18,7 @@ ticket17248
 
 # deadlock in roundabout
 ticket17330
+
+# collision on junction between protected-only-left turns and pedestrion crossing
+# (both streams of traffic intersect before reaching their internal junction)
+ticket17385
