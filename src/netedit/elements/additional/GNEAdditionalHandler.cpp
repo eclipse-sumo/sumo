@@ -1641,9 +1641,9 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* /*sumoB
         // parse position
         const auto pos = Position(x, y);
         // parse icon
-        const auto POIIcon = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
+        const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
         // create POI
-        GNEPOI* POI = new GNEPOI(id, myNet, myFilename, type, color, pos, false, POIIcon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POI = new GNEPOI(id, myNet, myFilename, type, color, pos, false, ic, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POI, TLF("add POI '%'", id));
@@ -1686,9 +1686,9 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* /*s
             return writeErrorInvalidPosition(GNE_TAG_POILANE, id);
         } else {
             // parse icon
-            const auto POIIcon = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
+            const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
             // create POI (use GNEAdditional instead GNEPOI for add child references)
-            GNEAdditional* POILane = new GNEPOI(id, myNet, myFilename, type, color, lane, posOverLane, friendlyPos, posLat, POIIcon, layer,
+            GNEAdditional* POILane = new GNEPOI(id, myNet, myFilename, type, color, lane, posOverLane, friendlyPos, posLat, ic, layer,
                                                 angle, imgFile, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
@@ -1730,9 +1730,9 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* /*su
         // parse position
         const auto pos = Position(lon, lat);
         // parse icon
-        const auto POIIcon = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
+        const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
         // create POIGEO
-        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFilename, type, color, pos, true, POIIcon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFilename, type, color, pos, true, ic, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POIGEO, TLF("add POI GEO '%'", id));
