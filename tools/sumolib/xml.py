@@ -419,8 +419,8 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None)
         pattern = ''.join(['<%s' % element_name] +
                           ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
     else:
-        pattern = '.*'.join(['<%s' % element_name] +
-                            ['\\s+%s="([^"]*)"' % attr for attr in attrnames])
+        pattern = '(|\\s+.*)'.join(['<%s' % element_name] +
+                            ['\\s+%s="(?P<%s>[^"]*?)"' % a for a in zip(attrnames, prefixedAttrnames)])
     if extra is not None:
         prefixedAttrnames += [_prefix_keyword(a, warn) for a in extra]
     Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
@@ -471,10 +471,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
         for line in _comment_filter(xmlfile):
             m = reprog.search(line)
             if m:
-                if optional:
-                    yield Record(**m.groupdict())
-                else:
-                    yield Record(*m.groups())
+                yield Record(**m.groupdict())
     finally:
         if close_source:
             xmlfile.close()
@@ -500,17 +497,11 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
         for line in _comment_filter(xmlfile):
             m2 = reprog2.search(line)
             if record and m2:
-                if optional:
-                    yield record, Record2(**m2.groupdict())
-                else:
-                    yield record, Record2(*m2.groups())
+                yield record, Record2(**m2.groupdict())
             else:
                 m = reprog.search(line)
                 if m:
-                    if optional:
-                        record = Record(**m.groupdict())
-                    else:
-                        record = Record(*m.groups())
+                    record = Record(**m.groupdict())
                 elif element_name in line:
                     record = None
     finally:
@@ -543,10 +534,7 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
                 for name2, Record2, reprog2 in re2:
                     m2 = reprog2.search(line)
                     if m2:
-                        if optional:
-                            inner = Record2(**m2.groupdict())
-                        else:
-                            inner = Record2(*m2.groups())
+                        inner = Record2(**m2.groupdict())
                         getattr(record, name2).append(inner)
                         break
                 else:
@@ -556,16 +544,10 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
             else:
                 m = reprog.search(line)
                 if m:
-                    if optional:
-                        args = dict(m.groupdict())
-                        for name, _, __ in re2:
-                            args[name] = []
-                        record = Record(**args)
-                    else:
-                        args = list(m.groups())
-                        for _ in range(len(re2)):
-                            args.append([])
-                        record = Record(*args)
+                    args = dict(m.groupdict())
+                    for name, _, __ in re2:
+                        args[name] = []
+                    record = Record(**args)
     finally:
         if close_source:
             xmlfile.close()
