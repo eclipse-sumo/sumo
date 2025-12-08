@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-05 18:57+0000\n"
-"PO-Revision-Date: 2025-10-13 13:55+0000\n"
+"PO-Revision-Date: 2025-12-08 18:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -714,7 +714,7 @@ msgstr "Routen für Öffentlichen Verkehr bestimmen"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "Flüsse schreiben, anstatt diese in einzelne Fahrzeuge aufzulösen"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -1519,6 +1519,8 @@ msgid ""
 "Vehicle '%' replaced stop on edge '%' (named '%') and now stops at '%' "
 "instead; after rerouting (%) at time=%."
 msgstr ""
+"Das Fahrzeug '%' hat den Halt auf der Kante '%' (bezeichnet als '%') mit "
+"einem Halt bei '%' ersetzt; nach Rerouting (%) zur Zeit %."
 
 #: src/microsim/MSBaseVehicle.cpp:734
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
@@ -1713,16 +1715,22 @@ msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', "
 "time=%."
 msgstr ""
+"Die Abfahrtsgeschwindigkeit des Fahrzeugs '%' ist für die Abfahrtskante '%' "
+"zu hoch (zur Zeit %)."
 
 #: src/microsim/MSEdge.cpp:812 src/microsim/MSLane.cpp:856
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
+"Ungültige Abfahrtsposition % des Fahrzeugs '%' zur Zeit %. Es wird "
+"stattdessen am Fahrstreifenende eingesetzt."
 
 #: src/microsim/MSEdge.cpp:853
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
+"Das Fahrzeug '%' konnte auf keinem Fahrstreifen der Kante '%' zur Zeit % "
+"eingesetzt werden."
 
 #: src/microsim/MSEdge.cpp:1391
 #, c-format
@@ -1936,7 +1944,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:189
 msgid "Save fcd for persons and container to separate FILE"
-msgstr ""
+msgstr "FCD von Personen und Containern in einer separaten Datei FILE speichern"
 
 #: src/microsim/MSFrame.cpp:192
 msgid ""
