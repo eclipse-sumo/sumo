@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_25_0+0052-ed3ec406d98
+Eclipse SUMO sumo v1_25_0+0257-b3edb448106
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -1048,7 +1048,7 @@ GUI Only Options:
                                         simulation steps
   -B, --breakpoints STR[]              Use TIME[] as times when the simulation
                                         should halt
-  --edgedata-files FILE                Load edge/lane weights for visualization
+  -m, --edgedata-files FILE            Load edge/lane weights for visualization
                                         from FILE
   -N, --alternative-net-file FILE      Load a secondary road network for
                                         abstract visualization from FILE
@@ -1063,8 +1063,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

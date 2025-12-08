@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T18:08:22.638403+01:00 by Eclipse SUMO sumo v1_25_0+0052-ed3ec406d98
+<!-- generated on 2025-12-08T13:11:09.419163+01:00 by Eclipse SUMO sumo v1_25_0+0257-b3edb448106
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -537,7 +537,7 @@
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
         <delay value="0" synonymes="d" type="FLOAT" help="Use FLOAT in ms as delay between simulation steps"/>
         <breakpoints value="" synonymes="B" type="STR[]" help="Use TIME[] as times when the simulation should halt"/>
-        <edgedata-files value="" synonymes="data-files" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
+        <edgedata-files value="" synonymes="data-files m" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
         <alternative-net-file value="" synonymes="N" type="FILE" help="Load a secondary road network for abstract visualization from FILE"/>
         <selection-file value="" type="FILE" help="Load pre-selected elements from FILE"/>
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
@@ -546,7 +546,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
