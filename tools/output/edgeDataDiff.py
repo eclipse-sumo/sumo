@@ -114,6 +114,8 @@ def write_diff(options):
         f.write("</meandata>\n")
         for attr, stats in diffStats.items():
             stats.label = attr
+            if not options.geh:
+                stats.abs = True
             print(stats)
 
 
