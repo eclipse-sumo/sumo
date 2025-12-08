@@ -811,7 +811,7 @@ MSFrame::fillOptions() {
     oc.doRegister("breakpoints", 'B', new Option_StringVector());
     oc.addDescription("breakpoints", "GUI Only", TL("Use TIME[] as times when the simulation should halt"));
 
-    oc.doRegister("edgedata-files", new Option_FileName());
+    oc.doRegister("edgedata-files", 'm', new Option_FileName());
     oc.addSynonyme("edgedata-files", "data-files");
     oc.addDescription("edgedata-files", "GUI Only", TL("Load edge/lane weights for visualization from FILE"));
 
