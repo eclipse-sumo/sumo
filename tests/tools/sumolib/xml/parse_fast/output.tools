@@ -1,2 +1,3 @@
 edge(id='a', value='10')
 edge(id='b', value='100')
+edge(id='c', value='1000')
