@@ -1,1 +1,1 @@
-attr: count 2, min -60.00 (2), max -6.00 (1), mean -33.00, Q1 -60.00, median -6.00, Q3 -6.00
+attr: count 2, min -60.00 (2), max -6.00 (1), mean -33.00, Q1 -60.00, median -6.00, Q3 -6.00, mean_abs 33.00, median_abs 60.00

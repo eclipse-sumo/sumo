@@ -1,2 +1,2 @@
-attr: count 2, min 2.00 (1), max 20.00 (2), mean 11.00, Q1 2.00, median 20.00, Q3 20.00
-std_attr: count 2, min 5.00 (1), max 5.00 (1), mean 5.00, Q1 5.00, median 5.00, Q3 5.00
+attr: count 2, min 2.00 (1), max 20.00 (2), mean 11.00, Q1 2.00, median 20.00, Q3 20.00, mean_abs 11.00, median_abs 20.00
+std_attr: count 2, min 5.00 (1), max 5.00 (1), mean 5.00, Q1 5.00, median 5.00, Q3 5.00, mean_abs 5.00, median_abs 5.00
