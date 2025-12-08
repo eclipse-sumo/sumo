@@ -861,7 +861,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON});
     } else if (personTripTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for personTrip"));
+        return false;
     } else if (planParents.checkIntegrity(personTripTag, personParent, planParameters)) {
         // build person trip
         GNEDemandElement* personTrip = new GNEPersonTrip(personTripTag, personParent, planParents,
@@ -896,7 +896,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_WALK, {SUMO_TAG_PERSON});
     } else if (walkTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for personTrip"));
+        return false;
     } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_WALK, personParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
@@ -934,7 +934,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_RIDE, {SUMO_TAG_PERSON});
     } else if (rideTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for ride"));
+        return false;
     } else if (planParents.checkIntegrity(rideTag, personParent, planParameters)) {
         // build ride
         GNEDemandElement* ride = new GNERide(rideTag, personParent, planParents, arrivalPos, lines, group);
@@ -1036,7 +1036,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_TRANSPORT, {SUMO_TAG_CONTAINER});
     } else if (transportTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for personTrip"));
+        return false;
     } else if (planParents.checkIntegrity(transportTag, containerParent, planParameters)) {
         // build transport
         GNEDemandElement* transport = new GNETransport(transportTag, containerParent, planParents, arrivalPos, lines, group);
@@ -1070,7 +1070,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_TRANSHIP, {SUMO_TAG_CONTAINER});
     } else if (transhipTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for personTrip"));
+        return false;
     } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_SPEED, speed, true)) {
         return false;
     } else if (!checkNegative(SUMO_TAG_TRANSHIP, containerParent->getID(), SUMO_ATTR_DURATION, duration, true)) {
@@ -1110,7 +1110,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     if (personParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_STOP, {SUMO_TAG_PERSON});
     } else if (personStopTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for person stop"));
+        return false;
     } else if (planParents.checkIntegrity(personStopTag, personParent, planParameters)) {
         // build person stop
         GNEDemandElement* stopPlan = new GNEStopPlan(personStopTag, personParent, planParents,
@@ -1146,7 +1146,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
     if (containerParent == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_STOP, {SUMO_TAG_CONTAINER});
     } else if (containerStopTag == SUMO_TAG_NOTHING) {
-        return writeError(TL("invalid combination for containerStop"));
+        return false;
     } else if (planParents.checkIntegrity(containerStopTag, containerParent, planParameters)) {
         // build container stop
         GNEDemandElement* stopPlan = new GNEStopPlan(containerStopTag, containerParent, planParents,
