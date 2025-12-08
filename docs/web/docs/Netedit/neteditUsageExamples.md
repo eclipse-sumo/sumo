@@ -70,6 +70,13 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
+### Using 'Shift Geometry'
+
+1. select the edge (i.e. by clicking on it in select mode)
+2. in move mode, enter the shift value in the input field below the label "Shift selected edges geometry" and press the "Apply shift value" button.
+
+Positive values shift the whole edge to the right (outward from the road center line) whereas negative values shift it inwards.
+
 ### Restoring edge geometry to its default state
 
 The reverse operation to *Setting a custom geometry endpoint* as explained above is *Restoring the geometry endpoint* and it may be accomplished in any of the following ways:
