@@ -229,7 +229,7 @@ GNEAttributeCarrier::resetDefaultValues(const bool allowUndoRedo) {
         const auto undoList = myNet->getUndoList();
         undoList->begin(myTagProperty->getGUIIcon(), TLF("reset %", myTagProperty->getTagStr()));
         for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
-            if (!attrProperty->isUnique() && attrProperty->hasDefaultValue()) {
+            if ((attrProperty->getAttr() != GNE_ATTR_SAVEFILE) && !attrProperty->isUnique() && attrProperty->hasDefaultValue()) {
                 setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue(), undoList);
                 if (attrProperty->isActivatable()) {
                     if (attrProperty->getDefaultActivated()) {
@@ -244,7 +244,7 @@ GNEAttributeCarrier::resetDefaultValues(const bool allowUndoRedo) {
     } else {
         // simply reset every
         for (const auto& attrProperty : myTagProperty->getAttributeProperties()) {
-            if (attrProperty->hasDefaultValue()) {
+            if ((attrProperty->getAttr() != GNE_ATTR_SAVEFILE) && attrProperty->hasDefaultValue()) {
                 setAttribute(attrProperty->getAttr(), attrProperty->getDefaultStringValue());
                 if (attrProperty->isActivatable()) {
                     toggleAttribute(attrProperty->getAttr(), attrProperty->getDefaultActivated());
