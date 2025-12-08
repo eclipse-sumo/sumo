@@ -1,55 +1,120 @@
 # Import common configuration
 import_config_file:../config_all
 
-binary:$SUMO_BINARY
+interpreter:python
+binary:testoutput.py
 
-copy_test_path:input_net_A.net.xml
-copy_test_path:input_additionals_A.add.xml
-copy_test_path:input_routes_A.rou.xml
-copy_test_path:input_meandatas_A.add.xml
+# runner
+copy_test_path:testoutput.py
 
-copy_test_path:net.netedit
-copy_test_path:net_net_xml.netedit
-copy_test_path:net_net_xml_gz.netedit
-copy_test_path:net_xml.netedit
-copy_test_path:net_xml_gz.netedit
-copy_test_path:net_txt.netedit
-copy_test_path:net3.netedit
+# CONFIGS
+copy_test_path:netedit_A.netedit
+copy_test_path:netedit_B.netedit
 
-copy_test_path:additionals.netedit
-copy_test_path:additionals_add_xml.netedit
-copy_test_path:additionals_add_xml_gz.netedit
-copy_test_path:additionals_xml.netedit
-copy_test_path:additionals_xml_gz.netedit
-copy_test_path:additionals_txt.netedit
-copy_test_path:additionals3.netedit
-copy_test_path:additionalsconfig.netedit
+copy_test_path:sumo_A.netedit
+copy_test_path:sumo_B.netedit
+copy_test_path:sumo.netedit
 
-copy_test_path:meandatas.netedit
-copy_test_path:meandatas_add_xml.netedit
-copy_test_path:meandatas_add_xml_gz.netedit
-copy_test_path:meandatas_xml.netedit
-copy_test_path:meandatas_xml_gz.netedit
-copy_test_path:meandatas_txt.netedit
-copy_test_path:meandatas3.netedit
+copy_test_path:netconvert_A.netedit
+copy_test_path:netconvert_B.netedit
 
-copy_test_path:routes.netedit
-copy_test_path:routes_rou_xml.netedit
-copy_test_path:routes_rou_xml_gz.netedit
-copy_test_path:routes_xml.netedit
-copy_test_path:routes_xml_gz.netedit
-copy_test_path:routes_txt.netedit
-copy_test_path:routes3.netedit
-copy_test_path:routesconfig.netedit
+# NETWORKS
+copy_test_path:input_net_A_net_xml.netedit
+copy_test_path:input_net_A_xml_gz.netedit
+copy_test_path:input_net_A_xml.netedit
+copy_test_path:input_net_A_txt.netedit
 
-copy_test_path:sumo.sumocfg
-copy_test_path:sumo2.netedit
-copy_test_path:sumo2_xml.netedit
-copy_test_path:sumo2_txt.netedit
-copy_test_path:sumo3.netedit
+copy_test_path:input_net_B_net_xml.netedit
+copy_test_path:input_net_B_xml_gz.netedit
+copy_test_path:input_net_B_xml.netedit
+copy_test_path:input_net_B_txt.netedit
 
-copy_test_path:shapes.netedit
-copy_test_path_merge:myOwnFilenameRerouter.txt
+# NETCONVERT FILES
+copy_test_path:input_netconvert_A_con_xml.netedit
+copy_test_path:input_netconvert_A_edg_xml.netedit
+copy_test_path:input_netconvert_A_nod_xml.netedit
+copy_test_path:input_netconvert_A_tll_xml.netedit
+
+copy_test_path:input_netconvert_B_con_xml.netedit
+copy_test_path:input_netconvert_B_edg_xml.netedit
+copy_test_path:input_netconvert_B_nod_xml.netedit
+copy_test_path:input_netconvert_B_tll_xml.netedit
+
+# ADDITIONALS
+copy_test_path:netedit_A_add_xml.netedit
+copy_test_path:netedit_B_add_xml.netedit
+
+copy_test_path:sumo_A_add_xml.netedit
+copy_test_path:sumo_B_add_xml.netedit
+
+copy_test_path:input_additionals_A_add_xml.netedit
+copy_test_path:input_additionals_A_add_xml_gz.netedit
+copy_test_path:input_additionals_A_xml.netedit
+copy_test_path:input_additionals_A_xml_gz.netedit
+copy_test_path:input_additionals_A_txt.netedit
+
+copy_test_path:input_additionals_B_add_xml.netedit
+copy_test_path:input_additionals_B_add_xml_gz.netedit
+copy_test_path:input_additionals_B_xml.netedit
+copy_test_path:input_additionals_B_xml_gz.netedit
+copy_test_path:input_additionals_B_txt.netedit
+
+# ROUTES
+copy_test_path:netedit_A_rou_xml.netedit
+copy_test_path:netedit_B_rou_xml.netedit
+
+copy_test_path:sumo_A_rou_xml.netedit
+copy_test_path:sumo_B_rou_xml.netedit
+
+copy_test_path:input_routes_A_rou_xml.netedit
+copy_test_path:input_routes_A_rou_xml_gz.netedit
+copy_test_path:input_routes_A_xml.netedit
+copy_test_path:input_routes_A_xml_gz.netedit
+copy_test_path:input_routes_A_txt.netedit
+
+copy_test_path:input_routes_B_rou_xml.netedit
+copy_test_path:input_routes_B_rou_xml_gz.netedit
+copy_test_path:input_routes_B_xml.netedit
+copy_test_path:input_routes_B_xml_gz.netedit
+copy_test_path:input_routes_B_txt.netedit
+
+# DATAS
+copy_test_path:netedit_A_dat_xml.netedit
+copy_test_path:netedit_B_dat_xml.netedit
+
+copy_test_path:sumo_A_dat_xml.netedit
+copy_test_path:sumo_B_dat_xml.netedit
+
+copy_test_path:input_datas_A_dat_xml.netedit
+copy_test_path:input_datas_A_dat_xml_gz.netedit
+copy_test_path:input_datas_A_xml.netedit
+copy_test_path:input_datas_A_xml_gz.netedit
+copy_test_path:input_datas_A_txt.netedit
+
+copy_test_path:input_datas_B_dat_xml.netedit
+copy_test_path:input_datas_B_dat_xml_gz.netedit
+copy_test_path:input_datas_B_xml.netedit
+copy_test_path:input_datas_B_xml_gz.netedit
+copy_test_path:input_datas_B_txt.netedit
+
+# MEANDATAS
+copy_test_path:netedit_A_dat_add_xml.netedit
+copy_test_path:netedit_B_dat_add_xml.netedit
+
+copy_test_path:sumo_A_dat_add_xml.netedit
+copy_test_path:sumo_B_dat_add_xml.netedit
+
+copy_test_path:input_meandatas_A_add_xml.netedit
+copy_test_path:input_meandatas_A_add_xml_gz.netedit
+copy_test_path:input_meandatas_A_xml.netedit
+copy_test_path:input_meandatas_A_xml_gz.netedit
+copy_test_path:input_meandatas_A_txt.netedit
+
+copy_test_path:input_meandatas_B_add_xml.netedit
+copy_test_path:input_meandatas_B_add_xml_gz.netedit
+copy_test_path:input_meandatas_B_xml.netedit
+copy_test_path:input_meandatas_B_xml_gz.netedit
+copy_test_path:input_meandatas_B_txt.netedit
 
 [collate_file]
 detector:detector.xml

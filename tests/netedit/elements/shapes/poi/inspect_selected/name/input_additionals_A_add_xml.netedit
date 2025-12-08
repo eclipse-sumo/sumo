@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T14:10:18.737681+01:00 by Eclipse SUMO netedit v1_24_0+0995-bd6e31d9754
+<!-- generated on 2025-12-08T11:06:02.975268+01:00 by Eclipse SUMO netedit v1_25_0+0433-1a3a034ca29
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,10 +19,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
-    </poi>
-    <poi id="POI_2" name="customName" x="30.00" y="20.00" type="typeA" color="blue" layer="16.00" angle="21.00" imgFile="fileB" width="19.00" height="32.00">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB2" value="valueB3"/>
-        <param key="KeyB3" value="valueB2"/>
     </poi>
 </additional>
