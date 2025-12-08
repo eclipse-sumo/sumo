@@ -52,3 +52,6 @@ save_template
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 flow
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+replacedRoutes

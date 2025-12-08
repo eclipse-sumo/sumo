@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vehicle id="3843" depart="3459.00" arrival="3797.00">
+        <routeDistribution>
+            <route replacedOnEdge="-852" replacedOnIndex="3" reason="device.rerouting" replacedAtTime="3499.00" probability="0" edges="1148 -1148 -873 -852 844 -79 -60 58 -592 -68 199 340 -1249 1257 1962 2128"/>
+            <route replacedOnEdge="-79" replacedOnIndex="5" reason="device.rerouting" replacedAtTime="3639.00" probability="0" edges="1148 -1148 -873 -852 844 -79 -60 58 -592 -45 55 202 340 -1249 1257 1962 2128"/>
+            <route edges="1148 -1148 -873 -852 844 -79 -60 58 -592 -68 199 340 -1249 1257 1962 2128"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
