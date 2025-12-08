@@ -456,7 +456,7 @@ def _comment_filter(stream):
             yield line
 
 
-def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8"):
+def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8", line_filter=None):
     """
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
@@ -471,6 +471,8 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
         for line in _comment_filter(xmlfile):
             m = reprog.search(line)
             if m:
+                if line_filter is not None and line_filter(line):
+                    continue
                 yield Record(**m.groupdict())
     finally:
         if close_source:

@@ -205,6 +205,9 @@ def parseSimple(outf, options):
     arrivalCounts = defaultdict(lambda: 0)
     intermediateCounts = defaultdict(lambda: 0)
 
+    def ignore_replaced(line):
+        return "replacedOnEdge" in line
+
     for element in options.elements:
         for routefile in options.routefiles:
             if element == 'route':
@@ -213,7 +216,7 @@ def parseSimple(outf, options):
                            " Use option --elements vehicle,flow instead") % routefile,
                           file=sys.stderr)
                     break
-            for route in parse_fast(routefile, element, ['edges']):
+            for route in parse_fast(routefile, element, ['edges'], line_filter=ignore_replaced):
                 edges = route.edges.split()
                 if not hasSubpart(edges, options.subparts, options.subpartVia):
                     continue
