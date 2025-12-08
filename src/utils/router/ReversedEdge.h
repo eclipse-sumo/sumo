@@ -22,10 +22,6 @@
 #pragma once
 #include <config.h>
 
-#ifdef HAVE_FOX
-#include <utils/foxtools/fxheader.h>
-#include <FXThread.h>
-#endif
 
 // ===========================================================================
 // class definitions
