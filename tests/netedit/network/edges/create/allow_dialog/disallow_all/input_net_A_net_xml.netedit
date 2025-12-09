@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 13:32:09 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2025-12-09T09:52:08.422358+01:00 by Eclipse SUMO netedit v1_25_0+0464-84e2bab0dc6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,19 +14,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/input_additionals_A.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/input_routes_A.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/input_datas_A.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -45,19 +45,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul132553.14980/netedit.gui/network/edges/create/allow_dialog/disallow_all/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -75,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="50.00" shape="-25.00,-21.60 25.00,-21.60"/>
+        <lane id="E0_0" index="0" disallow="all" speed="13.89" length="50.00" shape="-25.00,-21.60 25.00,-21.60"/>
     </edge>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
         <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>

@@ -1686,16 +1686,16 @@ class attrs:
             type = 8
             imgFileButton = 9
             imgFile = 10
-            angle = 12
-            geo = 14
-            parameters = 16
-            parametersButton = 17
-            frontButton = 19
-            closeShape = 20
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            angle = 11
+            geo = 13
+            parameters = 15
+            parametersButton = 16
+            frontButton = 18
+            closeShape = 19
+            additionalFileButton = 20
+            additionalFile = 21
+            helpDialog = 22
+            reset = 23
 
     # POI
 
