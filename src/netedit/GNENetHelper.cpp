@@ -1632,6 +1632,25 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
 }
 
 
+bool
+GNENetHelper::AttributeCarriers::requireJunctionTazOption() const {
+    if (myDemandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) {
+        return true;
+    } else if (myDemandElements.at(GNE_TAG_FLOW_JUNCTIONS).size() > 0) {
+        return true;
+    } else {
+        // iterate over all tags and check if start or ends in junctions
+        for (const auto& mapValue : myDemandElements) {
+            const auto tagProperty = myNet->getTagPropertiesDatabase()->getTagProperty(mapValue.first, true);
+            if ((tagProperty->planFromJunction() || tagProperty->planToJunction()) && (myDemandElements.at(tagProperty->getTag()).size() > 0)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 int
 GNENetHelper::AttributeCarriers::getStopIndex() {
     return myStopIndex++;

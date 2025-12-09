@@ -501,6 +501,9 @@ struct GNENetHelper {
         /// @brief add default VTypes
         void addDefaultVTypes();
 
+        /// @brief check if we have elements that requires the option junction-taz
+        bool requireJunctionTazOption() const;
+
         /// @brief get (and update) stop index
         int getStopIndex();
 

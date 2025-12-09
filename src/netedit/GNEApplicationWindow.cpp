@@ -3578,8 +3578,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
                 std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
                 if (out.good()) {
                     // before saving sumo config, check if force enable option junction-taz
-                    if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
-                            (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+                    if (myNet->getAttributeCarriers()->requireJunctionTazOption()) {
                         mySumoOptions.set("junction-taz", "true");
                     }
                     // write SUMO config
@@ -3690,8 +3689,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
             // before saving sumo config, check if force enable option junction-taz
-            if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
-                    (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+            if (myNet->getAttributeCarriers()->requireJunctionTazOption()) {
                 mySumoOptions.set("junction-taz", "true");
             }
             // write SUMO config
