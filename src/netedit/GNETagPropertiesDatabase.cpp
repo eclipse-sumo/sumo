@@ -7025,6 +7025,13 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 TL("The path to the file to save this element (not editable for network elements)"));
         commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+    } else if (tagProperties->saveInParentFile()) {
+        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::NETEDITEDITOR,
+                TL("The path to the file to save this element (the same of their parent)"));
+        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        commonAttribute->setAlternativeName(TL("File"));
     } else {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
