@@ -1,6 +1,6 @@
+Warning: Teleporting vehicle 'n3_car_trailer_0'; waited too long (yield), lane='gneE4_2', time=311.00.
+Warning: Vehicle 'n3_car_trailer_0' ends teleporting on edge 'gneE3', time=311.00.
 Warning: Teleporting vehicle 's3_car_0'; waited too long (yield), lane='gneE6_1', time=312.00.
 Warning: Vehicle 's3_car_0' ends teleporting on edge 'gneE1', time=312.00.
-Warning: Teleporting vehicle 'n3_car_trailer_0'; waited too long (yield), lane='gneE4_2', time=313.00.
-Warning: Vehicle 'n3_car_trailer_0' ends teleporting on edge 'gneE3', time=313.00.
-Warning: Teleporting vehicle 'n3_car_1'; waited too long (yield), lane='gneE4_3', time=320.00.
-Warning: Vehicle 'n3_car_1' ends teleporting on edge 'gneE3', time=320.00.
+Warning: Teleporting vehicle 'n3_car_1'; waited too long (yield), lane='gneE4_3', time=319.00.
+Warning: Vehicle 'n3_car_1' ends teleporting on edge 'gneE3', time=319.00.
