@@ -76,7 +76,6 @@ jobs:
         python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
         python3 -m build --wheel tools -o dist
         if [[ "${{ matrix.python_version }}" != "3.12" ]]; then rm dist/eclipse_sumo-*; fi
-        if [[ "${{ matrix.python_version }}" == "3.12" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp312-cp312/py2.py3-none/'`; fi
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v5

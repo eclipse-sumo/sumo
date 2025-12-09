@@ -42,14 +42,10 @@ if test $# -ge 2; then
     popd
 fi
 
-mkdir -p $HOME/.ccache
-echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
-echo "base_dir = $PWD/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
 cp build_config/pyproject.toml .
 py=/opt/python/cp312-cp312
-$py/bin/python tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
+$py/bin/python ./tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
 $py/bin/python -m build --wheel
-mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp312-cp312/py2.py3-none/'`
 auditwheel repair dist/eclipse_sumo*.whl
 cp -a data tools/libsumo
 for py in /opt/python/cp3[1789]*; do

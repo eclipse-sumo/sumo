@@ -16,10 +16,8 @@
 # @author  Michael Behrisch
 # @date    2024-03-07
 
-import glob
 import logging
 import os
-import shutil
 import sys
 from os.path import join, dirname
 
@@ -31,12 +29,9 @@ def main():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(dirname(os.path.abspath(__file__)))))
-    BUILD_CONFIG = join(SUMO_HOME, "tools", "build_config")
-    shutil.copy(join(SUMO_HOME, "build_config", "pyproject.toml"), SUMO_HOME)
-    version.filter_setup_py(join(BUILD_CONFIG, "setup-sumo.py"), join(SUMO_HOME, "setup.py"))
-    status.log_subprocess([sys.executable, "-m", "build", "--wheel", "--config-setting=-G=Ninja"], cwd=SUMO_HOME)
-    f = glob.glob(join(SUMO_HOME, "dist", "eclipse_sumo-*"))[0]
-    os.rename(f, f.replace("cp3%s-cp3%s" % (sys.version_info.minor, sys.version_info.minor), "py2.py3-none"))
+    version.filter_pep440(join(SUMO_HOME, "build_config", "eclipse-sumo-pyproject.toml"),
+                          join(SUMO_HOME, "pyproject.toml"))
+    status.log_subprocess([sys.executable, "-m", "build", "--wheel"], cwd=SUMO_HOME)
 
 
 if __name__ == "__main__":
