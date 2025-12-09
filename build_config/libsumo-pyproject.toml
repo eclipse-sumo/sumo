@@ -1,0 +1,33 @@
+[build-system]
+requires = ["scikit-build-core>=0.10"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "libsumo"
+version = "0.0.0"
+dependencies = ["traci==0.0.0"]
+authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
+license = "EPL-2.0 OR GPL-2.0-or-later"
+description = "The python version of the libsumo API to communicate with the traffic simulation Eclipse SUMO"
+readme = "README.md"
+keywords = ["traffic", "simulation", "traci"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: C++",
+    "Programming Language :: Python",
+]
+
+[project.urls]
+Homepage = "https://sumo.dlr.de/"
+Documentation = "https://sumo.dlr.de/docs/Libsumo.html"
+Repository = "https://github.com/eclipse-sumo/sumo"
+Issues = "https://github.com/eclipse-sumo/sumo/issues"
+Changelog = "https://sumo.dlr.de/docs/ChangeLog"
+Download = "https://sumo.dlr.de/download"
+
+[tool.scikit-build]
+# build-dir = "_scikit_core_libsumo_build"
+build.targets = ["libsumo"]
+wheel.packages = ["tools/libsumo"]
