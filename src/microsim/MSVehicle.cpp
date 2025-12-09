@@ -3841,6 +3841,11 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
 #endif
                 break;
             }
+            if (myLane->isInternal() && myJunctionEntryTime == SUMOTime_MAX) {
+                // request was renewed, restoring entry time
+                // @note: using myJunctionEntryTimeNeverYield could lead to inconsistencies with other vehicles already on the junction
+                myJunctionEntryTime = SIMSTEP;;
+            }
         } else {
             if (link != nullptr && link->getInternalLaneBefore() != nullptr && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {
                 // blocked on the junction. yield request so other vehicles may
