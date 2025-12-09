@@ -764,10 +764,10 @@ public:
     /// @name Repetition definition
     /// @{
     /// @brief The number of times the vehicle shall be repeatedly inserted
-    int repetitionNumber;
+    long long int repetitionNumber;
 
     /// @brief The number of times the vehicle was already inserted
-    int repetitionsDone;
+    long long int repetitionsDone;
 
     /// @brief The time offset between vehicle reinsertions
     SUMOTime repetitionOffset;

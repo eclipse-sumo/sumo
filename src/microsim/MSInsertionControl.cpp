@@ -286,8 +286,8 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             vtype = nullptr;
         }
         if (time >= pars->repetitionEnd ||
-                (pars->repetitionNumber != std::numeric_limits<int>::max()
-                 && pars->repetitionsDone >= (int)(pars->repetitionNumber * scale + 0.5))) {
+                (pars->repetitionNumber != std::numeric_limits<long long int>::max()
+                 && pars->repetitionsDone >= (long long int)(pars->repetitionNumber * scale + 0.5))) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;

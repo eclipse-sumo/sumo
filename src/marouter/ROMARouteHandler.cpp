@@ -91,7 +91,7 @@ ROMARouteHandler::myEndElement(int element) {
             int quota = 1;
             SUMOTime departOffset = 0;
             if (element == SUMO_TAG_FLOW) {
-                int flowSize = 1;
+                long long int flowSize = 1;
                 double flowDur = STEPS2TIME(myVehicleParameter->repetitionEnd - myVehicleParameter->depart);
                 if (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()) {
                     flowSize = myVehicleParameter->repetitionNumber;

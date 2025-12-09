@@ -149,8 +149,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("depart delay [s]"), false, time2string(getDepartDelay()));
     ret->mkItem(TL("odometer [m]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSBaseVehicle::getOdometer));
-    if (getParameter().repetitionNumber < std::numeric_limits<int>::max()) {
-        ret->mkItem(TL("remaining [#]"), false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
+    if (getParameter().repetitionNumber < std::numeric_limits<long long int>::max()) {
+        ret->mkItem(TL("remaining [#]"), false, (long long int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem(TL("insertion period [s]"), false, time2string(getParameter().repetitionOffset));

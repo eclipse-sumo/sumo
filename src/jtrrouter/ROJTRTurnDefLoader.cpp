@@ -103,7 +103,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                 }
                 if (myDiscountSources) {
                     SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, true, true, 0, TIME2STEPS(3600 * 24));
-                    int numVehs = 0;
+                    long long int numVehs = 0;
                     if (pars->repetitionProbability > 0) {
                         numVehs = int(STEPS2TIME(pars->repetitionEnd - pars->depart) * pars->repetitionProbability);
                     } else {

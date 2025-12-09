@@ -902,7 +902,7 @@ MSRouteHandler::closeTransportableFlow() {
                 // poisson: randomize first depart
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
-            for (; i < myVehicleParameter->repetitionNumber && (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()
+            for (; i < myVehicleParameter->repetitionNumber && (myVehicleParameter->repetitionNumber != std::numeric_limits<long long int>::max()
                     || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
                 // type existence has been checked on opening
                 MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);

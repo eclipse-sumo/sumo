@@ -100,12 +100,12 @@ public:
     void setTurnDefaults(const std::vector<double>& defs);
 
     /// @brief register source flow on this edge
-    int getSourceFlow() const {
+    long long int getSourceFlow() const {
         return mySourceFlows;
     }
 
     /// @brief register flow on this edge
-    void changeSourceFlow(int value) {
+    void changeSourceFlow(long long int value) {
         mySourceFlows += value;
     }
 
@@ -121,7 +121,7 @@ private:
 
     /// @brief the flows departing from this edge in the given time
     //ValueTimeLine<int> mySourceFlows;
-    int mySourceFlows;
+    long long int mySourceFlows;
 
 private:
     /// @brief invalidated copy constructor
