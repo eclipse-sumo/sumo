@@ -1,0 +1,5 @@
+Error: attribute 'toTaz' is not declared for element 'ride'
+ In file 'input_routes_A.rou.xml'
+ At line/column 24/32.
+
+Quitting (on error).

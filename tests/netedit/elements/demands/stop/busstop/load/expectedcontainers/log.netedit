@@ -1,3 +1,3 @@
 Error: Attribute 'expectedContainers' in definition of a stop is empty.
-Error: Could not build vehicle with ID 'vehicle_4' in netedit; route parent with ID 'route_4' doesn't exist.
+Error: Could not build vehicle with ID 'vehicle_4' in netedit; doesn't exist a route or routeDistribution parent with ID 'route_4'.
 Error: Loading of 'input_routes_A.rou.xml' failed.
