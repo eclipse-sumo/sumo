@@ -92,9 +92,13 @@ MEVehicle::getSlope() const {
 
 Position
 MEVehicle::getPosition(const double offset) const {
+    if (myCachedPosition != Position::INVALID) {
+        return myCachedPosition;
+    }
     const MSLane* const lane = getEdge()->getLanes()[0];
     return lane->geometryPositionAtOffset(getPositionOnLane() + offset);
 }
+
 
 PositionVector
 MEVehicle::getBoundingBox(double offset) const {

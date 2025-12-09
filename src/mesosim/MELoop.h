@@ -47,7 +47,7 @@ class OptionsCont;
 class MELoop {
 public:
     /// SUMO constructor
-    MELoop(const SUMOTime recheckInterval);
+    MELoop(const SUMOTime recheckInterval, const bool interpolate);
 
     ~MELoop();
 
@@ -111,6 +111,10 @@ public:
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
 
+    void clearPositionCache(const SUMOTime time);
+
+    void interpolatePositions(const MSEdge& e, const SUMOTime now);
+
 private:
     /** @brief Check whether the vehicle may move
      *
@@ -153,6 +157,12 @@ private:
 
     /// @brief the interval at which to recheck at blocked junctions (<=0 means asap)
     const SUMOTime myLinkRecheckInterval;
+
+    /// @brief calculate x,y,z positions with interpolation
+    const bool myInterpolatePosition;
+
+    /// @brief the last time we recalculated cached positions
+    SUMOTime myLastPositionUpdate;
 
 private:
     /// @brief Invalidated copy constructor.

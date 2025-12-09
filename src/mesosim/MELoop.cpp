@@ -28,7 +28,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
+#include <microsim/MSBaseVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
@@ -43,8 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)) {
+MELoop::MELoop(const SUMOTime recheckInterval, const bool interpolate) : myFullRecheckInterval(recheckInterval), myLinkRecheckInterval(TIME2STEPS(1)),
+    myInterpolatePosition(interpolate), myLastPositionUpdate(-10000) {
 }
+
 
 MELoop::~MELoop() {
     for (std::vector<MESegment*>::const_iterator j = myEdges2FirstSegments.begin(); j != myEdges2FirstSegments.end(); ++j) {
@@ -64,6 +66,9 @@ MELoop::simulate(SUMOTime tMax) {
         std::vector<MEVehicle*> vehs = myLeaderCars[time];
         assert(time > tMax - DELTA_T || vehs.size() == 0);
         if (time > tMax) {
+            if (myInterpolatePosition) {
+                clearPositionCache(tMax);
+            }
             return;
         }
         myLeaderCars.erase(time);
@@ -244,6 +249,58 @@ MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
 void
 MELoop::clearState() {
     myLeaderCars.clear();
+}
+
+
+void
+MELoop::clearPositionCache(const SUMOTime time) {
+    if (time - myLastPositionUpdate >= DELTA_T) {
+        for (MSVehicleControl::constVehIt it = MSNet::getInstance()->getVehicleControl().loadedVehBegin(); it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); ++it) {
+            MSBaseVehicle* const veh = static_cast<MSBaseVehicle*>(it->second);
+            veh->invalidateCachedPosition();
+        }
+        myLastPositionUpdate = time;
+    }
+}
+
+
+void
+MELoop::interpolatePositions(const MSEdge& e, const SUMOTime now) {
+    for (const MSLane* const l : e.getLanes()) {
+        // go through the vehicles
+        double segmentOffset = 0; // offset at start of current segment
+        for (MESegment* segment = getSegmentForEdge(e); segment != nullptr; segment = segment->getNextSegment()) {
+            const double length = segment->getLength();
+            if (l->getIndex() < segment->numQueues()) {
+                // no copy, the caller needs to worry about synchronization
+                const std::vector<MEVehicle*>& queue = segment->getQueue(l->getIndex());
+                const int queueSize = (int)queue.size();
+                double vehiclePosition = segmentOffset + length;
+                // draw vehicles beginning with the leader at the end of the segment
+                double latOff = 0.;
+                for (int i = 0; i < queueSize; ++i) {
+                    MEVehicle* const veh = queue[queueSize - i - 1];
+                    const double intendedLeave = MIN2(veh->getEventTimeSeconds(), veh->getBlockTimeSeconds());
+                    const double entry = veh->getLastEntryTimeSeconds();
+                    const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                    if (relPos < vehiclePosition) {
+                        vehiclePosition = relPos;
+                    }
+                    while (vehiclePosition < segmentOffset) {
+                        // if there is only a single queue for a
+                        // multi-lane edge shift vehicles and start
+                        // drawing again from the end of the segment
+                        vehiclePosition += length;
+                        latOff += 0.2;
+                    }
+                    /// @fixme use correct shape for geometryPositionAtOffset
+                    veh->setCachedPosition(l->geometryPositionAtOffset(vehiclePosition, latOff));
+                    vehiclePosition -= veh->getVehicleType().getLengthWithGap();
+                }
+            }
+            segmentOffset += length;
+        }
+    }
 }
 
 

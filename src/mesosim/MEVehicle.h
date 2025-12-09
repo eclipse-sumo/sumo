@@ -353,6 +353,10 @@ public:
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset);
     //@}
 
+    void setCachedPosition(const Position& pos) {
+        myCachedPosition = pos;
+    }
+
 
 protected:
     /// @brief The segment the vehicle is at

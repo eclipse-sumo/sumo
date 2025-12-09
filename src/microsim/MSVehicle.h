@@ -418,10 +418,6 @@ public:
         myState.myPosLat = posLat;
     }
 
-    void invalidateCachedPosition() {
-        myCachedPosition = Position::INVALID;
-    }
-
     /** @brief Get the lateral position of the vehicles right side on the lane:
      * @return The lateral position of the vehicle (in m distance between right
      * side of vehicle and right side of the lane it is on
@@ -1939,8 +1935,6 @@ protected:
 
     /// @brief amount of time for which the vehicle is immune from collisions
     SUMOTime myCollisionImmunity;
-
-    mutable Position myCachedPosition;
 
     /// @brief time at which the current junction was entered
     SUMOTime myJunctionEntryTime;

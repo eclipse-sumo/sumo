@@ -248,7 +248,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myLanesRTree.first = false;
 
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")));
+        MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")), true);
     }
     myInstance = this;
     initStatic();
@@ -674,7 +674,7 @@ MSNet::writeSummaryOutput(bool finalStep) {
     if (hasOutput || hasPersonOutput) {
         const SUMOTime period = string2time(oc.getString("summary-output.period"));
         const SUMOTime begin = string2time(oc.getString("begin"));
-        if ((period > 0 && (myStep - begin) % period != 0 && !finalStep) 
+        if ((period > 0 && (myStep - begin) % period != 0 && !finalStep)
                 // it's the final step but we already wrote output
                 || (finalStep && (period <= 0 || (myStep - begin) % period == 0))) {
             return;

@@ -28,6 +28,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/emissions/EnergyParams.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/geom/Position.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
@@ -1082,6 +1083,10 @@ public:
         }
     };
 
+    void invalidateCachedPosition() {
+        myCachedPosition = Position::INVALID;
+    }
+
 protected:
     /// @brief reset rail signal approach information
     virtual void resetApproachOnReroute() {};
@@ -1094,7 +1099,7 @@ protected:
     static double addStopPriority(double p1, double p2);
 
     /// @brief replace stop with a same-name alternative that is on the route and return success
-    bool replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end); 
+    bool replaceWithAlternative(std::list<MSStop>::iterator iter, const MSRouteIterator searchStart, const MSRouteIterator end);
 
 protected:
     /// @brief This vehicle's parameter.
@@ -1190,6 +1195,9 @@ protected:
 
     ///@brief routing mode (see TraCIConstants.h)
     int myRoutingMode;
+
+    /// @brief cached x,y,z coordinates to avoid frequent recomputation
+    mutable Position myCachedPosition;
 
 private:
     const NumericalID myNumericalID;
