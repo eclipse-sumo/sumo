@@ -3577,6 +3577,11 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
                 const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
                 std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
                 if (out.good()) {
+                    // before saving sumo config, check if force enable option junction-taz
+                    if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
+                            (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+                        mySumoOptions.set("junction-taz", "true");
+                    }
                     // write SUMO config
                     mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
                     // write info
@@ -3679,16 +3684,16 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
             WRITE_MESSAGE(TL("Saving of SUMO configuration aborted"));
             return 0;
         }
-        // if we have trips or flow over junctions, add option junction-taz
-        if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
-                (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
-            mySumoOptions.set("junction-taz", "true");
-        }
         // get SumoConfig file
         const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
         // confinguration
         std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
+            // before saving sumo config, check if force enable option junction-taz
+            if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
+                    (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+                mySumoOptions.set("junction-taz", "true");
+            }
             // write SUMO config
             mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
             // write info
