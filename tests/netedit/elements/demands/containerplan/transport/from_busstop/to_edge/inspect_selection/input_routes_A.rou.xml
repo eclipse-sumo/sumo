@@ -13,10 +13,4 @@
         <tranship from="Edge0" busStop="busStopA"/>
         <transport to="EdgeCenter0" lines="Line1"/>
     </container>
-
-    <!-- Vehicles, persons and containers (sorted by depart) -->
-    <container id="c_1" depart="0.00">
-        <tranship from="EdgeCenter0" busStop="busStopB"/>
-        <transport to="Edge5" lines="Line2"/>
-    </container>
 </routes>

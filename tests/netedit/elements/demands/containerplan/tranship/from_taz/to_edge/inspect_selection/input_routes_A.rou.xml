@@ -13,9 +13,4 @@
         <transport from="Edge0" toTaz="taz_red"/>
         <tranship to="Edge2" arrivalPos="25.00" lines="Line1"/>
     </container>
-
-    <container id="c_1" depart="0.00">
-        <transport from="EdgeBike0" toTaz="taz_green"/>
-        <tranship to="Edge5" arrivalPos="11.00" lines="Line2"/>
-    </container>
 </routes>

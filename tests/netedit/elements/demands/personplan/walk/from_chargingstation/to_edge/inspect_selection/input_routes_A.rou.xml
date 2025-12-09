@@ -11,10 +11,4 @@
         <walk to="EdgeCenter0"/>
     </person>
 
-    <!-- Vehicles, persons and containers (sorted by depart) -->
-    <person id="p_1" depart="0.00">
-        <walk from="EdgeCenter0" chargingStation="chargingStationB"/>
-        <walk to="Edge5"/>
-    </person>
-
 </routes>

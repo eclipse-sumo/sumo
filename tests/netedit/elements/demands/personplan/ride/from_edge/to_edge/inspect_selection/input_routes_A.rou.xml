@@ -13,9 +13,4 @@
         <walk from="Edge0" to="Edge1"/>
         <ride to="Edge2" arrivalPos="37.00" modes="public" lines="Line1" vTypes="type1"/>
     </person>
-
-    <person id="p_1" depart="0.00">
-        <walk from="EdgeBike0" to="EdgeCenter0"/>
-        <ride to="Edge5" arrivalPos="11.00" modes="car" lines="Line2" vTypes="type2"/>
-    </person>
 </routes>

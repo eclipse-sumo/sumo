@@ -80,3 +80,33 @@ Warning: Teleporting vehicle 'flow_0.10'; waited too long (wrong lane), lane='Ed
 Warning: Vehicle 'flow_0.10' ends teleporting on edge 'Edge2', time=3362.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=3367.00.
 Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=3382.00.
+Warning: Teleporting vehicle 'flow_0.11'; waited too long (wrong lane), lane='Edge0_1', time=3667.00.
+Warning: Vehicle 'flow_0.11' ends teleporting on edge 'Edge2', time=3667.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.11' is not known. time=3671.00.
+Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=3686.00.
+Warning: Teleporting vehicle 'flow_0.12'; waited too long (wrong lane), lane='Edge0_1', time=3973.00.
+Warning: Vehicle 'flow_0.12' ends teleporting on edge 'Edge2', time=3973.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.12' is not known. time=3978.00.
+Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=3993.00.
+Warning: Teleporting vehicle 'flow_0.13'; waited too long (wrong lane), lane='Edge0_1', time=4277.00.
+Warning: Vehicle 'flow_0.13' ends teleporting on edge 'Edge2', time=4277.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.13' is not known. time=4281.00.
+Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=4296.00.
+Warning: Teleporting vehicle 'flow_0.14'; waited too long (wrong lane), lane='Edge0_1', time=4581.00.
+Warning: Vehicle 'flow_0.14' ends teleporting on edge 'Edge2', time=4581.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.14' is not known. time=4585.00.
+Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=4600.00.
+Warning: Teleporting vehicle 'flow_0.15'; waited too long (wrong lane), lane='Edge0_1', time=4885.00.
+Warning: Vehicle 'flow_0.15' ends teleporting on edge 'Edge2', time=4885.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.15' is not known. time=4889.00.
+Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=4904.00.
+Warning: Teleporting vehicle 'flow_0.16'; waited too long (wrong lane), lane='Edge0_1', time=5190.00.
+Warning: Vehicle 'flow_0.16' ends teleporting on edge 'Edge2', time=5190.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.16' is not known. time=5195.00.
+Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=5210.00.
+Warning: Teleporting vehicle 'flow_0.17'; waited too long (wrong lane), lane='Edge0_1', time=5495.00.
+Warning: Vehicle 'flow_0.17' ends teleporting on edge 'Edge2', time=5495.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=5501.00.
+Warning: Vehicle 'flow_0.17' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.1' aborted waiting for a person that will never come.

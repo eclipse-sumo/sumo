@@ -1,1 +1,2 @@
+Warning: Missing argument 'pos' for E2Detector 'multiLaneAreaDetector_0'. Assuming detector start == lane start of lane 'Edge0_1'.
 Warning: The given position (=600) for detector 'multiLaneAreaDetector_5' does not lie on the given lane 'Edge0_1' with length 65 (adjusting to new position 64.9

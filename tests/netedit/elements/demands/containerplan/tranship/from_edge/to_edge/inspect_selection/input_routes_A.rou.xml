@@ -13,9 +13,4 @@
         <transport from="Edge0" to="Edge1"/>
         <tranship to="Edge2" arrivalPos="37.00" lines="Line1"/>
     </container>
-
-    <container id="c_1" depart="0.00">
-        <transport from="EdgeBike0" to="EdgeCenter0"/>
-        <tranship to="Edge5" arrivalPos="11.00" lines="Line2"/>
-    </container>
 </routes>

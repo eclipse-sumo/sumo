@@ -489,6 +489,10 @@ Warning: Vehicle 'flowB.91' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.94' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowB.92' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowB.93' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.85' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.86' found.
 Warning: Vehicle 'flowA.95' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowB.94' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge2_0'!
@@ -500,3 +504,15 @@ Warning: Vehicle 'flowA.98' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowB.98' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowB.99' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.89' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.90' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.92' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.93' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.95' found.
+Warning: No connection between edge 'Edge2' and edge 'Edge2' found.
+Warning: No route for vehicle 'flowB.99' found.

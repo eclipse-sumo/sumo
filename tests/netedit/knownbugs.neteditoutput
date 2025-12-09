@@ -1,0 +1,8 @@
+
+[Reported by Windows at 09Dec14:20:57]
+search_string:Error: Could not access configuration 'sumo.sumocfg'
+search_file:errors
+ignore_other_errors:1
+bug_id:#3045
+full_description:Test needed #3045
+brief_description:Test needed #3045

@@ -1358,17 +1358,17 @@ class attrs:
             vTypes = 6
             nextEdges = 7
             detectPersons = 8
-            openEntry = 10
-            timeThreshold = 11
-            speedThreshold = 12
-            expectArrival = 13
-            parameters = 15
-            parametersButton = 16
-            frontButton = 18
-            additionalFileButton = 19
-            additionalFile = 20
-            helpDialog = 21
-            reset = 22
+            openEntry = 9
+            timeThreshold = 10
+            speedThreshold = 11
+            expectArrival = 12
+            parameters = 14
+            parametersButton = 15
+            frontButton = 17
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
     # entryExit
 
