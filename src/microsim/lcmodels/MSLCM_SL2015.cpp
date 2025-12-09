@@ -1029,6 +1029,7 @@ MSLCM_SL2015::changed() {
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myLCAccelerationAdvices.clear();
     myDontBrake = false;
+    myLeadingBlockerLength = 0;
 #if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " changed()\n";
