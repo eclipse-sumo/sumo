@@ -420,7 +420,7 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None)
                           ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
     else:
         pattern = '(|\\s+.*)'.join(['<%s' % element_name] +
-                            ['\\s+%s="(?P<%s>[^"]*?)"' % a for a in zip(attrnames, prefixedAttrnames)])
+                                   ['\\s+%s="(?P<%s>[^"]*?)"' % a for a in zip(attrnames, prefixedAttrnames)])
     if extra is not None:
         prefixedAttrnames += [_prefix_keyword(a, warn) for a in extra]
     Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
