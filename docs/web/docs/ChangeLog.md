@@ -29,7 +29,7 @@ title: ChangeLog
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
-  - Option **--gnore-errors** now works when origin or destination are prohibited by option **--restriction-params** #17387
+  - Option **--ignore-errors** now works when origin or destination are prohibited by option **--restriction-params** #17387
 
 
 - TraCI
@@ -55,7 +55,7 @@ title: ChangeLog
 - tools
   - attributeCompare.py: Now supports special id-attribute @FILE #17334
   - [visum_convertXMLRoutes.py](Tools/Import/VISUM.md#visum_convertxmlroutespy): new tool for importing VISUM routes file #17347
-  - generateRerouters.py: Added option **--closed-edges.inpu-file** for loading edges to close from a selection file #17359
+  - generateRerouters.py: Added option **--closed-edges.input-file** for loading edges to close from a selection file #17359
   - generateRerouters.py: major speed-up #17362
   - tazRel2POI.py: Added option **--reference-taz** to allow filtering relations to those that interact with a specific taz #17375
   - tazRel2POI.py: supports multiple taz input files #17378
@@ -361,7 +361,7 @@ title: ChangeLog
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
   - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
   - OSM import: fixed low default speed for edge type *highway.service* when used by public transport #16763
-  - Fixed bug where small roundabouts where sometimes not detected #16787
+  - Fixed bug where small roundabouts were sometimes not detected #16787
   - Fixed inconsistent opposite-driving information in network #16905
   - Fixed invalid connection when defining split with `type="zipper"` #16923
 
