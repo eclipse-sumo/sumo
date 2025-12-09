@@ -20,7 +20,7 @@ title: ChangeLog
   - Fixed failure to return from outside lane bounds after lane width change in the sublane model #17383
 
 - netedit
-  - ;ane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
+  - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
   - No longer saving an invalid network when edges from prohibition elements are deleted #17331
   - selection scaling now work for tazRelations #17382
 
