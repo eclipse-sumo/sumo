@@ -2,6 +2,9 @@ period
 
 # test combining 'period' and 'end'
 period_end
+
+# test combining 'period' and 'end'
+period_end_high
 vehs_per_hour
 vehs_per_hour_none
 no
