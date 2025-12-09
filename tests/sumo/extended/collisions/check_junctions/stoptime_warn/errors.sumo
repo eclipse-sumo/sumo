@@ -6,51 +6,45 @@ Warning: Vehicle 'flow_0.9' performs emergency stop at the end of lane 'EC_0' be
 Warning: Vehicle 'flow_1.10'; collision with vehicle 'flow_1.9', lane='WC_1', gap=-0.14, time=35.00, stage=move.
 Warning: Vehicle 'flow_1.10'; collision with vehicle 'flow_1.9', lane='WC_1', gap=-0.14, time=51.00, stage=move.
 Warning: Vehicle 'flow_1.12'; junction collision with vehicle 'flow_0.34', lane=':C_18_0', gap=-1.00, time=103.00, stage=move.
-Warning: Vehicle 'flow_1.14'; junction collision with vehicle 'flow_0.35', lane=':C_15_0', gap=-1.00, time=106.00, stage=move.
+Warning: Vehicle 'flow_1.13'; junction collision with vehicle 'flow_0.35', lane=':C_18_0', gap=-1.00, time=106.00, stage=move.
 Warning: Vehicle 'flow_0.43' performs emergency stop at the end of lane 'EC_0' because of a red traffic light (decel=-11.51, offset=0.13), time=123.50.
-Warning: Vehicle 'flow_1.16'; junction collision with vehicle 'flow_0.60', lane=':C_18_0', gap=-1.00, time=171.50, stage=move.
-Warning: Vehicle 'flow_1.18'; junction collision with vehicle 'flow_0.70', lane=':C_18_0', gap=-1.00, time=198.00, stage=move.
-Warning: Vehicle 'flow_0.70' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-15.54, offset=4.65), time=198.50.
-Warning: Vehicle 'flow_1.19'; junction collision with vehicle 'flow_0.70', lane=':C_18_0', gap=-1.00, time=200.50, stage=move.
-Warning: Vehicle 'flow_1.19'; junction collision with vehicle 'flow_0.71', lane=':C_18_0', gap=-1.00, time=201.00, stage=move.
-Warning: Vehicle 'flow_0.72'; junction collision with vehicle 'flow_1.19', lane=':C_5_1', gap=-1.00, time=206.00, stage=move.
-Warning: Vehicle 'flow_1.20'; junction collision with vehicle 'flow_0.93', lane=':C_18_0', gap=-1.00, time=260.00, stage=move.
-Warning: Vehicle 'flow_1.22'; junction collision with vehicle 'flow_0.103', lane=':C_18_0', gap=-1.00, time=287.00, stage=move.
-Warning: Vehicle 'flow_1.23'; junction collision with vehicle 'flow_0.104', lane=':C_18_0', gap=-1.00, time=290.00, stage=move.
-Warning: Vehicle 'flow_1.24'; junction collision with vehicle 'flow_0.107', lane=':C_15_0', gap=-1.00, time=321.50, stage=move.
-Warning: Vehicle 'flow_0.110'; junction collision with vehicle 'flow_1.24', lane=':C_5_1', gap=-1.00, time=326.50, stage=move.
-Warning: Vehicle 'flow_0.117'; junction collision with vehicle 'flow_1.24', lane=':C_5_1', gap=-1.00, time=340.50, stage=move.
-Warning: Vehicle 'flow_0.117' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-7.52, offset=0.77), time=341.00.
-Warning: Vehicle 'flow_1.27'; junction collision with vehicle 'flow_0.135', lane=':C_18_0', gap=-1.00, time=373.00, stage=move.
-Warning: Vehicle 'flow_1.28'; junction collision with vehicle 'flow_0.136', lane=':C_18_0', gap=-1.00, time=376.00, stage=move.
-Warning: Vehicle 'flow_0.144' performs emergency stop at the end of lane 'EC_0' because of a red traffic light (decel=-14.26, offset=3.14), time=393.00.
-Warning: Vehicle 'flow_1.36'; junction collision with vehicle 'flow_0.169', lane=':C_18_0', gap=-1.00, time=465.50, stage=move.
-Warning: Vehicle 'flow_1.37'; junction collision with vehicle 'flow_0.170', lane=':C_18_0', gap=-1.00, time=468.50, stage=move.
-Warning: Vehicle 'flow_0.170' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-12.31, offset=3.60), time=469.00.
-Warning: Vehicle 'flow_0.171'; junction collision with vehicle 'flow_0.170', lane=':C_5_1', gap=-1.21, time=471.50, stage=move.
-Warning: Vehicle 'flow_0.172'; junction collision with vehicle 'flow_1.37', lane=':C_5_0', gap=-1.00, time=476.50, stage=move.
-Warning: Vehicle 'flow_1.42'; junction collision with vehicle 'flow_0.202', lane=':C_18_0', gap=-1.00, time=553.50, stage=move.
-Warning: Vehicle 'flow_1.43'; junction collision with vehicle 'flow_0.203', lane=':C_18_0', gap=-1.00, time=557.00, stage=move.
-Warning: Vehicle 'flow_0.204'; junction collision with vehicle 'flow_1.43', lane=':C_5_1', gap=-1.00, time=562.00, stage=move.
-Warning: Vehicle 'flow_0.210' performs emergency stop at the end of lane 'EC_1' because of a red traffic light (decel=-11.06, offset=2.36), time=573.50.
-Warning: Vehicle 'flow_1.44'; junction collision with vehicle 'flow_0.226', lane=':C_18_0', gap=-1.00, time=618.50, stage=move.
-Warning: Vehicle 'flow_0.227'; junction collision with vehicle 'flow_1.44', lane=':C_5_1', gap=-1.00, time=621.50, stage=move.
-Warning: Vehicle 'flow_0.227' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-12.08, offset=3.24), time=622.00.
-Warning: Vehicle 'flow_1.45'; junction collision with vehicle 'flow_0.236', lane=':C_18_0', gap=-1.00, time=645.00, stage=move.
-Warning: Vehicle 'flow_1.46'; junction collision with vehicle 'flow_0.243', lane=':C_18_0', gap=-1.00, time=663.50, stage=move.
-Warning: Vehicle 'flow_0.244'; junction collision with vehicle 'flow_1.46', lane=':C_5_1', gap=-1.00, time=667.00, stage=move.
-Warning: Vehicle 'flow_0.244' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-11.22, offset=3.04), time=667.50.
-Warning: Vehicle 'flow_0.260'; junction collision with vehicle 'flow_1.47', lane=':C_5_0', gap=-1.00, time=708.50, stage=move.
-Warning: Vehicle 'flow_0.260' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-16.09, offset=5.29), time=709.00.
-Warning: Vehicle 'flow_1.47'; junction collision with vehicle 'flow_0.261', lane=':C_18_0', gap=-1.00, time=711.50, stage=move.
-Warning: Vehicle 'flow_1.53'; junction collision with vehicle 'flow_0.273', lane=':C_18_0', gap=-1.00, time=742.00, stage=move.
-Warning: Vehicle 'flow_0.279' performs emergency stop at the end of lane 'EC_1' because of a red traffic light (decel=-11.38, offset=3.13), time=754.00.
-Warning: Vehicle 'flow_1.55'; junction collision with vehicle 'flow_0.295', lane=':C_18_0', gap=-1.00, time=798.50, stage=move.
-Warning: Vehicle 'flow_0.296'; junction collision with vehicle 'flow_1.55', lane=':C_5_1', gap=-1.00, time=801.50, stage=move.
-Warning: Vehicle 'flow_0.296' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-12.87, offset=3.82), time=802.00.
-Warning: Vehicle 'flow_1.56'; junction collision with vehicle 'flow_0.305', lane=':C_18_0', gap=-1.00, time=825.50, stage=move.
-Warning: Vehicle 'flow_1.57'; junction collision with vehicle 'flow_0.306', lane=':C_18_0', gap=-1.00, time=829.00, stage=move.
-Warning: Vehicle 'flow_1.57'; junction collision with vehicle 'flow_0.307', lane=':C_18_0', gap=-1.00, time=832.50, stage=move.
-Warning: Vehicle 'flow_1.58'; junction collision with vehicle 'flow_0.329', lane=':C_18_0', gap=-1.00, time=889.00, stage=move.
-Warning: Vehicle 'flow_1.58'; junction collision with vehicle 'flow_0.330', lane=':C_18_0', gap=-1.00, time=892.00, stage=move.
-Warning: Vehicle 'flow_1.64'; junction collision with vehicle 'flow_0.344', lane=':C_18_0', gap=-1.00, time=927.00, stage=move.
+Warning: Vehicle 'flow_1.24'; junction collision with vehicle 'flow_0.70', lane=':C_18_0', gap=-1.00, time=198.50, stage=move.
+Warning: Vehicle 'flow_0.70' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-16.13, offset=5.57), time=199.00.
+Warning: Vehicle 'flow_1.25'; junction collision with vehicle 'flow_0.70', lane=':C_18_0', gap=-1.00, time=200.00, stage=move.
+Warning: Vehicle 'flow_1.26'; junction collision with vehicle 'flow_0.78', lane=':C_15_0', gap=-1.00, time=231.50, stage=move.
+Warning: Vehicle 'flow_0.80'; junction collision with vehicle 'flow_1.26', lane=':C_5_1', gap=-1.00, time=235.50, stage=move.
+Warning: Vehicle 'flow_1.26'; junction collision with vehicle 'flow_0.92', lane=':C_18_0', gap=-1.00, time=259.50, stage=move.
+Warning: Vehicle 'flow_1.28'; junction collision with vehicle 'flow_0.101', lane=':C_18_0', gap=-1.00, time=285.50, stage=move.
+Warning: Vehicle 'flow_1.29'; junction collision with vehicle 'flow_0.102', lane=':C_18_0', gap=-1.00, time=288.00, stage=move.
+Warning: Vehicle 'flow_1.30'; junction collision with vehicle 'flow_0.125', lane=':C_18_0', gap=-1.00, time=348.50, stage=move.
+Warning: Vehicle 'flow_1.30'; junction collision with vehicle 'flow_0.126', lane=':C_18_0', gap=-1.00, time=352.00, stage=move.
+Warning: Vehicle 'flow_1.36'; junction collision with vehicle 'flow_0.137', lane=':C_18_0', gap=-1.00, time=381.50, stage=move.
+Warning: Vehicle 'flow_1.37'; junction collision with vehicle 'flow_0.138', lane=':C_15_0', gap=-1.00, time=384.50, stage=move.
+Warning: Vehicle 'flow_1.43'; junction collision with vehicle 'flow_0.167', lane=':C_18_0', gap=-1.00, time=463.50, stage=move.
+Warning: Vehicle 'flow_1.44'; junction collision with vehicle 'flow_0.168', lane=':C_18_0', gap=-1.00, time=466.50, stage=move.
+Warning: Vehicle 'flow_0.169'; junction collision with vehicle 'flow_1.44', lane=':C_5_1', gap=-1.00, time=471.50, stage=move.
+Warning: Vehicle 'flow_0.175' performs emergency stop at the end of lane 'EC_1' because of a red traffic light (decel=-11.80, offset=3.22), time=483.00.
+Warning: Vehicle 'flow_0.210' performs emergency stop at the end of lane 'EC_0' because of a red traffic light (decel=-15.89, offset=0.64), time=573.00.
+Warning: Vehicle 'flow_1.68'; junction collision with vehicle 'flow_0.237', lane=':C_18_0', gap=-1.00, time=648.00, stage=move.
+Warning: Vehicle 'flow_1.69'; junction collision with vehicle 'flow_0.238', lane=':C_18_0', gap=-1.00, time=651.00, stage=move.
+Warning: Vehicle 'flow_0.238' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-14.07, offset=4.22), time=651.50.
+Warning: Vehicle 'flow_0.239'; junction collision with vehicle 'flow_0.238', lane=':C_5_1', gap=-0.50, time=653.50, stage=move.
+Warning: Vehicle 'flow_0.240'; junction collision with vehicle 'flow_1.69', lane=':C_5_0', gap=-1.00, time=657.50, stage=move.
+Warning: Vehicle 'flow_0.240' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-6.39, offset=0.38), time=658.00.
+Warning: Vehicle 'flow_1.70'; junction collision with vehicle 'flow_0.260', lane=':C_18_0', gap=-1.00, time=709.00, stage=move.
+Warning: Vehicle 'flow_1.70'; junction collision with vehicle 'flow_0.261', lane=':C_18_0', gap=-1.00, time=712.00, stage=move.
+Warning: Vehicle 'flow_1.75'; junction collision with vehicle 'flow_0.273', lane=':C_18_0', gap=-1.00, time=743.50, stage=move.
+Warning: Vehicle 'flow_1.76'; junction collision with vehicle 'flow_0.274', lane=':C_15_0', gap=-1.00, time=747.00, stage=move.
+Warning: Vehicle 'flow_0.275'; junction collision with vehicle 'flow_1.76', lane=':C_5_1', gap=-1.00, time=750.00, stage=move.
+Warning: Vehicle 'flow_0.275' performs emergency stop at the end of lane ':C_5_1' because there is no connection to the next edge (decel=-6.83, offset=0.79), time=750.50.
+Warning: Vehicle 'flow_1.77'; junction collision with vehicle 'flow_0.294', lane=':C_18_0', gap=-1.00, time=800.00, stage=move.
+Warning: Vehicle 'flow_1.80'; junction collision with vehicle 'flow_0.305', lane=':C_18_0', gap=-1.00, time=829.50, stage=move.
+Warning: Vehicle 'flow_1.81'; junction collision with vehicle 'flow_0.306', lane=':C_15_0', gap=-1.00, time=832.50, stage=move.
+Warning: Vehicle 'flow_1.81'; junction collision with vehicle 'flow_0.307', lane=':C_15_0', gap=-1.00, time=837.00, stage=move.
+Warning: Vehicle 'flow_1.80'; junction collision with vehicle 'flow_0.308', lane=':C_18_0', gap=-1.00, time=840.00, stage=move.
+Warning: Vehicle 'flow_0.328'; junction collision with vehicle 'flow_1.82', lane=':C_5_0', gap=-1.00, time=889.50, stage=move.
+Warning: Vehicle 'flow_0.328' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-15.71, offset=5.35), time=890.00.
+Warning: Vehicle 'flow_1.84'; junction collision with vehicle 'flow_0.336', lane=':C_18_0', gap=-1.00, time=912.50, stage=move.
+Warning: Vehicle 'flow_0.336' performs emergency stop at the end of lane ':C_5_0' because there is no connection to the next edge (decel=-14.92, offset=5.11), time=913.00.
+Warning: Vehicle 'flow_1.84'; junction collision with vehicle 'flow_0.337', lane=':C_18_0', gap=-1.00, time=914.50, stage=move.
+Warning: Vehicle 'flow_0.338'; junction collision with vehicle 'flow_1.84', lane=':C_5_1', gap=-1.00, time=918.00, stage=move.

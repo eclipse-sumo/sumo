@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-09T10:39:50.641423+01:00 by Eclipse SUMO sumo v1_25_0+0274-0826fbe6a65
+<!-- generated on 2025-12-09T10:47:56.160261+01:00 by Eclipse SUMO sumo v1_25_0+0281-f03d6951573
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,13 +53,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="0.00"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="ego" acceleration="-2.63"/>
+        <vehicle id="ego" acceleration="-2.00"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="ego" acceleration="-2.62"/>
+        <vehicle id="ego" acceleration="-2.00"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="ego" acceleration="-0.74"/>
+        <vehicle id="ego" acceleration="-2.00"/>
     </timestep>
     <timestep time="0.50">
         <vehicle id="ego" acceleration="-2.00"/>
@@ -71,28 +71,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="-2.00"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="ego" acceleration="-2.73"/>
-    </timestep>
-    <timestep time="0.90">
-        <vehicle id="ego" acceleration="-2.72"/>
-    </timestep>
-    <timestep time="1.00">
-        <vehicle id="ego" acceleration="-2.71"/>
-    </timestep>
-    <timestep time="1.10">
-        <vehicle id="ego" acceleration="-2.70"/>
-    </timestep>
-    <timestep time="1.20">
         <vehicle id="ego" acceleration="-2.69"/>
     </timestep>
-    <timestep time="1.30">
+    <timestep time="0.90">
         <vehicle id="ego" acceleration="-2.68"/>
     </timestep>
-    <timestep time="1.40">
+    <timestep time="1.00">
         <vehicle id="ego" acceleration="-2.67"/>
     </timestep>
-    <timestep time="1.50">
+    <timestep time="1.10">
         <vehicle id="ego" acceleration="-2.66"/>
+    </timestep>
+    <timestep time="1.20">
+        <vehicle id="ego" acceleration="-2.65"/>
+    </timestep>
+    <timestep time="1.30">
+        <vehicle id="ego" acceleration="-2.65"/>
+    </timestep>
+    <timestep time="1.40">
+        <vehicle id="ego" acceleration="-2.64"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="ego" acceleration="-2.63"/>
     </timestep>
     <timestep time="1.60">
         <vehicle id="ego" acceleration="2.00"/>
@@ -104,6 +104,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" acceleration="2.00"/>
     </timestep>
     <timestep time="1.90">
-        <vehicle id="ego" acceleration="1.28"/>
+        <vehicle id="ego" acceleration="0.96"/>
     </timestep>
 </fcd-export>

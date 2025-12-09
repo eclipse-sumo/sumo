@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 13:44:55 by Eclipse SUMO sumo Version v1_14_1+7768-1e29f036a77
+<!-- generated on 2025-12-09T10:48:01.441289+01:00 by Eclipse SUMO sumo v1_25_0+0281-f03d6951573
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.ssm.file value="ssm.xml"/>
     </ssm_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <SSMLog>
@@ -839,199 +839,255 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <minTTC time="393.00" position="2049.78,15.46" type="3" value="2.39" speed="4.61"/>
         <maxDRAC time="393.00" position="2049.78,15.46" type="3" value="1.38" speed="4.61"/>
     </conflict>
-    <conflict begin="420.00" end="436.00" ego="EW.27" foe="EW.5">
-        <minTTC time="430.00" position="838.53,12.94" type="2" value="2.90" speed="19.27"/>
-        <maxDRAC time="430.00" position="838.53,12.94" type="2" value="2.42" speed="19.27"/>
-    </conflict>
-    <conflict begin="427.00" end="439.00" ego="EW.26" foe="EW.13">
-        <minTTC time="433.00" position="1421.91,15.74" type="2" value="3.25" speed="11.54"/>
-        <maxDRAC time="433.00" position="1421.91,15.74" type="2" value="1.04" speed="11.54"/>
+    <conflict begin="428.00" end="439.00" ego="EW.26" foe="EW.13">
+        <minTTC time="432.00" position="1429.29,15.78" type="2" value="2.92" speed="12.66"/>
+        <maxDRAC time="432.00" position="1429.29,15.78" type="2" value="1.40" speed="12.66"/>
     </conflict>
     <conflict begin="410.00" end="420.00" ego="EW.29" foe="EW.4">
         <minTTC time="413.00" position="2005.22,15.25" type="2" value="2.74" speed="5.28"/>
         <maxDRAC time="413.00" position="2005.22,15.25" type="2" value="0.56" speed="5.28"/>
     </conflict>
-    <conflict begin="402.00" end="440.00" ego="EW.35" foe="EW.33">
-        <minTTC time="425.00" position="1997.48,18.51" type="2" value="0.68" speed="4.92"/>
-        <maxDRAC time="425.00" position="1997.48,18.51" type="2" value="3.62" speed="4.92"/>
+    <conflict begin="416.00" end="431.00" ego="EW.4" foe="EW.35">
+        <minTTC time="418.00" position="2001.83,18.53" type="3" value="2.80" speed="2.59"/>
+        <maxDRAC time="418.00" position="2001.83,18.53" type="3" value="1.98" speed="2.59"/>
     </conflict>
-    <conflict begin="412.00" end="442.00" ego="EW.35" foe="stopping">
-        <minTTC time="437.00" position="1922.89,18.15" type="2" value="1.87" speed="12.51"/>
-        <maxDRAC time="437.00" position="1922.89,18.15" type="2" value="3.35" speed="12.51"/>
-    </conflict>
-    <conflict begin="416.00" end="428.00" ego="EW.35" foe="EW.4">
-        <minTTC time="418.00" position="2001.83,18.53" type="2" value="2.80" speed="13.69"/>
-        <maxDRAC time="418.00" position="2001.83,18.53" type="2" value="1.98" speed="13.69"/>
+    <conflict begin="439.00" end="443.00" ego="WE.3" foe="EW.42">
+        <minTTC time="441.00" position="2582.49,18.02" type="20" value="3.02" speed="8.56"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
     <conflict begin="411.00" end="443.00" ego="EW.5" foe="EW.25">
         <minTTC time="421.00" position="888.20,13.18" type="3" value="3.06" speed="5.79"/>
         <maxDRAC time="421.00" position="888.20,13.18" type="3" value="2.45" speed="5.79"/>
     </conflict>
-    <conflict begin="416.00" end="428.00" ego="EW.4" foe="EW.35">
-        <minTTC time="418.00" position="2001.83,18.53" type="3" value="2.80" speed="2.59"/>
-        <maxDRAC time="418.00" position="2001.83,18.53" type="3" value="1.98" speed="2.59"/>
+    <conflict begin="401.00" end="445.00" ego="EW.21" foe="EW.7">
+        <minTTC time="428.00" position="1524.32,16.24" type="2" value="4.25" speed="6.12"/>
+        <maxDRAC time="425.00" position="1536.34,16.29" type="2" value="0.32" speed="7.32"/>
     </conflict>
-    <conflict begin="401.00" end="444.00" ego="EW.21" foe="EW.7">
-        <minTTC time="427.00" position="1529.40,16.26" type="2" value="3.26" speed="6.82"/>
-        <maxDRAC time="427.00" position="1529.40,16.26" type="2" value="0.52" speed="6.82"/>
+    <conflict begin="430.00" end="445.00" ego="EW.43" foe="EW.40">
+        <minTTC time="440.00" position="2784.21,22.29" type="2" value="4.63" speed="13.43"/>
+        <maxDRAC time="440.00" position="2784.21,22.29" type="2" value="1.09" speed="13.43"/>
     </conflict>
-    <conflict begin="430.00" end="444.00" ego="EW.43" foe="EW.41">
-        <minTTC time="439.00" position="2814.71,22.43" type="2" value="2.88" speed="13.30"/>
-        <maxDRAC time="439.00" position="2814.71,22.43" type="2" value="1.54" speed="13.30"/>
+    <conflict begin="430.00" end="445.00" ego="EW.43" foe="EW.41">
+        <minTTC time="440.00" position="2808.75,22.41" type="2" value="2.46" speed="13.43"/>
+        <maxDRAC time="440.00" position="2808.75,22.41" type="2" value="1.83" speed="13.43"/>
     </conflict>
-    <conflict begin="389.00" end="447.00" ego="EW.24" foe="EW.19">
+    <conflict begin="389.00" end="448.00" ego="EW.24" foe="EW.19">
         <minTTC time="423.00" position="1619.36,16.69" type="2" value="4.99" speed="7.80"/>
         <maxDRAC time="421.00" position="1631.02,16.75" type="2" value="0.31" speed="8.36"/>
     </conflict>
-    <conflict begin="392.00" end="449.00" ego="EW.34" foe="EW.36">
-        <minTTC time="418.00" position="2213.03,19.54" type="3" value="4.72" speed="8.90"/>
-        <maxDRAC time="416.00" position="2231.82,19.63" type="3" value="0.45" speed="9.57"/>
-    </conflict>
     <conflict begin="415.00" end="450.00" ego="EW.5" foe="EW.23">
-        <minTTC time="426.00" position="861.30,13.05" type="3" value="3.27" speed="5.06"/>
-        <maxDRAC time="426.00" position="861.30,13.05" type="3" value="2.10" speed="5.06"/>
+        <minTTC time="427.00" position="856.02,13.03" type="3" value="2.95" speed="5.24"/>
+        <maxDRAC time="426.00" position="861.26,13.05" type="3" value="2.42" speed="5.10"/>
     </conflict>
-    <conflict begin="420.00" end="436.00" ego="EW.5" foe="EW.27">
-        <minTTC time="430.00" position="838.53,12.94" type="3" value="2.90" speed="5.26"/>
-        <maxDRAC time="430.00" position="838.53,12.94" type="3" value="2.42" speed="5.26"/>
+    <conflict begin="420.00" end="455.00" ego="EW.5" foe="EW.27">
+        <minTTC time="430.00" position="839.01,12.94" type="3" value="2.98" speed="5.24"/>
+        <maxDRAC time="430.00" position="839.01,12.94" type="3" value="2.31" speed="5.24"/>
     </conflict>
-    <conflict begin="372.00" end="456.00" ego="EW.23" foe="EW.25">
-        <minTTC time="451.00" position="398.59,10.83" type="2" value="3.62" speed="19.25"/>
-        <maxDRAC time="451.00" position="398.59,10.83" type="2" value="1.49" speed="19.25"/>
+    <conflict begin="427.00" end="456.00" ego="EW.4" foe="EW.29">
+        <minTTC time="431.00" position="1959.38,15.03" type="3" value="1.96" speed="2.04"/>
+        <maxDRAC time="431.00" position="1959.38,15.03" type="3" value="0.68" speed="2.04"/>
     </conflict>
-    <conflict begin="415.00" end="450.00" ego="EW.23" foe="EW.5">
-        <minTTC time="426.00" position="861.30,13.05" type="2" value="3.27" speed="18.76"/>
-        <maxDRAC time="426.00" position="861.30,13.05" type="2" value="2.10" speed="18.76"/>
+    <conflict begin="427.00" end="456.00" ego="EW.29" foe="EW.4">
+        <minTTC time="431.00" position="1959.38,15.03" type="2" value="1.96" speed="4.69"/>
+        <maxDRAC time="431.00" position="1959.38,15.03" type="2" value="0.68" speed="4.69"/>
     </conflict>
-    <conflict begin="372.00" end="456.00" ego="EW.25" foe="EW.23">
-        <minTTC time="451.00" position="398.59,10.83" type="3" value="3.62" speed="8.44"/>
-        <maxDRAC time="451.00" position="398.59,10.83" type="3" value="1.49" speed="8.44"/>
+    <conflict begin="443.00" end="452.00" ego="EW.29" foe="EW.34">
+        <minTTC time="444.00" position="1936.78,14.92" type="3" value="2.04" speed="2.46"/>
+        <maxDRAC time="444.00" position="1936.78,14.92" type="3" value="1.68" speed="2.46"/>
     </conflict>
-    <conflict begin="411.00" end="443.00" ego="EW.25" foe="EW.5">
-        <minTTC time="421.00" position="888.20,13.18" type="2" value="3.06" speed="20.83"/>
-        <maxDRAC time="421.00" position="888.20,13.18" type="2" value="2.45" speed="20.83"/>
-    </conflict>
-    <conflict begin="432.00" end="456.00" ego="EW.25" foe="EW.14">
-        <minTTC time="445.00" position="425.95,10.96" type="2" value="3.36" speed="15.90"/>
-        <maxDRAC time="443.00" position="440.26,11.03" type="2" value="1.76" speed="20.17"/>
-    </conflict>
-    <conflict begin="433.00" end="456.00" ego="EW.25" foe="EW.12">
-        <minTTC time="444.00" position="416.69,10.92" type="2" value="4.99" speed="18.38"/>
-        <maxDRAC time="443.00" position="423.94,10.95" type="2" value="1.19" speed="20.17"/>
-    </conflict>
-    <conflict begin="395.00" end="457.00" ego="stopping" foe="EW.33">
-        <minTTC time="435.00" position="1922.89,18.15" type="3" value="2.31" speed="0.00"/>
-        <maxDRAC time="435.00" position="1922.89,18.15" type="3" value="2.39" speed="0.00"/>
-    </conflict>
-    <conflict begin="412.00" end="442.00" ego="stopping" foe="EW.35">
-        <minTTC time="437.00" position="1922.89,18.15" type="3" value="1.87" speed="0.00"/>
-        <maxDRAC time="437.00" position="1922.89,18.15" type="3" value="3.35" speed="0.00"/>
-    </conflict>
-    <conflict begin="395.00" end="457.00" ego="EW.33" foe="stopping">
-        <minTTC time="435.00" position="1922.89,18.15" type="2" value="2.31" speed="11.06"/>
-        <maxDRAC time="435.00" position="1922.89,18.15" type="2" value="2.39" speed="11.06"/>
-    </conflict>
-    <conflict begin="402.00" end="440.00" ego="EW.33" foe="EW.35">
-        <minTTC time="425.00" position="1997.48,18.51" type="3" value="0.68" speed="0.02"/>
-        <maxDRAC time="425.00" position="1997.48,18.51" type="3" value="3.62" speed="0.02"/>
-    </conflict>
-    <conflict begin="454.00" end="459.00" ego="EW.25" foe="WE.9">
-        <minTTC time="457.00" position="256.88,6.85" type="20" value="3.75" speed="18.27"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
-    </conflict>
-    <conflict begin="372.00" end="459.00" ego="EW.32" foe="EW.36">
+    <conflict begin="372.00" end="457.00" ego="EW.32" foe="EW.36">
         <minTTC time="394.00" position="2457.73,20.72" type="3" value="2.89" speed="6.14"/>
         <maxDRAC time="394.00" position="2457.73,20.72" type="3" value="1.33" speed="6.14"/>
     </conflict>
-    <conflict begin="370.00" end="459.00" ego="EW.36" foe="EW.37">
+    <conflict begin="370.00" end="457.00" ego="EW.36" foe="EW.37">
         <minTTC time="401.00" position="2429.90,20.59" type="3" value="3.07" speed="5.76"/>
         <maxDRAC time="401.00" position="2429.90,20.59" type="3" value="1.72" speed="5.76"/>
     </conflict>
-    <conflict begin="372.00" end="459.00" ego="EW.36" foe="EW.32">
+    <conflict begin="372.00" end="457.00" ego="EW.36" foe="EW.32">
         <minTTC time="394.00" position="2457.73,20.72" type="2" value="2.89" speed="13.84"/>
         <maxDRAC time="394.00" position="2457.73,20.72" type="2" value="1.33" speed="13.84"/>
     </conflict>
-    <conflict begin="392.00" end="449.00" ego="EW.36" foe="EW.34">
-        <minTTC time="418.00" position="2213.03,19.54" type="2" value="4.72" speed="12.95"/>
-        <maxDRAC time="416.00" position="2231.82,19.63" type="2" value="0.45" speed="14.51"/>
+    <conflict begin="370.00" end="457.00" ego="EW.37" foe="EW.36">
+        <minTTC time="401.00" position="2429.90,20.59" type="2" value="3.07" speed="16.32"/>
+        <maxDRAC time="401.00" position="2429.90,20.59" type="2" value="1.72" speed="16.32"/>
+    </conflict>
+    <conflict begin="443.00" end="460.00" ego="EW.4" foe="EW.34">
+        <minTTC time="444.00" position="1925.13,14.86" type="3" value="3.98" speed="2.86"/>
+        <maxDRAC time="444.00" position="1925.13,14.86" type="3" value="0.81" speed="2.86"/>
+    </conflict>
+    <conflict begin="392.00" end="464.00" ego="EW.34" foe="EW.36">
+        <minTTC time="450.00" position="1931.47,18.19" type="2" value="1.68" speed="1.79"/>
+        <maxDRAC time="450.00" position="1931.47,18.19" type="2" value="0.53" speed="1.79"/>
+    </conflict>
+    <conflict begin="427.00" end="460.00" ego="EW.34" foe="stopping">
+        <minTTC time="455.00" position="1922.89,18.15" type="2" value="1.16" speed="4.01"/>
+        <maxDRAC time="455.00" position="1922.89,18.15" type="2" value="1.72" speed="4.01"/>
+    </conflict>
+    <conflict begin="443.00" end="452.00" ego="EW.34" foe="EW.29">
+        <minTTC time="444.00" position="1936.78,14.92" type="2" value="2.04" speed="9.29"/>
+        <maxDRAC time="444.00" position="1936.78,14.92" type="2" value="1.68" speed="9.29"/>
+    </conflict>
+    <conflict begin="443.00" end="460.00" ego="EW.34" foe="EW.4">
+        <minTTC time="444.00" position="1925.13,14.86" type="2" value="3.98" speed="9.29"/>
+        <maxDRAC time="444.00" position="1925.13,14.86" type="2" value="0.81" speed="9.29"/>
+    </conflict>
+    <conflict begin="392.00" end="464.00" ego="EW.36" foe="EW.34">
+        <minTTC time="450.00" position="1931.47,18.19" type="3" value="1.68" speed="0.00"/>
+        <maxDRAC time="450.00" position="1931.47,18.19" type="3" value="0.53" speed="0.00"/>
     </conflict>
     <conflict begin="405.00" end="411.00" ego="EW.36" foe="WE.3">
         <minTTC time="409.00" position="2322.15,16.77" type="20" value="3.36" speed="12.59"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="430.00" end="459.00" ego="EW.36" foe="stopping">
-        <minTTC time="450.00" position="1922.89,18.15" type="2" value="0.90" speed="5.60"/>
-        <maxDRAC time="449.00" position="1922.89,18.15" type="2" value="4.79" speed="10.10"/>
+    <conflict begin="430.00" end="457.00" ego="EW.36" foe="stopping">
+        <minTTC time="448.00" position="1922.89,18.15" type="2" value="0.89" speed="8.42"/>
+        <maxDRAC time="447.00" position="1922.89,18.15" type="2" value="5.24" speed="12.92"/>
     </conflict>
-    <conflict begin="370.00" end="459.00" ego="EW.37" foe="EW.36">
-        <minTTC time="401.00" position="2429.90,20.59" type="2" value="3.07" speed="16.32"/>
-        <maxDRAC time="401.00" position="2429.90,20.59" type="2" value="1.72" speed="16.32"/>
+    <conflict begin="402.00" end="466.00" ego="EW.35" foe="EW.33">
+        <minTTC time="418.00" position="2013.23,18.58" type="2" value="1.67" speed="13.69"/>
+        <maxDRAC time="418.00" position="2013.23,18.58" type="2" value="3.54" speed="13.69"/>
     </conflict>
-    <conflict begin="454.00" end="466.00" ego="WE.9" foe="EW.25">
-        <minTTC time="457.00" position="256.88,6.85" type="20" value="3.75" speed="11.99"/>
+    <conflict begin="412.00" end="438.00" ego="EW.35" foe="stopping">
+        <minTTC time="433.00" position="1922.89,18.15" type="2" value="3.17" speed="10.60"/>
+        <maxDRAC time="433.00" position="1922.89,18.15" type="2" value="1.67" speed="10.60"/>
+    </conflict>
+    <conflict begin="416.00" end="431.00" ego="EW.35" foe="EW.4">
+        <minTTC time="418.00" position="2001.83,18.53" type="2" value="2.80" speed="13.69"/>
+        <maxDRAC time="418.00" position="2001.83,18.53" type="2" value="1.98" speed="13.69"/>
+    </conflict>
+    <conflict begin="459.00" end="468.00" ego="EW.34" foe="WE.6">
+        <minTTC time="466.00" position="1829.97,14.40" type="20" value="4.29" speed="9.02"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="430.00" end="459.00" ego="stopping" foe="EW.36">
-        <minTTC time="450.00" position="1922.89,18.15" type="3" value="0.90" speed="0.00"/>
-        <maxDRAC time="449.00" position="1922.89,18.15" type="3" value="4.79" speed="0.00"/>
+    <conflict begin="440.00" end="468.00" ego="EW.44" foe="EW.40">
+        <minTTC time="452.00" position="2740.72,22.08" type="2" value="4.01" speed="14.76"/>
+        <maxDRAC time="451.00" position="2743.92,22.09" type="2" value="1.68" speed="17.57"/>
     </conflict>
-    <conflict begin="440.00" end="469.00" ego="EW.44" foe="EW.40">
-        <minTTC time="452.00" position="2739.02,22.07" type="2" value="4.47" speed="13.40"/>
-        <maxDRAC time="450.00" position="2745.19,22.10" type="2" value="1.42" speed="17.79"/>
+    <conflict begin="440.00" end="468.00" ego="EW.44" foe="EW.41">
+        <minTTC time="453.00" position="2758.30,22.16" type="2" value="2.09" speed="11.88"/>
+        <maxDRAC time="451.00" position="2766.01,22.20" type="2" value="2.70" speed="17.57"/>
     </conflict>
-    <conflict begin="440.00" end="469.00" ego="EW.44" foe="EW.41">
-        <minTTC time="452.00" position="2766.23,22.20" type="2" value="1.96" speed="13.40"/>
-        <maxDRAC time="451.00" position="2769.56,22.22" type="2" value="2.60" speed="15.94"/>
+    <conflict begin="431.00" end="469.00" ego="EW.39" foe="EW.42">
+        <minTTC time="436.00" position="2637.66,21.58" type="3" value="3.26" speed="5.93"/>
+        <maxDRAC time="436.00" position="2637.66,21.58" type="3" value="2.27" speed="5.93"/>
     </conflict>
-    <conflict begin="376.00" end="470.00" ego="EW.19" foe="EW.7">
-        <minTTC time="460.00" position="1399.76,15.64" type="2" value="4.64" speed="5.45"/>
-        <maxDRAC time="459.00" position="1403.03,15.65" type="2" value="0.26" speed="5.79"/>
+    <conflict begin="431.00" end="469.00" ego="EW.42" foe="EW.39">
+        <minTTC time="436.00" position="2637.66,21.58" type="2" value="3.26" speed="20.76"/>
+        <maxDRAC time="436.00" position="2637.66,21.58" type="2" value="2.27" speed="20.76"/>
     </conflict>
-    <conflict begin="389.00" end="447.00" ego="EW.19" foe="EW.24">
+    <conflict begin="439.00" end="443.00" ego="EW.42" foe="WE.3">
+        <minTTC time="441.00" position="2582.49,18.02" type="20" value="3.02" speed="11.52"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="376.00" end="471.00" ego="EW.19" foe="EW.7">
+        <minTTC time="457.00" position="1412.09,15.70" type="2" value="4.21" speed="5.41"/>
+        <maxDRAC time="457.00" position="1412.09,15.70" type="2" value="0.21" speed="5.41"/>
+    </conflict>
+    <conflict begin="389.00" end="448.00" ego="EW.19" foe="EW.24">
         <minTTC time="423.00" position="1619.36,16.69" type="3" value="4.99" speed="5.35"/>
         <maxDRAC time="421.00" position="1631.02,16.75" type="3" value="0.31" speed="5.19"/>
     </conflict>
-    <conflict begin="441.00" end="462.00" ego="EW.19" foe="EW.30">
-        <minTTC time="452.00" position="1456.28,15.91" type="3" value="1.61" speed="1.15"/>
-        <maxDRAC time="452.00" position="1456.28,15.91" type="3" value="4.40" speed="1.15"/>
+    <conflict begin="395.00" end="474.00" ego="stopping" foe="EW.33">
+        <minTTC time="431.00" position="1922.89,18.15" type="3" value="2.45" speed="0.00"/>
+        <maxDRAC time="431.00" position="1922.89,18.15" type="3" value="2.35" speed="0.00"/>
     </conflict>
-    <conflict begin="447.00" end="471.00" ego="EW.43" foe="EW.42">
-        <minTTC time="466.00" position="2472.09,20.79" type="2" value="2.98" speed="10.65"/>
-        <maxDRAC time="466.00" position="2472.09,20.79" type="2" value="1.27" speed="10.65"/>
+    <conflict begin="412.00" end="438.00" ego="stopping" foe="EW.35">
+        <minTTC time="433.00" position="1922.89,18.15" type="3" value="3.17" speed="0.00"/>
+        <maxDRAC time="433.00" position="1922.89,18.15" type="3" value="1.67" speed="0.00"/>
     </conflict>
-    <conflict begin="424.00" end="474.00" ego="EW.20" foe="EW.33">
-        <minTTC time="442.00" position="1826.46,17.69" type="3" value="3.49" speed="5.09"/>
-        <maxDRAC time="441.00" position="1831.55,17.71" type="3" value="1.25" speed="4.25"/>
+    <conflict begin="427.00" end="460.00" ego="stopping" foe="EW.34">
+        <minTTC time="455.00" position="1922.89,18.15" type="3" value="1.16" speed="0.00"/>
+        <maxDRAC time="455.00" position="1922.89,18.15" type="3" value="1.72" speed="0.00"/>
     </conflict>
-    <conflict begin="387.00" end="474.00" ego="EW.32" foe="EW.37">
-        <minTTC time="407.00" position="2377.20,20.33" type="3" value="4.06" speed="6.37"/>
-        <maxDRAC time="400.00" position="2420.40,20.54" type="3" value="1.02" speed="5.96"/>
+    <conflict begin="430.00" end="457.00" ego="stopping" foe="EW.36">
+        <minTTC time="448.00" position="1922.89,18.15" type="3" value="0.89" speed="0.00"/>
+        <maxDRAC time="447.00" position="1922.89,18.15" type="3" value="5.24" speed="0.00"/>
     </conflict>
-    <conflict begin="424.00" end="474.00" ego="EW.33" foe="EW.20">
-        <minTTC time="442.00" position="1826.46,17.69" type="2" value="3.49" speed="13.13"/>
-        <maxDRAC time="441.00" position="1831.55,17.71" type="2" value="1.25" speed="13.76"/>
+    <conflict begin="395.00" end="474.00" ego="EW.33" foe="stopping">
+        <minTTC time="431.00" position="1922.89,18.15" type="2" value="2.45" speed="11.52"/>
+        <maxDRAC time="431.00" position="1922.89,18.15" type="2" value="2.35" speed="11.52"/>
     </conflict>
-    <conflict begin="430.00" end="451.00" ego="EW.33" foe="EW.4">
-        <minTTC time="431.00" position="1969.96,18.38" type="2" value="3.28" speed="5.52"/>
-        <maxDRAC time="431.00" position="1969.96,18.38" type="2" value="0.48" speed="5.52"/>
+    <conflict begin="402.00" end="466.00" ego="EW.33" foe="EW.35">
+        <minTTC time="418.00" position="2013.23,18.58" type="3" value="1.67" speed="1.89"/>
+        <maxDRAC time="418.00" position="2013.23,18.58" type="3" value="3.54" speed="1.89"/>
     </conflict>
-    <conflict begin="387.00" end="474.00" ego="EW.37" foe="EW.32">
-        <minTTC time="407.00" position="2377.20,20.33" type="2" value="4.06" speed="10.84"/>
-        <maxDRAC time="400.00" position="2420.40,20.54" type="2" value="1.02" speed="16.87"/>
-    </conflict>
-    <conflict begin="416.00" end="474.00" ego="EW.37" foe="EW.38">
-        <minTTC time="449.00" position="2128.01,19.14" type="3" value="2.59" speed="5.36"/>
-        <maxDRAC time="449.00" position="2128.01,19.14" type="3" value="1.16" speed="5.36"/>
-    </conflict>
-    <conflict begin="416.00" end="474.00" ego="EW.38" foe="EW.37">
-        <minTTC time="449.00" position="2128.01,19.14" type="2" value="2.59" speed="11.37"/>
-        <maxDRAC time="449.00" position="2128.01,19.14" type="2" value="1.16" speed="11.37"/>
+    <conflict begin="450.00" end="475.00" ego="EW.45" foe="EW.40">
+        <minTTC time="470.00" position="2677.56,21.78" type="2" value="4.45" speed="11.96"/>
+        <maxDRAC time="470.00" position="2677.56,21.78" type="2" value="0.99" speed="11.96"/>
     </conflict>
     <conflict begin="450.00" end="475.00" ego="EW.45" foe="EW.41">
-        <minTTC time="470.00" position="2696.68,21.87" type="2" value="2.50" speed="11.14"/>
-        <maxDRAC time="470.00" position="2696.68,21.87" type="2" value="1.48" speed="11.14"/>
+        <minTTC time="470.00" position="2692.90,21.85" type="2" value="2.96" speed="11.96"/>
+        <maxDRAC time="470.00" position="2692.90,21.85" type="2" value="1.36" speed="11.96"/>
     </conflict>
-    <conflict begin="310.00" end="476.00" ego="EW.30" foe="EW.31">
+    <conflict begin="445.00" end="479.00" ego="EW.28" foe="EW.35">
+        <minTTC time="474.00" position="1362.36,15.46" type="3" value="4.65" speed="8.61"/>
+        <maxDRAC time="474.00" position="1362.36,15.46" type="3" value="0.55" speed="8.61"/>
+    </conflict>
+    <conflict begin="445.00" end="479.00" ego="EW.35" foe="EW.28">
+        <minTTC time="474.00" position="1362.36,15.46" type="2" value="4.65" speed="13.72"/>
+        <maxDRAC time="474.00" position="1362.36,15.46" type="2" value="0.55" speed="13.72"/>
+    </conflict>
+    <conflict begin="459.00" end="479.00" ego="EW.35" foe="EW.7">
+        <minTTC time="474.00" position="1344.00,15.37" type="2" value="4.09" speed="13.72"/>
+        <maxDRAC time="474.00" position="1344.00,15.37" type="2" value="1.26" speed="13.72"/>
+    </conflict>
+    <conflict begin="424.00" end="482.00" ego="EW.20" foe="EW.33">
+        <minTTC time="472.00" position="1680.43,16.99" type="3" value="2.79" speed="4.20"/>
+        <maxDRAC time="472.00" position="1680.43,16.99" type="3" value="0.76" speed="4.20"/>
+    </conflict>
+    <conflict begin="424.00" end="482.00" ego="EW.33" foe="EW.20">
+        <minTTC time="472.00" position="1680.43,16.99" type="2" value="2.79" speed="8.42"/>
+        <maxDRAC time="472.00" position="1680.43,16.99" type="2" value="0.76" speed="8.42"/>
+    </conflict>
+    <conflict begin="430.00" end="482.00" ego="EW.33" foe="EW.31">
+        <minTTC time="436.00" position="1879.94,17.94" type="2" value="1.09" speed="9.12"/>
+        <maxDRAC time="436.00" position="1879.94,17.94" type="2" value="3.49" speed="9.12"/>
+    </conflict>
+    <conflict begin="431.00" end="482.00" ego="EW.33" foe="EW.30">
+        <minTTC time="434.00" position="1868.55,14.59" type="2" value="3.32" speed="14.14"/>
+        <maxDRAC time="434.00" position="1868.55,14.59" type="2" value="1.47" speed="14.14"/>
+    </conflict>
+    <conflict begin="458.00" end="475.00" ego="EW.33" foe="EW.29">
+        <minTTC time="469.00" position="1723.84,17.19" type="3" value="4.42" speed="7.13"/>
+        <maxDRAC time="464.00" position="1759.16,17.36" type="3" value="0.96" speed="3.91"/>
+    </conflict>
+    <conflict begin="460.00" end="480.00" ego="EW.33" foe="EW.36">
+        <minTTC time="473.00" position="1691.57,17.04" type="3" value="2.64" speed="5.63"/>
+        <maxDRAC time="473.00" position="1691.57,17.04" type="3" value="1.69" speed="5.63"/>
+    </conflict>
+    <conflict begin="475.00" end="483.00" ego="EW.19" foe="EW.35">
+        <minTTC time="477.00" position="1315.15,11.93" type="3" value="2.63" speed="5.22"/>
+        <maxDRAC time="477.00" position="1315.15,11.93" type="3" value="1.62" speed="5.22"/>
+    </conflict>
+    <conflict begin="475.00" end="483.00" ego="EW.35" foe="EW.19">
+        <minTTC time="477.00" position="1315.15,11.93" type="2" value="2.63" speed="13.74"/>
+        <maxDRAC time="477.00" position="1315.15,11.93" type="2" value="1.62" speed="13.74"/>
+    </conflict>
+    <conflict begin="449.00" end="485.00" ego="EW.28" foe="EW.7">
+        <minTTC time="473.00" position="1347.43,15.39" type="2" value="2.52" speed="11.14"/>
+        <maxDRAC time="473.00" position="1347.43,15.39" type="2" value="1.46" speed="11.14"/>
+    </conflict>
+    <conflict begin="447.00" end="487.00" ego="stopping" foe="EW.32">
+        <minTTC time="478.00" position="1922.89,18.15" type="3" value="0.71" speed="0.00"/>
+        <maxDRAC time="477.00" position="1922.89,18.15" type="3" value="3.07" speed="0.00"/>
+    </conflict>
+    <conflict begin="451.00" end="489.00" ego="EW.21" foe="EW.13">
+        <minTTC time="484.00" position="1162.46,14.50" type="2" value="3.93" speed="7.76"/>
+        <maxDRAC time="484.00" position="1162.46,14.50" type="2" value="0.32" speed="7.76"/>
+    </conflict>
+    <conflict begin="430.00" end="493.00" ego="EW.20" foe="EW.31">
+        <minTTC time="467.00" position="1704.53,17.10" type="3" value="2.91" speed="4.45"/>
+        <maxDRAC time="430.00" position="1883.69,17.96" type="3" value="0.89" speed="5.04"/>
+    </conflict>
+    <conflict begin="416.00" end="494.00" ego="EW.38" foe="EW.37">
+        <minTTC time="480.00" position="1937.98,18.22" type="2" value="1.23" speed="4.23"/>
+        <maxDRAC time="480.00" position="1937.98,18.22" type="2" value="1.24" speed="4.23"/>
+    </conflict>
+    <conflict begin="479.00" end="495.00" ego="EW.19" foe="EW.30">
+        <minTTC time="484.00" position="1287.05,15.10" type="3" value="4.47" speed="5.47"/>
+        <maxDRAC time="483.00" position="1292.52,15.12" type="3" value="1.64" speed="5.25"/>
+    </conflict>
+    <conflict begin="310.00" end="495.00" ego="EW.30" foe="EW.31">
         <minTTC time="419.00" position="1945.40,14.96" type="3" value="1.53" speed="1.80"/>
         <maxDRAC time="349.00" position="2270.53,19.82" type="3" value="2.98" speed="2.31"/>
     </conflict>
@@ -1043,15 +1099,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <minTTC time="393.00" position="2049.78,15.46" type="2" value="2.39" speed="11.19"/>
         <maxDRAC time="393.00" position="2049.78,15.46" type="2" value="1.38" speed="11.19"/>
     </conflict>
-    <conflict begin="441.00" end="462.00" ego="EW.30" foe="EW.19">
-        <minTTC time="452.00" position="1456.28,15.91" type="2" value="1.61" speed="15.30"/>
-        <maxDRAC time="452.00" position="1456.28,15.91" type="2" value="4.40" speed="15.30"/>
+    <conflict begin="431.00" end="482.00" ego="EW.30" foe="EW.33">
+        <minTTC time="434.00" position="1868.55,14.59" type="3" value="3.32" speed="4.38"/>
+        <maxDRAC time="434.00" position="1868.55,14.59" type="3" value="1.47" speed="4.38"/>
     </conflict>
-    <conflict begin="443.00" end="462.00" ego="EW.30" foe="EW.7">
-        <minTTC time="452.00" position="1431.30,15.79" type="2" value="4.15" speed="15.30"/>
-        <maxDRAC time="450.00" position="1438.71,15.83" type="2" value="1.87" speed="20.58"/>
+    <conflict begin="476.00" end="495.00" ego="EW.30" foe="EW.7">
+        <minTTC time="487.00" position="1299.28,15.16" type="2" value="1.41" speed="10.01"/>
+        <maxDRAC time="486.00" position="1301.26,15.16" type="2" value="4.48" speed="13.48"/>
     </conflict>
-    <conflict begin="310.00" end="476.00" ego="EW.31" foe="EW.30">
+    <conflict begin="479.00" end="495.00" ego="EW.30" foe="EW.19">
+        <minTTC time="484.00" position="1287.05,15.10" type="2" value="4.47" speed="19.77"/>
+        <maxDRAC time="483.00" position="1292.52,15.12" type="2" value="1.64" speed="21.29"/>
+    </conflict>
+    <conflict begin="310.00" end="495.00" ego="EW.31" foe="EW.30">
         <minTTC time="419.00" position="1945.40,14.96" type="2" value="1.53" speed="6.27"/>
         <maxDRAC time="349.00" position="2270.53,19.82" type="2" value="2.98" speed="15.30"/>
     </conflict>
@@ -1067,1140 +1127,1152 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <minTTC time="399.00" position="2049.05,15.46" type="3" value="2.57" speed="4.50"/>
         <maxDRAC time="388.00" position="2126.58,19.13" type="3" value="1.06" speed="1.09"/>
     </conflict>
-    <conflict begin="470.00" end="477.00" ego="EW.37" foe="WE.6">
-        <minTTC time="475.00" position="1901.34,14.75" type="20" value="1.55" speed="16.62"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    <conflict begin="430.00" end="493.00" ego="EW.31" foe="EW.20">
+        <minTTC time="467.00" position="1704.53,17.10" type="2" value="2.91" speed="8.99"/>
+        <maxDRAC time="430.00" position="1883.69,17.96" type="2" value="0.89" speed="11.50"/>
     </conflict>
-    <conflict begin="470.00" end="477.00" ego="EW.37" foe="WE.7">
-        <minTTC time="475.00" position="1890.88,14.70" type="20" value="2.39" speed="16.62"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    <conflict begin="430.00" end="482.00" ego="EW.31" foe="EW.33">
+        <minTTC time="436.00" position="1879.94,17.94" type="3" value="1.09" speed="1.53"/>
+        <maxDRAC time="436.00" position="1879.94,17.94" type="3" value="3.49" speed="1.53"/>
     </conflict>
-    <conflict begin="424.00" end="478.00" ego="EW.4" foe="EW.29">
-        <minTTC time="425.00" position="1973.91,15.10" type="3" value="2.64" speed="2.54"/>
-        <maxDRAC time="425.00" position="1973.91,15.10" type="3" value="0.40" speed="2.54"/>
+    <conflict begin="485.00" end="495.00" ego="EW.35" foe="EW.13">
+        <minTTC time="490.00" position="1133.76,14.36" type="2" value="4.64" speed="14.52"/>
+        <maxDRAC time="490.00" position="1133.76,14.36" type="2" value="1.08" speed="14.52"/>
     </conflict>
-    <conflict begin="430.00" end="451.00" ego="EW.4" foe="EW.33">
-        <minTTC time="431.00" position="1969.96,18.38" type="3" value="3.28" speed="2.39"/>
-        <maxDRAC time="431.00" position="1969.96,18.38" type="3" value="0.48" speed="2.39"/>
+    <conflict begin="485.00" end="495.00" ego="EW.35" foe="EW.24">
+        <minTTC time="490.00" position="1152.75,14.45" type="2" value="3.88" speed="14.52"/>
+        <maxDRAC time="490.00" position="1152.75,14.45" type="2" value="0.91" speed="14.52"/>
     </conflict>
-    <conflict begin="424.00" end="478.00" ego="EW.29" foe="EW.4">
-        <minTTC time="425.00" position="1973.91,15.10" type="2" value="2.64" speed="4.68"/>
-        <maxDRAC time="425.00" position="1973.91,15.10" type="2" value="0.40" speed="4.68"/>
+    <conflict begin="449.00" end="496.00" ego="stopping" foe="EW.37">
+        <minTTC time="478.00" position="1922.89,18.15" type="3" value="2.27" speed="0.00"/>
+        <maxDRAC time="478.00" position="1922.89,18.15" type="3" value="1.45" speed="0.00"/>
     </conflict>
-    <conflict begin="445.00" end="478.00" ego="EW.29" foe="EW.34">
-        <minTTC time="446.00" position="1933.75,14.90" type="3" value="1.93" speed="2.11"/>
-        <maxDRAC time="446.00" position="1933.75,14.90" type="3" value="1.15" speed="2.11"/>
+    <conflict begin="387.00" end="496.00" ego="EW.32" foe="EW.37">
+        <minTTC time="479.00" position="1930.42,18.19" type="3" value="1.05" speed="0.12"/>
+        <maxDRAC time="479.00" position="1930.42,18.19" type="3" value="1.69" speed="0.12"/>
     </conflict>
-    <conflict begin="457.00" end="478.00" ego="EW.29" foe="EW.20">
-        <minTTC time="471.00" position="1690.43,17.03" type="2" value="2.35" speed="13.00"/>
-        <maxDRAC time="471.00" position="1690.43,17.03" type="2" value="1.78" speed="13.00"/>
+    <conflict begin="387.00" end="496.00" ego="EW.37" foe="EW.32">
+        <minTTC time="479.00" position="1930.42,18.19" type="2" value="1.05" speed="3.68"/>
+        <maxDRAC time="479.00" position="1930.42,18.19" type="2" value="1.69" speed="3.68"/>
     </conflict>
-    <conflict begin="431.00" end="478.00" ego="EW.39" foe="EW.42">
-        <minTTC time="438.00" position="2627.16,21.53" type="3" value="2.88" speed="6.32"/>
-        <maxDRAC time="436.00" position="2640.41,21.60" type="3" value="2.44" speed="5.94"/>
+    <conflict begin="416.00" end="494.00" ego="EW.37" foe="EW.38">
+        <minTTC time="480.00" position="1937.98,18.22" type="3" value="1.23" speed="1.19"/>
+        <maxDRAC time="480.00" position="1937.98,18.22" type="3" value="1.24" speed="1.19"/>
     </conflict>
-    <conflict begin="431.00" end="478.00" ego="EW.42" foe="EW.39">
-        <minTTC time="438.00" position="2627.16,21.53" type="2" value="2.88" speed="15.92"/>
-        <maxDRAC time="436.00" position="2640.41,21.60" type="2" value="2.44" speed="21.33"/>
+    <conflict begin="449.00" end="496.00" ego="EW.37" foe="stopping">
+        <minTTC time="478.00" position="1922.89,18.15" type="2" value="2.27" speed="6.60"/>
+        <maxDRAC time="478.00" position="1922.89,18.15" type="2" value="1.45" speed="6.60"/>
     </conflict>
-    <conflict begin="447.00" end="471.00" ego="EW.42" foe="EW.43">
-        <minTTC time="466.00" position="2472.09,20.79" type="3" value="2.98" speed="3.11"/>
-        <maxDRAC time="466.00" position="2472.09,20.79" type="3" value="1.27" speed="3.11"/>
+    <conflict begin="482.00" end="496.00" ego="EW.42" foe="EW.38">
+        <minTTC time="491.00" position="1905.72,14.77" type="2" value="4.91" speed="17.76"/>
+        <maxDRAC time="486.00" position="1945.39,18.26" type="2" value="2.09" speed="21.73"/>
     </conflict>
-    <conflict begin="470.00" end="483.00" ego="EW.47" foe="EW.46">
-        <minTTC time="478.00" position="2818.21,22.45" type="2" value="2.93" speed="15.33"/>
-        <maxDRAC time="478.00" position="2818.21,22.45" type="2" value="1.64" speed="15.33"/>
+    <conflict begin="431.00" end="498.00" ego="EW.14" foe="EW.25">
+        <minTTC time="444.00" position="430.98,10.98" type="3" value="3.42" speed="7.31"/>
+        <maxDRAC time="444.00" position="430.98,10.98" type="3" value="1.64" speed="7.31"/>
     </conflict>
-    <conflict begin="451.00" end="492.00" ego="EW.35" foe="EW.28">
-        <minTTC time="482.00" position="1322.89,15.27" type="2" value="2.08" speed="12.25"/>
-        <maxDRAC time="482.00" position="1322.89,15.27" type="2" value="2.04" speed="12.25"/>
+    <conflict begin="372.00" end="500.00" ego="EW.25" foe="EW.23">
+        <minTTC time="452.00" position="384.99,10.76" type="3" value="3.29" speed="7.85"/>
+        <maxDRAC time="452.00" position="384.99,10.76" type="3" value="1.63" speed="7.85"/>
     </conflict>
-    <conflict begin="465.00" end="492.00" ego="EW.35" foe="EW.7">
-        <minTTC time="482.00" position="1309.84,15.21" type="2" value="3.69" speed="12.25"/>
-        <maxDRAC time="481.00" position="1313.77,15.22" type="2" value="1.18" speed="14.13"/>
+    <conflict begin="403.00" end="500.00" ego="EW.25" foe="EW.27">
+        <minTTC time="455.00" position="361.39,10.65" type="3" value="4.73" speed="7.27"/>
+        <maxDRAC time="455.00" position="361.39,10.65" type="3" value="1.41" speed="7.27"/>
     </conflict>
-    <conflict begin="433.00" end="456.00" ego="EW.12" foe="EW.25">
-        <minTTC time="444.00" position="416.69,10.92" type="3" value="4.99" speed="7.25"/>
-        <maxDRAC time="443.00" position="423.94,10.95" type="3" value="1.19" speed="7.56"/>
+    <conflict begin="411.00" end="443.00" ego="EW.25" foe="EW.5">
+        <minTTC time="421.00" position="888.20,13.18" type="2" value="3.06" speed="20.83"/>
+        <maxDRAC time="421.00" position="888.20,13.18" type="2" value="2.45" speed="20.83"/>
     </conflict>
-    <conflict begin="432.00" end="456.00" ego="EW.14" foe="EW.25">
-        <minTTC time="445.00" position="425.95,10.96" type="3" value="3.36" speed="6.88"/>
-        <maxDRAC time="443.00" position="440.26,11.03" type="3" value="1.76" speed="6.88"/>
+    <conflict begin="431.00" end="498.00" ego="EW.25" foe="EW.14">
+        <minTTC time="444.00" position="430.98,10.98" type="2" value="3.42" speed="18.55"/>
+        <maxDRAC time="444.00" position="430.98,10.98" type="2" value="1.64" speed="18.55"/>
     </conflict>
-    <conflict begin="439.00" end="499.00" ego="EW.14" foe="EW.23">
-        <minTTC time="466.00" position="266.19,10.19" type="3" value="3.38" speed="6.31"/>
-        <maxDRAC time="453.00" position="366.61,10.68" type="3" value="1.55" speed="7.12"/>
+    <conflict begin="372.00" end="500.00" ego="EW.23" foe="EW.25">
+        <minTTC time="452.00" position="384.99,10.76" type="2" value="3.29" speed="18.61"/>
+        <maxDRAC time="452.00" position="384.99,10.76" type="2" value="1.63" speed="18.61"/>
     </conflict>
-    <conflict begin="439.00" end="499.00" ego="EW.23" foe="EW.14">
-        <minTTC time="466.00" position="266.19,10.19" type="2" value="3.38" speed="9.25"/>
-        <maxDRAC time="453.00" position="366.61,10.68" type="2" value="1.55" speed="17.82"/>
+    <conflict begin="415.00" end="450.00" ego="EW.23" foe="EW.5">
+        <minTTC time="427.00" position="856.02,13.03" type="2" value="2.95" speed="16.37"/>
+        <maxDRAC time="426.00" position="861.26,13.05" type="2" value="2.42" speed="19.69"/>
     </conflict>
-    <conflict begin="439.00" end="500.00" ego="EW.23" foe="EW.27">
-        <minTTC time="467.00" position="275.44,10.24" type="3" value="2.48" speed="5.68"/>
-        <maxDRAC time="456.00" position="369.08,10.69" type="3" value="1.14" speed="11.47"/>
+    <conflict begin="403.00" end="500.00" ego="EW.27" foe="EW.25">
+        <minTTC time="455.00" position="361.39,10.65" type="2" value="4.73" speed="20.62"/>
+        <maxDRAC time="455.00" position="361.39,10.65" type="2" value="1.41" speed="20.62"/>
     </conflict>
-    <conflict begin="438.00" end="500.00" ego="EW.4" foe="EW.34">
-        <minTTC time="464.00" position="1886.46,17.98" type="3" value="2.09" speed="2.52"/>
-        <maxDRAC time="464.00" position="1886.46,17.98" type="3" value="1.08" speed="2.52"/>
+    <conflict begin="420.00" end="455.00" ego="EW.27" foe="EW.5">
+        <minTTC time="430.00" position="839.01,12.94" type="2" value="2.98" speed="19.02"/>
+        <maxDRAC time="430.00" position="839.01,12.94" type="2" value="2.31" speed="19.02"/>
     </conflict>
-    <conflict begin="439.00" end="500.00" ego="EW.27" foe="EW.23">
-        <minTTC time="467.00" position="275.44,10.24" type="2" value="2.48" speed="9.59"/>
-        <maxDRAC time="456.00" position="369.08,10.69" type="2" value="1.14" speed="21.70"/>
+    <conflict begin="437.00" end="502.00" ego="EW.23" foe="EW.27">
+        <minTTC time="456.00" position="374.93,10.72" type="3" value="3.94" speed="9.91"/>
+        <maxDRAC time="456.00" position="374.93,10.72" type="3" value="1.02" speed="9.91"/>
     </conflict>
-    <conflict begin="438.00" end="500.00" ego="EW.34" foe="EW.4">
-        <minTTC time="464.00" position="1886.46,17.98" type="2" value="2.09" speed="7.04"/>
-        <maxDRAC time="464.00" position="1886.46,17.98" type="2" value="1.08" speed="7.04"/>
+    <conflict begin="452.00" end="502.00" ego="stopping" foe="EW.38">
+        <minTTC time="479.00" position="1922.89,18.15" type="3" value="3.26" speed="0.00"/>
+        <maxDRAC time="479.00" position="1922.89,18.15" type="3" value="1.08" speed="0.00"/>
     </conflict>
-    <conflict begin="445.00" end="478.00" ego="EW.34" foe="EW.29">
-        <minTTC time="446.00" position="1933.75,14.90" type="2" value="1.93" speed="6.54"/>
-        <maxDRAC time="446.00" position="1933.75,14.90" type="2" value="1.15" speed="6.54"/>
+    <conflict begin="437.00" end="502.00" ego="EW.27" foe="EW.23">
+        <minTTC time="456.00" position="374.93,10.72" type="2" value="3.94" speed="17.93"/>
+        <maxDRAC time="456.00" position="374.93,10.72" type="2" value="1.02" speed="17.93"/>
     </conflict>
-    <conflict begin="454.00" end="488.00" ego="EW.34" foe="stopping">
-        <minTTC time="457.00" position="1922.89,18.15" type="2" value="0.90" speed="4.86"/>
-        <maxDRAC time="457.00" position="1922.89,18.15" type="2" value="2.71" speed="4.86"/>
+    <conflict begin="418.00" end="502.00" ego="EW.32" foe="EW.38">
+        <minTTC time="479.00" position="1930.42,18.19" type="3" value="2.23" speed="0.12"/>
+        <maxDRAC time="479.00" position="1930.42,18.19" type="3" value="1.55" speed="0.12"/>
     </conflict>
-    <conflict begin="476.00" end="501.00" ego="EW.19" foe="EW.31">
-        <minTTC time="478.00" position="1309.61,11.90" type="3" value="2.70" speed="5.60"/>
-        <maxDRAC time="478.00" position="1309.61,11.90" type="3" value="1.19" speed="5.60"/>
+    <conflict begin="447.00" end="487.00" ego="EW.32" foe="stopping">
+        <minTTC time="478.00" position="1922.89,18.15" type="2" value="0.71" speed="3.71"/>
+        <maxDRAC time="477.00" position="1922.89,18.15" type="2" value="3.07" speed="6.25"/>
     </conflict>
-    <conflict begin="438.00" end="501.00" ego="EW.31" foe="EW.33">
-        <minTTC time="496.00" position="1119.23,14.29" type="3" value="2.76" speed="4.38"/>
-        <maxDRAC time="496.00" position="1119.23,14.29" type="3" value="1.58" speed="4.38"/>
+    <conflict begin="418.00" end="502.00" ego="EW.38" foe="EW.32">
+        <minTTC time="479.00" position="1930.42,18.19" type="2" value="2.23" speed="7.06"/>
+        <maxDRAC time="479.00" position="1930.42,18.19" type="2" value="1.55" speed="7.06"/>
     </conflict>
-    <conflict begin="476.00" end="501.00" ego="EW.31" foe="EW.19">
-        <minTTC time="478.00" position="1309.61,11.90" type="2" value="2.70" speed="12.01"/>
-        <maxDRAC time="478.00" position="1309.61,11.90" type="2" value="1.19" speed="12.01"/>
+    <conflict begin="452.00" end="502.00" ego="EW.38" foe="stopping">
+        <minTTC time="479.00" position="1922.89,18.15" type="2" value="3.26" speed="7.06"/>
+        <maxDRAC time="479.00" position="1922.89,18.15" type="2" value="1.08" speed="7.06"/>
     </conflict>
-    <conflict begin="484.00" end="501.00" ego="EW.31" foe="EW.13">
-        <minTTC time="494.00" position="1109.86,14.25" type="2" value="2.72" speed="11.10"/>
-        <maxDRAC time="488.00" position="1139.09,14.39" type="2" value="1.44" speed="17.90"/>
+    <conflict begin="482.00" end="496.00" ego="EW.38" foe="EW.42">
+        <minTTC time="491.00" position="1905.72,14.77" type="3" value="4.91" speed="9.77"/>
+        <maxDRAC time="486.00" position="1945.39,18.26" type="3" value="2.09" speed="0.00"/>
     </conflict>
-    <conflict begin="454.00" end="503.00" ego="EW.20" foe="EW.34">
-        <minTTC time="498.00" position="1562.60,16.42" type="3" value="2.75" speed="4.50"/>
-        <maxDRAC time="498.00" position="1562.60,16.42" type="3" value="1.00" speed="4.50"/>
-    </conflict>
-    <conflict begin="457.00" end="478.00" ego="EW.20" foe="EW.29">
-        <minTTC time="471.00" position="1690.43,17.03" type="3" value="2.35" speed="4.63"/>
-        <maxDRAC time="471.00" position="1690.43,17.03" type="3" value="1.78" speed="4.63"/>
-    </conflict>
-    <conflict begin="418.00" end="503.00" ego="EW.32" foe="EW.38">
-        <minTTC time="479.00" position="1930.40,18.19" type="3" value="1.11" speed="0.71"/>
-        <maxDRAC time="479.00" position="1930.40,18.19" type="3" value="1.81" speed="0.71"/>
-    </conflict>
-    <conflict begin="454.00" end="503.00" ego="EW.34" foe="EW.20">
-        <minTTC time="498.00" position="1562.60,16.42" type="2" value="2.75" speed="9.97"/>
-        <maxDRAC time="498.00" position="1562.60,16.42" type="2" value="1.00" speed="9.97"/>
-    </conflict>
-    <conflict begin="454.00" end="503.00" ego="EW.34" foe="EW.36">
-        <minTTC time="461.00" position="1895.70,14.72" type="2" value="1.53" speed="6.15"/>
-        <maxDRAC time="461.00" position="1895.70,14.72" type="2" value="1.43" speed="6.15"/>
-    </conflict>
-    <conflict begin="465.00" end="469.00" ego="EW.34" foe="WE.6">
-        <minTTC time="467.00" position="1835.11,14.43" type="20" value="3.81" speed="9.88"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
-    </conflict>
-    <conflict begin="465.00" end="469.00" ego="EW.34" foe="WE.7">
-        <minTTC time="467.00" position="1825.30,14.38" type="20" value="4.56" speed="9.88"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
-    </conflict>
-    <conflict begin="476.00" end="503.00" ego="EW.34" foe="EW.37">
-        <minTTC time="488.00" position="1677.87,16.97" type="3" value="3.72" speed="8.91"/>
-        <maxDRAC time="488.00" position="1677.87,16.97" type="3" value="1.10" speed="8.91"/>
-    </conflict>
-    <conflict begin="454.00" end="503.00" ego="EW.36" foe="EW.34">
-        <minTTC time="461.00" position="1895.70,14.72" type="3" value="1.53" speed="1.78"/>
-        <maxDRAC time="461.00" position="1895.70,14.72" type="3" value="1.43" speed="1.78"/>
-    </conflict>
-    <conflict begin="459.00" end="467.00" ego="EW.36" foe="WE.6">
-        <minTTC time="465.00" position="1824.14,14.38" type="20" value="4.69" speed="10.49"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
-    </conflict>
-    <conflict begin="476.00" end="503.00" ego="EW.37" foe="EW.34">
-        <minTTC time="488.00" position="1677.87,16.97" type="2" value="3.72" speed="17.11"/>
-        <maxDRAC time="488.00" position="1677.87,16.97" type="2" value="1.10" speed="17.11"/>
-    </conflict>
-    <conflict begin="418.00" end="503.00" ego="EW.38" foe="EW.32">
-        <minTTC time="479.00" position="1930.40,18.19" type="2" value="1.11" speed="4.74"/>
-        <maxDRAC time="479.00" position="1930.40,18.19" type="2" value="1.81" speed="4.74"/>
-    </conflict>
-    <conflict begin="452.00" end="503.00" ego="EW.38" foe="stopping">
-        <minTTC time="479.00" position="1922.89,18.15" type="2" value="2.54" speed="4.74"/>
-        <maxDRAC time="478.00" position="1922.89,18.15" type="2" value="1.20" speed="6.34"/>
-    </conflict>
-    <conflict begin="436.00" end="504.00" ego="EW.28" foe="EW.33">
-        <minTTC time="479.00" position="1334.70,15.33" type="3" value="2.33" speed="3.77"/>
-        <maxDRAC time="479.00" position="1334.70,15.33" type="3" value="1.98" speed="3.77"/>
-    </conflict>
-    <conflict begin="450.00" end="504.00" ego="EW.28" foe="EW.7">
-        <minTTC time="474.00" position="1342.12,15.36" type="2" value="2.55" speed="10.37"/>
-        <maxDRAC time="474.00" position="1342.12,15.36" type="2" value="1.21" speed="10.37"/>
-    </conflict>
-    <conflict begin="451.00" end="492.00" ego="EW.28" foe="EW.35">
-        <minTTC time="482.00" position="1322.89,15.27" type="3" value="2.08" speed="3.75"/>
-        <maxDRAC time="482.00" position="1322.89,15.27" type="3" value="2.04" speed="3.75"/>
-    </conflict>
-    <conflict begin="436.00" end="504.00" ego="EW.33" foe="EW.28">
-        <minTTC time="479.00" position="1334.70,15.33" type="2" value="2.33" speed="13.00"/>
-        <maxDRAC time="479.00" position="1334.70,15.33" type="2" value="1.98" speed="13.00"/>
-    </conflict>
-    <conflict begin="438.00" end="501.00" ego="EW.33" foe="EW.31">
-        <minTTC time="496.00" position="1119.23,14.29" type="2" value="2.76" speed="13.14"/>
-        <maxDRAC time="496.00" position="1119.23,14.29" type="2" value="1.58" speed="13.14"/>
-    </conflict>
-    <conflict begin="462.00" end="484.00" ego="EW.33" foe="EW.7">
-        <minTTC time="479.00" position="1322.12,15.27" type="2" value="3.90" speed="13.00"/>
-        <maxDRAC time="478.00" position="1326.39,15.29" type="2" value="1.19" speed="14.12"/>
-    </conflict>
-    <conflict begin="476.00" end="504.00" ego="EW.37" foe="EW.4">
-        <minTTC time="477.00" position="1853.75,17.82" type="2" value="2.51" speed="16.45"/>
-        <maxDRAC time="477.00" position="1853.75,17.82" type="2" value="2.78" speed="16.45"/>
+    <conflict begin="467.00" end="503.00" ego="EW.34" foe="EW.20">
+        <minTTC time="498.00" position="1554.56,16.38" type="2" value="3.77" speed="9.84"/>
+        <maxDRAC time="497.00" position="1559.63,16.41" type="2" value="0.67" speed="9.81"/>
     </conflict>
     <conflict begin="480.00" end="504.00" ego="EW.48" foe="EW.46">
-        <minTTC time="499.00" position="2687.06,21.82" type="2" value="3.10" speed="13.37"/>
-        <maxDRAC time="499.00" position="2687.06,21.82" type="2" value="1.11" speed="13.37"/>
+        <minTTC time="499.00" position="2683.68,21.81" type="2" value="3.82" speed="13.36"/>
+        <maxDRAC time="499.00" position="2683.68,21.81" type="2" value="0.86" speed="13.36"/>
     </conflict>
-    <conflict begin="459.00" end="506.00" ego="EW.24" foe="EW.13">
-        <minTTC time="491.00" position="1124.36,14.32" type="2" value="3.57" speed="7.98"/>
-        <maxDRAC time="491.00" position="1124.36,14.32" type="2" value="0.49" speed="7.98"/>
-    </conflict>
-    <conflict begin="481.00" end="509.00" ego="EW.37" foe="EW.20">
-        <minTTC time="503.00" position="1538.19,16.30" type="2" value="2.68" speed="10.14"/>
-        <maxDRAC time="503.00" position="1538.19,16.30" type="2" value="1.09" speed="10.14"/>
-    </conflict>
-    <conflict begin="466.00" end="510.00" ego="EW.20" foe="EW.36">
-        <minTTC time="478.00" position="1658.88,16.88" type="3" value="3.24" speed="4.81"/>
-        <maxDRAC time="478.00" position="1658.88,16.88" type="3" value="1.42" speed="4.81"/>
-    </conflict>
-    <conflict begin="481.00" end="509.00" ego="EW.20" foe="EW.37">
-        <minTTC time="503.00" position="1538.19,16.30" type="3" value="2.68" speed="4.27"/>
-        <maxDRAC time="503.00" position="1538.19,16.30" type="3" value="1.09" speed="4.27"/>
-    </conflict>
-    <conflict begin="466.00" end="510.00" ego="EW.36" foe="EW.20">
-        <minTTC time="478.00" position="1658.88,16.88" type="2" value="3.24" speed="14.01"/>
-        <maxDRAC time="478.00" position="1658.88,16.88" type="2" value="1.42" speed="14.01"/>
-    </conflict>
-    <conflict begin="445.00" end="511.00" ego="EW.22" foe="EW.26">
-        <minTTC time="502.00" position="590.70,11.75" type="3" value="4.60" speed="8.37"/>
-        <maxDRAC time="502.00" position="590.70,11.75" type="3" value="0.46" speed="8.37"/>
-    </conflict>
-    <conflict begin="445.00" end="511.00" ego="EW.26" foe="EW.22">
-        <minTTC time="502.00" position="590.70,11.75" type="2" value="4.60" speed="12.60"/>
-        <maxDRAC time="502.00" position="590.70,11.75" type="2" value="0.46" speed="12.60"/>
-    </conflict>
-    <conflict begin="447.00" end="513.00" ego="stopping" foe="EW.32">
-        <minTTC time="478.00" position="1922.89,18.15" type="3" value="0.77" speed="0.00"/>
-        <maxDRAC time="478.00" position="1922.89,18.15" type="3" value="2.75" speed="0.00"/>
-    </conflict>
-    <conflict begin="452.00" end="503.00" ego="stopping" foe="EW.38">
-        <minTTC time="479.00" position="1922.89,18.15" type="3" value="2.54" speed="0.00"/>
-        <maxDRAC time="478.00" position="1922.89,18.15" type="3" value="1.20" speed="0.00"/>
-    </conflict>
-    <conflict begin="453.00" end="513.00" ego="EW.4" foe="EW.32">
-        <minTTC time="505.00" position="1785.45,17.49" type="3" value="2.12" speed="1.83"/>
-        <maxDRAC time="505.00" position="1785.45,17.49" type="3" value="0.80" speed="1.83"/>
-    </conflict>
-    <conflict begin="447.00" end="513.00" ego="EW.32" foe="stopping">
-        <minTTC time="478.00" position="1922.89,18.15" type="2" value="0.77" speed="4.21"/>
-        <maxDRAC time="478.00" position="1922.89,18.15" type="2" value="2.75" speed="4.21"/>
-    </conflict>
-    <conflict begin="453.00" end="513.00" ego="EW.32" foe="EW.4">
-        <minTTC time="505.00" position="1785.45,17.49" type="2" value="2.12" speed="5.23"/>
-        <maxDRAC time="505.00" position="1785.45,17.49" type="2" value="0.80" speed="5.23"/>
-    </conflict>
-    <conflict begin="479.00" end="515.00" ego="EW.39" foe="EW.44">
-        <minTTC time="493.00" position="2282.76,19.88" type="3" value="3.42" speed="6.51"/>
-        <maxDRAC time="493.00" position="2282.76,19.88" type="3" value="1.42" speed="6.51"/>
-    </conflict>
-    <conflict begin="479.00" end="515.00" ego="EW.44" foe="EW.39">
-        <minTTC time="493.00" position="2282.76,19.88" type="2" value="3.42" speed="16.24"/>
-        <maxDRAC time="493.00" position="2282.76,19.88" type="2" value="1.42" speed="16.24"/>
-    </conflict>
-    <conflict begin="397.00" end="519.00" ego="WE.6" foe="WE.7">
-        <minTTC time="425.00" position="1356.06,12.13" type="3" value="4.68" speed="9.87"/>
-        <maxDRAC time="422.00" position="1324.54,11.98" type="3" value="0.66" speed="9.81"/>
-    </conflict>
-    <conflict begin="459.00" end="467.00" ego="WE.6" foe="EW.36">
-        <minTTC time="465.00" position="1824.14,14.38" type="20" value="4.69" speed="10.28"/>
+    <conflict begin="503.00" end="508.00" ego="EW.47" foe="WE.6">
+        <minTTC time="506.00" position="2250.24,16.42" type="20" value="3.28" speed="19.52"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="465.00" end="469.00" ego="WE.6" foe="EW.34">
-        <minTTC time="467.00" position="1835.11,14.43" type="20" value="3.81" speed="10.30"/>
+    <conflict begin="504.00" end="508.00" ego="EW.47" foe="WE.7">
+        <minTTC time="506.00" position="2239.97,16.37" type="20" value="4.14" speed="19.52"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="470.00" end="477.00" ego="WE.6" foe="EW.37">
-        <minTTC time="475.00" position="1901.34,14.75" type="20" value="1.55" speed="10.76"/>
+    <conflict begin="490.00" end="508.00" ego="EW.32" foe="EW.4">
+        <minTTC time="503.00" position="1794.16,17.53" type="2" value="2.15" speed="6.75"/>
+        <maxDRAC time="503.00" position="1794.16,17.53" type="2" value="0.90" speed="6.75"/>
+    </conflict>
+    <conflict begin="448.00" end="508.00" ego="EW.39" foe="EW.43">
+        <minTTC time="471.00" position="2418.57,20.53" type="3" value="4.30" speed="6.81"/>
+        <maxDRAC time="470.00" position="2425.38,20.56" type="3" value="0.77" speed="6.00"/>
+    </conflict>
+    <conflict begin="448.00" end="508.00" ego="EW.43" foe="EW.39">
+        <minTTC time="471.00" position="2418.57,20.53" type="2" value="4.30" speed="12.98"/>
+        <maxDRAC time="470.00" position="2425.38,20.56" type="2" value="0.77" speed="13.09"/>
+    </conflict>
+    <conflict begin="461.00" end="510.00" ego="EW.24" foe="EW.13">
+        <minTTC time="490.00" position="1133.76,14.36" type="2" value="4.75" speed="7.47"/>
+        <maxDRAC time="488.00" position="1142.89,14.40" type="2" value="0.35" speed="8.24"/>
+    </conflict>
+    <conflict begin="485.00" end="495.00" ego="EW.24" foe="EW.35">
+        <minTTC time="490.00" position="1152.75,14.45" type="3" value="3.88" speed="7.47"/>
+        <maxDRAC time="490.00" position="1152.75,14.45" type="3" value="0.91" speed="7.47"/>
+    </conflict>
+    <conflict begin="491.00" end="508.00" ego="EW.24" foe="EW.28">
+        <minTTC time="503.00" position="1080.92,14.11" type="3" value="2.77" speed="4.48"/>
+        <maxDRAC time="502.00" position="1085.40,14.13" type="3" value="1.19" speed="4.51"/>
+    </conflict>
+    <conflict begin="474.00" end="513.00" ego="EW.39" foe="EW.44">
+        <minTTC time="487.00" position="2318.34,20.05" type="3" value="4.17" speed="6.81"/>
+        <maxDRAC time="487.00" position="2318.34,20.05" type="3" value="1.21" speed="6.81"/>
+    </conflict>
+    <conflict begin="507.00" end="515.00" ego="EW.47" foe="EW.39">
+        <minTTC time="510.00" position="2173.79,19.36" type="2" value="3.65" speed="19.35"/>
+        <maxDRAC time="510.00" position="2173.79,19.36" type="2" value="1.78" speed="19.35"/>
+    </conflict>
+    <conflict begin="397.00" end="517.00" ego="WE.6" foe="WE.7">
+        <minTTC time="495.00" position="2082.15,15.62" type="3" value="4.67" speed="9.75"/>
+        <maxDRAC time="495.00" position="2082.15,15.62" type="3" value="0.80" speed="9.75"/>
+    </conflict>
+    <conflict begin="459.00" end="468.00" ego="WE.6" foe="EW.34">
+        <minTTC time="466.00" position="1829.97,14.40" type="20" value="4.29" speed="10.85"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="397.00" end="519.00" ego="WE.7" foe="WE.6">
-        <minTTC time="425.00" position="1356.06,12.13" type="2" value="4.68" speed="14.02"/>
-        <maxDRAC time="422.00" position="1324.54,11.98" type="2" value="0.66" speed="16.18"/>
-    </conflict>
-    <conflict begin="465.00" end="469.00" ego="WE.7" foe="EW.34">
-        <minTTC time="467.00" position="1825.30,14.38" type="20" value="4.56" speed="11.29"/>
+    <conflict begin="503.00" end="508.00" ego="WE.6" foe="EW.47">
+        <minTTC time="506.00" position="2250.24,16.42" type="20" value="3.28" speed="10.65"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="470.00" end="477.00" ego="WE.7" foe="EW.37">
-        <minTTC time="475.00" position="1890.88,14.70" type="20" value="2.39" speed="9.89"/>
+    <conflict begin="488.00" end="517.00" ego="EW.33" foe="EW.31">
+        <minTTC time="512.00" position="1213.64,14.74" type="2" value="4.74" speed="13.70"/>
+        <maxDRAC time="512.00" position="1213.64,14.74" type="2" value="1.06" speed="13.70"/>
+    </conflict>
+    <conflict begin="397.00" end="517.00" ego="WE.7" foe="WE.6">
+        <minTTC time="495.00" position="2082.15,15.62" type="2" value="4.67" speed="17.22"/>
+        <maxDRAC time="495.00" position="2082.15,15.62" type="2" value="0.80" speed="17.22"/>
+    </conflict>
+    <conflict begin="504.00" end="508.00" ego="WE.7" foe="EW.47">
+        <minTTC time="506.00" position="2239.97,16.37" type="20" value="4.14" speed="9.31"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="489.00" end="494.00" ego="EW.26" foe="WE.9">
-        <minTTC time="492.00" position="675.20,12.16" type="20" value="4.56" speed="12.71"/>
+    <conflict begin="516.00" end="520.00" ego="WE.7" foe="EW.48">
+        <minTTC time="518.00" position="2397.04,20.43" type="20" value="4.31" speed="17.27"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="516.00" end="522.00" ego="WE.7" foe="EW.48">
-        <minTTC time="520.00" position="2393.17,20.41" type="20" value="2.64" speed="17.18"/>
+    <conflict begin="460.00" end="522.00" ego="EW.20" foe="EW.36">
+        <minTTC time="480.00" position="1640.80,16.80" type="3" value="3.48" speed="5.28"/>
+        <maxDRAC time="473.00" position="1675.91,16.96" type="3" value="1.28" speed="4.53"/>
+    </conflict>
+    <conflict begin="467.00" end="503.00" ego="EW.20" foe="EW.34">
+        <minTTC time="498.00" position="1554.56,16.38" type="3" value="3.77" speed="5.06"/>
+        <maxDRAC time="497.00" position="1559.63,16.41" type="3" value="0.67" speed="4.29"/>
+    </conflict>
+    <conflict begin="503.00" end="526.00" ego="EW.20" foe="EW.37">
+        <minTTC time="518.00" position="1460.57,15.93" type="3" value="2.68" speed="4.70"/>
+        <maxDRAC time="516.00" position="1469.69,15.97" type="3" value="2.24" speed="4.20"/>
+    </conflict>
+    <conflict begin="483.00" end="526.00" ego="EW.37" foe="EW.42">
+        <minTTC time="521.00" position="1461.01,15.93" type="3" value="2.50" speed="5.57"/>
+        <maxDRAC time="490.00" position="1908.08,18.08" type="3" value="1.87" speed="6.01"/>
+    </conflict>
+    <conflict begin="503.00" end="526.00" ego="EW.37" foe="EW.20">
+        <minTTC time="518.00" position="1460.57,15.93" type="2" value="2.68" speed="11.81"/>
+        <maxDRAC time="516.00" position="1469.69,15.97" type="2" value="2.24" speed="16.79"/>
+    </conflict>
+    <conflict begin="462.00" end="526.00" ego="WE.8" foe="WE.9">
+        <minTTC time="487.00" position="582.61,8.41" type="3" value="3.09" speed="4.46"/>
+        <maxDRAC time="487.00" position="582.61,8.41" type="3" value="1.14" speed="4.46"/>
+    </conflict>
+    <conflict begin="483.00" end="526.00" ego="EW.42" foe="EW.37">
+        <minTTC time="521.00" position="1461.01,15.93" type="2" value="2.50" speed="9.66"/>
+        <maxDRAC time="490.00" position="1908.08,18.08" type="2" value="1.87" speed="21.57"/>
+    </conflict>
+    <conflict begin="484.00" end="495.00" ego="EW.42" foe="stopping">
+        <minTTC time="490.00" position="1922.89,18.15" type="2" value="2.31" speed="21.57"/>
+        <maxDRAC time="490.00" position="1922.89,18.15" type="2" value="4.67" speed="21.57"/>
+    </conflict>
+    <conflict begin="462.00" end="526.00" ego="WE.9" foe="WE.8">
+        <minTTC time="487.00" position="582.61,8.41" type="2" value="3.09" speed="11.51"/>
+        <maxDRAC time="487.00" position="582.61,8.41" type="2" value="1.14" speed="11.51"/>
+    </conflict>
+    <conflict begin="488.00" end="534.00" ego="EW.33" foe="EW.29">
+        <minTTC time="529.00" position="1043.18,13.93" type="2" value="4.79" speed="13.56"/>
+        <maxDRAC time="529.00" position="1043.18,13.93" type="2" value="0.84" speed="13.56"/>
+    </conflict>
+    <conflict begin="491.00" end="534.00" ego="EW.35" foe="EW.21">
+        <minTTC time="494.00" position="1094.33,10.87" type="2" value="3.73" speed="12.97"/>
+        <maxDRAC time="494.00" position="1094.33,10.87" type="2" value="0.78" speed="12.97"/>
+    </conflict>
+    <conflict begin="507.00" end="511.00" ego="EW.35" foe="WE.9">
+        <minTTC time="509.00" position="872.20,13.10" type="20" value="4.19" speed="13.65"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="461.00" end="525.00" ego="WE.8" foe="WE.9">
-        <minTTC time="487.00" position="582.51,8.41" type="3" value="3.58" speed="5.56"/>
-        <maxDRAC time="486.00" position="576.95,8.39" type="3" value="0.97" speed="5.15"/>
+    <conflict begin="488.00" end="535.00" ego="WE.9" foe="WE.4">
+        <minTTC time="506.00" position="804.20,9.48" type="2" value="2.21" speed="12.04"/>
+        <maxDRAC time="506.00" position="804.20,9.48" type="2" value="2.11" speed="12.04"/>
     </conflict>
-    <conflict begin="461.00" end="525.00" ego="WE.9" foe="WE.8">
-        <minTTC time="487.00" position="582.51,8.41" type="2" value="3.58" speed="11.85"/>
-        <maxDRAC time="486.00" position="576.95,8.39" type="2" value="0.97" speed="12.63"/>
-    </conflict>
-    <conflict begin="488.00" end="494.00" ego="WE.9" foe="EW.22">
-        <minTTC time="492.00" position="647.78,12.03" type="20" value="2.78" speed="11.45"/>
+    <conflict begin="489.00" end="494.00" ego="WE.9" foe="EW.22">
+        <minTTC time="492.00" position="642.69,12.00" type="20" value="2.63" speed="11.69"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="489.00" end="494.00" ego="WE.9" foe="EW.26">
-        <minTTC time="492.00" position="675.20,12.16" type="20" value="4.56" speed="11.45"/>
+    <conflict begin="507.00" end="511.00" ego="WE.9" foe="EW.35">
+        <minTTC time="509.00" position="872.20,13.10" type="20" value="4.19" speed="12.60"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="484.00" end="527.00" ego="EW.31" foe="EW.24">
-        <minTTC time="488.00" position="1165.06,14.51" type="2" value="3.34" speed="17.90"/>
-        <maxDRAC time="488.00" position="1165.06,14.51" type="2" value="1.57" speed="17.90"/>
-    </conflict>
-    <conflict begin="507.00" end="511.00" ego="EW.31" foe="WE.9">
-        <minTTC time="509.00" position="884.19,13.16" type="20" value="4.06" speed="18.10"/>
+    <conflict begin="514.00" end="520.00" ego="WE.9" foe="EW.28">
+        <minTTC time="518.00" position="961.90,10.23" type="20" value="4.66" speed="11.76"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="488.00" end="528.00" ego="EW.39" foe="EW.45">
-        <minTTC time="521.00" position="2106.38,19.03" type="3" value="3.59" speed="5.97"/>
-        <maxDRAC time="521.00" position="2106.38,19.03" type="3" value="0.66" speed="5.97"/>
+    <conflict begin="484.00" end="495.00" ego="stopping" foe="EW.42">
+        <minTTC time="490.00" position="1922.89,18.15" type="3" value="2.31" speed="0.00"/>
+        <maxDRAC time="490.00" position="1922.89,18.15" type="3" value="4.67" speed="0.00"/>
     </conflict>
-    <conflict begin="488.00" end="528.00" ego="EW.45" foe="EW.39">
-        <minTTC time="521.00" position="2106.38,19.03" type="2" value="3.59" speed="10.71"/>
-        <maxDRAC time="521.00" position="2106.38,19.03" type="2" value="0.66" speed="10.71"/>
+    <conflict begin="490.00" end="508.00" ego="EW.4" foe="EW.32">
+        <minTTC time="503.00" position="1794.16,17.53" type="3" value="2.15" speed="2.85"/>
+        <maxDRAC time="503.00" position="1794.16,17.53" type="3" value="0.90" speed="2.85"/>
     </conflict>
-    <conflict begin="493.00" end="534.00" ego="WE.9" foe="WE.4">
-        <minTTC time="506.00" position="809.99,9.51" type="2" value="1.85" speed="12.51"/>
-        <maxDRAC time="506.00" position="809.99,9.51" type="2" value="2.93" speed="12.51"/>
-    </conflict>
-    <conflict begin="507.00" end="511.00" ego="WE.9" foe="EW.31">
-        <minTTC time="509.00" position="884.19,13.16" type="20" value="4.06" speed="11.82"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
-    </conflict>
-    <conflict begin="454.00" end="488.00" ego="stopping" foe="EW.34">
-        <minTTC time="457.00" position="1922.89,18.15" type="3" value="0.90" speed="0.00"/>
-        <maxDRAC time="457.00" position="1922.89,18.15" type="3" value="2.71" speed="0.00"/>
-    </conflict>
-    <conflict begin="476.00" end="504.00" ego="EW.4" foe="EW.37">
-        <minTTC time="477.00" position="1853.75,17.82" type="3" value="2.51" speed="2.50"/>
-        <maxDRAC time="477.00" position="1853.75,17.82" type="3" value="2.78" speed="2.50"/>
-    </conflict>
-    <conflict begin="513.00" end="532.00" ego="EW.4" foe="EW.43">
-        <minTTC time="525.00" position="1737.16,17.26" type="3" value="1.52" speed="1.99"/>
-        <maxDRAC time="525.00" position="1737.16,17.26" type="3" value="3.12" speed="1.99"/>
-    </conflict>
-    <conflict begin="460.00" end="538.00" ego="EW.46" foe="EW.41">
-        <minTTC time="533.00" position="2467.77,20.77" type="2" value="4.32" speed="5.06"/>
-        <maxDRAC time="527.00" position="2490.54,20.88" type="2" value="0.38" speed="6.85"/>
-    </conflict>
-    <conflict begin="470.00" end="484.00" ego="EW.46" foe="EW.47">
-        <minTTC time="478.00" position="2818.21,22.45" type="3" value="2.93" speed="5.71"/>
-        <maxDRAC time="478.00" position="2818.21,22.45" type="3" value="1.64" speed="5.71"/>
+    <conflict begin="460.00" end="539.00" ego="EW.46" foe="EW.41">
+        <minTTC time="529.00" position="2483.73,20.84" type="2" value="2.95" speed="6.41"/>
+        <maxDRAC time="529.00" position="2483.73,20.84" type="2" value="0.53" speed="6.41"/>
     </conflict>
     <conflict begin="480.00" end="504.00" ego="EW.46" foe="EW.48">
-        <minTTC time="499.00" position="2687.06,21.82" type="3" value="3.10" speed="6.49"/>
-        <maxDRAC time="499.00" position="2687.06,21.82" type="3" value="1.11" speed="6.49"/>
+        <minTTC time="499.00" position="2683.68,21.81" type="3" value="3.82" speed="6.76"/>
+        <maxDRAC time="499.00" position="2683.68,21.81" type="3" value="0.86" speed="6.76"/>
     </conflict>
-    <conflict begin="490.00" end="538.00" ego="EW.46" foe="EW.49">
-        <minTTC time="533.00" position="2479.65,20.83" type="3" value="3.02" speed="5.06"/>
-        <maxDRAC time="533.00" position="2479.65,20.83" type="3" value="0.89" speed="5.06"/>
+    <conflict begin="490.00" end="539.00" ego="EW.46" foe="EW.49">
+        <minTTC time="534.00" position="2478.29,20.82" type="3" value="3.16" speed="3.39"/>
+        <maxDRAC time="534.00" position="2478.29,20.82" type="3" value="0.99" speed="3.39"/>
     </conflict>
-    <conflict begin="490.00" end="538.00" ego="EW.49" foe="EW.46">
-        <minTTC time="533.00" position="2479.65,20.83" type="2" value="3.02" speed="10.45"/>
-        <maxDRAC time="533.00" position="2479.65,20.83" type="2" value="0.89" speed="10.45"/>
+    <conflict begin="507.00" end="539.00" ego="EW.48" foe="EW.40">
+        <minTTC time="508.00" position="2545.60,21.14" type="2" value="4.51" speed="13.51"/>
+        <maxDRAC time="508.00" position="2545.60,21.14" type="2" value="1.08" speed="13.51"/>
     </conflict>
-    <conflict begin="516.00" end="522.00" ego="EW.48" foe="WE.7">
-        <minTTC time="520.00" position="2393.17,20.41" type="20" value="2.64" speed="12.97"/>
+    <conflict begin="509.00" end="538.00" ego="EW.48" foe="EW.41">
+        <minTTC time="509.00" position="2556.43,21.19" type="2" value="2.25" speed="10.21"/>
+        <maxDRAC time="509.00" position="2556.43,21.19" type="2" value="2.27" speed="10.21"/>
+    </conflict>
+    <conflict begin="516.00" end="520.00" ego="EW.48" foe="WE.7">
+        <minTTC time="518.00" position="2397.04,20.43" type="20" value="4.31" speed="12.91"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="489.00" end="541.00" ego="EW.33" foe="EW.13">
-        <minTTC time="504.00" position="1061.04,14.01" type="2" value="3.05" speed="9.97"/>
-        <maxDRAC time="504.00" position="1061.04,14.01" type="2" value="0.83" speed="9.97"/>
+    <conflict begin="490.00" end="539.00" ego="EW.49" foe="EW.46">
+        <minTTC time="534.00" position="2478.29,20.82" type="2" value="3.16" speed="9.62"/>
+        <maxDRAC time="534.00" position="2478.29,20.82" type="2" value="0.99" speed="9.62"/>
     </conflict>
-    <conflict begin="489.00" end="506.00" ego="EW.33" foe="EW.24">
-        <minTTC time="498.00" position="1103.41,14.21" type="2" value="2.39" speed="11.16"/>
-        <maxDRAC time="497.00" position="1106.92,14.23" type="2" value="1.79" speed="10.59"/>
+    <conflict begin="376.00" end="471.00" ego="EW.7" foe="EW.19">
+        <minTTC time="457.00" position="1412.09,15.70" type="3" value="4.21" speed="3.64"/>
+        <maxDRAC time="457.00" position="1412.09,15.70" type="3" value="0.21" speed="3.64"/>
     </conflict>
-    <conflict begin="510.00" end="541.00" ego="EW.33" foe="EW.24">
-        <minTTC time="533.00" position="837.35,12.94" type="2" value="3.79" speed="13.45"/>
-        <maxDRAC time="533.00" position="837.35,12.94" type="2" value="0.79" speed="13.45"/>
+    <conflict begin="401.00" end="445.00" ego="EW.7" foe="EW.21">
+        <minTTC time="428.00" position="1524.32,16.24" type="3" value="4.25" speed="3.72"/>
+        <maxDRAC time="425.00" position="1536.34,16.29" type="3" value="0.32" speed="3.92"/>
     </conflict>
-    <conflict begin="513.00" end="528.00" ego="EW.33" foe="EW.28">
-        <minTTC time="521.00" position="990.53,13.67" type="3" value="2.46" speed="4.15"/>
-        <maxDRAC time="521.00" position="990.53,13.67" type="3" value="1.53" speed="4.15"/>
+    <conflict begin="449.00" end="485.00" ego="EW.7" foe="EW.28">
+        <minTTC time="473.00" position="1347.43,15.39" type="3" value="2.52" speed="3.79"/>
+        <maxDRAC time="473.00" position="1347.43,15.39" type="3" value="1.46" speed="3.79"/>
     </conflict>
-    <conflict begin="524.00" end="530.00" ego="EW.33" foe="WE.4">
-        <minTTC time="528.00" position="897.54,9.93" type="20" value="3.81" speed="13.78"/>
+    <conflict begin="459.00" end="479.00" ego="EW.7" foe="EW.35">
+        <minTTC time="474.00" position="1344.00,15.37" type="3" value="4.09" speed="3.44"/>
+        <maxDRAC time="474.00" position="1344.00,15.37" type="3" value="1.26" speed="3.44"/>
+    </conflict>
+    <conflict begin="476.00" end="495.00" ego="EW.7" foe="EW.30">
+        <minTTC time="487.00" position="1299.28,15.16" type="3" value="1.41" speed="1.97"/>
+        <maxDRAC time="486.00" position="1301.26,15.16" type="3" value="4.48" speed="0.31"/>
+    </conflict>
+    <conflict begin="428.00" end="439.00" ego="EW.13" foe="EW.26">
+        <minTTC time="432.00" position="1429.29,15.78" type="3" value="2.92" speed="4.47"/>
+        <maxDRAC time="432.00" position="1429.29,15.78" type="3" value="1.40" speed="4.47"/>
+    </conflict>
+    <conflict begin="451.00" end="489.00" ego="EW.13" foe="EW.21">
+        <minTTC time="484.00" position="1162.46,14.50" type="3" value="3.93" speed="5.24"/>
+        <maxDRAC time="484.00" position="1162.46,14.50" type="3" value="0.32" speed="5.24"/>
+    </conflict>
+    <conflict begin="461.00" end="510.00" ego="EW.13" foe="EW.24">
+        <minTTC time="490.00" position="1133.76,14.36" type="3" value="4.75" speed="4.52"/>
+        <maxDRAC time="488.00" position="1142.89,14.40" type="3" value="0.35" speed="4.50"/>
+    </conflict>
+    <conflict begin="452.00" end="540.00" ego="EW.29" foe="EW.31">
+        <minTTC time="508.00" position="1228.68,14.82" type="2" value="2.65" speed="12.82"/>
+        <maxDRAC time="508.00" position="1228.68,14.82" type="2" value="1.73" speed="12.82"/>
+    </conflict>
+    <conflict begin="452.00" end="540.00" ego="EW.31" foe="EW.29">
+        <minTTC time="508.00" position="1228.68,14.82" type="3" value="2.65" speed="3.66"/>
+        <maxDRAC time="508.00" position="1228.68,14.82" type="3" value="1.73" speed="3.66"/>
+    </conflict>
+    <conflict begin="482.00" end="517.00" ego="EW.31" foe="EW.7">
+        <minTTC time="495.00" position="1268.14,15.01" type="2" value="2.13" speed="12.63"/>
+        <maxDRAC time="494.00" position="1272.16,15.03" type="2" value="2.48" speed="15.04"/>
+    </conflict>
+    <conflict begin="488.00" end="517.00" ego="EW.31" foe="EW.33">
+        <minTTC time="512.00" position="1213.64,14.74" type="3" value="4.74" speed="3.68"/>
+        <maxDRAC time="512.00" position="1213.64,14.74" type="3" value="1.06" speed="3.68"/>
+    </conflict>
+    <conflict begin="519.00" end="540.00" ego="EW.31" foe="EW.36">
+        <minTTC time="521.00" position="1178.09,14.57" type="3" value="2.20" speed="3.64"/>
+        <maxDRAC time="521.00" position="1178.09,14.57" type="3" value="2.41" speed="3.64"/>
+    </conflict>
+    <conflict begin="491.00" end="534.00" ego="EW.21" foe="EW.35">
+        <minTTC time="494.00" position="1094.33,10.87" type="3" value="3.73" speed="7.16"/>
+        <maxDRAC time="494.00" position="1094.33,10.87" type="3" value="0.78" speed="7.16"/>
+    </conflict>
+    <conflict begin="491.00" end="543.00" ego="EW.28" foe="EW.13">
+        <minTTC time="508.00" position="1040.83,13.91" type="2" value="2.87" speed="9.39"/>
+        <maxDRAC time="508.00" position="1040.83,13.91" type="2" value="0.86" speed="9.39"/>
+    </conflict>
+    <conflict begin="491.00" end="508.00" ego="EW.28" foe="EW.24">
+        <minTTC time="503.00" position="1080.92,14.11" type="2" value="2.77" speed="9.88"/>
+        <maxDRAC time="502.00" position="1085.40,14.13" type="2" value="1.19" speed="11.47"/>
+    </conflict>
+    <conflict begin="504.00" end="543.00" ego="EW.28" foe="EW.30">
+        <minTTC time="513.00" position="1029.54,13.86" type="3" value="2.74" speed="5.10"/>
+        <maxDRAC time="509.00" position="1052.96,13.97" type="3" value="1.73" speed="6.96"/>
+    </conflict>
+    <conflict begin="514.00" end="520.00" ego="EW.28" foe="WE.9">
+        <minTTC time="518.00" position="961.90,10.23" type="20" value="4.66" speed="4.43"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="508.00" end="545.00" ego="EW.49" foe="EW.41">
-        <minTTC time="536.00" position="2456.42,20.71" type="2" value="2.13" speed="9.35"/>
-        <maxDRAC time="536.00" position="2456.42,20.71" type="2" value="1.31" speed="9.35"/>
+    <conflict begin="519.00" end="543.00" ego="EW.28" foe="EW.24">
+        <minTTC time="538.00" position="811.99,12.81" type="2" value="4.20" speed="11.34"/>
+        <maxDRAC time="538.00" position="811.99,12.81" type="2" value="0.45" speed="11.34"/>
+    </conflict>
+    <conflict begin="504.00" end="543.00" ego="EW.30" foe="EW.28">
+        <minTTC time="513.00" position="1029.54,13.86" type="2" value="2.74" speed="9.50"/>
+        <maxDRAC time="509.00" position="1052.96,13.97" type="2" value="1.73" speed="17.35"/>
+    </conflict>
+    <conflict begin="509.00" end="545.00" ego="EW.49" foe="EW.41">
+        <minTTC time="537.00" position="2457.17,20.72" type="2" value="2.18" speed="8.94"/>
+        <maxDRAC time="536.00" position="2460.67,20.73" type="2" value="1.73" speed="10.41"/>
     </conflict>
     <conflict begin="510.00" end="545.00" ego="EW.49" foe="EW.40">
-        <minTTC time="536.00" position="2445.33,20.66" type="2" value="3.59" speed="9.35"/>
-        <maxDRAC time="536.00" position="2445.33,20.66" type="2" value="0.89" speed="9.35"/>
+        <minTTC time="536.00" position="2448.86,20.68" type="2" value="4.05" speed="10.41"/>
+        <maxDRAC time="536.00" position="2448.86,20.68" type="2" value="0.89" speed="10.41"/>
     </conflict>
-    <conflict begin="533.00" end="546.00" ego="EW.42" foe="EW.34">
-        <minTTC time="539.00" position="1203.30,14.69" type="2" value="4.17" speed="21.74"/>
-        <maxDRAC time="539.00" position="1203.30,14.69" type="2" value="1.40" speed="21.74"/>
+    <conflict begin="458.00" end="475.00" ego="EW.29" foe="EW.33">
+        <minTTC time="469.00" position="1723.84,17.19" type="2" value="4.42" speed="11.32"/>
+        <maxDRAC time="464.00" position="1759.16,17.36" type="2" value="0.96" speed="13.41"/>
     </conflict>
-    <conflict begin="376.00" end="470.00" ego="EW.7" foe="EW.19">
-        <minTTC time="460.00" position="1399.76,15.64" type="3" value="4.64" speed="3.27"/>
-        <maxDRAC time="459.00" position="1403.03,15.65" type="3" value="0.26" speed="3.29"/>
+    <conflict begin="488.00" end="534.00" ego="EW.29" foe="EW.33">
+        <minTTC time="529.00" position="1043.18,13.93" type="3" value="4.79" speed="5.52"/>
+        <maxDRAC time="529.00" position="1043.18,13.93" type="3" value="0.84" speed="5.52"/>
     </conflict>
-    <conflict begin="401.00" end="444.00" ego="EW.7" foe="EW.21">
-        <minTTC time="427.00" position="1529.40,16.26" type="3" value="3.26" speed="3.43"/>
-        <maxDRAC time="427.00" position="1529.40,16.26" type="3" value="0.52" speed="3.43"/>
+    <conflict begin="460.00" end="522.00" ego="EW.36" foe="EW.20">
+        <minTTC time="480.00" position="1640.80,16.80" type="2" value="3.48" speed="9.00"/>
+        <maxDRAC time="473.00" position="1675.91,16.96" type="2" value="1.28" speed="14.53"/>
     </conflict>
-    <conflict begin="443.00" end="462.00" ego="EW.7" foe="EW.30">
-        <minTTC time="452.00" position="1431.30,15.79" type="3" value="4.15" speed="3.79"/>
-        <maxDRAC time="450.00" position="1438.71,15.83" type="3" value="1.87" speed="4.07"/>
+    <conflict begin="460.00" end="480.00" ego="EW.36" foe="EW.33">
+        <minTTC time="473.00" position="1691.57,17.04" type="2" value="2.64" speed="14.53"/>
+        <maxDRAC time="473.00" position="1691.57,17.04" type="2" value="1.69" speed="14.53"/>
     </conflict>
-    <conflict begin="450.00" end="504.00" ego="EW.7" foe="EW.28">
-        <minTTC time="474.00" position="1342.12,15.36" type="3" value="2.55" speed="4.17"/>
-        <maxDRAC time="474.00" position="1342.12,15.36" type="3" value="1.21" speed="4.17"/>
-    </conflict>
-    <conflict begin="462.00" end="484.00" ego="EW.7" foe="EW.33">
-        <minTTC time="479.00" position="1322.12,15.27" type="3" value="3.90" speed="4.27"/>
-        <maxDRAC time="478.00" position="1326.39,15.29" type="3" value="1.19" speed="4.04"/>
-    </conflict>
-    <conflict begin="465.00" end="492.00" ego="EW.7" foe="EW.35">
-        <minTTC time="482.00" position="1309.84,15.21" type="3" value="3.69" speed="3.93"/>
-        <maxDRAC time="481.00" position="1313.77,15.22" type="3" value="1.18" speed="4.53"/>
-    </conflict>
-    <conflict begin="427.00" end="439.00" ego="EW.13" foe="EW.26">
-        <minTTC time="433.00" position="1421.91,15.74" type="3" value="3.25" speed="4.78"/>
-        <maxDRAC time="433.00" position="1421.91,15.74" type="3" value="1.04" speed="4.78"/>
-    </conflict>
-    <conflict begin="459.00" end="506.00" ego="EW.13" foe="EW.24">
-        <minTTC time="491.00" position="1124.36,14.32" type="3" value="3.57" speed="4.52"/>
-        <maxDRAC time="491.00" position="1124.36,14.32" type="3" value="0.49" speed="4.52"/>
-    </conflict>
-    <conflict begin="497.00" end="512.00" ego="EW.28" foe="EW.35">
-        <minTTC time="498.00" position="1258.46,14.96" type="3" value="2.01" speed="1.87"/>
-        <maxDRAC time="498.00" position="1258.46,14.96" type="3" value="0.57" speed="1.87"/>
-    </conflict>
-    <conflict begin="513.00" end="549.00" ego="EW.28" foe="EW.13">
-        <minTTC time="527.00" position="946.39,13.46" type="2" value="2.40" speed="9.72"/>
-        <maxDRAC time="527.00" position="946.39,13.46" type="2" value="1.05" speed="9.72"/>
-    </conflict>
-    <conflict begin="513.00" end="528.00" ego="EW.28" foe="EW.33">
-        <minTTC time="521.00" position="990.53,13.67" type="2" value="2.46" speed="11.71"/>
-        <maxDRAC time="521.00" position="990.53,13.67" type="2" value="1.53" speed="11.71"/>
-    </conflict>
-    <conflict begin="484.00" end="527.00" ego="EW.24" foe="EW.31">
-        <minTTC time="488.00" position="1165.06,14.51" type="3" value="3.34" speed="7.40"/>
-        <maxDRAC time="488.00" position="1165.06,14.51" type="3" value="1.57" speed="7.40"/>
-    </conflict>
-    <conflict begin="489.00" end="506.00" ego="EW.24" foe="EW.33">
-        <minTTC time="498.00" position="1103.41,14.21" type="3" value="2.39" speed="3.51"/>
-        <maxDRAC time="497.00" position="1106.92,14.23" type="3" value="1.79" speed="0.96"/>
-    </conflict>
-    <conflict begin="510.00" end="541.00" ego="EW.24" foe="EW.33">
-        <minTTC time="533.00" position="837.35,12.94" type="3" value="3.79" speed="7.46"/>
-        <maxDRAC time="533.00" position="837.35,12.94" type="3" value="0.79" speed="7.46"/>
-    </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.35" foe="EW.13">
-        <minTTC time="547.00" position="843.00,12.96" type="2" value="3.31" speed="10.14"/>
-        <maxDRAC time="540.00" position="879.73,13.14" type="2" value="1.07" speed="14.16"/>
-    </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.35" foe="EW.19">
-        <minTTC time="512.00" position="1122.38,14.31" type="2" value="3.77" speed="11.24"/>
-        <maxDRAC time="510.00" position="1134.52,14.36" type="2" value="0.97" speed="13.80"/>
-    </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.35" foe="EW.7">
-        <minTTC time="502.00" position="1230.08,14.82" type="2" value="2.86" speed="8.28"/>
-        <maxDRAC time="502.00" position="1230.08,14.82" type="2" value="0.82" speed="8.28"/>
-    </conflict>
-    <conflict begin="553.00" end="558.00" ego="WE.9" foe="EW.47">
-        <minTTC time="556.00" position="1434.24,12.50" type="20" value="2.81" speed="12.01"/>
+    <conflict begin="526.00" end="532.00" ego="EW.28" foe="WE.4">
+        <minTTC time="530.00" position="892.38,9.90" type="20" value="4.43" speed="11.20"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="495.00" end="559.00" ego="EW.35" foe="EW.29">
-        <minTTC time="522.00" position="1080.46,14.10" type="3" value="2.35" speed="4.29"/>
-        <maxDRAC time="519.00" position="1096.37,14.18" type="3" value="1.11" speed="6.07"/>
+    <conflict begin="506.00" end="549.00" ego="EW.30" foe="EW.13">
+        <minTTC time="529.00" position="935.83,13.41" type="2" value="3.32" speed="9.38"/>
+        <maxDRAC time="509.00" position="1035.95,13.89" type="2" value="1.61" speed="17.35"/>
     </conflict>
-    <conflict begin="497.00" end="512.00" ego="EW.35" foe="EW.28">
-        <minTTC time="498.00" position="1258.46,14.96" type="2" value="2.01" speed="4.14"/>
-        <maxDRAC time="498.00" position="1258.46,14.96" type="2" value="0.57" speed="4.14"/>
+    <conflict begin="491.00" end="549.00" ego="EW.33" foe="EW.36">
+        <minTTC time="519.00" position="1196.97,14.66" type="3" value="3.41" speed="4.05"/>
+        <maxDRAC time="519.00" position="1196.97,14.66" type="3" value="1.41" speed="4.05"/>
     </conflict>
-    <conflict begin="523.00" end="566.00" ego="EW.37" foe="EW.7">
-        <minTTC time="535.00" position="1098.75,14.19" type="2" value="2.45" speed="17.35"/>
-        <maxDRAC time="535.00" position="1098.75,14.19" type="2" value="2.82" speed="17.35"/>
+    <conflict begin="491.00" end="549.00" ego="EW.36" foe="EW.33">
+        <minTTC time="519.00" position="1196.97,14.66" type="2" value="3.41" speed="13.67"/>
+        <maxDRAC time="519.00" position="1196.97,14.66" type="2" value="1.41" speed="13.67"/>
     </conflict>
-    <conflict begin="521.00" end="575.00" ego="EW.20" foe="EW.38">
-        <minTTC time="537.00" position="1378.43,15.54" type="3" value="3.19" speed="4.18"/>
-        <maxDRAC time="537.00" position="1378.43,15.54" type="3" value="1.15" speed="4.18"/>
+    <conflict begin="506.00" end="546.00" ego="EW.36" foe="EW.7">
+        <minTTC time="526.00" position="1144.52,14.41" type="2" value="2.23" speed="9.64"/>
+        <maxDRAC time="521.00" position="1165.11,14.51" type="2" value="1.62" speed="14.25"/>
     </conflict>
-    <conflict begin="521.00" end="575.00" ego="EW.38" foe="EW.20">
-        <minTTC time="537.00" position="1378.43,15.54" type="2" value="3.19" speed="11.55"/>
-        <maxDRAC time="537.00" position="1378.43,15.54" type="2" value="1.15" speed="11.55"/>
+    <conflict begin="519.00" end="540.00" ego="EW.36" foe="EW.31">
+        <minTTC time="521.00" position="1178.09,14.57" type="2" value="2.20" speed="14.25"/>
+        <maxDRAC time="521.00" position="1178.09,14.57" type="2" value="2.41" speed="14.25"/>
     </conflict>
-    <conflict begin="538.00" end="578.00" ego="EW.20" foe="EW.44">
-        <minTTC time="551.00" position="1310.86,15.21" type="3" value="2.66" speed="5.23"/>
-        <maxDRAC time="549.00" position="1321.40,15.26" type="3" value="1.92" speed="5.22"/>
+    <conflict begin="490.00" end="553.00" ego="EW.29" foe="EW.7">
+        <minTTC time="508.00" position="1215.98,14.76" type="2" value="4.38" speed="12.82"/>
+        <maxDRAC time="507.00" position="1220.37,14.78" type="2" value="1.13" speed="13.38"/>
     </conflict>
-    <conflict begin="545.00" end="569.00" ego="EW.32" foe="EW.47">
-        <minTTC time="551.00" position="1521.39,16.22" type="3" value="2.99" speed="5.68"/>
-        <maxDRAC time="550.00" position="1527.07,16.25" type="3" value="1.94" speed="6.20"/>
+    <conflict begin="472.00" end="554.00" ego="EW.43" foe="EW.44">
+        <minTTC time="530.00" position="1735.63,17.25" type="3" value="0.83" speed="0.08"/>
+        <maxDRAC time="530.00" position="1735.63,17.25" type="3" value="2.10" speed="0.08"/>
     </conflict>
-    <conflict begin="486.00" end="582.00" ego="EW.5" foe="EW.22">
-        <minTTC time="538.00" position="248.53,10.11" type="3" value="3.89" speed="4.96"/>
-        <maxDRAC time="538.00" position="248.53,10.11" type="3" value="0.41" speed="4.96"/>
+    <conflict begin="516.00" end="554.00" ego="EW.43" foe="EW.32">
+        <minTTC time="547.00" position="1528.26,16.26" type="2" value="3.64" speed="12.09"/>
+        <maxDRAC time="547.00" position="1528.26,16.26" type="2" value="0.81" speed="12.09"/>
     </conflict>
-    <conflict begin="537.00" end="582.00" ego="EW.5" foe="EW.31">
-        <minTTC time="551.00" position="174.86,9.75" type="3" value="3.86" speed="5.08"/>
-        <maxDRAC time="549.00" position="185.64,9.81" type="3" value="1.32" speed="5.84"/>
+    <conflict begin="516.00" end="554.00" ego="EW.43" foe="EW.4">
+        <minTTC time="524.00" position="1742.17,17.28" type="2" value="2.45" speed="12.37"/>
+        <maxDRAC time="524.00" position="1742.17,17.28" type="2" value="2.12" speed="12.37"/>
     </conflict>
-    <conflict begin="486.00" end="582.00" ego="EW.22" foe="EW.5">
-        <minTTC time="538.00" position="248.53,10.11" type="2" value="3.89" speed="8.16"/>
-        <maxDRAC time="538.00" position="248.53,10.11" type="2" value="0.41" speed="8.16"/>
+    <conflict begin="472.00" end="554.00" ego="EW.44" foe="EW.43">
+        <minTTC time="530.00" position="1735.63,17.25" type="2" value="0.83" speed="3.55"/>
+        <maxDRAC time="530.00" position="1735.63,17.25" type="2" value="2.10" speed="3.55"/>
     </conflict>
-    <conflict begin="488.00" end="494.00" ego="EW.22" foe="WE.9">
-        <minTTC time="492.00" position="647.78,12.03" type="20" value="2.78" speed="8.44"/>
+    <conflict begin="474.00" end="513.00" ego="EW.44" foe="EW.39">
+        <minTTC time="487.00" position="2318.34,20.05" type="2" value="4.17" speed="16.92"/>
+        <maxDRAC time="487.00" position="2318.34,20.05" type="2" value="1.21" speed="16.92"/>
+    </conflict>
+    <conflict begin="505.00" end="556.00" ego="EW.20" foe="EW.42">
+        <minTTC time="525.00" position="1424.67,15.76" type="3" value="3.45" speed="5.37"/>
+        <maxDRAC time="517.00" position="1465.27,15.95" type="3" value="1.60" speed="4.41"/>
+    </conflict>
+    <conflict begin="488.00" end="556.00" ego="EW.39" foe="EW.45">
+        <minTTC time="522.00" position="2100.58,19.00" type="3" value="3.77" speed="5.89"/>
+        <maxDRAC time="521.00" position="2106.46,19.03" type="3" value="0.79" speed="5.80"/>
+    </conflict>
+    <conflict begin="507.00" end="515.00" ego="EW.39" foe="EW.47">
+        <minTTC time="510.00" position="2173.79,19.36" type="3" value="3.65" speed="6.33"/>
+        <maxDRAC time="510.00" position="2173.79,19.36" type="3" value="1.78" speed="6.33"/>
+    </conflict>
+    <conflict begin="551.00" end="557.00" ego="WE.9" foe="EW.43">
+        <minTTC time="555.00" position="1418.84,12.43" type="20" value="4.09" speed="12.45"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="533.00" end="582.00" ego="EW.38" foe="EW.42">
-        <minTTC time="573.00" position="961.68,13.53" type="2" value="2.15" speed="12.08"/>
-        <maxDRAC time="573.00" position="961.68,13.53" type="2" value="1.89" speed="12.08"/>
+    <conflict begin="488.00" end="556.00" ego="EW.45" foe="EW.39">
+        <minTTC time="522.00" position="2100.58,19.00" type="2" value="3.77" speed="10.82"/>
+        <maxDRAC time="521.00" position="2106.46,19.03" type="2" value="0.79" speed="11.91"/>
     </conflict>
-    <conflict begin="533.00" end="582.00" ego="EW.42" foe="EW.38">
-        <minTTC time="573.00" position="961.68,13.53" type="3" value="2.15" speed="3.94"/>
-        <maxDRAC time="573.00" position="961.68,13.53" type="3" value="1.89" speed="3.94"/>
+    <conflict begin="506.00" end="558.00" ego="EW.30" foe="EW.29">
+        <minTTC time="539.00" position="898.68,13.23" type="3" value="2.76" speed="4.54"/>
+        <maxDRAC time="539.00" position="898.68,13.23" type="3" value="1.50" speed="4.54"/>
     </conflict>
-    <conflict begin="535.00" end="584.00" ego="EW.22" foe="EW.31">
-        <minTTC time="551.00" position="189.02,9.82" type="3" value="2.32" speed="4.89"/>
-        <maxDRAC time="549.00" position="200.09,9.88" type="3" value="2.10" speed="4.77"/>
+    <conflict begin="498.00" end="559.00" ego="EW.33" foe="EW.7">
+        <minTTC time="515.00" position="1189.20,14.63" type="2" value="3.37" speed="13.67"/>
+        <maxDRAC time="515.00" position="1189.20,14.63" type="2" value="1.41" speed="13.67"/>
     </conflict>
-    <conflict begin="535.00" end="584.00" ego="EW.31" foe="EW.22">
-        <minTTC time="551.00" position="189.02,9.82" type="2" value="2.32" speed="14.55"/>
-        <maxDRAC time="549.00" position="200.09,9.88" type="2" value="2.10" speed="18.01"/>
+    <conflict begin="504.00" end="559.00" ego="EW.33" foe="EW.19">
+        <minTTC time="533.00" position="1005.48,13.74" type="2" value="3.36" speed="12.89"/>
+        <maxDRAC time="533.00" position="1005.48,13.74" type="2" value="1.03" speed="12.89"/>
     </conflict>
-    <conflict begin="537.00" end="582.00" ego="EW.31" foe="EW.5">
-        <minTTC time="551.00" position="174.86,9.75" type="2" value="3.86" speed="14.55"/>
-        <maxDRAC time="549.00" position="185.64,9.81" type="2" value="1.32" speed="18.01"/>
+    <conflict begin="516.00" end="554.00" ego="EW.4" foe="EW.43">
+        <minTTC time="524.00" position="1742.17,17.28" type="3" value="2.45" speed="1.94"/>
+        <maxDRAC time="524.00" position="1742.17,17.28" type="3" value="2.12" speed="1.94"/>
     </conflict>
-    <conflict begin="513.00" end="532.00" ego="EW.43" foe="EW.4">
-        <minTTC time="525.00" position="1737.16,17.26" type="2" value="1.52" speed="11.50"/>
-        <maxDRAC time="525.00" position="1737.16,17.26" type="2" value="3.12" speed="11.50"/>
+    <conflict begin="519.00" end="543.00" ego="EW.24" foe="EW.28">
+        <minTTC time="538.00" position="811.99,12.81" type="3" value="4.20" speed="7.57"/>
+        <maxDRAC time="538.00" position="811.99,12.81" type="3" value="0.45" speed="7.57"/>
     </conflict>
-    <conflict begin="538.00" end="578.00" ego="EW.44" foe="EW.20">
-        <minTTC time="551.00" position="1310.86,15.21" type="2" value="2.66" speed="13.64"/>
-        <maxDRAC time="549.00" position="1321.40,15.26" type="2" value="1.92" speed="17.72"/>
+    <conflict begin="516.00" end="554.00" ego="EW.32" foe="EW.43">
+        <minTTC time="547.00" position="1528.26,16.26" type="3" value="3.64" speed="6.23"/>
+        <maxDRAC time="547.00" position="1528.26,16.26" type="3" value="0.81" speed="6.23"/>
     </conflict>
-    <conflict begin="569.00" end="586.00" ego="EW.48" foe="EW.4">
-        <minTTC time="581.00" position="1599.99,16.60" type="2" value="2.54" speed="13.64"/>
-        <maxDRAC time="581.00" position="1599.99,16.60" type="2" value="2.30" speed="13.64"/>
+    <conflict begin="518.00" end="569.00" ego="EW.4" foe="EW.44">
+        <minTTC time="527.00" position="1734.02,17.24" type="3" value="2.07" speed="3.02"/>
+        <maxDRAC time="526.00" position="1737.04,17.26" type="3" value="2.93" speed="2.08"/>
     </conflict>
-    <conflict begin="550.00" end="591.00" ego="EW.4" foe="EW.45">
-        <minTTC time="561.00" position="1649.98,16.84" type="3" value="2.80" speed="2.92"/>
-        <maxDRAC time="561.00" position="1649.98,16.84" type="3" value="1.56" speed="2.92"/>
+    <conflict begin="526.00" end="549.00" ego="EW.4" foe="EW.47">
+        <minTTC time="533.00" position="1717.63,17.16" type="3" value="3.51" speed="2.31"/>
+        <maxDRAC time="533.00" position="1717.63,17.16" type="3" value="2.20" speed="2.31"/>
     </conflict>
-    <conflict begin="550.00" end="591.00" ego="EW.45" foe="EW.4">
-        <minTTC time="561.00" position="1649.98,16.84" type="2" value="2.80" speed="11.66"/>
-        <maxDRAC time="561.00" position="1649.98,16.84" type="2" value="1.56" speed="11.66"/>
+    <conflict begin="518.00" end="569.00" ego="EW.44" foe="EW.4">
+        <minTTC time="527.00" position="1734.02,17.24" type="2" value="2.07" speed="11.41"/>
+        <maxDRAC time="526.00" position="1737.04,17.26" type="2" value="2.93" speed="14.37"/>
     </conflict>
-    <conflict begin="492.00" end="558.00" ego="EW.7" foe="EW.29">
-        <minTTC time="511.00" position="1194.03,14.65" type="3" value="2.63" speed="3.68"/>
-        <maxDRAC time="511.00" position="1194.03,14.65" type="3" value="1.68" speed="3.68"/>
+    <conflict begin="495.00" end="575.00" ego="EW.29" foe="EW.19">
+        <minTTC time="521.00" position="1074.46,14.08" type="2" value="2.86" speed="10.26"/>
+        <maxDRAC time="519.00" position="1085.45,14.13" type="2" value="1.18" speed="13.12"/>
     </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.7" foe="EW.35">
-        <minTTC time="502.00" position="1230.08,14.82" type="3" value="2.86" speed="3.56"/>
-        <maxDRAC time="502.00" position="1230.08,14.82" type="3" value="0.82" speed="3.56"/>
+    <conflict begin="506.00" end="558.00" ego="EW.29" foe="EW.30">
+        <minTTC time="539.00" position="898.68,13.23" type="2" value="2.76" speed="12.83"/>
+        <maxDRAC time="539.00" position="898.68,13.23" type="2" value="1.50" speed="12.83"/>
     </conflict>
-    <conflict begin="495.00" end="562.00" ego="EW.7" foe="EW.36">
-        <minTTC time="514.00" position="1181.71,14.59" type="3" value="2.42" speed="3.77"/>
-        <maxDRAC time="513.00" position="1185.49,14.61" type="3" value="1.89" speed="4.36"/>
+    <conflict begin="484.00" end="580.00" ego="EW.5" foe="EW.22">
+        <minTTC time="539.00" position="235.04,10.04" type="3" value="4.07" speed="5.44"/>
+        <maxDRAC time="539.00" position="235.04,10.04" type="3" value="0.43" speed="5.44"/>
     </conflict>
-    <conflict begin="523.00" end="566.00" ego="EW.7" foe="EW.37">
-        <minTTC time="535.00" position="1098.75,14.19" type="3" value="2.45" speed="3.52"/>
-        <maxDRAC time="535.00" position="1098.75,14.19" type="3" value="2.82" speed="3.52"/>
+    <conflict begin="548.00" end="580.00" ego="EW.5" foe="EW.35">
+        <minTTC time="567.00" position="79.41,5.91" type="3" value="4.40" speed="5.09"/>
+        <maxDRAC time="567.00" position="79.41,5.91" type="3" value="0.91" speed="5.09"/>
     </conflict>
-    <conflict begin="481.00" end="595.00" ego="WE.4" foe="WE.8">
-        <minTTC time="550.00" position="908.31,9.98" type="3" value="2.30" speed="1.63"/>
-        <maxDRAC time="550.00" position="908.31,9.98" type="3" value="0.58" speed="1.63"/>
+    <conflict begin="484.00" end="580.00" ego="EW.22" foe="EW.5">
+        <minTTC time="539.00" position="235.04,10.04" type="2" value="4.07" speed="8.90"/>
+        <maxDRAC time="539.00" position="235.04,10.04" type="2" value="0.43" speed="8.90"/>
     </conflict>
-    <conflict begin="493.00" end="534.00" ego="WE.4" foe="WE.9">
-        <minTTC time="506.00" position="809.99,9.51" type="3" value="1.85" speed="1.66"/>
-        <maxDRAC time="506.00" position="809.99,9.51" type="3" value="2.93" speed="1.66"/>
-    </conflict>
-    <conflict begin="524.00" end="530.00" ego="WE.4" foe="EW.33">
-        <minTTC time="528.00" position="897.54,9.93" type="20" value="3.81" speed="2.53"/>
+    <conflict begin="489.00" end="494.00" ego="EW.22" foe="WE.9">
+        <minTTC time="492.00" position="642.69,12.00" type="20" value="2.63" speed="9.19"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="559.00" end="564.00" ego="WE.4" foe="EW.34">
-        <minTTC time="562.00" position="962.93,10.24" type="20" value="3.86" speed="2.40"/>
+    <conflict begin="546.00" end="582.00" ego="EW.22" foe="EW.35">
+        <minTTC time="569.00" position="83.01,6.10" type="3" value="2.81" speed="4.49"/>
+        <maxDRAC time="567.00" position="93.15,6.65" type="3" value="1.26" speed="5.74"/>
+    </conflict>
+    <conflict begin="546.00" end="582.00" ego="EW.35" foe="EW.22">
+        <minTTC time="569.00" position="83.01,6.10" type="2" value="2.81" speed="8.92"/>
+        <maxDRAC time="567.00" position="93.15,6.65" type="2" value="1.26" speed="13.12"/>
+    </conflict>
+    <conflict begin="548.00" end="580.00" ego="EW.35" foe="EW.5">
+        <minTTC time="567.00" position="79.41,5.91" type="2" value="4.40" speed="13.12"/>
+        <maxDRAC time="567.00" position="79.41,5.91" type="2" value="0.91" speed="13.12"/>
+    </conflict>
+    <conflict begin="482.00" end="517.00" ego="EW.7" foe="EW.31">
+        <minTTC time="495.00" position="1268.14,15.01" type="3" value="2.13" speed="4.02"/>
+        <maxDRAC time="494.00" position="1272.16,15.03" type="3" value="2.48" speed="3.49"/>
+    </conflict>
+    <conflict begin="490.00" end="553.00" ego="EW.7" foe="EW.29">
+        <minTTC time="508.00" position="1215.98,14.76" type="3" value="4.38" speed="4.39"/>
+        <maxDRAC time="507.00" position="1220.37,14.78" type="3" value="1.13" speed="3.26"/>
+    </conflict>
+    <conflict begin="498.00" end="559.00" ego="EW.7" foe="EW.33">
+        <minTTC time="515.00" position="1189.20,14.63" type="3" value="3.37" speed="4.16"/>
+        <maxDRAC time="515.00" position="1189.20,14.63" type="3" value="1.41" speed="4.16"/>
+    </conflict>
+    <conflict begin="506.00" end="546.00" ego="EW.7" foe="EW.36">
+        <minTTC time="526.00" position="1144.52,14.41" type="3" value="2.23" speed="3.85"/>
+        <maxDRAC time="521.00" position="1165.11,14.51" type="3" value="1.62" speed="3.40"/>
+    </conflict>
+    <conflict begin="521.00" end="559.00" ego="EW.7" foe="EW.34">
+        <minTTC time="554.00" position="1033.39,13.88" type="3" value="2.96" speed="3.43"/>
+        <maxDRAC time="554.00" position="1033.39,13.88" type="3" value="1.06" speed="3.43"/>
+    </conflict>
+    <conflict begin="513.00" end="586.00" ego="EW.20" foe="EW.38">
+        <minTTC time="538.00" position="1363.04,15.46" type="3" value="2.64" speed="5.17"/>
+        <maxDRAC time="538.00" position="1363.04,15.46" type="3" value="1.36" speed="5.17"/>
+    </conflict>
+    <conflict begin="538.00" end="590.00" ego="EW.7" foe="EW.42">
+        <minTTC time="557.00" position="1021.44,13.82" type="3" value="2.57" speed="3.87"/>
+        <maxDRAC time="557.00" position="1021.44,13.82" type="3" value="1.42" speed="3.87"/>
+    </conflict>
+    <conflict begin="507.00" end="590.00" ego="EW.34" foe="EW.42">
+        <minTTC time="541.00" position="1180.58,14.59" type="3" value="3.98" speed="9.37"/>
+        <maxDRAC time="540.00" position="1189.95,14.63" type="3" value="1.51" speed="9.40"/>
+    </conflict>
+    <conflict begin="521.00" end="559.00" ego="EW.34" foe="EW.7">
+        <minTTC time="554.00" position="1033.39,13.88" type="2" value="2.96" speed="9.68"/>
+        <maxDRAC time="554.00" position="1033.39,13.88" type="2" value="1.06" speed="9.68"/>
+    </conflict>
+    <conflict begin="532.00" end="590.00" ego="EW.37" foe="EW.42">
+        <minTTC time="551.00" position="1105.38,14.22" type="2" value="4.47" speed="14.85"/>
+        <maxDRAC time="551.00" position="1105.38,14.22" type="2" value="0.63" speed="14.85"/>
+    </conflict>
+    <conflict begin="513.00" end="586.00" ego="EW.38" foe="EW.20">
+        <minTTC time="538.00" position="1363.04,15.46" type="2" value="2.64" speed="12.35"/>
+        <maxDRAC time="538.00" position="1363.04,15.46" type="2" value="1.36" speed="12.35"/>
+    </conflict>
+    <conflict begin="505.00" end="556.00" ego="EW.42" foe="EW.20">
+        <minTTC time="525.00" position="1424.67,15.76" type="2" value="3.45" speed="9.23"/>
+        <maxDRAC time="517.00" position="1465.27,15.95" type="2" value="1.60" speed="17.01"/>
+    </conflict>
+    <conflict begin="507.00" end="590.00" ego="EW.42" foe="EW.34">
+        <minTTC time="541.00" position="1180.58,14.59" type="2" value="3.98" speed="19.51"/>
+        <maxDRAC time="540.00" position="1189.95,14.63" type="2" value="1.51" speed="21.75"/>
+    </conflict>
+    <conflict begin="532.00" end="590.00" ego="EW.42" foe="EW.37">
+        <minTTC time="551.00" position="1105.38,14.22" type="3" value="4.47" speed="9.19"/>
+        <maxDRAC time="551.00" position="1105.38,14.22" type="3" value="0.63" speed="9.19"/>
+    </conflict>
+    <conflict begin="538.00" end="590.00" ego="EW.42" foe="EW.7">
+        <minTTC time="557.00" position="1021.44,13.82" type="2" value="2.57" speed="11.17"/>
+        <maxDRAC time="557.00" position="1021.44,13.82" type="2" value="1.42" speed="11.17"/>
+    </conflict>
+    <conflict begin="559.00" end="564.00" ego="EW.42" foe="WE.4">
+        <minTTC time="562.00" position="963.46,10.24" type="20" value="4.83" speed="10.66"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="481.00" end="595.00" ego="WE.8" foe="WE.4">
-        <minTTC time="550.00" position="908.31,9.98" type="2" value="2.30" speed="4.30"/>
-        <maxDRAC time="550.00" position="908.31,9.98" type="2" value="0.58" speed="4.30"/>
+    <conflict begin="514.00" end="595.00" ego="EW.29" foe="EW.13">
+        <minTTC time="547.00" position="845.28,12.97" type="2" value="3.76" speed="9.43"/>
+        <maxDRAC time="539.00" position="885.10,13.17" type="2" value="0.75" speed="12.83"/>
     </conflict>
-    <conflict begin="544.00" end="600.00" ego="EW.20" foe="EW.43">
-        <minTTC time="567.00" position="1232.23,14.83" type="3" value="2.45" speed="4.84"/>
-        <maxDRAC time="565.00" position="1242.48,14.88" type="3" value="1.29" speed="4.73"/>
+    <conflict begin="552.00" end="598.00" ego="EW.36" foe="EW.19">
+        <minTTC time="564.00" position="825.25,12.88" type="2" value="3.55" speed="14.02"/>
+        <maxDRAC time="564.00" position="825.25,12.88" type="2" value="1.18" speed="14.02"/>
     </conflict>
-    <conflict begin="524.00" end="603.00" ego="EW.7" foe="EW.34">
-        <minTTC time="557.00" position="1011.15,13.77" type="3" value="2.62" speed="3.57"/>
-        <maxDRAC time="557.00" position="1011.15,13.77" type="3" value="1.15" speed="3.57"/>
+    <conflict begin="561.00" end="601.00" ego="EW.34" foe="EW.19">
+        <minTTC time="595.00" position="648.27,12.03" type="2" value="3.57" speed="9.83"/>
+        <maxDRAC time="595.00" position="648.27,12.03" type="2" value="0.66" speed="9.83"/>
     </conflict>
-    <conflict begin="524.00" end="603.00" ego="EW.34" foe="EW.7">
-        <minTTC time="557.00" position="1011.15,13.77" type="2" value="2.62" speed="9.59"/>
-        <maxDRAC time="557.00" position="1011.15,13.77" type="2" value="1.15" speed="9.59"/>
+    <conflict begin="525.00" end="601.00" ego="EW.43" foe="EW.47">
+        <minTTC time="531.00" position="1733.69,17.24" type="3" value="4.34" speed="1.94"/>
+        <maxDRAC time="530.00" position="1735.63,17.25" type="3" value="2.11" speed="0.08"/>
     </conflict>
-    <conflict begin="533.00" end="546.00" ego="EW.34" foe="EW.42">
-        <minTTC time="539.00" position="1203.30,14.69" type="3" value="4.17" speed="10.03"/>
-        <maxDRAC time="539.00" position="1203.30,14.69" type="3" value="1.40" speed="10.03"/>
-    </conflict>
-    <conflict begin="547.00" end="603.00" ego="EW.34" foe="EW.19">
-        <minTTC time="598.00" position="629.02,11.94" type="2" value="4.11" speed="9.67"/>
-        <maxDRAC time="596.00" position="641.27,11.99" type="2" value="0.48" speed="10.10"/>
-    </conflict>
-    <conflict begin="559.00" end="564.00" ego="EW.34" foe="WE.4">
-        <minTTC time="562.00" position="962.93,10.24" type="20" value="3.86" speed="9.23"/>
+    <conflict begin="551.00" end="557.00" ego="EW.43" foe="WE.9">
+        <minTTC time="555.00" position="1418.84,12.43" type="20" value="4.09" speed="11.79"/>
         <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
-    <conflict begin="566.00" end="603.00" ego="EW.45" foe="EW.32">
-        <minTTC time="598.00" position="1222.33,14.79" type="2" value="4.17" speed="11.59"/>
-        <maxDRAC time="598.00" position="1222.33,14.79" type="2" value="0.60" speed="11.59"/>
+    <conflict begin="525.00" end="601.00" ego="EW.47" foe="EW.43">
+        <minTTC time="531.00" position="1733.69,17.24" type="2" value="4.34" speed="19.25"/>
+        <maxDRAC time="530.00" position="1735.63,17.25" type="2" value="2.11" speed="19.85"/>
     </conflict>
-    <conflict begin="578.00" end="606.00" ego="stopping" foe="EW.49">
-        <minTTC time="597.00" position="1922.89,18.15" type="3" value="0.78" speed="0.00"/>
-        <maxDRAC time="596.00" position="1922.89,18.15" type="3" value="4.46" speed="0.00"/>
+    <conflict begin="526.00" end="549.00" ego="EW.47" foe="EW.4">
+        <minTTC time="533.00" position="1717.63,17.16" type="2" value="3.51" speed="17.74"/>
+        <maxDRAC time="533.00" position="1717.63,17.16" type="2" value="2.20" speed="17.74"/>
     </conflict>
-    <conflict begin="515.00" end="606.00" ego="EW.28" foe="EW.35">
-        <minTTC time="541.00" position="889.14,13.19" type="3" value="2.28" speed="4.14"/>
-        <maxDRAC time="541.00" position="889.14,13.19" type="3" value="1.93" speed="4.14"/>
+    <conflict begin="526.00" end="565.00" ego="EW.47" foe="EW.44">
+        <minTTC time="533.00" position="1737.53,17.26" type="2" value="2.49" speed="17.74"/>
+        <maxDRAC time="532.00" position="1741.53,17.28" type="2" value="3.25" speed="19.29"/>
     </conflict>
-    <conflict begin="515.00" end="606.00" ego="EW.35" foe="EW.28">
-        <minTTC time="541.00" position="889.14,13.19" type="2" value="2.28" speed="12.94"/>
-        <maxDRAC time="541.00" position="889.14,13.19" type="2" value="1.93" speed="12.94"/>
+    <conflict begin="551.00" end="601.00" ego="EW.47" foe="EW.20">
+        <minTTC time="560.00" position="1258.60,14.96" type="2" value="3.47" speed="19.64"/>
+        <maxDRAC time="560.00" position="1258.60,14.96" type="2" value="2.16" speed="19.64"/>
     </conflict>
-    <conflict begin="519.00" end="553.00" ego="EW.35" foe="EW.36">
-        <minTTC time="520.00" position="1090.99,14.15" type="3" value="4.46" speed="5.38"/>
-        <maxDRAC time="520.00" position="1090.99,14.15" type="3" value="0.90" speed="5.38"/>
+    <conflict begin="518.00" end="603.00" ego="EW.32" foe="EW.44">
+        <minTTC time="559.00" position="1453.25,15.89" type="3" value="2.79" speed="5.71"/>
+        <maxDRAC time="557.00" position="1465.89,15.96" type="3" value="1.75" speed="5.75"/>
     </conflict>
-    <conflict begin="568.00" end="606.00" ego="EW.35" foe="EW.29">
-        <minTTC time="587.00" position="456.23,11.11" type="3" value="3.52" speed="6.80"/>
-        <maxDRAC time="587.00" position="456.23,11.11" type="3" value="0.81" speed="6.80"/>
+    <conflict begin="518.00" end="603.00" ego="EW.44" foe="EW.32">
+        <minTTC time="559.00" position="1453.25,15.89" type="2" value="2.79" speed="12.84"/>
+        <maxDRAC time="557.00" position="1465.89,15.96" type="2" value="1.75" speed="16.65"/>
     </conflict>
-    <conflict begin="578.00" end="606.00" ego="EW.49" foe="stopping">
-        <minTTC time="597.00" position="1922.89,18.15" type="2" value="0.78" speed="6.90"/>
-        <maxDRAC time="596.00" position="1922.89,18.15" type="2" value="4.46" speed="10.45"/>
+    <conflict begin="526.00" end="565.00" ego="EW.44" foe="EW.47">
+        <minTTC time="533.00" position="1737.53,17.26" type="3" value="2.49" speed="4.00"/>
+        <maxDRAC time="532.00" position="1741.53,17.28" type="3" value="3.25" speed="1.61"/>
     </conflict>
-    <conflict begin="537.00" end="607.00" ego="EW.43" foe="EW.47">
-        <minTTC time="595.00" position="888.46,13.18" type="2" value="3.34" speed="12.80"/>
-        <maxDRAC time="594.00" position="893.25,13.21" type="2" value="1.44" speed="12.95"/>
+    <conflict begin="542.00" end="604.00" ego="EW.7" foe="EW.37">
+        <minTTC time="563.00" position="1001.22,13.72" type="3" value="0.84" speed="0.00"/>
+        <maxDRAC time="563.00" position="1001.22,13.72" type="3" value="3.16" speed="0.00"/>
     </conflict>
-    <conflict begin="544.00" end="600.00" ego="EW.43" foe="EW.20">
-        <minTTC time="567.00" position="1232.23,14.83" type="2" value="2.45" speed="10.99"/>
-        <maxDRAC time="565.00" position="1242.48,14.88" type="2" value="1.29" speed="13.27"/>
+    <conflict begin="556.00" end="606.00" ego="EW.43" foe="EW.20">
+        <minTTC time="575.00" position="1187.13,14.62" type="2" value="3.05" speed="13.25"/>
+        <maxDRAC time="575.00" position="1187.13,14.62" type="2" value="1.44" speed="13.25"/>
     </conflict>
-    <conflict begin="578.00" end="600.00" ego="EW.43" foe="EW.42">
-        <minTTC time="595.00" position="876.67,13.13" type="2" value="4.17" speed="12.80"/>
-        <maxDRAC time="595.00" position="876.67,13.13" type="2" value="1.11" speed="12.80"/>
+    <conflict begin="579.00" end="607.00" ego="stopping" foe="EW.49">
+        <minTTC time="598.00" position="1922.89,18.15" type="3" value="0.65" speed="0.00"/>
+        <maxDRAC time="597.00" position="1922.89,18.15" type="3" value="4.74" speed="0.00"/>
     </conflict>
-    <conflict begin="537.00" end="607.00" ego="EW.47" foe="EW.43">
-        <minTTC time="595.00" position="888.46,13.18" type="3" value="3.34" speed="4.79"/>
-        <maxDRAC time="594.00" position="893.25,13.21" type="3" value="1.44" speed="2.94"/>
+    <conflict begin="579.00" end="607.00" ego="EW.49" foe="stopping">
+        <minTTC time="598.00" position="1922.89,18.15" type="2" value="0.65" speed="4.95"/>
+        <maxDRAC time="597.00" position="1922.89,18.15" type="2" value="4.74" speed="8.81"/>
     </conflict>
-    <conflict begin="545.00" end="569.00" ego="EW.47" foe="EW.32">
-        <minTTC time="551.00" position="1521.39,16.22" type="2" value="2.99" speed="17.03"/>
-        <maxDRAC time="550.00" position="1527.07,16.25" type="2" value="1.94" speed="19.47"/>
+    <conflict begin="538.00" end="608.00" ego="EW.37" foe="EW.38">
+        <minTTC time="571.00" position="985.70,13.65" type="3" value="2.18" speed="3.57"/>
+        <maxDRAC time="571.00" position="985.70,13.65" type="3" value="1.58" speed="3.57"/>
     </conflict>
-    <conflict begin="553.00" end="558.00" ego="EW.47" foe="WE.9">
-        <minTTC time="556.00" position="1434.24,12.50" type="20" value="2.81" speed="19.15"/>
-        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    <conflict begin="542.00" end="604.00" ego="EW.37" foe="EW.7">
+        <minTTC time="563.00" position="1001.22,13.72" type="2" value="0.84" speed="5.32"/>
+        <maxDRAC time="563.00" position="1001.22,13.72" type="2" value="3.16" speed="5.32"/>
     </conflict>
-    <conflict begin="571.00" end="586.00" ego="EW.47" foe="EW.44">
-        <minTTC time="581.00" position="944.17,13.45" type="2" value="3.98" speed="19.12"/>
-        <maxDRAC time="581.00" position="944.17,13.45" type="2" value="1.51" speed="19.12"/>
+    <conflict begin="566.00" end="601.00" ego="EW.37" foe="EW.47">
+        <minTTC time="575.00" position="969.56,13.57" type="3" value="3.31" speed="3.61"/>
+        <maxDRAC time="575.00" position="969.56,13.57" type="3" value="2.36" speed="3.61"/>
     </conflict>
-    <conflict begin="573.00" end="605.00" ego="EW.47" foe="EW.42">
-        <minTTC time="585.00" position="916.21,13.32" type="2" value="2.05" speed="11.00"/>
-        <maxDRAC time="583.00" position="923.20,13.35" type="2" value="3.01" speed="17.54"/>
+    <conflict begin="584.00" end="608.00" ego="EW.37" foe="EW.19">
+        <minTTC time="599.00" position="625.62,11.92" type="2" value="2.89" speed="16.83"/>
+        <maxDRAC time="599.00" position="625.62,11.92" type="2" value="2.03" speed="16.83"/>
     </conflict>
-    <conflict begin="574.00" end="605.00" ego="EW.47" foe="EW.7">
-        <minTTC time="583.00" position="911.59,13.29" type="2" value="3.20" speed="17.54"/>
-        <maxDRAC time="583.00" position="911.59,13.29" type="2" value="2.18" speed="17.54"/>
+    <conflict begin="538.00" end="608.00" ego="EW.38" foe="EW.37">
+        <minTTC time="571.00" position="985.70,13.65" type="2" value="2.18" speed="10.48"/>
+        <maxDRAC time="571.00" position="985.70,13.65" type="2" value="1.58" speed="10.48"/>
     </conflict>
-    <conflict begin="543.00" end="609.00" ego="EW.38" foe="EW.44">
-        <minTTC time="576.00" position="963.47,13.54" type="3" value="2.33" speed="4.39"/>
-        <maxDRAC time="576.00" position="963.47,13.54" type="3" value="0.77" speed="4.39"/>
-    </conflict>
-    <conflict begin="552.00" end="582.00" ego="EW.38" foe="EW.7">
-        <minTTC time="573.00" position="949.78,13.48" type="2" value="3.63" speed="12.08"/>
-        <maxDRAC time="573.00" position="949.78,13.48" type="2" value="1.11" speed="12.08"/>
-    </conflict>
-    <conflict begin="543.00" end="609.00" ego="EW.44" foe="EW.38">
-        <minTTC time="576.00" position="963.47,13.54" type="2" value="2.33" speed="7.97"/>
-        <maxDRAC time="576.00" position="963.47,13.54" type="2" value="0.77" speed="7.97"/>
-    </conflict>
-    <conflict begin="559.00" end="586.00" ego="EW.44" foe="EW.42">
-        <minTTC time="581.00" position="930.25,13.38" type="2" value="2.55" speed="7.12"/>
-        <maxDRAC time="574.00" position="957.65,13.51" type="2" value="1.15" speed="12.49"/>
-    </conflict>
-    <conflict begin="560.00" end="586.00" ego="EW.44" foe="EW.7">
-        <minTTC time="580.00" position="922.64,13.35" type="2" value="4.54" speed="8.52"/>
-        <maxDRAC time="572.00" position="953.77,13.50" type="2" value="0.76" speed="13.24"/>
-    </conflict>
-    <conflict begin="571.00" end="586.00" ego="EW.44" foe="EW.47">
-        <minTTC time="581.00" position="944.17,13.45" type="3" value="3.98" speed="7.12"/>
-        <maxDRAC time="581.00" position="944.17,13.45" type="3" value="1.51" speed="7.12"/>
+    <conflict begin="561.00" end="610.00" ego="EW.44" foe="EW.20">
+        <minTTC time="579.00" position="1168.61,14.53" type="2" value="2.97" speed="16.20"/>
+        <maxDRAC time="579.00" position="1168.61,14.53" type="2" value="1.90" speed="16.20"/>
     </conflict>
     <conflict begin="562.00" end="616.00" ego="EW.4" foe="EW.39">
-        <minTTC time="611.00" position="1527.55,16.25" type="3" value="1.95" speed="2.24"/>
-        <maxDRAC time="611.00" position="1527.55,16.25" type="3" value="1.17" speed="2.24"/>
+        <minTTC time="611.00" position="1522.74,16.23" type="3" value="2.97" speed="2.89"/>
+        <maxDRAC time="610.00" position="1525.63,16.24" type="3" value="0.59" speed="3.07"/>
     </conflict>
-    <conflict begin="569.00" end="586.00" ego="EW.4" foe="EW.48">
-        <minTTC time="581.00" position="1599.99,16.60" type="3" value="2.54" speed="1.96"/>
-        <maxDRAC time="581.00" position="1599.99,16.60" type="3" value="2.30" speed="1.96"/>
+    <conflict begin="567.00" end="583.00" ego="EW.4" foe="EW.45">
+        <minTTC time="578.00" position="1606.00,16.63" type="3" value="2.80" speed="2.44"/>
+        <maxDRAC time="578.00" position="1606.00,16.63" type="3" value="1.57" speed="2.44"/>
+    </conflict>
+    <conflict begin="569.00" end="587.00" ego="EW.4" foe="EW.48">
+        <minTTC time="582.00" position="1596.15,16.58" type="3" value="2.11" speed="2.73"/>
+        <maxDRAC time="582.00" position="1596.15,16.58" type="3" value="2.51" speed="2.73"/>
+    </conflict>
+    <conflict begin="553.00" end="616.00" ego="EW.36" foe="EW.13">
+        <minTTC time="572.00" position="716.29,12.36" type="2" value="2.64" speed="14.87"/>
+        <maxDRAC time="572.00" position="716.29,12.36" type="2" value="1.87" speed="14.87"/>
     </conflict>
     <conflict begin="562.00" end="616.00" ego="EW.39" foe="EW.4">
-        <minTTC time="611.00" position="1527.55,16.25" type="2" value="1.95" speed="6.82"/>
-        <maxDRAC time="611.00" position="1527.55,16.25" type="2" value="1.17" speed="6.82"/>
-    </conflict>
-    <conflict begin="584.00" end="617.00" ego="EW.38" foe="EW.19">
-        <minTTC time="611.00" position="554.64,11.58" type="2" value="3.30" speed="11.83"/>
-        <maxDRAC time="611.00" position="554.64,11.58" type="2" value="0.95" speed="11.83"/>
-    </conflict>
-    <conflict begin="548.00" end="618.00" ego="EW.7" foe="EW.42">
-        <minTTC time="560.00" position="1000.49,13.72" type="3" value="2.60" speed="3.47"/>
-        <maxDRAC time="560.00" position="1000.49,13.72" type="3" value="1.03" speed="3.47"/>
-    </conflict>
-    <conflict begin="552.00" end="582.00" ego="EW.7" foe="EW.38">
-        <minTTC time="573.00" position="949.78,13.48" type="3" value="3.63" speed="3.99"/>
-        <maxDRAC time="573.00" position="949.78,13.48" type="3" value="1.11" speed="3.99"/>
-    </conflict>
-    <conflict begin="560.00" end="586.00" ego="EW.7" foe="EW.44">
-        <minTTC time="580.00" position="922.64,13.35" type="3" value="4.54" speed="3.32"/>
-        <maxDRAC time="572.00" position="953.77,13.50" type="3" value="0.76" speed="3.71"/>
-    </conflict>
-    <conflict begin="574.00" end="605.00" ego="EW.7" foe="EW.47">
-        <minTTC time="583.00" position="911.59,13.29" type="3" value="3.20" speed="3.54"/>
-        <maxDRAC time="583.00" position="911.59,13.29" type="3" value="2.18" speed="3.54"/>
-    </conflict>
-    <conflict begin="548.00" end="618.00" ego="EW.42" foe="EW.7">
-        <minTTC time="560.00" position="1000.49,13.72" type="2" value="2.60" speed="8.83"/>
-        <maxDRAC time="560.00" position="1000.49,13.72" type="2" value="1.03" speed="8.83"/>
-    </conflict>
-    <conflict begin="559.00" end="586.00" ego="EW.42" foe="EW.44">
-        <minTTC time="581.00" position="930.25,13.38" type="3" value="2.55" speed="3.62"/>
-        <maxDRAC time="574.00" position="957.65,13.51" type="3" value="1.15" speed="4.03"/>
-    </conflict>
-    <conflict begin="573.00" end="605.00" ego="EW.42" foe="EW.47">
-        <minTTC time="585.00" position="916.21,13.32" type="3" value="2.05" speed="3.26"/>
-        <maxDRAC time="583.00" position="923.20,13.35" type="3" value="3.01" speed="3.39"/>
-    </conflict>
-    <conflict begin="578.00" end="600.00" ego="EW.42" foe="EW.43">
-        <minTTC time="595.00" position="876.67,13.13" type="3" value="4.17" speed="3.56"/>
-        <maxDRAC time="595.00" position="876.67,13.13" type="3" value="1.11" speed="3.56"/>
-    </conflict>
-    <conflict begin="609.00" end="619.00" ego="EW.42" foe="EW.47">
-        <minTTC time="610.00" position="813.57,12.82" type="2" value="2.46" speed="2.97"/>
-        <maxDRAC time="610.00" position="813.57,12.82" type="2" value="0.33" speed="2.97"/>
-    </conflict>
-    <conflict begin="609.00" end="619.00" ego="EW.47" foe="EW.42">
-        <minTTC time="610.00" position="813.57,12.82" type="3" value="2.46" speed="1.33"/>
-        <maxDRAC time="610.00" position="813.57,12.82" type="3" value="0.33" speed="1.33"/>
-    </conflict>
-    <conflict begin="596.00" end="629.00" ego="EW.48" foe="EW.32">
-        <minTTC time="622.00" position="1071.28,14.06" type="2" value="3.50" speed="12.62"/>
-        <maxDRAC time="621.00" position="1077.85,14.09" type="2" value="0.88" speed="13.09"/>
-    </conflict>
-    <conflict begin="623.00" end="643.00" ego="EW.42" foe="EW.43">
-        <minTTC time="635.00" position="435.04,11.00" type="2" value="4.04" speed="21.40"/>
-        <maxDRAC time="635.00" position="435.04,11.00" type="2" value="1.97" speed="21.40"/>
-    </conflict>
-    <conflict begin="605.00" end="643.00" ego="EW.43" foe="EW.19">
-        <minTTC time="630.00" position="446.35,11.06" type="2" value="2.91" speed="12.57"/>
-        <maxDRAC time="630.00" position="446.35,11.06" type="2" value="1.22" speed="12.57"/>
-    </conflict>
-    <conflict begin="609.00" end="643.00" ego="EW.43" foe="EW.47">
-        <minTTC time="633.00" position="447.05,11.06" type="3" value="4.28" speed="6.69"/>
-        <maxDRAC time="626.00" position="523.41,11.43" type="3" value="0.55" speed="12.91"/>
-    </conflict>
-    <conflict begin="623.00" end="643.00" ego="EW.43" foe="EW.42">
-        <minTTC time="635.00" position="435.04,11.00" type="3" value="4.04" speed="5.46"/>
-        <maxDRAC time="635.00" position="435.04,11.00" type="3" value="1.97" speed="5.46"/>
-    </conflict>
-    <conflict begin="609.00" end="643.00" ego="EW.47" foe="EW.43">
-        <minTTC time="633.00" position="447.05,11.06" type="2" value="4.28" speed="9.92"/>
-        <maxDRAC time="626.00" position="523.41,11.43" type="2" value="0.55" speed="19.59"/>
-    </conflict>
-    <conflict begin="555.00" end="645.00" ego="EW.21" foe="EW.28">
-        <minTTC time="574.00" position="517.60,11.40" type="3" value="4.33" speed="7.54"/>
-        <maxDRAC time="574.00" position="517.60,11.40" type="3" value="0.47" speed="7.54"/>
-    </conflict>
-    <conflict begin="555.00" end="645.00" ego="EW.28" foe="EW.21">
-        <minTTC time="574.00" position="517.60,11.40" type="2" value="4.33" speed="11.57"/>
-        <maxDRAC time="574.00" position="517.60,11.40" type="2" value="0.47" speed="11.57"/>
-    </conflict>
-    <conflict begin="610.00" end="647.00" ego="EW.35" foe="EW.28">
-        <minTTC time="637.00" position="79.38,5.91" type="3" value="4.85" speed="6.40"/>
-        <maxDRAC time="637.00" position="79.38,5.91" type="3" value="0.21" speed="6.40"/>
-    </conflict>
-    <conflict begin="568.00" end="649.00" ego="EW.28" foe="EW.29">
-        <minTTC time="617.00" position="237.67,10.06" type="3" value="2.61" speed="5.22"/>
-        <maxDRAC time="617.00" position="237.67,10.06" type="3" value="0.64" speed="5.22"/>
-    </conflict>
-    <conflict begin="610.00" end="647.00" ego="EW.28" foe="EW.35">
-        <minTTC time="637.00" position="79.38,5.91" type="2" value="4.85" speed="8.45"/>
-        <maxDRAC time="637.00" position="79.38,5.91" type="2" value="0.21" speed="8.45"/>
-    </conflict>
-    <conflict begin="466.00" end="650.00" ego="EW.29" foe="EW.36">
-        <minTTC time="541.00" position="970.33,13.58" type="3" value="2.30" speed="0.00"/>
-        <maxDRAC time="523.00" position="1089.74,14.15" type="3" value="0.77" speed="5.28"/>
-    </conflict>
-    <conflict begin="492.00" end="558.00" ego="EW.29" foe="EW.7">
-        <minTTC time="511.00" position="1194.03,14.65" type="2" value="2.63" speed="12.51"/>
-        <maxDRAC time="511.00" position="1194.03,14.65" type="2" value="1.68" speed="12.51"/>
-    </conflict>
-    <conflict begin="495.00" end="559.00" ego="EW.29" foe="EW.35">
-        <minTTC time="522.00" position="1080.46,14.10" type="2" value="2.35" speed="8.37"/>
-        <maxDRAC time="519.00" position="1096.37,14.18" type="2" value="1.11" speed="12.92"/>
-    </conflict>
-    <conflict begin="496.00" end="558.00" ego="EW.29" foe="EW.19">
-        <minTTC time="535.00" position="992.71,13.68" type="2" value="3.79" speed="10.07"/>
-        <maxDRAC time="519.00" position="1082.25,14.11" type="2" value="0.67" speed="12.92"/>
-    </conflict>
-    <conflict begin="528.00" end="558.00" ego="EW.29" foe="EW.37">
-        <minTTC time="542.00" position="967.92,13.56" type="3" value="3.42" speed="2.41"/>
-        <maxDRAC time="542.00" position="967.92,13.56" type="3" value="2.11" speed="2.41"/>
-    </conflict>
-    <conflict begin="562.00" end="650.00" ego="EW.29" foe="EW.37">
-        <minTTC time="592.00" position="436.44,11.01" type="3" value="4.56" speed="6.36"/>
-        <maxDRAC time="592.00" position="436.44,11.01" type="3" value="1.19" speed="6.36"/>
-    </conflict>
-    <conflict begin="568.00" end="649.00" ego="EW.29" foe="EW.28">
-        <minTTC time="617.00" position="237.67,10.06" type="2" value="2.61" speed="8.57"/>
-        <maxDRAC time="617.00" position="237.67,10.06" type="2" value="0.64" speed="8.57"/>
-    </conflict>
-    <conflict begin="568.00" end="606.00" ego="EW.29" foe="EW.35">
-        <minTTC time="587.00" position="456.23,11.11" type="2" value="3.52" speed="12.47"/>
-        <maxDRAC time="587.00" position="456.23,11.11" type="2" value="0.81" speed="12.47"/>
-    </conflict>
-    <conflict begin="466.00" end="650.00" ego="EW.36" foe="EW.29">
-        <minTTC time="541.00" position="970.33,13.58" type="2" value="2.30" speed="2.80"/>
-        <maxDRAC time="523.00" position="1089.74,14.15" type="2" value="0.77" speed="9.03"/>
-    </conflict>
-    <conflict begin="495.00" end="562.00" ego="EW.36" foe="EW.7">
-        <minTTC time="514.00" position="1181.71,14.59" type="2" value="2.42" speed="11.67"/>
-        <maxDRAC time="513.00" position="1185.49,14.61" type="2" value="1.89" speed="14.45"/>
-    </conflict>
-    <conflict begin="499.00" end="562.00" ego="EW.36" foe="EW.19">
-        <minTTC time="538.00" position="976.04,13.60" type="2" value="3.24" speed="11.24"/>
-        <maxDRAC time="537.00" position="981.69,13.63" type="2" value="0.88" speed="11.65"/>
-    </conflict>
-    <conflict begin="519.00" end="553.00" ego="EW.36" foe="EW.35">
-        <minTTC time="520.00" position="1090.99,14.15" type="2" value="4.46" speed="13.44"/>
-        <maxDRAC time="520.00" position="1090.99,14.15" type="2" value="0.90" speed="13.44"/>
-    </conflict>
-    <conflict begin="526.00" end="652.00" ego="EW.36" foe="EW.37">
-        <minTTC time="543.00" position="975.66,13.60" type="3" value="2.22" speed="3.04"/>
-        <maxDRAC time="543.00" position="975.66,13.60" type="3" value="2.70" speed="3.04"/>
-    </conflict>
-    <conflict begin="622.00" end="652.00" ego="EW.36" foe="EW.44">
-        <minTTC time="637.00" position="125.79,8.39" type="3" value="4.79" speed="5.66"/>
-        <maxDRAC time="634.00" position="148.34,9.60" type="3" value="1.06" speed="6.37"/>
-    </conflict>
-    <conflict begin="526.00" end="652.00" ego="EW.37" foe="EW.36">
-        <minTTC time="543.00" position="975.66,13.60" type="2" value="2.22" speed="15.00"/>
-        <maxDRAC time="543.00" position="975.66,13.60" type="2" value="2.70" speed="15.00"/>
-    </conflict>
-    <conflict begin="528.00" end="558.00" ego="EW.37" foe="EW.29">
-        <minTTC time="542.00" position="967.92,13.56" type="2" value="3.42" speed="16.83"/>
-        <maxDRAC time="542.00" position="967.92,13.56" type="2" value="2.11" speed="16.83"/>
-    </conflict>
-    <conflict begin="530.00" end="566.00" ego="EW.37" foe="EW.19">
-        <minTTC time="561.00" position="841.66,12.96" type="2" value="3.36" speed="9.74"/>
-        <maxDRAC time="542.00" position="953.04,13.49" type="2" value="1.03" speed="16.83"/>
-    </conflict>
-    <conflict begin="562.00" end="650.00" ego="EW.37" foe="EW.29">
-        <minTTC time="592.00" position="436.44,11.01" type="2" value="4.56" speed="17.25"/>
-        <maxDRAC time="592.00" position="436.44,11.01" type="2" value="1.19" speed="17.25"/>
-    </conflict>
-    <conflict begin="570.00" end="623.00" ego="EW.37" foe="EW.13">
-        <minTTC time="571.00" position="721.83,12.38" type="2" value="2.46" speed="11.00"/>
-        <maxDRAC time="571.00" position="721.83,12.38" type="2" value="1.27" speed="11.00"/>
-    </conflict>
-    <conflict begin="622.00" end="654.00" ego="EW.37" foe="EW.44">
-        <minTTC time="641.00" position="114.99,7.82" type="3" value="2.27" speed="4.83"/>
-        <maxDRAC time="635.00" position="157.83,9.67" type="3" value="1.63" speed="6.47"/>
-    </conflict>
-    <conflict begin="605.00" end="655.00" ego="EW.44" foe="EW.34">
-        <minTTC time="611.00" position="521.44,8.12" type="2" value="2.87" speed="17.09"/>
-        <maxDRAC time="611.00" position="521.44,8.12" type="2" value="2.21" speed="17.09"/>
-    </conflict>
-    <conflict begin="622.00" end="652.00" ego="EW.44" foe="EW.36">
-        <minTTC time="637.00" position="125.79,8.39" type="2" value="4.79" speed="13.61"/>
-        <maxDRAC time="634.00" position="148.34,9.60" type="2" value="1.06" speed="17.80"/>
-    </conflict>
-    <conflict begin="622.00" end="654.00" ego="EW.44" foe="EW.37">
-        <minTTC time="641.00" position="114.99,7.82" type="2" value="2.27" speed="9.36"/>
-        <maxDRAC time="635.00" position="157.83,9.67" type="2" value="1.63" speed="17.15"/>
-    </conflict>
-    <conflict begin="605.00" end="655.00" ego="EW.34" foe="EW.44">
-        <minTTC time="611.00" position="521.44,8.12" type="3" value="2.87" speed="4.42"/>
-        <maxDRAC time="611.00" position="521.44,8.12" type="3" value="2.21" speed="4.42"/>
-    </conflict>
-    <conflict begin="480.00" end="656.00" ego="EW.13" foe="EW.19">
-        <minTTC time="643.00" position="357.80,10.63" type="3" value="4.71" speed="4.56"/>
-        <maxDRAC time="643.00" position="357.80,10.63" type="3" value="0.19" speed="4.56"/>
-    </conflict>
-    <conflict begin="484.00" end="501.00" ego="EW.13" foe="EW.31">
-        <minTTC time="494.00" position="1109.86,14.25" type="3" value="2.72" speed="4.62"/>
-        <maxDRAC time="488.00" position="1139.09,14.39" type="3" value="1.44" speed="4.65"/>
-    </conflict>
-    <conflict begin="489.00" end="541.00" ego="EW.13" foe="EW.33">
-        <minTTC time="504.00" position="1061.04,14.01" type="3" value="3.05" speed="4.95"/>
-        <maxDRAC time="504.00" position="1061.04,14.01" type="3" value="0.83" speed="4.95"/>
-    </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.13" foe="EW.35">
-        <minTTC time="547.00" position="843.00,12.96" type="3" value="3.31" speed="5.60"/>
-        <maxDRAC time="540.00" position="879.73,13.14" type="3" value="1.07" speed="4.65"/>
-    </conflict>
-    <conflict begin="513.00" end="549.00" ego="EW.13" foe="EW.28">
-        <minTTC time="527.00" position="946.39,13.46" type="3" value="2.40" speed="4.66"/>
-        <maxDRAC time="527.00" position="946.39,13.46" type="3" value="1.05" speed="4.66"/>
-    </conflict>
-    <conflict begin="570.00" end="623.00" ego="EW.13" foe="EW.37">
-        <minTTC time="571.00" position="721.83,12.38" type="3" value="2.46" speed="4.75"/>
-        <maxDRAC time="571.00" position="721.83,12.38" type="3" value="1.27" speed="4.75"/>
-    </conflict>
-    <conflict begin="480.00" end="656.00" ego="EW.19" foe="EW.13">
-        <minTTC time="643.00" position="357.80,10.63" type="2" value="4.71" speed="6.32"/>
-        <maxDRAC time="643.00" position="357.80,10.63" type="2" value="0.19" speed="6.32"/>
-    </conflict>
-    <conflict begin="495.00" end="553.00" ego="EW.19" foe="EW.35">
-        <minTTC time="512.00" position="1122.38,14.31" type="3" value="3.77" speed="6.24"/>
-        <maxDRAC time="510.00" position="1134.52,14.36" type="3" value="0.97" speed="6.21"/>
-    </conflict>
-    <conflict begin="496.00" end="558.00" ego="EW.19" foe="EW.29">
-        <minTTC time="535.00" position="992.71,13.68" type="3" value="3.79" speed="6.17"/>
-        <maxDRAC time="519.00" position="1082.25,14.11" type="3" value="0.67" speed="6.07"/>
-    </conflict>
-    <conflict begin="499.00" end="562.00" ego="EW.19" foe="EW.36">
-        <minTTC time="538.00" position="976.04,13.60" type="3" value="3.24" speed="5.64"/>
-        <maxDRAC time="537.00" position="981.69,13.63" type="3" value="0.88" speed="5.18"/>
-    </conflict>
-    <conflict begin="530.00" end="566.00" ego="EW.19" foe="EW.37">
-        <minTTC time="561.00" position="841.66,12.96" type="3" value="3.36" speed="5.36"/>
-        <maxDRAC time="542.00" position="953.04,13.49" type="3" value="1.03" speed="5.32"/>
-    </conflict>
-    <conflict begin="547.00" end="603.00" ego="EW.19" foe="EW.34">
-        <minTTC time="598.00" position="629.02,11.94" type="3" value="4.11" speed="6.01"/>
-        <maxDRAC time="596.00" position="641.27,11.99" type="3" value="0.48" speed="5.54"/>
-    </conflict>
-    <conflict begin="584.00" end="617.00" ego="EW.19" foe="EW.38">
-        <minTTC time="611.00" position="554.64,11.58" type="3" value="3.30" speed="5.60"/>
-        <maxDRAC time="611.00" position="554.64,11.58" type="3" value="0.95" speed="5.60"/>
-    </conflict>
-    <conflict begin="605.00" end="643.00" ego="EW.19" foe="EW.43">
-        <minTTC time="630.00" position="446.35,11.06" type="3" value="2.91" speed="5.48"/>
-        <maxDRAC time="630.00" position="446.35,11.06" type="3" value="1.22" speed="5.48"/>
-    </conflict>
-    <conflict begin="619.00" end="656.00" ego="EW.19" foe="EW.47">
-        <minTTC time="644.00" position="367.03,10.68" type="3" value="2.49" speed="4.05"/>
-        <maxDRAC time="626.00" position="469.52,11.17" type="3" value="1.11" speed="5.10"/>
-    </conflict>
-    <conflict begin="619.00" end="656.00" ego="EW.47" foe="EW.19">
-        <minTTC time="644.00" position="367.03,10.68" type="2" value="2.49" speed="7.76"/>
-        <maxDRAC time="626.00" position="469.52,11.17" type="2" value="1.11" speed="19.59"/>
-    </conflict>
-    <conflict begin="605.00" end="658.00" ego="EW.45" foe="EW.20">
-        <minTTC time="619.00" position="982.66,13.63" type="2" value="3.05" speed="10.95"/>
-        <maxDRAC time="619.00" position="982.66,13.63" type="2" value="0.97" speed="10.95"/>
-    </conflict>
-    <conflict begin="624.00" end="682.00" ego="EW.7" foe="EW.45">
-        <minTTC time="647.00" position="654.87,12.06" type="3" value="3.06" speed="3.45"/>
-        <maxDRAC time="647.00" position="654.87,12.06" type="3" value="1.28" speed="3.45"/>
-    </conflict>
-    <conflict begin="624.00" end="682.00" ego="EW.45" foe="EW.7">
-        <minTTC time="647.00" position="654.87,12.06" type="2" value="3.06" speed="11.32"/>
-        <maxDRAC time="647.00" position="654.87,12.06" type="2" value="1.28" speed="11.32"/>
-    </conflict>
-    <conflict begin="629.00" end="686.00" ego="EW.4" foe="EW.49">
-        <minTTC time="652.00" position="1421.76,15.74" type="3" value="2.73" speed="2.76"/>
-        <maxDRAC time="652.00" position="1421.76,15.74" type="3" value="1.29" speed="2.76"/>
-    </conflict>
-    <conflict begin="629.00" end="686.00" ego="EW.49" foe="EW.4">
-        <minTTC time="652.00" position="1421.76,15.74" type="2" value="2.73" speed="9.81"/>
-        <maxDRAC time="652.00" position="1421.76,15.74" type="2" value="1.29" speed="9.81"/>
-    </conflict>
-    <conflict begin="605.00" end="658.00" ego="EW.20" foe="EW.45">
-        <minTTC time="619.00" position="982.66,13.63" type="3" value="3.05" speed="5.03"/>
-        <maxDRAC time="619.00" position="982.66,13.63" type="3" value="0.97" speed="5.03"/>
-    </conflict>
-    <conflict begin="566.00" end="603.00" ego="EW.32" foe="EW.45">
-        <minTTC time="598.00" position="1222.33,14.79" type="3" value="4.17" speed="6.56"/>
-        <maxDRAC time="598.00" position="1222.33,14.79" type="3" value="0.60" speed="6.56"/>
-    </conflict>
-    <conflict begin="596.00" end="629.00" ego="EW.32" foe="EW.48">
-        <minTTC time="622.00" position="1071.28,14.06" type="3" value="3.50" speed="6.58"/>
-        <maxDRAC time="621.00" position="1077.85,14.09" type="3" value="0.88" speed="6.20"/>
-    </conflict>
-    <conflict begin="640.00" end="687.00" ego="EW.48" foe="EW.7">
-        <minTTC time="657.00" position="616.98,11.88" type="2" value="2.66" speed="13.66"/>
-        <maxDRAC time="657.00" position="616.98,11.88" type="2" value="1.83" speed="13.66"/>
-    </conflict>
-    <conflict begin="640.00" end="706.00" ego="EW.39" foe="EW.49">
-        <minTTC time="688.00" position="1061.49,14.01" type="3" value="2.96" speed="5.79"/>
-        <maxDRAC time="688.00" position="1061.49,14.01" type="3" value="0.80" speed="5.79"/>
-    </conflict>
-    <conflict begin="640.00" end="706.00" ego="EW.49" foe="EW.39">
-        <minTTC time="688.00" position="1061.49,14.01" type="2" value="2.96" speed="10.52"/>
-        <maxDRAC time="688.00" position="1061.49,14.01" type="2" value="0.80" speed="10.52"/>
-    </conflict>
-    <conflict begin="621.00" end="712.00" ego="EW.13" foe="EW.47">
-        <minTTC time="655.00" position="297.78,10.34" type="3" value="3.02" speed="5.18"/>
-        <maxDRAC time="626.00" position="441.77,11.04" type="3" value="0.86" speed="5.07"/>
-    </conflict>
-    <conflict begin="621.00" end="712.00" ego="EW.47" foe="EW.13">
-        <minTTC time="655.00" position="297.78,10.34" type="2" value="3.02" speed="9.27"/>
-        <maxDRAC time="626.00" position="441.77,11.04" type="2" value="0.86" speed="19.59"/>
-    </conflict>
-    <conflict begin="672.00" end="714.00" ego="EW.19" foe="EW.47">
-        <minTTC time="700.00" position="83.63,6.13" type="3" value="4.20" speed="3.98"/>
-        <maxDRAC time="700.00" position="83.63,6.13" type="3" value="0.20" speed="3.98"/>
-    </conflict>
-    <conflict begin="623.00" end="716.00" ego="EW.47" foe="EW.42">
-        <minTTC time="671.00" position="233.45,10.04" type="3" value="0.86" speed="0.61"/>
-        <maxDRAC time="671.00" position="233.45,10.04" type="3" value="2.76" speed="0.61"/>
-    </conflict>
-    <conflict begin="672.00" end="714.00" ego="EW.47" foe="EW.19">
-        <minTTC time="700.00" position="83.63,6.13" type="2" value="4.20" speed="5.68"/>
-        <maxDRAC time="700.00" position="83.63,6.13" type="2" value="0.20" speed="5.68"/>
-    </conflict>
-    <conflict begin="623.00" end="716.00" ego="EW.42" foe="EW.47">
-        <minTTC time="671.00" position="233.45,10.04" type="2" value="0.86" speed="5.36"/>
-        <maxDRAC time="671.00" position="233.45,10.04" type="2" value="2.76" speed="5.36"/>
-    </conflict>
-    <conflict begin="665.00" end="718.00" ego="EW.42" foe="EW.45">
-        <minTTC time="692.00" position="150.73,9.64" type="3" value="2.29" speed="4.22"/>
-        <maxDRAC time="689.00" position="166.16,9.71" type="3" value="1.14" speed="4.18"/>
-    </conflict>
-    <conflict begin="673.00" end="718.00" ego="EW.42" foe="EW.48">
-        <minTTC time="692.00" position="150.73,9.64" type="3" value="3.84" speed="4.22"/>
-        <maxDRAC time="692.00" position="150.73,9.64" type="3" value="1.18" speed="4.22"/>
-    </conflict>
-    <conflict begin="640.00" end="720.00" ego="EW.45" foe="EW.48">
-        <minTTC time="703.00" position="109.10,7.50" type="3" value="2.50" speed="3.83"/>
-        <maxDRAC time="693.00" position="161.27,9.69" type="3" value="1.02" speed="5.43"/>
-    </conflict>
-    <conflict begin="665.00" end="718.00" ego="EW.45" foe="EW.42">
-        <minTTC time="692.00" position="150.73,9.64" type="2" value="2.29" speed="9.02"/>
-        <maxDRAC time="689.00" position="166.16,9.71" type="2" value="1.14" speed="11.90"/>
-    </conflict>
-    <conflict begin="640.00" end="720.00" ego="EW.48" foe="EW.45">
-        <minTTC time="703.00" position="109.10,7.50" type="2" value="2.50" speed="6.49"/>
-        <maxDRAC time="693.00" position="161.27,9.69" type="2" value="1.02" speed="10.67"/>
-    </conflict>
-    <conflict begin="673.00" end="718.00" ego="EW.48" foe="EW.42">
-        <minTTC time="692.00" position="150.73,9.64" type="2" value="3.84" speed="13.27"/>
-        <maxDRAC time="692.00" position="150.73,9.64" type="2" value="1.18" speed="13.27"/>
-    </conflict>
-    <conflict begin="681.00" end="738.00" ego="EW.4" foe="EW.46">
-        <minTTC time="733.00" position="1217.08,14.76" type="3" value="2.51" speed="2.26"/>
-        <maxDRAC time="733.00" position="1217.08,14.76" type="3" value="0.77" speed="2.26"/>
-    </conflict>
-    <conflict begin="681.00" end="738.00" ego="EW.46" foe="EW.4">
-        <minTTC time="733.00" position="1217.08,14.76" type="2" value="2.51" speed="6.14"/>
-        <maxDRAC time="733.00" position="1217.08,14.76" type="2" value="0.77" speed="6.14"/>
-    </conflict>
-    <conflict begin="640.00" end="687.00" ego="EW.7" foe="EW.48">
-        <minTTC time="657.00" position="616.98,11.88" type="3" value="2.66" speed="3.93"/>
-        <maxDRAC time="657.00" position="616.98,11.88" type="3" value="1.83" speed="3.93"/>
-    </conflict>
-    <conflict begin="701.00" end="812.00" ego="EW.7" foe="EW.32">
-        <minTTC time="750.00" position="246.87,10.10" type="3" value="3.29" speed="4.13"/>
-        <maxDRAC time="750.00" position="246.87,10.10" type="3" value="0.42" speed="4.13"/>
-    </conflict>
-    <conflict begin="701.00" end="812.00" ego="EW.32" foe="EW.7">
-        <minTTC time="750.00" position="246.87,10.10" type="2" value="3.29" speed="6.91"/>
-        <maxDRAC time="750.00" position="246.87,10.10" type="2" value="0.42" speed="6.91"/>
-    </conflict>
-    <conflict begin="741.00" end="823.00" ego="EW.20" foe="EW.49">
-        <minTTC time="774.00" position="240.13,10.07" type="3" value="2.80" speed="4.56"/>
-        <maxDRAC time="774.00" position="240.13,10.07" type="3" value="1.08" speed="4.56"/>
-    </conflict>
-    <conflict begin="741.00" end="823.00" ego="EW.49" foe="EW.20">
-        <minTTC time="774.00" position="240.13,10.07" type="2" value="2.80" speed="10.60"/>
-        <maxDRAC time="774.00" position="240.13,10.07" type="2" value="1.08" speed="10.60"/>
-    </conflict>
-    <conflict begin="410.00" end="827.00" ego="EW.40" foe="EW.41">
-        <minTTC time="551.00" position="2395.64,20.42" type="3" value="1.22" speed="0.00"/>
-        <maxDRAC time="551.00" position="2395.64,20.42" type="3" value="1.33" speed="0.00"/>
-    </conflict>
-    <conflict begin="440.00" end="469.00" ego="EW.40" foe="EW.44">
-        <minTTC time="452.00" position="2739.02,22.07" type="3" value="4.47" speed="2.92"/>
-        <maxDRAC time="450.00" position="2745.19,22.10" type="3" value="1.42" speed="3.67"/>
+        <minTTC time="611.00" position="1522.74,16.23" type="2" value="2.97" speed="6.07"/>
+        <maxDRAC time="610.00" position="1525.63,16.24" type="2" value="0.59" speed="6.92"/>
+    </conflict>
+    <conflict begin="550.00" end="617.00" ego="EW.7" foe="EW.38">
+        <minTTC time="582.00" position="929.01,13.38" type="3" value="3.97" speed="4.49"/>
+        <maxDRAC time="570.00" position="977.57,13.61" type="3" value="0.89" speed="3.44"/>
+    </conflict>
+    <conflict begin="550.00" end="617.00" ego="EW.38" foe="EW.7">
+        <minTTC time="582.00" position="929.01,13.38" type="2" value="3.97" speed="8.08"/>
+        <maxDRAC time="570.00" position="977.57,13.61" type="2" value="0.89" speed="11.18"/>
+    </conflict>
+    <conflict begin="567.00" end="620.00" ego="EW.7" foe="EW.47">
+        <minTTC time="585.00" position="918.29,13.33" type="3" value="2.11" speed="3.65"/>
+        <maxDRAC time="575.00" position="956.94,13.51" type="3" value="1.76" speed="4.20"/>
+    </conflict>
+    <conflict begin="593.00" end="622.00" ego="EW.44" foe="EW.7">
+        <minTTC time="605.00" position="840.79,12.95" type="2" value="3.01" speed="17.29"/>
+        <maxDRAC time="605.00" position="840.79,12.95" type="2" value="2.14" speed="17.29"/>
+    </conflict>
+    <conflict begin="558.00" end="627.00" ego="EW.38" foe="EW.47">
+        <minTTC time="577.00" position="973.71,13.59" type="3" value="2.33" speed="3.85"/>
+        <maxDRAC time="575.00" position="981.09,13.63" type="3" value="2.58" speed="4.83"/>
+    </conflict>
+    <conflict begin="588.00" end="627.00" ego="EW.38" foe="EW.19">
+        <minTTC time="618.00" position="516.65,11.40" type="2" value="2.83" speed="11.13"/>
+        <maxDRAC time="618.00" position="516.65,11.40" type="2" value="1.06" speed="11.13"/>
+    </conflict>
+    <conflict begin="558.00" end="627.00" ego="EW.47" foe="EW.38">
+        <minTTC time="577.00" position="973.71,13.59" type="2" value="2.33" speed="12.37"/>
+        <maxDRAC time="575.00" position="981.09,13.63" type="2" value="2.58" speed="19.24"/>
+    </conflict>
+    <conflict begin="566.00" end="601.00" ego="EW.47" foe="EW.37">
+        <minTTC time="575.00" position="969.56,13.57" type="2" value="3.31" speed="19.24"/>
+        <maxDRAC time="575.00" position="969.56,13.57" type="2" value="2.36" speed="19.24"/>
+    </conflict>
+    <conflict begin="567.00" end="620.00" ego="EW.47" foe="EW.7">
+        <minTTC time="585.00" position="918.29,13.33" type="2" value="2.11" speed="10.65"/>
+        <maxDRAC time="575.00" position="956.94,13.51" type="2" value="1.76" speed="19.24"/>
+    </conflict>
+    <conflict begin="582.00" end="633.00" ego="EW.7" foe="EW.43">
+        <minTTC time="601.00" position="857.57,13.03" type="3" value="2.72" speed="3.70"/>
+        <maxDRAC time="601.00" position="857.57,13.03" type="3" value="1.59" speed="3.70"/>
+    </conflict>
+    <conflict begin="593.00" end="622.00" ego="EW.7" foe="EW.44">
+        <minTTC time="605.00" position="840.79,12.95" type="3" value="3.01" speed="4.38"/>
+        <maxDRAC time="605.00" position="840.79,12.95" type="3" value="2.14" speed="4.38"/>
+    </conflict>
+    <conflict begin="582.00" end="633.00" ego="EW.43" foe="EW.7">
+        <minTTC time="601.00" position="857.57,13.03" type="2" value="2.72" speed="12.37"/>
+        <maxDRAC time="601.00" position="857.57,13.03" type="2" value="1.59" speed="12.37"/>
+    </conflict>
+    <conflict begin="479.00" end="634.00" ego="WE.4" foe="WE.8">
+        <minTTC time="547.00" position="895.74,9.92" type="3" value="1.80" speed="1.75"/>
+        <maxDRAC time="547.00" position="895.74,9.92" type="3" value="0.71" speed="1.75"/>
+    </conflict>
+    <conflict begin="488.00" end="535.00" ego="WE.4" foe="WE.9">
+        <minTTC time="506.00" position="804.20,9.48" type="3" value="2.21" speed="2.71"/>
+        <maxDRAC time="506.00" position="804.20,9.48" type="3" value="2.11" speed="2.71"/>
+    </conflict>
+    <conflict begin="526.00" end="532.00" ego="WE.4" foe="EW.28">
+        <minTTC time="530.00" position="892.38,9.90" type="20" value="4.43" speed="1.89"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="541.00" end="546.00" ego="WE.4" foe="EW.33">
+        <minTTC time="543.00" position="920.12,10.03" type="20" value="4.11" speed="2.62"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="559.00" end="564.00" ego="WE.4" foe="EW.42">
+        <minTTC time="562.00" position="963.46,10.24" type="20" value="4.83" speed="2.15"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="479.00" end="634.00" ego="WE.8" foe="WE.4">
+        <minTTC time="547.00" position="895.74,9.92" type="2" value="1.80" speed="4.29"/>
+        <maxDRAC time="547.00" position="895.74,9.92" type="2" value="0.71" speed="4.29"/>
+    </conflict>
+    <conflict begin="541.00" end="546.00" ego="WE.8" foe="EW.33">
+        <minTTC time="543.00" position="909.67,9.98" type="20" value="4.84" speed="4.92"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="567.00" end="583.00" ego="EW.45" foe="EW.4">
+        <minTTC time="578.00" position="1606.00,16.63" type="2" value="2.80" speed="11.21"/>
+        <maxDRAC time="578.00" position="1606.00,16.63" type="2" value="1.57" speed="11.21"/>
+    </conflict>
+    <conflict begin="569.00" end="587.00" ego="EW.48" foe="EW.4">
+        <minTTC time="582.00" position="1596.15,16.58" type="2" value="2.11" speed="13.29"/>
+        <maxDRAC time="582.00" position="1596.15,16.58" type="2" value="2.51" speed="13.29"/>
+    </conflict>
+    <conflict begin="598.00" end="642.00" ego="EW.45" foe="EW.32">
+        <minTTC time="632.00" position="987.78,13.66" type="2" value="2.92" speed="12.18"/>
+        <maxDRAC time="632.00" position="987.78,13.66" type="2" value="1.09" speed="12.18"/>
+    </conflict>
+    <conflict begin="518.00" end="644.00" ego="EW.21" foe="EW.29">
+        <minTTC time="572.00" position="534.86,11.48" type="3" value="3.66" speed="7.73"/>
+        <maxDRAC time="572.00" position="534.86,11.48" type="3" value="0.79" speed="7.73"/>
+    </conflict>
+    <conflict begin="518.00" end="644.00" ego="EW.29" foe="EW.21">
+        <minTTC time="572.00" position="534.86,11.48" type="2" value="3.66" speed="13.51"/>
+        <maxDRAC time="572.00" position="534.86,11.48" type="2" value="0.79" speed="13.51"/>
+    </conflict>
+    <conflict begin="568.00" end="646.00" ego="EW.29" foe="EW.33">
+        <minTTC time="634.00" position="96.17,6.81" type="3" value="3.39" speed="6.04"/>
+        <maxDRAC time="588.00" position="434.36,11.00" type="3" value="0.81" speed="6.80"/>
+    </conflict>
+    <conflict begin="607.00" end="646.00" ego="EW.43" foe="EW.47">
+        <minTTC time="638.00" position="416.72,10.92" type="2" value="3.35" speed="8.76"/>
+        <maxDRAC time="634.00" position="440.57,11.03" type="2" value="1.28" speed="13.39"/>
+    </conflict>
+    <conflict begin="605.00" end="646.00" ego="EW.47" foe="EW.19">
+        <minTTC time="627.00" position="467.11,11.16" type="2" value="3.50" speed="8.73"/>
+        <maxDRAC time="612.00" position="551.07,11.56" type="2" value="0.95" speed="18.91"/>
+    </conflict>
+    <conflict begin="607.00" end="646.00" ego="EW.47" foe="EW.43">
+        <minTTC time="638.00" position="416.72,10.92" type="3" value="3.35" speed="5.17"/>
+        <maxDRAC time="634.00" position="440.57,11.03" type="3" value="1.28" speed="4.58"/>
+    </conflict>
+    <conflict begin="519.00" end="648.00" ego="EW.33" foe="EW.31">
+        <minTTC time="519.00" position="1183.44,14.60" type="2" value="2.11" speed="4.05"/>
+        <maxDRAC time="549.00" position="927.28,13.37" type="3" value="2.14" speed="4.96"/>
+    </conflict>
+    <conflict begin="541.00" end="546.00" ego="EW.33" foe="WE.4">
+        <minTTC time="543.00" position="920.12,10.03" type="20" value="4.11" speed="10.83"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="541.00" end="546.00" ego="EW.33" foe="WE.8">
+        <minTTC time="543.00" position="909.67,9.98" type="20" value="4.84" speed="10.83"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+    </conflict>
+    <conflict begin="565.00" end="648.00" ego="EW.33" foe="EW.36">
+        <minTTC time="594.00" position="406.70,10.87" type="3" value="4.93" speed="6.14"/>
+        <maxDRAC time="594.00" position="406.70,10.87" type="3" value="0.73" speed="6.14"/>
+    </conflict>
+    <conflict begin="568.00" end="646.00" ego="EW.33" foe="EW.29">
+        <minTTC time="634.00" position="96.17,6.81" type="2" value="3.39" speed="8.80"/>
+        <maxDRAC time="588.00" position="434.36,11.00" type="2" value="0.81" speed="12.36"/>
+    </conflict>
+    <conflict begin="519.00" end="648.00" ego="EW.31" foe="EW.33">
+        <minTTC time="519.00" position="1183.44,14.60" type="3" value="2.11" speed="0.00"/>
+        <maxDRAC time="549.00" position="927.28,13.37" type="2" value="2.14" speed="17.22"/>
+    </conflict>
+    <conflict begin="543.00" end="564.00" ego="EW.31" foe="EW.19">
+        <minTTC time="558.00" position="860.90,13.05" type="2" value="2.75" speed="9.84"/>
+        <maxDRAC time="548.00" position="918.11,13.32" type="2" value="1.25" speed="17.65"/>
+    </conflict>
+    <conflict begin="565.00" end="648.00" ego="EW.36" foe="EW.33">
+        <minTTC time="594.00" position="406.70,10.87" type="2" value="4.93" speed="13.33"/>
+        <maxDRAC time="594.00" position="406.70,10.87" type="2" value="0.73" speed="13.33"/>
+    </conflict>
+    <conflict begin="578.00" end="650.00" ego="EW.31" foe="EW.36">
+        <minTTC time="595.00" position="415.40,10.91" type="3" value="3.32" speed="6.30"/>
+        <maxDRAC time="593.00" position="430.16,10.98" type="3" value="0.74" speed="8.67"/>
+    </conflict>
+    <conflict begin="597.00" end="650.00" ego="EW.31" foe="EW.42">
+        <minTTC time="604.00" position="348.27,10.59" type="3" value="4.75" speed="7.52"/>
+        <maxDRAC time="604.00" position="348.27,10.59" type="3" value="1.46" speed="7.52"/>
+    </conflict>
+    <conflict begin="578.00" end="650.00" ego="EW.36" foe="EW.31">
+        <minTTC time="595.00" position="415.40,10.91" type="2" value="3.32" speed="11.02"/>
+        <maxDRAC time="593.00" position="430.16,10.98" type="2" value="0.74" speed="14.78"/>
+    </conflict>
+    <conflict begin="597.00" end="650.00" ego="EW.42" foe="EW.31">
+        <minTTC time="604.00" position="348.27,10.59" type="2" value="4.75" speed="21.34"/>
+        <maxDRAC time="604.00" position="348.27,10.59" type="2" value="1.46" speed="21.34"/>
+    </conflict>
+    <conflict begin="597.00" end="651.00" ego="EW.36" foe="EW.42">
+        <minTTC time="607.00" position="342.23,10.56" type="3" value="2.96" speed="6.79"/>
+        <maxDRAC time="604.00" position="364.52,10.67" type="3" value="2.41" speed="5.91"/>
+    </conflict>
+    <conflict begin="620.00" end="651.00" ego="EW.36" foe="EW.37">
+        <minTTC time="633.00" position="152.39,9.65" type="3" value="4.44" speed="6.25"/>
+        <maxDRAC time="633.00" position="152.39,9.65" type="3" value="1.22" speed="6.25"/>
+    </conflict>
+    <conflict begin="620.00" end="651.00" ego="EW.37" foe="EW.36">
+        <minTTC time="633.00" position="152.39,9.65" type="2" value="4.44" speed="17.06"/>
+        <maxDRAC time="633.00" position="152.39,9.65" type="2" value="1.22" speed="17.06"/>
+    </conflict>
+    <conflict begin="597.00" end="651.00" ego="EW.42" foe="EW.36">
+        <minTTC time="607.00" position="342.23,10.56" type="2" value="2.96" speed="14.45"/>
+        <maxDRAC time="604.00" position="364.52,10.67" type="2" value="2.41" speed="21.34"/>
+    </conflict>
+    <conflict begin="620.00" end="653.00" ego="EW.42" foe="EW.37">
+        <minTTC time="633.00" position="168.18,9.72" type="3" value="2.79" speed="5.52"/>
+        <maxDRAC time="633.00" position="168.18,9.72" type="3" value="2.07" speed="5.52"/>
+    </conflict>
+    <conflict begin="620.00" end="653.00" ego="EW.37" foe="EW.42">
+        <minTTC time="633.00" position="168.18,9.72" type="2" value="2.79" speed="17.06"/>
+        <maxDRAC time="633.00" position="168.18,9.72" type="2" value="2.07" speed="17.06"/>
+    </conflict>
+    <conflict begin="479.00" end="661.00" ego="EW.13" foe="EW.19">
+        <minTTC time="653.00" position="305.42,10.38" type="3" value="4.93" speed="4.50"/>
+        <maxDRAC time="653.00" position="305.42,10.38" type="3" value="0.16" speed="4.50"/>
+    </conflict>
+    <conflict begin="485.00" end="495.00" ego="EW.13" foe="EW.35">
+        <minTTC time="490.00" position="1133.76,14.36" type="3" value="4.64" speed="4.52"/>
+        <maxDRAC time="490.00" position="1133.76,14.36" type="3" value="1.08" speed="4.52"/>
+    </conflict>
+    <conflict begin="491.00" end="543.00" ego="EW.13" foe="EW.28">
+        <minTTC time="508.00" position="1040.83,13.91" type="3" value="2.87" speed="4.48"/>
+        <maxDRAC time="508.00" position="1040.83,13.91" type="3" value="0.86" speed="4.48"/>
+    </conflict>
+    <conflict begin="506.00" end="549.00" ego="EW.13" foe="EW.30">
+        <minTTC time="529.00" position="935.83,13.41" type="3" value="3.32" speed="5.36"/>
+        <maxDRAC time="509.00" position="1035.95,13.89" type="3" value="1.61" speed="4.88"/>
+    </conflict>
+    <conflict begin="514.00" end="595.00" ego="EW.13" foe="EW.29">
+        <minTTC time="547.00" position="845.28,12.97" type="3" value="3.76" speed="5.33"/>
+        <maxDRAC time="539.00" position="885.10,13.17" type="3" value="0.75" speed="5.42"/>
+    </conflict>
+    <conflict begin="553.00" end="616.00" ego="EW.13" foe="EW.36">
+        <minTTC time="572.00" position="716.29,12.36" type="3" value="2.64" speed="5.04"/>
+        <maxDRAC time="572.00" position="716.29,12.36" type="3" value="1.87" speed="5.04"/>
+    </conflict>
+    <conflict begin="479.00" end="661.00" ego="EW.19" foe="EW.13">
+        <minTTC time="653.00" position="305.42,10.38" type="2" value="4.93" speed="6.04"/>
+        <maxDRAC time="653.00" position="305.42,10.38" type="2" value="0.16" speed="6.04"/>
+    </conflict>
+    <conflict begin="495.00" end="575.00" ego="EW.19" foe="EW.29">
+        <minTTC time="521.00" position="1074.46,14.08" type="3" value="2.86" speed="5.28"/>
+        <maxDRAC time="519.00" position="1085.45,14.13" type="3" value="1.18" speed="5.36"/>
+    </conflict>
+    <conflict begin="504.00" end="559.00" ego="EW.19" foe="EW.33">
+        <minTTC time="533.00" position="1005.48,13.74" type="3" value="3.36" speed="5.95"/>
+        <maxDRAC time="533.00" position="1005.48,13.74" type="3" value="1.03" speed="5.95"/>
+    </conflict>
+    <conflict begin="543.00" end="564.00" ego="EW.19" foe="EW.31">
+        <minTTC time="558.00" position="860.90,13.05" type="3" value="2.75" speed="5.12"/>
+        <maxDRAC time="548.00" position="918.11,13.32" type="3" value="1.25" speed="5.22"/>
+    </conflict>
+    <conflict begin="552.00" end="598.00" ego="EW.19" foe="EW.36">
+        <minTTC time="564.00" position="825.25,12.88" type="3" value="3.55" speed="5.61"/>
+        <maxDRAC time="564.00" position="825.25,12.88" type="3" value="1.18" speed="5.61"/>
+    </conflict>
+    <conflict begin="561.00" end="601.00" ego="EW.19" foe="EW.34">
+        <minTTC time="595.00" position="648.27,12.03" type="3" value="3.57" speed="5.09"/>
+        <maxDRAC time="595.00" position="648.27,12.03" type="3" value="0.66" speed="5.09"/>
+    </conflict>
+    <conflict begin="584.00" end="608.00" ego="EW.19" foe="EW.37">
+        <minTTC time="599.00" position="625.62,11.92" type="3" value="2.89" speed="5.08"/>
+        <maxDRAC time="599.00" position="625.62,11.92" type="3" value="2.03" speed="5.08"/>
+    </conflict>
+    <conflict begin="588.00" end="627.00" ego="EW.19" foe="EW.38">
+        <minTTC time="618.00" position="516.65,11.40" type="3" value="2.83" speed="5.13"/>
+        <maxDRAC time="618.00" position="516.65,11.40" type="3" value="1.06" speed="5.13"/>
+    </conflict>
+    <conflict begin="605.00" end="646.00" ego="EW.19" foe="EW.47">
+        <minTTC time="627.00" position="467.11,11.16" type="3" value="3.50" speed="5.08"/>
+        <maxDRAC time="612.00" position="551.07,11.56" type="3" value="0.95" speed="5.21"/>
+    </conflict>
+    <conflict begin="613.00" end="661.00" ego="EW.19" foe="EW.43">
+        <minTTC time="648.00" position="345.27,10.57" type="3" value="3.70" speed="5.07"/>
+        <maxDRAC time="633.00" position="431.21,10.99" type="3" value="0.65" speed="5.13"/>
+    </conflict>
+    <conflict begin="613.00" end="661.00" ego="EW.43" foe="EW.19">
+        <minTTC time="648.00" position="345.27,10.57" type="2" value="3.70" speed="8.29"/>
+        <maxDRAC time="633.00" position="431.21,10.99" type="2" value="0.65" speed="13.42"/>
+    </conflict>
+    <conflict begin="644.00" end="652.00" ego="EW.45" foe="EW.20">
+        <minTTC time="647.00" position="836.62,12.93" type="2" value="4.02" speed="11.06"/>
+        <maxDRAC time="646.00" position="842.02,12.96" type="2" value="0.86" speed="12.20"/>
+    </conflict>
+    <conflict begin="650.00" end="668.00" ego="EW.44" foe="EW.47">
+        <minTTC time="665.00" position="45.85,4.11" type="3" value="4.41" speed="8.48"/>
+        <maxDRAC time="656.00" position="144.41,9.39" type="3" value="0.67" speed="12.38"/>
+    </conflict>
+    <conflict begin="650.00" end="668.00" ego="EW.47" foe="EW.44">
+        <minTTC time="665.00" position="45.85,4.11" type="2" value="4.41" speed="11.71"/>
+        <maxDRAC time="656.00" position="144.41,9.39" type="2" value="0.67" speed="20.14"/>
+    </conflict>
+    <conflict begin="549.00" end="680.00" ego="EW.20" foe="EW.32">
+        <minTTC time="673.00" position="713.31,12.34" type="3" value="4.71" speed="4.29"/>
+        <maxDRAC time="672.00" position="717.59,12.36" type="3" value="0.24" speed="4.45"/>
+    </conflict>
+    <conflict begin="551.00" end="601.00" ego="EW.20" foe="EW.47">
+        <minTTC time="560.00" position="1258.60,14.96" type="3" value="3.47" speed="4.69"/>
+        <maxDRAC time="560.00" position="1258.60,14.96" type="3" value="2.16" speed="4.69"/>
+    </conflict>
+    <conflict begin="556.00" end="606.00" ego="EW.20" foe="EW.43">
+        <minTTC time="575.00" position="1187.13,14.62" type="3" value="3.05" speed="4.44"/>
+        <maxDRAC time="575.00" position="1187.13,14.62" type="3" value="1.44" speed="4.44"/>
+    </conflict>
+    <conflict begin="561.00" end="610.00" ego="EW.20" foe="EW.44">
+        <minTTC time="579.00" position="1168.61,14.53" type="3" value="2.97" speed="4.92"/>
+        <maxDRAC time="579.00" position="1168.61,14.53" type="3" value="1.90" speed="4.92"/>
+    </conflict>
+    <conflict begin="549.00" end="680.00" ego="EW.32" foe="EW.20">
+        <minTTC time="673.00" position="713.31,12.34" type="2" value="4.71" speed="6.36"/>
+        <maxDRAC time="672.00" position="717.59,12.36" type="2" value="0.24" speed="6.84"/>
+    </conflict>
+    <conflict begin="598.00" end="642.00" ego="EW.32" foe="EW.45">
+        <minTTC time="632.00" position="987.78,13.66" type="3" value="2.92" speed="5.82"/>
+        <maxDRAC time="632.00" position="987.78,13.66" type="3" value="1.09" speed="5.82"/>
+    </conflict>
+    <conflict begin="630.00" end="687.00" ego="EW.4" foe="EW.49">
+        <minTTC time="653.00" position="1418.58,15.73" type="3" value="2.29" speed="2.61"/>
+        <maxDRAC time="653.00" position="1418.58,15.73" type="3" value="1.77" speed="2.61"/>
+    </conflict>
+    <conflict begin="630.00" end="687.00" ego="EW.49" foe="EW.4">
+        <minTTC time="653.00" position="1418.58,15.73" type="2" value="2.29" speed="10.71"/>
+        <maxDRAC time="653.00" position="1418.58,15.73" type="2" value="1.77" speed="10.71"/>
+    </conflict>
+    <conflict begin="644.00" end="700.00" ego="EW.39" foe="EW.49">
+        <minTTC time="692.00" position="1026.46,13.84" type="3" value="4.47" speed="6.10"/>
+        <maxDRAC time="692.00" position="1026.46,13.84" type="3" value="0.42" speed="6.10"/>
+    </conflict>
+    <conflict begin="644.00" end="700.00" ego="EW.49" foe="EW.39">
+        <minTTC time="692.00" position="1026.46,13.84" type="2" value="4.47" speed="9.89"/>
+        <maxDRAC time="692.00" position="1026.46,13.84" type="2" value="0.42" speed="9.89"/>
+    </conflict>
+    <conflict begin="657.00" end="708.00" ego="EW.45" foe="EW.7">
+        <minTTC time="671.00" position="581.46,11.71" type="2" value="2.01" speed="6.57"/>
+        <maxDRAC time="668.00" position="593.62,11.77" type="2" value="1.11" speed="11.02"/>
+    </conflict>
+    <conflict begin="618.00" end="711.00" ego="EW.13" foe="EW.43">
+        <minTTC time="659.00" position="273.64,10.23" type="3" value="3.02" speed="4.62"/>
+        <maxDRAC time="659.00" position="273.64,10.23" type="3" value="0.77" speed="4.62"/>
+    </conflict>
+    <conflict begin="674.00" end="711.00" ego="EW.13" foe="EW.19">
+        <minTTC time="678.00" position="176.64,9.76" type="3" value="4.63" speed="4.57"/>
+        <maxDRAC time="678.00" position="176.64,9.76" type="3" value="0.18" speed="4.57"/>
+    </conflict>
+    <conflict begin="674.00" end="711.00" ego="EW.19" foe="EW.13">
+        <minTTC time="678.00" position="176.64,9.76" type="2" value="4.63" speed="6.22"/>
+        <maxDRAC time="678.00" position="176.64,9.76" type="2" value="0.18" speed="6.22"/>
+    </conflict>
+    <conflict begin="618.00" end="711.00" ego="EW.43" foe="EW.13">
+        <minTTC time="659.00" position="273.64,10.23" type="2" value="3.02" speed="9.31"/>
+        <maxDRAC time="659.00" position="273.64,10.23" type="2" value="0.77" speed="9.31"/>
+    </conflict>
+    <conflict begin="674.00" end="714.00" ego="EW.19" foe="EW.43">
+        <minTTC time="712.00" position="17.96,2.62" type="3" value="2.87" speed="3.99"/>
+        <maxDRAC time="712.00" position="17.96,2.62" type="3" value="0.43" speed="3.99"/>
+    </conflict>
+    <conflict begin="674.00" end="714.00" ego="EW.43" foe="EW.19">
+        <minTTC time="712.00" position="17.96,2.62" type="2" value="2.87" speed="6.49"/>
+        <maxDRAC time="712.00" position="17.96,2.62" type="2" value="0.43" speed="6.49"/>
+    </conflict>
+    <conflict begin="681.00" end="716.00" ego="EW.43" foe="EW.48">
+        <minTTC time="705.00" position="65.90,5.18" type="3" value="2.12" speed="4.31"/>
+        <maxDRAC time="705.00" position="65.90,5.18" type="3" value="1.35" speed="4.31"/>
+    </conflict>
+    <conflict begin="681.00" end="716.00" ego="EW.48" foe="EW.43">
+        <minTTC time="705.00" position="65.90,5.18" type="2" value="2.12" speed="10.03"/>
+        <maxDRAC time="705.00" position="65.90,5.18" type="2" value="1.35" speed="10.03"/>
+    </conflict>
+    <conflict begin="682.00" end="737.00" ego="EW.4" foe="EW.46">
+        <minTTC time="732.00" position="1223.68,14.79" type="3" value="2.33" speed="2.30"/>
+        <maxDRAC time="732.00" position="1223.68,14.79" type="3" value="0.90" speed="2.30"/>
+    </conflict>
+    <conflict begin="682.00" end="737.00" ego="EW.46" foe="EW.4">
+        <minTTC time="732.00" position="1223.68,14.79" type="2" value="2.33" speed="6.51"/>
+        <maxDRAC time="732.00" position="1223.68,14.79" type="2" value="0.90" speed="6.51"/>
+    </conflict>
+    <conflict begin="695.00" end="738.00" ego="EW.32" foe="EW.7">
+        <minTTC time="732.00" position="346.43,10.58" type="2" value="4.20" speed="6.73"/>
+        <maxDRAC time="731.00" position="350.48,10.60" type="2" value="0.36" speed="6.70"/>
+    </conflict>
+    <conflict begin="657.00" end="708.00" ego="EW.7" foe="EW.45">
+        <minTTC time="671.00" position="581.46,11.71" type="3" value="2.01" speed="3.93"/>
+        <maxDRAC time="668.00" position="593.62,11.77" type="3" value="1.11" speed="4.26"/>
+    </conflict>
+    <conflict begin="695.00" end="738.00" ego="EW.7" foe="EW.32">
+        <minTTC time="732.00" position="346.43,10.58" type="3" value="4.20" speed="4.05"/>
+        <maxDRAC time="731.00" position="350.48,10.60" type="3" value="0.36" speed="3.55"/>
+    </conflict>
+    <conflict begin="644.00" end="652.00" ego="EW.20" foe="EW.45">
+        <minTTC time="647.00" position="836.62,12.93" type="3" value="4.02" speed="5.39"/>
+        <maxDRAC time="646.00" position="842.02,12.96" type="3" value="0.86" speed="5.20"/>
+    </conflict>
+    <conflict begin="410.00" end="820.00" ego="EW.40" foe="EW.41">
+        <minTTC time="552.00" position="2394.08,20.41" type="3" value="0.80" speed="0.00"/>
+        <maxDRAC time="552.00" position="2394.08,20.41" type="3" value="2.35" speed="0.00"/>
+    </conflict>
+    <conflict begin="430.00" end="445.00" ego="EW.40" foe="EW.43">
+        <minTTC time="440.00" position="2784.21,22.29" type="3" value="4.63" speed="3.34"/>
+        <maxDRAC time="440.00" position="2784.21,22.29" type="3" value="1.09" speed="3.34"/>
+    </conflict>
+    <conflict begin="440.00" end="468.00" ego="EW.40" foe="EW.44">
+        <minTTC time="452.00" position="2740.72,22.08" type="3" value="4.01" speed="3.20"/>
+        <maxDRAC time="451.00" position="2743.92,22.09" type="3" value="1.68" speed="3.63"/>
+    </conflict>
+    <conflict begin="450.00" end="475.00" ego="EW.40" foe="EW.45">
+        <minTTC time="470.00" position="2677.56,21.78" type="3" value="4.45" speed="3.16"/>
+        <maxDRAC time="470.00" position="2677.56,21.78" type="3" value="0.99" speed="3.16"/>
+    </conflict>
+    <conflict begin="507.00" end="539.00" ego="EW.40" foe="EW.48">
+        <minTTC time="508.00" position="2545.60,21.14" type="3" value="4.51" speed="3.76"/>
+        <maxDRAC time="508.00" position="2545.60,21.14" type="3" value="1.08" speed="3.76"/>
     </conflict>
     <conflict begin="510.00" end="545.00" ego="EW.40" foe="EW.49">
-        <minTTC time="536.00" position="2445.33,20.66" type="3" value="3.59" speed="2.95"/>
-        <maxDRAC time="536.00" position="2445.33,20.66" type="3" value="0.89" speed="2.95"/>
+        <minTTC time="536.00" position="2448.86,20.68" type="3" value="4.05" speed="3.23"/>
+        <maxDRAC time="536.00" position="2448.86,20.68" type="3" value="0.89" speed="3.23"/>
     </conflict>
-    <conflict begin="410.00" end="827.00" ego="EW.41" foe="EW.40">
-        <minTTC time="551.00" position="2395.64,20.42" type="2" value="1.22" speed="3.24"/>
-        <maxDRAC time="551.00" position="2395.64,20.42" type="2" value="1.33" speed="3.24"/>
+    <conflict begin="410.00" end="820.00" ego="EW.41" foe="EW.40">
+        <minTTC time="552.00" position="2394.08,20.41" type="2" value="0.80" speed="3.77"/>
+        <maxDRAC time="552.00" position="2394.08,20.41" type="2" value="2.35" speed="3.77"/>
     </conflict>
-    <conflict begin="430.00" end="444.00" ego="EW.41" foe="EW.43">
-        <minTTC time="439.00" position="2814.71,22.43" type="3" value="2.88" speed="4.41"/>
-        <maxDRAC time="439.00" position="2814.71,22.43" type="3" value="1.54" speed="4.41"/>
+    <conflict begin="430.00" end="445.00" ego="EW.41" foe="EW.43">
+        <minTTC time="440.00" position="2808.75,22.41" type="3" value="2.46" speed="4.41"/>
+        <maxDRAC time="440.00" position="2808.75,22.41" type="3" value="1.83" speed="4.41"/>
     </conflict>
-    <conflict begin="440.00" end="469.00" ego="EW.41" foe="EW.44">
-        <minTTC time="452.00" position="2766.23,22.20" type="3" value="1.96" speed="3.33"/>
-        <maxDRAC time="451.00" position="2769.56,22.22" type="3" value="2.60" speed="3.50"/>
+    <conflict begin="440.00" end="468.00" ego="EW.41" foe="EW.44">
+        <minTTC time="453.00" position="2758.30,22.16" type="3" value="2.09" speed="3.79"/>
+        <maxDRAC time="451.00" position="2766.01,22.20" type="3" value="2.70" speed="3.68"/>
     </conflict>
     <conflict begin="450.00" end="475.00" ego="EW.41" foe="EW.45">
-        <minTTC time="470.00" position="2696.68,21.87" type="3" value="2.50" speed="3.76"/>
-        <maxDRAC time="470.00" position="2696.68,21.87" type="3" value="1.48" speed="3.76"/>
+        <minTTC time="470.00" position="2692.90,21.85" type="3" value="2.96" speed="3.93"/>
+        <maxDRAC time="470.00" position="2692.90,21.85" type="3" value="1.36" speed="3.93"/>
     </conflict>
-    <conflict begin="460.00" end="538.00" ego="EW.41" foe="EW.46">
-        <minTTC time="533.00" position="2467.77,20.77" type="3" value="4.32" speed="3.47"/>
-        <maxDRAC time="527.00" position="2490.54,20.88" type="3" value="0.38" speed="3.15"/>
+    <conflict begin="460.00" end="539.00" ego="EW.41" foe="EW.46">
+        <minTTC time="529.00" position="2483.73,20.84" type="3" value="2.95" speed="3.27"/>
+        <maxDRAC time="529.00" position="2483.73,20.84" type="3" value="0.53" speed="3.27"/>
     </conflict>
-    <conflict begin="508.00" end="545.00" ego="EW.41" foe="EW.49">
-        <minTTC time="536.00" position="2456.42,20.71" type="3" value="2.13" speed="3.78"/>
-        <maxDRAC time="536.00" position="2456.42,20.71" type="3" value="1.31" speed="3.78"/>
+    <conflict begin="509.00" end="538.00" ego="EW.41" foe="EW.48">
+        <minTTC time="509.00" position="2556.43,21.19" type="3" value="2.25" speed="0.00"/>
+        <maxDRAC time="509.00" position="2556.43,21.19" type="3" value="2.27" speed="0.00"/>
     </conflict>
-    <conflict begin="1017.00" end="1227.00" ego="EW.4" foe="EW.41">
-        <minTTC time="1213.00" position="41.09,3.86" type="3" value="3.23" speed="1.99"/>
-        <maxDRAC time="1213.00" position="41.09,3.86" type="3" value="0.23" speed="1.99"/>
+    <conflict begin="509.00" end="545.00" ego="EW.41" foe="EW.49">
+        <minTTC time="537.00" position="2457.17,20.72" type="3" value="2.18" speed="3.50"/>
+        <maxDRAC time="536.00" position="2460.67,20.73" type="3" value="1.73" speed="2.68"/>
     </conflict>
-    <conflict begin="935.00" end="1230.00" ego="EW.41" foe="EW.40">
-        <minTTC time="1214.00" position="49.58,4.31" type="3" value="2.00" speed="1.24"/>
-        <maxDRAC time="1214.00" position="49.58,4.31" type="3" value="0.56" speed="1.24"/>
+    <conflict begin="736.00" end="822.00" ego="EW.20" foe="EW.49">
+        <minTTC time="771.00" position="240.47,10.07" type="3" value="2.38" speed="4.29"/>
+        <maxDRAC time="771.00" position="240.47,10.07" type="3" value="1.22" speed="4.29"/>
     </conflict>
-    <conflict begin="1017.00" end="1227.00" ego="EW.41" foe="EW.4">
-        <minTTC time="1213.00" position="41.09,3.86" type="2" value="3.23" speed="3.46"/>
-        <maxDRAC time="1213.00" position="41.09,3.86" type="2" value="0.23" speed="3.46"/>
+    <conflict begin="736.00" end="822.00" ego="EW.49" foe="EW.20">
+        <minTTC time="771.00" position="240.47,10.07" type="2" value="2.38" speed="10.11"/>
+        <maxDRAC time="771.00" position="240.47,10.07" type="2" value="1.22" speed="10.11"/>
     </conflict>
-    <conflict begin="935.00" end="1230.00" ego="EW.40" foe="EW.41">
-        <minTTC time="1214.00" position="49.58,4.31" type="2" value="2.00" speed="3.48"/>
-        <maxDRAC time="1214.00" position="49.58,4.31" type="2" value="0.56" speed="3.48"/>
+    <conflict begin="999.00" end="1230.00" ego="EW.4" foe="EW.41">
+        <minTTC time="1166.00" position="163.92,9.70" type="3" value="2.36" speed="1.86"/>
+        <maxDRAC time="1166.00" position="163.92,9.70" type="3" value="0.39" speed="1.86"/>
     </conflict>
-    <conflict begin="1218.00" end="1233.00" ego="EW.40" foe="stopping">
-        <minTTC time="1233.00" position="7.46,2.05" type="3" value="3.87" speed="3.29"/>
-        <maxDRAC time="1233.00" position="7.46,2.05" type="3" value="1.32" speed="3.29"/>
+    <conflict begin="949.00" end="1233.00" ego="EW.41" foe="EW.40">
+        <minTTC time="1201.00" position="88.05,6.37" type="3" value="2.05" speed="1.43"/>
+        <maxDRAC time="1198.00" position="95.41,6.77" type="3" value="0.52" speed="1.86"/>
     </conflict>
-    <conflict begin="1218.00" end="1233.00" ego="stopping" foe="EW.40">
-        <minTTC time="1233.00" position="7.46,2.05" type="2" value="3.87" speed="13.52"/>
-        <maxDRAC time="1233.00" position="7.46,2.05" type="2" value="1.32" speed="13.52"/>
+    <conflict begin="999.00" end="1230.00" ego="EW.41" foe="EW.4">
+        <minTTC time="1166.00" position="163.92,9.70" type="2" value="2.36" speed="3.72"/>
+        <maxDRAC time="1166.00" position="163.92,9.70" type="2" value="0.39" speed="3.72"/>
+    </conflict>
+    <conflict begin="949.00" end="1233.00" ego="EW.40" foe="EW.41">
+        <minTTC time="1201.00" position="88.05,6.37" type="2" value="2.05" speed="3.49"/>
+        <maxDRAC time="1198.00" position="95.41,6.77" type="2" value="0.52" speed="4.04"/>
+    </conflict>
+    <conflict begin="1218.00" end="1236.00" ego="EW.40" foe="stopping">
+        <minTTC time="1235.00" position="11.62,2.28" type="3" value="2.38" speed="3.71"/>
+        <maxDRAC time="1234.00" position="15.32,2.48" type="3" value="1.48" speed="4.18"/>
+    </conflict>
+    <conflict begin="1218.00" end="1236.00" ego="stopping" foe="EW.40">
+        <minTTC time="1235.00" position="11.62,2.28" type="2" value="2.38" speed="10.76"/>
+        <maxDRAC time="1234.00" position="15.32,2.48" type="2" value="1.48" speed="12.59"/>
     </conflict>
 </SSMLog>

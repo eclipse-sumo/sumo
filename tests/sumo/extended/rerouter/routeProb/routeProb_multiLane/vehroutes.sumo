@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-09T10:39:41.178764+01:00 by Eclipse SUMO sumo v1_25_0+0274-0826fbe6a65
+<!-- generated on 2025-12-09T10:47:50.412421+01:00 by Eclipse SUMO sumo v1_25_0+0281-f03d6951573
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2381,6 +2381,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="v.333" type="car" depart="420.00" departLane="0" arrival="440.00">
+        <routeDistribution>
+            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="420.00" probability="0" edges="SC CN"/>
+            <route edges="SC CW"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="v.335" type="car" depart="425.00" departLane="0" arrival="441.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="425.00" probability="0" edges="SC CN"/>
@@ -2388,14 +2395,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="v.333" type="car" depart="420.00" departLane="0" arrival="442.00">
-        <routeDistribution>
-            <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="420.00" probability="0" edges="SC CN"/>
-            <route edges="SC CW"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="v.337" type="car" depart="419.00" departLane="2" arrival="442.00">
+    <vehicle id="v.337" type="car" depart="419.00" departLane="2" arrival="441.00">
         <routeDistribution>
             <route replacedOnEdge="SC" reason="rerouter" replacedAtTime="419.00" probability="0" edges="SC CN"/>
             <route edges="SC CN"/>
