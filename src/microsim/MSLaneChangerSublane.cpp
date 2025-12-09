@@ -728,10 +728,6 @@ MSLaneChangerSublane::checkChangeSublane(
     // do are more careful (but expensive) check to ensure that a
     // safety-critical leader is not being overlooked
 
-    // XXX
-    // ensure that a continuous lane change manoeuvre can be completed
-    // before the next turning movement
-
     // let TraCI influence the wish to change lanes and the security to take
     const int oldstate = state;
     state = vehicle->influenceChangeDecision(state);
