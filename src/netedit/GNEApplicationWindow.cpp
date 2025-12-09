@@ -4427,7 +4427,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     }
     // check if we have to define a default filename
     if (!myFileBucketHandler->isFilenameDefined(FileBucket::Type::DATA)) {
-        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix(".xml"));
+        savingFileHandler->setDefaultFilenameFile(FileBucket::Type::DATA, myFileBucketHandler->getConfigFilePrefix(".dat.xml"));
     }
     // check if we have to open save as dialog
     if (!savingFileHandler->isFilenameDefined(FileBucket::Type::DATA)) {
