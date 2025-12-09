@@ -1113,6 +1113,27 @@ MSLaneChanger::checkChange(
             }
         }
     }
+
+    if (checkOpened && (state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0
+            && vehicle->getLane()->isNormal()
+            && vehicle->getBestLanesContinuation().size() > 1) {
+        const MSLink* link = vehicle->getLane()->getLinkTo(vehicle->getBestLanesContinuation()[1]);
+        if (link != nullptr && link->isEntryLink()) {
+            const MSLink* link2 = link->getParallelLink(laneOffset);
+            if (link2 != nullptr) {
+                auto api = link->getApproachingPtr(vehicle);
+                if (api != nullptr) {
+                    if (!link2->opened(api->arrivalTime, api->arrivalSpeed, api->leaveSpeed, vehicle->getLength(),
+                                vehicle->getImpatience(), vehicle->getCarFollowModel().getMaxDecel(), vehicle->getWaitingTime(), vehicle->getLateralPositionOnLane(),
+                                nullptr, false, vehicle, api->dist)) {
+                        //std::cout << SIMTIME << " unsafeLC " << vehicle->getID() << "\n";
+                        state |= LCA_BLOCKED;
+                    }
+                }
+            }
+        }
+    }
+
     const int oldstate = state;
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);

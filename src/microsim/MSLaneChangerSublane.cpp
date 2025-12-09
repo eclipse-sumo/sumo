@@ -22,6 +22,7 @@
 
 #include "MSLaneChangerSublane.h"
 #include "MSNet.h"
+#include "MSLink.h"
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSVehicleTransfer.h"
@@ -722,6 +723,28 @@ MSLaneChangerSublane::checkChangeSublane(
                          neighLeaders, neighFollowers, neighBlockers,
                          neighLane, preb,
                          &(myCandi->lastBlocked), &(myCandi->firstBlocked), latDist, maneuverDist, blocked);
+
+
+    if (checkOpened && (blocked & LCA_BLOCKED) == 0 && (wish & LCA_WANTS_LANECHANGE) != 0
+            && vehicle->getLane()->isNormal()
+            && vehicle->getBestLanesContinuation().size() > 1) {
+        const MSLink* link = vehicle->getLane()->getLinkTo(vehicle->getBestLanesContinuation()[1]);
+        if (link != nullptr && link->isEntryLink()) {
+            const MSLink* link2 = link->getParallelLink(laneOffset);
+            if (link2 != nullptr) {
+                auto api = link->getApproachingPtr(vehicle);
+                if (api != nullptr) {
+                    if (!link2->opened(api->arrivalTime, api->arrivalSpeed, api->leaveSpeed, vehicle->getLength(),
+                                vehicle->getImpatience(), vehicle->getCarFollowModel().getMaxDecel(), vehicle->getWaitingTime(), vehicle->getLateralPositionOnLane(),
+                                nullptr, false, vehicle, api->dist)) {
+                        //std::cout << SIMTIME << " unsafeLC " << vehicle->getID() << "\n";
+                        blocked |= LCA_BLOCKED;
+                    }
+                }
+            }
+        }
+    }
+
     int state = blocked | wish;
 
     // XXX
