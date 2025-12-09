@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14]
-        python_version: ['3.10', 3.11, 3.12, 3.13]
+        python_version: ['3.10', 3.11, 3.12, 3.13, 3.14]
 
     runs-on: ${{ matrix.os }}
     env:
@@ -91,7 +91,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14, macos-15]
-        python_version: ['3.10', 3.11, 3.12, 3.13]
+        python_version: ['3.10', 3.11, 3.12, 3.13, 3.14]
     runs-on: ${{ matrix.os }}
 
     steps:
