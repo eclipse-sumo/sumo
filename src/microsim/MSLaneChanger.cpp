@@ -1764,7 +1764,7 @@ MSLaneChanger::avoidDeadlock(MSVehicle* vehicle,
             }
 #endif
             if (leader.second + leaderBGap + leader.first->getLength() > distToStop) {
-                const double blockerLength = currentDist - stopPos;
+                const double blockerLength = currentDist - stopPos + vehicle->getVehicleType().getMinGap();
                 const bool reserved = vehicle->getLaneChangeModel().saveBlockerLength(blockerLength, -1);
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
                 if (DEBUG_COND) {
@@ -1882,7 +1882,7 @@ MSLaneChanger::resolveDeadlock(MSVehicle* vehicle,
             const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
             const double currentDist = preb[vehicle->getLane()->getIndex()].length;
             // mirror code in patchSpeed
-            const double blockerLength = currentDist - vehicle->getPositionOnLane() - 1 - vehicle->getVehicleType().getMinGap() - NUMERICAL_EPS;
+            const double blockerLength = currentDist - vehicle->getPositionOnLane() - POSITION_EPS - NUMERICAL_EPS;
             const bool reserved = vehicle->getLaneChangeModel().saveBlockerLength(blockerLength, -1);
 #ifdef DEBUG_CHANGE_OPPOSITE_DEADLOCK
             if (DEBUG_COND) {

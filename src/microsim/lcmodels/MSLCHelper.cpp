@@ -251,15 +251,18 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
 #endif
     if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
+        const double required = blocker->getVehicleType().getLengthWithGap() + veh.getVehicleType().getMinGap();
         const double potential = leftSpace - veh.getCarFollowModel().brakeGap(
                                      veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
-        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
+        if (required <= potential) {
             // save at least his length in myLeadingBlockerLength
-            leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+            leadingBlockerLength = MAX2(required, leadingBlockerLength);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME
                           << " veh=" << veh.getID()
+                          << " required=" << required
+                          << " potential=" << potential
                           << " blocker=" << Named::getIDSecure(blocker)
                           << " saving myLeadingBlockerLength=" << leadingBlockerLength
                           << "\n";
@@ -268,17 +271,20 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
-            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap(), leftSpace);
+            const double required2 = veh.getVehicleType().getLengthWithGap() + blocker->getVehicleType().getMinGap();
+            const double foeLeftSpace = leftSpace - veh.getPositionOnLane() + blocker->getPositionOnLane() - POSITION_EPS;
+            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(required2, foeLeftSpace);
             //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME
                           << " veh=" << veh.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                          << " required=" << required
                           << " potential=" << potential
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " required2=" << required2
+                          << " foeCanReserve=" << canReserve
                           << " myReserved=" << leadingBlockerLength
-                          << " canReserve=" << canReserve
                           << " reliefConnection=" << reliefConnection
                           << "\n";
             }
@@ -288,7 +294,7 @@ MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int l
                 if ((blockerState & LCA_STRATEGIC) != 0
                         && (blockerState & LCA_URGENT) != 0) {
                     // reserve anyway and try to avoid deadlock with emergency deceleration
-                    leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+                    leadingBlockerLength = MAX2(required, leadingBlockerLength);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
                     if (DEBUG_COND) {
                         std::cout << "   reserving anyway to avoid deadlock (will cause emergency braking)\n";

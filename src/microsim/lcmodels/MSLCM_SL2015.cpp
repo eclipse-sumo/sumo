@@ -37,7 +37,6 @@
 // ===========================================================================
 // variable definitions
 // ===========================================================================
-#define MAGIC_OFFSET  1.
 #define LOOK_FORWARD 10.
 
 #define JAM_FACTOR 1.
@@ -340,13 +339,13 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
     if (myLeadingBlockerLength != 0) {
-        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
+        double space = myLeftSpace - myLeadingBlockerLength - POSITION_EPS;
 #ifdef DEBUG_PATCHSPEED
         if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
-        if (space >= 0) { // XXX space > -MAGIC_OFFSET
+        if (space >= 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
             max = MIN2(max, safe);
@@ -848,7 +847,7 @@ MSLCM_SL2015::informLeaders(int blocked, int dir,
     double space = myLeftSpace;
     if (myLeadingBlockerLength != 0) {
         // see patchSpeed @todo: refactor
-        space -= myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
+        space -= myLeadingBlockerLength - POSITION_EPS - myVehicle.getVehicleType().getMinGap();
         if (space <= 0) {
             // ignore leading blocker
             space = myLeftSpace;
@@ -1310,7 +1309,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 && curr.bestContinuations.back()->getLinkCont().size() != 0
            ) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
-            const double reserve = MIN2(myLeftSpace - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap(), getExtraReservation(bestLaneOffset, neighDist - currentDist));
+            const double reserve = MIN2(myLeftSpace - POSITION_EPS, getExtraReservation(bestLaneOffset, neighDist - currentDist));
             myLeadingBlockerLength = MAX2(reserve, myLeadingBlockerLength);
 #ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
@@ -1328,9 +1327,9 @@ MSLCM_SL2015::_wantsChangeSublane(
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " neighLeaders=" << neighLeaders.toString() << " longest=" << Named::getIDSecure(neighLeadLongest) << " firstBlocked=" << Named::getIDSecure(*firstBlocked) << "\n";
         }
 #endif
-        bool canReserve = MSLCHelper::updateBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
+        bool canReserve = MSLCHelper::updateBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace - POSITION_EPS, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLeadLongest && tieBrakeLeader(*firstBlocked)) {
-            canReserve &= MSLCHelper::updateBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::updateBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace - POSITION_EPS, canContinue, myLeadingBlockerLength);
         }
         if (!canReserve && !isOpposite()) {
             // we have a low-priority relief connection
