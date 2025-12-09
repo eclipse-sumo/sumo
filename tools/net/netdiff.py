@@ -26,7 +26,6 @@ from __future__ import print_function
 
 import sys
 import os
-import codecs
 try:
     from StringIO import StringIO
 except ImportError:
@@ -596,7 +595,7 @@ def xmldiff(options, source, dest, diff, type, copy_tags, patchImport,
         elif not have_dest:
             print("Dest file %s is missing. Assuming all elements are deleted." % dest)
 
-        with codecs.open(diff, 'w', 'utf-8') as diff_file:
+        with sumolib.openz(diff, 'w') as diff_file:
             sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version, options=options)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
@@ -678,13 +677,13 @@ def main(options):
     selectionOutputFiles = []
     shapeOutputFiles = []
     if options.write_selections:
-        selectionOutputFiles.append(codecs.open(options.outprefix + '.created.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open(options.outprefix + '.deleted.sel.txt', 'w', 'utf-8'))
-        selectionOutputFiles.append(codecs.open(options.outprefix + '.changed.sel.txt', 'w', 'utf-8'))
+        selectionOutputFiles.append(sumolib.openz(options.outprefix + '.created.sel.txt', 'w'))
+        selectionOutputFiles.append(sumolib.openz(options.outprefix + '.deleted.sel.txt', 'w'))
+        selectionOutputFiles.append(sumolib.openz(options.outprefix + '.changed.sel.txt', 'w'))
     if options.write_shapes:
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.created.shape.add.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.deleted.shape.add.xml', 'w', 'utf-8'))
-        shapeOutputFiles.append(codecs.open(options.outprefix + '.changed.shape.add.xml', 'w', 'utf-8'))
+        shapeOutputFiles.append(sumolib.openz(options.outprefix + '.created.shape.add.xml', 'w'))
+        shapeOutputFiles.append(sumolib.openz(options.outprefix + '.deleted.shape.add.xml', 'w'))
+        shapeOutputFiles.append(sumolib.openz(options.outprefix + '.changed.shape.add.xml', 'w'))
         for f in shapeOutputFiles:
             sumolib.writeXMLHeader(f, "$Id$", "additional", options=options)  # noqa
 

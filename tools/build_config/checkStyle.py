@@ -27,7 +27,7 @@ import sys
 import subprocess
 import multiprocessing
 import xml.sax
-import codecs
+import io
 from optparse import OptionParser
 try:
     import flake8  # noqa
@@ -295,7 +295,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._file = fileName
         ext = os.path.splitext(self._file)[1]
         try:
-            with codecs.open(self._file, 'r', 'utf8') as f:
+            with io.open(self._file, encoding='utf8') as f:
                 f.read()
         except UnicodeDecodeError as err:
             print(self._file, err)

@@ -20,20 +20,16 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import codecs
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(os.path.join(tools))
-    from sumolib.output import parse
-    from sumolib.options import ArgumentParser
-    from sumolib.miscutils import intIfPossible
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
+from sumolib.output import parse  # noqa
+from sumolib.miscutils import intIfPossible  # noqa
 
 
 def get_options(args=None):
-    optParser = ArgumentParser()
+    optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-r", "--input-file", dest="infile",
                          help="the input route file (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
@@ -122,7 +118,7 @@ def main(options):
     routesDepart = {}  # first edge for each route
     routesArrival = {}  # last edge for each route
 
-    with codecs.open(options.outfile, 'w', encoding='utf8') as out:
+    with sumolib.openz(options.outfile, 'w', encoding='utf8') as out:
         out.write("<routes>\n")
         for route in parse(options.infile, "route"):
             if route.hasAttribute('id') and route.id is not None:

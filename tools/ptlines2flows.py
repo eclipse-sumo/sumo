@@ -19,7 +19,6 @@
 
 from __future__ import print_function
 import sys
-import codecs
 import subprocess
 import collections
 import random
@@ -391,7 +390,7 @@ def distCheck(options, refOrig, eID1, eID2):
 
 
 def writeTrips(options, tripList, trpMap):
-    with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
+    with sumolib.openz(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
             "routes", options=options)
@@ -543,7 +542,7 @@ def createRoutes(options, trpMap):
         tmpio.write('    </route>\n')
         routes.append((flowID, tmpio.getvalue()))
 
-    with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
+    with sumolib.openz(options.outfile, 'w') as foutflows:
         sumolib.writeXMLHeader(foutflows, root="routes", options=options)
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
