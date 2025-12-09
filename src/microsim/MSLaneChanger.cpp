@@ -157,6 +157,36 @@ MSLaneChanger::~MSLaneChanger() {
 
 
 void
+MSLaneChanger::postloadInitLC() {
+    checkOpened = false;
+    for (auto ce : myChanger) {
+        const MSLane* lane = ce.lane;
+        for (const MSLink* link : lane->getLinkCont()) {
+            if (link->getTLLogic() != nullptr || link->havePriority()) {
+                continue;
+            }
+            for (auto ce2 : myChanger) {
+                const MSLane* lane2 = ce2.lane;
+                if (lane == lane2) {
+                    continue;
+                }
+                for (const MSLink* link2 : lane2->getLinkCont()) {
+                    if (&link->getLane()->getEdge() == &link2->getLane()->getEdge()
+                            && link->getLane() != link2->getLane()
+                            && (lane->getPermissions() & lane2->getPermissions() & link->getLane()->getPermissions() & link2->getLane()->getPermissions()
+                                & link->getViaLaneOrLane()->getPermissions() & link2->getViaLaneOrLane()->getPermissions() & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) != 0
+                            && link->getFoeLinks() != link2->getFoeLinks()) {
+                        checkOpened = true;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void
 MSLaneChanger::laneChange(SUMOTime t) {
     // This is what happens in one timestep. After initialization of the
     // changer, each vehicle will try to change. After that the changer

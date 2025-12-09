@@ -256,6 +256,12 @@ MSEdge::updateMesoType() {
     }
 }
 
+void
+MSEdge::postLoadInitLaneChanger() {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->postloadInitLC();
+    }
+}
 
 void
 MSEdge::buildLaneChanger() {

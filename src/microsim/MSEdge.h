@@ -805,6 +805,8 @@ public:
     /// @brief update meso segment parameters
     void updateMesoType();
 
+    void postLoadInitLaneChanger();
+
     static DepartLaneDefinition& getDefaultDepartLaneDefinition() {
         return myDefaultDepartLaneDefinition;
     }

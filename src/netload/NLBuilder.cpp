@@ -392,6 +392,9 @@ NLBuilder::buildNet() {
         edges = myEdgeBuilder.build(myXMLHandler.networkVersion());
         junctions = myJunctionBuilder.build();
         junctions->postloadInitContainer();
+        for (MSEdge* e : edges->getEdges()) {
+            e->postLoadInitLaneChanger();
+        }
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
         for (std::string timeStr : myOptions.getStringVector("save-state.times")) {
