@@ -7,3 +7,5 @@ delete
 inspect
 
 load
+
+volatile_recomputing
