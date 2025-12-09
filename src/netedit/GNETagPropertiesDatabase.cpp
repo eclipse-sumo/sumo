@@ -7018,19 +7018,22 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
         commonAttribute->setAlternativeName(TL("center view"));
     }
     // fill save file attributes
-    commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
-            GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
-            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-            TL("The path to the file to save this element"));
-    commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
-    commonAttribute->setAlternativeName(TL("File"));
-    /*
-    new GNEAttributeProperties(myTagProperties[currentTag], relativePath,
-            GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
-            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-            TL("Enable or disable use image file as a relative path"),
-            toString(Shape::DEFAULT_RELATIVEPATH));
-    */
+    if (tagProperties->saveInNetworkFile()) {
+        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::NETEDITEDITOR,
+                TL("The path to the file to save this element (not editable for network elements)"));
+        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        commonAttribute->setAlternativeName(TL("File"));
+    } else {
+        commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
+                TL("The path to the file to save this element"));
+        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        commonAttribute->setAlternativeName(TL("File"));
+    }
+
     // if this is a drawable element, add front and select attributes
     if (tagProperties->isDrawable()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_FRONTELEMENT,
