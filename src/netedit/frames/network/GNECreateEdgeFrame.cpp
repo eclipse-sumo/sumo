@@ -329,7 +329,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton(FXObject* obj, FXSelector
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*) {
     // create new edge type
-    GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet(), true);
+    auto net = myCreateEdgeFrameParent->getViewNet()->getNet();
+    GNEEdgeType* edgeType = new GNEEdgeType(net, net->getAttributeCarriers()->generateEdgeTypeID());
     // add it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(edgeType, TL("create new edge type"));
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
@@ -376,7 +377,8 @@ long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdCreateFromTemplate(FXObject*, FXSelector, void*) {
     if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate()) {
         // create new edge type
-        GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet(), true);
+        auto net = myCreateEdgeFrameParent->getViewNet()->getNet();
+        GNEEdgeType* edgeType = new GNEEdgeType(net, net->getAttributeCarriers()->generateEdgeTypeID());
         // copy all template values
         edgeType->copyTemplate(myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate());
         // add it using undoList

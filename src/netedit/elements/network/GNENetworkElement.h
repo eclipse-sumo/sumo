@@ -38,6 +38,12 @@ class GNEMoveOperation;
 class GNENetworkElement : public GNEAttributeCarrier, public GUIGlObject, public GNEHierarchicalElement {
 
 public:
+    /**@brief Constructor for templates
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
+     */
+    GNENetworkElement(GNENet* net, SumoXMLTag tag);
+
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] id of the element

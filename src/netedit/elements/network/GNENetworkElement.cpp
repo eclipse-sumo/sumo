@@ -36,6 +36,13 @@
 // method definitions
 // ===========================================================================
 
+GNENetworkElement::GNENetworkElement(GNENet* net, SumoXMLTag tag) :
+    GNEAttributeCarrier(tag, net, net->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::NETWORK)),
+    GUIGlObject(myTagProperty->getGLType(), "", GUIIconSubSys::getIcon(myTagProperty->getGUIIcon())),
+    myShapeEdited(false) {
+}
+
+
 GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag) :
     GNEAttributeCarrier(tag, net, net->getGNEApplicationWindow()->getFileBucketHandler()->getDefaultBucket(FileBucket::Type::NETWORK)),
     GUIGlObject(myTagProperty->getGLType(), id,

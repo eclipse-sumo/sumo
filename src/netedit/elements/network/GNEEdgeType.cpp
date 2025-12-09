@@ -33,8 +33,16 @@
 // members methods
 // ===========================================================================
 
-GNEEdgeType::GNEEdgeType(GNENet* net, const bool generateID) :
-    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), SUMO_TAG_TYPE) {
+GNEEdgeType::GNEEdgeType(GNENet* net) :
+    GNENetworkElement(net, SUMO_TAG_TYPE) {
+    // create laneType
+    GNELaneType* laneType = new GNELaneType(this);
+    myLaneTypes.push_back(laneType);
+}
+
+
+GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID) :
+    GNENetworkElement(net, ID, SUMO_TAG_TYPE) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     myLaneTypes.push_back(laneType);

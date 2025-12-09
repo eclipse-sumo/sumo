@@ -2975,7 +2975,7 @@ GNENetHelper::ACTemplate::buildTemplates() {
     // network
     myTemplates[SUMO_TAG_CROSSING] = new GNECrossing(myNet);
     // special case for edge type
-    myEdgeType = new GNEEdgeType(myNet, false);
+    myEdgeType = new GNEEdgeType(myNet);
     myTemplates[SUMO_TAG_TYPE] = myEdgeType;
     // additionals
     myTemplates[SUMO_TAG_BUS_STOP] = GNEBusStop::buildBusStop(myNet);

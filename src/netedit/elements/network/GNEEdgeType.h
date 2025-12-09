@@ -42,7 +42,10 @@ public:
     friend class GNECreateEdgeFrame;
 
     /// @brief default constructor
-    GNEEdgeType(GNENet* net, const bool generateID);
+    GNEEdgeType(GNENet* net);
+
+    /// @brief default constructor
+    GNEEdgeType(GNENet* net, const std::string& ID);
 
     /// @brief copy constructor (this doesn't create new lanes)
     GNEEdgeType(const GNEEdgeType* edgeType);
