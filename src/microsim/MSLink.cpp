@@ -1779,7 +1779,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                     && (leader->getLaneChangeModel().getSpeedLat() == 0
                                         || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
                                     && (ego->getLaneChangeModel().getSpeedLat() == 0
-                                        || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > latGap))) {
+                                        || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > -latGap))) {
                                 if (gDebugFlag1) {
                                     std::cout << "   ignored (different source) leaderFromRight=" << leaderFromRight << "\n";
                                 }
