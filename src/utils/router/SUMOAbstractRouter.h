@@ -170,6 +170,10 @@ public:
         UNUSED_PARAMETER(vehicle);
     }
 
+    void setMsgHandler(MsgHandler* const errorMsgHandler) {
+        myErrorMsgHandler = errorMsgHandler;
+    }
+
     const std::string& getType() const {
         return myType;
     }
@@ -393,7 +397,7 @@ public:
 
 protected:
     /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
+    MsgHandler* myErrorMsgHandler;
 
     /// @brief The object's operation to perform.
     Operation myOperation;

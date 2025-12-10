@@ -283,7 +283,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
                     int numEdgesBefore = (int)newEdges.size();
                     //                router.setHint(targets.begin(), i, &veh, begin);
-                    if (!router.compute(last, *i, &veh, begin, newEdges)) {
+                    if (myTryRepair && lastMandatory < (int)newEdges.size() && last != newEdges[lastMandatory]) {
+                        router.setMsgHandler(MsgHandler::getWarningInstance());
+                    }
+                    bool ok = router.compute(last, *i, &veh, begin, newEdges);
+                    router.setMsgHandler(mh);
+                    if (!ok) {
                         // backtrack: try to route from last mandatory edge to next mandatory edge
                         // XXX add option for backtracking in smaller increments
                         // (i.e. previous edge to edge after *i)
@@ -327,7 +332,7 @@ RORouteDef::backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                       ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
                       ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin) {
     ConstROEdgeVector edges;
-    bool ok = router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+    bool ok = router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges, true);
     if (!ok) {
         return false;
     }
