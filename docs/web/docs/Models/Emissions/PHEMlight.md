@@ -102,7 +102,7 @@ and the emission standard, all connected with underscores.
 
 ### Remarks on PM emission
 
-Currently, only exhaust emissions are being reported. Therefore, PM or PM10 in PHEMLight is equivalent to PM2.5.
+Currently, only exhaust emissions are being reported. Therefore, PMx from PHEMLight is equivalent to PM2.5.
 
 ### Remarks on Hybrid vehicles
 
