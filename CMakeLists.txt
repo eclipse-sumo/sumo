@@ -639,7 +639,7 @@ if (MSVC)
     else()
         set(SUMO_BIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin/)
     endif()
-    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin
+    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin COMPONENT dll
             FILES_MATCHING
             PATTERN "*.bat"
             PATTERN "*.dll"
@@ -647,7 +647,7 @@ if (MSVC)
             PATTERN "*_Debug.dll" EXCLUDE
             PATTERN "gtest*.dll" EXCLUDE)
     # files which end with "d" but are not debug
-    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin
+    install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin COMPONENT dll
             FILES_MATCHING
             PATTERN "thriftmd.dll"
             PATTERN "zstd.dll")
@@ -663,7 +663,7 @@ if (SKBUILD)
     set(EXCLUDE_LIBSUMO "libsumo")
     set(EXCLUDE_LIBTRACI "libtraci")
 endif ()
-install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
+install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
         PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
