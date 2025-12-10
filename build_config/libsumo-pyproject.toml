@@ -28,6 +28,8 @@ Changelog = "https://sumo.dlr.de/docs/ChangeLog"
 Download = "https://sumo.dlr.de/download"
 
 [tool.scikit-build]
-# build-dir = "_scikit_core_libsumo_build"
+build-dir = "_skbuild"
 build.targets = ["libsumo"]
+install.components = ["data", "dll"]
 wheel.packages = ["tools/libsumo"]
+wheel.install-dir = "sumo"
