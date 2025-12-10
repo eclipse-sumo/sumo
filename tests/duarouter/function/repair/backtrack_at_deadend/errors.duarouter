@@ -1,3 +1,2 @@
-Error: No connection between edge 'end' and edge 'beg2left' found.
+Warning: No connection between edge 'end' and edge 'beg2left' found.
 Warning: Repaired route of vehicle '0'.
-Quitting (on error).

@@ -3,3 +3,4 @@ Skipped until: 0.00
 Edge 'end' not connected to edge 'beg2left' for vehicle '0'.
 DijkstraRouter answered 2 queries and explored 3.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.
