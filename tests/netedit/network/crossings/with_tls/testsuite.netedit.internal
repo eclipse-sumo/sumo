@@ -1,11 +1,6 @@
 create
-
 create_nosidewalks
-
 delete
-
 inspect
-
 inspect_selected
-
 load

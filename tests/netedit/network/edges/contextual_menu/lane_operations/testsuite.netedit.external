@@ -1,13 +1,7 @@
 add_restricted_lane
-
 duplicate_lane
-
 remove_restricted_lane
-
 reset_custom_shape
-
 reset_opposite_lane
-
 set_custom_lane_shape
-
 transform_restricted_lane

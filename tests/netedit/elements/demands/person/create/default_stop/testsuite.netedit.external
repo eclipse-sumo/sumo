@@ -1,11 +1,6 @@
 default_stop_busstop
-
 default_stop_chargingstation
-
 default_stop_containerstop
-
 default_stop_edge
-
 default_stop_parkingarea
-
 default_stop_trainstop

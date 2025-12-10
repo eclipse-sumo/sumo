@@ -1,17 +1,9 @@
 create_single
-
 to_busstop
-
 to_chargingstation
-
 to_containerstop
-
 to_edge
-
 to_junction
-
 to_parkingarea
-
 to_taz
-
 to_trainstop
