@@ -188,6 +188,8 @@ def parse_trip_durations():
 
 def matplot(output):
     if output is not None:
+        # the following patches matplotlib for python 3.14
+        from sumolib.visualization import helpers  # noqa
         import matplotlib
         if output != 'SHOW':
             matplotlib.use('Agg')
