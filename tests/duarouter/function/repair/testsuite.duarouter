@@ -1,5 +1,11 @@
 # route around intermediate edges which are unreachable
+intermediate_unconnected
+
+# route around intermediate edges which are unreachable
 intermediate_unconnected_ignore
+
+# invalid route if unreachable edges contain stops
+intermediate_unconnected_stops
 
 # invalid route if unreachable edges contain stops
 intermediate_unconnected_ignore_stops
@@ -8,9 +14,17 @@ intermediate_unconnected_ignore_stops
 # The result should be a route between A and C skipping B
 route_around_non_mandatory
 
+# route between A,B,C where A is not connected to B but B is reachable C is not rechable from B. 
+# The result should be a route between A and C skipping B
+route_around_non_mandatory_ignore
+
 # an edge somewhere in the middle of the route is a dead end.
 # Routing should resume from the last mandatory edge.
 backtrack_at_deadend
+
+# an edge somewhere in the middle of the route is a dead end.
+# Routing should resume from the last mandatory edge.
+backtrack_at_deadend_ignore
 
 # the (mandatory) destination edge already occurs in the middle of the route.
 # If there are no mandatory edges left besides the destination, the route ends on the first encounter.
