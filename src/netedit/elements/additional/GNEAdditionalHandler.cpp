@@ -1639,7 +1639,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* /*sumoB
         // parse icon
         const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
         // create POI
-        GNEPOI* POI = new GNEPOI(id, myNet, myFileBucket, type, color, pos, false, POIIcon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POI = new GNEPOI(id, myNet, myFileBucket, type, color, pos, false, ic, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(POI, TLF("add POI '%'", id));
@@ -1684,7 +1684,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* /*s
             // parse icon
             const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
             // create POI (use GNEAdditional instead GNEPOI for add child references)
-            GNEAdditional* POILane = new GNEPOI(id, myNet, myFileBucket, type, color, lane, posOverLane, friendlyPos, posLat, POIIcon, layer,
+            GNEAdditional* POILane = new GNEPOI(id, myNet, myFileBucket, type, color, lane, posOverLane, friendlyPos, posLat, ic, layer,
                                                 angle, imgFile, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
@@ -1728,7 +1728,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* /*su
         // parse icon
         const POIIcon ic = SUMOXMLDefinitions::POIIcons.hasString(icon) ? SUMOXMLDefinitions::POIIcons.get(icon) : POIIcon::NONE;
         // create POIGEO
-        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFileBucket, type, color, pos, true, POIIcon, layer, angle, imgFile, width, height, name, parameters);
+        GNEPOI* POIGEO = new GNEPOI(id, myNet, myFileBucket, type, color, pos, true, ic, layer, angle, imgFile, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getUndoList()->begin(POIGEO, TLF("add POI GEO '%'", id));
