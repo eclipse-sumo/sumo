@@ -100,6 +100,10 @@ and the emission standard, all connected with underscores.
 
 - **HDV_CB_D_EU5**  city bus, diesel engine, Euro V
 
+### Remarks on PM emission
+
+Currently, only exhaust emissions are being reported. Therefore, PM or PM10 in PHEMLight is equivalent to PM2.5.
+
 ### Remarks on Hybrid vehicles
 
 The fleet average "HEV" vehicles in PHEM and PHEMlight do NOT match with
