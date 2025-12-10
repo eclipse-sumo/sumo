@@ -65,15 +65,15 @@ spec:
         container('ubuntu-sumo') {
           sh '''
             # Cloning JuPedSim
-            git -c advice.detachedHead=false clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
+            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
 
             # Building JuPedSim
             cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -B jupedsim-build jupedsim
-            cmake --build jupedsim-build -j4 --config Release
+            cmake --build jupedsim-build -j1 --config Release
             cmake --install jupedsim-build --config Release
 
             # Cloning SUMO
-            git -c advice.detachedHead=false clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
+            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch v1_25_0 https://github.com/eclipse-sumo/sumo.git
             export SUMO_HOME=\${WORKSPACE}/sumo
 
             # Creating virtual env for Python for the whole process
@@ -83,8 +83,8 @@ spec:
 
             # Building SUMO & TraaS
             export VIRTUAL_ENV=${WORKSPACE}/env
-            cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
-            cmake --build sumo-build -j4
+            cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -D CMAKE_BUILD_TYPE=Release -B sumo-build sumo
+            cmake --build sumo-build -j1
             cmake --build sumo-build --target traas
           '''
         }
