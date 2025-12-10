@@ -1,0 +1,5 @@
+# all edges are 100m long
+default
+
+# check that a jam moves upstream under high flow conditions
+short7.5

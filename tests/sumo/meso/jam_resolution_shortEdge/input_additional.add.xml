@@ -1,0 +1,4 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- measure the edge upstream of the short edge to check whether the jam clears -->
+    <edgeData id="ed"  begin="0"  file="aggregated.xml" period="600" edges="B0C0"/>
+</additional>
