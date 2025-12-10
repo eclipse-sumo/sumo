@@ -1,3 +1,0 @@
-Error: Attribute 'to' is missing in definition of transport 'c_0'.
-Error: The to edge '' within a transport of container 'c_0' is not known.
-Quitting (on error).

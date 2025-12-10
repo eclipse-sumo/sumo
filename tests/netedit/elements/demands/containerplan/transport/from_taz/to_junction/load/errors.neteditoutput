@@ -1,2 +1,0 @@
-Error: Inconsistent tranship for container 'c_0', needs either: 'edges', 'to', 'containerStop' (or any other stopping place)
-Quitting (on error).

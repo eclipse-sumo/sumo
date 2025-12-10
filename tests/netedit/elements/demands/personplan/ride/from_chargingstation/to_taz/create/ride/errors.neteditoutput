@@ -1,5 +1,1 @@
-Error: attribute 'toTaz' is not declared for element 'ride'
- In file 'netedit_A.rou.xml'
- At line/column 21/32.
-
-Quitting (on error).
+Warning: Person 'p_0' aborted waiting for ANY at edge 'Edge0'.
