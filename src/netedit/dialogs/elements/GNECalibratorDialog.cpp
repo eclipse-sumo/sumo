@@ -172,14 +172,14 @@ GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
 // GNECalibratorDialog::CalibratorFlowsList - methods
 // ---------------------------------------------------------------------------
 
-GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
+GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame,
         RoutesList* routesList, VTypesList* vTypesList) :
-    GNETemplateElementList(rerouterDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW,
+    GNETemplateElementList(calibratorDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW,
                            GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::DIALOG_ELEMENT),
     myRoutesList(routesList),
     myVTypesList(vTypesList) {
     // disable if there are no routes in net
-    if (rerouterDialog->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
+    if (calibratorDialog->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         disableList(TL("No routes in net"));
     }
 }

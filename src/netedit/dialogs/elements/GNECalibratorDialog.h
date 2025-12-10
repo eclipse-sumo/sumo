@@ -103,7 +103,7 @@ protected:
 
     public:
         /// @brief constructor
-        CalibratorFlowsList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame,
+        CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame,
                             RoutesList* routesList, VTypesList* vTypesList);
 
         /// @brief add new element
