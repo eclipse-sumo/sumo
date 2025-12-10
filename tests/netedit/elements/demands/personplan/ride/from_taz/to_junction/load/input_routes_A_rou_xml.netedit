@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 10:48:15 by Eclipse SUMO netedit Version v1_20_0+1766-49441a64d5c
+<!-- generated on 2025-12-10T13:54:42.057649+01:00 by Eclipse SUMO netedit v1_25_0+0434-24591fd26e8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </person>
     <person id="p_1" depart="0.00">
         <walk from="Edge0" toTaz="taz_red"/>
-        <ride toJunction="Junction3"/>
     </person>
 </routes>
