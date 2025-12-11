@@ -245,21 +245,6 @@ public:
     // sufficient for the astar air-distance heuristic
     double getLengthGeometryFactor() const;
 
-    /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation
-     * @param[in] The vehicle to return the adapted speed limit for
-     * @return This lane's resulting max. speed
-     */
-    inline double getVClassMaxSpeed(SUMOVehicleClass vclass) const {
-        if (mySpeedRestrictions != 0) {
-            std::map<SUMOVehicleClass, double>::const_iterator r = mySpeedRestrictions->find(vclass);
-            if (r != mySpeedRestrictions->end()) {
-                return r->second;
-            }
-        }
-        return mySpeed;
-    }
-
-
     /** @brief Returns the number of lanes this edge has
      * @return This edge's number of lanes
      */
@@ -469,19 +454,36 @@ public:
         if (isTazConnector()) {
             return 0;
         } else if (veh != 0) {
-            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * getVClassMaxSpeed(veh->getVClass()));
+            return myLength / getMaxSpeed(veh);
         } else {
             return myLength / mySpeed;
         }
     }
 
+    inline double getMaxSpeed(const RORoutable* const veh) const {
+        return MIN2(veh->getMaxSpeed(), veh->getChosenSpeedFactor() * getVClassMaxSpeed(veh->getVClass()));
+    }
+
+    /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation
+     * @param[in] The vehicle to return the adapted speed limit for
+     * @return This lane's resulting max. speed
+     */
+    inline double getVClassMaxSpeed(SUMOVehicleClass vclass) const {
+        if (mySpeedRestrictions != 0) {
+            std::map<SUMOVehicleClass, double>::const_iterator r = mySpeedRestrictions->find(vclass);
+            if (r != mySpeedRestrictions->end()) {
+                return r->second;
+            }
+        }
+        return mySpeed;
+    }
 
     template<PollutantsInterface::EmissionType ET>
     static double getEmissionEffort(const ROEdge* const edge, const ROVehicle* const veh, double time) {
         double ret = 0;
         if (!edge->getStoredEffort(time, ret)) {
             const SUMOVTypeParameter* const type = veh->getType();
-            const double vMax = MIN2(type->maxSpeed, edge->getVClassMaxSpeed(veh->getVClass()));
+            const double vMax = edge->getMaxSpeed(veh);
             const double accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
             ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time), nullptr); // @todo: give correct slope
         }
@@ -601,8 +603,6 @@ protected:
      * @return Whether the effort is given
      */
     bool getStoredEffort(double time, double& ret) const;
-
-
 
 protected:
     /// @brief the junctions for this edge
