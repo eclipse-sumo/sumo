@@ -2272,6 +2272,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile);
     // set load options in netedit
     neteditOptions.resetWritable();
+    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
     return true;
