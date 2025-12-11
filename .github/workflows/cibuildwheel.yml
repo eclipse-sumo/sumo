@@ -31,7 +31,6 @@ jobs:
       - name: Cloning SUMO
         uses: actions/checkout@v6
         with:
-          path: sumo
           fetch-depth: 0
           filter: tree:0
           # to work around actions/checkout#1467
@@ -40,30 +39,26 @@ jobs:
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
 
+      - name: Preparing macos environment
+        if: matrix.os == 'macos-14'
+        run: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps googletest fmt swig eigen
+
       - name: Preparing wheel eclipse-sumo
-        run: python3 sumo/tools/build_config/version.py --pep440 sumo/build_config/eclipse-sumo-pyproject.toml sumo/pyproject.toml
+        run: python3 tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
-        with:
-          package-dir: sumo
-          output-dir: wheelhouse
         env:
-          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp312-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel sumo-data
-        run: python3 sumo/tools/build_config/version.py --pep440 sumo/build_config/sumo-data-pyproject.toml sumo/pyproject.toml
+        run: python3 tools/build_config/version.py --pep440 build_config/sumo-data-pyproject.toml pyproject.toml
 
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
-        with:
-          package-dir: sumo
-          output-dir: wheelhouse
         env:
-          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp312-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
@@ -74,11 +69,7 @@ jobs:
 
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
-        with:
-          package-dir: sumo
-          output-dir: wheelhouse
         env:
-          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp3*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
