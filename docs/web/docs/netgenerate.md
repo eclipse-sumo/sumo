@@ -366,3 +366,12 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
+
+
+### Perturbance-Distributions
+
+Options **--perturb-x**, **--perturb-y** and **--perturb-z** accept an of the following values:
+
+- `"norm(m, s)"`: normal distribution with mean *m* and deviation *s*
+- `"normc(m, s, a, b)"`: truncated normal distribution with mean *m*, deviation *s* lower boundary *a* and upper boundary *b*
+- `"s"`: normal distribution with mean *0* and deviation *s*
