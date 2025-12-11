@@ -234,6 +234,7 @@ GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
 long
 GUIDialog_ViewSettings::onCmdOk(FXObject*, FXSelector, void*) {
     getApp()->reg().writeIntEntry("SETTINGS", "comboRows", (int)myComboRows->getValue());
+    getApp()->reg().writeRealEntry("SETTINGS", "uiscale", myUIScale->getValue());
     hide();
     return 1;
 }
@@ -2498,7 +2499,10 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "openGL", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
-
+    FXMatrix* m90 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(m90, TL("UI Scaling"), nullptr, GUIDesignViewSettingsLabel1);
+    myUIScale = new FXRealSpinner(m90, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myUIScale->setValue(getApp()->reg().readRealEntry("SETTINGS", "uiscale", 1));
     FXMatrix* m80 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myTrueZ = new FXCheckButton(m80, "Draw all objects at their true Z-level", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myTrueZ->setCheck(mySettings->trueZ);

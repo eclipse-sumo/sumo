@@ -66,6 +66,10 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     // build bold font
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
+    double uiScale = app->reg().readRealEntry("SETTINGS", "uiscale", 1);
+    fdesc.size *= uiScale;
+    myNormalFont = new FXFont(app, fdesc);
+    app->setNormalFont(myNormalFont);
     fdesc.weight = FXFont::Bold;
     GUIDesignHeight = (int)(fdesc.size / 90.0 * 18) + 5;
     myBoldFont = new FXFont(app, fdesc);
@@ -88,6 +92,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
 GUIMainWindow::~GUIMainWindow() {
     delete myStaticTooltipMenu;
     delete myStaticTooltipView;
+    delete myNormalFont;
     delete myBoldFont;
     delete myFallbackFont;
     delete myTopDock;

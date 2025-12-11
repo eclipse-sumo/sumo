@@ -494,6 +494,7 @@ protected:
     FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;
     FXRealSpinner* myComboRows = nullptr;
+    FXRealSpinner* myUIScale = nullptr;
 
     /// @brief name panels
     NamePanel* myEdgeNamePanel = nullptr;

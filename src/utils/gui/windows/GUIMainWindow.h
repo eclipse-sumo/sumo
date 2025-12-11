@@ -205,6 +205,9 @@ protected:
     /// @brief A lock to make the removal and addition of trackers secure
     FXMutex myTrackerLock;
 
+    /// @brief default Font (after scaling)
+    FXFont* myNormalFont = nullptr;
+
     /// @brief Font used for popup-menu titles
     FXFont* myBoldFont = nullptr;
 
