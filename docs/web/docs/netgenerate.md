@@ -370,7 +370,7 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
 ### Perturbance-Distributions
 
-Options **--perturb-x**, **--perturb-y** and **--perturb-z** accept an of the following values:
+Options **--perturb-x**, **--perturb-y** and **--perturb-z** accept any of the following values:
 
 - `"norm(m, s)"`: normal distribution with mean *m* and deviation *s*
 - `"normc(m, s, a, b)"`: truncated normal distribution with mean *m*, deviation *s* lower boundary *a* and upper boundary *b*
