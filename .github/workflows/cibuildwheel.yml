@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/cibuildwheel.yml'
+      - 'build_config/*pyproject.toml'
   # push:            # run on push events
   #   paths-ignore:  # but ignore everything in the docs subfolder
   #     - 'docs/**'
@@ -152,8 +153,8 @@ jobs:
 
     - name: Running libsumo tests
       run: |
-        python3 -m pip install -f tools/dist sumolib traci
-        python3 -m pip install -f python-wheels libsumo
+        python3 -m pip install --no-index -f tools/dist sumolib traci
+        python3 -m pip install --no-index -f python-wheels libsumo
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
