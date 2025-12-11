@@ -38,9 +38,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Preparing wheel eclipse-sumo
-        run: |
-          cp sumo/build_config/pyproject.toml sumo/
-          python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-sumo.py sumo/setup.py
+        run: python3 sumo/tools/build_config/version.py sumo/tools/build_config/eclipse-sumo-pyproject.toml sumo/pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
@@ -49,15 +47,24 @@ jobs:
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
-          CIBW_BUILD: cp39-*
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
+          CIBW_BUILD: cp312-*
           MACOSX_DEPLOYMENT_TARGET: '14.0'
-          SKBUILD_WHEEL_PY_API: "py2.py3"
+
+      - name: Preparing wheel sumo-data
+        run: python3 sumo/tools/build_config/version.py sumo/tools/build_config/sumodata-pyproject.toml sumo/pyproject.toml
+
+      - name: Building wheel sumo-data
+        uses: pypa/cibuildwheel@v3.3.0
+        with:
+          package-dir: sumo
+          output-dir: wheelhouse
+        env:
+          CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+          CIBW_BUILD: cp312-*
+          MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
-        run: |
-          cp sumo/build_config/pyproject.toml sumo/
-          python3 sumo/tools/build_config/version.py sumo/tools/build_config/setup-libsumo-sk.py sumo/setup.py
+        run: python3 sumo/tools/build_config/version.py sumo/tools/build_config/libsumo-pyproject.toml sumo/pyproject.toml
 
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
@@ -86,7 +93,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14, macos-15]
-        python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
+        python_version: [3.12, 3.13]
+        # python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
     runs-on: ${{ matrix.os }}
 
     steps:
