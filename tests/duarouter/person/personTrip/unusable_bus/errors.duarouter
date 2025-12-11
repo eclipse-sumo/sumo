@@ -1,1 +1,2 @@
 Warning: Not using public transport line 'bus' for routing persons. It has less than two usable stops.
+Warning: Person 'p0' is configured to use public transport but no schedules are loaded.

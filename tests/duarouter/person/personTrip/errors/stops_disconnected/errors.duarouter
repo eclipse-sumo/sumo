@@ -1,3 +1,4 @@
 Warning: No connection between stop 'stopA_E' and stop 'stopC_E' found.
 Error: No route for trip in person 'p0'.
+Warning: Person 'p0' is configured to use public transport but no schedules are loaded.
 Quitting (on error).
