@@ -81,7 +81,7 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
-    typedef std::map<const MSEdge*, double> Prohibitions;
+    typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
 
     /**
      * @struct OvertakeLocation
@@ -145,7 +145,7 @@ public:
         Prohibitions getClosed() const {
             Prohibitions v;
             for (const auto& settings : closed) {
-                v[settings.first] = settings.second.second;
+                v[settings.first].end = settings.second.second;
             }
             return v;
         }

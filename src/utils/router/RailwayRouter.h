@@ -72,7 +72,7 @@ private:
     typedef RailEdge<E, V> _RailEdge;
     typedef SUMOAbstractRouter<_RailEdge, V> _InternalRouter;
     typedef DijkstraRouter<_RailEdge, V> _InternalDijkstra;
-    typedef std::map<const E*, double> Prohibitions;
+    typedef std::map<const E*, RouterProhibition> Prohibitions;
 
 public:
 
@@ -115,11 +115,11 @@ public:
 
     void prohibit(const Prohibitions& toProhibit) {
         ensureInternalRouter();
-        std::map<const _RailEdge*, double> railEdges;
+        typename _InternalRouter::Prohibitions _toProhibit;
         for (auto item : toProhibit) {
-            railEdges[item.first->getRailwayRoutingEdge()] = item.second;
+            _toProhibit[item.first->getRailwayRoutingEdge()] = item.second;
         }
-        myInternalRouter->prohibit(railEdges);
+        myInternalRouter->prohibit(_toProhibit);
         this->myProhibited = toProhibit;
 #ifdef RailwayRouter_DEBUG_ROUTES
         std::cout << "RailRouter numProhibitions=" << toProhibit.size() << "\n";

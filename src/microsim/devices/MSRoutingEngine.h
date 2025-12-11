@@ -65,7 +65,7 @@ class SUMOSAXAttributes;
  */
 class MSRoutingEngine {
 public:
-    typedef std::map<const MSEdge*, double> Prohibitions;
+    typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
 
     /// @brief intialize period edge weight update
     static void initWeightUpdate();

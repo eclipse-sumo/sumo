@@ -28,6 +28,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouter.h"
@@ -52,6 +53,7 @@ template<class E, class L, class N, class V>
 class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
 public:
     typedef IntermodalNetwork<E, L, N, V> Network;
+    typedef typename SUMOAbstractRouter<E, SUMOVehicle>::Prohibitions _Prohibitions;
 
 private:
     typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
@@ -236,9 +238,9 @@ public:
         }
     }
 
-    void prohibit(const std::map<const E*, double>& toProhibit) {
+    void prohibit(const _Prohibitions& toProhibit) {
         createNet();
-        std::map<const _IntermodalEdge*, double> toProhibitPE;
+        typename _InternalRouter::Prohibitions toProhibitPE;
         for (auto item : toProhibit) {
             toProhibitPE[myIntermodalNet->getBothDirections(item.first).first] = item.second;
             toProhibitPE[myIntermodalNet->getBothDirections(item.first).second] = item.second;

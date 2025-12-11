@@ -67,7 +67,7 @@ public:
               typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
               const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
               const bool havePermissions = false, const bool haveRestrictions = false,
-              const std::map<const FlippedEdge<E, N, V>*, double>* toProhibit = nullptr) :
+              const std::map<const FlippedEdge<E, N, V>*, RouterProhibition>* toProhibit = nullptr) :
         myEdges(edges),
         myNumberOfLevels(numberOfLevels),
         myNumberOfArcFlags(2 * (myNumberOfLevels - 1)),

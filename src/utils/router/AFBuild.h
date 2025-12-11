@@ -106,7 +106,7 @@ public:
         typename SUMOAbstractRouter<FlippedEdge<E, N, V>, V>::Operation flippedOperation,
         const std::shared_ptr<const FlippedLookupTable> flippedLookup = nullptr,
         const bool havePermissions = false, const bool haveRestrictions = false,
-        const std::map<const FlippedEdge<E, N, V>*, double>* toProhibit = nullptr) :
+        const std::map<const FlippedEdge<E, N, V>*, RouterProhibition>* toProhibit = nullptr) :
         myFlippedEdges(flippedEdges),
         myFlippedPartition(flippedPartition),
         myNumberOfLevels(numberOfLevels),
@@ -211,7 +211,7 @@ protected:
     /// @brief The boolean flag indicating whether edge restrictions need to be considered or not
     const bool myHaveRestrictions;
     /// @brief The list of explicitly prohibited edges
-    const std::map<const FlippedEdge<E, N, V>*, double>* myProhibited;
+    const std::map<const FlippedEdge<E, N, V>*, RouterProhibition>* myProhibited;
     /// @brief The node-to-edge router (for a backward graph with flipped edges)
     Node2EdgeRouter<FlippedEdge<E, N, V>, FlippedNode<E, N, V>, V, M>* myNode2EdgeRouter;
     /// @brief A Dijkstra based centralized label-correcting algorithm

@@ -456,9 +456,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             const double arrivalPos = (nextRouteEdge == ped.getStage()->getRoute().back()
                                        ? ped.getStage()->getArrivalPos()
                                        : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
-            std::map<const MSEdge*, double> prohibited;
+            SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions prohibited;
             if (prevLane != nullptr) {
-                prohibited[&prevLane->getEdge()] = -1;
+                prohibited[&prevLane->getEdge()].end = -1;
             }
             MSNet::getInstance()->getPedestrianRouter(0, prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos,
                     ped.getStage()->getMaxSpeed(ped.getPerson()),

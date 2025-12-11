@@ -126,8 +126,8 @@ public:
         throw ProcessError(TL("Do not use this method"));
     }
 
-    void prohibit(const std::map<const E*, double>& toProhibit) {
-        std::map<const _IntermodalEdge*, double> toProhibitPE;
+    void prohibit(const std::map<const E*, RouterProhibition>& toProhibit) {
+        typename _InternalRouter::Prohibitions toProhibitPE;
         for (auto item : toProhibit) {
             toProhibitPE[myPedNet->getBothDirections(item.first).first] = item.second;
             toProhibitPE[myPedNet->getBothDirections(item.first).second] = item.second;
